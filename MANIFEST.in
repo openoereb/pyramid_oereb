@@ -1,0 +1,4 @@
+include *.md
+include .gitignore
+include *.txt
+include *.ini
