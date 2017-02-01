@@ -31,16 +31,4 @@ def includeme(config):
     :type config: Configurator
     """
 
-    # bind the mako renderer to other file extensions
-    try:
-        add_mako_renderer(config, ".html")
-        config.commit()
-    except ConfigurationConflictError as e:
-        log.debug('Renderer for "html" already exists: {0}'.format(e.message))
-    try:
-        add_mako_renderer(config, ".js")
-        config.commit()
-    except ConfigurationConflictError as e:
-        log.debug('Renderer for "js" already exists: {0}'.format(e.message))
-
-    includeme('pyramid_oereb.routes')
+    config.include('pyramid_oereb.routes')
