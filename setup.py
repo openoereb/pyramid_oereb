@@ -25,6 +25,7 @@ requires = [
     'shapely',
     'dicttoxml',
     'geoalchemy2',
+    'pyramid-georest',
     'transaction',
     'waitress',
     'pyramid_debugtoolbar',
