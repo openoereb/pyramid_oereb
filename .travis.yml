@@ -1,8 +1,20 @@
 language: python
 python:
   - "2.7"
+
+addons:
+  postgresql: "9.4"
+
+services:
+  - postgresql
+
 # command to install dependencies
 install:
-  - pip install .
+  - make install
+
+before_script:
+  - make setup_db
+
 # command to run tests
-script: pytest
+script:
+  - make tests
