@@ -2,7 +2,6 @@
 
 import os
 from setuptools import setup, find_packages
-from pyramid_oereb import __version__
 
 __author__ = 'Clemens Rudert'
 __create_date__ = '01.02.2017'
@@ -37,7 +36,7 @@ requires = [
 
 setup(
     name='pyramid_oereb',
-    version=__version__,
+    version='0.0.1',
     description='pyramid_oereb, extension for pyramid web frame work to provide a basic server part for the oereb project',
     long_description=README + '\n\n' + CHANGES,
     classifiers=[
