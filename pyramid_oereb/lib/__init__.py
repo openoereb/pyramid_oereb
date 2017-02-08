@@ -2,5 +2,3 @@
 
 __author__ = 'Clemens Rudert'
 __create_date__ = '01.02.2017'
-
-

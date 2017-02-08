@@ -2,7 +2,6 @@
 
 import logging
 from pyramid.config import Configurator
-from pyramid.exceptions import ConfigurationConflictError
 
 __author__ = 'Clemens Rudert'
 __create_date__ = '01.02.2017'
