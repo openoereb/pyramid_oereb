@@ -1,16 +1,25 @@
+OPERATING_SYSTEM ?= WINDOWS
+
 ifeq ($(CI),true)
   PYTHON=do_pip
-  VENV=
+  VENV_BIN=
 else
   PYTHON=.venv/timestamp
-  VENV=.venv/bin/
+  ifeq ($(OPERATING_SYSTEM), WINDOWS)
+    VENV_BIN = .venv/Scripts/
+    PYTHON_BIN_POSTFIX = .exe
+  else
+    VENV_BIN ?= .venv/bin/
+    PYTHON_BIN_POSTFIX =
+  endif
 endif
+
 
 install: $(PYTHON)
 
 .venv/timestamp: setup.py requirements.txt
-	/usr/bin/virtualenv --python=/usr/bin/python2.7 .venv
-	.venv/bin/pip install --upgrade -r requirements.txt
+	virtualenv --system-site-packages .venv
+	$(VENV_BIN)pip2$(PYTHON_BIN_POSTFIX) install -r requirements.txt
 	touch $@
 
 .PHONY: do_pip
@@ -19,7 +28,7 @@ do_pip:
 
 .PHONY: tests
 tests: $(PYTHON)
-	$(VENV)py.test -vv pyramid_oereb/tests
+	$(VENV_BIN)py.test$(PYTHON_BIN_POSTFIX) -vv pyramid_oereb/tests
 
 .PHONY: setup_db
 setup_db:
