@@ -1,2 +1,6 @@
 pytest
+pyflakes
+flake8
+pycodestyle
+McCabe
 -e .

@@ -64,5 +64,4 @@ docs/_build/
 target/
 
 # Virtual environment
-.venv
-
+/.venv

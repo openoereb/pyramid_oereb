@@ -17,4 +17,6 @@ before_script:
 
 # command to run tests
 script:
+  - make git-attributes
+  - make lint
   - make tests

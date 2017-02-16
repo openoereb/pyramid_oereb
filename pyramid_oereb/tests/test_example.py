@@ -3,6 +3,7 @@ from pyramid.testing import DummyRequest
 import json
 from xml.etree import ElementTree
 
+
 def read_request(table, format='json', schema='public'):
     request = DummyRequest(path="/api/{schema}/{table}/read/{format}".
                            format(schema=schema, table=table, format=format))

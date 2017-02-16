@@ -1,10 +1,10 @@
 OPERATING_SYSTEM ?= WINDOWS
 
 ifeq ($(CI),true)
-  PYTHON=do_pip
+  PYTHON_VENV=do_pip
   VENV_BIN=
 else
-  PYTHON=.venv/timestamp
+  PYTHON_VENV=.venv/timestamp
   ifeq ($(OPERATING_SYSTEM), WINDOWS)
     VENV_BIN = .venv/Scripts/
     PYTHON_BIN_POSTFIX = .exe
@@ -15,7 +15,7 @@ else
 endif
 
 
-install: $(PYTHON)
+install: $(PYTHON_VENV)
 
 .venv/timestamp: setup.py requirements.txt
 	virtualenv --system-site-packages .venv
@@ -26,9 +26,20 @@ install: $(PYTHON)
 do_pip:
 	pip install --upgrade -r requirements.txt
 
+.PHONY: checks
+checks: git-attributes lint tests
+
 .PHONY: tests
-tests: $(PYTHON)
+tests: $(PYTHON_VENV)
 	$(VENV_BIN)py.test$(PYTHON_BIN_POSTFIX) -vv pyramid_oereb/tests
+
+.PHONY: lint
+lint: $(PYTHON_VENV)
+	$(VENV_BIN)flake8
+
+.PHONY: git-attributes
+git-attributes:
+	git --no-pager diff --check `git log --oneline | tail -1 | cut --fields=1 --delimiter=' '`
 
 .PHONY: setup_db
 setup_db:
