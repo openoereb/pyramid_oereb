@@ -17,8 +17,11 @@ endif
 
 install: $(PYTHON_VENV)
 
-.venv/timestamp: setup.py requirements.txt
-	virtualenv --system-site-packages .venv
+.venv/timestamp:
+	virtualenv --system-site-packages venv
+	touch $@
+
+.venv/requirements-timestamp: .venv/timestamp setup.py requirements.txt
 	$(VENV_BIN)pip2$(PYTHON_BIN_POSTFIX) install -r requirements.txt
 	touch $@
 
