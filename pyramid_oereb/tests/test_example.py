@@ -19,7 +19,7 @@ def read_request(table, format='json', schema='public'):
     ("xml", ElementTree.fromstring)
 ])
 def test_read(example_api, format, parser):
-    request = read_request('example', format=format)
+    request = read_request('plr_97', schema='plr', format=format)
     result = example_api.read(request)
     assert result.status_code == 200
     print("result=" + repr(result.text))

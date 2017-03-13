@@ -2,7 +2,7 @@
 import os
 from pyramid_georest import Api, Service
 
-from pyramid_oereb.models import Example
+from pyramid_oereb.models import RailwayConstructionLimits
 
 __author__ = 'Clemens Rudert'
 __create_date__ = '01.02.2017'
@@ -17,6 +17,6 @@ def includeme(config):
 
 def create_test_api(config):
     test_api = Api(DB_URL, config, name='api')
-    test_service = Service(Example)
+    test_service = Service(RailwayConstructionLimits)
     test_api.add_service(test_service)
     return test_api
