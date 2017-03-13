@@ -42,4 +42,3 @@ class RailwayConstructionLimits(Base):
     publication_date = Column(sa.Date)
     authority_id = Column(sa.Integer, ForeignKey(Authority.id), nullable=False)
     geom = Column(Geometry('MULTILINESTRING', dimension=2, srid=srid))
-    
