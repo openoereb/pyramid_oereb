@@ -34,11 +34,11 @@ class RailwayConstructionLimits(Base):
     __table_args__ = {'schema': schema}
     id = sa.Column(sa.Integer, primary_key=True)
     tenor = sa.Column(sa.String)
-    topic_id = sa.Column(sa.Integer, ForeignKey(Topic.id), nullable=False)
+    topic_id = sa.Column(sa.Integer, sa.ForeignKey(Topic.id), nullable=False)
     # subtopic = sa.Column(sa.String)
     # other_topic = sa.Column(sa.String)
     code = sa.Column(sa.String)
     legal_state  = sa.Column(sa.String)
     publication_date = sa.Column(sa.Date)
-    authority_id = sa.Column(sa.Integer, ForeignKey(Authority.id), nullable=False)
+    authority_id = sa.Column(sa.Integer, sa.ForeignKey(Authority.id), nullable=False)
     geom = sa.Column(Geometry('MULTILINESTRING', dimension=2, srid=srid))
