@@ -8,6 +8,7 @@ Base = sqlalchemy.ext.declarative.declarative_base()
 schema = 'plr'
 srid = 2056
 
+
 class Example(Base):
     __tablename__ = "example"
     __table_args__ = {"schema": 'public'}
