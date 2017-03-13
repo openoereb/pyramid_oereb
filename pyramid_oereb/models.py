@@ -3,17 +3,18 @@ import sqlalchemy as sa
 
 from geoalchemy2.types import Geometry
 
+NAMING_CONVENTION = {
+    "ix": 'ix_%(column_0_label)s',
+    "uq": "uq_%(table_name)s_%(column_0_name)s",
+    "ck": "ck_%(table_name)s_%(constraint_name)s",
+    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+    "pk": "pk_%(table_name)s"
+}
+metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = sqlalchemy.ext.declarative.declarative_base()
 
 schema = 'plr'
 srid = 2056
-
-
-class Example(Base):
-    __tablename__ = "example"
-    __table_args__ = {"schema": 'public'}
-    id = sa.Column(sa.Integer, primary_key=True, autoincrement=True)
-    value = sa.Column(sa.Text, nullable=False)
 
 
 class Authority(Base):
@@ -44,5 +45,5 @@ class RailwayConstructionLimits(Base):
     code = sa.Column(sa.String)
     legal_state = sa.Column(sa.String)
     publication_date = sa.Column(sa.Date)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(Authority.id), nullable=False)
+    authority_id = sa.Column(sa.String, sa.ForeignKey(Authority.id), nullable=False)
     geom = sa.Column(Geometry('MULTILINESTRING', dimension=2, srid=srid))
