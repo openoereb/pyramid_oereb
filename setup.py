@@ -19,19 +19,20 @@ tests_require = [
 ]
 
 requires = [
-    'pyramid',
-    'SQLAlchemy',
-    'shapely',
+    'alembic',
     'dicttoxml',
     'geoalchemy2',
+    'psycopg2',
+    'pyramid',
+    'pyramid_debugtoolbar',
     'pyramid-georest',
+    'PyYAML',
+    'shapely',
+    'simplejson',
+    'SQLAlchemy',
     'transaction',
     'waitress',
-    'pyramid_debugtoolbar',
-    'zope.sqlalchemy',
-    'PyYAML',
-    'psycopg2',
-    'simplejson'
+    'zope.sqlalchemy'
 ]
 
 setup(
