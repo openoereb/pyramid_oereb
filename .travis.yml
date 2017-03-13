@@ -2,16 +2,16 @@ language: python
 python:
   - "2.7"
 
-addons:
-  postgresql: "9.4"
-
 services:
-  - postgresql
+  - docker
 
 # command to install dependencies
 install:
   - make install
 
+before_install:
+  - docker pull mdillon/postgis
+  - docker run --name postgis -e POSTGRES_PASSWORD=password -d mdillon/postgis
 before_script:
   - make setup_db
 
@@ -19,4 +19,4 @@ before_script:
 script:
   - make git-attributes
   - make lint
-  - make tests
+  - make tests_full

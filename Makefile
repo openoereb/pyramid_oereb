@@ -33,7 +33,11 @@ do_pip:
 checks: git-attributes lint tests
 
 .PHONY: tests
-tests: $(PYTHON_VENV)
+tests: $(PYTHON_VENV) setup_db
+	$(eval $@_POSTGIS_IP := $(shell docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgis))
+	SQLALCHEMY_URL="postgresql://postgres:password@$($@_POSTGIS_IP):5432/pyramid_oereb_test" ;\
+	export SQLALCHEMY_URL ;\
+	printenv SQLALCHEMY_URL ;\
 	$(VENV_BIN)py.test$(PYTHON_BIN_POSTFIX) -vv pyramid_oereb/tests
 
 .PHONY: lint
@@ -44,14 +48,20 @@ lint: $(PYTHON_VENV)
 git-attributes:
 	git --no-pager diff --check `git log --oneline | tail -1 | cut --fields=1 --delimiter=' '`
 
+.venv/timestamp_docker_setup:
+	docker start postgis
+	touch $@
+
 .PHONY: setup_db
-setup_db:
-	psql -c 'CREATE DATABASE oereb_test;' -U postgres
-	psql -c "CREATE USER \"www-data\" PASSWORD 'www-data';" -U postgres oereb_test || true
-	psql -c 'CREATE TABLE example (id SERIAL PRIMARY KEY, value TEXT);' -U postgres oereb_test
-	psql -c "INSERT INTO example (value) VALUES ('test');" -U postgres oereb_test
-	psql -c 'grant ALL on example to "www-data"' -U postgres oereb_test
+setup_db: .venv/timestamp_docker_setup
+	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U postgres -w -c "CREATE DATABASE pyramid_oereb_test;"'
+	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U postgres -w -c "CREATE EXTENSION postgis;"'
+	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U postgres -w -c "CREATE SCHEMA plr;"'
+
 
 .PHONY: drop_db
-drop_db:
-	psql -c 'DROP DATABASE oereb_test;' -U postgres
+drop_db: .venv/timestamp_docker_setup
+	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U postgres -w -c "DROP DATABASE pyramid_oereb_test;"'
+
+.PHONY: tests_full
+tests_full: tests drop_db
