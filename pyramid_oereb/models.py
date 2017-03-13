@@ -11,8 +11,8 @@ srid =2056
 class Example(Base):
     __tablename__ = "example"
     __table_args__ = {"schema": 'public'}
-    id = sa.Column(sa.Integer, primary_key=True, autoincrement=True)
-    value = sa.Column(sa.Text, nullable=False)
+    id = Column(sa.Integer, primary_key=True, autoincrement=True)
+    value = Column(sa.Text, nullable=False)
 
 class Authority(Base):
     __tablename__ = 'authority'
