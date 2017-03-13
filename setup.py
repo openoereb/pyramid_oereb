@@ -28,7 +28,7 @@ requires = [
     'pyramid-georest',
     'PyYAML',
     'shapely',
-    'simplejson'
+    'simplejson',
     'SQLAlchemy',
     'transaction',
     'waitress',
