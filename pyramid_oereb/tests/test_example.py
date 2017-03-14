@@ -1,7 +1,7 @@
-import pytest
+# import pytest
 from pyramid.testing import DummyRequest
-import json
-from xml.etree import ElementTree
+# import json
+# from xml.etree import ElementTree
 
 
 def read_request(table, format='json', schema='public'):

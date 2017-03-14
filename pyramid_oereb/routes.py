@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-from pyramid_georest import Api, Service
+# from pyramid_georest import Api, Service
 
 # from pyramid_oereb.models import RailwayConstructionLimits
 
