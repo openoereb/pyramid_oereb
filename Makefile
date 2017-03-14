@@ -16,12 +16,8 @@ endif
 
 install: $(PYTHON_VENV)
 
-.make/timestamp:
-	mkdir .make
-	touch $@
-
 .venv/timestamp:
-	virtualenv --system-site-packages .venv
+	virtualenv .venv
 	touch $@
 
 .venv/requirements-timestamp: .venv/timestamp setup.py requirements.txt
@@ -51,12 +47,13 @@ lint: $(PYTHON_VENV)
 git-attributes:
 	git --no-pager diff --check `git log --oneline | tail -1 | cut --fields=1 --delimiter=' '`
 
-.make/timestamp_docker_setup: .make/timestamp
-	docker start postgis
-	touch $@
+docker_setup:
+	- docker run --name postgis -e POSTGRES_PASSWORD=password -d mdillon/postgis
+	@echo Waiting 5s for server start up...
+	@sleep 5s
 
 .PHONY: setup_db
-setup_db: .make/timestamp_docker_setup
+setup_db: docker_setup
 	docker start postgis
 	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U postgres -w -c "DROP DATABASE IF EXISTS pyramid_oereb_test;"'
 	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U postgres -w -c "CREATE DATABASE pyramid_oereb_test;"'
@@ -65,8 +62,12 @@ setup_db: .make/timestamp_docker_setup
 
 
 .PHONY: drop_db
-drop_db: .make/timestamp_docker_setup
+drop_db: docker_setup
 	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U postgres -w -c "DROP DATABASE pyramid_oereb_test;"'
 
 .PHONY: tests_full
 tests_full: tests drop_db
+
+.PHONY: cleanall
+cleanall:
+	rm -rf .venv
