@@ -21,7 +21,7 @@ srid_lv03 = 21781
 srid_lv95 = 2056
 
 
-class GeometryPointLv03(NotAlembicBase):
+class GeometryPointLv03:
     id = sa.Column(sa.Integer, primary_key=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
@@ -49,7 +49,7 @@ class GeometryAreaLv95(GeometryPointLv03):
     geom = sa.Column(Geometry('POLYGON', srid=srid_lv95))
 
 
-class PublicLawRestriction(NotAlembicBase):
+class PublicLawRestriction:
     id = sa.Column(sa.Integer, primary_key=True)
     content = sa.Column(sa.String, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
@@ -61,13 +61,13 @@ class PublicLawRestriction(NotAlembicBase):
     published_from = sa.Column(sa.Date, nullable=False)
 
 
-class ViewService(NotAlembicBase):
+class ViewService:
     id = sa.Column(sa.Integer, primary_key=True)
     link_wms = sa.Column(sa.String, nullable=False)
     legend_web = sa.Column(sa.String, nullable=True)
 
 
-class LegendEntry(NotAlembicBase):
+class LegendEntry:
     id = sa.Column(sa.Integer, primary_key=True)
     symbol = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
@@ -78,21 +78,21 @@ class LegendEntry(NotAlembicBase):
     additional_topic = sa.Column(sa.String, nullable=True)
 
 
-class Authority(NotAlembicBase):
+class Authority:
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
     authority_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
-class ReferenceDefinition(NotAlembicBase):  # TODO: Check translation
+class ReferenceDefinition:  # TODO: Check translation
     id = sa.Column(sa.Integer, primary_key=True)
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
 
 
-class DocumentBase(NotAlembicBase):
+class DocumentBase:
     id = sa.Column(sa.Integer, primary_key=True)
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
