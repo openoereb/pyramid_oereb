@@ -25,7 +25,7 @@ class GeometryPointLv03(NotAlembicBase):
     id = sa.Column(sa.Integer, primary_key=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    metadata = sa.Column(sa.String, nullable=True)  # TODO: Check translation
+    geo_metadata = sa.Column(sa.String, nullable=True)  # TODO: Check translation
     geom = sa.Column(Geometry('POINT', srid=srid_lv03))
 
 
