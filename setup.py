@@ -25,7 +25,7 @@ requires = [
     'psycopg2',
     'pyramid',
     'pyramid_debugtoolbar',
-    'pyramid-georest',
+    'pyramid_georest',
     'PyYAML',
     'shapely',
     'simplejson',
