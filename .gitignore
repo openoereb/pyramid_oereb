@@ -65,3 +65,4 @@ target/
 
 # Virtual environment
 /.venv
+.make

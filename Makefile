@@ -1,10 +1,9 @@
 OPERATING_SYSTEM ?= LINUX
-
 ifeq ($(CI),true)
   PYTHON_VENV=do_pip
   VENV_BIN=
 else
-  PYTHON_VENV=.venv/timestamp
+  PYTHON_VENV=.venv/requirements-timestamp
   ifeq ($(OPERATING_SYSTEM), WINDOWS)
     VENV_BIN = .venv/Scripts/
     PYTHON_BIN_POSTFIX = .exe
@@ -17,8 +16,12 @@ endif
 
 install: $(PYTHON_VENV)
 
+.make/timestamp:
+	mkdir .make
+	touch $@
+
 .venv/timestamp:
-	virtualenv --system-site-packages venv
+	virtualenv --system-site-packages .venv
 	touch $@
 
 .venv/requirements-timestamp: .venv/timestamp setup.py requirements.txt
@@ -48,19 +51,20 @@ lint: $(PYTHON_VENV)
 git-attributes:
 	git --no-pager diff --check `git log --oneline | tail -1 | cut --fields=1 --delimiter=' '`
 
-.venv/timestamp_docker_setup:
+.make/timestamp_docker_setup: .make/timestamp
 	docker start postgis
 	touch $@
 
 .PHONY: setup_db
-setup_db: .venv/timestamp_docker_setup
+setup_db: .make/timestamp_docker_setup
+	docker start postgis
 	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U postgres -w -c "CREATE DATABASE pyramid_oereb_test;"'
 	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U postgres -w -c "CREATE EXTENSION postgis;"'
 	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U postgres -w -c "CREATE SCHEMA plr;"'
 
 
 .PHONY: drop_db
-drop_db: .venv/timestamp_docker_setup
+drop_db: .make/timestamp_docker_setup
 	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U postgres -w -c "DROP DATABASE pyramid_oereb_test;"'
 
 .PHONY: tests_full
