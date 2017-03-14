@@ -12,38 +12,50 @@ NAMING_CONVENTION = {
 }
 metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = sqlalchemy.ext.declarative.declarative_base()
+NotAlembicBase = sqlalchemy.ext.declarative.declarative_base()
 
 schema = 'plr'
-srid = 2056
+srid_lv03 = 21781
+srid_lv95 = 2056
 
 
-class Authority(Base):
-    __tablename__ = 'authority'
-    __table_args__ = {'schema': schema}
-    id = sa.Column(sa.String, primary_key=True)
-    name = sa.Column(sa.String)
-    url = sa.Column(sa.String)
+class GeometryPointLv03(NotAlembicBase):
+    __tablename__ = 'geometry_point_lv03'
+    id = sa.Column(sa.Integer, primary_key=True)
+    geom = sa.Column(Geometry('POINT', srid=srid_lv03))
+
+
+class GeometryPointLv95(GeometryPointLv03):
+    geom = sa.Column(Geometry('POINT', srid=srid_lv95))
+
+
+class GeometryLineLv03(GeometryPointLv03):
+    geom = sa.Column(Geometry('LINESTRING', srid=srid_lv03))
+
+
+class GeometryLineLv95(GeometryPointLv03):
+    geom = sa.Column(Geometry('LINESTRING', srid=srid_lv95))
+
+
+class GeometryAreaLv03(GeometryPointLv03):
+    geom = sa.Column(Geometry('POLYGON', srid=srid_lv03))
+
+
+class GeometryAreaLv95(GeometryPointLv03):
+    geom = sa.Column(Geometry('POLYGON', srid=srid_lv95))
 
 
 class Topic(Base):
     __tablename__ = 'topic'
-    __table_args__ = {'schema': schema}
+    __table_args__ = {'schema': 'common'}
     id = sa.Column(sa.Integer, primary_key=True)
-    name = sa.Column(sa.String)
+    name = sa.Column(sa.String, nullable=False)
 
 
-# railway_construction_limits
-class RailwayConstructionLimits(Base):
-    __tablename__ = 'plr_97'
-    __plr_id__ = 97
-    __table_args__ = {'schema': schema}
+class PublicLawRestriction(Base):
+    __tablename__ = 'public_law_restriction'
+    __table_args__ = {'schema': 'plr_97'}
     id = sa.Column(sa.Integer, primary_key=True)
-    tenor = sa.Column(sa.String)
-    topic_id = sa.Column(sa.Integer, sa.ForeignKey(Topic.id), nullable=False)
-    # subtopic = sa.Column(sa.String)
-    # other_topic = sa.Column(sa.String)
-    code = sa.Column(sa.String)
-    legal_state = sa.Column(sa.String)
-    publication_date = sa.Column(sa.Date)
-    authority_id = sa.Column(sa.String, sa.ForeignKey(Authority.id), nullable=False)
-    geom = sa.Column(Geometry('MULTILINESTRING', dimension=2, srid=srid))
+    tenor = sa.Column(sa.String, nullable=False)
+    topic_id = sa.Column(sa.Integer, sa.ForeignKey(Topic.id))
+
