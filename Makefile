@@ -58,6 +58,7 @@ git-attributes:
 .PHONY: setup_db
 setup_db: .make/timestamp_docker_setup
 	docker start postgis
+	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U postgres -w -c "DROP DATABASE IF EXISTS pyramid_oereb_test;"'
 	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U postgres -w -c "CREATE DATABASE pyramid_oereb_test;"'
 	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U postgres -w -c "CREATE EXTENSION postgis;"'
 	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U postgres -w -c "CREATE SCHEMA plr;"'
