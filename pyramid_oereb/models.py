@@ -4,7 +4,6 @@ import sqlalchemy.ext.declarative
 import sqlalchemy as sa
 
 from geoalchemy2.types import Geometry
-from sqlalchemy.orm import relationship
 
 NAMING_CONVENTION = {
     "ix": 'ix_%(column_0_label)s',
@@ -26,7 +25,7 @@ class GeometryPointLv03(NotAlembicBase):
     id = sa.Column(sa.Integer, primary_key=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    metadata = sa.Column(sa.String, nullable=True) # TODO: Check translation
+    metadata = sa.Column(sa.String, nullable=True)  # TODO: Check translation
     geom = sa.Column(Geometry('POINT', srid=srid_lv03))
 
 
@@ -86,7 +85,7 @@ class Authority(NotAlembicBase):
     uid = sa.Column(sa.String(12), nullable=True)
 
 
-class ReferenceDefinition(NotAlembicBase): # TODO: Check translation
+class ReferenceDefinition(NotAlembicBase):  # TODO: Check translation
     id = sa.Column(sa.Integer, primary_key=True)
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
