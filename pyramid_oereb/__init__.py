@@ -3,6 +3,8 @@
 import logging
 from pyramid.config import Configurator
 
+from pyramid_oereb.lib.config import parse
+
 __author__ = 'Clemens Rudert'
 __create_date__ = '01.02.2017'
 __version__ = '0.0.1'
@@ -30,5 +32,13 @@ def includeme(config):
     :param config: The pyramid apps config object
     :type config: Configurator
     """
+
+    # Get settings
+    settings = config.get_settings()
+
+    # Load configuration file
+    cfg_file = settings.get('pyramid_oereb.cfg.file', None)
+    cfg_section = settings.get('pyramid_oereb.cfg.section', None)
+    settings.update(parse(cfg_file, cfg_section))
 
     config.include('pyramid_oereb.routes')
