@@ -26,14 +26,73 @@ __create_date__ = '15.03.17'
 config = {
     'schemas': [
         {
-            'name': 'plr108',
-            'geometry_type': 'POLYGON'
+            'name': 'plr73',
+            'geometry_type': 'LINESTRING',
+            'label': u'Nutzungsplanung'
+        }, {
+            'name': 'plr87',
+            'geometry_type': 'LINESTRING',
+            'label': u'Projektierungszonen Nationalstrassen'
+        }, {
+            'name': 'plr88',
+            'geometry_type': 'LINESTRING',
+            'label': u'Baulinien Nationalstrassen'
         }, {
             'name': 'plr97',
-            'geometry_type': 'LINESTRING'
+            'geometry_type': 'LINESTRING',
+            'label': u'Baulinien Eisenbahnanlagen'
         }, {
             'name': 'plr96',
-            'geometry_type': 'POLYGON'
+            'geometry_type': 'POLYGON',
+            'label': u'Projektierungszonen Eisenbahnanlagen'
+        }, {
+            'name': 'plr103',
+            'geometry_type': 'POLYGON',
+            'label': u'Projektierungszonen Flughafenanlagen'
+        }, {
+            'name': 'plr104',
+            'geometry_type': 'POLYGON',
+            'label': u'Baulinien Flughafenanlagen'
+        }, {
+            'name': 'plr108',
+            'geometry_type': 'POLYGON',
+            'label': u'Sicherheitszonenplan Flughafen'
+        }, {
+            'name': 'plr116',
+            'geometry_type': 'POLYGON',
+            'label': u'Belastete Standorte'
+        }, {
+            'name': 'plr117',
+            'geometry_type': 'POLYGON',
+            'label': u'Belastete Standorte Militär'
+        }, {
+            'name': 'plr118',
+            'geometry_type': 'POLYGON',
+            'label': u'Belastete Standorte Zivile Flugplätze'
+        }, {
+            'name': 'plr119',
+            'geometry_type': 'POLYGON',
+            'label': u'Belastete Standorte Öeffentlicher Verkehr'
+        }, {
+            'name': 'plr131',
+            'geometry_type': 'POLYGON',
+            'label': u'Grundwasserschutzzonen'
+        }, {
+            'name': 'plr132',
+            'geometry_type': 'POLYGON',
+            'label': u'Grundwasserschutzareale'
+        }, {
+            'name': 'plr145',
+            'geometry_type': 'POLYGON',
+            'label': u'Lärmemfindlichkeitsstufen'
+        }, {
+            'name': 'plr157',
+            'geometry_type': 'POLYGON',
+            'label': u'Waldgrenzen'
+        }, {
+            'name': 'plr159',
+            'geometry_type': 'POLYGON',
+            'label': u'Waldabstandslinien'
         }
     ],
     'srid': 2056
