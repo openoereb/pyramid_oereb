@@ -12,12 +12,7 @@ install:
 
 before_install:
   - docker pull mdillon/postgis
-  - docker run --name postgis -e POSTGRES_PASSWORD=password -d mdillon/postgis
-before_script:
-  - make setup_db
 
 # command to run tests
 script:
-  - make git-attributes
-  - make lint
-  - make tests_full
+  - make checks

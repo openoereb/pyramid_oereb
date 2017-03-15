@@ -1,5 +1,6 @@
 OPERATING_SYSTEM ?= LINUX
 
+DOCKER ?= TRUE
 DOCKER_CONTAINER_PG ?= postgis-oereb-test
 
 PG_DROP_DB ?= DROP DATABASE IF EXISTS pyramid_oereb_test;
@@ -15,6 +16,7 @@ else
   ifeq ($(OPERATING_SYSTEM), WINDOWS)
     VENV_BIN = .venv/Scripts/
     PYTHON_BIN_POSTFIX = .exe
+    DOCKER = FALSE
     SETUP_DB ?= win-setup-db
     DROP_DB ?= win-drop-db
     PG_START=
@@ -56,7 +58,7 @@ checks: git-attributes lint tests
 
 .PHONY: tests
 tests: $(PYTHON_VENV) drop-db setup-db
-	$(eval $@_POSTGIS_IP := $(shell docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(DOCKER_CONTAINER_PG)))
+	$(eval $@_POSTGIS_IP := $(if $(filter TRUE,$(DOCKER)), $(shell docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(DOCKER_CONTAINER_PG)), localhost))
 	SQLALCHEMY_URL="postgresql://postgres:password@$($@_POSTGIS_IP):5432/pyramid_oereb_test" ;\
 	export SQLALCHEMY_URL ;\
 	printenv SQLALCHEMY_URL ;\
