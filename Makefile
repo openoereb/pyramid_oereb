@@ -8,6 +8,8 @@ PG_CREATE_DB ?= CREATE DATABASE pyramid_oereb_test;
 PG_CREATE_EXT ?= CREATE EXTENSION postgis;
 PG_CREATE_SCHEMA ?= CREATE SCHEMA plr;
 
+VENV_FLAGS ?=
+
 ifeq ($(CI),true)
   PYTHON_VENV=do_pip
   VENV_BIN=
@@ -15,6 +17,7 @@ else
   PYTHON_VENV=.venv/requirements-timestamp
   ifeq ($(OPERATING_SYSTEM), WINDOWS)
     VENV_BIN = .venv/Scripts/
+    VENV_FLAGS += --system-site-packages
     PYTHON_BIN_POSTFIX = .exe
     USE_DOCKER = FALSE
     SETUP_DB = win-setup-db
@@ -36,7 +39,7 @@ endif
 install: $(PYTHON_VENV)
 
 .venv/timestamp:
-	virtualenv .venv
+	virtualenv $(VENV_FLAGS) .venv
 	touch $@
 
 .venv/requirements-timestamp: .venv/timestamp setup.py requirements.txt
