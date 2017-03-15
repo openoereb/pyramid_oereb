@@ -11,6 +11,8 @@ PG_CREDENTIALS ?= postgres:password
 
 VENV_FLAGS ?=
 
+REQUIREMENTS ?= requirements.txt
+
 ifeq ($(CI),true)
   PYTHON_VENV = do-pip
   VENV_BIN =
@@ -27,6 +29,7 @@ else
 	PG_CREATE_DB = psql -U postgres -c "CREATE DATABASE pyramid_oereb_test;"
 	PG_CREATE_EXT = psql -U postgres -c "CREATE EXTENSION postgis;"
 	PG_CREATE_SCHEMA = psql -U postgres -d pyramid_oereb_test -c "CREATE SCHEMA plr;"
+	REQUIREMENTS = requirements-windows.txt
   else
     VENV_BIN ?= .venv/bin/
     PYTHON_BIN_POSTFIX =
@@ -42,13 +45,13 @@ install: $(PYTHON_VENV)
 	virtualenv $(VENV_FLAGS) .venv
 	touch $@
 
-.venv/requirements-timestamp: .venv/timestamp setup.py requirements.txt
-	$(VENV_BIN)pip2$(PYTHON_BIN_POSTFIX) install -r requirements.txt
+.venv/requirements-timestamp: .venv/timestamp setup.py $(REQUIREMENTS)
+	$(VENV_BIN)pip2$(PYTHON_BIN_POSTFIX) install -r $(REQUIREMENTS)
 	touch $@
 
 .PHONY: do-pip
 do-pip:
-	pip install --upgrade -r requirements.txt
+	pip install --upgrade -r $(REQUIREMENTS)
 
 .PHONY: setup-db
 setup-db: $(SETUP_DB)
