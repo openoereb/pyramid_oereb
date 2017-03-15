@@ -1,0 +1,9 @@
+section1:
+  param1: one
+  param2: 2
+
+section2:
+  param1: 1
+  param2:
+    - first
+    - second
