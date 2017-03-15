@@ -32,7 +32,7 @@ do_pip:
 checks: git-attributes lint tests
 
 .PHONY: tests
-tests: $(PYTHON_VENV) setup_db
+tests: $(PYTHON_VENV) setup_test_db
 	$(eval $@_POSTGIS_IP := $(shell docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgis))
 	SQLALCHEMY_URL="postgresql://postgres:password@$($@_POSTGIS_IP):5432/pyramid_oereb_test" ;\
 	export SQLALCHEMY_URL ;\
@@ -52,8 +52,8 @@ docker_setup:
 	@echo Waiting 5s for server start up...
 	@sleep 5s
 
-.PHONY: setup_db
-setup_db: docker_setup
+.PHONY: setup_test_db
+setup_test_db: docker_setup
 	docker start postgis
 	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U postgres -w -c "DROP DATABASE IF EXISTS pyramid_oereb_test;"'
 	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U postgres -w -c "CREATE DATABASE pyramid_oereb_test;"'
@@ -61,13 +61,21 @@ setup_db: docker_setup
 	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U postgres -w -c "CREATE SCHEMA plr;"'
 
 
-.PHONY: drop_db
-drop_db: docker_setup
+.PHONY: drop_test_db
+drop_test_db: docker_setup
 	docker run -i --link postgis:postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U postgres -w -c "DROP DATABASE pyramid_oereb_test;"'
 
 .PHONY: tests_full
-tests_full: tests drop_db
+tests_full: tests drop_test_db
 
 .PHONY: cleanall
 cleanall:
 	rm -rf .venv
+
+.PHONY: create_standard_db
+create_standard_db:
+	$(VENV_BIN)python pyramid_oereb/standard/create_db.py
+
+.PHONY: drop_standard_db
+drop_standard_db:
+	$(VENV_BIN)python pyramid_oereb/standard/drop_db.py
