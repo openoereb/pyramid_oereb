@@ -69,7 +69,7 @@ tests: $(PYTHON_VENV) $(DROP_DB) $(SETUP_DB)
 	SQLALCHEMY_URL="postgresql://$(PG_CREDENTIALS)@$($@_POSTGIS_IP):5432/pyramid_oereb_test" ;\
 	export SQLALCHEMY_URL ;\
 	printenv SQLALCHEMY_URL ;\
-	$(VENV_BIN)py.test$(PYTHON_BIN_POSTFIX) -vv pyramid_oereb/tests
+	$(VENV_BIN)py.test$(PYTHON_BIN_POSTFIX) -vv --cov pyramid_oereb pyramid_oereb/tests
 
 .PHONY: lint
 lint: $(PYTHON_VENV)
