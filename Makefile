@@ -57,7 +57,7 @@ drop-db: $(DROP_DB)
 checks: git-attributes lint tests
 
 .PHONY: tests
-tests: $(PYTHON_VENV) drop-db setup-db
+tests: $(PYTHON_VENV) $(DROP_DB) $(SETUP_DB)
 	@echo Run tests using docker: $(USE_DOCKER)
 	$(eval $@_POSTGIS_IP := $(if $(filter TRUE,$(USE_DOCKER)), $(shell docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(DOCKER_CONTAINER_PG)), @echo localhost))
 	SQLALCHEMY_URL="postgresql://postgres:password@$($@_POSTGIS_IP):5432/pyramid_oereb_test" ;\
