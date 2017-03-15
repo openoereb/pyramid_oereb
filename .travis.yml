@@ -17,5 +17,5 @@ before_install:
 script:
   - make git-attributes
   - make lint
-  - make docker-setup-db
+  - make tests-docker-setup-db
   - make tests
