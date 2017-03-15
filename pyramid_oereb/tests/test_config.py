@@ -11,16 +11,16 @@ def test_missing_configuration_file():
 
 def test_missing_configuration_section():
     with pytest.raises(ConfigurationError):
-        parse('myconfig.yaml', None)
+        parse('myconfig.yml', None)
 
 
 def test_wrong_configuration_section():
     with pytest.raises(ConfigurationError):
-        parse('./pyramid_oereb/tests/test_config.yaml', 'invalidsection')
+        parse('./pyramid_oereb/tests/test_config.yml', 'invalidsection')
 
 
 def test_parse_configuration():
-    cfg = parse('./pyramid_oereb/tests/test_config.yaml', 'section2')
+    cfg = parse('./pyramid_oereb/tests/test_config.yml', 'section2')
     assert cfg.get('param1') == 1
     assert len(cfg.get('param2')) == 2
     assert cfg.get('param2')[0] == 'first'
