@@ -15,4 +15,7 @@ before_install:
 
 # command to run tests
 script:
-  - make checks
+  - make git-attributes
+  - make lint
+  - make setup-db
+  - make tests
