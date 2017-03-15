@@ -130,5 +130,5 @@ def drop_tables(connection_string='postgresql://postgres:password@172.17.0.2/pyr
     Base.metadata.drop_all(engine)
     connection = engine.connect()
     for schema in config.get('schemas'):
-        connection.execute('DROP SCHEMA {name};'.format(name=schema.get('name')))
+        connection.execute('DROP SCHEMA IF EXISTS {name};'.format(name=schema.get('name')))
     connection.close()
