@@ -64,7 +64,7 @@ class ${schema.get("name").capitalize()}Document(${schema.get("name").capitalize
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(${schema.get("name").capitalize()}DocumentBase.id),
@@ -103,7 +103,11 @@ class ${schema.get("name").capitalize()}Article(${schema.get("name").capitalize(
         sa.ForeignKey(${schema.get("name").capitalize()}Document.id),
         nullable=False
     )
-    document = relationship(${schema.get("name").capitalize()}Document, backref='articles')
+    document = relationship(
+        ${schema.get("name").capitalize()}Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class ${schema.get("name").capitalize()}LegalProvision(${schema.get("name").capitalize()}Document):
@@ -133,7 +137,7 @@ class ${schema.get("name").capitalize()}LegendEntry(Base):
     __table_args__ = {'schema': '${schema.get("name")}'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
