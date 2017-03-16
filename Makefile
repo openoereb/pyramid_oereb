@@ -106,10 +106,10 @@ tests-win-drop-db:
 clean-all:
 	rm -rf .venv
 
-.PHONY: create-standard-db
-create-standard-db:
-	$(VENV_BIN)python pyramid_oereb/standard/create_db.py
+.PHONY: create-standard-tables
+create-standard-tables:
+	$(VENV_BIN)python pyramid_oereb/standard/create_tables.py -c pyramid_oereb.yml
 
-.PHONY: drop-standard-db
-drop-standard-db:
-	$(VENV_BIN)python pyramid_oereb/standard/drop_db.py
+.PHONY: drop-standard-tables
+drop-standard-tables:
+	$(VENV_BIN)python pyramid_oereb/standard/drop_tables.py -c pyramid_oereb.yml
