@@ -1,39 +1,39 @@
 pyramid_oereb:
 
-  topics:
+  plrs:
 
     - name: plr73
       geometry_type: LINESTRING
       label: Nutzungsplanung
-        
+
     - name: plr87
       geometry_type: LINESTRING
       label: Projektierungszonen Nationalstrassen
-        
+
     - name: plr88
       geometry_type: LINESTRING
       label: Baulinien Nationalstrassen
-        
+
     - name: plr97
       geometry_type: LINESTRING
       label: Baulinien Eisenbahnanlagen
-        
+
     - name: plr96
       geometry_type: POLYGON
       label: Projektierungszonen Eisenbahnanlagen
-        
+
     - name: plr103
       geometry_type: POLYGON
       label: Projektierungszonen Flughafenanlagen
-        
+
     - name: plr104
       geometry_type: POLYGON
       label: Baulinien Flughafenanlagen
-        
+
     - name: plr108
       geometry_type: POLYGON
       label: Sicherheitszonenplan Flughafen
-        
+
     - name: plr116
       geometry_type: POLYGON
       label: Belastete Standorte
