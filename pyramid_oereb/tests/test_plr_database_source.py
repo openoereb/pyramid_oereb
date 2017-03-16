@@ -4,7 +4,7 @@ import pytest
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.lib.sources.plr import PlrDatabaseSource
-from pyramid_oereb.models import *
+from pyramid_oereb.models import Plr73PublicLawRestriction, Plr116PublicLawRestriction
 from pyramid_oereb.tests.conftest import adapter
 
 __author__ = 'Clemens Rudert'
