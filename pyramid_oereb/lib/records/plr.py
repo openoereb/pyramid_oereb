@@ -21,20 +21,33 @@ class PlrRecord(object):
                  refinements=list(), documents=list(), geometries=list()):
         """
         Public law restriction record.
-        :param content:
-        :type content: str
-        :param topic:
-        :param legal_state:
-        :param published_from:
-        :param subtopic:
-        :param additional_topic:
-        :param type_code:
-        :param type_code_list:
-        :param view_service:
-        :param basis:
-        :param refinements:
-        :param documents:
-        :param geometries:
+        :param content:             The PLR record's content.
+        :type  content:             str
+        :param topic:               The topic to which the PLR belongs to.
+        :type  topic:               str
+        :param legal_state:         The PLR record's legal state.
+        :type legal_state:          str
+        :param published_from:      Date from/since when the PLR record is published.
+        :type published_from:       datetime.date
+        :param subtopic:            Optional subtopic.
+        :type subtopic:             str
+        :param additional_topic:    Optional additional topic.
+        :type additional_topic:     str
+        :param type_code:           The PLR record's type code (also used by view service).
+        :type type_code:            str
+        :param type_code_list:      URL to the PLR's list of type codes.
+        :type type_code_list:       str
+        :param view_service:        The view service instance associated with this record.
+        :type view_service:         object
+        :param basis:               List of PLR records as basis for this record.
+        :type basis:                list
+        :param refinements:         List of PLR records as refinement of this record.
+        :type refinements:          list
+        :param documents:           List of documents associated with this record.
+        :type documents:            list
+        :param geometries:          List of geometries associated with this record.
+        :type geometries:           list
+        :raises TypeError:          Raised on missing field value.
         """
         if not (content and topic and legal_state and published_from):
             raise TypeError('Fields "content", "topic", "legal_state" and "published_from" must be defined. '
@@ -56,6 +69,11 @@ class PlrRecord(object):
 
     @classmethod
     def get_fields(cls):
+        """
+        Returns a list of available field names.
+        :return:    List of available field names.
+        :rtype:     list
+        """
         return [
             'topic',
             'documents',
