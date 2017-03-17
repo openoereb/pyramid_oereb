@@ -5,3 +5,7 @@ omit =
 
 [report]
 skip_covered = True
+
+[html]
+directory = coverage_report
+title = pyramid_oereb coverage report

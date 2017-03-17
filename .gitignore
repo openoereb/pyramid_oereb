@@ -66,3 +66,6 @@ target/
 # Virtual environment
 /.venv
 .make
+
+# Test coverage report
+/coverage_report/
