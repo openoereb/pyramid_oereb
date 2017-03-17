@@ -14,4 +14,4 @@ class Base(object):
         """
         Every source class has to implement a read method.
         """
-        pass
+        pass  # pragma: no cover
