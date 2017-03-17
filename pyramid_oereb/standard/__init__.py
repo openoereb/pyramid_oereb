@@ -1,6 +1,6 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 
-# Copyright (c) 2012 - 2016, GIS-Fachstelle des Amtes f¸r Geoinformation des Kantons Basel-Landschaft
+# Copyright (c) 2012 - 2016, GIS-Fachstelle des Amtes f√ºr Geoinformation des Kantons Basel-Landschaft
 # All rights reserved.
 #
 # This program is free software and completes the GeoMapFish License for the geoview.bl.ch specific
@@ -64,15 +64,15 @@ config = {
         }, {
             'name': 'plr117',
             'geometry_type': 'POLYGON',
-            'label': u'Belastete Standorte Milit‰r'
+            'label': u'Belastete Standorte Milit√§r'
         }, {
             'name': 'plr118',
             'geometry_type': 'POLYGON',
-            'label': u'Belastete Standorte Zivile Flugpl‰tze'
+            'label': u'Belastete Standorte Zivile Flugpl√§tze'
         }, {
             'name': 'plr119',
             'geometry_type': 'POLYGON',
-            'label': u'Belastete Standorte ÷effentlicher Verkehr'
+            'label': u'Belastete Standorte √ñeffentlicher Verkehr'
         }, {
             'name': 'plr131',
             'geometry_type': 'POLYGON',
@@ -84,7 +84,7 @@ config = {
         }, {
             'name': 'plr145',
             'geometry_type': 'POLYGON',
-            'label': u'L‰rmemfindlichkeitsstufen'
+            'label': u'L√§rmemfindlichkeitsstufen'
         }, {
             'name': 'plr157',
             'geometry_type': 'POLYGON',
