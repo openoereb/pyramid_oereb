@@ -71,4 +71,4 @@ pyramid_oereb:
       label: Waldabstandslinien
 
   srid: 2056
-  db_connection: postgresql://postgres:password@172.17.0.2:5432/pyramid_oereb_test
+  db_connection: ${sqlalchemy_url}
