@@ -5,4 +5,5 @@ pyflakes
 flake8
 pycodestyle
 McCabe
+c2c.template
 -e .

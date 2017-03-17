@@ -1,0 +1,9 @@
+vars:
+
+  # No vars until now
+  dummy: dummy
+  sqlalchemy_url: SQLALCHEMY_URL
+
+interpreted:
+  environment:
+    - sqlalchemy_url

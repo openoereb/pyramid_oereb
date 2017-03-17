@@ -42,6 +42,7 @@ pip-delete-this-directory.txt
 
 # Unit test / coverage reports
 htmlcov/
+/coverage_report/
 .tox/
 .coverage
 .coverage.*
@@ -67,5 +68,5 @@ target/
 /.venv
 .make
 
-# Test coverage report
-/coverage_report/
+# Mako generated files
+pyramid_oereb_test.yml
