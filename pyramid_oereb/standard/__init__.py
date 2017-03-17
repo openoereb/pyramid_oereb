@@ -25,7 +25,7 @@ __author__ = 'Clemens Rudert'
 __create_date__ = '15.03.17'
 
 
-def create_models_py(configuration_yaml_path, section='pyramid_oereb'):
+def create_models_py(configuration_yaml_path, section='pyramid_oereb'):  # pragma: no cover
     template = Template(
         filename=AssetResolver('pyramid_oereb').resolve('standard/templates/models.py.mako').abspath()
     )

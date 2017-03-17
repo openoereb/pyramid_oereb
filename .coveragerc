@@ -3,9 +3,6 @@ omit =
     pyramid_oereb/tests/*
     pyramid_oereb/models.py
 
-[report]
-skip_covered = True
-
 [html]
 directory = coverage_report
 title = pyramid_oereb coverage report
