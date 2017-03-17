@@ -34,6 +34,14 @@ class DatabaseAdapter(object):
         else:
             log.info('Connection already exists: {0}'.format(connection_string))
 
+    def get_connections(self):
+        """
+        Returns a dictionary with the available connections.
+        :return: The available connections.
+        :rtype: dict
+        """
+        return self._connections_
+
     def get_session(self, key, request=None):
         """
         The point where you will get what you need: The session to talk to the database!
