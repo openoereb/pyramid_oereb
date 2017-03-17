@@ -62,7 +62,7 @@ class Plr73Document(Plr73DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr73DocumentBase.id),
@@ -101,7 +101,11 @@ class Plr73Article(Plr73DocumentBase):
         sa.ForeignKey(Plr73Document.id),
         nullable=False
     )
-    document = relationship(Plr73Document, backref='articles')
+    document = relationship(
+        Plr73Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr73LegalProvision(Plr73Document):
@@ -131,7 +135,7 @@ class Plr73LegendEntry(Base):
     __table_args__ = {'schema': 'plr73'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -327,7 +331,7 @@ class Plr87Document(Plr87DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr87DocumentBase.id),
@@ -366,7 +370,11 @@ class Plr87Article(Plr87DocumentBase):
         sa.ForeignKey(Plr87Document.id),
         nullable=False
     )
-    document = relationship(Plr87Document, backref='articles')
+    document = relationship(
+        Plr87Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr87LegalProvision(Plr87Document):
@@ -396,7 +404,7 @@ class Plr87LegendEntry(Base):
     __table_args__ = {'schema': 'plr87'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -592,7 +600,7 @@ class Plr88Document(Plr88DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr88DocumentBase.id),
@@ -631,7 +639,11 @@ class Plr88Article(Plr88DocumentBase):
         sa.ForeignKey(Plr88Document.id),
         nullable=False
     )
-    document = relationship(Plr88Document, backref='articles')
+    document = relationship(
+        Plr88Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr88LegalProvision(Plr88Document):
@@ -661,7 +673,7 @@ class Plr88LegendEntry(Base):
     __table_args__ = {'schema': 'plr88'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -857,7 +869,7 @@ class Plr97Document(Plr97DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr97DocumentBase.id),
@@ -896,7 +908,11 @@ class Plr97Article(Plr97DocumentBase):
         sa.ForeignKey(Plr97Document.id),
         nullable=False
     )
-    document = relationship(Plr97Document, backref='articles')
+    document = relationship(
+        Plr97Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr97LegalProvision(Plr97Document):
@@ -926,7 +942,7 @@ class Plr97LegendEntry(Base):
     __table_args__ = {'schema': 'plr97'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -1122,7 +1138,7 @@ class Plr96Document(Plr96DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr96DocumentBase.id),
@@ -1161,7 +1177,11 @@ class Plr96Article(Plr96DocumentBase):
         sa.ForeignKey(Plr96Document.id),
         nullable=False
     )
-    document = relationship(Plr96Document, backref='articles')
+    document = relationship(
+        Plr96Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr96LegalProvision(Plr96Document):
@@ -1191,7 +1211,7 @@ class Plr96LegendEntry(Base):
     __table_args__ = {'schema': 'plr96'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -1387,7 +1407,7 @@ class Plr103Document(Plr103DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr103DocumentBase.id),
@@ -1426,7 +1446,11 @@ class Plr103Article(Plr103DocumentBase):
         sa.ForeignKey(Plr103Document.id),
         nullable=False
     )
-    document = relationship(Plr103Document, backref='articles')
+    document = relationship(
+        Plr103Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr103LegalProvision(Plr103Document):
@@ -1456,7 +1480,7 @@ class Plr103LegendEntry(Base):
     __table_args__ = {'schema': 'plr103'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -1652,7 +1676,7 @@ class Plr104Document(Plr104DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr104DocumentBase.id),
@@ -1691,7 +1715,11 @@ class Plr104Article(Plr104DocumentBase):
         sa.ForeignKey(Plr104Document.id),
         nullable=False
     )
-    document = relationship(Plr104Document, backref='articles')
+    document = relationship(
+        Plr104Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr104LegalProvision(Plr104Document):
@@ -1721,7 +1749,7 @@ class Plr104LegendEntry(Base):
     __table_args__ = {'schema': 'plr104'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -1917,7 +1945,7 @@ class Plr108Document(Plr108DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr108DocumentBase.id),
@@ -1956,7 +1984,11 @@ class Plr108Article(Plr108DocumentBase):
         sa.ForeignKey(Plr108Document.id),
         nullable=False
     )
-    document = relationship(Plr108Document, backref='articles')
+    document = relationship(
+        Plr108Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr108LegalProvision(Plr108Document):
@@ -1986,7 +2018,7 @@ class Plr108LegendEntry(Base):
     __table_args__ = {'schema': 'plr108'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -2182,7 +2214,7 @@ class Plr116Document(Plr116DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr116DocumentBase.id),
@@ -2221,7 +2253,11 @@ class Plr116Article(Plr116DocumentBase):
         sa.ForeignKey(Plr116Document.id),
         nullable=False
     )
-    document = relationship(Plr116Document, backref='articles')
+    document = relationship(
+        Plr116Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr116LegalProvision(Plr116Document):
@@ -2251,7 +2287,7 @@ class Plr116LegendEntry(Base):
     __table_args__ = {'schema': 'plr116'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -2447,7 +2483,7 @@ class Plr117Document(Plr117DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr117DocumentBase.id),
@@ -2486,7 +2522,11 @@ class Plr117Article(Plr117DocumentBase):
         sa.ForeignKey(Plr117Document.id),
         nullable=False
     )
-    document = relationship(Plr117Document, backref='articles')
+    document = relationship(
+        Plr117Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr117LegalProvision(Plr117Document):
@@ -2516,7 +2556,7 @@ class Plr117LegendEntry(Base):
     __table_args__ = {'schema': 'plr117'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -2712,7 +2752,7 @@ class Plr118Document(Plr118DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr118DocumentBase.id),
@@ -2751,7 +2791,11 @@ class Plr118Article(Plr118DocumentBase):
         sa.ForeignKey(Plr118Document.id),
         nullable=False
     )
-    document = relationship(Plr118Document, backref='articles')
+    document = relationship(
+        Plr118Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr118LegalProvision(Plr118Document):
@@ -2781,7 +2825,7 @@ class Plr118LegendEntry(Base):
     __table_args__ = {'schema': 'plr118'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -2977,7 +3021,7 @@ class Plr119Document(Plr119DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr119DocumentBase.id),
@@ -3016,7 +3060,11 @@ class Plr119Article(Plr119DocumentBase):
         sa.ForeignKey(Plr119Document.id),
         nullable=False
     )
-    document = relationship(Plr119Document, backref='articles')
+    document = relationship(
+        Plr119Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr119LegalProvision(Plr119Document):
@@ -3046,7 +3094,7 @@ class Plr119LegendEntry(Base):
     __table_args__ = {'schema': 'plr119'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -3242,7 +3290,7 @@ class Plr131Document(Plr131DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr131DocumentBase.id),
@@ -3281,7 +3329,11 @@ class Plr131Article(Plr131DocumentBase):
         sa.ForeignKey(Plr131Document.id),
         nullable=False
     )
-    document = relationship(Plr131Document, backref='articles')
+    document = relationship(
+        Plr131Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr131LegalProvision(Plr131Document):
@@ -3311,7 +3363,7 @@ class Plr131LegendEntry(Base):
     __table_args__ = {'schema': 'plr131'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -3507,7 +3559,7 @@ class Plr132Document(Plr132DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr132DocumentBase.id),
@@ -3546,7 +3598,11 @@ class Plr132Article(Plr132DocumentBase):
         sa.ForeignKey(Plr132Document.id),
         nullable=False
     )
-    document = relationship(Plr132Document, backref='articles')
+    document = relationship(
+        Plr132Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr132LegalProvision(Plr132Document):
@@ -3576,7 +3632,7 @@ class Plr132LegendEntry(Base):
     __table_args__ = {'schema': 'plr132'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -3772,7 +3828,7 @@ class Plr145Document(Plr145DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr145DocumentBase.id),
@@ -3811,7 +3867,11 @@ class Plr145Article(Plr145DocumentBase):
         sa.ForeignKey(Plr145Document.id),
         nullable=False
     )
-    document = relationship(Plr145Document, backref='articles')
+    document = relationship(
+        Plr145Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr145LegalProvision(Plr145Document):
@@ -3841,7 +3901,7 @@ class Plr145LegendEntry(Base):
     __table_args__ = {'schema': 'plr145'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -4037,7 +4097,7 @@ class Plr157Document(Plr157DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr157DocumentBase.id),
@@ -4076,7 +4136,11 @@ class Plr157Article(Plr157DocumentBase):
         sa.ForeignKey(Plr157Document.id),
         nullable=False
     )
-    document = relationship(Plr157Document, backref='articles')
+    document = relationship(
+        Plr157Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr157LegalProvision(Plr157Document):
@@ -4106,7 +4170,7 @@ class Plr157LegendEntry(Base):
     __table_args__ = {'schema': 'plr157'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -4302,7 +4366,7 @@ class Plr159Document(Plr159DocumentBase):
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    document = sa.Column(sa.Binary, nullable=True)
+    file = sa.Column(sa.Binary, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr159DocumentBase.id),
@@ -4341,7 +4405,11 @@ class Plr159Article(Plr159DocumentBase):
         sa.ForeignKey(Plr159Document.id),
         nullable=False
     )
-    document = relationship(Plr159Document, backref='articles')
+    document = relationship(
+        Plr159Document,
+        backref='articles',
+        foreign_keys=[document_id]
+    )
 
 
 class Plr159LegalProvision(Plr159Document):
@@ -4371,7 +4439,7 @@ class Plr159LegendEntry(Base):
     __table_args__ = {'schema': 'plr159'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    symbol = sa.Column(sa.Binary, nullable=False)
+    file = sa.Column(sa.Binary, nullable=False)
     legend_text = sa.Column(sa.String, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)

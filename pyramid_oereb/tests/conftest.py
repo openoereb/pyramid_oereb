@@ -1,23 +1,20 @@
+# -*- coding: utf-8 -*-
 import pytest
 import os
 import pyramid.testing
 import transaction
-from pyramid.config import ConfigurationError
 
 from pyramid_oereb import routes
+from pyramid_oereb.lib.adapter import DatabaseAdapter
 
 DB_URL = os.environ.get('SQLALCHEMY_URL')
+adapter = DatabaseAdapter()
 
 
 @pytest.yield_fixture
 def config():
-    from pyramid_oereb.standard import create_tables
     config = pyramid.testing.setUp()
     config.include('pyramid_georest')
-    if DB_URL:
-        create_tables(DB_URL)
-    else:
-        raise ConfigurationError()
     tx = transaction.begin()
     tx.doom()
     yield config

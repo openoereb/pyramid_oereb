@@ -15,7 +15,8 @@ with open(os.path.join(here, 'CHANGES.md')) as f:
 tests_require = [
     'WebTest >= 1.3.1',  # py3 compat
     'pytest',  # includes virtualenv
-    'pytest-cov'
+    'pytest-cov',
+    'pytest-ordering'
 ]
 
 requires = [
