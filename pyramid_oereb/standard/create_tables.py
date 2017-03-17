@@ -22,14 +22,21 @@ __create_date__ = '15.03.17'
 
 parser = argparse.ArgumentParser(description='Create all content for the standard database')
 parser.add_argument(
-    '-d',
-    '--database',
-    help='The connection string which leads to the desired database',
+    '-c',
+    '--configuration',
+    help='The absolute path to the configuration yaml file (standard is: pyramid_oereb.yml).',
+    required=True
+)
+parser.add_argument(
+    '-s',
+    '--section',
+    help='The section which contains configruation (standard is: pyramid_oereb).',
     required=False
 )
 args = parser.parse_args()
 
-if args.database:
-    create_tables(connection_string=args.database)
-else:
-    create_tables()
+section = 'pyramid_oereb'
+configuration = args.configuration
+if args.section:
+    section = args.section
+create_tables(configuration_yaml_path=configuration, section=section)

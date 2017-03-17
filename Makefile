@@ -69,7 +69,7 @@ tests: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB)
 	SQLALCHEMY_URL="postgresql://$(PG_CREDENTIALS)@$($@_POSTGIS_IP):5432/pyramid_oereb_test" ;\
 	export SQLALCHEMY_URL ;\
 	printenv SQLALCHEMY_URL ;\
-	$(VENV_BIN)py.test$(PYTHON_BIN_POSTFIX) -vv --cov pyramid_oereb pyramid_oereb/tests
+	$(VENV_BIN)py.test$(PYTHON_BIN_POSTFIX) -vv --cov-config .coveragerc --cov-report term --cov-report html --cov pyramid_oereb pyramid_oereb/tests
 
 .PHONY: lint
 lint: $(PYTHON_VENV)
@@ -106,10 +106,10 @@ tests-win-drop-db:
 clean-all:
 	rm -rf .venv
 
-.PHONY: create-standard-db
-create-standard-db:
-	$(VENV_BIN)python pyramid_oereb/standard/create_db.py
+.PHONY: create-standard-tables
+create-standard-tables:
+	$(VENV_BIN)python pyramid_oereb/standard/create_tables.py -c pyramid_oereb.yml
 
-.PHONY: drop-standard-db
-drop-standard-db:
-	$(VENV_BIN)python pyramid_oereb/standard/drop_db.py
+.PHONY: drop-standard-tables
+drop-standard-tables:
+	$(VENV_BIN)python pyramid_oereb/standard/drop_tables.py -c pyramid_oereb.yml

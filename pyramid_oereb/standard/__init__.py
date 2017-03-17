@@ -18,92 +18,18 @@ import os
 from mako.template import Template
 from pyramid.path import AssetResolver
 from sqlalchemy import create_engine
+from pyramid_oereb.lib.config import parse
 
 
 __author__ = 'Clemens Rudert'
 __create_date__ = '15.03.17'
 
-config = {
-    'schemas': [
-        {
-            'name': 'plr73',
-            'geometry_type': 'LINESTRING',
-            'label': u'Nutzungsplanung'
-        }, {
-            'name': 'plr87',
-            'geometry_type': 'LINESTRING',
-            'label': u'Projektierungszonen Nationalstrassen'
-        }, {
-            'name': 'plr88',
-            'geometry_type': 'LINESTRING',
-            'label': u'Baulinien Nationalstrassen'
-        }, {
-            'name': 'plr97',
-            'geometry_type': 'LINESTRING',
-            'label': u'Baulinien Eisenbahnanlagen'
-        }, {
-            'name': 'plr96',
-            'geometry_type': 'POLYGON',
-            'label': u'Projektierungszonen Eisenbahnanlagen'
-        }, {
-            'name': 'plr103',
-            'geometry_type': 'POLYGON',
-            'label': u'Projektierungszonen Flughafenanlagen'
-        }, {
-            'name': 'plr104',
-            'geometry_type': 'POLYGON',
-            'label': u'Baulinien Flughafenanlagen'
-        }, {
-            'name': 'plr108',
-            'geometry_type': 'POLYGON',
-            'label': u'Sicherheitszonenplan Flughafen'
-        }, {
-            'name': 'plr116',
-            'geometry_type': 'POLYGON',
-            'label': u'Belastete Standorte'
-        }, {
-            'name': 'plr117',
-            'geometry_type': 'POLYGON',
-            'label': u'Belastete Standorte Militär'
-        }, {
-            'name': 'plr118',
-            'geometry_type': 'POLYGON',
-            'label': u'Belastete Standorte Zivile Flugplätze'
-        }, {
-            'name': 'plr119',
-            'geometry_type': 'POLYGON',
-            'label': u'Belastete Standorte Öeffentlicher Verkehr'
-        }, {
-            'name': 'plr131',
-            'geometry_type': 'POLYGON',
-            'label': u'Grundwasserschutzzonen'
-        }, {
-            'name': 'plr132',
-            'geometry_type': 'POLYGON',
-            'label': u'Grundwasserschutzareale'
-        }, {
-            'name': 'plr145',
-            'geometry_type': 'POLYGON',
-            'label': u'Lärmemfindlichkeitsstufen'
-        }, {
-            'name': 'plr157',
-            'geometry_type': 'POLYGON',
-            'label': u'Waldgrenzen'
-        }, {
-            'name': 'plr159',
-            'geometry_type': 'POLYGON',
-            'label': u'Waldabstandslinien'
-        }
-    ],
-    'srid': 2056
-}
 
-
-def create_models_py():
+def create_models_py(configuration_yaml_path, section='pyramid_oereb'):
     template = Template(
         filename=AssetResolver('pyramid_oereb').resolve('standard/templates/models.py.mako').abspath()
     )
-    content = template.render(**config)
+    content = template.render(**parse(configuration_yaml_path, section))
     models_path = '{path}/models.py'.format(
         path=AssetResolver('pyramid_oereb').resolve('').abspath()
     )
@@ -114,21 +40,23 @@ def create_models_py():
     models_file.close()
 
 
-def create_tables(connection_string='postgresql://postgres:password@172.17.0.2/pyramid_oereb'):
+def create_tables(configuration_yaml_path, section='pyramid_oereb'):
     from pyramid_oereb.models import Base
-    engine = create_engine(connection_string, echo=True)
+    config = parse(configuration_yaml_path, section)
+    engine = create_engine(config.get('db_connection'), echo=True)
     connection = engine.connect()
-    for schema in config.get('schemas'):
+    for schema in config.get('plrs'):
         connection.execute('CREATE SCHEMA {name};'.format(name=schema.get('name')))
     connection.close()
     Base.metadata.create_all(engine)
 
 
-def drop_tables(connection_string='postgresql://postgres:password@172.17.0.2/pyramid_oereb'):
+def drop_tables(configuration_yaml_path, section='pyramid_oereb'):
     from pyramid_oereb.models import Base
-    engine = create_engine(connection_string, echo=True)
+    config = parse(configuration_yaml_path, section)
+    engine = create_engine(config.get('db_connection'), echo=True)
     Base.metadata.drop_all(engine)
     connection = engine.connect()
-    for schema in config.get('schemas'):
+    for schema in config.get('plrs'):
         connection.execute('DROP SCHEMA IF EXISTS {name};'.format(name=schema.get('name')))
     connection.close()
