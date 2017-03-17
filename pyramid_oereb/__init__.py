@@ -39,6 +39,8 @@ def includeme(config):
     # Load configuration file
     cfg_file = settings.get('pyramid_oereb.cfg.file', None)
     cfg_section = settings.get('pyramid_oereb.cfg.section', None)
-    settings.update(parse(cfg_file, cfg_section))
+    settings.update({
+        'pyramid_oereb': parse(cfg_file, cfg_section)
+    })
 
     config.include('pyramid_oereb.routes')
