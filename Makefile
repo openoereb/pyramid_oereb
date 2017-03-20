@@ -7,7 +7,9 @@ PG_DROP_DB ?= DROP DATABASE IF EXISTS pyramid_oereb_test;
 PG_CREATE_DB ?= CREATE DATABASE pyramid_oereb_test;
 PG_CREATE_EXT ?= CREATE EXTENSION postgis;
 PG_CREATE_SCHEMA ?= CREATE SCHEMA plr;
-PG_CREDENTIALS ?= postgres:password
+PG_USER ?= postgres
+PG_PASSWORD ?= password
+PG_CREDENTIALS ?= $(PG_USER):$(PG_PASSWORD)
 
 VENV_FLAGS ?=
 
@@ -19,16 +21,17 @@ ifeq ($(CI),true)
 else
   PYTHON_VENV=.venv/requirements-timestamp
   ifeq ($(OPERATING_SYSTEM), WINDOWS)
+    export PGPASSWORD = $(PG_PASSWORD)
     VENV_BIN = .venv/Scripts/
     VENV_FLAGS += --system-site-packages
     PYTHON_BIN_POSTFIX = .exe
     USE_DOCKER = FALSE
     TESTS_SETUP_DB = tests-win-setup-db
     TESTS_DROP_DB = tests-win-drop-db
-    PG_DROP_DB = psql -U postgres -c "DROP DATABASE IF EXISTS pyramid_oereb_test;"
-    PG_CREATE_DB = psql -U postgres -c "CREATE DATABASE pyramid_oereb_test;"
-    PG_CREATE_EXT = psql -U postgres -c "CREATE EXTENSION postgis;"
-    PG_CREATE_SCHEMA = psql -U postgres -d pyramid_oereb_test -c "CREATE SCHEMA plr;"
+    PG_DROP_DB = "DROP DATABASE IF EXISTS pyramid_oereb_test;"
+    PG_CREATE_DB = "CREATE DATABASE pyramid_oereb_test;"
+    PG_CREATE_EXT = "CREATE EXTENSION IF NOT EXISTS postgis;"
+    PG_CREATE_SCHEMA = "CREATE SCHEMA plr;"
     REQUIREMENTS = requirements-windows.txt
   else
     VENV_BIN ?= .venv/bin/
@@ -94,15 +97,13 @@ tests-docker-drop-db:
 	- docker container stop $(DOCKER_CONTAINER_PG)
 	- docker container rm $(DOCKER_CONTAINER_PG)
 
-
 tests-win-setup-db:
-	psql -c '$(PG_CREATE_DB)' -U postgres
-	psql -c '$(PG_CREATE_EXT)' -U postgres
-	psql -c '$(PG_CREATE_SCHEMA)' -U postgres
+	psql -c $(PG_CREATE_DB) -U postgres
+	psql -c $(PG_CREATE_EXT) -U postgres
+	psql -c $(PG_CREATE_SCHEMA) -U postgres -d pyramid_oereb_test
 
 tests-win-drop-db:
-	- psql -c '$(PG_DROP_DB)' -U postgres
-
+	psql -c  $(PG_DROP_DB) -U postgres
 
 .PHONY: clean-all
 clean-all:
