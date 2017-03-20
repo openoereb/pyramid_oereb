@@ -49,12 +49,12 @@ install: $(PYTHON_VENV)
 	touch $@
 
 .venv/requirements-timestamp: .venv/timestamp setup.py $(REQUIREMENTS)
-	$(VENV_BIN)pip2$(PYTHON_BIN_POSTFIX) install -r $(REQUIREMENTS) --trusted-host pypi.camptocamp.net
+	$(VENV_BIN)pip2$(PYTHON_BIN_POSTFIX) install -r $(REQUIREMENTS)
 	touch $@
 
 .PHONY: do-pip
 do-pip:
-	pip install --upgrade -r $(REQUIREMENTS) --trusted-host pypi.camptocamp.net
+	pip install --upgrade -r $(REQUIREMENTS)
 
 .PHONY: tests-setup-db
 tests-setup-db: $(TESTS_SETUP_DB)
