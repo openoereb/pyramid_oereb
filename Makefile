@@ -30,7 +30,7 @@ else
     TESTS_DROP_DB = tests-win-drop-db
     PG_DROP_DB = "DROP DATABASE IF EXISTS pyramid_oereb_test;"
     PG_CREATE_DB = "CREATE DATABASE pyramid_oereb_test;"
-    PG_CREATE_EXT = "CREATE EXTENSION IF NOT EXISTS postgis;"
+    PG_CREATE_EXT = "CREATE EXTENSION postgis;"
     PG_CREATE_SCHEMA = "CREATE SCHEMA plr;"
     REQUIREMENTS = requirements-windows.txt
   else
@@ -99,7 +99,7 @@ tests-docker-drop-db:
 
 tests-win-setup-db:
 	psql -c $(PG_CREATE_DB) -U postgres
-	psql -c $(PG_CREATE_EXT) -U postgres
+	psql -c $(PG_CREATE_EXT) -U postgres -d pyramid_oereb_test
 	psql -c $(PG_CREATE_SCHEMA) -U postgres -d pyramid_oereb_test
 
 tests-win-drop-db:
