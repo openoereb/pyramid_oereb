@@ -98,12 +98,12 @@ tests-docker-drop-db:
 	- docker container rm $(DOCKER_CONTAINER_PG)
 
 tests-win-setup-db:
-	psql -c $(PG_CREATE_DB) -U postgres
-	psql -c $(PG_CREATE_EXT) -U postgres -d pyramid_oereb_test
-	psql -c $(PG_CREATE_SCHEMA) -U postgres -d pyramid_oereb_test
+	psql -c $(PG_CREATE_DB) -U $(PG_USER)
+	psql -c $(PG_CREATE_EXT) -U $(PG_USER) -d pyramid_oereb_test
+	psql -c $(PG_CREATE_SCHEMA) -U $(PG_USER) -d pyramid_oereb_test
 
 tests-win-drop-db:
-	psql -c  $(PG_DROP_DB) -U postgres
+	psql -c  $(PG_DROP_DB) -U $(PG_USER)
 
 .PHONY: clean-all
 clean-all:
