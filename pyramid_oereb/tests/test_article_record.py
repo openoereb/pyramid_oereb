@@ -7,12 +7,12 @@ from pyramid_oereb.lib.records.documents import Article
 
 def test_get_fields():
     expected_fields = [
-            'text_at_web',
-            'law_status',
-            'published_from',
-            'number',
-            'text'
-        ]
+        'text_at_web',
+        'law_status',
+        'published_from',
+        'number',
+        'text'
+    ]
     fields = Article.get_fields()
     assert fields == expected_fields
 
