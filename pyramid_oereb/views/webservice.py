@@ -15,6 +15,11 @@ class PlrWebservice(object):
         self._request_ = request
 
     def get_versions(self):
+        """
+        Returns the available versions of this service.
+        :return: The available service versions.
+        :rtype:  dict
+        """
         endpoint = self._request_.application_url
         if route_prefix:
             endpoint += '/' + route_prefix
@@ -25,4 +30,18 @@ class PlrWebservice(object):
                     u'serviceEndpointBase': unicode(endpoint)
                 }
             ]
+        }
+
+    def get_capabilities(self):
+        """
+        Returns the capabilities of this service.
+        :return: The service capabilities.
+        :rtype:  dict
+        """
+        return {
+            u'topic': [],
+            u'municipality': [],
+            u'flavour': [],
+            u'language': [],
+            u'crs': []
         }
