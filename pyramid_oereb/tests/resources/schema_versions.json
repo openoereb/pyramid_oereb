@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://schemas.geo.admin.ch/swisstopo/OeREBK/15/versioning.json",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/GetVersionsResponse"
+    }
+  ],
+  "definitions": {
+    "GetVersionsResponse": {
+      "supportedVersion": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string"
+            },
+            "serviceEndpointBase": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "version",
+            "serviceEndpointBase"
+          ]
+        },
+        "minItems": 1
+      }
+    }
+  }
+}
