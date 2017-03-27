@@ -4,7 +4,7 @@ __author__ = 'Clemens Rudert'
 __create_date__ = '27.03.17'
 
 
-class DocumentBase(object):
+class DocumentBaseRecord(object):
 
     def __init__(self, law_status, published_from, text_at_web=None):
         """
@@ -34,7 +34,7 @@ class DocumentBase(object):
         ]
 
 
-class Article(DocumentBase):
+class ArticleRecord(DocumentBaseRecord):
 
     def __init__(self, law_status, published_from, number, text_at_web=None, text=None):
         """
@@ -50,7 +50,7 @@ class Article(DocumentBase):
         :param text: Text in the article.
         :type text: str
         """
-        super(Article, self).__init__(law_status, published_from, text_at_web)
+        super(ArticleRecord, self).__init__(law_status, published_from, text_at_web)
         self.number = number
         self.text = text
 
@@ -70,7 +70,7 @@ class Article(DocumentBase):
         ]
 
 
-class Document(DocumentBase):
+class DocumentRecord(DocumentBaseRecord):
 
     def __init__(self, law_status, published_from, title, responsible_office, text_at_web=None,
                  official_title=None, abbrevation=None, official_number=None, canton=None, municipality=None,
@@ -86,7 +86,7 @@ class Document(DocumentBase):
         :param title: The title of the document. It might be shortened one.
         :type title: str
         :param responsible_office: Office which is responsible for this document.
-        :type responsible_office: pyramid_oereb.lib.records.office.Office
+        :type responsible_office: pyramid_oereb.lib.records.office.OfficeRecord
         :param official_title: The official title of the document.
         :type official_title: str
         :param abbrevation: Short term for this document.
@@ -100,11 +100,11 @@ class Document(DocumentBase):
         :param file: The binary content of the document.
         :type file: bytes
         :param articles: The linked articles.
-        :type articles: list of Article
+        :type articles: list of ArticleRecord
         :param references: The references to other documents.
-        :type references: list of Document
+        :type references: list of DocumentRecord
         """
-        super(Document, self).__init__(law_status, published_from, text_at_web)
+        super(DocumentRecord, self).__init__(law_status, published_from, text_at_web)
         self.title = title
         self.responsible_office = responsible_office
         self.official_title = official_title
@@ -145,5 +145,5 @@ class Document(DocumentBase):
         ]
 
 
-class LegalProvision(Document):
+class LegalProvisionRecord(DocumentRecord):
     pass

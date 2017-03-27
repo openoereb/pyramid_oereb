@@ -44,7 +44,7 @@ class PlrRecord(object):
         :param refinements: List of PLR records as refinement of this record.
         :type refinements: list of PlrRecord
         :param documents: List of documents associated with this record.
-        :type documents: list of pyramid_oereb.lib.records.documents.DocumentBase
+        :type documents: list of pyramid_oereb.lib.records.documents.DocumentBaseRecord
         :param geometries: List of geometries associated with this record.
         :type geometries: list
         :raises TypeError: Raised on missing field value.

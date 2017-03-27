@@ -2,7 +2,7 @@
 import datetime
 import pytest
 
-from pyramid_oereb.lib.records.documents import Article
+from pyramid_oereb.lib.records.documents import ArticleRecord
 
 
 def test_get_fields():
@@ -13,17 +13,17 @@ def test_get_fields():
         'number',
         'text'
     ]
-    fields = Article.get_fields()
+    fields = ArticleRecord.get_fields()
     assert fields == expected_fields
 
 
 def test_mandatory_fields():
     with pytest.raises(TypeError):
-        Article()
+        ArticleRecord()
 
 
 def test_init():
-    record = Article("runningModifications", datetime.date(1985, 8, 29), '125.4')
+    record = ArticleRecord("runningModifications", datetime.date(1985, 8, 29), '125.4')
     assert isinstance(record.law_status, str)
     assert record.text_at_web is None
     assert record.text is None
