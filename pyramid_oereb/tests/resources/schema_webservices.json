@@ -33,7 +33,7 @@
             "type": "string"
           },
           "transferFromSource": {
-            "$ref": "extractdata.json/definitions/dateTime"
+            "$ref": "extract-data.json/definitions/dateTime"
           },
           "dataownerNameCadastralSurveying": {
             "type": "string"
@@ -74,7 +74,7 @@
         "type": "array",
         "items": {
           "type": {
-            "$ref": "extractdata.json/definitions/MunicipalityCode"
+            "$ref": "extract-data.json/definitions/MunicipalityCode"
           }
         }
       },
