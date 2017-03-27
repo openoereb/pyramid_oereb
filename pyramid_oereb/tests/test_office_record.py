@@ -27,6 +27,6 @@ def test_mandatory_fields():
 
 def test_init():
     record = OfficeRecord(name='a', uid='ch99', postal_code=4123)
-    assert record.content == 'a'
+    assert record.name == 'a'
     assert record.line1 is None
     assert isinstance(record.postal_code, int)
