@@ -25,7 +25,7 @@ def create_models_py(configuration_yaml_path, section='pyramid_oereb'):  # pragm
     models_file.close()
 
 
-def create_tables(configuration_yaml_path, section='pyramid_oereb'):
+def _create_tables_(configuration_yaml_path, section='pyramid_oereb'):
     from pyramid_oereb.models import Base
     config = parse(configuration_yaml_path, section)
     engine = create_engine(config.get('db_connection'), echo=True)
@@ -36,7 +36,7 @@ def create_tables(configuration_yaml_path, section='pyramid_oereb'):
     Base.metadata.create_all(engine)
 
 
-def drop_tables(configuration_yaml_path, section='pyramid_oereb'):
+def _drop_tables_(configuration_yaml_path, section='pyramid_oereb'):
     from pyramid_oereb.models import Base
     config = parse(configuration_yaml_path, section)
     engine = create_engine(config.get('db_connection'), echo=True)

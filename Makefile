@@ -78,7 +78,7 @@ tests: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB)
 
 .PHONY: lint
 lint: $(PYTHON_VENV)
-	$(VENV_BIN)flake8
+	$(VENV_BIN)flake8$(PYTHON_BIN_POSTFIX)
 
 .PHONY: git-attributes
 git-attributes:
