@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import pytest
-import os
 import pyramid.testing
 import transaction
 
 from pyramid_oereb import routes
 from pyramid_oereb.lib.adapter import DatabaseAdapter
+from pyramid_oereb.lib.config import parse
 
-DB_URL = os.environ.get('SQLALCHEMY_URL')
+db_url = parse('pyramid_oereb_test.yml', 'pyramid_oereb').get('db_connection')
 adapter = DatabaseAdapter()
 
 
