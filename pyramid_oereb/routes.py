@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
 
 from pyramid_oereb import route_prefix
 from pyramid_oereb.views.webservice import PlrWebservice
