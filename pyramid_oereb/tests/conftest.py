@@ -14,7 +14,6 @@ adapter = DatabaseAdapter()
 @pytest.yield_fixture
 def config():
     config = pyramid.testing.setUp()
-    config.include('pyramid_georest')
     tx = transaction.begin()
     tx.doom()
     yield config
