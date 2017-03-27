@@ -15,11 +15,14 @@ class PlrWebservice(object):
         self._request_ = request
 
     def get_versions(self):
+        endpoint = self._request_.application_url
+        if route_prefix:
+            endpoint += '/' + route_prefix
         return {
-            'supportedVersion': [
+            u'supportedVersion': [
                 {
-                    'version': '1.0.0',
-                    'serviceEndpointBase': self._request_.application_url + '/' + route_prefix
+                    u'version': u'1.0.0',
+                    u'serviceEndpointBase': unicode(endpoint)
                 }
             ]
         }
