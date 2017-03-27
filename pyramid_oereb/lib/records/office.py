@@ -59,8 +59,8 @@ class OfficeRecord(object):
         """
 
         return [
-            'uid',
             'name',
+            'uid',
             'office_at_web',
             'line1',
             'line2',
