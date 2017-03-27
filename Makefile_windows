@@ -1,0 +1,3 @@
+OPERATING_SYSTEM ?=WINDOWS
+
+include Makefile

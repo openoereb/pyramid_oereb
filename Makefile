@@ -7,7 +7,9 @@ PG_DROP_DB ?= DROP DATABASE IF EXISTS pyramid_oereb_test;
 PG_CREATE_DB ?= CREATE DATABASE pyramid_oereb_test;
 PG_CREATE_EXT ?= CREATE EXTENSION postgis;
 PG_CREATE_SCHEMA ?= CREATE SCHEMA plr;
-PG_CREDENTIALS ?= postgres:password
+PG_USER ?= postgres
+PG_PASSWORD ?= password
+PG_CREDENTIALS ?= $(PG_USER):$(PG_PASSWORD)
 
 VENV_FLAGS ?=
 
@@ -19,16 +21,17 @@ ifeq ($(CI),true)
 else
   PYTHON_VENV=.venv/requirements-timestamp
   ifeq ($(OPERATING_SYSTEM), WINDOWS)
+    export PGPASSWORD = $(PG_PASSWORD)
     VENV_BIN = .venv/Scripts/
     VENV_FLAGS += --system-site-packages
     PYTHON_BIN_POSTFIX = .exe
     USE_DOCKER = FALSE
     TESTS_SETUP_DB = tests-win-setup-db
     TESTS_DROP_DB = tests-win-drop-db
-    PG_DROP_DB = psql -U postgres -c "DROP DATABASE IF EXISTS pyramid_oereb_test;"
-    PG_CREATE_DB = psql -U postgres -c "CREATE DATABASE pyramid_oereb_test;"
-    PG_CREATE_EXT = psql -U postgres -c "CREATE EXTENSION postgis;"
-    PG_CREATE_SCHEMA = psql -U postgres -d pyramid_oereb_test -c "CREATE SCHEMA plr;"
+    PG_DROP_DB = "DROP DATABASE IF EXISTS pyramid_oereb_test;"
+    PG_CREATE_DB = "CREATE DATABASE pyramid_oereb_test;"
+    PG_CREATE_EXT = "CREATE EXTENSION postgis;"
+    PG_CREATE_SCHEMA = "CREATE SCHEMA plr;"
     REQUIREMENTS = requirements-windows.txt
   else
     VENV_BIN ?= .venv/bin/
@@ -83,26 +86,24 @@ git-attributes:
 
 
 tests-docker-setup-db:
-	docker run --name $(DOCKER_CONTAINER_PG) -e POSTGRES_PASSWORD=password -d mdillon/postgis:9.4-alpine
+	docker run --name $(DOCKER_CONTAINER_PG) -e POSTGRES_PASSWORD=$(PG_PASSWORD) -d mdillon/postgis:9.4-alpine
 	@echo Waiting 10s for server start up...
 	@sleep 10s
-	docker run -i --link $(DOCKER_CONTAINER_PG):postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U postgres -w -c "$(PG_CREATE_DB)"'
-	docker run -i --link $(DOCKER_CONTAINER_PG):postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U postgres -w -c "$(PG_CREATE_EXT)"'
-	docker run -i --link $(DOCKER_CONTAINER_PG):postgres --rm postgres sh -c 'PGPASSWORD=password exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U postgres -w -c "$(PG_CREATE_SCHEMA)"'
+	docker run -i --link $(DOCKER_CONTAINER_PG):postgres --rm postgres sh -c 'PGPASSWORD=$(PG_PASSWORD) exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U $(PG_USER) -w -c "$(PG_CREATE_DB)"'
+	docker run -i --link $(DOCKER_CONTAINER_PG):postgres --rm postgres sh -c 'PGPASSWORD=$(PG_PASSWORD) exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U $(PG_USER) -w -c "$(PG_CREATE_EXT)"'
+	docker run -i --link $(DOCKER_CONTAINER_PG):postgres --rm postgres sh -c 'PGPASSWORD=$(PG_PASSWORD) exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U $(PG_USER) -w -c "$(PG_CREATE_SCHEMA)"'
 
 tests-docker-drop-db:
 	- docker container stop $(DOCKER_CONTAINER_PG)
 	- docker container rm $(DOCKER_CONTAINER_PG)
 
-
 tests-win-setup-db:
-	psql -c '$(PG_CREATE_DB)' -U postgres
-	psql -c '$(PG_CREATE_EXT)' -U postgres
-	psql -c '$(PG_CREATE_SCHEMA)' -U postgres
+	psql -c $(PG_CREATE_DB) -U $(PG_USER)
+	psql -c $(PG_CREATE_EXT) -U $(PG_USER) -d pyramid_oereb_test
+	psql -c $(PG_CREATE_SCHEMA) -U $(PG_USER) -d pyramid_oereb_test
 
 tests-win-drop-db:
-	- psql -c '$(PG_DROP_DB)' -U postgres
-
+	psql -c  $(PG_DROP_DB) -U $(PG_USER)
 
 .PHONY: clean-all
 clean-all:
