@@ -9,7 +9,9 @@ __author__ = 'Clemens Rudert'
 __create_date__ = '01.02.2017'
 __version__ = '0.0.1'
 
+
 log = logging.getLogger('pyramid_oereb')
+route_prefix = None
 
 
 def main(global_config, **settings):
@@ -20,7 +22,7 @@ def main(global_config, **settings):
     environment at all!
     """
     config = Configurator(settings=settings)
-    config.include('pyramid_oereb', route_prefix='api')
+    config.include('pyramid_oereb', route_prefix='oereb')
     config.scan()
     return config.make_wsgi_app()
 
@@ -32,6 +34,10 @@ def includeme(config):
     :param config: The pyramid apps config object
     :type config: Configurator
     """
+    global route_prefix
+
+    # Set route prefix
+    route_prefix = config.route_prefix
 
     # Get settings
     settings = config.get_settings()
