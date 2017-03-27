@@ -14,6 +14,7 @@ def includeme(config):
     config.add_view(
         PlrWebservice,
         attr='get_versions',
-        method='GET',
+        route_name='{0}/versions.json'.format(route_prefix),
+        request_method='GET',
         renderer='json'
     )
