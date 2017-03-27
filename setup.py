@@ -26,14 +26,14 @@ requires = [
     'psycopg2',
     'pyramid',
     'pyramid_debugtoolbar',
-    'pyramid_georest',
     'PyYAML',
     'shapely',
     'simplejson',
     'SQLAlchemy',
     'transaction',
     'waitress',
-    'zope.sqlalchemy'
+    'zope.sqlalchemy',
+    'jsonschema'
 ]
 
 setup(
