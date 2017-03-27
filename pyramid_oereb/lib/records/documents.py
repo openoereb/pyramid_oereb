@@ -72,7 +72,7 @@ class Article(DocumentBase):
 
 class Document(DocumentBase):
 
-    def __init__(self, law_status, published_from, text_at_web, title, responsible_office,
+    def __init__(self, law_status, published_from, title, responsible_office, text_at_web=None,
                  official_title=None, abbrevation=None, official_number=None, canton=None, municipality=None,
                  file=None, articles=None, references=None):
         """
