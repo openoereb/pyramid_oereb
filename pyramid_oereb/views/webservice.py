@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from pyramid_oereb import route_prefix
 
 __author__ = 'Karsten Deininger'
 __create_date__ = '27.03.2017'
@@ -18,8 +18,8 @@ class PlrWebservice(object):
         return {
             'supportedVersion': [
                 {
-                    'version': '',
-                    'serviceEndpointBase': ''
+                    'version': '1.0.0',
+                    'serviceEndpointBase': self._request_.application_url + '/' + route_prefix
                 }
             ]
         }
