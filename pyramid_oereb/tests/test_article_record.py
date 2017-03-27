@@ -19,7 +19,7 @@ def test_get_fields():
 
 def test_mandatory_fields():
     with pytest.raises(TypeError):
-        ArticleRecord()
+        ArticleRecord("runningModifications", datetime.date(1985, 8, 29))
 
 
 def test_init():

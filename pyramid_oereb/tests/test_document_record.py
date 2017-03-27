@@ -2,7 +2,7 @@
 import datetime
 import pytest
 
-from pyramid_oereb.lib.records.documents import DocumentRecord
+from pyramid_oereb.lib.records.documents import DocumentRecord, ArticleRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
@@ -27,12 +27,33 @@ def test_get_fields():
 
 def test_mandatory_fields():
     with pytest.raises(TypeError):
-        DocumentRecord()
+        DocumentRecord("runningModifications", datetime.date(1985, 8, 29))
 
 
 def test_init():
     office_record = OfficeRecord('name')
     record = DocumentRecord("runningModifications", datetime.date(1985, 8, 29), 'title', office_record)
+    assert isinstance(record.law_status, str)
+    assert isinstance(record.published_from, datetime.date)
+    assert isinstance(record.title, str)
+    assert isinstance(record.responsible_office, OfficeRecord)
+    assert record.text_at_web is None
+    assert record.abbrevation is None
+    assert record.official_number is None
+    assert record.canton is None
+    assert record.municipality is None
+    assert isinstance(record.articles, list)
+    assert isinstance(record.references, list)
+
+
+def test_init_with_relation():
+    office_record = OfficeRecord('name')
+    articles = [ArticleRecord("runningModifications", datetime.date(1985, 8, 29), '123.4')]
+    references = [
+        DocumentRecord("runningModifications", datetime.date(1985, 8, 29), 'Titel 1', office_record)
+    ]
+    record = DocumentRecord("runningModifications", datetime.date(1985, 8, 29), 'title', office_record,
+                            articles=articles, references=references)
     assert isinstance(record.law_status, str)
     assert isinstance(record.published_from, datetime.date)
     assert isinstance(record.title, str)
