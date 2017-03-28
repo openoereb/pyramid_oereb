@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from pyramid_oereb import route_prefix
-from pyramid_oereb.lib.webservice import ConfigReader
+from pyramid_oereb.lib.config import ConfigReader
 
 
 class PlrWebservice(object):
