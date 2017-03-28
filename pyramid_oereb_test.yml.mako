@@ -1,5 +1,9 @@
 pyramid_oereb:
 
+  language:
+    - de
+    - fr
+
   plrs:
 
     - name: plr73

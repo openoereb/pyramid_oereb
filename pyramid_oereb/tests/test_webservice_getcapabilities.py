@@ -9,15 +9,21 @@ from pyramid_oereb.views.webservice import PlrWebservice
 
 def test_getcapabilities():
     settings = {
-        'pyramid_oereb.cfg.file': 'pyramid_oereb.yml',
+        'pyramid_oereb.cfg.file': 'pyramid_oereb_test.yml',
         'pyramid_oereb.cfg.section': 'pyramid_oereb'
     }
     with testConfig(settings=settings):
+
         service = PlrWebservice(DummyRequest())
         with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
             schema = json.load(f)
         caps = service.get_capabilities()
         validate(caps, schema)
+
+        assert isinstance(caps[u'language'], list)
+        assert len(caps[u'language']) == 2
+        assert caps[u'language'][0] == u'de'
+
         assert isinstance(caps[u'crs'], list)
         assert len(caps[u'crs']) == 1
         assert caps[u'crs'][0] == u'epsg:2056'
