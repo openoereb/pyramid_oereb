@@ -11,10 +11,11 @@ from pyramid_oereb.lib.records.office import OfficeRecord
 
 def test_get_fields():
     expected_fields = [
-            'topic',
-            'canton',
-            'municipality',
-            'responsible_office'
+        'topic',
+        'canton',
+        'municipality',
+        'responsible_office',
+        'documents'
     ]
     fields = ReferenceDefinitionRecord.get_fields()
     assert fields == expected_fields

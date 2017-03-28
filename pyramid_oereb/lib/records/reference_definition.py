@@ -6,7 +6,7 @@ __create_date__ = '27.03.2017'
 
 class ReferenceDefinitionRecord(object):
 
-    def __init__(self, topic=None, canton=None, municipality=None, responsible_office=None):
+    def __init__(self, topic=None, canton=None, municipality=None, responsible_office=None, documents=list()):
         """
         Reference definition record. Definition of references which are independent from a restriction.
         :param topic: PLR topic if the reference relates to a specific topic
@@ -17,6 +17,8 @@ class ReferenceDefinitionRecord(object):
         :type municipality: str
         :param responsible_office: Office which is responsible for this reference.
         :type responsible_office: pyramid_oereb.lib.records.office.OfficeRecord
+        :param documents: List of documents associated with this record.
+        :type documents: list of pyramid_oereb.lib.records.documents.DocumentBaseRecord
         """
 
         if not (topic or canton or municipality and responsible_office):
@@ -28,6 +30,7 @@ class ReferenceDefinitionRecord(object):
         self.canton = canton
         self.municipality = municipality
         self.responsible_office = responsible_office
+        self.documents = documents
 
     @classmethod
     def get_fields(cls):
@@ -41,5 +44,6 @@ class ReferenceDefinitionRecord(object):
             'topic',
             'canton',
             'municipality',
-            'responsible_office'
+            'responsible_office',
+            'documents'
         ]
