@@ -36,7 +36,7 @@ class OfficeRecord(object):
         :type postal_code: str
         """
 
-        if not (name):
+        if not name:
             raise TypeError('Field "name" must be defined. '
                             'Got {0} .'.format(name))
 
