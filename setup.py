@@ -26,14 +26,14 @@ requires = [
     'psycopg2',
     'pyramid',
     'pyramid_debugtoolbar',
-    'pyramid_georest',
     'PyYAML',
     'shapely',
     'simplejson',
     'SQLAlchemy',
     'transaction',
     'waitress',
-    'zope.sqlalchemy'
+    'zope.sqlalchemy',
+    'jsonschema'
 ]
 
 setup(
@@ -65,6 +65,8 @@ setup(
     entry_points="""\
     [paste.app_factory]
     main = pyramid_oereb:main
-
+    [console_scripts]
+    create_tables = pyramid_oereb.standard.create_tables:create_tables
+    drop_tables = pyramid_oereb.standard.drop_tables:drop_tables
     """,
 )
