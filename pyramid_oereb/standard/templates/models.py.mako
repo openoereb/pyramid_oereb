@@ -15,7 +15,7 @@ NAMING_CONVENTION = {
 }
 metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = sqlalchemy.ext.declarative.declarative_base()
-% for schema in schemas:
+% for schema in plrs:
 
 
 class ${schema.get("name").capitalize()}Authority(Base):
