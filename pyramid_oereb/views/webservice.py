@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import route_prefix
 from pyramid_oereb.lib.config import ConfigReader
 
@@ -8,7 +10,7 @@ class PlrWebservice(object):
         """
         This class provides the PLR webservice methods.
         :param request: The pyramid request instance.
-        :type request:  pyramid.request.Request
+        :type request:  pyramid.request.Request or pyramid.testing.DummyRequest
         """
         self._request_ = request
 
@@ -49,3 +51,46 @@ class PlrWebservice(object):
             u'language': cfg.get_language(),
             u'crs': cfg.get_crs()
         }
+
+    def get_egrid_coord(self):
+        """
+        Returns a list with the matched EGRIDs for the given coordinates.
+        :return: The matched EGRIDs.
+        :rtype:  list
+        """
+        xy = self._request_.params.get('XY')
+        gnss = self._request_.params.get('GNSS')
+        if xy or gnss:
+            # TODO: Collect the EGRIDs using the property source
+            return []
+        else:
+            raise HTTPBadRequest('XY or GNSS must be defined.')
+
+    def get_egrid_ident(self):
+        """
+        Returns a list with the matched EGRIDs for the given NBIdent and property number.
+        :return: The matched EGRIDs.
+        :rtype:  list
+        """
+        identdn = self._request_.matchdict.get('identdn')
+        number = self._request_.matchdict.get('number')
+        if identdn and number:
+            # TODO: Collect the EGRIDs using the property source
+            return []
+        else:
+            raise HTTPBadRequest('IDENTDN and NUMBER must be defined.')
+
+    def get_egrid_address(self):
+        """
+        Returns a list with the matched EGRIDs for the given postal address.
+        :return: The matched EGRIDs.
+        :rtype:  list
+        """
+        postalcode = self._request_.matchdict.get('postalcode')
+        localisation = self._request_.matchdict.get('localisation')
+        number = self._request_.matchdict.get('number')
+        if postalcode and localisation and number:
+            # TODO: Collect the EGRIDs using the property source
+            return []
+        else:
+            raise HTTPBadRequest('POSTALCODE, LOCALISATION and NUMBER must be defined.')
