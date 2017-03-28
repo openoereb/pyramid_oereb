@@ -3,9 +3,9 @@
 
 class RealEstateRecord(object):
 
-    def __init__(self, number, identdn=None, egrid=None, type, canton,
-                 municipality, subunit_of_land_register=None, fosnr, metadata_of_geographical_base_data,
-                 land_registry_area, limit):
+    def __init__(self, type, canton, municipality, fosnr, metadata_of_geographical_base_data,
+                 land_registry_area, limit, number=None, identdn=None, egrid=None,
+                 subunit_of_land_register=None):
         """
         Basic caracteristics and geometry of the properrty to be analysed.
         :param number:  The official cantonal number of the property
@@ -32,9 +32,12 @@ class RealEstateRecord(object):
         :type limit: geometry
         """
 
-        if not name:
-            raise TypeError('Field "name" must be defined. '
-                            'Got {0} .'.format(name))
+        if not (number or identdn or egrid):
+            raise TypeError('Fields "number". "identdn" or "egrid" must be defined. '
+                            'Got {0} .'.format(number, identdn, egrid))
+        if not (type and canton and municipality and fosnr and metadata_of_geographical_base_data and land_registry_area and limit):
+            raise TypeError('Fields "type", "canton", "municipality", "fosnr", "land_registry_area" and "limit" must be defined. '
+                            'Got {0} .'.format(type, canton, municipality, fosnr, metadata_of_geographical_base_data, land_registry_area, limit))
 
         self.number = number
         self.identdn = identdn
