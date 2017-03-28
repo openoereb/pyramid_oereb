@@ -16,12 +16,12 @@ metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = sqlalchemy.ext.declarative.declarative_base()
 
 
-class Plr73Authority(Base):
+class Plr73Office(Base):
     __table_args__ = {'schema': 'plr73'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -32,10 +32,10 @@ class Plr73ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr73Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr73Office.id), nullable=True
     )
-    authority = relationship(Plr73Authority, backref='reference_definitions')
+    office = relationship(Plr73Office, backref='reference_definitions')
 
 
 class Plr73DocumentBase(Base):
@@ -73,12 +73,12 @@ class Plr73Document(Plr73DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr73Authority.id),
+        sa.ForeignKey(Plr73Office.id),
         nullable=True
     )
-    authority = relationship(Plr73Authority, backref='documents')
+    office = relationship(Plr73Office, backref='documents')
 
 
 class Plr73Article(Plr73DocumentBase):
@@ -187,12 +187,12 @@ class Plr73Geometry(Base):
         sa.ForeignKey(Plr73PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr73Authority.id),
+        sa.ForeignKey(Plr73Office.id),
         nullable=True
     )
-    authority = relationship(Plr73Authority, backref='geometries')
+    office = relationship(Plr73Office, backref='geometries')
 
 
 class Plr73PublicLawRestrictionBase(Base):
@@ -209,13 +209,13 @@ class Plr73PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr73PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr73Authority.id),
+        sa.ForeignKey(Plr73Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr73Authority,
+    office = relationship(
+        Plr73Office,
         backref='public_law_restrictions'
     )
 
@@ -253,8 +253,8 @@ class Plr73PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr73DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr73DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr73'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -262,10 +262,15 @@ class Plr73DocumentHint(Base):
         sa.ForeignKey(Plr73Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr73Document.id),
         nullable=False
+    )
+    relationship(
+        Plr73Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -285,12 +290,12 @@ class Plr73DocumentReferenceDefinition(Base):
     )
 
 
-class Plr87Authority(Base):
+class Plr87Office(Base):
     __table_args__ = {'schema': 'plr87'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -301,10 +306,10 @@ class Plr87ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr87Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr87Office.id), nullable=True
     )
-    authority = relationship(Plr87Authority, backref='reference_definitions')
+    office = relationship(Plr87Office, backref='reference_definitions')
 
 
 class Plr87DocumentBase(Base):
@@ -342,12 +347,12 @@ class Plr87Document(Plr87DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr87Authority.id),
+        sa.ForeignKey(Plr87Office.id),
         nullable=True
     )
-    authority = relationship(Plr87Authority, backref='documents')
+    office = relationship(Plr87Office, backref='documents')
 
 
 class Plr87Article(Plr87DocumentBase):
@@ -456,12 +461,12 @@ class Plr87Geometry(Base):
         sa.ForeignKey(Plr87PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr87Authority.id),
+        sa.ForeignKey(Plr87Office.id),
         nullable=True
     )
-    authority = relationship(Plr87Authority, backref='geometries')
+    office = relationship(Plr87Office, backref='geometries')
 
 
 class Plr87PublicLawRestrictionBase(Base):
@@ -478,13 +483,13 @@ class Plr87PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr87PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr87Authority.id),
+        sa.ForeignKey(Plr87Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr87Authority,
+    office = relationship(
+        Plr87Office,
         backref='public_law_restrictions'
     )
 
@@ -522,8 +527,8 @@ class Plr87PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr87DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr87DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr87'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -531,10 +536,15 @@ class Plr87DocumentHint(Base):
         sa.ForeignKey(Plr87Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr87Document.id),
         nullable=False
+    )
+    relationship(
+        Plr87Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -554,12 +564,12 @@ class Plr87DocumentReferenceDefinition(Base):
     )
 
 
-class Plr88Authority(Base):
+class Plr88Office(Base):
     __table_args__ = {'schema': 'plr88'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -570,10 +580,10 @@ class Plr88ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr88Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr88Office.id), nullable=True
     )
-    authority = relationship(Plr88Authority, backref='reference_definitions')
+    office = relationship(Plr88Office, backref='reference_definitions')
 
 
 class Plr88DocumentBase(Base):
@@ -611,12 +621,12 @@ class Plr88Document(Plr88DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr88Authority.id),
+        sa.ForeignKey(Plr88Office.id),
         nullable=True
     )
-    authority = relationship(Plr88Authority, backref='documents')
+    office = relationship(Plr88Office, backref='documents')
 
 
 class Plr88Article(Plr88DocumentBase):
@@ -725,12 +735,12 @@ class Plr88Geometry(Base):
         sa.ForeignKey(Plr88PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr88Authority.id),
+        sa.ForeignKey(Plr88Office.id),
         nullable=True
     )
-    authority = relationship(Plr88Authority, backref='geometries')
+    office = relationship(Plr88Office, backref='geometries')
 
 
 class Plr88PublicLawRestrictionBase(Base):
@@ -747,13 +757,13 @@ class Plr88PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr88PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr88Authority.id),
+        sa.ForeignKey(Plr88Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr88Authority,
+    office = relationship(
+        Plr88Office,
         backref='public_law_restrictions'
     )
 
@@ -791,8 +801,8 @@ class Plr88PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr88DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr88DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr88'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -800,10 +810,15 @@ class Plr88DocumentHint(Base):
         sa.ForeignKey(Plr88Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr88Document.id),
         nullable=False
+    )
+    relationship(
+        Plr88Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -823,12 +838,12 @@ class Plr88DocumentReferenceDefinition(Base):
     )
 
 
-class Plr97Authority(Base):
+class Plr97Office(Base):
     __table_args__ = {'schema': 'plr97'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -839,10 +854,10 @@ class Plr97ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr97Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr97Office.id), nullable=True
     )
-    authority = relationship(Plr97Authority, backref='reference_definitions')
+    office = relationship(Plr97Office, backref='reference_definitions')
 
 
 class Plr97DocumentBase(Base):
@@ -880,12 +895,12 @@ class Plr97Document(Plr97DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr97Authority.id),
+        sa.ForeignKey(Plr97Office.id),
         nullable=True
     )
-    authority = relationship(Plr97Authority, backref='documents')
+    office = relationship(Plr97Office, backref='documents')
 
 
 class Plr97Article(Plr97DocumentBase):
@@ -994,12 +1009,12 @@ class Plr97Geometry(Base):
         sa.ForeignKey(Plr97PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr97Authority.id),
+        sa.ForeignKey(Plr97Office.id),
         nullable=True
     )
-    authority = relationship(Plr97Authority, backref='geometries')
+    office = relationship(Plr97Office, backref='geometries')
 
 
 class Plr97PublicLawRestrictionBase(Base):
@@ -1016,13 +1031,13 @@ class Plr97PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr97PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr97Authority.id),
+        sa.ForeignKey(Plr97Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr97Authority,
+    office = relationship(
+        Plr97Office,
         backref='public_law_restrictions'
     )
 
@@ -1060,8 +1075,8 @@ class Plr97PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr97DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr97DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr97'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -1069,10 +1084,15 @@ class Plr97DocumentHint(Base):
         sa.ForeignKey(Plr97Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr97Document.id),
         nullable=False
+    )
+    relationship(
+        Plr97Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -1092,12 +1112,12 @@ class Plr97DocumentReferenceDefinition(Base):
     )
 
 
-class Plr96Authority(Base):
+class Plr96Office(Base):
     __table_args__ = {'schema': 'plr96'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -1108,10 +1128,10 @@ class Plr96ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr96Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr96Office.id), nullable=True
     )
-    authority = relationship(Plr96Authority, backref='reference_definitions')
+    office = relationship(Plr96Office, backref='reference_definitions')
 
 
 class Plr96DocumentBase(Base):
@@ -1149,12 +1169,12 @@ class Plr96Document(Plr96DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr96Authority.id),
+        sa.ForeignKey(Plr96Office.id),
         nullable=True
     )
-    authority = relationship(Plr96Authority, backref='documents')
+    office = relationship(Plr96Office, backref='documents')
 
 
 class Plr96Article(Plr96DocumentBase):
@@ -1263,12 +1283,12 @@ class Plr96Geometry(Base):
         sa.ForeignKey(Plr96PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr96Authority.id),
+        sa.ForeignKey(Plr96Office.id),
         nullable=True
     )
-    authority = relationship(Plr96Authority, backref='geometries')
+    office = relationship(Plr96Office, backref='geometries')
 
 
 class Plr96PublicLawRestrictionBase(Base):
@@ -1285,13 +1305,13 @@ class Plr96PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr96PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr96Authority.id),
+        sa.ForeignKey(Plr96Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr96Authority,
+    office = relationship(
+        Plr96Office,
         backref='public_law_restrictions'
     )
 
@@ -1329,8 +1349,8 @@ class Plr96PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr96DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr96DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr96'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -1338,10 +1358,15 @@ class Plr96DocumentHint(Base):
         sa.ForeignKey(Plr96Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr96Document.id),
         nullable=False
+    )
+    relationship(
+        Plr96Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -1361,12 +1386,12 @@ class Plr96DocumentReferenceDefinition(Base):
     )
 
 
-class Plr103Authority(Base):
+class Plr103Office(Base):
     __table_args__ = {'schema': 'plr103'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -1377,10 +1402,10 @@ class Plr103ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr103Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr103Office.id), nullable=True
     )
-    authority = relationship(Plr103Authority, backref='reference_definitions')
+    office = relationship(Plr103Office, backref='reference_definitions')
 
 
 class Plr103DocumentBase(Base):
@@ -1418,12 +1443,12 @@ class Plr103Document(Plr103DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr103Authority.id),
+        sa.ForeignKey(Plr103Office.id),
         nullable=True
     )
-    authority = relationship(Plr103Authority, backref='documents')
+    office = relationship(Plr103Office, backref='documents')
 
 
 class Plr103Article(Plr103DocumentBase):
@@ -1532,12 +1557,12 @@ class Plr103Geometry(Base):
         sa.ForeignKey(Plr103PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr103Authority.id),
+        sa.ForeignKey(Plr103Office.id),
         nullable=True
     )
-    authority = relationship(Plr103Authority, backref='geometries')
+    office = relationship(Plr103Office, backref='geometries')
 
 
 class Plr103PublicLawRestrictionBase(Base):
@@ -1554,13 +1579,13 @@ class Plr103PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr103PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr103Authority.id),
+        sa.ForeignKey(Plr103Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr103Authority,
+    office = relationship(
+        Plr103Office,
         backref='public_law_restrictions'
     )
 
@@ -1598,8 +1623,8 @@ class Plr103PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr103DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr103DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr103'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -1607,10 +1632,15 @@ class Plr103DocumentHint(Base):
         sa.ForeignKey(Plr103Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr103Document.id),
         nullable=False
+    )
+    relationship(
+        Plr103Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -1630,12 +1660,12 @@ class Plr103DocumentReferenceDefinition(Base):
     )
 
 
-class Plr104Authority(Base):
+class Plr104Office(Base):
     __table_args__ = {'schema': 'plr104'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -1646,10 +1676,10 @@ class Plr104ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr104Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr104Office.id), nullable=True
     )
-    authority = relationship(Plr104Authority, backref='reference_definitions')
+    office = relationship(Plr104Office, backref='reference_definitions')
 
 
 class Plr104DocumentBase(Base):
@@ -1687,12 +1717,12 @@ class Plr104Document(Plr104DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr104Authority.id),
+        sa.ForeignKey(Plr104Office.id),
         nullable=True
     )
-    authority = relationship(Plr104Authority, backref='documents')
+    office = relationship(Plr104Office, backref='documents')
 
 
 class Plr104Article(Plr104DocumentBase):
@@ -1801,12 +1831,12 @@ class Plr104Geometry(Base):
         sa.ForeignKey(Plr104PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr104Authority.id),
+        sa.ForeignKey(Plr104Office.id),
         nullable=True
     )
-    authority = relationship(Plr104Authority, backref='geometries')
+    office = relationship(Plr104Office, backref='geometries')
 
 
 class Plr104PublicLawRestrictionBase(Base):
@@ -1823,13 +1853,13 @@ class Plr104PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr104PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr104Authority.id),
+        sa.ForeignKey(Plr104Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr104Authority,
+    office = relationship(
+        Plr104Office,
         backref='public_law_restrictions'
     )
 
@@ -1867,8 +1897,8 @@ class Plr104PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr104DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr104DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr104'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -1876,10 +1906,15 @@ class Plr104DocumentHint(Base):
         sa.ForeignKey(Plr104Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr104Document.id),
         nullable=False
+    )
+    relationship(
+        Plr104Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -1899,12 +1934,12 @@ class Plr104DocumentReferenceDefinition(Base):
     )
 
 
-class Plr108Authority(Base):
+class Plr108Office(Base):
     __table_args__ = {'schema': 'plr108'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -1915,10 +1950,10 @@ class Plr108ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr108Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr108Office.id), nullable=True
     )
-    authority = relationship(Plr108Authority, backref='reference_definitions')
+    office = relationship(Plr108Office, backref='reference_definitions')
 
 
 class Plr108DocumentBase(Base):
@@ -1956,12 +1991,12 @@ class Plr108Document(Plr108DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr108Authority.id),
+        sa.ForeignKey(Plr108Office.id),
         nullable=True
     )
-    authority = relationship(Plr108Authority, backref='documents')
+    office = relationship(Plr108Office, backref='documents')
 
 
 class Plr108Article(Plr108DocumentBase):
@@ -2070,12 +2105,12 @@ class Plr108Geometry(Base):
         sa.ForeignKey(Plr108PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr108Authority.id),
+        sa.ForeignKey(Plr108Office.id),
         nullable=True
     )
-    authority = relationship(Plr108Authority, backref='geometries')
+    office = relationship(Plr108Office, backref='geometries')
 
 
 class Plr108PublicLawRestrictionBase(Base):
@@ -2092,13 +2127,13 @@ class Plr108PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr108PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr108Authority.id),
+        sa.ForeignKey(Plr108Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr108Authority,
+    office = relationship(
+        Plr108Office,
         backref='public_law_restrictions'
     )
 
@@ -2136,8 +2171,8 @@ class Plr108PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr108DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr108DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr108'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -2145,10 +2180,15 @@ class Plr108DocumentHint(Base):
         sa.ForeignKey(Plr108Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr108Document.id),
         nullable=False
+    )
+    relationship(
+        Plr108Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -2168,12 +2208,12 @@ class Plr108DocumentReferenceDefinition(Base):
     )
 
 
-class Plr116Authority(Base):
+class Plr116Office(Base):
     __table_args__ = {'schema': 'plr116'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -2184,10 +2224,10 @@ class Plr116ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr116Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr116Office.id), nullable=True
     )
-    authority = relationship(Plr116Authority, backref='reference_definitions')
+    office = relationship(Plr116Office, backref='reference_definitions')
 
 
 class Plr116DocumentBase(Base):
@@ -2225,12 +2265,12 @@ class Plr116Document(Plr116DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr116Authority.id),
+        sa.ForeignKey(Plr116Office.id),
         nullable=True
     )
-    authority = relationship(Plr116Authority, backref='documents')
+    office = relationship(Plr116Office, backref='documents')
 
 
 class Plr116Article(Plr116DocumentBase):
@@ -2339,12 +2379,12 @@ class Plr116Geometry(Base):
         sa.ForeignKey(Plr116PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr116Authority.id),
+        sa.ForeignKey(Plr116Office.id),
         nullable=True
     )
-    authority = relationship(Plr116Authority, backref='geometries')
+    office = relationship(Plr116Office, backref='geometries')
 
 
 class Plr116PublicLawRestrictionBase(Base):
@@ -2361,13 +2401,13 @@ class Plr116PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr116PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr116Authority.id),
+        sa.ForeignKey(Plr116Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr116Authority,
+    office = relationship(
+        Plr116Office,
         backref='public_law_restrictions'
     )
 
@@ -2405,8 +2445,8 @@ class Plr116PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr116DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr116DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr116'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -2414,10 +2454,15 @@ class Plr116DocumentHint(Base):
         sa.ForeignKey(Plr116Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr116Document.id),
         nullable=False
+    )
+    relationship(
+        Plr116Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -2437,12 +2482,12 @@ class Plr116DocumentReferenceDefinition(Base):
     )
 
 
-class Plr117Authority(Base):
+class Plr117Office(Base):
     __table_args__ = {'schema': 'plr117'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -2453,10 +2498,10 @@ class Plr117ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr117Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr117Office.id), nullable=True
     )
-    authority = relationship(Plr117Authority, backref='reference_definitions')
+    office = relationship(Plr117Office, backref='reference_definitions')
 
 
 class Plr117DocumentBase(Base):
@@ -2494,12 +2539,12 @@ class Plr117Document(Plr117DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr117Authority.id),
+        sa.ForeignKey(Plr117Office.id),
         nullable=True
     )
-    authority = relationship(Plr117Authority, backref='documents')
+    office = relationship(Plr117Office, backref='documents')
 
 
 class Plr117Article(Plr117DocumentBase):
@@ -2608,12 +2653,12 @@ class Plr117Geometry(Base):
         sa.ForeignKey(Plr117PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr117Authority.id),
+        sa.ForeignKey(Plr117Office.id),
         nullable=True
     )
-    authority = relationship(Plr117Authority, backref='geometries')
+    office = relationship(Plr117Office, backref='geometries')
 
 
 class Plr117PublicLawRestrictionBase(Base):
@@ -2630,13 +2675,13 @@ class Plr117PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr117PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr117Authority.id),
+        sa.ForeignKey(Plr117Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr117Authority,
+    office = relationship(
+        Plr117Office,
         backref='public_law_restrictions'
     )
 
@@ -2674,8 +2719,8 @@ class Plr117PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr117DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr117DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr117'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -2683,10 +2728,15 @@ class Plr117DocumentHint(Base):
         sa.ForeignKey(Plr117Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr117Document.id),
         nullable=False
+    )
+    relationship(
+        Plr117Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -2706,12 +2756,12 @@ class Plr117DocumentReferenceDefinition(Base):
     )
 
 
-class Plr118Authority(Base):
+class Plr118Office(Base):
     __table_args__ = {'schema': 'plr118'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -2722,10 +2772,10 @@ class Plr118ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr118Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr118Office.id), nullable=True
     )
-    authority = relationship(Plr118Authority, backref='reference_definitions')
+    office = relationship(Plr118Office, backref='reference_definitions')
 
 
 class Plr118DocumentBase(Base):
@@ -2763,12 +2813,12 @@ class Plr118Document(Plr118DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr118Authority.id),
+        sa.ForeignKey(Plr118Office.id),
         nullable=True
     )
-    authority = relationship(Plr118Authority, backref='documents')
+    office = relationship(Plr118Office, backref='documents')
 
 
 class Plr118Article(Plr118DocumentBase):
@@ -2877,12 +2927,12 @@ class Plr118Geometry(Base):
         sa.ForeignKey(Plr118PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr118Authority.id),
+        sa.ForeignKey(Plr118Office.id),
         nullable=True
     )
-    authority = relationship(Plr118Authority, backref='geometries')
+    office = relationship(Plr118Office, backref='geometries')
 
 
 class Plr118PublicLawRestrictionBase(Base):
@@ -2899,13 +2949,13 @@ class Plr118PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr118PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr118Authority.id),
+        sa.ForeignKey(Plr118Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr118Authority,
+    office = relationship(
+        Plr118Office,
         backref='public_law_restrictions'
     )
 
@@ -2943,8 +2993,8 @@ class Plr118PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr118DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr118DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr118'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -2952,10 +3002,15 @@ class Plr118DocumentHint(Base):
         sa.ForeignKey(Plr118Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr118Document.id),
         nullable=False
+    )
+    relationship(
+        Plr118Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -2975,12 +3030,12 @@ class Plr118DocumentReferenceDefinition(Base):
     )
 
 
-class Plr119Authority(Base):
+class Plr119Office(Base):
     __table_args__ = {'schema': 'plr119'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -2991,10 +3046,10 @@ class Plr119ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr119Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr119Office.id), nullable=True
     )
-    authority = relationship(Plr119Authority, backref='reference_definitions')
+    office = relationship(Plr119Office, backref='reference_definitions')
 
 
 class Plr119DocumentBase(Base):
@@ -3032,12 +3087,12 @@ class Plr119Document(Plr119DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr119Authority.id),
+        sa.ForeignKey(Plr119Office.id),
         nullable=True
     )
-    authority = relationship(Plr119Authority, backref='documents')
+    office = relationship(Plr119Office, backref='documents')
 
 
 class Plr119Article(Plr119DocumentBase):
@@ -3146,12 +3201,12 @@ class Plr119Geometry(Base):
         sa.ForeignKey(Plr119PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr119Authority.id),
+        sa.ForeignKey(Plr119Office.id),
         nullable=True
     )
-    authority = relationship(Plr119Authority, backref='geometries')
+    office = relationship(Plr119Office, backref='geometries')
 
 
 class Plr119PublicLawRestrictionBase(Base):
@@ -3168,13 +3223,13 @@ class Plr119PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr119PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr119Authority.id),
+        sa.ForeignKey(Plr119Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr119Authority,
+    office = relationship(
+        Plr119Office,
         backref='public_law_restrictions'
     )
 
@@ -3212,8 +3267,8 @@ class Plr119PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr119DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr119DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr119'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -3221,10 +3276,15 @@ class Plr119DocumentHint(Base):
         sa.ForeignKey(Plr119Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr119Document.id),
         nullable=False
+    )
+    relationship(
+        Plr119Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -3244,12 +3304,12 @@ class Plr119DocumentReferenceDefinition(Base):
     )
 
 
-class Plr131Authority(Base):
+class Plr131Office(Base):
     __table_args__ = {'schema': 'plr131'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -3260,10 +3320,10 @@ class Plr131ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr131Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr131Office.id), nullable=True
     )
-    authority = relationship(Plr131Authority, backref='reference_definitions')
+    office = relationship(Plr131Office, backref='reference_definitions')
 
 
 class Plr131DocumentBase(Base):
@@ -3301,12 +3361,12 @@ class Plr131Document(Plr131DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr131Authority.id),
+        sa.ForeignKey(Plr131Office.id),
         nullable=True
     )
-    authority = relationship(Plr131Authority, backref='documents')
+    office = relationship(Plr131Office, backref='documents')
 
 
 class Plr131Article(Plr131DocumentBase):
@@ -3415,12 +3475,12 @@ class Plr131Geometry(Base):
         sa.ForeignKey(Plr131PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr131Authority.id),
+        sa.ForeignKey(Plr131Office.id),
         nullable=True
     )
-    authority = relationship(Plr131Authority, backref='geometries')
+    office = relationship(Plr131Office, backref='geometries')
 
 
 class Plr131PublicLawRestrictionBase(Base):
@@ -3437,13 +3497,13 @@ class Plr131PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr131PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr131Authority.id),
+        sa.ForeignKey(Plr131Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr131Authority,
+    office = relationship(
+        Plr131Office,
         backref='public_law_restrictions'
     )
 
@@ -3481,8 +3541,8 @@ class Plr131PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr131DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr131DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr131'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -3490,10 +3550,15 @@ class Plr131DocumentHint(Base):
         sa.ForeignKey(Plr131Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr131Document.id),
         nullable=False
+    )
+    relationship(
+        Plr131Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -3513,12 +3578,12 @@ class Plr131DocumentReferenceDefinition(Base):
     )
 
 
-class Plr132Authority(Base):
+class Plr132Office(Base):
     __table_args__ = {'schema': 'plr132'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -3529,10 +3594,10 @@ class Plr132ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr132Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr132Office.id), nullable=True
     )
-    authority = relationship(Plr132Authority, backref='reference_definitions')
+    office = relationship(Plr132Office, backref='reference_definitions')
 
 
 class Plr132DocumentBase(Base):
@@ -3570,12 +3635,12 @@ class Plr132Document(Plr132DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr132Authority.id),
+        sa.ForeignKey(Plr132Office.id),
         nullable=True
     )
-    authority = relationship(Plr132Authority, backref='documents')
+    office = relationship(Plr132Office, backref='documents')
 
 
 class Plr132Article(Plr132DocumentBase):
@@ -3684,12 +3749,12 @@ class Plr132Geometry(Base):
         sa.ForeignKey(Plr132PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr132Authority.id),
+        sa.ForeignKey(Plr132Office.id),
         nullable=True
     )
-    authority = relationship(Plr132Authority, backref='geometries')
+    office = relationship(Plr132Office, backref='geometries')
 
 
 class Plr132PublicLawRestrictionBase(Base):
@@ -3706,13 +3771,13 @@ class Plr132PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr132PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr132Authority.id),
+        sa.ForeignKey(Plr132Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr132Authority,
+    office = relationship(
+        Plr132Office,
         backref='public_law_restrictions'
     )
 
@@ -3750,8 +3815,8 @@ class Plr132PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr132DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr132DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr132'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -3759,10 +3824,15 @@ class Plr132DocumentHint(Base):
         sa.ForeignKey(Plr132Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr132Document.id),
         nullable=False
+    )
+    relationship(
+        Plr132Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -3782,12 +3852,12 @@ class Plr132DocumentReferenceDefinition(Base):
     )
 
 
-class Plr145Authority(Base):
+class Plr145Office(Base):
     __table_args__ = {'schema': 'plr145'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -3798,10 +3868,10 @@ class Plr145ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr145Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr145Office.id), nullable=True
     )
-    authority = relationship(Plr145Authority, backref='reference_definitions')
+    office = relationship(Plr145Office, backref='reference_definitions')
 
 
 class Plr145DocumentBase(Base):
@@ -3839,12 +3909,12 @@ class Plr145Document(Plr145DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr145Authority.id),
+        sa.ForeignKey(Plr145Office.id),
         nullable=True
     )
-    authority = relationship(Plr145Authority, backref='documents')
+    office = relationship(Plr145Office, backref='documents')
 
 
 class Plr145Article(Plr145DocumentBase):
@@ -3953,12 +4023,12 @@ class Plr145Geometry(Base):
         sa.ForeignKey(Plr145PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr145Authority.id),
+        sa.ForeignKey(Plr145Office.id),
         nullable=True
     )
-    authority = relationship(Plr145Authority, backref='geometries')
+    office = relationship(Plr145Office, backref='geometries')
 
 
 class Plr145PublicLawRestrictionBase(Base):
@@ -3975,13 +4045,13 @@ class Plr145PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr145PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr145Authority.id),
+        sa.ForeignKey(Plr145Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr145Authority,
+    office = relationship(
+        Plr145Office,
         backref='public_law_restrictions'
     )
 
@@ -4019,8 +4089,8 @@ class Plr145PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr145DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr145DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr145'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -4028,10 +4098,15 @@ class Plr145DocumentHint(Base):
         sa.ForeignKey(Plr145Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr145Document.id),
         nullable=False
+    )
+    relationship(
+        Plr145Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -4051,12 +4126,12 @@ class Plr145DocumentReferenceDefinition(Base):
     )
 
 
-class Plr157Authority(Base):
+class Plr157Office(Base):
     __table_args__ = {'schema': 'plr157'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -4067,10 +4142,10 @@ class Plr157ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr157Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr157Office.id), nullable=True
     )
-    authority = relationship(Plr157Authority, backref='reference_definitions')
+    office = relationship(Plr157Office, backref='reference_definitions')
 
 
 class Plr157DocumentBase(Base):
@@ -4108,12 +4183,12 @@ class Plr157Document(Plr157DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr157Authority.id),
+        sa.ForeignKey(Plr157Office.id),
         nullable=True
     )
-    authority = relationship(Plr157Authority, backref='documents')
+    office = relationship(Plr157Office, backref='documents')
 
 
 class Plr157Article(Plr157DocumentBase):
@@ -4222,12 +4297,12 @@ class Plr157Geometry(Base):
         sa.ForeignKey(Plr157PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr157Authority.id),
+        sa.ForeignKey(Plr157Office.id),
         nullable=True
     )
-    authority = relationship(Plr157Authority, backref='geometries')
+    office = relationship(Plr157Office, backref='geometries')
 
 
 class Plr157PublicLawRestrictionBase(Base):
@@ -4244,13 +4319,13 @@ class Plr157PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr157PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr157Authority.id),
+        sa.ForeignKey(Plr157Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr157Authority,
+    office = relationship(
+        Plr157Office,
         backref='public_law_restrictions'
     )
 
@@ -4288,8 +4363,8 @@ class Plr157PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr157DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr157DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr157'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -4297,10 +4372,15 @@ class Plr157DocumentHint(Base):
         sa.ForeignKey(Plr157Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr157Document.id),
         nullable=False
+    )
+    relationship(
+        Plr157Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
@@ -4320,12 +4400,12 @@ class Plr157DocumentReferenceDefinition(Base):
     )
 
 
-class Plr159Authority(Base):
+class Plr159Office(Base):
     __table_args__ = {'schema': 'plr159'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -4336,10 +4416,10 @@ class Plr159ReferenceDefinition(Base):  # TODO: Check translation
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr159Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        Plr159Office.id), nullable=True
     )
-    authority = relationship(Plr159Authority, backref='reference_definitions')
+    office = relationship(Plr159Office, backref='reference_definitions')
 
 
 class Plr159DocumentBase(Base):
@@ -4377,12 +4457,12 @@ class Plr159Document(Plr159DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr159Authority.id),
+        sa.ForeignKey(Plr159Office.id),
         nullable=True
     )
-    authority = relationship(Plr159Authority, backref='documents')
+    office = relationship(Plr159Office, backref='documents')
 
 
 class Plr159Article(Plr159DocumentBase):
@@ -4491,12 +4571,12 @@ class Plr159Geometry(Base):
         sa.ForeignKey(Plr159PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr159Authority.id),
+        sa.ForeignKey(Plr159Office.id),
         nullable=True
     )
-    authority = relationship(Plr159Authority, backref='geometries')
+    office = relationship(Plr159Office, backref='geometries')
 
 
 class Plr159PublicLawRestrictionBase(Base):
@@ -4513,13 +4593,13 @@ class Plr159PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr159PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(Plr159Authority.id),
+        sa.ForeignKey(Plr159Office.id),
         nullable=True
     )
-    authority = relationship(
-        Plr159Authority,
+    office = relationship(
+        Plr159Office,
         backref='public_law_restrictions'
     )
 
@@ -4557,8 +4637,8 @@ class Plr159PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class Plr159DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class Plr159DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'plr159'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -4566,10 +4646,15 @@ class Plr159DocumentHint(Base):
         sa.ForeignKey(Plr159Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr159Document.id),
         nullable=False
+    )
+    relationship(
+        Plr159Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 

@@ -15,15 +15,15 @@ NAMING_CONVENTION = {
 }
 metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = sqlalchemy.ext.declarative.declarative_base()
-% for schema in schemas:
+% for schema in plrs:
 
 
-class ${schema.get("name").capitalize()}Authority(Base):
+class ${schema.get("name").capitalize()}Office(Base):
     __table_args__ = {'schema': '${schema.get("name")}'}
-    __tablename__ = 'authority'
+    __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    authority_web = sa.Column(sa.String, nullable=True)
+    office_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
 
 
@@ -34,10 +34,10 @@ class ${schema.get("name").capitalize()}ReferenceDefinition(Base):  # TODO: Chec
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
-    authority_id = sa.Column(sa.Integer, sa.ForeignKey(
-        ${schema.get("name").capitalize()}Authority.id), nullable=True
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(
+        ${schema.get("name").capitalize()}Office.id), nullable=True
     )
-    authority = relationship(${schema.get("name").capitalize()}Authority, backref='reference_definitions')
+    office = relationship(${schema.get("name").capitalize()}Office, backref='reference_definitions')
 
 
 class ${schema.get("name").capitalize()}DocumentBase(Base):
@@ -75,12 +75,12 @@ class ${schema.get("name").capitalize()}Document(${schema.get("name").capitalize
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(${schema.get("name").capitalize()}Authority.id),
+        sa.ForeignKey(${schema.get("name").capitalize()}Office.id),
         nullable=True
     )
-    authority = relationship(${schema.get("name").capitalize()}Authority, backref='documents')
+    office = relationship(${schema.get("name").capitalize()}Office, backref='documents')
 
 
 class ${schema.get("name").capitalize()}Article(${schema.get("name").capitalize()}DocumentBase):
@@ -189,12 +189,12 @@ class ${schema.get("name").capitalize()}Geometry(Base):
         sa.ForeignKey(${schema.get("name").capitalize()}PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(${schema.get("name").capitalize()}Authority.id),
+        sa.ForeignKey(${schema.get("name").capitalize()}Office.id),
         nullable=True
     )
-    authority = relationship(${schema.get("name").capitalize()}Authority, backref='geometries')
+    office = relationship(${schema.get("name").capitalize()}Office, backref='geometries')
 
 
 class ${schema.get("name").capitalize()}PublicLawRestrictionBase(Base):
@@ -211,13 +211,13 @@ class ${schema.get("name").capitalize()}PublicLawRestrictionBase(Base):
         sa.ForeignKey(${schema.get("name").capitalize()}PublicLawRestriction.id),
         nullable=False
     )
-    authority_id = sa.Column(
+    office_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(${schema.get("name").capitalize()}Authority.id),
+        sa.ForeignKey(${schema.get("name").capitalize()}Office.id),
         nullable=True
     )
-    authority = relationship(
-        ${schema.get("name").capitalize()}Authority,
+    office = relationship(
+        ${schema.get("name").capitalize()}Office,
         backref='public_law_restrictions'
     )
 
@@ -255,8 +255,8 @@ class ${schema.get("name").capitalize()}PublicLawRestrictionDocument(Base):
 
 
 # TODO: check translation
-class ${schema.get("name").capitalize()}DocumentHint(Base):
-    __tablename__ = 'document_hint'
+class ${schema.get("name").capitalize()}DocumentReference(Base):
+    __tablename__ = 'document_reference'
     __table_args__ = {'schema': '${schema.get("name")}'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
@@ -264,10 +264,15 @@ class ${schema.get("name").capitalize()}DocumentHint(Base):
         sa.ForeignKey(${schema.get("name").capitalize()}Document.id),
         nullable=False
     )
-    hint_document_id = sa.Column(
+    reference_document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(${schema.get("name").capitalize()}Document.id),
         nullable=False
+    )
+    relationship(
+        ${schema.get("name").capitalize()}Document,
+        backref='referenced_documents',
+        foreign_keys=[reference_document_id]
     )
 
 
