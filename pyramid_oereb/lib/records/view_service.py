@@ -18,11 +18,11 @@ class LegendEntryRecord(object):
         :type type_code: str
         :param type_code_list: An URL to the type code list.
         :type type_code_list: str
-        :param theme: The theme ???
+        :param theme: The theme.
         :type theme: str
-        :param sub_theme: ???
+        :param sub_theme: Theme sub category.
         :type sub_theme: str
-        :param additional_theme: ???
+        :param additional_theme: Additional theme linked to this theme.
         :type additional_theme: str
         """
         if not (symbol and legend_text and type_code and type_code_list and theme):
