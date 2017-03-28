@@ -79,7 +79,7 @@ class ArticleRecord(DocumentBaseRecord):
 class DocumentRecord(DocumentBaseRecord):
 
     def __init__(self, law_status=None, published_from=None, title=None, responsible_office=None,
-                 text_at_web=None, official_title=None, abbrevation=None, official_number=None, canton=None,
+                 text_at_web=None, official_title=None, abbreviation=None, official_number=None, canton=None,
                  municipality=None, file=None, articles=None, references=None):
         """
         More specific document class representing real documents.
@@ -95,8 +95,8 @@ class DocumentRecord(DocumentBaseRecord):
         :type responsible_office: pyramid_oereb.lib.records.office.OfficeRecord
         :param official_title: The official title of the document.
         :type official_title: str
-        :param abbrevation: Short term for this document.
-        :type abbrevation: str
+        :param abbreviation: Short term for this document.
+        :type abbreviation: str
         :param official_number: The official number for identification of this document.
         :type official_number: str
         :param canton: The cantonal short term (length of tw, like: 'NE' or 'BL')
@@ -117,7 +117,7 @@ class DocumentRecord(DocumentBaseRecord):
         self.title = title
         self.responsible_office = responsible_office
         self.official_title = official_title
-        self.abbrevation = abbrevation
+        self.abbreviation = abbreviation
         self.official_number = official_number
         self.canton = canton
         self.municipality = municipality
@@ -144,7 +144,7 @@ class DocumentRecord(DocumentBaseRecord):
             'published_from',
             'title',
             'responsible_office',
-            'abbrevation',
+            'abbreviation',
             'official_number',
             'canton',
             'municipality',

@@ -13,7 +13,7 @@ def test_get_fields():
         'published_from',
         'title',
         'responsible_office',
-        'abbrevation',
+        'abbreviation',
         'official_number',
         'canton',
         'municipality',
@@ -38,7 +38,7 @@ def test_init():
     assert isinstance(record.title, str)
     assert isinstance(record.responsible_office, OfficeRecord)
     assert record.text_at_web is None
-    assert record.abbrevation is None
+    assert record.abbreviation is None
     assert record.official_number is None
     assert record.canton is None
     assert record.municipality is None
@@ -59,7 +59,7 @@ def test_init_with_relation():
     assert isinstance(record.title, str)
     assert isinstance(record.responsible_office, OfficeRecord)
     assert record.text_at_web is None
-    assert record.abbrevation is None
+    assert record.abbreviation is None
     assert record.official_number is None
     assert record.canton is None
     assert record.municipality is None
