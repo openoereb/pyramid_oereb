@@ -16,7 +16,7 @@ class PlrRecord(object):
     documents = list()
     geometries = list()
 
-    def __init__(self, content=None, topic=None, legal_state=None, published_from=None, subtopic=None,
+    def __init__(self, content, topic, legal_state, published_from, subtopic=None,
                  additional_topic=None, type_code=None, type_code_list=None, view_service=None, basis=list(),
                  refinements=list(), documents=list(), geometries=list()):
         """
