@@ -3,6 +3,8 @@ pyramid_oereb:
   language:
     - de
     - fr
+    - it
+    - rm
 
   flavour:
     - REDUCED

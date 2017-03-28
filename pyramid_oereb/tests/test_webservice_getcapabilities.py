@@ -31,7 +31,7 @@ def test_getcapabilities():
         assert caps[u'flavour'][0] == u'REDUCED'
 
         assert isinstance(caps[u'language'], list)
-        assert len(caps[u'language']) == 2
+        assert len(caps[u'language']) == 4
         assert caps[u'language'][0] == u'de'
 
         assert isinstance(caps[u'crs'], list)
