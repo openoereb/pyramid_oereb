@@ -3,9 +3,6 @@
 from pyramid_oereb import route_prefix
 from pyramid_oereb.views.webservice import PlrWebservice
 
-__author__ = 'Clemens Rudert'
-__create_date__ = '01.02.2017'
-
 
 def includeme(config):
 

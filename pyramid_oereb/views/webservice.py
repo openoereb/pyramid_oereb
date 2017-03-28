@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb import route_prefix
 
-__author__ = 'Karsten Deininger'
-__create_date__ = '27.03.2017'
-
 
 class PlrWebservice(object):
     def __init__(self, request):
