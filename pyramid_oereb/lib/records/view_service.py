@@ -3,8 +3,8 @@
 
 class LegendEntryRecord(object):
 
-    def __init__(self, symbol=None, legend_text=None, type_code=None, type_code_list=None, theme=None,
-                 sub_theme=None, additional_theme=None):
+    def __init__(self, symbol, legend_text, type_code, type_code_list, theme, sub_theme=None,
+                 additional_theme=None):
         """
         Represents a legend entry with it's text as well as it's image.
         :param symbol: The binary file content of the legend image.
@@ -22,11 +22,6 @@ class LegendEntryRecord(object):
         :param additional_theme: Additional theme linked to this theme.
         :type additional_theme: str
         """
-        if not (symbol and legend_text and type_code and type_code_list and theme):
-            raise TypeError('Fields "symbol", "legend_text", "type_code", "type_code_list" and "theme" must '
-                            'be defined. Got {0}, {1}, {2}, {3} and {4}.'.format(symbol, legend_text,
-                                                                                 type_code, type_code_list,
-                                                                                 theme))
         self.symbol = symbol
         self.legend_text = legend_text
         self.type_code = type_code
@@ -55,7 +50,7 @@ class LegendEntryRecord(object):
 
 class ViewServiceRecord(object):
 
-    def __init__(self, link_wms=None, legend_web=None, legends=None):
+    def __init__(self, link_wms, legend_web, legends=None):
         """
 
         :param link_wms: The link URL to the actual service (WMS)
@@ -65,9 +60,6 @@ class ViewServiceRecord(object):
         :param legends: A list of all relevant legend entries.
         :type legends: list of LegendEntry
         """
-        if not (link_wms and legend_web):
-            raise TypeError('Fields "link_wms" and "legend_web" must be defined. Got {0} and {1}.'.format(
-                link_wms, legend_web))
         self.link_wms = link_wms
         self.legend_web = legend_web
         if legends is None:

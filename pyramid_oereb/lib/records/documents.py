@@ -3,7 +3,7 @@
 
 class DocumentBaseRecord(object):
 
-    def __init__(self, law_status=None, published_from=None, text_at_web=None):
+    def __init__(self, law_status, published_from, text_at_web=None):
         """
         The base document class.
         :param law_status: Key string of the law status.
@@ -13,9 +13,6 @@ class DocumentBaseRecord(object):
         :param text_at_web: The URI to the documents content.
         :type text_at_web: str
         """
-        if not (law_status and published_from):
-            raise TypeError('Fields "law_status", "published_from" must be defined. '
-                            'Got {0}, {1}.'.format(law_status, published_from))
         self.text_at_web = text_at_web
         self.law_status = law_status
         self.published_from = published_from
@@ -36,7 +33,7 @@ class DocumentBaseRecord(object):
 
 class ArticleRecord(DocumentBaseRecord):
 
-    def __init__(self, law_status=None, published_from=None, number=None, text_at_web=None, text=None):
+    def __init__(self, law_status, published_from, number, text_at_web=None, text=None):
         """
         More specific document class representing articles.
         :param law_status: Key string of the law status.
@@ -51,9 +48,6 @@ class ArticleRecord(DocumentBaseRecord):
         :type text: str
         """
         super(ArticleRecord, self).__init__(law_status, published_from, text_at_web)
-        if not number:
-            raise TypeError('Field "number" must be defined. '
-                            'Got {0}.'.format(number))
         self.number = number
         self.text = text
 
@@ -75,8 +69,8 @@ class ArticleRecord(DocumentBaseRecord):
 
 class DocumentRecord(DocumentBaseRecord):
 
-    def __init__(self, law_status=None, published_from=None, title=None, responsible_office=None,
-                 text_at_web=None, official_title=None, abbreviation=None, official_number=None, canton=None,
+    def __init__(self, law_status, published_from, title, responsible_office, text_at_web=None,
+                 official_title=None, abbreviation=None, official_number=None, canton=None,
                  municipality=None, file=None, articles=None, references=None):
         """
         More specific document class representing real documents.
@@ -84,12 +78,12 @@ class DocumentRecord(DocumentBaseRecord):
         :type law_status: str
         :param published_from: Date since this document was published.
         :type published_from: datetime.date
-        :param text_at_web: The URI to the documents content.
-        :type text_at_web: str
         :param title: The title of the document. It might be shortened one.
         :type title: str
         :param responsible_office: Office which is responsible for this document.
         :type responsible_office: pyramid_oereb.lib.records.office.OfficeRecord
+        :param text_at_web: The URI to the documents content.
+        :type text_at_web: str
         :param official_title: The official title of the document.
         :type official_title: str
         :param abbreviation: Short term for this document.
@@ -108,9 +102,6 @@ class DocumentRecord(DocumentBaseRecord):
         :type references: list of DocumentRecord
         """
         super(DocumentRecord, self).__init__(law_status, published_from, text_at_web)
-        if not (title and responsible_office):
-            raise TypeError('Fields "title" and "responsible_office" must be defined. '
-                            'Got {0} and {1}.'.format(title, responsible_office))
         self.title = title
         self.responsible_office = responsible_office
         self.official_title = official_title
