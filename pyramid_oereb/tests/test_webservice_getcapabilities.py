@@ -21,6 +21,11 @@ def test_getcapabilities():
         caps = service.get_capabilities()
         validate(caps, schema)
 
+        assert isinstance(caps[u'topic'], list)
+        assert len(caps[u'topic']) == 17
+        assert caps[u'topic'][15][u'Code'] == u'ForestPerimeters'
+        assert caps[u'topic'][15][u'Text'][u'Language'] == u'de'
+
         assert isinstance(caps[u'flavour'], list)
         assert len(caps[u'flavour']) == 3
         assert caps[u'flavour'][0] == u'REDUCED'
