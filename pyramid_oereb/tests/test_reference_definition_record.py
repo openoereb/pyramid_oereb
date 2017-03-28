@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-
-__author__ = 'François Voisard'
-__create_date__ = '28.03.2017'
-
 import pytest
 
 from pyramid_oereb.lib.records.reference_definition import ReferenceDefinitionRecord

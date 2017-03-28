@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-
-__author__ = 'François Voisard'
-__create_date__ = '27.03.2017'
-
 import pytest
 
 from pyramid_oereb.lib.records.office import OfficeRecord
