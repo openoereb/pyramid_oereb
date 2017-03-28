@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb import route_prefix
+from pyramid_oereb.lib.webservice import ConfigReader
 
 __author__ = 'Karsten Deininger'
 __create_date__ = '27.03.2017'
@@ -38,10 +39,15 @@ class PlrWebservice(object):
         :return: The service capabilities.
         :rtype:  dict
         """
+        settings = self._request_.registry.settings
+        cfg = ConfigReader(
+            settings.get('pyramid_oereb.cfg.file'),
+            settings.get('pyramid_oereb.cfg.section')
+        )
         return {
             u'topic': [],
             u'municipality': [],
             u'flavour': [],
             u'language': [],
-            u'crs': []
+            u'crs': cfg.get_crs()
         }
