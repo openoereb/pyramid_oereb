@@ -44,6 +44,7 @@ class PlrWebservice(object):
         )
         return {
             u'topic': cfg.get_topic(),
+            # TODO: Add municipalities when municipality reader is available
             u'municipality': [],
             u'flavour': cfg.get_flavour(),
             u'language': cfg.get_language(),
