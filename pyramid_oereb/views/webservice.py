@@ -45,7 +45,7 @@ class PlrWebservice(object):
         return {
             u'topic': [],
             u'municipality': [],
-            u'flavour': [],
+            u'flavour': cfg.get_flavour(),
             u'language': cfg.get_language(),
             u'crs': cfg.get_crs()
         }

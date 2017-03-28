@@ -4,6 +4,11 @@ pyramid_oereb:
     - de
     - fr
 
+  flavour:
+    - REDUCED
+    - FULL
+    - EMBEDDABLE
+
   plrs:
 
     - name: plr73
