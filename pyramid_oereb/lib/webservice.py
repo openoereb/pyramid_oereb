@@ -14,6 +14,25 @@ class ConfigReader(object):
         """
         self.__config__ = parse(config_file, config_section)
 
+    def get_topic(self):
+        """
+        Returns a list of available topics.
+        :return: The available topics.
+        :rtype: list
+        """
+        result = list()
+        plrs = self.__config__.get('plrs')
+        if plrs and isinstance(plrs, list):
+            for theme in plrs:
+                result.append({
+                    u'Code': unicode(theme.get('code')),
+                    u'Text': {
+                        u'Language': unicode(theme.get('language')),
+                        u'Text': unicode(theme.get('label'))
+                    }
+                })
+        return result
+
     def get_crs(self):
         """
         Returns a list of available crs.

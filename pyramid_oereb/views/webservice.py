@@ -43,7 +43,7 @@ class PlrWebservice(object):
             settings.get('pyramid_oereb.cfg.section')
         )
         return {
-            u'topic': [],
+            u'topic': cfg.get_topic(),
             u'municipality': [],
             u'flavour': cfg.get_flavour(),
             u'language': cfg.get_language(),
