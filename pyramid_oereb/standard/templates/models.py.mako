@@ -271,7 +271,7 @@ class ${schema.get("name").capitalize()}DocumentReference(Base):
     )
     relationship(
         ${schema.get("name").capitalize()}Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 

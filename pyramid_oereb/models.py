@@ -269,7 +269,7 @@ class Plr73DocumentReference(Base):
     )
     relationship(
         Plr73Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -543,7 +543,7 @@ class Plr87DocumentReference(Base):
     )
     relationship(
         Plr87Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -817,7 +817,7 @@ class Plr88DocumentReference(Base):
     )
     relationship(
         Plr88Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -1091,7 +1091,7 @@ class Plr97DocumentReference(Base):
     )
     relationship(
         Plr97Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -1365,7 +1365,7 @@ class Plr96DocumentReference(Base):
     )
     relationship(
         Plr96Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -1639,7 +1639,7 @@ class Plr103DocumentReference(Base):
     )
     relationship(
         Plr103Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -1913,7 +1913,7 @@ class Plr104DocumentReference(Base):
     )
     relationship(
         Plr104Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -2187,7 +2187,7 @@ class Plr108DocumentReference(Base):
     )
     relationship(
         Plr108Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -2461,7 +2461,7 @@ class Plr116DocumentReference(Base):
     )
     relationship(
         Plr116Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -2735,7 +2735,7 @@ class Plr117DocumentReference(Base):
     )
     relationship(
         Plr117Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -3009,7 +3009,7 @@ class Plr118DocumentReference(Base):
     )
     relationship(
         Plr118Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -3283,7 +3283,7 @@ class Plr119DocumentReference(Base):
     )
     relationship(
         Plr119Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -3557,7 +3557,7 @@ class Plr131DocumentReference(Base):
     )
     relationship(
         Plr131Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -3831,7 +3831,7 @@ class Plr132DocumentReference(Base):
     )
     relationship(
         Plr132Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -4105,7 +4105,7 @@ class Plr145DocumentReference(Base):
     )
     relationship(
         Plr145Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -4379,7 +4379,7 @@ class Plr157DocumentReference(Base):
     )
     relationship(
         Plr157Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
@@ -4653,7 +4653,7 @@ class Plr159DocumentReference(Base):
     )
     relationship(
         Plr159Document,
-        backref='references',
+        backref='referenced_documents',
         foreign_keys=[reference_document_id]
     )
 
