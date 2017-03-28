@@ -20,3 +20,11 @@ class ConfigReader(object):
         if srid:
             crs.append(u'epsg:' + unicode(srid))
         return crs
+
+    def get_language(self):
+        result = list()
+        language = self.__config__.get('language')
+        print language
+        if language and isinstance(language, list):
+            result.extend(language)
+        return result
