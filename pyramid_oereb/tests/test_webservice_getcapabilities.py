@@ -21,6 +21,10 @@ def test_getcapabilities():
         caps = service.get_capabilities()
         validate(caps, schema)
 
+        assert isinstance(caps[u'flavour'], list)
+        assert len(caps[u'flavour']) == 3
+        assert caps[u'flavour'][0] == u'REDUCED'
+
         assert isinstance(caps[u'language'], list)
         assert len(caps[u'language']) == 2
         assert caps[u'language'][0] == u'de'

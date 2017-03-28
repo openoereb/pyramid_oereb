@@ -15,6 +15,11 @@ class ConfigReader(object):
         self.__config__ = parse(config_file, config_section)
 
     def get_crs(self):
+        """
+        Returns a list of available crs.
+        :return: The available crs.
+        :rtype: list
+        """
         crs = list()
         srid = self.__config__.get('srid')
         if srid:
@@ -22,9 +27,25 @@ class ConfigReader(object):
         return crs
 
     def get_language(self):
+        """
+        Returns a list of available languages.
+        :return: The available languages.
+        :rtype: list
+        """
         result = list()
         language = self.__config__.get('language')
-        print language
         if language and isinstance(language, list):
             result.extend(language)
+        return result
+
+    def get_flavour(self):
+        """
+        Returns a list of available flavours.
+        :return: The available flavours.
+        :rtype: list
+        """
+        result = list()
+        flavour = self.__config__.get('flavour')
+        if flavour and isinstance(flavour, list):
+            result.extend(flavour)
         return result
