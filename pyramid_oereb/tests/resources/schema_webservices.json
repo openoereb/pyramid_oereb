@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://schemas.geo.admin.ch/swisstopo/OeREBK/15/extract.json",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/GetExtractByIdResponse"
+    },
+    {
+      "$ref": "#/definitions/GetEGRIDResponse"
+    },
+    {
+      "$ref": "#/definitions/GetCapabilitiesResponse"
+    }
+  ],
+  "definitions": {
+    "FlavourType": {
+      "pattern": "REDUCED|FULL|EMBEDDABLE|(ch.[A-Z]{2}.[a-zA-Z][a-zA-Z0-9]*)|(fl.[a-zA-Z][a-zA-Z0-9]*)"
+    },
+    "GetExtractByIdResponse": {
+      "embeddable": {
+        "cadasterState": {
+          "$ref": "extractdata.json/definitions/dateTime"
+        },
+        "cadasterOrganisationName": {
+          "type": "string"
+        },
+        "datasource": {
+          "topic": {
+            "$ref": "extractdata.json/definitions/Theme"
+          },
+          "dataownerName": {
+            "type": "string"
+          },
+          "transferFromSource": {
+            "$ref": "extract-data.json/definitions/dateTime"
+          },
+          "dataownerNameCadastralSurveying": {
+            "type": "string"
+          },
+          "transferFromSourceCadastralSurveying": {
+            "$ref": "extractdata.json/definitions/dateTime"
+          }
+        },
+        "pdf": {
+          "$ref": "extractdata.json/definitions/base64Binary"
+        }
+      },
+      "extract": {
+        "$ref": "extractdata.json/definitions/Extract"
+      }
+    },
+    "GetEGRIDResponse": {
+      "egrid": {
+        "type": "string"
+      },
+      "number": {
+        "type": "string"
+      },
+      "identDN": {
+        "type": "string"
+      }
+    },
+    "GetCapabilitiesResponse": {
+      "topic": {
+        "type": "array",
+        "items": {
+          "type": {
+            "$ref": "extractdata.json/definitions/Theme"
+          }
+        }
+      },
+      "municipality": {
+        "type": "array",
+        "items": {
+          "type": {
+            "$ref": "extract-data.json/definitions/MunicipalityCode"
+          }
+        }
+      },
+      "flavour": {
+        "type": "array",
+        "items": {
+          "type": {
+            "$ref": "#/definitions/FlavourType"
+          }
+        }
+      },
+      "language": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "crs": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
