@@ -94,3 +94,11 @@ class PlrWebservice(object):
             return []
         else:
             raise HTTPBadRequest('POSTALCODE, LOCALISATION and NUMBER must be defined.')
+
+    def get_extract_by_id(self):
+        """
+        Returns the extract in the specified format and flavour.
+        :return: The requested extract.
+        :rtype:  dict
+        """
+        return {}
