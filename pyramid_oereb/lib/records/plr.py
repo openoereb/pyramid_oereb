@@ -2,23 +2,10 @@
 
 
 class PlrRecord(object):
-    content = None
-    topic = None
-    subtopic = None
-    additional_topic = None
-    type_code = None
-    type_code_list = None
-    legal_state = None
-    published_from = None
-    view_service = None
-    basis = list()
-    refinements = list()
-    documents = list()
-    geometries = list()
 
     def __init__(self, content, topic, legal_state, published_from, subtopic=None,
-                 additional_topic=None, type_code=None, type_code_list=None, view_service=None, basis=list(),
-                 refinements=list(), documents=list(), geometries=list()):
+                 additional_topic=None, type_code=None, type_code_list=None, view_service=None, basis=None,
+                 refinements=None, documents=None, geometries=None):
         """
         Public law restriction record.
         :param content: The PLR record's content.
@@ -38,7 +25,7 @@ class PlrRecord(object):
         :param type_code_list: URL to the PLR's list of type codes.
         :type type_code_list: str
         :param view_service: The view service instance associated with this record.
-        :type view_service: object
+        :type view_service: pyramid_oereb.lib.records.view_service.ViewServiceRecord
         :param basis: List of PLR records as basis for this record.
         :type basis: list of PlrRecord
         :param refinements: List of PLR records as refinement of this record.
@@ -49,9 +36,6 @@ class PlrRecord(object):
         :type geometries: list
         :raises TypeError: Raised on missing field value.
         """
-        if not (content and topic and legal_state and published_from):
-            raise TypeError('Fields "content", "topic", "legal_state" and "published_from" must be defined. '
-                            'Got {0}, {1}, {2}, {3}.'.format(content, topic, legal_state, published_from))
 
         self.content = content
         self.topic = topic
@@ -62,10 +46,22 @@ class PlrRecord(object):
         self.type_code = type_code
         self.type_code_list = type_code_list
         self.view_service = view_service
-        self.basis = basis
-        self.refinements = refinements
-        self.documents = documents
-        self.geometries = geometries
+        if basis is None:
+            self.basis = []
+        else:
+            self.basis = basis
+        if refinements is None:
+            self.refinements = []
+        else:
+            self.refinements = refinements
+        if documents is None:
+            self.documents = []
+        else:
+            self.documents = documents
+        if geometries is None:
+            self.geometries = []
+        else:
+            self.geometries = geometries
 
     @classmethod
     def get_fields(cls):

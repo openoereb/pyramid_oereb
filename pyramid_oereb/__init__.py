@@ -4,9 +4,6 @@ import logging
 from pyramid.config import Configurator
 
 from pyramid_oereb.lib.config import parse
-
-__author__ = 'Clemens Rudert'
-__create_date__ = '01.02.2017'
 __version__ = '0.0.1'
 
 

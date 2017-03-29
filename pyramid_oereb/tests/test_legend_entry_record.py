@@ -3,10 +3,6 @@ import pytest
 from pyramid_oereb.lib.records.view_service import LegendEntryRecord
 
 
-__author__ = 'Clemens Rudert'
-__create_date__ = '28.03.17'
-
-
 def test_get_fields():
     expected_fields = [
         'symbol',

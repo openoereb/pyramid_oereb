@@ -6,9 +6,6 @@ from pyramid_oereb.lib.sources.plr import PlrDatabaseSource
 from pyramid_oereb.models import Plr73PublicLawRestriction, Plr116PublicLawRestriction
 from pyramid_oereb.tests.conftest import adapter, db_url
 
-__author__ = 'Clemens Rudert'
-__create_date__ = '16.03.17'
-
 
 @pytest.mark.run(order=2)
 @pytest.mark.parametrize("model", [
