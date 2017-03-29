@@ -4,7 +4,7 @@ from pyramid_oereb import route_prefix
 from pyramid_oereb.views.webservice import PlrWebservice
 
 
-def includeme(config):
+def includeme(config):  # pragma: no cover
 
     # Get versions
     config.add_route('{0}/versions.json'.format(route_prefix), '/versions.json')
