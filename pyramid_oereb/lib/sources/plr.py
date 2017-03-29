@@ -1,39 +1,33 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb.lib.records.plr import PlrRecord
-from pyramid_oereb.lib.sources import Base
+from pyramid_oereb.lib.sources import BaseDatabaseSource
 
 
-class PlrBaseSource(Base):
+class PlrDatabaseSource(BaseDatabaseSource):
 
-    def __init__(self):
-        super(PlrBaseSource, self).__init__()
-
-
-class PlrDatabaseSource(PlrBaseSource):
-
-    def __init__(self, adapter, model):
-        """
-        The plug for plrs which uses a database as source.
-        :param adapter: The database adapter which provides access to the desired database session
-        :type adapter: pyramid_oereb.lib.adapter.DatabaseAdapter
-        :param model: The orm to map database source to plr style
-        :type model: sqlalchemy.ext.declarative.DeclarativeMeta
-        """
-        super(PlrDatabaseSource, self).__init__()
-        self._adapter_ = adapter
-        self._model_ = model
-
-    def read(self, key):
+    def read(self, geometry):
         """
         Central method to read all plrs.
-        :param key: Key of the desired database connection
-        :type key: str
+        :param geometry: The geometry as WKT string which represents the desired property. It can be used for
+        intersection operations.
+        :type geometry: str
         """
-        session = self._adapter_.get_session(key)
-        results = session.query(self._model_).all()
+        session = self._adapter_.get_session(self._key_)
+        results = session.query(self._model_).filter(self._model_.geom.ST_Intersects(geometry)).all()
         self.records = list()
         for r in results:
-            d = dict()
-            for f in PlrRecord.get_fields():
-                d[f] = getattr(r, f)
-            self.records.append(PlrRecord(**d))
+            self.records.append(PlrRecord(
+                r.content,
+                r.topic,
+                r.legal_state,
+                r.published_from,
+                r.subtopic,
+                r.additional_topic,
+                r.type_code,
+                r.type_code_list,
+                r.view_service,
+                r.basis,
+                r.refinements,
+                r.documents,
+                r.geometries
+            ))
