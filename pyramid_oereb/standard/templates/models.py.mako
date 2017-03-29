@@ -17,7 +17,7 @@ metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = sqlalchemy.ext.declarative.declarative_base()
 
 
-class ${app_schema.get('name').capitalize()}RealEstate(Base):
+class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).replace('_', '')}RealEstate(Base):
     __table_args__ = {'schema': '${app_schema.get('name')}'}
     __tablename__ = 'real_estate'
     identdn = sa.Column('id', sa.Integer, primary_key=True)

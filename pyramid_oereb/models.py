@@ -16,7 +16,7 @@ metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = sqlalchemy.ext.declarative.declarative_base()
 
 
-class Pyramid_oereb_mainRealEstate(Base):
+class PyramidOerebMainRealEstate(Base):
     __table_args__ = {'schema': 'pyramid_oereb_main'}
     __tablename__ = 'real_estate'
     identdn = sa.Column('id', sa.Integer, primary_key=True)
