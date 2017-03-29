@@ -29,7 +29,7 @@ class PyramidOerebMainRealEstate(Base):
     fosnr = sa.Column(sa.Integer, nullable=False)
     metadata_of_geographical_base_data = sa.Column(sa.String, nullable=False)
     land_registry_area = sa.Column(sa.Integer, nullable=False)
-    limit = sa.Column(sa.Integer, nullable=False)
+    limit = sa.Column(Geometry('POLYGON', srid=2056))
 
 
 class Plr73Office(Base):
