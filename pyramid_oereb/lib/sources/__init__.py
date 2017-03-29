@@ -1,20 +1,8 @@
 # -*- coding: utf-8 -*-
-from pyramid.config import ConfigurationError
 
 
 class Base(object):
     records = list()
-
-    def read(self, geometry):
-        """
-        Every source class has to implement a read method. This is the point to hook in for adapt core system
-        to the defined source. Here you can do what ever is necessary to map a entity read from your source
-        to the corresponding core system record.
-        :param geometry: The geometry as WKT string which represents the desired property. It can be used for
-        intersection operations.
-        :type geometry: str
-        """
-        raise ConfigurationError('The read method must be adapted to your system. ')
 
 
 class BaseDatabaseSource(Base):
