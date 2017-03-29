@@ -19,7 +19,7 @@ Base = sqlalchemy.ext.declarative.declarative_base()
 class PyramidOerebMainRealEstate(Base):
     __table_args__ = {'schema': 'pyramid_oereb_main'}
     __tablename__ = 'real_estate'
-    identdn = sa.Column('id', sa.Integer, primary_key=True)
+    identdn = sa.Column('id', sa.String, primary_key=True)
     number = sa.Column(sa.String, nullable=True)
     egrid = sa.Column(sa.String, nullable=True)
     type = sa.Column(sa.String, nullable=False)
