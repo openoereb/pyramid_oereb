@@ -32,13 +32,6 @@ class RealEstateRecord(object):
         :type limit: geometry
         """
 
-        if not (number or identdn or egrid):
-            raise TypeError('Fields "number". "identdn" or "egrid" must be defined. '
-                            'Got {0} .'.format(number, identdn, egrid))
-        if not (type and canton and municipality and fosnr and metadata_of_geographical_base_data and land_registry_area and limit):
-            raise TypeError('Fields "type", "canton", "municipality", "fosnr", "land_registry_area" and "limit" must be defined. '
-                            'Got {0} .'.format(type, canton, municipality, fosnr, metadata_of_geographical_base_data, land_registry_area, limit))
-
         self.number = number
         self.identdn = identdn
         self.egrid = egrid
