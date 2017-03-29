@@ -8,7 +8,7 @@ class RealEstateDatabaseSource(BaseDatabaseSource):
 
     def __init__(self, key, adapter, model):
         """
-        The plug for properties which uses a database as source.
+        The plug for real estates which uses a database as source.
         :param key: The key for the database connection which should be used from the database adapter,
         passed to this instance.
         :type key: str

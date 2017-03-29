@@ -9,7 +9,7 @@ class BaseDatabaseSource(Base):
 
     def __init__(self, key, adapter, model, record_class):
         """
-        The plug for properties which uses a database as source.
+        The plug for sources which uses a database.
         :param key: The key for the database connection which should be used from the database adapter,
         passed to this instance.
         :type key: str
