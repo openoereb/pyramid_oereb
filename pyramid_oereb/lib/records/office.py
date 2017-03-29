@@ -12,7 +12,7 @@ class OfficeRecord(object):
     postal_code = None
     city = None
 
-    def __init__(self, name=None, uid=None, office_at_web=None, line1=None, line2=None,
+    def __init__(self, name, uid=None, office_at_web=None, line1=None, line2=None,
                  street=None, number=None, postal_code=None, city=None):
         """
         Responsible office record.
@@ -35,10 +35,6 @@ class OfficeRecord(object):
         :param city: The city where the authority is located
         :type postal_code: str
         """
-
-        if not name:
-            raise TypeError('Field "name" must be defined. '
-                            'Got {0} .'.format(name))
 
         self.name = name
         self.uid = uid

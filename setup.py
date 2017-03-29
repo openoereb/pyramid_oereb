@@ -3,9 +3,6 @@
 import os
 from setuptools import setup, find_packages
 
-__author__ = 'Clemens Rudert'
-__create_date__ = '01.02.2017'
-
 here = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(here, 'README.md')) as f:
     README = f.read()

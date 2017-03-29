@@ -2,9 +2,6 @@
 import optparse
 from pyramid_oereb.standard import _drop_tables_
 
-__author__ = 'Clemens Rudert'
-__create_date__ = '15.03.17'
-
 
 def drop_tables():
     parser = optparse.OptionParser(

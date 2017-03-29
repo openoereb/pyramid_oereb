@@ -3,7 +3,7 @@
 
 class ReferenceDefinitionRecord(object):
 
-    def __init__(self, topic=None, canton=None, municipality=None, responsible_office=None, documents=list()):
+    def __init__(self, topic, canton, municipality, responsible_office, documents=None):
         """
         Reference definition record. Definition of references which are independent from a restriction.
         :param topic: PLR topic if the reference relates to a specific topic
@@ -18,16 +18,14 @@ class ReferenceDefinitionRecord(object):
         :type documents: list of pyramid_oereb.lib.records.documents.DocumentBaseRecord
         """
 
-        if not (topic or canton or municipality and responsible_office):
-            raise TypeError('At least one of the fields "topic", "canton" or "municipality" '
-                            'and "responsible_office" must be defined. Got {0}, {1}, {2}, {3} .'
-                            .format(topic, canton, municipality, responsible_office))
-
         self.topic = topic
         self.canton = canton
         self.municipality = municipality
         self.responsible_office = responsible_office
-        self.documents = documents
+        if documents is None:
+            self.documents = []
+        else:
+            self.documents = documents
 
     @classmethod
     def get_fields(cls):
