@@ -12,7 +12,7 @@ pyramid_oereb:
     - EMBEDDABLE
 
   app_schema:
-    name: main
+    name: pyramid_oereb_main
 
   real_estate:
     source:
