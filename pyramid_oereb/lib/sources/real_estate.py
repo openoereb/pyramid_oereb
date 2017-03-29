@@ -33,8 +33,10 @@ class RealEstateDatabaseSource(BaseDatabaseSource):
             ).filter(
                 self._model_.nbident == kwargs.get('nb_ident')
             ).one()
-        else:
+        elif kwargs.get('egrid'):
             result = query.filter(self._model_.egris_egrid == kwargs.get('egrid')).one()
+        else:
+            raise AttributeError('Necessary parameter were missing.')
 
         self.records = list()
         self.records.append(self._record_class_(
