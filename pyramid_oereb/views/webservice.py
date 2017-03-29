@@ -122,6 +122,14 @@ class PlrWebservice(object):
         if self._request_.matchdict.get('param1').lower() == 'geometry':
             with_geometry = True
 
+        # Check for invalid combinations
+        if extract_flavour in ['full', 'signed'] and extract_format != 'pdf':
+            raise HTTPBadRequest('The flavours full and signed are only available for format PDF.')
+        if extract_flavour == 'embeddable' and extract_format == 'pdf':
+            raise HTTPBadRequest('The flavour embeddable is not available for format PDF.')
+        if extract_format == 'pdf' and with_geometry:
+            raise HTTPBadRequest('Geometry is not available for format PDF.')
+
         # With images?
         with_images = False
         if self._request_.params.get('WITHIMAGES'):
