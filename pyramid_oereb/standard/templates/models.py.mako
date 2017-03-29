@@ -30,7 +30,7 @@ class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).re
     fosnr = sa.Column(sa.Integer, nullable=False)
     metadata_of_geographical_base_data = sa.Column(sa.String, nullable=False)
     land_registry_area = sa.Column(sa.Integer, nullable=False)
-    limit = sa.Column(Geometry('POLYGON', srid=${srid}))
+    limit = sa.Column(Geometry('${real_estate.get('geometry_type')}', srid=${srid}))
 % for schema in plrs:
 
 
