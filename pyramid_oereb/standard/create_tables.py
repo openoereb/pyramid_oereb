@@ -3,10 +3,6 @@ import optparse
 from pyramid_oereb.standard import _create_tables_
 
 
-__author__ = 'Clemens Rudert'
-__create_date__ = '15.03.17'
-
-
 def create_tables():
     parser = optparse.OptionParser(
         usage='usage: %prog [options]',

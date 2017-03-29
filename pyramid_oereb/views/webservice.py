@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from pyramid_oereb import route_prefix
 from pyramid_oereb.lib.config import ConfigReader
 

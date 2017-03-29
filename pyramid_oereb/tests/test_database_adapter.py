@@ -6,9 +6,6 @@ from sqlalchemy.orm import Session
 from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.tests.conftest import db_url
 
-__author__ = 'Clemens Rudert'
-__create_date__ = '16.03.17'
-
 
 def test_init():
     adapter = DatabaseAdapter()
