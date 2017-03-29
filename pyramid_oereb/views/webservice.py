@@ -23,7 +23,7 @@ class PlrWebservice(object):
         """
         endpoint = self._request_.application_url
         if route_prefix:
-            endpoint += '/' + route_prefix
+            endpoint += '/' + route_prefix  # pragma: no cover
         return {
             u'supportedVersion': [
                 {
@@ -131,9 +131,7 @@ class PlrWebservice(object):
             raise HTTPBadRequest('Geometry is not available for format PDF.')
 
         # With images?
-        with_images = False
-        if self._request_.params.get('WITHIMAGES'):
-            with_images = True
+        with_images = self._request_.params.get('WITHIMAGES') is not None
 
         params = {
             'flavour': extract_flavour,
@@ -164,6 +162,6 @@ class PlrWebservice(object):
         # Topics
         topics = self._request_.params.get('TOPICS')
         if topics:
-            params.update({'language': topics.split(',')})
+            params.update({'topics': topics.split(',')})
 
         return params
