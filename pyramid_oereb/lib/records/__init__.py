@@ -8,4 +8,3 @@ class BaseRecord(object):
 
     def get_fields(self):
         return []
-
