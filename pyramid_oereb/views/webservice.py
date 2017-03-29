@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from pyramid.httpexceptions import HTTPBadRequest
 
 from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import route_prefix
@@ -106,6 +105,11 @@ class PlrWebservice(object):
         return params  # TODO: Replace with extract
 
     def __validate_extract_params__(self):
+        """
+        Validates the input parameters for get_extract_by_id.
+        :return: The validated parameters.
+        :rtype: dict
+        """
 
         # Check flavour
         extract_flavour = self._request_.matchdict.get('flavour').lower()
