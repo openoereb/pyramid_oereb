@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import json
-
-from jsonschema import validate
 from pyramid.testing import DummyRequest, testConfig
-
 from pyramid_oereb.views.webservice import PlrWebservice
 
 
@@ -23,4 +19,3 @@ def test_getextractbyid():
         # validate(extract, schema)
 
         assert isinstance(extract, dict)
-
