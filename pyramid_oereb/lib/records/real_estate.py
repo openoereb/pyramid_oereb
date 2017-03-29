@@ -23,13 +23,13 @@ class RealEstateRecord(object):
         :param limit: The boundary of the property as geometry in WKT format
         :type limit: str
         :param number:  The official cantonal number of the property
-        :type  number: str
+        :type  number: str or None
         :param identdn: The unique identifier of the property
-        :type  identdn: str
+        :type  identdn: str or None
         :param egrid: The federal property identifier
-        :type egrid: str
+        :type egrid: str or None
         :param subunit_of_land_register: Subunit of the land register if existing
-        :type subunit_of_land_register: str
+        :type subunit_of_land_register: str or None
         """
         self.number = number
         self.identdn = identdn
