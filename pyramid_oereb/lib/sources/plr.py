@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 
 
@@ -13,10 +12,12 @@ class PlrDatabaseSource(BaseDatabaseSource):
         :type geometry: str
         """
         session = self._adapter_.get_session(self._key_)
-        results = session.query(self._model_).filter(self._model_.geom.ST_Intersects(geometry)).all()
+        # TODO: implement the right way to obtain the plr via its geometry in standard confederation scheme
+        # results = session.query(self._model_).filter(self._model_.geom.ST_Intersects(geometry)).all()
+        results = session.query(self._model_).all()
         self.records = list()
         for r in results:
-            self.records.append(PlrRecord(
+            self.records.append(self._record_class_(
                 r.content,
                 r.topic,
                 r.legal_state,
