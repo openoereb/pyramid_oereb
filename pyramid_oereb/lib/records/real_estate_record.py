@@ -20,8 +20,8 @@ class RealEstateRecord(object):
         :type metadata_of_geographical_base_data: uri
         :param land_registry_area: Area of the property as defined in the land registry
         :type land_registry_area: integer
-        :param limit: The boundary of the property as geometry
-        :type limit: geometry
+        :param limit: The boundary of the property as geometry in WKT format
+        :type limit: str
         :param number:  The official cantonal number of the property
         :type  number: str
         :param identdn: The unique identifier of the property
