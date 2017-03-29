@@ -29,12 +29,12 @@ class RealEstateDatabaseSource(BaseDatabaseSource):
         query = session.query(self._model_)
         if kwargs.get('nb_ident') and kwargs.get('number'):
             result = query.filter(
-                self._model_.nummer == kwargs.get('number')
+                self._model_.number == kwargs.get('number')
             ).filter(
-                self._model_.nbident == kwargs.get('nb_ident')
+                self._model_.identdn == kwargs.get('nb_ident')
             ).one()
         elif kwargs.get('egrid'):
-            result = query.filter(self._model_.egris_egrid == kwargs.get('egrid')).one()
+            result = query.filter(self._model_.egrid == kwargs.get('egrid')).one()
         else:
             raise AttributeError('Necessary parameter were missing.')
 
