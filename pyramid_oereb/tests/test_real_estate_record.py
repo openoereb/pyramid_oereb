@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from pyramid_oereb.lib.records.real_estate_record import RealEstateRecord
+from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 
 
 def test_get_fields():
