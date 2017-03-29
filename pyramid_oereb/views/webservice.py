@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from pyramid.httpexceptions import HTTPBadRequest
 
 from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import route_prefix
@@ -101,4 +102,60 @@ class PlrWebservice(object):
         :return: The requested extract.
         :rtype:  dict
         """
-        return {}
+        params = self.__validate_extract_params__()
+        return params  # TODO: Replace with extract
+
+    def __validate_extract_params__(self):
+
+        # Check flavour
+        extract_flavour = self._request_.matchdict.get('flavour').lower()
+        if extract_flavour not in ['reduced', 'full', 'signed', 'embeddable']:
+            raise HTTPBadRequest('Invalid flavour: {0}'.format(extract_flavour))
+
+        # Check format
+        extract_format = self._request_.matchdict.get('format').lower()
+        if extract_format not in ['pdf', 'xml', 'json']:
+            raise HTTPBadRequest('Invalid format: {0}'.format(extract_format))
+
+        # With geometry?
+        with_geometry = False
+        if self._request_.matchdict.get('param1').lower() == 'geometry':
+            with_geometry = True
+
+        # With images?
+        with_images = False
+        if self._request_.params.get('WITHIMAGES'):
+            with_images = True
+
+        params = {
+            'flavour': extract_flavour,
+            'format': extract_format,
+            'geometry': with_geometry,
+            'images': with_images
+        }
+
+        # Get id
+        if with_geometry:
+            id_param_1 = 'param2'
+            id_param_2 = 'param3'
+        else:
+            id_param_1 = 'param1'
+            id_param_2 = 'param2'
+        id_part_1 = self._request_.matchdict.get(id_param_1)
+        id_part_2 = self._request_.matchdict.get(id_param_2)
+        if id_part_2:
+            params.update({'identdn': id_part_1, 'number': id_part_2})
+        else:
+            params.update({'egrid': id_part_1})
+
+        # Language
+        language = self._request_.params.get('LANG')
+        if language:
+            params.update({'language': language})
+
+        # Topics
+        topics = self._request_.params.get('TOPICS')
+        if topics:
+            params.update({'language': topics.split(',')})
+
+        return params
