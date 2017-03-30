@@ -15,7 +15,6 @@ pyramid_oereb:
     name: pyramid_oereb_main
 
   real_estate:
-    geometry_type: POLYGON
     source:
       class: pyramid_oereb.lib.sources.real_estate.RealEstateDatabaseSource
       params:
