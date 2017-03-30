@@ -110,9 +110,9 @@ clean-all:
 	rm -rf .venv
 
 .PHONY: create-standard-tables
-create-standard-tables:
-	$(VENV_BIN)python pyramid_oereb/standard/create_tables.py -c pyramid_oereb.yml
+create-standard-tables: $(PYTHON_VENV)
+	$(VENV_BIN)create_tables$(PYTHON_BIN_POSTFIX) -c pyramid_oereb.yml
 
 .PHONY: drop-standard-tables
-drop-standard-tables:
-	$(VENV_BIN)python pyramid_oereb/standard/drop_tables.py -c pyramid_oereb.yml
+drop-standard-tables: $(PYTHON_VENV)
+	$(VENV_BIN)drop_tables$(PYTHON_BIN_POSTFIX) -c pyramid_oereb.yml
