@@ -35,7 +35,7 @@ To be added...
 Running development version locally
 -----------------------------------
 
-You can checkout the current master and run _pyramid_oereb_ locally, but we cannot guarantee a working configuration as it is under development. We recommend to use a linux system.
+You can checkout the current master and run _pyramid_oereb_ locally, but we cannot guarantee a working configuration as it is under development. We recommend to use a linux system but the application is tested and may also be used in a windows environment.
 
 Requirements:
 -   git
