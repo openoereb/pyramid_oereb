@@ -118,5 +118,5 @@ drop-standard-tables: $(PYTHON_VENV)
 	$(VENV_BIN)drop_tables$(PYTHON_BIN_POSTFIX) -c pyramid_oereb.yml
 
 .PHONY: serve
-serve:
+serve: $(PYTHON_VENV)
 	$(VENV_BIN)pserve$(PYTHON_BIN_POSTFIX) development.ini
