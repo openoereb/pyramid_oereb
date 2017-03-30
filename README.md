@@ -52,4 +52,4 @@ cd pyramid_oereb
 
 You can set up the virtual environment using `make install` and run the unit tests using `make checks`.
 
-To start a local server run `make serve`. The default route prefix is _oereb_.
+To start a local server run `make serve`. It should be available unter http://localhost:6543/oereb/, e.g. http://localhost:6543/oereb/versions. To stop the server, press `CTRL + C`.
