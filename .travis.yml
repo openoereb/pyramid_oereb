@@ -19,3 +19,7 @@ script:
   - make lint
   - make tests-docker-setup-db
   - make tests
+
+# configure notifications
+notifications:
+  email: false
