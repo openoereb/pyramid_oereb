@@ -58,4 +58,6 @@ class DatabaseAdapter(object):
             session = self._connections_.get(key).get('session')
             return session()
         else:
-            raise KeyError('No connection found: {0}'.format(key))
+            self.add_connection(key)
+            log.info('Connection does not exist, implicitly creating it: {0}'.format(key))
+            return self.get_session(key, request=request)
