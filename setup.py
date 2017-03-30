@@ -17,7 +17,6 @@ tests_require = [
 ]
 
 requires = [
-    'alembic',
     'dicttoxml',
     'geoalchemy2',
     'psycopg2',
