@@ -11,6 +11,16 @@ pyramid_oereb:
     - FULL
     - EMBEDDABLE
 
+  app_schema:
+    name: pyramid_oereb_main
+
+  real_estate:
+    source:
+      class: pyramid_oereb.lib.sources.real_estate.RealEstateDatabaseSource
+      params:
+        db_connection: ${sqlalchemy_url}
+        model: pyramid_oereb.models.RealEstate
+
   plrs:
 
     - name: plr73

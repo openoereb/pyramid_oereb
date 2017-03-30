@@ -26,6 +26,7 @@ def _create_tables_(configuration_yaml_path, section='pyramid_oereb'):
     config = parse(configuration_yaml_path, section)
     engine = create_engine(config.get('db_connection'), echo=True)
     connection = engine.connect()
+    connection.execute('CREATE SCHEMA {name};'.format(name=config.get('app_schema').get('name')))
     for schema in config.get('plrs'):
         connection.execute('CREATE SCHEMA {name};'.format(name=schema.get('name')))
     connection.close()
@@ -38,6 +39,7 @@ def _drop_tables_(configuration_yaml_path, section='pyramid_oereb'):
     engine = create_engine(config.get('db_connection'), echo=True)
     Base.metadata.drop_all(engine)
     connection = engine.connect()
+    connection.execute('DROP SCHEMA IF EXISTS {name};'.format(name=config.get('app_schema').get('name')))
     for schema in config.get('plrs'):
         connection.execute('DROP SCHEMA IF EXISTS {name};'.format(name=schema.get('name')))
     connection.close()

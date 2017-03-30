@@ -16,6 +16,22 @@ metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = sqlalchemy.ext.declarative.declarative_base()
 
 
+class PyramidOerebMainRealEstate(Base):
+    __table_args__ = {'schema': 'pyramid_oereb_main'}
+    __tablename__ = 'real_estate'
+    identdn = sa.Column('id', sa.String, primary_key=True)
+    number = sa.Column(sa.String, nullable=True)
+    egrid = sa.Column(sa.String, nullable=True)
+    type = sa.Column(sa.String, nullable=False)
+    canton = sa.Column(sa.String, nullable=False)
+    municipality = sa.Column(sa.String, nullable=False)
+    subunit_of_land_register = sa.Column(sa.String, nullable=True)
+    fosnr = sa.Column(sa.Integer, nullable=False)
+    metadata_of_geographical_base_data = sa.Column(sa.String, nullable=False)
+    land_registry_area = sa.Column(sa.Integer, nullable=False)
+    limit = sa.Column(Geometry('MULTIPOLYGON', srid=2056))
+
+
 class Plr73Office(Base):
     __table_args__ = {'schema': 'plr73'}
     __tablename__ = 'office'
