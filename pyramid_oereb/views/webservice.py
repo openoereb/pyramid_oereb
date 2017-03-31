@@ -56,7 +56,7 @@ class PlrWebservice(object):
         """
         Returns a list with the matched EGRIDs for the given coordinates.
         :return: The matched EGRIDs.
-        :rtype:  list
+        :rtype:  list of dict
         """
         xy = self._request_.params.get('XY')
         gnss = self._request_.params.get('GNSS')
@@ -70,13 +70,17 @@ class PlrWebservice(object):
         """
         Returns a list with the matched EGRIDs for the given NBIdent and property number.
         :return: The matched EGRIDs.
-        :rtype:  list
+        :rtype:  list of dict
         """
         identdn = self._request_.matchdict.get('identdn')
         number = self._request_.matchdict.get('number')
         if identdn and number:
-            # TODO: Collect the EGRIDs using the property source
-            return []
+            from pyramid_oereb import real_estate_reader
+            records = real_estate_reader.read(**{
+                'nb_ident': identdn,
+                'number': number
+            })
+            return __get_egrid_response__(records)
         else:
             raise HTTPBadRequest('IDENTDN and NUMBER must be defined.')
 
@@ -84,7 +88,7 @@ class PlrWebservice(object):
         """
         Returns a list with the matched EGRIDs for the given postal address.
         :return: The matched EGRIDs.
-        :rtype:  list
+        :rtype:  list of dict
         """
         postalcode = self._request_.matchdict.get('postalcode')
         localisation = self._request_.matchdict.get('localisation')
@@ -169,3 +173,21 @@ class PlrWebservice(object):
             params.update({'topics': topics.split(',')})
 
         return params
+
+
+def __get_egrid_response__(records):
+    """
+    Creates a valid GetEGRID response from a list of real estate records.
+    :param records: List of real estate records.
+    :type records: list of pyramid_oereb.lib.records.real_estate.RealEstateRecord
+    :return: Valid GetEGRID response.
+    :rtype: list of dict
+    """
+    response = list()
+    for r in records:
+        response.append({
+            'egrid': getattr(r, 'egrid'),
+            'number': getattr(r, 'number'),
+            'identDN': getattr(r, 'identdn')
+        })
+    return response
