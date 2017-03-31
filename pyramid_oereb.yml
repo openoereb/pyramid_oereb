@@ -19,7 +19,7 @@ pyramid_oereb:
       class: pyramid_oereb.lib.sources.real_estate.RealEstateDatabaseSource
       params:
         db_connection: postgresql://postgres:password@172.17.0.2/gdwh
-        model: pyramid_oereb.models.RealEstate
+        model: pyramid_oereb.models.PyramidOerebMainRealEstate
 
   plrs:
 

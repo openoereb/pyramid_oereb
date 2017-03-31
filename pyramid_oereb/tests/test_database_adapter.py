@@ -37,7 +37,7 @@ def test_add_connection_fail():
         adapter.add_connection('not_a_connection_string')
 
 
-def test_get_missing_connection():
+def test_get_connection_fail():
     adapter = DatabaseAdapter()
-    with pytest.raises(KeyError):
-        adapter.get_session('connection_that_does_not_exist')
+    with pytest.raises(ArgumentError):
+        adapter.get_session('not_a_connection_string')

@@ -19,7 +19,7 @@ pyramid_oereb:
       class: pyramid_oereb.lib.sources.real_estate.RealEstateDatabaseSource
       params:
         db_connection: ${sqlalchemy_url}
-        model: pyramid_oereb.models.RealEstate
+        model: pyramid_oereb.models.PyramidOerebMainRealEstate
 
   plrs:
 
