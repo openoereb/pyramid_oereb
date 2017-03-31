@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from pyramid.config import ConfigurationError
+
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from geoalchemy2.shape import to_shape
@@ -6,7 +8,7 @@ from geoalchemy2.shape import to_shape
 
 class RealEstateDatabaseSource(BaseDatabaseSource):
 
-    def __init__(self, key, adapter, model):
+    def __init__(self, **kwargs):
         """
         The plug for real estates which uses a database as source.
         :param key: The key for the database connection which should be used from the database adapter,
@@ -17,7 +19,17 @@ class RealEstateDatabaseSource(BaseDatabaseSource):
         :param model: The orm to map database source to plr style
         :type model: sqlalchemy.ext.declarative.DeclarativeMeta
         """
-        super(RealEstateDatabaseSource, self).__init__(key, adapter, model, RealEstateRecord)
+        if kwargs.get('db_connection'):
+            key = kwargs.get('db_connection')
+        else:
+            raise ConfigurationError('"db_connection" for source has to be defined in used yaml '
+                                     'configuration file')
+        if kwargs.get('model'):
+            model = kwargs.get('model')
+        else:
+            raise ConfigurationError('"model" for source has to be defined in used yaml configuration file')
+
+        super(RealEstateDatabaseSource, self).__init__(key, model, RealEstateRecord)
 
     def read(self, **kwargs):
         """
@@ -28,26 +40,29 @@ class RealEstateDatabaseSource(BaseDatabaseSource):
         session = self._adapter_.get_session(self._key_)
         query = session.query(self._model_)
         if kwargs.get('nb_ident') and kwargs.get('number'):
-            result = query.filter(
+            results = [query.filter(
                 self._model_.number == kwargs.get('number')
             ).filter(
                 self._model_.identdn == kwargs.get('nb_ident')
-            ).one()
+            ).one()]
         elif kwargs.get('egrid'):
-            result = query.filter(self._model_.egrid == kwargs.get('egrid')).one()
+            results = [query.filter(self._model_.egrid == kwargs.get('egrid')).one()]
+        elif kwargs.get('geometry'):
+            results = query.filter(self._model_.limit.ST_Intersects(kwargs.get('geometry'))).all()
         else:
             raise AttributeError('Necessary parameter were missing.')
 
         self.records = list()
-        self.records.append(self._record_class_(
-            result.type,
-            result.canton,
-            result.municipality,
-            result.fosnr,
-            result.metadata_of_geographical_base_data,
-            result.land_regestry_area,
-            to_shape(result.limit).wkt,
-            number=result.number,
-            identdn=result.identdn,
-            egrid=result.egrid
-        ))
+        for result in results:
+            self.records.append(self._record_class_(
+                result.type,
+                result.canton,
+                result.municipality,
+                result.fosnr,
+                result.metadata_of_geographical_base_data,
+                result.land_regestry_area,
+                to_shape(result.limit).wkt,
+                number=result.number,
+                identdn=result.identdn,
+                egrid=result.egrid
+            ))
