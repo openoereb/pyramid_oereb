@@ -92,3 +92,11 @@ class ConfigReader(object):
         if flavour and isinstance(flavour, list):
             result.extend(flavour)
         return result
+
+    def get_real_estate_config(self):
+        """
+        Returns a dictionary of the configured real estate settings.
+        :return: The configured real estate settings.
+        :rtype: dict
+        """
+        return self.__config__.get('real_estate')
