@@ -15,7 +15,9 @@ __version__ = '0.0.1'
 log = logging.getLogger('pyramid_oereb')
 route_prefix = None
 config_reader = None
-database_adapter = None
+# initially instantiate database adapter for global session handling
+database_adapter = DatabaseAdapter()
+real_estate_reader = None
 
 
 def main(global_config, **settings):
@@ -38,7 +40,7 @@ def includeme(config):
     :param config: The pyramid apps config object
     :type config: Configurator
     """
-    global route_prefix, config_reader, database_adapter
+    global route_prefix, config_reader, real_estate_reader
 
     # Set route prefix
     route_prefix = config.route_prefix
@@ -51,10 +53,6 @@ def includeme(config):
     cfg_section = settings.get('pyramid_oereb.cfg.section', None)
     config_reader = ConfigReader(cfg_file, cfg_section)
     real_estate_config = config_reader.get_real_estate_config()
-
-    # initially instantiate database adapter for global session handling
-    database_adapter = DatabaseAdapter()
-
 
     real_estate_reader = RealEstateReader(
         real_estate_config.get('source').get('class'),

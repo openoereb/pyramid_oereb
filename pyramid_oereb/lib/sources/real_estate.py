@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from pyramid.config import ConfigurationError
+from pyramid.path import DottedNameResolver
 
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
@@ -25,7 +26,7 @@ class RealEstateDatabaseSource(BaseDatabaseSource):
             raise ConfigurationError('"db_connection" for source has to be defined in used yaml '
                                      'configuration file')
         if kwargs.get('model'):
-            model = kwargs.get('model')
+            model = DottedNameResolver().resolve(kwargs.get('model'))
         else:
             raise ConfigurationError('"model" for source has to be defined in used yaml configuration file')
 
