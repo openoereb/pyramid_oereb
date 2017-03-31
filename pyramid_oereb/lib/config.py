@@ -100,3 +100,13 @@ class ConfigReader(object):
         :rtype: dict
         """
         return self.__config__.get('real_estate')
+
+    def get(self, key, default=None):
+        """
+        Returns the specified configuration value.
+        :param key: Configuration parameter name.
+        :type key: str
+        :param default: Default value if the specified parameter is not defined. Defaults to None.
+        :return: The specified configuration or default value
+        """
+        return self.__config__.get(key, default)

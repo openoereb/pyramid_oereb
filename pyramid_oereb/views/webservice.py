@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-
 from pyramid.httpexceptions import HTTPBadRequest
+from shapely.geometry import Point
+
 from pyramid_oereb import route_prefix
-from pyramid_oereb.lib.config import ConfigReader
+from pyreproj import Reprojector
 
 
 class PlrWebservice(object):
@@ -38,18 +39,14 @@ class PlrWebservice(object):
         :return: The service capabilities.
         :rtype:  dict
         """
-        settings = self._request_.registry.settings
-        cfg = ConfigReader(
-            settings.get('pyramid_oereb.cfg.file'),
-            settings.get('pyramid_oereb.cfg.section')
-        )
+        from pyramid_oereb import config_reader
         return {
-            u'topic': cfg.get_topic(),
+            u'topic': config_reader.get_topic(),
             # TODO: Add municipalities when municipality reader is available
             u'municipality': [],
-            u'flavour': cfg.get_flavour(),
-            u'language': cfg.get_language(),
-            u'crs': cfg.get_crs()
+            u'flavour': config_reader.get_flavour(),
+            u'language': config_reader.get_language(),
+            u'crs': config_reader.get_crs()
         }
 
     def get_egrid_coord(self):
@@ -58,11 +55,18 @@ class PlrWebservice(object):
         :return: The matched EGRIDs.
         :rtype:  list of dict
         """
+        from pyramid_oereb import config_reader
         xy = self._request_.params.get('XY')
         gnss = self._request_.params.get('GNSS')
         if xy or gnss:
-            # TODO: Collect the EGRIDs using the property source
-            return []
+            from pyramid_oereb import real_estate_reader
+            geom_wkt = 'SRID={0};{1}'
+            if xy:
+                geom_wkt = geom_wkt.format(config_reader.get('srid'), __parse_xy__(xy).wkt)
+            elif gnss:
+                geom_wkt = geom_wkt.format(config_reader.get('srid'), __parse_gnss__(gnss).wkt)
+            records = real_estate_reader.read(**{'geometry': geom_wkt})
+            return __get_egrid_response__(records)
         else:
             raise HTTPBadRequest('XY or GNSS must be defined.')
 
@@ -191,3 +195,53 @@ def __get_egrid_response__(records):
             'identDN': getattr(r, 'identdn')
         })
     return response
+
+
+def __coord_transform__(coord, source_crs):
+    """
+    Transforms the specified coordinates from the specified CRS to the configured target CRS and creates a
+    geoalchemy2 WKTElement.
+    :param coord: The coordinates to transform (x, y).
+    :type coord: tuple
+    :param source_crs: The source CRS
+    :type source_crs: int or str
+    :return: The transformed coordinates as Point.
+    :rtype: shapely.geometry.Point
+    """
+    from pyramid_oereb import config_reader
+    epsg = 'epsg:{0}'
+    srid = config_reader.get('srid')
+    rp = Reprojector()
+    x, y = rp.transform(coord, from_srs=epsg.format(source_crs), to_srs=epsg.format(srid))
+    return Point(x, y)
+
+
+def __parse_xy__(xy):
+    """
+    Parses the coordinates from the XY parameter, transforms them to target CRS and creates a WKTElement.
+    :param xy: XY parameter from the getegrid request.
+    :type xy: str
+    :return: The transformed coordinates as Point.
+    :rtype: shapely.geometry.Point
+    """
+    coords = xy.split(',')
+    x = float(coords[0])
+    y = float(coords[1])
+    src_crs = 21781
+    if x > 1000000 and y > 1000000:
+        src_crs = 2056
+    return __coord_transform__((x, y), src_crs)
+
+
+def __parse_gnss__(gnss):
+    """
+    Parses the coordinates from the GNSS parameter, transforms them to target CRS and creates a WKTElement.
+    :param gnss: GNSS parameter from the getegrid request.
+    :type gnss: str
+    :return: The transformed coordinates as Point.
+    :rtype: shapely.geometry.Point
+    """
+    coords = gnss.split(',')
+    x = float(coords[0])
+    y = float(coords[1])
+    return __coord_transform__((x, y), 4326)
