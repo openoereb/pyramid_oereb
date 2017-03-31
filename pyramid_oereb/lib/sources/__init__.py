@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from pyramid.config import ConfigurationError
 
 
 class Base(object):
@@ -21,7 +22,10 @@ class BaseDatabaseSource(Base):
         :param record_class: The class of the record which is used for mapping inside of the application
         :type record_class: pyramid_oereb.lib.records.BaseRecord
         """
-        self._adapter_ = database_adapter
+        if database_adapter:
+            self._adapter_ = database_adapter
+        else:
+            raise ConfigurationError('Adapter for database must be defined if you use database sources.')
         self._key_ = key
         self._model_ = model
         self._record_class_ = record_class
