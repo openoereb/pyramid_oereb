@@ -62,7 +62,7 @@ class PlrWebservice(object):
             from pyramid_oereb import real_estate_reader
             geom_wkt = 'SRID={0};{1}'
             if xy:
-                geom_wkt = geom_wkt.format(config_reader.get('srid'), __parse_xy__(xy).wkt)
+                geom_wkt = geom_wkt.format(config_reader.get('srid'), __parse_xy__(xy, buffer_dist=1.0).wkt)
             elif gnss:
                 geom_wkt = geom_wkt.format(config_reader.get('srid'), __parse_gnss__(gnss).wkt)
             records = real_estate_reader.read(**{'geometry': geom_wkt})
@@ -200,13 +200,13 @@ def __get_egrid_response__(records):
 def __coord_transform__(coord, source_crs):
     """
     Transforms the specified coordinates from the specified CRS to the configured target CRS and creates a
-    geoalchemy2 WKTElement.
+    point geometry.
     :param coord: The coordinates to transform (x, y).
     :type coord: tuple
     :param source_crs: The source CRS
     :type source_crs: int or str
     :return: The transformed coordinates as Point.
-    :rtype: shapely.geometry.Point
+    :rtype: shapely.geometry.Point or shapely.geometry.Polygon
     """
     from pyramid_oereb import config_reader
     epsg = 'epsg:{0}'
@@ -216,13 +216,17 @@ def __coord_transform__(coord, source_crs):
     return Point(x, y)
 
 
-def __parse_xy__(xy):
+def __parse_xy__(xy, buffer_dist=None):
     """
-    Parses the coordinates from the XY parameter, transforms them to target CRS and creates a WKTElement.
+    Parses the coordinates from the XY parameter, transforms them to target CRS and creates a point geometry.
+    If a buffer distance is defined, a buffer with the specified distance will be applied.
     :param xy: XY parameter from the getegrid request.
     :type xy: str
+    :param buffer_dist: Distance for the buffer applied to the transformed point.
+                        If None, no buffer will be applied.
+    :type buffer_dist: float or None
     :return: The transformed coordinates as Point.
-    :rtype: shapely.geometry.Point
+    :rtype: shapely.geometry.Point or shapely.geometry.Polygon
     """
     coords = xy.split(',')
     x = float(coords[0])
@@ -230,18 +234,23 @@ def __parse_xy__(xy):
     src_crs = 21781
     if x > 1000000 and y > 1000000:
         src_crs = 2056
-    return __coord_transform__((x, y), src_crs)
+    p = __coord_transform__((x, y), src_crs)
+    if buffer_dist:
+        return p.buffer(buffer_dist)
+    else:
+        return p
 
 
 def __parse_gnss__(gnss):
     """
-    Parses the coordinates from the GNSS parameter, transforms them to target CRS and creates a WKTElement.
+    Parses the coordinates from the GNSS parameter, transforms them to target CRS and creates a Point with a
+    1 meter buffer.
     :param gnss: GNSS parameter from the getegrid request.
     :type gnss: str
     :return: The transformed coordinates as Point.
-    :rtype: shapely.geometry.Point
+    :rtype: shapely.geometry.Point or shapely.geometry.Polygon
     """
     coords = gnss.split(',')
     x = float(coords[0])
     y = float(coords[1])
-    return __coord_transform__((x, y), 4326)
+    return __coord_transform__((x, y), 4326).buffer(1.0)

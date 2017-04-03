@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+import math
 from geoalchemy2 import WKTElement
-from shapely.geometry import Point
+from shapely.geometry import Point, Polygon
 
 import pyramid_oereb
 import pytest
@@ -151,21 +152,28 @@ def test_get_egrid_response():
     }]
 
 
-@pytest.mark.parametrize('src,dst', [
-    ('2621857.856,1259856.578', (2621857.856, 1259856.578)),
-    ('621857.759,259856.554', (2621857.799, 1259856.500))
+@pytest.mark.parametrize('src,dst,buffer_dist', [
+    ('2621857.856,1259856.578', (2621857.856, 1259856.578), None),
+    ('621857.759,259856.554', (2621857.799, 1259856.500), 1.0)
 ])
-def test_parse_xy(src, dst):
+def test_parse_xy(src, dst, buffer_dist):
     pyramid_oereb.config_reader = config_reader
-    geom = __parse_xy__(src)
-    assert isinstance(geom, Point)
-    assert round(geom.x, 3) == round(dst[0], 3)
-    assert round(geom.y, 3) == round(dst[1], 3)
+    geom = __parse_xy__(src, buffer_dist=buffer_dist)
+    if buffer_dist:
+        assert isinstance(geom, Polygon)
+        assert round(geom.area, 2) == round(math.pi, 2)
+        assert round(geom.centroid.x, 3) == round(dst[0], 3)
+        assert round(geom.centroid.y, 3) == round(dst[1], 3)
+    else:
+        assert isinstance(geom, Point)
+        assert round(geom.x, 3) == round(dst[0], 3)
+        assert round(geom.y, 3) == round(dst[1], 3)
 
 
 def test_parse_gnss():
     pyramid_oereb.config_reader = config_reader
     geom = __parse_gnss__('7.72866,47.48911')
-    assert isinstance(geom, Point)
-    assert round(geom.x, 3) == 2621858.036
-    assert round(geom.y, 3) == 1259856.747
+    assert isinstance(geom, Polygon)
+    assert round(geom.centroid.x, 3) == 2621858.036
+    assert round(geom.centroid.y, 3) == 1259856.747
+    assert round(geom.area, 2) == round(math.pi, 2)
