@@ -10,7 +10,7 @@ from pyramid.testing import DummyRequest, testConfig
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.readers.real_estate import RealEstateReader
 from pyramid_oereb.models import PyramidOerebMainRealEstate
-from pyramid_oereb.tests.conftest import adapter, config_reader, db_url
+from pyramid_oereb.tests.conftest import config_reader, db_url
 from pyramid_oereb.views.webservice import PlrWebservice, __get_egrid_response__, __parse_xy__, __parse_gnss__
 
 
@@ -35,7 +35,7 @@ def test_getegrid_coord_missing_parameter():
 
 @pytest.mark.run(order=1)
 def test_getegrid_ident():
-    session = adapter.get_session(db_url)
+    session = pyramid_oereb.database_adapter.get_session(db_url)
     session.add(PyramidOerebMainRealEstate(
         identdn='test_identdn',
         number='1234',
