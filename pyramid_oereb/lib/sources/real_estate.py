@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from geoalchemy2 import WKTElement
+from geoalchemy2.elements import _SpatialElement
 from pyramid.config import ConfigurationError
 from pyramid.path import DottedNameResolver
 
@@ -63,7 +63,7 @@ class RealEstateDatabaseSource(BaseDatabaseSource):
                 result.fosnr,
                 result.metadata_of_geographical_base_data,
                 result.land_registry_area,
-                to_shape(result.limit).wkt if isinstance(result.limit, WKTElement) else None,
+                to_shape(result.limit).wkt if isinstance(result.limit, _SpatialElement) else None,
                 number=result.number,
                 identdn=result.identdn,
                 egrid=result.egrid
