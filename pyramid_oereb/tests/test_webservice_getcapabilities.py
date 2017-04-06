@@ -2,9 +2,11 @@
 
 import json
 
+import pyramid_oereb
 from jsonschema import validate
 from pyramid.testing import DummyRequest, testConfig
 
+from pyramid_oereb.tests.conftest import config_reader
 from pyramid_oereb.views.webservice import PlrWebservice
 
 
@@ -14,7 +16,7 @@ def test_getcapabilities():
         'pyramid_oereb.cfg.section': 'pyramid_oereb'
     }
     with testConfig(settings=settings):
-
+        pyramid_oereb.config_reader = config_reader
         service = PlrWebservice(DummyRequest())
         with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
             schema = json.load(f)

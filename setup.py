@@ -29,7 +29,8 @@ requires = [
     'transaction',
     'waitress',
     'zope.sqlalchemy',
-    'jsonschema'
+    'jsonschema',
+    'pyreproj'
 ]
 
 setup(

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-
 from pyramid.httpexceptions import HTTPBadRequest
+from shapely.geometry import Point
+
 from pyramid_oereb import route_prefix
-from pyramid_oereb.lib.config import ConfigReader
+from pyreproj import Reprojector
 
 
 class PlrWebservice(object):
@@ -38,31 +39,34 @@ class PlrWebservice(object):
         :return: The service capabilities.
         :rtype:  dict
         """
-        settings = self._request_.registry.settings
-        cfg = ConfigReader(
-            settings.get('pyramid_oereb.cfg.file'),
-            settings.get('pyramid_oereb.cfg.section')
-        )
+        from pyramid_oereb import config_reader
         return {
-            u'topic': cfg.get_topic(),
+            u'topic': config_reader.get_topic(),
             # TODO: Add municipalities when municipality reader is available
             u'municipality': [],
-            u'flavour': cfg.get_flavour(),
-            u'language': cfg.get_language(),
-            u'crs': cfg.get_crs()
+            u'flavour': config_reader.get_flavour(),
+            u'language': config_reader.get_language(),
+            u'crs': config_reader.get_crs()
         }
 
     def get_egrid_coord(self):
         """
         Returns a list with the matched EGRIDs for the given coordinates.
         :return: The matched EGRIDs.
-        :rtype:  list
+        :rtype:  list of dict
         """
+        from pyramid_oereb import config_reader
         xy = self._request_.params.get('XY')
         gnss = self._request_.params.get('GNSS')
         if xy or gnss:
-            # TODO: Collect the EGRIDs using the property source
-            return []
+            from pyramid_oereb import real_estate_reader
+            geom_wkt = 'SRID={0};{1}'
+            if xy:
+                geom_wkt = geom_wkt.format(config_reader.get('srid'), __parse_xy__(xy, buffer_dist=1.0).wkt)
+            elif gnss:
+                geom_wkt = geom_wkt.format(config_reader.get('srid'), __parse_gnss__(gnss).wkt)
+            records = real_estate_reader.read(**{'geometry': geom_wkt})
+            return __get_egrid_response__(records)
         else:
             raise HTTPBadRequest('XY or GNSS must be defined.')
 
@@ -70,13 +74,17 @@ class PlrWebservice(object):
         """
         Returns a list with the matched EGRIDs for the given NBIdent and property number.
         :return: The matched EGRIDs.
-        :rtype:  list
+        :rtype:  list of dict
         """
         identdn = self._request_.matchdict.get('identdn')
         number = self._request_.matchdict.get('number')
         if identdn and number:
-            # TODO: Collect the EGRIDs using the property source
-            return []
+            from pyramid_oereb import real_estate_reader
+            records = real_estate_reader.read(**{
+                'nb_ident': identdn,
+                'number': number
+            })
+            return __get_egrid_response__(records)
         else:
             raise HTTPBadRequest('IDENTDN and NUMBER must be defined.')
 
@@ -84,7 +92,7 @@ class PlrWebservice(object):
         """
         Returns a list with the matched EGRIDs for the given postal address.
         :return: The matched EGRIDs.
-        :rtype:  list
+        :rtype:  list of dict
         """
         postalcode = self._request_.matchdict.get('postalcode')
         localisation = self._request_.matchdict.get('localisation')
@@ -169,3 +177,80 @@ class PlrWebservice(object):
             params.update({'topics': topics.split(',')})
 
         return params
+
+
+def __get_egrid_response__(records):
+    """
+    Creates a valid GetEGRID response from a list of real estate records.
+    :param records: List of real estate records.
+    :type records: list of pyramid_oereb.lib.records.real_estate.RealEstateRecord
+    :return: Valid GetEGRID response.
+    :rtype: list of dict
+    """
+    response = list()
+    for r in records:
+        response.append({
+            'egrid': getattr(r, 'egrid'),
+            'number': getattr(r, 'number'),
+            'identDN': getattr(r, 'identdn')
+        })
+    return response
+
+
+def __coord_transform__(coord, source_crs):
+    """
+    Transforms the specified coordinates from the specified CRS to the configured target CRS and creates a
+    point geometry.
+    :param coord: The coordinates to transform (x, y).
+    :type coord: tuple
+    :param source_crs: The source CRS
+    :type source_crs: int or str
+    :return: The transformed coordinates as Point.
+    :rtype: shapely.geometry.Point or shapely.geometry.Polygon
+    """
+    from pyramid_oereb import config_reader
+    epsg = 'epsg:{0}'
+    srid = config_reader.get('srid')
+    rp = Reprojector()
+    x, y = rp.transform(coord, from_srs=epsg.format(source_crs), to_srs=epsg.format(srid))
+    return Point(x, y)
+
+
+def __parse_xy__(xy, buffer_dist=None):
+    """
+    Parses the coordinates from the XY parameter, transforms them to target CRS and creates a point geometry.
+    If a buffer distance is defined, a buffer with the specified distance will be applied.
+    :param xy: XY parameter from the getegrid request.
+    :type xy: str
+    :param buffer_dist: Distance for the buffer applied to the transformed point.
+                        If None, no buffer will be applied.
+    :type buffer_dist: float or None
+    :return: The transformed coordinates as Point.
+    :rtype: shapely.geometry.Point or shapely.geometry.Polygon
+    """
+    coords = xy.split(',')
+    x = float(coords[0])
+    y = float(coords[1])
+    src_crs = 21781
+    if x > 1000000 and y > 1000000:
+        src_crs = 2056
+    p = __coord_transform__((x, y), src_crs)
+    if buffer_dist:
+        return p.buffer(buffer_dist)
+    else:
+        return p
+
+
+def __parse_gnss__(gnss):
+    """
+    Parses the coordinates from the GNSS parameter, transforms them to target CRS and creates a Point with a
+    1 meter buffer.
+    :param gnss: GNSS parameter from the getegrid request.
+    :type gnss: str
+    :return: The transformed coordinates as Point.
+    :rtype: shapely.geometry.Point or shapely.geometry.Polygon
+    """
+    coords = gnss.split(',')
+    x = float(coords[0])
+    y = float(coords[1])
+    return __coord_transform__((x, y), 4326).buffer(1.0)

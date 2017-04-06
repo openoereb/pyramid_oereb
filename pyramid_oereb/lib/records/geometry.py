@@ -10,7 +10,7 @@ class GeometryRecord(object):
     office = None
 
     def __init__(
-            self, legal_state=None, published_from=None, geo_metadata=None, geom=None,
+            self, legal_state, published_from, geo_metadata=None, geom=None,
             public_law_restriction=None, office=None):
         """
         Geometry record
