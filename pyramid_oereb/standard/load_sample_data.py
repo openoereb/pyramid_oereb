@@ -8,7 +8,8 @@ from sqlalchemy.orm import sessionmaker
 
 from pyramid_oereb.lib.config import parse
 from pyramid_oereb.models import Plr119Office, Plr119Geometry, Plr119PublicLawRestriction, \
-    Plr119ViewService, Plr119PublicLawRestrictionDocument, Plr119DocumentBase, Plr119LegalProvision
+    Plr119ViewService, Plr119PublicLawRestrictionDocument, Plr119DocumentBase, Plr119LegalProvision, \
+    PyramidOerebMainRealEstate
 
 
 def load():
@@ -56,6 +57,10 @@ def __load__(configuration, section='pyramid_oereb'):
     connection = engine.connect()
 
     # Truncate tables
+    connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+        schema=PyramidOerebMainRealEstate.__table__.schema,
+        table=PyramidOerebMainRealEstate.__table__.name
+    ))
     connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
         schema=Plr119PublicLawRestrictionDocument.__table__.schema,
         table=Plr119PublicLawRestrictionDocument.__table__.name
@@ -123,6 +128,12 @@ def __load__(configuration, section='pyramid_oereb'):
             'resources/plr119/public_law_restriction_document.json'
     )) as f:
         connection.execute(Plr119PublicLawRestrictionDocument.__table__.insert(), json.loads(f.read()))
+
+    with open(pkg_resources.resource_filename(
+            'pyramid_oereb.tests',
+            'resources/real_estates.json'
+    )) as f:
+        connection.execute(PyramidOerebMainRealEstate.__table__.insert(), json.loads(f.read()))
 
     # Close database connection
     connection.close()
