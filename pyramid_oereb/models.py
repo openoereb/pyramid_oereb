@@ -23,7 +23,7 @@ class PyramidOerebMainMunicipality(Base):
     id_bfs = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
     published = sa.Column(sa.Boolean, nullable=False, default=False, server_default=sqlalchemy.text('FALSE'))
-    geometry = sa.Column(Geometry('MULTIPOLYGON', srid=2056), nullable=True)
+    geom = sa.Column(Geometry('MULTIPOLYGON', srid=2056), nullable=True)
 
 
 class PyramidOerebMainRealEstate(Base):
@@ -51,7 +51,7 @@ class PyramidOerebMainAddress(Base):
     street_name = sa.Column(sa.Unicode, nullable=False)
     street_number = sa.Column(sa.String, nullable=False)
     zip_code = sa.Column(sa.Integer, nullable=False)
-    geometry = sa.Column(Geometry('POINT', srid=2056))
+    geom = sa.Column(Geometry('POINT', srid=2056))
 
 
 class Plr73Office(Base):
