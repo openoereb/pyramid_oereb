@@ -18,8 +18,15 @@ pyramid_oereb:
     source:
       class: pyramid_oereb.lib.sources.real_estate.RealEstateDatabaseSource
       params:
-        db_connection: postgresql://postgres:password@172.17.0.2/gdwh
+        db_connection: postgresql://postgres:password@localhost/pyramid_oereb
         model: pyramid_oereb.models.PyramidOerebMainRealEstate
+
+  address:
+    source:
+      class: pyramid_oereb.lib.sources.address.AddressDatabaseSource
+      params:
+        db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+        model: pyramid_oereb.models.PyramidOerebMainAddress
 
   plrs:
 
@@ -126,4 +133,4 @@ pyramid_oereb:
       language: de
 
   srid: 2056
-  db_connection: postgresql://postgres:password@172.17.0.2/pyramid_oereb
+  db_connection: postgresql://postgres:password@localhost/pyramid_oereb

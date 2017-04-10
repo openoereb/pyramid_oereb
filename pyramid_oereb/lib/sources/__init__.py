@@ -8,7 +8,7 @@ class Base(object):
 
 class BaseDatabaseSource(Base):
 
-    def __init__(self, key, model, record_class):
+    def __init__(self, key, model):
         from pyramid_oereb import database_adapter
         """
         The plug for sources which uses a database.
@@ -19,8 +19,6 @@ class BaseDatabaseSource(Base):
         :type adapter: pyramid_oereb.lib.adapter.DatabaseAdapter
         :param model: The orm to map database source to plr style
         :type model: sqlalchemy.ext.declarative.DeclarativeMeta
-        :param record_class: The class of the record which is used for mapping inside of the application
-        :type record_class: pyramid_oereb.lib.records.BaseRecord
         """
         if database_adapter:
             self._adapter_ = database_adapter
@@ -28,4 +26,3 @@ class BaseDatabaseSource(Base):
             raise ConfigurationError('Adapter for database must be defined if you use database sources.')
         self._key_ = key
         self._model_ = model
-        self._record_class_ = record_class
