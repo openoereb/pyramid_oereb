@@ -3,7 +3,7 @@ from pyramid.config import ConfigurationError
 from pyramid.path import DottedNameResolver
 
 from pyramid_oereb.lib.sources import BaseDatabaseSource
-from pyramid_oereb.lib.records.legend import LegendRecord
+from pyramid_oereb.lib.records.view_service import LegendEntryRecord
 
 
 class LegendDatabaseSource(BaseDatabaseSource):
@@ -50,7 +50,7 @@ class LegendDatabaseSource(BaseDatabaseSource):
 
         self.records = list()
         for result in results:
-            self.records.append(LegendRecord(
+            self.records.append(LegendEntryRecord(
                 result.symbol,
                 result.legend_text,
                 result.typecode,
