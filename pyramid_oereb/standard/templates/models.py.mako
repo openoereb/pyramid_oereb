@@ -30,7 +30,8 @@ class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).re
 class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).replace('_', '')}RealEstate(Base):
     __table_args__ = {'schema': '${app_schema.get('name')}'}
     __tablename__ = 'real_estate'
-    identdn = sa.Column('id', sa.String, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True)
+    identdn = sa.Column(sa.String, nullable=True)
     number = sa.Column(sa.String, nullable=True)
     egrid = sa.Column(sa.String, nullable=True)
     type = sa.Column(sa.String, nullable=False)
