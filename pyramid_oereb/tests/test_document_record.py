@@ -12,6 +12,7 @@ def test_get_fields():
         'law_status',
         'published_from',
         'title',
+        'official_title',
         'responsible_office',
         'abbreviation',
         'official_number',
@@ -32,10 +33,11 @@ def test_mandatory_fields():
 
 def test_init():
     office_record = OfficeRecord('name')
-    record = DocumentRecord("runningModifications", datetime.date(1985, 8, 29), 'title', office_record)
+    record = DocumentRecord("runningModifications", datetime.date(1985, 8, 29), 'title', u'Titre à accent',office_record)
     assert isinstance(record.law_status, str)
     assert isinstance(record.published_from, datetime.date)
     assert isinstance(record.title, str)
+    assert isinstance(record.official_title, unicode)
     assert isinstance(record.responsible_office, OfficeRecord)
     assert record.text_at_web is None
     assert record.abbreviation is None
@@ -50,13 +52,14 @@ def test_init_with_relation():
     office_record = OfficeRecord('name')
     articles = [ArticleRecord("runningModifications", datetime.date(1985, 8, 29), '123.4')]
     references = [
-        DocumentRecord("runningModifications", datetime.date(1985, 8, 29), 'Titel 1', office_record)
+        DocumentRecord("runningModifications", datetime.date(1985, 8, 29), 'Titel 1', u'Titre à accent', office_record)
     ]
-    record = DocumentRecord("runningModifications", datetime.date(1985, 8, 29), 'title', office_record,
+    record = DocumentRecord("runningModifications", datetime.date(1985, 8, 29), 'title', u'Titre à accent', office_record,
                             articles=articles, references=references)
     assert isinstance(record.law_status, str)
     assert isinstance(record.published_from, datetime.date)
     assert isinstance(record.title, str)
+    assert isinstance(record.official_title, unicode)
     assert isinstance(record.responsible_office, OfficeRecord)
     assert record.text_at_web is None
     assert record.abbreviation is None
