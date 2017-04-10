@@ -31,7 +31,7 @@ class MunicipalityDatabaseSource(BaseDatabaseSource):
         else:
             raise ConfigurationError('"model" for source has to be defined in used yaml configuration file')
 
-        super(MunicipalityDatabaseSource, self).__init__(key, model, MunicipalityRecord)
+        super(MunicipalityDatabaseSource, self).__init__(key, model)
 
     def read(self, **kwargs):
         """
@@ -53,5 +53,6 @@ class MunicipalityDatabaseSource(BaseDatabaseSource):
                 result.id_bfs,
                 result.name,
                 result.published,
-                geometry=to_shape(result.geometry).wkt if isinstance(result.geometry, _SpatialElement) else None,
+                geom=to_shape(result.geometry).wkt if isinstance(
+                    result.geometry, _SpatialElement) else None,
             ))

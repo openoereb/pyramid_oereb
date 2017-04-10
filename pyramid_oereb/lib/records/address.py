@@ -3,7 +3,7 @@
 
 class AddressRecord(object):
 
-    def __init__(self, street_name, zip_code, street_number, geometry):
+    def __init__(self, street_name, zip_code, street_number, geom):
         """
         The record for handling the address entity inside the application.
         :param street_name: The name of the street for this address.
@@ -12,13 +12,13 @@ class AddressRecord(object):
         :type zip_code: int
         :param street_number: The house number for this address.
         :type street_number: str
-        :param geometry: The geometry (point) which is representing this address as a WKT.
-        :type geometry: str
+        :param geom: The geometry (point) which is representing this address as a WKT.
+        :type geom: str
         """
         self.street_name = street_name
         self.zip_code = zip_code
         self.street_number = street_number
-        self.geometry = geometry
+        self.geom = geom
 
     @classmethod
     def get_fields(cls):
@@ -31,5 +31,5 @@ class AddressRecord(object):
             'street_name',
             'zip_code',
             'street_number',
-            'geometry'
+            'geom'
         ]

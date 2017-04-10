@@ -3,7 +3,7 @@
 
 class MunicipalityRecord(object):
 
-    def __init__(self, id_bfs, name, published, geometry=None):
+    def __init__(self, id_bfs, name, published, geom=None):
         """
         The base document class.
         :param id_bfs: The unique id bfs of the municipality.
@@ -12,13 +12,13 @@ class MunicipalityRecord(object):
         :type name: unicode
         :param published: Is this municipality ready for publishing via server.
         :type published: bool
-        :param geometry: The geometry which is representing this municipality as a WKT.
-        :type geometry: str or None
+        :param geom: The geometry which is representing this municipality as a WKT.
+        :type geom: str or None
         """
         self.id_bfs = id_bfs
         self.name = name
         self.published = published
-        self.geometry = geometry
+        self.geom = geom
 
     @classmethod
     def get_fields(cls):
@@ -31,5 +31,5 @@ class MunicipalityRecord(object):
             'id_bfs',
             'name',
             'published',
-            'geometry'
+            'geom'
         ]

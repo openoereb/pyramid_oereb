@@ -10,7 +10,7 @@ def test_get_fields():
             'id_bfs',
             'name',
             'published',
-            'geometry'
+            'geom'
         ]
     fields = MunicipalityRecord.get_fields()
     assert fields == expected_fields
@@ -26,9 +26,9 @@ def test_init():
         969,
         u'FantasyMunicipality',
         True,
-        'POLYGON((123 456, 456 789, 789 123, 123 456))'
+        'MULTIPOLYGON(((123 456, 456 789, 789 123, 123 456)))'
     )
     assert isinstance(record.id_bfs, int)
     assert isinstance(record.name, unicode)
     assert isinstance(record.published, bool)
-    assert isinstance(shapely.wkt.loads(record.geometry), shapely.geometry.polygon.Polygon)
+    assert isinstance(shapely.wkt.loads(record.geom), shapely.geometry.multipolygon.MultiPolygon)
