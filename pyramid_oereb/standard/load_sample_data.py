@@ -7,8 +7,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from pyramid_oereb.lib.config import parse
-from pyramid_oereb.models import Plr119Office, Plr119Geometry, Plr119PublicLawRestriction, Plr119ViewService, \
-    Plr119PublicLawRestrictionDocument, Plr119DocumentBase, Plr119LegalProvision
+from pyramid_oereb.models import Plr119Office, Plr119Geometry, Plr119PublicLawRestriction, \
+    Plr119ViewService, Plr119PublicLawRestrictionDocument, Plr119DocumentBase, Plr119LegalProvision
 
 
 def load():
