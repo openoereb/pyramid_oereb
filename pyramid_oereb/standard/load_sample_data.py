@@ -12,16 +12,20 @@ from pyramid_oereb.models import Plr119Office, Plr119Geometry, Plr119PublicLawRe
 
 
 def load():
+    """
+    Loads sample data from the json files with the repository. The method can be called by running
+    'load_sample_data' from the virtual environment. Check 'load_sample_data --help' for available options.
+    """
     parser = optparse.OptionParser(
         usage='usage: %prog [options]',
-        description='Create all content for the standard database'
+        description='Loads sample data into the configured database.'
     )
     parser.add_option(
         '-c', '--configuration',
         dest='configuration',
         metavar='YAML',
         type='string',
-        help='The absolute path to the configuration yaml file (standard is: pyramid_oereb.yml).'
+        help='The absolute path to the configuration yaml file.'
     )
     parser.add_option(
         '-s', '--section',
@@ -38,6 +42,15 @@ def load():
 
 
 def __load__(configuration, section='pyramid_oereb'):
+    """
+    Performs the database operations to load the sample data.
+    :param configuration: Path to the configuration yaml file.
+    :type configuration: str
+    :param section: The used section within the yaml file.
+    :type section: str
+    """
+
+    # Create database connection
     config = parse(configuration, section)
     engine = create_engine(config.get('db_connection'), echo=True)
     connection = engine.connect()
@@ -68,6 +81,7 @@ def __load__(configuration, section='pyramid_oereb'):
         table=Plr119Office.__table__.name
     ))
 
+    # Fill tables with sample data
     with open(pkg_resources.resource_filename(
             'pyramid_oereb.tests',
             'resources/plr119/office.json'
@@ -97,7 +111,7 @@ def __load__(configuration, section='pyramid_oereb'):
             'resources/plr119/legal_provision.json'
     )) as f:
         lps = json.loads(f.read())
-        Session = sessionmaker(bind=engine)
+        Session = sessionmaker(bind=engine)  # Use session because of table inheritance
         session = Session()
         for lp in lps:
             session.add(Plr119LegalProvision(**lp))
@@ -110,4 +124,5 @@ def __load__(configuration, section='pyramid_oereb'):
     )) as f:
         connection.execute(Plr119PublicLawRestrictionDocument.__table__.insert(), json.loads(f.read()))
 
+    # Close database connection
     connection.close()
