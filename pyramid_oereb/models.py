@@ -2,6 +2,7 @@
 import sqlalchemy.ext.declarative
 import sqlalchemy as sa
 
+from sqlalchemy import PrimaryKeyConstraint
 from geoalchemy2.types import Geometry
 from sqlalchemy.orm import relationship
 
@@ -30,6 +31,18 @@ class PyramidOerebMainRealEstate(Base):
     metadata_of_geographical_base_data = sa.Column(sa.String, nullable=False)
     land_registry_area = sa.Column(sa.Integer, nullable=False)
     limit = sa.Column(Geometry('MULTIPOLYGON', srid=2056))
+
+
+class PyramidOerebMainAddress(Base):
+    __table_args__ = (
+        PrimaryKeyConstraint("street_name", "street_number", "zip_code"),
+        {'schema': 'pyramid_oereb_main'}
+    )
+    __tablename__ = 'address'
+    street_name = sa.Column(sa.Unicode, nullable=False)
+    street_number = sa.Column(sa.String, nullable=False)
+    zip_code = sa.Column(sa.Integer, nullable=False)
+    geometry = sa.Column(Geometry('POINT', srid=2056))
 
 
 class Plr73Office(Base):
