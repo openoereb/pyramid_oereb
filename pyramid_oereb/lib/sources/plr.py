@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb.lib.sources import BaseDatabaseSource
+from pyramid_oereb.lib.records.plr import PlrRecord
 
 
 class PlrDatabaseSource(BaseDatabaseSource):
@@ -17,7 +18,7 @@ class PlrDatabaseSource(BaseDatabaseSource):
         results = session.query(self._model_).all()
         self.records = list()
         for r in results:
-            self.records.append(self._record_class_(
+            self.records.append(PlrRecord(
                 r.content,
                 r.topic,
                 r.legal_state,

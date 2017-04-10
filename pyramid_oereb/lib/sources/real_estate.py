@@ -31,7 +31,7 @@ class RealEstateDatabaseSource(BaseDatabaseSource):
         else:
             raise ConfigurationError('"model" for source has to be defined in used yaml configuration file')
 
-        super(RealEstateDatabaseSource, self).__init__(key, model, RealEstateRecord)
+        super(RealEstateDatabaseSource, self).__init__(key, model)
 
     def read(self, **kwargs):
         """
@@ -56,7 +56,7 @@ class RealEstateDatabaseSource(BaseDatabaseSource):
 
         self.records = list()
         for result in results:
-            self.records.append(self._record_class_(
+            self.records.append(RealEstateRecord(
                 result.type,
                 result.canton,
                 result.municipality,
