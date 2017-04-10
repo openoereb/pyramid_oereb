@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+from geoalchemy2.elements import _SpatialElement
+from geoalchemy2.shape import to_shape
 from pyramid.config import ConfigurationError
 from pyramid.path import DottedNameResolver
 
 from pyramid_oereb.lib.sources import BaseDatabaseSource
-from pyramid_oereb.lib.records.adress import AddressRecord
+from pyramid_oereb.lib.records.address import AddressRecord
 
 
 class AddressDatabaseSource(BaseDatabaseSource):
@@ -23,7 +25,7 @@ class AddressDatabaseSource(BaseDatabaseSource):
         else:
             raise ConfigurationError('"model" for source has to be defined in used yaml configuration file')
 
-        super(AddressDatabaseSource, self).__init__(key, model, AddressRecord)
+        super(AddressDatabaseSource, self).__init__(key, model)
 
     def read(self, **kwargs):
         """
@@ -46,15 +48,9 @@ class AddressDatabaseSource(BaseDatabaseSource):
 
         self.records = list()
         for result in results:
-            self.records.append(self._record_class_(
-                result.type,
-                result.canton,
-                result.municipality,
-                result.fosnr,
-                result.metadata_of_geographical_base_data,
-                result.land_registry_area,
-                to_shape(result.limit).wkt if isinstance(result.limit, _SpatialElement) else None,
-                number=result.number,
-                identdn=result.identdn,
-                egrid=result.egrid
+            self.records.append(AddressRecord(
+                result.street_name,
+                result.zip_code,
+                result.street_number,
+                to_shape(result.geometry).wkt if isinstance(result.geometry, _SpatialElement) else None
             ))

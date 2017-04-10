@@ -2,7 +2,7 @@
 import sqlalchemy.ext.declarative
 import sqlalchemy as sa
 
-from sqlalchemy import UniqueConstraint
+from sqlalchemy import PrimaryKeyConstraint
 from geoalchemy2.types import Geometry
 from sqlalchemy.orm import relationship
 
@@ -35,7 +35,7 @@ class PyramidOerebMainRealEstate(Base):
 
 class PyramidOerebMainAddress(Base):
     __table_args__ = (
-        UniqueConstraint("street_name", "street_number", "zip_code"),
+        PrimaryKeyConstraint("street_name", "street_number", "zip_code"),
         {'schema': 'pyramid_oereb_main'}
     )
     __tablename__ = 'address'

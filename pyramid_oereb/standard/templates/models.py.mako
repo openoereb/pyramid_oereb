@@ -3,7 +3,7 @@
 import sqlalchemy.ext.declarative
 import sqlalchemy as sa
 
-from sqlalchemy import UniqueConstraint
+from sqlalchemy import PrimaryKeyConstraint
 from geoalchemy2.types import Geometry
 from sqlalchemy.orm import relationship
 
@@ -36,7 +36,7 @@ class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).re
 
 class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).replace('_', '')}Address(Base):
     __table_args__ = (
-        UniqueConstraint("street_name", "street_number", "zip_code"),
+        PrimaryKeyConstraint("street_name", "street_number", "zip_code"),
         {'schema': '${app_schema.get('name')}'}
     )
     __tablename__ = 'address'
