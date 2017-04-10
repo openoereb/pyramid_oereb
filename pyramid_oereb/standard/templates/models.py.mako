@@ -17,6 +17,15 @@ metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = sqlalchemy.ext.declarative.declarative_base()
 
 
+class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).replace('_', '')}Municipality(Base):
+    __table_args__ = {'schema': '${app_schema.get('name')}'}
+    __tablename__ = 'municipality'
+    id_bfs = sa.Column(sa.Integer, primary_key=True)
+    name = sa.Column(sa.String, nullable=False)
+    published = sa.Column(sa.Boolean, nullable=False, default=False, server_default=sqlalchemy.text('FALSE'))
+    geometry = sa.Column(Geometry('MULTIPOLYGON', srid=${srid}), nullable=True)
+
+
 class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).replace('_', '')}RealEstate(Base):
     __table_args__ = {'schema': '${app_schema.get('name')}'}
     __tablename__ = 'real_estate'

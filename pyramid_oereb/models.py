@@ -16,6 +16,15 @@ metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = sqlalchemy.ext.declarative.declarative_base()
 
 
+class PyramidOerebMainMunicipality(Base):
+    __table_args__ = {'schema': 'pyramid_oereb_main'}
+    __tablename__ = 'municipality'
+    id_bfs = sa.Column(sa.Integer, primary_key=True)
+    name = sa.Column(sa.String, nullable=False)
+    published = sa.Column(sa.Boolean, nullable=False, default=False, server_default=sqlalchemy.text('FALSE'))
+    geometry = sa.Column(Geometry('MULTIPOLYGON', srid=2056), nullable=True)
+
+
 class PyramidOerebMainRealEstate(Base):
     __table_args__ = {'schema': 'pyramid_oereb_main'}
     __tablename__ = 'real_estate'

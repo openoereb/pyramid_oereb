@@ -3,20 +3,20 @@
 
 class MunicipalityRecord(object):
 
-    def __init__(self, id_bfs, municipality_name, published, geometry=None):
+    def __init__(self, id_bfs, name, published, geometry=None):
         """
         The base document class.
         :param id_bfs: The unique id bfs of the municipality.
         :type id_bfs: int
-        :param municipality_name: The zipcode for this address.
-        :type municipality_name: unicode
+        :param name: The zipcode for this address.
+        :type name: unicode
         :param published: Is this municipality ready for publishing via server.
         :type published: bool
         :param geometry: The geometry which is representing this municipality as a WKT.
         :type geometry: str or None
         """
         self.id_bfs = id_bfs
-        self.municipality_name = municipality_name
+        self.name = name
         self.published = published
         self.geometry = geometry
 
@@ -29,7 +29,7 @@ class MunicipalityRecord(object):
         """
         return [
             'id_bfs',
-            'municipality_name',
+            'name',
             'published',
             'geometry'
         ]
