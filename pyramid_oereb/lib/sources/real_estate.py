@@ -1,37 +1,16 @@
 # -*- coding: utf-8 -*-
 from geoalchemy2.elements import _SpatialElement
-from pyramid.config import ConfigurationError
-from pyramid.path import DottedNameResolver
 
-from pyramid_oereb.lib.sources import BaseDatabaseSource
+from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from geoalchemy2.shape import to_shape
 
 
-class RealEstateDatabaseSource(BaseDatabaseSource):
+class RealEstateBaseSource(Base):
+    _record_class_ = RealEstateRecord
 
-    def __init__(self, **kwargs):
-        """
-        The plug for real estates which uses a database as source.
-        :param key: The key for the database connection which should be used from the database adapter,
-        passed to this instance.
-        :type key: str
-        :param adapter: The database adapter which provides access to the desired database session
-        :type adapter: pyramid_oereb.lib.adapter.DatabaseAdapter
-        :param model: The orm to map database source to plr style
-        :type model: sqlalchemy.ext.declarative.DeclarativeMeta
-        """
-        if kwargs.get('db_connection'):
-            key = kwargs.get('db_connection')
-        else:
-            raise ConfigurationError('"db_connection" for source has to be defined in used yaml '
-                                     'configuration file')
-        if kwargs.get('model'):
-            model = DottedNameResolver().resolve(kwargs.get('model'))
-        else:
-            raise ConfigurationError('"model" for source has to be defined in used yaml configuration file')
 
-        super(RealEstateDatabaseSource, self).__init__(key, model)
+class RealEstateDatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
 
     def read(self, **kwargs):
         """
@@ -56,7 +35,7 @@ class RealEstateDatabaseSource(BaseDatabaseSource):
 
         self.records = list()
         for result in results:
-            self.records.append(RealEstateRecord(
+            self.records.append(self._record_class_(
                 result.type,
                 result.canton,
                 result.municipality,

@@ -13,7 +13,7 @@ from pyramid_oereb.tests.conftest import db_url
     Plr116PublicLawRestriction
 ])
 def test_init(model):
-    source = PlrDatabaseSource(db_url, model)
+    source = PlrDatabaseSource(**{'db_connection': db_url, 'model': model})
     assert isinstance(source._adapter_, DatabaseAdapter)
     assert source._model_ == model
 
@@ -24,6 +24,6 @@ def test_init(model):
     Plr116PublicLawRestriction
 ])
 def test_read(model):
-    source = PlrDatabaseSource(db_url, model)
+    source = PlrDatabaseSource(**{'db_connection': db_url, 'model': model})
     source.read('POINT(1 1)')
     assert len(source.records) == 0

@@ -1,31 +1,16 @@
 # -*- coding: utf-8 -*-
 from geoalchemy2.elements import _SpatialElement
 from geoalchemy2.shape import to_shape
-from pyramid.config import ConfigurationError
-from pyramid.path import DottedNameResolver
 
-from pyramid_oereb.lib.sources import BaseDatabaseSource
+from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
 from pyramid_oereb.lib.records.address import AddressRecord
 
 
-class AddressDatabaseSource(BaseDatabaseSource):
+class AddressBaseSource(Base):
+    _record_class_ = AddressRecord
 
-    def __init__(self, **kwargs):
-        """
-        The plug for addresses which uses a database as source.
-        :param kwargs: Arbitrary keyword arguments. It must contain the keys 'db_connection' and 'model'
-        """
-        if kwargs.get('db_connection'):
-            key = kwargs.get('db_connection')
-        else:
-            raise ConfigurationError('"db_connection" for source has to be defined in used yaml '
-                                     'configuration file')
-        if kwargs.get('model'):
-            model = DottedNameResolver().resolve(kwargs.get('model'))
-        else:
-            raise ConfigurationError('"model" for source has to be defined in used yaml configuration file')
 
-        super(AddressDatabaseSource, self).__init__(key, model)
+class AddressDatabaseSource(BaseDatabaseSource, AddressBaseSource):
 
     def read(self, **kwargs):
         """
@@ -48,7 +33,7 @@ class AddressDatabaseSource(BaseDatabaseSource):
 
         self.records = list()
         for result in results:
-            self.records.append(AddressRecord(
+            self.records.append(self._record_class_(
                 result.street_name,
                 result.zip_code,
                 result.street_number,
