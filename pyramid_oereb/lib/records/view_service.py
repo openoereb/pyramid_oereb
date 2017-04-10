@@ -50,7 +50,7 @@ class LegendEntryRecord(object):
 
 class ViewServiceRecord(object):
     # Attributes defined while processing
-    image = None # map image resulting from calling the wms link - binary
+    image = None    # map image resulting from calling the wms link - binary
 
     def __init__(self, link_wms, legend_web, legends=None):
         """
