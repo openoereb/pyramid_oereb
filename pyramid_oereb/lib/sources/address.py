@@ -12,7 +12,7 @@ class AddressDatabaseSource(BaseDatabaseSource):
 
     def __init__(self, **kwargs):
         """
-        The plug for real estates which uses a database as source.
+        The plug for addresses which uses a database as source.
         :param kwargs: Arbitrary keyword arguments. It must contain the keys 'db_connection' and 'model'
         """
         if kwargs.get('db_connection'):
@@ -29,7 +29,7 @@ class AddressDatabaseSource(BaseDatabaseSource):
 
     def read(self, **kwargs):
         """
-        Central method to read all plrs.
+        Central method to read one address.
         :param kwargs: Arbitrary keyword arguments. It must contain the keys 'street_name', 'zip_code' and
         'street_number'.
         """

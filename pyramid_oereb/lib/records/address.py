@@ -5,7 +5,7 @@ class AddressRecord(object):
 
     def __init__(self, street_name, zip_code, street_number, geometry):
         """
-        The base document class.
+        The record for handling the address entity inside the application.
         :param street_name: The name of the street for this address.
         :type street_name: unicode
         :param zip_code: The zipcode for this address.
