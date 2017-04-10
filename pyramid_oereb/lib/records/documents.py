@@ -69,8 +69,8 @@ class ArticleRecord(DocumentBaseRecord):
 
 class DocumentRecord(DocumentBaseRecord):
 
-    def __init__(self, law_status, published_from, title, official_title, responsible_office, text_at_web=None,
-                 abbreviation=None, official_number=None, canton=None,
+    def __init__(self, law_status, published_from, title, responsible_office, text_at_web=None,
+                 abbreviation=None, official_number=None, official_title=None,  canton=None,
                  municipality=None, file=None, articles=None, references=None):
         """
         More specific document class representing real documents.
@@ -79,13 +79,13 @@ class DocumentRecord(DocumentBaseRecord):
         :param published_from: Date since this document was published.
         :type published_from: datetime.date
         :param title: The title of the document. It might be shortened one.
-        :type title: str
+        :type title: unicode
         :param responsible_office: Office which is responsible for this document.
         :type responsible_office: pyramid_oereb.lib.records.office.OfficeRecord
         :param text_at_web: The URI to the documents content.
         :type text_at_web: str
         :param official_title: The official title of the document.
-        :type official_title: str
+        :type official_title: unicode
         :param abbreviation: Short term for this document.
         :type abbreviation: str
         :param official_number: The official number for identification of this document.

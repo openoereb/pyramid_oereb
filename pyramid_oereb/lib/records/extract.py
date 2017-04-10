@@ -3,33 +3,33 @@
 
 class ExtractRecord(object):
     # Attributes calculated or defined while processing
-    CreationDate = None
-    ElectronicSignature = None
-    ConcernedTheme = None
-    NotConcernedTheme = None
-    ThemeWithoutData = None
-    IsReduced = False
-    ExtractIdentifier = None
-    QRCode = None
-    GeneralInformation = None
-    BaseData = None
+    creation_date = None
+    electronic_signature = None
+    concerned_Theme = None
+    notconcerned_theme = None
+    theme_without_data = None
+    is_reduced = False
+    extract_identifier = None
+    qr_code = None
+    general_information = None
+    base_data = None
 
-    def __init__(self, LogoPLRCadastre, FederalLogo, CantonalLogo, MunicipalityLogo):
+    def __init__(self, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo):
         """
         The extract base class.
-        :param LogoPLRCadastre: Image file of the PLR logo
-        :type LogoPLRCadastre: binary
-        :param FederalLogo:Image file of the federal logo
-        :type FederalLogo: binary
-        :param CantonalLogo: Image file of the cantonal logo
-        :type CantonalLogo: binary
-        :param MunicipalityLogo: Image file of the municipality logo
-        :type MunicipalityLogo: binary
+        :param logo_plr_cadastre: Image file of the PLR logo
+        :type logo_plr_cadastre: bytes
+        :param federal_logo:Image file of the federal logo
+        :type federal_logo: bytes
+        :param cantonal_logo: Image file of the cantonal logo
+        :type cantonal_logo: bytes
+        :param municipality_logo: Image file of the municipality logo
+        :type municipality_logo: bytes
         """
-        self.LogoPLRCadastre = LogoPLRCadastre
-        self.FederalLogo = FederalLogo
-        self.CantonalLogo = CantonalLogo
-        self.MunicipalityLogo = MunicipalityLogo
+        self.logo_plr_cadastre = logo_plr_cadastre
+        self.federal_logo = federal_logo
+        self.cantonal_logo = cantonal_logo
+        self.municipality_logo = municipality_logo
 
     @classmethod
     def get_fields(cls):
@@ -39,8 +39,8 @@ class ExtractRecord(object):
         :rtype: list of str
         """
         return [
-            'LogoPLRCadastre',
-            'FederalLogo',
-            'CantonalLogo',
-            'MunicipalityLogo'
+            'logo_plr_cadastre',
+            'federal_logo',
+            'cantonal_logo',
+            'municipality_logo'
         ]
