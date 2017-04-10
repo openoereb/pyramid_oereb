@@ -24,7 +24,7 @@ class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).re
     id_bfs = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
     published = sa.Column(sa.Boolean, nullable=False, default=False, server_default=sqlalchemy.text('FALSE'))
-    geometry = sa.Column(Geometry('MULTIPOLYGON', srid=${srid}), nullable=True)
+    geom = sa.Column(Geometry('MULTIPOLYGON', srid=${srid}), nullable=True)
 
 
 class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).replace('_', '')}RealEstate(Base):
@@ -52,7 +52,7 @@ class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).re
     street_name = sa.Column(sa.Unicode, nullable=False)
     street_number = sa.Column(sa.String, nullable=False)
     zip_code = sa.Column(sa.Integer, nullable=False)
-    geometry = sa.Column(Geometry('POINT', srid=${srid}))
+    geom = sa.Column(Geometry('POINT', srid=${srid}))
 % for schema in plrs:
 
 

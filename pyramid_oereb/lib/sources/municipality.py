@@ -53,6 +53,6 @@ class MunicipalityDatabaseSource(BaseDatabaseSource):
                 result.id_bfs,
                 result.name,
                 result.published,
-                geom=to_shape(result.geometry).wkt if isinstance(
-                    result.geometry, _SpatialElement) else None,
+                geom=to_shape(result.geom).wkt if isinstance(
+                    result.geom, _SpatialElement) else None,
             ))

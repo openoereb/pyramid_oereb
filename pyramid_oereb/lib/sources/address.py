@@ -52,5 +52,5 @@ class AddressDatabaseSource(BaseDatabaseSource):
                 result.street_name,
                 result.zip_code,
                 result.street_number,
-                to_shape(result.geometry).wkt if isinstance(result.geometry, _SpatialElement) else None
+                to_shape(result.geom).wkt if isinstance(result.geom, _SpatialElement) else None
             ))
