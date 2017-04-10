@@ -3,6 +3,7 @@
 import sqlalchemy.ext.declarative
 import sqlalchemy as sa
 
+from sqlalchemy import UniqueConstraint
 from geoalchemy2.types import Geometry
 from sqlalchemy.orm import relationship
 
@@ -31,6 +32,18 @@ class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).re
     metadata_of_geographical_base_data = sa.Column(sa.String, nullable=False)
     land_registry_area = sa.Column(sa.Integer, nullable=False)
     limit = sa.Column(Geometry('MULTIPOLYGON', srid=${srid}))
+
+
+class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).replace('_', '')}Address(Base):
+    __table_args__ = (
+        UniqueConstraint("street_name", "street_number", "zip_code"),
+        {'schema': '${app_schema.get('name')}'}
+    )
+    __tablename__ = 'address'
+    street_name = sa.Column(sa.Unicode, nullable=False)
+    street_number = sa.Column(sa.String, nullable=False)
+    zip_code = sa.Column(sa.Integer, nullable=False)
+    geometry = sa.Column(Geometry('POINT', srid=${srid}))
 % for schema in plrs:
 
 
