@@ -101,6 +101,14 @@ class ConfigReader(object):
         """
         return self.__config__.get('real_estate')
 
+    def get_address_config(self):
+        """
+        Returns a dictionary of the configured address settings.
+        :return: The configured address settings.
+        :rtype: dict
+        """
+        return self.__config__.get('address')
+
     def get(self, key, default=None):
         """
         Returns the specified configuration value.

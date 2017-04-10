@@ -3,21 +3,21 @@
 
 class AddressRecord(object):
 
-    def __init__(self, street_name, zip_code, number, geometry):
+    def __init__(self, street_name, zip_code, street_number, geometry):
         """
-        The base document class.
+        The record for handling the address entity inside the application.
         :param street_name: The name of the street for this address.
         :type street_name: unicode
         :param zip_code: The zipcode for this address.
         :type zip_code: int
-        :param number: The house number for this address.
-        :type number: str
-        :param number: The geometry (point) which is representing this address as a WKT.
-        :type number: str
+        :param street_number: The house number for this address.
+        :type street_number: str
+        :param geometry: The geometry (point) which is representing this address as a WKT.
+        :type geometry: str
         """
         self.street_name = street_name
         self.zip_code = zip_code
-        self.number = number
+        self.street_number = street_number
         self.geometry = geometry
 
     @classmethod
@@ -30,6 +30,6 @@ class AddressRecord(object):
         return [
             'street_name',
             'zip_code',
-            'number',
+            'street_number',
             'geometry'
         ]

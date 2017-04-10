@@ -65,5 +65,6 @@ setup(
     [console_scripts]
     create_tables = pyramid_oereb.standard.create_tables:create_tables
     drop_tables = pyramid_oereb.standard.drop_tables:drop_tables
+    load_sample_data = pyramid_oereb.standard.load_sample_data:load
     """,
 )

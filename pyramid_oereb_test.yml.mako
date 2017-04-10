@@ -21,6 +21,13 @@ pyramid_oereb:
         db_connection: ${sqlalchemy_url}
         model: pyramid_oereb.models.PyramidOerebMainRealEstate
 
+  address:
+    source:
+      class: pyramid_oereb.lib.sources.address.AddressDatabaseSource
+      params:
+        db_connection: ${sqlalchemy_url}
+        model: pyramid_oereb.models.PyramidOerebMainAddress
+
   plrs:
 
     - name: plr73
