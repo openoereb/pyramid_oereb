@@ -131,6 +131,7 @@ class DocumentRecord(DocumentBaseRecord):
             'law_status',
             'published_from',
             'title',
+            'official_title',
             'responsible_office',
             'abbreviation',
             'official_number',
