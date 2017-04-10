@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from pyramid_oereb.lib.records.office import ExclusionOfLiabilityRecord
+from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
 
 
 def test_get_fields():
@@ -20,6 +20,6 @@ def test_mandatory_fields():
 
 def test_init():
     record = ExclusionOfLiabilityRecord(title='Disclaimer', content=u'No warranty on nothing.')
-    assert record.title == 'Discclaimer'
+    assert record.title == 'Disclaimer'
     assert record.content is not None
-    assert isinstance(record.content, UnicodeType)
+    assert isinstance(record.content, unicode)

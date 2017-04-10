@@ -2,6 +2,10 @@
 
 
 class PlrRecord(object):
+    # Attributes added or calculated by the processor
+    area = None
+    part_in_percent = None
+    symbol = None
 
     def __init__(self, content, topic, legal_state, published_from, subtopic=None,
                  additional_topic=None, type_code=None, type_code_list=None, view_service=None, basis=None,
@@ -34,6 +38,12 @@ class PlrRecord(object):
         :type documents: list of pyramid_oereb.lib.records.documents.DocumentBaseRecord
         :param geometries: List of geometries associated with this record.
         :type geometries: list
+        :param area: Area of the restriction touching the property calculated by the processor.
+        :type area: decimal
+        :param part_in_percent: Part of the property area touched by the restriction in percent.
+        :type part_in_percent: decimal
+        :param symbol: Symbol of the restriction defined for the legend entry - added on the fly.
+        :type symbol: binary
         :raises TypeError: Raised on missing field value.
         """
 
