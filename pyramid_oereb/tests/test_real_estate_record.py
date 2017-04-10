@@ -28,15 +28,15 @@ def test_mandatory_fields():
 
 
 def test_init():
-    record = RealEstateRecord('test_type', 'BL', 'Nusshof', 1, 'https://www.meta.data', 100,
+    record = RealEstateRecord('test_type', 'BL', 'Nusshof', 1, 100,
                               'POLYGON((0 0, 0 1, 1 1, 1 0, 0 0))')
     assert isinstance(record.type, str)
     assert isinstance(record.canton, str)
     assert isinstance(record.municipality, str)
     assert isinstance(record.fosnr, int)
-    assert isinstance(record.metadata_of_geographical_base_data, str)
     assert isinstance(record.land_registry_area, int)
     assert isinstance(record.limit, str)
+    assert record.metadata_of_geographical_base_data is None
     assert record.number is None
     assert record.identdn is None
     assert record.egrid is None

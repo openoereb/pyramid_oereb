@@ -39,7 +39,7 @@ class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).re
     municipality = sa.Column(sa.String, nullable=False)
     subunit_of_land_register = sa.Column(sa.String, nullable=True)
     fosnr = sa.Column(sa.Integer, nullable=False)
-    metadata_of_geographical_base_data = sa.Column(sa.String, nullable=False)
+    metadata_of_geographical_base_data = sa.Column(sa.String, nullable=True)
     land_registry_area = sa.Column(sa.Integer, nullable=False)
     limit = sa.Column(Geometry('MULTIPOLYGON', srid=${srid}))
 
