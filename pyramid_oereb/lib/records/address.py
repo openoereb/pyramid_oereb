@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
 
-class Address(object):
+class AddressRecord(object):
 
     def __init__(self, street_name, zip_code, number):
         """
         The base document class.
         :param street_name: The name of the street for this address.
-        :type street_name: str
+        :type street_name: unicode
         :param zip_code: The zipcode for this address.
         :type zip_code: int
         :param number: The house number for this address.
