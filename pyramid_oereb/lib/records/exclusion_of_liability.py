@@ -7,9 +7,9 @@ class ExclusionOfLiabilityRecord(object):
         """
         Represents a glossary entry with the term and it's description.
         :param title: The term used in the extract
-        :type title: strint
+        :type title: unicode
         :param content: The description text for the glossary entry.
-        :type content: str
+        :type content: unicode
         """
         self.title = title
         self.content = content
