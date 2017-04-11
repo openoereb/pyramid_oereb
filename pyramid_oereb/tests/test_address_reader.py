@@ -26,6 +26,6 @@ def test_read(param):
         **config_reader.get_address_config().get('source').get('params')
     )
     with pytest.raises(NoResultFound):
-        reader.read(**param)
+        reader.read(param.get('street_name'), param.get('zip_code'), param.get('street_number'))
 
 # TODO: Implement tests for return values, not possible now, cause there is no data in database

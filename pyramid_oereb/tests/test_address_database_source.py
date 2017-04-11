@@ -23,11 +23,11 @@ def test_init():
 def test_read(param):
     source = AddressDatabaseSource(**config_reader.get_address_config().get('source').get('params'))
     with pytest.raises(NoResultFound):
-        source.read(**param)
+        source.read(param.get('street_name'), param.get('zip_code'), param.get('street_number'))
 
 
 @pytest.mark.run(order=2)
 def test_missing_parameter():
     source = AddressDatabaseSource(**config_reader.get_address_config().get('source').get('params'))
-    with pytest.raises(AttributeError):
-        source.read(**{})
+    with pytest.raises(TypeError):
+        source.read()

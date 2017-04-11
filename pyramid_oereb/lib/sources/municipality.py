@@ -18,17 +18,17 @@ class MunicipalityDatabaseSource(BaseDatabaseSource, MunicipalityBaseSource):
     def read(self, fosnr):
         """
         Central method to read a municipality by it's id_bfs identifier.
-        :param id_bfs: The unique id_bfs for the desired municipality.
-        :type id_bfs: int
+        :param fosnr: The unique id_bfs for the desired municipality.
+        :type fosnr: int
         """
         session = self._adapter_.get_session(self._key_)
         query = session.query(self._model_)
-        results = [query.filter(self._model_.id_bfs == fosnr).one()]
+        results = [query.filter(self._model_.fosnr == fosnr).one()]
 
         self.records = list()
         for result in results:
             self.records.append(self._record_class_(
-                result.id_bfs,
+                result.fosnr,
                 result.name,
                 result.published,
                 geom=to_shape(result.geom).wkt if isinstance(

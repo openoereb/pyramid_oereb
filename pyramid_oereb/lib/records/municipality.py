@@ -28,7 +28,7 @@ class MunicipalityRecord(object):
         :rtype: list of str
         """
         return [
-            'id_bfs',
+            'fosnr',
             'name',
             'published',
             'geom'

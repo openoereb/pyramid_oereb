@@ -18,16 +18,16 @@ def test_init():
 
 @pytest.mark.run(order=2)
 @pytest.mark.parametrize("param", [
-    {'id_bfs': 2770}
+    2770
 ])
 def test_read(param):
     source = MunicipalityDatabaseSource(**config_reader.get_municipality_config().get('source').get('params'))
     with pytest.raises(NoResultFound):
-        source.read(**param)
+        source.read(param)
 
 
 @pytest.mark.run(order=2)
 def test_missing_parameter():
     source = MunicipalityDatabaseSource(**config_reader.get_municipality_config().get('source').get('params'))
-    with pytest.raises(AttributeError):
-        source.read(**{})
+    with pytest.raises(TypeError):
+        source.read()
