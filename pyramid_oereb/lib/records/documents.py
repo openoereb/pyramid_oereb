@@ -70,7 +70,7 @@ class ArticleRecord(DocumentBaseRecord):
 class DocumentRecord(DocumentBaseRecord):
 
     def __init__(self, law_status, published_from, title, responsible_office, text_at_web=None,
-                 abbreviation=None, official_number=None, official_title=None,  canton=None,
+                 abbreviation=None, official_number=None, official_title=None, canton=None,
                  municipality=None, file=None, articles=None, references=None):
         """
         More specific document class representing real documents.
