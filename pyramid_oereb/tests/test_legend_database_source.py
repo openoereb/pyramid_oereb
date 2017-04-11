@@ -12,7 +12,7 @@ from pyramid_oereb.tests.conftest import db_url
     Plr73LegendEntry
 ])
 def test_init(model):
-    source = LegendDatabaseSource(db_url, model)
+    source = LegendDatabaseSource(**{'db_connection': db_url, 'model': model})
     assert isinstance(source._adapter_, DatabaseAdapter)
     assert source._model_ == model
 
@@ -22,6 +22,6 @@ def test_init(model):
     Plr73LegendEntry
 ])
 def test_read(model):
-    source = LegendDatabaseSource(db_url, model)
-    source.read('StaoTyp1')
+    source = LegendDatabaseSource(**{'db_connection': db_url, 'model': model})
+    source.read(**{'type_code': 'StaoTyp1'})
     assert len(source.records) == 0

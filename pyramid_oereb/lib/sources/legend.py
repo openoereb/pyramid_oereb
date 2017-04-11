@@ -17,9 +17,9 @@ class LegendDatabaseSource(BaseDatabaseSource, LegendBaseSource):
         session = self._adapter_.get_session(self._key_)
         query = session.query(self._model_)
         if kwargs.get('type_code'):
-            results = [query.filter(
+            results = query.filter(
                 self._model_.type_code == kwargs.get('type_code')
-            ).all()]
+            ).all()
         else:
             raise AttributeError('Necessary parameter is missing.')
 
