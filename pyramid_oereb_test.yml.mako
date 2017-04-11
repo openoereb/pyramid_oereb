@@ -28,6 +28,13 @@ pyramid_oereb:
         db_connection: ${sqlalchemy_url}
         model: pyramid_oereb.models.PyramidOerebMainAddress
 
+  municipality:
+    source:
+      class: pyramid_oereb.lib.sources.municipality.MunicipalityDatabaseSource
+      params:
+        db_connection: ${sqlalchemy_url}
+        model: pyramid_oereb.models.PyramidOerebMainMunicipality
+
   plrs:
 
     - name: plr73
