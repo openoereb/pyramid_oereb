@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb.lib.sources import BaseDatabaseSource
+from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
 from pyramid_oereb.lib.records.plr import PlrRecord
 
 
-class PlrDatabaseSource(BaseDatabaseSource):
+class PlrBaseSource(Base):
+    _record_class_ = PlrRecord
+
+
+class PlrDatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     def read(self, geometry):
         """
@@ -18,7 +22,7 @@ class PlrDatabaseSource(BaseDatabaseSource):
         results = session.query(self._model_).all()
         self.records = list()
         for r in results:
-            self.records.append(PlrRecord(
+            self.records.append(self._record_class_(
                 r.content,
                 r.topic,
                 r.legal_state,

@@ -3,8 +3,8 @@
 
 class RealEstateRecord(object):
 
-    def __init__(self, type, canton, municipality, fosnr, metadata_of_geographical_base_data,
-                 land_registry_area, limit, number=None, identdn=None, egrid=None,
+    def __init__(self, type, canton, municipality, fosnr, land_registry_area, limit,
+                 metadata_of_geographical_base_data=None, number=None, identdn=None, egrid=None,
                  subunit_of_land_register=None):
         """
         Basic caracteristics and geometry of the properrty to be analysed.
@@ -16,12 +16,12 @@ class RealEstateRecord(object):
         :type municipality: str
         :param fosnr: The federal number of the municipality defined by the statistics office
         :type fosnr: integer
-        :param metadata_of_geographical_base_data: Link to the metadata of the geodata
-        :type metadata_of_geographical_base_data: uri
         :param land_registry_area: Area of the property as defined in the land registry
         :type land_registry_area: integer
         :param limit: The boundary of the property as geometry in WKT format
         :type limit: str
+        :param metadata_of_geographical_base_data: Link to the metadata of the geodata
+        :type metadata_of_geographical_base_data: uri
         :param number:  The official cantonal number of the property
         :type  number: str or None
         :param identdn: The unique identifier of the property
