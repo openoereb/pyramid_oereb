@@ -9,22 +9,21 @@ from geoalchemy2.shape import to_shape
 class MunicipalityBaseSource(Base):
     _record_class_ = MunicipalityRecord
 
+    def read(self, id_bfs):
+        pass
+
 
 class MunicipalityDatabaseSource(BaseDatabaseSource, MunicipalityBaseSource):
 
-    def read(self, **kwargs):
+    def read(self, id_bfs):
         """
         Central method to read a municipality by it's id_bfs identifier.
-        :param kwargs: Arbitrary keyword arguments. It must contain the key 'id_bfs'.
+        :param id_bfs: The unique id_bfs for the desired municipality.
+        :type id_bfs: int
         """
         session = self._adapter_.get_session(self._key_)
         query = session.query(self._model_)
-        if kwargs.get('id_bfs'):
-            results = [query.filter(
-                self._model_.id_bfs == kwargs.get('id_bfs')
-            ).one()]
-        else:
-            raise AttributeError('Necessary parameter were missing.')
+        results = [query.filter(self._model_.id_bfs == id_bfs).one()]
 
         self.records = list()
         for result in results:
