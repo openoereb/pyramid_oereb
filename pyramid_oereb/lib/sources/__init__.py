@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from pyramid.config import ConfigurationError
+from pyramid.path import DottedNameResolver
 
 
 class Base(object):
@@ -8,21 +9,27 @@ class Base(object):
 
 class BaseDatabaseSource(Base):
 
-    def __init__(self, key, model):
+    def __init__(self, **kwargs):
         from pyramid_oereb import database_adapter
         """
-        The plug for sources which uses a database.
-        :param key: The key for the database connection which should be used from the database adapter,
-        passed to this instance.
-        :type key: str
-        :param adapter: The database adapter which provides access to the desired database session
-        :type adapter: pyramid_oereb.lib.adapter.DatabaseAdapter
-        :param model: The orm to map database source to plr style
-        :type model: sqlalchemy.ext.declarative.DeclarativeMeta
+        The plug for addresses which uses a database as source.
+        :param kwargs: Arbitrary keyword arguments. It must contain the keys 'db_connection' and 'model'.
+        The db_connection value must be a rfc1738 conform database connection string in the form of:
+            '<driver_name e.g. "postgres">://<username>:<password>@<database_host>:<port>/<database_name>'
+        The model must be a valid dotted name string which leads to an importable representation of:
+            sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.
+        :type kwargs: dict
         """
         if database_adapter:
             self._adapter_ = database_adapter
         else:
             raise ConfigurationError('Adapter for database must be defined if you use database sources.')
-        self._key_ = key
-        self._model_ = model
+        if kwargs.get('db_connection'):
+            self._key_ = kwargs.get('db_connection')
+        else:
+            raise ConfigurationError('"db_connection" for source has to be defined in used yaml '
+                                     'configuration file')
+        if kwargs.get('model'):
+            self._model_ = DottedNameResolver().maybe_resolve(kwargs.get('model'))
+        else:
+            raise ConfigurationError('"model" for source has to be defined in used yaml configuration file')

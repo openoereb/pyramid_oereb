@@ -17,10 +17,20 @@ metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = sqlalchemy.ext.declarative.declarative_base()
 
 
+class PyramidOerebMainMunicipality(Base):
+    __table_args__ = {'schema': 'pyramid_oereb_main'}
+    __tablename__ = 'municipality'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    name = sa.Column(sa.String, nullable=False)
+    published = sa.Column(sa.Boolean, nullable=False, default=False, server_default=sqlalchemy.text('FALSE'))
+    geom = sa.Column(Geometry('MULTIPOLYGON', srid=2056), nullable=True)
+
+
 class PyramidOerebMainRealEstate(Base):
     __table_args__ = {'schema': 'pyramid_oereb_main'}
     __tablename__ = 'real_estate'
-    identdn = sa.Column('id', sa.String, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True)
+    identdn = sa.Column(sa.String, nullable=True)
     number = sa.Column(sa.String, nullable=True)
     egrid = sa.Column(sa.String, nullable=True)
     type = sa.Column(sa.String, nullable=False)
@@ -28,7 +38,7 @@ class PyramidOerebMainRealEstate(Base):
     municipality = sa.Column(sa.String, nullable=False)
     subunit_of_land_register = sa.Column(sa.String, nullable=True)
     fosnr = sa.Column(sa.Integer, nullable=False)
-    metadata_of_geographical_base_data = sa.Column(sa.String, nullable=False)
+    metadata_of_geographical_base_data = sa.Column(sa.String, nullable=True)
     land_registry_area = sa.Column(sa.Integer, nullable=False)
     limit = sa.Column(Geometry('MULTIPOLYGON', srid=2056))
 
@@ -42,7 +52,7 @@ class PyramidOerebMainAddress(Base):
     street_name = sa.Column(sa.Unicode, nullable=False)
     street_number = sa.Column(sa.String, nullable=False)
     zip_code = sa.Column(sa.Integer, nullable=False)
-    geometry = sa.Column(Geometry('POINT', srid=2056))
+    geom = sa.Column(Geometry('POINT', srid=2056))
 
 
 class Plr73Office(Base):

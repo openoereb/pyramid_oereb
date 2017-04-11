@@ -18,10 +18,20 @@ metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = sqlalchemy.ext.declarative.declarative_base()
 
 
+class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).replace('_', '')}Municipality(Base):
+    __table_args__ = {'schema': '${app_schema.get('name')}'}
+    __tablename__ = 'municipality'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    name = sa.Column(sa.String, nullable=False)
+    published = sa.Column(sa.Boolean, nullable=False, default=False, server_default=sqlalchemy.text('FALSE'))
+    geom = sa.Column(Geometry('MULTIPOLYGON', srid=${srid}), nullable=True)
+
+
 class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).replace('_', '')}RealEstate(Base):
     __table_args__ = {'schema': '${app_schema.get('name')}'}
     __tablename__ = 'real_estate'
-    identdn = sa.Column('id', sa.String, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True)
+    identdn = sa.Column(sa.String, nullable=True)
     number = sa.Column(sa.String, nullable=True)
     egrid = sa.Column(sa.String, nullable=True)
     type = sa.Column(sa.String, nullable=False)
@@ -29,7 +39,7 @@ class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).re
     municipality = sa.Column(sa.String, nullable=False)
     subunit_of_land_register = sa.Column(sa.String, nullable=True)
     fosnr = sa.Column(sa.Integer, nullable=False)
-    metadata_of_geographical_base_data = sa.Column(sa.String, nullable=False)
+    metadata_of_geographical_base_data = sa.Column(sa.String, nullable=True)
     land_registry_area = sa.Column(sa.Integer, nullable=False)
     limit = sa.Column(Geometry('MULTIPOLYGON', srid=${srid}))
 
@@ -43,7 +53,7 @@ class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).re
     street_name = sa.Column(sa.Unicode, nullable=False)
     street_number = sa.Column(sa.String, nullable=False)
     zip_code = sa.Column(sa.Integer, nullable=False)
-    geometry = sa.Column(Geometry('POINT', srid=${srid}))
+    geom = sa.Column(Geometry('POINT', srid=${srid}))
 % for schema in plrs:
 
 

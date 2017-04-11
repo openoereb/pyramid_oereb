@@ -17,17 +17,26 @@ def test_init():
 
 @pytest.mark.run(order=2)
 @pytest.mark.parametrize("param", [
-    {'nb_ident': 'BL0200002789', 'number': '545'},
-    {'egrid': 'CH1234'}
+    {'nb_ident': 'BL0200002789', 'number': '545'}
 ])
-def test_read(param):
+def test_read_ndident_number(param):
     source = RealEstateDatabaseSource(**config_reader.get_real_estate_config().get('source').get('params'))
     with pytest.raises(NoResultFound):
-        source.read(**param)
+        source.read(nb_ident=param.get('nb_ident'), number=param.get('number'))
+
+
+@pytest.mark.run(order=2)
+@pytest.mark.parametrize("param", [
+    {'egrid': 'CH1234'}
+])
+def test_read_egrid(param):
+    source = RealEstateDatabaseSource(**config_reader.get_real_estate_config().get('source').get('params'))
+    with pytest.raises(NoResultFound):
+        source.read(egrid=param.get('egrid'))
 
 
 @pytest.mark.run(order=2)
 def test_missing_parameter():
     source = RealEstateDatabaseSource(**config_reader.get_real_estate_config().get('source').get('params'))
     with pytest.raises(AttributeError):
-        source.read(**{})
+        source.read()
