@@ -12,6 +12,7 @@ def test_get_fields():
         'law_status',
         'published_from',
         'title',
+        'official_title',
         'responsible_office',
         'abbreviation',
         'official_number',
@@ -40,6 +41,7 @@ def test_init():
     assert record.text_at_web is None
     assert record.abbreviation is None
     assert record.official_number is None
+    assert record.official_title is None
     assert record.canton is None
     assert record.municipality is None
     assert isinstance(record.articles, list)
@@ -61,6 +63,7 @@ def test_init_with_relation():
     assert record.text_at_web is None
     assert record.abbreviation is None
     assert record.official_number is None
+    assert record.official_title is None
     assert record.canton is None
     assert record.municipality is None
     assert isinstance(record.articles, list)
