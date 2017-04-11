@@ -17,13 +17,25 @@ class RealEstateReader(object):
         source_class = DottedNameResolver().resolve(dotted_source_class_path)
         self._source_ = source_class(**params)
 
-    def read(self, **kwargs):
+    def read(self, nb_ident=None, number=None, egrid=None, geometry=None):
         """
         The central read accessor method to get all desired records from configured source.
-        :param kwargs: the kwargs which are necessary as parameters for querying the real estate source.
-        :type kwargs: dict
+        :param nb_ident: The identification number of the desired real estate. This parameter is directly
+        related to the number parameter and both must be set! Combination will deliver only one result or
+        crashes.
+        :type nb_ident: int or None
+        :param number: The number of parcel or also known real estate. This parameter is directly
+        related to the nb_ident parameter and both must be set! Combination will deliver only one result or
+        crashes.
+        :type number: str or None
+        :param egrid: The unique identifier of the desired real estate. This will deliver only one result or
+        crashes.
+        :type: str or None
+        :param geometry: A geometry as WKT string which is used to obtain intersected real estates. This may
+        deliver several results.
+        :type geometry: str
         :return: the list of all found records
         :rtype: list of pyramid_oereb.lib.records.real_estate.RealEstateRecord
         """
-        self._source_.read(**kwargs)
+        self._source_.read(nb_ident=nb_ident, number=number, egrid=egrid, geometry=geometry)
         return self._source_.records

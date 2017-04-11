@@ -9,27 +9,45 @@ from geoalchemy2.shape import to_shape
 class RealEstateBaseSource(Base):
     _record_class_ = RealEstateRecord
 
+    def read(self, nb_ident=None, number=None, egrid=None, geometry=None):
+        pass
+
 
 class RealEstateDatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
 
-    def read(self, **kwargs):
+    def read(self, nb_ident=None, number=None, egrid=None, geometry=None):
         """
-        Central method to read all plrs.
-        :param kwargs: Arbitrary keyword arguments. It must contain the keys 'nb_ident' and 'number' or the
-        single key 'egrid' as string.
+        Central method to read all plrs (geometry input) or explicitly one plr (nb_ident+number/egrid input).
+        :param nb_ident: The identification number of the desired real estate. This parameter is directly
+        related to the number parameter and both must be set! Combination will deliver only one result or
+        crashes.
+        :type nb_ident: int or None
+        :param number: The number of parcel or also known real estate. This parameter is directly
+        related to the nb_ident parameter and both must be set! Combination will deliver only one result or
+        crashes.
+        :type number: str or None
+        :param egrid: The unique identifier of the desired real estate. This will deliver only one result or
+        crashes.
+        :type: str or None
+        :param geometry: A geometry as WKT string which is used to obtain intersected real estates. This may
+        deliver several results.
+        :type geometry: str
         """
         session = self._adapter_.get_session(self._key_)
         query = session.query(self._model_)
-        if kwargs.get('nb_ident') and kwargs.get('number'):
-            results = [query.filter(
-                self._model_.number == kwargs.get('number')
-            ).filter(
-                self._model_.identdn == kwargs.get('nb_ident')
-            ).one()]
-        elif kwargs.get('egrid'):
-            results = [query.filter(self._model_.egrid == kwargs.get('egrid')).one()]
-        elif kwargs.get('geometry'):
-            results = query.filter(self._model_.limit.ST_Intersects(kwargs.get('geometry'))).all()
+        if nb_ident and number:
+            # explicitly querying for one result, this will cause an error if more than one ore none are found
+            results = [
+                query.filter(self._model_.number == number).filter(self._model_.identdn == nb_ident).one()
+            ]
+        elif egrid:
+            # explicitly querying for one result, this will cause an error if more than one ore none are found
+            results = [
+                query.filter(self._model_.egrid == egrid).one()
+            ]
+        elif geometry:
+            # querying for all results
+            results = query.filter(self._model_.limit.ST_Intersects(geometry)).all()
         else:
             raise AttributeError('Necessary parameter were missing.')
 
