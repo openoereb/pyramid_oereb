@@ -9,7 +9,7 @@ from pyramid_oereb.lib.records.office import OfficeRecord
 def test_get_fields():
     expected_fields = [
         'text_at_web',
-        'law_status',
+        'legal_state',
         'published_from',
         'title',
         'official_title',
@@ -28,13 +28,13 @@ def test_get_fields():
 
 def test_mandatory_fields():
     with pytest.raises(TypeError):
-        DocumentRecord("runningModifications", datetime.date(1985, 8, 29))
+        DocumentRecord('runningModifications', datetime.date(1985, 8, 29))
 
 
 def test_init():
     office_record = OfficeRecord('name')
-    record = DocumentRecord("runningModifications", datetime.date(1985, 8, 29), 'title', office_record)
-    assert isinstance(record.law_status, str)
+    record = DocumentRecord('runningModifications', datetime.date(1985, 8, 29), 'title', office_record)
+    assert isinstance(record.legal_state, str)
     assert isinstance(record.published_from, datetime.date)
     assert isinstance(record.title, str)
     assert isinstance(record.responsible_office, OfficeRecord)
@@ -50,13 +50,13 @@ def test_init():
 
 def test_init_with_relation():
     office_record = OfficeRecord('name')
-    articles = [ArticleRecord("runningModifications", datetime.date(1985, 8, 29), '123.4')]
+    articles = [ArticleRecord('runningModifications', datetime.date(1985, 8, 29), '123.4')]
     references = [
-        DocumentRecord("runningModifications", datetime.date(1985, 8, 29), 'Titel 1', office_record)
+        DocumentRecord('runningModifications', datetime.date(1985, 8, 29), 'Titel 1', office_record)
     ]
-    record = DocumentRecord("runningModifications", datetime.date(1985, 8, 29), 'title', office_record,
+    record = DocumentRecord('runningModifications', datetime.date(1985, 8, 29), 'title', office_record,
                             articles=articles, references=references)
-    assert isinstance(record.law_status, str)
+    assert isinstance(record.legal_state, str)
     assert isinstance(record.published_from, datetime.date)
     assert isinstance(record.title, str)
     assert isinstance(record.responsible_office, OfficeRecord)
@@ -68,3 +68,35 @@ def test_init_with_relation():
     assert record.municipality is None
     assert isinstance(record.articles, list)
     assert isinstance(record.references, list)
+
+
+def test_to_extract():
+    office_record = OfficeRecord('Office')
+    articles = [ArticleRecord('runningModifications', datetime.date(1985, 8, 29), '123.4')]
+    references = [
+        DocumentRecord('runningModifications', datetime.date(1985, 8, 29), 'Reference', office_record)
+    ]
+    record = DocumentRecord('runningModifications', datetime.date(1985, 8, 29), 'Document', office_record,
+                            articles=articles, references=references)
+    assert record.to_extract() == {
+        'legal_state': 'runningModifications',
+        'title': 'Document',
+        'responsible_office': {
+            'name': 'Office'
+        },
+        'articles': [
+            {
+                'legal_state': 'runningModifications',
+                'number': '123.4'
+            }
+        ],
+        'references': [
+            {
+                'legal_state': 'runningModifications',
+                'title': 'Reference',
+                'responsible_office': {
+                    'name': 'Office'
+                }
+            }
+        ]
+    }
