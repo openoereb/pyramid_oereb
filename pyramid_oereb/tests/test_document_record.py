@@ -9,7 +9,7 @@ from pyramid_oereb.lib.records.office import OfficeRecord
 def test_get_fields():
     expected_fields = [
         'text_at_web',
-        'law_status',
+        'legal_state',
         'published_from',
         'title',
         'official_title',
@@ -34,7 +34,7 @@ def test_mandatory_fields():
 def test_init():
     office_record = OfficeRecord('name')
     record = DocumentRecord("runningModifications", datetime.date(1985, 8, 29), 'title', office_record)
-    assert isinstance(record.law_status, str)
+    assert isinstance(record.legal_state, str)
     assert isinstance(record.published_from, datetime.date)
     assert isinstance(record.title, str)
     assert isinstance(record.responsible_office, OfficeRecord)
@@ -56,7 +56,7 @@ def test_init_with_relation():
     ]
     record = DocumentRecord("runningModifications", datetime.date(1985, 8, 29), 'title', office_record,
                             articles=articles, references=references)
-    assert isinstance(record.law_status, str)
+    assert isinstance(record.legal_state, str)
     assert isinstance(record.published_from, datetime.date)
     assert isinstance(record.title, str)
     assert isinstance(record.responsible_office, OfficeRecord)
