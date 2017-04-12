@@ -53,7 +53,6 @@ class RealEstateDatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
 
         self.records = list()
         for result in results:
-            print result.limit
             self.records.append(self._record_class_(
                 result.type,
                 result.canton,
