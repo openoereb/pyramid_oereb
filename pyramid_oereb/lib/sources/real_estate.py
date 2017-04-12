@@ -53,14 +53,15 @@ class RealEstateDatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
 
         self.records = list()
         for result in results:
+            print result.limit
             self.records.append(self._record_class_(
                 result.type,
                 result.canton,
                 result.municipality,
                 result.fosnr,
-                result.metadata_of_geographical_base_data,
                 result.land_registry_area,
                 to_shape(result.limit).wkt if isinstance(result.limit, _SpatialElement) else None,
+                result.metadata_of_geographical_base_data,
                 number=result.number,
                 identdn=result.identdn,
                 egrid=result.egrid
