@@ -59,7 +59,7 @@ class RealEstateDatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
                 result.municipality,
                 result.fosnr,
                 result.land_registry_area,
-                to_shape(result.limit).wkt if isinstance(result.limit, _SpatialElement) else None,
+                to_shape(result.limit) if isinstance(result.limit, _SpatialElement) else None,
                 result.metadata_of_geographical_base_data,
                 number=result.number,
                 identdn=result.identdn,

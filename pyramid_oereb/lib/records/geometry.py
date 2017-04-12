@@ -20,7 +20,7 @@ class GeometryRecord(object):
         :type published_from: datetime.date
         :param geo_metadata: The metadata
         :type geo_metadata: str
-        :param geom: The geomety
+        :param geom: The geometry
         :type geom: shapely.geometry.base.BaseGeometry
         :param public_law_restriction: The public law restriction
         :type public_law_restriction: pyramid_oereb.lib.records.plr.PlrRecord

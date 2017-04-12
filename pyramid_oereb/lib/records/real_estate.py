@@ -18,8 +18,8 @@ class RealEstateRecord(object):
         :type fosnr: integer
         :param land_registry_area: Area of the property as defined in the land registry
         :type land_registry_area: integer
-        :param limit: The boundary of the property as geometry in WKT format
-        :type limit: str
+        :param limit: The boundary of the property as geometry in as shapely representation.
+        :type limit: shapely.geometry.base.BaseGeometry
         :param metadata_of_geographical_base_data: Link to the metadata of the geodata
         :type metadata_of_geographical_base_data: uri
         :param number:  The official cantonal number of the property
