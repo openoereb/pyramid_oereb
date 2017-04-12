@@ -62,8 +62,14 @@ class ${schema.get("name").capitalize()}Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class ${schema.get("name").capitalize()}ReferenceDefinition(Base):  # TODO: Check translation
@@ -74,9 +80,9 @@ class ${schema.get("name").capitalize()}ReferenceDefinition(Base):  # TODO: Chec
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        ${schema.get("name").capitalize()}Office.id), nullable=True
+        ${schema.get("name").capitalize()}Office.id), nullable=False
     )
-    office = relationship(${schema.get("name").capitalize()}Office, backref='reference_definitions')
+    responsible_office = relationship(${schema.get("name").capitalize()}Office)
 
 
 class ${schema.get("name").capitalize()}DocumentBase(Base):
@@ -86,7 +92,7 @@ class ${schema.get("name").capitalize()}DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -97,6 +103,9 @@ class ${schema.get("name").capitalize()}DocumentBase(Base):
 class ${schema.get("name").capitalize()}Document(${schema.get("name").capitalize()}DocumentBase):
     __table_args__ = {'schema': '${schema.get("name")}'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -110,21 +119,20 @@ class ${schema.get("name").capitalize()}Document(${schema.get("name").capitalize
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(${schema.get("name").capitalize()}Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(${schema.get("name").capitalize()}Office, backref='documents')
+    responsible_office = relationship(${schema.get("name").capitalize()}Office)
 
 
 class ${schema.get("name").capitalize()}Article(${schema.get("name").capitalize()}DocumentBase):
     __table_args__ = {'schema': '${schema.get("name")}'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -133,10 +141,6 @@ class ${schema.get("name").capitalize()}Article(${schema.get("name").capitalize(
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(${schema.get("name").capitalize()}Document.id),
@@ -152,16 +156,15 @@ class ${schema.get("name").capitalize()}Article(${schema.get("name").capitalize(
 class ${schema.get("name").capitalize()}LegalProvision(${schema.get("name").capitalize()}Document):
     __table_args__ = {'schema': '${schema.get("name")}'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(${schema.get("name").capitalize()}Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class ${schema.get("name").capitalize()}ViewService(Base):
@@ -228,12 +231,16 @@ class ${schema.get("name").capitalize()}Geometry(Base):
         sa.ForeignKey(${schema.get("name").capitalize()}PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        ${schema.get("name").capitalize()}PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(${schema.get("name").capitalize()}Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(${schema.get("name").capitalize()}Office, backref='geometries')
+    responsible_office = relationship(${schema.get("name").capitalize()}Office)
 
 
 class ${schema.get("name").capitalize()}PublicLawRestrictionBase(Base):
@@ -250,14 +257,14 @@ class ${schema.get("name").capitalize()}PublicLawRestrictionBase(Base):
         sa.ForeignKey(${schema.get("name").capitalize()}PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(${schema.get("name").capitalize()}Office.id),
-        nullable=True
+    plr = relationship(
+        ${schema.get("name").capitalize()}PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        ${schema.get("name").capitalize()}Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        ${schema.get("name").capitalize()}PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -275,6 +282,15 @@ class ${schema.get("name").capitalize()}PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(${schema.get("name").capitalize()}PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        ${schema.get("name").capitalize()}PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        ${schema.get("name").capitalize()}PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class ${schema.get("name").capitalize()}PublicLawRestrictionDocument(Base):
@@ -290,6 +306,13 @@ class ${schema.get("name").capitalize()}PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(${schema.get("name").capitalize()}DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        ${schema.get("name").capitalize()}PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        ${schema.get("name").capitalize()}DocumentBase
     )
 
 
@@ -308,9 +331,13 @@ class ${schema.get("name").capitalize()}DocumentReference(Base):
         sa.ForeignKey(${schema.get("name").capitalize()}Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         ${schema.get("name").capitalize()}Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        ${schema.get("name").capitalize()}Document,
         foreign_keys=[reference_document_id]
     )
 
