@@ -31,3 +31,21 @@ def test_init_with_relation():
     assert isinstance(record.link_wms, str)
     assert isinstance(record.legend_web, str)
     assert isinstance(record.legends, list)
+
+
+def test_to_extract():
+    legend_records = [LegendEntryRecord(bin(100), 'test', 'test_code', 'test', 'test')]
+    record = ViewServiceRecord('http://www.test.url.ch', 'http://www.test.url.ch', legend_records)
+    assert record.to_extract() == {
+        'link_wms': 'http://www.test.url.ch',
+        'legend_web': 'http://www.test.url.ch',
+        'legends': [
+            {
+                'symbol': bin(100),
+                'legend_text': 'test',
+                'type_code': 'test_code',
+                'type_code_list': 'test',
+                'theme': 'test'
+            }
+        ]
+    }

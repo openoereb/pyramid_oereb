@@ -31,6 +31,11 @@ class DocumentBaseRecord(object):
         ]
 
     def to_extract(self):
+        """
+        Returns a dictionary with all available values needed for the extract.
+        :return: Dictionary with values for the extract.
+        :rtype: dict
+        """
         extract = dict()
         for key in ['text_at_web', 'legal_state']:
             value = getattr(self, key)
@@ -75,6 +80,11 @@ class ArticleRecord(DocumentBaseRecord):
         ]
 
     def to_extract(self):
+        """
+        Returns a dictionary with all available values needed for the extract.
+        :return: Dictionary with values for the extract.
+        :rtype: dict
+        """
         extract = super(ArticleRecord, self).to_extract()
         for key in ['number', 'text']:
             value = getattr(self, key)
@@ -159,6 +169,11 @@ class DocumentRecord(DocumentBaseRecord):
         ]
 
     def to_extract(self):
+        """
+        Returns a dictionary with all available values needed for the extract.
+        :return: Dictionary with values for the extract.
+        :rtype: dict
+        """
         extract = super(DocumentRecord, self).to_extract()
         for key in [
             'title',
