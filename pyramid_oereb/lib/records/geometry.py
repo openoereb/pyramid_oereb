@@ -10,18 +10,18 @@ class GeometryRecord(object):
     office = None
 
     def __init__(
-            self, legal_state, published_from, geo_metadata=None, geom=None,
-            public_law_restriction=None, office=None):
+            self, legal_state, published_from, geom, geo_metadata=None, public_law_restriction=None,
+            office=None):
         """
         Geometry record
         :param legal_state: The PLR record's legal state.
         :type legal_state: str
         :param published_from: Date from/since when the PLR record is published.
         :type published_from: datetime.date
-        :param geo_metadata: The metadata
-        :type geo_metadata: str
         :param geom: The geometry
         :type geom: shapely.geometry.base.BaseGeometry
+        :param geo_metadata: The metadata
+        :type geo_metadata: str
         :param public_law_restriction: The public law restriction
         :type public_law_restriction: pyramid_oereb.lib.records.plr.PlrRecord
         :param office: The office
