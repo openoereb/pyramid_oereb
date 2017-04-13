@@ -67,8 +67,10 @@ def includeme(config):
 
 
 def _test_flow():
+    global config_reader
     from pyramid_oereb.lib.sources.real_estate import RealEstateDatabaseSource
     from pyramid_oereb.lib.sources.extract import ExtractStandardDatabaseSource
+    config_reader = ConfigReader('pyramid_oereb.yml', 'pyramid_oereb')
     re_dbs = RealEstateDatabaseSource(
         **{'db_connection': 'postgresql://postgres:password@localhost/pyramid_oereb',
            'model': 'pyramid_oereb.models.PyramidOerebMainRealEstate'})
@@ -76,5 +78,5 @@ def _test_flow():
     extract = ExtractStandardDatabaseSource(
         **{'db_connection': 'postgresql://postgres:password@localhost/pyramid_oereb',
            'name': 'plr119'})
-    extract.read(re_dbs.records[0].limit)
+    extract.read(re_dbs.records[0])
     return extract
