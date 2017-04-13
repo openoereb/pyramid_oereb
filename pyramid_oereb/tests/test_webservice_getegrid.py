@@ -10,6 +10,7 @@ from pyramid.httpexceptions import HTTPBadRequest
 from pyramid.testing import DummyRequest, testConfig
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.readers.real_estate import RealEstateReader
+from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 from pyramid_oereb.models import PyramidOerebMainRealEstate
 from pyramid_oereb.tests.conftest import config_reader, db_url
 from pyramid_oereb.views.webservice import PlrWebservice, __get_egrid_response__, __parse_xy__, __parse_gnss__
@@ -143,7 +144,9 @@ def test_getegrid_address_missing_parameter():
 
 
 def test_get_egrid_response():
-    record = RealEstateRecord('test', 'BL', 'test', 1, 'test', 1, 'test', 'number', 'identdn', 'egrid')
+    view_service = ViewServiceRecord('test', 'test')
+    record = RealEstateRecord('test', 'BL', 'test', 1, 100, 'WKT', view_service, number='number',
+                              identdn='identdn', egrid='egrid')
     response = __get_egrid_response__([record])
     assert response == [{
         'egrid': 'egrid',
