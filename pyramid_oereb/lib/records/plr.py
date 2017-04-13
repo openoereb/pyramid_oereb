@@ -37,7 +37,7 @@ class PlrRecord(object):
         :param documents: List of documents associated with this record.
         :type documents: list of pyramid_oereb.lib.records.documents.DocumentBaseRecord
         :param geometries: List of geometries (shapely) associated with this record.
-        :type geometries: shapely.geometry.base.BaseGeometry
+        :type geometries: list of shapely.geometry.base.BaseGeometry
         :param area: Area of the restriction touching the property calculated by the processor.
         :type area: decimal
         :param part_in_percent: Part of the property area touched by the restriction in percent.

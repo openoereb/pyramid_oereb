@@ -66,6 +66,7 @@ def includeme(config):
     config.include('pyramid_oereb.routes')
 
 
+# TODO: remove this method when approach is more clear
 def _test_flow():
     global config_reader
     from pyramid_oereb.lib.sources.real_estate import RealEstateDatabaseSource
