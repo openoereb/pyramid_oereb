@@ -25,3 +25,16 @@ class ExclusionOfLiabilityRecord(object):
             'title',
             'content'
         ]
+
+    def to_extract(self):
+        """
+        Returns a dictionary with all available values needed for the extract.
+        :return: Dictionary with values for the extract.
+        :rtype: dict
+        """
+        extract = dict()
+        for key in self.get_fields():
+            value = getattr(self, key)
+            if value:
+                extract[key] = value
+        return extract
