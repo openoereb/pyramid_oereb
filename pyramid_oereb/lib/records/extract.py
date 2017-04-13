@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
+import uuid
 
 
 class ExtractRecord(object):
@@ -15,11 +16,11 @@ class ExtractRecord(object):
     general_information = None
     base_data = None
 
-    def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo):
-        from pyramid_oereb import config_reader
+    def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
+                 exclusions_of_liability=None, glossaries=None):
         """
         The extract base class.
-        :param real_estate: Image file of the PLR logo
+        :param real_estate: The real estate in its record representation.
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
         :param logo_plr_cadastre: Image file of the PLR logo
         :type logo_plr_cadastre: bytes
@@ -30,6 +31,8 @@ class ExtractRecord(object):
         :param municipality_logo: Image file of the municipality logo
         :type municipality_logo: bytes
         """
+        from pyramid_oereb import config_reader
+        self.extract_identifier = str(uuid.uuid4())
         self.real_estate = real_estate
         self.notconcerned_theme = config_reader.get_topic()
         self.concerned_theme = []
@@ -39,6 +42,14 @@ class ExtractRecord(object):
         self.federal_logo = federal_logo
         self.cantonal_logo = cantonal_logo
         self.municipality_logo = municipality_logo
+        if exclusions_of_liability:
+            self.exclusions_of_liability = exclusions_of_liability
+        else:
+            self.exclusions_of_liability = []
+        if glossaries:
+            self.glossaries = glossaries
+        else:
+            self.glossaries = []
 
     @classmethod
     def get_fields(cls):
