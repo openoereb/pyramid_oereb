@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 
 
 class ExtractRecord(object):
     # Attributes calculated or defined while processing
     creation_date = None
     electronic_signature = None
-    concerned_Theme = None
+    concerned_theme = None
     notconcerned_theme = None
     theme_without_data = None
     is_reduced = False
@@ -14,9 +15,12 @@ class ExtractRecord(object):
     general_information = None
     base_data = None
 
-    def __init__(self, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo):
+    def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo):
+        from pyramid_oereb import config_reader
         """
         The extract base class.
+        :param real_estate: Image file of the PLR logo
+        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
         :param logo_plr_cadastre: Image file of the PLR logo
         :type logo_plr_cadastre: bytes
         :param federal_logo:Image file of the federal logo
@@ -26,6 +30,11 @@ class ExtractRecord(object):
         :param municipality_logo: Image file of the municipality logo
         :type municipality_logo: bytes
         """
+        self.real_estate = real_estate
+        self.notconcerned_theme = config_reader.get_topic()
+        self.concerned_theme = []
+        self.theme_without_data = []
+        self.creation_date = datetime.now().date()
         self.logo_plr_cadastre = logo_plr_cadastre
         self.federal_logo = federal_logo
         self.cantonal_logo = cantonal_logo
