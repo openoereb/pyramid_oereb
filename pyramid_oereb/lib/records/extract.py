@@ -59,8 +59,16 @@ class ExtractRecord(object):
         :rtype: list of str
         """
         return [
+            'extract_identifier',
+            'real_estate',
+            'notconcerned_theme',
+            'concerned_theme',
+            'theme_without_data',
             'logo_plr_cadastre',
+            'creation_date',
             'federal_logo',
             'cantonal_logo',
-            'municipality_logo'
+            'municipality_logo',
+            'exclusions_of_liability',
+            'glossaries'
         ]
