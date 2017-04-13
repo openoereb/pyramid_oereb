@@ -96,9 +96,11 @@ class ViewServiceRecord(object):
             'legends'
         ]
 
-    def to_extract(self):
+    def to_extract(self, type_code=None):
         """
         Returns a dictionary with all available values needed for the extract.
+        :param type_code: Filter referenced legend entries by the specified type code.
+        :type type_code: str
         :return: Dictionary with values for the extract.
         :rtype: dict
         """
@@ -110,5 +112,12 @@ class ViewServiceRecord(object):
         key = 'legends'
         legends = getattr(self, key)
         if legends and len(legends) > 0:
-            extract[key] = [legend.to_extract() for legend in legends]
+            if type_code:
+                filtered = list()
+                for legend in legends:
+                    if legend.type_code == type_code:
+                        filtered.append(legend.to_extract())
+                extract[key] = filtered
+            else:
+                extract[key] = [legend.to_extract() for legend in legends]
         return extract
