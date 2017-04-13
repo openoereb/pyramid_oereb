@@ -169,12 +169,29 @@ class ExtractStandardDatabaseSource(BaseDatabaseSource, ExtractBaseSource):
         plr_record.geometries = geometry_records
         return plr_record
 
-    def read(self, geometry):
+    def read(self, real_estate):
+        """
+        The read point which creates a extract, depending on a passed real estate.
+        :param real_estate: The real estate in its record representation.
+        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        """
         self.records = list()
-        geoalchemy_representation = from_shape(geometry, srid=2056)
+        geoalchemy_representation = from_shape(real_estate.limit, srid=2056)
         session = self._adapter_.get_session(self._key_)
+        extract = self._extract_record_class_(
+            real_estate,
+            bin(100),
+            bin(100),
+            bin(100),
+            bin(100)
+        )
         geometry_results = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
             geoalchemy_representation
         )).all()
+
         for geometry_result in geometry_results:
-            self.records.append(self.from_db_to_plr_record(geometry_result.public_law_restriction))
+            real_estate.public_law_restrictions.append(
+                self.from_db_to_plr_record(geometry_result.public_law_restriction)
+            )
+
+        self.records.append(extract)
