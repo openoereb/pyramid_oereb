@@ -17,7 +17,7 @@ class ExtractRecord(object):
     base_data = None
 
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
-                 exclusions_of_liability=None, glossaries=None):
+                 exclusions_of_liability=None, glossaries=None, notconcerned_theme=None):
         """
         The extract base class.
         :param real_estate: The real estate in its record representation.
@@ -31,10 +31,12 @@ class ExtractRecord(object):
         :param municipality_logo: Image file of the municipality logo
         :type municipality_logo: bytes
         """
-        from pyramid_oereb import config_reader
         self.extract_identifier = str(uuid.uuid4())
         self.real_estate = real_estate
-        self.notconcerned_theme = config_reader.get_topic()
+        if notconcerned_theme:
+            self.notconcerned_theme = notconcerned_theme
+        else:
+            self.notconcerned_theme = []
         self.concerned_theme = []
         self.theme_without_data = []
         self.creation_date = datetime.now().date()
