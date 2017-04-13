@@ -39,11 +39,10 @@ class PlrWebservice(object):
         :return: The service capabilities.
         :rtype:  dict
         """
-        from pyramid_oereb import config_reader
+        from pyramid_oereb import config_reader, municipality_reader
         return {
             u'topic': config_reader.get_topic(),
-            # TODO: Add municipalities when municipality reader is available
-            u'municipality': [],
+            u'municipality': [record.fosnr for record in municipality_reader.read()],
             u'flavour': config_reader.get_flavour(),
             u'language': config_reader.get_language(),
             u'crs': config_reader.get_crs()
