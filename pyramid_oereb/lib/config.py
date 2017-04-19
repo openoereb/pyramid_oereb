@@ -112,7 +112,7 @@ class ConfigReader(object):
     def get_municipality_config(self):
         """
         Returns a dictionary of the configured municipality settings.
-        :return: The configured address settings.
+        :return: The configured municipality settings.
         :rtype: dict
         """
         return self.__config__.get('municipality')

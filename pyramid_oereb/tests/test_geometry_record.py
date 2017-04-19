@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import datetime
+from shapely.geometry import MultiPolygon
+
 import pytest
 from shapely.geometry import Point
 
@@ -27,11 +29,11 @@ def test_mandatory_fields():
 
 
 def test_init():
-    record = GeometryRecord('runningModifications', datetime.date(1985, 8, 29), 'test')
+    record = GeometryRecord("runningModifications", datetime.date(1985, 8, 29), MultiPolygon(), 'test')
     assert isinstance(record.legal_state, str)
     assert isinstance(record.published_from, datetime.date)
     assert isinstance(record.geo_metadata, str)
-    assert record.geom is None
+    assert isinstance(record.geom, MultiPolygon)
     assert record.public_law_restriction is None
     assert record.office is None
 
