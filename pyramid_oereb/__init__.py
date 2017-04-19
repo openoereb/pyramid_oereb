@@ -72,3 +72,20 @@ def includeme(config):
     })
 
     config.include('pyramid_oereb.routes')
+
+
+# TODO: remove this method when approach is more clear
+def _test_flow():
+    global config_reader
+    from pyramid_oereb.lib.sources.real_estate import RealEstateDatabaseSource
+    from pyramid_oereb.lib.sources.extract import ExtractStandardDatabaseSource
+    config_reader = ConfigReader('pyramid_oereb.yml', 'pyramid_oereb')
+    re_dbs = RealEstateDatabaseSource(
+        **{'db_connection': 'postgresql://postgres:password@localhost/pyramid_oereb',
+           'model': 'pyramid_oereb.models.PyramidOerebMainRealEstate'})
+    re_dbs.read(egrid='CH113928077734')
+    extract = ExtractStandardDatabaseSource(
+        **{'db_connection': 'postgresql://postgres:password@localhost/pyramid_oereb',
+           'name': 'plr119'})
+    extract.read(re_dbs.records[0])
+    return extract

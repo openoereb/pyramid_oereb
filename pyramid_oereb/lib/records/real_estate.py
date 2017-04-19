@@ -5,7 +5,7 @@ class RealEstateRecord(object):
 
     def __init__(self, type, canton, municipality, fosnr, land_registry_area, limit,
                  metadata_of_geographical_base_data=None, number=None, identdn=None, egrid=None,
-                 subunit_of_land_register=None):
+                 subunit_of_land_register=None, public_law_restrictions=None):
         """
         Basic caracteristics and geometry of the properrty to be analysed.
         :param type: The property type
@@ -18,8 +18,8 @@ class RealEstateRecord(object):
         :type fosnr: integer
         :param land_registry_area: Area of the property as defined in the land registry
         :type land_registry_area: integer
-        :param limit: The boundary of the property as geometry in WKT format
-        :type limit: str
+        :param limit: The boundary of the property as geometry in as shapely representation.
+        :type limit: shapely.geometry.base.BaseGeometry
         :param metadata_of_geographical_base_data: Link to the metadata of the geodata
         :type metadata_of_geographical_base_data: uri
         :param number:  The official cantonal number of the property
@@ -30,6 +30,8 @@ class RealEstateRecord(object):
         :type egrid: str or None
         :param subunit_of_land_register: Subunit of the land register if existing
         :type subunit_of_land_register: str or None
+        :param public_law_restrictions: Subunit of the land register if existing
+        :type public_law_restrictions: list of pyramid_oereb.lib.records.plr.PlrRecord
         """
         self.number = number
         self.identdn = identdn
@@ -42,6 +44,10 @@ class RealEstateRecord(object):
         self.metadata_of_geographical_base_data = metadata_of_geographical_base_data
         self.land_registry_area = land_registry_area
         self.limit = limit
+        if public_law_restrictions:
+            self.public_law_restrictions = public_law_restrictions
+        else:
+            self.public_law_restrictions = []
 
     @classmethod
     def get_fields(cls):

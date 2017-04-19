@@ -8,7 +8,7 @@ from pyramid_oereb.lib.records.documents import ArticleRecord
 def test_get_fields():
     expected_fields = [
         'text_at_web',
-        'law_status',
+        'legal_state',
         'published_from',
         'number',
         'text'
@@ -24,7 +24,7 @@ def test_mandatory_fields():
 
 def test_init():
     record = ArticleRecord("runningModifications", datetime.date(1985, 8, 29), '125.4')
-    assert isinstance(record.law_status, str)
+    assert isinstance(record.legal_state, str)
     assert record.text_at_web is None
     assert record.text is None
     assert isinstance(record.number, str)
