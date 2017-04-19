@@ -47,6 +47,19 @@ class LegendEntryRecord(object):
             'additional_theme'
         ]
 
+    def to_extract(self):
+        """
+        Returns a dictionary with all available values needed for the extract.
+        :return: Dictionary with values for the extract.
+        :rtype: dict
+        """
+        extract = dict()
+        for key in self.get_fields():
+            value = getattr(self, key)
+            if value:
+                extract[key] = value
+        return extract
+
 
 class ViewServiceRecord(object):
     # Attributes defined while processing
@@ -82,3 +95,29 @@ class ViewServiceRecord(object):
             'legend_web',
             'legends'
         ]
+
+    def to_extract(self, type_code=None):
+        """
+        Returns a dictionary with all available values needed for the extract.
+        :param type_code: Filter referenced legend entries by the specified type code.
+        :type type_code: str
+        :return: Dictionary with values for the extract.
+        :rtype: dict
+        """
+        extract = dict()
+        for key in ['link_wms', 'legend_web']:
+            value = getattr(self, key)
+            if value:
+                extract[key] = value
+        key = 'legends'
+        legends = getattr(self, key)
+        if legends and len(legends) > 0:
+            if type_code:
+                filtered = list()
+                for legend in legends:
+                    if legend.type_code == type_code:
+                        filtered.append(legend.to_extract())
+                extract[key] = filtered
+            else:
+                extract[key] = [legend.to_extract() for legend in legends]
+        return extract

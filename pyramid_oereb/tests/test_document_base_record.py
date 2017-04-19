@@ -20,7 +20,18 @@ def test_mandatory_fields():
 
 
 def test_init():
-    record = DocumentBaseRecord("runningModifications", datetime.date(1985, 8, 29))
+    record = DocumentBaseRecord('runningModifications', datetime.date(1985, 8, 29))
     assert isinstance(record.legal_state, str)
     assert record.text_at_web is None
     assert isinstance(record.published_from, datetime.date)
+
+
+def test_to_extract():
+    assert DocumentBaseRecord(
+        'runningModifications',
+        datetime.date(1985, 8, 29),
+        text_at_web='http://document.test.org'
+    ).to_extract() == {
+        'legal_state': 'runningModifications',
+        'text_at_web': 'http://document.test.org'
+    }

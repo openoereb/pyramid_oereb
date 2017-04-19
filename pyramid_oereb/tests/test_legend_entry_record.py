@@ -31,3 +31,23 @@ def test_init():
     assert isinstance(record.theme, str)
     assert record.sub_theme is None
     assert record.additional_theme is None
+
+
+def test_to_extract():
+    assert LegendEntryRecord(
+        bin(100),
+        'test',
+        'test_code',
+        'test',
+        'test',
+        sub_theme='test',
+        additional_theme='test'
+    ).to_extract() == {
+        'symbol': bin(100),
+        'legend_text': 'test',
+        'type_code': 'test_code',
+        'type_code_list': 'test',
+        'theme': 'test',
+        'sub_theme': 'test',
+        'additional_theme': 'test'
+    }

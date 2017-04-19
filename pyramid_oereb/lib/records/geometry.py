@@ -50,3 +50,24 @@ class GeometryRecord(object):
             'public_law_restriction',
             'office'
         ]
+
+    def to_extract(self):
+        """
+        Returns a dictionary with all available values needed for the extract.
+        :return: Dictionary with values for the extract.
+        :rtype: dict
+        """
+        extract = dict()
+        for key in [
+            'legal_state',
+            'geo_metadata',
+            'geom'
+        ]:
+            value = getattr(self, key)
+            if value:
+                extract[key] = value
+        key = 'office'
+        record = getattr(self, key)
+        if record:
+            extract[key] = record.to_extract()
+        return extract

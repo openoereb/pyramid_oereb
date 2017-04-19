@@ -30,6 +30,19 @@ class DocumentBaseRecord(object):
             'published_from'
         ]
 
+    def to_extract(self):
+        """
+        Returns a dictionary with all available values needed for the extract.
+        :return: Dictionary with values for the extract.
+        :rtype: dict
+        """
+        extract = dict()
+        for key in ['text_at_web', 'legal_state']:
+            value = getattr(self, key)
+            if value:
+                extract[key] = value
+        return extract
+
 
 class ArticleRecord(DocumentBaseRecord):
 
@@ -65,6 +78,19 @@ class ArticleRecord(DocumentBaseRecord):
             'number',
             'text'
         ]
+
+    def to_extract(self):
+        """
+        Returns a dictionary with all available values needed for the extract.
+        :return: Dictionary with values for the extract.
+        :rtype: dict
+        """
+        extract = super(ArticleRecord, self).to_extract()
+        for key in ['number', 'text']:
+            value = getattr(self, key)
+            if value:
+                extract[key] = value
+        return extract
 
 
 class DocumentRecord(DocumentBaseRecord):
@@ -141,6 +167,35 @@ class DocumentRecord(DocumentBaseRecord):
             'articles',
             'references'
         ]
+
+    def to_extract(self):
+        """
+        Returns a dictionary with all available values needed for the extract.
+        :return: Dictionary with values for the extract.
+        :rtype: dict
+        """
+        extract = super(DocumentRecord, self).to_extract()
+        for key in [
+            'title',
+            'official_title',
+            'abbreviation',
+            'official_number',
+            'canton',
+            'municipality',
+            'file'
+        ]:
+            value = getattr(self, key)
+            if value:
+                extract[key] = value
+        for key in ['articles', 'references']:
+            records = getattr(self, key)
+            if records and len(records) > 0:
+                extract[key] = [record.to_extract() for record in records]
+        key = 'responsible_office'
+        record = getattr(self, key)
+        if record:
+            extract[key] = record.to_extract()
+        return extract
 
 
 class LegalProvisionRecord(DocumentRecord):
