@@ -16,6 +16,7 @@ class ExclusionOfLiabilityDatabaseSource(BaseDatabaseSource, ExclusionOfLiabilit
         """
         Central method to read a exclusion of liability definition.
         """
+        session = self._adapter_.get_session(self._key_)
         results = session.query(self._model_).all()
 
         self.records = list()

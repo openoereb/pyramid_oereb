@@ -16,6 +16,7 @@ class GlossaryDatabaseSource(BaseDatabaseSource, GlossaryBaseSource):
         """
         Central method to read a glossary entry.
         """
+        session = self._adapter_.get_session(self._key_)
         results = session.query(self._model_).all()
 
         self.records = list()
