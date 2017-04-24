@@ -41,8 +41,7 @@ def test_init():
 def test_to_extract():
     office = OfficeRecord('Office')
     point = Point((0, 0))
-    record = GeometryRecord('runningModifications', datetime.date(1985, 8, 29), 'test',
-                            geom=point, office=office)
+    record = GeometryRecord('runningModifications', datetime.date(1985, 8, 29), point, 'test', office=office)
     assert record.to_extract() == {
         'legal_state': 'runningModifications',
         'geo_metadata': 'test',

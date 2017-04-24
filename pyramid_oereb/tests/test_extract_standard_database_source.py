@@ -6,6 +6,7 @@ from pyramid.path import DottedNameResolver
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
+from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 from pyramid_oereb.lib.sources.extract import ExtractStandardDatabaseSource
 from pyramid_oereb.tests.conftest import config_reader
 
@@ -25,7 +26,9 @@ def test_init():
 
 @pytest.mark.run(order=2)
 @pytest.mark.parametrize("param", [
-    RealEstateRecord('test', 'BL', 'Laufen', 2770, 1000, MultiPolygon())
+    RealEstateRecord('test', 'BL', 'Laufen', 2770, 1000, MultiPolygon(), ViewServiceRecord(
+        'test_link', 'test_legend')
+                     )
 ])
 def test_read(param):
     source = ExtractStandardDatabaseSource(**{
