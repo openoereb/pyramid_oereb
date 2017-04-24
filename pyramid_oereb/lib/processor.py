@@ -12,7 +12,6 @@ class Processor(object):
         self.params = params
         real_estate_records = real_estate_reader.read(egrid=params.get('egrid'))
         self.extract = extract_reader.read(real_estate_records[0])
-        print self.extract.to_extract()
 
     def to_response(self):
         response_format = self.params.get('format')
