@@ -5,6 +5,8 @@ from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from shapely.geometry.multipolygon import MultiPolygon
 
+from pyramid_oereb.lib.records.view_service import ViewServiceRecord
+
 
 def test_get_fields():
     expected_fields = [
@@ -44,7 +46,11 @@ def test_mandatory_fields():
 
 
 def test_init():
-    real_estate = RealEstateRecord('test', 'BL', 'Laufen', 2770, 1000, MultiPolygon())
+    real_estate = RealEstateRecord('test', 'BL', 'Laufen', 2770, 1000, MultiPolygon(), ViewServiceRecord(
+            'test_link',
+            'test_legend'
+        )
+    )
     record = ExtractRecord(real_estate, bin(100), bin(100), bin(100), bin(100))
     assert isinstance(record.extract_identifier, str)
     assert isinstance(record.real_estate, RealEstateRecord)

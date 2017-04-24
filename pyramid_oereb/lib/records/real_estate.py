@@ -18,8 +18,8 @@ class RealEstateRecord(object):
         :type fosnr: integer
         :param land_registry_area: Area of the property as defined in the land registry
         :type land_registry_area: integer
-        :param limit: The boundary of the property as geometry in WKT format
-        :type limit: str
+        :param limit: The boundary of the property as geometry in as shapely multi polygon
+        :type limit: shapely.geometry.MultiPolygon
         :param plan_for_land_register: The view service instance containing the plan for the land register
         :type plan_for_land_register: pyramid_oereb.lib.records.view_service.ViewServiceRecord
         :param metadata_of_geographical_base_data: Link to the metadata of the geodata
