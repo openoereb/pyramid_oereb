@@ -15,7 +15,7 @@ from pyramid_oereb.lib.records.reference_definition import ReferenceDefinitionRe
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 
 
-class ExtractBaseSource(Base):
+class PlrBaseSource(Base):
     _documents_reocord_class_ = DocumentRecord
     _article_record_class_ = ArticleRecord
     _exclusion_of_liability_record_class_ = ExclusionOfLiabilityRecord
@@ -29,14 +29,16 @@ class ExtractBaseSource(Base):
     _view_service_record_class_ = ViewServiceRecord
 
 
-class ExtractStandardDatabaseSource(BaseDatabaseSource, ExtractBaseSource):
+class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     def __init__(self, **kwargs):
+        for key, value in kwargs.iteritems():
+            setattr(self, key, value)
         self._name_ = kwargs.get('name')
         kwargs['model'] = DottedNameResolver().maybe_resolve(
             'pyramid_oereb.models.{name}Geometry'.format(name=self._name_.capitalize())
         )
-        super(ExtractStandardDatabaseSource, self).__init__(**kwargs)
+        super(PlrStandardDatabaseSource, self).__init__(**kwargs)
 
     @staticmethod
     def geometry_parsing(geometry_value):
@@ -68,8 +70,8 @@ class ExtractStandardDatabaseSource(BaseDatabaseSource, ExtractBaseSource):
             geometry_records.append(self._geometry_record_class_(
                 geometry_from_db.legal_state,
                 geometry_from_db.published_from,
-                geometry_from_db.geo_metadata,
                 self.geometry_parsing(geometry_from_db.geom),
+                geometry_from_db.geo_metadata,
                 office=self.from_db_to_office_record(geometry_from_db.responsible_office)
             ))
         return geometry_records
@@ -154,6 +156,7 @@ class ExtractStandardDatabaseSource(BaseDatabaseSource, ExtractBaseSource):
             public_law_restriction_from_db.topic,
             public_law_restriction_from_db.legal_state,
             public_law_restriction_from_db.published_from,
+            self.from_db_to_office_record(public_law_restriction_from_db.responsible_office),
             public_law_restriction_from_db.subtopic,
             public_law_restriction_from_db.additional_topic,
             public_law_restriction_from_db.type_code,
@@ -175,23 +178,15 @@ class ExtractStandardDatabaseSource(BaseDatabaseSource, ExtractBaseSource):
         :param real_estate: The real estate in its record representation.
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
         """
-        self.records = list()
         geoalchemy_representation = from_shape(real_estate.limit, srid=2056)
         session = self._adapter_.get_session(self._key_)
-        extract = self._extract_record_class_(
-            real_estate,
-            bin(100),
-            bin(100),
-            bin(100),
-            bin(100)
-        )
         geometry_results = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
             geoalchemy_representation
         )).all()
-
         for geometry_result in geometry_results:
             real_estate.public_law_restrictions.append(
                 self.from_db_to_plr_record(geometry_result.public_law_restriction)
             )
-
-        self.records.append(extract)
+        session.commit()
+        session.close()
+        return real_estate
