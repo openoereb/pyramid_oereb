@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-from pyramid.httpexceptions import HTTPBadRequest
+from pyramid.httpexceptions import HTTPBadRequest, HTTPOk
 from shapely.geometry import Point
 
 from pyramid_oereb import route_prefix
 from pyreproj import Reprojector
+
+from pyramid_oereb.lib.processor import Processor
 
 
 class PlrWebservice(object):
@@ -109,7 +111,8 @@ class PlrWebservice(object):
         :rtype:  dict
         """
         params = self.__validate_extract_params__()
-        return params  # TODO: Replace with extract
+        processor = Processor(params)
+        return processor.to_response()  # TODO: Replace with extract
 
     def __validate_extract_params__(self):
         """
