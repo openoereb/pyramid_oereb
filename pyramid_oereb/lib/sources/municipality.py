@@ -9,21 +9,18 @@ from geoalchemy2.shape import to_shape
 class MunicipalityBaseSource(Base):
     _record_class_ = MunicipalityRecord
 
-    def read(self, id_bfs):
-        pass
+    def read(self):
+        pass  # pragma: no cover
 
 
 class MunicipalityDatabaseSource(BaseDatabaseSource, MunicipalityBaseSource):
 
-    def read(self, fosnr):
+    def read(self):
         """
         Central method to read a municipality by it's id_bfs identifier.
-        :param fosnr: The unique id_bfs for the desired municipality.
-        :type fosnr: int
         """
         session = self._adapter_.get_session(self._key_)
-        query = session.query(self._model_)
-        results = [query.filter(self._model_.fosnr == fosnr).one()]
+        results = session.query(self._model_).all()
 
         self.records = list()
         for result in results:

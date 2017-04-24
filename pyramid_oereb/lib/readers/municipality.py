@@ -18,13 +18,11 @@ class MunicipalityReader(object):
         source_class = DottedNameResolver().maybe_resolve(dotted_source_class_path)
         self._source_ = source_class(**params)
 
-    def read(self, fosnr):
+    def read(self):
         """
         The central read accessor method to get all desired records from configured source.
-        :param id_bfs: The unique id_bfs for the desired municipality.
-        :type id_bfs: int
         :return: the list of all found records
         :rtype: list of pyramid_oereb.lib.records.municipality.MunicipalityRecord
         """
-        self._source_.read(fosnr)
+        self._source_.read()
         return self._source_.records

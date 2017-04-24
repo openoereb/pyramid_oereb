@@ -30,3 +30,31 @@ def test_init():
     assert record.name == 'a'
     assert record.line1 is None
     assert isinstance(record.postal_code, int)
+
+
+def test_to_extract():
+    assert OfficeRecord('home office', office_at_web='http://ho.work.org').to_extract() == {
+        'name': 'home office',
+        'office_at_web': 'http://ho.work.org'
+    }
+    assert OfficeRecord(
+        'test office',
+        uid='test-uid',
+        office_at_web='http://office.test.org',
+        line1='address line 1',
+        line2='address line 2',
+        street='office street',
+        number='1a',
+        postal_code='1234',
+        city='workaholic city'
+    ).to_extract() == {
+        'name': 'test office',
+        'uid': 'test-uid',
+        'office_at_web': 'http://office.test.org',
+        'line1': 'address line 1',
+        'line2': 'address line 2',
+        'street': 'office street',
+        'number': '1a',
+        'postal_code': '1234',
+        'city': 'workaholic city'
+    }

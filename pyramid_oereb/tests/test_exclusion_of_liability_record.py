@@ -23,3 +23,10 @@ def test_init():
     assert record.title == 'Disclaimer'
     assert record.content is not None
     assert isinstance(record.content, unicode)
+
+
+def test_to_extract():
+    assert ExclusionOfLiabilityRecord('Title', 'Content').to_extract() == {
+        'title': 'Title',
+        'content': 'Content'
+    }

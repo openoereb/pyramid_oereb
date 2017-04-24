@@ -60,8 +60,14 @@ class Plr73Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr73ReferenceDefinition(Base):  # TODO: Check translation
@@ -72,9 +78,9 @@ class Plr73ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr73Office.id), nullable=True
+        Plr73Office.id), nullable=False
     )
-    office = relationship(Plr73Office, backref='reference_definitions')
+    responsible_office = relationship(Plr73Office)
 
 
 class Plr73DocumentBase(Base):
@@ -84,7 +90,7 @@ class Plr73DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -95,6 +101,9 @@ class Plr73DocumentBase(Base):
 class Plr73Document(Plr73DocumentBase):
     __table_args__ = {'schema': 'plr73'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -108,21 +117,20 @@ class Plr73Document(Plr73DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr73Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr73Office, backref='documents')
+    responsible_office = relationship(Plr73Office)
 
 
 class Plr73Article(Plr73DocumentBase):
     __table_args__ = {'schema': 'plr73'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -131,10 +139,6 @@ class Plr73Article(Plr73DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr73Document.id),
@@ -150,16 +154,15 @@ class Plr73Article(Plr73DocumentBase):
 class Plr73LegalProvision(Plr73Document):
     __table_args__ = {'schema': 'plr73'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr73Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr73ViewService(Base):
@@ -226,12 +229,16 @@ class Plr73Geometry(Base):
         sa.ForeignKey(Plr73PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr73PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr73Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr73Office, backref='geometries')
+    responsible_office = relationship(Plr73Office)
 
 
 class Plr73PublicLawRestrictionBase(Base):
@@ -248,14 +255,14 @@ class Plr73PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr73PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr73Office.id),
-        nullable=True
+    plr = relationship(
+        Plr73PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr73Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr73PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -273,6 +280,15 @@ class Plr73PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr73PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr73PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr73PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr73PublicLawRestrictionDocument(Base):
@@ -288,6 +304,13 @@ class Plr73PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr73DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr73PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr73DocumentBase
     )
 
 
@@ -306,9 +329,13 @@ class Plr73DocumentReference(Base):
         sa.ForeignKey(Plr73Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr73Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr73Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -334,8 +361,14 @@ class Plr87Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr87ReferenceDefinition(Base):  # TODO: Check translation
@@ -346,9 +379,9 @@ class Plr87ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr87Office.id), nullable=True
+        Plr87Office.id), nullable=False
     )
-    office = relationship(Plr87Office, backref='reference_definitions')
+    responsible_office = relationship(Plr87Office)
 
 
 class Plr87DocumentBase(Base):
@@ -358,7 +391,7 @@ class Plr87DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -369,6 +402,9 @@ class Plr87DocumentBase(Base):
 class Plr87Document(Plr87DocumentBase):
     __table_args__ = {'schema': 'plr87'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -382,21 +418,20 @@ class Plr87Document(Plr87DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr87Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr87Office, backref='documents')
+    responsible_office = relationship(Plr87Office)
 
 
 class Plr87Article(Plr87DocumentBase):
     __table_args__ = {'schema': 'plr87'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -405,10 +440,6 @@ class Plr87Article(Plr87DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr87Document.id),
@@ -424,16 +455,15 @@ class Plr87Article(Plr87DocumentBase):
 class Plr87LegalProvision(Plr87Document):
     __table_args__ = {'schema': 'plr87'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr87Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr87ViewService(Base):
@@ -500,12 +530,16 @@ class Plr87Geometry(Base):
         sa.ForeignKey(Plr87PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr87PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr87Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr87Office, backref='geometries')
+    responsible_office = relationship(Plr87Office)
 
 
 class Plr87PublicLawRestrictionBase(Base):
@@ -522,14 +556,14 @@ class Plr87PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr87PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr87Office.id),
-        nullable=True
+    plr = relationship(
+        Plr87PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr87Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr87PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -547,6 +581,15 @@ class Plr87PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr87PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr87PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr87PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr87PublicLawRestrictionDocument(Base):
@@ -562,6 +605,13 @@ class Plr87PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr87DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr87PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr87DocumentBase
     )
 
 
@@ -580,9 +630,13 @@ class Plr87DocumentReference(Base):
         sa.ForeignKey(Plr87Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr87Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr87Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -608,8 +662,14 @@ class Plr88Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr88ReferenceDefinition(Base):  # TODO: Check translation
@@ -620,9 +680,9 @@ class Plr88ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr88Office.id), nullable=True
+        Plr88Office.id), nullable=False
     )
-    office = relationship(Plr88Office, backref='reference_definitions')
+    responsible_office = relationship(Plr88Office)
 
 
 class Plr88DocumentBase(Base):
@@ -632,7 +692,7 @@ class Plr88DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -643,6 +703,9 @@ class Plr88DocumentBase(Base):
 class Plr88Document(Plr88DocumentBase):
     __table_args__ = {'schema': 'plr88'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -656,21 +719,20 @@ class Plr88Document(Plr88DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr88Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr88Office, backref='documents')
+    responsible_office = relationship(Plr88Office)
 
 
 class Plr88Article(Plr88DocumentBase):
     __table_args__ = {'schema': 'plr88'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -679,10 +741,6 @@ class Plr88Article(Plr88DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr88Document.id),
@@ -698,16 +756,15 @@ class Plr88Article(Plr88DocumentBase):
 class Plr88LegalProvision(Plr88Document):
     __table_args__ = {'schema': 'plr88'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr88Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr88ViewService(Base):
@@ -774,12 +831,16 @@ class Plr88Geometry(Base):
         sa.ForeignKey(Plr88PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr88PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr88Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr88Office, backref='geometries')
+    responsible_office = relationship(Plr88Office)
 
 
 class Plr88PublicLawRestrictionBase(Base):
@@ -796,14 +857,14 @@ class Plr88PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr88PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr88Office.id),
-        nullable=True
+    plr = relationship(
+        Plr88PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr88Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr88PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -821,6 +882,15 @@ class Plr88PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr88PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr88PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr88PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr88PublicLawRestrictionDocument(Base):
@@ -836,6 +906,13 @@ class Plr88PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr88DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr88PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr88DocumentBase
     )
 
 
@@ -854,9 +931,13 @@ class Plr88DocumentReference(Base):
         sa.ForeignKey(Plr88Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr88Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr88Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -882,8 +963,14 @@ class Plr97Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr97ReferenceDefinition(Base):  # TODO: Check translation
@@ -894,9 +981,9 @@ class Plr97ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr97Office.id), nullable=True
+        Plr97Office.id), nullable=False
     )
-    office = relationship(Plr97Office, backref='reference_definitions')
+    responsible_office = relationship(Plr97Office)
 
 
 class Plr97DocumentBase(Base):
@@ -906,7 +993,7 @@ class Plr97DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -917,6 +1004,9 @@ class Plr97DocumentBase(Base):
 class Plr97Document(Plr97DocumentBase):
     __table_args__ = {'schema': 'plr97'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -930,21 +1020,20 @@ class Plr97Document(Plr97DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr97Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr97Office, backref='documents')
+    responsible_office = relationship(Plr97Office)
 
 
 class Plr97Article(Plr97DocumentBase):
     __table_args__ = {'schema': 'plr97'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -953,10 +1042,6 @@ class Plr97Article(Plr97DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr97Document.id),
@@ -972,16 +1057,15 @@ class Plr97Article(Plr97DocumentBase):
 class Plr97LegalProvision(Plr97Document):
     __table_args__ = {'schema': 'plr97'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr97Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr97ViewService(Base):
@@ -1048,12 +1132,16 @@ class Plr97Geometry(Base):
         sa.ForeignKey(Plr97PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr97PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr97Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr97Office, backref='geometries')
+    responsible_office = relationship(Plr97Office)
 
 
 class Plr97PublicLawRestrictionBase(Base):
@@ -1070,14 +1158,14 @@ class Plr97PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr97PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr97Office.id),
-        nullable=True
+    plr = relationship(
+        Plr97PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr97Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr97PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -1095,6 +1183,15 @@ class Plr97PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr97PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr97PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr97PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr97PublicLawRestrictionDocument(Base):
@@ -1110,6 +1207,13 @@ class Plr97PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr97DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr97PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr97DocumentBase
     )
 
 
@@ -1128,9 +1232,13 @@ class Plr97DocumentReference(Base):
         sa.ForeignKey(Plr97Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr97Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr97Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -1156,8 +1264,14 @@ class Plr96Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr96ReferenceDefinition(Base):  # TODO: Check translation
@@ -1168,9 +1282,9 @@ class Plr96ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr96Office.id), nullable=True
+        Plr96Office.id), nullable=False
     )
-    office = relationship(Plr96Office, backref='reference_definitions')
+    responsible_office = relationship(Plr96Office)
 
 
 class Plr96DocumentBase(Base):
@@ -1180,7 +1294,7 @@ class Plr96DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -1191,6 +1305,9 @@ class Plr96DocumentBase(Base):
 class Plr96Document(Plr96DocumentBase):
     __table_args__ = {'schema': 'plr96'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -1204,21 +1321,20 @@ class Plr96Document(Plr96DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr96Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr96Office, backref='documents')
+    responsible_office = relationship(Plr96Office)
 
 
 class Plr96Article(Plr96DocumentBase):
     __table_args__ = {'schema': 'plr96'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -1227,10 +1343,6 @@ class Plr96Article(Plr96DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr96Document.id),
@@ -1246,16 +1358,15 @@ class Plr96Article(Plr96DocumentBase):
 class Plr96LegalProvision(Plr96Document):
     __table_args__ = {'schema': 'plr96'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr96Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr96ViewService(Base):
@@ -1322,12 +1433,16 @@ class Plr96Geometry(Base):
         sa.ForeignKey(Plr96PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr96PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr96Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr96Office, backref='geometries')
+    responsible_office = relationship(Plr96Office)
 
 
 class Plr96PublicLawRestrictionBase(Base):
@@ -1344,14 +1459,14 @@ class Plr96PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr96PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr96Office.id),
-        nullable=True
+    plr = relationship(
+        Plr96PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr96Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr96PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -1369,6 +1484,15 @@ class Plr96PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr96PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr96PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr96PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr96PublicLawRestrictionDocument(Base):
@@ -1384,6 +1508,13 @@ class Plr96PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr96DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr96PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr96DocumentBase
     )
 
 
@@ -1402,9 +1533,13 @@ class Plr96DocumentReference(Base):
         sa.ForeignKey(Plr96Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr96Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr96Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -1430,8 +1565,14 @@ class Plr103Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr103ReferenceDefinition(Base):  # TODO: Check translation
@@ -1442,9 +1583,9 @@ class Plr103ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr103Office.id), nullable=True
+        Plr103Office.id), nullable=False
     )
-    office = relationship(Plr103Office, backref='reference_definitions')
+    responsible_office = relationship(Plr103Office)
 
 
 class Plr103DocumentBase(Base):
@@ -1454,7 +1595,7 @@ class Plr103DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -1465,6 +1606,9 @@ class Plr103DocumentBase(Base):
 class Plr103Document(Plr103DocumentBase):
     __table_args__ = {'schema': 'plr103'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -1478,21 +1622,20 @@ class Plr103Document(Plr103DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr103Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr103Office, backref='documents')
+    responsible_office = relationship(Plr103Office)
 
 
 class Plr103Article(Plr103DocumentBase):
     __table_args__ = {'schema': 'plr103'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -1501,10 +1644,6 @@ class Plr103Article(Plr103DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr103Document.id),
@@ -1520,16 +1659,15 @@ class Plr103Article(Plr103DocumentBase):
 class Plr103LegalProvision(Plr103Document):
     __table_args__ = {'schema': 'plr103'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr103Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr103ViewService(Base):
@@ -1596,12 +1734,16 @@ class Plr103Geometry(Base):
         sa.ForeignKey(Plr103PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr103PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr103Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr103Office, backref='geometries')
+    responsible_office = relationship(Plr103Office)
 
 
 class Plr103PublicLawRestrictionBase(Base):
@@ -1618,14 +1760,14 @@ class Plr103PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr103PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr103Office.id),
-        nullable=True
+    plr = relationship(
+        Plr103PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr103Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr103PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -1643,6 +1785,15 @@ class Plr103PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr103PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr103PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr103PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr103PublicLawRestrictionDocument(Base):
@@ -1658,6 +1809,13 @@ class Plr103PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr103DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr103PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr103DocumentBase
     )
 
 
@@ -1676,9 +1834,13 @@ class Plr103DocumentReference(Base):
         sa.ForeignKey(Plr103Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr103Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr103Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -1704,8 +1866,14 @@ class Plr104Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr104ReferenceDefinition(Base):  # TODO: Check translation
@@ -1716,9 +1884,9 @@ class Plr104ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr104Office.id), nullable=True
+        Plr104Office.id), nullable=False
     )
-    office = relationship(Plr104Office, backref='reference_definitions')
+    responsible_office = relationship(Plr104Office)
 
 
 class Plr104DocumentBase(Base):
@@ -1728,7 +1896,7 @@ class Plr104DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -1739,6 +1907,9 @@ class Plr104DocumentBase(Base):
 class Plr104Document(Plr104DocumentBase):
     __table_args__ = {'schema': 'plr104'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -1752,21 +1923,20 @@ class Plr104Document(Plr104DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr104Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr104Office, backref='documents')
+    responsible_office = relationship(Plr104Office)
 
 
 class Plr104Article(Plr104DocumentBase):
     __table_args__ = {'schema': 'plr104'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -1775,10 +1945,6 @@ class Plr104Article(Plr104DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr104Document.id),
@@ -1794,16 +1960,15 @@ class Plr104Article(Plr104DocumentBase):
 class Plr104LegalProvision(Plr104Document):
     __table_args__ = {'schema': 'plr104'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr104Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr104ViewService(Base):
@@ -1870,12 +2035,16 @@ class Plr104Geometry(Base):
         sa.ForeignKey(Plr104PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr104PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr104Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr104Office, backref='geometries')
+    responsible_office = relationship(Plr104Office)
 
 
 class Plr104PublicLawRestrictionBase(Base):
@@ -1892,14 +2061,14 @@ class Plr104PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr104PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr104Office.id),
-        nullable=True
+    plr = relationship(
+        Plr104PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr104Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr104PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -1917,6 +2086,15 @@ class Plr104PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr104PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr104PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr104PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr104PublicLawRestrictionDocument(Base):
@@ -1932,6 +2110,13 @@ class Plr104PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr104DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr104PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr104DocumentBase
     )
 
 
@@ -1950,9 +2135,13 @@ class Plr104DocumentReference(Base):
         sa.ForeignKey(Plr104Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr104Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr104Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -1978,8 +2167,14 @@ class Plr108Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr108ReferenceDefinition(Base):  # TODO: Check translation
@@ -1990,9 +2185,9 @@ class Plr108ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr108Office.id), nullable=True
+        Plr108Office.id), nullable=False
     )
-    office = relationship(Plr108Office, backref='reference_definitions')
+    responsible_office = relationship(Plr108Office)
 
 
 class Plr108DocumentBase(Base):
@@ -2002,7 +2197,7 @@ class Plr108DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -2013,6 +2208,9 @@ class Plr108DocumentBase(Base):
 class Plr108Document(Plr108DocumentBase):
     __table_args__ = {'schema': 'plr108'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -2026,21 +2224,20 @@ class Plr108Document(Plr108DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr108Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr108Office, backref='documents')
+    responsible_office = relationship(Plr108Office)
 
 
 class Plr108Article(Plr108DocumentBase):
     __table_args__ = {'schema': 'plr108'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -2049,10 +2246,6 @@ class Plr108Article(Plr108DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr108Document.id),
@@ -2068,16 +2261,15 @@ class Plr108Article(Plr108DocumentBase):
 class Plr108LegalProvision(Plr108Document):
     __table_args__ = {'schema': 'plr108'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr108Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr108ViewService(Base):
@@ -2144,12 +2336,16 @@ class Plr108Geometry(Base):
         sa.ForeignKey(Plr108PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr108PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr108Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr108Office, backref='geometries')
+    responsible_office = relationship(Plr108Office)
 
 
 class Plr108PublicLawRestrictionBase(Base):
@@ -2166,14 +2362,14 @@ class Plr108PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr108PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr108Office.id),
-        nullable=True
+    plr = relationship(
+        Plr108PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr108Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr108PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -2191,6 +2387,15 @@ class Plr108PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr108PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr108PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr108PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr108PublicLawRestrictionDocument(Base):
@@ -2206,6 +2411,13 @@ class Plr108PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr108DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr108PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr108DocumentBase
     )
 
 
@@ -2224,9 +2436,13 @@ class Plr108DocumentReference(Base):
         sa.ForeignKey(Plr108Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr108Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr108Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -2252,8 +2468,14 @@ class Plr116Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr116ReferenceDefinition(Base):  # TODO: Check translation
@@ -2264,9 +2486,9 @@ class Plr116ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr116Office.id), nullable=True
+        Plr116Office.id), nullable=False
     )
-    office = relationship(Plr116Office, backref='reference_definitions')
+    responsible_office = relationship(Plr116Office)
 
 
 class Plr116DocumentBase(Base):
@@ -2276,7 +2498,7 @@ class Plr116DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -2287,6 +2509,9 @@ class Plr116DocumentBase(Base):
 class Plr116Document(Plr116DocumentBase):
     __table_args__ = {'schema': 'plr116'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -2300,21 +2525,20 @@ class Plr116Document(Plr116DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr116Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr116Office, backref='documents')
+    responsible_office = relationship(Plr116Office)
 
 
 class Plr116Article(Plr116DocumentBase):
     __table_args__ = {'schema': 'plr116'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -2323,10 +2547,6 @@ class Plr116Article(Plr116DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr116Document.id),
@@ -2342,16 +2562,15 @@ class Plr116Article(Plr116DocumentBase):
 class Plr116LegalProvision(Plr116Document):
     __table_args__ = {'schema': 'plr116'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr116Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr116ViewService(Base):
@@ -2418,12 +2637,16 @@ class Plr116Geometry(Base):
         sa.ForeignKey(Plr116PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr116PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr116Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr116Office, backref='geometries')
+    responsible_office = relationship(Plr116Office)
 
 
 class Plr116PublicLawRestrictionBase(Base):
@@ -2440,14 +2663,14 @@ class Plr116PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr116PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr116Office.id),
-        nullable=True
+    plr = relationship(
+        Plr116PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr116Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr116PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -2465,6 +2688,15 @@ class Plr116PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr116PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr116PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr116PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr116PublicLawRestrictionDocument(Base):
@@ -2480,6 +2712,13 @@ class Plr116PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr116DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr116PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr116DocumentBase
     )
 
 
@@ -2498,9 +2737,13 @@ class Plr116DocumentReference(Base):
         sa.ForeignKey(Plr116Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr116Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr116Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -2526,8 +2769,14 @@ class Plr117Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr117ReferenceDefinition(Base):  # TODO: Check translation
@@ -2538,9 +2787,9 @@ class Plr117ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr117Office.id), nullable=True
+        Plr117Office.id), nullable=False
     )
-    office = relationship(Plr117Office, backref='reference_definitions')
+    responsible_office = relationship(Plr117Office)
 
 
 class Plr117DocumentBase(Base):
@@ -2550,7 +2799,7 @@ class Plr117DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -2561,6 +2810,9 @@ class Plr117DocumentBase(Base):
 class Plr117Document(Plr117DocumentBase):
     __table_args__ = {'schema': 'plr117'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -2574,21 +2826,20 @@ class Plr117Document(Plr117DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr117Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr117Office, backref='documents')
+    responsible_office = relationship(Plr117Office)
 
 
 class Plr117Article(Plr117DocumentBase):
     __table_args__ = {'schema': 'plr117'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -2597,10 +2848,6 @@ class Plr117Article(Plr117DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr117Document.id),
@@ -2616,16 +2863,15 @@ class Plr117Article(Plr117DocumentBase):
 class Plr117LegalProvision(Plr117Document):
     __table_args__ = {'schema': 'plr117'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr117Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr117ViewService(Base):
@@ -2692,12 +2938,16 @@ class Plr117Geometry(Base):
         sa.ForeignKey(Plr117PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr117PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr117Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr117Office, backref='geometries')
+    responsible_office = relationship(Plr117Office)
 
 
 class Plr117PublicLawRestrictionBase(Base):
@@ -2714,14 +2964,14 @@ class Plr117PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr117PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr117Office.id),
-        nullable=True
+    plr = relationship(
+        Plr117PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr117Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr117PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -2739,6 +2989,15 @@ class Plr117PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr117PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr117PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr117PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr117PublicLawRestrictionDocument(Base):
@@ -2754,6 +3013,13 @@ class Plr117PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr117DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr117PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr117DocumentBase
     )
 
 
@@ -2772,9 +3038,13 @@ class Plr117DocumentReference(Base):
         sa.ForeignKey(Plr117Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr117Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr117Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -2800,8 +3070,14 @@ class Plr118Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr118ReferenceDefinition(Base):  # TODO: Check translation
@@ -2812,9 +3088,9 @@ class Plr118ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr118Office.id), nullable=True
+        Plr118Office.id), nullable=False
     )
-    office = relationship(Plr118Office, backref='reference_definitions')
+    responsible_office = relationship(Plr118Office)
 
 
 class Plr118DocumentBase(Base):
@@ -2824,7 +3100,7 @@ class Plr118DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -2835,6 +3111,9 @@ class Plr118DocumentBase(Base):
 class Plr118Document(Plr118DocumentBase):
     __table_args__ = {'schema': 'plr118'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -2848,21 +3127,20 @@ class Plr118Document(Plr118DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr118Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr118Office, backref='documents')
+    responsible_office = relationship(Plr118Office)
 
 
 class Plr118Article(Plr118DocumentBase):
     __table_args__ = {'schema': 'plr118'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -2871,10 +3149,6 @@ class Plr118Article(Plr118DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr118Document.id),
@@ -2890,16 +3164,15 @@ class Plr118Article(Plr118DocumentBase):
 class Plr118LegalProvision(Plr118Document):
     __table_args__ = {'schema': 'plr118'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr118Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr118ViewService(Base):
@@ -2966,12 +3239,16 @@ class Plr118Geometry(Base):
         sa.ForeignKey(Plr118PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr118PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr118Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr118Office, backref='geometries')
+    responsible_office = relationship(Plr118Office)
 
 
 class Plr118PublicLawRestrictionBase(Base):
@@ -2988,14 +3265,14 @@ class Plr118PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr118PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr118Office.id),
-        nullable=True
+    plr = relationship(
+        Plr118PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr118Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr118PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -3013,6 +3290,15 @@ class Plr118PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr118PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr118PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr118PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr118PublicLawRestrictionDocument(Base):
@@ -3028,6 +3314,13 @@ class Plr118PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr118DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr118PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr118DocumentBase
     )
 
 
@@ -3046,9 +3339,13 @@ class Plr118DocumentReference(Base):
         sa.ForeignKey(Plr118Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr118Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr118Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -3074,8 +3371,14 @@ class Plr119Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr119ReferenceDefinition(Base):  # TODO: Check translation
@@ -3086,9 +3389,9 @@ class Plr119ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr119Office.id), nullable=True
+        Plr119Office.id), nullable=False
     )
-    office = relationship(Plr119Office, backref='reference_definitions')
+    responsible_office = relationship(Plr119Office)
 
 
 class Plr119DocumentBase(Base):
@@ -3098,7 +3401,7 @@ class Plr119DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -3109,6 +3412,9 @@ class Plr119DocumentBase(Base):
 class Plr119Document(Plr119DocumentBase):
     __table_args__ = {'schema': 'plr119'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -3122,21 +3428,20 @@ class Plr119Document(Plr119DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr119Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr119Office, backref='documents')
+    responsible_office = relationship(Plr119Office)
 
 
 class Plr119Article(Plr119DocumentBase):
     __table_args__ = {'schema': 'plr119'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -3145,10 +3450,6 @@ class Plr119Article(Plr119DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr119Document.id),
@@ -3164,16 +3465,15 @@ class Plr119Article(Plr119DocumentBase):
 class Plr119LegalProvision(Plr119Document):
     __table_args__ = {'schema': 'plr119'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr119Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr119ViewService(Base):
@@ -3240,12 +3540,16 @@ class Plr119Geometry(Base):
         sa.ForeignKey(Plr119PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr119PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr119Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr119Office, backref='geometries')
+    responsible_office = relationship(Plr119Office)
 
 
 class Plr119PublicLawRestrictionBase(Base):
@@ -3262,14 +3566,14 @@ class Plr119PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr119PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr119Office.id),
-        nullable=True
+    plr = relationship(
+        Plr119PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr119Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr119PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -3287,6 +3591,15 @@ class Plr119PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr119PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr119PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr119PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr119PublicLawRestrictionDocument(Base):
@@ -3302,6 +3615,13 @@ class Plr119PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr119DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr119PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr119DocumentBase
     )
 
 
@@ -3320,9 +3640,13 @@ class Plr119DocumentReference(Base):
         sa.ForeignKey(Plr119Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr119Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr119Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -3348,8 +3672,14 @@ class Plr131Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr131ReferenceDefinition(Base):  # TODO: Check translation
@@ -3360,9 +3690,9 @@ class Plr131ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr131Office.id), nullable=True
+        Plr131Office.id), nullable=False
     )
-    office = relationship(Plr131Office, backref='reference_definitions')
+    responsible_office = relationship(Plr131Office)
 
 
 class Plr131DocumentBase(Base):
@@ -3372,7 +3702,7 @@ class Plr131DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -3383,6 +3713,9 @@ class Plr131DocumentBase(Base):
 class Plr131Document(Plr131DocumentBase):
     __table_args__ = {'schema': 'plr131'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -3396,21 +3729,20 @@ class Plr131Document(Plr131DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr131Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr131Office, backref='documents')
+    responsible_office = relationship(Plr131Office)
 
 
 class Plr131Article(Plr131DocumentBase):
     __table_args__ = {'schema': 'plr131'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -3419,10 +3751,6 @@ class Plr131Article(Plr131DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr131Document.id),
@@ -3438,16 +3766,15 @@ class Plr131Article(Plr131DocumentBase):
 class Plr131LegalProvision(Plr131Document):
     __table_args__ = {'schema': 'plr131'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr131Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr131ViewService(Base):
@@ -3514,12 +3841,16 @@ class Plr131Geometry(Base):
         sa.ForeignKey(Plr131PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr131PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr131Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr131Office, backref='geometries')
+    responsible_office = relationship(Plr131Office)
 
 
 class Plr131PublicLawRestrictionBase(Base):
@@ -3536,14 +3867,14 @@ class Plr131PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr131PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr131Office.id),
-        nullable=True
+    plr = relationship(
+        Plr131PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr131Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr131PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -3561,6 +3892,15 @@ class Plr131PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr131PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr131PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr131PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr131PublicLawRestrictionDocument(Base):
@@ -3576,6 +3916,13 @@ class Plr131PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr131DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr131PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr131DocumentBase
     )
 
 
@@ -3594,9 +3941,13 @@ class Plr131DocumentReference(Base):
         sa.ForeignKey(Plr131Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr131Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr131Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -3622,8 +3973,14 @@ class Plr132Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr132ReferenceDefinition(Base):  # TODO: Check translation
@@ -3634,9 +3991,9 @@ class Plr132ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr132Office.id), nullable=True
+        Plr132Office.id), nullable=False
     )
-    office = relationship(Plr132Office, backref='reference_definitions')
+    responsible_office = relationship(Plr132Office)
 
 
 class Plr132DocumentBase(Base):
@@ -3646,7 +4003,7 @@ class Plr132DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -3657,6 +4014,9 @@ class Plr132DocumentBase(Base):
 class Plr132Document(Plr132DocumentBase):
     __table_args__ = {'schema': 'plr132'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -3670,21 +4030,20 @@ class Plr132Document(Plr132DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr132Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr132Office, backref='documents')
+    responsible_office = relationship(Plr132Office)
 
 
 class Plr132Article(Plr132DocumentBase):
     __table_args__ = {'schema': 'plr132'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -3693,10 +4052,6 @@ class Plr132Article(Plr132DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr132Document.id),
@@ -3712,16 +4067,15 @@ class Plr132Article(Plr132DocumentBase):
 class Plr132LegalProvision(Plr132Document):
     __table_args__ = {'schema': 'plr132'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr132Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr132ViewService(Base):
@@ -3788,12 +4142,16 @@ class Plr132Geometry(Base):
         sa.ForeignKey(Plr132PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr132PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr132Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr132Office, backref='geometries')
+    responsible_office = relationship(Plr132Office)
 
 
 class Plr132PublicLawRestrictionBase(Base):
@@ -3810,14 +4168,14 @@ class Plr132PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr132PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr132Office.id),
-        nullable=True
+    plr = relationship(
+        Plr132PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr132Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr132PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -3835,6 +4193,15 @@ class Plr132PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr132PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr132PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr132PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr132PublicLawRestrictionDocument(Base):
@@ -3850,6 +4217,13 @@ class Plr132PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr132DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr132PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr132DocumentBase
     )
 
 
@@ -3868,9 +4242,13 @@ class Plr132DocumentReference(Base):
         sa.ForeignKey(Plr132Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr132Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr132Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -3896,8 +4274,14 @@ class Plr145Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr145ReferenceDefinition(Base):  # TODO: Check translation
@@ -3908,9 +4292,9 @@ class Plr145ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr145Office.id), nullable=True
+        Plr145Office.id), nullable=False
     )
-    office = relationship(Plr145Office, backref='reference_definitions')
+    responsible_office = relationship(Plr145Office)
 
 
 class Plr145DocumentBase(Base):
@@ -3920,7 +4304,7 @@ class Plr145DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -3931,6 +4315,9 @@ class Plr145DocumentBase(Base):
 class Plr145Document(Plr145DocumentBase):
     __table_args__ = {'schema': 'plr145'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -3944,21 +4331,20 @@ class Plr145Document(Plr145DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr145Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr145Office, backref='documents')
+    responsible_office = relationship(Plr145Office)
 
 
 class Plr145Article(Plr145DocumentBase):
     __table_args__ = {'schema': 'plr145'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -3967,10 +4353,6 @@ class Plr145Article(Plr145DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr145Document.id),
@@ -3986,16 +4368,15 @@ class Plr145Article(Plr145DocumentBase):
 class Plr145LegalProvision(Plr145Document):
     __table_args__ = {'schema': 'plr145'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr145Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr145ViewService(Base):
@@ -4062,12 +4443,16 @@ class Plr145Geometry(Base):
         sa.ForeignKey(Plr145PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr145PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr145Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr145Office, backref='geometries')
+    responsible_office = relationship(Plr145Office)
 
 
 class Plr145PublicLawRestrictionBase(Base):
@@ -4084,14 +4469,14 @@ class Plr145PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr145PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr145Office.id),
-        nullable=True
+    plr = relationship(
+        Plr145PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr145Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr145PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -4109,6 +4494,15 @@ class Plr145PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr145PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr145PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr145PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr145PublicLawRestrictionDocument(Base):
@@ -4124,6 +4518,13 @@ class Plr145PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr145DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr145PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr145DocumentBase
     )
 
 
@@ -4142,9 +4543,13 @@ class Plr145DocumentReference(Base):
         sa.ForeignKey(Plr145Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr145Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr145Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -4170,8 +4575,14 @@ class Plr157Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr157ReferenceDefinition(Base):  # TODO: Check translation
@@ -4182,9 +4593,9 @@ class Plr157ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr157Office.id), nullable=True
+        Plr157Office.id), nullable=False
     )
-    office = relationship(Plr157Office, backref='reference_definitions')
+    responsible_office = relationship(Plr157Office)
 
 
 class Plr157DocumentBase(Base):
@@ -4194,7 +4605,7 @@ class Plr157DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -4205,6 +4616,9 @@ class Plr157DocumentBase(Base):
 class Plr157Document(Plr157DocumentBase):
     __table_args__ = {'schema': 'plr157'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -4218,21 +4632,20 @@ class Plr157Document(Plr157DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr157Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr157Office, backref='documents')
+    responsible_office = relationship(Plr157Office)
 
 
 class Plr157Article(Plr157DocumentBase):
     __table_args__ = {'schema': 'plr157'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -4241,10 +4654,6 @@ class Plr157Article(Plr157DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr157Document.id),
@@ -4260,16 +4669,15 @@ class Plr157Article(Plr157DocumentBase):
 class Plr157LegalProvision(Plr157Document):
     __table_args__ = {'schema': 'plr157'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr157Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr157ViewService(Base):
@@ -4336,12 +4744,16 @@ class Plr157Geometry(Base):
         sa.ForeignKey(Plr157PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr157PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr157Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr157Office, backref='geometries')
+    responsible_office = relationship(Plr157Office)
 
 
 class Plr157PublicLawRestrictionBase(Base):
@@ -4358,14 +4770,14 @@ class Plr157PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr157PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr157Office.id),
-        nullable=True
+    plr = relationship(
+        Plr157PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr157Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr157PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -4383,6 +4795,15 @@ class Plr157PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr157PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr157PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr157PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr157PublicLawRestrictionDocument(Base):
@@ -4398,6 +4819,13 @@ class Plr157PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr157DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr157PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr157DocumentBase
     )
 
 
@@ -4416,9 +4844,13 @@ class Plr157DocumentReference(Base):
         sa.ForeignKey(Plr157Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr157Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr157Document,
         foreign_keys=[reference_document_id]
     )
 
@@ -4444,8 +4876,14 @@ class Plr159Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
-    office_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
+    line1 = sa.Column(sa.String, nullable=True)
+    line2 = sa.Column(sa.String, nullable=True)
+    street = sa.Column(sa.String, nullable=True)
+    number = sa.Column(sa.String, nullable=True)
+    postal_code = sa.Column(sa.Integer, nullable=True)
+    city = sa.Column(sa.String, nullable=True)
 
 
 class Plr159ReferenceDefinition(Base):  # TODO: Check translation
@@ -4456,9 +4894,9 @@ class Plr159ReferenceDefinition(Base):  # TODO: Check translation
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(
-        Plr159Office.id), nullable=True
+        Plr159Office.id), nullable=False
     )
-    office = relationship(Plr159Office, backref='reference_definitions')
+    responsible_office = relationship(Plr159Office)
 
 
 class Plr159DocumentBase(Base):
@@ -4468,7 +4906,7 @@ class Plr159DocumentBase(Base):
     text_web = sa.Column(sa.String, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=True)
+    type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -4479,6 +4917,9 @@ class Plr159DocumentBase(Base):
 class Plr159Document(Plr159DocumentBase):
     __table_args__ = {'schema': 'plr159'}
     __tablename__ = 'document'
+    __mapper_args__ = {
+        'polymorphic_identity': 'document'
+    }
     title = sa.Column(sa.String, nullable=False)
     official_title = sa.Column(sa.String, nullable=True)
     abbreviation = sa.Column(sa.String, nullable=True)
@@ -4492,21 +4933,20 @@ class Plr159Document(Plr159DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="document")
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr159Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr159Office, backref='documents')
+    responsible_office = relationship(Plr159Office)
 
 
 class Plr159Article(Plr159DocumentBase):
     __table_args__ = {'schema': 'plr159'}
     __tablename__ = 'article'
+    __mapper_args__ = {
+        'polymorphic_identity': 'article'
+    }
     number = sa.Column(sa.String, nullable=False)
     text = sa.Column(sa.String, nullable=True)
     id = sa.Column(
@@ -4515,10 +4955,6 @@ class Plr159Article(Plr159DocumentBase):
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="article")
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr159Document.id),
@@ -4534,16 +4970,15 @@ class Plr159Article(Plr159DocumentBase):
 class Plr159LegalProvision(Plr159Document):
     __table_args__ = {'schema': 'plr159'}
     __tablename__ = 'legal_provision'
+    __mapper_args__ = {
+        'polymorphic_identity': 'legal_provision'
+    }
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr159Document.id),
         primary_key=True,
         onupdate="cascade"
     )
-    type = sa.Column(sa.Unicode, nullable=True, server_default="legal_provision")
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
 
 
 class Plr159ViewService(Base):
@@ -4610,12 +5045,16 @@ class Plr159Geometry(Base):
         sa.ForeignKey(Plr159PublicLawRestriction.id),
         nullable=False
     )
+    public_law_restriction = relationship(
+        Plr159PublicLawRestriction,
+        backref='geometries'
+    )
     office_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Plr159Office.id),
-        nullable=True
+        nullable=False
     )
-    office = relationship(Plr159Office, backref='geometries')
+    responsible_office = relationship(Plr159Office)
 
 
 class Plr159PublicLawRestrictionBase(Base):
@@ -4632,14 +5071,14 @@ class Plr159PublicLawRestrictionBase(Base):
         sa.ForeignKey(Plr159PublicLawRestriction.id),
         nullable=False
     )
-    office_id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Plr159Office.id),
-        nullable=True
+    plr = relationship(
+        Plr159PublicLawRestriction,
+        backref='basis',
+        foreign_keys=[public_law_restriction_id]
     )
-    office = relationship(
-        Plr159Office,
-        backref='public_law_restrictions'
+    base = relationship(
+        Plr159PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
     )
 
 
@@ -4657,6 +5096,15 @@ class Plr159PublicLawRestrictionRefinement(Base):
         sa.ForeignKey(Plr159PublicLawRestriction.id),
         nullable=False
     )
+    plr = relationship(
+        Plr159PublicLawRestriction,
+        backref='refinements',
+        foreign_keys=[public_law_restriction_id]
+    )
+    refinement = relationship(
+        Plr159PublicLawRestriction,
+        foreign_keys=[public_law_restriction_base_id]
+    )
 
 
 class Plr159PublicLawRestrictionDocument(Base):
@@ -4672,6 +5120,13 @@ class Plr159PublicLawRestrictionDocument(Base):
         sa.Integer,
         sa.ForeignKey(Plr159DocumentBase.id),
         nullable=False
+    )
+    plr = relationship(
+        Plr159PublicLawRestriction,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Plr159DocumentBase
     )
 
 
@@ -4690,9 +5145,13 @@ class Plr159DocumentReference(Base):
         sa.ForeignKey(Plr159Document.id),
         nullable=False
     )
-    relationship(
+    document = relationship(
         Plr159Document,
         backref='referenced_documents',
+        foreign_keys=[document_id]
+    )
+    referenced_document = relationship(
+        Plr159Document,
         foreign_keys=[reference_document_id]
     )
 

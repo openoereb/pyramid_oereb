@@ -10,18 +10,18 @@ class GeometryRecord(object):
     office = None
 
     def __init__(
-            self, legal_state, published_from, geo_metadata=None, geom=None,
-            public_law_restriction=None, office=None):
+            self, legal_state, published_from, geom, geo_metadata=None, public_law_restriction=None,
+            office=None):
         """
         Geometry record
         :param legal_state: The PLR record's legal state.
         :type legal_state: str
         :param published_from: Date from/since when the PLR record is published.
         :type published_from: datetime.date
+        :param geom: The geometry
+        :type geom: shapely.geometry.base.BaseGeometry
         :param geo_metadata: The metadata
         :type geo_metadata: str
-        :param geom: The geomety
-        :type geom: shapely.geometry.base.BaseGeometry
         :param public_law_restriction: The public law restriction
         :type public_law_restriction: pyramid_oereb.lib.records.plr.PlrRecord
         :param office: The office
@@ -50,3 +50,24 @@ class GeometryRecord(object):
             'public_law_restriction',
             'office'
         ]
+
+    def to_extract(self):
+        """
+        Returns a dictionary with all available values needed for the extract.
+        :return: Dictionary with values for the extract.
+        :rtype: dict
+        """
+        extract = dict()
+        for key in [
+            'legal_state',
+            'geo_metadata',
+            'geom'
+        ]:
+            value = getattr(self, key)
+            if value:
+                extract[key] = value
+        key = 'office'
+        record = getattr(self, key)
+        if record:
+            extract[key] = record.to_extract()
+        return extract

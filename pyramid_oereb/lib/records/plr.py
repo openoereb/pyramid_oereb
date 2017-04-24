@@ -7,7 +7,7 @@ class PlrRecord(object):
     part_in_percent = None
     symbol = None
 
-    def __init__(self, content, topic, legal_state, published_from, subtopic=None,
+    def __init__(self, content, topic, legal_state, published_from, responsible_office, subtopic=None,
                  additional_topic=None, type_code=None, type_code_list=None, view_service=None, basis=None,
                  refinements=None, documents=None, geometries=None):
         """
@@ -20,6 +20,8 @@ class PlrRecord(object):
         :type legal_state: str
         :param published_from: Date from/since when the PLR record is published.
         :type published_from: datetime.date
+        :param responsible_office: Office which is responsible for this PLR.
+        :type responsible_office: pyramid_oereb.lib.records.office.OfficeRecord
         :param subtopic: Optional subtopic.
         :type subtopic: str
         :param additional_topic: Optional additional topic.
@@ -36,8 +38,8 @@ class PlrRecord(object):
         :type refinements: list of PlrRecord
         :param documents: List of documents associated with this record.
         :type documents: list of pyramid_oereb.lib.records.documents.DocumentBaseRecord
-        :param geometries: List of geometries associated with this record.
-        :type geometries: list
+        :param geometries: List of geometries (shapely) associated with this record.
+        :type geometries: list of shapely.geometry.base.BaseGeometry
         :param area: Area of the restriction touching the property calculated by the processor.
         :type area: decimal
         :param part_in_percent: Part of the property area touched by the restriction in percent.
@@ -51,6 +53,7 @@ class PlrRecord(object):
         self.topic = topic
         self.legal_state = legal_state
         self.published_from = published_from
+        self.responsible_office = responsible_office
         self.subtopic = subtopic
         self.additional_topic = additional_topic
         self.type_code = type_code
@@ -93,5 +96,45 @@ class PlrRecord(object):
             'basis',
             'published_from',
             'legal_state',
-            'subtopic'
+            'subtopic',
+            'responsible_office'
         ]
+
+    def to_extract(self):
+        """
+        Returns a dictionary with all available values needed for the extract.
+        :return: Dictionary with values for the extract.
+        :rtype: dict
+        """
+        extract = dict()
+        for key in [
+            'content',
+            'topic',
+            'subtopic',
+            'additional_topic',
+            'type_code',
+            'type_code_list',
+            'legal_state',
+            'area',
+            'part_in_percent',
+            'symbol'
+        ]:
+            value = getattr(self, key)
+            if value:
+                extract[key] = value
+        for key in [
+            'geometries',
+            'documents'
+        ]:
+            records = getattr(self, key)
+            if records and len(records) > 0:
+                extract[key] = [record.to_extract() for record in records]
+        key = 'responsible_office'
+        record = getattr(self, key)
+        if record:
+            extract[key] = record.to_extract()
+        key = 'view_service'
+        record = getattr(self, key)
+        if record:
+            extract[key] = record.to_extract(type_code=self.type_code)
+        return extract
