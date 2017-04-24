@@ -54,6 +54,22 @@ class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).re
     street_number = sa.Column(sa.String, nullable=False)
     zip_code = sa.Column(sa.Integer, nullable=False)
     geom = sa.Column(Geometry('POINT', srid=${srid}))
+
+
+class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).replace('_', '')}Glossary(Base):
+    __table_args__ = {'schema': '${app_schema.get('name')}'}
+    __tablename__ = 'glossary'
+    id = sa.Column(sa.Integer, primary_key=True)
+    title = sa.Column(sa.String, nullable=False)
+    content = sa.Column(sa.String, nullable=False)
+
+
+class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).replace('_', '')}Exclusion_Of_Liability(Base):
+    __table_args__ = {'schema': '${app_schema.get('name')}'}
+    __tablename__ = 'exclusion_of_liability'
+    id = sa.Column(sa.Integer, primary_key=True)
+    title = sa.Column(sa.String, nullable=False)
+    content = sa.Column(sa.String, nullable=False)
 % for schema in plrs:
 
 
