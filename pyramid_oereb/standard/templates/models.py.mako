@@ -216,6 +216,12 @@ class ${schema.get("name").capitalize()}PublicLawRestriction(Base):
         ${schema.get("name").capitalize()}ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(${schema.get("name").capitalize()}Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(${schema.get("name").capitalize()}Office)
 
 
 class ${schema.get("name").capitalize()}Geometry(Base):

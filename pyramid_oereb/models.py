@@ -214,6 +214,12 @@ class Plr73PublicLawRestriction(Base):
         Plr73ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr73Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr73Office)
 
 
 class Plr73Geometry(Base):
@@ -515,6 +521,12 @@ class Plr87PublicLawRestriction(Base):
         Plr87ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr87Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr87Office)
 
 
 class Plr87Geometry(Base):
@@ -816,6 +828,12 @@ class Plr88PublicLawRestriction(Base):
         Plr88ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr88Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr88Office)
 
 
 class Plr88Geometry(Base):
@@ -1117,6 +1135,12 @@ class Plr97PublicLawRestriction(Base):
         Plr97ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr97Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr97Office)
 
 
 class Plr97Geometry(Base):
@@ -1418,6 +1442,12 @@ class Plr96PublicLawRestriction(Base):
         Plr96ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr96Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr96Office)
 
 
 class Plr96Geometry(Base):
@@ -1719,6 +1749,12 @@ class Plr103PublicLawRestriction(Base):
         Plr103ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr103Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr103Office)
 
 
 class Plr103Geometry(Base):
@@ -2020,6 +2056,12 @@ class Plr104PublicLawRestriction(Base):
         Plr104ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr104Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr104Office)
 
 
 class Plr104Geometry(Base):
@@ -2321,6 +2363,12 @@ class Plr108PublicLawRestriction(Base):
         Plr108ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr108Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr108Office)
 
 
 class Plr108Geometry(Base):
@@ -2622,6 +2670,12 @@ class Plr116PublicLawRestriction(Base):
         Plr116ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr116Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr116Office)
 
 
 class Plr116Geometry(Base):
@@ -2923,6 +2977,12 @@ class Plr117PublicLawRestriction(Base):
         Plr117ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr117Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr117Office)
 
 
 class Plr117Geometry(Base):
@@ -3224,6 +3284,12 @@ class Plr118PublicLawRestriction(Base):
         Plr118ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr118Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr118Office)
 
 
 class Plr118Geometry(Base):
@@ -3525,6 +3591,12 @@ class Plr119PublicLawRestriction(Base):
         Plr119ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr119Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr119Office)
 
 
 class Plr119Geometry(Base):
@@ -3826,6 +3898,12 @@ class Plr131PublicLawRestriction(Base):
         Plr131ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr131Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr131Office)
 
 
 class Plr131Geometry(Base):
@@ -4127,6 +4205,12 @@ class Plr132PublicLawRestriction(Base):
         Plr132ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr132Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr132Office)
 
 
 class Plr132Geometry(Base):
@@ -4428,6 +4512,12 @@ class Plr145PublicLawRestriction(Base):
         Plr145ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr145Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr145Office)
 
 
 class Plr145Geometry(Base):
@@ -4729,6 +4819,12 @@ class Plr157PublicLawRestriction(Base):
         Plr157ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr157Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr157Office)
 
 
 class Plr157Geometry(Base):
@@ -5030,6 +5126,12 @@ class Plr159PublicLawRestriction(Base):
         Plr159ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr159Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr159Office)
 
 
 class Plr159Geometry(Base):
