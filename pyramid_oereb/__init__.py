@@ -7,8 +7,10 @@ from pyramid_oereb.lib.config import ConfigReader
 from pyramid.config import Configurator
 
 from pyramid_oereb.lib.config import parse
+from pyramid_oereb.lib.readers.extract import ExtractReader
 from pyramid_oereb.lib.readers.municipality import MunicipalityReader
 from pyramid_oereb.lib.readers.real_estate import RealEstateReader
+from pyramid_oereb.lib.sources.plr import PlrStandardDatabaseSource
 
 __version__ = '0.0.1'
 
@@ -20,6 +22,8 @@ config_reader = None
 database_adapter = DatabaseAdapter()
 real_estate_reader = None
 municipality_reader = None
+extract_reader = None
+plr_sources = None
 
 
 def main(global_config, **settings):
@@ -42,7 +46,7 @@ def includeme(config):
     :param config: The pyramid apps config object
     :type config: Configurator
     """
-    global route_prefix, config_reader, real_estate_reader, municipality_reader
+    global route_prefix, config_reader, real_estate_reader, municipality_reader, extract_reader, plr_sources
 
     # Set route prefix
     route_prefix = config.route_prefix
@@ -56,6 +60,7 @@ def includeme(config):
     config_reader = ConfigReader(cfg_file, cfg_section)
     real_estate_config = config_reader.get_real_estate_config()
     municipality_config = config_reader.get_municipality_config()
+    extract_config = config_reader.get_extract_config()
 
     real_estate_reader = RealEstateReader(
         real_estate_config.get('source').get('class'),
@@ -67,25 +72,21 @@ def includeme(config):
         **municipality_config.get('source').get('params')
     )
 
+
+    # TODO: Make this more configurable, cause it is only useful for standard config now
+    plr_sources = []
+    for plr in config_reader.get('plrs'):
+        plr_sources.append(PlrStandardDatabaseSource(**{
+            'name': plr.get('name'),
+            'db_connection': config_reader.get('db_connection')
+        }))
+
+    extract_reader = ExtractReader(
+        plr_sources
+    )
+
     settings.update({
         'pyramid_oereb': parse(cfg_file, cfg_section)
     })
 
     config.include('pyramid_oereb.routes')
-
-
-# TODO: remove this method when approach is more clear
-def _test_flow():
-    global config_reader
-    from pyramid_oereb.lib.sources.real_estate import RealEstateDatabaseSource
-    from pyramid_oereb.lib.sources.extract import ExtractStandardDatabaseSource
-    config_reader = ConfigReader('pyramid_oereb.yml', 'pyramid_oereb')
-    re_dbs = RealEstateDatabaseSource(
-        **{'db_connection': 'postgresql://postgres:password@localhost/pyramid_oereb',
-           'model': 'pyramid_oereb.models.PyramidOerebMainRealEstate'})
-    re_dbs.read(egrid='CH113928077734')
-    extract = ExtractStandardDatabaseSource(
-        **{'db_connection': 'postgresql://postgres:password@localhost/pyramid_oereb',
-           'name': 'plr119'})
-    extract.read(re_dbs.records[0])
-    return extract
