@@ -3,14 +3,17 @@
 
 class ExclusionOfLiabilityRecord(object):
 
-    def __init__(self, title, content):
+    def __init__(self, id, title, content):
         """
-        Represents a glossary entry with the term and it's description.
-        :param title: The term used in the extract
+        Represents a exclusion of liability entry with the label and it's message.
+        :param id: The identifier in the database
+        :type id: int
+        :param title: The disclaimer message label 
         :type title: unicode
-        :param content: The description text for the glossary entry.
+        :param content: The disclaimer message.
         :type content: unicode
         """
+        self.id = id
         self.title = title
         self.content = content
 
@@ -22,6 +25,7 @@ class ExclusionOfLiabilityRecord(object):
         :rtype: list of str
         """
         return [
+            'id',
             'title',
             'content'
         ]
@@ -38,3 +42,4 @@ class ExclusionOfLiabilityRecord(object):
             if value:
                 extract[key] = value
         return extract
+

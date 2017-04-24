@@ -55,6 +55,22 @@ class PyramidOerebMainAddress(Base):
     geom = sa.Column(Geometry('POINT', srid=2056))
 
 
+class PyramidOerebMainGlossary(Base):
+    __table_args__ = {'schema': 'pyramid_oereb_main'}
+    __tablename__ = 'glossary'
+    id = sa.Column(sa.Integer, primary_key=True)
+    title = sa.Column(sa.String, nullable=False)
+    content = sa.Column(sa.String, nullable=False)
+
+
+class PyramidOerebMainExclusion_Of_Liability(Base):
+    __table_args__ = {'schema': 'pyramid_oereb_main'}
+    __tablename__ = 'exclusion_of_liability'
+    id = sa.Column(sa.Integer, primary_key=True)
+    title = sa.Column(sa.String, nullable=False)
+    content = sa.Column(sa.String, nullable=False)
+
+
 class Plr73Office(Base):
     __table_args__ = {'schema': 'plr73'}
     __tablename__ = 'office'
