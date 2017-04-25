@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import pytest
-from pyramid.httpexceptions import HTTPBadRequest
+from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
 from pyramid.testing import DummyRequest, testConfig
 from pyramid_oereb.views.webservice import PlrWebservice
 
@@ -159,9 +159,10 @@ def test_return_extract():
             'param2': 'SomeEGRID'
         })
         service = PlrWebservice(request)
-        extract = service.get_extract_by_id()
+        with pytest.raises(HTTPNoContent):
+            service.get_extract_by_id()
+
         # TODO: Activate validation when schema issues are fixed
         # with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
         #     schema = json.load(f)
         # validate(extract, schema)
-        assert isinstance(extract, dict)

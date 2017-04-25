@@ -59,6 +59,7 @@ def test_to_extract():
                            type_code='test1_code', view_service=view_service, documents=[document],
                            geometries=[geometry])
     assert plr_record.to_extract() == {
+        'affected': True,
         'content': 'Content',
         'topic': 'Topic',
         'legal_state': 'runningModifications',
@@ -91,7 +92,7 @@ def test_to_extract():
         'geometries': [
             {
                 'legal_state': 'runningModifications',
-                'geom': point,
+                'geom': point.wkt,
                 'office': {
                     'name': 'Office'
                 }

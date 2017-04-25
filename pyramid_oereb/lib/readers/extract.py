@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from pyramid.path import DottedNameResolver
-
 from pyramid_oereb.lib.records.extract import ExtractRecord
 
 

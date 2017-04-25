@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from shapely.geometry.polygon import Polygon
 
 
 class GeometryRecord(object):

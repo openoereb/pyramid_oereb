@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pyramid.httpexceptions import HTTPBadRequest, HTTPOk
+from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
 from shapely.geometry import Point
 
 from pyramid_oereb import route_prefix
@@ -111,7 +111,10 @@ class PlrWebservice(object):
         :rtype:  dict
         """
         params = self.__validate_extract_params__()
-        processor = Processor(params)
+        try:
+            processor = Processor(params)
+        except LookupError:
+            raise HTTPNoContent()
         return processor.to_response(self._request_)  # TODO: Replace with extract
 
     def __validate_extract_params__(self):
