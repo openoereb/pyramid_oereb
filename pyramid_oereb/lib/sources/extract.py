@@ -160,7 +160,7 @@ class ExtractStandardDatabaseSource(BaseDatabaseSource, ExtractBaseSource):
             public_law_restriction_from_db.topic,
             public_law_restriction_from_db.legal_state,
             public_law_restriction_from_db.published_from,
-            None,
+            None,  # TODO: Replace with office record
             public_law_restriction_from_db.subtopic,
             public_law_restriction_from_db.additional_topic,
             public_law_restriction_from_db.type_code,
