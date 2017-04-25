@@ -23,7 +23,7 @@ class GlossaryDatabaseSource(BaseDatabaseSource, GlossaryBaseSource):
         :type content: unicode
         """
         session = self._adapter_.get_session(self._key_)
-        results = session.query(self._model_).all()
+        results = session.query(self._model_).filter(self._model_.id==id).all()
 
         self.records = list()
         for result in results:

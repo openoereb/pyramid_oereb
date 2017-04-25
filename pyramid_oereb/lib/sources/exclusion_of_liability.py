@@ -6,18 +6,18 @@ from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilit
 class ExclusionOfLiabilityBaseSource(Base):
     _record_class_ = ExclusionOfLiabilityRecord
 
-    def read(self):
+    def read(self, id, title, content):
         pass  # pragma: no cover
 
 
 class ExclusionOfLiabilityDatabaseSource(BaseDatabaseSource, ExclusionOfLiabilityBaseSource):
 
-    def read(self):
+    def read(self, id, title, content):
         """
         Central method to read a exclusion of liability definition.
         """
         session = self._adapter_.get_session(self._key_)
-        results = session.query(self._model_).all()
+        results = session.query(self._model_).filter(self._model_.id==id).one()
 
         self.records = list()
         for result in results:

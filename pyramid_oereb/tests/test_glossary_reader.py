@@ -18,7 +18,7 @@ def test_init():
 
 @pytest.mark.run(order=2)
 @pytest.mark.parametrize("param", [
-    {'id': 1, 'title': 'PLR Cadastre', 'content': 'Public Law Restriction Cadastre'}
+    {'id':1, 'title': u'SGRF', 'content': u'Service de la géomatique et du registre foncier'}
 ])
 def test_read(param):
     reader = GlossaryReader(

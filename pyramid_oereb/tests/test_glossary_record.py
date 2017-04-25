@@ -20,15 +20,19 @@ def test_mandatory_fields():
 
 
 def test_init():
-    record = GlossaryRecord(id=1, title='SGRF', content=u'Service de la géomatique et du registre foncier')
-    assert record.title == 'SGRF'
+    record = GlossaryRecord(id=1, title=u'SGRF', content=u'Service de la géomatique et du registre foncier')
+    assert record.title == u'SGRF'
     assert record.content is not None
     assert isinstance(record.content, unicode)
 
 
 def test_to_extract():
-    assert GlossaryRecord(1,'Title', 'Content').to_extract() == {
+    assert GlossaryRecord(
+        1, 
+        u'SGRF', 
+        u'Service de la géomatique et du registre foncier'
+    ).to_extract() == {
         'id': 1,
-        'title': 'Title',
-        'content': 'Content'
+        'title': u'SGRF',
+        'content': u'Service de la géomatique et du registre foncier'
     }

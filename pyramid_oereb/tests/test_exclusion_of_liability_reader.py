@@ -21,7 +21,7 @@ def test_init():
     {'id': 1, 'title': 'Disclaimer', 'content': 'No warranty!'}
 ])
 def test_read(param):
-    reader = ExclusionOfLiability(
+    reader = ExclusionOfLiabilityReader(
         config_reader.get_exclusion_of_liability_config().get('source').get('class'),
         **config_reader.get_exclusion_of_liability_config().get('source').get('params')
     )

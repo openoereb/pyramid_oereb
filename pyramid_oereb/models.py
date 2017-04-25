@@ -63,7 +63,7 @@ class PyramidOerebMainGlossary(Base):
     content = sa.Column(sa.String, nullable=False)
 
 
-class PyramidOerebMainExclusion_Of_Liability(Base):
+class PyramidOerebMainExclusionOfLiability(Base):
     __table_args__ = {'schema': 'pyramid_oereb_main'}
     __tablename__ = 'exclusion_of_liability'
     id = sa.Column(sa.Integer, primary_key=True)
