@@ -6,7 +6,6 @@ from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilit
 
 def test_get_fields():
     expected_fields = [
-        'id',
         'title',
         'content'
     ]
@@ -20,16 +19,14 @@ def test_mandatory_fields():
 
 
 def test_init():
-    record = ExclusionOfLiabilityRecord(id=1, title='Disclaimer', content=u'No warranty on nothing.')
-    assert record.id == 1
+    record = ExclusionOfLiabilityRecord(title='Disclaimer', content=u'No warranty on nothing.')
     assert record.title == 'Disclaimer'
     assert record.content is not None
     assert isinstance(record.content, unicode)
 
 
 def test_to_extract():
-    assert ExclusionOfLiabilityRecord(1, 'Title', 'Content').to_extract() == {
-        'id': 1,
+    assert ExclusionOfLiabilityRecord('Title', 'Content').to_extract() == {
         'title': 'Title',
         'content': 'Content'
     }

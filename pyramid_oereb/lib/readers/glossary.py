@@ -17,7 +17,7 @@ class GlossaryReader(object):
         source_class = DottedNameResolver().maybe_resolve(dotted_source_class_path)
         self._source_ = source_class(**params)
 
-    def read(self, id, title, content):
+    def read(self):
         """
         The central read accessor method to get all desired records from configured source.
         :param id: The identifier of the entry.
@@ -29,5 +29,5 @@ class GlossaryReader(object):
         :returns: The list of found records.
         :rtype: list of pyramid_oereb.lib.records.glossary.GlossaryRecord
         """
-        self._source_.read(id, title, content)
+        self._source_.read()
         return self._source_.records

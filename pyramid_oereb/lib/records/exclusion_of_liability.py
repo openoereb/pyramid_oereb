@@ -3,17 +3,14 @@
 
 class ExclusionOfLiabilityRecord(object):
 
-    def __init__(self, id, title, content):
+    def __init__(self, title, content):
         """
         Represents a exclusion of liability entry with the label and it's message.
-        :param id: The identifier in the database
-        :type id: int
         :param title: The disclaimer message label
         :type title: unicode
         :param content: The disclaimer message.
         :type content: unicode
         """
-        self.id = id
         self.title = title
         self.content = content
 
@@ -25,7 +22,6 @@ class ExclusionOfLiabilityRecord(object):
         :rtype: list of str
         """
         return [
-            'id',
             'title',
             'content'
         ]

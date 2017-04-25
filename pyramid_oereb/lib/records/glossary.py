@@ -3,17 +3,14 @@
 
 class GlossaryRecord(object):
 
-    def __init__(self, id, title, content):
+    def __init__(self, title, content):
         """
         Represents a glossary entry with the term and it's description.
-        :param id: The identifier in the database
-        :type id: int
         :param title: The term used in the extract
         :type title: unicode
         :param content: The description text for the glossary entry.
         :type content: unicode
         """
-        self.id = id
         self.title = title
         self.content = content
 
@@ -25,7 +22,6 @@ class GlossaryRecord(object):
         :rtype: list of str
         """
         return [
-            'id',
             'title',
             'content'
         ]

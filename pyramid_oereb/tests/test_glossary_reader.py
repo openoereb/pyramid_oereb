@@ -35,18 +35,13 @@ def test_init():
 
 
 @pytest.mark.run(order=2)
-@pytest.mark.parametrize("param", [{
-    'id': 1,
-    'title': u'SGRF',
-    'content': u'Service de la géomatique et du registre foncier'
-}])
-def test_read(param):
+def test_read(connection):
     reader = GlossaryReader(
         config_reader.get_glossary_config().get('source').get('class'),
         **config_reader.get_glossary_config().get('source').get('params')
     )
-    results = reader.read(param.get('id'), param.get('title'), param.get('content'))
+    results = reader.read()
     assert isinstance(results, list)
-    assert len(results) == 0
+    assert len(results) == 1
 
 # TODO: Implement tests for return values, not possible now, cause there is no data in database

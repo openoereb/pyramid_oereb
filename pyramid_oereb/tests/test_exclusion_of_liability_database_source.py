@@ -19,21 +19,9 @@ def test_init():
 
 
 @pytest.mark.run(order=2)
-@pytest.mark.parametrize("param", [
-    {'id': 1, 'title': 'Disclaimer', 'content': 'No warranty'}
-])
-def test_read(param):
+def test_read():
     source = ExclusionOfLiabilityDatabaseSource(
         **config_reader.get_exclusion_of_liability_config().get('source').get('params')
     )
-    with pytest.raises(NoResultFound):
-        source.read(param.get('id'), param.get('title'), param.get('content'))
-
-
-@pytest.mark.run(order=2)
-def test_missing_parameter():
-    source = ExclusionOfLiabilityDatabaseSource(
-        **config_reader.get_exclusion_of_liability_config().get('source').get('params')
-    )
-    with pytest.raises(TypeError):
-        source.read()
+    source.read()
+    assert len(source.records) == 0

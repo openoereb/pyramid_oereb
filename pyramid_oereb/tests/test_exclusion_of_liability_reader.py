@@ -17,15 +17,13 @@ def test_init():
 
 
 @pytest.mark.run(order=2)
-@pytest.mark.parametrize("param", [
-    {'id': 1, 'title': 'Disclaimer', 'content': 'No warranty!'}
-])
-def test_read(param):
+def test_read():
     reader = ExclusionOfLiabilityReader(
         config_reader.get_exclusion_of_liability_config().get('source').get('class'),
         **config_reader.get_exclusion_of_liability_config().get('source').get('params')
     )
-    with pytest.raises(NoResultFound):
-        reader.read(param.get('id'), param.get('title'), param.get('content'))
+    results = reader.read()
+    assert isinstance(results, list)
+    assert len(results) == 0
 
 # TODO: Implement tests for return values, not possible now, cause there is no data in database
