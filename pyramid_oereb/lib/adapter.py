@@ -26,7 +26,7 @@ class DatabaseAdapter(object):
         """
         if connection_string not in self._connections_:
             engine = create_engine(connection_string)
-            session = orm.scoped_session(sessionmaker(bind=engine, autocommit=True))
+            session = orm.scoped_session(sessionmaker(bind=engine))
             self._connections_[connection_string] = {
                 'engine': engine,
                 'session': session
