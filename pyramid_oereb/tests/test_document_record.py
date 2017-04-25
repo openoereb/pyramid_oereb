@@ -18,7 +18,7 @@ def test_get_fields():
         'official_number',
         'canton',
         'municipality',
-        'article_number',
+        'article_numbers',
         'file',
         'articles',
         'references'
@@ -45,7 +45,7 @@ def test_init():
     assert record.official_title is None
     assert record.canton is None
     assert record.municipality is None
-    assert record.article_number == []
+    assert record.article_numbers == []
     assert isinstance(record.articles, list)
     assert isinstance(record.references, list)
 
@@ -57,7 +57,7 @@ def test_init_with_relation():
         DocumentRecord('runningModifications', datetime.date(1985, 8, 29), 'Titel 1', office_record)
     ]
     record = DocumentRecord('runningModifications', datetime.date(1985, 8, 29), 'title', office_record,
-                            articles=articles, references=references, article_number=['test'])
+                            articles=articles, references=references, article_numbers=['test'])
     assert isinstance(record.legal_state, str)
     assert isinstance(record.published_from, datetime.date)
     assert isinstance(record.title, str)
@@ -68,7 +68,7 @@ def test_init_with_relation():
     assert record.official_title is None
     assert record.canton is None
     assert record.municipality is None
-    assert record.article_number == ['test']
+    assert record.article_numbers == ['test']
     assert isinstance(record.articles, list)
     assert isinstance(record.references, list)
 
@@ -80,14 +80,14 @@ def test_to_extract():
         DocumentRecord('runningModifications', datetime.date(1985, 8, 29), 'Reference', office_record)
     ]
     record = DocumentRecord('runningModifications', datetime.date(1985, 8, 29), 'Document', office_record,
-                            articles=articles, references=references, article_number=['test'])
+                            articles=articles, references=references, article_numbers=['test'])
     assert record.to_extract() == {
         'legal_state': 'runningModifications',
         'title': 'Document',
         'responsible_office': {
             'name': 'Office'
         },
-        'article_number': ['test'],
+        'article_numbers': ['test'],
         'articles': [
             {
                 'legal_state': 'runningModifications',
