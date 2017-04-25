@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import pytest
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter

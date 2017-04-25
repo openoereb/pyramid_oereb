@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import pytest
-from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb.lib.sources import Base
 from pyramid_oereb.lib.readers.exclusion_of_liability import ExclusionOfLiabilityReader

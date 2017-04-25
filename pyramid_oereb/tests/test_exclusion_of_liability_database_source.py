@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.lib.sources.exclusion_of_liability import ExclusionOfLiabilityDatabaseSource
