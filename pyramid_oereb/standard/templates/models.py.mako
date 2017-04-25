@@ -314,6 +314,7 @@ class ${schema.get("name").capitalize()}PublicLawRestrictionDocument(Base):
     document = relationship(
         ${schema.get("name").capitalize()}DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation

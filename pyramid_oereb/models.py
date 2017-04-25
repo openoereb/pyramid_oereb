@@ -312,6 +312,7 @@ class Plr73PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr73DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -614,6 +615,7 @@ class Plr87PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr87DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -916,6 +918,7 @@ class Plr88PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr88DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -1218,6 +1221,7 @@ class Plr97PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr97DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -1520,6 +1524,7 @@ class Plr96PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr96DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -1822,6 +1827,7 @@ class Plr103PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr103DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -2124,6 +2130,7 @@ class Plr104PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr104DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -2426,6 +2433,7 @@ class Plr108PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr108DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -2728,6 +2736,7 @@ class Plr116PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr116DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -3030,6 +3039,7 @@ class Plr117PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr117DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -3332,6 +3342,7 @@ class Plr118PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr118DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -3634,6 +3645,7 @@ class Plr119PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr119DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -3936,6 +3948,7 @@ class Plr131PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr131DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -4238,6 +4251,7 @@ class Plr132PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr132DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -4540,6 +4554,7 @@ class Plr145PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr145DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -4842,6 +4857,7 @@ class Plr157PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr157DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -5144,6 +5160,7 @@ class Plr159PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr159DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
