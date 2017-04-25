@@ -48,7 +48,7 @@ pyramid_oereb:
       params:
         db_connection: postgresql://postgres:password@localhost/pyramid_oereb
         model: pyramid_oereb.models.PyramidOerebMainExclusionOfLiability
-        
+
   plrs:
 
     - name: plr73
