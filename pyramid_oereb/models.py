@@ -338,6 +338,7 @@ class Plr73DocumentReference(Base):
         Plr73Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr73DocumentReferenceDefinition(Base):
@@ -639,6 +640,7 @@ class Plr87DocumentReference(Base):
         Plr87Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr87DocumentReferenceDefinition(Base):
@@ -940,6 +942,7 @@ class Plr88DocumentReference(Base):
         Plr88Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr88DocumentReferenceDefinition(Base):
@@ -1241,6 +1244,7 @@ class Plr97DocumentReference(Base):
         Plr97Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr97DocumentReferenceDefinition(Base):
@@ -1542,6 +1546,7 @@ class Plr96DocumentReference(Base):
         Plr96Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr96DocumentReferenceDefinition(Base):
@@ -1843,6 +1848,7 @@ class Plr103DocumentReference(Base):
         Plr103Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr103DocumentReferenceDefinition(Base):
@@ -2144,6 +2150,7 @@ class Plr104DocumentReference(Base):
         Plr104Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr104DocumentReferenceDefinition(Base):
@@ -2445,6 +2452,7 @@ class Plr108DocumentReference(Base):
         Plr108Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr108DocumentReferenceDefinition(Base):
@@ -2746,6 +2754,7 @@ class Plr116DocumentReference(Base):
         Plr116Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr116DocumentReferenceDefinition(Base):
@@ -3047,6 +3056,7 @@ class Plr117DocumentReference(Base):
         Plr117Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr117DocumentReferenceDefinition(Base):
@@ -3348,6 +3358,7 @@ class Plr118DocumentReference(Base):
         Plr118Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr118DocumentReferenceDefinition(Base):
@@ -3649,6 +3660,7 @@ class Plr119DocumentReference(Base):
         Plr119Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr119DocumentReferenceDefinition(Base):
@@ -3950,6 +3962,7 @@ class Plr131DocumentReference(Base):
         Plr131Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr131DocumentReferenceDefinition(Base):
@@ -4251,6 +4264,7 @@ class Plr132DocumentReference(Base):
         Plr132Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr132DocumentReferenceDefinition(Base):
@@ -4552,6 +4566,7 @@ class Plr145DocumentReference(Base):
         Plr145Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr145DocumentReferenceDefinition(Base):
@@ -4853,6 +4868,7 @@ class Plr157DocumentReference(Base):
         Plr157Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr157DocumentReferenceDefinition(Base):
@@ -5154,6 +5170,7 @@ class Plr159DocumentReference(Base):
         Plr159Document,
         foreign_keys=[reference_document_id]
     )
+    article_number = sa.Column(sa.String, nullable=True)
 
 
 class Plr159DocumentReferenceDefinition(Base):
