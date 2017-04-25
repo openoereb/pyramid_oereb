@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import pytest
-from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb.lib.sources import Base
 from pyramid_oereb.lib.readers.real_estate import RealEstateReader
@@ -25,7 +24,7 @@ def test_read_ndident_number(param):
         config_reader.get_real_estate_config().get('source').get('class'),
         **config_reader.get_real_estate_config().get('source').get('params')
     )
-    with pytest.raises(NoResultFound):
+    with pytest.raises(LookupError):
         reader.read(nb_ident=param.get('nb_ident'), number=param.get('number'))
 
 
@@ -38,7 +37,7 @@ def test_read_egrid(param):
         config_reader.get_real_estate_config().get('source').get('class'),
         **config_reader.get_real_estate_config().get('source').get('params')
     )
-    with pytest.raises(NoResultFound):
+    with pytest.raises(LookupError):
         reader.read(egrid=param.get('egrid'))
 
 # TODO: Implement tests for return values, not possible now, cause there is no data in database
