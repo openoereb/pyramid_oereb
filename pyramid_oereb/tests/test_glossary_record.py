@@ -28,8 +28,8 @@ def test_init():
 
 def test_to_extract():
     assert GlossaryRecord(
-        1, 
-        u'SGRF', 
+        1,
+        u'SGRF',
         u'Service de la géomatique et du registre foncier'
     ).to_extract() == {
         'id': 1,

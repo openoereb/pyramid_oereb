@@ -9,7 +9,8 @@ class ExclusionOfLiabilityReader(object):
         The central reader for the exclusion of liability definitions.
         :param dotted_source_class_path: The path to the class which represents the source used by this
         reader. This class must exist and it must implement basic source behaviour.
-        :type dotted_source_class_path: str or pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabiltyBaseSource
+        :type dotted_source_class_path: str or
+            pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabiltyBaseSource
         :param params: kwargs, which are necessary as configuration parameter for the above by dotted name
         defined class.
         :type: kwargs

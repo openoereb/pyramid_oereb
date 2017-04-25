@@ -8,7 +8,7 @@ class ExclusionOfLiabilityRecord(object):
         Represents a exclusion of liability entry with the label and it's message.
         :param id: The identifier in the database
         :type id: int
-        :param title: The disclaimer message label 
+        :param title: The disclaimer message label
         :type title: unicode
         :param content: The disclaimer message.
         :type content: unicode
@@ -42,4 +42,3 @@ class ExclusionOfLiabilityRecord(object):
             if value:
                 extract[key] = value
         return extract
-
