@@ -60,7 +60,6 @@ def includeme(config):
     config_reader = ConfigReader(cfg_file, cfg_section)
     real_estate_config = config_reader.get_real_estate_config()
     municipality_config = config_reader.get_municipality_config()
-    extract_config = config_reader.get_extract_config()
 
     real_estate_reader = RealEstateReader(
         real_estate_config.get('source').get('class'),
@@ -72,14 +71,11 @@ def includeme(config):
         **municipality_config.get('source').get('params')
     )
 
-
     # TODO: Make this more configurable, cause it is only useful for standard config now
     plr_sources = []
     for plr in config_reader.get('plrs'):
-        plr_sources.append(PlrStandardDatabaseSource(**{
-            'name': plr.get('name'),
-            'db_connection': config_reader.get('db_connection')
-        }))
+        plr['db_connection'] = config_reader.get('db_connection')
+        plr_sources.append(PlrStandardDatabaseSource(**plr))
 
     extract_reader = ExtractReader(
         plr_sources

@@ -60,7 +60,7 @@ def test_to_extract():
     geometry = GeometryRecord('runningModifications', datetime.date(1985, 8, 29), geom=point, office=office)
     document = DocumentRecord('runningModifications', datetime.date(1985, 8, 29), 'Document', office)
     view_service = ViewServiceRecord('http://www.test.url.ch', 'http://www.test.url.ch')
-    plr = PlrRecord('Content', 'Topic', 'runningModifications', datetime.date(1985, 8, 29), office,
+    plr = PlrRecord('Topic', 'Content', 'runningModifications', datetime.date(1985, 8, 29), office,
                     view_service=view_service, geometries=[geometry])
     record = RealEstateRecord('test_type', 'BL', 'Nusshof', 1, 100, 'POLYGON((0 0, 0 1, 1 1, 1 0, 0 0))',
                               view_service, public_law_restrictions=[plr], references=[document])

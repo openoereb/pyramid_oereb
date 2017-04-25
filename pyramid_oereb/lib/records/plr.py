@@ -1,15 +1,50 @@
 # -*- coding: utf-8 -*-
 
 
-class PlrRecord(object):
+class EmptyPlrRecord(object):
+
+    def __init__(self, topic):
+        self.topic = topic
+        self.affected = False
+
+    @classmethod
+    def get_fields(cls):
+        """
+        Returns a list of available field names.
+        :return: List of available field names.
+        :rtype: list of str
+        """
+        return [
+            'topic',
+            'affected'
+        ]
+
+    def to_extract(self):
+        """
+        Returns a dictionary with all available values needed for the extract.
+        :return: Dictionary with values for the extract.
+        :rtype: dict
+        """
+        extract = dict()
+        for key in [
+            'topic'
+        ]:
+            value = getattr(self, key)
+            if value:
+                extract[key] = value
+        extract['affected'] = self.affected
+        return extract
+
+
+class PlrRecord(EmptyPlrRecord):
     # Attributes added or calculated by the processor
     area = None
     part_in_percent = None
     symbol = None
 
-    def __init__(self, content, topic, legal_state, published_from, responsible_office, subtopic=None,
+    def __init__(self, topic, content, legal_state, published_from, responsible_office, subtopic=None,
                  additional_topic=None, type_code=None, type_code_list=None, view_service=None, basis=None,
-                 refinements=None, documents=None, geometries=None):
+                 refinements=None, documents=None, geometries=None, info=None, affected=True):
         """
         Public law restriction record.
         :param content: The PLR record's content.
@@ -46,11 +81,15 @@ class PlrRecord(object):
         :type part_in_percent: decimal
         :param symbol: Symbol of the restriction defined for the legend entry - added on the fly.
         :type symbol: binary
+        :param info: The information read from the config
+        :type info: dict or None
+        :param affected: Switch to provide easy access and more easy handling
+        :type affected: bool
         :raises TypeError: Raised on missing field value.
         """
 
+        super(PlrRecord, self).__init__(topic)
         self.content = content
-        self.topic = topic
         self.legal_state = legal_state
         self.published_from = published_from
         self.responsible_office = responsible_office
@@ -75,6 +114,8 @@ class PlrRecord(object):
             self.geometries = []
         else:
             self.geometries = geometries
+        self.info = info
+        self.affected = affected
 
     @classmethod
     def get_fields(cls):
@@ -137,4 +178,5 @@ class PlrRecord(object):
         record = getattr(self, key)
         if record:
             extract[key] = record.to_extract(type_code=self.type_code)
+        extract['affected'] = self.affected
         return extract

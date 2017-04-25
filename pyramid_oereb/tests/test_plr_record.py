@@ -38,7 +38,7 @@ def test_mandatory_fields():
 
 def test_init():
     office = OfficeRecord('Office')
-    record = PlrRecord('Content', 'Topic', 'runningModifications', datetime.date(1985, 8, 29), office)
+    record = PlrRecord('Topic', 'Content', 'runningModifications', datetime.date(1985, 8, 29), office)
     assert record.content == 'Content'
     assert record.subtopic is None
     assert isinstance(record.geometries, list)
@@ -52,10 +52,10 @@ def test_to_extract():
         LegendEntryRecord(bin(100), 'test2', 'test2_code', 'test2', 'test2')
     ]
     view_service = ViewServiceRecord('http://www.test.url.ch', 'http://www.test.url.ch', legends)
-    document = DocumentRecord('runningModifications', datetime.date(1985, 8, 29), 'Document', office)
+    document = DocumentRecord('runningModifications', datetime.date(1985, 8, 29), u'Document', office)
     point = Point((0, 0))
     geometry = GeometryRecord('runningModifications', datetime.date(1985, 8, 29), geom=point, office=office)
-    plr_record = PlrRecord('Content', 'Topic', 'runningModifications', datetime.date(1985, 8, 29), office,
+    plr_record = PlrRecord('Topic', 'Content', 'runningModifications', datetime.date(1985, 8, 29), office,
                            type_code='test1_code', view_service=view_service, documents=[document],
                            geometries=[geometry])
     assert plr_record.to_extract() == {

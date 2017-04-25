@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, orm
 from sqlalchemy.orm import sessionmaker
 
 
@@ -26,7 +26,7 @@ class DatabaseAdapter(object):
         """
         if connection_string not in self._connections_:
             engine = create_engine(connection_string)
-            session = sessionmaker(bind=engine)
+            session = orm.scoped_session(sessionmaker(bind=engine, autocommit=True))
             self._connections_[connection_string] = {
                 'engine': engine,
                 'session': session

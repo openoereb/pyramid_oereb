@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from pyramid.renderers import render_to_response
-import json
 
 
 class Processor(object):
@@ -13,9 +12,27 @@ class Processor(object):
         real_estate_records = real_estate_reader.read(egrid=params.get('egrid'))
         self.extract = extract_reader.read(real_estate_records[0])
 
-    def to_response(self):
+    def to_response(self, request):
         response_format = self.params.get('format')
         if response_format == 'json':
-            return render_to_response('json', self.extract.to_extract())
+            return render_to_response(
+                'json',
+                self.extract.to_extract(),
+                request=request
+            )
+        elif response_format == 'xml':
+            # TODO: implement way to produce xml
+            return render_to_response(
+                'string',
+                'Not implemented by now...',
+                request=request
+            )
+        elif response_format == 'pdf':
+            # TODO: implement way to produce pdf
+            return render_to_response(
+                'string',
+                'Not implemented by now...',
+                request=request
+            )
         else:
             return None

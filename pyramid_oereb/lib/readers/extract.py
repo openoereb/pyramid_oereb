@@ -26,7 +26,6 @@ class ExtractReader(object):
         :rtype: list of pyramid_oereb.lib.records.extract.ExtractRecord
         """
         for plr_source in self._plr_sources_:
-            print 'reading source:', plr_source.name
             plr_source.read(real_estate)
         self.extract = ExtractRecord(
             real_estate,

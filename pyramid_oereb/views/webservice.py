@@ -112,7 +112,7 @@ class PlrWebservice(object):
         """
         params = self.__validate_extract_params__()
         processor = Processor(params)
-        return processor.to_response()  # TODO: Replace with extract
+        return processor.to_response(self._request_)  # TODO: Replace with extract
 
     def __validate_extract_params__(self):
         """
