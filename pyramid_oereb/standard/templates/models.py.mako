@@ -340,6 +340,7 @@ class ${schema.get("name").capitalize()}DocumentReference(Base):
         ${schema.get("name").capitalize()}Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class ${schema.get("name").capitalize()}DocumentReferenceDefinition(Base):

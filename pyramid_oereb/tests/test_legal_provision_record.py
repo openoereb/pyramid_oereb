@@ -18,6 +18,7 @@ def test_get_fields():
         'official_number',
         'canton',
         'municipality',
+        'article_numbers',
         'file',
         'articles',
         'references'
