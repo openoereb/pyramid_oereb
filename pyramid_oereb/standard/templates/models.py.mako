@@ -57,6 +57,13 @@ class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).re
 % for schema in plrs:
 
 
+class ${schema.get("name").capitalize()}Availability(Base):
+    __table_args__ = {'schema': '${schema.get("name")}'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
+
+
 class ${schema.get("name").capitalize()}Office(Base):
     __table_args__ = {'schema': '${schema.get("name")}'}
     __tablename__ = 'office'

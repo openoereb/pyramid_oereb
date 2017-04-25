@@ -9,7 +9,7 @@ from sqlalchemy.orm import sessionmaker
 from pyramid_oereb.lib.config import parse
 from pyramid_oereb.models import Plr119Office, Plr119Geometry, Plr119PublicLawRestriction, \
     Plr119ViewService, Plr119PublicLawRestrictionDocument, Plr119DocumentBase, Plr119LegalProvision, \
-    PyramidOerebMainRealEstate, PyramidOerebMainAddress, PyramidOerebMainMunicipality
+    Plr119Availability, PyramidOerebMainRealEstate, PyramidOerebMainAddress, PyramidOerebMainMunicipality
 
 
 def load():
@@ -93,8 +93,18 @@ def __load__(configuration, section='pyramid_oereb'):
         schema=Plr119Office.__table__.schema,
         table=Plr119Office.__table__.name
     ))
+    connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+        schema=Plr119Availability.__table__.schema,
+        table=Plr119Availability.__table__.name
+    ))
 
     # Fill tables with sample data
+    with open(pkg_resources.resource_filename(
+            'pyramid_oereb.tests',
+            'resources/plr119/availabilities.json'
+    )) as f:
+        connection.execute(Plr119Availability.__table__.insert(), json.loads(f.read()))
+
     with open(pkg_resources.resource_filename(
             'pyramid_oereb.tests',
             'resources/plr119/office.json'

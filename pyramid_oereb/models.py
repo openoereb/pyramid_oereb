@@ -55,6 +55,13 @@ class PyramidOerebMainAddress(Base):
     geom = sa.Column(Geometry('POINT', srid=2056))
 
 
+class Plr73Availability(Base):
+    __table_args__ = {'schema': 'plr73'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
+
+
 class Plr73Office(Base):
     __table_args__ = {'schema': 'plr73'}
     __tablename__ = 'office'
@@ -360,6 +367,13 @@ class Plr73DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr73ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr87Availability(Base):
+    __table_args__ = {'schema': 'plr87'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr87Office(Base):
@@ -669,6 +683,13 @@ class Plr87DocumentReferenceDefinition(Base):
     )
 
 
+class Plr88Availability(Base):
+    __table_args__ = {'schema': 'plr88'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
+
+
 class Plr88Office(Base):
     __table_args__ = {'schema': 'plr88'}
     __tablename__ = 'office'
@@ -974,6 +995,13 @@ class Plr88DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr88ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr97Availability(Base):
+    __table_args__ = {'schema': 'plr97'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr97Office(Base):
@@ -1283,6 +1311,13 @@ class Plr97DocumentReferenceDefinition(Base):
     )
 
 
+class Plr96Availability(Base):
+    __table_args__ = {'schema': 'plr96'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
+
+
 class Plr96Office(Base):
     __table_args__ = {'schema': 'plr96'}
     __tablename__ = 'office'
@@ -1588,6 +1623,13 @@ class Plr96DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr96ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr103Availability(Base):
+    __table_args__ = {'schema': 'plr103'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr103Office(Base):
@@ -1897,6 +1939,13 @@ class Plr103DocumentReferenceDefinition(Base):
     )
 
 
+class Plr104Availability(Base):
+    __table_args__ = {'schema': 'plr104'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
+
+
 class Plr104Office(Base):
     __table_args__ = {'schema': 'plr104'}
     __tablename__ = 'office'
@@ -2202,6 +2251,13 @@ class Plr104DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr104ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr108Availability(Base):
+    __table_args__ = {'schema': 'plr108'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr108Office(Base):
@@ -2511,6 +2567,13 @@ class Plr108DocumentReferenceDefinition(Base):
     )
 
 
+class Plr116Availability(Base):
+    __table_args__ = {'schema': 'plr116'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
+
+
 class Plr116Office(Base):
     __table_args__ = {'schema': 'plr116'}
     __tablename__ = 'office'
@@ -2816,6 +2879,13 @@ class Plr116DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr116ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr117Availability(Base):
+    __table_args__ = {'schema': 'plr117'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr117Office(Base):
@@ -3125,6 +3195,13 @@ class Plr117DocumentReferenceDefinition(Base):
     )
 
 
+class Plr118Availability(Base):
+    __table_args__ = {'schema': 'plr118'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
+
+
 class Plr118Office(Base):
     __table_args__ = {'schema': 'plr118'}
     __tablename__ = 'office'
@@ -3430,6 +3507,13 @@ class Plr118DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr118ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr119Availability(Base):
+    __table_args__ = {'schema': 'plr119'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr119Office(Base):
@@ -3739,6 +3823,13 @@ class Plr119DocumentReferenceDefinition(Base):
     )
 
 
+class Plr131Availability(Base):
+    __table_args__ = {'schema': 'plr131'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
+
+
 class Plr131Office(Base):
     __table_args__ = {'schema': 'plr131'}
     __tablename__ = 'office'
@@ -4044,6 +4135,13 @@ class Plr131DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr131ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr132Availability(Base):
+    __table_args__ = {'schema': 'plr132'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr132Office(Base):
@@ -4353,6 +4451,13 @@ class Plr132DocumentReferenceDefinition(Base):
     )
 
 
+class Plr145Availability(Base):
+    __table_args__ = {'schema': 'plr145'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
+
+
 class Plr145Office(Base):
     __table_args__ = {'schema': 'plr145'}
     __tablename__ = 'office'
@@ -4660,6 +4765,13 @@ class Plr145DocumentReferenceDefinition(Base):
     )
 
 
+class Plr157Availability(Base):
+    __table_args__ = {'schema': 'plr157'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
+
+
 class Plr157Office(Base):
     __table_args__ = {'schema': 'plr157'}
     __tablename__ = 'office'
@@ -4965,6 +5077,13 @@ class Plr157DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr157ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr159Availability(Base):
+    __table_args__ = {'schema': 'plr159'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr159Office(Base):
