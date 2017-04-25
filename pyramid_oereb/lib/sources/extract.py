@@ -144,9 +144,13 @@ class ExtractStandardDatabaseSource(BaseDatabaseSource, ExtractBaseSource):
             legend_entry_records
         )
         documents_from_db = []
-        for legal_provision in public_law_restriction_from_db.legal_provisions:
+        article_numbers = []
+        for i, legal_provision in enumerate(public_law_restriction_from_db.legal_provisions):
             documents_from_db.append(legal_provision.document)
-        document_records = self.from_db_to_document_records(documents_from_db)
+            article_nrs = legal_provision.article_numbers.split('|') if legal_provision.article_numbers \
+                else None
+            article_numbers.append(article_nrs)
+        document_records = self.from_db_to_document_records(documents_from_db, article_numbers)
         geometry_records = self.from_db_to_geometry_records(public_law_restriction_from_db.geometries)
 
         basis_plr_records = []
