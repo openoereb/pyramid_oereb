@@ -18,6 +18,7 @@ route_prefix = None
 config_reader = None
 # initially instantiate database adapter for global session handling
 database_adapter = DatabaseAdapter()
+plr_cadastre_authority = None
 real_estate_reader = None
 municipality_reader = None
 
@@ -42,7 +43,7 @@ def includeme(config):
     :param config: The pyramid apps config object
     :type config: Configurator
     """
-    global route_prefix, config_reader, real_estate_reader, municipality_reader
+    global route_prefix, config_reader, real_estate_reader, municipality_reader, plr_cadastre_authority
 
     # Set route prefix
     route_prefix = config.route_prefix
@@ -56,6 +57,8 @@ def includeme(config):
     config_reader = ConfigReader(cfg_file, cfg_section)
     real_estate_config = config_reader.get_real_estate_config()
     municipality_config = config_reader.get_municipality_config()
+
+    plr_cadastre_authority = config_reader.get_plr_cadastre_authority()
 
     real_estate_reader = RealEstateReader(
         real_estate_config.get('source').get('class'),

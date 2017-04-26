@@ -4,6 +4,8 @@
 import yaml
 from pyramid.config import ConfigurationError
 
+from pyramid_oereb.lib.records.office import OfficeRecord
+
 
 def parse(cfg_file, cfg_section):
     """
@@ -116,6 +118,25 @@ class ConfigReader(object):
         :rtype: dict
         """
         return self.__config__.get('municipality')
+
+    def get_plr_cadastre_authority(self):
+        """
+        Returns an office record for the configured PLR cadastre authority.
+        :return: The configured PLR cadastre authority.
+        :rtype: pyramid_oereb.lib.records.office.OfficeRecord
+        """
+        cfg = self.__config__.get('plr_cadastre_authority')
+        return OfficeRecord(
+            cfg.get('name'),
+            uid=cfg.get('uid'),
+            office_at_web=cfg.get('office_at_web'),
+            line1=cfg.get('line1'),
+            line2=cfg.get('line2'),
+            street=cfg.get('street'),
+            number=cfg.get('number'),
+            postal_code=cfg.get('postal_code'),
+            city=cfg.get('city')
+        )
 
     def get(self, key, default=None):
         """
