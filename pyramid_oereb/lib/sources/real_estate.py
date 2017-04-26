@@ -65,3 +65,5 @@ class RealEstateDatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
                 identdn=result.identdn,
                 egrid=result.egrid
             ))
+
+        session.close()
