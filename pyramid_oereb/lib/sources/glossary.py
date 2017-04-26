@@ -31,3 +31,5 @@ class GlossaryDatabaseSource(BaseDatabaseSource, GlossaryBaseSource):
                 result.title,
                 result.content
             ))
+
+        session.close()

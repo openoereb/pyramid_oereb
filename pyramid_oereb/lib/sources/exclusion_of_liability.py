@@ -25,3 +25,5 @@ class ExclusionOfLiabilityDatabaseSource(BaseDatabaseSource, ExclusionOfLiabilit
                 result.title,
                 result.content
             ))
+
+        session.close()

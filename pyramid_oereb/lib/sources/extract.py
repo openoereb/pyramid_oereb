@@ -206,3 +206,5 @@ class ExtractStandardDatabaseSource(BaseDatabaseSource, ExtractBaseSource):
             )
 
         self.records.append(extract)
+
+        session.close()

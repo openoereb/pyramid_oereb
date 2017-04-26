@@ -20,6 +20,12 @@ def test_wrong_configuration_section():
         parse('./pyramid_oereb/tests/resources/test_config.yml', 'invalidsection')
 
 
+def test_configuration_file_not_found():
+    with pytest.raises(IOError) as excinfo:
+        parse('not_existing_config.yml', 'invalidsection')
+    assert ', Current working directory is ' in str(excinfo.value)
+
+
 def test_parse_configuration():
     cfg = parse('./pyramid_oereb/tests/resources/test_config.yml', 'section2')
     assert cfg.get('param1') == 1
