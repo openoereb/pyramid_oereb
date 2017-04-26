@@ -43,3 +43,5 @@ class AddressDatabaseSource(BaseDatabaseSource, AddressBaseSource):
                 result.street_number,
                 to_shape(result.geom).wkt if isinstance(result.geom, _SpatialElement) else None
             ))
+
+        session.close()

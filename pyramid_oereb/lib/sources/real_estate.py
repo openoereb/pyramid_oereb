@@ -69,3 +69,5 @@ class RealEstateDatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
                 ))
         except NoResultFound, e:
             raise LookupError(e)
+
+        session.close()

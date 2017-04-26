@@ -218,3 +218,5 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             )
         session.close()
         return real_estate
+
+        session.close()
