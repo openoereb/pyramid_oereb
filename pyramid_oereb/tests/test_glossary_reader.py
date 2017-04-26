@@ -1,28 +1,9 @@
 # -*- coding: utf-8 -*-
 import pytest
-from sqlalchemy import create_engine
 
 from pyramid_oereb.lib.sources import Base
 from pyramid_oereb.lib.readers.glossary import GlossaryReader
-from pyramid_oereb.models import PyramidOerebMainGlossary
-from pyramid_oereb.tests.conftest import config_reader, db_url
-
-
-@pytest.fixture()
-def connection():
-    engine = create_engine(db_url)
-    connection = engine.connect()
-    connection.execute('TRUNCATE {schema}.{table};'.format(
-        schema=PyramidOerebMainGlossary.__table__.schema,
-        table=PyramidOerebMainGlossary.__table__.name
-    ))
-    connection.execute(PyramidOerebMainGlossary.__table__.insert(), {
-        'id': 1,
-        'title': u'SGRF',
-        'content': u'Service de la géomatique et du registre foncier'
-    })
-    connection.close()
-    return connection
+from pyramid_oereb.tests.conftest import config_reader
 
 
 @pytest.mark.run(order=2)
@@ -36,6 +17,7 @@ def test_init():
 
 @pytest.mark.run(order=2)
 def test_read(connection):
+    assert connection.closed
     reader = GlossaryReader(
         config_reader.get_glossary_config().get('source').get('class'),
         **config_reader.get_glossary_config().get('source').get('params')
