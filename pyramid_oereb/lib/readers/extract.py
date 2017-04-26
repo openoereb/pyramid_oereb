@@ -15,11 +15,13 @@ class ExtractReader(object):
         self.extract = None
         self._plr_sources_ = plr_sources
 
-    def read(self, real_estate):
+    def read(self, real_estate, plr_cadastre_authority):
         """
         The central read accessor method to get all desired records from configured source.
         :param real_estate: The real estate for which the report should be generated
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        :param plr_cadastre_authority: The authority responsible for the PLR cadastre.
+        :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OffcieRecord
         :return: The extract record containing all gathered data.
         :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
         """
@@ -30,6 +32,7 @@ class ExtractReader(object):
             bin(100),
             bin(100),
             bin(100),
-            bin(100)
+            bin(100),
+            plr_cadastre_authority
         )
         return self.extract

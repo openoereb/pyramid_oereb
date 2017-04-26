@@ -7,3 +7,13 @@ section2:
   param2:
     - first
     - second
+
+pyramid_oereb:
+
+  plr_cadastre_authority:
+    name: PLR cadastre authority
+    office_at_web: https://www.cadastre.ch/en/oereb.html
+    street: Seftigenstrasse
+    number: 264
+    postal_code: 3084
+    city: Wabern

@@ -2,7 +2,8 @@
 import pytest
 from pyramid.config import ConfigurationError
 
-from pyramid_oereb import parse
+from pyramid_oereb.lib.config import parse, ConfigReader
+from pyramid_oereb.lib.records.office import OfficeRecord
 
 
 def test_missing_configuration_file():
@@ -32,3 +33,17 @@ def test_parse_configuration():
     assert len(cfg.get('param2')) == 2
     assert cfg.get('param2')[0] == 'first'
     assert cfg.get('param2')[1] == 'second'
+
+
+def test_get_plr_cadastre_authority():
+    config_reader = ConfigReader('./pyramid_oereb/tests/resources/test_config.yml', 'pyramid_oereb')
+    plr_cadastre_authority = config_reader.get_plr_cadastre_authority()
+    assert isinstance(plr_cadastre_authority, OfficeRecord)
+    assert plr_cadastre_authority.to_extract() == {
+        'name': 'PLR cadastre authority',
+        'office_at_web': 'https://www.cadastre.ch/en/oereb.html',
+        'street': 'Seftigenstrasse',
+        'number': 264,
+        'postal_code': 3084,
+        'city': 'Wabern'
+    }
