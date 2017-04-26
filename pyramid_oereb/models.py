@@ -55,6 +55,29 @@ class PyramidOerebMainAddress(Base):
     geom = sa.Column(Geometry('POINT', srid=2056))
 
 
+class PyramidOerebMainGlossary(Base):
+    __table_args__ = {'schema': 'pyramid_oereb_main'}
+    __tablename__ = 'glossary'
+    id = sa.Column(sa.Integer, primary_key=True)
+    title = sa.Column(sa.String, nullable=False)
+    content = sa.Column(sa.String, nullable=False)
+
+
+class PyramidOerebMainExclusionOfLiability(Base):
+    __table_args__ = {'schema': 'pyramid_oereb_main'}
+    __tablename__ = 'exclusion_of_liability'
+    id = sa.Column(sa.Integer, primary_key=True)
+    title = sa.Column(sa.String, nullable=False)
+    content = sa.Column(sa.String, nullable=False)
+
+
+class Plr73Availability(Base):
+    __table_args__ = {'schema': 'plr73'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
+
+
 class Plr73Office(Base):
     __table_args__ = {'schema': 'plr73'}
     __tablename__ = 'office'
@@ -214,6 +237,12 @@ class Plr73PublicLawRestriction(Base):
         Plr73ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr73Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr73Office)
 
 
 class Plr73Geometry(Base):
@@ -356,6 +385,13 @@ class Plr73DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr73ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr87Availability(Base):
+    __table_args__ = {'schema': 'plr87'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr87Office(Base):
@@ -517,6 +553,12 @@ class Plr87PublicLawRestriction(Base):
         Plr87ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr87Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr87Office)
 
 
 class Plr87Geometry(Base):
@@ -659,6 +701,13 @@ class Plr87DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr87ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr88Availability(Base):
+    __table_args__ = {'schema': 'plr88'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr88Office(Base):
@@ -820,6 +869,12 @@ class Plr88PublicLawRestriction(Base):
         Plr88ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr88Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr88Office)
 
 
 class Plr88Geometry(Base):
@@ -962,6 +1017,13 @@ class Plr88DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr88ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr97Availability(Base):
+    __table_args__ = {'schema': 'plr97'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr97Office(Base):
@@ -1123,6 +1185,12 @@ class Plr97PublicLawRestriction(Base):
         Plr97ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr97Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr97Office)
 
 
 class Plr97Geometry(Base):
@@ -1265,6 +1333,13 @@ class Plr97DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr97ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr96Availability(Base):
+    __table_args__ = {'schema': 'plr96'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr96Office(Base):
@@ -1426,6 +1501,12 @@ class Plr96PublicLawRestriction(Base):
         Plr96ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr96Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr96Office)
 
 
 class Plr96Geometry(Base):
@@ -1568,6 +1649,13 @@ class Plr96DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr96ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr103Availability(Base):
+    __table_args__ = {'schema': 'plr103'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr103Office(Base):
@@ -1729,6 +1817,12 @@ class Plr103PublicLawRestriction(Base):
         Plr103ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr103Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr103Office)
 
 
 class Plr103Geometry(Base):
@@ -1871,6 +1965,13 @@ class Plr103DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr103ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr104Availability(Base):
+    __table_args__ = {'schema': 'plr104'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr104Office(Base):
@@ -2032,6 +2133,12 @@ class Plr104PublicLawRestriction(Base):
         Plr104ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr104Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr104Office)
 
 
 class Plr104Geometry(Base):
@@ -2174,6 +2281,13 @@ class Plr104DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr104ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr108Availability(Base):
+    __table_args__ = {'schema': 'plr108'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr108Office(Base):
@@ -2335,6 +2449,12 @@ class Plr108PublicLawRestriction(Base):
         Plr108ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr108Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr108Office)
 
 
 class Plr108Geometry(Base):
@@ -2477,6 +2597,13 @@ class Plr108DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr108ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr116Availability(Base):
+    __table_args__ = {'schema': 'plr116'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr116Office(Base):
@@ -2638,6 +2765,12 @@ class Plr116PublicLawRestriction(Base):
         Plr116ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr116Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr116Office)
 
 
 class Plr116Geometry(Base):
@@ -2780,6 +2913,13 @@ class Plr116DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr116ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr117Availability(Base):
+    __table_args__ = {'schema': 'plr117'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr117Office(Base):
@@ -2941,6 +3081,12 @@ class Plr117PublicLawRestriction(Base):
         Plr117ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr117Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr117Office)
 
 
 class Plr117Geometry(Base):
@@ -3083,6 +3229,13 @@ class Plr117DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr117ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr118Availability(Base):
+    __table_args__ = {'schema': 'plr118'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr118Office(Base):
@@ -3244,6 +3397,12 @@ class Plr118PublicLawRestriction(Base):
         Plr118ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr118Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr118Office)
 
 
 class Plr118Geometry(Base):
@@ -3386,6 +3545,13 @@ class Plr118DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr118ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr119Availability(Base):
+    __table_args__ = {'schema': 'plr119'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr119Office(Base):
@@ -3547,6 +3713,12 @@ class Plr119PublicLawRestriction(Base):
         Plr119ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr119Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr119Office)
 
 
 class Plr119Geometry(Base):
@@ -3689,6 +3861,13 @@ class Plr119DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr119ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr131Availability(Base):
+    __table_args__ = {'schema': 'plr131'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr131Office(Base):
@@ -3850,6 +4029,12 @@ class Plr131PublicLawRestriction(Base):
         Plr131ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr131Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr131Office)
 
 
 class Plr131Geometry(Base):
@@ -3992,6 +4177,13 @@ class Plr131DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr131ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr132Availability(Base):
+    __table_args__ = {'schema': 'plr132'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr132Office(Base):
@@ -4153,6 +4345,12 @@ class Plr132PublicLawRestriction(Base):
         Plr132ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr132Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr132Office)
 
 
 class Plr132Geometry(Base):
@@ -4295,6 +4493,13 @@ class Plr132DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr132ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr145Availability(Base):
+    __table_args__ = {'schema': 'plr145'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr145Office(Base):
@@ -4456,6 +4661,12 @@ class Plr145PublicLawRestriction(Base):
         Plr145ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr145Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr145Office)
 
 
 class Plr145Geometry(Base):
@@ -4598,6 +4809,13 @@ class Plr145DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr145ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr157Availability(Base):
+    __table_args__ = {'schema': 'plr157'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr157Office(Base):
@@ -4759,6 +4977,12 @@ class Plr157PublicLawRestriction(Base):
         Plr157ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr157Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr157Office)
 
 
 class Plr157Geometry(Base):
@@ -4901,6 +5125,13 @@ class Plr157DocumentReferenceDefinition(Base):
         sa.ForeignKey(Plr157ReferenceDefinition.id),
         nullable=False
     )
+
+
+class Plr159Availability(Base):
+    __table_args__ = {'schema': 'plr159'}
+    __tablename__ = 'availability'
+    fosnr = sa.Column(sa.Integer, primary_key=True)
+    available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
 class Plr159Office(Base):
@@ -5062,6 +5293,12 @@ class Plr159PublicLawRestriction(Base):
         Plr159ViewService,
         backref='public_law_restrictions'
     )
+    office_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey(Plr159Office.id),
+        nullable=False
+    )
+    responsible_office = relationship(Plr159Office)
 
 
 class Plr159Geometry(Base):

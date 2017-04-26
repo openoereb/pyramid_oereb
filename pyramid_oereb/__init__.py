@@ -3,12 +3,14 @@
 import logging
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter
-from pyramid_oereb.lib.config import ConfigReader
+from pyramid_oereb.lib.config import ConfigReader, parse
 from pyramid.config import Configurator
 
-from pyramid_oereb.lib.config import parse
+from pyramid_oereb.lib.readers.extract import ExtractReader
 from pyramid_oereb.lib.readers.municipality import MunicipalityReader
 from pyramid_oereb.lib.readers.real_estate import RealEstateReader
+from pyramid_oereb.lib.sources.plr import PlrStandardDatabaseSource
+from pyramid_oereb.lib.processor import Processor
 
 __version__ = '0.0.1'
 
@@ -21,6 +23,8 @@ database_adapter = DatabaseAdapter()
 plr_cadastre_authority = None
 real_estate_reader = None
 municipality_reader = None
+extract_reader = None
+plr_sources = None
 
 
 def main(global_config, **settings):
@@ -43,7 +47,8 @@ def includeme(config):
     :param config: The pyramid apps config object
     :type config: Configurator
     """
-    global route_prefix, config_reader, real_estate_reader, municipality_reader, plr_cadastre_authority
+    global route_prefix, config_reader, real_estate_reader, municipality_reader, extract_reader, plr_sources, \
+        plr_cadastre_authority
 
     # Set route prefix
     route_prefix = config.route_prefix
@@ -70,25 +75,30 @@ def includeme(config):
         **municipality_config.get('source').get('params')
     )
 
+    # TODO: Make this more configurable, cause it is only useful for standard config now
+    plr_sources = []
+    for plr in config_reader.get('plrs'):
+        plr['db_connection'] = config_reader.get('db_connection')
+        plr_sources.append(PlrStandardDatabaseSource(**plr))
+
+    extract_reader = ExtractReader(
+        plr_sources
+    )
+
     settings.update({
         'pyramid_oereb': parse(cfg_file, cfg_section)
     })
+    processor = Processor(
+        real_estate_reader,
+        municipality_reader,
+        plr_sources,
+        extract_reader,
+        plr_cadastre_authority
+    )
+
+    def pyramid_oereb_processor(request):
+        return processor
+
+    config.add_request_method(pyramid_oereb_processor, reify=True)
 
     config.include('pyramid_oereb.routes')
-
-
-# TODO: remove this method when approach is more clear
-def _test_flow():
-    global config_reader
-    from pyramid_oereb.lib.sources.real_estate import RealEstateDatabaseSource
-    from pyramid_oereb.lib.sources.extract import ExtractStandardDatabaseSource
-    config_reader = ConfigReader('pyramid_oereb.yml', 'pyramid_oereb')
-    re_dbs = RealEstateDatabaseSource(
-        **{'db_connection': 'postgresql://postgres:password@localhost/pyramid_oereb',
-           'model': 'pyramid_oereb.models.PyramidOerebMainRealEstate'})
-    re_dbs.read(egrid='CH113928077734')
-    extract = ExtractStandardDatabaseSource(
-        **{'db_connection': 'postgresql://postgres:password@localhost/pyramid_oereb',
-           'name': 'plr119'})
-    extract.read(re_dbs.records[0])
-    return extract

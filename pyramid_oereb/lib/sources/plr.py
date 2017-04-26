@@ -3,8 +3,9 @@ from geoalchemy2.elements import _SpatialElement
 from geoalchemy2.shape import to_shape, from_shape
 from pyramid.path import DottedNameResolver
 
+from pyramid_oereb.lib.records.availability import AvailabilityRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
-from pyramid_oereb.lib.records.plr import PlrRecord
+from pyramid_oereb.lib.records.plr import EmptyPlrRecord, PlrRecord
 from pyramid_oereb.lib.records.documents import DocumentRecord, ArticleRecord
 from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
@@ -15,7 +16,7 @@ from pyramid_oereb.lib.records.reference_definition import ReferenceDefinitionRe
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 
 
-class ExtractBaseSource(Base):
+class PlrBaseSource(Base):
     _documents_reocord_class_ = DocumentRecord
     _article_record_class_ = ArticleRecord
     _exclusion_of_liability_record_class_ = ExclusionOfLiabilityRecord
@@ -29,14 +30,28 @@ class ExtractBaseSource(Base):
     _view_service_record_class_ = ViewServiceRecord
 
 
-class ExtractStandardDatabaseSource(BaseDatabaseSource, ExtractBaseSource):
+class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     def __init__(self, **kwargs):
-        self._name_ = kwargs.get('name')
+        self._plr_info_ = kwargs
+        self.affected = False
         kwargs['model'] = DottedNameResolver().maybe_resolve(
-            'pyramid_oereb.models.{name}Geometry'.format(name=self._name_.capitalize())
+            'pyramid_oereb.models.{name}Geometry'.format(name=self._plr_info_.get('name').capitalize())
         )
-        super(ExtractStandardDatabaseSource, self).__init__(**kwargs)
+        availability_model = DottedNameResolver().maybe_resolve(
+            'pyramid_oereb.models.{name}Availability'.format(name=self._plr_info_.get('name').capitalize())
+        )
+        super(PlrStandardDatabaseSource, self).__init__(**kwargs)
+
+        session = self._adapter_.get_session(self._key_)
+        availabilities_from_db = session.query(availability_model).all()
+        self.availabilities = []
+        for availability in availabilities_from_db:
+            self.availabilities.append(
+                AvailabilityRecord(availability.fosnr, available=availability.available)
+            )
+        session.close()
+        # session.close()
 
     @staticmethod
     def geometry_parsing(geometry_value):
@@ -68,8 +83,8 @@ class ExtractStandardDatabaseSource(BaseDatabaseSource, ExtractBaseSource):
             geometry_records.append(self._geometry_record_class_(
                 geometry_from_db.legal_state,
                 geometry_from_db.published_from,
-                geometry_from_db.geo_metadata,
                 self.geometry_parsing(geometry_from_db.geom),
+                geometry_from_db.geo_metadata,
                 office=self.from_db_to_office_record(geometry_from_db.responsible_office)
             ))
         return geometry_records
@@ -160,11 +175,11 @@ class ExtractStandardDatabaseSource(BaseDatabaseSource, ExtractBaseSource):
         for join in public_law_restriction_from_db.refinements:
             refinements_plr_records.append(self.from_db_to_plr_record(join.refinement))
         plr_record = self._plr_record_class_(
-            public_law_restriction_from_db.content,
             public_law_restriction_from_db.topic,
+            public_law_restriction_from_db.content,
             public_law_restriction_from_db.legal_state,
             public_law_restriction_from_db.published_from,
-            None,  # TODO: Replace with office record
+            self.from_db_to_office_record(public_law_restriction_from_db.responsible_office),
             public_law_restriction_from_db.subtopic,
             public_law_restriction_from_db.additional_topic,
             public_law_restriction_from_db.type_code,
@@ -180,32 +195,28 @@ class ExtractStandardDatabaseSource(BaseDatabaseSource, ExtractBaseSource):
         plr_record.geometries = geometry_records
         return plr_record
 
-    def read(self, real_estate, plr_cadastre_authority):
+    def read(self, real_estate):
         """
         The read point which creates a extract, depending on a passed real estate.
         :param real_estate: The real estate in its record representation.
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
-        :param plr_cadastre_authority: The PLR cadastre authority in its record representation.
-        :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OfficeRecord
         """
-        self.records = list()
+        for availability in self.availabilities:
+            if real_estate.fosnr == availability.fosnr and not availability.available:
+                return real_estate.public_law_restrictions.append(EmptyPlrRecord(self._plr_info_.get('code')))
         geoalchemy_representation = from_shape(real_estate.limit, srid=2056)
         session = self._adapter_.get_session(self._key_)
-        extract = self._extract_record_class_(
-            real_estate,
-            bin(100),
-            bin(100),
-            bin(100),
-            bin(100),
-            plr_cadastre_authority
-        )
         geometry_results = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
             geoalchemy_representation
         )).all()
-
+        if len(geometry_results) == 0:
+            return real_estate.public_law_restrictions.append(EmptyPlrRecord(self._plr_info_.get('code')))
         for geometry_result in geometry_results:
+            self.affected = True
             real_estate.public_law_restrictions.append(
                 self.from_db_to_plr_record(geometry_result.public_law_restriction)
             )
+        session.close()
+        return real_estate
 
-        self.records.append(extract)
+        session.close()

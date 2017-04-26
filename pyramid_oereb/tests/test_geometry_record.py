@@ -45,7 +45,7 @@ def test_to_extract():
     assert record.to_extract() == {
         'legal_state': 'runningModifications',
         'geo_metadata': 'test',
-        'geom': point,
+        'geom': point.wkt,
         'office': {
             'name': 'Office'
         }

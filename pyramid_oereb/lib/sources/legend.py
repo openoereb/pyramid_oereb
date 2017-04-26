@@ -32,3 +32,5 @@ class LegendDatabaseSource(BaseDatabaseSource, LegendBaseSource):
                 result.type_code_list,
                 result.theme
             ))
+
+        session.close()

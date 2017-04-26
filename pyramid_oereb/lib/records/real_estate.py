@@ -96,7 +96,6 @@ class RealEstateRecord(object):
             'fosnr',
             'metadata_of_geographical_base_data',
             'land_registry_area',
-            'limit',
             'number',
             'identdn',
             'egrid',
@@ -116,4 +115,7 @@ class RealEstateRecord(object):
             records = getattr(self, key)
             if records and len(records) > 0:
                 extract[key] = [r.to_extract() for r in records]
+        key = 'limit'
+        extract[key] = str(getattr(self, key))
+
         return extract

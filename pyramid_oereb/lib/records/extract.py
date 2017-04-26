@@ -82,3 +82,34 @@ class ExtractRecord(object):
             'exclusions_of_liability',
             'glossaries'
         ]
+
+    def to_extract(self):
+        """
+        Returns a dictionary with all available values needed for the extract.
+        :return: Dictionary with values for the extract.
+        :rtype: dict
+        """
+        extract = dict()
+        for key in [
+            'extract_identifier',
+            'notconcerned_theme',
+            'concerned_theme',
+            'theme_without_data',
+            'logo_plr_cadastre',
+            'federal_logo',
+            'cantonal_logo',
+            'municipality_logo',
+            'exclusions_of_liability',
+            'glossaries'
+        ]:
+            value = getattr(self, key)
+            if value:
+                extract[key] = value
+        key = 'real_estate'
+        record = getattr(self, key)
+        if record:
+            extract[key] = record.to_extract()
+        key = 'creation_date'
+        extract[key] = getattr(self, key).isoformat()
+
+        return extract

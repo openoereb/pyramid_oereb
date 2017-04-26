@@ -43,6 +43,20 @@ pyramid_oereb:
         db_connection: ${sqlalchemy_url}
         model: pyramid_oereb.models.PyramidOerebMainMunicipality
 
+  glossary:
+    source:
+      class: pyramid_oereb.lib.sources.glossary.GlossaryDatabaseSource
+      params:
+        db_connection: ${sqlalchemy_url}
+        model: pyramid_oereb.models.PyramidOerebMainGlossary
+
+  exclusion_of_liability:
+    source:
+      class: pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityDatabaseSource
+      params:
+        db_connection: ${sqlalchemy_url}
+        model: pyramid_oereb.models.PyramidOerebMainExclusionOfLiability
+
   plrs:
 
     - name: plr73

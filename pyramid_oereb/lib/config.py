@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import os
 
 import yaml
 from pyramid.config import ConfigurationError
@@ -21,8 +21,14 @@ def parse(cfg_file, cfg_section):
         raise ConfigurationError('Missing configuration parameter "pyramid_oereb.cfg.file".')
     if cfg_section is None:
         raise ConfigurationError('Missing configuration parameter "pyramid_oereb.cfg.section".')
-    with open(cfg_file) as f:
-        content = yaml.safe_load(f.read())
+
+    try:
+        with open(cfg_file) as f:
+            content = yaml.safe_load(f.read())
+    except IOError as e:
+        import sys
+        raise type(e), type(e)(e.message + '{0} \'{1}\', Current working directory is {2}'.format(
+            e.args[1], e.filename, os.getcwd())), sys.exc_info()[2]
     cfg = content.get(cfg_section)
     if cfg is None:
         raise ConfigurationError('YAML file contains no section "{0}"'.format(cfg_section))
@@ -111,6 +117,22 @@ class ConfigReader(object):
         """
         return self.__config__.get('address')
 
+    def get_glossary_config(self):
+        """
+        Returns a dictionary of the configured glossary settings.
+        :return: The configured glossary settings.
+        :rtype: dict
+        """
+        return self.__config__.get('glossary')
+
+    def get_exclusion_of_liability_config(self):
+        """
+        Returns a dictionary of the configured exclusion_of_liability settings.
+        :return: The configured exclusion_of_liability settings.
+        :rtype: dict
+        """
+        return self.__config__.get('exclusion_of_liability')
+
     def get_municipality_config(self):
         """
         Returns a dictionary of the configured municipality settings.
@@ -118,6 +140,14 @@ class ConfigReader(object):
         :rtype: dict
         """
         return self.__config__.get('municipality')
+
+    def get_extract_config(self):
+        """
+        Returns a dictionary of the configured extract settings.
+        :return: The configured extract settings.
+        :rtype: dict
+        """
+        return self.__config__.get('extract')
 
     def get_plr_cadastre_authority(self):
         """

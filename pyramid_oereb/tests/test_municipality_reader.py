@@ -1,30 +1,10 @@
 # -*- coding: utf-8 -*-
 import pytest
-from sqlalchemy import create_engine
 
 from pyramid_oereb.lib.records.municipality import MunicipalityRecord
 from pyramid_oereb.lib.sources import Base
 from pyramid_oereb.lib.readers.municipality import MunicipalityReader
-from pyramid_oereb.models import PyramidOerebMainMunicipality
-from pyramid_oereb.tests.conftest import config_reader, db_url
-
-
-@pytest.fixture()
-def connection():
-    engine = create_engine(db_url)
-    connection = engine.connect()
-    connection.execute('TRUNCATE {schema}.{table};'.format(
-        schema=PyramidOerebMainMunicipality.__table__.schema,
-        table=PyramidOerebMainMunicipality.__table__.name
-    ))
-    connection.execute(PyramidOerebMainMunicipality.__table__.insert(), {
-        'fosnr': 1234,
-        'name': 'Test',
-        'published': True,
-        'geom': 'SRID=2056;MULTIPOLYGON(((0 0, 0 1, 1 1, 1 0, 0 0)))'
-    })
-    connection.close()
-    return connection
+from pyramid_oereb.tests.conftest import config_reader
 
 
 @pytest.mark.run(order=2)

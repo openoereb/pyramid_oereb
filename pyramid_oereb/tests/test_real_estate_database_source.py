@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import pytest
-from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.lib.sources.real_estate import RealEstateDatabaseSource
@@ -21,7 +20,7 @@ def test_init():
 ])
 def test_read_ndident_number(param):
     source = RealEstateDatabaseSource(**config_reader.get_real_estate_config().get('source').get('params'))
-    with pytest.raises(NoResultFound):
+    with pytest.raises(LookupError):
         source.read(nb_ident=param.get('nb_ident'), number=param.get('number'))
 
 
@@ -31,7 +30,7 @@ def test_read_ndident_number(param):
 ])
 def test_read_egrid(param):
     source = RealEstateDatabaseSource(**config_reader.get_real_estate_config().get('source').get('params'))
-    with pytest.raises(NoResultFound):
+    with pytest.raises(LookupError):
         source.read(egrid=param.get('egrid'))
 
 

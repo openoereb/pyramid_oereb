@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from geoalchemy2.elements import _SpatialElement
+from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
@@ -33,35 +34,40 @@ class RealEstateDatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
         deliver several results.
         :type geometry: str
         """
-        session = self._adapter_.get_session(self._key_)
-        query = session.query(self._model_)
-        if nb_ident and number:
-            # explicitly querying for one result, this will cause an error if more than one ore none are found
-            results = [
-                query.filter(self._model_.number == number).filter(self._model_.identdn == nb_ident).one()
-            ]
-        elif egrid:
-            # explicitly querying for one result, this will cause an error if more than one ore none are found
-            results = [
-                query.filter(self._model_.egrid == egrid).one()
-            ]
-        elif geometry:
-            # querying for all results
-            results = query.filter(self._model_.limit.ST_Intersects(geometry)).all()
-        else:
-            raise AttributeError('Necessary parameter were missing.')
+        try:
+            session = self._adapter_.get_session(self._key_)
+            query = session.query(self._model_)
+            if nb_ident and number:
+                # explicitly querying for one result, this will cause an error if more than one ore none
+                results = [
+                    query.filter(self._model_.number == number).filter(self._model_.identdn == nb_ident).one()
+                ]
+            elif egrid:
+                # explicitly querying for one result, this will cause an error if more than one ore none
+                results = [
+                    query.filter(self._model_.egrid == egrid).one()
+                ]
+            elif geometry:
+                # querying for all results
+                results = query.filter(self._model_.limit.ST_Intersects(geometry)).all()
+            else:
+                raise AttributeError('Necessary parameter were missing.')
 
-        self.records = list()
-        for result in results:
-            self.records.append(self._record_class_(
-                result.type,
-                result.canton,
-                result.municipality,
-                result.fosnr,
-                result.land_registry_area,
-                to_shape(result.limit) if isinstance(result.limit, _SpatialElement) else None,
-                result.metadata_of_geographical_base_data,
-                number=result.number,
-                identdn=result.identdn,
-                egrid=result.egrid
-            ))
+            self.records = list()
+            for result in results:
+                self.records.append(self._record_class_(
+                    result.type,
+                    result.canton,
+                    result.municipality,
+                    result.fosnr,
+                    result.land_registry_area,
+                    to_shape(result.limit) if isinstance(result.limit, _SpatialElement) else None,
+                    result.metadata_of_geographical_base_data,
+                    number=result.number,
+                    identdn=result.identdn,
+                    egrid=result.egrid
+                ))
+        except NoResultFound, e:
+            raise LookupError(e)
+
+        session.close()
