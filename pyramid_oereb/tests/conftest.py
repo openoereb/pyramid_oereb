@@ -20,6 +20,8 @@ class MockRequest(DummyRequest):
         super(MockRequest, self).__init__()
         real_estate_config = config_reader.get_real_estate_config()
         municipality_config = config_reader.get_municipality_config()
+        logos = config_reader.get_logo_config()
+        plr_cadastre_authority = config_reader.get_plr_cadastre_authority()
 
         real_estate_reader = RealEstateReader(
             real_estate_config.get('source').get('class'),
@@ -38,14 +40,15 @@ class MockRequest(DummyRequest):
             plr_sources.append(PlrStandardDatabaseSource(**plr))
 
         extract_reader = ExtractReader(
-            plr_sources
+            plr_sources,
+            plr_cadastre_authority,
+            logos
         )
         self.processor = Processor(
             real_estate_reader,
             municipality_reader,
             plr_sources,
-            extract_reader,
-            config_reader.get_plr_cadastre_authority()
+            extract_reader
         )
 
     @property
