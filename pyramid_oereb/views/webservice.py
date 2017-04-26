@@ -118,10 +118,13 @@ class PlrWebservice(object):
             except LookupError:
                 raise HTTPNoContent()
         elif params.get('identdn') and params.get('number'):
-            real_estate_records = real_estate_reader.read(
-                nb_ident=params.get('identdn'),
-                number=params.get('number')
-            )
+            try:
+                real_estate_records = real_estate_reader.read(
+                    nb_ident=params.get('identdn'),
+                    number=params.get('number')
+                )
+            except LookupError:
+                raise HTTPNoContent()
         else:
             raise HTTPBadRequest()
 
