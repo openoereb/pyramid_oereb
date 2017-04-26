@@ -24,7 +24,9 @@ def parse(cfg_file, cfg_section):
         with open(cfg_file) as f:
             content = yaml.safe_load(f.read())
     except IOError as e:
-        raise type(e)(e.message + ', Current working directory is {0}'.format(os.getcwd()))
+        import sys
+        raise type(e), type(e)(e.message + '{0} \'{1}\', Current working directory is {2}'.format(
+            e.args[1], e.filename, os.getcwd())), sys.exc_info()[2]
     cfg = content.get(cfg_section)
     if cfg is None:
         raise ConfigurationError('YAML file contains no section "{0}"'.format(cfg_section))
