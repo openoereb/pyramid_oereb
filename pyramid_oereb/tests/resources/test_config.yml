@@ -10,6 +10,11 @@ section2:
 
 pyramid_oereb:
 
+  logo:
+    confederation: abc
+    oereb: yadayada
+    canton: blablubla
+
   plr_cadastre_authority:
     name: PLR cadastre authority
     office_at_web: https://www.cadastre.ch/en/oereb.html

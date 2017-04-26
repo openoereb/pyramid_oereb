@@ -168,6 +168,25 @@ class ConfigReader(object):
             city=cfg.get('city')
         )
 
+    def get_logo_config(self):
+        """
+        Returns a dictionary of the configured file path's to the logos.
+        :return: The configured paths to the logos wrapped in a dictionary.
+        :rtype: dict
+        """
+        msg = 'The definition for "{key}" must be set. Got: {found_config}'
+        logo_dict = self.__config__.get('logo')
+        key = 'confederation'
+        if not logo_dict.get(key):
+            raise ConfigurationError(msg.format(key=key, found_config=logo_dict))
+        key = 'oereb'
+        if not logo_dict.get(key):
+            raise ConfigurationError(msg.format(key=key, found_config=logo_dict))
+        key = 'canton'
+        if not logo_dict.get(key):
+            raise ConfigurationError(msg.format(key=key, found_config=logo_dict))
+        return logo_dict
+
     def get(self, key, default=None):
         """
         Returns the specified configuration value.

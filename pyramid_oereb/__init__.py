@@ -62,6 +62,7 @@ def includeme(config):
     config_reader = ConfigReader(cfg_file, cfg_section)
     real_estate_config = config_reader.get_real_estate_config()
     municipality_config = config_reader.get_municipality_config()
+    # config_reader.get_logo_config()
 
     plr_cadastre_authority = config_reader.get_plr_cadastre_authority()
 
