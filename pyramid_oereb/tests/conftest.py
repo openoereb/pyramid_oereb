@@ -44,7 +44,8 @@ class MockRequest(DummyRequest):
             real_estate_reader,
             municipality_reader,
             plr_sources,
-            extract_reader
+            extract_reader,
+            config_reader.get_plr_cadastre_authority()
         )
 
     @property
