@@ -49,6 +49,10 @@ pyramid_oereb:
         db_connection: postgresql://postgres:password@localhost/pyramid_oereb
         model: pyramid_oereb.models.PyramidOerebMainExclusionOfLiability
 
+  extract:
+    source:
+      class: pyramid_oereb.lib.sources.extract.ExtractStandardDatabaseSource
+
   plrs:
 
     - name: plr73

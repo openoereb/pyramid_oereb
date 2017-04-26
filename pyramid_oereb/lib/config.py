@@ -139,6 +139,14 @@ class ConfigReader(object):
         """
         return self.__config__.get('municipality')
 
+    def get_extract_config(self):
+        """
+        Returns a dictionary of the configured extract settings.
+        :return: The configured extract settings.
+        :rtype: dict
+        """
+        return self.__config__.get('extract')
+
     def get(self, key, default=None):
         """
         Returns the specified configuration value.

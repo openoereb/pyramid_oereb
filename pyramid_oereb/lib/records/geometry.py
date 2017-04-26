@@ -70,4 +70,6 @@ class GeometryRecord(object):
         record = getattr(self, key)
         if record:
             extract[key] = record.to_extract()
+        key = 'geom'
+        extract[key] = str(getattr(self, key))
         return extract
