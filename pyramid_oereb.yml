@@ -22,7 +22,7 @@ pyramid_oereb:
     postal_code: 3084
     city: Wabern
 
-  logos:
+  logo:
     confederation: abc
     oereb: yadayada
     canton: blablubla

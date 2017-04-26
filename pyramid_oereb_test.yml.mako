@@ -22,6 +22,11 @@ pyramid_oereb:
     postal_code: 3084
     city: Wabern
 
+  logo:
+    confederation: abc
+    oereb: yadayada
+    canton: blablubla
+
   real_estate:
     source:
       class: pyramid_oereb.lib.sources.real_estate.RealEstateDatabaseSource

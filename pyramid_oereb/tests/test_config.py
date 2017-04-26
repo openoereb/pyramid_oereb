@@ -47,3 +47,9 @@ def test_get_plr_cadastre_authority():
         'postal_code': 3084,
         'city': 'Wabern'
     }
+
+
+def test_get_logos_config():
+    config_reader = ConfigReader('./pyramid_oereb/tests/resources/test_config.yml', 'pyramid_oereb')
+    logos = config_reader.get_logo_config()
+    assert isinstance(logos, dict)
