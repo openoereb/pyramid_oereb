@@ -5,6 +5,7 @@ import pytest
 from pyramid.path import DottedNameResolver
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter
+from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 from pyramid_oereb.lib.sources.extract import ExtractStandardDatabaseSource
@@ -25,19 +26,22 @@ def test_init():
 
 
 @pytest.mark.run(order=2)
-@pytest.mark.parametrize("param", [
-    RealEstateRecord('test', 'BL', 'Laufen', 2770, 1000, MultiPolygon(), ViewServiceRecord(
-        'test_link', 'test_legend')
-                     )
+@pytest.mark.parametrize("param1,param2", [
+    (
+        RealEstateRecord('test', 'BL', 'Laufen', 2770, 1000, MultiPolygon(),
+                         ViewServiceRecord('test_link', 'test_legend')),
+        OfficeRecord('PLR cadastre authority')
+    )
 ])
-def test_read(param):
+def test_read(param1, param2):
     source = ExtractStandardDatabaseSource(**{
         'db_connection': config_reader.get('db_connection'),
         # TODO: Find a way to parametrize the extract by all available plr's
         'name': 'plr119'
     })
-    source.read(param)
+    source.read(param1, param2)
     assert len(source.records) == 1
+    assert source.records[0].plr_cadastre_authority.name == 'PLR cadastre authority'
 
 
 @pytest.mark.run(order=2)

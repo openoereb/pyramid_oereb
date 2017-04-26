@@ -15,9 +15,11 @@ class ExtractRecord(object):
     qr_code = None
     general_information = None
     base_data = None
+    plr_cadastre_authority = None
 
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
-                 exclusions_of_liability=None, glossaries=None, notconcerned_theme=None):
+                 plr_cadastre_authority, exclusions_of_liability=None, glossaries=None,
+                 notconcerned_theme=None):
         """
         The extract base class.
         :param real_estate: The real estate in its record representation.
@@ -30,6 +32,10 @@ class ExtractRecord(object):
         :type cantonal_logo: bytes
         :param municipality_logo: Image file of the municipality logo
         :type municipality_logo: bytes
+        :param plr_cadastre_authority: The authority which is responsible for the PLR cadastre
+        :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OfficeRecord
+        :param exclusions_of_liability: Exclusions of liability for the extract
+        :param glossaries: Glossary for the extract
         """
         self.extract_identifier = str(uuid.uuid4())
         self.real_estate = real_estate
@@ -44,6 +50,7 @@ class ExtractRecord(object):
         self.federal_logo = federal_logo
         self.cantonal_logo = cantonal_logo
         self.municipality_logo = municipality_logo
+        self.plr_cadastre_authority = plr_cadastre_authority
         if exclusions_of_liability:
             self.exclusions_of_liability = exclusions_of_liability
         else:
@@ -71,6 +78,7 @@ class ExtractRecord(object):
             'federal_logo',
             'cantonal_logo',
             'municipality_logo',
+            'plr_cadastre_authority',
             'exclusions_of_liability',
             'glossaries'
         ]

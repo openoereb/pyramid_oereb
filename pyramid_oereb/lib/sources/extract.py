@@ -180,11 +180,13 @@ class ExtractStandardDatabaseSource(BaseDatabaseSource, ExtractBaseSource):
         plr_record.geometries = geometry_records
         return plr_record
 
-    def read(self, real_estate):
+    def read(self, real_estate, plr_cadastre_authority):
         """
         The read point which creates a extract, depending on a passed real estate.
         :param real_estate: The real estate in its record representation.
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        :param plr_cadastre_authority: The PLR cadastre authority in its record representation.
+        :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OfficeRecord
         """
         self.records = list()
         geoalchemy_representation = from_shape(real_estate.limit, srid=2056)
@@ -194,7 +196,8 @@ class ExtractStandardDatabaseSource(BaseDatabaseSource, ExtractBaseSource):
             bin(100),
             bin(100),
             bin(100),
-            bin(100)
+            bin(100),
+            plr_cadastre_authority
         )
         geometry_results = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
             geoalchemy_representation

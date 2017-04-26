@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import datetime
 import pytest
+
+from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from shapely.geometry.multipolygon import MultiPolygon
@@ -20,6 +22,7 @@ def test_get_fields():
         'federal_logo',
         'cantonal_logo',
         'municipality_logo',
+        'plr_cadastre_authority',
         'exclusions_of_liability',
         'glossaries'
     ]
@@ -38,6 +41,7 @@ def test_class_variables():
     assert ExtractRecord.qr_code is None
     assert ExtractRecord.general_information is None
     assert ExtractRecord.base_data is None
+    assert ExtractRecord.plr_cadastre_authority is None
 
 
 def test_mandatory_fields():
@@ -51,7 +55,8 @@ def test_init():
             'test_legend'
         )
     )
-    record = ExtractRecord(real_estate, bin(100), bin(100), bin(100), bin(100))
+    plr_office = OfficeRecord('PLR Authority')
+    record = ExtractRecord(real_estate, bin(100), bin(100), bin(100), bin(100), plr_office)
     assert isinstance(record.extract_identifier, str)
     assert isinstance(record.real_estate, RealEstateRecord)
     assert isinstance(record.notconcerned_theme, list)
@@ -64,3 +69,4 @@ def test_init():
     assert isinstance(record.municipality_logo, bytes)
     assert isinstance(record.exclusions_of_liability, list)
     assert isinstance(record.glossaries, list)
+    assert isinstance(record.plr_cadastre_authority, OfficeRecord)
