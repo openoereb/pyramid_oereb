@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
+import os
+
 from sqlalchemy import create_engine, orm
 
 
@@ -60,3 +62,36 @@ class DatabaseAdapter(object):
             self.add_connection(key)
             log.info('Connection does not exist, implicitly creating it: {0}'.format(key))
             return self.get_session(key, request=request)
+
+
+class FileAdapter(object):
+
+    def __init__(self, cwd=None):
+        self._cwd_ = os.path.abspath(cwd or '.')
+
+    @property
+    def cwd(self):
+        return self._cwd_
+
+    def cd(self, path):
+        self._cwd_ = os.path.abspath(os.path.join(self._cwd_, path))
+
+    def ls(self):
+        result = list()
+        for entry in os.listdir(self._cwd_):
+            path = os.path.join(self._cwd_, entry)
+            result.append((entry, {
+                'is_file': os.path.isfile(path),
+                'is_dir': os.path.isdir(path),
+                'modified': os.path.getmtime(path)
+            })),
+        return result
+
+    def read(self, filename, mode='r'):
+        filepath = os.path.join(self._cwd_, filename)
+        if os.path.isfile(filepath):
+            with open(filepath, mode=mode) as f:
+                content = f.read()
+            return content
+        else:
+            raise IOError('Not a file: {0}'.format(filepath))
