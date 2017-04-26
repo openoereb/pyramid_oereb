@@ -14,6 +14,11 @@ pyramid_oereb:
   app_schema:
     name: pyramid_oereb_main
 
+  logos:
+    confederation: abc
+    oereb: yadayada
+    canton: blablubla
+
   real_estate:
     source:
       class: pyramid_oereb.lib.sources.real_estate.RealEstateDatabaseSource
