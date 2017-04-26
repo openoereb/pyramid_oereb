@@ -47,8 +47,8 @@ def includeme(config):
     :param config: The pyramid apps config object
     :type config: Configurator
     """
-    global route_prefix, config_reader, real_estate_reader, municipality_reader, extract_reader, plr_sources, \
-        plr_cadastre_authority
+    global route_prefix, config_reader, real_estate_reader, municipality_reader, extract_reader, \
+        plr_sources, plr_cadastre_authority
 
     # Set route prefix
     route_prefix = config.route_prefix
