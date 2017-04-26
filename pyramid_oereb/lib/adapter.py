@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
 from sqlalchemy import create_engine, orm
-from sqlalchemy.orm import sessionmaker
 
 
 log = logging.getLogger('pyramid_oereb')
@@ -26,7 +25,7 @@ class DatabaseAdapter(object):
         """
         if connection_string not in self._connections_:
             engine = create_engine(connection_string)
-            session = orm.scoped_session(sessionmaker(bind=engine))
+            session = orm.scoped_session(orm.sessionmaker(bind=engine))
             self._connections_[connection_string] = {
                 'engine': engine,
                 'session': session
