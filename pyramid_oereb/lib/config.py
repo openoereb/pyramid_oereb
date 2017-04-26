@@ -134,3 +134,60 @@ class ConfigReader(object):
         :return: The specified configuration or default value
         """
         return self.__config__.get(key, default)
+
+
+class RequestConfigurator(object):
+
+    def __init__(self, real_estate_reader, municipality_reader, plr_sources, extract_reader):
+        """
+        A helper which provides runtime access to the instances of readers and sources read from config. This
+        is a handy way provided by the pyramid web framework.
+        :param real_estate_reader: The real estate reader instance for runtime use.
+        :type real_estate_reader: pyramid_oereb.lib.readers.real_estate.RealEstateReader
+        :param municipality_reader: The municipality reader instance for runtime use.
+        :type municipality_reader: pyramid_oereb.lib.readers.municipality.MunicipalityReader
+        :param plr_sources: The public law restriction source instances for runtime use wrapped in a list.
+        :type plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        :param extract_reader: The extract reader instance for runtime use.
+        :type extract_reader: pyramid_oereb.lib.readers.extract.ExtractReader
+        """
+        self._real_estate_reader_ = real_estate_reader
+        self._municipality_reader_ = municipality_reader
+        self._plr_sources_ = plr_sources
+        self._extract_reader_ = extract_reader
+
+    @property
+    def real_estate_reader(self):
+        """
+
+        :return: The real estate reader instance.
+        :rtype real_estate_reader: pyramid_oereb.lib.readers.real_estate.RealEstateReader
+        """
+        return self._real_estate_reader_
+
+    @property
+    def municipality_reader(self):
+        """
+
+        :return: The municipality reader reader instance.
+        :rtype municipality_reader: pyramid_oereb.lib.readers.municipality.MunicipalityReader
+        """
+        return self._municipality_reader_
+
+    @property
+    def plr_sources(self):
+        """
+
+        :return: The list of plr source instances.
+        :rtype plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        """
+        return self._plr_sources_
+
+    @property
+    def extract_reader(self):
+        """
+
+        :return: The extract reader instance.
+        :rtype extract_reader: pyramid_oereb.lib.readers.extract.ExtractReader
+        """
+        return self._extract_reader_
