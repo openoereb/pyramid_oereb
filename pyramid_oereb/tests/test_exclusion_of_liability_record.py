@@ -6,8 +6,8 @@ from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilit
 
 def test_get_fields():
     expected_fields = [
-            'title',
-            'content'
+        'title',
+        'content'
     ]
     fields = ExclusionOfLiabilityRecord.get_fields()
     assert fields == expected_fields
