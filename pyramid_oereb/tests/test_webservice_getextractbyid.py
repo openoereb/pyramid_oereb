@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import pytest
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
-from pyramid.testing import DummyRequest, testConfig
+from pyramid.testing import testConfig
+
+from pyramid_oereb.tests.conftest import MockRequest
 from pyramid_oereb.views.webservice import PlrWebservice
 
 
@@ -47,7 +49,7 @@ def get_settings():
 ])
 def test_invalid_flavour(params):
     with testConfig(settings=get_settings()):
-        request = DummyRequest()
+        request = MockRequest()
         request.matchdict.update(params)
         service = PlrWebservice(request)
         with pytest.raises(HTTPBadRequest):
@@ -116,7 +118,7 @@ def test_invalid_flavour(params):
 ])
 def test_matchdict(params, expected):
     with testConfig(settings=get_settings()):
-        request = DummyRequest()
+        request = MockRequest()
         request.matchdict.update(params)
         service = PlrWebservice(request)
         params = service.__validate_extract_params__()
@@ -125,7 +127,7 @@ def test_matchdict(params, expected):
 
 def test_params():
     with testConfig(settings=get_settings()):
-        request = DummyRequest()
+        request = MockRequest()
         request.matchdict.update({
             'flavour': 'REDUCED',
             'format': 'XML',
@@ -151,7 +153,7 @@ def test_params():
 
 def test_return_extract():
     with testConfig(settings=get_settings()):
-        request = DummyRequest()
+        request = MockRequest()
         request.matchdict.update({
             'flavour': 'REDUCED',
             'format': 'XML',

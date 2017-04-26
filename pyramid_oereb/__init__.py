@@ -3,14 +3,14 @@
 import logging
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter
-from pyramid_oereb.lib.config import ConfigReader
+from pyramid_oereb.lib.config import ConfigReader, parse
 from pyramid.config import Configurator
 
-from pyramid_oereb.lib.config import parse
 from pyramid_oereb.lib.readers.extract import ExtractReader
 from pyramid_oereb.lib.readers.municipality import MunicipalityReader
 from pyramid_oereb.lib.readers.real_estate import RealEstateReader
 from pyramid_oereb.lib.sources.plr import PlrStandardDatabaseSource
+from pyramid_oereb.lib.processor import Processor
 
 __version__ = '0.0.1'
 
@@ -84,5 +84,16 @@ def includeme(config):
     settings.update({
         'pyramid_oereb': parse(cfg_file, cfg_section)
     })
+    processor = Processor(
+        real_estate_reader,
+        municipality_reader,
+        plr_sources,
+        extract_reader
+    )
+
+    def pyramid_oereb_processor(request):
+        return processor
+
+    config.add_request_method(pyramid_oereb_processor, reify=True)
 
     config.include('pyramid_oereb.routes')

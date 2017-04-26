@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
 from shapely.geometry import Point
-
+from pyramid.renderers import render_to_response
 from pyramid_oereb import route_prefix
 from pyreproj import Reprojector
-
-from pyramid_oereb.lib.processor import Processor
 
 
 class PlrWebservice(object):
@@ -111,11 +109,52 @@ class PlrWebservice(object):
         :rtype:  dict
         """
         params = self.__validate_extract_params__()
-        try:
-            processor = Processor(params)
-        except LookupError:
-            raise HTTPNoContent()
-        return processor.to_response(self._request_)  # TODO: Replace with extract
+        processor = self._request_.pyramid_oereb_processor
+        # read the real estate from configured source by the passed parameters
+        real_estate_reader = processor.real_estate_reader
+        if params.get('egrid'):
+            try:
+                real_estate_records = real_estate_reader.read(egrid=params.get('egrid'))
+            except LookupError:
+                raise HTTPNoContent()
+        elif params.get('identdn') and params.get('number'):
+            real_estate_records = real_estate_reader.read(
+                nb_ident=params.get('identdn'),
+                number=params.get('number')
+            )
+        else:
+            raise HTTPBadRequest()
+
+        # check if result is strictly one (we queried with primary keys)
+        if len(real_estate_records) == 1:
+            try:
+                extract_dict = processor.process(real_estate_records[0])
+            except LookupError:
+                raise HTTPNoContent()
+            if params.get('format') == 'json':
+                return render_to_response(
+                    'json',
+                    extract_dict,
+                    request=self._request_
+                )
+            elif params.get('format') == 'xml':
+                # TODO: implement way to produce xml
+                return render_to_response(
+                    'string',
+                    'Not implemented by now...',
+                    request=self._request_
+                )
+            elif params.get('format') == 'pdf':
+                # TODO: implement way to produce pdf
+                return render_to_response(
+                    'string',
+                    'Not implemented by now...',
+                    request=self._request_
+                )
+            else:
+                raise HTTPBadRequest()
+        else:
+            raise HTTPBadRequest()
 
     def __validate_extract_params__(self):
         """
