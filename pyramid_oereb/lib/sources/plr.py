@@ -115,17 +115,22 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             ))
         return article_records
 
-    def from_db_to_document_records(self, legal_provisions_from_db):
+    def from_db_to_document_records(self, legal_provisions_from_db, article_numbers=None):
         document_records = []
-        for legal_provision in legal_provisions_from_db:
+        for i, legal_provision in enumerate(legal_provisions_from_db):
             referenced_documents_db = []
+            referenced_article_numbers = []
             for join in legal_provision.referenced_documents:
                 referenced_documents_db.append(join.referenced_document)
+                referenced_article_nrs = join.article_numbers.split('|') if join.article_numbers else None
+                referenced_article_numbers.append(referenced_article_nrs)
             referenced_document_records = self.from_db_to_document_records(
-                referenced_documents_db
+                referenced_documents_db,
+                referenced_article_numbers
             )
             article_records = self.from_db_to_article_records(legal_provision.articles)
             office_record = self.from_db_to_office_record(legal_provision.responsible_office)
+            article_nrs = article_numbers[i] if isinstance(article_numbers, list) else None
             document_records.append(self._documents_reocord_class_(
                 legal_provision.legal_state,
                 legal_provision.published_from,
@@ -137,6 +142,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 legal_provision.official_title,
                 legal_provision.canton,
                 legal_provision.municipality,
+                article_nrs,
                 legal_provision.file,
                 article_records,
                 referenced_document_records
@@ -153,9 +159,13 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             legend_entry_records
         )
         documents_from_db = []
-        for legal_provision in public_law_restriction_from_db.legal_provisions:
+        article_numbers = []
+        for i, legal_provision in enumerate(public_law_restriction_from_db.legal_provisions):
             documents_from_db.append(legal_provision.document)
-        document_records = self.from_db_to_document_records(documents_from_db)
+            article_nrs = legal_provision.article_numbers.split('|') if legal_provision.article_numbers \
+                else None
+            article_numbers.append(article_nrs)
+        document_records = self.from_db_to_document_records(documents_from_db, article_numbers)
         geometry_records = self.from_db_to_geometry_records(public_law_restriction_from_db.geometries)
 
         basis_plr_records = []

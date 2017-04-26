@@ -17,6 +17,22 @@ metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = sqlalchemy.ext.declarative.declarative_base()
 
 
+class PyramidOerebMainGlossary(Base):
+    __table_args__ = {'schema': 'pyramid_oereb_main'}
+    __tablename__ = 'glossary'
+    id = sa.Column(sa.Integer, primary_key=True)
+    title = sa.Column(sa.String, nullable=False)
+    content = sa.Column(sa.String, nullable=False)
+
+
+class PyramidOerebMainExclusionOfLiability(Base):
+    __table_args__ = {'schema': 'pyramid_oereb_main'}
+    __tablename__ = 'exclusion_of_liability'
+    id = sa.Column(sa.Integer, primary_key=True)
+    title = sa.Column(sa.String, nullable=False)
+    content = sa.Column(sa.String, nullable=False)
+
+
 class PyramidOerebMainMunicipality(Base):
     __table_args__ = {'schema': 'pyramid_oereb_main'}
     __tablename__ = 'municipality'
@@ -53,6 +69,22 @@ class PyramidOerebMainAddress(Base):
     street_number = sa.Column(sa.String, nullable=False)
     zip_code = sa.Column(sa.Integer, nullable=False)
     geom = sa.Column(Geometry('POINT', srid=2056))
+
+
+class PyramidOerebMainGlossary(Base):
+    __table_args__ = {'schema': 'pyramid_oereb_main'}
+    __tablename__ = 'glossary'
+    id = sa.Column(sa.Integer, primary_key=True)
+    title = sa.Column(sa.String, nullable=False)
+    content = sa.Column(sa.String, nullable=False)
+
+
+class PyramidOerebMainExclusion_Of_Liability(Base):
+    __table_args__ = {'schema': 'pyramid_oereb_main'}
+    __tablename__ = 'exclusion_of_liability'
+    id = sa.Column(sa.Integer, primary_key=True)
+    title = sa.Column(sa.String, nullable=False)
+    content = sa.Column(sa.String, nullable=False)
 
 
 class Plr73Availability(Base):
@@ -325,6 +357,7 @@ class Plr73PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr73DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -351,6 +384,7 @@ class Plr73DocumentReference(Base):
         Plr73Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr73DocumentReferenceDefinition(Base):
@@ -639,6 +673,7 @@ class Plr87PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr87DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -665,6 +700,7 @@ class Plr87DocumentReference(Base):
         Plr87Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr87DocumentReferenceDefinition(Base):
@@ -953,6 +989,7 @@ class Plr88PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr88DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -979,6 +1016,7 @@ class Plr88DocumentReference(Base):
         Plr88Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr88DocumentReferenceDefinition(Base):
@@ -1267,6 +1305,7 @@ class Plr97PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr97DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -1293,6 +1332,7 @@ class Plr97DocumentReference(Base):
         Plr97Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr97DocumentReferenceDefinition(Base):
@@ -1581,6 +1621,7 @@ class Plr96PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr96DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -1607,6 +1648,7 @@ class Plr96DocumentReference(Base):
         Plr96Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr96DocumentReferenceDefinition(Base):
@@ -1895,6 +1937,7 @@ class Plr103PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr103DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -1921,6 +1964,7 @@ class Plr103DocumentReference(Base):
         Plr103Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr103DocumentReferenceDefinition(Base):
@@ -2209,6 +2253,7 @@ class Plr104PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr104DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -2235,6 +2280,7 @@ class Plr104DocumentReference(Base):
         Plr104Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr104DocumentReferenceDefinition(Base):
@@ -2523,6 +2569,7 @@ class Plr108PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr108DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -2549,6 +2596,7 @@ class Plr108DocumentReference(Base):
         Plr108Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr108DocumentReferenceDefinition(Base):
@@ -2837,6 +2885,7 @@ class Plr116PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr116DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -2863,6 +2912,7 @@ class Plr116DocumentReference(Base):
         Plr116Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr116DocumentReferenceDefinition(Base):
@@ -3151,6 +3201,7 @@ class Plr117PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr117DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -3177,6 +3228,7 @@ class Plr117DocumentReference(Base):
         Plr117Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr117DocumentReferenceDefinition(Base):
@@ -3465,6 +3517,7 @@ class Plr118PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr118DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -3491,6 +3544,7 @@ class Plr118DocumentReference(Base):
         Plr118Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr118DocumentReferenceDefinition(Base):
@@ -3779,6 +3833,7 @@ class Plr119PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr119DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -3805,6 +3860,7 @@ class Plr119DocumentReference(Base):
         Plr119Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr119DocumentReferenceDefinition(Base):
@@ -4093,6 +4149,7 @@ class Plr131PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr131DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -4119,6 +4176,7 @@ class Plr131DocumentReference(Base):
         Plr131Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr131DocumentReferenceDefinition(Base):
@@ -4407,6 +4465,7 @@ class Plr132PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr132DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -4433,6 +4492,7 @@ class Plr132DocumentReference(Base):
         Plr132Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr132DocumentReferenceDefinition(Base):
@@ -4721,6 +4781,7 @@ class Plr145PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr145DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -4747,6 +4808,7 @@ class Plr145DocumentReference(Base):
         Plr145Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr145DocumentReferenceDefinition(Base):
@@ -5035,6 +5097,7 @@ class Plr157PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr157DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -5061,6 +5124,7 @@ class Plr157DocumentReference(Base):
         Plr157Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr157DocumentReferenceDefinition(Base):
@@ -5349,6 +5413,7 @@ class Plr159PublicLawRestrictionDocument(Base):
     document = relationship(
         Plr159DocumentBase
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 # TODO: check translation
@@ -5375,6 +5440,7 @@ class Plr159DocumentReference(Base):
         Plr159Document,
         foreign_keys=[reference_document_id]
     )
+    article_numbers = sa.Column(sa.String, nullable=True)
 
 
 class Plr159DocumentReferenceDefinition(Base):

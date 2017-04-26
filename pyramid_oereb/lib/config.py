@@ -109,6 +109,22 @@ class ConfigReader(object):
         """
         return self.__config__.get('address')
 
+    def get_glossary_config(self):
+        """
+        Returns a dictionary of the configured glossary settings.
+        :return: The configured glossary settings.
+        :rtype: dict
+        """
+        return self.__config__.get('glossary')
+
+    def get_exclusion_of_liability_config(self):
+        """
+        Returns a dictionary of the configured exclusion_of_liability settings.
+        :return: The configured exclusion_of_liability settings.
+        :rtype: dict
+        """
+        return self.__config__.get('exclusion_of_liability')
+
     def get_municipality_config(self):
         """
         Returns a dictionary of the configured municipality settings.

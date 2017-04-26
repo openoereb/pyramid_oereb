@@ -97,7 +97,7 @@ class DocumentRecord(DocumentBaseRecord):
 
     def __init__(self, legal_state, published_from, title, responsible_office, text_at_web=None,
                  abbreviation=None, official_number=None, official_title=None, canton=None,
-                 municipality=None, file=None, articles=None, references=None):
+                 municipality=None, article_numbers=None, file=None, articles=None, references=None):
         """
         More specific document class representing real documents.
         :param legal_state:  Key string of the law status.
@@ -120,6 +120,8 @@ class DocumentRecord(DocumentBaseRecord):
         :type canton: str
         :param municipality: The code for the municipality.
         :type municipality: str
+        :param article_numbers: Pointers to specific articles.
+        :type article_numbers: list of str
         :param file: The binary content of the document.
         :type file: bytes
         :param articles: The linked articles.
@@ -135,6 +137,10 @@ class DocumentRecord(DocumentBaseRecord):
         self.official_number = official_number
         self.canton = canton
         self.municipality = municipality
+        if isinstance(article_numbers, list):
+            self.article_numbers = article_numbers
+        else:
+            self.article_numbers = []
         self.file = file
         if articles is None:
             self.articles = []
@@ -163,6 +169,7 @@ class DocumentRecord(DocumentBaseRecord):
             'official_number',
             'canton',
             'municipality',
+            'article_numbers',
             'file',
             'articles',
             'references'
@@ -175,6 +182,7 @@ class DocumentRecord(DocumentBaseRecord):
         :rtype: dict
         """
         extract = super(DocumentRecord, self).to_extract()
+
         for key in [
             'title',
             'official_title',
@@ -187,14 +195,22 @@ class DocumentRecord(DocumentBaseRecord):
             value = getattr(self, key)
             if value:
                 extract[key] = value
+
         for key in ['articles', 'references']:
             records = getattr(self, key)
             if records and len(records) > 0:
                 extract[key] = [record.to_extract() for record in records]
+
         key = 'responsible_office'
         record = getattr(self, key)
         if record:
             extract[key] = record.to_extract()
+
+        key = 'article_numbers'
+        value = getattr(self, key)
+        if isinstance(value, list) and len(value) > 0:
+            extract[key] = value
+
         return extract
 
 
