@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
+from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPServerError
 from shapely.geometry import Point
 from pyramid.renderers import render_to_response
+from sqlalchemy.orm.exc import NoResultFound
+
 from pyramid_oereb import route_prefix
 from pyreproj import Reprojector
 
@@ -134,6 +136,10 @@ class PlrWebservice(object):
                 extract_dict = processor.process(real_estate_records[0])
             except LookupError:
                 raise HTTPNoContent()
+            except NotImplementedError:
+                raise HTTPServerError()
+            except NoResultFound:
+                raise HTTPServerError()
             if params.get('format') == 'json':
                 return render_to_response(
                     'json',

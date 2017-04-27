@@ -25,13 +25,13 @@ class ExtractRecord(object):
         :param real_estate: The real estate in its record representation.
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
         :param logo_plr_cadastre: Image file of the PLR logo
-        :type logo_plr_cadastre: bytes
+        :type logo_plr_cadastre: pyramid_oereb.lib.records.logo.LogoRecord
         :param federal_logo:Image file of the federal logo
-        :type federal_logo: bytes
+        :type federal_logo: pyramid_oereb.lib.records.logo.LogoRecord
         :param cantonal_logo: Image file of the cantonal logo
-        :type cantonal_logo: bytes
+        :type cantonal_logo: pyramid_oereb.lib.records.logo.LogoRecord
         :param municipality_logo: Image file of the municipality logo
-        :type municipality_logo: bytes
+        :type municipality_logo: pyramid_oereb.lib.records.logo.LogoRecord
         :param plr_cadastre_authority: The authority which is responsible for the PLR cadastre
         :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OfficeRecord
         :param exclusions_of_liability: Exclusions of liability for the extract
@@ -95,10 +95,6 @@ class ExtractRecord(object):
             'notconcerned_theme',
             'concerned_theme',
             'theme_without_data',
-            'logo_plr_cadastre',
-            'federal_logo',
-            'cantonal_logo',
-            'municipality_logo',
             'exclusions_of_liability',
             'glossaries'
         ]:
@@ -111,5 +107,7 @@ class ExtractRecord(object):
             extract[key] = record.to_extract()
         key = 'creation_date'
         extract[key] = getattr(self, key).isoformat()
+        for key in ['logo_plr_cadastre', 'federal_logo', 'cantonal_logo', 'municipality_logo']:
+            extract[key] = getattr(self, key).to_extract()
 
         return extract

@@ -161,7 +161,7 @@ def __load__(configuration, section='pyramid_oereb'):
 
     with open(pkg_resources.resource_filename(
             'pyramid_oereb.tests',
-            'resources/municipalities.json'
+            'resources/municipalities_with_logo.json'
     )) as f:
         connection.execute(PyramidOerebMainMunicipality.__table__.insert(), json.loads(f.read()))
 

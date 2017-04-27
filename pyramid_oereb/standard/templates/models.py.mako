@@ -24,6 +24,7 @@ class ${''.join(x for x in app_schema.get('name').title() if not x.isspace()).re
     fosnr = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
     published = sa.Column(sa.Boolean, nullable=False, default=False, server_default=sqlalchemy.text('FALSE'))
+    logo = sa.Column(sa.String, nullable=False)
     geom = sa.Column(Geometry('MULTIPOLYGON', srid=${srid}), nullable=True)
 
 

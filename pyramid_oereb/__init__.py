@@ -62,7 +62,7 @@ def includeme(config):
     config_reader = ConfigReader(cfg_file, cfg_section)
     real_estate_config = config_reader.get_real_estate_config()
     municipality_config = config_reader.get_municipality_config()
-    # config_reader.get_logo_config()
+    logos = config_reader.get_logo_config()
 
     plr_cadastre_authority = config_reader.get_plr_cadastre_authority()
 
@@ -83,7 +83,9 @@ def includeme(config):
         plr_sources.append(PlrStandardDatabaseSource(**plr))
 
     extract_reader = ExtractReader(
-        plr_sources
+        plr_sources,
+        plr_cadastre_authority,
+        logos
     )
 
     settings.update({
@@ -93,8 +95,7 @@ def includeme(config):
         real_estate_reader,
         municipality_reader,
         plr_sources,
-        extract_reader,
-        plr_cadastre_authority
+        extract_reader
     )
 
     def pyramid_oereb_processor(request):

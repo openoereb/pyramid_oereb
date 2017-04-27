@@ -23,6 +23,7 @@ class PyramidOerebMainMunicipality(Base):
     fosnr = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
     published = sa.Column(sa.Boolean, nullable=False, default=False, server_default=sqlalchemy.text('FALSE'))
+    logo = sa.Column(sa.String, nullable=False)
     geom = sa.Column(Geometry('MULTIPOLYGON', srid=2056), nullable=True)
 
 

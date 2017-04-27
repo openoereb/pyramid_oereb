@@ -3,8 +3,9 @@ import os
 
 import yaml
 from pyramid.config import ConfigurationError
-
+from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
+from pyramid_oereb.lib.records.logo import LogoRecord
 
 
 def parse(cfg_file, cfg_section):
@@ -174,18 +175,27 @@ class ConfigReader(object):
         :return: The configured paths to the logos wrapped in a dictionary.
         :rtype: dict
         """
+        confederation_fkey = 'confederation'
+        oereb_key = 'oereb'
+        canton_key = 'canton'
         msg = 'The definition for "{key}" must be set. Got: {found_config}'
         logo_dict = self.__config__.get('logo')
-        key = 'confederation'
-        if not logo_dict.get(key):
-            raise ConfigurationError(msg.format(key=key, found_config=logo_dict))
-        key = 'oereb'
-        if not logo_dict.get(key):
-            raise ConfigurationError(msg.format(key=key, found_config=logo_dict))
-        key = 'canton'
-        if not logo_dict.get(key):
-            raise ConfigurationError(msg.format(key=key, found_config=logo_dict))
-        return logo_dict
+        if not logo_dict.get(confederation_fkey):
+            raise ConfigurationError(msg.format(key=confederation_fkey, found_config=logo_dict))
+        if not logo_dict.get(oereb_key):
+            raise ConfigurationError(msg.format(key=oereb_key, found_config=logo_dict))
+        if not logo_dict.get(canton_key):
+            raise ConfigurationError(msg.format(key=canton_key, found_config=logo_dict))
+        file_adapter = FileAdapter()
+        confederation_logo = LogoRecord(file_adapter.read(logo_dict.get(confederation_fkey)))
+        oereb_logo = LogoRecord(file_adapter.read(logo_dict.get(oereb_key)))
+        canton_logo = LogoRecord(file_adapter.read(logo_dict.get(canton_key)))
+
+        return {
+            confederation_fkey: confederation_logo,
+            oereb_key: oereb_logo,
+            canton_key: canton_logo
+        }
 
     def get(self, key, default=None):
         """
