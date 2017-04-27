@@ -95,7 +95,6 @@ class ExtractRecord(object):
             'notconcerned_theme',
             'concerned_theme',
             'theme_without_data',
-            'municipality_logo',
             'exclusions_of_liability',
             'glossaries'
         ]:
@@ -108,7 +107,7 @@ class ExtractRecord(object):
             extract[key] = record.to_extract()
         key = 'creation_date'
         extract[key] = getattr(self, key).isoformat()
-        for key in ['logo_plr_cadastre', 'federal_logo', 'cantonal_logo', ]:
+        for key in ['logo_plr_cadastre', 'federal_logo', 'cantonal_logo', 'municipality_logo']:
             extract[key] = getattr(self, key).to_extract()
 
         return extract

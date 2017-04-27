@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import base64
+
 from pyramid.testing import DummyRequest
 import pytest
 from sqlalchemy import create_engine
@@ -70,6 +72,7 @@ def connection():
         'fosnr': 1234,
         'name': 'Test',
         'published': True,
+        'logo': base64.b64encode('abcdefg'),
         'geom': 'SRID=2056;MULTIPOLYGON(((0 0, 0 1, 1 1, 1 0, 0 0)))'
     })
 

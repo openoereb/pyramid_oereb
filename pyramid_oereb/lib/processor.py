@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from sqlalchemy.orm.exc import NoResultFound
 
 
 class Processor(object):
@@ -66,5 +67,11 @@ class Processor(object):
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
         :return:
         """
-        extract = self._extract_reader_.read(real_estate)
-        return extract.to_extract()
+        municipalities = self._municipality_reader_.read()
+        for municipality in municipalities:
+            if municipality.fosnr == real_estate.fosnr:
+                if not municipality.published:
+                    raise NotImplementedError
+                extract = self._extract_reader_.read(real_estate, municipality.logo)
+                return extract.to_extract()
+        raise NoResultFound()
