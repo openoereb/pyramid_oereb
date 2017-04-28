@@ -46,7 +46,37 @@ def load():
     __load__(configuration=options.configuration, section=options.section)
 
 
-def __load_standard_sample_(configuration, section='pyramid_oereb'):
+def load_standard_sample():
+    """
+    Loads sample data from the json files with the repository. The method can be called by running
+    'load_sample_data' from the virtual environment. Check 'load_sample_data --help' for available options.
+    """
+    parser = optparse.OptionParser(
+        usage='usage: %prog [options]',
+        description='Loads sample data into the configured database.'
+    )
+    parser.add_option(
+        '-c', '--configuration',
+        dest='configuration',
+        metavar='YAML',
+        type='string',
+        help='The absolute path to the configuration yaml file.'
+    )
+    parser.add_option(
+        '-s', '--section',
+        dest='section',
+        metavar='SECTION',
+        type='string',
+        default='pyramid_oereb',
+        help='The section which contains configruation (default is: pyramid_oereb).'
+    )
+    options, args = parser.parse_args()
+    if not options.configuration:
+        parser.error('No configuration file set.')
+    _load_standard_sample_(configuration=options.configuration, section=options.section)
+
+
+def _load_standard_sample_(configuration, section='pyramid_oereb'):
     """
     Performs the database operations to load the sample data.
     :param configuration: Path to the configuration yaml file.
