@@ -14,7 +14,6 @@ from pyramid_oereb.lib.records.glossary import GlossaryRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.reference_definition import ReferenceDefinitionRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
-from pyramid_oereb.standard import convert
 
 
 class PlrBaseSource(Base):
@@ -36,15 +35,15 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def __init__(self, **kwargs):
         self._plr_info_ = kwargs
         self.affected = False
-        name = convert(self._plr_info_.get('code'))
+        models_path = self._plr_info_.get('source').get('params').get('models')
         bds_kwargs = {
             'model': DottedNameResolver().maybe_resolve(
-                'pyramid_oereb.standard.models.{name}.Geometry'.format(name=name)
+                '{models_path}.Geometry'.format(models_path=models_path)
             ),
             'db_connection': kwargs.get('source').get('params').get('db_connection')
         }
         availability_model = DottedNameResolver().maybe_resolve(
-            'pyramid_oereb.standard.models.{name}.Availability'.format(name=name)
+            '{models_path}.Availability'.format(models_path=models_path)
         )
         super(PlrStandardDatabaseSource, self).__init__(**bds_kwargs)
 
