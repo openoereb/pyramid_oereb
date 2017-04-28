@@ -38,9 +38,10 @@ def _create_standard_configuration_models_py_(code, geometry_type, absolute_path
         path=absolute_path,
         name=name
     )
+    models_path = os.path.abspath(models_path)
     if os.path.exists(models_path):
         os.remove(models_path)
-    models_file = open(models_path, 'w')
+    models_file = open(models_path, 'w+')
     models_file.write(content)
     models_file.close()
 

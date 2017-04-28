@@ -18,7 +18,7 @@ def create_standard_model():
              'ForestPerimeters, ForestDistanceLines, NoiseSensitivityLevels,...'
     )
     parser.add_option(
-        '-gt', '--geometry_type',
+        '-g', '--geometry_type',
         dest='geometry_type',
         metavar='GEOMETRYTYPE',
         type='string',
@@ -39,4 +39,4 @@ def create_standard_model():
         parser.error('No geometry_type set.')
     if not options.target_path:
         parser.error('No target_path set.')
-        _create_standard_configuration_models_py_(options.code, options.geometry_type, options.target_path)
+    _create_standard_configuration_models_py_(options.code, options.geometry_type, options.target_path)
