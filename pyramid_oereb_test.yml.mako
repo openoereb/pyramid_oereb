@@ -13,6 +13,8 @@ pyramid_oereb:
 
   app_schema:
     name: pyramid_oereb_main
+    models: pyramid_oereb.standard.models.main
+    db_connection: postgresql://postgres:password@localhost/pyramid_oereb
 
   plr_cadastre_authority:
     name: PLR cadastre authority
@@ -69,102 +71,204 @@ pyramid_oereb:
       geometry_type: LINESTRING
       label: Nutzungsplanung
       language: de
+      standard: true
+      source:
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+          models: pyramid_oereb.standard.models.land_use_plans
 
     - name: plr87
       code: MotorwaysProjectPlaningZones
       geometry_type: LINESTRING
       label: Projektierungszonen Nationalstrassen
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.motorways_project_planing_zones
 
     - name: plr88
       code: MotorwaysBuildingLines
       geometry_type: LINESTRING
       label: Baulinien Nationalstrassen
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.motorways_building_lines
 
     - name: plr97
       code: RailwaysBuildingLines
       geometry_type: LINESTRING
       label: Baulinien Eisenbahnanlagen
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.railways_building_lines
 
     - name: plr96
       code: RailwaysProjectPlanningZones
       geometry_type: POLYGON
       label: Projektierungszonen Eisenbahnanlagen
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.railways_project_planning_zones
 
     - name: plr103
       code: AirportsProjectPlanningZones
       geometry_type: POLYGON
       label: Projektierungszonen Flughafenanlagen
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.airports_project_planning_zones
 
     - name: plr104
       code: AirportsBuildingLines
       geometry_type: POLYGON
       label: Baulinien Flughafenanlagen
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.airports_building_lines
 
     - name: plr108
       code: AirportsSecurityZonePlans
       geometry_type: POLYGON
       label: Sicherheitszonenplan Flughafen
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.airports_security_zone_plans
 
     - name: plr116
       code: ContaminatedSites
       geometry_type: POLYGON
       label: Belastete Standorte
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.contaminated_sites
 
     - name: plr117
       code: ContaminatedMilitarySites
       geometry_type: POLYGON
       label: Belastete Standorte Militär
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.contaminated_military_sites
 
     - name: plr118
       code: ContaminatedCivilAviationSites
       geometry_type: POLYGON
       label: Belastete Standorte Zivile Flugplätze
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
 
     - name: plr119
       code: ContaminatedPublicTransportSites
       geometry_type: POLYGON
       label: Belastete Standorte Öeffentlicher Verkehr
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.contaminated_public_transport_sites
 
     - name: plr131
       code: GroundwaterProtectionZones
       geometry_type: POLYGON
       label: Grundwasserschutzzonen
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.groundwater_protection_zones
 
     - name: plr132
       code: GroundwaterProtectionSites
       geometry_type: POLYGON
       label: Grundwasserschutzareale
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.groundwater_protection_sites
 
     - name: plr145
       code: NoiseSensitivityLevels
       geometry_type: POLYGON
       label: Lärmemfindlichkeitsstufen
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.noise_sensitivity_levels
 
     - name: plr157
       code: ForestPerimeters
       geometry_type: POLYGON
       label: Waldgrenzen
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.forest_perimeters
 
     - name: plr159
       code: ForestDistanceLines
       geometry_type: POLYGON
       label: Waldabstandslinien
       language: de
+      standard: true
+      source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           models: pyramid_oereb.standard.models.forest_distance_lines
 
   srid: 2056
   db_connection: ${sqlalchemy_url}

@@ -45,7 +45,7 @@ def _create_standard_configuration_models_py_(code, geometry_type, absolute_path
     models_file.close()
 
 
-def _create_all_standard_models_by_yaml_(configuration_yaml_path, section='pyramid_oereb'):  # pragma: no cover
+def _create_all_standard_models_by_yaml_(configuration_yaml_path, section='pyramid_oereb'):
     """
     This method is more a developer method. It is used to create the models python files out of the parsed
     config yaml. This is handy in developing time. Of cause it can be used for other things. But keep in mind:

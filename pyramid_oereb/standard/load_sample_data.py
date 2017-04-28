@@ -10,8 +10,10 @@ from pyramid_oereb.lib.config import parse
 from pyramid_oereb.models import Plr119Office, Plr119Geometry, Plr119PublicLawRestriction, \
     Plr119ViewService, Plr119PublicLawRestrictionDocument, Plr119DocumentBase, Plr119LegalProvision, \
     Plr119Availability, PyramidOerebMainRealEstate, PyramidOerebMainAddress, PyramidOerebMainMunicipality
-from pyramid_oereb.standard.models.contaminated_public_transport_sites import *
-from pyramid_oereb.standard.models.main import *
+from pyramid_oereb.standard.models.contaminated_public_transport_sites import Office, Geometry, \
+    PublicLawRestriction, ViewService, PublicLawRestrictionDocument, DocumentBase, LegalProvision, \
+    Availability
+from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality
 
 
 def load():

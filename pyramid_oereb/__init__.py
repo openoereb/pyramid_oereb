@@ -11,7 +11,6 @@ from pyramid.config import Configurator
 from pyramid_oereb.lib.readers.extract import ExtractReader
 from pyramid_oereb.lib.readers.municipality import MunicipalityReader
 from pyramid_oereb.lib.readers.real_estate import RealEstateReader
-from pyramid_oereb.lib.sources.plr import PlrStandardDatabaseSource
 from pyramid_oereb.lib.processor import Processor
 
 __version__ = '0.0.1'
@@ -82,7 +81,6 @@ def includeme(config):
         **municipality_config.get('source').get('params')
     )
 
-    # TODO: Make this more configurable, cause it is only useful for standard config now
     plr_sources = []
     for plr in config_reader.get('plrs'):
         plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
