@@ -14,6 +14,7 @@ from pyramid_oereb.lib.records.glossary import GlossaryRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.reference_definition import ReferenceDefinitionRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
+from pyramid_oereb.standard import convert
 
 
 class PlrBaseSource(Base):
@@ -35,13 +36,17 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def __init__(self, **kwargs):
         self._plr_info_ = kwargs
         self.affected = False
-        kwargs['model'] = DottedNameResolver().maybe_resolve(
-            'pyramid_oereb.models.{name}Geometry'.format(name=self._plr_info_.get('name').capitalize())
-        )
+        name = convert(self._plr_info_.get('code'))
+        bds_kwargs = {
+            'model': DottedNameResolver().maybe_resolve(
+                'pyramid_oereb.standard.models.{name}.Geometry'.format(name=name)
+            ),
+            'db_connection': kwargs.get('source').get('params').get('db_connection')
+        }
         availability_model = DottedNameResolver().maybe_resolve(
-            'pyramid_oereb.models.{name}Availability'.format(name=self._plr_info_.get('name').capitalize())
+            'pyramid_oereb.standard.models.{name}.Availability'.format(name=name)
         )
-        super(PlrStandardDatabaseSource, self).__init__(**kwargs)
+        super(PlrStandardDatabaseSource, self).__init__(**bds_kwargs)
 
         session = self._adapter_.get_session(self._key_)
         availabilities_from_db = session.query(availability_model).all()
@@ -218,5 +223,3 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             )
         session.close()
         return real_estate
-
-        session.close()

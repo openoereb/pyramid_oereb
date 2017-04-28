@@ -2,6 +2,8 @@
 
 import logging
 
+from pyramid.path import DottedNameResolver
+
 from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.lib.config import ConfigReader, parse
 from pyramid.config import Configurator
@@ -25,6 +27,8 @@ real_estate_reader = None
 municipality_reader = None
 extract_reader = None
 plr_sources = None
+app_schema_name = None
+srid = None
 
 
 def main(global_config, **settings):
@@ -48,7 +52,7 @@ def includeme(config):
     :type config: Configurator
     """
     global route_prefix, config_reader, real_estate_reader, municipality_reader, extract_reader, \
-        plr_sources, plr_cadastre_authority
+        plr_sources, plr_cadastre_authority, app_schema_name, srid
 
     # Set route prefix
     route_prefix = config.route_prefix
@@ -63,6 +67,8 @@ def includeme(config):
     real_estate_config = config_reader.get_real_estate_config()
     municipality_config = config_reader.get_municipality_config()
     logos = config_reader.get_logo_config()
+    app_schema_name = config_reader.get('app_schema').get('name')
+    srid = config_reader.get('srid')
 
     plr_cadastre_authority = config_reader.get_plr_cadastre_authority()
 
@@ -79,8 +85,8 @@ def includeme(config):
     # TODO: Make this more configurable, cause it is only useful for standard config now
     plr_sources = []
     for plr in config_reader.get('plrs'):
-        plr['db_connection'] = config_reader.get('db_connection')
-        plr_sources.append(PlrStandardDatabaseSource(**plr))
+        plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
+        plr_sources.append(plr_source_class(**plr))
 
     extract_reader = ExtractReader(
         plr_sources,
