@@ -63,8 +63,12 @@ setup(
     [paste.app_factory]
     main = pyramid_oereb:main
     [console_scripts]
+    create_standard_model = pyramid_oereb.standard.create_standard_models:create_standard_model
     create_tables = pyramid_oereb.standard.create_tables:create_tables
+    create_standard_tables = pyramid_oereb.standard.create_tables:create_standard_tables
     drop_tables = pyramid_oereb.standard.drop_tables:drop_tables
+    drop_standard_tables = pyramid_oereb.standard.drop_tables:drop_standard_tables
     load_sample_data = pyramid_oereb.standard.load_sample_data:load
+    load_standard_sample_data = pyramid_oereb.standard.load_sample_data:load_standard_sample
     """,
 )
