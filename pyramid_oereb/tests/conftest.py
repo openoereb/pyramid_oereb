@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import base64
 
+from pyramid.path import DottedNameResolver
 from pyramid.testing import DummyRequest
 import pytest
 from sqlalchemy import create_engine
 
 from pyramid_oereb import ExtractReader
 from pyramid_oereb import MunicipalityReader
-from pyramid_oereb import PlrStandardDatabaseSource
 from pyramid_oereb import Processor
 from pyramid_oereb import RealEstateReader
 from pyramid_oereb.lib.config import parse, ConfigReader
@@ -35,11 +35,11 @@ class MockRequest(DummyRequest):
             **municipality_config.get('source').get('params')
         )
 
-        # TODO: Make this more configurable, cause it is only useful for standard config now
         plr_sources = []
         for plr in config_reader.get('plrs'):
-            plr['db_connection'] = config_reader.get('db_connection')
-            plr_sources.append(PlrStandardDatabaseSource(**plr))
+            print plr
+            plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
+            plr_sources.append(plr_source_class(**plr))
 
         extract_reader = ExtractReader(
             plr_sources,
