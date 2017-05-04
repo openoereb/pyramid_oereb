@@ -93,7 +93,7 @@ Running development version on a up and running already existing pyramid_server
 Before you start whith the following instructions you should think about creating a branch of your applications code to not mess things up.
 
 1. In the setup.py add "pyramid_oereb" in the list of requirements (often a python list stored in the variable "requires")
-2. If you are using virtual environment: enable it (source <path_to_your_venv>/bin/activate, run the command "pip install -e." This will install all new requirements.
+2. If you are using virtual environment: enable it (```source <path_to_your_venv>/bin/activate```, run the command ```pip install -e.``` This will install all new requirements.
 3. Now you have installed the pyramid oereb package
 4. In the root folder of your payramid app (the one where the setup.py is stored too) create a file pyramid_oereb.yml
 5. Copy the content from the pyramid_oereb.yaml inside of this repository to this file. Important: configure all db_onnection variables to fit your database configuration. Hint: Simply use find and replace and put everywhere the same connection. Take care that the specified database exists and is available.
