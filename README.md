@@ -35,7 +35,7 @@ Configuration
 You are looking at a highly configurable piece of software. To get the right understanding of the server it
 is highly recommended to read this part carefully.
 
-Since the confederations definitions and the specifications for the extract of OEREB data are really straight
+Since the confederations definition and the specification for the extract of OEREB data is really straight
  we had very narrow margins to develop the code. Using this pyramid plugin you will get a running server
  instance which is able to provide the services with output satisfying the specification of the confederation.
  But to get this extract you need to bind the data to this server. And this is basically what you need to
@@ -63,8 +63,8 @@ that it will be available by the oereb application.
 
 For further information read the comments inside this file attentively.
 
-Running development version locally
------------------------------------
+Running development version locally and standalone
+--------------------------------------------------
 
 You can checkout the current master and run _pyramid_oereb_ locally, but we cannot guarantee a working
 configuration as it is under development. We recommend to use a linux system but the application is tested
@@ -87,3 +87,7 @@ You can set up the virtual environment using `make install` and run the unit tes
 
 To start a local server run `make serve`. It should be available unter http://localhost:6543/oereb/, e.g.
 http://localhost:6543/oereb/versions. To stop the server, press `CTRL + C`.
+
+Running development version on a up and running already existing pyramid_server
+-------------------------------------------------------------------------------
+
