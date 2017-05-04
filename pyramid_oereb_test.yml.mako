@@ -14,7 +14,7 @@ pyramid_oereb:
   app_schema:
     name: pyramid_oereb_main
     models: pyramid_oereb.standard.models.main
-    db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+    db_connection: ${sqlalchemy_url}
 
   plr_cadastre_authority:
     name: PLR cadastre authority
@@ -75,7 +75,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
         params:
-          db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+          db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.land_use_plans
 
     - name: plr87
@@ -87,7 +87,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.motorways_project_planing_zones
 
     - name: plr88
@@ -99,7 +99,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.motorways_building_lines
 
     - name: plr97
@@ -111,7 +111,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.railways_building_lines
 
     - name: plr96
@@ -123,7 +123,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.railways_project_planning_zones
 
     - name: plr103
@@ -135,7 +135,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.airports_project_planning_zones
 
     - name: plr104
@@ -147,7 +147,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.airports_building_lines
 
     - name: plr108
@@ -159,7 +159,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.airports_security_zone_plans
 
     - name: plr116
@@ -171,7 +171,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.contaminated_sites
 
     - name: plr117
@@ -183,7 +183,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.contaminated_military_sites
 
     - name: plr118
@@ -195,7 +195,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
 
     - name: plr119
@@ -207,7 +207,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.contaminated_public_transport_sites
 
     - name: plr131
@@ -219,7 +219,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.groundwater_protection_zones
 
     - name: plr132
@@ -231,7 +231,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.groundwater_protection_sites
 
     - name: plr145
@@ -243,7 +243,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.noise_sensitivity_levels
 
     - name: plr157
@@ -255,7 +255,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.forest_perimeters
 
     - name: plr159
@@ -267,7 +267,7 @@ pyramid_oereb:
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.forest_distance_lines
 
   srid: 2056
