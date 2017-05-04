@@ -148,3 +148,27 @@ def _drop_tables_(configuration_yaml_path, section='pyramid_oereb'):
     for schema in config.get('plrs'):
         connection.execute('DROP SCHEMA IF EXISTS {name};'.format(name=schema.get('name')))
     connection.close()
+
+
+def _create_standard_yaml_(name='pyramid_oereb_standard.yml'):
+
+    """
+    Creates a new YAML file in the directory where it was called. This YAML file contains the standard
+    configuration to run a oereb server out of the box.
+    :param name: The name of the new file. Default: 'pyramid_oereb_standard.yml'
+    :type: str
+    :return: The path where the file was saved as a prompt for successful process
+    :rtype: str
+    """
+    package_yaml_path = AssetResolver('pyramid_oereb').resolve('pyramid_oereb.yml').abspath().replace(
+        '{sep}pyramid_oereb{sep}pyramid_oereb{sep}'.format(sep=os.sep),
+        '{sep}pyramid_oereb{sep}'.format(sep=os.sep)
+    )
+
+    source_file = open(package_yaml_path)
+    target_path = os.path.abspath('{path}{sep}{name}'.format(path=os.getcwd(), name=name, sep=os.sep))
+    target_file = open(target_path, 'w+')
+    target_file.write(source_file.read())
+    source_file.close()
+    target_file.close()
+    return target_path

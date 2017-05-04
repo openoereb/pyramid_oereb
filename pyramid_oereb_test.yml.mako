@@ -25,7 +25,7 @@ pyramid_oereb:
     city: Wabern
 
   logo:
-    confederation: Logo_der_Schweizerischen_Eidgenossenschaft.png
+    confederation: logo_der_schweizerischen_eidgenossenschaft.png
     oereb: logo_suisse.png
     canton: BL_Logo_B_r_rgb.png
 
