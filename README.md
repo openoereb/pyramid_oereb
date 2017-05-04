@@ -33,7 +33,7 @@ Configuration
 ### Basic idea
 
 You are looking at a highly configurable piece of software. To get the right understanding of the server it
-is highly recommended to read this part carefully.
+is recommended to read this part carefully.
 
 Since the confederations definition and the specification for the extract of OEREB data is really straight
  we had very narrow margins to develop the code. Using this pyramid plugin you will get a running server
