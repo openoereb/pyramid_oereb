@@ -90,4 +90,3 @@ http://localhost:6543/oereb/versions. To stop the server, press `CTRL + C`.
 
 Running development version on a up and running already existing pyramid_server
 -------------------------------------------------------------------------------
-
