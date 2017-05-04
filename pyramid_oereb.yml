@@ -63,7 +63,7 @@ pyramid_oereb:
   logo:
     # The logo representing the swiss confederation (you can use it as is cause it is provided in this
     # repository). But if you need to change it for any reason: Feel free...
-    confederation: Logo_der_Schweizerischen_Eidgenossenschaft.png
+    confederation: logo_der_schweizerischen_eidgenossenschaft.png
     # The logo representing the oereb extract CI (you can use it as is cause it is provided in this
     # repository). But if you need to change it for any reason: Feel free...
     oereb: logo_suisse.png

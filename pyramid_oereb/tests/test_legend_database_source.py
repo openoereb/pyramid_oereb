@@ -3,14 +3,13 @@ import pytest
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.lib.sources.legend import LegendDatabaseSource
-from pyramid_oereb.models import Plr73LegendEntry, Plr119LegendEntry
+from pyramid_oereb.standard.models.airports_building_lines import LegendEntry
 from pyramid_oereb.tests.conftest import db_url
 
 
 @pytest.mark.run(order=2)
 @pytest.mark.parametrize("model", [
-    Plr73LegendEntry,
-    Plr119LegendEntry
+    LegendEntry
 ])
 def test_init(model):
     source = LegendDatabaseSource(**{'db_connection': db_url, 'model': model})
@@ -20,8 +19,7 @@ def test_init(model):
 
 @pytest.mark.run(order=2)
 @pytest.mark.parametrize("model", [
-    Plr73LegendEntry,
-    Plr119LegendEntry
+    LegendEntry
 ])
 def test_read(model):
     source = LegendDatabaseSource(**{'db_connection': db_url, 'model': model})

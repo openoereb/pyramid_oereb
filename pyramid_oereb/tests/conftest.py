@@ -37,7 +37,6 @@ class MockRequest(DummyRequest):
 
         plr_sources = []
         for plr in config_reader.get('plrs'):
-            print plr
             plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
             plr_sources.append(plr_source_class(**plr))
 
