@@ -121,3 +121,5 @@ create_standard_tables -c pyramid_oereb.yml
 load_sample_data -c pyramid_oereb.yml
 ```
 12. Check with a tool of your choise that the structure was created successfully in you desired database. You should find 17 database schemas named (snake_case) by their code attribute from the yml file. Plus one schema called "pyramid_oereb_main" containing the app global stuff (addresses, municipalities, etc.). At least these tables need to be filled up with your data with a tool of your choise).
+13. Start your pyramid application.
+14. Point your browser to: <your pyramid applications root url>/oereb/extract/embeddable/json/CH113928077734
