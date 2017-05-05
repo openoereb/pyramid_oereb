@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import optparse
 
-from pyramid_oereb.standard import _create_standard_yaml_
+from pyramid_oereb.standard import _create_standard_yaml_config_
 
 
 def create_standard_yaml():
@@ -18,6 +18,6 @@ def create_standard_yaml():
     )
     options, args = parser.parse_args()
     if not options.name:
-        _create_standard_yaml_()
+        _create_standard_yaml_config_()
     else:
-        _create_standard_yaml_(name=options.name)
+        _create_standard_yaml_config_(name=options.name)

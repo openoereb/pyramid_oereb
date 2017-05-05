@@ -11,8 +11,8 @@ section2:
 pyramid_oereb:
 
   logo:
-    confederation: logo_der_schweizerischen_eidgenossenschaft.png
-    oereb: logo_suisse.png
+    confederation: logo_confederation.png
+    oereb: logo_oereb.png
     canton: BL_Logo_B_r_rgb.png
 
   plr_cadastre_authority:

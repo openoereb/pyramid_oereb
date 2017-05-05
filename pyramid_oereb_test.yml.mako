@@ -24,9 +24,16 @@ pyramid_oereb:
     postal_code: 3084
     city: Wabern
 
+  # The extract provides logos. Therefor you need to provide a path to these logos. Note: This must be a
+  # valid absolute system path available for reading by the user running this server.
   logo:
-    confederation: logo_der_schweizerischen_eidgenossenschaft.png
-    oereb: logo_suisse.png
+    # The logo representing the swiss confederation (you can use it as is cause it is provided in this
+    # repository). But if you need to change it for any reason: Feel free...
+    confederation: logo_confederation.png
+    # The logo representing the oereb extract CI (you can use it as is cause it is provided in this
+    # repository). But if you need to change it for any reason: Feel free...
+    oereb: logo_oereb.png
+    # The logo representing your canton. This must be configured!
     canton: BL_Logo_B_r_rgb.png
 
   real_estate:
