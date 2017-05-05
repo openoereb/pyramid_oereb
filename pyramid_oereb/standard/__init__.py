@@ -6,6 +6,7 @@ import re
 from mako.template import Template
 from pyramid.path import AssetResolver, DottedNameResolver
 from sqlalchemy import create_engine
+from shutil import copyfile
 from pyramid_oereb.lib.config import parse
 
 
@@ -150,27 +151,33 @@ def _drop_tables_(configuration_yaml_path, section='pyramid_oereb'):
     connection.close()
 
 
-def _create_standard_yaml_(name='pyramid_oereb_standard.yml'):
+def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml'):
 
     """
     Creates a new YAML file in the directory where it was called. This YAML file contains the standard
     configuration to run a oereb server out of the box.
     :param name: The name of the new file. Default: 'pyramid_oereb_standard.yml'
     :type: str
-    :return: The path where the file was saved as a prompt for successful process
-    :rtype: str
     """
-    package_yaml_path = AssetResolver('pyramid_oereb').resolve(
-        'standard/pyramid_oereb.yml'
-    ).abspath().replace(
-        '{sep}pyramid_oereb{sep}pyramid_oereb{sep}'.format(sep=os.sep),
-        '{sep}pyramid_oereb{sep}'.format(sep=os.sep)
-    )
-
-    source_file = open(package_yaml_path)
+    logo_oereb_name = 'logo_oereb.png'
+    logo_confederation_name = 'logo_confederation.png'
+    pyramid_oereb_yaml_name = 'pyramid_oereb.yml'
+    yaml_path = AssetResolver('pyramid_oereb').resolve(
+        'standard/{name}'.format(name=pyramid_oereb_yaml_name)
+    ).abspath()
+    logo_oereb_path = AssetResolver('pyramid_oereb').resolve(
+        'standard/{name}'.format(name=logo_oereb_name)
+    ).abspath()
+    logo_confederation_path = AssetResolver('pyramid_oereb').resolve(
+        'standard/{name}'.format(name=logo_confederation_name)
+    ).abspath()
     target_path = os.path.abspath('{path}{sep}{name}'.format(path=os.getcwd(), name=name, sep=os.sep))
-    target_file = open(target_path, 'w+')
-    target_file.write(source_file.read())
-    source_file.close()
-    target_file.close()
-    return target_path
+    copyfile(yaml_path, target_path)
+    target_path = os.path.abspath('{path}{sep}{name}'.format(
+        path=os.getcwd(), name=logo_oereb_name, sep=os.sep)
+    )
+    copyfile(logo_oereb_path, target_path)
+    target_path = os.path.abspath('{path}{sep}{name}'.format(
+        path=os.getcwd(), name=logo_confederation_name, sep=os.sep)
+    )
+    copyfile(logo_confederation_path, target_path)
