@@ -98,8 +98,8 @@ Before you start whith the following instructions you should think about creatin
 3. run the following command (This will install all new requirements):
 ```pip install -e.```
 3. Now you have installed the pyramid oereb package
-4. In the root folder of your payramid app (the one where the setup.py is stored too) create a file pyramid_oereb.yml
-5. Copy the content from the pyramid_oereb.yaml inside of this repository to this file. Important: configure all db_onnection variables to fit your database configuration. Hint: Simply use find and replace and put everywhere the same connection. Take care that the specified database exists and is available.
+4. In the root folder of your pyramid app (the one where the setup.py is stored too) create a file pyramid_oereb.yml
+5. Copy the content from the pyramid_oereb.yml inside of this repository to this file. Important: configure all db_onnection variables to fit your database configuration. Hint: Simply use find and replace and put everywhere the same connection. Take care that the specified database exists and is available.
 6. Open the development.ini file and add two lines to the end of the "[app:main]" block
 ```
 pyramid_oereb.cfg.file = pyramid_oereb.yml
@@ -110,7 +110,7 @@ pyramid_oereb.cfg.section = pyramid_oereb
 ```
 config.include('pyramid_oereb', route_prefix='oereb')
 ```
-9. execute the command in the folder where you created the pyramid_oereb.yaml to make sure having a clean database for start (this should only influence the pyramid_oereb related data): 
+9. execute the command in the folder where you created the pyramid_oereb.yml to make sure having a clean database for start (this should only influence the pyramid_oereb related data): 
 ```
 drop_standard_tables -c pyramid_oereb.yml
 ```
