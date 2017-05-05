@@ -59,7 +59,7 @@ pyramid_oereb:
     city: Wabern
 
   # The extract provides logos. Therefor you need to provide a path to these logos. Note: This must be a
-  # valid absolute system path available for read by the user running this server.
+  # valid absolute system path available for reading by the user running this server.
   logo:
     # The logo representing the swiss confederation (you can use it as is cause it is provided in this
     # repository). But if you need to change it for any reason: Feel free...
