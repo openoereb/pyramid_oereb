@@ -33,7 +33,7 @@ Configuration
 ### Basic idea
 
 You are looking at a highly configurable piece of software. To get the right understanding of the server it
-is highly recommended to read this part carefully.
+is recommended to read this part carefully.
 
 Since the confederations definition and the specification for the extract of OEREB data is really straight
  we had very narrow margins to develop the code. Using this pyramid plugin you will get a running server
@@ -90,3 +90,39 @@ http://localhost:6543/oereb/versions. To stop the server, press `CTRL + C`.
 
 Running development version on a up and running already existing pyramid_server
 -------------------------------------------------------------------------------
+Before you start whith the following instructions you should think about creating a branch of your applications code to not mess things up.
+
+1. In the setup.py add "pyramid_oereb" in the list of requirements (often a python list stored in the variable "requires")
+2. If you are using virtual environment enable it:
+```source <path_to_your_venv>/bin/activate```
+3. run the following command (This will install all new requirements):
+```pip install -e.```
+3. Now you have installed the pyramid oereb package
+4. In the root folder of your pyramid app (the one where the setup.py is stored too) create a file pyramid_oereb.yml
+5. Copy the content from the pyramid_oereb.yml inside of this repository to this file. Important: configure all db_onnection variables to fit your database configuration. Hint: Simply use find and replace and put everywhere the same connection. Take care that the specified database exists and is available.
+6. Open the development.ini file and add two lines to the end of the "[app:main]" block
+```
+pyramid_oereb.cfg.file = pyramid_oereb.yml
+pyramid_oereb.cfg.section = pyramid_oereb
+```
+7. Do the same in the production.ini file
+8. In the __init__ file of your application inside of the main method add this line just before the config.scan() call.
+```
+config.include('pyramid_oereb', route_prefix='oereb')
+```
+9. execute the command in the folder where you created the pyramid_oereb.yml to make sure having a clean database for start (this should only influence the pyramid_oereb related data):
+```
+drop_standard_tables -c pyramid_oereb.yml
+```
+10. execute the command in the folder where you created the pyramid_oereb.yaml:
+```
+create_standard_tables -c pyramid_oereb.yml
+```
+(ATTENTION: Step 11 is not executable due to build problems by now)
+11. execute the command in the folder where you created the pyramid_oereb.yaml (this will create a test data set):
+```
+load_sample_data -c pyramid_oereb.yml
+```
+12. Check with a tool of your choise that the structure was created successfully in you desired database. You should find 17 database schemas named (snake_case) by their code attribute from the yml file. Plus one schema called "pyramid_oereb_main" containing the app global stuff (addresses, municipalities, etc.). At least these tables need to be filled up with your data with a tool of your choise).
+13. Start your pyramid application.
+14. Point your browser to: <your pyramid applications root url>/oereb/extract/embeddable/json/CH113928077734
