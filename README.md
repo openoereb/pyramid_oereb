@@ -99,7 +99,7 @@ Before you start whith the following instructions you should think about creatin
 ```pip install -e.```
 3. Now you have installed the pyramid oereb package
 4. In the root folder of your pyramid app (the one where the setup.py is stored too) run the command: ```create_standard_yaml```
-5. You got a configuration file which contains all standard things. **IMPORTANT:** There are several places where are database connections are defined. They all are defined like this: ```db_connection: postgresql://postgres:password@localhost/pyramid_oereb```, you **MUST** adapt this to your database configuration. Note that the database you specify here must exists and it must be able to handle spacial data (postgis,...). **This connections are used later to create/drop standard tables and fill database with standard data.**
+5. You got a configuration file which contains all standard things. **IMPORTANT:** There are several places where are database connections are defined. They all are defined like this: ```db_connection: postgresql://postgres:password@localhost/pyramid_oereb```, you **MUST** adapt this to your database configuration. Note that the database you specify here must exists and it must be able to handle spacial data (postgis,...). **This connections are used later to create/drop standard tables and fill database with standard data.** HINT: Use *find and replace* of your favorite editor and replace all connection definitions. 
 6. Open the development.ini file and add two lines to the end of the "[app:main]" block
 ```
 pyramid_oereb.cfg.file = pyramid_oereb_standard.yml
@@ -120,7 +120,7 @@ create_standard_tables -c pyramid_oereb_standard.yml
 ```
 11. execute the command in the folder where you created the pyramid_oereb.yaml (this will create a test data set):
 ```
-load_sample_data -c pyramid_oereb_standard.yml
+load_standard_sample_data -c pyramid_oereb_standard.yml
 ```
 12. Check with a tool of your choise that the structure was created successfully in you desired database. You should find 17 database schemas named (snake_case) by their code attribute from the yml file. Plus one schema called "pyramid_oereb_main" containing the app global stuff (addresses, municipalities, etc.). At least these tables need to be filled up with your data with a tool of your choise).
 13. Start your pyramid application.
