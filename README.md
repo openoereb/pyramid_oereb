@@ -110,16 +110,16 @@ pyramid_oereb.cfg.section = pyramid_oereb
 ```
 config.include('pyramid_oereb', route_prefix='oereb')
 ```
-9. execute the command in the folder where you created the pyramid_oereb.yml to make sure having a clean database for start (this should only influence the pyramid_oereb related data): 
+9. execute the command in the folder where you created the pyramid_oereb.yml to make sure having a clean database for start (this should only influence the pyramid_oereb related data):
 ```
 drop_standard_tables -c pyramid_oereb.yml
 ```
-10. execute the command in the folder where you created the pyramid_oereb.yaml: 
+10. execute the command in the folder where you created the pyramid_oereb.yaml:
 ```
 create_standard_tables -c pyramid_oereb.yml
 ```
 (ATTENTION: Step 11 is not executable due to build problems by now)
-11. execute the command in the folder where you created the pyramid_oereb.yaml (this will create a test data set): 
+11. execute the command in the folder where you created the pyramid_oereb.yaml (this will create a test data set):
 ```
 load_sample_data -c pyramid_oereb.yml
 ```
