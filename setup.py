@@ -53,6 +53,11 @@ setup(
     url='https://github.com/camptocamp/pyramid_oereb',
     keywords='pyramid oereb',
     packages=find_packages(),
+    package_data={'pyramid_oereb': [
+        'standard/pyramid_oereb.yml',
+        'standard/templates/plr.py.mako',
+        'tests/resources/*'
+    ]},
     include_package_data=True,
     zip_safe=False,
     extras_require={

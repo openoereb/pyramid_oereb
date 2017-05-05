@@ -98,11 +98,11 @@ Before you start whith the following instructions you should think about creatin
 3. run the following command (This will install all new requirements):
 ```pip install -e.```
 3. Now you have installed the pyramid oereb package
-4. In the root folder of your pyramid app (the one where the setup.py is stored too) create a file pyramid_oereb.yml
-5. Copy the content from the pyramid_oereb.yml inside of this repository to this file. Important: configure all db_onnection variables to fit your database configuration. Hint: Simply use find and replace and put everywhere the same connection. Take care that the specified database exists and is available.
+4. In the root folder of your pyramid app (the one where the setup.py is stored too) run the command: ```create_standard_yaml```
+5. You got a configuration file which contains all standard things. **IMPORTANT:** There are several places where are database connections are defined. They all are defined like this: ```db_connection: postgresql://postgres:password@localhost/pyramid_oereb```, you **MUST** adapt this to your database configuration. Note that the database you specify here must exists and it must be able to handle spacial data (postgis,...). **This connections are used later to create/drop standard tables and fill database with standard data.**
 6. Open the development.ini file and add two lines to the end of the "[app:main]" block
 ```
-pyramid_oereb.cfg.file = pyramid_oereb.yml
+pyramid_oereb.cfg.file = pyramid_oereb_standard.yml
 pyramid_oereb.cfg.section = pyramid_oereb
 ```
 7. Do the same in the production.ini file
@@ -112,16 +112,15 @@ config.include('pyramid_oereb', route_prefix='oereb')
 ```
 9. execute the command in the folder where you created the pyramid_oereb.yml to make sure having a clean database for start (this should only influence the pyramid_oereb related data):
 ```
-drop_standard_tables -c pyramid_oereb.yml
+drop_standard_tables -c pyramid_oereb_standard.yml
 ```
 10. execute the command in the folder where you created the pyramid_oereb.yaml:
 ```
-create_standard_tables -c pyramid_oereb.yml
+create_standard_tables -c pyramid_oereb_standard.yml
 ```
-(ATTENTION: Step 11 is not executable due to build problems by now)
 11. execute the command in the folder where you created the pyramid_oereb.yaml (this will create a test data set):
 ```
-load_sample_data -c pyramid_oereb.yml
+load_sample_data -c pyramid_oereb_standard.yml
 ```
 12. Check with a tool of your choise that the structure was created successfully in you desired database. You should find 17 database schemas named (snake_case) by their code attribute from the yml file. Plus one schema called "pyramid_oereb_main" containing the app global stuff (addresses, municipalities, etc.). At least these tables need to be filled up with your data with a tool of your choise).
 13. Start your pyramid application.

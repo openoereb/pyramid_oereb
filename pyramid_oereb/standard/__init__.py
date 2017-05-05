@@ -160,7 +160,9 @@ def _create_standard_yaml_(name='pyramid_oereb_standard.yml'):
     :return: The path where the file was saved as a prompt for successful process
     :rtype: str
     """
-    package_yaml_path = AssetResolver('pyramid_oereb').resolve('pyramid_oereb.yml').abspath().replace(
+    package_yaml_path = AssetResolver('pyramid_oereb').resolve(
+        'standard/pyramid_oereb.yml'
+    ).abspath().replace(
         '{sep}pyramid_oereb{sep}pyramid_oereb{sep}'.format(sep=os.sep),
         '{sep}pyramid_oereb{sep}'.format(sep=os.sep)
     )
