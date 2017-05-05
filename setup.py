@@ -56,7 +56,8 @@ setup(
     package_data={'pyramid_oereb': [
         'standard/pyramid_oereb.yml',
         'standard/templates/plr.py.mako',
-        'tests/resources/*'
+        'tests/resources/*',
+        'tests/resources/plr119/*'
     ]},
     include_package_data=True,
     zip_safe=False,
