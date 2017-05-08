@@ -8,8 +8,6 @@ services:
 
 # command to install dependencies
 install:
-  - sudo apt-get install pandoc
-  - make description
   - make install
 
 before_install:
@@ -21,6 +19,10 @@ script:
   - make lint
   - make tests-docker-setup-db
   - make tests
+
+before_deploy:
+  - sudo apt-get install pandoc
+  - make description
 
 # deploy to pypi
 deploy:
