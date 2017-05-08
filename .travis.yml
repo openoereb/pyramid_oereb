@@ -20,6 +20,10 @@ script:
   - make tests-docker-setup-db
   - make tests
 
+before_deploy:
+  - apt-get install pandoc
+  - make description
+
 # deploy to pypi
 deploy:
   provider: pypi

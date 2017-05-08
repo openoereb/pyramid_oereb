@@ -120,3 +120,11 @@ drop-standard-tables: $(PYTHON_VENV)
 .PHONY: serve
 serve: $(PYTHON_VENV)
 	$(VENV_BIN)pserve$(PYTHON_BIN_POSTFIX) development.ini
+
+.PHONY: description
+description:
+	awk 'FNR==1{print ""}1' README.md CHANGES.md | pandoc -f markdown -t rst -o description.rst
+
+.PHONY: deploy
+deploy: description
+	$(VENV_BIN)python setup.py sdist bdist_wheel upload
