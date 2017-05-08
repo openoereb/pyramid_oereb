@@ -1,37 +1,44 @@
 # -*- coding: utf-8 -*-
 from sqlalchemy.orm.exc import NoResultFound
+from pyramid_oereb.lib.records.plr import PlrRecord
 
 
 def plr_tolerance_check(extract):
     """
     The function checking if the found plr results exceed the minimal surface or length
-    value defined in the configuration and should therfor be represented in the extract 
+    value defined in the configuration and should therfor be represented in the extract
     or considered 'false trues' and be removed from the results.
-    :param real_estate: The real estate in its record representation.
-    :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+    :param extract: The extract in it's unvalidated form
+    :type extract: pyramid_oereb.lib.records.real_estate.RealEstateRecord
     """
 
-    plr_records = extract.
-    
+    real_estate = extract.real_estate
+    plr_records = real_estate.public_law_restrictions
+
     for plr_record in plr_records:
-        geometryType = plr_record.geom_type
-        if geometryType == 'Point' or 'MultiPoint':
-            pass
-        elif geometryType in ['Line', 'MultiLine']:
-            plr_record_geom = {
-                'type':  geometryType,
-                'length': plr_record_geom.length,
-                'units': 'm' 
-            }
-        elif geometryType == ['Polygon', 'MultiPolygon']:
-            plr_record_geom = {
-                'type':  geometryType,
-                'area': plr_record_geom.area,
-                'area_in_percent': round((plr_record_geom.area/real_estate.limit.area)*100),1)
-                'units': 'm2'
-            }
-        else:
-            print 'Error: unknown geometry type'
+        if isinstance(plr_record, PlrRecord):
+            for geometry in plr_record.geometries:
+                # TODO append plr_record_geom dict to plr, rename, restructure
+                geometryType = geometry.geom_type
+                if geometryType == 'Point' or 'MultiPoint':
+                    pass
+                elif geometryType in ['Line', 'MultiLine']:
+                    plr_record_geom = {
+                        'type': geometryType,
+                        'length': geometry.length,
+                        'units': 'm'
+                    }
+                elif geometryType == ['Polygon', 'MultiPolygon']:
+                    plr_record_geom = {
+                        'type':  geometryType,
+                        'area': geometry.area,
+                        'area_in_percent': round(((geometry.area/real_estate.limit.area)*100), 1),
+                        'units': 'm2'
+                        }
+                else:
+                    print 'Error: unknown geometry type'
+            # just for the tests:
+            print plr_record_geom
 
     return extract
 
