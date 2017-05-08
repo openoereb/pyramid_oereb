@@ -2,6 +2,40 @@
 from sqlalchemy.orm.exc import NoResultFound
 
 
+def plr_tolerance_check(extract):
+    """
+    The function checking if the found plr results exceed the minimal surface or length
+    value defined in the configuration and should therfor be represented in the extract 
+    or considered 'false trues' and be removed from the results.
+    :param real_estate: The real estate in its record representation.
+    :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+    """
+
+    plr_records = extract.
+    
+    for plr_record in plr_records:
+        geometryType = plr_record.geom_type
+        if geometryType == 'Point' or 'MultiPoint':
+            pass
+        elif geometryType in ['Line', 'MultiLine']:
+            plr_record_geom = {
+                'type':  geometryType,
+                'length': plr_record_geom.length,
+                'units': 'm' 
+            }
+        elif geometryType == ['Polygon', 'MultiPolygon']:
+            plr_record_geom = {
+                'type':  geometryType,
+                'area': plr_record_geom.area,
+                'area_in_percent': round((plr_record_geom.area/real_estate.limit.area)*100),1)
+                'units': 'm2'
+            }
+        else:
+            print 'Error: unknown geometry type'
+
+    return extract
+
+
 class Processor(object):
 
     def __init__(self, real_estate_reader, municipality_reader, plr_sources, extract_reader):
@@ -72,6 +106,7 @@ class Processor(object):
             if municipality.fosnr == real_estate.fosnr:
                 if not municipality.published:
                     raise NotImplementedError
-                extract = self._extract_reader_.read(real_estate, municipality.logo)
+                extract_raw = self._extract_reader_.read(real_estate, municipality.logo)
+                extract = plr_tolerance_check(extract_raw)
                 return extract.to_extract()
         raise NoResultFound()
