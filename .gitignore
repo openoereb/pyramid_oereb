@@ -70,3 +70,6 @@ target/
 
 # Mako generated files
 pyramid_oereb_test.yml
+
+# Converted readme for PyPI
+description.rst
