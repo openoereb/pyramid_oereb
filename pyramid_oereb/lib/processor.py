@@ -73,7 +73,7 @@ class Processor(object):
                             geom_cleaner.append(geometry)
                         else:
                             extract.real_estate.public_law_restrictions.part_in_percent = \
-                                round(((geometry.area/real_estate.limit.area)*100), 1)
+                                round(((compensated_area/real_estate.limit.area)*100), 1)
                             extract.real_estate.public_law_restrictions.units = 'm2'
                     else:
                         # TODO: configure a proper error message
