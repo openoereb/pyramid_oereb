@@ -3,41 +3,10 @@ from sqlalchemy.orm.exc import NoResultFound
 from pyramid_oereb.lib.records.plr import PlrRecord
 
 
-def plr_tolerance_check(extract):
-    """
-    The function checking if the found plr results exceed the minimal surface or length
-    value defined in the configuration and should therfor be represented in the extract
-    or considered 'false trues' and be removed from the results.
-    :param extract: The extract in it's unvalidated form
-    :type extract: pyramid_oereb.lib.records.extract.ExtractRecord
-    """
-
-    real_estate = extract.real_estate
-    plr_records = real_estate.public_law_restrictions
-
-    for plr_record in plr_records:
-        if isinstance(plr_record, PlrRecord):
-            for geometry in plr_record.geometries:
-                geometryType = geometry.geom_type
-                if geometryType == 'Point' or 'MultiPoint':
-                    pass
-                elif geometryType in ['LineString', 'LinearRing', 'MultiLineString']:
-                    extract.real_estate.public_law_restrictions.length = geometry.length
-                    extract.real_estate.public_law_restrictions.units = 'm'
-                elif geometryType == ['Polygon', 'MultiPolygon']:
-                    extract.real_estate.public_law_restrictions.area = geometry.area
-                    extract.real_estate.public_law_restrictions.part_in_percent = \
-                        round(((geometry.area/real_estate.limit.area)*100), 1)
-                    extract.real_estate.public_law_restrictions.units = 'm2'
-                else:
-                    print 'Error: unknown geometry type'
-
-    return extract
-
-
 class Processor(object):
 
-    def __init__(self, real_estate_reader, municipality_reader, plr_sources, extract_reader):
+    def __init__(self, real_estate_reader, municipality_reader, plr_sources, extract_reader,
+                 min_area=1.0, min_length=1.0):
         """
         The Processor class is directly bound to the get_extract_by_id service in this application. It's task
         is to unsnarl the difficult model of the oereb extract and handle all objects inside this extract
@@ -51,11 +20,67 @@ class Processor(object):
         :type plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
         :param extract_reader: The extract reader instance for runtime use.
         :type extract_reader: pyramid_oereb.lib.readers.extract.ExtractReader
+        :param min_area: The minimal area for a public law restriction to be displayed in the cadastre
+        :type min_area: decimal
+        :param min_length: The minimal length for a public law restriction to be displayed in the cadastre
+        :type min_length: decimal
         """
         self._real_estate_reader_ = real_estate_reader
         self._municipality_reader_ = municipality_reader
         self._plr_sources_ = plr_sources
         self._extract_reader_ = extract_reader
+        self._min_area_ = min_area
+        self._min_length_ = min_length
+
+    def plr_tolerance_check(self, extract):
+        """
+        The function checking if the found plr results exceed the minimal surface or length
+        value defined in the configuration and should therfor be represented in the extract
+        or considered 'false trues' and be removed from the results.
+        :param extract: The extract in it's unvalidated form
+        :type extract: pyramid_oereb.lib.records.extract.ExtractRecord
+        """
+
+        real_estate = extract.real_estate
+        plr_records = real_estate.public_law_restrictions
+        geom_cleaner = []
+        plr_cleaner = []
+
+        for plr_record in plr_records:
+            if isinstance(plr_record, PlrRecord):
+                for geometry in plr_record.geometries:
+                    geometryType = geometry.geom_type
+                    if geometryType == 'Point' or 'MultiPoint':
+                        pass
+                    elif geometryType in ['LineString', 'LinearRing', 'MultiLineString']:
+                        extract.real_estate.public_law_restrictions.length = geometry.length
+                        if extract.real_estate.public_law_restrictions.length < self._min_length_:
+                            geom_cleaner.append(geometry)
+                        else:
+                            extract.real_estate.public_law_restrictions.units = 'm'
+                    elif geometryType == ['Polygon', 'MultiPolygon']:
+                        extract.real_estate.public_law_restrictions.area = geometry.area
+                        if extract.real_estate.public_law_restrictions.area < self._min_area_:
+                            geom_cleaner.append(geometry)
+                        else:
+                            extract.real_estate.public_law_restrictions.part_in_percent = \
+                                round(((geometry.area/real_estate.limit.area)*100), 1)
+                            extract.real_estate.public_law_restrictions.units = 'm2'
+                    else:
+                        # TODO: configure a proper error message
+                        print 'Error: unknown geometry type'
+                # Remove small geometry from geometries list
+                for geom in geom_cleaner:
+                    i = extract.real_estate.public_law_restrictions.index(plr_record)
+                    extract.real_estate.public_law_restrictions[i].geometries.remove(geom)
+                # Test if the geometries list is now empty - if so remove plr from plr list
+                if len(extract.real_estate.public_law_restrictions[i].geometries) == 0:
+                    plr_cleaner.append(extract.real_estate.public_law_restrictions)
+
+        for j in reversed(plr_cleaner):
+            extract.real_estate.public_law_restrictions.pop(j)
+
+        return extract
 
     @property
     def real_estate_reader(self):
@@ -106,6 +131,6 @@ class Processor(object):
                 if not municipality.published:
                     raise NotImplementedError
                 extract_raw = self._extract_reader_.read(real_estate, municipality.logo)
-                extract = plr_tolerance_check(extract_raw)
+                extract = self.plr_tolerance_check(extract_raw)
                 return extract.to_extract()
         raise NoResultFound()
