@@ -6,6 +6,8 @@ pyramid_oereb:
     - it
     - rm
 
+  default_language: de
+
   flavour:
     - REDUCED
     - FULL

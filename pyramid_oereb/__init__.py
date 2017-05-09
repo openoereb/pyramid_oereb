@@ -29,6 +29,7 @@ plr_sources = None
 plr_limits = None
 app_schema_name = None
 srid = None
+default_lang = None
 
 
 def main(global_config, **settings):
@@ -52,7 +53,7 @@ def includeme(config):
     :type config: Configurator
     """
     global route_prefix, config_reader, real_estate_reader, municipality_reader, extract_reader, \
-        plr_sources, plr_cadastre_authority, app_schema_name, srid
+        plr_sources, plr_cadastre_authority, app_schema_name, srid, default_lang
 
     # Set route prefix
     route_prefix = config.route_prefix
@@ -74,6 +75,7 @@ def includeme(config):
     polygon_types = config_reader.get('plr_limits').get('polygon_types')
     min_length = config_reader.get('plr_limits').get('min_length')
     min_area = config_reader.get('plr_limits').get('min_area')
+    default_lang = config_reader.get('default_language')
 
     plr_cadastre_authority = config_reader.get_plr_cadastre_authority()
 

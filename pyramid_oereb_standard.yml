@@ -14,6 +14,10 @@ pyramid_oereb:
     - it
     - rm
 
+  # The language that should be used by default, if no other language is specified in the request.
+  # This has to be one of the languages defined above.
+  default_language: de
+
   # The "flavour" property is a list of all flavours provided by this application. In the moment this only
   # affects the output of the capabilities webservice. Whatever in later versions it is the place to directly
   # influence the available output formats.

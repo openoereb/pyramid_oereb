@@ -38,6 +38,7 @@ class LogoRecord(object):
     def encode(self):
         """
         Returns the logo as base64 encoded string.
+        
         :return: The encoded image.
         :rtype: str
         """
