@@ -10,6 +10,7 @@ class Processor(object):
         is to unsnarl the difficult model of the oereb extract and handle all objects inside this extract
         correctly. In addition it provides an easy to use method interface to access the information.
         It is also used to wrap all accessors in one point to have a processing interface.
+
         :param real_estate_reader: The real estate reader instance for runtime use.
         :type real_estate_reader: pyramid_oereb.lib.readers.real_estate.RealEstateReader
         :param municipality_reader: The municipality reader instance for runtime use.
@@ -63,6 +64,7 @@ class Processor(object):
     def process(self, real_estate):
         """
         Central processing method to hook in from webservice.
+
         :param real_estate: The real estate reader to obtain the real estates record.
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
         :return:
