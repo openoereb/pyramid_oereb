@@ -32,5 +32,5 @@ def test_process():
     view_service = ViewServiceRecord('test', 'test')
     real_estate = RealEstateRecord('Test', 'BL', 'Duggingen',
                                    1234, 1000, MultiPolygon([polygon]), view_service)
-    extract_dict = processor.process(real_estate)
+    extract_dict = processor.process(real_estate).to_extract()
     assert isinstance(extract_dict, dict)

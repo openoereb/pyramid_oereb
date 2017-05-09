@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 
 
 class Base(object):
@@ -23,6 +24,20 @@ class Base(object):
         if request is not None:
             return request.response
         return None
+
+    @classmethod
+    def date_time(cls, dt):
+        """
+        Formats the date/time according to the specification.
+        :param dt: The datetime object.
+        :type dt: datetime.date or datetime.time or datetime.datetime
+        :return: The formatted date/time.
+        :rtype: str
+        """
+        if isinstance(dt, datetime.date) or isinstance(dt, datetime.time)\
+                or isinstance(dt, datetime.datetime):
+            return dt.strftime('%Y-%m-%dT%H:%M:%S')
+        return dt
 
     @property
     def info(self):

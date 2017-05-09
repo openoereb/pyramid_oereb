@@ -140,7 +140,7 @@ class PlrWebservice(object):
         # check if result is strictly one (we queried with primary keys)
         if len(real_estate_records) == 1:
             try:
-                extract_dict = processor.process(real_estate_records[0])
+                extract = processor.process(real_estate_records[0])
             except LookupError:
                 raise HTTPNoContent()
             except NotImplementedError:
@@ -149,8 +149,8 @@ class PlrWebservice(object):
                 raise HTTPServerError()
             if params.get('format') == 'json':
                 return render_to_response(
-                    'json',
-                    extract_dict,
+                    'pyramid_oereb_extract_json',
+                    (extract, params),
                     request=self._request_
                 )
             elif params.get('format') == 'xml':
