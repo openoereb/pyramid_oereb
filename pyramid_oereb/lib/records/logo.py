@@ -34,3 +34,11 @@ class LogoRecord(object):
         extract[key] = base64.b64encode(getattr(self, key))
 
         return extract
+
+    def encode(self):
+        """
+        Returns the logo as base64 encoded string.
+        :return: The encoded image.
+        :rtype: str
+        """
+        return base64.b64encode(self.content)
