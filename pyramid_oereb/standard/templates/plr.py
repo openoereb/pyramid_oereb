@@ -120,14 +120,15 @@ class Document(DocumentBase):
     This represents the main document in the whole system. It is specialized in some sub classes.
     :attribute id: The identifier. This is used in the database only and must not be set manually. If you
     don't like-don't care about.
+
     :attribute title: The title or if existing the short title ot his document.
     :attribute office_title: The official title of this document.
     :attribute abbrevation: The shortened version of the documents title.
     :attribute official_number: The official number which uniquely identifies this document.
     :attribute canton: The short version of the canton which this document is about. If this is None this is
-    assumed to be a confederations document.
+        assumed to be a confederations document.
     :attribute municipality: The id bfs of the municipality. If this is None it is assumed the document is
-    related to the whole canton or even the confederation.
+        related to the whole canton or even the confederation.
     :attribute file: The document itself as a binary representation (PDF).
     :attribute office_id: The foreign key to the office which is in charge for this document.
     :attribute responsible_office: The dedicated relation to the office instance from database.
@@ -214,6 +215,13 @@ class LegalProvision(Document):
 
 
 class ViewService(Base):
+    """
+    A view service aka WMS which can deliver a cartographic representation via web.
+    :attribute id: The identifier. This is used in the database only and must not be set manually. If you
+    don't like-don't care about.
+    :attribute link_wms: The actual url which leads to the desired cartographic representation.
+    :attribute legend_web: A link leading to a wms describing document (png).
+    """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'view_service'
     id = sa.Column(sa.Integer, primary_key=True)
@@ -222,6 +230,24 @@ class ViewService(Base):
 
 
 class LegendEntry(Base):
+    """
+    A view service aka WMS which can deliver a cartographic representation via web.
+    :attribute id: The identifier. This is used in the database only and must not be set manually. If you
+    don't like-don't care about.
+    :attribute file: An image with represents the legend entry. This can be png or svg.
+    :attribute legend_text: Text to describe this legend entry.
+    :attribute type_code: Type code of the public law restriction which is represented by this legend entry.
+    :attribute type_code_list: List of all public law restrictions which are described through this legend
+    entry.
+    :attribute topic: Statement to describe to which public law restriction this legend entry belongs.
+    :attribute subtopic: Description for sub topics this legend entry might belonging to.
+    :attribute additional_topic: A link to additional topics. It must be like the following patterns:
+    * ch.{canton}.{topic}
+    * fl.{topic}
+    * ch.{bfsnr}.{topic}
+    This with {canton} as the official two letters short version (e.g.'BE') {topic} as the name of the topic
+    and {bfsnr} as the municipality id of the federal office of statistics.
+    """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
@@ -242,6 +268,12 @@ class LegendEntry(Base):
 
 # TODO: check how the definition in base model from confederation can be realized
 class PublicLawRestriction(Base):
+    """
+    The bucket where you can fill in all your public law restrictions.
+    :attribute id: The identifier. This is used in the database only and must not be set manually. If you
+    don't like-don't care about.
+    :attribute content:
+    """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'public_law_restriction'
     id = sa.Column(sa.Integer, primary_key=True)
