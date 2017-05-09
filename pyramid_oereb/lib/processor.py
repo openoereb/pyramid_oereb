@@ -31,6 +31,9 @@ class Processor(object):
         self._extract_reader_ = extract_reader
         self._min_area_ = min_area
         self._min_length_ = min_length
+        self.point_types = ['Point', 'MultiPoint']
+        self.line_types = ['LineString', 'LinearRing', 'MultiLineString']
+        self.polygon_types = ['Polygon', 'MultiPolygon']
 
     def plr_tolerance_check(self, extract):
         """
@@ -42,24 +45,30 @@ class Processor(object):
         """
 
         real_estate = extract.real_estate
+        real_estate_feature_area = extract.real_estate.limit.area
+        land_registry_area = extract.real_estate.land_registry_area
+        areas_ratio = real_estate_feature_area/land_registry_area
         plr_records = real_estate.public_law_restrictions
         geom_cleaner = []
         plr_cleaner = []
 
-        for plr_record in plr_records:
+        for index, plr_record in enumerate(plr_records):
             if isinstance(plr_record, PlrRecord):
                 for geometry in plr_record.geometries:
                     geometryType = geometry.geom_type
-                    if geometryType == 'Point' or 'MultiPoint':
+                    if geometryType in self.point_types:
                         pass
-                    elif geometryType in ['LineString', 'LinearRing', 'MultiLineString']:
+                    elif geometryType in self.line_types:
                         extract.real_estate.public_law_restrictions.length = geometry.length
                         if extract.real_estate.public_law_restrictions.length < self._min_length_:
                             geom_cleaner.append(geometry)
                         else:
                             extract.real_estate.public_law_restrictions.units = 'm'
-                    elif geometryType == ['Polygon', 'MultiPolygon']:
-                        extract.real_estate.public_law_restrictions.area = geometry.area
+                    elif geometryType in self.polygon_types:
+                        # Compensation of the difference between technical area from land registry and the
+                        # calculated area of the geometry
+                        compensated_area = geometry.area*areas_ratio
+                        extract.real_estate.public_law_restrictions.area = compensated_area
                         if extract.real_estate.public_law_restrictions.area < self._min_area_:
                             geom_cleaner.append(geometry)
                         else:
@@ -71,11 +80,10 @@ class Processor(object):
                         print 'Error: unknown geometry type'
                 # Remove small geometry from geometries list
                 for geom in geom_cleaner:
-                    i = extract.real_estate.public_law_restrictions.index(plr_record)
-                    extract.real_estate.public_law_restrictions[i].geometries.remove(geom)
+                    extract.real_estate.public_law_restrictions[index].geometries.remove(geom)
                 # Test if the geometries list is now empty - if so remove plr from plr list
-                if len(extract.real_estate.public_law_restrictions[i].geometries) == 0:
-                    plr_cleaner.append(extract.real_estate.public_law_restrictions)
+                if len(extract.real_estate.public_law_restrictions[index].geometries) == 0:
+                    plr_cleaner.append(index)
 
         for j in reversed(plr_cleaner):
             extract.real_estate.public_law_restrictions.pop(j)
