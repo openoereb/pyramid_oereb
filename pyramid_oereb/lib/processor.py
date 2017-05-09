@@ -9,7 +9,7 @@ def plr_tolerance_check(extract):
     value defined in the configuration and should therfor be represented in the extract
     or considered 'false trues' and be removed from the results.
     :param extract: The extract in it's unvalidated form
-    :type extract: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+    :type extract: pyramid_oereb.lib.records.extract.ExtractRecord
     """
 
     real_estate = extract.real_estate
@@ -18,27 +18,19 @@ def plr_tolerance_check(extract):
     for plr_record in plr_records:
         if isinstance(plr_record, PlrRecord):
             for geometry in plr_record.geometries:
-                # TODO append plr_record_geom dict to plr, rename, restructure
                 geometryType = geometry.geom_type
                 if geometryType == 'Point' or 'MultiPoint':
                     pass
-                elif geometryType in ['Line', 'MultiLine']:
-                    plr_record_geom = {
-                        'type': geometryType,
-                        'length': geometry.length,
-                        'units': 'm'
-                    }
+                elif geometryType in ['LineString', 'LinearRing', 'MultiLineString']:
+                    extract.real_estate.public_law_restrictions.length = geometry.length
+                    extract.real_estate.public_law_restrictions.units = 'm'
                 elif geometryType == ['Polygon', 'MultiPolygon']:
-                    plr_record_geom = {
-                        'type':  geometryType,
-                        'area': geometry.area,
-                        'area_in_percent': round(((geometry.area/real_estate.limit.area)*100), 1),
-                        'units': 'm2'
-                        }
+                    extract.real_estate.public_law_restrictions.area = geometry.area
+                    extract.real_estate.public_law_restrictions.part_in_percent = \
+                        round(((geometry.area/real_estate.limit.area)*100), 1)
+                    extract.real_estate.public_law_restrictions.units = 'm2'
                 else:
                     print 'Error: unknown geometry type'
-            # just for the tests:
-            print plr_record_geom
 
     return extract
 
