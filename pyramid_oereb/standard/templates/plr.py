@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+"""
+This is a full representation of the data model defined by the confederations definition. You can use it to
+produce a own new topic for the oereb eco system in the specifications shape. To be able to adapt this models
+to your own infrastructure you must implement the same attribute names! In fact that inheritance is not easily
+ made you need to make your own classes and adapt them to your database.
+"""
 import sqlalchemy as sa
 from pyramid_oereb.standard.models import NAMING_CONVENTION
 from pyramid_oereb import srid
@@ -14,6 +20,14 @@ if not srid:
 
 
 class Availability(Base):
+    """
+    A simple bucket for achieving a switch per municipality. Here you can configure via the imported data if
+    a public law restriction is available or not. You need to fill it with the data you provided in the app
+    schemas municipality table (fosnr).
+    :attribute fosnr: The identifier of the municipality in your system (this should be mainly the id_bfs)
+    :attribute available: The switch field to configure if this plr is available for the municipality or not.
+    This field has direct influence on the applications behaviour. See documentation for more info.
+    """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'availability'
     fosnr = sa.Column(sa.Integer, primary_key=True)
@@ -21,6 +35,21 @@ class Availability(Base):
 
 
 class Office(Base):
+    """
+    The bucket to fill in all the offices you need to reference from public law restriction, document,
+    geometry.
+    :attribute id: The identifier. This is used in the database only and must not be set manually. If you
+    don't like-don't care about.
+    :attribute name: The name of the office.
+    :attribute office_at_web: A web accessible url to a presentation of this office.
+    :attribute uid: The uid (id bfs) of this office.
+    :attribute line1: The first address line for this office.
+    :attribute line2: The second address line for this office.
+    :attribute street: The streets name of the offices address.
+    :attribute number: The number on street.
+    :attribute postal_code: The ZIP-code.
+    :attribute city: The name of the city.
+    """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
@@ -36,6 +65,17 @@ class Office(Base):
 
 
 class ReferenceDefinition(Base):  # TODO: Check translation
+    """
+    The meta bucket for definitions which are directly related to a public law restriction in a common way or
+    to the whole canton or a  whole municipality.  It is used to have a place to store general documents
+    which are related to an extract but not directly on a special public law restriction situation.
+    :attribute id: The identifier. This is used in the database only and must not be set manually. If you
+    don't like-don't care about.
+    :attribute topic: The topic which this definition might be related to.
+    :attribute canton: The canton this definition is related to.
+    :attribute municipality: The municipality this definition is related to.
+    :attribute office_id: The foreign key constraint which the definition is related to.
+    """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'reference_definition'
     id = sa.Column(sa.Integer, primary_key=True)
@@ -49,6 +89,17 @@ class ReferenceDefinition(Base):  # TODO: Check translation
 
 
 class DocumentBase(Base):
+    """
+    In the specification documents are cascaded in a inheritance way. So this representation is used to
+    produce the addressable primary key and to provide the common document attributes.
+    :attribute id: The identifier. This is used in the database only and must not be set manually. If you
+    don't like-don't care about.
+    :attribute text_web: A link which leads to the documents content in the web.
+    :attribute legal_state: The status switch if the document is legally approved or not.
+    :attribute published_from: The date when the document should be available for publishing on extracts. This
+    directly affects the behaviour of extract generation.
+    :attribute type: This is a sqlalchemy related attribute to provide database table inheritance.
+    """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'document_base'
     id = sa.Column(sa.Integer, primary_key=True)
@@ -64,6 +115,23 @@ class DocumentBase(Base):
 
 
 class Document(DocumentBase):
+    """
+    THE DOCUMENT
+    This represents the main document in the whole system. It is specialized in some sub classes.
+    :attribute id: The identifier. This is used in the database only and must not be set manually. If you
+    don't like-don't care about.
+    :attribute title: The title or if existing the short title ot his document.
+    :attribute office_title: The official title of this document.
+    :attribute abbrevation: The shortened version of the documents title.
+    :attribute official_number: The official number which uniquely identifies this document.
+    :attribute canton: The short version of the canton which this document is about. If this is None this is
+    assumed to be a confederations document.
+    :attribute municipality: The id bfs of the municipality. If this is None it is assumed the document is
+    related to the whole canton or even the confederation.
+    :attribute file: The document itself as a binary representation (PDF).
+    :attribute office_id: The foreign key to the office which is in charge for this document.
+    :attribute responsible_office: The dedicated relation to the office instance from database.
+    """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'document'
     __mapper_args__ = {
@@ -91,6 +159,16 @@ class Document(DocumentBase):
 
 
 class Article(DocumentBase):
+    """
+    A subclass of the document representing articles. Article in the sense of a law document. It is often
+    described as a special part of the whole law document and reflects a dedicated content of this.
+    :attribute id: The identifier. This is used in the database only and must not be set manually. If you
+    don't like-don't care about.
+    :attribute number: The number which identifies this article in its "mother" document.
+    :attribute text: A simple string to describe the article or give some related info.
+    :attribute document_id: The foreign key to the document this article is taken from.
+    :attribute document: The dedicated relation to the document instance from database.
+    """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'article'
     __mapper_args__ = {
@@ -117,6 +195,11 @@ class Article(DocumentBase):
 
 
 class LegalProvision(Document):
+    """
+    A subclass of the document representing legal provisions. It is a specialized class of document.
+    :attribute id: The identifier. This is used in the database only and must not be set manually. If you
+    don't like-don't care about.
+    """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'legal_provision'
     __mapper_args__ = {
