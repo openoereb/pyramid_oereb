@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
+import base64
 from json import dumps
 
 from pyramid.response import Response
 
-from pyramid_oereb import default_lang
+from pyramid_oereb import default_lang, srid
 from pyramid_oereb.lib.renderer import Base
 
 
@@ -12,8 +13,8 @@ class Extract(Base):
         """
         Creates a new JSON renderer instance for extract rendering.
 
-        :param info: Info object.
-        :type info: pyramid.interfaces.IRendererInfo
+        :var info: Info object.
+        :vartype info: pyramid.interfaces.IRendererInfo
         """
         super(Extract, self).__init__(info)
         self.language = str(default_lang).lower()
@@ -62,7 +63,8 @@ class Extract(Base):
             'MunicipalityLogo': extract.municipality_logo.encode(),
             'ExtractIdentifier': extract.extract_identifier,
             'BaseData': extract.base_data,
-            'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority)
+            'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority),
+            'RealEstate': self.format_real_estate(extract.real_estate)
         }
 
         if extract.electronic_signature:
@@ -91,6 +93,38 @@ class Extract(Base):
             extract_dict['Glossary'] = glossaries
 
         return dumps(extract_dict)
+
+    def format_real_estate(self, real_estate):
+        """
+        Formats an real estate record for rendering according to the federal specification.
+
+        :param real_estate: The real estate record to be formatted.
+        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        :return: The formatted dictionary for rendering.
+        :rtype: dict
+        """
+        real_estate_dict = {
+            'Type': real_estate.type,
+            'Canton': real_estate.canton,
+            'Municipality': real_estate.municipality,
+            'FosNr': real_estate.fosnr,
+            'LandRegistryArea': real_estate.land_registry_area,
+            'Limit': self.format_geometry(real_estate.limit)
+        }
+
+        if real_estate.number:
+            real_estate_dict['Number'] = real_estate.number
+        if real_estate.identdn:
+            real_estate_dict['IdentDN'] = real_estate.identdn
+        if real_estate.egrid:
+            real_estate_dict['EGRID'] = real_estate.egrid
+        if real_estate.subunit_of_land_register:
+            real_estate_dict['SubunitOfLandRegister'] = real_estate.subunit_of_land_register
+        if real_estate.metadata_of_geographical_base_data:
+            real_estate_dict['MetadataOfGeographicalBaseData'] = \
+                real_estate.metadata_of_geographical_base_data
+
+        return real_estate_dict
 
     def format_office(self, office):
         """
@@ -121,6 +155,22 @@ class Extract(Base):
         if office.city:
             office_dict['City'] = office.city
         return office_dict
+
+    def format_geometry(self, geom):
+        """
+        Formats shapely geometry for rendering according to the federal specification.
+
+        :param geom: The geometry object to be formatted.
+        :type geom: shapely.geometry.base.BaseGeometry
+        :return: The formatted geometry.
+        :rtype: dict
+        """
+        geom_dict = {
+            'coordinates': [],  # TODO: Clarify what should be rendered here
+            'crs': 'EPSG:{srid}'.format(srid=srid),
+            'isosqlmmwkb': base64.b64encode(geom.wkb)
+        }
+        return geom_dict
 
     def get_localized_text(self, values):
         """
