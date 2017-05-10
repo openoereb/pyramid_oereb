@@ -208,6 +208,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         for availability in self.availabilities:
             if real_estate.fosnr == availability.fosnr and not availability.available:
                 return real_estate.public_law_restrictions.append(EmptyPlrRecord(self._plr_info_.get('code')))
+        # TODO: Replace hardcoded SRID with srid defined in conf
         geoalchemy_representation = from_shape(real_estate.limit, srid=2056)
         session = self._adapter_.get_session(self._key_)
         geometry_results = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
