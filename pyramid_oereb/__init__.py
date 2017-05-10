@@ -35,7 +35,8 @@ default_lang = None
 
 
 def main(global_config, **settings):
-    """ This function returns a Pyramid WSGI application. This is necessary for development of
+    """
+    This function returns a Pyramid WSGI application. This is necessary for development of
     your plugin. So you can run it local with the paster server and in a IDE like PyCharm. It
     is intended to leave this section as is and do configuration in the includeme section only.
     Push additional configuration in this section means it will not be used by the production
