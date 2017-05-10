@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 """
 This is a full representation of the data model defined by the confederations definition.
 
-**It is representing the topic: Groundwater Protection Sites**
+**It is representing the topic: ${topic}**
 
 You can use it to
 produce a own new topic for the oereb eco system in the specifications shape. To be able to adapt this
@@ -34,7 +35,7 @@ class Availability(Base):
         This field has direct influence on the applications behaviour. See documentation for more info.
     :vartype available: bool
     """
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'availability'
     fosnr = sa.Column(sa.Integer, primary_key=True)
     available = sa.Column(sa.Boolean, nullable=False, default=False)
@@ -67,7 +68,7 @@ class Office(Base):
     :var city: The name of the city.
     :vartype city: str
     """
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, nullable=False)
@@ -101,7 +102,7 @@ class ReferenceDefinition(Base):  # TODO: Check translation
     :var office: The dedicated relation to the office instance from database.
     :vartype responsible_office: Office
     """
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'reference_definition'
     id = sa.Column(sa.Integer, primary_key=True)
     topic = sa.Column(sa.String, nullable=True)
@@ -131,7 +132,7 @@ class DocumentBase(Base):
     :var type: This is a sqlalchemy related attribute to provide database table inheritance.
     :vartype type: unicode
     """
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'document_base'
     id = sa.Column(sa.Integer, primary_key=True)
     text_web = sa.Column(sa.String, nullable=True)
@@ -174,7 +175,7 @@ class Document(DocumentBase):
     :var responsible_office: The dedicated relation to the office instance from database.
     :vartype responsible_office: Office
     """
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'document'
     __mapper_args__ = {
         'polymorphic_identity': 'document'
@@ -217,7 +218,7 @@ class Article(DocumentBase):
     :var document: The dedicated relation to the document instance from database.
     :vartype document_id: Document
     """
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'article'
     __mapper_args__ = {
         'polymorphic_identity': 'article'
@@ -250,7 +251,7 @@ class LegalProvision(Document):
         don't like-don't care about.
     :vartype id: int
     """
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'legal_provision'
     __mapper_args__ = {
         'polymorphic_identity': 'legal_provision'
@@ -275,7 +276,7 @@ class ViewService(Base):
     :var legend_web: A link leading to a wms describing document (png).
     :vartype legend_web: str
     """
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'view_service'
     id = sa.Column(sa.Integer, primary_key=True)
     link_wms = sa.Column(sa.String, nullable=False)
@@ -317,7 +318,7 @@ class LegendEntry(Base):
     :var view_service: The dedicated relation to the view service instance from database.
     :vartype view_service: ViewService
     """
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
     file = sa.Column(sa.String, nullable=False)
@@ -376,7 +377,7 @@ class PublicLawRestriction(Base):
     :var responsible_office: The dedicated relation to the office instance from database.
     :vartype responsible_office: Office
     """
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'public_law_restriction'
     id = sa.Column(sa.Integer, primary_key=True)
     content = sa.Column(sa.String, nullable=False)
@@ -425,7 +426,7 @@ class Geometry(Base):
 
         docs dependent on the configured type.
 
-        This concrete one is POLYGON
+        This concrete one is ${geometry_type}
     :vartype geom: GeoAlchemyGeometry
     :var public_law_restriction_id: The foreign key to the public law restriction this geometry is
         related to.
@@ -438,13 +439,13 @@ class Geometry(Base):
     :var responsible_office: The dedicated relation to the office instance from database.
     :vartype responsible_office: Office
     """
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'geometry'
     id = sa.Column(sa.Integer, primary_key=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     geo_metadata = sa.Column(sa.String, nullable=True)  # TODO: Check translation
-    geom = sa.Column(GeoAlchemyGeometry('POLYGON', srid=srid))
+    geom = sa.Column(GeoAlchemyGeometry('${geometry_type}', srid=srid))
     public_law_restriction_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(PublicLawRestriction.id),
@@ -484,7 +485,7 @@ class PublicLawRestrictionBase(Base):
     :vartype base: PublicLawRestriction
     """
     __tablename__ = 'public_law_restriction_base'
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     id = sa.Column(sa.Integer, primary_key=True)
     public_law_restriction_id = sa.Column(
         sa.Integer,
@@ -529,7 +530,7 @@ class PublicLawRestrictionRefinement(Base):
     :vartype base: PublicLawRestriction
     """
     __tablename__ = 'public_law_restriction_refinement'
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     id = sa.Column(sa.Integer, primary_key=True)
     public_law_restriction_id = sa.Column(
         sa.Integer,
@@ -570,7 +571,7 @@ class PublicLawRestrictionDocument(Base):
     :vartype document: DocumentBase
     """
     __tablename__ = 'public_law_restriction_document'
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     id = sa.Column(sa.Integer, primary_key=True)
     public_law_restriction_id = sa.Column(
         sa.Integer,
@@ -614,7 +615,7 @@ class DocumentReference(Base):
     :vartype article_numbers: str
     """
     __tablename__ = 'document_reference'
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
         sa.Integer,
@@ -652,7 +653,7 @@ class DocumentReferenceDefinition(Base):
     :vartype reference_definition_id: int
     """
     __tablename__ = 'document_reference_definition'
-    __table_args__ = {'schema': 'groundwater_protection_sites'}
+    __table_args__ = {'schema': '${schema_name}'}
     id = sa.Column(sa.Integer, primary_key=True)
     document_id = sa.Column(
         sa.Integer,

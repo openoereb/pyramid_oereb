@@ -1,4 +1,27 @@
 # -*- coding: utf-8 -*-
+"""
+This is representing the applications working data schema. It provides buckets for general data you will need
+to run this application in standard mode.
+The buckets are:
+
+* Municipality
+* Real Estate
+* Adress
+* Glossary
+* Exclusion of liability
+
+The geographical projection system which is used out of the box is LV95 aka EPSG:2056. Of course you can
+configure a different one.
+The name of the schema will be::
+
+    pyramid_oereb_main
+
+But you can change it also via configuration.
+
+.. note:: Whenever you configure your own sqlalchemy ORM's to use them in this application you must imitate
+    the behaviour of the ORM's here. This means the names class variables as well as the types of these
+    variables.
+"""
 import sqlalchemy as sa
 from geoalchemy2 import Geometry
 from sqlalchemy.ext.declarative import declarative_base
@@ -17,6 +40,11 @@ if not srid:
 
 
 class Municipality(Base):
+    """
+    The municipality is the place where you hold the information about all the municipalities you are having
+    in your canton. This is used also in the applications process to check whether a municipality is published
+    or not.
+    """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'municipality'
     fosnr = sa.Column(sa.Integer, primary_key=True)
