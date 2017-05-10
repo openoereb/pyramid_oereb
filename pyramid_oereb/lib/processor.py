@@ -15,24 +15,24 @@ class Processor(object):
         correctly. In addition it provides an easy to use method interface to access the information.
         It is also used to wrap all accessors in one point to have a processing interface.
 
-        :var real_estate_reader: The real estate reader instance for runtime use.
-        :vartype real_estate_reader: pyramid_oereb.lib.readers.real_estate.RealEstateReader
-        :var municipality_reader: The municipality reader instance for runtime use.
-        :vartype municipality_reader: pyramid_oereb.lib.readers.municipality.MunicipalityReader
-        :var plr_sources: The public law restriction source instances for runtime use wrapped in a list.
-        :vartype plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-        :var extract_reader: The extract reader instance for runtime use.
-        :vartype extract_reader: pyramid_oereb.lib.readers.extract.ExtractReader
-        :var point_types: The different point geometry types a restriction could be defined in
-        :vartype point_types: list of str
-        :var line_types: The different line geometry types a restriction could take
-        :vartype line_types: list of str
-        :var polygon_types: The different point geometry types a restriction could have
-        :vartype polygon_types: list of str
-        :var min_area: The minimal area for a public law restriction to be displayed in the cadastre
-        :vartype min_area: decimal
-        :var min_length: The minimal length for a public law restriction to be displayed in the cadastre
-        :vartype min_length: decimal
+        :param real_estate_reader: The real estate reader instance for runtime use.
+        :paramtype real_estate_reader: pyramid_oereb.lib.readers.real_estate.RealEstateReader
+        :param municipality_reader: The municipality reader instance for runtime use.
+        :paramtype municipality_reader: pyramid_oereb.lib.readers.municipality.MunicipalityReader
+        :param plr_sources: The public law restriction source instances for runtime use wrapped in a list.
+        :paramtype plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        :param extract_reader: The extract reader instance for runtime use.
+        :paramtype extract_reader: pyramid_oereb.lib.readers.extract.ExtractReader
+        :param point_types: The different point geometry types a restriction could be defined in
+        :paramtype point_types: list of str
+        :param line_types: The different line geometry types a restriction could take
+        :paramtype line_types: list of str
+        :param polygon_types: The different point geometry types a restriction could have
+        :paramtype polygon_types: list of str
+        :param min_area: The minimal area for a public law restriction to be displayed in the cadastre
+        :paramtype min_area: decimal
+        :param min_length: The minimal length for a public law restriction to be displayed in the cadastre
+        :paramtype min_length: decimal
         """
         self._real_estate_reader_ = real_estate_reader
         self._municipality_reader_ = municipality_reader
@@ -50,8 +50,8 @@ class Processor(object):
         value defined in the configuration and should therefor be represented in the extract
         or considered 'false trues' and be removed from the results.
 
-        :var extract: The extract in it's unvalidated form
-        :vartype extract: pyramid_oereb.lib.records.extract.ExtractRecord
+        :param extract: The extract in it's unvalidated form
+        :paramtype extract: pyramid_oereb.lib.records.extract.ExtractRecord
         :return: Returns the updated extract
         :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
         """
@@ -140,8 +140,8 @@ class Processor(object):
         """
         Central processing method to hook in from webservice.
 
-        :var real_estate: The real estate reader to obtain the real estates record.
-        :vartype real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        :param real_estate: The real estate reader to obtain the real estates record.
+        :paramtype real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
         :return:
         """
         municipalities = self._municipality_reader_.read()
