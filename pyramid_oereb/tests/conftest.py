@@ -8,6 +8,7 @@ from sqlalchemy import create_engine
 
 from pyramid_oereb import ExtractReader
 from pyramid_oereb import MunicipalityReader
+from pyramid_oereb import ExclusionOfLiabilityReader
 from pyramid_oereb import Processor
 from pyramid_oereb import RealEstateReader
 from pyramid_oereb.lib.config import parse, ConfigReader
@@ -22,6 +23,7 @@ class MockRequest(DummyRequest):
         super(MockRequest, self).__init__()
         real_estate_config = config_reader.get_real_estate_config()
         municipality_config = config_reader.get_municipality_config()
+        exclusion_of_liability_config = config_reader.get_exclusion_of_liability_config()
         logos = config_reader.get_logo_config()
         plr_cadastre_authority = config_reader.get_plr_cadastre_authority()
 
@@ -33,6 +35,11 @@ class MockRequest(DummyRequest):
         municipality_reader = MunicipalityReader(
             municipality_config.get('source').get('class'),
             **municipality_config.get('source').get('params')
+        )
+
+        exclusion_of_liability_reader = ExclusionOfLiabilityReader(
+            exclusion_of_liability_config.get('source').get('class'),
+            **exclusion_of_liability_config.get('source').get('params')
         )
 
         plr_sources = []
@@ -48,6 +55,7 @@ class MockRequest(DummyRequest):
         self.processor = Processor(
             real_estate_reader,
             municipality_reader,
+            exclusion_of_liability_reader,
             plr_sources,
             extract_reader
         )

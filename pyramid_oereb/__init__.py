@@ -8,6 +8,7 @@ from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.lib.config import ConfigReader, parse
 from pyramid.config import Configurator
 
+from pyramid_oereb.lib.readers.exclusion_of_liability import ExclusionOfLiabilityReader
 from pyramid_oereb.lib.readers.extract import ExtractReader
 from pyramid_oereb.lib.readers.municipality import MunicipalityReader
 from pyramid_oereb.lib.readers.real_estate import RealEstateReader
@@ -52,7 +53,7 @@ def includeme(config):
     :param config: The pyramid apps config object
     :type config: Configurator
     """
-    global route_prefix, config_reader, real_estate_reader, municipality_reader, extract_reader, \
+    global route_prefix, config_reader, real_estate_reader, municipality_reader,  extract_reader, \
         plr_sources, plr_cadastre_authority, app_schema_name, srid, default_lang
 
     # Set route prefix
@@ -67,6 +68,7 @@ def includeme(config):
     config_reader = ConfigReader(cfg_file, cfg_section)
     real_estate_config = config_reader.get_real_estate_config()
     municipality_config = config_reader.get_municipality_config()
+    exclusion_of_liability_config = config_reader.get_exclusion_of_liability_config()
     logos = config_reader.get_logo_config()
     app_schema_name = config_reader.get('app_schema').get('name')
     srid = config_reader.get('srid')
@@ -89,6 +91,11 @@ def includeme(config):
         **municipality_config.get('source').get('params')
     )
 
+    exclusion_of_liability_reader = ExclusionOfLiabilityReader(
+        exclusion_of_liability_config.get('source').get('class'),
+        **exclusion_of_liability_config.get('source').get('params')
+    )
+
     plr_sources = []
     for plr in config_reader.get('plrs'):
         plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
@@ -106,6 +113,7 @@ def includeme(config):
     processor = Processor(
         real_estate_reader,
         municipality_reader,
+        exclusion_of_liability_reader,
         plr_sources,
         extract_reader,
         point_types,

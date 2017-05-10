@@ -5,8 +5,8 @@ from pyramid_oereb.lib.records.plr import PlrRecord
 
 class Processor(object):
 
-    def __init__(self, real_estate_reader, municipality_reader, plr_sources, extract_reader,
-                 min_area=1.0, min_length=1.0, point_types=['Point', 'MultiPoint'],
+    def __init__(self, real_estate_reader, municipality_reader, exclusion_of_liability_reader, plr_sources,
+                 extract_reader, min_area=1.0, min_length=1.0, point_types=['Point', 'MultiPoint'],
                  line_types=['LineString', 'LinearRing', 'MultiLineString'],
                  polygon_types=['Polygon', 'MultiPolygon']):
         """
@@ -19,6 +19,9 @@ class Processor(object):
         :type real_estate_reader: pyramid_oereb.lib.readers.real_estate.RealEstateReader
         :param municipality_reader: The municipality reader instance for runtime use.
         :type municipality_reader: pyramid_oereb.lib.readers.municipality.MunicipalityReader
+        :param exclusion_of_liability_reader: The exclusion of liability reader instance for runtime use.
+        :type exclusion_of_liability_reader:
+            pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader
         :param plr_sources: The public law restriction source instances for runtime use wrapped in a list.
         :type plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
         :param extract_reader: The extract reader instance for runtime use.
@@ -36,6 +39,7 @@ class Processor(object):
         """
         self._real_estate_reader_ = real_estate_reader
         self._municipality_reader_ = municipality_reader
+        self._exclusion_of_liability_reader_ = exclusion_of_liability_reader
         self._plr_sources_ = plr_sources
         self._extract_reader_ = extract_reader
         self._min_area_ = min_area
@@ -145,11 +149,13 @@ class Processor(object):
         :return:
         """
         municipalities = self._municipality_reader_.read()
+        exclusions_of_liability = self._exclusion_of_liability_reader_.read()
         for municipality in municipalities:
             if municipality.fosnr == real_estate.fosnr:
                 if not municipality.published:
                     raise NotImplementedError
                 extract_raw = self._extract_reader_.read(real_estate, municipality.logo)
                 extract = self.plr_tolerance_check(extract_raw)
-                return extract.to_extract()
+                extract.exclusions_of_liability = exclusions_of_liability
+                return extract
         raise NoResultFound()
