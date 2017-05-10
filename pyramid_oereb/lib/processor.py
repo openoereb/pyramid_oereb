@@ -5,8 +5,9 @@ from pyramid_oereb.lib.records.plr import PlrRecord
 
 class Processor(object):
 
-    def __init__(self, real_estate_reader, municipality_reader, exclusion_of_liability_reader, plr_sources,
-                 extract_reader, min_area=1.0, min_length=1.0, point_types=['Point', 'MultiPoint'],
+    def __init__(self, real_estate_reader, municipality_reader, exclusion_of_liability_reader,
+                 glossary_reader, plr_sources, extract_reader, min_area=1.0, min_length=1.0,
+                 point_types=['Point', 'MultiPoint'],
                  line_types=['LineString', 'LinearRing', 'MultiLineString'],
                  polygon_types=['Polygon', 'MultiPolygon']):
         """
@@ -22,6 +23,8 @@ class Processor(object):
         :param exclusion_of_liability_reader: The exclusion of liability reader instance for runtime use.
         :type exclusion_of_liability_reader:
             pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader
+        :param glossary_reader: The glossary reader instance for runtime use.
+        :type glossary_reader: pyramid_oereb.lib.readers.glossary.GlossaryReader
         :param plr_sources: The public law restriction source instances for runtime use wrapped in a list.
         :type plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
         :param extract_reader: The extract reader instance for runtime use.
@@ -40,6 +43,7 @@ class Processor(object):
         self._real_estate_reader_ = real_estate_reader
         self._municipality_reader_ = municipality_reader
         self._exclusion_of_liability_reader_ = exclusion_of_liability_reader
+        self._glossary_reader_ = glossary_reader
         self._plr_sources_ = plr_sources
         self._extract_reader_ = extract_reader
         self._min_area_ = min_area
@@ -123,6 +127,25 @@ class Processor(object):
         return self._municipality_reader_
 
     @property
+    def exclusion_of_liability_reader(self):
+        """
+
+        :return: The exclusion of liability reader reader instance.
+        :rtype municipality_reader:
+            pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader
+        """
+        return self._exclusion_of_liability_reader_
+
+    @property
+    def glossary_reader(self):
+        """
+
+        :return: The glossary reader reader instance.
+        :rtype municipality_reader: pyramid_oereb.lib.readers.glossary.GlossaryReader
+        """
+        return self._glossary_reader_
+
+    @property
     def plr_sources(self):
         """
 
@@ -150,6 +173,7 @@ class Processor(object):
         """
         municipalities = self._municipality_reader_.read()
         exclusions_of_liability = self._exclusion_of_liability_reader_.read()
+        glossaries = self._glossary_reader_.read()
         for municipality in municipalities:
             if municipality.fosnr == real_estate.fosnr:
                 if not municipality.published:
@@ -157,5 +181,6 @@ class Processor(object):
                 extract_raw = self._extract_reader_.read(real_estate, municipality.logo)
                 extract = self.plr_tolerance_check(extract_raw)
                 extract.exclusions_of_liability = exclusions_of_liability
+                extract.glossaries = glossaries
                 return extract
         raise NoResultFound()

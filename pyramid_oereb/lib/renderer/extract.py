@@ -69,6 +69,15 @@ class Json(Base):
                 })
             extract_dict['ExclusionOfLiability'] = exclusions_of_liability
 
+        if isinstance(extract.glossaries, list) and len(extract.glossaries) > 0:
+            glossaries = list()
+            for gls in extract.glossaries:
+                glossaries.append({
+                    'Title': self.get_localized_text(gls.title, language),
+                    'Content': self.get_localized_text(gls.content, language)
+                })
+            extract_dict['Glossary'] = glossaries
+
         return dumps(extract_dict)
 
     @classmethod
