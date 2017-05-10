@@ -65,7 +65,7 @@ class Municipality(Base):
         docs dependent on the configured type.
 
         This concrete one is MULTIPOLYGON
-    :vartype geom: Geometry
+    :vartype geom: geoalchemy2.types.Geometry
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'municipality'
@@ -114,7 +114,7 @@ class RealEstate(Base):
         docs dependent on the configured type.
 
         This concrete one is MULTIPOLYGON
-    :vartype limit: Geometry
+    :vartype limit: geoalchemy2.types.Geometry
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'real_estate'
@@ -151,7 +151,7 @@ class Address(Base):
         docs dependent on the configured type.
 
         This concrete one is POINT
-    :vartype geom: Geometry
+    :vartype geom: geoalchemy2.types.Geometry
     """
     __table_args__ = (
         sa.PrimaryKeyConstraint("street_name", "street_number", "zip_code"),

@@ -100,7 +100,7 @@ class ReferenceDefinition(Base):  # TODO: Check translation
     :var office_id: The foreign key constraint which the definition is related to.
     :vartype office_id: int
     :var office: The dedicated relation to the office instance from database.
-    :vartype responsible_office: Office
+    :vartype responsible_office: pyramid_oereb.standard.models.${schema_name}.Office
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'reference_definition'
@@ -173,7 +173,7 @@ class Document(DocumentBase):
     :var office_id: The foreign key to the office which is in charge for this document.
     :vartype office_id: int
     :var responsible_office: The dedicated relation to the office instance from database.
-    :vartype responsible_office: Office
+    :vartype responsible_office: pyramid_oereb.standard.models.${schema_name}.Office
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'document'
@@ -216,7 +216,7 @@ class Article(DocumentBase):
     :var document_id: The foreign key to the document this article is taken from.
     :vartype document_id: int
     :var document: The dedicated relation to the document instance from database.
-    :vartype document_id: Document
+    :vartype document_id: pyramid_oereb.standard.models.${schema_name}.Document
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'article'
@@ -316,7 +316,7 @@ class LegendEntry(Base):
     :var view_service_id: The foreign key to the view service this legend entry is related to.
     :vartype view_service_id: int
     :var view_service: The dedicated relation to the view service instance from database.
-    :vartype view_service: ViewService
+    :vartype view_service: pyramid_oereb.standard.models.${schema_name}.ViewService
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'legend_entry'
@@ -371,11 +371,11 @@ class PublicLawRestriction(Base):
     :var view_service_id: The foreign key to the view service this public law restriction is related to.
     :vartype view_service_id: int
     :var view_service: The dedicated relation to the view service instance from database.
-    :vartype view_service: ViewService
+    :vartype view_service: pyramid_oereb.standard.models.${schema_name}.ViewService
     :var office_id: The foreign key to the office which is responsible to this public law restriction.
     :vartype office_id: int
     :var responsible_office: The dedicated relation to the office instance from database.
-    :vartype responsible_office: Office
+    :vartype responsible_office: pyramid_oereb.standard.models.${schema_name}.Office
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'public_law_restriction'
@@ -427,17 +427,17 @@ class Geometry(Base):
         docs dependent on the configured type.
 
         This concrete one is ${geometry_type}
-    :vartype geom: GeoAlchemyGeometry
+    :vartype geom: geoalchemy2.types.Geometry
     :var public_law_restriction_id: The foreign key to the public law restriction this geometry is
         related to.
     :vartype public_law_restriction_id: int
     :var public_law_restriction: The dedicated relation to the public law restriction instance from
         database.
-    :vartype public_law_restriction: PublicLawRestriction
+    :vartype public_law_restriction: pyramid_oereb.standard.models.${schema_name}.PublicLawRestriction
     :var office_id: The foreign key to the office which is responsible to this public law restriction.
     :vartype office_id: int
     :var responsible_office: The dedicated relation to the office instance from database.
-    :vartype responsible_office: Office
+    :vartype responsible_office: pyramid_oereb.standard.models.${schema_name}.Office
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'geometry'
@@ -479,10 +479,10 @@ class PublicLawRestrictionBase(Base):
     :vartype public_law_restriction_base_id: int
     :var plr: The dedicated relation to the public law restriction (which bases on) instance from
         database.
-    :vartype plr: PublicLawRestriction
+    :vartype plr: pyramid_oereb.standard.models.${schema_name}.PublicLawRestriction
     :var base: The dedicated relation to the public law restriction (which is the base) instance from
         database.
-    :vartype base: PublicLawRestriction
+    :vartype base: pyramid_oereb.standard.models.${schema_name}.PublicLawRestriction
     """
     __tablename__ = 'public_law_restriction_base'
     __table_args__ = {'schema': '${schema_name}'}
@@ -524,10 +524,10 @@ class PublicLawRestrictionRefinement(Base):
     :vartype public_law_restriction_refinement_id: int
     :var plr: The dedicated relation to the public law restriction (which refines) instance from
         database.
-    :vartype plr: PublicLawRestriction
+    :vartype plr: pyramid_oereb.standard.models.${schema_name}.PublicLawRestriction
     :var base: The dedicated relation to the public law restriction (which is refined) instance from
         database.
-    :vartype base: PublicLawRestriction
+    :vartype base: pyramid_oereb.standard.models.${schema_name}.PublicLawRestriction
     """
     __tablename__ = 'public_law_restriction_refinement'
     __table_args__ = {'schema': '${schema_name}'}
@@ -566,9 +566,9 @@ class PublicLawRestrictionDocument(Base):
     :var document_id: The foreign key to the document which has relation to the public law restriction.
     :vartype document_id: int
     :var plr: The dedicated relation to the public law restriction instance from database.
-    :vartype plr: PublicLawRestriction
+    :vartype plr: pyramid_oereb.standard.models.${schema_name}.PublicLawRestriction
     :var document: The dedicated relation to the document instance from database.
-    :vartype document: DocumentBase
+    :vartype document: pyramid_oereb.standard.models.${schema_name}.DocumentBase
     """
     __tablename__ = 'public_law_restriction_document'
     __table_args__ = {'schema': '${schema_name}'}
@@ -606,10 +606,10 @@ class DocumentReference(Base):
     :var reference_document_id: The foreign key to the document which is referenced.
     :vartype reference_document_id: int
     :var document: The dedicated relation to the document (which references) instance from database.
-    :vartype document: Document
+    :vartype document: pyramid_oereb.standard.models.${schema_name}.Document
     :var referenced_document: The dedicated relation to the document (which is referenced) instance from
         database.
-    :vartype referenced_document: Document
+    :vartype referenced_document: pyramid_oereb.standard.models.${schema_name}.Document
     :var article_numbers: A colon of article numbers which clarify the reference. This is a string
         separated by '|'.
     :vartype article_numbers: str

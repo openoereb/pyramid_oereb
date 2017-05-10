@@ -29,16 +29,16 @@ for module in modules:
 %>
 
 %for module in modules:
-    Module: ${module}
-    --------${re.sub('.', '-', module)}
+Module: ${module}
+--------${re.sub('.', '-', module)}
 
-    .. automodule:: ${module}
-       :members:
+.. automodule:: ${module}
+   :members:
 
-    %for cls in classes[module]:
+%for cls in classes[module]:
 
-    .. autoclass:: ${module}.${cls}
-       :members:
+.. autoclass:: ${module}.${cls}
+   :members:
 
-    %endfor
+%endfor
 %endfor
