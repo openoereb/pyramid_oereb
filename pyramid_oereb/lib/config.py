@@ -11,6 +11,7 @@ from pyramid_oereb.lib.records.logo import LogoRecord
 def parse(cfg_file, cfg_section):
     """
     Parses the defined YAML file and returns the defined section as dictionary.
+
     :param cfg_file:    The YAML file to be parsed.
     :type  cfg_file:    str
     :param cfg_section: The section to be returned.
@@ -40,6 +41,7 @@ class ConfigReader(object):
     def __init__(self, config_file, config_section):
         """
         Loads configuration from yaml file and provides methods for generating webservice output.
+
         :param config_file: The configuration yaml file.
         :type config_file: str
         :param config_section: The section within the yaml file.
@@ -50,6 +52,7 @@ class ConfigReader(object):
     def get_topic(self):
         """
         Returns a list of available topics.
+
         :return: The available topics.
         :rtype: list
         """
@@ -69,6 +72,7 @@ class ConfigReader(object):
     def get_crs(self):
         """
         Returns a list of available crs.
+
         :return: The available crs.
         :rtype: list
         """
@@ -81,6 +85,7 @@ class ConfigReader(object):
     def get_language(self):
         """
         Returns a list of available languages.
+
         :return: The available languages.
         :rtype: list
         """
@@ -93,6 +98,7 @@ class ConfigReader(object):
     def get_flavour(self):
         """
         Returns a list of available flavours.
+
         :return: The available flavours.
         :rtype: list
         """
@@ -105,6 +111,7 @@ class ConfigReader(object):
     def get_real_estate_config(self):
         """
         Returns a dictionary of the configured real estate settings.
+
         :return: The configured real estate settings.
         :rtype: dict
         """
@@ -113,6 +120,7 @@ class ConfigReader(object):
     def get_address_config(self):
         """
         Returns a dictionary of the configured address settings.
+
         :return: The configured address settings.
         :rtype: dict
         """
@@ -121,6 +129,7 @@ class ConfigReader(object):
     def get_glossary_config(self):
         """
         Returns a dictionary of the configured glossary settings.
+
         :return: The configured glossary settings.
         :rtype: dict
         """
@@ -129,6 +138,7 @@ class ConfigReader(object):
     def get_exclusion_of_liability_config(self):
         """
         Returns a dictionary of the configured exclusion_of_liability settings.
+
         :return: The configured exclusion_of_liability settings.
         :rtype: dict
         """
@@ -137,6 +147,7 @@ class ConfigReader(object):
     def get_municipality_config(self):
         """
         Returns a dictionary of the configured municipality settings.
+
         :return: The configured municipality settings.
         :rtype: dict
         """
@@ -145,6 +156,7 @@ class ConfigReader(object):
     def get_extract_config(self):
         """
         Returns a dictionary of the configured extract settings.
+
         :return: The configured extract settings.
         :rtype: dict
         """
@@ -153,6 +165,7 @@ class ConfigReader(object):
     def get_plr_cadastre_authority(self):
         """
         Returns an office record for the configured PLR cadastre authority.
+
         :return: The configured PLR cadastre authority.
         :rtype: pyramid_oereb.lib.records.office.OfficeRecord
         """
@@ -172,6 +185,7 @@ class ConfigReader(object):
     def get_logo_config(self):
         """
         Returns a dictionary of the configured file path's to the logos.
+
         :return: The configured paths to the logos wrapped in a dictionary.
         :rtype: dict
         """
@@ -200,6 +214,7 @@ class ConfigReader(object):
     def get(self, key, default=None):
         """
         Returns the specified configuration value.
+
         :param key: Configuration parameter name.
         :type key: str
         :param default: Default value if the specified parameter is not defined. Defaults to None.

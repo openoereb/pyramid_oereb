@@ -41,6 +41,11 @@ else
   endif
 endif
 
+SPHINXOPTS =
+SPHINXBUILD = $(VENV_BIN)sphinx-build$(PYTHON_BIN_POSTFIX)
+SPHINXPROJ = OEREB
+SOURCEDIR = doc/source
+BUILDDIR = doc/build
 
 install: $(PYTHON_VENV)
 
@@ -49,12 +54,22 @@ install: $(PYTHON_VENV)
 	touch $@
 
 .venv/requirements-timestamp: .venv/timestamp setup.py $(REQUIREMENTS)
-	$(VENV_BIN)pip2$(PYTHON_BIN_POSTFIX) install -r $(REQUIREMENTS)
+	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install -r $(REQUIREMENTS)
 	touch $@
 
 .PHONY: do-pip
 do-pip:
 	pip install --upgrade -r $(REQUIREMENTS)
+
+.venv/bin/sphinx-build: .venv/requirements-timestamp
+	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install Sphinx
+
+.PHONY: doc
+doc: .venv/bin/sphinx-build doc/source/api.rst
+	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+
+doc/source/api.rst: doc/source/api.rst.mako
+	$(VENV_BIN)mako-render$(PYTHON_BIN_POSTFIX) $< > $@
 
 .PHONY: tests-setup-db
 tests-setup-db: $(TESTS_SETUP_DB)
@@ -108,6 +123,7 @@ tests-win-drop-db:
 .PHONY: clean-all
 clean-all:
 	rm -rf .venv
+	rm -rf $(BUILDDIR)
 
 .PHONY: create-standard-tables
 create-standard-tables: $(PYTHON_VENV)

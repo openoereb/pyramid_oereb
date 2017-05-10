@@ -22,6 +22,7 @@ class DatabaseAdapter(object):
     def add_connection(self, connection_string):
         """
         Adds a new connection to this object. Also creates the necessary engine and session object.
+
         :param connection_string: The rfc1738 URL string which defines the database connection
         :type connection_string: str
         """
@@ -38,6 +39,7 @@ class DatabaseAdapter(object):
     def get_connections(self):
         """
         Returns a dictionary with the available connections.
+
         :return: The available connections.
         :rtype: dict
         """
@@ -46,10 +48,11 @@ class DatabaseAdapter(object):
     def get_session(self, key, request=None):
         """
         The point where you will get what you need: The session to talk to the database!
+
         :param key: The key to identify the desired connection in the pool of available connections.
         :type key: str
         :param request: The request of the underlying pyramid application. This can be useful to handle error
-        cases and treat sessions in the right way.
+            cases and treat sessions in the right way.
         :type request: pyramid.request.Request or None
         :return: The requested clean session instance ready for use
         :rtype: sqlalchemy.orm.Session
