@@ -7,7 +7,17 @@ from pyramid_oereb import default_lang
 from pyramid_oereb.lib.renderer import Base
 
 
-class Json(Base):
+class Extract(Base):
+    def __init__(self, info):
+        """
+        Creates a new JSON renderer instance for extract rendering.
+
+        :param info: Info object.
+        :type info: pyramid.interfaces.IRendererInfo
+        """
+        super(Extract, self).__init__(info)
+        self.language = str(default_lang).lower()
+
     def __call__(self, value, system):
         """
         Returns the JSON encoded extract, according to the specification.
@@ -37,7 +47,8 @@ class Json(Base):
         :rtype: str
         """
 
-        language = str(params.get('language', default_lang)).lower()
+        if params.get('language'):
+            self.language = str(params.get('language')).lower()
 
         extract_dict = {
             'CreationDate': self.date_time(extract.creation_date),
@@ -50,7 +61,8 @@ class Json(Base):
             'CantonalLogo': extract.cantonal_logo.encode(),
             'MunicipalityLogo': extract.municipality_logo.encode(),
             'ExtractIdentifier': extract.extract_identifier,
-            'BaseData': extract.base_data
+            'BaseData': extract.base_data,
+            'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority)
         }
 
         if extract.electronic_signature:
@@ -64,8 +76,8 @@ class Json(Base):
             exclusions_of_liability = list()
             for eol in extract.exclusions_of_liability:
                 exclusions_of_liability.append({
-                    'Title': self.get_localized_text(eol.title, language),
-                    'Content': self.get_localized_text(eol.content, language)
+                    'Title': self.get_localized_text(eol.title),
+                    'Content': self.get_localized_text(eol.content)
                 })
             extract_dict['ExclusionOfLiability'] = exclusions_of_liability
 
@@ -73,23 +85,50 @@ class Json(Base):
             glossaries = list()
             for gls in extract.glossaries:
                 glossaries.append({
-                    'Title': self.get_localized_text(gls.title, language),
-                    'Content': self.get_localized_text(gls.content, language)
+                    'Title': self.get_localized_text(gls.title),
+                    'Content': self.get_localized_text(gls.content)
                 })
             extract_dict['Glossary'] = glossaries
 
         return dumps(extract_dict)
 
-    @classmethod
-    def get_localized_text(cls, values, lang=default_lang):
+    def format_office(self, office):
         """
-        Returns the specified language of a multilingual text element.
-        TODO: Fix implementation when multilingual values are available.
+        Formats an office record for rendering according to the federal specification.
+
+        :param office: The office record to be formatted.
+        :type office: pyramid_oereb.lib.records.office.OfficeRecord
+        :return: The formatted dictionary for rendering.
+        :rtype: dict
+        """
+        office_dict = {
+            'Name': self.get_localized_text(office.name)
+        }
+        if office.office_at_web:
+            office_dict['OfficeAtWeb'] = office.office_at_web
+        if office.uid:
+            office_dict['UID'] = office.uid
+        if office.line1:
+            office_dict['Line1'] = office.line1
+        if office.line2:
+            office_dict['Line2'] = office.line2
+        if office.street:
+            office_dict['Street'] = office.street
+        if office.number:
+            office_dict['Number'] = office.number
+        if office.postal_code:
+            office_dict['PostalCode'] = office.postal_code
+        if office.city:
+            office_dict['City'] = office.city
+        return office_dict
+
+    def get_localized_text(self, values):
+        """
+        Returns the set language of a multilingual text element.
+        TODO: Fix implementation when multilingual values are available by respecting self.language.
 
         :param values: The multilingual values encoded as JSON.
         :type values: str
-        :param lang: The language to extract.
-        :type lang: str
         :return: List of dictionaries containing the multilingual representation.
         :rtype: list of dict
         """
