@@ -1,5 +1,7 @@
 sudo: required
+
 language: python
+
 python:
   - "2.7"
 
@@ -20,15 +22,22 @@ script:
   - make tests-docker-setup-db
   - make tests
 
+before_deploy:
+  - sudo apt-get install pandoc
+  - make description
+
 # deploy to pypi
 deploy:
   provider: pypi
   user: kdeininger
+  password:
+    secure: U9VKY1WXnpEyarOjju/weA701WjM3Ok55qoV0EB3SzEh5Bg8Hne09GY9Kl0rzhCsaLTb8jp2tEE+oihWHmU+JH3AB/dodFRL5WCcSbmoFFsE9KbTUgMFdGZ6fMmL90CIzXtiuKTEMdUBvEMFr9qR3GNGRonKD3G6uwbPpiK2TRCNpbjTx5uIl4pfsRAQXJrAsZMGX9907ghBHYHntf+SIM0QrRf1DCHS3yqb03QG9hSZguEhX98UzJVz8Q7ls7WhhIwhCWgG7inr+I5Kq8j9ktuJU1T0Fj4StmaKW/YZbzDxArkiSYpphOvNptp7wZX7OAmV9OuNS7EzedwhaE+XeTO8UdgREKWyq+i4ydU20cQbCSEZeDjDZrRi/9HteXTbTK2hWw8oQ8d0Rwq9kz/2trle4M33IA7Skbxq6oknwShbPGEzKiHXu8R8+oump5jtza77/zR4XnzuJW0BbHpSQhVrCAhxCCMZEJmUxMSn2HIovoF29lZOzrpDIBz2Qa6VHBzUCAvdLGOGSoib3/V7zkxWe9AOJWrP0LK29MiEHpqgOQXxnuGQESJDhm71kQXvpHHBhTnOxtPEbytMiygnN9LypnnMBl3GV6hxv0ErF28nwJhyBaiL3JFeIUK1fmOwL8xc7587/2212Li3R1IZS/pSSn9OUCgsfGxvkiuxsjg=
   on:
     tags: true
-    branch: master
-  password:
-    secure: CYZ7d1mLkVArXOF3vC7fCbC21uljK9cKvX8gKjgBir09o2ip1kC8lm+MaBKRBVgQiZUFQ5J7zRO30B8554i3JG6c0AqHIVHmTfarLOLaJOGVe3D314htg5u0CiKbD4Gu3mGxk04crwUoHv2N7IXK7LAy7LfgJM7Carna6qVL/Ap8oXL0AwEgHVBnbLzju4xJAxNcZAQuKSnBR2+hXNUuWzWzZQkupP5ZxnEkpO6E8FoSxuQtuSmhSuzY0y0L73beQ2ptG8hQN8pg1cVrC7YIVtPZxPF7zmGVsfAqTE1J6wqQpNt+RQdg4lziCjm0JT4Tm8TnYjoTVuVSb3uztPwR3P6R4QwGmE7tKhsLGqEdTpgSUrqg//Zh9DCO1HQ1byBMJyPpq94K7X7qWtsbp9ZVdf5VvjTGZ6pjcb0pDGOSoNiYrXvTzZd3Pv1M+rxx8af3mjlzZDFUtWBw/qR5Fv2/CUpXIloipLo7VIvkyZgObu3/+OzvGFRGRn7WvsvY6ItuQp5b2jtvc6M8GmE89JMntLr3z+CrpyHSf8TtQsb12cYlQx6lURKgJ6ncYQqKX65ASvfsBnJvVEx2INFD6oe9DJZhmCryladgaoiFgF19OjJK9YIPxIxSPmiFlSd2wq0IaDilqW/3yGXOU/0RrzQ3CWp1jZnXX7hod2WL1pHjgxI=
+    repo: camptocamp/pyramid_oereb
+  distributions: sdist bdist_wheel
+  skip_cleanup: true
+  skip_upload_docs: true
 
 # configure notifications
 notifications:
