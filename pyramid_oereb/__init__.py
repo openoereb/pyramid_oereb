@@ -69,6 +69,9 @@ def includeme(config):
     logos = config_reader.get_logo_config()
     app_schema_name = config_reader.get('app_schema').get('name')
     srid = config_reader.get('srid')
+    point_types = config_reader.get('plr_limits').get('point_types')
+    line_types = config_reader.get('plr_limits').get('line_types')
+    polygon_types = config_reader.get('plr_limits').get('polygon_types')
     min_length = config_reader.get('plr_limits').get('min_length')
     min_area = config_reader.get('plr_limits').get('min_area')
 
@@ -103,6 +106,9 @@ def includeme(config):
         municipality_reader,
         plr_sources,
         extract_reader,
+        point_types,
+        line_types,
+        polygon_types,
         min_length,
         min_area
     )

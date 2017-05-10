@@ -170,6 +170,9 @@ pyramid_oereb:
   # Define the minmal area and length for public law restrictions that should be considered as 'true' restrictions
   # and not as calculation errors (false true's) due to topological imperfections
   plr_limits:
+    point_type: Point, MultiPoint
+    line_types: LineString, LinearRing, MultiLineString
+    polygon_types: Polygon, MultiPolygon
     min_length: 1.0
     min_area: 1.0
 
