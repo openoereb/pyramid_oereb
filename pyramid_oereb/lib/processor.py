@@ -38,43 +38,43 @@ class Processor(object):
     def plr_tolerance_check(self, extract):
         """
         The function checking if the found plr results exceed the minimal surface or length
-        value defined in the configuration and should therfor be represented in the extract
+        value defined in the configuration and should therefor be represented in the extract
         or considered 'false trues' and be removed from the results.
         :param extract: The extract in it's unvalidated form
         :type extract: pyramid_oereb.lib.records.extract.ExtractRecord
+        :return:
+        :rtype: docstrings
         """
-
         real_estate = extract.real_estate
         real_estate_feature_area = extract.real_estate.limit.area
         land_registry_area = extract.real_estate.land_registry_area
         areas_ratio = real_estate_feature_area/land_registry_area
-        plr_records = real_estate.public_law_restrictions
         geom_cleaner = []
         plr_cleaner = []
 
-        for index, plr_record in enumerate(plr_records):
-            if isinstance(plr_record, PlrRecord):
-                for geometry in plr_record.geometries:
+        for index, public_law_restriction in enumerate(extract.real_estate.public_law_restrictions):
+            if isinstance(public_law_restriction, PlrRecord):
+                for geometry in public_law_restriction.geometries:
                     geometryType = geometry.geom_type
                     if geometryType in self.point_types:
                         pass
                     elif geometryType in self.line_types:
-                        extract.real_estate.public_law_restrictions.length = geometry.length
-                        if extract.real_estate.public_law_restrictions.length < self._min_length_:
+                        extract.real_estate.public_law_restrictions[index].length = geometry.length
+                        if extract.real_estate.public_law_restrictions[index].length < self._min_length_:
                             geom_cleaner.append(geometry)
                         else:
-                            extract.real_estate.public_law_restrictions.units = 'm'
+                            extract.real_estate.public_law_restrictions[index].units = 'm'
                     elif geometryType in self.polygon_types:
                         # Compensation of the difference between technical area from land registry and the
                         # calculated area of the geometry
                         compensated_area = geometry.area*areas_ratio
-                        extract.real_estate.public_law_restrictions.area = compensated_area
-                        if extract.real_estate.public_law_restrictions.area < self._min_area_:
+                        extract.real_estate.public_law_restrictions[index].area = compensated_area
+                        if extract.real_estate.public_law_restrictions[index].area < self._min_area_:
                             geom_cleaner.append(geometry)
                         else:
-                            extract.real_estate.public_law_restrictions.part_in_percent = \
+                            extract.real_estate.public_law_restrictions[index].part_in_percent = \
                                 round(((compensated_area/real_estate.limit.area)*100), 1)
-                            extract.real_estate.public_law_restrictions.units = 'm2'
+                            extract.real_estate.public_law_restrictions[index].units = 'm2'
                     else:
                         # TODO: configure a proper error message
                         print 'Error: unknown geometry type'
