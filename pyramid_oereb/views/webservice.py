@@ -12,6 +12,7 @@ class PlrWebservice(object):
     def __init__(self, request):
         """
         This class provides the PLR webservice methods.
+
         :param request: The pyramid request instance.
         :type request:  pyramid.request.Request or pyramid.testing.DummyRequest
         """
@@ -20,6 +21,7 @@ class PlrWebservice(object):
     def get_versions(self):
         """
         Returns the available versions of this service.
+
         :return: The available service versions.
         :rtype:  dict
         """
@@ -38,6 +40,7 @@ class PlrWebservice(object):
     def get_capabilities(self):
         """
         Returns the capabilities of this service.
+
         :return: The service capabilities.
         :rtype:  dict
         """
@@ -53,6 +56,7 @@ class PlrWebservice(object):
     def get_egrid_coord(self):
         """
         Returns a list with the matched EGRIDs for the given coordinates.
+
         :return: The matched EGRIDs.
         :rtype:  list of dict
         """
@@ -74,6 +78,7 @@ class PlrWebservice(object):
     def get_egrid_ident(self):
         """
         Returns a list with the matched EGRIDs for the given NBIdent and property number.
+
         :return: The matched EGRIDs.
         :rtype:  list of dict
         """
@@ -92,6 +97,7 @@ class PlrWebservice(object):
     def get_egrid_address(self):
         """
         Returns a list with the matched EGRIDs for the given postal address.
+
         :return: The matched EGRIDs.
         :rtype:  list of dict
         """
@@ -107,6 +113,7 @@ class PlrWebservice(object):
     def get_extract_by_id(self):
         """
         Returns the extract in the specified format and flavour.
+
         :return: The requested extract.
         :rtype:  dict
         """
@@ -168,6 +175,7 @@ class PlrWebservice(object):
     def __validate_extract_params__(self):
         """
         Validates the input parameters for get_extract_by_id.
+
         :return: The validated parameters.
         :rtype: dict
         """
@@ -235,6 +243,7 @@ class PlrWebservice(object):
 def __get_egrid_response__(records):
     """
     Creates a valid GetEGRID response from a list of real estate records.
+
     :param records: List of real estate records.
     :type records: list of pyramid_oereb.lib.records.real_estate.RealEstateRecord
     :return: Valid GetEGRID response.
@@ -254,6 +263,7 @@ def __coord_transform__(coord, source_crs):
     """
     Transforms the specified coordinates from the specified CRS to the configured target CRS and creates a
     point geometry.
+
     :param coord: The coordinates to transform (x, y).
     :type coord: tuple
     :param source_crs: The source CRS
@@ -273,6 +283,7 @@ def __parse_xy__(xy, buffer_dist=None):
     """
     Parses the coordinates from the XY parameter, transforms them to target CRS and creates a point geometry.
     If a buffer distance is defined, a buffer with the specified distance will be applied.
+
     :param xy: XY parameter from the getegrid request.
     :type xy: str
     :param buffer_dist: Distance for the buffer applied to the transformed point.
@@ -298,6 +309,7 @@ def __parse_gnss__(gnss):
     """
     Parses the coordinates from the GNSS parameter, transforms them to target CRS and creates a Point with a
     1 meter buffer.
+
     :param gnss: GNSS parameter from the getegrid request.
     :type gnss: str
     :return: The transformed coordinates as Point.
