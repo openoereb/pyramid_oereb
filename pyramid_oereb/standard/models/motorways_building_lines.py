@@ -433,7 +433,8 @@ class Geometry(Base):
     :vartype public_law_restriction_id: int
     :var public_law_restriction: The dedicated relation to the public law restriction instance from
         database.
-    :vartype public_law_restriction: pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction
+    :vartype public_law_restriction:
+        pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction
     :var office_id: The foreign key to the office which is responsible to this public law restriction.
     :vartype office_id: int
     :var responsible_office: The dedicated relation to the office instance from database.
