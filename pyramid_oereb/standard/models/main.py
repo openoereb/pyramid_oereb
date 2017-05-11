@@ -48,7 +48,8 @@ class Municipality(Base):
     in your canton. This is used also in the applications process to check whether a municipality is published
     or not.
 
-    :var fosnr: The identifier of the municipality. It is the commonly known id_bfs.
+    :var fosnr: The identifier of the municipality. It is the commonly known id_bfs or as or nofs in the
+        french part.
     :vartype fosnr: int
     :var name: The Name of the municipality.
     :vartype name: str
@@ -78,13 +79,13 @@ class Municipality(Base):
 
 class RealEstate(Base):
     """
-    The bucket where you can throw in all the real estates this application should have access to, for
+    The container where you can throw in all the real estates this application should have access to, for
     creating extracts.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
-    :var identdn: The identifier in cantonal level
+    :var identdn: The identifier on cantonal level.
     :vartype identdn: str
     :var number: The identifier on municipality level.
     :vartype number: str
@@ -101,8 +102,8 @@ class RealEstate(Base):
     :vartype subunit_of_land_register: str
     :var fosnr: The identifier of the municipality. It is the commonly known id_bfs.
     :vartype fosnr: int
-    :var metadata_of_geographical_base_data: A link to the metadata which this geometry is based on which
-        delivers machine readable response format (XML).
+    :var metadata_of_geographical_base_data: A link to the metadata which this geometry is based on which is
+        delivering a machine readable response format (XML).
     :vartype metadata_of_geographical_base_data: str
     :var land_registry_area: The amount of the area of this real estate as it is declared in the land
         registers information.
@@ -169,11 +170,11 @@ class Glossary(Base):
     The bucket you can throw all items you want to have in the extracts glossary as reading help.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
-    :var title: The title which the glossary item has.
+    :var title: The title or abbreviation of a glossary item.
     :vartype title: str
-    :var content: The content which the glossary item has.
+    :var content: The description or definition of a glossary item.
     :vartype content: str
     """
     __table_args__ = {'schema': app_schema_name}
@@ -190,7 +191,7 @@ class ExclusionOfLiability(Base):
     but if you like you can use it.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
     :var title: The title which the exclusion of liability item has.
     :vartype title: str

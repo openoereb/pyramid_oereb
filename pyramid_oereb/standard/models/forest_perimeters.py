@@ -1,5 +1,5 @@
 """
-This is a full representation of the data model defined by the confederations definition.
+This is a full representation of the data model defined by the federal definition.
 
 **It is representing the topic: Forest Perimeters**
 
@@ -28,7 +28,7 @@ class Availability(Base):
     a public law restriction is available or not. You need to fill it with the data you provided in the
     app schemas municipality table (fosnr).
 
-    :var fosnr: The identifier of the municipality in your system (this should be mainly the id_bfs)
+    :var fosnr: The identifier of the municipality in your system (id_bfs = fosnr)
     :vartype fosnr: int
     :var available: The switch field to configure if this plr is available for the municipality or not.
         This field has direct influence on the applications behaviour. See documentation for more info.
@@ -46,13 +46,13 @@ class Office(Base):
     geometry.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
     :var name: The name of the office.
     :vartype name: str
     :var office_at_web: A web accessible url to a presentation of this office.
     :vartype office_at_web: str
-    :var uid: The uid (id bfs) of this office.
+    :var uid: The uid of this office from https://www.uid.admin.ch
     :vartype uid: str
     :var line1: The first address line for this office.
     :vartype line1: str
@@ -84,11 +84,11 @@ class Office(Base):
 class ReferenceDefinition(Base):  # TODO: Check translation
     """
     The meta bucket for definitions which are directly related to a public law restriction in a common way or
-    to the whole canton or a  whole municipality.  It is used to have a place to store general documents
+    to the whole canton or a  whole municipality. It is used to have a place to store general documents
     which are related to an extract but not directly on a special public law restriction situation.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
     :var topic: The topic which this definition might be related to.
     :vartype topic: str
@@ -119,7 +119,7 @@ class DocumentBase(Base):
     produce the addressable primary key and to provide the common document attributes.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
     :var text_web: A link which leads to the documents content in the web.
     :vartype text_web: str
@@ -151,7 +151,7 @@ class Document(DocumentBase):
     This represents the main document in the whole system. It is specialized in some sub classes.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
     :var title: The title or if existing the short title ot his document.
     :vartype title: str
@@ -162,9 +162,9 @@ class Document(DocumentBase):
     :var official_number: The official number which uniquely identifies this document.
     :vartype official_number: str
     :var canton: The short version of the canton which this document is about. If this is None this is
-        assumed to be a confederations document.
+        assumed to be a federal document.
     :vartype canton: str
-    :var municipality: The id bfs of the municipality. If this is None it is assumed the document is
+    :var municipality: The fosnr (=id bfs) of the municipality. If this is None it is assumed the document is
         related to the whole canton or even the confederation.
     :vartype municipality: int
     :var file: The document itself as a binary representation (PDF). It is string but BaseCode64 encoded.
@@ -206,9 +206,9 @@ class Article(DocumentBase):
     described as a special part of the whole law document and reflects a dedicated content of this.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
-    :var number: The number which identifies this article in its "mother" document.
+    :var number: The number which identifies this article in its parent document.
     :vartype number: str
     :var text: A simple string to describe the article or give some related info.
     :vartype text: str
@@ -247,7 +247,7 @@ class LegalProvision(Document):
     A subclass of the document representing legal provisions. It is a specialized class of document.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
     """
     __table_args__ = {'schema': 'forest_perimeters'}
@@ -265,10 +265,10 @@ class LegalProvision(Document):
 
 class ViewService(Base):
     """
-    A view service aka WMS which can deliver a cartographic representation via web.
+    A view service aka WM(T)S which can deliver a cartographic representation via web.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
     :var link_wms: The actual url which leads to the desired cartographic representation.
     :vartype link_wms: str
@@ -284,10 +284,11 @@ class ViewService(Base):
 
 class LegendEntry(Base):
     """
-    A view service aka WMS which can deliver a cartographic representation via web.
+    A class based legend system which is directly related to
+    :ref:`pyramid_oereb.standard.models.forest_perimeters.ViewService`.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
     :var file: An image with represents the legend entry. This can be png or svg. It is string but BaseCode64
         encoded.
@@ -338,10 +339,10 @@ class LegendEntry(Base):
 # TODO: check how the definition in base model from confederation can be realized
 class PublicLawRestriction(Base):
     """
-    The bucket where you can fill in all your public law restrictions to the topic.
+    The container where you can fill in all your public law restrictions to the topic.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
     :var content: The textual representation of the public law restriction.
     :vartype content: str
@@ -409,7 +410,7 @@ class Geometry(Base):
     The dedicated model for all geometries in relation to their public law restriction.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
     :var legal_state: The status switch if the document is legally approved or not.
     :vartype legal_state: str
@@ -468,7 +469,7 @@ class PublicLawRestrictionBase(Base):
     restrictions.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
     :var public_law_restriction_id: The foreign key to the public law restriction which bases on another
         public law restriction.
@@ -513,7 +514,7 @@ class PublicLawRestrictionRefinement(Base):
     restrictions.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
     :var public_law_restriction_id: The foreign key to the public law restriction which is refined by
         another public law restriction.
@@ -557,7 +558,7 @@ class PublicLawRestrictionDocument(Base):
     Meta bucket (join table) for the relationship between public law restrictions and documents.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
     :var public_law_restriction_id: The foreign key to the public law restriction which has relation to
         a document.
@@ -598,7 +599,7 @@ class DocumentReference(Base):
     Meta bucket (join table) for the relationship between documents.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
     :var document_id: The foreign key to the document which references to another document.
     :vartype document_id: int
@@ -643,7 +644,7 @@ class DocumentReferenceDefinition(Base):
     Meta bucket (join table) for the relationship between documents and the reference definition.
 
     :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like-don't care about.
+        don't like it - don't care about.
     :vartype id: int
     :var document_id: The foreign key to the document which is related to a reference definition.
     :vartype document_id: int
