@@ -96,7 +96,7 @@ class Extract(Base):
 
     def format_real_estate(self, real_estate):
         """
-        Formats an real estate record for rendering according to the federal specification.
+        Formats a real estate record for rendering according to the federal specification.
 
         :param real_estate: The real estate record to be formatted.
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
@@ -126,7 +126,48 @@ class Extract(Base):
             real_estate_dict['MetadataOfGeographicalBaseData'] = \
                 real_estate.metadata_of_geographical_base_data
 
+        if isinstance(real_estate.public_law_restrictions, list) \
+                and len(real_estate.public_law_restrictions) > 0:
+            real_estate_dict['RestrictionOnLandownership'] = \
+                self.format_plr(real_estate.public_law_restrictions)
+
         return real_estate_dict
+
+    def format_plr(self, plrs):
+        """
+        Formats a public law restriction record for rendering according to the federal specification.
+
+        :param plrs: The public law restriction records to be formatted.
+        :type plrs: list of pyramid_oereb.lib.records.plr.PlrRecord
+        :return: The formatted dictionaries for rendering.
+        :rtype: list of dict
+        """
+        plr_list = list()
+
+        for plr in plrs:
+
+            plr_dict = {
+                'Information': self.get_localized_text(plr.content),
+                'Theme': plr.topic,
+                'Lawstatus': plr.legal_state,
+                'Area': plr.area,
+                'Symbol': plr.symbol
+            }
+
+            if plr.subtopic:
+                plr_dict['SubTheme'] = plr.subtopic
+            if plr.additional_topic:
+                plr_dict['OtherTheme'] = plr.additional_topic
+            if plr.type_code:
+                plr_dict['TypeCode'] = plr.type_code
+            if plr.type_code_list:
+                plr_dict['TypeCodelist'] = plr.type_code_list
+            if plr.part_in_percent:
+                plr_dict['PartInPercent'] = plr.part_in_percent
+
+            plr_list.append(plr_dict)
+
+        return plr_list
 
     def format_office(self, office):
         """
