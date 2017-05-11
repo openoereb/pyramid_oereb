@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-import base64
 from json import dumps
 
 from pyramid.response import Response
+from shapely.geometry import mapping
 
 from pyramid_oereb import default_lang, srid
 from pyramid_oereb.lib.renderer import Base
@@ -166,9 +166,10 @@ class Extract(Base):
         :rtype: dict
         """
         geom_dict = {
-            'coordinates': [],  # TODO: Clarify what should be rendered here
-            'crs': 'EPSG:{srid}'.format(srid=srid),
-            'isosqlmmwkb': base64.b64encode(geom.wkb)
+            'coordinates': mapping(geom)['coordinates'],
+            'crs': 'EPSG:{srid}'.format(srid=srid)
+            # isosqlmmwkb only used for curved geometries (not supported by shapely)
+            # 'isosqlmmwkb': base64.b64encode(geom.wkb)
         }
         return geom_dict
 
