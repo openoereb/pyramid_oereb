@@ -10,9 +10,14 @@ from shutil import copyfile
 from pyramid_oereb.lib.config import parse
 
 
-def convert(name):
+def convert_camel_case_to_snake_case(name):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+
+
+def convert_camel_case_to_text_form(name):
+    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1 \2', name)
+    return re.sub('([a-z0-9])([A-Z])', r'\1 \2', s1)
 
 
 def _create_standard_configuration_models_py_(code, geometry_type, absolute_path):
@@ -30,8 +35,9 @@ def _create_standard_configuration_models_py_(code, geometry_type, absolute_path
     template = Template(
         filename=AssetResolver('pyramid_oereb').resolve('standard/templates/plr.py.mako').abspath()
     )
-    name = convert(code)
+    name = convert_camel_case_to_snake_case(code)
     content = template.render(**{
+        'topic': convert_camel_case_to_text_form(code),
         'schema_name': name,
         'geometry_type': geometry_type
     })
@@ -91,7 +97,9 @@ def _create_tables_from_standard_configuration_(configuration_yaml_path, section
     for schema in config.get('plrs'):
         plr_schema_engine = create_engine(schema.get('source').get('params').get('db_connection'), echo=True)
         plr_schema_connection = plr_schema_engine.connect()
-        plr_schema_connection.execute('CREATE SCHEMA {name};'.format(name=convert(schema.get('code'))))
+        plr_schema_connection.execute('CREATE SCHEMA {name};'.format(
+            name=convert_camel_case_to_snake_case(schema.get('code')))
+        )
         plr_base = DottedNameResolver().maybe_resolve('{package}.Base'.format(
             package=schema.get('source').get('params').get('models')
         ))
@@ -120,7 +128,7 @@ def _drop_tables_from_standard_configuration_(configuration_yaml_path, section='
         plr_schema_engine = create_engine(schema.get('source').get('params').get('db_connection'), echo=True)
         plr_schema_connection = plr_schema_engine.connect()
         plr_schema_connection.execute('DROP SCHEMA IF EXISTS {name} CASCADE;'.format(
-            name=convert(schema.get('code')))
+            name=convert_camel_case_to_snake_case(schema.get('code')))
         )
         plr_schema_connection.close()
 
