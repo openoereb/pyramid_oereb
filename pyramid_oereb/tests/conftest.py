@@ -15,6 +15,8 @@ from pyramid_oereb import Processor
 from pyramid_oereb import RealEstateReader
 from pyramid_oereb.standard.models.motorways_building_lines import Geometry as LineGeometry, \
     PublicLawRestriction as LinePublicLawRestriction, Office as LineOffice, ViewService as LineViewService
+from pyramid_oereb.standard.models.contaminated_sites import Geometry as PolyGeometry, \
+    PublicLawRestriction as PolyPublicLawRestriction, Office as PolyOffice, ViewService as PolyViewService
 from pyramid_oereb.lib.config import parse, ConfigReader
 from pyramid_oereb.standard.models.main import Municipality, Glossary, RealEstate
 
@@ -161,7 +163,7 @@ def connection():
     connection.execute(LinePublicLawRestriction.__table__.insert(), {
         'id': 1,
         'content': u'{"de": "Long line PLR"}',
-        'topic': u'AirportsBuildingLines',
+        'topic': u'MotorwaysBuildingLines',
         'legal_state': u'inForce',
         'published_from': unicode(datetime.date.today().isoformat()),
         'view_service_id': 1,
@@ -170,7 +172,7 @@ def connection():
     connection.execute(LinePublicLawRestriction.__table__.insert(), {
         'id': 2,
         'content': u'{"de": "Short line PLR"}',
-        'topic': u'AirportsBuildingLines',
+        'topic': u'MotorwaysBuildingLines',
         'legal_state': u'inForce',
         'published_from': unicode(datetime.date.today().isoformat()),
         'view_service_id': 1,
@@ -191,6 +193,66 @@ def connection():
         'public_law_restriction_id': 2,
         'office_id': 1,
         'geom': u'SRID=2056;LINESTRING (1.5 1.5, 1.5 2.5)'
+    })
+
+    # Add dummy PLR data for polygon geometry
+    connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+        schema=PolyGeometry.__table__.schema,
+        table=PolyGeometry.__table__.name
+    ))
+    connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+        schema=PolyPublicLawRestriction.__table__.schema,
+        table=PolyPublicLawRestriction.__table__.name
+    ))
+    connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+        schema=PolyOffice.__table__.schema,
+        table=PolyOffice.__table__.name
+    ))
+    connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+        schema=PolyViewService.__table__.schema,
+        table=PolyViewService.__table__.name
+    ))
+    connection.execute(PolyViewService.__table__.insert(), {
+        'id': 1,
+        'link_wms': u'http://my.wms.com'
+    })
+    connection.execute(PolyOffice.__table__.insert(), {
+        'id': 1,
+        'name': u'{"de": "Test Office"}'
+    })
+    connection.execute(PolyPublicLawRestriction.__table__.insert(), {
+        'id': 1,
+        'content': u'{"de": "Large polygon PLR"}',
+        'topic': u'ContaminatedSites',
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'view_service_id': 1,
+        'office_id': 1
+    })
+    connection.execute(PolyPublicLawRestriction.__table__.insert(), {
+        'id': 2,
+        'content': u'{"de": "Small polygon PLR"}',
+        'topic': u'ContaminatedSites',
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'view_service_id': 1,
+        'office_id': 1
+    })
+    connection.execute(PolyGeometry.__table__.insert(), {
+        'id': 1,
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'public_law_restriction_id': 1,
+        'office_id': 1,
+        'geom': u'SRID=2056;POLYGON ((0 0, 0 1.5, 1.5 1.5, 1.5 0, 0 0))'
+    })
+    connection.execute(PolyGeometry.__table__.insert(), {
+        'id': 2,
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'public_law_restriction_id': 2,
+        'office_id': 1,
+        'geom': u'SRID=2056;POLYGON ((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5))'
     })
 
     connection.close()

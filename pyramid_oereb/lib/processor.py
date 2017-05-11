@@ -66,7 +66,7 @@ class Processor(object):
         real_estate = extract.real_estate
         real_estate_feature_area = extract.real_estate.limit.area
         land_registry_area = extract.real_estate.land_registry_area
-        areas_ratio = real_estate_feature_area/land_registry_area
+        areas_ratio = real_estate_feature_area / land_registry_area
         geom_cleaner = []
         plr_cleaner = []
 
@@ -85,7 +85,7 @@ class Processor(object):
                     elif geometryType in self.polygon_types:
                         # Compensation of the difference between technical area from land registry and the
                         # calculated area of the geometry
-                        compensated_area = geometry.area*areas_ratio
+                        compensated_area = geometry.geom.area * areas_ratio
                         extract.real_estate.public_law_restrictions[index].area = compensated_area
                         if extract.real_estate.public_law_restrictions[index].area < self._min_area_:
                             geom_cleaner.append(geometry)
