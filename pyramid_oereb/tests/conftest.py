@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import base64
 
+import datetime
 from pyramid.path import DottedNameResolver
 from pyramid.testing import DummyRequest
 import pytest
@@ -12,8 +13,10 @@ from pyramid_oereb import ExclusionOfLiabilityReader
 from pyramid_oereb import GlossaryReader
 from pyramid_oereb import Processor
 from pyramid_oereb import RealEstateReader
+from pyramid_oereb.standard.models.motorways_building_lines import Geometry as LineGeometry, \
+    PublicLawRestriction as LinePublicLawRestriction, Office as LineOffice, ViewService as LineViewService
 from pyramid_oereb.lib.config import parse, ConfigReader
-from pyramid_oereb.models import PyramidOerebMainMunicipality, PyramidOerebMainGlossary
+from pyramid_oereb.standard.models.main import Municipality, Glossary, RealEstate
 
 db_url = parse('pyramid_oereb_test.yml', 'pyramid_oereb').get('db_connection')
 config_reader = ConfigReader('pyramid_oereb_test.yml', 'pyramid_oereb')
@@ -28,6 +31,11 @@ class MockRequest(DummyRequest):
         glossary_config = config_reader.get_glossary_config()
         logos = config_reader.get_logo_config()
         plr_cadastre_authority = config_reader.get_plr_cadastre_authority()
+        point_types = config_reader.get('plr_limits').get('point_types')
+        line_types = config_reader.get('plr_limits').get('line_types')
+        polygon_types = config_reader.get('plr_limits').get('polygon_types')
+        min_length = config_reader.get('plr_limits').get('min_length')
+        min_area = config_reader.get('plr_limits').get('min_area')
 
         real_estate_reader = RealEstateReader(
             real_estate_config.get('source').get('class'),
@@ -60,12 +68,17 @@ class MockRequest(DummyRequest):
             logos
         )
         self.processor = Processor(
-            real_estate_reader,
-            municipality_reader,
-            exclusion_of_liability_reader,
-            glossary_reader,
-            plr_sources,
-            extract_reader
+            real_estate_reader=real_estate_reader,
+            municipality_reader=municipality_reader,
+            exclusion_of_liability_reader=exclusion_of_liability_reader,
+            glossary_reader=glossary_reader,
+            plr_sources=plr_sources,
+            extract_reader=extract_reader,
+            point_types=point_types,
+            line_types=line_types,
+            polygon_types=polygon_types,
+            min_length=min_length,
+            min_area=min_area
         )
 
     @property
@@ -80,26 +93,104 @@ def connection():
 
     # Add dummy municipality
     connection.execute('TRUNCATE {schema}.{table};'.format(
-        schema=PyramidOerebMainMunicipality.__table__.schema,
-        table=PyramidOerebMainMunicipality.__table__.name
+        schema=Municipality.__table__.schema,
+        table=Municipality.__table__.name
     ))
-    connection.execute(PyramidOerebMainMunicipality.__table__.insert(), {
+    connection.execute(Municipality.__table__.insert(), {
         'fosnr': 1234,
         'name': 'Test',
         'published': True,
         'logo': base64.b64encode('abcdefg'),
-        'geom': 'SRID=2056;MULTIPOLYGON(((0 0, 0 1, 1 1, 1 0, 0 0)))'
+        'geom': 'SRID=2056;MULTIPOLYGON(((0 0, 0 10, 10 10, 10 0, 0 0)))'
     })
 
     # Add dummy glossary
     connection.execute('TRUNCATE {schema}.{table};'.format(
-        schema=PyramidOerebMainGlossary.__table__.schema,
-        table=PyramidOerebMainGlossary.__table__.name
+        schema=Glossary.__table__.schema,
+        table=Glossary.__table__.name
     ))
-    connection.execute(PyramidOerebMainGlossary.__table__.insert(), {
+    connection.execute(Glossary.__table__.insert(), {
         'id': 1,
         'title': u'SGRF',
         'content': u'Service de la géomatique et du registre foncier'
+    })
+
+    # Add dummy real estate
+    connection.execute('TRUNCATE {schema}.{table};'.format(
+        schema=RealEstate.__table__.schema,
+        table=RealEstate.__table__.name
+    ))
+    connection.execute(RealEstate.__table__.insert(), {
+        'id': 1,
+        'egrid': u'TEST',
+        'number': u'1000',
+        'identdn': u'BLTEST',
+        'type': u'RealEstate',
+        'canton': u'BL',
+        'municipality': u'Liestal',
+        'fosnr': 1234,
+        'land_registry_area': 4,
+        'limit': 'SRID=2056;MULTIPOLYGON(((0 0, 0 2, 2 2, 2 0, 0 0)))'
+    })
+
+    # Add dummy PLR data for line geometry
+    connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+        schema=LineGeometry.__table__.schema,
+        table=LineGeometry.__table__.name
+    ))
+    connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+        schema=LinePublicLawRestriction.__table__.schema,
+        table=LinePublicLawRestriction.__table__.name
+    ))
+    connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+        schema=LineOffice.__table__.schema,
+        table=LineOffice.__table__.name
+    ))
+    connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+        schema=LineViewService.__table__.schema,
+        table=LineViewService.__table__.name
+    ))
+    connection.execute(LineViewService.__table__.insert(), {
+        'id': 1,
+        'link_wms': u'http://my.wms.com'
+    })
+    connection.execute(LineOffice.__table__.insert(), {
+        'id': 1,
+        'name': u'{"de": "Test Office"}'
+    })
+    connection.execute(LinePublicLawRestriction.__table__.insert(), {
+        'id': 1,
+        'content': u'{"de": "Long line PLR"}',
+        'topic': u'AirportsBuildingLines',
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'view_service_id': 1,
+        'office_id': 1
+    })
+    connection.execute(LinePublicLawRestriction.__table__.insert(), {
+        'id': 2,
+        'content': u'{"de": "Short line PLR"}',
+        'topic': u'AirportsBuildingLines',
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'view_service_id': 1,
+        'office_id': 1
+    })
+    connection.execute(LineGeometry.__table__.insert(), {
+        'id': 1,
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'public_law_restriction_id': 1,
+        'office_id': 1,
+        'geom': u'SRID=2056;LINESTRING (0 0, 2 2)'
+    })
+    connection.execute(LineGeometry.__table__.insert(), {
+        'id': 2,
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'public_law_restriction_id': 2,
+        'office_id': 1,
+        'geom': u'SRID=2056;LINESTRING (1.5 1.5, 1.5 2.5)'
     })
 
     connection.close()

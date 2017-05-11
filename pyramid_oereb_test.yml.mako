@@ -78,9 +78,9 @@ pyramid_oereb:
       class: pyramid_oereb.lib.sources.extract.ExtractStandardDatabaseSource
 
   plr_limits:
-    point_type: Point, MultiPoint
-    line_types: LineString, LinearRing, MultiLineString
-    polygon_types: Polygon, MultiPolygon
+    point_types: [Point, MultiPoint]
+    line_types: [LineString, LinearRing, MultiLineString]
+    polygon_types: [Polygon, MultiPolygon]
     min_length: 1.0
     min_area: 1.0
 

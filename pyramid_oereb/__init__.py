@@ -119,17 +119,17 @@ def includeme(config):
         'pyramid_oereb': parse(cfg_file, cfg_section)
     })
     processor = Processor(
-        real_estate_reader,
-        municipality_reader,
-        exclusion_of_liability_reader,
-        glossary_reader,
-        plr_sources,
-        extract_reader,
-        point_types,
-        line_types,
-        polygon_types,
-        min_length,
-        min_area
+        real_estate_reader=real_estate_reader,
+        municipality_reader=municipality_reader,
+        exclusion_of_liability_reader=exclusion_of_liability_reader,
+        glossary_reader=glossary_reader,
+        plr_sources=plr_sources,
+        extract_reader=extract_reader,
+        point_types=point_types,
+        line_types=line_types,
+        polygon_types=polygon_types,
+        min_length=min_length,
+        min_area=min_area
     )
 
     def pyramid_oereb_processor(request):

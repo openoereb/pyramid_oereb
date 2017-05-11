@@ -73,11 +73,11 @@ class Processor(object):
         for index, public_law_restriction in enumerate(extract.real_estate.public_law_restrictions):
             if isinstance(public_law_restriction, PlrRecord):
                 for geometry in public_law_restriction.geometries:
-                    geometryType = geometry.geom_type
+                    geometryType = geometry.geom.type
                     if geometryType in self.point_types:
                         pass
                     elif geometryType in self.line_types:
-                        extract.real_estate.public_law_restrictions[index].length = geometry.length
+                        extract.real_estate.public_law_restrictions[index].length = geometry.geom.length
                         if extract.real_estate.public_law_restrictions[index].length < self._min_length_:
                             geom_cleaner.append(geometry)
                         else:
