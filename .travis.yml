@@ -21,6 +21,7 @@ script:
   - make lint
   - make tests-docker-setup-db
   - make tests
+  - make doc
 
 before_deploy:
   - sudo apt-get install pandoc
