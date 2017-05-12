@@ -3,36 +3,46 @@
 
 class EmptyPlrRecord(object):
 
-    def __init__(self, topic):
-        self.topic = topic
-        self.affected = False
+    def __init__(self, theme, has_data=True):
+        """
+        Record for empty topics.
+
+        :param theme: The code of the topic to which the PLR belongs to.
+        :type  theme: pyramid_oereb.lib.records.theme.ThemeRecord
+        :param has_data: True if the topic contains data.
+        :type has_data: bool
+        """
+        self.theme = theme
+        self.has_data = has_data
 
     @classmethod
     def get_fields(cls):
         """
         Returns a list of available field names.
+
         :return: List of available field names.
         :rtype: list of str
         """
         return [
-            'topic',
-            'affected'
+            'theme',
+            'has_data'
         ]
 
     def to_extract(self):
         """
         Returns a dictionary with all available values needed for the extract.
+
         :return: Dictionary with values for the extract.
         :rtype: dict
         """
         extract = dict()
         for key in [
-            'topic'
+            'theme'
         ]:
             value = getattr(self, key)
             if value:
                 extract[key] = value
-        extract['affected'] = self.affected
+        extract['has_data'] = self.has_data
         return extract
 
 
@@ -42,15 +52,16 @@ class PlrRecord(EmptyPlrRecord):
     part_in_percent = None
     symbol = None
 
-    def __init__(self, topic, content, legal_state, published_from, responsible_office, subtopic=None,
+    def __init__(self, theme, content, legal_state, published_from, responsible_office, subtopic=None,
                  additional_topic=None, type_code=None, type_code_list=None, view_service=None, basis=None,
-                 refinements=None, documents=None, geometries=None, info=None, affected=True):
+                 refinements=None, documents=None, geometries=None, info=None):
         """
         Public law restriction record.
+
         :param content: The PLR record's content.
         :type  content: str
-        :param topic: The topic to which the PLR belongs to.
-        :type  topic: str
+        :param theme: The code of the topic to which the PLR belongs to.
+        :type  theme: str
         :param legal_state: The PLR record's legal state.
         :type legal_state: str
         :param published_from: Date from/since when the PLR record is published.
@@ -73,8 +84,8 @@ class PlrRecord(EmptyPlrRecord):
         :type refinements: list of PlrRecord
         :param documents: List of documents associated with this record.
         :type documents: list of pyramid_oereb.lib.records.documents.DocumentBaseRecord
-        :param geometries: List of geometries (shapely) associated with this record.
-        :type geometries: list of shapely.geometry.base.BaseGeometry
+        :param geometries: List of geometry records associated with this record.
+        :type geometries: list of pyramid_oereb.lib.records.geometry.GeometryRecord
         :param area: Area of the restriction touching the property calculated by the processor.
         :type area: decimal
         :param part_in_percent: Part of the property area touched by the restriction in percent.
@@ -83,12 +94,10 @@ class PlrRecord(EmptyPlrRecord):
         :type symbol: binary
         :param info: The information read from the config
         :type info: dict or None
-        :param affected: Switch to provide easy access and more easy handling
-        :type affected: bool
         :raises TypeError: Raised on missing field value.
         """
 
-        super(PlrRecord, self).__init__(topic)
+        super(PlrRecord, self).__init__(theme)
         self.content = content
         self.legal_state = legal_state
         self.published_from = published_from
@@ -115,7 +124,7 @@ class PlrRecord(EmptyPlrRecord):
         else:
             self.geometries = geometries
         self.info = info
-        self.affected = affected
+        self.has_data = True
 
     @classmethod
     def get_fields(cls):
@@ -125,7 +134,7 @@ class PlrRecord(EmptyPlrRecord):
         :rtype: list of str
         """
         return [
-            'topic',
+            'theme',
             'documents',
             'geometries',
             'view_service',
@@ -150,7 +159,6 @@ class PlrRecord(EmptyPlrRecord):
         extract = dict()
         for key in [
             'content',
-            'topic',
             'subtopic',
             'additional_topic',
             'type_code',
@@ -170,13 +178,15 @@ class PlrRecord(EmptyPlrRecord):
             records = getattr(self, key)
             if records and len(records) > 0:
                 extract[key] = [record.to_extract() for record in records]
-        key = 'responsible_office'
-        record = getattr(self, key)
-        if record:
-            extract[key] = record.to_extract()
+        for key in [
+            'theme',
+            'responsible_office'
+        ]:
+            record = getattr(self, key)
+            if record:
+                extract[key] = record.to_extract()
         key = 'view_service'
         record = getattr(self, key)
         if record:
             extract[key] = record.to_extract(type_code=self.type_code)
-        extract['affected'] = self.affected
         return extract

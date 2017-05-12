@@ -51,8 +51,20 @@ class PlrWebservice(object):
         :return: The service capabilities.
         :rtype:  dict
         """
+        themes = list()
+        for theme in self._config_reader_.get_themes():
+            text = list()
+            for k, v in theme.text.iteritems():
+                text.append({
+                    'Language': k,
+                    'Text': v
+                })
+            themes.append({
+                'Code': theme.code,
+                'Text': text
+            })
         return {
-            u'topic': self._config_reader_.get_topic(),
+            u'topic': themes,
             u'municipality': [record.fosnr for record in self._municipality_reader_.read()],
             u'flavour': self._config_reader_.get_flavour(),
             u'language': self._config_reader_.get_language(),

@@ -4,6 +4,7 @@ from geoalchemy2.shape import to_shape, from_shape
 from pyramid.path import DottedNameResolver
 
 from pyramid_oereb.lib.records.availability import AvailabilityRecord
+from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
 from pyramid_oereb.lib.records.plr import EmptyPlrRecord, PlrRecord
 from pyramid_oereb.lib.records.documents import DocumentRecord, ArticleRecord
@@ -34,7 +35,6 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     def __init__(self, **kwargs):
         self._plr_info_ = kwargs
-        self.affected = False
         models_path = self._plr_info_.get('source').get('params').get('models')
         bds_kwargs = {
             'model': DottedNameResolver().maybe_resolve(
@@ -154,6 +154,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return document_records
 
     def from_db_to_plr_record(self, public_law_restriction_from_db):
+        theme_record = ThemeRecord(self._plr_info_.get('code'), self._plr_info_.get('text'))
         legend_entry_records = self.from_db_to_legend_entry_record(
             public_law_restriction_from_db.topic,
             public_law_restriction_from_db.view_service.legends
@@ -179,7 +180,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         for join in public_law_restriction_from_db.refinements:
             refinements_plr_records.append(self.from_db_to_plr_record(join.refinement))
         plr_record = self._plr_record_class_(
-            public_law_restriction_from_db.topic,
+            theme_record,
             public_law_restriction_from_db.content,
             public_law_restriction_from_db.legal_state,
             public_law_restriction_from_db.published_from,
@@ -207,7 +208,9 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         """
         for availability in self.availabilities:
             if real_estate.fosnr == availability.fosnr and not availability.available:
-                return real_estate.public_law_restrictions.append(EmptyPlrRecord(self._plr_info_.get('code')))
+                return real_estate.public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
+                    self._plr_info_.get('code'), self._plr_info_.get('text')
+                ), has_data=False))
         # TODO: Replace hardcoded SRID with srid defined in conf
         geoalchemy_representation = from_shape(real_estate.limit, srid=2056)
         session = self._adapter_.get_session(self._key_)
@@ -215,9 +218,10 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             geoalchemy_representation
         )).all()
         if len(geometry_results) == 0:
-            return real_estate.public_law_restrictions.append(EmptyPlrRecord(self._plr_info_.get('code')))
+            return real_estate.public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
+                self._plr_info_.get('code'), self._plr_info_.get('text')
+            )))
         for geometry_result in geometry_results:
-            self.affected = True
             real_estate.public_law_restrictions.append(
                 self.from_db_to_plr_record(geometry_result.public_law_restriction)
             )

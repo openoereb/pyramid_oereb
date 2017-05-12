@@ -177,7 +177,7 @@ class Processor(object):
         for municipality in municipalities:
             if municipality.fosnr == real_estate.fosnr:
                 if not municipality.published:
-                    raise NotImplementedError
+                    raise NotImplementedError  # TODO: improve message
                 extract_raw = self._extract_reader_.read(real_estate, municipality.logo)
                 extract = self.plr_tolerance_check(extract_raw)
                 extract.exclusions_of_liability = exclusions_of_liability

@@ -63,9 +63,6 @@ class Extract(Base):
 
         extract_dict = {
             'CreationDate': self.date_time(extract.creation_date),
-            'ConcernedTheme': [],
-            'NotConcernedTheme': [],
-            'ThemeWithoutData': [],
             'isReduced': self._params_.flavour == 'reduced',
             'LogoPLRCadastre': extract.logo_plr_cadastre.encode(),
             'FederalLogo': extract.federal_logo.encode(),
@@ -74,7 +71,10 @@ class Extract(Base):
             'ExtractIdentifier': extract.extract_identifier,
             'BaseData': extract.base_data,
             'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority),
-            'RealEstate': self.format_real_estate(extract.real_estate)
+            'RealEstate': self.format_real_estate(extract.real_estate),
+            'ConcernedTheme': [self.format_theme(theme) for theme in extract.concerned_theme],
+            'NotConcernedTheme': [self.format_theme(theme) for theme in extract.not_concerned_theme],
+            'ThemeWithoutData': [self.format_theme(theme) for theme in extract.theme_without_data]
         }
 
         if extract.electronic_signature:
@@ -178,7 +178,7 @@ class Extract(Base):
 
                 plr_dict = {
                     'Information': self.get_localized_text(plr.content),
-                    'Theme': plr.topic,
+                    'Theme': self.format_theme(plr.theme),
                     'Lawstatus': plr.legal_state,
                     'Area': plr.area,
                     'Symbol': plr.symbol,
@@ -209,9 +209,6 @@ class Extract(Base):
                     plr_dict['LegalProvisions'] = documents_list
 
                 plr_list.append(plr_dict)
-
-            else:
-                pass  # TODO: Add process empty plr record.
 
         return plr_list
 
@@ -337,6 +334,21 @@ class Extract(Base):
             office_dict['City'] = office.city
         return office_dict
 
+    def format_theme(self, theme):
+        """
+        Formats a theme record for rendering according to the federal specification.
+
+        :param theme: The theme record to be formatted.
+        :type theme: pyramid_oereb.lib.records.theme.ThemeRecord
+        :return: The formatted dictionary for rendering.
+        :rtype: dict
+        """
+        theme_dict = {
+            'Code': theme.code,
+            'Text': self.get_localized_text(theme.text)
+        }
+        return theme_dict
+
     def from_shapely(self, geom):
         """
         Formats shapely geometry for rendering according to the federal specification.
@@ -360,13 +372,20 @@ class Extract(Base):
         TODO: Fix implementation when multilingual values are available by respecting self.language.
 
         :param values: The multilingual values encoded as JSON.
-        :type values: str
+        :type values: str or dict
         :return: List of dictionaries containing the multilingual representation.
         :rtype: list of dict
         """
-        return [
-            {
-                'Language': 'de',
+        text = list()
+        if isinstance(values, dict):
+            for k, v in values.iteritems():
+                text.append({
+                    'Language': k,
+                    'Text': v
+                })
+        else:
+            text.append({
+                'Language': self._config_reader_.get('default_language'),
                 'Text': values
-            }
-        ]
+            })
+        return text

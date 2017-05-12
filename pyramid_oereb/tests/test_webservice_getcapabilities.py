@@ -20,7 +20,7 @@ def test_getcapabilities():
     assert isinstance(caps[u'topic'], list)
     assert len(caps[u'topic']) == 17
     assert caps[u'topic'][15][u'Code'] == u'ForestPerimeters'
-    assert caps[u'topic'][15][u'Text'][u'Language'] == u'de'
+    assert caps[u'topic'][15][u'Text'][0][u'Language'] == u'de'
 
     assert isinstance(caps[u'flavour'], list)
     assert len(caps[u'flavour']) == 3

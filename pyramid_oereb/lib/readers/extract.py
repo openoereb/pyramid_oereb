@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb.lib.records.extract import ExtractRecord
+from pyramid_oereb.lib.records.plr import PlrRecord, EmptyPlrRecord
 
 
 class ExtractReader(object):
@@ -69,14 +70,37 @@ class ExtractReader(object):
         :return: The extract record containing all gathered data.
         :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
         """
+
         for plr_source in self._plr_sources_:
             plr_source.read(real_estate)
+
+        concerned_themes = list()
+        not_concerned_themes = list()
+        themes_without_data = list()
+        for plr in real_estate.public_law_restrictions:
+            if isinstance(plr, PlrRecord):
+                contained = False
+                for theme in concerned_themes:
+                    if theme.code == plr.theme.code:
+                        contained = True
+                if not contained:
+                    concerned_themes.append(plr.theme)
+            elif isinstance(plr, EmptyPlrRecord):
+                if plr.has_data:
+                    not_concerned_themes.append(plr.theme)
+                else:
+                    themes_without_data.append(plr.theme)
+
         self.extract = ExtractRecord(
             real_estate,
             self.logo_plr_cadastre,
             self.federal_logo,
             self.cantonal_logo,
             municipality_logo,
-            self.plr_cadastre_authority
+            self.plr_cadastre_authority,
+            concerned_theme=concerned_themes,
+            not_concerned_theme=not_concerned_themes,
+            theme_without_data=themes_without_data
         )
+
         return self.extract
