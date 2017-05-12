@@ -2,6 +2,7 @@
 from json import dumps
 
 from pyramid.response import Response
+from pyramid_oereb.lib.sources.plr import PlrRecord
 from shapely.geometry import mapping
 
 from pyramid_oereb.lib.renderer import Base
@@ -159,32 +160,38 @@ class Extract(Base):
 
         for plr in plrs:
 
-            plr_dict = {
-                'Information': self.get_localized_text(plr.content),
-                'Theme': plr.topic,
-                'Lawstatus': plr.legal_state,
-                'Area': plr.area,
-                'Symbol': plr.symbol
-            }
+            if isinstance(plr, PlrRecord):
 
-            if plr.subtopic:
-                plr_dict['SubTheme'] = plr.subtopic
-            if plr.additional_topic:
-                plr_dict['OtherTheme'] = plr.additional_topic
-            if plr.type_code:
-                plr_dict['TypeCode'] = plr.type_code
-            if plr.type_code_list:
-                plr_dict['TypeCodelist'] = plr.type_code_list
-            if plr.part_in_percent:
-                plr_dict['PartInPercent'] = plr.part_in_percent
+                plr_dict = {
+                    'Information': self.get_localized_text(plr.content),
+                    'Theme': plr.topic,
+                    'Lawstatus': plr.legal_state,
+                    'Area': plr.area,
+                    'Symbol': plr.symbol,
+                    'ResponsibleOffice': self.format_office(plr.responsible_office)
+                }
 
-            if self._params_.geometry and isinstance(plr.geometries, list) and len(plr.geometries) > 0:
-                geometry_list = list()
-                for geometry in plr.geometries:
-                    geometry_list.append(self.format_geometry(geometry))
-                plr_dict['Geometry'] = geometry_list
+                if plr.subtopic:
+                    plr_dict['SubTheme'] = plr.subtopic
+                if plr.additional_topic:
+                    plr_dict['OtherTheme'] = plr.additional_topic
+                if plr.type_code:
+                    plr_dict['TypeCode'] = plr.type_code
+                if plr.type_code_list:
+                    plr_dict['TypeCodelist'] = plr.type_code_list
+                if plr.part_in_percent:
+                    plr_dict['PartInPercent'] = plr.part_in_percent
 
-            plr_list.append(plr_dict)
+                if self._params_.geometry and isinstance(plr.geometries, list) and len(plr.geometries) > 0:
+                    geometry_list = list()
+                    for geometry in plr.geometries:
+                        geometry_list.append(self.format_geometry(geometry))
+                    plr_dict['Geometry'] = geometry_list
+
+                plr_list.append(plr_dict)
+
+            else:
+                pass  # TODO: Add process empty plr record.
 
         return plr_list
 
