@@ -125,16 +125,16 @@ class PlrWebservice(object):
         processor = self._request_.pyramid_oereb_processor
         # read the real estate from configured source by the passed parameters
         real_estate_reader = processor.real_estate_reader
-        if params.get('egrid'):
+        if params.egrid:
             try:
-                real_estate_records = real_estate_reader.read(egrid=params.get('egrid'))
+                real_estate_records = real_estate_reader.read(egrid=params.egrid)
             except LookupError:
                 raise HTTPNoContent()
-        elif params.get('identdn') and params.get('number'):
+        elif params.identdn and params.number:
             try:
                 real_estate_records = real_estate_reader.read(
-                    nb_ident=params.get('identdn'),
-                    number=params.get('number')
+                    nb_ident=params.identdn,
+                    number=params.number
                 )
             except LookupError:
                 raise HTTPNoContent()
@@ -151,20 +151,20 @@ class PlrWebservice(object):
                 raise HTTPServerError()
             except NoResultFound:
                 raise HTTPServerError()
-            if params.get('format') == 'json':
+            if params.format == 'json':
                 return render_to_response(
                     'pyramid_oereb_extract_json',
                     (extract, params),
                     request=self._request_
                 )
-            elif params.get('format') == 'xml':
+            elif params.format == 'xml':
                 # TODO: implement way to produce xml
                 return render_to_response(
                     'string',
                     'Not implemented by now...',
                     request=self._request_
                 )
-            elif params.get('format') == 'pdf':
+            elif params.format == 'pdf':
                 # TODO: implement way to produce pdf
                 return render_to_response(
                     'string',
@@ -181,7 +181,7 @@ class PlrWebservice(object):
         Validates the input parameters for get_extract_by_id.
 
         :return: The validated parameters.
-        :rtype: dict
+        :rtype: pyramid_oereb.views.webservice.Parameter
         """
 
         # Check flavour
@@ -210,12 +210,7 @@ class PlrWebservice(object):
         # With images?
         with_images = self._request_.params.get('WITHIMAGES') is not None
 
-        params = {
-            'flavour': extract_flavour,
-            'format': extract_format,
-            'geometry': with_geometry,
-            'images': with_images
-        }
+        params = Parameter(extract_flavour, extract_format, with_geometry, with_images)
 
         # Get id
         if with_geometry:
@@ -227,19 +222,20 @@ class PlrWebservice(object):
         id_part_1 = self._request_.matchdict.get(id_param_1)
         id_part_2 = self._request_.matchdict.get(id_param_2)
         if id_part_2:
-            params.update({'identdn': id_part_1, 'number': id_part_2})
+            params.set_identdn(id_part_1)
+            params.set_number(id_part_2)
         else:
-            params.update({'egrid': id_part_1})
+            params.set_egrid(id_part_1)
 
         # Language
         language = self._request_.params.get('LANG')
         if language:
-            params.update({'language': language})
+            params.set_language(language)
 
         # Topics
         topics = self._request_.params.get('TOPICS')
         if topics:
-            params.update({'topics': topics.split(',')})
+            params.set_topics(topics.split(','))
 
         return params
 
@@ -318,3 +314,165 @@ class PlrWebservice(object):
         x = float(coords[0])
         y = float(coords[1])
         return self.__coord_transform__((x, y), 4326).buffer(1.0)
+
+
+class Parameter(object):
+    def __init__(self, flavour, format, geometry, images, identdn=None, number=None, egrid=None,
+                 language=None, topics=None):
+        """
+        Creates a new parameter instance.
+
+        :param flavour: The extract flavour.
+        :type flavour: str
+        :param format: The extract format.
+        :type format: str
+        :param geometry: Extract with/without geometry.
+        :type geometry: bool
+        :param images: Extract with/without images.
+        :type images: bool
+        :param identdn: The IdentDN as real estate identifier.
+        :type identdn: str
+        :param number: The parcel number as real estate identifier.
+        :type number: str
+        :param egrid: The EGRID as real estate identifier.
+        :type egrid: str
+        :param language: The requested language.
+        :type language: str
+        :param topics: The list of requested topics.
+        :type topics: list of str
+        """
+        self.__flavour__ = flavour
+        self.__format__ = format
+        self.__geometry__ = geometry
+        self.__images__ = images
+        self.__identdn__ = identdn
+        self.__number__ = number
+        self.__egrid__ = egrid
+        self.__language__ = language
+        self.__topics__ = topics
+
+    def set_identdn(self, identdn):
+        """
+        Updates the IdentDN.
+
+        :param identdn: The IdentDN as real estate identifier.
+        :type identdn: str
+        """
+        self.__identdn__ = identdn
+
+    def set_number(self, number):
+        """
+        Updates the parcel number.
+
+        :param number: The parcel number as real estate identifier.
+        :type number: str
+        """
+        self.__number__ = number
+
+    def set_egrid(self, egrid):
+        """
+        Updates the EGRID.
+
+        :param egrid: The EGRID as real estate identifier.
+        :type egrid: str
+        """
+        self.__egrid__ = egrid
+
+    def set_language(self, language):
+        """
+        Updates the language.
+
+        :param language: The requested language.
+        :type language: str
+        """
+        self.__language__ = language
+
+    def set_topics(self, topics):
+        """
+        Updates the requested topics.
+
+        :param topics: The list of requested topics.
+        :type topics: list of str
+        """
+        self.__topics__ = topics
+
+    @property
+    def flavour(self):
+        """
+
+        :return: The requested flavour.
+        :rtype: str
+        """
+        return self.__flavour__
+
+    @property
+    def format(self):
+        """
+
+        :return: The requested format.
+        :rtype: str
+        """
+        return self.__format__
+
+    @property
+    def geometry(self):
+        """
+
+        :return: Extract requested with geometries.
+        :rtype: bool
+        """
+        return self.__geometry__
+
+    @property
+    def images(self):
+        """
+
+        :return: Extract requested with images.
+        :rtype: bool
+        """
+        return self.__images__
+
+    @property
+    def identdn(self):
+        """
+
+        :return: The requested IdentDN.
+        :rtype: str
+        """
+        return self.__identdn__
+
+    @property
+    def number(self):
+        """
+
+        :return: The requested number.
+        :rtype: str
+        """
+        return self.__number__
+
+    @property
+    def egrid(self):
+        """
+
+        :return: The requested EGRID.
+        :rtype: str
+        """
+        return self.__egrid__
+
+    @property
+    def language(self):
+        """
+
+        :return: The requested language.
+        :rtype: str
+        """
+        return self.__language__
+
+    @property
+    def topics(self):
+        """
+
+        :return: The requested topics.
+        :rtype: list of str
+        """
+        return self.__topics__
