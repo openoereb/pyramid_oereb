@@ -1,0 +1,15 @@
+<Map>
+%if Image:
+    <Image>${Image}</Image>
+%endif
+%if ReferenceWMS:
+    <ReferenceWMS>${ReferenceWMS}</ReferenceWMS>
+%endif
+%if LegendAtWeb:
+    <LegendAtWeb>${LegendAtWeb}</LegendAtWeb>
+%endif
+%if OtherLegend:
+    <OtherLegend>${OtherLegend}</OtherLegend>
+%endif
+    ## TODO: Check for the extensions stuff.
+</Map>

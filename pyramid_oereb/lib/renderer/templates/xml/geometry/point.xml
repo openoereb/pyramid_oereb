@@ -1,0 +1,5 @@
+<gml:PointPropertyType>
+    <gml:Point>
+        <gml:pos>${x} ${y}</gml:pos>
+    </gml:Point>
+</gml:PointPropertyType>

@@ -1,0 +1,16 @@
+<gml:Polygon>
+    <gml:exterior>
+        <gml:LinearRing>
+             %for position in positions:
+            <gml:pos>${position.x} ${position.y}</gml:pos>
+            %endfor
+        </gml:LinearRing>
+    </gml:exterior>
+    <gml:interior>
+        <gml:LinearRing>
+            %for position in positions:
+            <gml:pos>${position.x} ${position.y}</gml:pos>
+            %endfor
+        </gml:LinearRing>
+    </gml:interior>
+</gml:Polygon>

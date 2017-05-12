@@ -1,0 +1,5 @@
+<gml:LineString>
+    %for position in positions:
+    <gml:pos>${position.x} ${position.y}</gml:pos>
+    %endfor
+</gml:LineString>

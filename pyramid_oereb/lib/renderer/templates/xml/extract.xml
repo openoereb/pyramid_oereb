@@ -1,0 +1,231 @@
+## -*- coding: utf-8 -*-
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://schemas.geo.admin.ch/swisstopo/OeREBK/15/ExtractData"
+            xmlns:gml="http://www.opengis.net/gml/3.2"
+            xmlns:xmlsig="http://www.w3.org/2000/09/xmldsig#"
+            targetNamespace=
+                    "http://schemas.geo.admin.ch/swisstopo/OeREBK/15/ExtractData"
+            elementFormDefault="qualified" attributeFormDefault="unqualified"
+            version="0.4"
+>
+    <xsd:import namespace="http://www.opengis.net/gml/3.2"
+                schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+    <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#"
+                schemaLocation="http://www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd"/>
+<% from pyramid_oereb.lib.records.plr import PlrRecord%>
+<xsd:Extract>
+    <xsd:CreationDate>${extract.creation_date}</xsd:CreationDate>
+%if extract.electronic_signature:
+    <xsd:Signiture>${extract.electronic_signature}</xsd:Signiture>
+%endif
+%if extract.concerned_theme:
+    <xsd:ConcernedTheme>
+    %for theme in extract.concerned_theme:
+        <xsd:Theme>
+            <xsd:Code>${theme.code}</xsd:Code>
+            <xsd:Text>${theme.text}</xsd:Text>
+        </xsd:Theme>
+    %endfor
+    </xsd:ConcernedTheme>
+%endif
+%if extract.not_concerned_theme:
+    <xsd:NotConcernedTheme>
+    %for theme in extract.not_concerned_theme:
+        <xsd:Theme>
+            <xsd:Code>${theme.code}</xsd:Code>
+            <xsd:Text>${theme.text}</xsd:Text>
+        </xsd:Theme>
+    %endfor
+    </xsd:NotConcernedTheme>
+%endif
+%if extract.theme_without_data:
+    <xsd:ThemeWithoutData>
+    %for theme in extract.theme_without_data:
+        <Theme>
+            <Code>${theme.code}</Code>
+            <Text>${theme.text}</Text>
+        </Theme>
+    %endfor
+    </xsd:ThemeWithoutData>
+%endif
+    <xsd:isReduced>${extract.is_reduced}</xsd:isReduced>
+%if params.images:
+    <xsd:LogoPLRCadastreRef>${extract.logo_plr_cadastre.encode()}</xsd:LogoPLRCadastreRef>
+    <xsd:FederalLogoRef>${extract.federal_logo.encode()}</xsd:FederalLogoRef>
+    <xsd:CantonalLogoRef>${extract.cantonal_logo.encode()}</xsd:CantonalLogoRef>
+    <xsd:MunicipalityLogoRef>${extract.municipality_logo.encode()}</xsd:MunicipalityLogoRef>
+%else:
+    <xsd:LogoPLRCadastre>${LogoPLRCadastre}</xsd:LogoPLRCadastre>
+    <xsd:FederalLogo>${FederalLogo}</xsd:FederalLogo>
+    <xsd:CantonalLogo>${CantonalLogo}</xsd:CantonalLogo>
+    <xsd:MunicipalityLogo>${MunicipalityLogo}</xsd:MunicipalityLogo>
+%endif
+    <xsd:ExtractIdentifier>${extract.extract_identifier}</xsd:ExtractIdentifier>
+%if extract.qr_code:
+    <xsd:QRCode>${extract.qr_code}</xsd:QRCode>
+%endif
+% if extract.general_information:
+    <xsd:GeneralInformation>${extract.general_information}</xsd:GeneralInformation>
+%endif
+    <xsd:BaseData>${extract.base_data}</xsd:BaseData>
+%if extract.glossaries:
+    <xsd:Glossary>
+        %for glossary in extract.glossaries:
+        <xsd:Glossary>
+            <xsd:Title>${glossary.title}</xsd:Title>
+            <xsd:Content>${glossary.content}</xsd:Content>
+        </xsd:Glossary>
+        %endfor
+    </xsd:Glossary>
+%endif
+    <xsd:RealEstate>
+        <xsd:RealEstate_DPR>
+            %if extract.real_estate.number:
+                <xsd:Number>${extract.real_estate.number}</xsd:Number>
+            %endif
+            %if extract.real_estate.identdn:
+                <xsd:IdentDN>${extract.real_estate.identdn}</xsd:IdentDN>
+            %endif
+            %if extract.real_estate.egrid:
+                <xsd:EGRID>${extract.real_estate.egrid}</xsd:EGRID>
+            %endif
+                <xsd:Type>${extract.real_estate.type}</xsd:Type>
+                <xsd:Canton>${extract.real_estate.canton}</xsd:Canton>
+                <xsd:Municipality>${extract.real_estate.municipality}</xsd:Municipality>
+            %if extract.real_estate.subunit_of_land_register:
+                <xsd:SubunitOfLandRegister>${extract.real_estate.subunit_of_land_register}</xsd:SubunitOfLandRegister>
+            %endif
+                <xsd:FosNr>${extract.real_estate.fosnr}</xsd:FosNr>
+            %if extract.real_estate.metadata_of_geographical_base_data:
+                <xsd:MetadataOfGeographicalBaseData>${extract.real_estate.metadata_of_geographical_base_data.encode('utf-8')}</xsd:MetadataOfGeographicalBaseData>
+            %endif
+                <xsd:LandRegistryArea>${extract.real_estate.land_registry_area}</xsd:LandRegistryArea>
+            %if extract.real_estate.limit:
+                <xsd:Limit>
+                    <gml:multiSurfaceProperty>
+                        <gml:MultiSurface>
+                            %for polygon in extract.real_estate.limit.geoms:
+                            <gml:surfaceMember>
+                                <gml:Polygon>
+                                    <gml:exterior>
+                                        <gml:LinearRing>
+                                            %for position in polygon.exterior.coords:
+                                            <gml:pos>${position[0]} ${position[1]}</gml:pos>
+                                            %endfor
+                                        </gml:LinearRing>
+                                    </gml:exterior>
+                                    <gml:interior>
+                                        <gml:LinearRing>
+                                            %for position in polygon.exterior.coords:
+                                            <gml:pos>${position[0]} ${position[1]}</gml:pos>
+                                            %endfor
+                                        </gml:LinearRing>
+                                    </gml:interior>
+                                </gml:Polygon>
+                            </gml:surfaceMember>
+                            %endfor
+                        </gml:MultiSurface>
+                    </gml:multiSurfaceProperty>
+                </xsd:Limit>
+            %endif
+            %for public_law_restriction in extract.real_estate.public_law_restrictions:
+                %if isinstance(public_law_restriction, PlrRecord):
+                <xsd:RestrictionOnLandownership>
+                    <xsd:Information>${public_law_restriction.content}</xsd:Information>
+                    <xsd:Theme>
+                        <xsd:Code>${public_law_restriction.theme.code}</xsd:Code>
+                        <xsd:Text>${public_law_restriction.theme.text}</xsd:Text>
+                    </xsd:Theme>
+                    %if public_law_restriction.subtopic:
+                    <xsd:SubTheme>${public_law_restriction.subtopic}</xsd:SubTheme>
+                    %endif
+                    %if public_law_restriction.type_code:
+                    <xsd:TypeCode>${public_law_restriction.type_code}</xsd:TypeCode>
+                    %endif
+                    %if public_law_restriction.type_code_list:
+                    <xsd:TypeCodelist>${public_law_restriction.type_code_list}</xsd:TypeCodelist>
+                    %endif
+                    %if public_law_restriction.legal_state:
+                    <xsd:Lawstatus>${public_law_restriction.legal_state}</xsd:Lawstatus>
+                    %endif
+                     %if public_law_restriction.area:
+                    <xsd:Area>${public_law_restriction.area}</xsd:Area>
+                    %endif
+                    %if public_law_restriction.part_in_percent:
+                    <xsd:PartInPercent>${public_law_restriction.part_in_percent}</xsd:PartInPercent>
+                    %endif
+                    %if params.images:
+                    <xsd:Symbol>${public_law_restriction.symbol}</xsd:Symbol>
+                    %else:
+                    <xsd:SymbolRef>${public_law_restriction.symbol}</xsd:SymbolRef>
+                    %endif
+                    <xsd:Geometry>
+                        %for geometry in public_law_restriction.geometries:
+                        <xsd:Geometry>
+                            %if 'Point' in geometry.geom.type:
+                            <xsd:Point>
+
+                            </xsd:Point>
+                            %elif 'Line' in geometry.geom.type:
+                            <xsd:Line>
+
+                            </xsd:Line>
+                            %elif 'Polygon' in geometry.geom.type:
+                            <xsd:Surface>
+
+                            </xsd:Surface>
+                            %endif
+                            <xsd:Lawstatus>
+                            </xsd:Lawstatus>
+                        </xsd:Geometry>
+                        %endfor
+                    </xsd:Geometry>
+                    <xsd:Map>...</xsd:Map>
+                    <xsd:LegalProvisions>...</xsd:LegalProvisions>
+                    <xsd:ResponsibleOffice>...</xsd:ResponsibleOffice>
+                </xsd:RestrictionOnLandownership>
+                %endif
+            %endfor
+            <xsd:PlanForLandRegister>${extract.real_estate.plan_for_land_register}</xsd:PlanForLandRegister>
+        </xsd:RealEstate_DPR>
+    </xsd:RealEstate>
+%if extract.exclusions_of_liability:
+    <xsd:ExclusionOfLiability>
+        %for exclusion_of_liability in extract.exclusions_of_liability:
+        <xsd:ExclusionOfLiability>
+            <xsd:Title>${exclusion_of_liability.title}</xsd:Title>
+            <xsd:Content>${exclusion_of_liability.content}</xsd:Content>
+        </xsd:ExclusionOfLiability>
+        %endfor
+    </xsd:ExclusionOfLiability>
+%endif
+    <xsd:PLRCadastreAuthority>
+        <xsd:Name>${extract.plr_cadastre_authority.name}</xsd:Name>
+        %if extract.plr_cadastre_authority.office_at_web:
+        <xsd:OfficeAtWeb>${extract.plr_cadastre_authority.office_at_web}</xsd:OfficeAtWeb>
+        %endif
+        %if extract.plr_cadastre_authority.uid:
+        <xsd:UID>${extract.plr_cadastre_authority.uid}</xsd:UID>
+        %endif
+        %if extract.plr_cadastre_authority.line1:
+        <xsd:Line1>${extract.plr_cadastre_authority.line1}</xsd:Line1>
+        %endif
+        %if extract.plr_cadastre_authority.line2:
+        <xsd:Line2>${extract.plr_cadastre_authority.line2}</xsd:Line2>
+        %endif
+        %if extract.plr_cadastre_authority.street:
+        <xsd:Street>${extract.plr_cadastre_authority.street}</xsd:Street>
+        %endif
+        %if extract.plr_cadastre_authority.number:
+        <xsd:Number>${extract.plr_cadastre_authority.number}</xsd:Number>
+        %endif
+        %if extract.plr_cadastre_authority.postal_code:
+        <xsd:PostalCode>${extract.plr_cadastre_authority.postal_code}</xsd:PostalCode>
+        %endif
+        %if extract.plr_cadastre_authority.city:
+        <xsd:City>${extract.plr_cadastre_authority.city}</xsd:City>
+        %endif
+    </xsd:PLRCadastreAuthority>
+</xsd:Extract>
+</xsd:schema>

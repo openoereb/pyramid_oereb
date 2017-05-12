@@ -1,0 +1,30 @@
+<RealEstate_DPR>
+%if Number:
+    <Number>${Number}</Number>
+%endif
+%if IdentDN:
+    <IdentDN>${IdentDN}</IdentDN>
+%endif
+%if EGRID:
+    <EGRID>${EGRID}</EGRID>
+%endif
+    <Type>${Type}</Type>
+    <Canton>${Canton}</Canton>
+    <Municipality>${Municipality}</Municipality>
+%if SubunitOfLandRegister:
+    <SubunitOfLandRegister>${SubunitOfLandRegister}</SubunitOfLandRegister>
+%endif
+    <FosNr>${FosNr}</FosNr>
+%if MetadataOfGeographicalBaseData:
+    <MetadataOfGeographicalBaseData>${MetadataOfGeographicalBaseData}</MetadataOfGeographicalBaseData>
+%endif
+    <LandRegistryArea>${LandRegistryArea}</LandRegistryArea>
+%if Limit:
+%endif
+    <Limit>${Limit}</Limit>
+%if RestrictionOnLandownership:
+    <RestrictionOnLandownership>${RestrictionOnLandownership}</RestrictionOnLandownership>
+%endif
+    <PlanForLandRegister>${PlanForLandRegister}</PlanForLandRegister>
+
+</RealEstate_DPR>

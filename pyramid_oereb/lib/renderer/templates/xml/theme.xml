@@ -1,0 +1,4 @@
+<Theme>
+    <Code>${theme.get('Code')}</Code>
+    <Text>${theme.get('Text')}</Text>
+</Theme>

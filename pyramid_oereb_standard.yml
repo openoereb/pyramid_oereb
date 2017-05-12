@@ -72,7 +72,7 @@ pyramid_oereb:
     # repository). But if you need to change it for any reason: Feel free...
     oereb: logo_oereb.png
     # The logo representing your canton. This must be configured!
-    canton: YOUR_LOGO_HERE!
+    canton: BL_Logo_B_r_rgb.png
 
   # The processor of the oereb project needs access to real estate data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you like to read the real estate out of an existing
