@@ -27,17 +27,20 @@ config_reader = ConfigReader('pyramid_oereb_test.yml', 'pyramid_oereb')
 class MockRequest(DummyRequest):
     def __init__(self):
         super(MockRequest, self).__init__()
-        real_estate_config = config_reader.get_real_estate_config()
-        municipality_config = config_reader.get_municipality_config()
-        exclusion_of_liability_config = config_reader.get_exclusion_of_liability_config()
-        glossary_config = config_reader.get_glossary_config()
-        logos = config_reader.get_logo_config()
-        plr_cadastre_authority = config_reader.get_plr_cadastre_authority()
-        point_types = config_reader.get('plr_limits').get('point_types')
-        line_types = config_reader.get('plr_limits').get('line_types')
-        polygon_types = config_reader.get('plr_limits').get('polygon_types')
-        min_length = config_reader.get('plr_limits').get('min_length')
-        min_area = config_reader.get('plr_limits').get('min_area')
+
+        self.config_reader = config_reader
+
+        real_estate_config = self.config_reader.get_real_estate_config()
+        municipality_config = self.config_reader.get_municipality_config()
+        exclusion_of_liability_config = self.config_reader.get_exclusion_of_liability_config()
+        glossary_config = self.config_reader.get_glossary_config()
+        logos = self.config_reader.get_logo_config()
+        plr_cadastre_authority = self.config_reader.get_plr_cadastre_authority()
+        point_types = self.config_reader.get('plr_limits').get('point_types')
+        line_types = self.config_reader.get('plr_limits').get('line_types')
+        polygon_types = self.config_reader.get('plr_limits').get('polygon_types')
+        min_length = self.config_reader.get('plr_limits').get('min_length')
+        min_area = self.config_reader.get('plr_limits').get('min_area')
 
         real_estate_reader = RealEstateReader(
             real_estate_config.get('source').get('class'),
@@ -86,6 +89,10 @@ class MockRequest(DummyRequest):
     @property
     def pyramid_oereb_processor(self):
         return self.processor
+
+    @property
+    def pyramid_oereb_config_reader(self):
+        return self.config_reader
 
 
 @pytest.fixture()

@@ -135,7 +135,11 @@ def includeme(config):
     def pyramid_oereb_processor(request):
         return processor
 
+    def pyramid_oereb_config_reader(request):
+        return config_reader
+
     config.add_request_method(pyramid_oereb_processor, reify=True)
+    config.add_request_method(pyramid_oereb_config_reader, reify=True)
 
     config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer._json_.Extract')
 
