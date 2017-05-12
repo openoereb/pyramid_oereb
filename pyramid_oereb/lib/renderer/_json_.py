@@ -2,6 +2,8 @@
 from json import dumps
 
 from pyramid.response import Response
+
+from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord, ArticleRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
 from shapely.geometry import mapping
 
@@ -142,6 +144,12 @@ class Extract(Base):
             real_estate_dict['RestrictionOnLandownership'] = \
                 self.format_plr(real_estate.public_law_restrictions)
 
+        if isinstance(real_estate.references, list) and len(real_estate.references) > 0:
+            reference_list = list()
+            for reference in real_estate.references:
+                reference_list.append(self.format_document(reference))
+            real_estate_dict['Reference'] = reference_list
+
         return real_estate_dict
 
     def format_plr(self, plrs):
@@ -161,6 +169,12 @@ class Extract(Base):
         for plr in plrs:
 
             if isinstance(plr, PlrRecord):
+
+                # PLR without legal provision is allowed in reduced extract only!
+                if self._params_.flavour != 'reduced' and isinstance(plr.documents, list) and \
+                                len(plr.documents) == 0:
+                    raise ValueError('Restrictions on landownership without legal provision are only allowed '
+                                     'in reduced extracts!')
 
                 plr_dict = {
                     'Information': self.get_localized_text(plr.content),
@@ -188,12 +202,78 @@ class Extract(Base):
                         geometry_list.append(self.format_geometry(geometry))
                     plr_dict['Geometry'] = geometry_list
 
+                if isinstance(plr.documents, list) and len(plr.documents) > 0:
+                    documents_list = list()
+                    for document in plr.documents:
+                        documents_list.append(self.format_document(document))
+                    plr_dict['LegalProvisions'] = documents_list
+
                 plr_list.append(plr_dict)
 
             else:
                 pass  # TODO: Add process empty plr record.
 
         return plr_list
+
+    def format_document(self, document):
+        """
+        Formats a document record for rendering according to the federal specification.
+
+        :param document: The document record to be formatted.
+        :type document: pyramid_oereb.lib.records.documents.DocumentBaseRecord
+        :return: The formatted dictionary for rendering.
+        :rtype: dict
+        """
+
+        document_dict = dict()
+
+        if isinstance(document, DocumentRecord) or isinstance(document, LegalProvisionRecord):
+
+            document_dict.update({
+                'Lawstatus': document.legal_state,
+                'TextAtWeb': self.get_localized_text(document.text_at_web),
+                'Title': self.get_localized_text(document.title),
+                'ResponsibleOffice': self.format_office(document.responsible_office)
+            })
+
+            if document.official_title:
+                document_dict['OfficialTitle'] = self.get_localized_text(document.official_title)
+            if document.abbreviation:
+                document_dict['Abbrevation'] = self.get_localized_text(document.abbreviation)
+            if document.official_number:
+                document_dict['OfficialNumber'] = document.official_number
+            if document.canton:
+                document_dict['Canton'] = document.canton
+            if document.municipality:
+                document_dict['Municipality'] = document.municipality
+
+            if isinstance(document.article_numbers, list) and len(document.article_numbers) > 0:
+                document_dict['ArticleNumber'] = document.article_numbers
+
+            if isinstance(document.articles, list) and len(document.articles) > 0:
+                article_list = list()
+                for article in document.articles:
+                    article_list.append(self.format_document(article))
+                document_dict['Article'] = article_list
+
+            if isinstance(document.references, list) and len(document.references) > 0:
+                reference_list = list()
+                for reference in document.references:
+                    reference_list.append(self.format_document(reference))
+                document_dict['Reference'] = reference_list
+
+        elif isinstance(document, ArticleRecord):
+            document_dict.update({
+                'Lawstatus': document.legal_state,
+                'Number': document.number
+            })
+
+            if document.text_at_web:
+                document_dict['TextAtWeb'] = self.get_localized_text(document.text_at_web)
+            if document.text:
+                document_dict['Text'] = self.get_localized_text(document.text)
+
+        return document_dict
 
     def format_geometry(self, geometry):
         """
