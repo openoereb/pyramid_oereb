@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import datetime
 
+from pyramid.request import Request
+from pyramid.testing import DummyRequest
+
 
 class Base(object):
     def __init__(self, info):
@@ -23,8 +26,23 @@ class Base(object):
         :rtype: pyramid.response.Response or None
         """
         request = system.get('request')
-        if request is not None:
+        if isinstance(request, Request) or isinstance(request, DummyRequest):
             return request.response
+        return None
+
+    @classmethod
+    def get_request(cls, system):
+        """
+        Returns the request object if available.
+
+        :param system: The available system properties.
+        :type system: dict
+        :return: The request object.
+        :rtype: pyramid.request.Request or None
+        """
+        request = system.get('request')
+        if isinstance(request, Request) or isinstance(request, DummyRequest):
+            return request
         return None
 
     @classmethod

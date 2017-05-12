@@ -4,8 +4,8 @@ from json import dumps
 from pyramid.response import Response
 from shapely.geometry import mapping
 
-from pyramid_oereb import default_lang, srid
 from pyramid_oereb.lib.renderer import Base
+from pyramid_oereb.views.webservice import Parameter
 
 
 class Extract(Base):
@@ -13,11 +13,10 @@ class Extract(Base):
         """
         Creates a new JSON renderer instance for extract rendering.
 
-        :var info: Info object.
-        :vartype info: pyramid.interfaces.IRendererInfo
+        :param info: Info object.
+        :type info: pyramid.interfaces.IRendererInfo
         """
         super(Extract, self).__init__(info)
-        self.language = str(default_lang).lower()
 
     def __call__(self, value, system):
         """
@@ -34,6 +33,8 @@ class Extract(Base):
         if isinstance(response, Response) and response.content_type == response.default_content_type:
             response.content_type = 'application/json'
 
+        self._config_reader_ = self.get_request(system).pyramid_oereb_config_reader
+        self._language_ = str(self._config_reader_.get('default_language')).lower()
         self._params_ = value[1]
 
         return self.__render__(value[0])
@@ -48,15 +49,21 @@ class Extract(Base):
         :rtype: str
         """
 
-        if self._params_.get('language'):
-            self.language = str(self._params_.get('language')).lower()
+        if not isinstance(self._params_, Parameter):
+            raise TypeError('Missing parameter definition; Expected {0}, got {1} instead'.format(
+                Parameter,
+                self._params_.__class__
+            ))
+
+        if self._params_.language:
+            self._language_ = str(self._params_.language).lower()
 
         extract_dict = {
             'CreationDate': self.date_time(extract.creation_date),
             'ConcernedTheme': [],
             'NotConcernedTheme': [],
             'ThemeWithoutData': [],
-            'isReduced': self._params_.get('flavour') == 'reduced',
+            'isReduced': self._params_.flavour == 'reduced',
             'LogoPLRCadastre': extract.logo_plr_cadastre.encode(),
             'FederalLogo': extract.federal_logo.encode(),
             'CantonalLogo': extract.cantonal_logo.encode(),
@@ -103,6 +110,9 @@ class Extract(Base):
         :return: The formatted dictionary for rendering.
         :rtype: dict
         """
+
+        assert isinstance(self._params_, Parameter)
+
         real_estate_dict = {
             'Type': real_estate.type,
             'Canton': real_estate.canton,
@@ -111,8 +121,8 @@ class Extract(Base):
             'LandRegistryArea': real_estate.land_registry_area
         }
 
-        if self._params_.get('geometry'):
-            real_estate_dict['Limit'] = self.format_geometry(real_estate.limit)
+        if self._params_.geometry:
+            real_estate_dict['Limit'] = self.from_shapely(real_estate.limit)
 
         if real_estate.number:
             real_estate_dict['Number'] = real_estate.number
@@ -142,6 +152,9 @@ class Extract(Base):
         :return: The formatted dictionaries for rendering.
         :rtype: list of dict
         """
+
+        assert isinstance(self._params_, Parameter)
+
         plr_list = list()
 
         for plr in plrs:
@@ -165,9 +178,47 @@ class Extract(Base):
             if plr.part_in_percent:
                 plr_dict['PartInPercent'] = plr.part_in_percent
 
+            if self._params_.geometry and isinstance(plr.geometries, list) and len(plr.geometries) > 0:
+                geometry_list = list()
+                for geometry in plr.geometries:
+                    geometry_list.append(self.format_geometry(geometry))
+                plr_dict['Geometry'] = geometry_list
+
             plr_list.append(plr_dict)
 
         return plr_list
+
+    def format_geometry(self, geometry):
+        """
+        Formats a geometry record for rendering according to the federal specification.
+
+        :param geometry: The geometry record to be formatted.
+        :type geometry: pyramid_oereb.lib.records.geometry.GeometryRecord
+        :return: The formatted dictionary for rendering.
+        :rtype: dict
+        """
+        plr_limits = self._config_reader_.get('plr_limits')
+        if geometry.geom.type in plr_limits.get('point_types'):
+            geometry_type = 'Point'
+        elif geometry.geom.type in plr_limits.get('line_types'):
+            geometry_type = 'Line'
+        elif geometry.geom.type in plr_limits.get('polygon_types'):
+            geometry_type = 'Surface'
+        else:
+            raise TypeError('The geometry type {gtype} is not configured in "plr_limits"'.format(
+                gtype=geometry.geom.type
+            ))
+
+        geometry_dict = {
+            geometry_type: self.from_shapely(geometry.geom),
+            'Lawstatus': geometry.legal_state,
+            'ResponsibleOffice': self.format_office(geometry.office)
+        }
+
+        if geometry.geo_metadata:
+            geometry_dict['MetadataOfGeographicalBaseData'] = geometry.geo_metadata
+
+        return geometry_dict
 
     def format_office(self, office):
         """
@@ -199,7 +250,7 @@ class Extract(Base):
             office_dict['City'] = office.city
         return office_dict
 
-    def format_geometry(self, geom):
+    def from_shapely(self, geom):
         """
         Formats shapely geometry for rendering according to the federal specification.
 
@@ -210,7 +261,7 @@ class Extract(Base):
         """
         geom_dict = {
             'coordinates': mapping(geom)['coordinates'],
-            'crs': 'EPSG:{srid}'.format(srid=srid)
+            'crs': 'EPSG:{srid}'.format(srid=self._config_reader_.get('srid'))
             # isosqlmmwkb only used for curved geometries (not supported by shapely)
             # 'isosqlmmwkb': base64.b64encode(geom.wkb)
         }
