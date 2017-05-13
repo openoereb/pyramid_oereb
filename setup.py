@@ -28,7 +28,8 @@ requires = [
     'waitress',
     'zope.sqlalchemy',
     'jsonschema',
-    'pyreproj'
+    'pyreproj',
+    'dicttoxml'
 ]
 
 setup(
