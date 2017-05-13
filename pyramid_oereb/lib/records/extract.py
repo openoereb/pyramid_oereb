@@ -8,7 +8,7 @@ class ExtractRecord(object):
     creation_date = None
     electronic_signature = None
     concerned_theme = None
-    notconcerned_theme = None
+    not_concerned_theme = None
     theme_without_data = None
     is_reduced = False
     extract_identifier = None
@@ -19,9 +19,10 @@ class ExtractRecord(object):
 
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
                  plr_cadastre_authority, exclusions_of_liability=None, glossaries=None,
-                 notconcerned_theme=None):
+                 concerned_theme=[], not_concerned_theme=[], theme_without_data=[]):
         """
         The extract base class.
+
         :param real_estate: The real estate in its record representation.
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
         :param logo_plr_cadastre: Image file of the PLR logo
@@ -35,16 +36,22 @@ class ExtractRecord(object):
         :param plr_cadastre_authority: The authority which is responsible for the PLR cadastre
         :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OfficeRecord
         :param exclusions_of_liability: Exclusions of liability for the extract
+        :type exclusions_of_liability:
+            list of pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord
         :param glossaries: Glossary for the extract
+        :type glossaries: list of pyramid_oereb.lib.records.glossary.GlossaryRecord
+        :param concerned_theme: Concerned themes.
+        :type concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord
+        :param not_concerned_theme: Not concerned themes.
+        :type not_concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord
+        :param theme_without_data: Themes without data.
+        :type theme_without_data: list of pyramid_oereb.lib.records.theme.ThemeRecord
         """
         self.extract_identifier = str(uuid.uuid4())
         self.real_estate = real_estate
-        if notconcerned_theme:
-            self.notconcerned_theme = notconcerned_theme
-        else:
-            self.notconcerned_theme = []
-        self.concerned_theme = []
-        self.theme_without_data = []
+        self.concerned_theme = concerned_theme
+        self.not_concerned_theme = not_concerned_theme
+        self.theme_without_data = theme_without_data
         self.creation_date = datetime.now().date()
         self.logo_plr_cadastre = logo_plr_cadastre
         self.federal_logo = federal_logo
@@ -64,13 +71,14 @@ class ExtractRecord(object):
     def get_fields(cls):
         """
         Returns a list of available field names.
+
         :return: List of available field names.
         :rtype: list of str
         """
         return [
             'extract_identifier',
             'real_estate',
-            'notconcerned_theme',
+            'not_concerned_theme',
             'concerned_theme',
             'theme_without_data',
             'logo_plr_cadastre',
@@ -86,15 +94,13 @@ class ExtractRecord(object):
     def to_extract(self):
         """
         Returns a dictionary with all available values needed for the extract.
+
         :return: Dictionary with values for the extract.
         :rtype: dict
         """
         extract = dict()
         for key in [
             'extract_identifier',
-            'notconcerned_theme',
-            'concerned_theme',
-            'theme_without_data',
             'exclusions_of_liability',
             'glossaries'
         ]:
@@ -105,6 +111,14 @@ class ExtractRecord(object):
         record = getattr(self, key)
         if record:
             extract[key] = record.to_extract()
+        for key in [
+            'not_concerned_theme',
+            'concerned_theme',
+            'theme_without_data'
+        ]:
+            themes = getattr(self, key)
+            if isinstance(themes, list) and len(themes) > 0:
+                extract[key] = [theme.to_extract() for theme in themes]
         key = 'creation_date'
         extract[key] = getattr(self, key).isoformat()
         for key in ['logo_plr_cadastre', 'federal_logo', 'cantonal_logo', 'municipality_logo']:

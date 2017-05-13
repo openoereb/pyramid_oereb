@@ -6,6 +6,8 @@ pyramid_oereb:
     - it
     - rm
 
+  default_language: de
+
   flavour:
     - REDUCED
     - FULL
@@ -71,12 +73,24 @@ pyramid_oereb:
         db_connection: ${sqlalchemy_url}
         model: pyramid_oereb.models.PyramidOerebMainExclusionOfLiability
 
+  extract:
+    source:
+      class: pyramid_oereb.lib.sources.extract.ExtractStandardDatabaseSource
+
+  plr_limits:
+    point_types: [Point, MultiPoint]
+    line_types: [LineString, LinearRing, MultiLineString]
+    polygon_types: [Polygon, MultiPolygon]
+    min_length: 1.0
+    min_area: 1.0
+
   plrs:
 
     - name: plr73
       code: LandUsePlans
       geometry_type: LINESTRING
-      label: Nutzungsplanung
+      text:
+        de: Nutzungsplanung
       language: de
       standard: true
       source:
@@ -88,7 +102,8 @@ pyramid_oereb:
     - name: plr87
       code: MotorwaysProjectPlaningZones
       geometry_type: LINESTRING
-      label: Projektierungszonen Nationalstrassen
+      text:
+        de: Projektierungszonen Nationalstrassen
       language: de
       standard: true
       source:
@@ -100,7 +115,8 @@ pyramid_oereb:
     - name: plr88
       code: MotorwaysBuildingLines
       geometry_type: LINESTRING
-      label: Baulinien Nationalstrassen
+      text:
+        de: Baulinien Nationalstrassen
       language: de
       standard: true
       source:
@@ -112,7 +128,8 @@ pyramid_oereb:
     - name: plr97
       code: RailwaysBuildingLines
       geometry_type: LINESTRING
-      label: Baulinien Eisenbahnanlagen
+      text:
+        de: Baulinien Eisenbahnanlagen
       language: de
       standard: true
       source:
@@ -124,7 +141,8 @@ pyramid_oereb:
     - name: plr96
       code: RailwaysProjectPlanningZones
       geometry_type: POLYGON
-      label: Projektierungszonen Eisenbahnanlagen
+      text:
+        de: Projektierungszonen Eisenbahnanlagen
       language: de
       standard: true
       source:
@@ -136,7 +154,8 @@ pyramid_oereb:
     - name: plr103
       code: AirportsProjectPlanningZones
       geometry_type: POLYGON
-      label: Projektierungszonen Flughafenanlagen
+      text:
+        de: Projektierungszonen Flughafenanlagen
       language: de
       standard: true
       source:
@@ -148,7 +167,8 @@ pyramid_oereb:
     - name: plr104
       code: AirportsBuildingLines
       geometry_type: POLYGON
-      label: Baulinien Flughafenanlagen
+      text:
+        de: Baulinien Flughafenanlagen
       language: de
       standard: true
       source:
@@ -160,7 +180,8 @@ pyramid_oereb:
     - name: plr108
       code: AirportsSecurityZonePlans
       geometry_type: POLYGON
-      label: Sicherheitszonenplan Flughafen
+      text:
+        de: Sicherheitszonenplan Flughafen
       language: de
       standard: true
       source:
@@ -172,7 +193,8 @@ pyramid_oereb:
     - name: plr116
       code: ContaminatedSites
       geometry_type: POLYGON
-      label: Belastete Standorte
+      text:
+        de: Belastete Standorte
       language: de
       standard: true
       source:
@@ -184,7 +206,8 @@ pyramid_oereb:
     - name: plr117
       code: ContaminatedMilitarySites
       geometry_type: POLYGON
-      label: Belastete Standorte Militär
+      text:
+        de: Belastete Standorte Militär
       language: de
       standard: true
       source:
@@ -196,7 +219,8 @@ pyramid_oereb:
     - name: plr118
       code: ContaminatedCivilAviationSites
       geometry_type: POLYGON
-      label: Belastete Standorte Zivile Flugplätze
+      text:
+        de: Belastete Standorte Zivile Flugplätze
       language: de
       standard: true
       source:
@@ -208,7 +232,8 @@ pyramid_oereb:
     - name: plr119
       code: ContaminatedPublicTransportSites
       geometry_type: POLYGON
-      label: Belastete Standorte Öeffentlicher Verkehr
+      text:
+        de: Belastete Standorte Öeffentlicher Verkehr
       language: de
       standard: true
       source:
@@ -220,7 +245,8 @@ pyramid_oereb:
     - name: plr131
       code: GroundwaterProtectionZones
       geometry_type: POLYGON
-      label: Grundwasserschutzzonen
+      text:
+        de: Grundwasserschutzzonen
       language: de
       standard: true
       source:
@@ -232,7 +258,8 @@ pyramid_oereb:
     - name: plr132
       code: GroundwaterProtectionSites
       geometry_type: POLYGON
-      label: Grundwasserschutzareale
+      text:
+        de: Grundwasserschutzareale
       language: de
       standard: true
       source:
@@ -244,7 +271,8 @@ pyramid_oereb:
     - name: plr145
       code: NoiseSensitivityLevels
       geometry_type: POLYGON
-      label: Lärmemfindlichkeitsstufen
+      text:
+        de: Lärmemfindlichkeitsstufen
       language: de
       standard: true
       source:
@@ -256,7 +284,8 @@ pyramid_oereb:
     - name: plr157
       code: ForestPerimeters
       geometry_type: POLYGON
-      label: Waldgrenzen
+      text:
+        de: Waldgrenzen
       language: de
       standard: true
       source:
@@ -268,7 +297,8 @@ pyramid_oereb:
     - name: plr159
       code: ForestDistanceLines
       geometry_type: POLYGON
-      label: Waldabstandslinien
+      text:
+        de: Waldabstandslinien
       language: de
       standard: true
       source:

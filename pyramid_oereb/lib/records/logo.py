@@ -7,6 +7,7 @@ class LogoRecord(object):
     def __init__(self, content):
         """
         The record to hold the binary information of a logo/image.
+
         :param content: The binary information of this logo as binary string.
         :type content: str
         """
@@ -16,6 +17,7 @@ class LogoRecord(object):
     def get_fields(cls):
         """
         Returns a list of available field names.
+
         :return: List of available field names.
         :rtype: list of str
         """
@@ -26,6 +28,7 @@ class LogoRecord(object):
     def to_extract(self):
         """
         Returns a dictionary with all available values needed for the extract.
+
         :return: Dictionary with values for the extract.
         :rtype: dict
         """
@@ -34,3 +37,12 @@ class LogoRecord(object):
         extract[key] = base64.b64encode(getattr(self, key))
 
         return extract
+
+    def encode(self):
+        """
+        Returns the logo as base64 encoded string.
+
+        :return: The encoded image.
+        :rtype: str
+        """
+        return base64.b64encode(self.content)
