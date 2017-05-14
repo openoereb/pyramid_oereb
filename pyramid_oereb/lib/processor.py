@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+import logging
 from sqlalchemy.orm.exc import NoResultFound
 from pyramid_oereb.lib.records.plr import PlrRecord
+
+log = logging.getLogger('pyramid_oereb')
 
 
 class Processor(object):
@@ -86,8 +89,9 @@ class Processor(object):
                                 round(((compensated_area/real_estate.limit.area)*100), 1)
                             extract.real_estate.public_law_restrictions[index].units = 'm2'
                     else:
-                        # TODO: configure a proper error message
-                        print 'Error: unknown geometry type'
+                        msg = 'Error: unknown geometry type "{type}"'.format(type=geometryType)
+                        log.error(msg)
+                        raise LookupError(msg)
                 # Remove small geometry from geometries list
                 for geom in geom_cleaner:
                     extract.real_estate.public_law_restrictions[index].geometries.remove(geom)
@@ -148,8 +152,18 @@ class Processor(object):
         for municipality in municipalities:
             if municipality.fosnr == real_estate.fosnr:
                 if not municipality.published:
-                    raise NotImplementedError
+                    msg = 'Main switch decides to block requested extract because municipality ' \
+                          '"{id}", ""{name} has set a negative published switch.'.format(
+                                id=municipality.fosnr, name=municipality.name
+                            )
+                    log.error(msg)
+                    raise NotImplementedError(msg)
                 extract_raw = self._extract_reader_.read(real_estate, municipality.logo)
                 extract = self.plr_tolerance_check(extract_raw)
                 return extract.to_extract()
-        raise NoResultFound()
+        msg = 'There was a problem with your provided municipality data. Municipality could not be ' \
+              'found in the provided set: "{id}"'.format(
+                    id=real_estate.fosnr
+                )
+        log.error(msg)
+        raise LookupError(msg)
