@@ -170,10 +170,9 @@ class PlrWebservice(object):
                     request=self._request_
                 )
             elif params.format == 'xml':
-                # TODO: implement way to produce xml
                 return render_to_response(
-                    'string',
-                    'Not implemented by now...',
+                    'pyramid_oereb_extract_xml',
+                    (extract, params),
                     request=self._request_
                 )
             elif params.format == 'pdf':

@@ -50,15 +50,16 @@
     %endif
         <xsd:isReduced>${parse_bool(extract.is_reduced)}</xsd:isReduced>
     %if params.images:
+        ## TODO: provide a link to the logos
         <xsd:LogoPLRCadastreRef>${extract.logo_plr_cadastre.encode()}</xsd:LogoPLRCadastreRef>
         <xsd:FederalLogoRef>${extract.federal_logo.encode()}</xsd:FederalLogoRef>
         <xsd:CantonalLogoRef>${extract.cantonal_logo.encode()}</xsd:CantonalLogoRef>
         <xsd:MunicipalityLogoRef>${extract.municipality_logo.encode()}</xsd:MunicipalityLogoRef>
     %else:
-        <xsd:LogoPLRCadastre>${LogoPLRCadastre}</xsd:LogoPLRCadastre>
-        <xsd:FederalLogo>${FederalLogo}</xsd:FederalLogo>
-        <xsd:CantonalLogo>${CantonalLogo}</xsd:CantonalLogo>
-        <xsd:MunicipalityLogo>${MunicipalityLogo}</xsd:MunicipalityLogo>
+        <xsd:LogoPLRCadastre>${extract.logo_plr_cadastre.encode()}</xsd:LogoPLRCadastre>
+        <xsd:FederalLogo>${extract.federal_logo.encode()}</xsd:FederalLogo>
+        <xsd:CantonalLogo>${extract.cantonal_logo.encode()}</xsd:CantonalLogo>
+        <xsd:MunicipalityLogo>${extract.municipality_logo.encode()}</xsd:MunicipalityLogo>
     %endif
         <xsd:ExtractIdentifier>${extract.extract_identifier}</xsd:ExtractIdentifier>
     %if extract.qr_code:
