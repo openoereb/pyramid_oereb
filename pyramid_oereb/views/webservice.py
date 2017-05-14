@@ -145,7 +145,7 @@ class PlrWebservice(object):
                 raise HTTPNoContent()
             except NotImplementedError:
                 raise HTTPServerError()
-            except NoResultFound:
+            except IOError:
                 raise HTTPServerError()
             if params.get('format') == 'json':
                 return render_to_response(
