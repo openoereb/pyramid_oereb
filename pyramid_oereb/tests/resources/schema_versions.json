@@ -9,24 +9,26 @@
   ],
   "definitions": {
     "GetVersionsResponse": {
-      "supportedVersion": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "version": {
-              "type": "string"
+      "type": "object",
+      "properties": {
+        "supportedVersion": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "version": {
+                "type": "string"
+              },
+              "serviceEndpointBase": {
+                "type": "string"
+              }
             },
-            "serviceEndpointBase": {
-              "type": "string"
-            }
+            "required": [
+              "version"
+            ]
           },
-          "required": [
-            "version",
-            "serviceEndpointBase"
-          ]
-        },
-        "minItems": 1
+          "minItems": 1
+        }
       }
     }
   }
