@@ -62,6 +62,11 @@ class Processor(object):
         geom_cleaner = []
         plr_cleaner = []
 
+        # shapely test geometries:
+        # base = Polygon([(0, 0), (0, 3), (3, 3), (3, 0)])
+        # line = LineString([(1, 1), (1, 4), (4, 4), (4, 1), (2, 1)])
+        # polygon = Polygon([(1, 2), (1, 5), (5, 5), (5, 0), (1, 0), (1, 1), (4, 1), (4, 4), (2, 2)])
+
         for index, public_law_restriction in enumerate(extract.real_estate.public_law_restrictions):
             if isinstance(public_law_restriction, PlrRecord):
                 for geometry in public_law_restriction.geometries:
@@ -69,26 +74,33 @@ class Processor(object):
                     if geometryType in self.point_types:
                         pass
                     elif geometryType in self.line_types:
-                        plr_geometry = geometry
-                        geometry = geometry.geom.intersection(real_estate.limit)
-                        extract.real_estate.public_law_restrictions[index].length = geometry.length
-                        if extract.real_estate.public_law_restrictions[index].length < self._min_length_:
-                            geom_cleaner.append(plr_geometry)
-                        else:
-                            extract.real_estate.public_law_restrictions[index].units = 'm'
+                        results = geometry.geom.intersection(real_estate.limit)
+                        element_count = len(results)
+                        for element in results:
+                            if element.length < self._min_length_:
+                                element_count -= 1
+                            else:
+                                extract.real_estate.public_law_restrictions[index].length += element.length
+                                extract.real_estate.public_law_restrictions[index].units = 'm'
+                            if element_count == 0:
+                                geom_cleaner.append(geometry)
                     elif geometryType in self.polygon_types:
-                        plr_geometry = geometry
-                        geometry = geometry.geom.intersection(real_estate.limit)
+                        results = geometry.geom.intersection(real_estate.limit)
+                        element_count = len(results)
                         # Compensation of the difference between technical area from land registry and the
                         # calculated area of the geometry
-                        compensated_area = geometry.area*areas_ratio
-                        extract.real_estate.public_law_restrictions[index].area = compensated_area
-                        if extract.real_estate.public_law_restrictions[index].area < self._min_area_:
-                            geom_cleaner.append(plr_geometry)
-                        else:
-                            extract.real_estate.public_law_restrictions[index].part_in_percent = \
-                                round(((compensated_area/real_estate.limit.area)*100), 1)
-                            extract.real_estate.public_law_restrictions[index].units = 'm2'
+                        for element in results:
+                            compensated_area = element.area*areas_ratio
+                            if compensated_area < self._min_area_:
+                                element_count -= 1
+                            else:
+                                extract.real_estate.public_law_restrictions[index].area += compensated_area
+                                extract.real_estate.public_law_restrictions[index].part_in_percent = \
+                                    round(((extract.real_estate.public_law_restrictions[index].area /
+                                            real_estate.limit.area)*100), 1)
+                                extract.real_estate.public_law_restrictions[index].units = 'm2'
+                            if element_count == 0:
+                                geom_cleaner.append(geometry)
                     else:
                         # TODO: configure a proper error message
                         print 'Error: unknown geometry type'
