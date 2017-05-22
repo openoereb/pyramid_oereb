@@ -13,7 +13,7 @@ from pyramid_oereb import RealEstateReader
 from pyramid_oereb.lib.config import parse, ConfigReader
 from pyramid_oereb.standard.models.main import Municipality, Glossary
 
-db_url = parse('pyramid_oereb_test.yml', 'pyramid_oereb').get('db_connection')
+db_url = parse('pyramid_oereb_test.yml', 'pyramid_oereb').get('app_schema').get('db_connection')
 config_reader = ConfigReader('pyramid_oereb_test.yml', 'pyramid_oereb')
 
 

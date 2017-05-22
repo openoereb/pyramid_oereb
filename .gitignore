@@ -67,7 +67,12 @@ target/
 
 # Virtual environment
 /.venv
-.make
 
 # Mako generated files
 pyramid_oereb_test.yml
+
+# Standard configuration
+/pyramid_oereb_standard.yml
+/logo_oereb.png
+/logo_confederation.png
+/logo_sample.png
