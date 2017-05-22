@@ -4,7 +4,7 @@ import pytest
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.lib.sources.municipality import MunicipalityDatabaseSource
-from pyramid_oereb.models import PyramidOerebMainMunicipality
+from pyramid_oereb.standard.models.main import Municipality
 from pyramid_oereb.tests.conftest import config_reader
 
 
@@ -12,7 +12,7 @@ from pyramid_oereb.tests.conftest import config_reader
 def test_init():
     source = MunicipalityDatabaseSource(**config_reader.get_municipality_config().get('source').get('params'))
     assert isinstance(source._adapter_, DatabaseAdapter)
-    assert source._model_ == PyramidOerebMainMunicipality
+    assert source._model_ == Municipality
 
 
 def test_read():

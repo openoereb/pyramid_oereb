@@ -3,7 +3,7 @@ import pytest
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.lib.sources.real_estate import RealEstateDatabaseSource
-from pyramid_oereb.models import PyramidOerebMainRealEstate
+from pyramid_oereb.standard.models.main import RealEstate
 from pyramid_oereb.tests.conftest import config_reader
 
 
@@ -11,7 +11,7 @@ from pyramid_oereb.tests.conftest import config_reader
 def test_init():
     source = RealEstateDatabaseSource(**config_reader.get_real_estate_config().get('source').get('params'))
     assert isinstance(source._adapter_, DatabaseAdapter)
-    assert source._model_ == PyramidOerebMainRealEstate
+    assert source._model_ == RealEstate
 
 
 @pytest.mark.run(order=2)

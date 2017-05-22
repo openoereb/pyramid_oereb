@@ -11,7 +11,7 @@ from pyramid_oereb import MunicipalityReader
 from pyramid_oereb import Processor
 from pyramid_oereb import RealEstateReader
 from pyramid_oereb.lib.config import parse, ConfigReader
-from pyramid_oereb.models import PyramidOerebMainMunicipality, PyramidOerebMainGlossary
+from pyramid_oereb.standard.models.main import Municipality, Glossary
 
 db_url = parse('pyramid_oereb_test.yml', 'pyramid_oereb').get('db_connection')
 config_reader = ConfigReader('pyramid_oereb_test.yml', 'pyramid_oereb')
@@ -64,10 +64,10 @@ def connection():
 
     # Add dummy municipality
     connection.execute('TRUNCATE {schema}.{table};'.format(
-        schema=PyramidOerebMainMunicipality.__table__.schema,
-        table=PyramidOerebMainMunicipality.__table__.name
+        schema=Municipality.__table__.schema,
+        table=Municipality.__table__.name
     ))
-    connection.execute(PyramidOerebMainMunicipality.__table__.insert(), {
+    connection.execute(Municipality.__table__.insert(), {
         'fosnr': 1234,
         'name': 'Test',
         'published': True,
@@ -77,10 +77,10 @@ def connection():
 
     # Add dummy glossary
     connection.execute('TRUNCATE {schema}.{table};'.format(
-        schema=PyramidOerebMainGlossary.__table__.schema,
-        table=PyramidOerebMainGlossary.__table__.name
+        schema=Glossary.__table__.schema,
+        table=Glossary.__table__.name
     ))
-    connection.execute(PyramidOerebMainGlossary.__table__.insert(), {
+    connection.execute(Glossary.__table__.insert(), {
         'id': 1,
         'title': u'SGRF',
         'content': u'Service de la géomatique et du registre foncier'

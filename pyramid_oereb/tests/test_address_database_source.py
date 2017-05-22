@@ -5,7 +5,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.lib.sources.address import AddressDatabaseSource
-from pyramid_oereb.models import PyramidOerebMainAddress
+from pyramid_oereb.standard.models.main import Address
 from pyramid_oereb.tests.conftest import config_reader
 
 
@@ -13,7 +13,7 @@ from pyramid_oereb.tests.conftest import config_reader
 def test_init():
     source = AddressDatabaseSource(**config_reader.get_address_config().get('source').get('params'))
     assert isinstance(source._adapter_, DatabaseAdapter)
-    assert source._model_ == PyramidOerebMainAddress
+    assert source._model_ == Address
 
 
 @pytest.mark.run(order=2)
