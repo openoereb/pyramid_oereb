@@ -6,12 +6,11 @@ import pyramid_oereb
 from jsonschema import validate
 from pyramid.testing import DummyRequest, testConfig
 
-from pyramid_oereb.tests.conftest import config_reader
 from pyramid_oereb.views.webservice import PlrWebservice
 from pyramid_oereb.lib.readers.municipality import MunicipalityReader
 
 
-def test_getcapabilities():
+def test_getcapabilities(config_reader):
     settings = {
         'pyramid_oereb.cfg.file': 'pyramid_oereb_test.yml',
         'pyramid_oereb.cfg.section': 'pyramid_oereb'

@@ -3,11 +3,10 @@ import pytest
 
 from pyramid_oereb.lib.sources import Base
 from pyramid_oereb.lib.readers.real_estate import RealEstateReader
-from pyramid_oereb.tests.conftest import config_reader
 
 
 @pytest.mark.run(order=2)
-def test_init():
+def test_init(config_reader):
     reader = RealEstateReader(
         config_reader.get_real_estate_config().get('source').get('class'),
         **config_reader.get_real_estate_config().get('source').get('params')
@@ -19,7 +18,7 @@ def test_init():
 @pytest.mark.parametrize("param", [
     {'nb_ident': 'BL0200002789', 'number': '545'}
 ])
-def test_read_ndident_number(param):
+def test_read_ndident_number(param, config_reader):
     reader = RealEstateReader(
         config_reader.get_real_estate_config().get('source').get('class'),
         **config_reader.get_real_estate_config().get('source').get('params')
@@ -32,7 +31,7 @@ def test_read_ndident_number(param):
 @pytest.mark.parametrize("param", [
     {'egrid': 'CH1234'}
 ])
-def test_read_egrid(param):
+def test_read_egrid(param, config_reader):
     reader = RealEstateReader(
         config_reader.get_real_estate_config().get('source').get('class'),
         **config_reader.get_real_estate_config().get('source').get('params')
