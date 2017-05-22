@@ -6,20 +6,20 @@ from pyramid_oereb.lib.readers.glossary import GlossaryReader
 
 
 @pytest.mark.run(order=2)
-def test_init(config_reader):
+def test_init(config):
     reader = GlossaryReader(
-        config_reader.get_glossary_config().get('source').get('class'),
-        **config_reader.get_glossary_config().get('source').get('params')
+        config.get_glossary_config().get('source').get('class'),
+        **config.get_glossary_config().get('source').get('params')
     )
     assert isinstance(reader._source_, Base)
 
 
 @pytest.mark.run(order=2)
-def test_read(connection, config_reader):
+def test_read(connection, config):
     assert connection.closed
     reader = GlossaryReader(
-        config_reader.get_glossary_config().get('source').get('class'),
-        **config_reader.get_glossary_config().get('source').get('params')
+        config.get_glossary_config().get('source').get('class'),
+        **config.get_glossary_config().get('source').get('params')
     )
     results = reader.read()
     assert isinstance(results, list)

@@ -5,7 +5,7 @@ import logging
 from pyramid.path import DottedNameResolver
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter
-from pyramid_oereb.lib.config import ConfigReader, parse
+from pyramid_oereb.lib.config import Config, parse
 from pyramid.config import Configurator
 
 from pyramid_oereb.lib.readers.exclusion_of_liability import ExclusionOfLiabilityReader
@@ -20,7 +20,6 @@ __version__ = '1.0.0-alpha.1'
 
 log = logging.getLogger('pyramid_oereb')
 route_prefix = None
-config_reader = None
 # initially instantiate database adapter for global session handling
 database_adapter = DatabaseAdapter()
 plr_cadastre_authority = None
@@ -55,7 +54,7 @@ def includeme(config):
     :param config: The pyramid apps config object
     :type config: Configurator
     """
-    global route_prefix, config_reader, real_estate_reader, municipality_reader,  extract_reader, \
+    global route_prefix, real_estate_reader, municipality_reader, extract_reader, \
         plr_sources, plr_cadastre_authority, app_schema_name, srid, default_lang
 
     # Set route prefix
@@ -67,22 +66,24 @@ def includeme(config):
     # Load configuration file
     cfg_file = settings.get('pyramid_oereb.cfg.file', None)
     cfg_section = settings.get('pyramid_oereb.cfg.section', None)
-    config_reader = ConfigReader(cfg_file, cfg_section)
-    real_estate_config = config_reader.get_real_estate_config()
-    municipality_config = config_reader.get_municipality_config()
-    exclusion_of_liability_config = config_reader.get_exclusion_of_liability_config()
-    glossary_config = config_reader.get_glossary_config()
-    logos = config_reader.get_logo_config()
-    app_schema_name = config_reader.get('app_schema').get('name')
-    srid = config_reader.get('srid')
-    point_types = config_reader.get('plr_limits').get('point_types')
-    line_types = config_reader.get('plr_limits').get('line_types')
-    polygon_types = config_reader.get('plr_limits').get('polygon_types')
-    min_length = config_reader.get('plr_limits').get('min_length')
-    min_area = config_reader.get('plr_limits').get('min_area')
-    default_lang = config_reader.get('default_language')
+    Config.init(cfg_file, cfg_section)
+    Config.update_settings(settings)
 
-    plr_cadastre_authority = config_reader.get_plr_cadastre_authority()
+    real_estate_config = Config.get_real_estate_config()
+    municipality_config = Config.get_municipality_config()
+    exclusion_of_liability_config = Config.get_exclusion_of_liability_config()
+    glossary_config = Config.get_glossary_config()
+    logos = Config.get_logo_config()
+    app_schema_name = Config.get('app_schema').get('name')
+    srid = Config.get('srid')
+    point_types = Config.get('plr_limits').get('point_types')
+    line_types = Config.get('plr_limits').get('line_types')
+    polygon_types = Config.get('plr_limits').get('polygon_types')
+    min_length = Config.get('plr_limits').get('min_length')
+    min_area = Config.get('plr_limits').get('min_area')
+    default_lang = Config.get('default_language')
+
+    plr_cadastre_authority = Config.get_plr_cadastre_authority()
 
     real_estate_reader = RealEstateReader(
         real_estate_config.get('source').get('class'),
@@ -105,7 +106,7 @@ def includeme(config):
     )
 
     plr_sources = []
-    for plr in config_reader.get('plrs'):
+    for plr in Config.get('plrs'):
         plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
         plr_sources.append(plr_source_class(**plr))
 
@@ -137,11 +138,7 @@ def includeme(config):
     def pyramid_oereb_processor(request):
         return processor
 
-    def pyramid_oereb_config_reader(request):
-        return config_reader
-
     config.add_request_method(pyramid_oereb_processor, reify=True)
-    config.add_request_method(pyramid_oereb_config_reader, reify=True)
 
     config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer._json_.Extract')
     config.add_renderer('pyramid_oereb_extract_xml', 'pyramid_oereb.lib.renderer._xml_.Extract')

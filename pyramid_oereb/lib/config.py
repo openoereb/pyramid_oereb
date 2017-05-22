@@ -38,8 +38,12 @@ def parse(cfg_file, cfg_section):
     return cfg
 
 
-class ConfigReader(object):
-    def __init__(self, config_file, config_section):
+class Config(object):
+
+    _config = None
+
+    @staticmethod
+    def init(configfile, configsection):
         """
         Loads configuration from yaml file and provides methods for generating webservice output.
 
@@ -48,17 +52,26 @@ class ConfigReader(object):
         :param config_section: The section within the yaml file.
         :type config_section: str
         """
-        self.__config__ = parse(config_file, config_section)
+        assert Config._config is None
 
-    def get_themes(self):
+        Config._config = parse(configfile, configsection)
+
+    @staticmethod
+    def update_settings(settings):
+        settings.update(Config._config)
+
+    @staticmethod
+    def get_themes():
         """
         Returns a list of available themes.
 
         :return: The available themes.
         :rtype: list of pyramid_oereb.lib.records.theme.ThemeRecord
         """
+        assert Config._config is not None
+
         result = list()
-        plrs = self.__config__.get('plrs')
+        plrs = Config._config.get('plrs')
         if plrs and isinstance(plrs, list):
             for theme in plrs:
                 result.append(ThemeRecord(
@@ -67,7 +80,8 @@ class ConfigReader(object):
                 ))
         return result
 
-    def get_theme(self, code):
+    @staticmethod
+    def get_theme(code):
         """
         Returns the theme with the specified code.
 
@@ -76,7 +90,9 @@ class ConfigReader(object):
         :return: The theme with the specified code.
         :rtype: pyramid_oereb.lib.records.theme.ThemeRecord or None
         """
-        plrs = self.__config__.get('plrs')
+        assert Config._config is not None
+
+        plrs = Config._config.get('plrs')
         if plrs and isinstance(plrs, list):
             for theme in plrs:
                 if theme.get('code') == code:
@@ -86,107 +102,137 @@ class ConfigReader(object):
                     )
         return None
 
-    def get_crs(self):
+    @staticmethod
+    def get_crs():
         """
         Returns a list of available crs.
 
         :return: The available crs.
         :rtype: list
         """
+        assert Config._config is not None
+
         crs = list()
-        srid = self.__config__.get('srid')
+        srid = Config._config.get('srid')
         if srid:
             crs.append(u'epsg:' + unicode(srid))
         return crs
 
-    def get_language(self):
+    @staticmethod
+    def get_language():
         """
         Returns a list of available languages.
 
         :return: The available languages.
         :rtype: list
         """
+        assert Config._config is not None
+
         result = list()
-        language = self.__config__.get('language')
+        language = Config._config.get('language')
         if language and isinstance(language, list):
             result.extend(language)
         return result
 
-    def get_flavour(self):
+    @staticmethod
+    def get_flavour():
         """
         Returns a list of available flavours.
 
         :return: The available flavours.
         :rtype: list
         """
+        assert Config._config is not None
+
         result = list()
-        flavour = self.__config__.get('flavour')
+        flavour = Config._config.get('flavour')
         if flavour and isinstance(flavour, list):
             result.extend(flavour)
         return result
 
-    def get_real_estate_config(self):
+    @staticmethod
+    def get_real_estate_config():
         """
         Returns a dictionary of the configured real estate settings.
 
         :return: The configured real estate settings.
         :rtype: dict
         """
-        return self.__config__.get('real_estate')
+        assert Config._config is not None
 
-    def get_address_config(self):
+        return Config._config.get('real_estate')
+
+    @staticmethod
+    def get_address_config():
         """
         Returns a dictionary of the configured address settings.
 
         :return: The configured address settings.
         :rtype: dict
         """
-        return self.__config__.get('address')
+        assert Config._config is not None
 
-    def get_glossary_config(self):
+        return Config._config.get('address')
+
+    @staticmethod
+    def get_glossary_config():
         """
         Returns a dictionary of the configured glossary settings.
 
         :return: The configured glossary settings.
         :rtype: dict
         """
-        return self.__config__.get('glossary')
+        assert Config._config is not None
 
-    def get_exclusion_of_liability_config(self):
+        return Config._config.get('glossary')
+
+    @staticmethod
+    def get_exclusion_of_liability_config():
         """
         Returns a dictionary of the configured exclusion_of_liability settings.
 
         :return: The configured exclusion_of_liability settings.
         :rtype: dict
         """
-        return self.__config__.get('exclusion_of_liability')
+        assert Config._config is not None
 
-    def get_municipality_config(self):
+        return Config._config.get('exclusion_of_liability')
+
+    @staticmethod
+    def get_municipality_config():
         """
         Returns a dictionary of the configured municipality settings.
 
         :return: The configured municipality settings.
         :rtype: dict
         """
-        return self.__config__.get('municipality')
+        assert Config._config is not None
 
-    def get_extract_config(self):
+        return Config._config.get('municipality')
+
+    @staticmethod
+    def get_extract_config():
         """
         Returns a dictionary of the configured extract settings.
 
         :return: The configured extract settings.
         :rtype: dict
         """
-        return self.__config__.get('extract')
+        assert Config._config is not None
 
-    def get_plr_cadastre_authority(self):
+        return Config._config.get('extract')
+
+    @staticmethod
+    def get_plr_cadastre_authority():
         """
         Returns an office record for the configured PLR cadastre authority.
 
         :return: The configured PLR cadastre authority.
         :rtype: pyramid_oereb.lib.records.office.OfficeRecord
         """
-        cfg = self.__config__.get('plr_cadastre_authority')
+        assert Config._config is not None
+
+        cfg = Config._config.get('plr_cadastre_authority')
         return OfficeRecord(
             cfg.get('name'),
             uid=cfg.get('uid'),
@@ -199,18 +245,21 @@ class ConfigReader(object):
             city=cfg.get('city')
         )
 
-    def get_logo_config(self):
+    @staticmethod
+    def get_logo_config():
         """
         Returns a dictionary of the configured file path's to the logos.
 
         :return: The configured paths to the logos wrapped in a dictionary.
         :rtype: dict
         """
+        assert Config._config is not None
+
         confederation_fkey = 'confederation'
         oereb_key = 'oereb'
         canton_key = 'canton'
         msg = 'The definition for "{key}" must be set. Got: {found_config}'
-        logo_dict = self.__config__.get('logo')
+        logo_dict = Config._config.get('logo')
         if not logo_dict.get(confederation_fkey):
             raise ConfigurationError(msg.format(key=confederation_fkey, found_config=logo_dict))
         if not logo_dict.get(oereb_key):
@@ -228,7 +277,8 @@ class ConfigReader(object):
             canton_key: canton_logo
         }
 
-    def get(self, key, default=None):
+    @staticmethod
+    def get(key, default=None):
         """
         Returns the specified configuration value.
 
@@ -237,4 +287,6 @@ class ConfigReader(object):
         :param default: Default value if the specified parameter is not defined. Defaults to None.
         :return: The specified configuration or default value
         """
-        return self.__config__.get(key, default)
+        assert Config._config is not None
+
+        return Config._config.get(key, default)
