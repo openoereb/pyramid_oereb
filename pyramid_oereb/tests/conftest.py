@@ -10,17 +10,22 @@ from pyramid_oereb import ExtractReader
 from pyramid_oereb import MunicipalityReader
 from pyramid_oereb import Processor
 from pyramid_oereb import RealEstateReader
-from pyramid_oereb.lib.config import parse, ConfigReader
+from pyramid_oereb.lib.config import ConfigReader
 from pyramid_oereb.standard.models.main import Municipality, Glossary
 
-db_url = parse('pyramid_oereb/tests/resources/pyramid_oereb_test.yml', 'pyramid_oereb')\
-    .get('app_schema').get('db_connection')
-config_reader = ConfigReader('pyramid_oereb/tests/resources/pyramid_oereb_test.yml', 'pyramid_oereb')
+
+pyramid_oereb_test_yml = 'pyramid_oereb/tests/resources/pyramid_oereb_test.yml'
+
+
+@pytest.fixture()
+def config_reader():
+    return ConfigReader(pyramid_oereb_test_yml, 'pyramid_oereb')
 
 
 class MockRequest(DummyRequest):
     def __init__(self):
         super(MockRequest, self).__init__()
+        config_reader = ConfigReader(pyramid_oereb_test_yml, 'pyramid_oereb')
         real_estate_config = config_reader.get_real_estate_config()
         municipality_config = config_reader.get_municipality_config()
         logos = config_reader.get_logo_config()
@@ -59,8 +64,8 @@ class MockRequest(DummyRequest):
 
 
 @pytest.fixture()
-def connection():
-    engine = create_engine(db_url)
+def connection(config_reader):
+    engine = create_engine(config_reader.get('app_schema').get('db_connection'))
     connection = engine.connect()
 
     # Add dummy municipality
