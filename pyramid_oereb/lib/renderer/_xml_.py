@@ -38,8 +38,10 @@ class Extract(Base):
         return self.create_xml_extract(self.__render__(value[0]))
 
     def create_xml_extract(self, extract_dict):
-        root = etree.Element("Extract")
-        self.unpack(root, extract_dict)
+        root = etree.Element("GetExtractByIdResponse")
+        extract = etree.Element("Extract")
+        root.append(extract)
+        self.unpack(extract, extract_dict)
         return etree.tostring(root, xml_declaration=True, encoding='utf-8', pretty_print=True)
 
     def unpack(self, parent, dictionary):
@@ -57,16 +59,18 @@ class Extract(Base):
                 parent.append(new_parent)
                 self.unpack(new_parent, value)
             elif isinstance(value, list):
-                new_parent = etree.Element(key)
-                parent.append(new_parent)
                 for element in value:
+                    new_parent = etree.Element(key)
+                    parent.append(new_parent)
                     self.unpack(new_parent, element)
             else:
                 child = etree.Element(key)
-                # use json dumps to have safe type conversion
-                json_representation = json.dumps({'converted': value})
-                cleaned_representation = json_representation.replace('{', '').replace('}', '')
-                key_value = cleaned_representation.split(':')
-                converted_value = key_value[1]
-                child.text = converted_value
+                if isinstance(value, bool):
+                    # use json dumps to have safe type conversion
+                    json_representation = json.dumps({'converted': value})
+                    cleaned_representation = json_representation.replace('{', '').replace('}', '')
+                    key_value = cleaned_representation.split(':')
+                    converted_value = key_value[1]
+                    value = converted_value
+                child.text = unicode(value)
                 parent.append(child)

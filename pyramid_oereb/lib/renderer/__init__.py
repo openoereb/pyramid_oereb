@@ -378,7 +378,7 @@ class Base(object):
         """
         theme_dict = {
             'Code': theme.code,
-            'Text': self.get_localized_text(theme.text)
+            'LocalisedText': self.get_localized_text(theme.text)
         }
         return theme_dict
 
