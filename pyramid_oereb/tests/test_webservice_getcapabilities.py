@@ -5,11 +5,11 @@ import json
 import pyramid_oereb
 from jsonschema import validate
 
-from pyramid_oereb.tests.conftest import config_reader, MockRequest
+from pyramid_oereb.tests.conftest import MockRequest
 from pyramid_oereb.views.webservice import PlrWebservice
 
 
-def test_getcapabilities():
+def test_getcapabilities(config_reader):
     pyramid_oereb.config_reader = config_reader
     service = PlrWebservice(MockRequest())
     with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:

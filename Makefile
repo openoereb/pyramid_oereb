@@ -87,7 +87,7 @@ tests: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB)
 	SQLALCHEMY_URL="postgresql://$(PG_CREDENTIALS)@$($@_POSTGIS_IP):5432/pyramid_oereb_test" ;\
 	export SQLALCHEMY_URL ;\
 	printenv SQLALCHEMY_URL ;\
-	$(VENV_BIN)c2c-template --vars CONST_vars.yml --engine mako --files pyramid_oereb_test.yml.mako ;\
+	$(VENV_BIN)c2c-template --vars CONST_vars.yml --engine mako --files pyramid_oereb/tests/resources/pyramid_oereb_test.yml.mako ;\
 	$(VENV_BIN)py.test$(PYTHON_BIN_POSTFIX) -vv --cov-config .coveragerc --cov-report term-missing:skip-covered --cov pyramid_oereb pyramid_oereb/tests ;\
 	$(VENV_BIN)coverage html
 

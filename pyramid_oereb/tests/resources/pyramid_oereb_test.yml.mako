@@ -18,6 +18,8 @@ pyramid_oereb:
     models: pyramid_oereb.standard.models.main
     db_connection: ${sqlalchemy_url}
 
+  srid: 2056
+
   plr_cadastre_authority:
     name: PLR cadastre authority
     office_at_web: https://www.cadastre.ch/en/oereb.html
@@ -31,47 +33,54 @@ pyramid_oereb:
   logo:
     # The logo representing the swiss confederation (you can use it as is cause it is provided in this
     # repository). But if you need to change it for any reason: Feel free...
-    confederation: logo_confederation.png
+    confederation: pyramid_oereb/standard/logo_confederation.png
     # The logo representing the oereb extract CI (you can use it as is cause it is provided in this
     # repository). But if you need to change it for any reason: Feel free...
-    oereb: logo_oereb.png
+    oereb: pyramid_oereb/standard/logo_oereb.png
     # The logo representing your canton. This must be configured!
-    canton: BL_Logo_B_r_rgb.png
+    canton: pyramid_oereb/standard/logo_sample.png
 
   real_estate:
     source:
       class: pyramid_oereb.lib.sources.real_estate.RealEstateDatabaseSource
       params:
         db_connection: ${sqlalchemy_url}
-        model: pyramid_oereb.models.PyramidOerebMainRealEstate
+        model: pyramid_oereb.standard.models.main.RealEstate
 
   address:
     source:
       class: pyramid_oereb.lib.sources.address.AddressDatabaseSource
       params:
         db_connection: ${sqlalchemy_url}
-        model: pyramid_oereb.models.PyramidOerebMainAddress
+        model: pyramid_oereb.standard.models.main.Address
 
   municipality:
     source:
       class: pyramid_oereb.lib.sources.municipality.MunicipalityDatabaseSource
       params:
         db_connection: ${sqlalchemy_url}
-        model: pyramid_oereb.models.PyramidOerebMainMunicipality
+        model: pyramid_oereb.standard.models.main.Municipality
 
   glossary:
     source:
       class: pyramid_oereb.lib.sources.glossary.GlossaryDatabaseSource
       params:
         db_connection: ${sqlalchemy_url}
-        model: pyramid_oereb.models.PyramidOerebMainGlossary
+        model: pyramid_oereb.standard.models.main.Glossary
 
   exclusion_of_liability:
     source:
       class: pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityDatabaseSource
       params:
         db_connection: ${sqlalchemy_url}
-        model: pyramid_oereb.models.PyramidOerebMainExclusionOfLiability
+        model: pyramid_oereb.standard.models.main.ExclusionOfLiability
+
+  plr_limits:
+    point_type: Point, MultiPoint
+    line_types: LineString, LinearRing, MultiLineString
+    polygon_types: Polygon, MultiPolygon
+    min_length: 1.0
+    min_area: 1.0
 
   extract:
     source:
@@ -306,6 +315,3 @@ pyramid_oereb:
          params:
            db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.forest_distance_lines
-
-  srid: 2056
-  db_connection: ${sqlalchemy_url}

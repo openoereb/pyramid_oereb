@@ -8,7 +8,7 @@ import pytest
 from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
-from pyramid_oereb.tests.conftest import config_reader, MockRequest
+from pyramid_oereb.tests.conftest import MockRequest
 from pyramid_oereb.views.webservice import PlrWebservice
 
 
@@ -18,7 +18,7 @@ def test_getegrid_coord_missing_parameter():
         webservice.get_egrid_coord()
 
 
-def test_getegrid_ident(connection):
+def test_getegrid_ident(connection, config_reader):
     assert connection.closed
     pyramid_oereb.config_reader = config_reader
     request = MockRequest()
@@ -39,7 +39,7 @@ def test_getegrid_ident(connection):
     assert real_estates[0]['identDN'] == u'BLTEST'
 
 
-def test_getegrid_xy(connection):
+def test_getegrid_xy(connection, config_reader):
     assert connection.closed
     pyramid_oereb.config_reader = config_reader
     request = MockRequest()
@@ -59,7 +59,7 @@ def test_getegrid_xy(connection):
     assert real_estates[0]['identDN'] == u'BLTEST'
 
 
-def test_getegrid_gnss():
+def test_getegrid_gnss(config_reader):
     pyramid_oereb.config_reader = config_reader
     request = MockRequest()
     request.params.update({
@@ -122,7 +122,7 @@ def test_get_egrid_response():
     ('2621857.856,1259856.578', (2621857.856, 1259856.578), None),
     ('621857.759,259856.554', (2621857.799, 1259856.500), 1.0)
 ])
-def test_parse_xy(src, dst, buffer_dist):
+def test_parse_xy(src, dst, buffer_dist, config_reader):
     pyramid_oereb.config_reader = config_reader
     geom = PlrWebservice(MockRequest()).__parse_xy__(src, buffer_dist=buffer_dist)
     if buffer_dist:
@@ -136,7 +136,7 @@ def test_parse_xy(src, dst, buffer_dist):
         assert round(geom.y, 3) == round(dst[1], 3)
 
 
-def test_parse_gnss():
+def test_parse_gnss(config_reader):
     pyramid_oereb.config_reader = config_reader
     geom = PlrWebservice(MockRequest()).__parse_gnss__('7.72866,47.48911')
     assert isinstance(geom, Polygon)
