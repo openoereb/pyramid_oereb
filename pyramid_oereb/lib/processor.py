@@ -69,18 +69,22 @@ class Processor(object):
                     if geometryType in self.point_types:
                         pass
                     elif geometryType in self.line_types:
+                        plr_geometry = geometry
+                        geometry = geometry.geom.intersection(real_estate.limit)
                         extract.real_estate.public_law_restrictions[index].length = geometry.length
                         if extract.real_estate.public_law_restrictions[index].length < self._min_length_:
-                            geom_cleaner.append(geometry)
+                            geom_cleaner.append(plr_geometry)
                         else:
                             extract.real_estate.public_law_restrictions[index].units = 'm'
                     elif geometryType in self.polygon_types:
+                        plr_geometry = geometry
+                        geometry = geometry.geom.intersection(real_estate.limit)
                         # Compensation of the difference between technical area from land registry and the
                         # calculated area of the geometry
                         compensated_area = geometry.area*areas_ratio
                         extract.real_estate.public_law_restrictions[index].area = compensated_area
                         if extract.real_estate.public_law_restrictions[index].area < self._min_area_:
-                            geom_cleaner.append(geometry)
+                            geom_cleaner.append(plr_geometry)
                         else:
                             extract.real_estate.public_law_restrictions[index].part_in_percent = \
                                 round(((compensated_area/real_estate.limit.area)*100), 1)
