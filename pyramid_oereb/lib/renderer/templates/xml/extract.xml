@@ -19,34 +19,49 @@
         <xsd:Signiture>${extract.electronic_signature}</xsd:Signiture>
     %endif
     %if extract.concerned_theme:
-        <xsd:ConcernedTheme>
         %for theme in extract.concerned_theme:
-            <xsd:Theme>
-                <xsd:Code>${theme.code}</xsd:Code>
-                <xsd:Text>${theme.text}</xsd:Text>
-            </xsd:Theme>
-        %endfor
+        <xsd:ConcernedTheme>
+            <xsd:Code>${theme.code}</xsd:Code>
+            % for text in json.loads(theme.text):
+                <xsd:LocalisedText>
+                % for k, v in text.iteritems():
+                    <xsd:Language>${k}</xsd:Language>
+                    <xsd:Text>${v}</xsd:Text>
+                % endfor
+                </xsd:LocalisedText>
+            % endfor
         </xsd:ConcernedTheme>
+        %endfor
     %endif
     %if extract.not_concerned_theme:
-        <xsd:NotConcernedTheme>
         %for theme in extract.not_concerned_theme:
-            <xsd:Theme>
-                <xsd:Code>${theme.code}</xsd:Code>
-                <xsd:Text>${theme.text}</xsd:Text>
-            </xsd:Theme>
-        %endfor
+        <xsd:NotConcernedTheme>
+            <xsd:Code>${theme.code}</xsd:Code>
+            % for text in json.loads(theme.text):
+                <xsd:LocalisedText>
+                % for k, v in text.iteritems():
+                    <xsd:Language>${k}</xsd:Language>
+                    <xsd:Text>${v}</xsd:Text>
+                % endfor
+                </xsd:LocalisedText>
+            % endfor
         </xsd:NotConcernedTheme>
+        %endfor
     %endif
     %if extract.theme_without_data:
-        <xsd:ThemeWithoutData>
         %for theme in extract.theme_without_data:
-            <Theme>
-                <Code>${theme.code}</Code>
-                <Text>${theme.text}</Text>
-            </Theme>
-        %endfor
+        <xsd:ThemeWithoutData>
+            <xsd:Code>${theme.code}</xsd:Code>
+            % for text in json.loads(theme.text):
+                <xsd:LocalisedText>
+                % for k, v in text.iteritems():
+                    <xsd:Language>${k}</xsd:Language>
+                    <xsd:Text>${v}</xsd:Text>
+                % endfor
+                </xsd:LocalisedText>
+            % endfor
         </xsd:ThemeWithoutData>
+        %endfor
     %endif
         <xsd:isReduced>${parse_bool(extract.is_reduced)}</xsd:isReduced>
     %if params.images:
