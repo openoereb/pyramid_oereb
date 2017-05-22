@@ -50,7 +50,7 @@ follow this workflow sheet:
 ![Screenshot](doc/images/configuration_workflow.png)
 
 After you know now what way you want to go you are probably curious what you add as configuration content.
-This is simple: Mainly all content from the [pyramid_oereb.yaml](pyramid_oereb.yml).
+This is simple: Mainly all content from the [pyramid_oereb.yaml](https://github.com/camptocamp/pyramid_oereb/blob/master/pyramid_oereb/standard/pyramid_oereb.yml).
 
 It contains the basic configuration which can be used as a start point.
 
