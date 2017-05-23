@@ -34,3 +34,41 @@ def test_process():
                                    1234, 1000, MultiPolygon([polygon]), view_service)
     extract_dict = processor.process(real_estate)
     assert isinstance(extract_dict, dict)
+
+
+def test_polygon_intersection():
+    """ Tests the intersection between a rectangle and a polygon where the
+    intersecting polygon produces two partial geometries inside the
+    rectangle of wich one should be eliminated by the tolerance check
+    """
+
+    # shapely test geometries:
+    rectangle = loads('POLYGON((0 0, 0 3, 3 3, 3 0, 0 0))')
+    # polygon = loads('POLYGON(1 2.5, 1 5, 5 5, 5 0, 1 0, 1 1, 4 1, 4, 4, 2 2.5, 1 2.5))')
+
+    request = MockRequest()
+    processor = request.pyramid_oereb_processor
+    view_service = ViewServiceRecord('test', 'test')
+    real_estate = RealEstateRecord('Test', 'BL', 'Duggingen',
+                                   1234, 1000, MultiPolygon([rectangle]), view_service)
+    extract_dict = processor.process(real_estate)
+    assert isinstance(extract_dict, dict)
+
+
+def test_line_intersection():
+    """ Tests the intersection between a rectangle and a polygon where the
+    intersecting polygon produces two partial geometries inside the
+    rectangle of wich one should be eliminated by the tolerance check
+    """
+
+    # shapely test geometries:
+    rectangle = loads('POLYGON((0 0, 0 3, 3 3, 3 0, 0 0))')
+    # line = loads('LINESTRING((1 1, 1 4, 4 4, 4 1, 2.5 1))')
+
+    request = MockRequest()
+    processor = request.pyramid_oereb_processor
+    view_service = ViewServiceRecord('test', 'test')
+    real_estate = RealEstateRecord('Test', 'BL', 'Duggingen',
+                                   1234, 1000, MultiPolygon([rectangle]), view_service)
+    extract_dict = processor.process(real_estate)
+    assert isinstance(extract_dict, dict)

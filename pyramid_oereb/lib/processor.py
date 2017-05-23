@@ -62,11 +62,6 @@ class Processor(object):
         geom_cleaner = []
         plr_cleaner = []
 
-        # shapely test geometries:
-        # base = Polygon([(0, 0), (0, 3), (3, 3), (3, 0)])
-        # line = LineString([(1, 1), (1, 4), (4, 4), (4, 1), (2, 1)])
-        # polygon = Polygon([(1, 2), (1, 5), (5, 5), (5, 0), (1, 0), (1, 1), (4, 1), (4, 4), (2, 2)])
-
         for index, public_law_restriction in enumerate(extract.real_estate.public_law_restrictions):
             if isinstance(public_law_restriction, PlrRecord):
                 for geometry in public_law_restriction.geometries:
