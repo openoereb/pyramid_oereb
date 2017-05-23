@@ -1,30 +1,45 @@
-<RealEstate_DPR>
-%if Number:
-    <Number>${Number}</Number>
-%endif
-%if IdentDN:
-    <IdentDN>${IdentDN}</IdentDN>
-%endif
-%if EGRID:
-    <EGRID>${EGRID}</EGRID>
-%endif
-    <Type>${Type}</Type>
-    <Canton>${Canton}</Canton>
-    <Municipality>${Municipality}</Municipality>
-%if SubunitOfLandRegister:
-    <SubunitOfLandRegister>${SubunitOfLandRegister}</SubunitOfLandRegister>
-%endif
-    <FosNr>${FosNr}</FosNr>
-%if MetadataOfGeographicalBaseData:
-    <MetadataOfGeographicalBaseData>${MetadataOfGeographicalBaseData}</MetadataOfGeographicalBaseData>
-%endif
-    <LandRegistryArea>${LandRegistryArea}</LandRegistryArea>
-%if Limit:
-%endif
-    <Limit>${Limit}</Limit>
-%if RestrictionOnLandownership:
-    <RestrictionOnLandownership>${RestrictionOnLandownership}</RestrictionOnLandownership>
-%endif
-    <PlanForLandRegister>${PlanForLandRegister}</PlanForLandRegister>
-
-</RealEstate_DPR>
+<%page args="real_estate"/>
+<%
+    from pyramid_oereb.lib.records.plr import PlrRecord
+%>
+<xsd:RealEstate>
+    <xsd:RealEstate_DPR>
+        %if real_estate.number:
+            <xsd:Number>${real_estate.number}</xsd:Number>
+        %endif
+        %if extract.real_estate.identdn:
+            <xsd:IdentDN>${real_estate.identdn}</xsd:IdentDN>
+        %endif
+        %if extract.real_estate.egrid:
+            <xsd:EGRID>${real_estate.egrid}</xsd:EGRID>
+        %endif
+            <xsd:Type>${real_estate.type}</xsd:Type>
+            <xsd:Canton>${real_estate.canton}</xsd:Canton>
+            <xsd:Municipality>${real_estate.municipality}</xsd:Municipality>
+        %if extract.real_estate.subunit_of_land_register:
+            <xsd:SubunitOfLandRegister>${real_estate.subunit_of_land_register}</xsd:SubunitOfLandRegister>
+        %endif
+            <xsd:FosNr>${real_estate.fosnr}</xsd:FosNr>
+        %if extract.real_estate.metadata_of_geographical_base_data:
+            <xsd:MetadataOfGeographicalBaseData>${real_estate.metadata_of_geographical_base_data.encode('utf-8')}</xsd:MetadataOfGeographicalBaseData>
+        %endif
+            <xsd:LandRegistryArea>${real_estate.land_registry_area}</xsd:LandRegistryArea>
+        %if extract.real_estate.limit and params.geometry:
+            <xsd:Limit>
+                <gml:MultiSurface>
+                    %for polygon in real_estate.limit.geoms:
+                    <gml:surfaceMember>
+                        <%include file="geometry/polygon.xml" args="polygon=polygon"/>
+                    </gml:surfaceMember>
+                    %endfor
+                </gml:MultiSurface>
+            </xsd:Limit>
+        %endif
+        %for public_law_restriction in extract.real_estate.public_law_restrictions:
+            %if isinstance(public_law_restriction, PlrRecord):
+            <%include file="public_law_restriction.xml" args="public_law_restriction=public_law_restriction"/>
+            %endif
+        %endfor
+        <xsd:PlanForLandRegister>${extract.real_estate.plan_for_land_register}</xsd:PlanForLandRegister>
+    </xsd:RealEstate_DPR>
+</xsd:RealEstate>

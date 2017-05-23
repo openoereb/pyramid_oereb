@@ -1,4 +1,3 @@
-<Theme>
-    <Code>${theme.get('Code')}</Code>
-    <Text>${theme.get('Text')}</Text>
-</Theme>
+<%page args="theme"/>
+<xsd:Code>${theme.code}</xsd:Code>
+<%include file="localized_text.xml" args="text=theme.text"/>
