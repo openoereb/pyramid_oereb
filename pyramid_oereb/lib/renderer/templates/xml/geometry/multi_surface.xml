@@ -1,0 +1,9 @@
+<gml:multiSurfaceProperty>
+   <gml:MultiSurface>
+      <gml:surfaceMember>
+          %for Member in Members:
+          ${Member}
+          %endfor
+      </gml:surfaceMember>
+   </gml:MultiSurface>
+</gml:multiSurfaceProperty>

@@ -1,0 +1,4 @@
+<%page args="point"/>
+<gml:Point>
+    <gml:pos>${point.x} ${point.y}</gml:pos>
+</gml:Point>

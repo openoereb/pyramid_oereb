@@ -174,10 +174,9 @@ class PlrWebservice(object):
                     request=self._request_
                 )
             elif params.format == 'xml':
-                # TODO: implement way to produce xml
                 return render_to_response(
-                    'string',
-                    'Not implemented by now...',
+                    'pyramid_oereb_extract_xml',
+                    (extract, params),
                     request=self._request_
                 )
             elif params.format == 'pdf':
@@ -244,8 +243,17 @@ class PlrWebservice(object):
             params.set_egrid(id_part_1)
 
         # Language
-        language = self._request_.params.get('LANG')
-        if language:
+        language = str(self._request_.params.get('LANG')).lower()
+        if language not in self._config_reader_.get_language() and self._request_.params.get('LANG') is not \
+                None:
+            raise HTTPBadRequest(
+                'Requested language is not available. Following languages are configured: {languages} The '
+                'requested language was: {language}'.format(
+                    languages=str(self._config_reader_.get_language()),
+                    language=language
+                )
+            )
+        if self._request_.params.get('LANG'):
             params.set_language(language)
 
         # Topics

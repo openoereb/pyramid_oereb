@@ -112,7 +112,9 @@ def includeme(config):
     extract_reader = ExtractReader(
         plr_sources,
         plr_cadastre_authority,
-        logos
+        logos,
+        # TODO: Read this from config. Will be solved by: https://jira.camptocamp.com/browse/GSOREB-195
+        [{'de': 'Daten der Swisstopo'}, {'de': 'Amtliche Vermessung'}]
     )
 
     settings.update({
@@ -142,5 +144,6 @@ def includeme(config):
     config.add_request_method(pyramid_oereb_config_reader, reify=True)
 
     config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer._json_.Extract')
+    config.add_renderer('pyramid_oereb_extract_xml', 'pyramid_oereb.lib.renderer._xml_.Extract')
 
     config.include('pyramid_oereb.routes')
