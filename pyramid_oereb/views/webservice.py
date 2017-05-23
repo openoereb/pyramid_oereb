@@ -239,7 +239,15 @@ class PlrWebservice(object):
             params.set_egrid(id_part_1)
 
         # Language
-        language = self._request_.params.get('LANG')
+        language = str(self._request_.params.get('LANG')).lower()
+        if language not in self._config_reader_.get_language():
+            raise HTTPBadRequest(
+                'Requested language is not available. Following languages are configured: {languages} The '
+                'requested language was: {language}'.format(
+                    languages=str(self._config_reader_.get_language()),
+                    language=language
+                )
+            )
         if language:
             params.set_language(language)
 
