@@ -40,9 +40,9 @@ class Extract(Base):
         self._language_ = str(self._config_reader_.get('default_language')).lower()
         self._params_ = value[1]
 
-        return self.__render__(value[0])
+        return self._render(value[0])
 
-    def __render__(self, extract):
+    def _render(self, extract):
         """
         Serializes the extract record.
 
@@ -102,7 +102,13 @@ class Extract(Base):
                 })
             extract_dict['Glossary'] = glossaries
 
-        return dumps(extract_dict)
+        response = {
+            u'GetExtractByIdResponse': {
+                u'extract': extract_dict
+            }
+        }
+
+        return dumps(response)
 
     def format_real_estate(self, real_estate):
         """
@@ -121,7 +127,8 @@ class Extract(Base):
             'Canton': real_estate.canton,
             'Municipality': real_estate.municipality,
             'FosNr': real_estate.fosnr,
-            'LandRegistryArea': real_estate.land_registry_area
+            'LandRegistryArea': real_estate.land_registry_area,
+            'PlanForLandRegister': self.format_map(real_estate.plan_for_land_register)
         }
 
         if self._params_.geometry:
@@ -182,7 +189,8 @@ class Extract(Base):
                     'Lawstatus': plr.legal_state,
                     'Area': plr.area,
                     'Symbol': plr.symbol,
-                    'ResponsibleOffice': self.format_office(plr.responsible_office)
+                    'ResponsibleOffice': self.format_office(plr.responsible_office),
+                    'Map': self.format_map(plr.view_service)
                 }
 
                 if plr.subtopic:
@@ -348,6 +356,48 @@ class Extract(Base):
             'Text': self.get_localized_text(theme.text)
         }
         return theme_dict
+
+    def format_map(self, map):
+        """
+        Formats a view service record for rendering according to the federal specification.
+
+        :param map: The view service record to be formatted.
+        :type map: pyramid_oereb.lib.records.view_service.ViewServiceRecord
+        :return: The formatted dictionary for rendering.
+        :rtype: dict
+        """
+        map_dict = dict()
+        if map.image:
+            map_dict['Image'] = map.image
+        if map.link_wms:
+            map_dict['ReferenceWMS'] = map.link_wms
+        if map.legend_web:
+            map_dict['LegendAtWeb'] = map.legend_web
+        if isinstance(map.legends, list) and len(map.legends) > 0:
+            map_dict['OtherLegend'] = [self.format_legend_entry(legend_entry) for legend_entry in map.legends]
+        return map_dict
+
+    def format_legend_entry(self, legend_entry):
+        """
+        Formats a legend entry record for rendering according to the federal specification.
+
+        :param legend_entry: The legend entry record to be formatted.
+        :type legend_entry: pyramid_oereb.lib.records.view_service.LegendEntryRecord
+        :return: The formatted dictionary for rendering.
+        :rtype: dict
+        """
+        legend_entry_dict = {
+            'Symbol': legend_entry.symbol,
+            'LegendText': self.get_localized_text(legend_entry.legend_text),
+            'TypeCode': legend_entry.type_code,
+            'TypeCodelist': legend_entry.type_code_list,
+            'Theme': self.format_theme(legend_entry.theme)
+        }
+        if legend_entry.sub_theme:
+            legend_entry_dict['SubTheme'] = legend_entry.sub_theme
+        if legend_entry.additional_theme:
+            legend_entry_dict['OtherTheme'] = legend_entry.additional_theme
+        return legend_entry_dict
 
     def from_shapely(self, geom):
         """

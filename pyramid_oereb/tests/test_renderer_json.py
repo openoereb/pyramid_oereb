@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb.lib.records.office import OfficeRecord
-from pyramid_oereb.lib.renderer._json_ import Extract
+from pyramid_oereb.lib.renderer.json_ import Extract
 from pyramid_oereb.tests.conftest import MockRequest
 from pyramid_oereb.tests.test_renderer_base import DummyRenderInfo
 

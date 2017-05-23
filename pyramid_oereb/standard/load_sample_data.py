@@ -54,7 +54,7 @@ def _load_standard_sample_(configuration, section='pyramid_oereb'):
 
     # Create database connection
     config = parse(configuration, section)
-    engine = create_engine(config.get('db_connection'), echo=True)
+    engine = create_engine(config.get('app_schema').get('db_connection'), echo=True)
     connection = engine.connect()
 
     # Truncate tables

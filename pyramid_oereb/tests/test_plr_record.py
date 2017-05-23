@@ -39,18 +39,20 @@ def test_mandatory_fields():
 
 def test_init():
     office = OfficeRecord('Office')
-    record = PlrRecord('Topic', 'Content', 'runningModifications', datetime.date(1985, 8, 29), office)
+    record = PlrRecord(ThemeRecord('code', dict()), 'Content', 'runningModifications',
+                       datetime.date(1985, 8, 29), office)
     assert record.content == 'Content'
     assert record.subtopic is None
     assert isinstance(record.geometries, list)
     assert isinstance(record.responsible_office, OfficeRecord)
+    assert isinstance(record.theme, ThemeRecord)
 
 
 def test_to_extract():
     office = OfficeRecord('Office')
     legends = [
-        LegendEntryRecord(bin(100), 'test1', 'test1_code', 'test1', 'test1'),
-        LegendEntryRecord(bin(100), 'test2', 'test2_code', 'test2', 'test2')
+        LegendEntryRecord(bin(100), 'test1', 'test1_code', 'test1', ThemeRecord('test1', {'de': 'Test1'})),
+        LegendEntryRecord(bin(100), 'test2', 'test2_code', 'test2', ThemeRecord('test2', {'de': 'Test2'}))
     ]
     view_service = ViewServiceRecord('http://www.test.url.ch', 'http://www.test.url.ch', legends)
     document = DocumentRecord('runningModifications', datetime.date(1985, 8, 29), u'Document', office)
@@ -79,7 +81,13 @@ def test_to_extract():
                     'legend_text': 'test1',
                     'type_code': 'test1_code',
                     'type_code_list': 'test1',
-                    'theme': 'test1'
+                    'theme': {
+                        'code': 'test1',
+                        'text': [{
+                            'language': 'de',
+                            'text': 'Test1'
+                        }]
+                    }
                 }
             ]
         },

@@ -32,4 +32,5 @@ def test_read(connection, config_reader):
     assert result.published
     assert result.geom == 'MULTIPOLYGON (((0 0, 0 10, 10 10, 10 0, 0 0)))'
 
+
 # TODO: Implement tests for return values, not possible now, cause there is no data in database

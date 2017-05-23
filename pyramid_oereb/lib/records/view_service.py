@@ -15,8 +15,8 @@ class LegendEntryRecord(object):
         :type type_code: str
         :param type_code_list: An URL to the type code list.
         :type type_code_list: str
-        :param theme: The theme.
-        :type theme: str
+        :param theme: The theme to which the legend entry belongs to.
+        :type  theme: pyramid_oereb.lib.records.theme.ThemeRecord
         :param sub_theme: Theme sub category.
         :type sub_theme: str
         :param additional_theme: Additional theme linked to this theme.
@@ -54,10 +54,20 @@ class LegendEntryRecord(object):
         :rtype: dict
         """
         extract = dict()
-        for key in self.get_fields():
+        for key in [
+            'symbol',
+            'legend_text',
+            'type_code',
+            'type_code_list',
+            'sub_theme',
+            'additional_theme'
+        ]:
             value = getattr(self, key)
             if value:
                 extract[key] = value
+        key = 'theme'
+        theme_record = getattr(self, key)
+        extract['theme'] = theme_record.to_extract()
         return extract
 
 

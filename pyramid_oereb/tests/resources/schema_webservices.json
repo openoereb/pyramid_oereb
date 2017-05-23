@@ -51,14 +51,20 @@
       }
     },
     "GetEGRIDResponse": {
-      "egrid": {
-        "type": "string"
-      },
-      "number": {
-        "type": "string"
-      },
-      "identDN": {
-        "type": "string"
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "egrid": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "identDN": {
+            "type": "string"
+          }
+        }
       }
     },
     "GetCapabilitiesResponse": {
@@ -74,7 +80,7 @@
         "type": "array",
         "items": {
           "type": {
-            "$ref": "extract-data.json/definitions/MunicipalityCode"
+            "$ref": "extractdata.json/definitions/MunicipalityCode"
           }
         }
       },

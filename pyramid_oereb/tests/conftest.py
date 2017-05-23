@@ -24,7 +24,7 @@ from pyramid_oereb.standard.models.main import Municipality, Glossary, RealEstat
 pyramid_oereb_test_yml = 'pyramid_oereb/tests/resources/pyramid_oereb_test.yml'
 
 
-@pytest.fixture()
+@pytest.fixture(scope='module')
 def config_reader():
     return ConfigReader(pyramid_oereb_test_yml, 'pyramid_oereb')
 
@@ -102,7 +102,7 @@ class MockRequest(DummyRequest):
         return self.config_reader
 
 
-@pytest.fixture()
+@pytest.fixture(scope='module')
 def connection(config_reader):
     engine = create_engine(config_reader.get('app_schema').get('db_connection'))
     connection = engine.connect()
@@ -270,4 +270,4 @@ def connection(config_reader):
     })
 
     connection.close()
-    return connection
+    yield connection
