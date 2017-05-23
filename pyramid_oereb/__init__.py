@@ -143,7 +143,7 @@ def includeme(config):
     config.add_request_method(pyramid_oereb_processor, reify=True)
     config.add_request_method(pyramid_oereb_config_reader, reify=True)
 
-    config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer._json_.Extract')
-    config.add_renderer('pyramid_oereb_extract_xml', 'pyramid_oereb.lib.renderer._xml_.Extract')
+    config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer.json_.Extract')
+    config.add_renderer('pyramid_oereb_extract_xml', 'pyramid_oereb.lib.renderer.xml_.Extract')
 
     config.include('pyramid_oereb.routes')

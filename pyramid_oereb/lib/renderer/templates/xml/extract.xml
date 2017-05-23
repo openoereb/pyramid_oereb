@@ -76,16 +76,9 @@
         <%include file="glossary.xml" args="glossary=glossary"/>
         %endfor
         <%include file="real_estate.xml" args="real_estate=extract.real_estate"/>
-    %if extract.exclusions_of_liability:
-        <xsd:ExclusionOfLiability>
-            %for exclusion_of_liability in extract.exclusions_of_liability:
-            <xsd:ExclusionOfLiability>
-                <xsd:Title>${exclusion_of_liability.title}</xsd:Title>
-                <xsd:Content>${exclusion_of_liability.content}</xsd:Content>
-            </xsd:ExclusionOfLiability>
-            %endfor
-        </xsd:ExclusionOfLiability>
-    %endif
+        %for exclusion_of_liability in extract.exclusions_of_liability:
+        <%include file="exclusion_of_liability.xml" args="exclusion_of_liability=exclusion_of_liability"/>
+        %endfor
         <xsd:PLRCadastreAuthority>
             <%include file="office.xml" args="office=extract.plr_cadastre_authority"/>
         </xsd:PLRCadastreAuthority>

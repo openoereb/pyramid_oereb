@@ -35,11 +35,13 @@
                 </gml:MultiSurface>
             </xsd:Limit>
         %endif
-        %for public_law_restriction in extract.real_estate.public_law_restrictions:
+        %for public_law_restriction in real_estate.public_law_restrictions:
             %if isinstance(public_law_restriction, PlrRecord):
             <%include file="public_law_restriction.xml" args="public_law_restriction=public_law_restriction"/>
             %endif
         %endfor
-        <xsd:PlanForLandRegister>${extract.real_estate.plan_for_land_register}</xsd:PlanForLandRegister>
+        <xsd:PlanForLandRegister>
+            <%include file="view_service.xml" args="map=real_estate.plan_for_land_register"/>
+        </xsd:PlanForLandRegister>
     </xsd:RealEstate_DPR>
 </xsd:RealEstate>
