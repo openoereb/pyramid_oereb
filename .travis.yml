@@ -21,6 +21,8 @@ script:
   - make lint
   - make tests-docker-setup-db
   - make tests
+
+after_success:
   - make doc
 
 before_deploy:
