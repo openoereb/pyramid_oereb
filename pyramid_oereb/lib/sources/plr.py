@@ -61,7 +61,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def geometry_parsing(geometry_value):
         return to_shape(geometry_value) if isinstance(geometry_value, _SpatialElement) else None
 
-    def from_db_to_legend_entry_record(self, topic, legend_entries_from_db):
+    def from_db_to_legend_entry_record(self, theme, legend_entries_from_db):
         legend_entry_records = []
         for legend_entry_from_db in legend_entries_from_db:
             legend_entry_records.append(self._legend_entry_record_class_(
@@ -69,7 +69,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 legend_entry_from_db.legend_text,
                 legend_entry_from_db.type_code,
                 legend_entry_from_db.type_code_list,
-                topic
+                theme
             ))
         return legend_entry_records
 
@@ -156,7 +156,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def from_db_to_plr_record(self, public_law_restriction_from_db):
         theme_record = ThemeRecord(self._plr_info_.get('code'), self._plr_info_.get('text'))
         legend_entry_records = self.from_db_to_legend_entry_record(
-            public_law_restriction_from_db.topic,
+            theme_record,
             public_law_restriction_from_db.view_service.legends
         )
         view_service_record = self.from_db_to_view_service_record(
