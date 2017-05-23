@@ -5,7 +5,7 @@ from pyramid_oereb.lib.records.plr import PlrRecord, EmptyPlrRecord
 
 class ExtractReader(object):
 
-    def __init__(self, plr_sources, plr_cadastre_authority, logos):
+    def __init__(self, plr_sources, plr_cadastre_authority, logos, base_data):
         """
         The central reader accessor for the extract inside the application.
 
@@ -16,11 +16,15 @@ class ExtractReader(object):
         :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OffcieRecord
         :param logos: The logos of confederation, canton and oereb wrapped in a LogoRecord
         :type logos: dict
+        :param base_data: A list of basic data layers used by the extract. For instance the basic map from
+            swisstopo
+        :type base_data: list of dict of str
         """
         self.extract = None
         self._plr_sources_ = plr_sources
         self._plr_cadastre_authority_ = plr_cadastre_authority
         self._logos_ = logos
+        self._base_data_ = base_data
 
     @property
     def plr_cadastre_authority(self):
@@ -98,6 +102,7 @@ class ExtractReader(object):
             self.cantonal_logo,
             municipality_logo,
             self.plr_cadastre_authority,
+            self._base_data_,
             concerned_theme=concerned_themes,
             not_concerned_theme=not_concerned_themes,
             theme_without_data=themes_without_data

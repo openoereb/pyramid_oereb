@@ -14,12 +14,11 @@ class ExtractRecord(object):
     extract_identifier = None
     qr_code = None
     general_information = None
-    base_data = None
     plr_cadastre_authority = None
 
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
-                 plr_cadastre_authority, exclusions_of_liability=None, glossaries=None,
-                 concerned_theme=[], not_concerned_theme=[], theme_without_data=[]):
+                 plr_cadastre_authority, base_data, exclusions_of_liability=None, glossaries=None,
+                 concerned_theme=None, not_concerned_theme=None, theme_without_data=None):
         """
         The extract base class.
 
@@ -35,23 +34,36 @@ class ExtractRecord(object):
         :type municipality_logo: pyramid_oereb.lib.records.logo.LogoRecord
         :param plr_cadastre_authority: The authority which is responsible for the PLR cadastre
         :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OfficeRecord
+        :param base_data: A list of basic data layers used by the extract. For instance the basic map from
+            swisstopo
+        :type base_data: list of dict of str
         :param exclusions_of_liability: Exclusions of liability for the extract
         :type exclusions_of_liability:
             list of pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord
         :param glossaries: Glossary for the extract
         :type glossaries: list of pyramid_oereb.lib.records.glossary.GlossaryRecord
         :param concerned_theme: Concerned themes.
-        :type concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord
+        :type concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord or None
         :param not_concerned_theme: Not concerned themes.
-        :type not_concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord
+        :type not_concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord or None
         :param theme_without_data: Themes without data.
-        :type theme_without_data: list of pyramid_oereb.lib.records.theme.ThemeRecord
+        :type theme_without_data: list of pyramid_oereb.lib.records.theme.ThemeRecord or None
         """
+        self.base_data = base_data
         self.extract_identifier = str(uuid.uuid4())
         self.real_estate = real_estate
-        self.concerned_theme = concerned_theme
-        self.not_concerned_theme = not_concerned_theme
-        self.theme_without_data = theme_without_data
+        if concerned_theme:
+            self.concerned_theme = concerned_theme
+        else:
+            self.concerned_theme = []
+        if not_concerned_theme:
+            self.not_concerned_theme = not_concerned_theme
+        else:
+            self.not_concerned_theme = []
+        if theme_without_data:
+            self.theme_without_data = theme_without_data
+        else:
+            self.theme_without_data = []
         self.creation_date = datetime.now().date()
         self.logo_plr_cadastre = logo_plr_cadastre
         self.federal_logo = federal_logo
@@ -87,6 +99,7 @@ class ExtractRecord(object):
             'cantonal_logo',
             'municipality_logo',
             'plr_cadastre_authority',
+            'base_data'
             'exclusions_of_liability',
             'glossaries'
         ]
