@@ -11,7 +11,7 @@ class Extract(Base):
 
     def __init__(self, info):
         """
-        Creates a new JSON renderer instance for extract rendering.
+        Creates a new XML renderer instance for extract rendering.
 
         :param info: Info object.
         :type info: pyramid.interfaces.IRendererInfo
@@ -23,13 +23,13 @@ class Extract(Base):
 
     def __call__(self, value, system):
         """
-        Returns the JSON encoded extract, according to the specification.
+        Returns the XML encoded extract, according to the specification.
 
         :param value: A tuple containing the generated extract record and the params dictionary.
         :type value: tuple
         :param system: The available system properties.
         :type system: dict
-        :return: The JSON encoded extract.
+        :return: The XML encoded extract.
         :rtype: str
         """
         response = self.get_response(system)
