@@ -373,7 +373,7 @@ class Extract(Base):
             map_dict['ReferenceWMS'] = map.link_wms
         if map.legend_web:
             map_dict['LegendAtWeb'] = map.legend_web
-        if isinstance(map.legends) and len(map.legends) > 0:
+        if isinstance(map.legends, list) and len(map.legends) > 0:
             map_dict['OtherLegend'] = [self.format_legend_entry(legend_entry) for legend_entry in map.legends]
         return map_dict
 
