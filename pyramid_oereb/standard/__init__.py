@@ -133,32 +133,6 @@ def _drop_tables_from_standard_configuration_(configuration_yaml_path, section='
         plr_schema_connection.close()
 
 
-# TODO: remove this method after everyone switched to the new way
-def _create_tables_(configuration_yaml_path, section='pyramid_oereb'):
-    from pyramid_oereb.models import Base
-    config = parse(configuration_yaml_path, section)
-    engine = create_engine(config.get('db_connection'), echo=True)
-    connection = engine.connect()
-    connection.execute('CREATE SCHEMA {name};'.format(name=config.get('app_schema').get('name')))
-    for schema in config.get('plrs'):
-        connection.execute('CREATE SCHEMA {name};'.format(name=schema.get('name')))
-    connection.close()
-    Base.metadata.create_all(engine)
-
-
-# TODO: remove this method after everyone switched to the new way
-def _drop_tables_(configuration_yaml_path, section='pyramid_oereb'):
-    from pyramid_oereb.models import Base
-    config = parse(configuration_yaml_path, section)
-    engine = create_engine(config.get('db_connection'), echo=True)
-    Base.metadata.drop_all(engine)
-    connection = engine.connect()
-    connection.execute('DROP SCHEMA IF EXISTS {name};'.format(name=config.get('app_schema').get('name')))
-    for schema in config.get('plrs'):
-        connection.execute('DROP SCHEMA IF EXISTS {name};'.format(name=schema.get('name')))
-    connection.close()
-
-
 def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml'):
 
     """
@@ -169,6 +143,7 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml'):
     """
     logo_oereb_name = 'logo_oereb.png'
     logo_confederation_name = 'logo_confederation.png'
+    logo_sample_name = 'logo_sample.png'
     pyramid_oereb_yaml_name = 'pyramid_oereb.yml'
     yaml_path = AssetResolver('pyramid_oereb').resolve(
         'standard/{name}'.format(name=pyramid_oereb_yaml_name)
@@ -178,6 +153,9 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml'):
     ).abspath()
     logo_confederation_path = AssetResolver('pyramid_oereb').resolve(
         'standard/{name}'.format(name=logo_confederation_name)
+    ).abspath()
+    logo_sample_path = AssetResolver('pyramid_oereb').resolve(
+        'standard/{name}'.format(name=logo_sample_name)
     ).abspath()
     target_path = os.path.abspath('{path}{sep}{name}'.format(path=os.getcwd(), name=name, sep=os.sep))
     copyfile(yaml_path, target_path)
@@ -189,3 +167,7 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml'):
         path=os.getcwd(), name=logo_confederation_name, sep=os.sep)
     )
     copyfile(logo_confederation_path, target_path)
+    target_path = os.path.abspath('{path}{sep}{name}'.format(
+        path=os.getcwd(), name=logo_sample_name, sep=os.sep)
+    )
+    copyfile(logo_sample_path, target_path)

@@ -4,21 +4,20 @@ import pytest
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.lib.sources.exclusion_of_liability import ExclusionOfLiabilityDatabaseSource
-from pyramid_oereb.models import PyramidOerebMainExclusionOfLiability
-from pyramid_oereb.tests.conftest import config_reader
+from pyramid_oereb.standard.models.main import ExclusionOfLiability
 
 
 @pytest.mark.run(order=2)
-def test_init():
+def test_init(config_reader):
     source = ExclusionOfLiabilityDatabaseSource(
         **config_reader.get_exclusion_of_liability_config().get('source').get('params')
     )
     assert isinstance(source._adapter_, DatabaseAdapter)
-    assert source._model_ == PyramidOerebMainExclusionOfLiability
+    assert source._model_ == ExclusionOfLiability
 
 
 @pytest.mark.run(order=2)
-def test_read():
+def test_read(config_reader):
     source = ExclusionOfLiabilityDatabaseSource(
         **config_reader.get_exclusion_of_liability_config().get('source').get('params')
     )

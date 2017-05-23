@@ -3,11 +3,10 @@ import pytest
 
 from pyramid_oereb.lib.sources import Base
 from pyramid_oereb.lib.readers.glossary import GlossaryReader
-from pyramid_oereb.tests.conftest import config_reader
 
 
 @pytest.mark.run(order=2)
-def test_init():
+def test_init(config_reader):
     reader = GlossaryReader(
         config_reader.get_glossary_config().get('source').get('class'),
         **config_reader.get_glossary_config().get('source').get('params')
@@ -16,7 +15,7 @@ def test_init():
 
 
 @pytest.mark.run(order=2)
-def test_read(connection):
+def test_read(connection, config_reader):
     assert connection.closed
     reader = GlossaryReader(
         config_reader.get_glossary_config().get('source').get('class'),

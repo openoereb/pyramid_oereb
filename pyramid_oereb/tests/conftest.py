@@ -17,18 +17,23 @@ from pyramid_oereb.standard.models.motorways_building_lines import Geometry as L
     PublicLawRestriction as LinePublicLawRestriction, Office as LineOffice, ViewService as LineViewService
 from pyramid_oereb.standard.models.contaminated_sites import Geometry as PolyGeometry, \
     PublicLawRestriction as PolyPublicLawRestriction, Office as PolyOffice, ViewService as PolyViewService
-from pyramid_oereb.lib.config import parse, ConfigReader
+from pyramid_oereb.lib.config import ConfigReader
 from pyramid_oereb.standard.models.main import Municipality, Glossary, RealEstate
 
-db_url = parse('pyramid_oereb_test.yml', 'pyramid_oereb').get('db_connection')
-config_reader = ConfigReader('pyramid_oereb_test.yml', 'pyramid_oereb')
+
+pyramid_oereb_test_yml = 'pyramid_oereb/tests/resources/pyramid_oereb_test.yml'
+
+
+@pytest.fixture()
+def config_reader():
+    return ConfigReader(pyramid_oereb_test_yml, 'pyramid_oereb')
 
 
 class MockRequest(DummyRequest):
     def __init__(self):
         super(MockRequest, self).__init__()
 
-        self.config_reader = config_reader
+        self.config_reader = ConfigReader(pyramid_oereb_test_yml, 'pyramid_oereb')
 
         real_estate_config = self.config_reader.get_real_estate_config()
         municipality_config = self.config_reader.get_municipality_config()
@@ -98,8 +103,8 @@ class MockRequest(DummyRequest):
 
 
 @pytest.fixture()
-def connection():
-    engine = create_engine(db_url)
+def connection(config_reader):
+    engine = create_engine(config_reader.get('app_schema').get('db_connection'))
     connection = engine.connect()
 
     # Add dummy municipality
