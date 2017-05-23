@@ -102,7 +102,13 @@ class Extract(Base):
                 })
             extract_dict['Glossary'] = glossaries
 
-        return dumps(extract_dict)
+        response = {
+            u'GetExtractByIdResponse': {
+                u'extract': extract_dict
+            }
+        }
+
+        return dumps(response)
 
     def format_real_estate(self, real_estate):
         """

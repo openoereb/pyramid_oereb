@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+import json
 import math
+
+from jsonschema import Draft4Validator
 from shapely.geometry import Point, Polygon, MultiPolygon
 
 import pyramid_oereb
@@ -27,11 +30,14 @@ def test_getegrid_ident(connection, config_reader):
         'number': u'1000'
     })
     webservice = PlrWebservice(request)
-    real_estates = webservice.get_egrid_ident()
-    # TODO: Activate validation when schema issues are fixed
-    # with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
-    #     schema = json.load(f)
-    # validate(properties, schema)
+    response = webservice.get_egrid_ident()
+    with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
+        schema = json.loads(f.read())
+    Draft4Validator.check_schema(schema)
+    validator = Draft4Validator(schema)
+    validator.validate(response)
+    assert isinstance(response, dict)
+    real_estates = response.get('GetEGRIDResponse')
     assert isinstance(real_estates, list)
     assert len(real_estates) == 1
     assert real_estates[0]['egrid'] == u'TEST'
@@ -47,11 +53,14 @@ def test_getegrid_xy(connection, config_reader):
         'XY': '-1999999.0327394493,-999998.9404575331'
     })
     webservice = PlrWebservice(request)
-    real_estates = webservice.get_egrid_coord()
-    # TODO: Activate validation when schema issues are fixed
-    # with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
-    #     schema = json.load(f)
-    # validate(properties, schema)
+    response = webservice.get_egrid_coord()
+    with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
+        schema = json.loads(f.read())
+    Draft4Validator.check_schema(schema)
+    validator = Draft4Validator(schema)
+    validator.validate(response)
+    assert isinstance(response, dict)
+    real_estates = response.get('GetEGRIDResponse')
     assert isinstance(real_estates, list)
     assert len(real_estates) == 1
     assert real_estates[0]['egrid'] == u'TEST'
@@ -66,11 +75,14 @@ def test_getegrid_gnss(config_reader):
         'GNSS': '-19.91798993747352,32.124497846031005'
     })
     webservice = PlrWebservice(request)
-    real_estates = webservice.get_egrid_coord()
-    # TODO: Activate validation when schema issues are fixed
-    # with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
-    #     schema = json.load(f)
-    # validate(properties, schema)
+    response = webservice.get_egrid_coord()
+    with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
+        schema = json.loads(f.read())
+    Draft4Validator.check_schema(schema)
+    validator = Draft4Validator(schema)
+    validator.validate(response)
+    assert isinstance(response, dict)
+    real_estates = response.get('GetEGRIDResponse')
     assert isinstance(real_estates, list)
     assert len(real_estates) == 1
     assert real_estates[0]['egrid'] == u'TEST'
@@ -92,12 +104,13 @@ def test_getegrid_address():
         'number': '123'
     })
     webservice = PlrWebservice(request)
-    real_estates = webservice.get_egrid_address()
-    # TODO: Activate validation when schema issues are fixed
-    # with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
-    #     schema = json.load(f)
-    # validate(properties, schema)
-    assert isinstance(real_estates, list)
+    response = webservice.get_egrid_address()
+    with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
+        schema = json.loads(f.read())
+    Draft4Validator.check_schema(schema)
+    validator = Draft4Validator(schema)
+    validator.validate(response)
+    assert isinstance(response, dict)
 
 
 def test_getegrid_address_missing_parameter():
@@ -111,11 +124,13 @@ def test_get_egrid_response():
     record = RealEstateRecord('test', 'BL', 'test', 1, 100, MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
                               view_service, number='number', identdn='identdn', egrid='egrid')
     response = PlrWebservice(MockRequest()).__get_egrid_response__([record])
-    assert response == [{
-        'egrid': 'egrid',
-        'number': 'number',
-        'identDN': 'identdn'
-    }]
+    assert response == {
+        'GetEGRIDResponse': [{
+            'egrid': 'egrid',
+            'number': 'number',
+            'identDN': 'identdn'
+        }]
+    }
 
 
 @pytest.mark.parametrize('src,dst,buffer_dist', [

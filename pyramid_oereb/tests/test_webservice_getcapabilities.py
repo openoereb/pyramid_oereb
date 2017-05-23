@@ -3,7 +3,7 @@
 import json
 
 import pyramid_oereb
-from jsonschema import validate
+from jsonschema import Draft4Validator
 
 from pyramid_oereb.tests.conftest import MockRequest
 from pyramid_oereb.views.webservice import PlrWebservice
@@ -13,9 +13,14 @@ def test_getcapabilities(config_reader):
     pyramid_oereb.config_reader = config_reader
     service = PlrWebservice(MockRequest())
     with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
-        schema = json.load(f)
-    caps = service.get_capabilities()
-    validate(caps, schema)
+        schema = json.loads(f.read())
+    Draft4Validator.check_schema(schema)
+    validator = Draft4Validator(schema)
+    response = service.get_capabilities()
+    validator.validate(response)
+
+    assert isinstance(response, dict)
+    caps = response.get('GetCapabilitiesResponse')
 
     assert isinstance(caps[u'topic'], list)
     assert len(caps[u'topic']) == 17

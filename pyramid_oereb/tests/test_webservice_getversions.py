@@ -10,8 +10,10 @@ def test_getversions():
     webservice = PlrWebservice(MockRequest())
     versions = webservice.get_versions()
     with open('./pyramid_oereb/tests/resources/schema_versions.json') as f:
-        schema = json.load(f)
+        schema = json.loads(f.read())
     Draft4Validator.check_schema(schema)
     validator = Draft4Validator(schema)
     validator.validate(versions)
-    assert len(versions.get('supportedVersion')) == 1
+    assert isinstance(versions, dict)
+    supported_version = versions.get('GetVersionsResponse')
+    assert len(supported_version.get('supportedVersion')) == 1

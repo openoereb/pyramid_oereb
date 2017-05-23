@@ -36,12 +36,14 @@ class PlrWebservice(object):
         if route_prefix:
             endpoint += '/' + route_prefix  # pragma: no cover
         return {
-            u'supportedVersion': [
-                {
-                    u'version': u'1.0.0',
-                    u'serviceEndpointBase': unicode(endpoint)
-                }
-            ]
+            u'GetVersionsResponse': {
+                u'supportedVersion': [
+                    {
+                        u'version': u'1.0.0',
+                        u'serviceEndpointBase': unicode(endpoint)
+                    }
+                ]
+            }
         }
 
     def get_capabilities(self):
@@ -64,11 +66,13 @@ class PlrWebservice(object):
                 'Text': text
             })
         return {
-            u'topic': themes,
-            u'municipality': [record.fosnr for record in self._municipality_reader_.read()],
-            u'flavour': self._config_reader_.get_flavour(),
-            u'language': self._config_reader_.get_language(),
-            u'crs': self._config_reader_.get_crs()
+            u'GetCapabilitiesResponse': {
+                u'topic': themes,
+                u'municipality': [record.fosnr for record in self._municipality_reader_.read()],
+                u'flavour': self._config_reader_.get_flavour(),
+                u'language': self._config_reader_.get_language(),
+                u'crs': self._config_reader_.get_crs()
+            }
         }
 
     def get_egrid_coord(self):
@@ -122,7 +126,7 @@ class PlrWebservice(object):
         number = self._request_.matchdict.get('number')
         if postalcode and localisation and number:
             # TODO: Collect the EGRIDs using the property source
-            return []
+            return {'GetEGRIDResponse': []}
         else:
             raise HTTPBadRequest('POSTALCODE, LOCALISATION and NUMBER must be defined.')
 
@@ -285,7 +289,7 @@ class PlrWebservice(object):
                 'number': getattr(r, 'number'),
                 'identDN': getattr(r, 'identdn')
             })
-        return response
+        return {'GetEGRIDResponse': response}
 
     def __parse_xy__(self, xy, buffer_dist=None):
         """
