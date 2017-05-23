@@ -53,7 +53,7 @@ def test_getegrid_xy(connection, config_reader):
     #     schema = json.load(f)
     # validate(properties, schema)
     assert isinstance(real_estates, list)
-    assert len(real_estates) == 1
+    assert len(real_estates) == 2
     assert real_estates[0]['egrid'] == u'TEST'
     assert real_estates[0]['number'] == u'1000'
     assert real_estates[0]['identDN'] == u'BLTEST'

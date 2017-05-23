@@ -50,7 +50,7 @@ class Processor(object):
         self._min_length_ = min_length
         self.point_types = point_types
         self.line_types = line_types
-        self.polygon_types = polygon_types
+
 
     def plr_tolerance_check(self, extract):
         """
@@ -77,36 +77,51 @@ class Processor(object):
                     if geometryType in self.point_types:
                         pass
                     elif geometryType in self.line_types:
-                        results = geometry.geom.intersection(real_estate.limit)
-                        element_count = len(results)
-                        for element in results:
-                            if element.length < self._min_length_:
-                                element_count -= 1
+                        result = geometry.geom.intersection(real_estate.limit)
+                        extract.real_estate.public_law_restrictions[index].units = 'm'
+                        if result.type in ['MultiLineString', 'GeometryCollection']:
+                            parts_length = []
+                            for part in result.geoms:
+                                if part.length > self._min_length_:
+                                    parts_length.append(part.length)
+                            if sum(parts_length) > 0:
+                                extract.real_estate.public_law_restrictions[index].length = sum(parts_length)
                             else:
-                                extract.real_estate.public_law_restrictions[index].length += element.length
-                                extract.real_estate.public_law_restrictions[index].units = 'm'
-                            if element_count == 0:
+                                geom_cleaner.append(geometry)
+                        else:
+                            if result.length > self._min_length_:
+                                extract.real_estate.public_law_restrictions[index].length = result.length
+                            else:
                                 geom_cleaner.append(geometry)
                     elif geometryType in self.polygon_types:
-                        results = geometry.geom.intersection(real_estate.limit)
-                        element_count = len(results)
-                        # Compensation of the difference between technical area from land registry and the
-                        # calculated area of the geometry
-                        for element in results:
-                            compensated_area = element.area*areas_ratio
-                            if compensated_area < self._min_area_:
-                                element_count -= 1
-                            else:
-                                extract.real_estate.public_law_restrictions[index].area += compensated_area
+                        result = geometry.geom.intersection(real_estate.limit)
+                        extract.real_estate.public_law_restrictions[index].units = 'm2'
+                        if result.type in ['MultiPolygon', 'GeometryCollection']:
+                            parts_area = []
+                            for part in result.geoms:
+                                if part.area > self._min_area_:
+                                    compensated_area = result.area*areas_ratio
+                                    parts_area.append(compensated_area)
+                            if sum(parts_area) > 0:
+                                extract.real_estate.public_law_restrictions[index].area = sum(parts_area)
                                 extract.real_estate.public_law_restrictions[index].part_in_percent = \
                                     round(((extract.real_estate.public_law_restrictions[index].area /
                                             real_estate.limit.area)*100), 1)
-                                extract.real_estate.public_law_restrictions[index].units = 'm2'
-                            if element_count == 0:
+                            else:
+                                geom_cleaner.append(geometry)
+                        else:
+                            compensated_area = result.area*areas_ratio
+                            if compensated_area < self._min_area_:
+                                extract.real_estate.public_law_restrictions[index].area = compensated_area
+                                extract.real_estate.public_law_restrictions[index].part_in_percent = \
+                                    round(((extract.real_estate.public_law_restrictions[index].area /
+                                            real_estate.limit.area)*100), 1)
+                            else:
                                 geom_cleaner.append(geometry)
                     else:
                         # TODO: configure a proper error message
                         print 'Error: unknown geometry type'
+
                 # Remove small geometry from geometries list
                 for geom in geom_cleaner:
                     extract.real_estate.public_law_restrictions[index].geometries.remove(geom)

@@ -147,6 +147,19 @@ def connection(config_reader):
         'limit': 'SRID=2056;MULTIPOLYGON(((0 0, 0 2, 2 2, 2 0, 0 0)))'
     })
 
+    connection.execute(RealEstate.__table__.insert(), {
+        'id': 2,
+        'egrid': u'TEST2',
+        'number': u'9999',
+        'identdn': u'BLTEST',
+        'type': u'RealEstate',
+        'canton': u'BL',
+        'municipality': u'Liestal',
+        'fosnr': 1234,
+        'land_registry_area': 9,
+        'limit': 'SRID=2056;MULTIPOLYGON(((2 0, 2 3, 5 3, 5 0, 2 0)))'
+    })
+
     # Add dummy PLR data for line geometry
     connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
         schema=LineGeometry.__table__.schema,
@@ -190,6 +203,15 @@ def connection(config_reader):
         'view_service_id': 1,
         'office_id': 1
     })
+    connection.execute(LinePublicLawRestriction.__table__.insert(), {
+        'id': 3,
+        'content': u'{"de": "Double intersection line PLR"}',
+        'topic': u'MotorwaysBuildingLines',
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'view_service_id': 1,
+        'office_id': 1
+    })
     connection.execute(LineGeometry.__table__.insert(), {
         'id': 1,
         'legal_state': u'inForce',
@@ -205,6 +227,14 @@ def connection(config_reader):
         'public_law_restriction_id': 2,
         'office_id': 1,
         'geom': u'SRID=2056;LINESTRING (1.5 1.5, 1.5 2.5)'
+    })
+    connection.execute(LineGeometry.__table__.insert(), {
+        'id': 3,
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'public_law_restriction_id': 3,
+        'office_id': 1,
+        'geom': u'SRID=2056;LINESTRING (3 1, 3 4, 6 4, 6 1, 4.5 1)'
     })
 
     # Add dummy PLR data for polygon geometry
@@ -250,6 +280,15 @@ def connection(config_reader):
         'view_service_id': 1,
         'office_id': 1
     })
+    connection.execute(PolyPublicLawRestriction.__table__.insert(), {
+        'id': 3,
+        'content': u'{"de": "Double intersection polygon PLR"}',
+        'topic': u'ContaminatedSites',
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'view_service_id': 1,
+        'office_id': 1
+    })
     connection.execute(PolyGeometry.__table__.insert(), {
         'id': 1,
         'legal_state': u'inForce',
@@ -265,6 +304,14 @@ def connection(config_reader):
         'public_law_restriction_id': 2,
         'office_id': 1,
         'geom': u'SRID=2056;POLYGON ((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5))'
+    })
+    connection.execute(PolyGeometry.__table__.insert(), {
+        'id': 3,
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'public_law_restriction_id': 3,
+        'office_id': 1,
+        'geom': u'SRID=2056;POLYGON ((3 2.5, 3 5, 7 5, 7 0, 3 0, 3 1, 6 1, 6 4, 4 2.5, 3 2.5))'
     })
 
     connection.close()
