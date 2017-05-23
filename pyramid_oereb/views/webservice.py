@@ -240,7 +240,8 @@ class PlrWebservice(object):
 
         # Language
         language = str(self._request_.params.get('LANG')).lower()
-        if language not in self._config_reader_.get_language():
+        if language not in self._config_reader_.get_language() and self._request_.params.get('LANG') is not \
+                None:
             raise HTTPBadRequest(
                 'Requested language is not available. Following languages are configured: {languages} The '
                 'requested language was: {language}'.format(
@@ -248,7 +249,7 @@ class PlrWebservice(object):
                     language=language
                 )
             )
-        if language:
+        if self._request_.params.get('LANG'):
             params.set_language(language)
 
         # Topics

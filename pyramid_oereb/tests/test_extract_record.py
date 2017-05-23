@@ -23,6 +23,7 @@ def test_get_fields():
         'cantonal_logo',
         'municipality_logo',
         'plr_cadastre_authority',
+        'base_data'
         'exclusions_of_liability',
         'glossaries'
     ]
@@ -40,7 +41,6 @@ def test_class_variables():
     assert ExtractRecord.extract_identifier is None
     assert ExtractRecord.qr_code is None
     assert ExtractRecord.general_information is None
-    assert ExtractRecord.base_data is None
     assert ExtractRecord.plr_cadastre_authority is None
 
 
@@ -56,7 +56,15 @@ def test_init():
         )
     )
     plr_office = OfficeRecord('PLR Authority')
-    record = ExtractRecord(real_estate, bin(100), bin(100), bin(100), bin(100), plr_office)
+    record = ExtractRecord(
+        real_estate,
+        bin(100),
+        bin(100),
+        bin(100),
+        bin(100),
+        plr_office,
+        [{'de': 'Daten der Swisstopo'}, {'de': 'Amtliche Vermessung'}]
+    )
     assert isinstance(record.extract_identifier, str)
     assert isinstance(record.real_estate, RealEstateRecord)
     assert isinstance(record.not_concerned_theme, list)
@@ -70,3 +78,4 @@ def test_init():
     assert isinstance(record.exclusions_of_liability, list)
     assert isinstance(record.glossaries, list)
     assert isinstance(record.plr_cadastre_authority, OfficeRecord)
+    assert isinstance(record.base_data, list)

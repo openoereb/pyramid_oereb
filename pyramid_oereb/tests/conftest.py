@@ -70,7 +70,9 @@ class MockRequest(DummyRequest):
         extract_reader = ExtractReader(
             plr_sources,
             plr_cadastre_authority,
-            logos
+            logos,
+            # TODO: Read this from config. Will be solved by: https://jira.camptocamp.com/browse/GSOREB-195
+            [{'de': 'Daten der Swisstopo'}, {'de': 'Amtliche Vermessung'}]
         )
         self.processor = Processor(
             real_estate_reader=real_estate_reader,
