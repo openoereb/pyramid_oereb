@@ -157,15 +157,13 @@ zA-Z0-9]*)|(fl\.[a-zA-Z][a-zA-Z0-9]*)"/>
             </xsd:element>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:complexType
-            name="MultilingualText">
+    <xsd:complexType name="MultilingualText">
         <xsd:sequence>
             <xsd:element name="LocalisedText" type="LocalisedText" maxOccurs="unbounded">
             </xsd:element>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:complexType
-            name="MultilingualMText">
+    <xsd:complexType name="MultilingualMText">
         <xsd:sequence>
             <xsd:element name="LocalisedText" type="LocalisedMText" maxOccurs="unbounded">
             </xsd:element>
@@ -187,8 +185,7 @@ zA-Z0-9]*)|(fl\.[a-zA-Z][a-zA-Z0-9]*)"/>
             <xsd:enumeration value="Mineral_rights"/>
         </xsd:restriction>
     </xsd:simpleType>
-    <xsd:complexType
-            name="Office">
+    <xsd:complexType name="Office">
         <xsd:sequence>
             <xsd:element name="Name" type="MultilingualText">
             </xsd:element>
@@ -265,8 +262,7 @@ zA-Z0-9]*)|(fl\.[a-zA-Z][a-zA-Z0-9]*)"/>
             <xsd:element ref="extensions" minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:complexType
-            name="LegendEntry">
+    <xsd:complexType name="LegendEntry">
         <xsd:sequence>
             <xsd:choice>
                 <xsd:element name="Symbol" type="xsd:base64Binary">
@@ -289,8 +285,7 @@ zA-Z0-9]*)|(fl\.[a-zA-Z][a-zA-Z0-9]*)"/>
             <xsd:element ref="extensions" minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:complexType
-            name="Article">
+    <xsd:complexType name="Article">
         <xsd:complexContent>
             <xsd:extension base="DocumentBase">
                 <xsd:sequence>
@@ -326,8 +321,7 @@ zA-Z0-9]*)|(fl\.[a-zA-Z][a-zA-Z0-9]*)"/>
             <xsd:element ref="extensions" minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:complexType
-            name="Document">
+    <xsd:complexType name="Document">
         <xsd:complexContent>
             <xsd:extension base="DocumentBase">
                 <xsd:sequence>
@@ -391,16 +385,14 @@ zA-Z0-9]*)|(fl\.[a-zA-Z][a-zA-Z0-9]*)"/>
             </xsd:element>
             <xsd:element name="Map" type="Map">
             </xsd:element>
-            <xsd:element name="LegalProvisions" type="DocumentBase" minOccurs="0"
-                         maxOccurs="unbounded">
+            <xsd:element name="LegalProvisions" type="DocumentBase" minOccurs="0" maxOccurs="unbounded">
             </xsd:element>
             <xsd:element name="ResponsibleOffice" type="Office">
             </xsd:element>
             <xsd:element ref="extensions" minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:complexType
-            name="RealEstate_DPR">
+    <xsd:complexType name="RealEstate_DPR">
         <xsd:sequence>
             <xsd:element name="Number" minOccurs="0">
                 <xsd:simpleType>
