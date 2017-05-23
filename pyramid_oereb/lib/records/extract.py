@@ -8,20 +8,20 @@ class ExtractRecord(object):
     creation_date = None
     electronic_signature = None
     concerned_theme = None
-    notconcerned_theme = None
+    not_concerned_theme = None
     theme_without_data = None
     is_reduced = False
     extract_identifier = None
     qr_code = None
     general_information = None
-    base_data = None
     plr_cadastre_authority = None
 
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
-                 plr_cadastre_authority, exclusions_of_liability=None, glossaries=None,
-                 notconcerned_theme=None):
+                 plr_cadastre_authority, base_data, exclusions_of_liability=None, glossaries=None,
+                 concerned_theme=None, not_concerned_theme=None, theme_without_data=None):
         """
         The extract base class.
+
         :param real_estate: The real estate in its record representation.
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
         :param logo_plr_cadastre: Image file of the PLR logo
@@ -34,17 +34,36 @@ class ExtractRecord(object):
         :type municipality_logo: pyramid_oereb.lib.records.logo.LogoRecord
         :param plr_cadastre_authority: The authority which is responsible for the PLR cadastre
         :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OfficeRecord
+        :param base_data: A list of basic data layers used by the extract. For instance the basic map from
+            swisstopo
+        :type base_data: list of dict of str
         :param exclusions_of_liability: Exclusions of liability for the extract
+        :type exclusions_of_liability:
+            list of pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord
         :param glossaries: Glossary for the extract
+        :type glossaries: list of pyramid_oereb.lib.records.glossary.GlossaryRecord
+        :param concerned_theme: Concerned themes.
+        :type concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord or None
+        :param not_concerned_theme: Not concerned themes.
+        :type not_concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord or None
+        :param theme_without_data: Themes without data.
+        :type theme_without_data: list of pyramid_oereb.lib.records.theme.ThemeRecord or None
         """
+        self.base_data = base_data
         self.extract_identifier = str(uuid.uuid4())
         self.real_estate = real_estate
-        if notconcerned_theme:
-            self.notconcerned_theme = notconcerned_theme
+        if concerned_theme:
+            self.concerned_theme = concerned_theme
         else:
-            self.notconcerned_theme = []
-        self.concerned_theme = []
-        self.theme_without_data = []
+            self.concerned_theme = []
+        if not_concerned_theme:
+            self.not_concerned_theme = not_concerned_theme
+        else:
+            self.not_concerned_theme = []
+        if theme_without_data:
+            self.theme_without_data = theme_without_data
+        else:
+            self.theme_without_data = []
         self.creation_date = datetime.now().date()
         self.logo_plr_cadastre = logo_plr_cadastre
         self.federal_logo = federal_logo
@@ -64,13 +83,14 @@ class ExtractRecord(object):
     def get_fields(cls):
         """
         Returns a list of available field names.
+
         :return: List of available field names.
         :rtype: list of str
         """
         return [
             'extract_identifier',
             'real_estate',
-            'notconcerned_theme',
+            'not_concerned_theme',
             'concerned_theme',
             'theme_without_data',
             'logo_plr_cadastre',
@@ -79,6 +99,7 @@ class ExtractRecord(object):
             'cantonal_logo',
             'municipality_logo',
             'plr_cadastre_authority',
+            'base_data'
             'exclusions_of_liability',
             'glossaries'
         ]
@@ -86,15 +107,13 @@ class ExtractRecord(object):
     def to_extract(self):
         """
         Returns a dictionary with all available values needed for the extract.
+
         :return: Dictionary with values for the extract.
         :rtype: dict
         """
         extract = dict()
         for key in [
             'extract_identifier',
-            'notconcerned_theme',
-            'concerned_theme',
-            'theme_without_data',
             'exclusions_of_liability',
             'glossaries'
         ]:
@@ -105,6 +124,14 @@ class ExtractRecord(object):
         record = getattr(self, key)
         if record:
             extract[key] = record.to_extract()
+        for key in [
+            'not_concerned_theme',
+            'concerned_theme',
+            'theme_without_data'
+        ]:
+            themes = getattr(self, key)
+            if isinstance(themes, list) and len(themes) > 0:
+                extract[key] = [theme.to_extract() for theme in themes]
         key = 'creation_date'
         extract[key] = getattr(self, key).isoformat()
         for key in ['logo_plr_cadastre', 'federal_logo', 'cantonal_logo', 'municipality_logo']:

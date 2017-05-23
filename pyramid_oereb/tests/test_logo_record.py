@@ -21,3 +21,8 @@ def test_to_extract():
     assert logo_record.to_extract() == {
         'content': base64.b64encode('string to test')
     }
+
+
+def test_encode():
+    logo_record = LogoRecord('image content')
+    assert logo_record.encode() == base64.b64encode('image content')

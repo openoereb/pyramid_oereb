@@ -1,0 +1,21 @@
+<%page args="text"/>
+<%
+    import urlparse
+    if params.language:
+        language = str(params.language).lower()
+    else:
+        language = default_language
+    # TODO: Remove the following lines when issue https://jira.camptocamp.com/browse/GSOREB-193 is solved.
+    if not isinstance(text, dict):
+        text = {
+            language: text
+        }
+%>
+<xsd:LocalisedText>
+    <xsd:Language>${language}</xsd:Language>
+    % if urlparse.urlparse(text.get(language)).scheme:
+        <xsd:Text>${text.get(language)|u}</xsd:Text>
+    %else:
+        <xsd:Text>${text.get(language)}</xsd:Text>
+    % endif
+</xsd:LocalisedText>

@@ -6,6 +6,7 @@ from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.logo import LogoRecord
+from pyramid_oereb.lib.records.theme import ThemeRecord
 
 
 def parse(cfg_file, cfg_section):
@@ -49,25 +50,41 @@ class ConfigReader(object):
         """
         self.__config__ = parse(config_file, config_section)
 
-    def get_topic(self):
+    def get_themes(self):
         """
-        Returns a list of available topics.
+        Returns a list of available themes.
 
-        :return: The available topics.
-        :rtype: list
+        :return: The available themes.
+        :rtype: list of pyramid_oereb.lib.records.theme.ThemeRecord
         """
         result = list()
         plrs = self.__config__.get('plrs')
         if plrs and isinstance(plrs, list):
             for theme in plrs:
-                result.append({
-                    u'Code': unicode(theme.get('code')),
-                    u'Text': {
-                        u'Language': unicode(theme.get('language')),
-                        u'Text': unicode(theme.get('label'))
-                    }
-                })
+                result.append(ThemeRecord(
+                    theme.get('code'),
+                    theme.get('text')
+                ))
         return result
+
+    def get_theme(self, code):
+        """
+        Returns the theme with the specified code.
+
+        :param code: The theme's code.
+        :type code: str
+        :return: The theme with the specified code.
+        :rtype: pyramid_oereb.lib.records.theme.ThemeRecord or None
+        """
+        plrs = self.__config__.get('plrs')
+        if plrs and isinstance(plrs, list):
+            for theme in plrs:
+                if theme.get('code') == code:
+                    return ThemeRecord(
+                        theme.get('code'),
+                        theme.get('text')
+                    )
+        return None
 
     def get_crs(self):
         """

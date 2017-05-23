@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
+from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 
 
 class RealEstateRecord(object):
 
-    def __init__(self, type, canton, municipality, fosnr, land_registry_area, limit, plan_for_land_register,
+    def __init__(self, type, canton, municipality, fosnr, land_registry_area, limit,
                  metadata_of_geographical_base_data=None, number=None, identdn=None, egrid=None,
                  subunit_of_land_register=None, public_law_restrictions=None, references=None):
         """
@@ -20,8 +21,6 @@ class RealEstateRecord(object):
         :type land_registry_area: integer
         :param limit: The boundary of the property as geometry in as shapely multi polygon
         :type limit: shapely.geometry.MultiPolygon
-        :param plan_for_land_register: The view service instance containing the plan for the land register
-        :type plan_for_land_register: pyramid_oereb.lib.records.view_service.ViewServiceRecord
         :param metadata_of_geographical_base_data: Link to the metadata of the geodata
         :type metadata_of_geographical_base_data: uri
         :param number:  The official cantonal number of the property
@@ -48,7 +47,15 @@ class RealEstateRecord(object):
         self.metadata_of_geographical_base_data = metadata_of_geographical_base_data
         self.land_registry_area = land_registry_area
         self.limit = limit
-        self.plan_for_land_register = plan_for_land_register
+        # TODO: read the urls from configuration of the real estate. They are already defined there. This will
+        # solve issue https://jira.camptocamp.com/browse/GSOREB-194
+        self.plan_for_land_register = ViewServiceRecord(
+            'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&'
+            'SRS=EPSG:21781&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&'
+            'LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb',
+            'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=1.1.1&'
+            'FORMAT=image/png&LAYER=ch.bav.kataster-belasteter-standorte-oev.oereb'
+        )
         if isinstance(public_law_restrictions, list):
             self.public_law_restrictions = public_law_restrictions
         else:

@@ -1,0 +1,93 @@
+## -*- coding: utf-8 -*-
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://schemas.geo.admin.ch/swisstopo/OeREBK/15/ExtractData"
+            xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xmlsig="http://www.w3.org/2000/09/xmldsig#"
+            targetNamespace="http://schemas.geo.admin.ch/swisstopo/OeREBK/15/ExtractData"
+            elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.4">
+<%
+    from pyramid_oereb.lib.records.plr import PlrRecord
+    if params.language:
+        language = str(params.language).lower()
+    else:
+        language = default_language
+%>
+<%
+    def parse_bool(expression):
+        if expression:
+            return 'true'
+        else:
+            return 'false'
+%>
+    <xsd:Extract>
+        <xsd:CreationDate>${extract.creation_date}</xsd:CreationDate>
+    %if extract.electronic_signature:
+        <xsd:Signiture>${extract.electronic_signature}</xsd:Signiture>
+    %endif
+    %if extract.concerned_theme:
+        %for theme in extract.concerned_theme:
+        <xsd:ConcernedTheme>
+            <%include file="theme.xml" args="theme=theme"/>
+        </xsd:ConcernedTheme>
+        %endfor
+    %endif
+    %if extract.not_concerned_theme:
+        %for theme in extract.not_concerned_theme:
+        <xsd:NotConcernedTheme>
+            <%include file="theme.xml" args="theme=theme"/>
+        </xsd:NotConcernedTheme>
+        %endfor
+    %endif
+    %if extract.theme_without_data:
+        %for theme in extract.theme_without_data:
+        <xsd:ThemeWithoutData>
+            <%include file="theme.xml" args="theme=theme"/>
+        </xsd:ThemeWithoutData>
+        %endfor
+    %endif
+        <xsd:isReduced>${parse_bool(extract.is_reduced)}</xsd:isReduced>
+    %if params.images:
+        ## TODO: provide a link to the logos
+        <xsd:LogoPLRCadastreRef>${extract.logo_plr_cadastre.encode()}</xsd:LogoPLRCadastreRef>
+        <xsd:FederalLogoRef>${extract.federal_logo.encode()}</xsd:FederalLogoRef>
+        <xsd:CantonalLogoRef>${extract.cantonal_logo.encode()}</xsd:CantonalLogoRef>
+        <xsd:MunicipalityLogoRef>${extract.municipality_logo.encode()}</xsd:MunicipalityLogoRef>
+    %else:
+        <xsd:LogoPLRCadastre>${extract.logo_plr_cadastre.encode()}</xsd:LogoPLRCadastre>
+        <xsd:FederalLogo>${extract.federal_logo.encode()}</xsd:FederalLogo>
+        <xsd:CantonalLogo>${extract.cantonal_logo.encode()}</xsd:CantonalLogo>
+        <xsd:MunicipalityLogo>${extract.municipality_logo.encode()}</xsd:MunicipalityLogo>
+    %endif
+        <xsd:ExtractIdentifier>${extract.extract_identifier}</xsd:ExtractIdentifier>
+    %if extract.qr_code:
+        <xsd:QRCode>${extract.qr_code}</xsd:QRCode>
+    %endif
+    % if extract.general_information:
+        <xsd:GeneralInformation>
+            <%include file="localized_text.xml" args="text=extract.general_information"/>
+        </xsd:GeneralInformation>
+    %endif
+        <xsd:BaseData>
+            %for text in extract.base_data:
+            <%include file="localized_text.xml" args="text=text"/>
+            %endfor
+        </xsd:BaseData>
+        %for glossary in extract.glossaries:
+        <%include file="glossary.xml" args="glossary=glossary"/>
+        %endfor
+        <%include file="real_estate.xml" args="real_estate=extract.real_estate"/>
+    %if extract.exclusions_of_liability:
+        <xsd:ExclusionOfLiability>
+            %for exclusion_of_liability in extract.exclusions_of_liability:
+            <xsd:ExclusionOfLiability>
+                <xsd:Title>${exclusion_of_liability.title}</xsd:Title>
+                <xsd:Content>${exclusion_of_liability.content}</xsd:Content>
+            </xsd:ExclusionOfLiability>
+            %endfor
+        </xsd:ExclusionOfLiability>
+    %endif
+        <xsd:PLRCadastreAuthority>
+            <%include file="office.xml" args="office=extract.plr_cadastre_authority"/>
+        </xsd:PLRCadastreAuthority>
+    </xsd:Extract>
+</xsd:schema>

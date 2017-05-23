@@ -1,0 +1,7 @@
+<%page args="document"/>
+%if document.text_at_web:
+<xsd:TextAtWeb>
+    <%include file="localized_text.xml" args="text=document.text_at_web"/>
+</xsd:TextAtWeb>
+%endif
+<xsd:Lawstatus>${document.legal_state}</xsd:Lawstatus>

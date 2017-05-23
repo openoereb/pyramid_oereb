@@ -1,0 +1,18 @@
+<%page args="legend_entry"/>
+<xsd:LegendEntry>
+    %if params.images:
+    <xsd:Symbol>${legend_entry.symbol}</xsd:Symbol>
+    %else:
+    ## TODO: Push link to legend graphic here (possible when we solved this issue: https://jira.camptocamp.com/browse/GSOREB-184)
+    <xsd:SymbolRef>PROVIDE LINK TO LEGEND PIC HERE</xsd:SymbolRef>
+    %endif
+    <xsd:LegendText>
+        <%include file="localized_text.xml" args="text=legend_entry.legend_text"/>
+    </xsd:LegendText>
+    <xsd:TypeCode>${legend_entry.type_code}</xsd:TypeCode>
+    <xsd:TypeCodelist>${legend_entry.type_code_list}</xsd:TypeCodelist>
+    <%include file="theme.xml" args="theme=legend_entry.theme"/>
+    %if legend_entry.sub_theme:
+    <xsd:SubTheme>${legend_entry.sub_theme}</xsd:SubTheme>
+    %endif
+</xsd:LegendEntry>

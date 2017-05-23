@@ -8,6 +8,7 @@ from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
+from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 
 
@@ -38,9 +39,8 @@ def test_mandatory_fields():
 
 
 def test_init():
-    view_service = ViewServiceRecord('http://www.test.url.ch', 'http://www.test.url.ch')
     record = RealEstateRecord('test_type', 'BL', 'Nusshof', 1, 100,
-                              'POLYGON((0 0, 0 1, 1 1, 1 0, 0 0))', view_service)
+                              'POLYGON((0 0, 0 1, 1 1, 1 0, 0 0))')
     assert isinstance(record.type, str)
     assert isinstance(record.canton, str)
     assert isinstance(record.municipality, str)
@@ -61,10 +61,10 @@ def test_to_extract():
     geometry = GeometryRecord('runningModifications', datetime.date(1985, 8, 29), geom=point, office=office)
     document = DocumentRecord('runningModifications', datetime.date(1985, 8, 29), 'Document', office)
     view_service = ViewServiceRecord('http://www.test.url.ch', 'http://www.test.url.ch')
-    plr = PlrRecord('Topic', 'Content', 'runningModifications', datetime.date(1985, 8, 29), office,
-                    view_service=view_service, geometries=[geometry])
+    plr = PlrRecord(ThemeRecord('code', dict()), 'Content', 'runningModifications',
+                    datetime.date(1985, 8, 29), office, view_service=view_service, geometries=[geometry])
     record = RealEstateRecord('test_type', 'BL', 'Nusshof', 1, 100, 'POLYGON((0 0, 0 1, 1 1, 1 0, 0 0))',
-                              view_service, public_law_restrictions=[plr], references=[document])
+                              public_law_restrictions=[plr], references=[document])
 
     assert record.to_extract() == {
         'type': 'test_type',
@@ -74,14 +74,19 @@ def test_to_extract():
         'land_registry_area': 100,
         'limit': 'POLYGON((0 0, 0 1, 1 1, 1 0, 0 0))',
         'plan_for_land_register': {
-            'link_wms': 'http://www.test.url.ch',
-            'legend_web': 'http://www.test.url.ch'
+            'link_wms': 'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&'
+                        'SRS=EPSG:21781&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&'
+                        'FORMAT=image/png&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb',
+            'legend_web': 'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=1.1.1&'
+                          'FORMAT=image/png&LAYER=ch.bav.kataster-belasteter-standorte-oev.oereb'
         },
         'public_law_restrictions': [
             {
-                'affected': True,
                 'content': 'Content',
-                'topic': 'Topic',
+                'theme': {
+                    'code': 'code',
+                    'text': []
+                },
                 'legal_state': 'runningModifications',
                 'responsible_office': {
                     'name': 'Office'

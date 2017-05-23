@@ -7,12 +7,13 @@ from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
+from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import LegendEntryRecord, ViewServiceRecord
 
 
 def test_get_fields():
     expected_fields = [
-        'topic',
+        'theme',
         'documents',
         'geometries',
         'view_service',
@@ -55,13 +56,15 @@ def test_to_extract():
     document = DocumentRecord('runningModifications', datetime.date(1985, 8, 29), u'Document', office)
     point = Point((0, 0))
     geometry = GeometryRecord('runningModifications', datetime.date(1985, 8, 29), geom=point, office=office)
-    plr_record = PlrRecord('Topic', 'Content', 'runningModifications', datetime.date(1985, 8, 29), office,
-                           type_code='test1_code', view_service=view_service, documents=[document],
-                           geometries=[geometry])
+    plr_record = PlrRecord(ThemeRecord('code', dict()), 'Content', 'runningModifications',
+                           datetime.date(1985, 8, 29), office, type_code='test1_code',
+                           view_service=view_service, documents=[document], geometries=[geometry])
     assert plr_record.to_extract() == {
-        'affected': True,
         'content': 'Content',
-        'topic': 'Topic',
+        'theme': {
+            'code': 'code',
+            'text': []
+        },
         'legal_state': 'runningModifications',
         'type_code': 'test1_code',
         'responsible_office': {

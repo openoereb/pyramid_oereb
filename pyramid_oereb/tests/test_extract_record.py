@@ -14,7 +14,7 @@ def test_get_fields():
     expected_fields = [
         'extract_identifier',
         'real_estate',
-        'notconcerned_theme',
+        'not_concerned_theme',
         'concerned_theme',
         'theme_without_data',
         'logo_plr_cadastre',
@@ -23,6 +23,7 @@ def test_get_fields():
         'cantonal_logo',
         'municipality_logo',
         'plr_cadastre_authority',
+        'base_data'
         'exclusions_of_liability',
         'glossaries'
     ]
@@ -34,13 +35,12 @@ def test_class_variables():
     assert ExtractRecord.creation_date is None
     assert ExtractRecord.electronic_signature is None
     assert ExtractRecord.concerned_theme is None
-    assert ExtractRecord.notconcerned_theme is None
+    assert ExtractRecord.not_concerned_theme is None
     assert ExtractRecord.theme_without_data is None
     assert ExtractRecord.is_reduced is False
     assert ExtractRecord.extract_identifier is None
     assert ExtractRecord.qr_code is None
     assert ExtractRecord.general_information is None
-    assert ExtractRecord.base_data is None
     assert ExtractRecord.plr_cadastre_authority is None
 
 
@@ -56,10 +56,18 @@ def test_init():
         )
     )
     plr_office = OfficeRecord('PLR Authority')
-    record = ExtractRecord(real_estate, bin(100), bin(100), bin(100), bin(100), plr_office)
+    record = ExtractRecord(
+        real_estate,
+        bin(100),
+        bin(100),
+        bin(100),
+        bin(100),
+        plr_office,
+        [{'de': 'Daten der Swisstopo'}, {'de': 'Amtliche Vermessung'}]
+    )
     assert isinstance(record.extract_identifier, str)
     assert isinstance(record.real_estate, RealEstateRecord)
-    assert isinstance(record.notconcerned_theme, list)
+    assert isinstance(record.not_concerned_theme, list)
     assert isinstance(record.concerned_theme, list)
     assert isinstance(record.theme_without_data, list)
     assert isinstance(record.creation_date, datetime.date)
@@ -70,3 +78,4 @@ def test_init():
     assert isinstance(record.exclusions_of_liability, list)
     assert isinstance(record.glossaries, list)
     assert isinstance(record.plr_cadastre_authority, OfficeRecord)
+    assert isinstance(record.base_data, list)
