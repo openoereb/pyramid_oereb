@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from mako.template import Template
+from mako.lookup import TemplateLookup
+from pyramid.path import AssetResolver
+
 from pyramid.response import Response
 from pyramid_oereb.lib.renderer import Base
 from mako import exceptions
@@ -14,6 +16,9 @@ class Extract(Base):
         :param info: Info object.
         :type info: pyramid.interfaces.IRendererInfo
         """
+        a = AssetResolver('pyramid_oereb')
+        resolver = a.resolve('lib/renderer/templates/xml')
+        self.template_dir = resolver.abspath()
         super(Extract, self).__init__(info)
 
     def __call__(self, value, system):
@@ -32,20 +37,20 @@ class Extract(Base):
             response.content_type = 'application/xml'
 
         self._config_reader_ = self.get_request(system).pyramid_oereb_config_reader
-        self._language_ = str(self._config_reader_.get('default_language')).lower()
         self._params_ = value[1]
-        template = Template(filename='/home/vvmruder/Projekte/PyCharm/pyramid_oereb/pyramid_oereb/lib'
-                                     '/renderer/templates/xml/extract.xml',
-                            input_encoding='utf-8',
-                            output_encoding='utf-8'
-                            )
+        templates = TemplateLookup(
+            directories=[self.template_dir],
+            output_encoding='utf-8',
+            input_encoding='utf-8'
+        )
+        template = templates.get_template('extract.xml')
         try:
             content = template.render(**{
                 'extract': value[0],
-                'params': value[1]
+                'params': value[1],
+                'default_language': str(self._config_reader_.get('default_language')).lower()
             })
             return content
         except:
             response.content_type = 'text/html'
             return exceptions.html_error_template().render()
-
