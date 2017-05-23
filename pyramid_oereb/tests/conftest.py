@@ -10,16 +10,22 @@ from pyramid_oereb import ExtractReader
 from pyramid_oereb import MunicipalityReader
 from pyramid_oereb import Processor
 from pyramid_oereb import RealEstateReader
-from pyramid_oereb.lib.config import parse, ConfigReader
-from pyramid_oereb.models import PyramidOerebMainMunicipality, PyramidOerebMainGlossary
+from pyramid_oereb.lib.config import ConfigReader
+from pyramid_oereb.standard.models.main import Municipality, Glossary
 
-db_url = parse('pyramid_oereb_test.yml', 'pyramid_oereb').get('db_connection')
-config_reader = ConfigReader('pyramid_oereb_test.yml', 'pyramid_oereb')
+
+pyramid_oereb_test_yml = 'pyramid_oereb/tests/resources/pyramid_oereb_test.yml'
+
+
+@pytest.fixture()
+def config_reader():
+    return ConfigReader(pyramid_oereb_test_yml, 'pyramid_oereb')
 
 
 class MockRequest(DummyRequest):
     def __init__(self):
         super(MockRequest, self).__init__()
+        config_reader = ConfigReader(pyramid_oereb_test_yml, 'pyramid_oereb')
         real_estate_config = config_reader.get_real_estate_config()
         municipality_config = config_reader.get_municipality_config()
         logos = config_reader.get_logo_config()
@@ -58,16 +64,16 @@ class MockRequest(DummyRequest):
 
 
 @pytest.fixture()
-def connection():
-    engine = create_engine(db_url)
+def connection(config_reader):
+    engine = create_engine(config_reader.get('app_schema').get('db_connection'))
     connection = engine.connect()
 
     # Add dummy municipality
     connection.execute('TRUNCATE {schema}.{table};'.format(
-        schema=PyramidOerebMainMunicipality.__table__.schema,
-        table=PyramidOerebMainMunicipality.__table__.name
+        schema=Municipality.__table__.schema,
+        table=Municipality.__table__.name
     ))
-    connection.execute(PyramidOerebMainMunicipality.__table__.insert(), {
+    connection.execute(Municipality.__table__.insert(), {
         'fosnr': 1234,
         'name': 'Test',
         'published': True,
@@ -77,10 +83,10 @@ def connection():
 
     # Add dummy glossary
     connection.execute('TRUNCATE {schema}.{table};'.format(
-        schema=PyramidOerebMainGlossary.__table__.schema,
-        table=PyramidOerebMainGlossary.__table__.name
+        schema=Glossary.__table__.schema,
+        table=Glossary.__table__.name
     ))
-    connection.execute(PyramidOerebMainGlossary.__table__.insert(), {
+    connection.execute(Glossary.__table__.insert(), {
         'id': 1,
         'title': u'SGRF',
         'content': u'Service de la géomatique et du registre foncier'

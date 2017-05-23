@@ -11,8 +11,7 @@ from pyramid.testing import DummyRequest, testConfig
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.readers.real_estate import RealEstateReader
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
-from pyramid_oereb.models import PyramidOerebMainRealEstate
-from pyramid_oereb.tests.conftest import config_reader, db_url
+from pyramid_oereb.standard.models.main import RealEstate
 from pyramid_oereb.views.webservice import PlrWebservice, __get_egrid_response__, __parse_xy__, __parse_gnss__
 
 
@@ -20,7 +19,7 @@ def get_test_config():
     return {}
 
 
-def set_up_real_estate_reader():
+def set_up_real_estate_reader(config_reader):
     real_estate_config = config_reader.get_real_estate_config()
     pyramid_oereb.real_estate_reader = RealEstateReader(
         real_estate_config.get('source').get('class'),
@@ -36,9 +35,10 @@ def test_getegrid_coord_missing_parameter():
 
 
 @pytest.mark.run(order=1)
-def test_getegrid_ident():
+def test_getegrid_ident(config_reader):
+    db_url = config_reader.get('app_schema').get('db_connection')
     session = pyramid_oereb.database_adapter.get_session(db_url)
-    session.add(PyramidOerebMainRealEstate(
+    session.add(RealEstate(
         identdn='test_identdn',
         number='1234',
         egrid='TESTEGRID',
@@ -53,7 +53,7 @@ def test_getegrid_ident():
     ))
     session.commit()
     with testConfig(settings=get_test_config()):
-        set_up_real_estate_reader()
+        set_up_real_estate_reader(config_reader)
         request = DummyRequest()
         request.matchdict.update({
             'identdn': 'test_identdn',
@@ -73,9 +73,9 @@ def test_getegrid_ident():
 
 
 @pytest.mark.run(order=2)
-def test_getegrid_xy():
+def test_getegrid_xy(config_reader):
     with testConfig(settings=get_test_config()):
-        set_up_real_estate_reader()
+        set_up_real_estate_reader(config_reader)
         pyramid_oereb.config_reader = config_reader
         webservice = PlrWebservice(DummyRequest(params={
             'XY': '2621857.856,1259856.578'
@@ -93,9 +93,9 @@ def test_getegrid_xy():
 
 
 @pytest.mark.run(order=2)
-def test_getegrid_gnss():
+def test_getegrid_gnss(config_reader):
     with testConfig(settings=get_test_config()):
-        set_up_real_estate_reader()
+        set_up_real_estate_reader(config_reader)
         pyramid_oereb.config_reader = config_reader
         webservice = PlrWebservice(DummyRequest(params={
             'GNSS': '7.72866,47.48911'
@@ -159,7 +159,7 @@ def test_get_egrid_response():
     ('2621857.856,1259856.578', (2621857.856, 1259856.578), None),
     ('621857.759,259856.554', (2621857.799, 1259856.500), 1.0)
 ])
-def test_parse_xy(src, dst, buffer_dist):
+def test_parse_xy(src, dst, buffer_dist, config_reader):
     pyramid_oereb.config_reader = config_reader
     geom = __parse_xy__(src, buffer_dist=buffer_dist)
     if buffer_dist:
@@ -173,7 +173,7 @@ def test_parse_xy(src, dst, buffer_dist):
         assert round(geom.y, 3) == round(dst[1], 3)
 
 
-def test_parse_gnss():
+def test_parse_gnss(config_reader):
     pyramid_oereb.config_reader = config_reader
     geom = __parse_gnss__('7.72866,47.48911')
     assert isinstance(geom, Polygon)
