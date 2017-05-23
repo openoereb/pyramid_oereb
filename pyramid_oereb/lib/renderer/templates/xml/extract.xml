@@ -5,7 +5,13 @@
             xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xmlsig="http://www.w3.org/2000/09/xmldsig#"
             targetNamespace="http://schemas.geo.admin.ch/swisstopo/OeREBK/15/ExtractData"
             elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.4">
-<% from pyramid_oereb.lib.records.plr import PlrRecord%>
+<%
+    from pyramid_oereb.lib.records.plr import PlrRecord
+    if params.language:
+        language = str(params.language).lower()
+    else:
+        language = default_language
+%>
 <%
     def parse_bool(expression):
         if expression:
@@ -21,45 +27,21 @@
     %if extract.concerned_theme:
         %for theme in extract.concerned_theme:
         <xsd:ConcernedTheme>
-            <xsd:Code>${theme.code}</xsd:Code>
-            % for text in json.loads(theme.text):
-                <xsd:LocalisedText>
-                % for k, v in text.iteritems():
-                    <xsd:Language>${k}</xsd:Language>
-                    <xsd:Text>${v}</xsd:Text>
-                % endfor
-                </xsd:LocalisedText>
-            % endfor
+            <%include file="theme.xml" args="theme=theme"/>
         </xsd:ConcernedTheme>
         %endfor
     %endif
     %if extract.not_concerned_theme:
         %for theme in extract.not_concerned_theme:
         <xsd:NotConcernedTheme>
-            <xsd:Code>${theme.code}</xsd:Code>
-            % for text in json.loads(theme.text):
-                <xsd:LocalisedText>
-                % for k, v in text.iteritems():
-                    <xsd:Language>${k}</xsd:Language>
-                    <xsd:Text>${v}</xsd:Text>
-                % endfor
-                </xsd:LocalisedText>
-            % endfor
+            <%include file="theme.xml" args="theme=theme"/>
         </xsd:NotConcernedTheme>
         %endfor
     %endif
     %if extract.theme_without_data:
         %for theme in extract.theme_without_data:
         <xsd:ThemeWithoutData>
-            <xsd:Code>${theme.code}</xsd:Code>
-            % for text in json.loads(theme.text):
-                <xsd:LocalisedText>
-                % for k, v in text.iteritems():
-                    <xsd:Language>${k}</xsd:Language>
-                    <xsd:Text>${v}</xsd:Text>
-                % endfor
-                </xsd:LocalisedText>
-            % endfor
+            <%include file="theme.xml" args="theme=theme"/>
         </xsd:ThemeWithoutData>
         %endfor
     %endif
@@ -81,249 +63,19 @@
         <xsd:QRCode>${extract.qr_code}</xsd:QRCode>
     %endif
     % if extract.general_information:
-        <xsd:GeneralInformation>${extract.general_information}</xsd:GeneralInformation>
+        <xsd:GeneralInformation>
+            <%include file="localized_text.xml" args="text=extract.general_information"/>
+        </xsd:GeneralInformation>
     %endif
-        <xsd:BaseData>${extract.base_data}</xsd:BaseData>
-    %if extract.glossaries:
-        <xsd:Glossary>
-            %for glossary in extract.glossaries:
-            <xsd:Glossary>
-                <xsd:Title>${glossary.title}</xsd:Title>
-                <xsd:Content>${glossary.content}</xsd:Content>
-            </xsd:Glossary>
+        <xsd:BaseData>
+            %for text in extract.base_data:
+            <%include file="localized_text.xml" args="text=text"/>
             %endfor
-        </xsd:Glossary>
-    %endif
-        <xsd:RealEstate>
-            <xsd:RealEstate_DPR>
-                %if extract.real_estate.number:
-                    <xsd:Number>${extract.real_estate.number}</xsd:Number>
-                %endif
-                %if extract.real_estate.identdn:
-                    <xsd:IdentDN>${extract.real_estate.identdn}</xsd:IdentDN>
-                %endif
-                %if extract.real_estate.egrid:
-                    <xsd:EGRID>${extract.real_estate.egrid}</xsd:EGRID>
-                %endif
-                    <xsd:Type>${extract.real_estate.type}</xsd:Type>
-                    <xsd:Canton>${extract.real_estate.canton}</xsd:Canton>
-                    <xsd:Municipality>${extract.real_estate.municipality}</xsd:Municipality>
-                %if extract.real_estate.subunit_of_land_register:
-                    <xsd:SubunitOfLandRegister>${extract.real_estate.subunit_of_land_register}</xsd:SubunitOfLandRegister>
-                %endif
-                    <xsd:FosNr>${extract.real_estate.fosnr}</xsd:FosNr>
-                %if extract.real_estate.metadata_of_geographical_base_data:
-                    <xsd:MetadataOfGeographicalBaseData>${extract.real_estate.metadata_of_geographical_base_data.encode('utf-8')}</xsd:MetadataOfGeographicalBaseData>
-                %endif
-                    <xsd:LandRegistryArea>${extract.real_estate.land_registry_area}</xsd:LandRegistryArea>
-                %if extract.real_estate.limit:
-                    <xsd:Limit>
-                        <gml:MultiSurface>
-                            %for polygon in extract.real_estate.limit.geoms:
-                            <gml:surfaceMember>
-                                <gml:Polygon>
-                                    <gml:exterior>
-                                        <gml:LinearRing>
-                                            %for position in polygon.exterior.coords:
-                                            <gml:pos>${position[0]} ${position[1]}</gml:pos>
-                                            %endfor
-                                        </gml:LinearRing>
-                                    </gml:exterior>
-                                    <gml:interior>
-                                        <gml:LinearRing>
-                                            %for position in polygon.exterior.coords:
-                                            <gml:pos>${position[0]} ${position[1]}</gml:pos>
-                                            %endfor
-                                        </gml:LinearRing>
-                                    </gml:interior>
-                                </gml:Polygon>
-                            </gml:surfaceMember>
-                            %endfor
-                        </gml:MultiSurface>
-                    </xsd:Limit>
-                %endif
-                %for public_law_restriction in extract.real_estate.public_law_restrictions:
-                    %if isinstance(public_law_restriction, PlrRecord):
-                    <xsd:RestrictionOnLandownership>
-                        <xsd:Information>${public_law_restriction.content}</xsd:Information>
-                        <xsd:Theme>
-                            <xsd:Code>${public_law_restriction.theme.code}</xsd:Code>
-                            <xsd:Text>${public_law_restriction.theme.text}</xsd:Text>
-                        </xsd:Theme>
-                        %if public_law_restriction.subtopic:
-                        <xsd:SubTheme>${public_law_restriction.subtopic}</xsd:SubTheme>
-                        %endif
-                        %if public_law_restriction.type_code:
-                        <xsd:TypeCode>${public_law_restriction.type_code}</xsd:TypeCode>
-                        %endif
-                        %if public_law_restriction.type_code_list:
-                        <xsd:TypeCodelist>${public_law_restriction.type_code_list}</xsd:TypeCodelist>
-                        %endif
-                        %if public_law_restriction.legal_state:
-                        <xsd:Lawstatus>${public_law_restriction.legal_state}</xsd:Lawstatus>
-                        %endif
-                         %if public_law_restriction.area:
-                        <xsd:Area>${public_law_restriction.area}</xsd:Area>
-                        %endif
-                        %if public_law_restriction.part_in_percent:
-                        <xsd:PartInPercent>${public_law_restriction.part_in_percent}</xsd:PartInPercent>
-                        %endif
-                        %if params.images:
-                        <xsd:Symbol>${public_law_restriction.symbol}</xsd:Symbol>
-                        %else:
-                        <xsd:SymbolRef>${public_law_restriction.symbol}</xsd:SymbolRef>
-                        %endif
-                        <xsd:Geometry>
-                            %for geometry in public_law_restriction.geometries:
-                                %if 'Point' in geometry.geom.type:
-                                <xsd:Point>
-                                    <gml:Point>
-                                        <gml:pos>${geometry.geom.x} ${geometry.geom.y}</gml:pos>
-                                    </gml:Point>
-                                </xsd:Point>
-                                %elif 'Line' in geometry.geom.type:
-                                <xsd:Line gml:id="ID">
-                                    <gml:LineString>
-                                        %for coordinate in geometry.geom.coords:
-                                        <gml:pos>${coordinate[0]} ${coordinate[1]}</gml:pos>
-                                        %endfor
-                                    </gml:LineString>
-                                </xsd:Line>
-                                %elif 'Polygon' in geometry.geom.type:
-                                <xsd:Surface>
-                                    <gml:Polygon>
-                                        <gml:exterior>
-                                            <gml:LinearRing>
-                                                %for coordinate in geometry.geom.exterior.coords:
-                                                <gml:pos>${coordinate[0]} ${coordinate[1]}</gml:pos>
-                                                %endfor
-                                            </gml:LinearRing>
-                                        </gml:exterior>
-                                        <gml:interior>
-                                            <gml:LinearRing>
-                                                %for coordinate in geometry.geom.exterior.coords:
-                                                <gml:pos>${coordinate[0]} ${coordinate[1]}</gml:pos>
-                                                %endfor
-                                            </gml:LinearRing>
-                                        </gml:interior>
-                                    </gml:Polygon>
-                                </xsd:Surface>
-                                %endif
-                                <xsd:Lawstatus>
-                                    ## TODO: solve code here, where may it come from?
-                                    <xsd:Code>PLACE THE CODE HERE</xsd:Code>
-                                    <xsd:Text>${geometry.legal_state}</xsd:Text>
-                                </xsd:Lawstatus>
-                                <xsd:MetadataOfGeographicalBaseData>
-                                    ${geometry.geo_metadata}
-                                </xsd:MetadataOfGeographicalBaseData>
-                                <xsd:ResponsibleOffice>
-                                    <xsd:Name>${geometry.office.name}</xsd:Name>
-                                    %if geometry.office.office_at_web:
-                                    <xsd:OfficeAtWeb>${geometry.office.office_at_web|u}</xsd:OfficeAtWeb>
-                                    %endif
-                                    %if geometry.office.uid:
-                                    <xsd:UID>${geometry.office.uid}</xsd:UID>
-                                    %endif
-                                    %if geometry.office.line1:
-                                    <xsd:Line1>${geometry.office.line1}</xsd:Line1>
-                                    %endif
-                                    %if geometry.office.line2:
-                                    <xsd:Line2>${geometry.office.line2}</xsd:Line2>
-                                    %endif
-                                    %if geometry.office.street:
-                                    <xsd:Street>${geometry.office.street}</xsd:Street>
-                                    %endif
-                                    %if geometry.office.number:
-                                    <xsd:Number>${geometry.office.number}</xsd:Number>
-                                    %endif
-                                    %if geometry.office.postal_code:
-                                    <xsd:PostalCode>${geometry.office.postal_code}</xsd:PostalCode>
-                                    %endif
-                                    %if geometry.office.city:
-                                    <xsd:City>${geometry.office.city}</xsd:City>
-                                    %endif
-                                </xsd:ResponsibleOffice>
-                            %endfor
-                        </xsd:Geometry>
-                        <xsd:Map>
-                            ## TODO: Put image here when it is ready (we need to solve issue https://jira.camptocamp.com/browse/GSOREB-185)
-                            %if public_law_restriction.view_service.image:
-                            <xsd:Image>IMAGE BASE64 HERE</xsd:Image>
-                            %endif
-                            %if public_law_restriction.view_service.link_wms:
-                            <xsd:ReferenceWMS>${public_law_restriction.view_service.link_wms|u}</xsd:ReferenceWMS>
-                            %endif
-                            %if public_law_restriction.view_service.legend_web:
-                            <xsd:LegendAtWeb>${public_law_restriction.view_service.legend_web|u}</xsd:LegendAtWeb>
-                            %endif
-                            %if public_law_restriction.view_service.legends:
-                            <xsd:OtherLegend>
-                            %for legend_entry in public_law_restriction.view_service.legends:
-                                <xsd:LegendEntry>
-                                    %if params.images:
-                                    <xsd:Symbol>${legend_entry.symbol}</xsd:Symbol>
-                                    %else:
-                                    ## TODO: Push link to legend graphic here (possible when we solved this issue: https://jira.camptocamp.com/browse/GSOREB-184)
-                                    <xsd:SymbolRef>PROVIDE LINK TO LEGEND PIC HERE</xsd:SymbolRef>
-                                    %endif
-                                    <xsd:LegendText>${legend_entry.legend_text}</xsd:LegendText>
-                                    <xsd:TypeCode>${legend_entry.type_code}</xsd:TypeCode>
-                                    <xsd:TypeCodelist>${legend_entry.type_code_list}</xsd:TypeCodelist>
-                                    <xsd:Theme>
-                                        ## TODO: After solving issue: https://jira.camptocamp.com/browse/GSOREB-186
-                                        <xsd:Code>PROVIDE ACCESS TO REAL THEME ENTITY HERE</xsd:Code>
-                                        <xsd:Text>${legend_entry.theme}</xsd:Text>
-                                    </xsd:Theme>
-                                    %if legend_entry.sub_theme:
-                                    <xsd:SubTheme>${legend_entry.sub_theme}</xsd:SubTheme>
-                                    %endif
-                                </xsd:LegendEntry>
-                            %endfor
-                            </xsd:OtherLegend>
-                        %endif
-                        </xsd:Map>
-                        <xsd:LegalProvisions>
-                            %for document in public_law_restriction.documents:
-                            <xsd:DocumentBase>
-                                <xsd:TextAtWeb>${document.text_at_web|u}</xsd:TextAtWeb>
-                                <xsd:Lawstatus>${document.legal_state}</xsd:Lawstatus>
-                            </xsd:DocumentBase>
-                            %endfor
-                        </xsd:LegalProvisions>
-                        <xsd:ResponsibleOffice>
-                            <xsd:Name>${public_law_restriction.responsible_office.name}</xsd:Name>
-                            %if public_law_restriction.responsible_office.office_at_web:
-                            <xsd:OfficeAtWeb>${public_law_restriction.responsible_office.office_at_web|u}</xsd:OfficeAtWeb>
-                            %endif
-                            %if public_law_restriction.responsible_office.uid:
-                            <xsd:UID>${public_law_restriction.responsible_office.uid}</xsd:UID>
-                            %endif
-                            %if public_law_restriction.responsible_office.line1:
-                            <xsd:Line1>${public_law_restriction.responsible_office.line1}</xsd:Line1>
-                            %endif
-                            %if public_law_restriction.responsible_office.line2:
-                            <xsd:Line2>${public_law_restriction.responsible_office.line2}</xsd:Line2>
-                            %endif
-                            %if public_law_restriction.responsible_office.street:
-                            <xsd:Street>${public_law_restriction.responsible_office.street}</xsd:Street>
-                            %endif
-                            %if public_law_restriction.responsible_office.number:
-                            <xsd:Number>${public_law_restriction.responsible_office.number}</xsd:Number>
-                            %endif
-                            %if public_law_restriction.responsible_office.postal_code:
-                            <xsd:PostalCode>${public_law_restriction.responsible_office.postal_code}</xsd:PostalCode>
-                            %endif
-                            %if public_law_restriction.responsible_office.city:
-                            <xsd:City>${public_law_restriction.responsible_office.city}</xsd:City>
-                            %endif
-                        </xsd:ResponsibleOffice>
-                    </xsd:RestrictionOnLandownership>
-                    %endif
-                %endfor
-                <xsd:PlanForLandRegister>${extract.real_estate.plan_for_land_register}</xsd:PlanForLandRegister>
-            </xsd:RealEstate_DPR>
-        </xsd:RealEstate>
+        </xsd:BaseData>
+        %for glossary in extract.glossaries:
+        <%include file="glossary.xml" args="glossary=glossary"/>
+        %endfor
+        <%include file="real_estate.xml" args="real_estate=extract.real_estate"/>
     %if extract.exclusions_of_liability:
         <xsd:ExclusionOfLiability>
             %for exclusion_of_liability in extract.exclusions_of_liability:
@@ -335,31 +87,7 @@
         </xsd:ExclusionOfLiability>
     %endif
         <xsd:PLRCadastreAuthority>
-            <xsd:Name>${extract.plr_cadastre_authority.name}</xsd:Name>
-            %if extract.plr_cadastre_authority.office_at_web:
-            <xsd:OfficeAtWeb>${extract.plr_cadastre_authority.office_at_web|u}</xsd:OfficeAtWeb>
-            %endif
-            %if extract.plr_cadastre_authority.uid:
-            <xsd:UID>${extract.plr_cadastre_authority.uid}</xsd:UID>
-            %endif
-            %if extract.plr_cadastre_authority.line1:
-            <xsd:Line1>${extract.plr_cadastre_authority.line1}</xsd:Line1>
-            %endif
-            %if extract.plr_cadastre_authority.line2:
-            <xsd:Line2>${extract.plr_cadastre_authority.line2}</xsd:Line2>
-            %endif
-            %if extract.plr_cadastre_authority.street:
-            <xsd:Street>${extract.plr_cadastre_authority.street}</xsd:Street>
-            %endif
-            %if extract.plr_cadastre_authority.number:
-            <xsd:Number>${extract.plr_cadastre_authority.number}</xsd:Number>
-            %endif
-            %if extract.plr_cadastre_authority.postal_code:
-            <xsd:PostalCode>${extract.plr_cadastre_authority.postal_code}</xsd:PostalCode>
-            %endif
-            %if extract.plr_cadastre_authority.city:
-            <xsd:City>${extract.plr_cadastre_authority.city}</xsd:City>
-            %endif
+            <%include file="office.xml" args="office=extract.plr_cadastre_authority"/>
         </xsd:PLRCadastreAuthority>
     </xsd:Extract>
 </xsd:schema>
