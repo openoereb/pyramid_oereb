@@ -17,10 +17,7 @@ before_install:
 
 # command to run tests
 script:
-  - make git-attributes
-  - make lint
-  - make tests-docker-setup-db
-  - make tests
+  - make checks
 
 after_success:
   - make doc
