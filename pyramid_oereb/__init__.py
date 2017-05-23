@@ -8,7 +8,9 @@ from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.lib.config import ConfigReader, parse
 from pyramid.config import Configurator
 
+from pyramid_oereb.lib.readers.exclusion_of_liability import ExclusionOfLiabilityReader
 from pyramid_oereb.lib.readers.extract import ExtractReader
+from pyramid_oereb.lib.readers.glossary import GlossaryReader
 from pyramid_oereb.lib.readers.municipality import MunicipalityReader
 from pyramid_oereb.lib.readers.real_estate import RealEstateReader
 from pyramid_oereb.lib.processor import Processor
@@ -29,10 +31,12 @@ plr_sources = None
 plr_limits = None
 app_schema_name = None
 srid = None
+default_lang = None
 
 
 def main(global_config, **settings):
-    """ This function returns a Pyramid WSGI application. This is necessary for development of
+    """
+    This function returns a Pyramid WSGI application. This is necessary for development of
     your plugin. So you can run it local with the paster server and in a IDE like PyCharm. It
     is intended to leave this section as is and do configuration in the includeme section only.
     Push additional configuration in this section means it will not be used by the production
@@ -51,8 +55,8 @@ def includeme(config):
     :param config: The pyramid apps config object
     :type config: Configurator
     """
-    global route_prefix, config_reader, real_estate_reader, municipality_reader, extract_reader, \
-        plr_sources, plr_cadastre_authority, app_schema_name, srid
+    global route_prefix, config_reader, real_estate_reader, municipality_reader,  extract_reader, \
+        plr_sources, plr_cadastre_authority, app_schema_name, srid, default_lang
 
     # Set route prefix
     route_prefix = config.route_prefix
@@ -66,6 +70,8 @@ def includeme(config):
     config_reader = ConfigReader(cfg_file, cfg_section)
     real_estate_config = config_reader.get_real_estate_config()
     municipality_config = config_reader.get_municipality_config()
+    exclusion_of_liability_config = config_reader.get_exclusion_of_liability_config()
+    glossary_config = config_reader.get_glossary_config()
     logos = config_reader.get_logo_config()
     app_schema_name = config_reader.get('app_schema').get('name')
     srid = config_reader.get('srid')
@@ -74,6 +80,7 @@ def includeme(config):
     polygon_types = config_reader.get('plr_limits').get('polygon_types')
     min_length = config_reader.get('plr_limits').get('min_length')
     min_area = config_reader.get('plr_limits').get('min_area')
+    default_lang = config_reader.get('default_language')
 
     plr_cadastre_authority = config_reader.get_plr_cadastre_authority()
 
@@ -85,6 +92,16 @@ def includeme(config):
     municipality_reader = MunicipalityReader(
         municipality_config.get('source').get('class'),
         **municipality_config.get('source').get('params')
+    )
+
+    exclusion_of_liability_reader = ExclusionOfLiabilityReader(
+        exclusion_of_liability_config.get('source').get('class'),
+        **exclusion_of_liability_config.get('source').get('params')
+    )
+
+    glossary_reader = GlossaryReader(
+        glossary_config.get('source').get('class'),
+        **glossary_config.get('source').get('params')
     )
 
     plr_sources = []
@@ -102,20 +119,28 @@ def includeme(config):
         'pyramid_oereb': parse(cfg_file, cfg_section)
     })
     processor = Processor(
-        real_estate_reader,
-        municipality_reader,
-        plr_sources,
-        extract_reader,
-        point_types,
-        line_types,
-        polygon_types,
-        min_length,
-        min_area
+        real_estate_reader=real_estate_reader,
+        municipality_reader=municipality_reader,
+        exclusion_of_liability_reader=exclusion_of_liability_reader,
+        glossary_reader=glossary_reader,
+        plr_sources=plr_sources,
+        extract_reader=extract_reader,
+        point_types=point_types,
+        line_types=line_types,
+        polygon_types=polygon_types,
+        min_length=min_length,
+        min_area=min_area
     )
 
     def pyramid_oereb_processor(request):
         return processor
 
+    def pyramid_oereb_config_reader(request):
+        return config_reader
+
     config.add_request_method(pyramid_oereb_processor, reify=True)
+    config.add_request_method(pyramid_oereb_config_reader, reify=True)
+
+    config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer._json_.Extract')
 
     config.include('pyramid_oereb.routes')

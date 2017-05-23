@@ -1,17 +1,9 @@
 # -*- coding: utf-8 -*-
 import pytest
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
-from pyramid.testing import testConfig
 
 from pyramid_oereb.tests.conftest import MockRequest
 from pyramid_oereb.views.webservice import PlrWebservice
-
-
-def get_settings():
-    return {
-        'pyramid_oereb.cfg.file': 'pyramid_oereb_test.yml',
-        'pyramid_oereb.cfg.section': 'pyramid_oereb'
-    }
 
 
 @pytest.mark.parametrize('params', [
@@ -48,12 +40,11 @@ def get_settings():
     }
 ])
 def test_invalid_flavour(params):
-    with testConfig(settings=get_settings()):
-        request = MockRequest()
-        request.matchdict.update(params)
-        service = PlrWebservice(request)
-        with pytest.raises(HTTPBadRequest):
-            service.__validate_extract_params__()
+    request = MockRequest()
+    request.matchdict.update(params)
+    service = PlrWebservice(request)
+    with pytest.raises(HTTPBadRequest):
+        service.__validate_extract_params__()
 
 
 @pytest.mark.parametrize('params,expected', [
@@ -117,54 +108,54 @@ def test_invalid_flavour(params):
     )
 ])
 def test_matchdict(params, expected):
-    with testConfig(settings=get_settings()):
-        request = MockRequest()
-        request.matchdict.update(params)
-        service = PlrWebservice(request)
-        params = service.__validate_extract_params__()
-        assert params == expected
+    request = MockRequest()
+    request.matchdict.update(params)
+    service = PlrWebservice(request)
+    params = service.__validate_extract_params__()
+    for k, v in expected.iteritems():
+        assert getattr(params, k) == v
 
 
 def test_params():
-    with testConfig(settings=get_settings()):
-        request = MockRequest()
-        request.matchdict.update({
-            'flavour': 'REDUCED',
-            'format': 'XML',
-            'param1': 'SomeEGRID'
-        })
-        request.params.update({
-            'WITHIMAGES': '',
-            'LANG': 'de',
-            'TOPICS': 'top_A,top_B,top_C'
-        })
-        service = PlrWebservice(request)
-        params = service.__validate_extract_params__()
-        assert params == {
-            'flavour': 'reduced',
-            'format': 'xml',
-            'geometry': False,
-            'images': True,
-            'egrid': 'SomeEGRID',
-            'language': 'de',
-            'topics': ['top_A', 'top_B', 'top_C']
-        }
+    request = MockRequest()
+    request.matchdict.update({
+        'flavour': 'REDUCED',
+        'format': 'XML',
+        'param1': 'SomeEGRID'
+    })
+    request.params.update({
+        'WITHIMAGES': '',
+        'LANG': 'de',
+        'TOPICS': 'top_A,top_B,top_C'
+    })
+    service = PlrWebservice(request)
+    params = service.__validate_extract_params__()
+    expected = {
+        'flavour': 'reduced',
+        'format': 'xml',
+        'geometry': False,
+        'images': True,
+        'egrid': 'SomeEGRID',
+        'language': 'de',
+        'topics': ['top_A', 'top_B', 'top_C']
+    }
+    for k, v in expected.iteritems():
+        assert getattr(params, k) == v
 
 
 def test_return_extract():
-    with testConfig(settings=get_settings()):
-        request = MockRequest()
-        request.matchdict.update({
-            'flavour': 'REDUCED',
-            'format': 'XML',
-            'param1': 'GEOMETRY',
-            'param2': 'SomeEGRID'
-        })
-        service = PlrWebservice(request)
-        with pytest.raises(HTTPNoContent):
-            service.get_extract_by_id()
+    request = MockRequest()
+    request.matchdict.update({
+        'flavour': 'REDUCED',
+        'format': 'XML',
+        'param1': 'GEOMETRY',
+        'param2': 'SomeEGRID'
+    })
+    service = PlrWebservice(request)
+    with pytest.raises(HTTPNoContent):
+        service.get_extract_by_id()
 
-        # TODO: Activate validation when schema issues are fixed
-        # with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
-        #     schema = json.load(f)
-        # validate(extract, schema)
+    # TODO: Activate validation when schema issues are fixed
+    # with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
+    #     schema = json.load(f)
+    # validate(extract, schema)
