@@ -9,7 +9,6 @@ from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
 from pyramid_oereb.lib.records.plr import EmptyPlrRecord, PlrRecord
 from pyramid_oereb.lib.records.documents import DocumentRecord, ArticleRecord
 from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
-from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.glossary import GlossaryRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
@@ -21,7 +20,6 @@ class PlrBaseSource(Base):
     _documents_reocord_class_ = DocumentRecord
     _article_record_class_ = ArticleRecord
     _exclusion_of_liability_record_class_ = ExclusionOfLiabilityRecord
-    _extract_record_class_ = ExtractRecord
     _geometry_record_class_ = GeometryRecord
     _glossary_record_class_ = GlossaryRecord
     _legend_entry_record_class_ = LegendEntryRecord
