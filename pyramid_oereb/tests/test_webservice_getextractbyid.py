@@ -160,6 +160,7 @@ def test_return_no_content():
         service.get_extract_by_id()
 
 
+@pytest.mark.last
 def test_return_json():
     with testConfig() as config:
         config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer._json_.Extract')
