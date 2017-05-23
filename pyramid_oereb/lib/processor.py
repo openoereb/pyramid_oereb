@@ -50,7 +50,7 @@ class Processor(object):
         self._min_length_ = min_length
         self.point_types = point_types
         self.line_types = line_types
-
+        self.polygon_types = polygon_types
 
     def plr_tolerance_check(self, extract):
         """
@@ -122,9 +122,10 @@ class Processor(object):
                         # TODO: configure a proper error message
                         print 'Error: unknown geometry type'
 
-                # Remove small geometry from geometries list
-                for geom in geom_cleaner:
-                    extract.real_estate.public_law_restrictions[index].geometries.remove(geom)
+                    if len(geom_cleaner) > 0:
+                        # Remove small geometry from geometries list
+                        for geom in geom_cleaner:
+                            extract.real_estate.public_law_restrictions[index].geometries.remove(geom)
                 # Test if the geometries list is now empty - if so remove plr from plr list
                 if len(extract.real_estate.public_law_restrictions[index].geometries) == 0:
                     plr_cleaner.append(index)
