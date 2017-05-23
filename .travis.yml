@@ -12,12 +12,12 @@ services:
 install:
   - make install
 
-before_install:
-  - docker pull mdillon/postgis
-
 # command to run tests
 script:
-  - make checks
+  - make git-attributes
+  - make lint
+  - make tests-docker-setup-db
+  - make tests
 
 after_success:
   - make doc

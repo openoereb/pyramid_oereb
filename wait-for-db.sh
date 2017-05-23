@@ -1,8 +1,6 @@
 #!/bin/bash
 # wait-for-db.sh
 
-set -e
-
 counter=0
 
 docker_container="$1"
