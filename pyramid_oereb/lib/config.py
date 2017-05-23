@@ -13,8 +13,8 @@ def parse(cfg_file, cfg_section):
     """
     Parses the defined YAML file and returns the defined section as dictionary.
 
-    :param cfg_file:    The YAML file to be parsed.
-    :type  cfg_file:    str
+    :param cfg_file: The YAML file to be parsed.
+    :type  cfg_file: str
     :param cfg_section: The section to be returned.
     :type  cfg_section: str
     :return: The parsed section as dictionary.
@@ -290,3 +290,49 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get(key, default)
+
+    @staticmethod
+    def get_object_path(path, default=None, required=None):
+        """
+        Returns the configuration object at a specified path.
+
+        example:
+        get_object_path('app.print', {'dpi': 300}, ['map_size'])
+
+        :param path: Dot separated path of the wonted object.
+        :type path: str
+        :param default: Default dictionary values of the object. Defaults to {}.
+        :type default: dict
+        :param required: The list of required sub values in the object. Defaults to [].
+        :type required: list
+        :return: The specified configuration object.
+        """
+
+        return Config._get_object_path(
+            [], Config._config, path.split('.'),
+            default if default is not None else {},
+            required if required is not None else [])
+
+    @staticmethod
+    def _get_object_path(current_path, current_object, path, default, required):
+        if len(path) == 0:
+            result = dict(default)
+            result.update(current_object)
+            for key in required:
+                if key not in result:
+                    raise ConfigurationError('Missing configuration value for {}.{}.'.format(
+                        current_path.join('.'), key))
+            return result
+
+        k = path[0]
+        if k not in current_object:
+            raise ConfigurationError('Missing configuration object for {}.{}.'.format(
+                current_path.join('.'), k))
+
+        current_path.append(k)
+
+        if type(current_object[k]) != dict:
+            raise ConfigurationError('The configuration {} is not an object.'.format(
+                current_path.join('.')))
+
+        return Config._get_object_path(current_path, current_object[k], path[1:], default, required)
