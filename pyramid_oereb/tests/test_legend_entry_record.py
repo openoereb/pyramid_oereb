@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
+
+from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import LegendEntryRecord
 
 
@@ -23,12 +25,12 @@ def test_mandatory_fields():
 
 
 def test_init():
-    record = LegendEntryRecord(bin(100), 'test', 'test_code', 'test', 'test')
+    record = LegendEntryRecord(bin(100), 'test', 'test_code', 'test', ThemeRecord('test', {'de': 'Test'}))
     assert isinstance(record.symbol, str)
     assert isinstance(record.legend_text, str)
     assert isinstance(record.type_code, str)
     assert isinstance(record.type_code_list, str)
-    assert isinstance(record.theme, str)
+    assert isinstance(record.theme, ThemeRecord)
     assert record.sub_theme is None
     assert record.additional_theme is None
 
@@ -39,7 +41,7 @@ def test_to_extract():
         'test',
         'test_code',
         'test',
-        'test',
+        ThemeRecord('test', {'de': 'Test'}),
         sub_theme='test',
         additional_theme='test'
     ).to_extract() == {
@@ -47,7 +49,13 @@ def test_to_extract():
         'legend_text': 'test',
         'type_code': 'test_code',
         'type_code_list': 'test',
-        'theme': 'test',
+        'theme': {
+            'code': 'test',
+            'text': [{
+                'language': 'de',
+                'text': 'Test'
+            }]
+        },
         'sub_theme': 'test',
         'additional_theme': 'test'
     }
