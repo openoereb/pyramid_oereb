@@ -40,9 +40,9 @@ class Extract(Base):
         self._language_ = str(self._config_reader_.get('default_language')).lower()
         self._params_ = value[1]
 
-        return self.__render__(value[0])
+        return self._render(value[0])
 
-    def __render__(self, extract):
+    def _render(self, extract):
         """
         Serializes the extract record.
 
