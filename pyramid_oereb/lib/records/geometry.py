@@ -75,6 +75,7 @@ class GeometryRecord(object):
 
     @staticmethod
     def _is_multi_geometry(geometry):
+        # TODO: Make this read from config singleton provided by sbrunner
         multi_geometry_types = ['MultiPoint', 'MultiLineString', 'MultiPolygon', 'GeometryCollection']
         if geometry.type in multi_geometry_types:
             return True
