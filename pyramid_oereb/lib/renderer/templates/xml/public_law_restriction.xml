@@ -30,7 +30,9 @@
     %for geometry in public_law_restriction.geometries:
     <%include file="geometry.xml" args="geometry=geometry"/>
     %endfor
-    <%include file="map.xml" args="map=public_law_restriction.view_service"/>
+    <xsd:Map>
+        <%include file="view_service.xml" args="map=public_law_restriction.view_service"/>
+    </xsd:Map>
     %for document in public_law_restriction.documents:
     <xsd:LegalProvisions>
         <%include file="document.xml" args="document=document"/>
