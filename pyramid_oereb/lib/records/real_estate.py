@@ -57,6 +57,7 @@ class RealEstateRecord(object):
             self.references = references
         else:
             self.references = []
+        self.areas_ratio = self.limit.area / self.land_registry_area
 
     @classmethod
     def get_fields(cls):

@@ -41,11 +41,7 @@ class MockRequest(DummyRequest):
         glossary_config = self.config_reader.get_glossary_config()
         logos = self.config_reader.get_logo_config()
         plr_cadastre_authority = self.config_reader.get_plr_cadastre_authority()
-        point_types = self.config_reader.get('plr_limits').get('point_types')
-        line_types = self.config_reader.get('plr_limits').get('line_types')
-        polygon_types = self.config_reader.get('plr_limits').get('polygon_types')
-        min_length = self.config_reader.get('plr_limits').get('min_length')
-        min_area = self.config_reader.get('plr_limits').get('min_area')
+        plr_limits = self.config_reader.get('plr_limits')
 
         real_estate_reader = RealEstateReader(
             real_estate_config.get('source').get('class'),
@@ -84,11 +80,7 @@ class MockRequest(DummyRequest):
             glossary_reader=glossary_reader,
             plr_sources=plr_sources,
             extract_reader=extract_reader,
-            point_types=point_types,
-            line_types=line_types,
-            polygon_types=polygon_types,
-            min_length=min_length,
-            min_area=min_area
+            plr_limits=plr_limits
         )
 
     @property
