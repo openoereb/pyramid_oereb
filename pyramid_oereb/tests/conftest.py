@@ -44,7 +44,7 @@ class MockRequest(DummyRequest):
         glossary_config = Config.get_glossary_config()
         logos = Config.get_logo_config()
         plr_cadastre_authority = Config.get_plr_cadastre_authority()
-        plr_limits = self.config_reader.get('plr_limits')
+        plr_limits = Config.get('plr_limits')
 
         real_estate_reader = RealEstateReader(
             real_estate_config.get('source').get('class'),
@@ -140,7 +140,7 @@ def connection(config):
         'limit': 'SRID=2056;MULTIPOLYGON(((0 0, 0 2, 2 2, 2 0, 0 0)))'
     })
 
-    connection.execute(RealEstate.__table__.insert(), {
+    connection_.execute(RealEstate.__table__.insert(), {
         'id': 2,
         'egrid': u'TEST2',
         'number': u'9999',
@@ -298,7 +298,7 @@ def connection(config):
         'office_id': 1,
         'geom': u'SRID=2056;POLYGON ((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5))'
     })
-    connection.execute(PolyGeometry.__table__.insert(), {
+    connection_.execute(PolyGeometry.__table__.insert(), {
         'id': 3,
         'legal_state': u'inForce',
         'published_from': unicode(datetime.date.today().isoformat()),
