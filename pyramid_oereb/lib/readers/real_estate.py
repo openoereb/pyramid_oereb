@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from pyramid.path import DottedNameResolver
 
 
@@ -37,5 +38,6 @@ class RealEstateReader(object):
         :return: the list of all found records
         :rtype: list of pyramid_oereb.lib.records.real_estate.RealEstateRecord
         """
+
         self._source_.read(nb_ident=nb_ident, number=number, egrid=egrid, geometry=geometry)
         return self._source_.records

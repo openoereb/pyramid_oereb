@@ -8,7 +8,7 @@ class RealEstateRecord(object):
                  metadata_of_geographical_base_data=None, number=None, identdn=None, egrid=None,
                  subunit_of_land_register=None, public_law_restrictions=None, references=None):
         """
-        Basic caracteristics and geometry of the properrty to be analysed.
+        Basic caracteristics and geometry of the property to be analysed.
         :param type: The property type
         :type type: str
         :param canton: The abbreviation of the canton the property is located in

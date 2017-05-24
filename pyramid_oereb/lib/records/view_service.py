@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+from pyramid_oereb.lib.url import add_url_params
+
+from pyramid_oereb.lib.config import Config
 
 
 class LegendEntryRecord(object):
@@ -79,8 +82,6 @@ class ViewServiceRecord(object):
         """
         :param link_wms: The link URL to the actual service (WMS)
         :type link_wms: str
-        :param image: The map image resulting from calling the WMS link
-        :type image: binary
         :param legend_web: The link URL to the actual legend service (WMS get legend)
         :type legend_web: str
         :param legends: A list of all relevant legend entries.
@@ -131,3 +132,49 @@ class ViewServiceRecord(object):
             else:
                 extract[key] = [legend.to_extract() for legend in legends]
         return extract
+
+    @staticmethod
+    def _get_bbox(geometry, map_size, print_buffer):
+        width_buffer = (geometry.bounds[2] - geometry.bounds[0]) * print_buffer / 100
+        height_buffer = (geometry.bounds[3] - geometry.bounds[1]) * print_buffer / 100
+        print_bounds = [
+            geometry.bounds[0] - width_buffer,
+            geometry.bounds[1] - height_buffer,
+            geometry.bounds[2] + width_buffer,
+            geometry.bounds[3] + height_buffer,
+        ]
+        width = print_bounds[2] - print_bounds[0]
+        height = print_bounds[3] - print_bounds[1]
+        obj_ration = width / height
+        print_ration = map_size[0] / map_size[1]
+        if obj_ration > print_ration:
+            to_add = (width / print_ration - height) / 2
+            print_bounds[0] -= to_add
+            print_bounds[2] += to_add
+        else:
+            to_add = (height * print_ration - width) / 2
+            print_bounds[1] -= to_add
+            print_bounds[3] += to_add
+        return print_bounds
+
+    def get_full_wms_url(self, real_estate):
+        """
+        Returns the WMS URL to get the image.
+
+        :param real_estate: The Real Estate record.
+        :type real_estate: pyramid_oereb.lob.records.real_estate.RealEstateRecord
+        :return: The url used to query the WMS server.
+        :rtype: str
+        """
+
+        assert real_estate.limit is not None
+
+        if real_estate.limit is not None:
+            print_conf = Config.get_object_path('print', required=['map_size', 'buffer'])
+            map_size = print_conf['map_size']
+            bbox = self._get_bbox(real_estate.limit, map_size, print_conf['buffer'])
+            return add_url_params(self.link_wms, {
+                "BBOX": ",".join([str(e) for e in bbox])
+            })
+        else:
+            return self.link_wms
