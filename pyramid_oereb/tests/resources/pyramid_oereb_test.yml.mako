@@ -76,22 +76,25 @@ pyramid_oereb:
         model: pyramid_oereb.standard.models.main.ExclusionOfLiability
 
   plr_limits:
-    point_type: Point, MultiPoint
-    line_types: LineString, LinearRing, MultiLineString
-    polygon_types: Polygon, MultiPolygon
-    min_length: 1.0
-    min_area: 1.0
+    point:
+      types:
+        - Point
+        - MultiPoint
+    line:
+      types:
+        - LineString
+        - LinearRing
+        - MultiLineString
+      min_length: 1.0
+    polygon:
+      types:
+        - Polygon
+        - MultiPolygon
+      min_area: 1.0
 
   extract:
     source:
       class: pyramid_oereb.lib.sources.extract.ExtractStandardDatabaseSource
-
-  plr_limits:
-    point_types: [Point, MultiPoint]
-    line_types: [LineString, LinearRing, MultiLineString]
-    polygon_types: [Polygon, MultiPolygon]
-    min_length: 1.0
-    min_area: 1.0
 
   plrs:
 

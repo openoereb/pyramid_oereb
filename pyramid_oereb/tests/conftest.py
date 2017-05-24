@@ -44,11 +44,7 @@ class MockRequest(DummyRequest):
         glossary_config = Config.get_glossary_config()
         logos = Config.get_logo_config()
         plr_cadastre_authority = Config.get_plr_cadastre_authority()
-        point_types = Config.get('plr_limits').get('point_types')
-        line_types = Config.get('plr_limits').get('line_types')
-        polygon_types = Config.get('plr_limits').get('polygon_types')
-        min_length = Config.get('plr_limits').get('min_length')
-        min_area = Config.get('plr_limits').get('min_area')
+        plr_limits = Config.get('plr_limits')
 
         real_estate_reader = RealEstateReader(
             real_estate_config.get('source').get('class'),
@@ -89,11 +85,7 @@ class MockRequest(DummyRequest):
             glossary_reader=glossary_reader,
             plr_sources=plr_sources,
             extract_reader=extract_reader,
-            point_types=point_types,
-            line_types=line_types,
-            polygon_types=polygon_types,
-            min_length=min_length,
-            min_area=min_area
+            plr_limits=plr_limits
         )
 
     @property
@@ -148,6 +140,19 @@ def connection(config):
         'limit': 'SRID=2056;MULTIPOLYGON(((0 0, 0 2, 2 2, 2 0, 0 0)))'
     })
 
+    connection_.execute(RealEstate.__table__.insert(), {
+        'id': 2,
+        'egrid': u'TEST2',
+        'number': u'9999',
+        'identdn': u'BLTEST',
+        'type': u'RealEstate',
+        'canton': u'BL',
+        'municipality': u'Liestal',
+        'fosnr': 1234,
+        'land_registry_area': 9,
+        'limit': 'SRID=2056;MULTIPOLYGON(((2 0, 2 3, 5 3, 5 0, 2 0)))'
+    })
+
     # Add dummy PLR data for line geometry
     connection_.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
         schema=LineGeometry.__table__.schema,
@@ -191,6 +196,15 @@ def connection(config):
         'view_service_id': 1,
         'office_id': 1
     })
+    connection_.execute(LinePublicLawRestriction.__table__.insert(), {
+        'id': 3,
+        'content': u'{"de": "Double intersection line PLR"}',
+        'topic': u'MotorwaysBuildingLines',
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'view_service_id': 1,
+        'office_id': 1
+    })
     connection_.execute(LineGeometry.__table__.insert(), {
         'id': 1,
         'legal_state': u'inForce',
@@ -206,6 +220,14 @@ def connection(config):
         'public_law_restriction_id': 2,
         'office_id': 1,
         'geom': u'SRID=2056;LINESTRING (1.5 1.5, 1.5 2.5)'
+    })
+    connection_.execute(LineGeometry.__table__.insert(), {
+        'id': 3,
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'public_law_restriction_id': 3,
+        'office_id': 1,
+        'geom': u'SRID=2056;LINESTRING (3 1, 3 4, 6 4, 6 1, 4.5 1)'
     })
 
     # Add dummy PLR data for polygon geometry
@@ -251,6 +273,15 @@ def connection(config):
         'view_service_id': 1,
         'office_id': 1
     })
+    connection_.execute(PolyPublicLawRestriction.__table__.insert(), {
+        'id': 3,
+        'content': u'{"de": "Double intersection polygon PLR"}',
+        'topic': u'ContaminatedSites',
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'view_service_id': 1,
+        'office_id': 1
+    })
     connection_.execute(PolyGeometry.__table__.insert(), {
         'id': 1,
         'legal_state': u'inForce',
@@ -266,6 +297,14 @@ def connection(config):
         'public_law_restriction_id': 2,
         'office_id': 1,
         'geom': u'SRID=2056;POLYGON ((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5))'
+    })
+    connection_.execute(PolyGeometry.__table__.insert(), {
+        'id': 3,
+        'legal_state': u'inForce',
+        'published_from': unicode(datetime.date.today().isoformat()),
+        'public_law_restriction_id': 3,
+        'office_id': 1,
+        'geom': u'SRID=2056;POLYGON ((3 2.5, 3 5, 7 5, 7 0, 3 0, 3 1, 6 1, 6 4, 4 2.5, 3 2.5))'
     })
 
     connection_.close()

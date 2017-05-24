@@ -185,4 +185,4 @@ def test_return_json():
 
     real_estate = extract.get('GetExtractByIdResponse').get('extract').get('RealEstate')
     assert isinstance(real_estate, dict)
-    assert len(real_estate.get('RestrictionOnLandownership')) == 3
+    assert len(real_estate.get('RestrictionOnLandownership')) == 4

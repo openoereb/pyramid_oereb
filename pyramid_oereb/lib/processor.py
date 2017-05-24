@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
+import logging
+
+from pyramid.config import ConfigurationError
 from sqlalchemy.orm.exc import NoResultFound
 from pyramid_oereb.lib.records.plr import PlrRecord
+
+
+log = logging.getLogger('pyramid_oereb')
 
 
 class Processor(object):
 
     def __init__(self, real_estate_reader, municipality_reader, exclusion_of_liability_reader,
                  glossary_reader, plr_sources, extract_reader, min_area=1.0, min_length=1.0,
-                 point_types=['Point', 'MultiPoint'],
-                 line_types=['LineString', 'LinearRing', 'MultiLineString'],
-                 polygon_types=['Polygon', 'MultiPolygon']):
+                 plr_limits=None):
         """
         The Processor class is directly bound to the get_extract_by_id service in this application. It's task
         is to unsnarl the difficult model of the oereb extract and handle all objects inside this extract
@@ -29,12 +33,8 @@ class Processor(object):
         :type plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
         :param extract_reader: The extract reader instance for runtime use.
         :type extract_reader: pyramid_oereb.lib.readers.extract.ExtractReader
-        :param point_types: The different point geometry types a restriction could be defined in
-        :type point_types: list of str
-        :param line_types: The different line geometry types a restriction could take
-        :type line_types: list of str
-        :param polygon_types: The different point geometry types a restriction could have
-        :type polygon_types: list of str
+        :param plr_limits: The configuration for limiting the intersection.
+        :type plr_limits: dict or None
         :param min_area: The minimal area for a public law restriction to be displayed in the cadastre
         :type min_area: decimal
         :param min_length: The minimal length for a public law restriction to be displayed in the cadastre
@@ -48,9 +48,10 @@ class Processor(object):
         self._extract_reader_ = extract_reader
         self._min_area_ = min_area
         self._min_length_ = min_length
-        self.point_types = point_types
-        self.line_types = line_types
-        self.polygon_types = polygon_types
+        if plr_limits:
+            self.plr_limits = plr_limits
+        else:
+            raise ConfigurationError()
 
     def plr_tolerance_check(self, extract):
         """
@@ -63,48 +64,24 @@ class Processor(object):
         :return: Returns the updated extract
         :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
         """
-        real_estate = extract.real_estate
-        real_estate_feature_area = extract.real_estate.limit.area
-        land_registry_area = extract.real_estate.land_registry_area
-        areas_ratio = real_estate_feature_area / land_registry_area
-        geom_cleaner = []
-        plr_cleaner = []
 
-        for index, public_law_restriction in enumerate(extract.real_estate.public_law_restrictions):
+        real_estate = extract.real_estate
+        tested_geometries = []
+        tested_plrs = []
+
+        for index, public_law_restriction in enumerate(real_estate.public_law_restrictions):
             if isinstance(public_law_restriction, PlrRecord):
                 for geometry in public_law_restriction.geometries:
-                    geometryType = geometry.geom.type
-                    if geometryType in self.point_types:
-                        pass
-                    elif geometryType in self.line_types:
-                        extract.real_estate.public_law_restrictions[index].length = geometry.geom.length
-                        if extract.real_estate.public_law_restrictions[index].length < self._min_length_:
-                            geom_cleaner.append(geometry)
-                        else:
-                            extract.real_estate.public_law_restrictions[index].units = 'm'
-                    elif geometryType in self.polygon_types:
-                        # Compensation of the difference between technical area from land registry and the
-                        # calculated area of the geometry
-                        compensated_area = geometry.geom.area * areas_ratio
-                        extract.real_estate.public_law_restrictions[index].area = compensated_area
-                        if extract.real_estate.public_law_restrictions[index].area < self._min_area_:
-                            geom_cleaner.append(geometry)
-                        else:
-                            extract.real_estate.public_law_restrictions[index].part_in_percent = \
-                                round(((compensated_area/real_estate.limit.area)*100), 1)
-                            extract.real_estate.public_law_restrictions[index].units = 'm2'
-                    else:
-                        # TODO: configure a proper error message
-                        print 'Error: unknown geometry type'
-                # Remove small geometry from geometries list
-                for geom in geom_cleaner:
-                    extract.real_estate.public_law_restrictions[index].geometries.remove(geom)
-                # Test if the geometries list is now empty - if so remove plr from plr list
-                if len(extract.real_estate.public_law_restrictions[index].geometries) == 0:
-                    plr_cleaner.append(index)
+                    # TODO: Remove the plr_limits when they are consumed directly from config
+                    test_passed = geometry.calculate(real_estate, self.plr_limits)
+                    if test_passed:
+                        tested_geometries.append(geometry)
 
-        for j in reversed(plr_cleaner):
-            extract.real_estate.public_law_restrictions.pop(j)
+                # Test if the geometries list is now empty - if so remove plr from plr list
+                if len(tested_geometries) > 0:
+                    public_law_restriction.geometries = tested_geometries
+                    tested_plrs.append(public_law_restriction)
+        real_estate.public_law_restrictions = tested_plrs
 
         return extract
 

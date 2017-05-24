@@ -27,7 +27,6 @@ real_estate_reader = None
 municipality_reader = None
 extract_reader = None
 plr_sources = None
-plr_limits = None
 app_schema_name = None
 srid = None
 default_lang = None
@@ -54,6 +53,7 @@ def includeme(config):
     :param config: The pyramid apps config object
     :type config: Configurator
     """
+
     global route_prefix, real_estate_reader, municipality_reader, extract_reader, \
         plr_sources, plr_cadastre_authority, app_schema_name, srid, default_lang
 
@@ -76,12 +76,8 @@ def includeme(config):
     logos = Config.get_logo_config()
     app_schema_name = Config.get('app_schema').get('name')
     srid = Config.get('srid')
-    point_types = Config.get('plr_limits').get('point_types')
-    line_types = Config.get('plr_limits').get('line_types')
-    polygon_types = Config.get('plr_limits').get('polygon_types')
-    min_length = Config.get('plr_limits').get('min_length')
-    min_area = Config.get('plr_limits').get('min_area')
     default_lang = Config.get('default_language')
+    plr_limits = Config.get('plr_limits')
 
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
 
@@ -128,11 +124,7 @@ def includeme(config):
         glossary_reader=glossary_reader,
         plr_sources=plr_sources,
         extract_reader=extract_reader,
-        point_types=point_types,
-        line_types=line_types,
-        polygon_types=polygon_types,
-        min_length=min_length,
-        min_area=min_area
+        plr_limits=plr_limits
     )
 
     def pyramid_oereb_processor(request):
