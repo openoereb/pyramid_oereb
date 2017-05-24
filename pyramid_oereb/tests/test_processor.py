@@ -32,3 +32,14 @@ def test_process(connection):
     real_estate = processor.real_estate_reader.read(egrid=u'TEST')
     extract = processor.process(real_estate[0])
     assert isinstance(extract.to_extract(), dict)
+
+
+def test_process_geometry_testing(connection):
+    assert connection.closed
+    request = MockRequest()
+    processor = request.pyramid_oereb_processor
+    real_estate = processor.real_estate_reader.read(egrid=u'TEST')
+    extract = processor.process(real_estate[0])
+    for plr in extract.real_estate.public_law_restrictions:
+        for g in plr.geometries:
+            assert g._test_passed

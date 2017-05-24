@@ -282,11 +282,11 @@ class Extract(Base):
         :rtype: dict
         """
         plr_limits = self._config_reader_.get('plr_limits')
-        if geometry.geom.type in plr_limits.get('point_types'):
+        if geometry.geom.type in plr_limits.get('point').get('types'):
             geometry_type = 'Point'
-        elif geometry.geom.type in plr_limits.get('line_types'):
+        elif geometry.geom.type in plr_limits.get('line').get('types'):
             geometry_type = 'Line'
-        elif geometry.geom.type in plr_limits.get('polygon_types'):
+        elif geometry.geom.type in plr_limits.get('polygon').get('types'):
             geometry_type = 'Surface'
         else:
             raise TypeError('The geometry type {gtype} is not configured in "plr_limits"'.format(
