@@ -24,7 +24,7 @@ after_success:
 
 before_deploy:
   - sudo apt-get install pandoc
-  - make description
+  - make description.rst
 
 # deploy to pypi
 deploy:

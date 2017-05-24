@@ -78,16 +78,23 @@ tests-setup-db: $(TESTS_SETUP_DB)
 tests-drop-db: $(TESTS_DROP_DB)
 
 .PHONY: checks
-checks: git-attributes lint tests coverage-html
+checks: git-attributes lint coverage-html
+
+%: %.mako $(PYTHON_VENV) CONST_vars.yml
+	$(VENV_BIN)c2c-template$(PYTHON_BIN_POSTFIX) --vars CONST_vars.yml --engine mako --files $<
 
 .PHONY: tests
-tests: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB)
+tests: .coverage
+
+ifeq ($(USE_DOCKER), TRUE)
+@_POSTGIS_IP = $(shell docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(DOCKER_CONTAINER_PG))
+else
+@_POSTGIS_IP = localhost
+endif
+export SQLALCHEMY_URL = "postgresql://$(PG_CREDENTIALS)@$(@_POSTGIS_IP):5432/pyramid_oereb_test"
+
+.coverage: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB) pyramid_oereb/tests/resources/pyramid_oereb_test.yml .coveragerc $(shell find -name "*.py" -print)
 	@echo Run tests using docker: $(USE_DOCKER)
-	$(eval $@_POSTGIS_IP := $(if $(filter TRUE,$(USE_DOCKER)), $(shell docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(DOCKER_CONTAINER_PG)), localhost))
-	SQLALCHEMY_URL="postgresql://$(PG_CREDENTIALS)@$($@_POSTGIS_IP):5432/pyramid_oereb_test" ;\
-	export SQLALCHEMY_URL ;\
-	printenv SQLALCHEMY_URL ;\
-	$(VENV_BIN)c2c-template --vars CONST_vars.yml --engine mako --files pyramid_oereb/tests/resources/pyramid_oereb_test.yml.mako ;\
 	$(VENV_BIN)py.test$(PYTHON_BIN_POSTFIX) -vv --cov-config .coveragerc --cov-report term-missing:skip-covered --cov pyramid_oereb pyramid_oereb/tests
 
 .PHONY: lint
@@ -99,9 +106,12 @@ git-attributes:
 	git --no-pager diff --check `git log --oneline | tail -1 | cut --fields=1 --delimiter=' '`
 
 .PHONY: coverage-html
-coverage-html:
-	$(VENV_BIN)coverage html
+coverage-html: coverage_report/index.html
 
+coverage_report/index.html: $(PYTHON_VENV) .coverage
+	$(VENV_BIN)coverage$(PYTHON_BIN_POSTFIX) html
+
+.PHONY: tests-docker-setup-db
 tests-docker-setup-db:
 	docker run --name $(DOCKER_CONTAINER_PG) -e POSTGRES_PASSWORD=$(PG_PASSWORD) -d mdillon/postgis:9.4-alpine
 	bash wait-for-db.sh $(DOCKER_CONTAINER_PG) $(PG_PASSWORD) $(PG_USER)
@@ -109,15 +119,18 @@ tests-docker-setup-db:
 	docker run -i --link $(DOCKER_CONTAINER_PG):postgres --rm postgres sh -c 'PGPASSWORD=$(PG_PASSWORD) exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U $(PG_USER) -w -c "$(PG_CREATE_EXT)"'
 	docker run -i --link $(DOCKER_CONTAINER_PG):postgres --rm postgres sh -c 'PGPASSWORD=$(PG_PASSWORD) exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U $(PG_USER) -w -c "$(PG_CREATE_SCHEMA)"'
 
+.PHONY: tests-docker-drop-db
 tests-docker-drop-db:
-	- docker container stop $(DOCKER_CONTAINER_PG)
-	- docker container rm $(DOCKER_CONTAINER_PG)
+	docker stop $(DOCKER_CONTAINER_PG)
+	docker rm $(DOCKER_CONTAINER_PG)
 
+.PHONY: tests-win-setup-db
 tests-win-setup-db:
 	psql -c $(PG_CREATE_DB) -U $(PG_USER)
 	psql -c $(PG_CREATE_EXT) -U $(PG_USER) -d pyramid_oereb_test
 	psql -c $(PG_CREATE_SCHEMA) -U $(PG_USER) -d pyramid_oereb_test
 
+.PHONY: tests-win-drop-db
 tests-win-drop-db:
 	psql -c  $(PG_DROP_DB) -U $(PG_USER)
 
@@ -125,6 +138,7 @@ tests-win-drop-db:
 clean-all:
 	rm -rf .venv
 	rm -rf $(BUILDDIR)
+	rm pyramid_oereb/tests/resources/pyramid_oereb_test.yml
 
 .PHONY: create-standard-tables
 create-standard-tables: $(PYTHON_VENV)
@@ -138,10 +152,9 @@ drop-standard-tables: $(PYTHON_VENV)
 serve: $(PYTHON_VENV)
 	$(VENV_BIN)pserve$(PYTHON_BIN_POSTFIX) development.ini
 
-.PHONY: description
-description:
+description.rst:
 	awk 'FNR==1{print ""}1' README.md CHANGES.md | pandoc -f markdown -t rst -o description.rst
 
 .PHONY: deploy
-deploy: description
+deploy: description.rst
 	$(VENV_BIN)python setup.py sdist bdist_wheel upload
