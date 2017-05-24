@@ -3,6 +3,8 @@ from mako.lookup import TemplateLookup
 from pyramid.path import AssetResolver
 
 from pyramid.response import Response
+
+from pyramid_oereb import Config
 from pyramid_oereb.lib.renderer import Base
 from mako import exceptions
 
@@ -36,7 +38,6 @@ class Extract(Base):
         if isinstance(response, Response) and response.content_type == response.default_content_type:
             response.content_type = 'application/xml'
 
-        self._config_reader_ = self.get_request(system).pyramid_oereb_config_reader
         self._params_ = value[1]
         templates = TemplateLookup(
             directories=[self.template_dir],
@@ -48,7 +49,7 @@ class Extract(Base):
             content = template.render(**{
                 'extract': value[0],
                 'params': value[1],
-                'default_language': str(self._config_reader_.get('default_language')).lower()
+                'default_language': str(Config.get('default_language')).lower()
             })
             return content
         except:

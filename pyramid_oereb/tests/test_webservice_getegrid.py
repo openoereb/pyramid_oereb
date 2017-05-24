@@ -21,9 +21,9 @@ def test_getegrid_coord_missing_parameter():
         webservice.get_egrid_coord()
 
 
-def test_getegrid_ident(connection, config_reader):
+def test_getegrid_ident(connection, config):
     assert connection.closed
-    pyramid_oereb.config_reader = config_reader
+    pyramid_oereb.config = config
     request = MockRequest()
     request.matchdict.update({
         'identdn': u'BLTEST',
@@ -45,9 +45,9 @@ def test_getegrid_ident(connection, config_reader):
     assert real_estates[0]['identDN'] == u'BLTEST'
 
 
-def test_getegrid_xy(connection, config_reader):
+def test_getegrid_xy(connection, config):
     assert connection.closed
-    pyramid_oereb.config_reader = config_reader
+    pyramid_oereb.config = config
     request = MockRequest()
     request.params.update({
         'XY': '-1999999.0327394493,-999998.9404575331'
@@ -68,8 +68,8 @@ def test_getegrid_xy(connection, config_reader):
     assert real_estates[0]['identDN'] == u'BLTEST'
 
 
-def test_getegrid_gnss(config_reader):
-    pyramid_oereb.config_reader = config_reader
+def test_getegrid_gnss(config):
+    pyramid_oereb.config = config
     request = MockRequest()
     request.params.update({
         'GNSS': '-19.91798993747352,32.124497846031005'
@@ -137,8 +137,8 @@ def test_get_egrid_response():
     ('2621857.856,1259856.578', (2621857.856, 1259856.578), None),
     ('621857.759,259856.554', (2621857.799, 1259856.500), 1.0)
 ])
-def test_parse_xy(src, dst, buffer_dist, config_reader):
-    pyramid_oereb.config_reader = config_reader
+def test_parse_xy(src, dst, buffer_dist, config):
+    pyramid_oereb.config = config
     geom = PlrWebservice(MockRequest()).__parse_xy__(src, buffer_dist=buffer_dist)
     if buffer_dist:
         assert isinstance(geom, Polygon)
@@ -151,8 +151,8 @@ def test_parse_xy(src, dst, buffer_dist, config_reader):
         assert round(geom.y, 3) == round(dst[1], 3)
 
 
-def test_parse_gnss(config_reader):
-    pyramid_oereb.config_reader = config_reader
+def test_parse_gnss(config):
+    pyramid_oereb.config = config
     geom = PlrWebservice(MockRequest()).__parse_gnss__('7.72866,47.48911')
     assert isinstance(geom, Polygon)
     assert round(geom.centroid.x, 3) == 2621858.036

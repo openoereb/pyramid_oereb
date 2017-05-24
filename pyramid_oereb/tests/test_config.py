@@ -2,7 +2,7 @@
 import pytest
 from pyramid.config import ConfigurationError
 
-from pyramid_oereb.lib.config import parse, ConfigReader
+from pyramid_oereb.lib.config import parse, Config
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
@@ -36,8 +36,9 @@ def test_parse_configuration():
 
 
 def test_get_plr_cadastre_authority():
-    config_reader = ConfigReader('./pyramid_oereb/tests/resources/test_config.yml', 'pyramid_oereb')
-    plr_cadastre_authority = config_reader.get_plr_cadastre_authority()
+    Config._config = None
+    Config.init('./pyramid_oereb/tests/resources/test_config.yml', 'pyramid_oereb')
+    plr_cadastre_authority = Config.get_plr_cadastre_authority()
     assert isinstance(plr_cadastre_authority, OfficeRecord)
     assert plr_cadastre_authority.to_extract() == {
         'name': 'PLR cadastre authority',
@@ -50,6 +51,7 @@ def test_get_plr_cadastre_authority():
 
 
 def test_get_logos_config():
-    config_reader = ConfigReader('./pyramid_oereb/tests/resources/test_config.yml', 'pyramid_oereb')
-    logos = config_reader.get_logo_config()
+    Config._config = None
+    Config.init('./pyramid_oereb/tests/resources/test_config.yml', 'pyramid_oereb')
+    logos = Config.get_logo_config()
     assert isinstance(logos, dict)
