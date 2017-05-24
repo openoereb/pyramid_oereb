@@ -40,9 +40,8 @@ def test_mandatory_fields():
 
 
 def test_init():
-    view_service = ViewServiceRecord('http://www.test.url.ch', 'http://www.test.url.ch')
     record = RealEstateRecord('test_type', 'BL', 'Nusshof', 1, 100,
-                              loads('POLYGON((0 0, 0 1, 1 1, 1 0, 0 0))'), view_service)
+                              loads('POLYGON((0 0, 0 1, 1 1, 1 0, 0 0))'))
     assert isinstance(record.type, str)
     assert isinstance(record.canton, str)
     assert isinstance(record.municipality, str)
@@ -66,7 +65,7 @@ def test_to_extract():
     view_service = ViewServiceRecord('http://www.test.url.ch', 'http://www.test.url.ch')
     plr = PlrRecord(ThemeRecord('code', dict()), 'Content', 'runningModifications',
                     datetime.date(1985, 8, 29), office, view_service=view_service, geometries=[geometry])
-    record = RealEstateRecord('test_type', 'BL', 'Nusshof', 1, 100, polygon, view_service,
+    record = RealEstateRecord('test_type', 'BL', 'Nusshof', 1, 100, polygon,
                               public_law_restrictions=[plr], references=[document])
 
     assert record.to_extract() == {
@@ -77,8 +76,11 @@ def test_to_extract():
         'land_registry_area': 100,
         'limit': polygon.wkt,
         'plan_for_land_register': {
-            'link_wms': 'http://www.test.url.ch',
-            'legend_web': 'http://www.test.url.ch'
+            'link_wms': 'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&'
+                        'SRS=EPSG:21781&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&'
+                        'FORMAT=image/png&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb',
+            'legend_web': 'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=1.1.1&'
+                          'FORMAT=image/png&LAYER=ch.bav.kataster-belasteter-standorte-oev.oereb'
         },
         'public_law_restrictions': [
             {

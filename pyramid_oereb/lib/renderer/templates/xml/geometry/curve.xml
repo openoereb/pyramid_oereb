@@ -1,0 +1,3 @@
+<gml:CurveProperty gml:id="ID">
+    ${LineString}
+</gml:CurveProperty>

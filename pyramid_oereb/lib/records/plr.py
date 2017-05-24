@@ -7,7 +7,7 @@ class EmptyPlrRecord(object):
         """
         Record for empty topics.
 
-        :param theme: The code of the topic to which the PLR belongs to.
+        :param theme: The theme to which the PLR belongs to.
         :type  theme: pyramid_oereb.lib.records.theme.ThemeRecord
         :param has_data: True if the topic contains data.
         :type has_data: bool
@@ -60,8 +60,8 @@ class PlrRecord(EmptyPlrRecord):
 
         :param content: The PLR record's content.
         :type  content: str
-        :param theme: The code of the topic to which the PLR belongs to.
-        :type  theme: str
+        :param theme: The theme to which the PLR belongs to.
+        :type  theme: pyramid_oereb.lib.records.theme.ThemeRecord
         :param legal_state: The PLR record's legal state.
         :type legal_state: str
         :param published_from: Date from/since when the PLR record is published.

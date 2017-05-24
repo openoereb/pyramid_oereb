@@ -3,6 +3,7 @@ from json import dumps
 
 from pyramid.response import Response
 
+from pyramid_oereb import Config
 from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord, ArticleRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
 from shapely.geometry import mapping
@@ -36,13 +37,12 @@ class Extract(Base):
         if isinstance(response, Response) and response.content_type == response.default_content_type:
             response.content_type = 'application/json'
 
-        self._config_reader_ = self.get_request(system).pyramid_oereb_config_reader
-        self._language_ = str(self._config_reader_.get('default_language')).lower()
+        self._language_ = str(Config.get('default_language')).lower()
         self._params_ = value[1]
 
-        return self.__render__(value[0])
+        return self._render(value[0])
 
-    def __render__(self, extract):
+    def _render(self, extract):
         """
         Serializes the extract record.
 
@@ -102,7 +102,13 @@ class Extract(Base):
                 })
             extract_dict['Glossary'] = glossaries
 
-        return dumps(extract_dict)
+        response = {
+            u'GetExtractByIdResponse': {
+                u'extract': extract_dict
+            }
+        }
+
+        return dumps(response)
 
     def format_real_estate(self, real_estate):
         """
@@ -121,7 +127,8 @@ class Extract(Base):
             'Canton': real_estate.canton,
             'Municipality': real_estate.municipality,
             'FosNr': real_estate.fosnr,
-            'LandRegistryArea': real_estate.land_registry_area
+            'LandRegistryArea': real_estate.land_registry_area,
+            'PlanForLandRegister': self.format_map(real_estate.plan_for_land_register)
         }
 
         if self._params_.geometry:
@@ -182,7 +189,8 @@ class Extract(Base):
                     'Lawstatus': plr.legal_state,
                     'Area': plr.area,
                     'Symbol': plr.symbol,
-                    'ResponsibleOffice': self.format_office(plr.responsible_office)
+                    'ResponsibleOffice': self.format_office(plr.responsible_office),
+                    'Map': self.format_map(plr.view_service)
                 }
 
                 if plr.subtopic:
@@ -281,7 +289,7 @@ class Extract(Base):
         :return: The formatted dictionary for rendering.
         :rtype: dict
         """
-        plr_limits = self._config_reader_.get('plr_limits')
+        plr_limits = Config.get('plr_limits')
         if geometry.geom.type in plr_limits.get('point').get('types'):
             geometry_type = 'Point'
         elif geometry.geom.type in plr_limits.get('line').get('types'):
@@ -349,7 +357,51 @@ class Extract(Base):
         }
         return theme_dict
 
-    def from_shapely(self, geom):
+    def format_map(self, map_):
+        """
+        Formats a view service record for rendering according to the federal specification.
+
+        :param map_: The view service record to be formatted.
+        :type map_: pyramid_oereb.lib.records.view_service.ViewServiceRecord
+        :return: The formatted dictionary for rendering.
+        :rtype: dict
+        """
+        map_dict = dict()
+        if map_.image:
+            map_dict['Image'] = map_.image
+        if map_.link_wms:
+            map_dict['ReferenceWMS'] = map_.link_wms
+        if map_.legend_web:
+            map_dict['LegendAtWeb'] = map_.legend_web
+        if isinstance(map_.legends, list) and len(map_.legends) > 0:
+            map_dict['OtherLegend'] = [
+                self.format_legend_entry(legend_entry) for legend_entry in map_.legends]
+        return map_dict
+
+    def format_legend_entry(self, legend_entry):
+        """
+        Formats a legend entry record for rendering according to the federal specification.
+
+        :param legend_entry: The legend entry record to be formatted.
+        :type legend_entry: pyramid_oereb.lib.records.view_service.LegendEntryRecord
+        :return: The formatted dictionary for rendering.
+        :rtype: dict
+        """
+        legend_entry_dict = {
+            'Symbol': legend_entry.symbol,
+            'LegendText': self.get_localized_text(legend_entry.legend_text),
+            'TypeCode': legend_entry.type_code,
+            'TypeCodelist': legend_entry.type_code_list,
+            'Theme': self.format_theme(legend_entry.theme)
+        }
+        if legend_entry.sub_theme:
+            legend_entry_dict['SubTheme'] = legend_entry.sub_theme
+        if legend_entry.additional_theme:
+            legend_entry_dict['OtherTheme'] = legend_entry.additional_theme
+        return legend_entry_dict
+
+    @staticmethod
+    def from_shapely(geom):
         """
         Formats shapely geometry for rendering according to the federal specification.
 
@@ -360,13 +412,14 @@ class Extract(Base):
         """
         geom_dict = {
             'coordinates': mapping(geom)['coordinates'],
-            'crs': 'EPSG:{srid}'.format(srid=self._config_reader_.get('srid'))
+            'crs': 'EPSG:{srid}'.format(srid=Config.get('srid'))
             # isosqlmmwkb only used for curved geometries (not supported by shapely)
             # 'isosqlmmwkb': base64.b64encode(geom.wkb)
         }
         return geom_dict
 
-    def get_localized_text(self, values):
+    @staticmethod
+    def get_localized_text(values):
         """
         Returns the set language of a multilingual text element.
         TODO: Fix implementation when multilingual values are available by respecting self.language.
@@ -385,7 +438,7 @@ class Extract(Base):
                 })
         else:
             text.append({
-                'Language': self._config_reader_.get('default_language'),
+                'Language': Config.get('default_language'),
                 'Text': values
             })
         return text

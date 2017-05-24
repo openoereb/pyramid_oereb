@@ -1,0 +1,10 @@
+<%page args="glossary"/>
+<Glossary>
+    <Title>
+        <%include file="localized_text.xml" args="text=glossary.title"/>
+    </Title>
+    <Content>
+        <%include file="localized_text.xml" args="text=glossary.content"/>
+    </Content>
+    ## TODO: Check for the extensions stuff.
+</Glossary>

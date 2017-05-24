@@ -1,0 +1,17 @@
+<%page args="polygon"/>
+<gml:Polygon>
+    <gml:exterior>
+        <gml:LinearRing>
+             %for position in polygon.exterior.coords:
+            <gml:pos>${position[0]} ${position[1]}</gml:pos>
+            %endfor
+        </gml:LinearRing>
+    </gml:exterior>
+    <gml:interior>
+        <gml:LinearRing>
+            %for position in polygon.exterior.coords:
+            <gml:pos>${position[0]} ${position[1]}</gml:pos>
+            %endfor
+        </gml:LinearRing>
+    </gml:interior>
+</gml:Polygon>

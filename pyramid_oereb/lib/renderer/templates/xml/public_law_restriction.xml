@@ -1,0 +1,44 @@
+<%page args="public_law_restriction"/>
+<xsd:RestrictionOnLandownership>
+    <xsd:Information>
+        <%include file="localized_text.xml" args="text=public_law_restriction.content"/>
+    </xsd:Information>
+    <%include file="theme.xml" args="theme=public_law_restriction.theme"/>
+    %if public_law_restriction.subtopic:
+    <xsd:SubTheme>${public_law_restriction.subtopic}</xsd:SubTheme>
+    %endif
+    %if public_law_restriction.type_code:
+    <xsd:TypeCode>${public_law_restriction.type_code}</xsd:TypeCode>
+    %endif
+    %if public_law_restriction.type_code_list:
+    <xsd:TypeCodelist>${public_law_restriction.type_code_list}</xsd:TypeCodelist>
+    %endif
+    %if public_law_restriction.legal_state:
+    <xsd:Lawstatus>${public_law_restriction.legal_state}</xsd:Lawstatus>
+    %endif
+     %if public_law_restriction.area:
+    <xsd:Area>${public_law_restriction.area}</xsd:Area>
+    %endif
+    %if public_law_restriction.part_in_percent:
+    <xsd:PartInPercent>${public_law_restriction.part_in_percent}</xsd:PartInPercent>
+    %endif
+    %if params.images:
+    <xsd:Symbol>${public_law_restriction.symbol}</xsd:Symbol>
+    %else:
+    <xsd:SymbolRef>${public_law_restriction.symbol}</xsd:SymbolRef>
+    %endif
+    %for geometry in public_law_restriction.geometries:
+    <%include file="geometry.xml" args="geometry=geometry"/>
+    %endfor
+    <xsd:Map>
+        <%include file="view_service.xml" args="map=public_law_restriction.view_service"/>
+    </xsd:Map>
+    %for document in public_law_restriction.documents:
+    <xsd:LegalProvisions>
+        <%include file="document.xml" args="document=document"/>
+    </xsd:LegalProvisions>
+    %endfor
+    <xsd:ResponsibleOffice>
+        <%include file="office.xml" args="office=public_law_restriction.responsible_office"/>
+    </xsd:ResponsibleOffice>
+</xsd:RestrictionOnLandownership>

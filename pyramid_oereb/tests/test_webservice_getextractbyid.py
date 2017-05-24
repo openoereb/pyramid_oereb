@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
+import json
+
 import pytest
+from jsonschema import Draft4Validator
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
+from pyramid.testing import testConfig
 
 from pyramid_oereb.tests.conftest import MockRequest
 from pyramid_oereb.views.webservice import PlrWebservice
@@ -143,19 +147,42 @@ def test_params():
         assert getattr(params, k) == v
 
 
-def test_return_extract():
+def test_return_no_content():
     request = MockRequest()
     request.matchdict.update({
         'flavour': 'REDUCED',
         'format': 'XML',
         'param1': 'GEOMETRY',
-        'param2': 'SomeEGRID'
+        'param2': 'MISSINGEGRID'
     })
     service = PlrWebservice(request)
     with pytest.raises(HTTPNoContent):
         service.get_extract_by_id()
 
-    # TODO: Activate validation when schema issues are fixed
-    # with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
-    #     schema = json.load(f)
-    # validate(extract, schema)
+
+@pytest.mark.last
+def test_return_json():
+    with testConfig() as config:
+        config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer.json_.Extract')
+        request = MockRequest()
+        request.matchdict.update({
+            'flavour': 'REDUCED',
+            'format': 'JSON',
+            'param1': 'GEOMETRY',
+            'param2': 'TEST'
+        })
+        service = PlrWebservice(request)
+        response = service.get_extract_by_id()
+
+    with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
+        schema = json.loads(f.read())
+    Draft4Validator.check_schema(schema)
+    validator = Draft4Validator(schema)
+    extract = json.loads(response.body)
+    validator.validate(extract)
+
+    assert isinstance(extract, dict)
+
+    real_estate = extract.get('GetExtractByIdResponse').get('extract').get('RealEstate')
+    assert isinstance(real_estate, dict)
+    assert len(real_estate.get('RestrictionOnLandownership')) == 3

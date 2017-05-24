@@ -1,0 +1,18 @@
+<%page args="map"/>
+## TODO: Put image here when it is ready (we need to solve issue https://jira.camptocamp.com/browse/GSOREB-185)
+%if map.image:
+<xsd:Image>IMAGE BASE64 HERE</xsd:Image>
+%endif
+%if map.link_wms:
+<xsd:ReferenceWMS>${map.link_wms|u}</xsd:ReferenceWMS>
+%endif
+%if map.legend_web:
+<xsd:LegendAtWeb>${map.legend_web|u}</xsd:LegendAtWeb>
+%endif
+%if map.legends:
+<xsd:OtherLegend>
+%for legend_entry in map.legends:
+<%include file="legend_entry.xml" args="legend_entry=legend_entry"/>
+%endfor
+</xsd:OtherLegend>
+%endif

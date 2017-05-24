@@ -1,0 +1,6 @@
+<%page args="line"/>
+<gml:LineString>
+    %for position in line.coords:
+    <gml:pos>${position[0]} ${position[1]}</gml:pos>
+    %endfor
+</gml:LineString>

@@ -1,0 +1,44 @@
+<%page args="document"/>
+<%include file="document_base.xml" args="document=document"/>
+<xsd:Title>
+    <%include file="localized_text.xml" args="text=document.title"/>
+</xsd:Title>
+%if document.official_title:
+<xsd:OfficialTitle>
+    <%include file="localized_text.xml" args="text=document.official_title"/>
+</xsd:OfficialTitle>
+%endif
+%if document.abbreviation:
+<xsd:Abbrevation>
+    <%include file="localized_text.xml" args="text=document.abbreviation"/>
+</xsd:Abbrevation>
+%endif
+%if document.official_number:
+<xsd:OfficialNumber>
+    ${document.official_number}
+</xsd:OfficialNumber>
+%endif
+%if document.canton:
+<xsd:Canton>
+    ${document.canton}
+</xsd:Canton>
+%endif
+%if document.municipality:
+<xsd:Municipality>
+    ${document.municipality}
+</xsd:Municipality>
+%endif
+<xsd:ResponsibleOffice>
+    <%include file="office.xml" args="office=document.responsible_office"/>
+</xsd:ResponsibleOffice>
+%if document.article_numbers:
+<xsd:ArticleNumber>
+    ${document.article_numbers}
+</xsd:ArticleNumber>
+%endif
+%for article in document.articles:
+<%include file="article.xml" args="article=article"/>
+%endfor
+%for reference in document.references:
+<%include file="document.xml" args="document=reference"/>
+%endfor

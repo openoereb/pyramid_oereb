@@ -5,6 +5,7 @@ from pyramid.renderers import render_to_response
 from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb import route_prefix
+from pyramid_oereb import Config
 from pyramid_oereb.lib.processor import Processor
 from pyreproj import Reprojector
 
@@ -17,13 +18,11 @@ class PlrWebservice(object):
         :param request: The pyramid request instance.
         :type request:  pyramid.request.Request or pyramid.testing.DummyRequest
         """
-        from pyramid_oereb import config_reader
         if not isinstance(request.pyramid_oereb_processor, Processor):
             raise HTTPServerError('Missing processor instance')
         self._request_ = request
         self._real_estate_reader_ = request.pyramid_oereb_processor.real_estate_reader
         self._municipality_reader_ = request.pyramid_oereb_processor.municipality_reader
-        self._config_reader_ = config_reader
 
     def get_versions(self):
         """
@@ -36,12 +35,14 @@ class PlrWebservice(object):
         if route_prefix:
             endpoint += '/' + route_prefix  # pragma: no cover
         return {
-            u'supportedVersion': [
-                {
-                    u'version': u'1.0.0',
-                    u'serviceEndpointBase': unicode(endpoint)
-                }
-            ]
+            u'GetVersionsResponse': {
+                u'supportedVersion': [
+                    {
+                        u'version': u'1.0.0',
+                        u'serviceEndpointBase': unicode(endpoint)
+                    }
+                ]
+            }
         }
 
     def get_capabilities(self):
@@ -52,7 +53,7 @@ class PlrWebservice(object):
         :rtype:  dict
         """
         themes = list()
-        for theme in self._config_reader_.get_themes():
+        for theme in Config.get_themes():
             text = list()
             for k, v in theme.text.iteritems():
                 text.append({
@@ -64,11 +65,13 @@ class PlrWebservice(object):
                 'Text': text
             })
         return {
-            u'topic': themes,
-            u'municipality': [record.fosnr for record in self._municipality_reader_.read()],
-            u'flavour': self._config_reader_.get_flavour(),
-            u'language': self._config_reader_.get_language(),
-            u'crs': self._config_reader_.get_crs()
+            u'GetCapabilitiesResponse': {
+                u'topic': themes,
+                u'municipality': [record.fosnr for record in self._municipality_reader_.read()],
+                u'flavour': Config.get_flavour(),
+                u'language': Config.get_language(),
+                u'crs': Config.get_crs()
+            }
         }
 
     def get_egrid_coord(self):
@@ -83,10 +86,10 @@ class PlrWebservice(object):
         if xy or gnss:
             geom_wkt = 'SRID={0};{1}'
             if xy:
-                geom_wkt = geom_wkt.format(self._config_reader_.get('srid'),
+                geom_wkt = geom_wkt.format(Config.get('srid'),
                                            self.__parse_xy__(xy, buffer_dist=1.0).wkt)
             elif gnss:
-                geom_wkt = geom_wkt.format(self._config_reader_.get('srid'), self.__parse_gnss__(gnss).wkt)
+                geom_wkt = geom_wkt.format(Config.get('srid'), self.__parse_gnss__(gnss).wkt)
             records = self._real_estate_reader_.read(**{'geometry': geom_wkt})
             return self.__get_egrid_response__(records)
         else:
@@ -122,7 +125,7 @@ class PlrWebservice(object):
         number = self._request_.matchdict.get('number')
         if postalcode and localisation and number:
             # TODO: Collect the EGRIDs using the property source
-            return []
+            return {'GetEGRIDResponse': []}
         else:
             raise HTTPBadRequest('POSTALCODE, LOCALISATION and NUMBER must be defined.')
 
@@ -170,10 +173,9 @@ class PlrWebservice(object):
                     request=self._request_
                 )
             elif params.format == 'xml':
-                # TODO: implement way to produce xml
                 return render_to_response(
-                    'string',
-                    'Not implemented by now...',
+                    'pyramid_oereb_extract_xml',
+                    (extract, params),
                     request=self._request_
                 )
             elif params.format == 'pdf':
@@ -240,8 +242,17 @@ class PlrWebservice(object):
             params.set_egrid(id_part_1)
 
         # Language
-        language = self._request_.params.get('LANG')
-        if language:
+        language = str(self._request_.params.get('LANG')).lower()
+        if language not in Config.get_language() and self._request_.params.get('LANG') is not \
+                None:
+            raise HTTPBadRequest(
+                'Requested language is not available. Following languages are configured: {languages} The '
+                'requested language was: {language}'.format(
+                    languages=str(Config.get_language()),
+                    language=language
+                )
+            )
+        if self._request_.params.get('LANG'):
             params.set_language(language)
 
         # Topics
@@ -264,7 +275,7 @@ class PlrWebservice(object):
         :rtype: shapely.geometry.Point or shapely.geometry.Polygon
         """
         epsg = 'epsg:{0}'
-        srid = self._config_reader_.get('srid')
+        srid = Config.get('srid')
         rp = Reprojector()
         x, y = rp.transform(coord, from_srs=epsg.format(source_crs), to_srs=epsg.format(srid))
         return Point(x, y)
@@ -285,7 +296,7 @@ class PlrWebservice(object):
                 'number': getattr(r, 'number'),
                 'identDN': getattr(r, 'identdn')
             })
-        return response
+        return {'GetEGRIDResponse': response}
 
     def __parse_xy__(self, xy, buffer_dist=None):
         """

@@ -78,7 +78,7 @@ tests-setup-db: $(TESTS_SETUP_DB)
 tests-drop-db: $(TESTS_DROP_DB)
 
 .PHONY: checks
-checks: git-attributes lint tests
+checks: git-attributes lint tests coverage-html
 
 .PHONY: tests
 tests: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB)
@@ -88,8 +88,7 @@ tests: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB)
 	export SQLALCHEMY_URL ;\
 	printenv SQLALCHEMY_URL ;\
 	$(VENV_BIN)c2c-template --vars CONST_vars.yml --engine mako --files pyramid_oereb/tests/resources/pyramid_oereb_test.yml.mako ;\
-	$(VENV_BIN)py.test$(PYTHON_BIN_POSTFIX) -vv --cov-config .coveragerc --cov-report term-missing:skip-covered --cov pyramid_oereb pyramid_oereb/tests ;\
-	$(VENV_BIN)coverage html
+	$(VENV_BIN)py.test$(PYTHON_BIN_POSTFIX) -vv --cov-config .coveragerc --cov-report term-missing:skip-covered --cov pyramid_oereb pyramid_oereb/tests
 
 .PHONY: lint
 lint: $(PYTHON_VENV)
@@ -99,11 +98,13 @@ lint: $(PYTHON_VENV)
 git-attributes:
 	git --no-pager diff --check `git log --oneline | tail -1 | cut --fields=1 --delimiter=' '`
 
+.PHONY: coverage-html
+coverage-html:
+	$(VENV_BIN)coverage html
 
 tests-docker-setup-db:
 	docker run --name $(DOCKER_CONTAINER_PG) -e POSTGRES_PASSWORD=$(PG_PASSWORD) -d mdillon/postgis:9.4-alpine
-	@echo Waiting 10s for server start up...
-	@sleep 10s
+	bash wait-for-db.sh $(DOCKER_CONTAINER_PG) $(PG_PASSWORD) $(PG_USER)
 	docker run -i --link $(DOCKER_CONTAINER_PG):postgres --rm postgres sh -c 'PGPASSWORD=$(PG_PASSWORD) exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U $(PG_USER) -w -c "$(PG_CREATE_DB)"'
 	docker run -i --link $(DOCKER_CONTAINER_PG):postgres --rm postgres sh -c 'PGPASSWORD=$(PG_PASSWORD) exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U $(PG_USER) -w -c "$(PG_CREATE_EXT)"'
 	docker run -i --link $(DOCKER_CONTAINER_PG):postgres --rm postgres sh -c 'PGPASSWORD=$(PG_PASSWORD) exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U $(PG_USER) -w -c "$(PG_CREATE_SCHEMA)"'

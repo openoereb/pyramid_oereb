@@ -7,13 +7,13 @@ from pyramid_oereb.standard.models.main import Glossary
 
 
 @pytest.mark.run(order=2)
-def test_init(config_reader):
-    source = GlossaryDatabaseSource(**config_reader.get_glossary_config().get('source').get('params'))
+def test_init(config):
+    source = GlossaryDatabaseSource(**config.get_glossary_config().get('source').get('params'))
     assert isinstance(source._adapter_, DatabaseAdapter)
     assert source._model_ == Glossary
 
 
 @pytest.mark.run(order=2)
-def test_read(config_reader):
-    source = GlossaryDatabaseSource(**config_reader.get_glossary_config().get('source').get('params'))
+def test_read(config):
+    source = GlossaryDatabaseSource(**config.get_glossary_config().get('source').get('params'))
     source.read()

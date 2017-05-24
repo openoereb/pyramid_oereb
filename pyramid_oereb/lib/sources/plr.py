@@ -9,7 +9,6 @@ from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
 from pyramid_oereb.lib.records.plr import EmptyPlrRecord, PlrRecord
 from pyramid_oereb.lib.records.documents import DocumentRecord, ArticleRecord
 from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
-from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.glossary import GlossaryRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
@@ -21,7 +20,6 @@ class PlrBaseSource(Base):
     _documents_reocord_class_ = DocumentRecord
     _article_record_class_ = ArticleRecord
     _exclusion_of_liability_record_class_ = ExclusionOfLiabilityRecord
-    _extract_record_class_ = ExtractRecord
     _geometry_record_class_ = GeometryRecord
     _glossary_record_class_ = GlossaryRecord
     _legend_entry_record_class_ = LegendEntryRecord
@@ -61,7 +59,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def geometry_parsing(geometry_value):
         return to_shape(geometry_value) if isinstance(geometry_value, _SpatialElement) else None
 
-    def from_db_to_legend_entry_record(self, topic, legend_entries_from_db):
+    def from_db_to_legend_entry_record(self, theme, legend_entries_from_db):
         legend_entry_records = []
         for legend_entry_from_db in legend_entries_from_db:
             legend_entry_records.append(self._legend_entry_record_class_(
@@ -69,7 +67,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 legend_entry_from_db.legend_text,
                 legend_entry_from_db.type_code,
                 legend_entry_from_db.type_code_list,
-                topic
+                theme
             ))
         return legend_entry_records
 
@@ -156,7 +154,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def from_db_to_plr_record(self, public_law_restriction_from_db):
         theme_record = ThemeRecord(self._plr_info_.get('code'), self._plr_info_.get('text'))
         legend_entry_records = self.from_db_to_legend_entry_record(
-            public_law_restriction_from_db.topic,
+            theme_record,
             public_law_restriction_from_db.view_service.legends
         )
         view_service_record = self.from_db_to_view_service_record(

@@ -74,12 +74,26 @@ pyramid_oereb:
     # The logo representing your canton. Replace with your own logo!
     canton: logo_sample.png
 
+  # Some informations about the printing
+  print:
+    # The buffer on the map around the parcel in percent
+    buffer: 10
+
+    # The map size (width, height)
+    map_size: [200, 100]
+
+    # The print DPI
+    dpi: 200
+
   # The processor of the oereb project needs access to real estate data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you like to read the real estate out of an existing
   # database table to avoid imports of this data every time it gets updates you only need to change the model
   # bound to the source. The model must implement the same field names and information then the default model
   # does.
   real_estate:
+    view_service:
+      reference_wms: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:21781&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb
+      legend_at_web: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=1.1.1&FORMAT=image/png&LAYER=ch.bav.kataster-belasteter-standorte-oev.oereb
     # The real estate must have a property source.
     source:
       # The source must have a class which represents the accessor to the source. In this case it is a source

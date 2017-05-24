@@ -1,0 +1,25 @@
+<%page args="geometry"/>
+<xsd:Geometry>
+    %if params.geometry:
+        %if 'Point' in geometry.geom.type:
+        <%include file="geometry/point.xml" args="polygon=geometry.geom"/>
+        %elif 'Line' in geometry.geom.type:
+        <%include file="geometry/line.xml" args="polygon=geometry.geom"/>
+        %elif 'Polygon' in geometry.geom.type:
+        <xsd:Surface>
+            <%include file="geometry/polygon.xml" args="polygon=geometry.geom"/>
+        </xsd:Surface>
+        %endif
+    %endif
+    <xsd:Lawstatus>
+        ## TODO: solve code here, where may it come from?
+        <xsd:Code>PLACE THE CODE HERE</xsd:Code>
+        <xsd:Text>${geometry.legal_state}</xsd:Text>
+    </xsd:Lawstatus>
+    <xsd:MetadataOfGeographicalBaseData>
+        ${geometry.geo_metadata}
+    </xsd:MetadataOfGeographicalBaseData>
+    <xsd:ResponsibleOffice>
+        <%include file="office.xml" args="office=geometry.office"/>
+    </xsd:ResponsibleOffice>
+</xsd:Geometry>
