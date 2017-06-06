@@ -77,7 +77,6 @@ def includeme(config):
     app_schema_name = Config.get('app_schema').get('name')
     srid = Config.get('srid')
     default_lang = Config.get('default_language')
-    plr_limits = Config.get('plr_limits')
 
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
 
@@ -123,8 +122,7 @@ def includeme(config):
         exclusion_of_liability_reader=exclusion_of_liability_reader,
         glossary_reader=glossary_reader,
         plr_sources=plr_sources,
-        extract_reader=extract_reader,
-        plr_limits=plr_limits
+        extract_reader=extract_reader
     )
 
     def pyramid_oereb_processor(request):

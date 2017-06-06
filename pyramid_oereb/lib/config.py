@@ -103,6 +103,25 @@ class Config(object):
         return None
 
     @staticmethod
+    def get_theme_limits(code):
+        """
+        Returns the limits for the geometries of the theme with the specified code.
+
+        :param code: The theme's code.
+        :type code: str
+        :return: The geometric tolerances for this theme.
+        :rtype: dict
+        """
+        assert Config._config is not None
+
+        plrs = Config._config.get('plrs')
+        if plrs and isinstance(plrs, list):
+            for theme in plrs:
+                if theme.get('code') == code:
+                    return theme.get('plr_limits')
+        return None
+
+    @staticmethod
     def get_crs():
         """
         Returns a list of available crs.

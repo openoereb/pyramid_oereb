@@ -6,6 +6,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
+from pyramid_oereb.lib.config import Config
 
 
 log = logging.getLogger('pyramid_oereb')
@@ -14,8 +15,7 @@ log = logging.getLogger('pyramid_oereb')
 class Processor(object):
 
     def __init__(self, real_estate_reader, municipality_reader, exclusion_of_liability_reader,
-                 glossary_reader, plr_sources, extract_reader, min_area=1.0, min_length=1.0,
-                 plr_limits=None):
+                 glossary_reader, plr_sources, extract_reader):
         """
         The Processor class is directly bound to the get_extract_by_id service in this application. It's task
         is to unsnarl the difficult model of the oereb extract and handle all objects inside this extract
@@ -35,12 +35,6 @@ class Processor(object):
         :type plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
         :param extract_reader: The extract reader instance for runtime use.
         :type extract_reader: pyramid_oereb.lib.readers.extract.ExtractReader
-        :param plr_limits: The configuration for limiting the intersection.
-        :type plr_limits: dict or None
-        :param min_area: The minimal area for a public law restriction to be displayed in the cadastre
-        :type min_area: decimal
-        :param min_length: The minimal length for a public law restriction to be displayed in the cadastre
-        :type min_length: decimal
         """
         self._real_estate_reader_ = real_estate_reader
         self._municipality_reader_ = municipality_reader
@@ -48,12 +42,6 @@ class Processor(object):
         self._glossary_reader_ = glossary_reader
         self._plr_sources_ = plr_sources
         self._extract_reader_ = extract_reader
-        self._min_area_ = min_area
-        self._min_length_ = min_length
-        if plr_limits:
-            self.plr_limits = plr_limits
-        else:
-            raise ConfigurationError()
 
     def filter_published_documents(self, record):
         """
@@ -95,10 +83,10 @@ class Processor(object):
 
         for index, public_law_restriction in enumerate(real_estate.public_law_restrictions):
             if isinstance(public_law_restriction, PlrRecord):
+                plr_limits = Config.get_theme_limits(pubblic_law_restriction.theme.code)
                 tested_geometries = []
                 for geometry in public_law_restriction.geometries:
-                    # TODO: Remove the plr_limits when they are consumed directly from config
-                    if geometry.published and geometry.calculate(real_estate, self.plr_limits):
+                    if geometry.published and geometry.calculate(real_estate, plr_limits):
                         tested_geometries.append(geometry)
 
                 # Test if the geometries list is now empty - if so remove plr from plr list
