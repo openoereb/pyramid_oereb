@@ -9,7 +9,7 @@ from pyramid_oereb.lib.renderer import Base
 from mako import exceptions
 
 
-class Extract(Base):
+class Renderer(Base):
 
     def __init__(self, info):
         """
@@ -19,9 +19,9 @@ class Extract(Base):
         :type info: pyramid.interfaces.IRendererInfo
         """
         a = AssetResolver('pyramid_oereb')
-        resolver = a.resolve('lib/renderer/templates/xml')
+        resolver = a.resolve('lib/renderer/extract/templates/xml')
         self.template_dir = resolver.abspath()
-        super(Extract, self).__init__(info)
+        super(Renderer, self).__init__(info)
 
     def __call__(self, value, system):
         """
