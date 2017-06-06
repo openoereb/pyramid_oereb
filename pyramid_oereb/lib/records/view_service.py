@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb.lib.url import add_url_params
+import logging
+import urllib
 
+from pyramid_oereb.lib.records.logo import LogoRecord
+from pyramid_oereb.lib.url import add_url_params
+from pyramid_oereb.lib.url import uri_validator
 from pyramid_oereb.lib.config import Config
+
+
+log = logging.getLogger('pyramid_oereb')
 
 
 class LegendEntryRecord(object):
@@ -169,12 +176,27 @@ class ViewServiceRecord(object):
 
         assert real_estate.limit is not None
 
-        if real_estate.limit is not None:
-            print_conf = Config.get_object_path('print', required=['map_size', 'buffer'])
-            map_size = print_conf['map_size']
-            bbox = self._get_bbox(real_estate.limit, map_size, print_conf['buffer'])
-            return add_url_params(self.link_wms, {
-                "BBOX": ",".join([str(e) for e in bbox])
-            })
+        print_conf = Config.get_object_path('print', required=['map_size', 'buffer'])
+        map_size = print_conf['map_size']
+        bbox = self._get_bbox(real_estate.limit, map_size, print_conf['buffer'])
+        return add_url_params(self.link_wms, {
+            "BBOX": ",".join([str(e) for e in bbox])
+        })
+
+    def download_wms_content(self):
+        main_msg = "Image for WMS couldn't be retrieved."
+        if uri_validator(self.link_wms):
+            response = urllib.urlopen(self.link_wms)
+            if response.getcode() == 200:
+                self.image = LogoRecord(response.read())
+            else:
+                dedicated_msg = "The image could not be downloaded. Url was: {url}, Response was " \
+                                "{response}".format(url=self.link_wms, response=response.read())
+                log.error(main_msg)
+                log.error(dedicated_msg)
+                raise LookupError(dedicated_msg)
         else:
-            return self.link_wms
+            dedicated_msg = "URL seems to be not valid. Url was: {url}".format(url=self.link_wms)
+            log.error(main_msg)
+            log.error(dedicated_msg)
+            raise AttributeError(dedicated_msg)
