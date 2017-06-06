@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from pyramid.config import ConfigurationError
 from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb.lib.records.documents import DocumentRecord
@@ -83,7 +82,7 @@ class Processor(object):
 
         for index, public_law_restriction in enumerate(real_estate.public_law_restrictions):
             if isinstance(public_law_restriction, PlrRecord):
-                plr_limits = Config.get_theme_limits(pubblic_law_restriction.theme.code)
+                plr_limits = Config.get_theme_limits(public_law_restriction.theme.code)
                 tested_geometries = []
                 for geometry in public_law_restriction.geometries:
                     if geometry.published and geometry.calculate(real_estate, plr_limits):
