@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from datetime import datetime
 from pyramid.config import ConfigurationError
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -99,13 +98,11 @@ class Processor(object):
                 tested_geometries = []
                 for geometry in public_law_restriction.geometries:
                     # TODO: Remove the plr_limits when they are consumed directly from config
-                    test_passed = geometry.calculate(real_estate, self.plr_limits)
-                    if test_passed:
+                    if geometry.published and geometry.calculate(real_estate, self.plr_limits):
                         tested_geometries.append(geometry)
 
                 # Test if the geometries list is now empty - if so remove plr from plr list
-                if len(tested_geometries) > 0 \
-                        and not public_law_restriction.published_from > datetime.now().date():
+                if len(tested_geometries) > 0 and public_law_restriction.published:
                     public_law_restriction.geometries = tested_geometries
                     tested_plrs.append(self.filter_published_documents(public_law_restriction))
         real_estate.public_law_restrictions = tested_plrs

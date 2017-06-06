@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 
 
 class EmptyPlrRecord(object):
@@ -125,6 +126,15 @@ class PlrRecord(EmptyPlrRecord):
             self.geometries = geometries
         self.info = info
         self.has_data = True
+
+    @property
+    def published(self):
+        """
+        Returns true if its not a future PLR.
+        :return: True if PLR is published.
+        :rtype: bool
+        """
+        return not self.published_from > datetime.now().date()
 
     @classmethod
     def get_fields(cls):
