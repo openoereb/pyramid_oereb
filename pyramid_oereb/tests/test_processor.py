@@ -43,3 +43,15 @@ def test_process_geometry_testing(connection):
     for plr in extract.real_estate.public_law_restrictions:
         for g in plr.geometries:
             assert g._test_passed
+
+
+def test_filter_published_documents(connection):
+    assert connection.closed
+    request = MockRequest()
+    processor = request.pyramid_oereb_processor
+    real_estate = processor.real_estate_reader.read(egrid=u'TEST')
+    extract = processor.process(real_estate[0])
+    for plr in extract.real_estate.public_law_restrictions:
+        if plr.theme.code == u'MotorwaysBuildingLines':
+            assert len(plr.documents) == 1
+            assert len(plr.documents[0].references) == 1

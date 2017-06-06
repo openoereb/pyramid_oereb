@@ -4,6 +4,8 @@ import logging
 from datetime import datetime
 from pyramid.config import ConfigurationError
 from sqlalchemy.orm.exc import NoResultFound
+
+from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 
 
@@ -54,6 +56,29 @@ class Processor(object):
         else:
             raise ConfigurationError()
 
+    def filter_published_documents(self, record):
+        """
+        Filter only published documents.
+
+        :param record: The public law restriction or document record.
+        :type record: pyramid_oereb.lib.records.plr.PlrRecord or
+            pyramid_oereb.lib.records.documents.DocumentRecord
+        """
+        published_docs = list()
+        if isinstance(record, PlrRecord):
+            for doc in record.documents:
+                if doc.published:
+                    doc = self.filter_published_documents(doc)
+                    published_docs.append(doc)
+            record.documents = published_docs
+        elif isinstance(record, DocumentRecord):
+            for doc in record.references:
+                if doc.published:
+                    doc = self.filter_published_documents(doc)
+                    published_docs.append(doc)
+            record.references = published_docs
+        return record
+
     def plr_tolerance_check(self, extract):
         """
         The function checking if the found plr results exceed the minimal surface or length
@@ -82,7 +107,7 @@ class Processor(object):
                 if len(tested_geometries) > 0 \
                         and not public_law_restriction.published_from > datetime.now().date():
                     public_law_restriction.geometries = tested_geometries
-                    tested_plrs.append(public_law_restriction)
+                    tested_plrs.append(self.filter_published_documents(public_law_restriction))
         real_estate.public_law_restrictions = tested_plrs
 
         return extract
