@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 
 
 class DocumentBaseRecord(object):
@@ -16,6 +17,15 @@ class DocumentBaseRecord(object):
         self.text_at_web = text_at_web
         self.legal_state = legal_state
         self.published_from = published_from
+
+    @property
+    def published(self):
+        """
+        Returns true if its not a future document.
+        :return: True if document is published.
+        :rtype: bool
+        """
+        return not self.published_from > datetime.now().date()
 
     @classmethod
     def get_fields(cls):
