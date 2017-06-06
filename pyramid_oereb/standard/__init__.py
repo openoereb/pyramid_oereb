@@ -133,21 +133,37 @@ def _drop_tables_from_standard_configuration_(configuration_yaml_path, section='
         plr_schema_connection.close()
 
 
-def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml'):
-
+def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
+                                  database='postgresql://postgres:password@localhost/pyramid_oereb'):
     """
-    Creates a new YAML file in the directory where it was called. This YAML file contains the standard
+    Creates the specified YAML file using a template. This YAML file contains the standard
     configuration to run a oereb server out of the box.
+
     :param name: The name of the new file. Default: 'pyramid_oereb_standard.yml'
     :type: str
+    :param database: The database connection string.
+        Default: 'postgresql://postgres:password@localhost/pyramid_oereb'
+    :type database: str
+
     """
+
+    # File names
     logo_oereb_name = 'logo_oereb.png'
     logo_confederation_name = 'logo_confederation.png'
     logo_sample_name = 'logo_sample.png'
-    pyramid_oereb_yaml_name = 'pyramid_oereb.yml'
-    yaml_path = AssetResolver('pyramid_oereb').resolve(
-        'standard/{name}'.format(name=pyramid_oereb_yaml_name)
-    ).abspath()
+
+    # Create pyramid_oereb.yml from template
+    template = Template(
+        filename=AssetResolver('pyramid_oereb').resolve('standard/pyramid_oereb.yml.mako').abspath(),
+        input_encoding='utf-8',
+        output_encoding='utf-8'
+    )
+    config = template.render(sqlalchemy_url=database, png_root_dir='')
+    pyramid_oereb_yml = open(name, 'w+')
+    pyramid_oereb_yml.write(config)
+    pyramid_oereb_yml.close()
+
+    # Copy static files
     logo_oereb_path = AssetResolver('pyramid_oereb').resolve(
         'standard/{name}'.format(name=logo_oereb_name)
     ).abspath()
@@ -157,8 +173,6 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml'):
     logo_sample_path = AssetResolver('pyramid_oereb').resolve(
         'standard/{name}'.format(name=logo_sample_name)
     ).abspath()
-    target_path = os.path.abspath('{path}{sep}{name}'.format(path=os.getcwd(), name=name, sep=os.sep))
-    copyfile(yaml_path, target_path)
     target_path = os.path.abspath('{path}{sep}{name}'.format(
         path=os.getcwd(), name=logo_oereb_name, sep=os.sep)
     )

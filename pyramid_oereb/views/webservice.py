@@ -159,7 +159,7 @@ class PlrWebservice(object):
         # check if result is strictly one (we queried with primary keys)
         if len(real_estate_records) == 1:
             try:
-                extract = processor.process(real_estate_records[0])
+                extract = processor.process(real_estate_records[0], params)
             except LookupError:
                 raise HTTPNoContent()
             except NotImplementedError:
@@ -499,3 +499,20 @@ class Parameter(object):
         :rtype: list of str
         """
         return self.__topics__
+
+    def skip_topic(self, plr):
+        """
+        Check if the topic should be skipped in extract.
+
+        :param plr: The PLR record.
+        :type plr: pyramid_oereb.lib.records.plr.EmptyPlrRecord
+        :return: True if the topic should be skipped.
+        :rtype: bool
+        """
+        if not self.topics or 'ALL' in self.topics:
+            return False
+        if plr.theme.code in self.topics:
+            return False
+        if 'ALL_FEDERAL' in self.topics and plr.theme.code in []:
+            return False
+        return True

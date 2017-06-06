@@ -48,6 +48,15 @@ def test_init():
     assert record.article_numbers == []
     assert isinstance(record.articles, list)
     assert isinstance(record.references, list)
+    assert record.published
+
+
+def test_future_document():
+    office_record = OfficeRecord('name')
+    record = DocumentRecord('runningModifications',
+                            (datetime.datetime.now().date() + datetime.timedelta(days=7)), 'title',
+                            office_record)
+    assert not record.published
 
 
 def test_init_with_relation():

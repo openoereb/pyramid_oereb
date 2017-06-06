@@ -39,7 +39,7 @@ pyramid_oereb:
   app_schema:
     name: pyramid_oereb_main
     models: pyramid_oereb.standard.models.main
-    db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+    db_connection: ${sqlalchemy_url}
 
   # Define the SRID which your server is representing. Note: Only one projection system is possible in the
   # application. It does not provide any reprojection nor data in different projection systems. Take care in
@@ -67,12 +67,12 @@ pyramid_oereb:
   logo:
     # The logo representing the swiss confederation (you can use it as is cause it is provided in this
     # repository). But if you need to change it for any reason: Feel free...
-    confederation: logo_confederation.png
+    confederation: ${png_root_dir}logo_confederation.png
     # The logo representing the oereb extract CI (you can use it as is cause it is provided in this
     # repository). But if you need to change it for any reason: Feel free...
-    oereb: logo_oereb.png
+    oereb: ${png_root_dir}logo_oereb.png
     # The logo representing your canton. Replace with your own logo!
-    canton: logo_sample.png
+    canton: ${png_root_dir}logo_sample.png
 
   # Some informations about the printing
   print:
@@ -102,7 +102,7 @@ pyramid_oereb:
       # The configured class accepts params which are also necessary to define
       params:
         # The connection path where the database can be found
-        db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+        db_connection: ${sqlalchemy_url}
         # The model which maps the real estate database table.
         model: pyramid_oereb.standard.models.main.RealEstate
 
@@ -119,7 +119,7 @@ pyramid_oereb:
       # The configured class accepts params which are also necessary to define
       params:
         # The connection path where the database can be found
-        db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+        db_connection: ${sqlalchemy_url}
         # The model which maps the address database table.
         model: pyramid_oereb.standard.models.main.Address
 
@@ -137,7 +137,7 @@ pyramid_oereb:
       # The configured class accepts params which are also necessary to define
       params:
         # The connection path where the database can be found
-        db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+        db_connection: ${sqlalchemy_url}
         # The model which maps the municipality database table.
         model: pyramid_oereb.standard.models.main.Municipality
 
@@ -154,7 +154,7 @@ pyramid_oereb:
       # The configured class accepts params which are also necessary to define
       params:
         # The connection path where the database can be found
-        db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+        db_connection: ${sqlalchemy_url}
         # The model which maps the glossary database table.
         model: pyramid_oereb.standard.models.main.Glossary
 
@@ -172,7 +172,7 @@ pyramid_oereb:
       # The configured class accepts params which are also necessary to define
       params:
         # The connection path where the database can be found
-        db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+        db_connection: ${sqlalchemy_url}
         # The model which maps the exclusion_of_liability database table.
         model: pyramid_oereb.standard.models.main.ExclusionOfLiability
 
@@ -214,11 +214,12 @@ pyramid_oereb:
       text:
         de: Nutzungsplanung
       language: de
+      federal: true
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
         params:
-          db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+          db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.land_use_plans
 
     - name: plr87
@@ -227,11 +228,12 @@ pyramid_oereb:
       text:
         de: Projektierungszonen Nationalstrassen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.motorways_project_planing_zones
 
     - name: plr88
@@ -240,11 +242,12 @@ pyramid_oereb:
       text:
         de: Baulinien Nationalstrassen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.motorways_building_lines
 
     - name: plr97
@@ -253,11 +256,12 @@ pyramid_oereb:
       text:
         de: Baulinien Eisenbahnanlagen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.railways_building_lines
 
     - name: plr96
@@ -266,11 +270,12 @@ pyramid_oereb:
       text:
         de: Projektierungszonen Eisenbahnanlagen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.railways_project_planning_zones
 
     - name: plr103
@@ -279,11 +284,12 @@ pyramid_oereb:
       text:
         de: Projektierungszonen Flughafenanlagen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.airports_project_planning_zones
 
     - name: plr104
@@ -292,11 +298,12 @@ pyramid_oereb:
       text:
         de: Baulinien Flughafenanlagen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.airports_building_lines
 
     - name: plr108
@@ -305,11 +312,12 @@ pyramid_oereb:
       text:
         de: Sicherheitszonenplan Flughafen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.airports_security_zone_plans
 
     - name: plr116
@@ -318,11 +326,12 @@ pyramid_oereb:
       text:
         de: Belastete Standorte
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.contaminated_sites
 
     - name: plr117
@@ -331,11 +340,12 @@ pyramid_oereb:
       text:
         de: Belastete Standorte Militär
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.contaminated_military_sites
 
     - name: plr118
@@ -344,11 +354,12 @@ pyramid_oereb:
       text:
         de: Belastete Standorte Zivile Flugplätze
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
 
     - name: plr119
@@ -357,11 +368,12 @@ pyramid_oereb:
       text:
         de: Belastete Standorte Öeffentlicher Verkehr
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.contaminated_public_transport_sites
 
     - name: plr131
@@ -370,11 +382,12 @@ pyramid_oereb:
       text:
         de: Grundwasserschutzzonen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.groundwater_protection_zones
 
     - name: plr132
@@ -383,11 +396,12 @@ pyramid_oereb:
       text:
         de: Grundwasserschutzareale
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.groundwater_protection_sites
 
     - name: plr145
@@ -396,11 +410,12 @@ pyramid_oereb:
       text:
         de: Lärmemfindlichkeitsstufen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.noise_sensitivity_levels
 
     - name: plr157
@@ -409,11 +424,12 @@ pyramid_oereb:
       text:
         de: Waldgrenzen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.forest_perimeters
 
     - name: plr159
@@ -422,9 +438,10 @@ pyramid_oereb:
       text:
         de: Waldabstandslinien
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
          params:
-           db_connection: postgresql://postgres:password@localhost/pyramid_oereb
+           db_connection: ${sqlalchemy_url}
            models: pyramid_oereb.standard.models.forest_distance_lines

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 
 
 class GeometryRecord(object):
@@ -33,6 +34,15 @@ class GeometryRecord(object):
         self._length = None
         self._part_in_percent = None
         self._test_passed = False
+
+    @property
+    def published(self):
+        """
+        Returns true if its not a future geometry.
+        :return: True if geometry is published.
+        :rtype: bool
+        """
+        return not self.published_from > datetime.now().date()
 
     @classmethod
     def get_fields(cls):
@@ -120,6 +130,16 @@ class GeometryRecord(object):
 
     # TODO: Make this read from config singleton provided by sbrunner
     def calculate(self, real_estate, plr_limits):
+        """
+        Calculates intersection area and checks if it fits the configured limits.
+
+        :param real_estate: The real estate record.
+        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        :param plr_limits: The configured limits.
+        :type plr_limits: dict
+        :return: True if intersection fits the limits.
+        :rtype: bool
+        """
         point_types = plr_limits.get('point').get('types')
         line_types = plr_limits.get('line').get('types')
         min_length = plr_limits.get('line').get('min_length')

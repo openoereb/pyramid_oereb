@@ -3,6 +3,8 @@ import logging
 
 from pyramid.config import ConfigurationError
 from sqlalchemy.orm.exc import NoResultFound
+
+from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 
 
@@ -53,6 +55,29 @@ class Processor(object):
         else:
             raise ConfigurationError()
 
+    def filter_published_documents(self, record):
+        """
+        Filter only published documents.
+
+        :param record: The public law restriction or document record.
+        :type record: pyramid_oereb.lib.records.plr.PlrRecord or
+            pyramid_oereb.lib.records.documents.DocumentRecord
+        """
+        published_docs = list()
+        if isinstance(record, PlrRecord):
+            for doc in record.documents:
+                if doc.published:
+                    doc = self.filter_published_documents(doc)
+                    published_docs.append(doc)
+            record.documents = published_docs
+        elif isinstance(record, DocumentRecord):
+            for doc in record.references:
+                if doc.published:
+                    doc = self.filter_published_documents(doc)
+                    published_docs.append(doc)
+            record.references = published_docs
+        return record
+
     def plr_tolerance_check(self, extract):
         """
         The function checking if the found plr results exceed the minimal surface or length
@@ -66,22 +91,20 @@ class Processor(object):
         """
 
         real_estate = extract.real_estate
-        tested_geometries = []
         tested_plrs = []
 
         for index, public_law_restriction in enumerate(real_estate.public_law_restrictions):
             if isinstance(public_law_restriction, PlrRecord):
-
+                tested_geometries = []
                 for geometry in public_law_restriction.geometries:
                     # TODO: Remove the plr_limits when they are consumed directly from config
-                    test_passed = geometry.calculate(real_estate, self.plr_limits)
-                    if test_passed:
+                    if geometry.published and geometry.calculate(real_estate, self.plr_limits):
                         tested_geometries.append(geometry)
 
                 # Test if the geometries list is now empty - if so remove plr from plr list
-                if len(tested_geometries) > 0:
+                if len(tested_geometries) > 0 and public_law_restriction.published:
                     public_law_restriction.geometries = tested_geometries
-                    tested_plrs.append(public_law_restriction)
+                    tested_plrs.append(self.filter_published_documents(public_law_restriction))
         real_estate.public_law_restrictions = tested_plrs
 
         return extract
@@ -151,13 +174,16 @@ class Processor(object):
         """
         return self._extract_reader_
 
-    def process(self, real_estate):
+    def process(self, real_estate, params):
         """
         Central processing method to hook in from webservice.
 
         :param real_estate: The real estate reader to obtain the real estates record.
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
-        :return:
+        :param params: The parameters of the extract request.
+        :type params: pyramid_oereb.views.webservice.Parameter
+        :return: The generated extract record.
+        :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
         """
         municipalities = self._municipality_reader_.read()
         exclusions_of_liability = self._exclusion_of_liability_reader_.read()
@@ -166,7 +192,7 @@ class Processor(object):
             if municipality.fosnr == real_estate.fosnr:
                 if not municipality.published:
                     raise NotImplementedError  # TODO: improve message
-                extract_raw = self._extract_reader_.read(real_estate, municipality.logo)
+                extract_raw = self._extract_reader_.read(real_estate, municipality.logo, params)
                 extract = self.plr_tolerance_check(extract_raw)
                 extract.exclusions_of_liability = exclusions_of_liability
                 extract.glossaries = glossaries

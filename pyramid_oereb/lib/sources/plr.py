@@ -3,6 +3,7 @@ from geoalchemy2.elements import _SpatialElement
 from geoalchemy2.shape import to_shape, from_shape
 from pyramid.path import DottedNameResolver
 
+from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.availability import AvailabilityRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
@@ -210,7 +211,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     self._plr_info_.get('code'), self._plr_info_.get('text')
                 ), has_data=False))
         # TODO: Replace hardcoded SRID with srid defined in conf
-        geoalchemy_representation = from_shape(real_estate.limit, srid=2056)
+        geoalchemy_representation = from_shape(real_estate.limit, srid=Config.get('srid'))
         session = self._adapter_.get_session(self._key_)
         geometry_results = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
             geoalchemy_representation

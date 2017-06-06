@@ -3,7 +3,9 @@ vars:
   # No vars until now
   dummy: dummy
   sqlalchemy_url: SQLALCHEMY_URL
+  png_root_dir: PNG_ROOT_DIR
 
 interpreted:
   environment:
     - sqlalchemy_url
+    - png_root_dir
