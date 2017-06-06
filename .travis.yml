@@ -25,10 +25,18 @@ after_success:
 before_deploy:
   - sudo apt-get install pandoc
   - make description.rst
+  - pip install --upgrade  sphinxcontrib-versioning Sphinx
 
 # deploy to pypi
 deploy:
-  provider: pypi
+- provider: script
+  script: sphinx-versioning push doc/source/ gh-pages doc
+  on:
+    branch: tag-doc
+#    tags: true
+#    repo: camptocamp/pyramid_oereb
+#    condition: '"${TRAVIS_PULL_REQUEST}" = false'
+- provider: pypi
   user: kdeininger
   password:
     secure: U9VKY1WXnpEyarOjju/weA701WjM3Ok55qoV0EB3SzEh5Bg8Hne09GY9Kl0rzhCsaLTb8jp2tEE+oihWHmU+JH3AB/dodFRL5WCcSbmoFFsE9KbTUgMFdGZ6fMmL90CIzXtiuKTEMdUBvEMFr9qR3GNGRonKD3G6uwbPpiK2TRCNpbjTx5uIl4pfsRAQXJrAsZMGX9907ghBHYHntf+SIM0QrRf1DCHS3yqb03QG9hSZguEhX98UzJVz8Q7ls7WhhIwhCWgG7inr+I5Kq8j9ktuJU1T0Fj4StmaKW/YZbzDxArkiSYpphOvNptp7wZX7OAmV9OuNS7EzedwhaE+XeTO8UdgREKWyq+i4ydU20cQbCSEZeDjDZrRi/9HteXTbTK2hWw8oQ8d0Rwq9kz/2trle4M33IA7Skbxq6oknwShbPGEzKiHXu8R8+oump5jtza77/zR4XnzuJW0BbHpSQhVrCAhxCCMZEJmUxMSn2HIovoF29lZOzrpDIBz2Qa6VHBzUCAvdLGOGSoib3/V7zkxWe9AOJWrP0LK29MiEHpqgOQXxnuGQESJDhm71kQXvpHHBhTnOxtPEbytMiygnN9LypnnMBl3GV6hxv0ErF28nwJhyBaiL3JFeIUK1fmOwL8xc7587/2212Li3R1IZS/pSSn9OUCgsfGxvkiuxsjg=
