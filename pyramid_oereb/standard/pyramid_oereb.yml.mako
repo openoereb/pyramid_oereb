@@ -67,12 +67,12 @@ pyramid_oereb:
   logo:
     # The logo representing the swiss confederation (you can use it as is cause it is provided in this
     # repository). But if you need to change it for any reason: Feel free...
-    confederation: logo_confederation.png
+    confederation: ${png_root_dir}logo_confederation.png
     # The logo representing the oereb extract CI (you can use it as is cause it is provided in this
     # repository). But if you need to change it for any reason: Feel free...
-    oereb: logo_oereb.png
+    oereb: ${png_root_dir}logo_oereb.png
     # The logo representing your canton. Replace with your own logo!
-    canton: logo_sample.png
+    canton: ${png_root_dir}logo_sample.png
 
   # Some informations about the printing
   print:
