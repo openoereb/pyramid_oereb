@@ -1,31 +1,65 @@
+# This is a example yaml configuration file for the pyramid oereb server. It contains all configuration you
+# need to get an up and running server.
+
+# The line below represents the "entry point" for the yaml configuration also called section. Keep this in
+# mind for later stuff. You can change it to your favorite name. For the moment this is enough to know.
 pyramid_oereb:
 
+  # The "language" property is a list of all languages provided by this application. In the moment this only
+  # affects the output of the capabilities webservice. Whatever in later versions it will be the configuration
+  # also for the translation mechanism. TODO: Add more details When this feature is fully implemented!
   language:
     - de
     - fr
     - it
     - rm
 
+  # The language that should be used by default, if no other language is specified in the request.
+  # This has to be one of the languages defined above.
   default_language: de
 
+  # The "flavour" property is a list of all flavours provided by this application. In the moment this only
+  # affects the output of the capabilities webservice. Whatever in later versions it is the place to directly
+  # influence the available output formats.
+  #
+  # Possible flavours are: REDUCED, FULL, EMBEDDABLE, SIGNED
+  # TODO: Add more details When this feature is fully implemented!
   flavour:
     - REDUCED
     - FULL
     - EMBEDDABLE
 
+  # The "app_schema" property contains only one sub property "name". This is directly related to the database
+  # creation process. Because this name is used as schema name in the target database. The app_schema holds
+  # all application stuff like: addresses, municipalities, real estates, etc.
+  # Please note that this is only necessary if you want to use the standard configuration. Normally you don't
+  # need to adjust this. Only in the unlikely case of another schema in the same database with the same name
+  # you can change it here to avoid name collision. Of cause you can configure the application to load these
+  # data from else where.
   app_schema:
     name: pyramid_oereb_main
     models: pyramid_oereb.standard.models.main
     db_connection: ${sqlalchemy_url}
 
+  # Define the SRID which your server is representing. Note: Only one projection system is possible in the
+  # application. It does not provide any reprojection nor data in different projection systems. Take care in
+  # your importing process!
   srid: 2056
 
+  # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
+  # will be directly used for producing the extract output.
   plr_cadastre_authority:
+    # The name of your Office. For instance: Amt für Geoinformation Basel-Landschaft
     name: PLR cadastre authority
+    # An online link to web presentation of your office. For instance: https://www.geo.bl.ch/
     office_at_web: https://www.cadastre.ch/en/oereb.html
+    # The street name of the address of your office. For instance: Mühlemattstrasse
     street: Seftigenstrasse
+    # The street number of the address of your office. For instance: 36
     number: 264
+    # The ZIP code of the address of your office. For instance: 4410
     postal_code: 3084
+    # The city name of the address of your office. For instance: Liestal
     city: Wabern
 
   # The extract provides logos. Therefor you need to provide a path to these logos. Note: This must be a
@@ -33,48 +67,126 @@ pyramid_oereb:
   logo:
     # The logo representing the swiss confederation (you can use it as is cause it is provided in this
     # repository). But if you need to change it for any reason: Feel free...
-    confederation: pyramid_oereb/standard/logo_confederation.png
+    confederation: logo_confederation.png
     # The logo representing the oereb extract CI (you can use it as is cause it is provided in this
     # repository). But if you need to change it for any reason: Feel free...
-    oereb: pyramid_oereb/standard/logo_oereb.png
-    # The logo representing your canton. This must be configured!
-    canton: pyramid_oereb/standard/logo_sample.png
+    oereb: logo_oereb.png
+    # The logo representing your canton. Replace with your own logo!
+    canton: logo_sample.png
 
+  # Some informations about the printing
+  print:
+    # The buffer on the map around the parcel in percent
+    buffer: 10
+
+    # The map size (width, height)
+    map_size: [200, 100]
+
+    # The print DPI
+    dpi: 200
+
+  # The processor of the oereb project needs access to real estate data. In the standard configuration this
+  # is assumed to be read from a database. Hint: If you like to read the real estate out of an existing
+  # database table to avoid imports of this data every time it gets updates you only need to change the model
+  # bound to the source. The model must implement the same field names and information then the default model
+  # does.
   real_estate:
+    view_service:
+      reference_wms: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:21781&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb
+      legend_at_web: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=1.1.1&FORMAT=image/png&LAYER=ch.bav.kataster-belasteter-standorte-oev.oereb
+    # The real estate must have a property source.
     source:
+      # The source must have a class which represents the accessor to the source. In this case it is a source
+      # already implemented which reads data from a database.
       class: pyramid_oereb.lib.sources.real_estate.RealEstateDatabaseSource
+      # The configured class accepts params which are also necessary to define
       params:
+        # The connection path where the database can be found
         db_connection: ${sqlalchemy_url}
+        # The model which maps the real estate database table.
         model: pyramid_oereb.standard.models.main.RealEstate
 
+  # The processor of the oereb project needs access to address data. In the standard configuration this
+  # is assumed to be read from a database. Hint: If you like to read the addresses out of an existing database
+  # table to avoid imports of this data every time it gets updates you only need to change the model bound to
+  # the source. The model must implement the same field names and information then the default model does.
   address:
+    # The address must have a property source.
     source:
+      # The source must have a class which represents the accessor to the source. In this case it is a source
+      # already implemented which reads data from a database.
       class: pyramid_oereb.lib.sources.address.AddressDatabaseSource
+      # The configured class accepts params which are also necessary to define
       params:
+        # The connection path where the database can be found
         db_connection: ${sqlalchemy_url}
+        # The model which maps the address database table.
         model: pyramid_oereb.standard.models.main.Address
 
+  # The processor of the oereb project needs access to municipality data. In the standard configuration this
+  # is assumed to be read from a database. Hint: If you like to read the municipality out of an existing
+  # database table to avoid imports of this data every time it gets updates you only need to change the model
+  # bound to the source. The model must implement the same field names and information then the default model
+  # does.
   municipality:
+    # The municipality must have a property source.
     source:
+      # The source must have a class which represents the accessor to the source. In this case it is a source
+      # already implemented which reads data from a database.
       class: pyramid_oereb.lib.sources.municipality.MunicipalityDatabaseSource
+      # The configured class accepts params which are also necessary to define
       params:
+        # The connection path where the database can be found
         db_connection: ${sqlalchemy_url}
+        # The model which maps the municipality database table.
         model: pyramid_oereb.standard.models.main.Municipality
 
+  # The processor of the oereb project needs access to glossary data. In the standard configuration this
+  # is assumed to be read from a database. Hint: If you like to read the glossary out of an existing database
+  # table to avoid imports of this data every time it gets updates you only need to change the model bound to
+  # the source. The model must implement the same field names and information then the default model does.
   glossary:
+    # The glossary must have a property source.
     source:
+      # The source must have a class which represents the accessor to the source. In this case it is a source
+      # already implemented which reads data from a database.
       class: pyramid_oereb.lib.sources.glossary.GlossaryDatabaseSource
+      # The configured class accepts params which are also necessary to define
       params:
+        # The connection path where the database can be found
         db_connection: ${sqlalchemy_url}
+        # The model which maps the glossary database table.
         model: pyramid_oereb.standard.models.main.Glossary
 
+  # The processor of the oereb project needs access to exclusion of liability data. In the standard
+  # configuration this is assumed to be read from a database. Hint: If you like to read the exclusion of
+  # liability out of an existing database table to avoid imports of this data every time it gets updates you
+  # only need to change the model bound to the source. The model must implement the same field names and
+  # information then the default model does.
   exclusion_of_liability:
+    # The exclusion_of_liability must have a property source.
     source:
+      # The source must have a class which represents the accessor to the source. In this case it is a source
+      # already implemented which reads data from a database.
       class: pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityDatabaseSource
+      # The configured class accepts params which are also necessary to define
       params:
+        # The connection path where the database can be found
         db_connection: ${sqlalchemy_url}
+        # The model which maps the exclusion_of_liability database table.
         model: pyramid_oereb.standard.models.main.ExclusionOfLiability
 
+  # The extract is more an abstract implementation of a source. It is the entry point which binds everything
+  # related to data together.
+  extract:
+    # The extract must have a property source.
+    source:
+      # The source must have a class which represents the accessor to the source. In this case it is a source
+      # already implemented which reads data from a database. In this case it does not take any parameters.
+      class: pyramid_oereb.lib.sources.extract.ExtractStandardDatabaseSource
+
+  # Define the minmal area and length for public law restrictions that should be considered as 'true' restrictions
+  # and not as calculation errors (false true's) due to topological imperfections
   plr_limits:
     point:
       types:
@@ -92,10 +204,8 @@ pyramid_oereb:
         - MultiPolygon
       min_area: 1.0
 
-  extract:
-    source:
-      class: pyramid_oereb.lib.sources.extract.ExtractStandardDatabaseSource
-
+  # All PLR's which are provided by this application. This is related to all application behaviour. Especially
+  # the extract creation process which loops over this list.
   plrs:
 
     - name: plr73

@@ -21,7 +21,7 @@ from pyramid_oereb.lib.config import Config
 from pyramid_oereb.standard.models.main import Municipality, Glossary, RealEstate
 
 
-pyramid_oereb_test_yml = 'pyramid_oereb/tests/resources/pyramid_oereb_test.yml'
+pyramid_oereb_test_yml = 'pyramid_oereb/standard/pyramid_oereb.yml'
 
 
 @pytest.fixture(scope='module')

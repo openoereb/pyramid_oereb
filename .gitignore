@@ -69,7 +69,7 @@ target/
 /.venv
 
 # Mako generated files
-pyramid_oereb_test.yml
+pyramid_oereb.yml
 
 # Standard configuration
 /pyramid_oereb_standard.yml
