@@ -45,27 +45,18 @@ class Office(Base):
     The bucket to fill in all the offices you need to reference from public law restriction, document,
     geometry.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
-    :var name: The name of the office.
-    :vartype name: str
-    :var office_at_web: A web accessible url to a presentation of this office.
-    :vartype office_at_web: str
-    :var uid: The uid of this office from https://www.uid.admin.ch
-    :vartype uid: str
-    :var line1: The first address line for this office.
-    :vartype line1: str
-    :var line2: The second address line for this office.
-    :vartype line2: str
-    :var street: The streets name of the offices address.
-    :vartype street: str
-    :var number: The number on street.
-    :vartype number: str
-    :var postal_code: The ZIP-code.
-    :vartype postal_code: int
-    :var city: The name of the city.
-    :vartype city: str
+    Attributes:
+        id (str): The identifier. This is used in the database only and must not be set manually. If you
+            don't like it - don't care about.
+        name (str): The name of the office.
+        office_at_web (str): A web accessible url to a presentation of this office.
+        uid (str): The uid of this office from https://www.uid.admin.ch
+        line1 (str): The first address line for this office.
+        line2 (str): The second address line for this office.
+        street (str): The streets name of the offices address.
+        number (str): The number on street.
+        postal_code (str): The ZIP-code.
+        city (str): The name of the city.
     """
     __table_args__ = {'schema': 'airports_building_lines'}
     __tablename__ = 'office'

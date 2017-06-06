@@ -21,12 +21,12 @@ def add_url_params(url, params):
     """
     Add some parameter to an URL.
 
-    :param url: The base URL
-    :type url: str
-    :param params: The parameters to add
-    :type params: dict
-    :return: The new URL
-    :rtype: str
+    Args:
+        url (str): The base URL
+        params (dict): The parameters to add
+
+    Returns:
+        str: The new URL
     """
     if len(params.items()) == 0:
         return url
