@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 
 
 class GeometryRecord(object):
@@ -120,6 +121,11 @@ class GeometryRecord(object):
 
     # TODO: Make this read from config singleton provided by sbrunner
     def calculate(self, real_estate, plr_limits):
+
+        # Check if publish date is in future
+        if self.published_from > datetime.now().date():
+            return False
+
         point_types = plr_limits.get('point').get('types')
         line_types = plr_limits.get('line').get('types')
         min_length = plr_limits.get('line').get('min_length')
