@@ -103,6 +103,17 @@ class Config(object):
         return None
 
     @staticmethod
+    def get_all_federal():
+        assert Config._config is not None
+        federal = list()
+        plrs = Config._config.get('plrs')
+        if plrs and isinstance(plrs, list):
+            for plr in plrs:
+                if plr.get('federal'):
+                    federal.append(plr.get('code'))
+        return federal
+
+    @staticmethod
     def get_crs():
         """
         Returns a list of available crs.

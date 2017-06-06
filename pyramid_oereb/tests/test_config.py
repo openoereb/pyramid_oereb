@@ -55,3 +55,11 @@ def test_get_logos_config():
     Config.init('./pyramid_oereb/tests/resources/test_config.yml', 'pyramid_oereb')
     logos = Config.get_logo_config()
     assert isinstance(logos, dict)
+
+
+def test_get_all_federal():
+    Config._config = None
+    Config.init('./pyramid_oereb/standard/pyramid_oereb.yml', 'pyramid_oereb')
+    all_federal = Config.get_all_federal()
+    assert isinstance(all_federal, list)
+    assert len(all_federal) == 17

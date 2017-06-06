@@ -63,7 +63,7 @@ class ExtractReader(object):
         """
         return self._logos_.get('canton')
 
-    def read(self, real_estate, municipality_logo):
+    def read(self, real_estate, municipality_logo, params):
         """
         The central read accessor method to get all desired records from configured source.
 
@@ -71,6 +71,8 @@ class ExtractReader(object):
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
         :param municipality_logo: The municipality logo.
         :type municipality_logo: pyramid_oereb.lib.records.logo.LogoRecord
+        :param params: The parameters of the extract request.
+        :type params: pyramid_oereb.views.webservice.Parameter
         :return: The extract record containing all gathered data.
         :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
         """
