@@ -21,7 +21,7 @@ def includeme(config):  # pragma: no cover
         attr='get_versions',
         route_name='{0}/versions'.format(route_prefix),
         request_method='GET',
-        renderer='json'  # TODO: Replace by XML renderer
+        renderer='pyramid_oereb_versions_xml'
     )
 
     # Get capabilities
