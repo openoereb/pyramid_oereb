@@ -136,10 +136,15 @@ def _drop_tables_from_standard_configuration_(configuration_yaml_path, section='
 def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
                                   database='postgresql://postgres:password@localhost/pyramid_oereb'):
     """
-    Creates a new YAML file in the directory where it was called. This YAML file contains the standard
+    Creates the specified YAML file using a template. This YAML file contains the standard
     configuration to run a oereb server out of the box.
+
     :param name: The name of the new file. Default: 'pyramid_oereb_standard.yml'
     :type: str
+    :param database: The database connection string.
+        Default: 'postgresql://postgres:password@localhost/pyramid_oereb'
+    :type database: str
+
     """
 
     # File names
