@@ -63,3 +63,4 @@ def test_get_all_federal():
     all_federal = Config.get_all_federal()
     assert isinstance(all_federal, list)
     assert len(all_federal) == 17
+    assert 'RailwaysProjectPlanningZones' in all_federal
