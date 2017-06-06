@@ -71,6 +71,7 @@ class Processor(object):
 
         for index, public_law_restriction in enumerate(real_estate.public_law_restrictions):
             if isinstance(public_law_restriction, PlrRecord):
+
                 for geometry in public_law_restriction.geometries:
                     # TODO: Remove the plr_limits when they are consumed directly from config
                     test_passed = geometry.calculate(real_estate, self.plr_limits)
@@ -84,6 +85,16 @@ class Processor(object):
         real_estate.public_law_restrictions = tested_plrs
 
         return extract
+
+    def view_service_handling(self, extract):
+        """
+        Handles all view service related stuff. In the moment this is:
+            * construction of the correct url (link_wms) depending on the real estate
+            * downloading of the image if parameter was set
+
+        :param extract:
+        :return:
+        """
 
     @property
     def real_estate_reader(self):

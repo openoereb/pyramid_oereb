@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from urllib import urlencode
-from urlparse import urlsplit, urlunsplit, parse_qs
+from urlparse import urlsplit, urlunsplit, parse_qs, urlparse
 
 
 def parse_url(url):
@@ -46,3 +46,16 @@ def add_split_url_params(parsed_url, new_params):
     return urlunsplit((
         split_url.scheme, split_url.netloc, split_url.path,
         urlencode(query), split_url.fragment))
+
+
+def uri_validator(url):
+    """
+    A simple validator for URL's.
+    :param url: The url which should be checked to be valid.
+    :type url: str
+    :return: The state of the validation.
+    :rtype: bool
+    """
+    result = urlparse(url)
+    return True if [result.scheme, result.netloc, result.path] else False
+
