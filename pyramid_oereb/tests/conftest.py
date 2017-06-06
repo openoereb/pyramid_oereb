@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import base64
 
-import datetime
+from datetime import date, timedelta
 from pyramid.path import DottedNameResolver
 from pyramid.testing import DummyRequest
 import pytest
@@ -183,7 +183,7 @@ def connection(config):
         'content': u'{"de": "Long line PLR"}',
         'topic': u'MotorwaysBuildingLines',
         'legal_state': u'inForce',
-        'published_from': unicode(datetime.date.today().isoformat()),
+        'published_from': unicode(date.today().isoformat()),
         'view_service_id': 1,
         'office_id': 1
     })
@@ -192,7 +192,7 @@ def connection(config):
         'content': u'{"de": "Short line PLR"}',
         'topic': u'MotorwaysBuildingLines',
         'legal_state': u'inForce',
-        'published_from': unicode(datetime.date.today().isoformat()),
+        'published_from': unicode(date.today().isoformat()),
         'view_service_id': 1,
         'office_id': 1
     })
@@ -201,14 +201,23 @@ def connection(config):
         'content': u'{"de": "Double intersection line PLR"}',
         'topic': u'MotorwaysBuildingLines',
         'legal_state': u'inForce',
-        'published_from': unicode(datetime.date.today().isoformat()),
+        'published_from': unicode(date.today().isoformat()),
+        'view_service_id': 1,
+        'office_id': 1
+    })
+    connection_.execute(LinePublicLawRestriction.__table__.insert(), {
+        'id': 4,
+        'content': u'{"de": "Future geometry"}',
+        'topic': u'MotorwaysBuildingLines',
+        'legal_state': u'inForce',
+        'published_from': unicode(date.today().isoformat()),
         'view_service_id': 1,
         'office_id': 1
     })
     connection_.execute(LineGeometry.__table__.insert(), {
         'id': 1,
         'legal_state': u'inForce',
-        'published_from': unicode(datetime.date.today().isoformat()),
+        'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 1,
         'office_id': 1,
         'geom': u'SRID=2056;LINESTRING (0 0, 2 2)'
@@ -216,7 +225,7 @@ def connection(config):
     connection_.execute(LineGeometry.__table__.insert(), {
         'id': 2,
         'legal_state': u'inForce',
-        'published_from': unicode(datetime.date.today().isoformat()),
+        'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 2,
         'office_id': 1,
         'geom': u'SRID=2056;LINESTRING (1.5 1.5, 1.5 2.5)'
@@ -224,10 +233,18 @@ def connection(config):
     connection_.execute(LineGeometry.__table__.insert(), {
         'id': 3,
         'legal_state': u'inForce',
-        'published_from': unicode(datetime.date.today().isoformat()),
+        'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 3,
         'office_id': 1,
         'geom': u'SRID=2056;LINESTRING (3 1, 3 4, 6 4, 6 1, 4.5 1)'
+    })
+    connection_.execute(LineGeometry.__table__.insert(), {
+        'id': 4,
+        'legal_state': u'inForce',
+        'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
+        'public_law_restriction_id': 4,
+        'office_id': 1,
+        'geom': u'SRID=2056;LINESTRING (0 0, 4 4)'
     })
 
     # Add dummy PLR data for polygon geometry
@@ -260,7 +277,7 @@ def connection(config):
         'content': u'{"de": "Large polygon PLR"}',
         'topic': u'ContaminatedSites',
         'legal_state': u'inForce',
-        'published_from': unicode(datetime.date.today().isoformat()),
+        'published_from': unicode(date.today().isoformat()),
         'view_service_id': 1,
         'office_id': 1
     })
@@ -269,7 +286,7 @@ def connection(config):
         'content': u'{"de": "Small polygon PLR"}',
         'topic': u'ContaminatedSites',
         'legal_state': u'inForce',
-        'published_from': unicode(datetime.date.today().isoformat()),
+        'published_from': unicode(date.today().isoformat()),
         'view_service_id': 1,
         'office_id': 1
     })
@@ -278,14 +295,23 @@ def connection(config):
         'content': u'{"de": "Double intersection polygon PLR"}',
         'topic': u'ContaminatedSites',
         'legal_state': u'inForce',
-        'published_from': unicode(datetime.date.today().isoformat()),
+        'published_from': unicode(date.today().isoformat()),
+        'view_service_id': 1,
+        'office_id': 1
+    })
+    connection_.execute(PolyPublicLawRestriction.__table__.insert(), {
+        'id': 4,
+        'content': u'{"de": "Future PLR"}',
+        'topic': u'ContaminatedSites',
+        'legal_state': u'inForce',
+        'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
         'view_service_id': 1,
         'office_id': 1
     })
     connection_.execute(PolyGeometry.__table__.insert(), {
         'id': 1,
         'legal_state': u'inForce',
-        'published_from': unicode(datetime.date.today().isoformat()),
+        'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 1,
         'office_id': 1,
         'geom': u'SRID=2056;POLYGON ((0 0, 0 1.5, 1.5 1.5, 1.5 0, 0 0))'
@@ -293,7 +319,7 @@ def connection(config):
     connection_.execute(PolyGeometry.__table__.insert(), {
         'id': 2,
         'legal_state': u'inForce',
-        'published_from': unicode(datetime.date.today().isoformat()),
+        'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 2,
         'office_id': 1,
         'geom': u'SRID=2056;POLYGON ((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5))'
@@ -301,10 +327,18 @@ def connection(config):
     connection_.execute(PolyGeometry.__table__.insert(), {
         'id': 3,
         'legal_state': u'inForce',
-        'published_from': unicode(datetime.date.today().isoformat()),
+        'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 3,
         'office_id': 1,
         'geom': u'SRID=2056;POLYGON ((3 2.5, 3 5, 7 5, 7 0, 3 0, 3 1, 6 1, 6 4, 4 2.5, 3 2.5))'
+    })
+    connection_.execute(PolyGeometry.__table__.insert(), {
+        'id': 4,
+        'legal_state': u'inForce',
+        'published_from': unicode(date.today().isoformat()),
+        'public_law_restriction_id': 4,
+        'office_id': 1,
+        'geom': u'SRID=2056;POLYGON ((0 0, 0 2, 2 2, 2 0, 0 0))'
     })
 
     connection_.close()
