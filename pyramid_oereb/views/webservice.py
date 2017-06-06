@@ -513,6 +513,6 @@ class Parameter(object):
             return False
         if plr.theme.code in self.topics:
             return False
-        if 'ALL_FEDERAL' in self.topics and plr.theme.code in []:
+        if 'ALL_FEDERAL' in self.topics and plr.theme.code in Config.get_all_federal():
             return False
         return True

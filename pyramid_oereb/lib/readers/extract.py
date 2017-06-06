@@ -83,7 +83,10 @@ class ExtractReader(object):
         concerned_themes = list()
         not_concerned_themes = list()
         themes_without_data = list()
+        filtered_plrs = list()
         for plr in real_estate.public_law_restrictions:
+            if params.skip_topic(plr):
+                continue
             if isinstance(plr, PlrRecord):
                 contained = False
                 for theme in concerned_themes:
@@ -96,6 +99,8 @@ class ExtractReader(object):
                     not_concerned_themes.append(plr.theme)
                 else:
                     themes_without_data.append(plr.theme)
+            filtered_plrs.append(plr)
+        real_estate.public_law_restrictions = filtered_plrs
 
         self.extract = ExtractRecord(
             real_estate,
