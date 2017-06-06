@@ -500,19 +500,19 @@ class Parameter(object):
         """
         return self.__topics__
 
-    def skip_topic(self, plr):
+    def skip_topic(self, theme_code):
         """
         Check if the topic should be skipped in extract.
 
-        :param plr: The PLR record.
-        :type plr: pyramid_oereb.lib.records.plr.EmptyPlrRecord
+        :param theme_code: The PLR theme code.
+        :type theme_code: str
         :return: True if the topic should be skipped.
         :rtype: bool
         """
         if not self.topics or 'ALL' in self.topics:
             return False
-        if plr.theme.code in self.topics:
+        if theme_code in self.topics:
             return False
-        if 'ALL_FEDERAL' in self.topics and plr.theme.code in Config.get_all_federal():
+        if 'ALL_FEDERAL' in self.topics and theme_code in Config.get_all_federal():
             return False
         return True

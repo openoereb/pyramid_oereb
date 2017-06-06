@@ -9,9 +9,8 @@ class ExtractReader(object):
         """
         The central reader accessor for the extract inside the application.
 
-        :param dotted_source_class_path: The path to the class which represents the source used by this
-            reader. This class must exist and it must implement basic source behaviour.
-        :type dotted_source_class_path: str or pyramid_oereb.lib.sources.extract.ExtractBaseSource
+        :param plr_sources: The list of configured PLR source instances.
+        :type plr_sources: list of pyramid_oereb.lib.sources.plr.PlrBaseSource
         :param plr_cadastre_authority: The authority responsible for the PLR cadastre.
         :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OffcieRecord
         :param logos: The logos of confederation, canton and oereb wrapped in a LogoRecord
@@ -78,15 +77,14 @@ class ExtractReader(object):
         """
 
         for plr_source in self._plr_sources_:
+            if params.skip_topic(plr_source.info.get('code')):
+                continue
             plr_source.read(real_estate)
 
         concerned_themes = list()
         not_concerned_themes = list()
         themes_without_data = list()
-        filtered_plrs = list()
         for plr in real_estate.public_law_restrictions:
-            if params.skip_topic(plr):
-                continue
             if isinstance(plr, PlrRecord):
                 contained = False
                 for theme in concerned_themes:
@@ -99,8 +97,6 @@ class ExtractReader(object):
                     not_concerned_themes.append(plr.theme)
                 else:
                     themes_without_data.append(plr.theme)
-            filtered_plrs.append(plr)
-        real_estate.public_law_restrictions = filtered_plrs
 
         self.extract = ExtractRecord(
             real_estate,
