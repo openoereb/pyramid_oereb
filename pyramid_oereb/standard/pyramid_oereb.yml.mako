@@ -29,6 +29,16 @@ pyramid_oereb:
     - FULL
     - EMBEDDABLE
 
+  print:
+    # The buffer on the map around the parcel in percent
+    buffer: 10
+
+    # The map size (width, height), This is the defined size of a map image inside the static extract.
+    map_size: [493, 280]
+
+    # The print DPI
+    dpi: 200
+
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
   # creation process. Because this name is used as schema name in the target database. The app_schema holds
   # all application stuff like: addresses, municipalities, real estates, etc.
