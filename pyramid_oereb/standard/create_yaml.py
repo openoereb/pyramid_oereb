@@ -14,10 +14,17 @@ def create_standard_yaml():
         dest='name',
         metavar='YAML',
         type='string',
-        help='The name for the new configuration yaml file (standard is: pyramid_oereb_standard.yml).'
+        default='pyramid_oereb_standard.yml',
+        help='The name for the new configuration yaml file (default is: pyramid_oereb_standard.yml).'
+    )
+    parser.add_option(
+        '-d', '--database',
+        dest='database',
+        metavar='DATABASE',
+        type='string',
+        default='postgresql://postgres:password@localhost/pyramid_oereb',
+        help='The database connection string (default is: '
+             'postgresql://postgres:password@localhost/pyramid_oereb).'
     )
     options, args = parser.parse_args()
-    if not options.name:
-        _create_standard_yaml_config_()
-    else:
-        _create_standard_yaml_config_(name=options.name)
+    _create_standard_yaml_config_(name=options.name, database=options.database)
