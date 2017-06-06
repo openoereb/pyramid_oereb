@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-import urllib
+import urllib2
 
 from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.url import add_url_params
@@ -186,7 +186,8 @@ class ViewServiceRecord(object):
     def download_wms_content(self):
         main_msg = "Image for WMS couldn't be retrieved."
         if uri_validator(self.link_wms):
-            response = urllib.urlopen(self.link_wms)
+            print self.link_wms
+            response = urllib2.urlopen(self.link_wms)
             if response.getcode() == 200:
                 self.image = LogoRecord(response.read())
             else:
