@@ -61,6 +61,9 @@ pyramid_oereb:
        types:
        - Polygon
        - MultiPolygon
+    collection:
+        types:
+        - GeometryCollection
 
   # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
   # will be directly used for producing the extract output.
