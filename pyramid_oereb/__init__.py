@@ -137,5 +137,6 @@ def includeme(config):
     config.add_renderer('pyramid_oereb_versions_xml', 'pyramid_oereb.lib.renderer.versions.xml_.Renderer')
     config.add_renderer('pyramid_oereb_capabilities_xml',
                         'pyramid_oereb.lib.renderer.capabilities.xml_.Renderer')
+    config.add_renderer('pyramid_oereb_getegrid_xml', 'pyramid_oereb.lib.renderer.getegrid.xml_.Renderer')
 
     config.include('pyramid_oereb.routes')
