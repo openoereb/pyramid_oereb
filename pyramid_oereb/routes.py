@@ -39,7 +39,7 @@ def includeme(config):  # pragma: no cover
         attr='get_capabilities',
         route_name='{0}/capabilities'.format(route_prefix),
         request_method='GET',
-        renderer='json'  # TODO: Replace by XML renderer
+        renderer='pyramid_oereb_capabilities_xml'
     )
 
     # Get egrid

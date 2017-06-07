@@ -18,7 +18,7 @@ class Renderer(Base):
         :type info: pyramid.interfaces.IRendererInfo
         """
         a = AssetResolver('pyramid_oereb')
-        resolver = a.resolve('lib/renderer/versions/templates/xml')
+        resolver = a.resolve('lib/renderer/capabilities/templates/xml')
         self.template_dir = resolver.abspath()
         super(Renderer, self).__init__(info)
 
