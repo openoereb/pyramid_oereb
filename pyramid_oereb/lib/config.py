@@ -103,7 +103,7 @@ class Config(object):
         return None
 
     @staticmethod
-    def get_theme_limits(code):
+    def get_theme_thresholds(code):
         """
         Returns the limits for the geometries of the theme with the specified code.
 
@@ -118,7 +118,7 @@ class Config(object):
         if plrs and isinstance(plrs, list):
             for theme in plrs:
                 if theme.get('code') == code:
-                    return theme.get('plr_limits')
+                    return theme.get('plr_thresholds')
         return None
 
     @staticmethod

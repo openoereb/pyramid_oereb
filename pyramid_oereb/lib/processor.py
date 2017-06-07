@@ -82,10 +82,10 @@ class Processor(object):
 
         for index, public_law_restriction in enumerate(real_estate.public_law_restrictions):
             if isinstance(public_law_restriction, PlrRecord):
-                plr_limits = Config.get_theme_limits(public_law_restriction.theme.code)
+                plr_thresholds = Config.get_theme_thresholds(public_law_restriction.theme.code)
                 tested_geometries = []
                 for geometry in public_law_restriction.geometries:
-                    if geometry.published and geometry.calculate(real_estate, plr_limits):
+                    if geometry.published and geometry.calculate(real_estate, plr_thresholds):
                         tested_geometries.append(geometry)
 
                 # Test if the geometries list is now empty - if so remove plr from plr list
