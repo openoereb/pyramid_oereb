@@ -2,6 +2,10 @@
 
 from pyramid.path import DottedNameResolver
 
+from pyramid_oereb import Config
+from pyramid_oereb.lib.records.real_estate import RealEstateRecord
+from pyramid_oereb.lib.records.view_service import ViewServiceRecord
+
 
 class RealEstateReader(object):
 
@@ -39,6 +43,12 @@ class RealEstateReader(object):
             list of pyramid_oereb.lib.records.real_estate.RealEstateRecord: the list of all found
             records
         """
-
+        real_estate_view_service = ViewServiceRecord(
+            link_wms=Config.get_real_estate_config().get('view_service').get('reference_wms'),
+            legend_web=Config.get_real_estate_config().get('view_service').get('legend_at_web')
+        )
         self._source_.read(nb_ident=nb_ident, number=number, egrid=egrid, geometry=geometry)
+        for r in self._source_.records:
+            if isinstance(r, RealEstateRecord):
+                r.set_view_service(real_estate_view_service)
         return self._source_.records

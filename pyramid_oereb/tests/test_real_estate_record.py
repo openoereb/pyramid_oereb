@@ -75,13 +75,6 @@ def test_to_extract():
         'fosnr': 1,
         'land_registry_area': 100,
         'limit': polygon.wkt,
-        'plan_for_land_register': {
-            'link_wms': 'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&'
-                        'SRS=EPSG:21781&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&'
-                        'FORMAT=image/png&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb',
-            'legend_web': 'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=1.1.1&'
-                          'FORMAT=image/png&LAYER=ch.bav.kataster-belasteter-standorte-oev.oereb'
-        },
         'public_law_restrictions': [
             {
                 'content': 'Content',
