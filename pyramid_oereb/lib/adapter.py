@@ -23,8 +23,9 @@ class DatabaseAdapter(object):
         """
         Adds a new connection to this object. Also creates the necessary engine and session object.
 
-        :param connection_string: The rfc1738 URL string which defines the database connection
-        :type connection_string: str
+        Args:
+            connection_string (str): The rfc1738 URL string which defines the database
+                connection
         """
         if connection_string not in self._connections_:
             engine = create_engine(connection_string)
@@ -49,11 +50,12 @@ class DatabaseAdapter(object):
         """
         The point where you will get what you need: The session to talk to the database!
 
-        :param key: The key to identify the desired connection in the pool of available connections.
-        :type key: str
-        :param request: The request of the underlying pyramid application. This can be useful to handle error
-            cases and treat sessions in the right way.
-        :type request: pyramid.request.Request or None
+        Args:
+            key (str): The key to identify the desired connection in the pool of available
+                connections.
+            request (pyramid.request.RequestorNone): The request of the underlying pyramid
+                application. This can be useful to handle errorcases and treat sessions in
+                the right way.
         :return: The requested clean session instance ready for use
         :rtype: sqlalchemy.orm.Session
         :raises: KeyError

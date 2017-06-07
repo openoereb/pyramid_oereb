@@ -6,10 +6,10 @@ class ExclusionOfLiabilityRecord(object):
     def __init__(self, title, content):
         """
         Represents a exclusion of liability entry with the label and it's message.
-        :param title: The disclaimer message label
-        :type title: unicode
-        :param content: The disclaimer message.
-        :type content: unicode
+
+        Args:
+            title (unicode): The disclaimer message label
+            content (unicode): The disclaimer message.
         """
         self.title = title
         self.content = content

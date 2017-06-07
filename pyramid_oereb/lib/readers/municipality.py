@@ -8,12 +8,14 @@ class MunicipalityReader(object):
 
         """
         The central reader accessor for municipalities inside the application.
-        :param dotted_source_class_path: The path to the class which represents the source used by this
-        reader. This class must exist and it must implement basic source behaviour.
-        :type dotted_source_class_path: str or pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource
-        :param params: kwargs, which are necessary as configuration parameter for the above by dotted name
-        defined class.
-        :type: kwargs
+
+        Args:
+            dotted_source_class_path
+                (strorpyramid_oereb.lib.sources.municipality.MunicipalityBaseSource): The
+                path to the class which represents the source used by thisreader. This class
+                must exist and it must implement basic source behaviour.
+            (kwargs): kwargs, which are necessary as configuration parameter for the above by
+                dotted namedefined class.
         """
         source_class = DottedNameResolver().maybe_resolve(dotted_source_class_path)
         self._source_ = source_class(**params)

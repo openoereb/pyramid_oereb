@@ -13,10 +13,9 @@ def parse(cfg_file, cfg_section):
     """
     Parses the defined YAML file and returns the defined section as dictionary.
 
-    :param cfg_file: The YAML file to be parsed.
-    :type  cfg_file: str
-    :param cfg_section: The section to be returned.
-    :type  cfg_section: str
+        Args:
+        cfg_file (str): The YAML file to be parsed.
+        cfg_section (str): The section to be returned.
     :return: The parsed section as dictionary.
     :rtype: dict
     """
@@ -47,10 +46,9 @@ class Config(object):
         """
         Loads configuration from yaml file and provides methods for generating webservice output.
 
-        :param config_file: The configuration yaml file.
-        :type config_file: str
-        :param config_section: The section within the yaml file.
-        :type config_section: str
+        Args:
+            config_file (str): The configuration yaml file.
+            config_section (str): The section within the yaml file.
         """
         assert Config._config is None
 
@@ -85,8 +83,8 @@ class Config(object):
         """
         Returns the theme with the specified code.
 
-        :param code: The theme's code.
-        :type code: str
+        Args:
+            code (str): The theme's code.
         :return: The theme with the specified code.
         :rtype: pyramid_oereb.lib.records.theme.ThemeRecord or None
         """
@@ -293,10 +291,10 @@ class Config(object):
         """
         Returns the specified configuration value.
 
-        :param key: Configuration parameter name.
-        :type key: str
-        :param default: Default value if the specified parameter is not defined. Defaults to None.
-        :type default: *
+        Args:
+            key (str): Configuration parameter name.
+            default (*): Default value if the specified parameter is not defined. Defaults to
+                None.
         :return: The specified configuration or default value
         """
         assert Config._config is not None
@@ -311,12 +309,10 @@ class Config(object):
         example:
         get_object_path('app.print', {'dpi': 300}, ['map_size'])
 
-        :param path: Dot separated path of the wonted object.
-        :type path: str
-        :param default: Default dictionary values of the object. Defaults to {}.
-        :type default: dict
-        :param required: The list of required sub values in the object. Defaults to [].
-        :type required: list
+        Args:
+            path (str): Dot separated path of the wonted object.
+            default (dict): Default dictionary values of the object. Defaults to {}.
+            required (list): The list of required sub values in the object. Defaults to [].
         :return: The specified configuration object.
         """
 

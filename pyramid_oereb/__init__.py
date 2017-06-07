@@ -50,8 +50,8 @@ def includeme(config):
     """
     By including this in your pyramid web app you can easily provide a running OEREB Server
 
-    :param config: The pyramid apps config object
-    :type config: Configurator
+        Args:
+        config (Configurator): The pyramid apps config object
     """
 
     global route_prefix, real_estate_reader, municipality_reader, extract_reader, \

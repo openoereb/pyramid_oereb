@@ -10,8 +10,8 @@ class Base(object):
         """
         Creates a new base renderer instance.
 
-        :param info: Info object.
-        :type info: pyramid.interfaces.IRendererInfo
+        Args:
+            info (pyramid.interfaces.IRendererInfo): Info object.
         """
         self._info_ = info
 
@@ -20,8 +20,8 @@ class Base(object):
         """
         Returns the response object if available.
 
-        :param system: The available system properties.
-        :type system: dict
+        Args:
+            system (dict): The available system properties.
         :return: The response object.
         :rtype: pyramid.response.Response or None
         """
@@ -35,8 +35,8 @@ class Base(object):
         """
         Returns the request object if available.
 
-        :param system: The available system properties.
-        :type system: dict
+        Args:
+            system (dict): The available system properties.
         :return: The request object.
         :rtype: pyramid.request.Request or None
         """
@@ -50,8 +50,8 @@ class Base(object):
         """
         Formats the date/time according to the specification.
 
-        :param dt: The datetime object.
-        :type dt: datetime.date or datetime.time or datetime.datetime
+        Args:
+            dt (datetime.dateordatetime.timeordatetime.datetime): The datetime object.
         :return: The formatted date/time.
         :rtype: str
         """

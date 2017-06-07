@@ -9,32 +9,25 @@ class RealEstateRecord(object):
                  subunit_of_land_register=None, public_law_restrictions=None, references=None):
         """
         Basic caracteristics and geometry of the property to be analysed.
-        :param type: The property type
-        :type type: str
-        :param canton: The abbreviation of the canton the property is located in
-        :type canton: str
-        :param municipality: The municipality the property is located in
-        :type municipality: str
-        :param fosnr: The federal number of the municipality defined by the statistics office
-        :type fosnr: integer
-        :param land_registry_area: Area of the property as defined in the land registry
-        :type land_registry_area: integer
-        :param limit: The boundary of the property as geometry in as shapely multi polygon
-        :type limit: shapely.geometry.MultiPolygon
-        :param metadata_of_geographical_base_data: Link to the metadata of the geodata
-        :type metadata_of_geographical_base_data: uri
-        :param number:  The official cantonal number of the property
-        :type  number: str or None
-        :param identdn: The unique identifier of the property
-        :type  identdn: str or None
-        :param egrid: The federal property identifier
-        :type egrid: str or None
-        :param subunit_of_land_register: Subunit of the land register if existing
-        :type subunit_of_land_register: str or None
-        :param public_law_restrictions: List of public law restrictions for this real estate
-        :type public_law_restrictions: list of pyramid_oereb.lib.records.plr.PlrRecord or None
-        :param references: Documents associated with this real estate
-        :type references: list of pyramid_oereb.lib.records.documents.DocumentRecord or None
+
+        Args:
+            type (str): The property type
+            canton (str): The abbreviation of the canton the property is located in
+            municipality (str): The municipality the property is located in
+            fosnr (integer): The federal number of the municipality defined by the statistics
+                office
+            land_registry_area (integer): Area of the property as defined in the land registry
+            limit (shapely.geometry.MultiPolygon): The boundary of the property as geometry in
+                as shapely multi polygon
+            metadata_of_geographical_base_data (uri): Link to the metadata of the geodata
+            number (strorNone):  The official cantonal number of the property
+            identdn (strorNone): The unique identifier of the property
+            egrid (strorNone): The federal property identifier
+            subunit_of_land_register (strorNone): Subunit of the land register if existing
+            public_law_restrictions (listofpyramid_oereb.lib.records.plr.PlrRecordorNone): List
+                of public law restrictions for this real estate
+            references (listofpyramid_oereb.lib.records.documents.DocumentRecordorNone):
+                Documents associated with this real estate
         """
         self.number = number
         self.identdn = identdn

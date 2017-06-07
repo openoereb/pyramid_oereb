@@ -212,8 +212,10 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def read(self, real_estate):
         """
         The read point which creates a extract, depending on a passed real estate.
-        :param real_estate: The real estate in its record representation.
-        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
+                estate in its record representation.
         """
         for availability in self.availabilities:
             if real_estate.fosnr == availability.fosnr and not availability.available:

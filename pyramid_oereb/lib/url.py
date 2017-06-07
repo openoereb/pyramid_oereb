@@ -7,8 +7,8 @@ def parse_url(url):
     """
     Parse an URL
 
-    :param url: The URL
-    :type url: str
+        Args:
+        url (str): The URL
     :return: the parsed URL (SplitResult, params)
     :rtype: (urlparse.SplitResult, dict)
     """

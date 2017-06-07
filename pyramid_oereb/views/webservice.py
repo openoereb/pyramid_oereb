@@ -15,8 +15,9 @@ class PlrWebservice(object):
         """
         This class provides the PLR webservice methods.
 
-        :param request: The pyramid request instance.
-        :type request:  pyramid.request.Request or pyramid.testing.DummyRequest
+        Args:
+            request (pyramid.request.Requestorpyramid.testing.DummyRequest): The pyramid request
+                instance.
         """
         if not isinstance(request.pyramid_oereb_processor, Processor):
             raise HTTPServerError('Missing processor instance')
@@ -267,10 +268,9 @@ class PlrWebservice(object):
         Transforms the specified coordinates from the specified CRS to the configured target CRS and creates a
         point geometry.
 
-        :param coord: The coordinates to transform (x, y).
-        :type coord: tuple
-        :param source_crs: The source CRS
-        :type source_crs: int or str
+        Args:
+            coord (tuple): The coordinates to transform (x, y).
+            source_crs (intorstr): The source CRS
         :return: The transformed coordinates as Point.
         :rtype: shapely.geometry.Point or shapely.geometry.Polygon
         """
@@ -284,8 +284,9 @@ class PlrWebservice(object):
         """
         Creates a valid GetEGRID response from a list of real estate records.
 
-        :param records: List of real estate records.
-        :type records: list of pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        Args:
+            records (listofpyramid_oereb.lib.records.real_estate.RealEstateRecord): List of real
+                estate records.
         :return: Valid GetEGRID response.
         :rtype: list of dict
         """
@@ -303,11 +304,10 @@ class PlrWebservice(object):
         Parses the coordinates from the XY parameter, transforms them to target CRS and creates a point
         geometry. If a buffer distance is defined, a buffer with the specified distance will be applied.
 
-        :param xy: XY parameter from the getegrid request.
-        :type xy: str
-        :param buffer_dist: Distance for the buffer applied to the transformed point.
-                            If None, no buffer will be applied.
-        :type buffer_dist: float or None
+        Args:
+            xy (str): XY parameter from the getegrid request.
+            buffer_dist (floatorNone): Distance for the buffer applied to the transformed
+                point.If None, no buffer will be applied.
         :return: The transformed coordinates as Point.
         :rtype: shapely.geometry.Point or shapely.geometry.Polygon
         """
@@ -328,8 +328,8 @@ class PlrWebservice(object):
         Parses the coordinates from the GNSS parameter, transforms them to target CRS and creates a Point with
         a 1 meter buffer.
 
-        :param gnss: GNSS parameter from the getegrid request.
-        :type gnss: str
+        Args:
+            gnss (str): GNSS parameter from the getegrid request.
         :return: The transformed coordinates as Point.
         :rtype: shapely.geometry.Point or shapely.geometry.Polygon
         """
@@ -345,24 +345,16 @@ class Parameter(object):
         """
         Creates a new parameter instance.
 
-        :param flavour: The extract flavour.
-        :type flavour: str
-        :param format: The extract format.
-        :type format: str
-        :param geometry: Extract with/without geometry.
-        :type geometry: bool
-        :param images: Extract with/without images.
-        :type images: bool
-        :param identdn: The IdentDN as real estate identifier.
-        :type identdn: str
-        :param number: The parcel number as real estate identifier.
-        :type number: str
-        :param egrid: The EGRID as real estate identifier.
-        :type egrid: str
-        :param language: The requested language.
-        :type language: str
-        :param topics: The list of requested topics.
-        :type topics: list of str
+        Args:
+            flavour (str): The extract flavour.
+            format (str): The extract format.
+            geometry (bool): Extract with/without geometry.
+            images (bool): Extract with/without images.
+            identdn (str): The IdentDN as real estate identifier.
+            number (str): The parcel number as real estate identifier.
+            egrid (str): The EGRID as real estate identifier.
+            language (str): The requested language.
+            topics (listofstr): The list of requested topics.
         """
         self.__flavour__ = flavour
         self.__format__ = format
@@ -378,8 +370,8 @@ class Parameter(object):
         """
         Updates the IdentDN.
 
-        :param identdn: The IdentDN as real estate identifier.
-        :type identdn: str
+        Args:
+            identdn (str): The IdentDN as real estate identifier.
         """
         self.__identdn__ = identdn
 
@@ -387,8 +379,8 @@ class Parameter(object):
         """
         Updates the parcel number.
 
-        :param number: The parcel number as real estate identifier.
-        :type number: str
+        Args:
+            number (str): The parcel number as real estate identifier.
         """
         self.__number__ = number
 
@@ -396,8 +388,8 @@ class Parameter(object):
         """
         Updates the EGRID.
 
-        :param egrid: The EGRID as real estate identifier.
-        :type egrid: str
+        Args:
+            egrid (str): The EGRID as real estate identifier.
         """
         self.__egrid__ = egrid
 
@@ -405,8 +397,8 @@ class Parameter(object):
         """
         Updates the language.
 
-        :param language: The requested language.
-        :type language: str
+        Args:
+            language (str): The requested language.
         """
         self.__language__ = language
 
@@ -414,8 +406,8 @@ class Parameter(object):
         """
         Updates the requested topics.
 
-        :param topics: The list of requested topics.
-        :type topics: list of str
+        Args:
+            topics (listofstr): The list of requested topics.
         """
         self.__topics__ = topics
 
@@ -504,8 +496,8 @@ class Parameter(object):
         """
         Check if the topic should be skipped in extract.
 
-        :param theme_code: The PLR theme code.
-        :type theme_code: str
+        Args:
+            theme_code (str): The PLR theme code.
         :return: True if the topic should be skipped.
         :rtype: bool
         """

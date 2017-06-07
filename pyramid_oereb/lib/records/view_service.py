@@ -10,20 +10,16 @@ class LegendEntryRecord(object):
                  additional_theme=None):
         """
         Represents a legend entry with it's text as well as it's image.
-        :param symbol: The binary file content of the legend image.
-        :type symbol: binary
-        :param legend_text: The description text for the legend entry.
-        :type legend_text: str
-        :param type_code: The class of the legend entry corresponding to the plrs classes.
-        :type type_code: str
-        :param type_code_list: An URL to the type code list.
-        :type type_code_list: str
-        :param theme: The theme to which the legend entry belongs to.
-        :type  theme: pyramid_oereb.lib.records.theme.ThemeRecord
-        :param sub_theme: Theme sub category.
-        :type sub_theme: str
-        :param additional_theme: Additional theme linked to this theme.
-        :type additional_theme: str
+
+        Args:
+            symbol (binary): The binary file content of the legend image.
+            legend_text (str): The description text for the legend entry.
+            type_code (str): The class of the legend entry corresponding to the plrs classes.
+            type_code_list (str): An URL to the type code list.
+            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend
+                entry belongs to.
+            sub_theme (str): Theme sub category.
+            additional_theme (str): Additional theme linked to this theme.
         """
         self.symbol = symbol
         self.legend_text = legend_text
@@ -80,12 +76,11 @@ class ViewServiceRecord(object):
 
     def __init__(self, link_wms, legend_web, legends=None):
         """
-        :param link_wms: The link URL to the actual service (WMS)
-        :type link_wms: str
-        :param legend_web: The link URL to the actual legend service (WMS get legend)
-        :type legend_web: str
-        :param legends: A list of all relevant legend entries.
-        :type legends: list of LegendEntry
+
+        Args:
+            link_wms (str): The link URL to the actual service (WMS)
+            legend_web (str): The link URL to the actual legend service (WMS get legend)
+            legends (listofLegendEntry): A list of all relevant legend entries.
         """
         self.link_wms = link_wms
         self.legend_web = legend_web
@@ -110,8 +105,9 @@ class ViewServiceRecord(object):
     def to_extract(self, type_code=None):
         """
         Returns a dictionary with all available values needed for the extract.
-        :param type_code: Filter referenced legend entries by the specified type code.
-        :type type_code: str
+
+        Args:
+            type_code (str): Filter referenced legend entries by the specified type code.
         :return: Dictionary with values for the extract.
         :rtype: dict
         """
@@ -161,8 +157,9 @@ class ViewServiceRecord(object):
         """
         Returns the WMS URL to get the image.
 
-        :param real_estate: The Real Estate record.
-        :type real_estate: pyramid_oereb.lob.records.real_estate.RealEstateRecord
+        Args:
+            real_estate (pyramid_oereb.lob.records.real_estate.RealEstateRecord): The Real
+                Estate record.
         :return: The url used to query the WMS server.
         :rtype: str
         """

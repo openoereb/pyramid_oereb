@@ -6,10 +6,10 @@ class GlossaryRecord(object):
     def __init__(self, title, content):
         """
         Represents a glossary entry with the term and it's description.
-        :param title: The term used in the extract
-        :type title: unicode
-        :param content: The description text for the glossary entry.
-        :type content: unicode
+
+        Args:
+            title (unicode): The term used in the extract
+            content (unicode): The description text for the glossary entry.
         """
         self.title = title
         self.content = content

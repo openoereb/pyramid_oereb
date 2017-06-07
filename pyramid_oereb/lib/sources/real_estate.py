@@ -20,20 +20,17 @@ class RealEstateDatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
         """
         Central method to read all plrs (geometry input) or explicitly one plr (nb_ident+number/egrid input).
 
-        :param nb_ident: The identification number of the desired real estate. This parameter is directly
-            related to the number parameter and both must be set! Combination will deliver only one result or
-            crashes.
-        :type nb_ident: int or None
-        :param number: The number of parcel or also known real estate. This parameter is directly
-            related to the nb_ident parameter and both must be set! Combination will deliver only one result
-            or crashes.
-        :type number: str or None
-        :param egrid: The unique identifier of the desired real estate. This will deliver only one result or
-            crashes.
-        :type: str or None
-        :param geometry: A geometry as WKT string which is used to obtain intersected real estates. This may
-            deliver several results.
-        :type geometry: str
+        Args:
+            nb_ident (intorNone): The identification number of the desired real estate. This
+                parameter is directlyrelated to the number parameter and both must be set!
+                Combination will deliver only one result orcrashes.
+            number (strorNone): The number of parcel or also known real estate. This parameter
+                is directlyrelated to the nb_ident parameter and both must be set!
+                Combination will deliver only one resultor crashes.
+            (strorNone): The unique identifier of the desired real estate. This will deliver
+                only one result orcrashes.
+            geometry (str): A geometry as WKT string which is used to obtain intersected real
+                estates. This maydeliver several results.
         """
         try:
             session = self._adapter_.get_session(self._key_)

@@ -8,8 +8,8 @@ class LogoRecord(object):
         """
         The record to hold the binary information of a logo/image.
 
-        :param content: The binary information of this logo as binary string.
-        :type content: str
+        Args:
+            content (str): The binary information of this logo as binary string.
         """
         self.content = content
 

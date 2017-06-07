@@ -22,32 +22,33 @@ class ExtractRecord(object):
         """
         The extract base class.
 
-        :param real_estate: The real estate in its record representation.
-        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
-        :param logo_plr_cadastre: Image file of the PLR logo
-        :type logo_plr_cadastre: pyramid_oereb.lib.records.logo.LogoRecord
-        :param federal_logo:Image file of the federal logo
-        :type federal_logo: pyramid_oereb.lib.records.logo.LogoRecord
-        :param cantonal_logo: Image file of the cantonal logo
-        :type cantonal_logo: pyramid_oereb.lib.records.logo.LogoRecord
-        :param municipality_logo: Image file of the municipality logo
-        :type municipality_logo: pyramid_oereb.lib.records.logo.LogoRecord
-        :param plr_cadastre_authority: The authority which is responsible for the PLR cadastre
-        :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OfficeRecord
-        :param base_data: A list of basic data layers used by the extract. For instance the basic map from
-            swisstopo
-        :type base_data: list of dict of str
-        :param exclusions_of_liability: Exclusions of liability for the extract
-        :type exclusions_of_liability:
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
+                estate in its record representation.
+            logo_plr_cadastre (pyramid_oereb.lib.records.logo.LogoRecord): Image file of the PLR
+                logo
+            federal_logo (pyramid_oereb.lib.records.logo.LogoRecord):Image file of the federal
+                logo
+            cantonal_logo (pyramid_oereb.lib.records.logo.LogoRecord): Image file of the
+                cantonal logo
+            municipality_logo (pyramid_oereb.lib.records.logo.LogoRecord): Image file of the
+                municipality logo
+            plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The
+                authority which is responsible for the PLR cadastre
+            base_data (listofdictofstr): A list of basic data layers used by the extract. For
+                instance the basic map fromswisstopo
+            exclusions_of_liability (): Exclusions of liability for the extract
             list of pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord
-        :param glossaries: Glossary for the extract
-        :type glossaries: list of pyramid_oereb.lib.records.glossary.GlossaryRecord
-        :param concerned_theme: Concerned themes.
-        :type concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord or None
-        :param not_concerned_theme: Not concerned themes.
-        :type not_concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord or None
-        :param theme_without_data: Themes without data.
-        :type theme_without_data: list of pyramid_oereb.lib.records.theme.ThemeRecord or None
+
+        Args:
+            glossaries (listofpyramid_oereb.lib.records.glossary.GlossaryRecord): Glossary for
+                the extract
+            concerned_theme (listofpyramid_oereb.lib.records.theme.ThemeRecordorNone): Concerned
+                themes.
+            not_concerned_theme (listofpyramid_oereb.lib.records.theme.ThemeRecordorNone): Not
+                concerned themes.
+            theme_without_data (listofpyramid_oereb.lib.records.theme.ThemeRecordorNone): Themes
+                without data.
         """
         self.base_data = base_data
         self.extract_identifier = str(uuid.uuid4())

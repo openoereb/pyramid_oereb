@@ -22,25 +22,27 @@ class Processor(object):
         correctly. In addition it provides an easy to use method interface to access the information.
         It is also used to wrap all accessors in one point to have a processing interface.
 
-        :param real_estate_reader: The real estate reader instance for runtime use.
-        :type real_estate_reader: pyramid_oereb.lib.readers.real_estate.RealEstateReader
-        :param municipality_reader: The municipality reader instance for runtime use.
-        :type municipality_reader: pyramid_oereb.lib.readers.municipality.MunicipalityReader
-        :param exclusion_of_liability_reader: The exclusion of liability reader instance for runtime use.
-        :type exclusion_of_liability_reader:
+        Args:
+            real_estate_reader (pyramid_oereb.lib.readers.real_estate.RealEstateReader): The
+                real estate reader instance for runtime use.
+            municipality_reader (pyramid_oereb.lib.readers.municipality.MunicipalityReader): The
+                municipality reader instance for runtime use.
+            exclusion_of_liability_reader (): The exclusion of liability reader instance for
+                runtime use.
             pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader
-        :param glossary_reader: The glossary reader instance for runtime use.
-        :type glossary_reader: pyramid_oereb.lib.readers.glossary.GlossaryReader
-        :param plr_sources: The public law restriction source instances for runtime use wrapped in a list.
-        :type plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-        :param extract_reader: The extract reader instance for runtime use.
-        :type extract_reader: pyramid_oereb.lib.readers.extract.ExtractReader
-        :param plr_limits: The configuration for limiting the intersection.
-        :type plr_limits: dict or None
-        :param min_area: The minimal area for a public law restriction to be displayed in the cadastre
-        :type min_area: decimal
-        :param min_length: The minimal length for a public law restriction to be displayed in the cadastre
-        :type min_length: decimal
+
+        Args:
+            glossary_reader (pyramid_oereb.lib.readers.glossary.GlossaryReader): The glossary
+                reader instance for runtime use.
+            plr_sources (listofpyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource): The
+                public law restriction source instances for runtime use wrapped in a list.
+            extract_reader (pyramid_oereb.lib.readers.extract.ExtractReader): The extract reader
+                instance for runtime use.
+            plr_limits (dictorNone): The configuration for limiting the intersection.
+            min_area (decimal): The minimal area for a public law restriction to be displayed in
+                the cadastre
+            min_length (decimal): The minimal length for a public law restriction to be
+                displayed in the cadastre
         """
         self._real_estate_reader_ = real_estate_reader
         self._municipality_reader_ = municipality_reader
@@ -59,8 +61,9 @@ class Processor(object):
         """
         Filter only published documents.
 
-        :param record: The public law restriction or document record.
-        :type record: pyramid_oereb.lib.records.plr.PlrRecord or
+        Args:
+            record (pyramid_oereb.lib.records.plr.PlrRecordor): The public law restriction or
+                document record.
             pyramid_oereb.lib.records.documents.DocumentRecord
         """
         published_docs = list()
@@ -84,8 +87,9 @@ class Processor(object):
         value defined in the configuration and should therefor be represented in the extract
         or considered 'false trues' and be removed from the results.
 
-        :param extract: The extract in it's unvalidated form
-        :type extract: pyramid_oereb.lib.records.extract.ExtractRecord
+        Args:
+            extract (pyramid_oereb.lib.records.extract.ExtractRecord): The extract in it's
+                unvalidated form
         :return: Returns the updated extract
         :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
         """
@@ -168,10 +172,11 @@ class Processor(object):
         """
         Central processing method to hook in from webservice.
 
-        :param real_estate: The real estate reader to obtain the real estates record.
-        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
-        :param params: The parameters of the extract request.
-        :type params: pyramid_oereb.views.webservice.Parameter
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
+                estate reader to obtain the real estates record.
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract
+                request.
         :return: The generated extract record.
         :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
         """

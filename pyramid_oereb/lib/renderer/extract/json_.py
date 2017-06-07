@@ -17,8 +17,8 @@ class Renderer(Base):
         """
         Creates a new JSON renderer instance for extract rendering.
 
-        :param info: Info object.
-        :type info: pyramid.interfaces.IRendererInfo
+        Args:
+            info (pyramid.interfaces.IRendererInfo): Info object.
         """
         super(Renderer, self).__init__(info)
 
@@ -26,10 +26,10 @@ class Renderer(Base):
         """
         Returns the JSON encoded extract, according to the specification.
 
-        :param value: A tuple containing the generated extract record and the params dictionary.
-        :type value: tuple
-        :param system: The available system properties.
-        :type system: dict
+        Args:
+            value (tuple): A tuple containing the generated extract record and the params
+                dictionary.
+            system (dict): The available system properties.
         :return: The JSON encoded extract.
         :rtype: str
         """
@@ -46,8 +46,8 @@ class Renderer(Base):
         """
         Serializes the extract record.
 
-        :param extract: The extract record
-        :type extract: pyramid_oereb.lib.records.extract.ExtractRecord
+        Args:
+            extract (pyramid_oereb.lib.records.extract.ExtractRecord): The extract record
         :return: The JSON encoded extract.
         :rtype: str
         """
@@ -114,8 +114,9 @@ class Renderer(Base):
         """
         Formats a real estate record for rendering according to the federal specification.
 
-        :param real_estate: The real estate record to be formatted.
-        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
+                estate record to be formatted.
         :return: The formatted dictionary for rendering.
         :rtype: dict
         """
@@ -163,8 +164,9 @@ class Renderer(Base):
         """
         Formats a public law restriction record for rendering according to the federal specification.
 
-        :param plrs: The public law restriction records to be formatted.
-        :type plrs: list of pyramid_oereb.lib.records.plr.PlrRecord
+        Args:
+            plrs (listofpyramid_oereb.lib.records.plr.PlrRecord): The public law restriction
+                records to be formatted.
         :return: The formatted dictionaries for rendering.
         :rtype: list of dict
         """
@@ -224,8 +226,9 @@ class Renderer(Base):
         """
         Formats a document record for rendering according to the federal specification.
 
-        :param document: The document record to be formatted.
-        :type document: pyramid_oereb.lib.records.documents.DocumentBaseRecord
+        Args:
+            document (pyramid_oereb.lib.records.documents.DocumentBaseRecord): The document
+                record to be formatted.
         :return: The formatted dictionary for rendering.
         :rtype: dict
         """
@@ -284,8 +287,9 @@ class Renderer(Base):
         """
         Formats a geometry record for rendering according to the federal specification.
 
-        :param geometry: The geometry record to be formatted.
-        :type geometry: pyramid_oereb.lib.records.geometry.GeometryRecord
+        Args:
+            geometry (pyramid_oereb.lib.records.geometry.GeometryRecord): The geometry record to
+                be formatted.
         :return: The formatted dictionary for rendering.
         :rtype: dict
         """
@@ -316,8 +320,9 @@ class Renderer(Base):
         """
         Formats an office record for rendering according to the federal specification.
 
-        :param office: The office record to be formatted.
-        :type office: pyramid_oereb.lib.records.office.OfficeRecord
+        Args:
+            office (pyramid_oereb.lib.records.office.OfficeRecord): The office record to be
+                formatted.
         :return: The formatted dictionary for rendering.
         :rtype: dict
         """
@@ -346,8 +351,9 @@ class Renderer(Base):
         """
         Formats a theme record for rendering according to the federal specification.
 
-        :param theme: The theme record to be formatted.
-        :type theme: pyramid_oereb.lib.records.theme.ThemeRecord
+        Args:
+            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme record to be
+                formatted.
         :return: The formatted dictionary for rendering.
         :rtype: dict
         """
@@ -361,8 +367,9 @@ class Renderer(Base):
         """
         Formats a view service record for rendering according to the federal specification.
 
-        :param map_: The view service record to be formatted.
-        :type map_: pyramid_oereb.lib.records.view_service.ViewServiceRecord
+        Args:
+            map_ (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service
+                record to be formatted.
         :return: The formatted dictionary for rendering.
         :rtype: dict
         """
@@ -382,8 +389,9 @@ class Renderer(Base):
         """
         Formats a legend entry record for rendering according to the federal specification.
 
-        :param legend_entry: The legend entry record to be formatted.
-        :type legend_entry: pyramid_oereb.lib.records.view_service.LegendEntryRecord
+        Args:
+            legend_entry (pyramid_oereb.lib.records.view_service.LegendEntryRecord): The legend
+                entry record to be formatted.
         :return: The formatted dictionary for rendering.
         :rtype: dict
         """
@@ -405,8 +413,8 @@ class Renderer(Base):
         """
         Formats shapely geometry for rendering according to the federal specification.
 
-        :param geom: The geometry object to be formatted.
-        :type geom: shapely.geometry.base.BaseGeometry
+        Args:
+            geom (shapely.geometry.base.BaseGeometry): The geometry object to be formatted.
         :return: The formatted geometry.
         :rtype: dict
         """
@@ -424,8 +432,8 @@ class Renderer(Base):
         Returns the set language of a multilingual text element.
         TODO: Fix implementation when multilingual values are available by respecting self.language.
 
-        :param values: The multilingual values encoded as JSON.
-        :type values: str or dict
+        Args:
+            values (strordict): The multilingual values encoded as JSON.
         :return: List of dictionaries containing the multilingual representation.
         :rtype: list of dict
         """

@@ -7,12 +7,11 @@ class DocumentBaseRecord(object):
     def __init__(self, legal_state, published_from, text_at_web=None):
         """
         The base document class.
-        :param legal_state: Key string of the law status.
-        :type legal_state: str
-        :param published_from: Date since this document was published.
-        :type published_from: datetime.date
-        :param text_at_web: The URI to the documents content.
-        :type text_at_web: str
+
+        Args:
+            legal_state (str): Key string of the law status.
+            published_from (datetime.date): Date since this document was published.
+            text_at_web (str): The URI to the documents content.
         """
         self.text_at_web = text_at_web
         self.legal_state = legal_state
@@ -59,16 +58,13 @@ class ArticleRecord(DocumentBaseRecord):
     def __init__(self, legal_state, published_from, number, text_at_web=None, text=None):
         """
         More specific document class representing articles.
-        :param legal_state: Key string of the law status.
-        :type legal_state: str
-        :param published_from: Date since this document was published.
-        :type published_from: datetime.date
-        :param number: The identifier of the article as a law.
-        :type number: str
-        :param text_at_web: The URI to the documents content.
-        :type text_at_web: str
-        :param text: Text in the article.
-        :type text: str
+
+        Args:
+            legal_state (str): Key string of the law status.
+            published_from (datetime.date): Date since this document was published.
+            number (str): The identifier of the article as a law.
+            text_at_web (str): The URI to the documents content.
+            text (str): Text in the article.
         """
         super(ArticleRecord, self).__init__(legal_state, published_from, text_at_web)
         self.number = number
@@ -110,34 +106,23 @@ class DocumentRecord(DocumentBaseRecord):
                  municipality=None, article_numbers=None, file=None, articles=None, references=None):
         """
         More specific document class representing real documents.
-        :param legal_state:  Key string of the law status.
-        :type legal_state: str
-        :param published_from: Date since this document was published.
-        :type published_from: datetime.date
-        :param title: The title of the document. It might be shortened one.
-        :type title: unicode
-        :param responsible_office: Office which is responsible for this document.
-        :type responsible_office: pyramid_oereb.lib.records.office.OfficeRecord
-        :param text_at_web: The URI to the documents content.
-        :type text_at_web: str
-        :param official_title: The official title of the document.
-        :type official_title: unicode
-        :param abbreviation: Short term for this document.
-        :type abbreviation: str
-        :param official_number: The official number for identification of this document.
-        :type official_number: str
-        :param canton: The cantonal short term (length of tw, like: 'NE' or 'BL')
-        :type canton: str
-        :param municipality: The code for the municipality.
-        :type municipality: str
-        :param article_numbers: Pointers to specific articles.
-        :type article_numbers: list of str
-        :param file: The binary content of the document.
-        :type file: bytes
-        :param articles: The linked articles.
-        :type articles: list of ArticleRecord
-        :param references: The references to other documents.
-        :type references: list of DocumentRecord
+
+        Args:
+            legal_state (str):  Key string of the law status.
+            published_from (datetime.date): Date since this document was published.
+            title (unicode): The title of the document. It might be shortened one.
+            responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
+                responsible for this document.
+            text_at_web (str): The URI to the documents content.
+            official_title (unicode): The official title of the document.
+            abbreviation (str): Short term for this document.
+            official_number (str): The official number for identification of this document.
+            canton (str): The cantonal short term (length of tw, like
+            municipality (str): The code for the municipality.
+            article_numbers (listofstr): Pointers to specific articles.
+            file (bytes): The binary content of the document.
+            articles (listofArticleRecord): The linked articles.
+            references (listofDocumentRecord): The references to other documents.
         """
         super(DocumentRecord, self).__init__(legal_state, published_from, text_at_web)
         self.title = title
