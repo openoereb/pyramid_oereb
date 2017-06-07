@@ -103,6 +103,7 @@ class Config(object):
         return None
 
     @staticmethod
+
     def get_theme_thresholds(code):
         """
         Returns the limits for the geometries of the theme with the specified code.
@@ -120,6 +121,16 @@ class Config(object):
                 if theme.get('code') == code:
                     return theme.get('plr_thresholds')
         return None
+
+    def get_all_federal():
+        assert Config._config is not None
+        federal = list()
+        plrs = Config._config.get('plrs')
+        if plrs and isinstance(plrs, list):
+            for plr in plrs:
+                if plr.get('federal'):
+                    federal.append(plr.get('code'))
+        return federal
 
     @staticmethod
     def get_crs():

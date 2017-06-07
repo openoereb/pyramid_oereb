@@ -217,6 +217,7 @@ pyramid_oereb:
       text:
         de: Nutzungsplanung
       language: de
+      federal: true
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -233,6 +234,7 @@ pyramid_oereb:
       text:
         de: Projektierungszonen Nationalstrassen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -249,6 +251,7 @@ pyramid_oereb:
       text:
         de: Baulinien Nationalstrassen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -265,6 +268,7 @@ pyramid_oereb:
       text:
         de: Baulinien Eisenbahnanlagen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -281,6 +285,7 @@ pyramid_oereb:
       text:
         de: Projektierungszonen Eisenbahnanlagen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -297,6 +302,7 @@ pyramid_oereb:
       text:
         de: Projektierungszonen Flughafenanlagen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -313,6 +319,7 @@ pyramid_oereb:
       text:
         de: Baulinien Flughafenanlagen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -329,6 +336,7 @@ pyramid_oereb:
       text:
         de: Sicherheitszonenplan Flughafen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -345,6 +353,7 @@ pyramid_oereb:
       text:
         de: Belastete Standorte
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -361,6 +370,7 @@ pyramid_oereb:
       text:
         de: Belastete Standorte Militär
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -377,6 +387,7 @@ pyramid_oereb:
       text:
         de: Belastete Standorte Zivile Flugplätze
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -393,6 +404,7 @@ pyramid_oereb:
       text:
         de: Belastete Standorte Öeffentlicher Verkehr
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -409,6 +421,7 @@ pyramid_oereb:
       text:
         de: Grundwasserschutzzonen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -425,6 +438,7 @@ pyramid_oereb:
       text:
         de: Grundwasserschutzareale
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -441,6 +455,7 @@ pyramid_oereb:
       text:
         de: Lärmemfindlichkeitsstufen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -457,6 +472,7 @@ pyramid_oereb:
       text:
         de: Waldgrenzen
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -473,6 +489,7 @@ pyramid_oereb:
       text:
         de: Waldabstandslinien
       language: de
+      federal: true
       standard: true
       source:
          class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource

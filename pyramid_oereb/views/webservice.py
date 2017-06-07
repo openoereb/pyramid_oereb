@@ -159,7 +159,7 @@ class PlrWebservice(object):
         # check if result is strictly one (we queried with primary keys)
         if len(real_estate_records) == 1:
             try:
-                extract = processor.process(real_estate_records[0])
+                extract = processor.process(real_estate_records[0], params)
             except LookupError:
                 raise HTTPNoContent()
             except NotImplementedError:
@@ -499,3 +499,20 @@ class Parameter(object):
         :rtype: list of str
         """
         return self.__topics__
+
+    def skip_topic(self, theme_code):
+        """
+        Check if the topic should be skipped in extract.
+
+        :param theme_code: The PLR theme code.
+        :type theme_code: str
+        :return: True if the topic should be skipped.
+        :rtype: bool
+        """
+        if not self.topics or 'ALL' in self.topics:
+            return False
+        if theme_code in self.topics:
+            return False
+        if 'ALL_FEDERAL' in self.topics and theme_code in Config.get_all_federal():
+            return False
+        return True
