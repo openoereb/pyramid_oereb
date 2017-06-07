@@ -28411,7 +28411,7 @@ estate record.</li>
 <span id="module-pyramid-oereb-lib-records-real-estate"></span><h2>Module: pyramid_oereb.lib.records.real_estate<a class="headerlink" href="#module-pyramid_oereb.lib.records.real_estate" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.real_estate.</code><code class="descname">RealEstateRecord</code><span class="sig-paren">(</span><em>type</em>, <em>canton</em>, <em>municipality</em>, <em>fosnr</em>, <em>land_registry_area</em>, <em>limit</em>, <em>metadata_of_geographical_base_data=None</em>, <em>number=None</em>, <em>identdn=None</em>, <em>egrid=None</em>, <em>subunit_of_land_register=None</em>, <em>public_law_restrictions=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/real_estate.html#RealEstateRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.real_estate.</code><code class="descname">RealEstateRecord</code><span class="sig-paren">(</span><em>type</em>, <em>canton</em>, <em>municipality</em>, <em>fosnr</em>, <em>land_registry_area</em>, <em>limit</em>, <em>metadata_of_geographical_base_data=None</em>, <em>number=None</em>, <em>identdn=None</em>, <em>egrid=None</em>, <em>subunit_of_land_register=None</em>, <em>public_law_restrictions=None</em>, <em>references=None</em>, <em>plan_for_land_register=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/real_estate.html#RealEstateRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="classmethod">
 <dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord.get_fields">
 <em class="property">classmethod </em><code class="descname">get_fields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/real_estate.html#RealEstateRecord.get_fields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord.get_fields" title="Permalink to this definition">¶</a></dt>
@@ -28423,6 +28423,21 @@ estate record.</li>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of available field names.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord.set_view_service">
+<code class="descname">set_view_service</code><span class="sig-paren">(</span><em>plan_for_land_register</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/real_estate.html#RealEstateRecord.set_view_service"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord.set_view_service" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the view service to generate the land registry map for the real estate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plan_for_land_register</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord" title="pyramid_oereb.lib.records.view_service.ViewServiceRecord"><em>pyramid_oereb.lib.records.view_service.ViewServiceRecord</em></a>) &#8211; The view
+service to be used for the land registry map.</td>
 </tr>
 </tbody>
 </table>

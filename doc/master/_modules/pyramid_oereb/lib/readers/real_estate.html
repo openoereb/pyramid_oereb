@@ -47,6 +47,10 @@
 
 <span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="k">import</span> <span class="n">DottedNameResolver</span>
 
+<span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.real_estate</span> <span class="k">import</span> <span class="n">RealEstateRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.view_service</span> <span class="k">import</span> <span class="n">ViewServiceRecord</span>
+
 
 <div class="viewcode-block" id="RealEstateReader"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.readers.real_estate.RealEstateReader">[docs]</a><span class="k">class</span> <span class="nc">RealEstateReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
@@ -84,8 +88,14 @@
 <span class="sd">            list of pyramid_oereb.lib.records.real_estate.RealEstateRecord: the list of all found</span>
 <span class="sd">            records</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
+        <span class="n">real_estate_view_service</span> <span class="o">=</span> <span class="n">ViewServiceRecord</span><span class="p">(</span>
+            <span class="n">link_wms</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get_real_estate_config</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;view_service&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;reference_wms&#39;</span><span class="p">),</span>
+            <span class="n">legend_web</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get_real_estate_config</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;view_service&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;legend_at_web&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">nb_ident</span><span class="o">=</span><span class="n">nb_ident</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="n">number</span><span class="p">,</span> <span class="n">egrid</span><span class="o">=</span><span class="n">egrid</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">geometry</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span><span class="o">.</span><span class="n">records</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">RealEstateRecord</span><span class="p">):</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">set_view_service</span><span class="p">(</span><span class="n">real_estate_view_service</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span><span class="o">.</span><span class="n">records</span></div></div>
 </pre></div>
 
