@@ -289,15 +289,15 @@ class Extract(Base):
         :return: The formatted dictionary for rendering.
         :rtype: dict
         """
-        plr_limits = Config.get('plr_limits')
-        if geometry.geom.type in plr_limits.get('point').get('types'):
+        geometry_types = Config.get('geometry_types')
+        if geometry.geom.type in geometry_types.get('point').get('types'):
             geometry_type = 'Point'
-        elif geometry.geom.type in plr_limits.get('line').get('types'):
+        elif geometry.geom.type in geometry_types.get('line').get('types'):
             geometry_type = 'Line'
-        elif geometry.geom.type in plr_limits.get('polygon').get('types'):
+        elif geometry.geom.type in geometry_types.get('polygon').get('types'):
             geometry_type = 'Surface'
         else:
-            raise TypeError('The geometry type {gtype} is not configured in "plr_limits"'.format(
+            raise TypeError('The geometry type {gtype} is not configured in "geometry_types"'.format(
                 gtype=geometry.geom.type
             ))
 

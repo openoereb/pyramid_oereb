@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
+from pyramid_oereb.lib.config import Config
 
 
 class GeometryRecord(object):
@@ -129,22 +130,23 @@ class GeometryRecord(object):
         return sum(areas_to_sum)
 
     # TODO: Make this read from config singleton provided by sbrunner
-    def calculate(self, real_estate, plr_limits):
+    def calculate(self, real_estate, plr_thresholds):
         """
         Calculates intersection area and checks if it fits the configured limits.
 
         :param real_estate: The real estate record.
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
-        :param plr_limits: The configured limits.
-        :type plr_limits: dict
+        :param plr_thresholds: The configured limits.
+        :type plr_thresholds: dict
         :return: True if intersection fits the limits.
         :rtype: bool
         """
-        point_types = plr_limits.get('point').get('types')
-        line_types = plr_limits.get('line').get('types')
-        min_length = plr_limits.get('line').get('min_length')
-        polygon_types = plr_limits.get('polygon').get('types')
-        min_area = plr_limits.get('polygon').get('min_area')
+        geometry_types = Config.get('geometry_types')
+        point_types = geometry_types.get('point').get('types')
+        line_types = geometry_types.get('line').get('types')
+        polygon_types = geometry_types.get('polygon').get('types')
+        min_length = plr_thresholds.get('min_length')
+        min_area = plr_thresholds.get('min_area')
         if self.geom.type in point_types:
             pass
         else:

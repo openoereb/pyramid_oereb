@@ -86,7 +86,7 @@ class MockRequest(DummyRequest):
             exclusion_of_liability_reader=exclusion_of_liability_reader,
             glossary_reader=glossary_reader,
             plr_sources=plr_sources,
-            extract_reader=extract_reader
+            extract_reader=extract_reader,
         )
 
     @property

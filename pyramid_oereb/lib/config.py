@@ -103,7 +103,6 @@ class Config(object):
         return None
 
     @staticmethod
-
     def get_theme_thresholds(code):
         """
         Returns the limits for the geometries of the theme with the specified code.
@@ -122,10 +121,17 @@ class Config(object):
                     return theme.get('plr_thresholds')
         return None
 
+    @staticmethod
     def get_all_federal():
+        """
+        Returns a list of all federal topic codes.
+        
+        :return: All federal topic codes.
+        :rtype: list of str
+        """
         assert Config._config is not None
         federal = list()
-        plrs = Config._config.get('plrs')
+        plrs = Config.get('plrs')
         if plrs and isinstance(plrs, list):
             for plr in plrs:
                 if plr.get('federal'):
@@ -178,6 +184,22 @@ class Config(object):
         flavour = Config._config.get('flavour')
         if flavour and isinstance(flavour, list):
             result.extend(flavour)
+        return result
+
+    @staticmethod
+    def get_geometry_types():
+        """
+        Returns a list of available geometry_types.
+
+        :return: The available geometry types.
+        :rtype: list
+        """
+        assert Config._config is not None
+
+        result = list()
+        geometry_types = Config._config.get('geometry_types')
+        if geometry_types and isinstance(geometry_types, list):
+            result.extend(geometry_types)
         return result
 
     @staticmethod
