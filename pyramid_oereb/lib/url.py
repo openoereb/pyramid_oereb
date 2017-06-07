@@ -57,5 +57,4 @@ def uri_validator(url):
     :rtype: bool
     """
     result = urlparse(url)
-    return True if [result.scheme, result.netloc, result.path] else False
-
+    return True if result.scheme and result.netloc else False
