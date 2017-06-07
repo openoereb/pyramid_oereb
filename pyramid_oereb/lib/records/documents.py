@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import warnings
 from datetime import datetime
 
 
@@ -15,6 +16,9 @@ class DocumentBaseRecord(object):
         :param text_at_web: The multilingual URI to the documents content.
         :type text_at_web: dict
         """
+        if text_at_web and not isinstance(text_at_web, dict):
+            warnings.warn('Type of "text_at_web" should be "dict"')
+
         self.text_at_web = text_at_web
         self.legal_state = legal_state
         self.published_from = published_from
@@ -42,12 +46,16 @@ class ArticleRecord(DocumentBaseRecord):
         :type published_from: datetime.date
         :param number: The identifier of the article as a law.
         :type number: str
-        :param text_at_web: The URI to the documents content.
-        :type text_at_web: str
+        :param text_at_web: The URI to the documents content (multilingual).
+        :type text_at_web: dict
         :param text: Text in the article (multilingual).
         :type text: dict
         """
         super(ArticleRecord, self).__init__(legal_state, published_from, text_at_web)
+
+        if text and not isinstance(text, dict):
+            warnings.warn('Type of "text" should be "dict"')
+
         self.number = number
         self.text = text
 
@@ -60,7 +68,7 @@ class DocumentRecord(DocumentBaseRecord):
         """
         More specific document class representing real documents.
 
-        :param legal_state:  Key string of the law status.
+        :param legal_state: Key string of the law status.
         :type legal_state: str
         :param published_from: Date since this document was published.
         :type published_from: datetime.date
@@ -90,6 +98,16 @@ class DocumentRecord(DocumentBaseRecord):
         :type references: list of DocumentRecord
         """
         super(DocumentRecord, self).__init__(legal_state, published_from, text_at_web)
+
+        if not isinstance(title, dict):
+            warnings.warn('Type of "title" should be "dict"')
+        if text_at_web and not isinstance(text_at_web, dict):
+            warnings.warn('Type of "text_at_web" should be "dict"')
+        if official_title and not isinstance(official_title, dict):
+            warnings.warn('Type of "official_title" should be "dict"')
+        if abbreviation and not isinstance(abbreviation, dict):
+            warnings.warn('Type of "abbreviation" should be "dict"')
+
         self.title = title
         self.responsible_office = responsible_office
         self.official_title = official_title

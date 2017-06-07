@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import warnings
+
 from pyramid_oereb.lib.url import add_url_params
 
 from pyramid_oereb.lib.config import Config
@@ -26,6 +28,9 @@ class LegendEntryRecord(object):
         :param additional_theme: Additional theme linked to this theme.
         :type additional_theme: str
         """
+        if not isinstance(legend_text, dict):
+            warnings.warn('Type of "legend_text" should be "dict"')
+
         self.symbol = symbol
         self.legend_text = legend_text
         self.type_code = type_code

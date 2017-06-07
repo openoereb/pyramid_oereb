@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import warnings
 
 
 class ThemeRecord(object):
@@ -12,5 +13,8 @@ class ThemeRecord(object):
         :param text: The multilingual description.
         :type text: dict
         """
+        if not isinstance(text, dict):
+            warnings.warn('Type of "text" should be "dict"')
+
         self.code = code
         self.text = text

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import warnings
 
 
 class OfficeRecord(object):
@@ -36,6 +37,8 @@ class OfficeRecord(object):
         :param city: The city where the authority is located
         :type postal_code: str
         """
+        if not isinstance(name, dict):
+            warnings.warn('Type of "name" should be "dict"')
 
         self.name = name
         self.uid = uid

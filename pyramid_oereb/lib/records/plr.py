@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import warnings
 from datetime import datetime
 
 
@@ -67,8 +68,11 @@ class PlrRecord(EmptyPlrRecord):
         :type info: dict or None
         :raises TypeError: Raised on missing field value.
         """
-
         super(PlrRecord, self).__init__(theme)
+
+        if not isinstance(content, dict):
+            warnings.warn('Type of "content" should be "dict"')
+
         self.content = content
         self.legal_state = legal_state
         self.published_from = published_from

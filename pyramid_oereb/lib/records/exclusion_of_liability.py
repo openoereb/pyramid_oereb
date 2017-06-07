@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import warnings
 
 
 class ExclusionOfLiabilityRecord(object):
@@ -12,5 +13,10 @@ class ExclusionOfLiabilityRecord(object):
         :param content: The multilingual disclaimer message.
         :type content: dict
         """
+        if not isinstance(title, dict):
+            warnings.warn('Type of "title" should be "dict"')
+        if not isinstance(content, dict):
+            warnings.warn('Type of "content" should be "dict"')
+
         self.title = title
         self.content = content

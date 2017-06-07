@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import warnings
 from datetime import datetime
 import uuid
 
@@ -34,8 +35,8 @@ class ExtractRecord(object):
         :type municipality_logo: pyramid_oereb.lib.records.image.ImageRecord
         :param plr_cadastre_authority: The authority which is responsible for the PLR cadastre
         :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OfficeRecord
-        :param base_data: A list of basic data layers used by the extract. For instance the basic map from
-            swisstopo
+        :param base_data: A multilingual list of basic data layers used by the extract. For instance the base
+            map from swisstopo
         :type base_data: dict of str
         :param exclusions_of_liability: Exclusions of liability for the extract
         :type exclusions_of_liability:
@@ -51,6 +52,11 @@ class ExtractRecord(object):
         :param general_information: General information for the static extract as multilingual text.
         :type general_information: dict
         """
+        if not isinstance(base_data, dict):
+            warnings.warn('Type of "base_data" should be "dict"')
+        if general_information and not isinstance(general_information, dict):
+            warnings.warn('Type of "general_information" should be "dict"')
+
         self.base_data = base_data
         self.general_information = general_information
         self.extract_identifier = str(uuid.uuid4())
