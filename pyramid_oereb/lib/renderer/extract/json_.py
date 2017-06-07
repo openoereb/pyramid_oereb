@@ -12,7 +12,7 @@ from pyramid_oereb.lib.renderer import Base
 from pyramid_oereb.views.webservice import Parameter
 
 
-class Extract(Base):
+class Renderer(Base):
     def __init__(self, info):
         """
         Creates a new JSON renderer instance for extract rendering.
@@ -20,7 +20,7 @@ class Extract(Base):
         :param info: Info object.
         :type info: pyramid.interfaces.IRendererInfo
         """
-        super(Extract, self).__init__(info)
+        super(Renderer, self).__init__(info)
 
     def __call__(self, value, system):
         """

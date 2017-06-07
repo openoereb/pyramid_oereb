@@ -168,7 +168,7 @@ def test_return_no_content():
 ])
 def test_return_json(topics):
     with testConfig() as config:
-        config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer.json_.Extract')
+        config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer.extract.json_.Renderer')
         request = MockRequest()
         request.matchdict.update({
             'flavour': 'REDUCED',
