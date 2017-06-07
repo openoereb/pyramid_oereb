@@ -125,7 +125,7 @@ class Config(object):
     def get_all_federal():
         """
         Returns a list of all federal topic codes.
-        
+
         :return: All federal topic codes.
         :rtype: list of str
         """
