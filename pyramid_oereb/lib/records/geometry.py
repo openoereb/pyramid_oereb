@@ -36,8 +36,9 @@ class GeometryRecord(object):
     def published(self):
         """
         Returns true if its not a future geometry.
-        :return: True if geometry is published.
-        :rtype: bool
+
+        Returns:
+            bool: True if geometry is published.
         """
         return not self.published_from > datetime.now().date()
 
@@ -45,8 +46,9 @@ class GeometryRecord(object):
     def get_fields(cls):
         """
         Returns a list of available field names.
-        :return: List of available field names.
-        :rtype: list of str
+
+        Returns:
+            listofstr: List of available field names.
         """
         return [
             'legal_state',
@@ -60,8 +62,9 @@ class GeometryRecord(object):
     def to_extract(self):
         """
         Returns a dictionary with all available values needed for the extract.
-        :return: Dictionary with values for the extract.
-        :rtype: dict
+
+        Returns:
+            dict: Dictionary with values for the extract.
         """
         extract = dict()
         for key in [
@@ -97,8 +100,9 @@ class GeometryRecord(object):
             multi_line (shapely.geometry.MultiLineString): The multi line string which parts
                 should be summed.
             limit (float): The cutting limit which is sorting parts.
-        :return: The summed length.
-        :rtype: float
+
+        Returns:
+            float: The summed length.
         """
         lengths_to_sum = []
         for part in multi_line.geoms:
@@ -115,8 +119,9 @@ class GeometryRecord(object):
             multi_polygon (shapely.geometry.MultiPolygon): The multi line string which parts
                 should be summed.
             limit (float): The cutting limit which is sorting parts.
-        :return: The summed area.
-        :rtype: float
+
+        Returns:
+            float: The summed area.
         """
         areas_to_sum = []
         for part in multi_polygon.geoms:
@@ -134,8 +139,9 @@ class GeometryRecord(object):
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate record.
             plr_limits (dict): The configured limits.
-        :return: True if intersection fits the limits.
-        :rtype: bool
+
+        Returns:
+            bool: True if intersection fits the limits.
         """
         point_types = plr_limits.get('point').get('types')
         line_types = plr_limits.get('line').get('types')

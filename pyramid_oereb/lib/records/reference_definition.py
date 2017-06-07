@@ -31,8 +31,9 @@ class ReferenceDefinitionRecord(object):
     def get_fields(cls):
         """
         Returns a list of available field names.
-        :return: List of available field names.
-        :rtype: list
+
+        Returns:
+            list: List of available field names.
         """
 
         return [

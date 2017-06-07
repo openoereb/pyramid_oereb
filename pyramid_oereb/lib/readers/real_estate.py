@@ -34,8 +34,10 @@ class RealEstateReader(object):
                 only one result orcrashes.
             geometry (str): A geometry as WKT string which is used to obtain intersected real
                 estates. This maydeliver several results.
-        :return: the list of all found records
-        :rtype: list of pyramid_oereb.lib.records.real_estate.RealEstateRecord
+
+        Returns:
+            listofpyramid_oereb.lib.records.real_estate.RealEstateRecord: the list of all found
+            records
         """
 
         self._source_.read(nb_ident=nb_ident, number=number, egrid=egrid, geometry=geometry)

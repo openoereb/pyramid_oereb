@@ -27,8 +27,9 @@ class GlossaryReader(object):
             id (int): The identifier of the entry.
             title (unicode): The term or abbreviation to be defined or explained.
             content (unicode): The definition or explanation to a given term or abbreviation.
-        :returns: The list of found records.
-        :rtype: list of pyramid_oereb.lib.records.glossary.GlossaryRecord
+
+        Returns:
+            listofpyramid_oereb.lib.records.glossary.GlossaryRecord: The list of found records.
         """
         self._source_.read()
         return self._source_.records

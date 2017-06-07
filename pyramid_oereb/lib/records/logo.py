@@ -18,8 +18,8 @@ class LogoRecord(object):
         """
         Returns a list of available field names.
 
-        :return: List of available field names.
-        :rtype: list of str
+        Returns:
+            listofstr: List of available field names.
         """
         return [
             'content'
@@ -29,8 +29,8 @@ class LogoRecord(object):
         """
         Returns a dictionary with all available values needed for the extract.
 
-        :return: Dictionary with values for the extract.
-        :rtype: dict
+        Returns:
+            dict: Dictionary with values for the extract.
         """
         extract = dict()
         key = 'content'
@@ -42,7 +42,7 @@ class LogoRecord(object):
         """
         Returns the logo as base64 encoded string.
 
-        :return: The encoded image.
-        :rtype: str
+        Returns:
+            str: The encoded image.
         """
         return base64.b64encode(self.content)

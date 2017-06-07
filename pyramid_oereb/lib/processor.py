@@ -90,8 +90,9 @@ class Processor(object):
         Args:
             extract (pyramid_oereb.lib.records.extract.ExtractRecord): The extract in it's
                 unvalidated form
-        :return: Returns the updated extract
-        :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
+
+        Returns:
+            pyramid_oereb.lib.records.extract.ExtractRecord: Returns the updated extract
         """
 
         real_estate = extract.real_estate
@@ -117,8 +118,9 @@ class Processor(object):
     def real_estate_reader(self):
         """
 
-        :return: The real estate reader instance.
-        :rtype real_estate_reader: pyramid_oereb.lib.readers.real_estate.RealEstateReader
+        Returns:
+            pyramid_oereb.lib.readers.real_estate.RealEstateReader: The real estate reader
+            instance.
         """
         return self._real_estate_reader_
 
@@ -126,8 +128,9 @@ class Processor(object):
     def municipality_reader(self):
         """
 
-        :return: The municipality reader reader instance.
-        :rtype municipality_reader: pyramid_oereb.lib.readers.municipality.MunicipalityReader
+        Returns:
+            pyramid_oereb.lib.readers.municipality.MunicipalityReader: The municipality reader
+            reader instance.
         """
         return self._municipality_reader_
 
@@ -135,8 +138,8 @@ class Processor(object):
     def exclusion_of_liability_reader(self):
         """
 
-        :return: The exclusion of liability reader reader instance.
-        :rtype municipality_reader:
+        Returns:
+            : The exclusion of liability reader reader instance.
             pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader
         """
         return self._exclusion_of_liability_reader_
@@ -145,8 +148,9 @@ class Processor(object):
     def glossary_reader(self):
         """
 
-        :return: The glossary reader reader instance.
-        :rtype municipality_reader: pyramid_oereb.lib.readers.glossary.GlossaryReader
+        Returns:
+            pyramid_oereb.lib.readers.glossary.GlossaryReader: The glossary reader reader
+            instance.
         """
         return self._glossary_reader_
 
@@ -154,8 +158,9 @@ class Processor(object):
     def plr_sources(self):
         """
 
-        :return: The list of plr source instances.
-        :rtype plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        Returns:
+            listofpyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource: The list of plr
+            source instances.
         """
         return self._plr_sources_
 
@@ -163,8 +168,8 @@ class Processor(object):
     def extract_reader(self):
         """
 
-        :return: The extract reader instance.
-        :rtype extract_reader: pyramid_oereb.lib.readers.extract.ExtractReader
+        Returns:
+            pyramid_oereb.lib.readers.extract.ExtractReader: The extract reader instance.
         """
         return self._extract_reader_
 
@@ -177,8 +182,9 @@ class Processor(object):
                 estate reader to obtain the real estates record.
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract
                 request.
-        :return: The generated extract record.
-        :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
+
+        Returns:
+            pyramid_oereb.lib.records.extract.ExtractRecord: The generated extract record.
         """
         municipalities = self._municipality_reader_.read()
         exclusions_of_liability = self._exclusion_of_liability_reader_.read()

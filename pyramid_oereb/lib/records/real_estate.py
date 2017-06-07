@@ -63,8 +63,9 @@ class RealEstateRecord(object):
     def get_fields(cls):
         """
         Returns a list of available field names.
-        :return:    List of available field names.
-        :rtype:     list
+
+        Returns:
+            list:List of available field names.
         """
         return [
             'type',
@@ -86,8 +87,9 @@ class RealEstateRecord(object):
     def to_extract(self):
         """
         Returns a dictionary with all available values needed for the extract.
-        :return: Dictionary with values for the extract.
-        :rtype: dict
+
+        Returns:
+            dict: Dictionary with values for the extract.
         """
         extract = dict()
         for key in [

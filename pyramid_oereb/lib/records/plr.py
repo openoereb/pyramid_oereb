@@ -21,8 +21,8 @@ class EmptyPlrRecord(object):
         """
         Returns a list of available field names.
 
-        :return: List of available field names.
-        :rtype: list of str
+        Returns:
+            listofstr: List of available field names.
         """
         return [
             'theme',
@@ -33,8 +33,8 @@ class EmptyPlrRecord(object):
         """
         Returns a dictionary with all available values needed for the extract.
 
-        :return: Dictionary with values for the extract.
-        :rtype: dict
+        Returns:
+            dict: Dictionary with values for the extract.
         """
         extract = dict()
         for key in [
@@ -122,8 +122,9 @@ class PlrRecord(EmptyPlrRecord):
     def published(self):
         """
         Returns true if its not a future PLR.
-        :return: True if PLR is published.
-        :rtype: bool
+
+        Returns:
+            bool: True if PLR is published.
         """
         return not self.published_from > datetime.now().date()
 
@@ -131,8 +132,9 @@ class PlrRecord(EmptyPlrRecord):
     def get_fields(cls):
         """
         Returns a list of available field names.
-        :return: List of available field names.
-        :rtype: list of str
+
+        Returns:
+            listofstr: List of available field names.
         """
         return [
             'theme',
@@ -154,8 +156,9 @@ class PlrRecord(EmptyPlrRecord):
     def to_extract(self):
         """
         Returns a dictionary with all available values needed for the extract.
-        :return: Dictionary with values for the extract.
-        :rtype: dict
+
+        Returns:
+            dict: Dictionary with values for the extract.
         """
         extract = dict()
         for key in [

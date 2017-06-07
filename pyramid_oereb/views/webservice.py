@@ -29,8 +29,8 @@ class PlrWebservice(object):
         """
         Returns the available versions of this service.
 
-        :return: The available service versions.
-        :rtype:  dict
+        Returns:
+            dict: The available service versions.
         """
         endpoint = self._request_.application_url
         if route_prefix:
@@ -50,8 +50,8 @@ class PlrWebservice(object):
         """
         Returns the capabilities of this service.
 
-        :return: The service capabilities.
-        :rtype:  dict
+        Returns:
+            dict: The service capabilities.
         """
         themes = list()
         for theme in Config.get_themes():
@@ -79,8 +79,8 @@ class PlrWebservice(object):
         """
         Returns a list with the matched EGRIDs for the given coordinates.
 
-        :return: The matched EGRIDs.
-        :rtype:  list of dict
+        Returns:
+            listofdict: The matched EGRIDs.
         """
         xy = self._request_.params.get('XY')
         gnss = self._request_.params.get('GNSS')
@@ -100,8 +100,8 @@ class PlrWebservice(object):
         """
         Returns a list with the matched EGRIDs for the given NBIdent and property number.
 
-        :return: The matched EGRIDs.
-        :rtype:  list of dict
+        Returns:
+            listofdict: The matched EGRIDs.
         """
         identdn = self._request_.matchdict.get('identdn')
         number = self._request_.matchdict.get('number')
@@ -118,8 +118,8 @@ class PlrWebservice(object):
         """
         Returns a list with the matched EGRIDs for the given postal address.
 
-        :return: The matched EGRIDs.
-        :rtype:  list of dict
+        Returns:
+            listofdict: The matched EGRIDs.
         """
         postalcode = self._request_.matchdict.get('postalcode')
         localisation = self._request_.matchdict.get('localisation')
@@ -134,8 +134,8 @@ class PlrWebservice(object):
         """
         Returns the extract in the specified format and flavour.
 
-        :return: The requested extract.
-        :rtype:  dict
+        Returns:
+            dict: The requested extract.
         """
         params = self.__validate_extract_params__()
         processor = self._request_.pyramid_oereb_processor
@@ -195,8 +195,8 @@ class PlrWebservice(object):
         """
         Validates the input parameters for get_extract_by_id.
 
-        :return: The validated parameters.
-        :rtype: pyramid_oereb.views.webservice.Parameter
+        Returns:
+            pyramid_oereb.views.webservice.Parameter: The validated parameters.
         """
 
         # Check flavour
@@ -271,8 +271,10 @@ class PlrWebservice(object):
         Args:
             coord (tuple): The coordinates to transform (x, y).
             source_crs (intorstr): The source CRS
-        :return: The transformed coordinates as Point.
-        :rtype: shapely.geometry.Point or shapely.geometry.Polygon
+
+        Returns:
+            shapely.geometry.Pointorshapely.geometry.Polygon: The transformed coordinates as
+            Point.
         """
         epsg = 'epsg:{0}'
         srid = Config.get('srid')
@@ -287,8 +289,9 @@ class PlrWebservice(object):
         Args:
             records (listofpyramid_oereb.lib.records.real_estate.RealEstateRecord): List of real
                 estate records.
-        :return: Valid GetEGRID response.
-        :rtype: list of dict
+
+        Returns:
+            listofdict: Valid GetEGRID response.
         """
         response = list()
         for r in records:
@@ -308,8 +311,10 @@ class PlrWebservice(object):
             xy (str): XY parameter from the getegrid request.
             buffer_dist (floatorNone): Distance for the buffer applied to the transformed
                 point.If None, no buffer will be applied.
-        :return: The transformed coordinates as Point.
-        :rtype: shapely.geometry.Point or shapely.geometry.Polygon
+
+        Returns:
+            shapely.geometry.Pointorshapely.geometry.Polygon: The transformed coordinates as
+            Point.
         """
         coords = xy.split(',')
         x = float(coords[0])
@@ -330,8 +335,10 @@ class PlrWebservice(object):
 
         Args:
             gnss (str): GNSS parameter from the getegrid request.
-        :return: The transformed coordinates as Point.
-        :rtype: shapely.geometry.Point or shapely.geometry.Polygon
+
+        Returns:
+            shapely.geometry.Pointorshapely.geometry.Polygon: The transformed coordinates as
+            Point.
         """
         coords = gnss.split(',')
         x = float(coords[0])
@@ -415,8 +422,8 @@ class Parameter(object):
     def flavour(self):
         """
 
-        :return: The requested flavour.
-        :rtype: str
+        Returns:
+            str: The requested flavour.
         """
         return self.__flavour__
 
@@ -424,8 +431,8 @@ class Parameter(object):
     def format(self):
         """
 
-        :return: The requested format.
-        :rtype: str
+        Returns:
+            str: The requested format.
         """
         return self.__format__
 
@@ -433,8 +440,8 @@ class Parameter(object):
     def geometry(self):
         """
 
-        :return: Extract requested with geometries.
-        :rtype: bool
+        Returns:
+            bool: Extract requested with geometries.
         """
         return self.__geometry__
 
@@ -442,8 +449,8 @@ class Parameter(object):
     def images(self):
         """
 
-        :return: Extract requested with images.
-        :rtype: bool
+        Returns:
+            bool: Extract requested with images.
         """
         return self.__images__
 
@@ -451,8 +458,8 @@ class Parameter(object):
     def identdn(self):
         """
 
-        :return: The requested IdentDN.
-        :rtype: str
+        Returns:
+            str: The requested IdentDN.
         """
         return self.__identdn__
 
@@ -460,8 +467,8 @@ class Parameter(object):
     def number(self):
         """
 
-        :return: The requested number.
-        :rtype: str
+        Returns:
+            str: The requested number.
         """
         return self.__number__
 
@@ -469,8 +476,8 @@ class Parameter(object):
     def egrid(self):
         """
 
-        :return: The requested EGRID.
-        :rtype: str
+        Returns:
+            str: The requested EGRID.
         """
         return self.__egrid__
 
@@ -478,8 +485,8 @@ class Parameter(object):
     def language(self):
         """
 
-        :return: The requested language.
-        :rtype: str
+        Returns:
+            str: The requested language.
         """
         return self.__language__
 
@@ -487,8 +494,8 @@ class Parameter(object):
     def topics(self):
         """
 
-        :return: The requested topics.
-        :rtype: list of str
+        Returns:
+            listofstr: The requested topics.
         """
         return self.__topics__
 
@@ -498,8 +505,9 @@ class Parameter(object):
 
         Args:
             theme_code (str): The PLR theme code.
-        :return: True if the topic should be skipped.
-        :rtype: bool
+
+        Returns:
+            bool: True if the topic should be skipped.
         """
         if not self.topics or 'ALL' in self.topics:
             return False

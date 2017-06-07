@@ -30,8 +30,9 @@ class Renderer(Base):
             value (tuple): A tuple containing the generated extract record and the params
                 dictionary.
             system (dict): The available system properties.
-        :return: The JSON encoded extract.
-        :rtype: str
+
+        Returns:
+            str: The JSON encoded extract.
         """
         response = self.get_response(system)
         if isinstance(response, Response) and response.content_type == response.default_content_type:
@@ -48,8 +49,9 @@ class Renderer(Base):
 
         Args:
             extract (pyramid_oereb.lib.records.extract.ExtractRecord): The extract record
-        :return: The JSON encoded extract.
-        :rtype: str
+
+        Returns:
+            str: The JSON encoded extract.
         """
 
         if not isinstance(self._params_, Parameter):
@@ -117,8 +119,9 @@ class Renderer(Base):
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate record to be formatted.
-        :return: The formatted dictionary for rendering.
-        :rtype: dict
+
+        Returns:
+            dict: The formatted dictionary for rendering.
         """
 
         assert isinstance(self._params_, Parameter)
@@ -167,8 +170,9 @@ class Renderer(Base):
         Args:
             plrs (listofpyramid_oereb.lib.records.plr.PlrRecord): The public law restriction
                 records to be formatted.
-        :return: The formatted dictionaries for rendering.
-        :rtype: list of dict
+
+        Returns:
+            listofdict: The formatted dictionaries for rendering.
         """
 
         assert isinstance(self._params_, Parameter)
@@ -229,8 +233,9 @@ class Renderer(Base):
         Args:
             document (pyramid_oereb.lib.records.documents.DocumentBaseRecord): The document
                 record to be formatted.
-        :return: The formatted dictionary for rendering.
-        :rtype: dict
+
+        Returns:
+            dict: The formatted dictionary for rendering.
         """
 
         document_dict = dict()
@@ -290,8 +295,9 @@ class Renderer(Base):
         Args:
             geometry (pyramid_oereb.lib.records.geometry.GeometryRecord): The geometry record to
                 be formatted.
-        :return: The formatted dictionary for rendering.
-        :rtype: dict
+
+        Returns:
+            dict: The formatted dictionary for rendering.
         """
         plr_limits = Config.get('plr_limits')
         if geometry.geom.type in plr_limits.get('point').get('types'):
@@ -323,8 +329,9 @@ class Renderer(Base):
         Args:
             office (pyramid_oereb.lib.records.office.OfficeRecord): The office record to be
                 formatted.
-        :return: The formatted dictionary for rendering.
-        :rtype: dict
+
+        Returns:
+            dict: The formatted dictionary for rendering.
         """
         office_dict = {
             'Name': self.get_localized_text(office.name)
@@ -354,8 +361,9 @@ class Renderer(Base):
         Args:
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme record to be
                 formatted.
-        :return: The formatted dictionary for rendering.
-        :rtype: dict
+
+        Returns:
+            dict: The formatted dictionary for rendering.
         """
         theme_dict = {
             'Code': theme.code,
@@ -370,8 +378,9 @@ class Renderer(Base):
         Args:
             map_ (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service
                 record to be formatted.
-        :return: The formatted dictionary for rendering.
-        :rtype: dict
+
+        Returns:
+            dict: The formatted dictionary for rendering.
         """
         map_dict = dict()
         if map_.image:
@@ -392,8 +401,9 @@ class Renderer(Base):
         Args:
             legend_entry (pyramid_oereb.lib.records.view_service.LegendEntryRecord): The legend
                 entry record to be formatted.
-        :return: The formatted dictionary for rendering.
-        :rtype: dict
+
+        Returns:
+            dict: The formatted dictionary for rendering.
         """
         legend_entry_dict = {
             'Symbol': legend_entry.symbol,
@@ -415,8 +425,9 @@ class Renderer(Base):
 
         Args:
             geom (shapely.geometry.base.BaseGeometry): The geometry object to be formatted.
-        :return: The formatted geometry.
-        :rtype: dict
+
+        Returns:
+            dict: The formatted geometry.
         """
         geom_dict = {
             'coordinates': mapping(geom)['coordinates'],
@@ -434,8 +445,9 @@ class Renderer(Base):
 
         Args:
             values (strordict): The multilingual values encoded as JSON.
-        :return: List of dictionaries containing the multilingual representation.
-        :rtype: list of dict
+
+        Returns:
+            listofdict: List of dictionaries containing the multilingual representation.
         """
         text = list()
         if isinstance(values, dict):

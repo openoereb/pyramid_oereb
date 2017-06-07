@@ -41,8 +41,8 @@ class DatabaseAdapter(object):
         """
         Returns a dictionary with the available connections.
 
-        :return: The available connections.
-        :rtype: dict
+        Returns:
+            dict: The available connections.
         """
         return self._connections_
 
@@ -56,8 +56,9 @@ class DatabaseAdapter(object):
             request (pyramid.request.RequestorNone): The request of the underlying pyramid
                 application. This can be useful to handle errorcases and treat sessions in
                 the right way.
-        :return: The requested clean session instance ready for use
-        :rtype: sqlalchemy.orm.Session
+
+        Returns:
+            sqlalchemy.orm.Session: The requested clean session instance ready for use
         :raises: KeyError
         """
         if key in self._connections_:

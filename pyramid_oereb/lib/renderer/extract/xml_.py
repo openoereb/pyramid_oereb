@@ -31,8 +31,9 @@ class Renderer(Base):
             value (tuple): A tuple containing the generated extract record and the params
                 dictionary.
             system (dict): The available system properties.
-        :return: The XML encoded extract.
-        :rtype: str
+
+        Returns:
+            str: The XML encoded extract.
         """
         response = self.get_response(system)
         if isinstance(response, Response) and response.content_type == response.default_content_type:

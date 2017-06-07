@@ -24,8 +24,9 @@ class MunicipalityRecord(object):
     def get_fields(cls):
         """
         Returns a list of available field names.
-        :return: List of available field names.
-        :rtype: list of str
+
+        Returns:
+            listofstr: List of available field names.
         """
         return [
             'fosnr',

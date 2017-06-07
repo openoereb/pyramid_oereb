@@ -85,8 +85,8 @@ class ExtractRecord(object):
         """
         Returns a list of available field names.
 
-        :return: List of available field names.
-        :rtype: list of str
+        Returns:
+            listofstr: List of available field names.
         """
         return [
             'extract_identifier',
@@ -109,8 +109,8 @@ class ExtractRecord(object):
         """
         Returns a dictionary with all available values needed for the extract.
 
-        :return: Dictionary with values for the extract.
-        :rtype: dict
+        Returns:
+            dict: Dictionary with values for the extract.
         """
         extract = dict()
         for key in [

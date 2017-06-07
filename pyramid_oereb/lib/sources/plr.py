@@ -61,8 +61,8 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         """
         Return the info dictionary.
 
-        :return: The info dictionary.
-        :rtype: dict
+        Returns:
+            dict: The info dictionary.
         """
         return self._plr_info_
 

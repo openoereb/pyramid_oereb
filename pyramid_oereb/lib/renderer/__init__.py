@@ -22,8 +22,9 @@ class Base(object):
 
         Args:
             system (dict): The available system properties.
-        :return: The response object.
-        :rtype: pyramid.response.Response or None
+
+        Returns:
+            pyramid.response.ResponseorNone: The response object.
         """
         request = system.get('request')
         if isinstance(request, Request) or isinstance(request, DummyRequest):
@@ -37,8 +38,9 @@ class Base(object):
 
         Args:
             system (dict): The available system properties.
-        :return: The request object.
-        :rtype: pyramid.request.Request or None
+
+        Returns:
+            pyramid.request.RequestorNone: The request object.
         """
         request = system.get('request')
         if isinstance(request, Request) or isinstance(request, DummyRequest):
@@ -52,8 +54,9 @@ class Base(object):
 
         Args:
             dt (datetime.dateordatetime.timeordatetime.datetime): The datetime object.
-        :return: The formatted date/time.
-        :rtype: str
+
+        Returns:
+            str: The formatted date/time.
         """
         if isinstance(dt, datetime.date) or isinstance(dt, datetime.time)\
                 or isinstance(dt, datetime.datetime):
@@ -64,7 +67,7 @@ class Base(object):
     def info(self):
         """
 
-        :return: The passed renderer info object.
-        :rtype: pyramid.interfaces.IRendererInfo
+        Returns:
+            pyramid.interfaces.IRendererInfo: The passed renderer info object.
         """
         return self._info_

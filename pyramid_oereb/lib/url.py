@@ -9,8 +9,9 @@ def parse_url(url):
 
         Args:
         url (str): The URL
-    :return: the parsed URL (SplitResult, params)
-    :rtype: (urlparse.SplitResult, dict)
+
+        Returns:
+        (urlparse.SplitResult,dict): the parsed URL (SplitResult, params)
     """
     url = urlsplit(url)
     params = parse_qs(url.query)

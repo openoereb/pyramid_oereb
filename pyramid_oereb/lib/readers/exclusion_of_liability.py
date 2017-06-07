@@ -29,8 +29,10 @@ class ExclusionOfLiabilityReader(object):
             id (int): The identifier of the entry.
             title (unicode): The label of the disclaimer message.
             content (unicode): The disclaimer message.
-        :returns: The list of found records.
-        :rtype: list of pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabiltyRecord
+
+        Returns:
+            listofpyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiab iltyRecord:
+            The list of found records.
         """
         self._source_.read()
         return self._source_.records

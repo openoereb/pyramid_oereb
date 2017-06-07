@@ -33,8 +33,9 @@ class LegendEntryRecord(object):
     def get_fields(cls):
         """
         Returns a list of available field names.
-        :return: List of available field names.
-        :rtype: list of str
+
+        Returns:
+            listofstr: List of available field names.
         """
         return [
             'symbol',
@@ -49,8 +50,9 @@ class LegendEntryRecord(object):
     def to_extract(self):
         """
         Returns a dictionary with all available values needed for the extract.
-        :return: Dictionary with values for the extract.
-        :rtype: dict
+
+        Returns:
+            dict: Dictionary with values for the extract.
         """
         extract = dict()
         for key in [
@@ -93,8 +95,9 @@ class ViewServiceRecord(object):
     def get_fields(cls):
         """
         Returns a list of available field names.
-        :return: List of available field names.
-        :rtype: list of str
+
+        Returns:
+            listofstr: List of available field names.
         """
         return [
             'link_wms',
@@ -108,8 +111,9 @@ class ViewServiceRecord(object):
 
         Args:
             type_code (str): Filter referenced legend entries by the specified type code.
-        :return: Dictionary with values for the extract.
-        :rtype: dict
+
+        Returns:
+            dict: Dictionary with values for the extract.
         """
         extract = dict()
         for key in ['link_wms', 'legend_web']:
@@ -160,8 +164,9 @@ class ViewServiceRecord(object):
         Args:
             real_estate (pyramid_oereb.lob.records.real_estate.RealEstateRecord): The Real
                 Estate record.
-        :return: The url used to query the WMS server.
-        :rtype: str
+
+        Returns:
+            str: The url used to query the WMS server.
         """
 
         assert real_estate.limit is not None

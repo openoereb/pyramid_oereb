@@ -23,8 +23,10 @@ class MunicipalityReader(object):
     def read(self):
         """
         The central read accessor method to get all desired records from configured source.
-        :return: the list of all found records
-        :rtype: list of pyramid_oereb.lib.records.municipality.MunicipalityRecord
+
+        Returns:
+            listofpyramid_oereb.lib.records.municipality.MunicipalityRecord: the list of all
+            found records
         """
         self._source_.read()
         return self._source_.records

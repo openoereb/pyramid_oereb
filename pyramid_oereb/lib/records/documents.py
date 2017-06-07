@@ -21,8 +21,9 @@ class DocumentBaseRecord(object):
     def published(self):
         """
         Returns true if its not a future document.
-        :return: True if document is published.
-        :rtype: bool
+
+        Returns:
+            bool: True if document is published.
         """
         return not self.published_from > datetime.now().date()
 
@@ -30,8 +31,9 @@ class DocumentBaseRecord(object):
     def get_fields(cls):
         """
         Returns a list of available field names.
-        :return: List of available field names.
-        :rtype: list of str
+
+        Returns:
+            listofstr: List of available field names.
         """
         return [
             'text_at_web',
@@ -42,8 +44,9 @@ class DocumentBaseRecord(object):
     def to_extract(self):
         """
         Returns a dictionary with all available values needed for the extract.
-        :return: Dictionary with values for the extract.
-        :rtype: dict
+
+        Returns:
+            dict: Dictionary with values for the extract.
         """
         extract = dict()
         for key in ['text_at_web', 'legal_state']:
@@ -74,8 +77,9 @@ class ArticleRecord(DocumentBaseRecord):
     def get_fields(cls):
         """
         Returns a list of available field names.
-        :return: List of available field names.
-        :rtype: list of str
+
+        Returns:
+            listofstr: List of available field names.
         """
         return [
             'text_at_web',
@@ -88,8 +92,9 @@ class ArticleRecord(DocumentBaseRecord):
     def to_extract(self):
         """
         Returns a dictionary with all available values needed for the extract.
-        :return: Dictionary with values for the extract.
-        :rtype: dict
+
+        Returns:
+            dict: Dictionary with values for the extract.
         """
         extract = super(ArticleRecord, self).to_extract()
         for key in ['number', 'text']:
@@ -150,8 +155,9 @@ class DocumentRecord(DocumentBaseRecord):
     def get_fields(cls):
         """
         Returns a list of available field names.
-        :return: List of available field names.
-        :rtype: list of str
+
+        Returns:
+            listofstr: List of available field names.
         """
         return [
             'text_at_web',
@@ -173,8 +179,9 @@ class DocumentRecord(DocumentBaseRecord):
     def to_extract(self):
         """
         Returns a dictionary with all available values needed for the extract.
-        :return: Dictionary with values for the extract.
-        :rtype: dict
+
+        Returns:
+            dict: Dictionary with values for the extract.
         """
         extract = super(DocumentRecord, self).to_extract()
 

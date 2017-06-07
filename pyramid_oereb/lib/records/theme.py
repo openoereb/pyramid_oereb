@@ -19,8 +19,8 @@ class ThemeRecord(object):
         """
         Returns a listing of the record's fields.
 
-        :return: The available fields.
-        :rtype: list of str
+        Returns:
+            listofstr: The available fields.
         """
         return [
             'code',

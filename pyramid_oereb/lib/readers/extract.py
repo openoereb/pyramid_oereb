@@ -29,8 +29,9 @@ class ExtractReader(object):
         """
         Returns the authority responsible for the PLR cadastre.
 
-        :return: The authority responsible for the PLR cadastre.
-        :rtype: pyramid_oereb.lib.records.office.OffcieRecord
+        Returns:
+            pyramid_oereb.lib.records.office.OffcieRecord: The authority responsible for the PLR
+            cadastre.
         """
         return self._plr_cadastre_authority_
 
@@ -38,8 +39,8 @@ class ExtractReader(object):
     def logo_plr_cadastre(self):
         """
 
-        :return: The logo for oereb as a LogoRecord.
-        :rtype: pyramid_oereb.lib.records.logo.LogoRecord
+        Returns:
+            pyramid_oereb.lib.records.logo.LogoRecord: The logo for oereb as a LogoRecord.
         """
         return self._logos_.get('oereb')
 
@@ -47,8 +48,8 @@ class ExtractReader(object):
     def federal_logo(self):
         """
 
-        :return: The federal logo as a LogoRecord.
-        :rtype: pyramid_oereb.lib.records.logo.LogoRecord
+        Returns:
+            pyramid_oereb.lib.records.logo.LogoRecord: The federal logo as a LogoRecord.
         """
         return self._logos_.get('confederation')
 
@@ -56,8 +57,8 @@ class ExtractReader(object):
     def cantonal_logo(self):
         """
 
-        :return: The cantonal logos as a LogoRecord.
-        :rtype: pyramid_oereb.lib.records.logo.LogoRecord
+        Returns:
+            pyramid_oereb.lib.records.logo.LogoRecord: The cantonal logos as a LogoRecord.
         """
         return self._logos_.get('canton')
 
@@ -72,8 +73,10 @@ class ExtractReader(object):
                 logo.
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract
                 request.
-        :return: The extract record containing all gathered data.
-        :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
+
+        Returns:
+            pyramid_oereb.lib.records.extract.ExtractRecord: The extract record containing all
+            gathered data.
         """
 
         for plr_source in self._plr_sources_:

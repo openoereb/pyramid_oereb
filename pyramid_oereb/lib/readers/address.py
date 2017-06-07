@@ -26,8 +26,9 @@ class AddressReader(object):
             street_name (unicode): The name of the street for the desired address.
             zip_code (int): The postal zipcode for the desired address.
             street_number (str): The house or so called street number of the desired address.
-        :returns: The list of found records.
-        :rtype: list of pyramid_oereb.lib.records.address.AddressRecord
+
+        Returns:
+            listofpyramid_oereb.lib.records.address.AddressRecord: The list of found records.
         """
         self._source_.read(street_name, zip_code, street_number)
         return self._source_.records

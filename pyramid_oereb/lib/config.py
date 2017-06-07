@@ -16,8 +16,9 @@ def parse(cfg_file, cfg_section):
         Args:
         cfg_file (str): The YAML file to be parsed.
         cfg_section (str): The section to be returned.
-    :return: The parsed section as dictionary.
-    :rtype: dict
+
+        Returns:
+        dict: The parsed section as dictionary.
     """
     if cfg_file is None:
         raise ConfigurationError('Missing configuration parameter "pyramid_oereb.cfg.file".')
@@ -63,8 +64,8 @@ class Config(object):
         """
         Returns a list of available themes.
 
-        :return: The available themes.
-        :rtype: list of pyramid_oereb.lib.records.theme.ThemeRecord
+        Returns:
+            listofpyramid_oereb.lib.records.theme.ThemeRecord: The available themes.
         """
         assert Config._config is not None
 
@@ -85,8 +86,10 @@ class Config(object):
 
         Args:
             code (str): The theme's code.
-        :return: The theme with the specified code.
-        :rtype: pyramid_oereb.lib.records.theme.ThemeRecord or None
+
+        Returns:
+            pyramid_oereb.lib.records.theme.ThemeRecordorNone: The theme with the specified
+            code.
         """
         assert Config._config is not None
 
@@ -116,8 +119,8 @@ class Config(object):
         """
         Returns a list of available crs.
 
-        :return: The available crs.
-        :rtype: list
+        Returns:
+            list: The available crs.
         """
         assert Config._config is not None
 
@@ -132,8 +135,8 @@ class Config(object):
         """
         Returns a list of available languages.
 
-        :return: The available languages.
-        :rtype: list
+        Returns:
+            list: The available languages.
         """
         assert Config._config is not None
 
@@ -148,8 +151,8 @@ class Config(object):
         """
         Returns a list of available flavours.
 
-        :return: The available flavours.
-        :rtype: list
+        Returns:
+            list: The available flavours.
         """
         assert Config._config is not None
 
@@ -164,8 +167,8 @@ class Config(object):
         """
         Returns a dictionary of the configured real estate settings.
 
-        :return: The configured real estate settings.
-        :rtype: dict
+        Returns:
+            dict: The configured real estate settings.
         """
         assert Config._config is not None
 
@@ -176,8 +179,8 @@ class Config(object):
         """
         Returns a dictionary of the configured address settings.
 
-        :return: The configured address settings.
-        :rtype: dict
+        Returns:
+            dict: The configured address settings.
         """
         assert Config._config is not None
 
@@ -188,8 +191,8 @@ class Config(object):
         """
         Returns a dictionary of the configured glossary settings.
 
-        :return: The configured glossary settings.
-        :rtype: dict
+        Returns:
+            dict: The configured glossary settings.
         """
         assert Config._config is not None
 
@@ -200,8 +203,8 @@ class Config(object):
         """
         Returns a dictionary of the configured exclusion_of_liability settings.
 
-        :return: The configured exclusion_of_liability settings.
-        :rtype: dict
+        Returns:
+            dict: The configured exclusion_of_liability settings.
         """
         assert Config._config is not None
 
@@ -212,8 +215,8 @@ class Config(object):
         """
         Returns a dictionary of the configured municipality settings.
 
-        :return: The configured municipality settings.
-        :rtype: dict
+        Returns:
+            dict: The configured municipality settings.
         """
         assert Config._config is not None
 
@@ -224,8 +227,8 @@ class Config(object):
         """
         Returns a dictionary of the configured extract settings.
 
-        :return: The configured extract settings.
-        :rtype: dict
+        Returns:
+            dict: The configured extract settings.
         """
         assert Config._config is not None
 
@@ -236,8 +239,9 @@ class Config(object):
         """
         Returns an office record for the configured PLR cadastre authority.
 
-        :return: The configured PLR cadastre authority.
-        :rtype: pyramid_oereb.lib.records.office.OfficeRecord
+        Returns:
+            pyramid_oereb.lib.records.office.OfficeRecord: The configured PLR cadastre
+            authority.
         """
         assert Config._config is not None
 
@@ -259,8 +263,8 @@ class Config(object):
         """
         Returns a dictionary of the configured file path's to the logos.
 
-        :return: The configured paths to the logos wrapped in a dictionary.
-        :rtype: dict
+        Returns:
+            dict: The configured paths to the logos wrapped in a dictionary.
         """
         assert Config._config is not None
 
@@ -295,7 +299,9 @@ class Config(object):
             key (str): Configuration parameter name.
             default (*): Default value if the specified parameter is not defined. Defaults to
                 None.
-        :return: The specified configuration or default value
+
+        Returns:
+            *: The specified configuration or default value
         """
         assert Config._config is not None
 
@@ -313,7 +319,9 @@ class Config(object):
             path (str): Dot separated path of the wonted object.
             default (dict): Default dictionary values of the object. Defaults to {}.
             required (list): The list of required sub values in the object. Defaults to [].
-        :return: The specified configuration object.
+
+        Returns:
+            *: The specified configuration object.
         """
 
         return Config._get_object_path(
