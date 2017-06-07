@@ -24,7 +24,7 @@ class Base(object):
             system (dict): The available system properties.
 
         Returns:
-            pyramid.response.ResponseorNone: The response object.
+            pyramid.response.Response or None: The response object.
         """
         request = system.get('request')
         if isinstance(request, Request) or isinstance(request, DummyRequest):
@@ -40,7 +40,7 @@ class Base(object):
             system (dict): The available system properties.
 
         Returns:
-            pyramid.request.RequestorNone: The request object.
+            pyramid.request.Request or None: The request object.
         """
         request = system.get('request')
         if isinstance(request, Request) or isinstance(request, DummyRequest):

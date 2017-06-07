@@ -50,7 +50,7 @@ def includeme(config):
     """
     By including this in your pyramid web app you can easily provide a running OEREB Server
 
-        Args:
+    Args:
         config (Configurator): The pyramid apps config object
     """
 

@@ -53,13 +53,15 @@ class DatabaseAdapter(object):
         Args:
             key (str): The key to identify the desired connection in the pool of available
                 connections.
-            request (pyramid.request.RequestorNone): The request of the underlying pyramid
+            request (pyramid.request.Request or None): The request of the underlying pyramid
                 application. This can be useful to handle errorcases and treat sessions in
                 the right way.
 
         Returns:
             sqlalchemy.orm.Session: The requested clean session instance ready for use
-        :raises: KeyError
+
+        Raises:
+            KeyError
         """
         if key in self._connections_:
             session = self._connections_.get(key).get('session')

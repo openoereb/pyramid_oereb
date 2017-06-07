@@ -9,12 +9,10 @@ class ExclusionOfLiabilityReader(object):
         The central reader for the exclusion of liability definitions.
 
         Args:
-            dotted_source_class_path (stror): The path to the class which represents the source
-                used by thisreader. This class must exist and it must implement basic source
-                behaviour.
-            pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabiltyBaseSource
-
-        Args:
+            dotted_source_class_path (str or
+                pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabiltyBaseSource):
+                The path to the class which represents the source used by thisreader. This
+                class must exist and it must implement basic source behaviour.
             (kwargs): kwargs, which are necessary as configuration parameter for the above by
                 dotted namedefined class.
         """
@@ -31,7 +29,7 @@ class ExclusionOfLiabilityReader(object):
             content (unicode): The disclaimer message.
 
         Returns:
-            listofpyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiab iltyRecord:
+            list of pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabiltyRecord:
             The list of found records.
         """
         self._source_.read()

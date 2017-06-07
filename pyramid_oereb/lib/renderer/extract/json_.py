@@ -168,11 +168,11 @@ class Renderer(Base):
         Formats a public law restriction record for rendering according to the federal specification.
 
         Args:
-            plrs (listofpyramid_oereb.lib.records.plr.PlrRecord): The public law restriction
+            plrs (list of pyramid_oereb.lib.records.plr.PlrRecord): The public law restriction
                 records to be formatted.
 
         Returns:
-            listofdict: The formatted dictionaries for rendering.
+            list of dict: The formatted dictionaries for rendering.
         """
 
         assert isinstance(self._params_, Parameter)
@@ -444,10 +444,10 @@ class Renderer(Base):
         TODO: Fix implementation when multilingual values are available by respecting self.language.
 
         Args:
-            values (strordict): The multilingual values encoded as JSON.
+            values (str or dict): The multilingual values encoded as JSON.
 
         Returns:
-            listofdict: List of dictionaries containing the multilingual representation.
+            list of dict: List of dictionaries containing the multilingual representation.
         """
         text = list()
         if isinstance(values, dict):

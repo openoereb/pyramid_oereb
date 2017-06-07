@@ -22,7 +22,7 @@ class EmptyPlrRecord(object):
         Returns a list of available field names.
 
         Returns:
-            listofstr: List of available field names.
+            list of str: List of available field names.
         """
         return [
             'theme',
@@ -73,11 +73,11 @@ class PlrRecord(EmptyPlrRecord):
             type_code_list (str): URL to the PLR's list of type codes.
             view_service (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view
                 service instance associated with this record.
-            basis (listofPlrRecord): List of PLR records as basis for this record.
-            refinements (listofPlrRecord): List of PLR records as refinement of this record.
-            documents (listofpyramid_oereb.lib.records.documents.DocumentBaseRecord): List of
+            basis (list of PlrRecord): List of PLR records as basis for this record.
+            refinements (list of PlrRecord): List of PLR records as refinement of this record.
+            documents (list of pyramid_oereb.lib.records.documents.DocumentBaseRecord): List of
                 documents associated with this record.
-            geometries (listofpyramid_oereb.lib.records.geometry.GeometryRecord): List of
+            geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of
                 geometry records associated with this record.
             area (decimal): Area of the restriction touching the property calculated by the
                 processor.
@@ -85,7 +85,7 @@ class PlrRecord(EmptyPlrRecord):
                 percent.
             symbol (binary): Symbol of the restriction defined for the legend entry - added on
                 the fly.
-            info (dictorNone): The information read from the config
+            info (dict or None): The information read from the config
         :raises TypeError: Raised on missing field value.
         """
 
@@ -134,7 +134,7 @@ class PlrRecord(EmptyPlrRecord):
         Returns a list of available field names.
 
         Returns:
-            listofstr: List of available field names.
+            list of str: List of available field names.
         """
         return [
             'theme',

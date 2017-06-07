@@ -35,7 +35,7 @@ class LegendEntryRecord(object):
         Returns a list of available field names.
 
         Returns:
-            listofstr: List of available field names.
+            list of str: List of available field names.
         """
         return [
             'symbol',
@@ -82,7 +82,7 @@ class ViewServiceRecord(object):
         Args:
             link_wms (str): The link URL to the actual service (WMS)
             legend_web (str): The link URL to the actual legend service (WMS get legend)
-            legends (listofLegendEntry): A list of all relevant legend entries.
+            legends (list of LegendEntry): A list of all relevant legend entries.
         """
         self.link_wms = link_wms
         self.legend_web = legend_web
@@ -97,7 +97,7 @@ class ViewServiceRecord(object):
         Returns a list of available field names.
 
         Returns:
-            listofstr: List of available field names.
+            list of str: List of available field names.
         """
         return [
             'link_wms',

@@ -80,7 +80,7 @@ class PlrWebservice(object):
         Returns a list with the matched EGRIDs for the given coordinates.
 
         Returns:
-            listofdict: The matched EGRIDs.
+            list of dict: The matched EGRIDs.
         """
         xy = self._request_.params.get('XY')
         gnss = self._request_.params.get('GNSS')
@@ -101,7 +101,7 @@ class PlrWebservice(object):
         Returns a list with the matched EGRIDs for the given NBIdent and property number.
 
         Returns:
-            listofdict: The matched EGRIDs.
+            list of dict: The matched EGRIDs.
         """
         identdn = self._request_.matchdict.get('identdn')
         number = self._request_.matchdict.get('number')
@@ -119,7 +119,7 @@ class PlrWebservice(object):
         Returns a list with the matched EGRIDs for the given postal address.
 
         Returns:
-            listofdict: The matched EGRIDs.
+            list of dict: The matched EGRIDs.
         """
         postalcode = self._request_.matchdict.get('postalcode')
         localisation = self._request_.matchdict.get('localisation')
@@ -273,7 +273,7 @@ class PlrWebservice(object):
             source_crs (intorstr): The source CRS
 
         Returns:
-            shapely.geometry.Pointorshapely.geometry.Polygon: The transformed coordinates as
+            shapely.geometry.Point or shapely.geometry.Polygon: The transformed coordinates as
             Point.
         """
         epsg = 'epsg:{0}'
@@ -287,11 +287,11 @@ class PlrWebservice(object):
         Creates a valid GetEGRID response from a list of real estate records.
 
         Args:
-            records (listofpyramid_oereb.lib.records.real_estate.RealEstateRecord): List of real
+            records (list of pyramid_oereb.lib.records.real_estate.RealEstateRecord): List of real
                 estate records.
 
         Returns:
-            listofdict: Valid GetEGRID response.
+            list of dict: Valid GetEGRID response.
         """
         response = list()
         for r in records:
@@ -309,11 +309,11 @@ class PlrWebservice(object):
 
         Args:
             xy (str): XY parameter from the getegrid request.
-            buffer_dist (floatorNone): Distance for the buffer applied to the transformed
+            buffer_dist (float or None): Distance for the buffer applied to the transformed
                 point.If None, no buffer will be applied.
 
         Returns:
-            shapely.geometry.Pointorshapely.geometry.Polygon: The transformed coordinates as
+            shapely.geometry.Point or shapely.geometry.Polygon: The transformed coordinates as
             Point.
         """
         coords = xy.split(',')
@@ -337,7 +337,7 @@ class PlrWebservice(object):
             gnss (str): GNSS parameter from the getegrid request.
 
         Returns:
-            shapely.geometry.Pointorshapely.geometry.Polygon: The transformed coordinates as
+            shapely.geometry.Point or shapely.geometry.Polygon: The transformed coordinates as
             Point.
         """
         coords = gnss.split(',')
@@ -361,7 +361,7 @@ class Parameter(object):
             number (str): The parcel number as real estate identifier.
             egrid (str): The EGRID as real estate identifier.
             language (str): The requested language.
-            topics (listofstr): The list of requested topics.
+            topics (list of str): The list of requested topics.
         """
         self.__flavour__ = flavour
         self.__format__ = format
@@ -414,14 +414,13 @@ class Parameter(object):
         Updates the requested topics.
 
         Args:
-            topics (listofstr): The list of requested topics.
+            topics (list of str): The list of requested topics.
         """
         self.__topics__ = topics
 
     @property
     def flavour(self):
         """
-
         Returns:
             str: The requested flavour.
         """
@@ -430,7 +429,6 @@ class Parameter(object):
     @property
     def format(self):
         """
-
         Returns:
             str: The requested format.
         """
@@ -439,7 +437,6 @@ class Parameter(object):
     @property
     def geometry(self):
         """
-
         Returns:
             bool: Extract requested with geometries.
         """
@@ -448,7 +445,6 @@ class Parameter(object):
     @property
     def images(self):
         """
-
         Returns:
             bool: Extract requested with images.
         """
@@ -457,7 +453,6 @@ class Parameter(object):
     @property
     def identdn(self):
         """
-
         Returns:
             str: The requested IdentDN.
         """
@@ -466,7 +461,6 @@ class Parameter(object):
     @property
     def number(self):
         """
-
         Returns:
             str: The requested number.
         """
@@ -475,7 +469,6 @@ class Parameter(object):
     @property
     def egrid(self):
         """
-
         Returns:
             str: The requested EGRID.
         """
@@ -484,7 +477,6 @@ class Parameter(object):
     @property
     def language(self):
         """
-
         Returns:
             str: The requested language.
         """
@@ -493,9 +485,8 @@ class Parameter(object):
     @property
     def topics(self):
         """
-
         Returns:
-            listofstr: The requested topics.
+            list of str: The requested topics.
         """
         return self.__topics__
 

@@ -20,7 +20,7 @@ class ThemeRecord(object):
         Returns a listing of the record's fields.
 
         Returns:
-            listofstr: The available fields.
+            list of str: The available fields.
         """
         return [
             'code',

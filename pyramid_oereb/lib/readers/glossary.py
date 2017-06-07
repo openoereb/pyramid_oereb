@@ -29,7 +29,7 @@ class GlossaryReader(object):
             content (unicode): The definition or explanation to a given term or abbreviation.
 
         Returns:
-            listofpyramid_oereb.lib.records.glossary.GlossaryRecord: The list of found records.
+            list of pyramid_oereb.lib.records.glossary.GlossaryRecord: The list of found records.
         """
         self._source_.read()
         return self._source_.records

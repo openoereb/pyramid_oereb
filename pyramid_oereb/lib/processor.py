@@ -27,18 +27,16 @@ class Processor(object):
                 real estate reader instance for runtime use.
             municipality_reader (pyramid_oereb.lib.readers.municipality.MunicipalityReader): The
                 municipality reader instance for runtime use.
-            exclusion_of_liability_reader (): The exclusion of liability reader instance for
-                runtime use.
-            pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader
-
-        Args:
+            exclusion_of_liability_reader
+                (pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader):
+                The exclusion of liability reader instance for runtime use.
             glossary_reader (pyramid_oereb.lib.readers.glossary.GlossaryReader): The glossary
                 reader instance for runtime use.
-            plr_sources (listofpyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource): The
+            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource): The
                 public law restriction source instances for runtime use wrapped in a list.
             extract_reader (pyramid_oereb.lib.readers.extract.ExtractReader): The extract reader
                 instance for runtime use.
-            plr_limits (dictorNone): The configuration for limiting the intersection.
+            plr_limits (dict or None): The configuration for limiting the intersection.
             min_area (decimal): The minimal area for a public law restriction to be displayed in
                 the cadastre
             min_length (decimal): The minimal length for a public law restriction to be
@@ -62,9 +60,9 @@ class Processor(object):
         Filter only published documents.
 
         Args:
-            record (pyramid_oereb.lib.records.plr.PlrRecordor): The public law restriction or
+            record (pyramid_oereb.lib.records.plr.PlrRecord or
+                pyramid_oereb.lib.records.documents.DocumentRecord): The public law restriction or
                 document record.
-            pyramid_oereb.lib.records.documents.DocumentRecord
         """
         published_docs = list()
         if isinstance(record, PlrRecord):
@@ -117,7 +115,6 @@ class Processor(object):
     @property
     def real_estate_reader(self):
         """
-
         Returns:
             pyramid_oereb.lib.readers.real_estate.RealEstateReader: The real estate reader
             instance.
@@ -127,7 +124,6 @@ class Processor(object):
     @property
     def municipality_reader(self):
         """
-
         Returns:
             pyramid_oereb.lib.readers.municipality.MunicipalityReader: The municipality reader
             reader instance.
@@ -137,17 +133,15 @@ class Processor(object):
     @property
     def exclusion_of_liability_reader(self):
         """
-
         Returns:
-            : The exclusion of liability reader reader instance.
-            pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader
+            pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader:
+            The exclusion of liability reader reader instance.
         """
         return self._exclusion_of_liability_reader_
 
     @property
     def glossary_reader(self):
         """
-
         Returns:
             pyramid_oereb.lib.readers.glossary.GlossaryReader: The glossary reader reader
             instance.
@@ -157,9 +151,8 @@ class Processor(object):
     @property
     def plr_sources(self):
         """
-
         Returns:
-            listofpyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource: The list of plr
+            list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource: The list of plr
             source instances.
         """
         return self._plr_sources_
@@ -167,7 +160,6 @@ class Processor(object):
     @property
     def extract_reader(self):
         """
-
         Returns:
             pyramid_oereb.lib.readers.extract.ExtractReader: The extract reader instance.
         """

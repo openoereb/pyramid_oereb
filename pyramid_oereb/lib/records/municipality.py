@@ -12,7 +12,7 @@ class MunicipalityRecord(object):
             name (unicode): The zipcode for this address.
             published (bool): Is this municipality ready for publishing via server.
             logo (pyramid_oereb.lib.records.logo.LogoRecord): The municipality logo.
-            geom (strorNone): The geometry which is representing this municipality as a WKT.
+            geom (str or None): The geometry which is representing this municipality as a WKT.
         """
         self.fosnr = fosnr
         self.name = name
@@ -26,7 +26,7 @@ class MunicipalityRecord(object):
         Returns a list of available field names.
 
         Returns:
-            listofstr: List of available field names.
+            list of str: List of available field names.
         """
         return [
             'fosnr',

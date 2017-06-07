@@ -13,11 +13,11 @@ def parse(cfg_file, cfg_section):
     """
     Parses the defined YAML file and returns the defined section as dictionary.
 
-        Args:
+    Args:
         cfg_file (str): The YAML file to be parsed.
         cfg_section (str): The section to be returned.
 
-        Returns:
+    Returns:
         dict: The parsed section as dictionary.
     """
     if cfg_file is None:
@@ -65,7 +65,7 @@ class Config(object):
         Returns a list of available themes.
 
         Returns:
-            listofpyramid_oereb.lib.records.theme.ThemeRecord: The available themes.
+            list of pyramid_oereb.lib.records.theme.ThemeRecord: The available themes.
         """
         assert Config._config is not None
 
@@ -88,7 +88,7 @@ class Config(object):
             code (str): The theme's code.
 
         Returns:
-            pyramid_oereb.lib.records.theme.ThemeRecordorNone: The theme with the specified
+            pyramid_oereb.lib.records.theme.ThemeRecord or None: The theme with the specified
             code.
         """
         assert Config._config is not None

@@ -19,7 +19,7 @@ class LogoRecord(object):
         Returns a list of available field names.
 
         Returns:
-            listofstr: List of available field names.
+            list of str: List of available field names.
         """
         return [
             'content'

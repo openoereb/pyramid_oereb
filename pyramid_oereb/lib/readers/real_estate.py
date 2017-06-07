@@ -24,19 +24,19 @@ class RealEstateReader(object):
         The central read accessor method to get all desired records from configured source.
 
         Args:
-            nb_ident (intorNone): The identification number of the desired real estate. This
+            nb_ident (int or None): The identification number of the desired real estate. This
                 parameter is directlyrelated to the number parameter and both must be set!
                 Combination will deliver only one result orcrashes.
-            number (strorNone): The number of parcel or also known real estate. This parameter
+            number (str or None): The number of parcel or also known real estate. This parameter
                 is directlyrelated to the nb_ident parameter and both must be set!
                 Combination will deliver only one result orcrashes.
-            (strorNone): The unique identifier of the desired real estate. This will deliver
+            (str or None): The unique identifier of the desired real estate. This will deliver
                 only one result orcrashes.
             geometry (str): A geometry as WKT string which is used to obtain intersected real
                 estates. This maydeliver several results.
 
         Returns:
-            listofpyramid_oereb.lib.records.real_estate.RealEstateRecord: the list of all found
+            list of pyramid_oereb.lib.records.real_estate.RealEstateRecord: the list of all found
             records
         """
 

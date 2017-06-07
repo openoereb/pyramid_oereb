@@ -35,19 +35,19 @@ class ExtractRecord(object):
                 municipality logo
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The
                 authority which is responsible for the PLR cadastre
-            base_data (listofdictofstr): A list of basic data layers used by the extract. For
+            base_data (list of dictofstr): A list of basic data layers used by the extract. For
                 instance the basic map fromswisstopo
             exclusions_of_liability (): Exclusions of liability for the extract
             list of pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord
 
         Args:
-            glossaries (listofpyramid_oereb.lib.records.glossary.GlossaryRecord): Glossary for
+            glossaries (list of pyramid_oereb.lib.records.glossary.GlossaryRecord): Glossary for
                 the extract
-            concerned_theme (listofpyramid_oereb.lib.records.theme.ThemeRecordorNone): Concerned
+            concerned_theme (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Concerned
                 themes.
-            not_concerned_theme (listofpyramid_oereb.lib.records.theme.ThemeRecordorNone): Not
+            not_concerned_theme (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Not
                 concerned themes.
-            theme_without_data (listofpyramid_oereb.lib.records.theme.ThemeRecordorNone): Themes
+            theme_without_data (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Themes
                 without data.
         """
         self.base_data = base_data
@@ -86,7 +86,7 @@ class ExtractRecord(object):
         Returns a list of available field names.
 
         Returns:
-            listofstr: List of available field names.
+            list of str: List of available field names.
         """
         return [
             'extract_identifier',

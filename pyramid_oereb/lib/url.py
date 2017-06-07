@@ -7,10 +7,10 @@ def parse_url(url):
     """
     Parse an URL
 
-        Args:
+    Args:
         url (str): The URL
 
-        Returns:
+    Returns:
         (urlparse.SplitResult,dict): the parsed URL (SplitResult, params)
     """
     url = urlsplit(url)

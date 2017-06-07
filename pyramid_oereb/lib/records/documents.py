@@ -33,7 +33,7 @@ class DocumentBaseRecord(object):
         Returns a list of available field names.
 
         Returns:
-            listofstr: List of available field names.
+            list of str: List of available field names.
         """
         return [
             'text_at_web',
@@ -79,7 +79,7 @@ class ArticleRecord(DocumentBaseRecord):
         Returns a list of available field names.
 
         Returns:
-            listofstr: List of available field names.
+            list of str: List of available field names.
         """
         return [
             'text_at_web',
@@ -124,10 +124,10 @@ class DocumentRecord(DocumentBaseRecord):
             official_number (str): The official number for identification of this document.
             canton (str): The cantonal short term (length of tw, like
             municipality (str): The code for the municipality.
-            article_numbers (listofstr): Pointers to specific articles.
+            article_numbers (list of str): Pointers to specific articles.
             file (bytes): The binary content of the document.
-            articles (listofArticleRecord): The linked articles.
-            references (listofDocumentRecord): The references to other documents.
+            articles (list of ArticleRecord): The linked articles.
+            references (list of DocumentRecord): The references to other documents.
         """
         super(DocumentRecord, self).__init__(legal_state, published_from, text_at_web)
         self.title = title
@@ -157,7 +157,7 @@ class DocumentRecord(DocumentBaseRecord):
         Returns a list of available field names.
 
         Returns:
-            listofstr: List of available field names.
+            list of str: List of available field names.
         """
         return [
             'text_at_web',

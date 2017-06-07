@@ -25,7 +25,7 @@ class MunicipalityReader(object):
         The central read accessor method to get all desired records from configured source.
 
         Returns:
-            listofpyramid_oereb.lib.records.municipality.MunicipalityRecord: the list of all
+            list of pyramid_oereb.lib.records.municipality.MunicipalityRecord: the list of all
             found records
         """
         self._source_.read()

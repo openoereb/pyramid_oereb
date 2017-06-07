@@ -14,7 +14,7 @@ class ReferenceDefinitionRecord(object):
             municipality (str): Name of the municipality if the reference relates to one
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
                 responsible for this reference.
-            documents (listofpyramid_oereb.lib.records.documents.DocumentBaseRecord): List of
+            documents (list of pyramid_oereb.lib.records.documents.DocumentBaseRecord): List of
                 documents associated with this record.
         """
 

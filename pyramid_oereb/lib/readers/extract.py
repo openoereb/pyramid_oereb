@@ -10,12 +10,12 @@ class ExtractReader(object):
         The central reader accessor for the extract inside the application.
 
         Args:
-            plr_sources (listofpyramid_oereb.lib.sources.plr.PlrBaseSource): The list of
+            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of
                 configured PLR source instances.
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OffcieRecord): The
                 authority responsible for the PLR cadastre.
             logos (dict): The logos of confederation, canton and oereb wrapped in a LogoRecord
-            base_data (listofdictofstr): A list of basic data layers used by the extract. For
+            base_data (list of dict of str): A list of basic data layers used by the extract. For
                 instance the basic map fromswisstopo
         """
         self.extract = None
