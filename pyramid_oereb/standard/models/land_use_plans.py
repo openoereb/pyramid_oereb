@@ -426,7 +426,7 @@ class Geometry(Base):
 
         docs dependent on the configured type.
 
-        This concrete one is LINESTRING
+        This concrete one is GEOMETRYCOLLECTION
     :vartype geom: geoalchemy2.types.Geometry
     :var public_law_restriction_id: The foreign key to the public law restriction this geometry is
         related to.
@@ -446,7 +446,7 @@ class Geometry(Base):
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     geo_metadata = sa.Column(sa.String, nullable=True)  # TODO: Check translation
-    geom = sa.Column(GeoAlchemyGeometry('LINESTRING', srid=srid))
+    geom = sa.Column(GeoAlchemyGeometry('GEOMETRYCOLLECTION', srid=srid))
     public_law_restriction_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(PublicLawRestriction.id),
