@@ -10,27 +10,6 @@ from shapely.geometry.multipolygon import MultiPolygon
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 
 
-def test_get_fields():
-    expected_fields = [
-        'extract_identifier',
-        'real_estate',
-        'not_concerned_theme',
-        'concerned_theme',
-        'theme_without_data',
-        'logo_plr_cadastre',
-        'creation_date',
-        'federal_logo',
-        'cantonal_logo',
-        'municipality_logo',
-        'plr_cadastre_authority',
-        'base_data'
-        'exclusions_of_liability',
-        'glossaries'
-    ]
-    fields = ExtractRecord.get_fields()
-    assert fields == expected_fields
-
-
 def test_class_variables():
     assert ExtractRecord.creation_date is None
     assert ExtractRecord.electronic_signature is None
@@ -40,7 +19,6 @@ def test_class_variables():
     assert ExtractRecord.is_reduced is False
     assert ExtractRecord.extract_identifier is None
     assert ExtractRecord.qr_code is None
-    assert ExtractRecord.general_information is None
     assert ExtractRecord.plr_cadastre_authority is None
 
 

@@ -6,27 +6,6 @@ from pyramid_oereb.lib.records.documents import LegalProvisionRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
-def test_get_fields():
-    expected_fields = [
-        'text_at_web',
-        'legal_state',
-        'published_from',
-        'title',
-        'official_title',
-        'responsible_office',
-        'abbreviation',
-        'official_number',
-        'canton',
-        'municipality',
-        'article_numbers',
-        'file',
-        'articles',
-        'references'
-    ]
-    fields = LegalProvisionRecord.get_fields()
-    assert fields == expected_fields
-
-
 def test_mandatory_fields():
     with pytest.raises(TypeError):
         LegalProvisionRecord()

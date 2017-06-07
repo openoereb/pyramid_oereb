@@ -5,18 +5,6 @@ from pyramid_oereb.lib.records.reference_definition import ReferenceDefinitionRe
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
-def test_get_fields():
-    expected_fields = [
-        'topic',
-        'canton',
-        'municipality',
-        'responsible_office',
-        'documents'
-    ]
-    fields = ReferenceDefinitionRecord.get_fields()
-    assert fields == expected_fields
-
-
 def test_mandatory_fields():
     with pytest.raises(TypeError):
         ReferenceDefinitionRecord()

@@ -39,49 +39,11 @@ class GeometryRecord(object):
     def published(self):
         """
         Returns true if its not a future geometry.
+
         :return: True if geometry is published.
         :rtype: bool
         """
         return not self.published_from > datetime.now().date()
-
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-        :return: List of available field names.
-        :rtype: list of str
-        """
-        return [
-            'legal_state',
-            'published_from',
-            'geo_metadata',
-            'geom',
-            'public_law_restriction',
-            'office'
-        ]
-
-    def to_extract(self):
-        """
-        Returns a dictionary with all available values needed for the extract.
-        :return: Dictionary with values for the extract.
-        :rtype: dict
-        """
-        extract = dict()
-        for key in [
-            'legal_state',
-            'geo_metadata',
-            'geom'
-        ]:
-            value = getattr(self, key)
-            if value:
-                extract[key] = value
-        key = 'office'
-        record = getattr(self, key)
-        if record:
-            extract[key] = record.to_extract()
-        key = 'geom'
-        extract[key] = str(getattr(self, key))
-        return extract
 
     @staticmethod
     def _is_multi_geometry(geometry):

@@ -9,6 +9,7 @@ class RealEstateRecord(object):
                  subunit_of_land_register=None, public_law_restrictions=None, references=None):
         """
         Basic caracteristics and geometry of the property to be analysed.
+
         :param type: The property type
         :type type: str
         :param canton: The abbreviation of the canton the property is located in
@@ -65,65 +66,3 @@ class RealEstateRecord(object):
         else:
             self.references = []
         self.areas_ratio = self.limit.area / self.land_registry_area
-
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-        :return:    List of available field names.
-        :rtype:     list
-        """
-        return [
-            'type',
-            'canton',
-            'municipality',
-            'fosnr',
-            'metadata_of_geographical_base_data',
-            'land_registry_area',
-            'limit',
-            'number',
-            'identdn',
-            'egrid',
-            'subunit_of_land_register',
-            'plan_for_land_register',
-            'public_law_restrictions',
-            'references'
-        ]
-
-    def to_extract(self):
-        """
-        Returns a dictionary with all available values needed for the extract.
-        :return: Dictionary with values for the extract.
-        :rtype: dict
-        """
-        extract = dict()
-        for key in [
-            'type',
-            'canton',
-            'municipality',
-            'fosnr',
-            'metadata_of_geographical_base_data',
-            'land_registry_area',
-            'number',
-            'identdn',
-            'egrid',
-            'subunit_of_land_register'
-        ]:
-            value = getattr(self, key)
-            if value:
-                extract[key] = value
-        key = 'plan_for_land_register'
-        record = getattr(self, key)
-        if record:
-            extract[key] = record.to_extract()
-        for key in [
-            'public_law_restrictions',
-            'references'
-        ]:
-            records = getattr(self, key)
-            if records and len(records) > 0:
-                extract[key] = [r.to_extract() for r in records]
-        key = 'limit'
-        extract[key] = str(getattr(self, key))
-
-        return extract

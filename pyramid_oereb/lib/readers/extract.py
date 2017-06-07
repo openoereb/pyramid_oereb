@@ -13,7 +13,7 @@ class ExtractReader(object):
         :type plr_sources: list of pyramid_oereb.lib.sources.plr.PlrBaseSource
         :param plr_cadastre_authority: The authority responsible for the PLR cadastre.
         :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OffcieRecord
-        :param logos: The logos of confederation, canton and oereb wrapped in a LogoRecord
+        :param logos: The logos of confederation, canton and oereb wrapped in a ImageRecord
         :type logos: dict
         :param base_data: A list of basic data layers used by the extract. For instance the basic map from
             swisstopo
@@ -39,8 +39,8 @@ class ExtractReader(object):
     def logo_plr_cadastre(self):
         """
 
-        :return: The logo for oereb as a LogoRecord.
-        :rtype: pyramid_oereb.lib.records.logo.LogoRecord
+        :return: The logo for oereb as a ImageRecord.
+        :rtype: pyramid_oereb.lib.records.image.ImageRecord
         """
         return self._logos_.get('oereb')
 
@@ -48,8 +48,8 @@ class ExtractReader(object):
     def federal_logo(self):
         """
 
-        :return: The federal logo as a LogoRecord.
-        :rtype: pyramid_oereb.lib.records.logo.LogoRecord
+        :return: The federal logo as a ImageRecord.
+        :rtype: pyramid_oereb.lib.records.image.ImageRecord
         """
         return self._logos_.get('confederation')
 
@@ -57,8 +57,8 @@ class ExtractReader(object):
     def cantonal_logo(self):
         """
 
-        :return: The cantonal logos as a LogoRecord.
-        :rtype: pyramid_oereb.lib.records.logo.LogoRecord
+        :return: The cantonal logos as a ImageRecord.
+        :rtype: pyramid_oereb.lib.records.image.ImageRecord
         """
         return self._logos_.get('canton')
 
@@ -69,7 +69,7 @@ class ExtractReader(object):
         :param real_estate: The real estate for which the report should be generated
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
         :param municipality_logo: The municipality logo.
-        :type municipality_logo: pyramid_oereb.lib.records.logo.LogoRecord
+        :type municipality_logo: pyramid_oereb.lib.records.image.ImageRecord
         :param params: The parameters of the extract request.
         :type params: pyramid_oereb.views.webservice.Parameter
         :return: The extract record containing all gathered data.

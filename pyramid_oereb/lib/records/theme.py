@@ -14,28 +14,3 @@ class ThemeRecord(object):
         """
         self.code = code
         self.text = text
-
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a listing of the record's fields.
-
-        :return: The available fields.
-        :rtype: list of str
-        """
-        return [
-            'code',
-            'text'
-        ]
-
-    def to_extract(self):
-        text = list()
-        for k, v in self.text.iteritems():
-            text.append({
-                'language': k,
-                'text': v
-            })
-        return {
-            'code': self.code,
-            'text': text
-        }
