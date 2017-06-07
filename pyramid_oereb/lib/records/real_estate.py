@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 
 
 class RealEstateRecord(object):
 
     def __init__(self, type, canton, municipality, fosnr, land_registry_area, limit,
                  metadata_of_geographical_base_data=None, number=None, identdn=None, egrid=None,
-                 subunit_of_land_register=None, public_law_restrictions=None, references=None):
+                 subunit_of_land_register=None, public_law_restrictions=None, references=None,
+                 plan_for_land_register=None):
         """
         Basic caracteristics and geometry of the property to be analysed.
         :param type: The property type
@@ -35,6 +35,8 @@ class RealEstateRecord(object):
         :type public_law_restrictions: list of pyramid_oereb.lib.records.plr.PlrRecord or None
         :param references: Documents associated with this real estate
         :type references: list of pyramid_oereb.lib.records.documents.DocumentRecord or None
+        :param plan_for_land_register: The view service to be used for the land registry map.
+        :type plan_for_land_register: pyramid_oereb.lib.records.view_service.ViewServiceRecord
         """
         self.number = number
         self.identdn = identdn
@@ -47,15 +49,7 @@ class RealEstateRecord(object):
         self.metadata_of_geographical_base_data = metadata_of_geographical_base_data
         self.land_registry_area = land_registry_area
         self.limit = limit
-        # TODO: read the urls from configuration of the real estate. They are already defined there. This will
-        # solve issue https://jira.camptocamp.com/browse/GSOREB-194
-        self.plan_for_land_register = ViewServiceRecord(
-            'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&'
-            'SRS=EPSG:21781&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&'
-            'LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb',
-            'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=1.1.1&'
-            'FORMAT=image/png&LAYER=ch.bav.kataster-belasteter-standorte-oev.oereb'
-        )
+        self.plan_for_land_register = plan_for_land_register
         if isinstance(public_law_restrictions, list):
             self.public_law_restrictions = public_law_restrictions
         else:
@@ -65,6 +59,15 @@ class RealEstateRecord(object):
         else:
             self.references = []
         self.areas_ratio = self.limit.area / self.land_registry_area
+
+    def set_view_service(self, plan_for_land_register):
+        """
+        Sets the view service to generate the land registry map for the real estate.
+
+        :param plan_for_land_register: The view service to be used for the land registry map.
+        :type plan_for_land_register: pyramid_oereb.lib.records.view_service.ViewServiceRecord
+        """
+        self.plan_for_land_register = plan_for_land_register
 
     @classmethod
     def get_fields(cls):
