@@ -1,0 +1,1 @@
+Search.setIndex({docnames:["api","index"],envversion:50,filenames:["api.rst","index.rst"],objects:{},objnames:{},objtypes:{},terms:{api:1,content:1,index:1,modul:1,page:1,search:1},titles:["OEREB API","Welcome to OEREB&#8217;s documentation!"],titleterms:{api:0,document:1,indic:1,oereb:[0,1],tabl:1,welcom:1}})
