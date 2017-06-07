@@ -2,6 +2,7 @@
 import datetime
 import pytest
 
+from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
@@ -33,15 +34,15 @@ def test_init():
             'test_legend'
         )
     )
-    plr_office = OfficeRecord('PLR Authority')
+    plr_office = OfficeRecord({'en': 'PLR Authority'})
     record = ExtractRecord(
         real_estate,
-        bin(100),
-        bin(100),
-        bin(100),
-        bin(100),
+        ImageRecord(bin(100)),
+        ImageRecord(bin(100)),
+        ImageRecord(bin(100)),
+        ImageRecord(bin(100)),
         plr_office,
-        [{'de': 'Daten der Swisstopo'}, {'de': 'Amtliche Vermessung'}]
+        {'de': 'Daten der Swisstopo\nAmtliche Vermessung'}
     )
     assert isinstance(record.extract_identifier, str)
     assert isinstance(record.real_estate, RealEstateRecord)
@@ -49,11 +50,11 @@ def test_init():
     assert isinstance(record.concerned_theme, list)
     assert isinstance(record.theme_without_data, list)
     assert isinstance(record.creation_date, datetime.date)
-    assert isinstance(record.logo_plr_cadastre, bytes)
-    assert isinstance(record.federal_logo, bytes)
-    assert isinstance(record.cantonal_logo, bytes)
-    assert isinstance(record.municipality_logo, bytes)
+    assert isinstance(record.logo_plr_cadastre, ImageRecord)
+    assert isinstance(record.federal_logo, ImageRecord)
+    assert isinstance(record.cantonal_logo, ImageRecord)
+    assert isinstance(record.municipality_logo, ImageRecord)
     assert isinstance(record.exclusions_of_liability, list)
     assert isinstance(record.glossaries, list)
     assert isinstance(record.plr_cadastre_authority, OfficeRecord)
-    assert isinstance(record.base_data, list)
+    assert isinstance(record.base_data, dict)

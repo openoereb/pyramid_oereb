@@ -10,7 +10,7 @@ def test_mandatory_fields():
 
 
 def test_init():
-    record = ExclusionOfLiabilityRecord(title='Disclaimer', content=u'No warranty on nothing.')
-    assert record.title == 'Disclaimer'
+    record = ExclusionOfLiabilityRecord({'en': 'Disclaimer'}, {'en': u'No warranty on nothing.'})
+    assert record.title.get('en') == 'Disclaimer'
     assert record.content is not None
-    assert isinstance(record.content, unicode)
+    assert isinstance(record.content.get('en'), unicode)

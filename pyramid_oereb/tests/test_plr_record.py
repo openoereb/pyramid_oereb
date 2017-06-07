@@ -13,10 +13,10 @@ def test_mandatory_fields():
 
 
 def test_init():
-    office = OfficeRecord('Office')
-    record = PlrRecord(ThemeRecord('code', dict()), 'Content', 'runningModifications',
+    office = OfficeRecord({'en': 'Office'})
+    record = PlrRecord(ThemeRecord('code', dict()), {'en': 'Content'}, 'runningModifications',
                        datetime.date(1985, 8, 29), office)
-    assert record.content == 'Content'
+    assert record.content == {'en': 'Content'}
     assert record.subtopic is None
     assert isinstance(record.geometries, list)
     assert isinstance(record.responsible_office, OfficeRecord)

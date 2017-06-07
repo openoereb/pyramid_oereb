@@ -12,11 +12,12 @@ def test_mandatory_fields():
 
 
 def test_init():
-    office_record = OfficeRecord('name')
-    record = LegalProvisionRecord("runningModifications", datetime.date(1985, 8, 29), 'title', office_record)
+    office_record = OfficeRecord({'en': 'name'})
+    record = LegalProvisionRecord("runningModifications", datetime.date(1985, 8, 29), {'en': 'title'},
+                                  office_record)
     assert isinstance(record.legal_state, str)
     assert isinstance(record.published_from, datetime.date)
-    assert isinstance(record.title, str)
+    assert isinstance(record.title, dict)
     assert isinstance(record.responsible_office, OfficeRecord)
     assert record.text_at_web is None
     assert record.abbreviation is None

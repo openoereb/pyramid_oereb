@@ -12,11 +12,12 @@ def test_mandatory_fields():
 
 
 def test_init():
-    office_record = OfficeRecord('name')
-    record = DocumentRecord('runningModifications', datetime.date(1985, 8, 29), 'title', office_record)
+    office_record = OfficeRecord({'en': 'name'})
+    record = DocumentRecord('runningModifications', datetime.date(1985, 8, 29), {'en': 'title'},
+                            office_record)
     assert isinstance(record.legal_state, str)
     assert isinstance(record.published_from, datetime.date)
-    assert isinstance(record.title, str)
+    assert isinstance(record.title, dict)
     assert isinstance(record.responsible_office, OfficeRecord)
     assert record.text_at_web is None
     assert record.abbreviation is None
@@ -31,15 +32,15 @@ def test_init():
 
 
 def test_future_document():
-    office_record = OfficeRecord('name')
+    office_record = OfficeRecord({'en': 'name'})
     record = DocumentRecord('runningModifications',
-                            (datetime.datetime.now().date() + datetime.timedelta(days=7)), 'title',
+                            (datetime.datetime.now().date() + datetime.timedelta(days=7)), {'en': 'title'},
                             office_record)
     assert not record.published
 
 
 def test_init_with_relation():
-    office_record = OfficeRecord('name')
+    office_record = OfficeRecord({'en': 'name'})
     articles = [ArticleRecord('runningModifications', datetime.date(1985, 8, 29), '123.4')]
     references = [
         DocumentRecord('runningModifications', datetime.date(1985, 8, 29), {'de': 'Titel 1'}, office_record)
