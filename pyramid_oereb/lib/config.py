@@ -296,6 +296,7 @@ class Config(object):
         :param key: Configuration parameter name.
         :type key: str
         :param default: Default value if the specified parameter is not defined. Defaults to None.
+        :type default: *
         :return: The specified configuration or default value
         """
         assert Config._config is not None

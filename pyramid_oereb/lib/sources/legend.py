@@ -13,6 +13,7 @@ class LegendDatabaseSource(BaseDatabaseSource, LegendBaseSource):
         """
         Central method to read one legend entry.
         :param kwargs: Arbitrary keyword arguments. It must contain the key 'type_code'.
+        :type: kwargs
         """
         session = self._adapter_.get_session(self._key_)
         query = session.query(self._model_)
