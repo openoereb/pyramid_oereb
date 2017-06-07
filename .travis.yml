@@ -32,10 +32,13 @@ deploy:
 - provider: script
   script: sphinx-versioning push doc/source/ gh-pages doc
   on:
-    branch: master
+    branch: test
+    repo: camptocamp/pyramid_oereb
+- provider: script
+  script: sphinx-versioning push doc/source/ gh-pages doc
+  on:
     tags: true
     repo: camptocamp/pyramid_oereb
-    condition: '"${TRAVIS_PULL_REQUEST}" = false'
 - provider: pypi
   user: kdeininger
   password:
