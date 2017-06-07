@@ -15,8 +15,8 @@ class Renderer(Base):
         """
         Creates a new XML renderer instance for extract rendering.
 
-        :param info: Info object.
-        :type info: pyramid.interfaces.IRendererInfo
+        Args:
+            info (pyramid.interfaces.IRendererInfo): Info object.
         """
         a = AssetResolver('pyramid_oereb')
         resolver = a.resolve('lib/renderer/extract/templates/xml')
@@ -27,12 +27,13 @@ class Renderer(Base):
         """
         Returns the XML encoded extract, according to the specification.
 
-        :param value: A tuple containing the generated extract record and the params dictionary.
-        :type value: tuple
-        :param system: The available system properties.
-        :type system: dict
-        :return: The XML encoded extract.
-        :rtype: str
+        Args:
+            value (tuple): A tuple containing the generated extract record and the params
+                dictionary.
+            system (dict): The available system properties.
+
+        Returns:
+            str: The XML encoded extract.
         """
         response = self.get_response(system)
         if isinstance(response, Response) and response.content_type == response.default_content_type:

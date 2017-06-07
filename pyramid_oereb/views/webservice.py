@@ -15,8 +15,9 @@ class PlrWebservice(object):
         """
         This class provides the PLR webservice methods.
 
-        :param request: The pyramid request instance.
-        :type request:  pyramid.request.Request or pyramid.testing.DummyRequest
+        Args:
+            request (pyramid.request.Requestorpyramid.testing.DummyRequest): The pyramid request
+                instance.
         """
         if not isinstance(request.pyramid_oereb_processor, Processor):
             raise HTTPServerError('Missing processor instance')
@@ -28,8 +29,8 @@ class PlrWebservice(object):
         """
         Returns the available versions of this service.
 
-        :return: The available service versions.
-        :rtype:  dict
+        Returns:
+            dict: The available service versions.
         """
         endpoint = self._request_.application_url
         if route_prefix:
@@ -49,8 +50,8 @@ class PlrWebservice(object):
         """
         Returns the capabilities of this service.
 
-        :return: The service capabilities.
-        :rtype:  dict
+        Returns:
+            dict: The service capabilities.
         """
         themes = list()
         for theme in Config.get_themes():
@@ -78,8 +79,8 @@ class PlrWebservice(object):
         """
         Returns a list with the matched EGRIDs for the given coordinates.
 
-        :return: The matched EGRIDs.
-        :rtype:  list of dict
+        Returns:
+            list of dict: The matched EGRIDs.
         """
         xy = self._request_.params.get('XY')
         gnss = self._request_.params.get('GNSS')
@@ -99,8 +100,8 @@ class PlrWebservice(object):
         """
         Returns a list with the matched EGRIDs for the given NBIdent and property number.
 
-        :return: The matched EGRIDs.
-        :rtype:  list of dict
+        Returns:
+            list of dict: The matched EGRIDs.
         """
         identdn = self._request_.matchdict.get('identdn')
         number = self._request_.matchdict.get('number')
@@ -117,8 +118,8 @@ class PlrWebservice(object):
         """
         Returns a list with the matched EGRIDs for the given postal address.
 
-        :return: The matched EGRIDs.
-        :rtype:  list of dict
+        Returns:
+            list of dict: The matched EGRIDs.
         """
         postalcode = self._request_.matchdict.get('postalcode')
         localisation = self._request_.matchdict.get('localisation')
@@ -133,8 +134,8 @@ class PlrWebservice(object):
         """
         Returns the extract in the specified format and flavour.
 
-        :return: The requested extract.
-        :rtype:  dict
+        Returns:
+            dict: The requested extract.
         """
         params = self.__validate_extract_params__()
         processor = self._request_.pyramid_oereb_processor
@@ -194,8 +195,8 @@ class PlrWebservice(object):
         """
         Validates the input parameters for get_extract_by_id.
 
-        :return: The validated parameters.
-        :rtype: pyramid_oereb.views.webservice.Parameter
+        Returns:
+            pyramid_oereb.views.webservice.Parameter: The validated parameters.
         """
 
         # Check flavour
@@ -267,12 +268,13 @@ class PlrWebservice(object):
         Transforms the specified coordinates from the specified CRS to the configured target CRS and creates a
         point geometry.
 
-        :param coord: The coordinates to transform (x, y).
-        :type coord: tuple
-        :param source_crs: The source CRS
-        :type source_crs: int or str
-        :return: The transformed coordinates as Point.
-        :rtype: shapely.geometry.Point or shapely.geometry.Polygon
+        Args:
+            coord (tuple): The coordinates to transform (x, y).
+            source_crs (intorstr): The source CRS
+
+        Returns:
+            shapely.geometry.Point or shapely.geometry.Polygon: The transformed coordinates as
+            Point.
         """
         epsg = 'epsg:{0}'
         srid = Config.get('srid')
@@ -284,10 +286,12 @@ class PlrWebservice(object):
         """
         Creates a valid GetEGRID response from a list of real estate records.
 
-        :param records: List of real estate records.
-        :type records: list of pyramid_oereb.lib.records.real_estate.RealEstateRecord
-        :return: Valid GetEGRID response.
-        :rtype: list of dict
+        Args:
+            records (list of pyramid_oereb.lib.records.real_estate.RealEstateRecord): List of real
+                estate records.
+
+        Returns:
+            list of dict: Valid GetEGRID response.
         """
         response = list()
         for r in records:
@@ -303,13 +307,14 @@ class PlrWebservice(object):
         Parses the coordinates from the XY parameter, transforms them to target CRS and creates a point
         geometry. If a buffer distance is defined, a buffer with the specified distance will be applied.
 
-        :param xy: XY parameter from the getegrid request.
-        :type xy: str
-        :param buffer_dist: Distance for the buffer applied to the transformed point.
-                            If None, no buffer will be applied.
-        :type buffer_dist: float or None
-        :return: The transformed coordinates as Point.
-        :rtype: shapely.geometry.Point or shapely.geometry.Polygon
+        Args:
+            xy (str): XY parameter from the getegrid request.
+            buffer_dist (float or None): Distance for the buffer applied to the transformed
+                point.If None, no buffer will be applied.
+
+        Returns:
+            shapely.geometry.Point or shapely.geometry.Polygon: The transformed coordinates as
+            Point.
         """
         coords = xy.split(',')
         x = float(coords[0])
@@ -328,10 +333,12 @@ class PlrWebservice(object):
         Parses the coordinates from the GNSS parameter, transforms them to target CRS and creates a Point with
         a 1 meter buffer.
 
-        :param gnss: GNSS parameter from the getegrid request.
-        :type gnss: str
-        :return: The transformed coordinates as Point.
-        :rtype: shapely.geometry.Point or shapely.geometry.Polygon
+        Args:
+            gnss (str): GNSS parameter from the getegrid request.
+
+        Returns:
+            shapely.geometry.Point or shapely.geometry.Polygon: The transformed coordinates as
+            Point.
         """
         coords = gnss.split(',')
         x = float(coords[0])
@@ -345,24 +352,16 @@ class Parameter(object):
         """
         Creates a new parameter instance.
 
-        :param flavour: The extract flavour.
-        :type flavour: str
-        :param format: The extract format.
-        :type format: str
-        :param geometry: Extract with/without geometry.
-        :type geometry: bool
-        :param images: Extract with/without images.
-        :type images: bool
-        :param identdn: The IdentDN as real estate identifier.
-        :type identdn: str
-        :param number: The parcel number as real estate identifier.
-        :type number: str
-        :param egrid: The EGRID as real estate identifier.
-        :type egrid: str
-        :param language: The requested language.
-        :type language: str
-        :param topics: The list of requested topics.
-        :type topics: list of str
+        Args:
+            flavour (str): The extract flavour.
+            format (str): The extract format.
+            geometry (bool): Extract with/without geometry.
+            images (bool): Extract with/without images.
+            identdn (str): The IdentDN as real estate identifier.
+            number (str): The parcel number as real estate identifier.
+            egrid (str): The EGRID as real estate identifier.
+            language (str): The requested language.
+            topics (list of str): The list of requested topics.
         """
         self.__flavour__ = flavour
         self.__format__ = format
@@ -378,8 +377,8 @@ class Parameter(object):
         """
         Updates the IdentDN.
 
-        :param identdn: The IdentDN as real estate identifier.
-        :type identdn: str
+        Args:
+            identdn (str): The IdentDN as real estate identifier.
         """
         self.__identdn__ = identdn
 
@@ -387,8 +386,8 @@ class Parameter(object):
         """
         Updates the parcel number.
 
-        :param number: The parcel number as real estate identifier.
-        :type number: str
+        Args:
+            number (str): The parcel number as real estate identifier.
         """
         self.__number__ = number
 
@@ -396,8 +395,8 @@ class Parameter(object):
         """
         Updates the EGRID.
 
-        :param egrid: The EGRID as real estate identifier.
-        :type egrid: str
+        Args:
+            egrid (str): The EGRID as real estate identifier.
         """
         self.__egrid__ = egrid
 
@@ -405,8 +404,8 @@ class Parameter(object):
         """
         Updates the language.
 
-        :param language: The requested language.
-        :type language: str
+        Args:
+            language (str): The requested language.
         """
         self.__language__ = language
 
@@ -414,89 +413,80 @@ class Parameter(object):
         """
         Updates the requested topics.
 
-        :param topics: The list of requested topics.
-        :type topics: list of str
+        Args:
+            topics (list of str): The list of requested topics.
         """
         self.__topics__ = topics
 
     @property
     def flavour(self):
         """
-
-        :return: The requested flavour.
-        :rtype: str
+        Returns:
+            str: The requested flavour.
         """
         return self.__flavour__
 
     @property
     def format(self):
         """
-
-        :return: The requested format.
-        :rtype: str
+        Returns:
+            str: The requested format.
         """
         return self.__format__
 
     @property
     def geometry(self):
         """
-
-        :return: Extract requested with geometries.
-        :rtype: bool
+        Returns:
+            bool: Extract requested with geometries.
         """
         return self.__geometry__
 
     @property
     def images(self):
         """
-
-        :return: Extract requested with images.
-        :rtype: bool
+        Returns:
+            bool: Extract requested with images.
         """
         return self.__images__
 
     @property
     def identdn(self):
         """
-
-        :return: The requested IdentDN.
-        :rtype: str
+        Returns:
+            str: The requested IdentDN.
         """
         return self.__identdn__
 
     @property
     def number(self):
         """
-
-        :return: The requested number.
-        :rtype: str
+        Returns:
+            str: The requested number.
         """
         return self.__number__
 
     @property
     def egrid(self):
         """
-
-        :return: The requested EGRID.
-        :rtype: str
+        Returns:
+            str: The requested EGRID.
         """
         return self.__egrid__
 
     @property
     def language(self):
         """
-
-        :return: The requested language.
-        :rtype: str
+        Returns:
+            str: The requested language.
         """
         return self.__language__
 
     @property
     def topics(self):
         """
-
-        :return: The requested topics.
-        :rtype: list of str
+        Returns:
+            list of str: The requested topics.
         """
         return self.__topics__
 
@@ -504,10 +494,11 @@ class Parameter(object):
         """
         Check if the topic should be skipped in extract.
 
-        :param theme_code: The PLR theme code.
-        :type theme_code: str
-        :return: True if the topic should be skipped.
-        :rtype: bool
+        Args:
+            theme_code (str): The PLR theme code.
+
+        Returns:
+            bool: True if the topic should be skipped.
         """
         if not self.topics or 'ALL' in self.topics:
             return False
