@@ -1,0 +1,334 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyramid_oereb.lib.sources.plr &#8212; OEREB  documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/banner.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pyramid_oereb.lib.sources.plr</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">geoalchemy2.elements</span> <span class="k">import</span> <span class="n">_SpatialElement</span>
+<span class="kn">from</span> <span class="nn">geoalchemy2.shape</span> <span class="k">import</span> <span class="n">to_shape</span><span class="p">,</span> <span class="n">from_shape</span>
+<span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="k">import</span> <span class="n">DottedNameResolver</span>
+
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="k">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.availability</span> <span class="k">import</span> <span class="n">AvailabilityRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.theme</span> <span class="k">import</span> <span class="n">ThemeRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources</span> <span class="k">import</span> <span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">Base</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.plr</span> <span class="k">import</span> <span class="n">EmptyPlrRecord</span><span class="p">,</span> <span class="n">PlrRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.documents</span> <span class="k">import</span> <span class="n">DocumentRecord</span><span class="p">,</span> <span class="n">ArticleRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.exclusion_of_liability</span> <span class="k">import</span> <span class="n">ExclusionOfLiabilityRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.geometry</span> <span class="k">import</span> <span class="n">GeometryRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.glossary</span> <span class="k">import</span> <span class="n">GlossaryRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.office</span> <span class="k">import</span> <span class="n">OfficeRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.reference_definition</span> <span class="k">import</span> <span class="n">ReferenceDefinitionRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.view_service</span> <span class="k">import</span> <span class="n">ViewServiceRecord</span><span class="p">,</span> <span class="n">LegendEntryRecord</span>
+
+
+<div class="viewcode-block" id="PlrBaseSource"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.plr.PlrBaseSource">[docs]</a><span class="k">class</span> <span class="nc">PlrBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="n">_documents_reocord_class_</span> <span class="o">=</span> <span class="n">DocumentRecord</span>
+    <span class="n">_article_record_class_</span> <span class="o">=</span> <span class="n">ArticleRecord</span>
+    <span class="n">_exclusion_of_liability_record_class_</span> <span class="o">=</span> <span class="n">ExclusionOfLiabilityRecord</span>
+    <span class="n">_geometry_record_class_</span> <span class="o">=</span> <span class="n">GeometryRecord</span>
+    <span class="n">_glossary_record_class_</span> <span class="o">=</span> <span class="n">GlossaryRecord</span>
+    <span class="n">_legend_entry_record_class_</span> <span class="o">=</span> <span class="n">LegendEntryRecord</span>
+    <span class="n">_office_record_class_</span> <span class="o">=</span> <span class="n">OfficeRecord</span>
+    <span class="n">_plr_record_class_</span> <span class="o">=</span> <span class="n">PlrRecord</span>
+    <span class="n">_reference_definition_record_class_</span> <span class="o">=</span> <span class="n">ReferenceDefinitionRecord</span>
+    <span class="n">_view_service_record_class_</span> <span class="o">=</span> <span class="n">ViewServiceRecord</span></div>
+
+
+<div class="viewcode-block" id="PlrStandardDatabaseSource"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource">[docs]</a><span class="k">class</span> <span class="nc">PlrStandardDatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">PlrBaseSource</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="n">models_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;models&#39;</span><span class="p">)</span>
+        <span class="n">bds_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">(</span>
+                <span class="s1">&#39;</span><span class="si">{models_path}</span><span class="s1">.Geometry&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">models_path</span><span class="o">=</span><span class="n">models_path</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="s1">&#39;db_connection&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="n">availability_model</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">(</span>
+            <span class="s1">&#39;</span><span class="si">{models_path}</span><span class="s1">.Availability&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">models_path</span><span class="o">=</span><span class="n">models_path</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PlrStandardDatabaseSource</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">bds_kwargs</span><span class="p">)</span>
+
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
+        <span class="n">availabilities_from_db</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">availability_model</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">availabilities</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">availability</span> <span class="ow">in</span> <span class="n">availabilities_from_db</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">availabilities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">AvailabilityRecord</span><span class="p">(</span><span class="n">availability</span><span class="o">.</span><span class="n">fosnr</span><span class="p">,</span> <span class="n">available</span><span class="o">=</span><span class="n">availability</span><span class="o">.</span><span class="n">available</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="c1"># session.close()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the info dictionary.</span>
+
+<span class="sd">        :return: The info dictionary.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">geometry_parsing</span><span class="p">(</span><span class="n">geometry_value</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">to_shape</span><span class="p">(</span><span class="n">geometry_value</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geometry_value</span><span class="p">,</span> <span class="n">_SpatialElement</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">from_db_to_legend_entry_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">legend_entries_from_db</span><span class="p">):</span>
+        <span class="n">legend_entry_records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">legend_entry_from_db</span> <span class="ow">in</span> <span class="n">legend_entries_from_db</span><span class="p">:</span>
+            <span class="n">legend_entry_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_legend_entry_record_class_</span><span class="p">(</span>
+                <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span>
+                <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">legend_text</span><span class="p">,</span>
+                <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span>
+                <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">type_code_list</span><span class="p">,</span>
+                <span class="n">theme</span>
+            <span class="p">))</span>
+        <span class="k">return</span> <span class="n">legend_entry_records</span>
+
+    <span class="k">def</span> <span class="nf">from_db_to_view_service_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view_service_from_db</span><span class="p">,</span> <span class="n">legend_entry_records</span><span class="p">):</span>
+        <span class="n">view_service_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_service_record_class_</span><span class="p">(</span>
+            <span class="n">view_service_from_db</span><span class="o">.</span><span class="n">link_wms</span><span class="p">,</span>
+            <span class="n">view_service_from_db</span><span class="o">.</span><span class="n">legend_web</span><span class="p">,</span>
+            <span class="n">legends</span><span class="o">=</span><span class="n">legend_entry_records</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">view_service_record</span>
+
+    <span class="k">def</span> <span class="nf">from_db_to_geometry_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geometries_from_db</span><span class="p">):</span>
+        <span class="n">geometry_records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">geometry_from_db</span> <span class="ow">in</span> <span class="n">geometries_from_db</span><span class="p">:</span>
+            <span class="n">geometry_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_geometry_record_class_</span><span class="p">(</span>
+                <span class="n">geometry_from_db</span><span class="o">.</span><span class="n">legal_state</span><span class="p">,</span>
+                <span class="n">geometry_from_db</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">geometry_parsing</span><span class="p">(</span><span class="n">geometry_from_db</span><span class="o">.</span><span class="n">geom</span><span class="p">),</span>
+                <span class="n">geometry_from_db</span><span class="o">.</span><span class="n">geo_metadata</span><span class="p">,</span>
+                <span class="n">office</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_office_record</span><span class="p">(</span><span class="n">geometry_from_db</span><span class="o">.</span><span class="n">responsible_office</span><span class="p">)</span>
+            <span class="p">))</span>
+        <span class="k">return</span> <span class="n">geometry_records</span>
+
+    <span class="k">def</span> <span class="nf">from_db_to_office_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offices_from_db</span><span class="p">):</span>
+        <span class="n">office_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_office_record_class_</span><span class="p">(</span>
+            <span class="n">offices_from_db</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">offices_from_db</span><span class="o">.</span><span class="n">uid</span><span class="p">,</span>
+            <span class="n">offices_from_db</span><span class="o">.</span><span class="n">office_at_web</span><span class="p">,</span>
+            <span class="n">offices_from_db</span><span class="o">.</span><span class="n">line1</span><span class="p">,</span>
+            <span class="n">offices_from_db</span><span class="o">.</span><span class="n">line2</span><span class="p">,</span>
+            <span class="n">offices_from_db</span><span class="o">.</span><span class="n">street</span><span class="p">,</span>
+            <span class="n">offices_from_db</span><span class="o">.</span><span class="n">number</span><span class="p">,</span>
+            <span class="n">offices_from_db</span><span class="o">.</span><span class="n">postal_code</span><span class="p">,</span>
+            <span class="n">offices_from_db</span><span class="o">.</span><span class="n">city</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">office_record</span>
+
+    <span class="k">def</span> <span class="nf">from_db_to_article_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">articles_from_db</span><span class="p">):</span>
+        <span class="n">article_records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">article_from_db</span> <span class="ow">in</span> <span class="n">articles_from_db</span><span class="p">:</span>
+            <span class="n">article_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_article_record_class_</span><span class="p">(</span>
+                <span class="n">article_from_db</span><span class="o">.</span><span class="n">legal_state</span><span class="p">,</span>
+                <span class="n">article_from_db</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>
+                <span class="n">article_from_db</span><span class="o">.</span><span class="n">number</span><span class="p">,</span>
+                <span class="n">article_from_db</span><span class="o">.</span><span class="n">text_at_web</span><span class="p">,</span>
+                <span class="n">article_from_db</span><span class="o">.</span><span class="n">text</span>
+            <span class="p">))</span>
+        <span class="k">return</span> <span class="n">article_records</span>
+
+    <span class="k">def</span> <span class="nf">from_db_to_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legal_provisions_from_db</span><span class="p">,</span> <span class="n">article_numbers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">document_records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">legal_provision</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">legal_provisions_from_db</span><span class="p">):</span>
+            <span class="n">referenced_documents_db</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">referenced_article_numbers</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">join</span> <span class="ow">in</span> <span class="n">legal_provision</span><span class="o">.</span><span class="n">referenced_documents</span><span class="p">:</span>
+                <span class="n">referenced_documents_db</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">join</span><span class="o">.</span><span class="n">referenced_document</span><span class="p">)</span>
+                <span class="n">referenced_article_nrs</span> <span class="o">=</span> <span class="n">join</span><span class="o">.</span><span class="n">article_numbers</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">join</span><span class="o">.</span><span class="n">article_numbers</span> <span class="k">else</span> <span class="kc">None</span>
+                <span class="n">referenced_article_numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">referenced_article_nrs</span><span class="p">)</span>
+            <span class="n">referenced_document_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_document_records</span><span class="p">(</span>
+                <span class="n">referenced_documents_db</span><span class="p">,</span>
+                <span class="n">referenced_article_numbers</span>
+            <span class="p">)</span>
+            <span class="n">article_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_article_records</span><span class="p">(</span><span class="n">legal_provision</span><span class="o">.</span><span class="n">articles</span><span class="p">)</span>
+            <span class="n">office_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_office_record</span><span class="p">(</span><span class="n">legal_provision</span><span class="o">.</span><span class="n">responsible_office</span><span class="p">)</span>
+            <span class="n">article_nrs</span> <span class="o">=</span> <span class="n">article_numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">article_numbers</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">document_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_documents_reocord_class_</span><span class="p">(</span>
+                <span class="n">legal_provision</span><span class="o">.</span><span class="n">legal_state</span><span class="p">,</span>
+                <span class="n">legal_provision</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>
+                <span class="n">legal_provision</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+                <span class="n">office_record</span><span class="p">,</span>
+                <span class="n">legal_provision</span><span class="o">.</span><span class="n">text_web</span><span class="p">,</span>
+                <span class="n">legal_provision</span><span class="o">.</span><span class="n">abbreviation</span><span class="p">,</span>
+                <span class="n">legal_provision</span><span class="o">.</span><span class="n">official_number</span><span class="p">,</span>
+                <span class="n">legal_provision</span><span class="o">.</span><span class="n">official_title</span><span class="p">,</span>
+                <span class="n">legal_provision</span><span class="o">.</span><span class="n">canton</span><span class="p">,</span>
+                <span class="n">legal_provision</span><span class="o">.</span><span class="n">municipality</span><span class="p">,</span>
+                <span class="n">article_nrs</span><span class="p">,</span>
+                <span class="n">legal_provision</span><span class="o">.</span><span class="n">file</span><span class="p">,</span>
+                <span class="n">article_records</span><span class="p">,</span>
+                <span class="n">referenced_document_records</span>
+            <span class="p">))</span>
+        <span class="k">return</span> <span class="n">document_records</span>
+
+    <span class="k">def</span> <span class="nf">from_db_to_plr_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="p">):</span>
+        <span class="n">theme_record</span> <span class="o">=</span> <span class="n">ThemeRecord</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">))</span>
+        <span class="n">legend_entry_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_legend_entry_record</span><span class="p">(</span>
+            <span class="n">theme_record</span><span class="p">,</span>
+            <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">legends</span>
+        <span class="p">)</span>
+        <span class="n">view_service_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_view_service_record</span><span class="p">(</span>
+            <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">view_service</span><span class="p">,</span>
+            <span class="n">legend_entry_records</span>
+        <span class="p">)</span>
+        <span class="n">documents_from_db</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">article_numbers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">legal_provision</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">legal_provisions</span><span class="p">):</span>
+            <span class="n">documents_from_db</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">legal_provision</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+            <span class="n">article_nrs</span> <span class="o">=</span> <span class="n">legal_provision</span><span class="o">.</span><span class="n">article_numbers</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">legal_provision</span><span class="o">.</span><span class="n">article_numbers</span> \
+                <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">article_numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">article_nrs</span><span class="p">)</span>
+        <span class="n">document_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_document_records</span><span class="p">(</span><span class="n">documents_from_db</span><span class="p">,</span> <span class="n">article_numbers</span><span class="p">)</span>
+        <span class="n">geometry_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_geometry_records</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">geometries</span><span class="p">)</span>
+
+        <span class="n">basis_plr_records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">join</span> <span class="ow">in</span> <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">basis</span><span class="p">:</span>
+            <span class="n">basis_plr_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_plr_record</span><span class="p">(</span><span class="n">join</span><span class="o">.</span><span class="n">base</span><span class="p">))</span>
+        <span class="n">refinements_plr_records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">join</span> <span class="ow">in</span> <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">refinements</span><span class="p">:</span>
+            <span class="n">refinements_plr_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_plr_record</span><span class="p">(</span><span class="n">join</span><span class="o">.</span><span class="n">refinement</span><span class="p">))</span>
+        <span class="n">plr_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_record_class_</span><span class="p">(</span>
+            <span class="n">theme_record</span><span class="p">,</span>
+            <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+            <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">legal_state</span><span class="p">,</span>
+            <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_office_record</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">responsible_office</span><span class="p">),</span>
+            <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">subtopic</span><span class="p">,</span>
+            <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">additional_topic</span><span class="p">,</span>
+            <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span>
+            <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">type_code_list</span><span class="p">,</span>
+            <span class="n">view_service_record</span><span class="p">,</span>
+            <span class="n">basis_plr_records</span><span class="p">,</span>
+            <span class="n">refinements_plr_records</span><span class="p">,</span>
+            <span class="n">document_records</span>
+        <span class="p">)</span>
+        <span class="c1"># solve circular dependency between plr and geometry</span>
+        <span class="k">for</span> <span class="n">geometry_record</span> <span class="ow">in</span> <span class="n">geometry_records</span><span class="p">:</span>
+            <span class="n">geometry_record</span><span class="o">.</span><span class="n">public_law_restriction</span> <span class="o">=</span> <span class="n">plr_record</span>
+        <span class="n">plr_record</span><span class="o">.</span><span class="n">geometries</span> <span class="o">=</span> <span class="n">geometry_records</span>
+        <span class="k">return</span> <span class="n">plr_record</span>
+
+<div class="viewcode-block" id="PlrStandardDatabaseSource.read"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The read point which creates a extract, depending on a passed real estate.</span>
+<span class="sd">        :param real_estate: The real estate in its record representation.</span>
+<span class="sd">        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">availability</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">availabilities</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">fosnr</span> <span class="o">==</span> <span class="n">availability</span><span class="o">.</span><span class="n">fosnr</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">availability</span><span class="o">.</span><span class="n">available</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EmptyPlrRecord</span><span class="p">(</span><span class="n">ThemeRecord</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
+                <span class="p">),</span> <span class="n">has_data</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="c1"># TODO: Replace hardcoded SRID with srid defined in conf</span>
+        <span class="n">geoalchemy_representation</span> <span class="o">=</span> <span class="n">from_shape</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">,</span> <span class="n">srid</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">))</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
+        <span class="n">geometry_results</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">ST_Intersects</span><span class="p">(</span>
+            <span class="n">geoalchemy_representation</span>
+        <span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">geometry_results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EmptyPlrRecord</span><span class="p">(</span><span class="n">ThemeRecord</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
+            <span class="p">)))</span>
+        <span class="k">for</span> <span class="n">geometry_result</span> <span class="ow">in</span> <span class="n">geometry_results</span><span class="p">:</span>
+            <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_plr_record</span><span class="p">(</span><span class="n">geometry_result</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">real_estate</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  <li><a href="../../../pyramid_oereb.html">pyramid_oereb</a><ul>
+  <li><a href="../sources.html">pyramid_oereb.lib.sources</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h3>Versions</h3>
+<ul>
+    <li><a href="../../../../master/_modules/pyramid_oereb/lib/sources/plr.html">master</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, pyramid_oereb devs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

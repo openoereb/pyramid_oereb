@@ -1,0 +1,762 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyramid_oereb.standard.models.groundwater_protection_zones &#8212; OEREB  documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/banner.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pyramid_oereb.standard.models.groundwater_protection_zones</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This is a full representation of the data model defined by the federal definition.</span>
+
+<span class="sd">**It is representing the topic: Groundwater Protection Zones**</span>
+
+<span class="sd">You can use it to</span>
+<span class="sd">produce a own new topic for the oereb eco system in the specifications shape. To be able to adapt this</span>
+<span class="sd">models to your own infrastructure you must implement the same attribute names! In fact that inheritance</span>
+<span class="sd">is not easily made you need to make your own classes and adapt them to your database.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">sqlalchemy</span> <span class="k">as</span> <span class="nn">sa</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models</span> <span class="k">import</span> <span class="n">NAMING_CONVENTION</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">srid</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="k">import</span> <span class="n">declarative_base</span>
+<span class="kn">from</span> <span class="nn">geoalchemy2.types</span> <span class="k">import</span> <span class="n">Geometry</span> <span class="k">as</span> <span class="n">GeoAlchemyGeometry</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="k">import</span> <span class="n">relationship</span>
+
+<span class="n">metadata</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">MetaData</span><span class="p">(</span><span class="n">naming_convention</span><span class="o">=</span><span class="n">NAMING_CONVENTION</span><span class="p">)</span>
+<span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">srid</span><span class="p">:</span>
+    <span class="n">srid</span> <span class="o">=</span> <span class="mi">2056</span>
+
+
+<div class="viewcode-block" id="Availability"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.Availability">[docs]</a><span class="k">class</span> <span class="nc">Availability</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A simple bucket for achieving a switch per municipality. Here you can configure via the imported data if</span>
+<span class="sd">    a public law restriction is available or not. You need to fill it with the data you provided in the</span>
+<span class="sd">    app schemas municipality table (fosnr).</span>
+
+<span class="sd">    :var fosnr: The identifier of the municipality in your system (id_bfs = fosnr)</span>
+<span class="sd">    :vartype fosnr: int</span>
+<span class="sd">    :var available: The switch field to configure if this plr is available for the municipality or not.</span>
+<span class="sd">        This field has direct influence on the applications behaviour. See documentation for more info.</span>
+<span class="sd">    :vartype available: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;availability&#39;</span>
+    <span class="n">fosnr</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">available</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Boolean</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Office"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.Office">[docs]</a><span class="k">class</span> <span class="nc">Office</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The bucket to fill in all the offices you need to reference from public law restriction, document,</span>
+<span class="sd">    geometry.</span>
+
+<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
+<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">    :vartype id: int</span>
+<span class="sd">    :var name: The name of the office.</span>
+<span class="sd">    :vartype name: str</span>
+<span class="sd">    :var office_at_web: A web accessible url to a presentation of this office.</span>
+<span class="sd">    :vartype office_at_web: str</span>
+<span class="sd">    :var uid: The uid of this office from https://www.uid.admin.ch</span>
+<span class="sd">    :vartype uid: str</span>
+<span class="sd">    :var line1: The first address line for this office.</span>
+<span class="sd">    :vartype line1: str</span>
+<span class="sd">    :var line2: The second address line for this office.</span>
+<span class="sd">    :vartype line2: str</span>
+<span class="sd">    :var street: The streets name of the offices address.</span>
+<span class="sd">    :vartype street: str</span>
+<span class="sd">    :var number: The number on street.</span>
+<span class="sd">    :vartype number: str</span>
+<span class="sd">    :var postal_code: The ZIP-code.</span>
+<span class="sd">    :vartype postal_code: int</span>
+<span class="sd">    :var city: The name of the city.</span>
+<span class="sd">    :vartype city: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;office&#39;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">office_at_web</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">uid</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">line1</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">line2</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">street</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">postal_code</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">city</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ReferenceDefinition"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.ReferenceDefinition">[docs]</a><span class="k">class</span> <span class="nc">ReferenceDefinition</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>  <span class="c1"># TODO: Check translation</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The meta bucket for definitions which are directly related to a public law restriction in a common way or</span>
+<span class="sd">    to the whole canton or a  whole municipality. It is used to have a place to store general documents</span>
+<span class="sd">    which are related to an extract but not directly on a special public law restriction situation.</span>
+
+<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
+<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">    :vartype id: int</span>
+<span class="sd">    :var topic: The topic which this definition might be related to.</span>
+<span class="sd">    :vartype topic: str</span>
+<span class="sd">    :var canton: The canton this definition is related to.</span>
+<span class="sd">    :vartype canton: str</span>
+<span class="sd">    :var municipality: The municipality this definition is related to.</span>
+<span class="sd">    :vartype municipality: int</span>
+<span class="sd">    :var office_id: The foreign key constraint which the definition is related to.</span>
+<span class="sd">    :vartype office_id: int</span>
+<span class="sd">    :var office: The dedicated relation to the office instance from database.</span>
+<span class="sd">    :vartype responsible_office: pyramid_oereb.standard.models.groundwater_protection_zones.Office</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;reference_definition&#39;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">topic</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">canton</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">municipality</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">office_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="n">Office</span><span class="o">.</span><span class="n">id</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">responsible_office</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">Office</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DocumentBase"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase">[docs]</a><span class="k">class</span> <span class="nc">DocumentBase</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    In the specification documents are cascaded in a inheritance way. So this representation is used to</span>
+<span class="sd">    produce the addressable primary key and to provide the common document attributes.</span>
+
+<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
+<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">    :vartype id: int</span>
+<span class="sd">    :var text_web: A link which leads to the documents content in the web.</span>
+<span class="sd">    :vartype text_web: str</span>
+<span class="sd">    :var legal_state: The status switch if the document is legally approved or not.</span>
+<span class="sd">    :vartype legal_state: str</span>
+<span class="sd">    :var published_from: The date when the document should be available for publishing on extracts. This</span>
+<span class="sd">        directly affects the behaviour of extract generation.</span>
+<span class="sd">    :vartype published_from: datetime.date</span>
+<span class="sd">    :var type: This is a sqlalchemy related attribute to provide database table inheritance.</span>
+<span class="sd">    :vartype type: unicode</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;document_base&#39;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">text_web</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">legal_state</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">published_from</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Date</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Unicode</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">__mapper_args__</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;polymorphic_identity&#39;</span><span class="p">:</span> <span class="s1">&#39;document_base&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;polymorphic_on&#39;</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
+        <span class="s1">&#39;passive_updates&#39;</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="Document"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.Document">[docs]</a><span class="k">class</span> <span class="nc">Document</span><span class="p">(</span><span class="n">DocumentBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    THE DOCUMENT</span>
+<span class="sd">    This represents the main document in the whole system. It is specialized in some sub classes.</span>
+
+<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
+<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">    :vartype id: int</span>
+<span class="sd">    :var title: The title or if existing the short title ot his document.</span>
+<span class="sd">    :vartype title: str</span>
+<span class="sd">    :var office_title: The official title of this document.</span>
+<span class="sd">    :vartype office_title: str</span>
+<span class="sd">    :var abbrevation: The shortened version of the documents title.</span>
+<span class="sd">    :vartype abbrevation: str</span>
+<span class="sd">    :var official_number: The official number which uniquely identifies this document.</span>
+<span class="sd">    :vartype official_number: str</span>
+<span class="sd">    :var canton: The short version of the canton which this document is about. If this is None this is</span>
+<span class="sd">        assumed to be a federal document.</span>
+<span class="sd">    :vartype canton: str</span>
+<span class="sd">    :var municipality: The fosnr (=id bfs) of the municipality. If this is None it is assumed the document is</span>
+<span class="sd">        related to the whole canton or even the confederation.</span>
+<span class="sd">    :vartype municipality: int</span>
+<span class="sd">    :var file: The document itself as a binary representation (PDF). It is string but BaseCode64 encoded.</span>
+<span class="sd">    :vartype file: str</span>
+<span class="sd">    :var office_id: The foreign key to the office which is in charge for this document.</span>
+<span class="sd">    :vartype office_id: int</span>
+<span class="sd">    :var responsible_office: The dedicated relation to the office instance from database.</span>
+<span class="sd">    :vartype responsible_office: pyramid_oereb.standard.models.groundwater_protection_zones.Office</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;document&#39;</span>
+    <span class="n">__mapper_args__</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;polymorphic_identity&#39;</span><span class="p">:</span> <span class="s1">&#39;document&#39;</span>
+    <span class="p">}</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">official_title</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">abbreviation</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">official_number</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">canton</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">municipality</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">DocumentBase</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">onupdate</span><span class="o">=</span><span class="s2">&quot;cascade&quot;</span>
+    <span class="p">)</span>
+    <span class="n">office_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Office</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">responsible_office</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">Office</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Article"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.Article">[docs]</a><span class="k">class</span> <span class="nc">Article</span><span class="p">(</span><span class="n">DocumentBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A subclass of the document representing articles. Article in the sense of a law document. It is often</span>
+<span class="sd">    described as a special part of the whole law document and reflects a dedicated content of this.</span>
+
+<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
+<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">    :vartype id: int</span>
+<span class="sd">    :var number: The number which identifies this article in its parent document.</span>
+<span class="sd">    :vartype number: str</span>
+<span class="sd">    :var text: A simple string to describe the article or give some related info.</span>
+<span class="sd">    :vartype text: str</span>
+<span class="sd">    :var document_id: The foreign key to the document this article is taken from.</span>
+<span class="sd">    :vartype document_id: int</span>
+<span class="sd">    :var document: The dedicated relation to the document instance from database.</span>
+<span class="sd">    :vartype document_id: pyramid_oereb.standard.models.groundwater_protection_zones.Document</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;article&#39;</span>
+    <span class="n">__mapper_args__</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;polymorphic_identity&#39;</span><span class="p">:</span> <span class="s1">&#39;article&#39;</span>
+    <span class="p">}</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">DocumentBase</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">onupdate</span><span class="o">=</span><span class="s2">&quot;cascade&quot;</span>
+    <span class="p">)</span>
+    <span class="n">document_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Document</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">document</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
+        <span class="n">Document</span><span class="p">,</span>
+        <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;articles&#39;</span><span class="p">,</span>
+        <span class="n">foreign_keys</span><span class="o">=</span><span class="p">[</span><span class="n">document_id</span><span class="p">]</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LegalProvision"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.LegalProvision">[docs]</a><span class="k">class</span> <span class="nc">LegalProvision</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A subclass of the document representing legal provisions. It is a specialized class of document.</span>
+
+<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
+<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">    :vartype id: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;legal_provision&#39;</span>
+    <span class="n">__mapper_args__</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;polymorphic_identity&#39;</span><span class="p">:</span> <span class="s1">&#39;legal_provision&#39;</span>
+    <span class="p">}</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Document</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">onupdate</span><span class="o">=</span><span class="s2">&quot;cascade&quot;</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ViewService"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.ViewService">[docs]</a><span class="k">class</span> <span class="nc">ViewService</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A view service aka WM(T)S which can deliver a cartographic representation via web.</span>
+
+<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
+<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">    :vartype id: int</span>
+<span class="sd">    :var link_wms: The actual url which leads to the desired cartographic representation.</span>
+<span class="sd">    :vartype link_wms: str</span>
+<span class="sd">    :var legend_web: A link leading to a wms describing document (png).</span>
+<span class="sd">    :vartype legend_web: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;view_service&#39;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">link_wms</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">legend_web</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LegendEntry"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.LegendEntry">[docs]</a><span class="k">class</span> <span class="nc">LegendEntry</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class based legend system which is directly related to</span>
+<span class="sd">    :ref:`pyramid_oereb.standard.models.groundwater_protection_zones.ViewService`.</span>
+
+<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
+<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">    :vartype id: int</span>
+<span class="sd">    :var file: An image with represents the legend entry. This can be png or svg. It is string but BaseCode64</span>
+<span class="sd">        encoded.</span>
+<span class="sd">    :vartype file: str</span>
+<span class="sd">    :var legend_text: Text to describe this legend entry.</span>
+<span class="sd">    :vartype legend_text: str</span>
+<span class="sd">    :var type_code: Type code of the public law restriction which is represented by this legend entry.</span>
+<span class="sd">    :vartype type_code: str</span>
+<span class="sd">    :var type_code_list: List of all public law restrictions which are described through this legend</span>
+<span class="sd">        entry.</span>
+<span class="sd">    :vartype type_code_list: str</span>
+<span class="sd">    :var topic: Statement to describe to which public law restriction this legend entry belongs.</span>
+<span class="sd">    :vartype topic: str</span>
+<span class="sd">    :var subtopic: Description for sub topics this legend entry might belonging to.</span>
+<span class="sd">    :vartype subtopic: str</span>
+<span class="sd">    :var additional_topic: A link to additional topics. It must be like the following patterns:</span>
+
+<span class="sd">        * ch.{canton}.{topic}</span>
+<span class="sd">        * fl.{topic}</span>
+<span class="sd">        * ch.{bfsnr}.{topic}</span>
+
+<span class="sd">        This with {canton} as the official two letters short version (e.g.&#39;BE&#39;) {topic} as the name of the</span>
+<span class="sd">        topic and {bfsnr} as the municipality id of the federal office of statistics.</span>
+<span class="sd">    :vartype additional_topic: str</span>
+<span class="sd">    :var view_service_id: The foreign key to the view service this legend entry is related to.</span>
+<span class="sd">    :vartype view_service_id: int</span>
+<span class="sd">    :var view_service: The dedicated relation to the view service instance from database.</span>
+<span class="sd">    :vartype view_service: pyramid_oereb.standard.models.groundwater_protection_zones.ViewService</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;legend_entry&#39;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">legend_text</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">type_code</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">type_code_list</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">topic</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">subtopic</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">additional_topic</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">view_service_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ViewService</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">view_service</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">ViewService</span><span class="p">,</span> <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;legends&#39;</span><span class="p">)</span></div>
+
+
+<span class="c1"># TODO: check how the definition in base model from confederation can be realized</span>
+<div class="viewcode-block" id="PublicLawRestriction"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction">[docs]</a><span class="k">class</span> <span class="nc">PublicLawRestriction</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The container where you can fill in all your public law restrictions to the topic.</span>
+
+<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
+<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">    :vartype id: int</span>
+<span class="sd">    :var content: The textual representation of the public law restriction.</span>
+<span class="sd">    :vartype content: str</span>
+<span class="sd">    :var topic: Category for this public law restriction (name of the topic).</span>
+<span class="sd">    :vartype topic: str</span>
+<span class="sd">    :var subtopic: Textual explanation to subtype the topic attribute.</span>
+<span class="sd">    :vartype subtopic: str</span>
+<span class="sd">    :var additional_topic: A link to additional topics. It must be like the following patterns:</span>
+<span class="sd">        * ch.{canton}.{topic}</span>
+<span class="sd">        * fl.{topic}</span>
+<span class="sd">        * ch.{bfsnr}.{topic}</span>
+<span class="sd">        This with {canton} as the official two letters short version (e.g.&#39;BE&#39;) {topic} as the name of the</span>
+<span class="sd">        topic and {bfsnr} as the municipality id of the federal office of statistics.</span>
+<span class="sd">    :vartype additional_topic: str</span>
+<span class="sd">    :var type_code: Type code of the public law restriction machine readable based on the original data</span>
+<span class="sd">        model of this public law restriction.</span>
+<span class="sd">    :vartype type_code: str</span>
+<span class="sd">    :var type_code_list: List of full range of type_codes for this public law restriction in a machine</span>
+<span class="sd">        readable format.</span>
+<span class="sd">    :vartype type_code_list: str</span>
+<span class="sd">    :var legal_state: The status switch if the document is legally approved or not.</span>
+<span class="sd">    :vartype legal_state: str</span>
+<span class="sd">    :var published_from: The date when the document should be available for publishing on extracts. This</span>
+<span class="sd">        directly affects the behaviour of extract generation.</span>
+<span class="sd">    :vartype published_from: datetime.date</span>
+<span class="sd">    :var view_service_id: The foreign key to the view service this public law restriction is related to.</span>
+<span class="sd">    :vartype view_service_id: int</span>
+<span class="sd">    :var view_service: The dedicated relation to the view service instance from database.</span>
+<span class="sd">    :vartype view_service: pyramid_oereb.standard.models.groundwater_protection_zones.ViewService</span>
+<span class="sd">    :var office_id: The foreign key to the office which is responsible to this public law restriction.</span>
+<span class="sd">    :vartype office_id: int</span>
+<span class="sd">    :var responsible_office: The dedicated relation to the office instance from database.</span>
+<span class="sd">    :vartype responsible_office: pyramid_oereb.standard.models.groundwater_protection_zones.Office</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;public_law_restriction&#39;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">topic</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">subtopic</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">additional_topic</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">type_code</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">type_code_list</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">legal_state</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">published_from</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Date</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">view_service_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ViewService</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">view_service</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
+        <span class="n">ViewService</span><span class="p">,</span>
+        <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;public_law_restrictions&#39;</span>
+    <span class="p">)</span>
+    <span class="n">office_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Office</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">responsible_office</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">Office</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Geometry"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.Geometry">[docs]</a><span class="k">class</span> <span class="nc">Geometry</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The dedicated model for all geometries in relation to their public law restriction.</span>
+
+<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
+<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">    :vartype id: int</span>
+<span class="sd">    :var legal_state: The status switch if the document is legally approved or not.</span>
+<span class="sd">    :vartype legal_state: str</span>
+<span class="sd">    :var published_from: The date when the document should be available for publishing on extracts. This</span>
+<span class="sd">        directly affects the behaviour of extract generation.</span>
+<span class="sd">    :vartype published_from: datetime.date</span>
+<span class="sd">    :var geo_metadata: A link to the metadata which this geometry is based on which delivers machine</span>
+<span class="sd">        readable response format (XML).</span>
+<span class="sd">    :vartype geo_metadata: str</span>
+<span class="sd">    :var geom: The geometry it&#39;s self. For type information see geoalchemy2_.</span>
+
+<span class="sd">        .. _geoalchemy2: https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html</span>
+
+<span class="sd">        docs dependent on the configured type.</span>
+
+<span class="sd">        This concrete one is POLYGON</span>
+<span class="sd">    :vartype geom: geoalchemy2.types.Geometry</span>
+<span class="sd">    :var public_law_restriction_id: The foreign key to the public law restriction this geometry is</span>
+<span class="sd">        related to.</span>
+<span class="sd">    :vartype public_law_restriction_id: int</span>
+<span class="sd">    :var public_law_restriction: The dedicated relation to the public law restriction instance from</span>
+<span class="sd">        database.</span>
+<span class="sd">    :vartype public_law_restriction:</span>
+<span class="sd">        pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction</span>
+<span class="sd">    :var office_id: The foreign key to the office which is responsible to this public law restriction.</span>
+<span class="sd">    :vartype office_id: int</span>
+<span class="sd">    :var responsible_office: The dedicated relation to the office instance from database.</span>
+<span class="sd">    :vartype responsible_office: pyramid_oereb.standard.models.groundwater_protection_zones.Office</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;geometry&#39;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">legal_state</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">published_from</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Date</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">geo_metadata</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># TODO: Check translation</span>
+    <span class="n">geom</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">GeoAlchemyGeometry</span><span class="p">(</span><span class="s1">&#39;POLYGON&#39;</span><span class="p">,</span> <span class="n">srid</span><span class="o">=</span><span class="n">srid</span><span class="p">))</span>
+    <span class="n">public_law_restriction_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">PublicLawRestriction</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">public_law_restriction</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
+        <span class="n">PublicLawRestriction</span><span class="p">,</span>
+        <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;geometries&#39;</span>
+    <span class="p">)</span>
+    <span class="n">office_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Office</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">responsible_office</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">Office</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PublicLawRestrictionBase"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestrictionBase">[docs]</a><span class="k">class</span> <span class="nc">PublicLawRestrictionBase</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Meta bucket (join table) for public law restrictions which acts as a base for other public law</span>
+<span class="sd">    restrictions.</span>
+
+<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
+<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">    :vartype id: int</span>
+<span class="sd">    :var public_law_restriction_id: The foreign key to the public law restriction which bases on another</span>
+<span class="sd">        public law restriction.</span>
+<span class="sd">    :vartype public_law_restriction_id: int</span>
+<span class="sd">    :var public_law_restriction_base_id: The foreign key to the public law restriction which is the</span>
+<span class="sd">        base for the public law restriction.</span>
+<span class="sd">    :vartype public_law_restriction_base_id: int</span>
+<span class="sd">    :var plr: The dedicated relation to the public law restriction (which bases on) instance from</span>
+<span class="sd">        database.</span>
+<span class="sd">    :vartype plr: pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction</span>
+<span class="sd">    :var base: The dedicated relation to the public law restriction (which is the base) instance from</span>
+<span class="sd">        database.</span>
+<span class="sd">    :vartype base: pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;public_law_restriction_base&#39;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">public_law_restriction_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">PublicLawRestriction</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">public_law_restriction_base_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">PublicLawRestriction</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">plr</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
+        <span class="n">PublicLawRestriction</span><span class="p">,</span>
+        <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;basis&#39;</span><span class="p">,</span>
+        <span class="n">foreign_keys</span><span class="o">=</span><span class="p">[</span><span class="n">public_law_restriction_id</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
+        <span class="n">PublicLawRestriction</span><span class="p">,</span>
+        <span class="n">foreign_keys</span><span class="o">=</span><span class="p">[</span><span class="n">public_law_restriction_base_id</span><span class="p">]</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PublicLawRestrictionRefinement"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestrictionRefinement">[docs]</a><span class="k">class</span> <span class="nc">PublicLawRestrictionRefinement</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Meta bucket (join table) for public law restrictions which acts as a refinement for other public law</span>
+<span class="sd">    restrictions.</span>
+
+<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
+<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">    :vartype id: int</span>
+<span class="sd">    :var public_law_restriction_id: The foreign key to the public law restriction which is refined by</span>
+<span class="sd">        another public law restriction.</span>
+<span class="sd">    :vartype public_law_restriction_id: int</span>
+<span class="sd">    :var public_law_restriction_refinement_id: The foreign key to the public law restriction which is</span>
+<span class="sd">        the refinement of the public law restriction.</span>
+<span class="sd">    :vartype public_law_restriction_refinement_id: int</span>
+<span class="sd">    :var plr: The dedicated relation to the public law restriction (which refines) instance from</span>
+<span class="sd">        database.</span>
+<span class="sd">    :vartype plr: pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction</span>
+<span class="sd">    :var base: The dedicated relation to the public law restriction (which is refined) instance from</span>
+<span class="sd">        database.</span>
+<span class="sd">    :vartype base: pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;public_law_restriction_refinement&#39;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">public_law_restriction_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">PublicLawRestriction</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">public_law_restriction_refinement_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">PublicLawRestriction</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">plr</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
+        <span class="n">PublicLawRestriction</span><span class="p">,</span>
+        <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;refinements&#39;</span><span class="p">,</span>
+        <span class="n">foreign_keys</span><span class="o">=</span><span class="p">[</span><span class="n">public_law_restriction_id</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">refinement</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
+        <span class="n">PublicLawRestriction</span><span class="p">,</span>
+        <span class="n">foreign_keys</span><span class="o">=</span><span class="p">[</span><span class="n">public_law_restriction_refinement_id</span><span class="p">]</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PublicLawRestrictionDocument"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestrictionDocument">[docs]</a><span class="k">class</span> <span class="nc">PublicLawRestrictionDocument</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Meta bucket (join table) for the relationship between public law restrictions and documents.</span>
+
+<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
+<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">    :vartype id: int</span>
+<span class="sd">    :var public_law_restriction_id: The foreign key to the public law restriction which has relation to</span>
+<span class="sd">        a document.</span>
+<span class="sd">    :vartype public_law_restriction_id: int</span>
+<span class="sd">    :var document_id: The foreign key to the document which has relation to the public law restriction.</span>
+<span class="sd">    :vartype document_id: int</span>
+<span class="sd">    :var plr: The dedicated relation to the public law restriction instance from database.</span>
+<span class="sd">    :vartype plr: pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction</span>
+<span class="sd">    :var document: The dedicated relation to the document instance from database.</span>
+<span class="sd">    :vartype document: pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;public_law_restriction_document&#39;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">public_law_restriction_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">PublicLawRestriction</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">document_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">DocumentBase</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">plr</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
+        <span class="n">PublicLawRestriction</span><span class="p">,</span>
+        <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;legal_provisions&#39;</span>
+    <span class="p">)</span>
+    <span class="n">document</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
+        <span class="n">DocumentBase</span>
+    <span class="p">)</span>
+    <span class="n">article_numbers</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<span class="c1"># TODO: check translation</span>
+<div class="viewcode-block" id="DocumentReference"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.DocumentReference">[docs]</a><span class="k">class</span> <span class="nc">DocumentReference</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Meta bucket (join table) for the relationship between documents.</span>
+
+<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
+<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">    :vartype id: int</span>
+<span class="sd">    :var document_id: The foreign key to the document which references to another document.</span>
+<span class="sd">    :vartype document_id: int</span>
+<span class="sd">    :var reference_document_id: The foreign key to the document which is referenced.</span>
+<span class="sd">    :vartype reference_document_id: int</span>
+<span class="sd">    :var document: The dedicated relation to the document (which references) instance from database.</span>
+<span class="sd">    :vartype document: pyramid_oereb.standard.models.groundwater_protection_zones.Document</span>
+<span class="sd">    :var referenced_document: The dedicated relation to the document (which is referenced) instance from</span>
+<span class="sd">        database.</span>
+<span class="sd">    :vartype referenced_document: pyramid_oereb.standard.models.groundwater_protection_zones.Document</span>
+<span class="sd">    :var article_numbers: A colon of article numbers which clarify the reference. This is a string</span>
+<span class="sd">        separated by &#39;|&#39;.</span>
+<span class="sd">    :vartype article_numbers: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;document_reference&#39;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">document_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Document</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">reference_document_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Document</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">document</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
+        <span class="n">Document</span><span class="p">,</span>
+        <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;referenced_documents&#39;</span><span class="p">,</span>
+        <span class="n">foreign_keys</span><span class="o">=</span><span class="p">[</span><span class="n">document_id</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">referenced_document</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
+        <span class="n">Document</span><span class="p">,</span>
+        <span class="n">foreign_keys</span><span class="o">=</span><span class="p">[</span><span class="n">reference_document_id</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">article_numbers</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DocumentReferenceDefinition"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.groundwater_protection_zones.DocumentReferenceDefinition">[docs]</a><span class="k">class</span> <span class="nc">DocumentReferenceDefinition</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Meta bucket (join table) for the relationship between documents and the reference definition.</span>
+
+<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
+<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">    :vartype id: int</span>
+<span class="sd">    :var document_id: The foreign key to the document which is related to a reference definition.</span>
+<span class="sd">    :vartype document_id: int</span>
+<span class="sd">    :var reference_definition_id: The foreign key to the document which is related to a reference</span>
+<span class="sd">        definition.</span>
+<span class="sd">    :vartype reference_definition_id: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;document_reference_definition&#39;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;groundwater_protection_zones&#39;</span><span class="p">}</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">document_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Document</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">reference_definition_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ReferenceDefinition</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  <li><a href="../../../pyramid_oereb.html">pyramid_oereb</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h3>Versions</h3>
+<ul>
+    <li><a href="groundwater_protection_zones.html">master</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, pyramid_oereb devs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

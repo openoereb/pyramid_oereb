@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyramid_oereb.lib.readers.extract &#8212; OEREB  documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/banner.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pyramid_oereb.lib.readers.extract</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.extract</span> <span class="k">import</span> <span class="n">ExtractRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.plr</span> <span class="k">import</span> <span class="n">PlrRecord</span><span class="p">,</span> <span class="n">EmptyPlrRecord</span>
+
+
+<div class="viewcode-block" id="ExtractReader"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.readers.extract.ExtractReader">[docs]</a><span class="k">class</span> <span class="nc">ExtractReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_sources</span><span class="p">,</span> <span class="n">plr_cadastre_authority</span><span class="p">,</span> <span class="n">logos</span><span class="p">,</span> <span class="n">base_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The central reader accessor for the extract inside the application.</span>
+
+<span class="sd">        :param plr_sources: The list of configured PLR source instances.</span>
+<span class="sd">        :type plr_sources: list of pyramid_oereb.lib.sources.plr.PlrBaseSource</span>
+<span class="sd">        :param plr_cadastre_authority: The authority responsible for the PLR cadastre.</span>
+<span class="sd">        :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OffcieRecord</span>
+<span class="sd">        :param logos: The logos of confederation, canton and oereb wrapped in a LogoRecord</span>
+<span class="sd">        :type logos: dict</span>
+<span class="sd">        :param base_data: A list of basic data layers used by the extract. For instance the basic map from</span>
+<span class="sd">            swisstopo</span>
+<span class="sd">        :type base_data: list of dict of str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extract</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span> <span class="o">=</span> <span class="n">plr_sources</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plr_cadastre_authority_</span> <span class="o">=</span> <span class="n">plr_cadastre_authority</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span> <span class="o">=</span> <span class="n">logos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_data_</span> <span class="o">=</span> <span class="n">base_data</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">plr_cadastre_authority</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the authority responsible for the PLR cadastre.</span>
+
+<span class="sd">        :return: The authority responsible for the PLR cadastre.</span>
+<span class="sd">        :rtype: pyramid_oereb.lib.records.office.OffcieRecord</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_cadastre_authority_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">logo_plr_cadastre</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :return: The logo for oereb as a LogoRecord.</span>
+<span class="sd">        :rtype: pyramid_oereb.lib.records.logo.LogoRecord</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;oereb&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">federal_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :return: The federal logo as a LogoRecord.</span>
+<span class="sd">        :rtype: pyramid_oereb.lib.records.logo.LogoRecord</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;confederation&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cantonal_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :return: The cantonal logos as a LogoRecord.</span>
+<span class="sd">        :rtype: pyramid_oereb.lib.records.logo.LogoRecord</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;canton&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ExtractReader.read"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.readers.extract.ExtractReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">municipality_logo</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The central read accessor method to get all desired records from configured source.</span>
+
+<span class="sd">        :param real_estate: The real estate for which the report should be generated</span>
+<span class="sd">        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord</span>
+<span class="sd">        :param municipality_logo: The municipality logo.</span>
+<span class="sd">        :type municipality_logo: pyramid_oereb.lib.records.logo.LogoRecord</span>
+<span class="sd">        :param params: The parameters of the extract request.</span>
+<span class="sd">        :type params: pyramid_oereb.views.webservice.Parameter</span>
+<span class="sd">        :return: The extract record containing all gathered data.</span>
+<span class="sd">        :rtype: pyramid_oereb.lib.records.extract.ExtractRecord</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">plr_source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">params</span><span class="o">.</span><span class="n">skip_topic</span><span class="p">(</span><span class="n">plr_source</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)):</span>
+                <span class="k">continue</span>
+            <span class="n">plr_source</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">real_estate</span><span class="p">)</span>
+
+        <span class="n">concerned_themes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">not_concerned_themes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">themes_without_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">plr</span> <span class="ow">in</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plr</span><span class="p">,</span> <span class="n">PlrRecord</span><span class="p">):</span>
+                <span class="n">contained</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">concerned_themes</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">theme</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="n">plr</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">:</span>
+                        <span class="n">contained</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">contained</span><span class="p">:</span>
+                    <span class="n">concerned_themes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plr</span><span class="p">,</span> <span class="n">EmptyPlrRecord</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">has_data</span><span class="p">:</span>
+                    <span class="n">not_concerned_themes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">themes_without_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">extract</span> <span class="o">=</span> <span class="n">ExtractRecord</span><span class="p">(</span>
+            <span class="n">real_estate</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logo_plr_cadastre</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">federal_logo</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cantonal_logo</span><span class="p">,</span>
+            <span class="n">municipality_logo</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plr_cadastre_authority</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_base_data_</span><span class="p">,</span>
+            <span class="n">concerned_theme</span><span class="o">=</span><span class="n">concerned_themes</span><span class="p">,</span>
+            <span class="n">not_concerned_theme</span><span class="o">=</span><span class="n">not_concerned_themes</span><span class="p">,</span>
+            <span class="n">theme_without_data</span><span class="o">=</span><span class="n">themes_without_data</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  <li><a href="../../../pyramid_oereb.html">pyramid_oereb</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h3>Versions</h3>
+<ul>
+    <li><a href="extract.html">master</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, pyramid_oereb devs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyramid_oereb.lib.processor &#8212; OEREB  documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pyramid_oereb.lib.processor</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">pyramid.config</span> <span class="k">import</span> <span class="n">ConfigurationError</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm.exc</span> <span class="k">import</span> <span class="n">NoResultFound</span>
+
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.documents</span> <span class="k">import</span> <span class="n">DocumentRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.plr</span> <span class="k">import</span> <span class="n">PlrRecord</span>
+
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Processor"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor">[docs]</a><span class="k">class</span> <span class="nc">Processor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate_reader</span><span class="p">,</span> <span class="n">municipality_reader</span><span class="p">,</span> <span class="n">exclusion_of_liability_reader</span><span class="p">,</span>
+                 <span class="n">glossary_reader</span><span class="p">,</span> <span class="n">plr_sources</span><span class="p">,</span> <span class="n">extract_reader</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                 <span class="n">plr_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The Processor class is directly bound to the get_extract_by_id service in this application. It&#39;s task</span>
+<span class="sd">        is to unsnarl the difficult model of the oereb extract and handle all objects inside this extract</span>
+<span class="sd">        correctly. In addition it provides an easy to use method interface to access the information.</span>
+<span class="sd">        It is also used to wrap all accessors in one point to have a processing interface.</span>
+
+<span class="sd">        :param real_estate_reader: The real estate reader instance for runtime use.</span>
+<span class="sd">        :type real_estate_reader: pyramid_oereb.lib.readers.real_estate.RealEstateReader</span>
+<span class="sd">        :param municipality_reader: The municipality reader instance for runtime use.</span>
+<span class="sd">        :type municipality_reader: pyramid_oereb.lib.readers.municipality.MunicipalityReader</span>
+<span class="sd">        :param exclusion_of_liability_reader: The exclusion of liability reader instance for runtime use.</span>
+<span class="sd">        :type exclusion_of_liability_reader:</span>
+<span class="sd">            pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader</span>
+<span class="sd">        :param glossary_reader: The glossary reader instance for runtime use.</span>
+<span class="sd">        :type glossary_reader: pyramid_oereb.lib.readers.glossary.GlossaryReader</span>
+<span class="sd">        :param plr_sources: The public law restriction source instances for runtime use wrapped in a list.</span>
+<span class="sd">        :type plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource</span>
+<span class="sd">        :param extract_reader: The extract reader instance for runtime use.</span>
+<span class="sd">        :type extract_reader: pyramid_oereb.lib.readers.extract.ExtractReader</span>
+<span class="sd">        :param plr_limits: The configuration for limiting the intersection.</span>
+<span class="sd">        :type plr_limits: dict or None</span>
+<span class="sd">        :param min_area: The minimal area for a public law restriction to be displayed in the cadastre</span>
+<span class="sd">        :type min_area: decimal</span>
+<span class="sd">        :param min_length: The minimal length for a public law restriction to be displayed in the cadastre</span>
+<span class="sd">        :type min_length: decimal</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_real_estate_reader_</span> <span class="o">=</span> <span class="n">real_estate_reader</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_municipality_reader_</span> <span class="o">=</span> <span class="n">municipality_reader</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_exclusion_of_liability_reader_</span> <span class="o">=</span> <span class="n">exclusion_of_liability_reader</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_glossary_reader_</span> <span class="o">=</span> <span class="n">glossary_reader</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span> <span class="o">=</span> <span class="n">plr_sources</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_extract_reader_</span> <span class="o">=</span> <span class="n">extract_reader</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_min_area_</span> <span class="o">=</span> <span class="n">min_area</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_min_length_</span> <span class="o">=</span> <span class="n">min_length</span>
+        <span class="k">if</span> <span class="n">plr_limits</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plr_limits</span> <span class="o">=</span> <span class="n">plr_limits</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Processor.filter_published_documents"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor.filter_published_documents">[docs]</a>    <span class="k">def</span> <span class="nf">filter_published_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Filter only published documents.</span>
+
+<span class="sd">        :param record: The public law restriction or document record.</span>
+<span class="sd">        :type record: pyramid_oereb.lib.records.plr.PlrRecord or</span>
+<span class="sd">            pyramid_oereb.lib.records.documents.DocumentRecord</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">published_docs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">PlrRecord</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">record</span><span class="o">.</span><span class="n">documents</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">doc</span><span class="o">.</span><span class="n">published</span><span class="p">:</span>
+                    <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_published_documents</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+                    <span class="n">published_docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+            <span class="n">record</span><span class="o">.</span><span class="n">documents</span> <span class="o">=</span> <span class="n">published_docs</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">DocumentRecord</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">record</span><span class="o">.</span><span class="n">references</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">doc</span><span class="o">.</span><span class="n">published</span><span class="p">:</span>
+                    <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_published_documents</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+                    <span class="n">published_docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+            <span class="n">record</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="n">published_docs</span>
+        <span class="k">return</span> <span class="n">record</span></div>
+
+<div class="viewcode-block" id="Processor.plr_tolerance_check"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor.plr_tolerance_check">[docs]</a>    <span class="k">def</span> <span class="nf">plr_tolerance_check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extract</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The function checking if the found plr results exceed the minimal surface or length</span>
+<span class="sd">        value defined in the configuration and should therefor be represented in the extract</span>
+<span class="sd">        or considered &#39;false trues&#39; and be removed from the results.</span>
+
+<span class="sd">        :param extract: The extract in it&#39;s unvalidated form</span>
+<span class="sd">        :type extract: pyramid_oereb.lib.records.extract.ExtractRecord</span>
+<span class="sd">        :return: Returns the updated extract</span>
+<span class="sd">        :rtype: pyramid_oereb.lib.records.extract.ExtractRecord</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">real_estate</span> <span class="o">=</span> <span class="n">extract</span><span class="o">.</span><span class="n">real_estate</span>
+        <span class="n">tested_plrs</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">public_law_restriction</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">public_law_restriction</span><span class="p">,</span> <span class="n">PlrRecord</span><span class="p">):</span>
+                <span class="n">tested_geometries</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">geometries</span><span class="p">:</span>
+                    <span class="c1"># TODO: Remove the plr_limits when they are consumed directly from config</span>
+                    <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">published</span> <span class="ow">and</span> <span class="n">geometry</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">plr_limits</span><span class="p">):</span>
+                        <span class="n">tested_geometries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="p">)</span>
+
+                <span class="c1"># Test if the geometries list is now empty - if so remove plr from plr list</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tested_geometries</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">published</span><span class="p">:</span>
+                    <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">geometries</span> <span class="o">=</span> <span class="n">tested_geometries</span>
+                    <span class="n">tested_plrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter_published_documents</span><span class="p">(</span><span class="n">public_law_restriction</span><span class="p">))</span>
+        <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span> <span class="o">=</span> <span class="n">tested_plrs</span>
+
+        <span class="k">return</span> <span class="n">extract</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">real_estate_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :return: The real estate reader instance.</span>
+<span class="sd">        :rtype real_estate_reader: pyramid_oereb.lib.readers.real_estate.RealEstateReader</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_real_estate_reader_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">municipality_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :return: The municipality reader reader instance.</span>
+<span class="sd">        :rtype municipality_reader: pyramid_oereb.lib.readers.municipality.MunicipalityReader</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_municipality_reader_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">exclusion_of_liability_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :return: The exclusion of liability reader reader instance.</span>
+<span class="sd">        :rtype municipality_reader:</span>
+<span class="sd">            pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exclusion_of_liability_reader_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">glossary_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :return: The glossary reader reader instance.</span>
+<span class="sd">        :rtype municipality_reader: pyramid_oereb.lib.readers.glossary.GlossaryReader</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_glossary_reader_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">plr_sources</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :return: The list of plr source instances.</span>
+<span class="sd">        :rtype plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">extract_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :return: The extract reader instance.</span>
+<span class="sd">        :rtype extract_reader: pyramid_oereb.lib.readers.extract.ExtractReader</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_reader_</span>
+
+<div class="viewcode-block" id="Processor.process"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Central processing method to hook in from webservice.</span>
+
+<span class="sd">        :param real_estate: The real estate reader to obtain the real estates record.</span>
+<span class="sd">        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord</span>
+<span class="sd">        :param params: The parameters of the extract request.</span>
+<span class="sd">        :type params: pyramid_oereb.views.webservice.Parameter</span>
+<span class="sd">        :return: The generated extract record.</span>
+<span class="sd">        :rtype: pyramid_oereb.lib.records.extract.ExtractRecord</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">municipalities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_municipality_reader_</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">exclusions_of_liability</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exclusion_of_liability_reader_</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">glossaries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_glossary_reader_</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">municipality</span> <span class="ow">in</span> <span class="n">municipalities</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">municipality</span><span class="o">.</span><span class="n">fosnr</span> <span class="o">==</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">fosnr</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">municipality</span><span class="o">.</span><span class="n">published</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">NotImplementedError</span>  <span class="c1"># TODO: improve message</span>
+                <span class="n">extract_raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_reader_</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="n">municipality</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+                <span class="n">extract</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plr_tolerance_check</span><span class="p">(</span><span class="n">extract_raw</span><span class="p">)</span>
+                <span class="n">extract</span><span class="o">.</span><span class="n">exclusions_of_liability</span> <span class="o">=</span> <span class="n">exclusions_of_liability</span>
+                <span class="n">extract</span><span class="o">.</span><span class="n">glossaries</span> <span class="o">=</span> <span class="n">glossaries</span>
+                <span class="k">return</span> <span class="n">extract</span>
+        <span class="k">raise</span> <span class="n">NoResultFound</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../../pyramid_oereb.html">pyramid_oereb</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h3>Versions</h3>
+<ul>
+    <li><a href="../../../master/_modules/pyramid_oereb/lib/processor.html">master</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, pyramid_oereb devs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

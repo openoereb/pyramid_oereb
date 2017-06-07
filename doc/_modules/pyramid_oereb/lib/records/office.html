@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyramid_oereb.lib.records.office &#8212; OEREB  documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/banner.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pyramid_oereb.lib.records.office</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+
+<div class="viewcode-block" id="OfficeRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.office.OfficeRecord">[docs]</a><span class="k">class</span> <span class="nc">OfficeRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">uid</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">office_at_web</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">line1</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">line2</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">street</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">postal_code</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">city</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">uid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">office_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">street</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postal_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">city</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Responsible office record.</span>
+<span class="sd">        :param name:  The official name of the authority</span>
+<span class="sd">        :type  name: str</span>
+<span class="sd">        :param uid: The unique identifier of the authority in the federal register</span>
+<span class="sd">        :type  uid: str</span>
+<span class="sd">        :param office_at_web: The URL to the office&#39;s homepage</span>
+<span class="sd">        :type office_at_web: str</span>
+<span class="sd">        :param line1: Complementary address information</span>
+<span class="sd">        :type line1: str</span>
+<span class="sd">        :param line2: Complementary address information</span>
+<span class="sd">        :type line2: str</span>
+<span class="sd">        :param street: The street where the authority is located</span>
+<span class="sd">        :type street: str</span>
+<span class="sd">        :param number: House number</span>
+<span class="sd">        :type number: str</span>
+<span class="sd">        :param postal_code: ZIP Code of the</span>
+<span class="sd">        :type postal_code: integer</span>
+<span class="sd">        :param city: The city where the authority is located</span>
+<span class="sd">        :type postal_code: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uid</span> <span class="o">=</span> <span class="n">uid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">office_at_web</span> <span class="o">=</span> <span class="n">office_at_web</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line1</span> <span class="o">=</span> <span class="n">line1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line2</span> <span class="o">=</span> <span class="n">line2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">street</span> <span class="o">=</span> <span class="n">street</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">number</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">postal_code</span> <span class="o">=</span> <span class="n">postal_code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">city</span> <span class="o">=</span> <span class="n">city</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="OfficeRecord.get_fields"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.office.OfficeRecord.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of available field names.</span>
+<span class="sd">        :return:    List of available field names.</span>
+<span class="sd">        :rtype:     list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;uid&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;office_at_web&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;line1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;line2&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;street&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;number&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;postal_code&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;city&#39;</span>
+        <span class="p">]</span></div>
+
+<div class="viewcode-block" id="OfficeRecord.to_extract"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.office.OfficeRecord.to_extract">[docs]</a>    <span class="k">def</span> <span class="nf">to_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary with all available values needed for the extract.</span>
+<span class="sd">        :return: Dictionary with values for the extract.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">extract</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">extract</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  <li><a href="../../../pyramid_oereb.html">pyramid_oereb</a><ul>
+  <li><a href="../records.html">pyramid_oereb.lib.records</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h3>Versions</h3>
+<ul>
+    <li><a href="../../../../master/_modules/pyramid_oereb/lib/records/office.html">master</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, pyramid_oereb devs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyramid_oereb.lib.records.documents &#8212; OEREB  documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/banner.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pyramid_oereb.lib.records.documents</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+
+
+<div class="viewcode-block" id="DocumentBaseRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.documents.DocumentBaseRecord">[docs]</a><span class="k">class</span> <span class="nc">DocumentBaseRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legal_state</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">text_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The base document class.</span>
+<span class="sd">        :param legal_state: Key string of the law status.</span>
+<span class="sd">        :type legal_state: str</span>
+<span class="sd">        :param published_from: Date since this document was published.</span>
+<span class="sd">        :type published_from: datetime.date</span>
+<span class="sd">        :param text_at_web: The URI to the documents content.</span>
+<span class="sd">        :type text_at_web: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_at_web</span> <span class="o">=</span> <span class="n">text_at_web</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">legal_state</span> <span class="o">=</span> <span class="n">legal_state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">=</span> <span class="n">published_from</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">published</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if its not a future document.</span>
+<span class="sd">        :return: True if document is published.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DocumentBaseRecord.get_fields"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.documents.DocumentBaseRecord.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of available field names.</span>
+<span class="sd">        :return: List of available field names.</span>
+<span class="sd">        :rtype: list of str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="s1">&#39;text_at_web&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;legal_state&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;published_from&#39;</span>
+        <span class="p">]</span></div>
+
+<div class="viewcode-block" id="DocumentBaseRecord.to_extract"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.documents.DocumentBaseRecord.to_extract">[docs]</a>    <span class="k">def</span> <span class="nf">to_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary with all available values needed for the extract.</span>
+<span class="sd">        :return: Dictionary with values for the extract.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">extract</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;text_at_web&#39;</span><span class="p">,</span> <span class="s1">&#39;legal_state&#39;</span><span class="p">]:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">extract</span></div></div>
+
+
+<div class="viewcode-block" id="ArticleRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.documents.ArticleRecord">[docs]</a><span class="k">class</span> <span class="nc">ArticleRecord</span><span class="p">(</span><span class="n">DocumentBaseRecord</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legal_state</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">number</span><span class="p">,</span> <span class="n">text_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        More specific document class representing articles.</span>
+<span class="sd">        :param legal_state: Key string of the law status.</span>
+<span class="sd">        :type legal_state: str</span>
+<span class="sd">        :param published_from: Date since this document was published.</span>
+<span class="sd">        :type published_from: datetime.date</span>
+<span class="sd">        :param number: The identifier of the article as a law.</span>
+<span class="sd">        :type number: str</span>
+<span class="sd">        :param text_at_web: The URI to the documents content.</span>
+<span class="sd">        :type text_at_web: str</span>
+<span class="sd">        :param text: Text in the article.</span>
+<span class="sd">        :type text: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ArticleRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">legal_state</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">text_at_web</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">number</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ArticleRecord.get_fields"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.documents.ArticleRecord.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of available field names.</span>
+<span class="sd">        :return: List of available field names.</span>
+<span class="sd">        :rtype: list of str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="s1">&#39;text_at_web&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;legal_state&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;published_from&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;number&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;text&#39;</span>
+        <span class="p">]</span></div>
+
+<div class="viewcode-block" id="ArticleRecord.to_extract"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.documents.ArticleRecord.to_extract">[docs]</a>    <span class="k">def</span> <span class="nf">to_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary with all available values needed for the extract.</span>
+<span class="sd">        :return: Dictionary with values for the extract.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">extract</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ArticleRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">to_extract</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">]:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">extract</span></div></div>
+
+
+<div class="viewcode-block" id="DocumentRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.documents.DocumentRecord">[docs]</a><span class="k">class</span> <span class="nc">DocumentRecord</span><span class="p">(</span><span class="n">DocumentBaseRecord</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legal_state</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">text_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">abbreviation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">official_number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">official_title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">canton</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">municipality</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">article_numbers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">articles</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">references</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        More specific document class representing real documents.</span>
+<span class="sd">        :param legal_state:  Key string of the law status.</span>
+<span class="sd">        :type legal_state: str</span>
+<span class="sd">        :param published_from: Date since this document was published.</span>
+<span class="sd">        :type published_from: datetime.date</span>
+<span class="sd">        :param title: The title of the document. It might be shortened one.</span>
+<span class="sd">        :type title: unicode</span>
+<span class="sd">        :param responsible_office: Office which is responsible for this document.</span>
+<span class="sd">        :type responsible_office: pyramid_oereb.lib.records.office.OfficeRecord</span>
+<span class="sd">        :param text_at_web: The URI to the documents content.</span>
+<span class="sd">        :type text_at_web: str</span>
+<span class="sd">        :param official_title: The official title of the document.</span>
+<span class="sd">        :type official_title: unicode</span>
+<span class="sd">        :param abbreviation: Short term for this document.</span>
+<span class="sd">        :type abbreviation: str</span>
+<span class="sd">        :param official_number: The official number for identification of this document.</span>
+<span class="sd">        :type official_number: str</span>
+<span class="sd">        :param canton: The cantonal short term (length of tw, like: &#39;NE&#39; or &#39;BL&#39;)</span>
+<span class="sd">        :type canton: str</span>
+<span class="sd">        :param municipality: The code for the municipality.</span>
+<span class="sd">        :type municipality: str</span>
+<span class="sd">        :param article_numbers: Pointers to specific articles.</span>
+<span class="sd">        :type article_numbers: list of str</span>
+<span class="sd">        :param file: The binary content of the document.</span>
+<span class="sd">        :type file: bytes</span>
+<span class="sd">        :param articles: The linked articles.</span>
+<span class="sd">        :type articles: list of ArticleRecord</span>
+<span class="sd">        :param references: The references to other documents.</span>
+<span class="sd">        :type references: list of DocumentRecord</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DocumentRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">legal_state</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">text_at_web</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">responsible_office</span> <span class="o">=</span> <span class="n">responsible_office</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">official_title</span> <span class="o">=</span> <span class="n">official_title</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">abbreviation</span> <span class="o">=</span> <span class="n">abbreviation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">official_number</span> <span class="o">=</span> <span class="n">official_number</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canton</span> <span class="o">=</span> <span class="n">canton</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">municipality</span> <span class="o">=</span> <span class="n">municipality</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">article_numbers</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">article_numbers</span> <span class="o">=</span> <span class="n">article_numbers</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">article_numbers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">file</span>
+        <span class="k">if</span> <span class="n">articles</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">articles</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">articles</span> <span class="o">=</span> <span class="n">articles</span>
+        <span class="k">if</span> <span class="n">references</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="n">references</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DocumentRecord.get_fields"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.documents.DocumentRecord.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of available field names.</span>
+<span class="sd">        :return: List of available field names.</span>
+<span class="sd">        :rtype: list of str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="s1">&#39;text_at_web&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;legal_state&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;published_from&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;title&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;official_title&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;responsible_office&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;abbreviation&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;official_number&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;canton&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;municipality&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;article_numbers&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;file&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;articles&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;references&#39;</span>
+        <span class="p">]</span></div>
+
+<div class="viewcode-block" id="DocumentRecord.to_extract"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.documents.DocumentRecord.to_extract">[docs]</a>    <span class="k">def</span> <span class="nf">to_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary with all available values needed for the extract.</span>
+<span class="sd">        :return: Dictionary with values for the extract.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">extract</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">DocumentRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">to_extract</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="s1">&#39;title&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;official_title&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;abbreviation&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;official_number&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;canton&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;municipality&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;file&#39;</span>
+        <span class="p">]:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;articles&#39;</span><span class="p">,</span> <span class="s1">&#39;references&#39;</span><span class="p">]:</span>
+            <span class="n">records</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">records</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">record</span><span class="o">.</span><span class="n">to_extract</span><span class="p">()</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">]</span>
+
+        <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;responsible_office&#39;</span>
+        <span class="n">record</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">record</span><span class="p">:</span>
+            <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">to_extract</span><span class="p">()</span>
+
+        <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;article_numbers&#39;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="k">return</span> <span class="n">extract</span></div></div>
+
+
+<div class="viewcode-block" id="LegalProvisionRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.documents.LegalProvisionRecord">[docs]</a><span class="k">class</span> <span class="nc">LegalProvisionRecord</span><span class="p">(</span><span class="n">DocumentRecord</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  <li><a href="../../../pyramid_oereb.html">pyramid_oereb</a><ul>
+  <li><a href="../records.html">pyramid_oereb.lib.records</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h3>Versions</h3>
+<ul>
+    <li><a href="../../../../master/_modules/pyramid_oereb/lib/records/documents.html">master</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, pyramid_oereb devs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
