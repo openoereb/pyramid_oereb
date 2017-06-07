@@ -56,7 +56,7 @@ def includeme(config):
     """
 
     global route_prefix, real_estate_reader, municipality_reader, extract_reader, \
-        plr_sources, plr_cadastre_authority, app_schema_name, srid, default_lang, geometry_types
+        plr_sources, plr_cadastre_authority, app_schema_name, srid, default_lang
 
     # Set route prefix
     route_prefix = config.route_prefix
@@ -78,7 +78,6 @@ def includeme(config):
     app_schema_name = Config.get('app_schema').get('name')
     srid = Config.get('srid')
     default_lang = Config.get('default_language')
-    geometry_types = Config.get('geometry_types')
 
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
 
@@ -125,7 +124,6 @@ def includeme(config):
         glossary_reader=glossary_reader,
         plr_sources=plr_sources,
         extract_reader=extract_reader,
-        geometry_types=geometry_types
     )
 
     def pyramid_oereb_processor(request):
