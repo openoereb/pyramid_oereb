@@ -7,6 +7,7 @@ modules = [m for m in sys.modules.keys() if m.startswith('pyramid_oereb')]
 files = glob.glob('pyramid_oereb/*.py*')
 files += glob.glob('pyramid_oereb/*/*.py*')
 files += glob.glob('pyramid_oereb/*/*/*.py*')
+files += glob.glob('pyramid_oereb/*/*/*/*.py*')
 for file_ in [f for f in files]:
     with open(file_) as stream:
         data = stream.read()
