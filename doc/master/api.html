@@ -15690,14 +15690,6 @@ don&#8217;t like it - don&#8217;t care about.</li>
 </dd></dl>
 
 </div>
-<div class="section" id="module-pyramid_oereb.lib.renderer.xml_">
-<span id="module-pyramid-oereb-lib-renderer-xml"></span><h2>Module: <a href="#id40"><span class="problematic" id="id41">pyramid_oereb.lib.renderer.xml_</span></a><a class="headerlink" href="#module-pyramid_oereb.lib.renderer.xml_" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.lib.renderer.xml_.Extract">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.renderer.xml_.</code><code class="descname">Extract</code><span class="sig-paren">(</span><em>info</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer/xml_.html#Extract"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.xml_.Extract" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 <div class="section" id="module-pyramid_oereb.lib.renderer">
 <span id="module-pyramid-oereb-lib-renderer"></span><h2>Module: pyramid_oereb.lib.renderer<a class="headerlink" href="#module-pyramid_oereb.lib.renderer" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -15767,195 +15759,6 @@ don&#8217;t like it - don&#8217;t care about.</li>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The passed renderer info object.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pyramid.interfaces.IRendererInfo</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-pyramid_oereb.lib.renderer.json_">
-<span id="module-pyramid-oereb-lib-renderer-json"></span><h2>Module: <a href="#id42"><span class="problematic" id="id43">pyramid_oereb.lib.renderer.json_</span></a><a class="headerlink" href="#module-pyramid_oereb.lib.renderer.json_" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.lib.renderer.json_.Extract">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.renderer.json_.</code><code class="descname">Extract</code><span class="sig-paren">(</span><em>info</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer/json_.html#Extract"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.json_.Extract" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="pyramid_oereb.lib.renderer.json_.Extract.format_document">
-<code class="descname">format_document</code><span class="sig-paren">(</span><em>document</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer/json_.html#Extract.format_document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.json_.Extract.format_document" title="Permalink to this definition">¶</a></dt>
-<dd><p>Formats a document record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>document</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.documents.DocumentBaseRecord" title="pyramid_oereb.lib.records.documents.DocumentBaseRecord"><em>pyramid_oereb.lib.records.documents.DocumentBaseRecord</em></a>) &#8211; The document record to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionary for rendering.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyramid_oereb.lib.renderer.json_.Extract.format_geometry">
-<code class="descname">format_geometry</code><span class="sig-paren">(</span><em>geometry</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer/json_.html#Extract.format_geometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.json_.Extract.format_geometry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Formats a geometry record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>geometry</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.geometry.GeometryRecord" title="pyramid_oereb.lib.records.geometry.GeometryRecord"><em>pyramid_oereb.lib.records.geometry.GeometryRecord</em></a>) &#8211; The geometry record to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionary for rendering.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyramid_oereb.lib.renderer.json_.Extract.format_legend_entry">
-<code class="descname">format_legend_entry</code><span class="sig-paren">(</span><em>legend_entry</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer/json_.html#Extract.format_legend_entry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.json_.Extract.format_legend_entry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Formats a legend entry record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>legend_entry</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.view_service.LegendEntryRecord" title="pyramid_oereb.lib.records.view_service.LegendEntryRecord"><em>pyramid_oereb.lib.records.view_service.LegendEntryRecord</em></a>) &#8211; The legend entry record to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionary for rendering.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyramid_oereb.lib.renderer.json_.Extract.format_map">
-<code class="descname">format_map</code><span class="sig-paren">(</span><em>map_</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer/json_.html#Extract.format_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.json_.Extract.format_map" title="Permalink to this definition">¶</a></dt>
-<dd><p>Formats a view service record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>map</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord" title="pyramid_oereb.lib.records.view_service.ViewServiceRecord"><em>pyramid_oereb.lib.records.view_service.ViewServiceRecord</em></a>) &#8211; The view service record to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionary for rendering.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyramid_oereb.lib.renderer.json_.Extract.format_office">
-<code class="descname">format_office</code><span class="sig-paren">(</span><em>office</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer/json_.html#Extract.format_office"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.json_.Extract.format_office" title="Permalink to this definition">¶</a></dt>
-<dd><p>Formats an office record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>office</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.office.OfficeRecord" title="pyramid_oereb.lib.records.office.OfficeRecord"><em>pyramid_oereb.lib.records.office.OfficeRecord</em></a>) &#8211; The office record to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionary for rendering.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyramid_oereb.lib.renderer.json_.Extract.format_plr">
-<code class="descname">format_plr</code><span class="sig-paren">(</span><em>plrs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer/json_.html#Extract.format_plr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.json_.Extract.format_plr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Formats a public law restriction record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plrs</strong> (<em>list of pyramid_oereb.lib.records.plr.PlrRecord</em>) &#8211; The public law restriction records to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionaries for rendering.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyramid_oereb.lib.renderer.json_.Extract.format_real_estate">
-<code class="descname">format_real_estate</code><span class="sig-paren">(</span><em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer/json_.html#Extract.format_real_estate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.json_.Extract.format_real_estate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Formats a real estate record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real estate record to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionary for rendering.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyramid_oereb.lib.renderer.json_.Extract.format_theme">
-<code class="descname">format_theme</code><span class="sig-paren">(</span><em>theme</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer/json_.html#Extract.format_theme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.json_.Extract.format_theme" title="Permalink to this definition">¶</a></dt>
-<dd><p>Formats a theme record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>theme</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.theme.ThemeRecord" title="pyramid_oereb.lib.records.theme.ThemeRecord"><em>pyramid_oereb.lib.records.theme.ThemeRecord</em></a>) &#8211; The theme record to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionary for rendering.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="pyramid_oereb.lib.renderer.json_.Extract.from_shapely">
-<em class="property">static </em><code class="descname">from_shapely</code><span class="sig-paren">(</span><em>geom</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer/json_.html#Extract.from_shapely"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.json_.Extract.from_shapely" title="Permalink to this definition">¶</a></dt>
-<dd><p>Formats shapely geometry for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>geom</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The geometry object to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted geometry.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="pyramid_oereb.lib.renderer.json_.Extract.get_localized_text">
-<em class="property">static </em><code class="descname">get_localized_text</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer/json_.html#Extract.get_localized_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.json_.Extract.get_localized_text" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the set language of a multilingual text element.
-TODO: Fix implementation when multilingual values are available by respecting self.language.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>values</strong> (<em>str</em><em> or </em><em>dict</em>) &#8211; The multilingual values encoded as JSON.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of dictionaries containing the multilingual representation.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of dict</td>
 </tr>
 </tbody>
 </table>
@@ -16976,9 +16779,7 @@ deliver several results.
 <li><a class="reference internal" href="#module-pyramid_oereb.standard.models.airports_project_planning_zones">Module: pyramid_oereb.standard.models.airports_project_planning_zones</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.standard.models.motorways_project_planing_zones">Module: pyramid_oereb.standard.models.motorways_project_planing_zones</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.standard.models.airports_security_zone_plans">Module: pyramid_oereb.standard.models.airports_security_zone_plans</a></li>
-<li><a class="reference internal" href="#module-pyramid_oereb.lib.renderer.xml_">Module: pyramid_oereb.lib.renderer.xml_</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.lib.renderer">Module: pyramid_oereb.lib.renderer</a></li>
-<li><a class="reference internal" href="#module-pyramid_oereb.lib.renderer.json_">Module: pyramid_oereb.lib.renderer.json_</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.lib.records.glossary">Module: pyramid_oereb.lib.records.glossary</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.lib.records.office">Module: pyramid_oereb.lib.records.office</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.lib.records.plr">Module: pyramid_oereb.lib.records.plr</a></li>
@@ -17041,6 +16842,7 @@ deliver several results.
 <h3>Versions</h3>
 <ul>
     <li><a href="api.html">master</a></li>
+    <li><a href="../0.0.1/api.html">0.0.1</a></li>
 </ul>
         </div>
       </div>

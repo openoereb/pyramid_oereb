@@ -1352,16 +1352,6 @@ Module: pyramid_oereb.standard.models.airports_security_zone_plans
 .. autoclass:: pyramid_oereb.standard.models.airports_security_zone_plans.ViewService
    :members:
 
-Module: pyramid_oereb.lib.renderer.xml_
----------------------------------------
-
-.. automodule:: pyramid_oereb.lib.renderer.xml_
-   :members:
-
-
-.. autoclass:: pyramid_oereb.lib.renderer.xml_.Extract
-   :members:
-
 Module: pyramid_oereb.lib.renderer
 ----------------------------------
 
@@ -1370,16 +1360,6 @@ Module: pyramid_oereb.lib.renderer
 
 
 .. autoclass:: pyramid_oereb.lib.renderer.Base
-   :members:
-
-Module: pyramid_oereb.lib.renderer.json_
-----------------------------------------
-
-.. automodule:: pyramid_oereb.lib.renderer.json_
-   :members:
-
-
-.. autoclass:: pyramid_oereb.lib.renderer.json_.Extract
    :members:
 
 Module: pyramid_oereb.lib.records.glossary

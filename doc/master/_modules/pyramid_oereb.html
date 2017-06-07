@@ -177,8 +177,12 @@
 
     <span class="n">config</span><span class="o">.</span><span class="n">add_request_method</span><span class="p">(</span><span class="n">pyramid_oereb_processor</span><span class="p">,</span> <span class="n">reify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="n">config</span><span class="o">.</span><span class="n">add_renderer</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb_extract_json&#39;</span><span class="p">,</span> <span class="s1">&#39;pyramid_oereb.lib.renderer.json_.Extract&#39;</span><span class="p">)</span>
-    <span class="n">config</span><span class="o">.</span><span class="n">add_renderer</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb_extract_xml&#39;</span><span class="p">,</span> <span class="s1">&#39;pyramid_oereb.lib.renderer.xml_.Extract&#39;</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">add_renderer</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb_extract_json&#39;</span><span class="p">,</span> <span class="s1">&#39;pyramid_oereb.lib.renderer.extract.json_.Renderer&#39;</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">add_renderer</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb_extract_xml&#39;</span><span class="p">,</span> <span class="s1">&#39;pyramid_oereb.lib.renderer.extract.xml_.Renderer&#39;</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">add_renderer</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb_versions_xml&#39;</span><span class="p">,</span> <span class="s1">&#39;pyramid_oereb.lib.renderer.versions.xml_.Renderer&#39;</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">add_renderer</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb_capabilities_xml&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;pyramid_oereb.lib.renderer.capabilities.xml_.Renderer&#39;</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">add_renderer</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb_getegrid_xml&#39;</span><span class="p">,</span> <span class="s1">&#39;pyramid_oereb.lib.renderer.getegrid.xml_.Renderer&#39;</span><span class="p">)</span>
 
     <span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb.routes&#39;</span><span class="p">)</span></div>
 </pre></div>
@@ -209,6 +213,7 @@
 <h3>Versions</h3>
 <ul>
     <li><a href="pyramid_oereb.html">master</a></li>
+    <li><a href="../../0.0.1/index.html">0.0.1</a></li>
 </ul>
         </div>
       </div>
