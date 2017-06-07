@@ -1,0 +1,30 @@
+## -*- coding: utf-8 -*-
+<?xml version="1.0" encoding="UTF-8" ?>
+<GetCapabilitiesResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                         xmlns:data="http://schemas.geo.admin.ch/swisstopo/OeREBK/15/ExtractData"
+                         xmlns="http://schemas.geo.admin.ch/swisstopo/OeREBK/15/Extract">
+    % for item in data['GetCapabilitiesResponse']['topic']:
+    <topic>
+        <Code>${item['Code']}</Code>
+        % for ltext in item['Text']:
+        <Text>
+            <Language>${ltext['Language']}</Language>
+            <Text>${ltext['Text']}</Text>
+        </Text>
+        % endfor
+    </topic>
+    % endfor
+    % for item in data['GetCapabilitiesResponse']['municipality']:
+    <municipality>${item}</municipality>
+    % endfor
+    % for item in data['GetCapabilitiesResponse']['flavour']:
+    <flavour>${item}</flavour>
+    % endfor
+    % for item in data['GetCapabilitiesResponse']['language']:
+    <language>${item}</language>
+    % endfor
+    % for item in data['GetCapabilitiesResponse']['crs']:
+    <crs>${item}</crs>
+    % endfor
+</GetCapabilitiesResponse>

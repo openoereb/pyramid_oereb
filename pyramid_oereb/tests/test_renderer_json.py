@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb.lib.records.office import OfficeRecord
-from pyramid_oereb.lib.renderer.json_ import Extract
+from pyramid_oereb.lib.renderer.extract.json_ import Renderer
 from pyramid_oereb.tests.conftest import MockRequest
 from pyramid_oereb.tests.test_renderer_base import DummyRenderInfo
 
 
 def test_get_localized_text():
-    renderer = Extract(DummyRenderInfo())
+    renderer = Renderer(DummyRenderInfo())
     MockRequest()
     assert renderer.get_localized_text('test') == [
         {
@@ -20,7 +20,7 @@ def test_format_office():
     office = OfficeRecord('Test', uid='test_uid', office_at_web='http://test.example.com', line1='test_line1',
                           line2='test_line2', street='test_street', number='test_number',
                           postal_code='test_postal_code', city='test_city')
-    renderer = Extract(DummyRenderInfo())
+    renderer = Renderer(DummyRenderInfo())
     MockRequest()
     assert renderer.format_office(office) == {
         'Name': renderer.get_localized_text('Test'),

@@ -1,0 +1,12 @@
+## -*- coding: utf-8 -*-
+<?xml version="1.0" encoding="UTF-8" ?>
+<GetVersionsResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                     xmlns="http://schemas.geo.admin.ch/swisstopo/OeREBK/15/Versioning">
+    % for item in data['GetVersionsResponse']['supportedVersion']:
+    <supportedVersion>
+        <version>${item['version']}</version>
+        <serviceEndpointBase>${item['serviceEndpointBase']}</serviceEndpointBase>
+    </supportedVersion>
+    % endfor
+</GetVersionsResponse>
