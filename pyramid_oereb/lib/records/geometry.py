@@ -129,11 +129,12 @@ class GeometryRecord(object):
                 areas_to_sum.append(area)
         return sum(areas_to_sum)
 
-    # TODO: Make this read from config singleton provided by sbrunner
-    def calculate(self, real_estate, plr_thresholds):
+    def handle_specific_geometries(self, geometry, real_estate, plr_thresholds):
         """
         Calculates intersection area and checks if it fits the configured limits.
 
+        :param geometry: The specific geometry (not a geometry collection).
+        :type geometry: shapely.geometry.base.BaseGeometry
         :param real_estate: The real estate record.
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
         :param plr_thresholds: The configured limits.
@@ -147,11 +148,11 @@ class GeometryRecord(object):
         polygon_types = geometry_types.get('polygon').get('types')
         min_length = plr_thresholds.get('min_length')
         min_area = plr_thresholds.get('min_area')
-        if self.geom.type in point_types:
+        if geometry.type in point_types:
             pass
         else:
-            result = self.geom.intersection(real_estate.limit)
-            if self.geom.type in line_types:
+            result = geometry.intersection(real_estate.limit)
+            if geometry.type in line_types:
                 # TODO: load this from config
                 self._units = 'm'
                 if self._is_multi_geometry(result):
@@ -161,7 +162,7 @@ class GeometryRecord(object):
                 if length > min_length:
                     self._length = length
                     self._test_passed = True
-            elif self.geom.type in polygon_types:
+            elif geometry.type in polygon_types:
                 # TODO: load this from config
                 self._units = 'm2'
                 if self._is_multi_geometry(result):
@@ -176,4 +177,31 @@ class GeometryRecord(object):
             else:
                 # TODO: configure a proper error message
                 print 'Error: unknown geometry type'
+
+    def unpack_geometry_collection(self, geometry, real_estate, plr_thresholds):
+        geometry_types = Config.get('geometry_types')
+        collection_types = geometry_types.get('collection').get('types')
+        if geometry.type in collection_types:
+            for packed_geometry in geometry.geoms:
+                if geometry.type in collection_types:
+                    self.unpack_geometry_collection(packed_geometry, real_estate, plr_thresholds)
+                else:
+                    self.handle_specific_geometries(packed_geometry, real_estate, plr_thresholds)
+        else:
+            self.handle_specific_geometries(geometry, real_estate, plr_thresholds)
+
+    # TODO: Make this read from config singleton provided by sbrunner
+    def calculate(self, real_estate, plr_thresholds):
+        """
+        Entry method for calculation. It checks if the geometry type of this instance is a geometry
+        collection which has to be unpacked first in case of collection.
+
+        :param real_estate: The real estate record.
+        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        :param plr_thresholds: The configured limits.
+        :type plr_thresholds: dict
+        :return: True if intersection fits the limits.
+        :rtype: bool
+        """
+        self.unpack_geometry_collection(self.geom, real_estate, plr_thresholds)
         return self._test_passed
