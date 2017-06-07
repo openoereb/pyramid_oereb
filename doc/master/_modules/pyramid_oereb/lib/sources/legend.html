@@ -57,7 +57,9 @@
 <div class="viewcode-block" id="LegendDatabaseSource.read"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.legend.LegendDatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Central method to read one legend entry.</span>
-<span class="sd">        :param kwargs: Arbitrary keyword arguments. It must contain the key &#39;type_code&#39;.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            (kwargs): Arbitrary keyword arguments. It must contain the key &#39;type_code&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
         <span class="n">query</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span>

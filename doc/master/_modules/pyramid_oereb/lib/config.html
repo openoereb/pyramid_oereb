@@ -58,12 +58,12 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parses the defined YAML file and returns the defined section as dictionary.</span>
 
-<span class="sd">    :param cfg_file: The YAML file to be parsed.</span>
-<span class="sd">    :type  cfg_file: str</span>
-<span class="sd">    :param cfg_section: The section to be returned.</span>
-<span class="sd">    :type  cfg_section: str</span>
-<span class="sd">    :return: The parsed section as dictionary.</span>
-<span class="sd">    :rtype: dict</span>
+<span class="sd">    Args:</span>
+<span class="sd">        cfg_file (str): The YAML file to be parsed.</span>
+<span class="sd">        cfg_section (str): The section to be returned.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: The parsed section as dictionary.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">cfg_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;Missing configuration parameter &quot;pyramid_oereb.cfg.file&quot;.&#39;</span><span class="p">)</span>
@@ -92,10 +92,9 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Loads configuration from yaml file and provides methods for generating webservice output.</span>
 
-<span class="sd">        :param config_file: The configuration yaml file.</span>
-<span class="sd">        :type config_file: str</span>
-<span class="sd">        :param config_section: The section within the yaml file.</span>
-<span class="sd">        :type config_section: str</span>
+<span class="sd">        Args:</span>
+<span class="sd">            config_file (str): The configuration yaml file.</span>
+<span class="sd">            config_section (str): The section within the yaml file.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="kc">None</span>
 
@@ -110,8 +109,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of available themes.</span>
 
-<span class="sd">        :return: The available themes.</span>
-<span class="sd">        :rtype: list of pyramid_oereb.lib.records.theme.ThemeRecord</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list of pyramid_oereb.lib.records.theme.ThemeRecord: The available themes.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
@@ -130,10 +129,12 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the theme with the specified code.</span>
 
-<span class="sd">        :param code: The theme&#39;s code.</span>
-<span class="sd">        :type code: str</span>
-<span class="sd">        :return: The theme with the specified code.</span>
-<span class="sd">        :rtype: pyramid_oereb.lib.records.theme.ThemeRecord or None</span>
+<span class="sd">        Args:</span>
+<span class="sd">            code (str): The theme&#39;s code.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.theme.ThemeRecord or None: The theme with the specified</span>
+<span class="sd">            code.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
@@ -163,8 +164,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of available crs.</span>
 
-<span class="sd">        :return: The available crs.</span>
-<span class="sd">        :rtype: list</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list: The available crs.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
@@ -179,8 +180,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of available languages.</span>
 
-<span class="sd">        :return: The available languages.</span>
-<span class="sd">        :rtype: list</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list: The available languages.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
@@ -195,8 +196,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of available flavours.</span>
 
-<span class="sd">        :return: The available flavours.</span>
-<span class="sd">        :rtype: list</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list: The available flavours.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
@@ -211,8 +212,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a dictionary of the configured real estate settings.</span>
 
-<span class="sd">        :return: The configured real estate settings.</span>
-<span class="sd">        :rtype: dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured real estate settings.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
@@ -223,8 +224,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a dictionary of the configured address settings.</span>
 
-<span class="sd">        :return: The configured address settings.</span>
-<span class="sd">        :rtype: dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured address settings.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
@@ -235,8 +236,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a dictionary of the configured glossary settings.</span>
 
-<span class="sd">        :return: The configured glossary settings.</span>
-<span class="sd">        :rtype: dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured glossary settings.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
@@ -247,8 +248,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a dictionary of the configured exclusion_of_liability settings.</span>
 
-<span class="sd">        :return: The configured exclusion_of_liability settings.</span>
-<span class="sd">        :rtype: dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured exclusion_of_liability settings.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
@@ -259,8 +260,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a dictionary of the configured municipality settings.</span>
 
-<span class="sd">        :return: The configured municipality settings.</span>
-<span class="sd">        :rtype: dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured municipality settings.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
@@ -271,8 +272,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a dictionary of the configured extract settings.</span>
 
-<span class="sd">        :return: The configured extract settings.</span>
-<span class="sd">        :rtype: dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured extract settings.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
@@ -283,8 +284,9 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns an office record for the configured PLR cadastre authority.</span>
 
-<span class="sd">        :return: The configured PLR cadastre authority.</span>
-<span class="sd">        :rtype: pyramid_oereb.lib.records.office.OfficeRecord</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.office.OfficeRecord: The configured PLR cadastre</span>
+<span class="sd">            authority.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
@@ -306,8 +308,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a dictionary of the configured file path&#39;s to the logos.</span>
 
-<span class="sd">        :return: The configured paths to the logos wrapped in a dictionary.</span>
-<span class="sd">        :rtype: dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured paths to the logos wrapped in a dictionary.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
@@ -338,10 +340,13 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the specified configuration value.</span>
 
-<span class="sd">        :param key: Configuration parameter name.</span>
-<span class="sd">        :type key: str</span>
-<span class="sd">        :param default: Default value if the specified parameter is not defined. Defaults to None.</span>
-<span class="sd">        :return: The specified configuration or default value</span>
+<span class="sd">        Args:</span>
+<span class="sd">            key (str): Configuration parameter name.</span>
+<span class="sd">            default (*): Default value if the specified parameter is not defined. Defaults to</span>
+<span class="sd">                None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            *: The specified configuration or default value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
@@ -355,13 +360,13 @@
 <span class="sd">        example:</span>
 <span class="sd">        get_object_path(&#39;app.print&#39;, {&#39;dpi&#39;: 300}, [&#39;map_size&#39;])</span>
 
-<span class="sd">        :param path: Dot separated path of the wonted object.</span>
-<span class="sd">        :type path: str</span>
-<span class="sd">        :param default: Default dictionary values of the object. Defaults to {}.</span>
-<span class="sd">        :type default: dict</span>
-<span class="sd">        :param required: The list of required sub values in the object. Defaults to [].</span>
-<span class="sd">        :type required: list</span>
-<span class="sd">        :return: The specified configuration object.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            path (str): Dot separated path of the wonted object.</span>
+<span class="sd">            default (dict): Default dictionary values of the object. Defaults to {}.</span>
+<span class="sd">            required (list): The list of required sub values in the object. Defaults to [].</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            *: The specified configuration object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">_get_object_path</span><span class="p">(</span>

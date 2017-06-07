@@ -67,32 +67,33 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The extract base class.</span>
 
-<span class="sd">        :param real_estate: The real estate in its record representation.</span>
-<span class="sd">        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord</span>
-<span class="sd">        :param logo_plr_cadastre: Image file of the PLR logo</span>
-<span class="sd">        :type logo_plr_cadastre: pyramid_oereb.lib.records.logo.LogoRecord</span>
-<span class="sd">        :param federal_logo:Image file of the federal logo</span>
-<span class="sd">        :type federal_logo: pyramid_oereb.lib.records.logo.LogoRecord</span>
-<span class="sd">        :param cantonal_logo: Image file of the cantonal logo</span>
-<span class="sd">        :type cantonal_logo: pyramid_oereb.lib.records.logo.LogoRecord</span>
-<span class="sd">        :param municipality_logo: Image file of the municipality logo</span>
-<span class="sd">        :type municipality_logo: pyramid_oereb.lib.records.logo.LogoRecord</span>
-<span class="sd">        :param plr_cadastre_authority: The authority which is responsible for the PLR cadastre</span>
-<span class="sd">        :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OfficeRecord</span>
-<span class="sd">        :param base_data: A list of basic data layers used by the extract. For instance the basic map from</span>
-<span class="sd">            swisstopo</span>
-<span class="sd">        :type base_data: list of dict of str</span>
-<span class="sd">        :param exclusions_of_liability: Exclusions of liability for the extract</span>
-<span class="sd">        :type exclusions_of_liability:</span>
+<span class="sd">        Args:</span>
+<span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real</span>
+<span class="sd">                estate in its record representation.</span>
+<span class="sd">            logo_plr_cadastre (pyramid_oereb.lib.records.logo.LogoRecord): Image file of the PLR</span>
+<span class="sd">                logo</span>
+<span class="sd">            federal_logo (pyramid_oereb.lib.records.logo.LogoRecord):Image file of the federal</span>
+<span class="sd">                logo</span>
+<span class="sd">            cantonal_logo (pyramid_oereb.lib.records.logo.LogoRecord): Image file of the</span>
+<span class="sd">                cantonal logo</span>
+<span class="sd">            municipality_logo (pyramid_oereb.lib.records.logo.LogoRecord): Image file of the</span>
+<span class="sd">                municipality logo</span>
+<span class="sd">            plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The</span>
+<span class="sd">                authority which is responsible for the PLR cadastre</span>
+<span class="sd">            base_data (list of dictofstr): A list of basic data layers used by the extract. For</span>
+<span class="sd">                instance the basic map fromswisstopo</span>
+<span class="sd">            exclusions_of_liability (): Exclusions of liability for the extract</span>
 <span class="sd">            list of pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord</span>
-<span class="sd">        :param glossaries: Glossary for the extract</span>
-<span class="sd">        :type glossaries: list of pyramid_oereb.lib.records.glossary.GlossaryRecord</span>
-<span class="sd">        :param concerned_theme: Concerned themes.</span>
-<span class="sd">        :type concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord or None</span>
-<span class="sd">        :param not_concerned_theme: Not concerned themes.</span>
-<span class="sd">        :type not_concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord or None</span>
-<span class="sd">        :param theme_without_data: Themes without data.</span>
-<span class="sd">        :type theme_without_data: list of pyramid_oereb.lib.records.theme.ThemeRecord or None</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            glossaries (list of pyramid_oereb.lib.records.glossary.GlossaryRecord): Glossary for</span>
+<span class="sd">                the extract</span>
+<span class="sd">            concerned_theme (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Concerned</span>
+<span class="sd">                themes.</span>
+<span class="sd">            not_concerned_theme (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Not</span>
+<span class="sd">                concerned themes.</span>
+<span class="sd">            theme_without_data (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Themes</span>
+<span class="sd">                without data.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">base_data</span> <span class="o">=</span> <span class="n">base_data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extract_identifier</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
@@ -129,8 +130,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of available field names.</span>
 
-<span class="sd">        :return: List of available field names.</span>
-<span class="sd">        :rtype: list of str</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list of str: List of available field names.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span>
             <span class="s1">&#39;extract_identifier&#39;</span><span class="p">,</span>
@@ -153,8 +154,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a dictionary with all available values needed for the extract.</span>
 
-<span class="sd">        :return: Dictionary with values for the extract.</span>
-<span class="sd">        :rtype: dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Dictionary with values for the extract.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">extract</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span>

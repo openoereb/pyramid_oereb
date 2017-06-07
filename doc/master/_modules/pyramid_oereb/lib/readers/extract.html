@@ -54,15 +54,14 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The central reader accessor for the extract inside the application.</span>
 
-<span class="sd">        :param plr_sources: The list of configured PLR source instances.</span>
-<span class="sd">        :type plr_sources: list of pyramid_oereb.lib.sources.plr.PlrBaseSource</span>
-<span class="sd">        :param plr_cadastre_authority: The authority responsible for the PLR cadastre.</span>
-<span class="sd">        :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OffcieRecord</span>
-<span class="sd">        :param logos: The logos of confederation, canton and oereb wrapped in a LogoRecord</span>
-<span class="sd">        :type logos: dict</span>
-<span class="sd">        :param base_data: A list of basic data layers used by the extract. For instance the basic map from</span>
-<span class="sd">            swisstopo</span>
-<span class="sd">        :type base_data: list of dict of str</span>
+<span class="sd">        Args:</span>
+<span class="sd">            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of</span>
+<span class="sd">                configured PLR source instances.</span>
+<span class="sd">            plr_cadastre_authority (pyramid_oereb.lib.records.office.OffcieRecord): The</span>
+<span class="sd">                authority responsible for the PLR cadastre.</span>
+<span class="sd">            logos (dict): The logos of confederation, canton and oereb wrapped in a LogoRecord</span>
+<span class="sd">            base_data (list of dict of str): A list of basic data layers used by the extract. For</span>
+<span class="sd">                instance the basic map fromswisstopo</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extract</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span> <span class="o">=</span> <span class="n">plr_sources</span>
@@ -75,8 +74,9 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the authority responsible for the PLR cadastre.</span>
 
-<span class="sd">        :return: The authority responsible for the PLR cadastre.</span>
-<span class="sd">        :rtype: pyramid_oereb.lib.records.office.OffcieRecord</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.office.OffcieRecord: The authority responsible for the PLR</span>
+<span class="sd">            cadastre.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_cadastre_authority_</span>
 
@@ -84,8 +84,8 @@
     <span class="k">def</span> <span class="nf">logo_plr_cadastre</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">        :return: The logo for oereb as a LogoRecord.</span>
-<span class="sd">        :rtype: pyramid_oereb.lib.records.logo.LogoRecord</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.logo.LogoRecord: The logo for oereb as a LogoRecord.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;oereb&#39;</span><span class="p">)</span>
 
@@ -93,8 +93,8 @@
     <span class="k">def</span> <span class="nf">federal_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">        :return: The federal logo as a LogoRecord.</span>
-<span class="sd">        :rtype: pyramid_oereb.lib.records.logo.LogoRecord</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.logo.LogoRecord: The federal logo as a LogoRecord.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;confederation&#39;</span><span class="p">)</span>
 
@@ -102,8 +102,8 @@
     <span class="k">def</span> <span class="nf">cantonal_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">        :return: The cantonal logos as a LogoRecord.</span>
-<span class="sd">        :rtype: pyramid_oereb.lib.records.logo.LogoRecord</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.logo.LogoRecord: The cantonal logos as a LogoRecord.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;canton&#39;</span><span class="p">)</span>
 
@@ -111,14 +111,17 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The central read accessor method to get all desired records from configured source.</span>
 
-<span class="sd">        :param real_estate: The real estate for which the report should be generated</span>
-<span class="sd">        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord</span>
-<span class="sd">        :param municipality_logo: The municipality logo.</span>
-<span class="sd">        :type municipality_logo: pyramid_oereb.lib.records.logo.LogoRecord</span>
-<span class="sd">        :param params: The parameters of the extract request.</span>
-<span class="sd">        :type params: pyramid_oereb.views.webservice.Parameter</span>
-<span class="sd">        :return: The extract record containing all gathered data.</span>
-<span class="sd">        :rtype: pyramid_oereb.lib.records.extract.ExtractRecord</span>
+<span class="sd">        Args:</span>
+<span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real</span>
+<span class="sd">                estate for which the report should be generated</span>
+<span class="sd">            municipality_logo (pyramid_oereb.lib.records.logo.LogoRecord): The municipality</span>
+<span class="sd">                logo.</span>
+<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract</span>
+<span class="sd">                request.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.extract.ExtractRecord: The extract record containing all</span>
+<span class="sd">            gathered data.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">plr_source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span><span class="p">:</span>

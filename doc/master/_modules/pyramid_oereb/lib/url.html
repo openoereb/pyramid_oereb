@@ -52,10 +52,11 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parse an URL</span>
 
-<span class="sd">    :param url: The URL</span>
-<span class="sd">    :type url: str</span>
-<span class="sd">    :return: the parsed URL (SplitResult, params)</span>
-<span class="sd">    :rtype: (urlparse.SplitResult, dict)</span>
+<span class="sd">    Args:</span>
+<span class="sd">        url (str): The URL</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (urlparse.SplitResult,dict): the parsed URL (SplitResult, params)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">url</span> <span class="o">=</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="n">params</span> <span class="o">=</span> <span class="n">parse_qs</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
@@ -66,12 +67,12 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add some parameter to an URL.</span>
 
-<span class="sd">    :param url: The base URL</span>
-<span class="sd">    :type url: str</span>
-<span class="sd">    :param params: The parameters to add</span>
-<span class="sd">    :type params: dict</span>
-<span class="sd">    :return: The new URL</span>
-<span class="sd">    :rtype: str</span>
+<span class="sd">    Args:</span>
+<span class="sd">        url (str): The base URL</span>
+<span class="sd">        params (dict): The parameters to add</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The new URL</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">url</span>

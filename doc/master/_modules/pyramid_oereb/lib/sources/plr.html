@@ -106,8 +106,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the info dictionary.</span>
 
-<span class="sd">        :return: The info dictionary.</span>
-<span class="sd">        :rtype: dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The info dictionary.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span>
 
@@ -257,8 +257,10 @@
 <div class="viewcode-block" id="PlrStandardDatabaseSource.read"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The read point which creates a extract, depending on a passed real estate.</span>
-<span class="sd">        :param real_estate: The real estate in its record representation.</span>
-<span class="sd">        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real</span>
+<span class="sd">                estate in its record representation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">availability</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">availabilities</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">fosnr</span> <span class="o">==</span> <span class="n">availability</span><span class="o">.</span><span class="n">fosnr</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">availability</span><span class="o">.</span><span class="n">available</span><span class="p">:</span>

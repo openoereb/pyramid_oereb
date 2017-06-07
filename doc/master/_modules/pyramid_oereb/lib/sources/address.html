@@ -63,12 +63,11 @@
 <div class="viewcode-block" id="AddressDatabaseSource.read"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.address.AddressDatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Central method to read one address.</span>
-<span class="sd">        :param street_name: The name of the street for the desired address.</span>
-<span class="sd">        :type street_name: unicode</span>
-<span class="sd">        :param zip_code: The postal zipcode for the desired address.</span>
-<span class="sd">        :type zip_code: int</span>
-<span class="sd">        :param street_number: The house or so called street number of the desired address.</span>
-<span class="sd">        :type street_number: str</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            street_name (unicode): The name of the street for the desired address.</span>
+<span class="sd">            zip_code (int): The postal zipcode for the desired address.</span>
+<span class="sd">            street_number (str): The house or so called street number of the desired address.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
         <span class="n">query</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span>

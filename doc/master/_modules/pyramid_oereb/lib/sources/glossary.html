@@ -60,12 +60,11 @@
 <div class="viewcode-block" id="GlossaryDatabaseSource.read"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.glossary.GlossaryDatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Central method to read a glossary entry.</span>
-<span class="sd">        :param id: The identifier in the database</span>
-<span class="sd">        :type id: int</span>
-<span class="sd">        :param title: The term used in the extract</span>
-<span class="sd">        :type title: unicode</span>
-<span class="sd">        :param content: The description text for the glossary entry.</span>
-<span class="sd">        :type content: unicode</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (int): The identifier in the database</span>
+<span class="sd">            title (unicode): The term used in the extract</span>
+<span class="sd">            content (unicode): The description text for the glossary entry.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
         <span class="n">results</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>

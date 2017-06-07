@@ -58,12 +58,15 @@
         <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">database_adapter</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The plug for addresses which uses a database as source.</span>
-<span class="sd">        :param kwargs: Arbitrary keyword arguments. It must contain the keys &#39;db_connection&#39; and &#39;model&#39;.</span>
-<span class="sd">        The db_connection value must be a rfc1738 conform database connection string in the form of:</span>
-<span class="sd">            &#39;&lt;driver_name e.g. &quot;postgres&quot;&gt;://&lt;username&gt;:&lt;password&gt;@&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;&#39;</span>
-<span class="sd">        The model must be a valid dotted name string which leads to an importable representation of:</span>
-<span class="sd">            sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</span>
-<span class="sd">        :type kwargs: dict</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            kwargs (dict): Arbitrary keyword arguments. It must contain the keys &#39;db_connection&#39;</span>
+<span class="sd">                and &#39;model&#39;.The db_connection value must be a rfc1738 conform database</span>
+<span class="sd">                connection string in the form of:&#39;&lt;driver_name e.g. &quot;</span>
+<span class="sd">                postgres&quot;&gt;://&lt;username&gt;:&lt;password&gt;@&lt;database_host&gt;:&lt;port&gt;/&lt;database_na</span>
+<span class="sd">                me&gt;&#39;The model must be a valid dotted name string which leads to an</span>
+<span class="sd">                importable representation of:sqlalchemy.ext.declarative.DeclarativeMeta or</span>
+<span class="sd">                the real class itself.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">database_adapter</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span> <span class="o">=</span> <span class="n">database_adapter</span>

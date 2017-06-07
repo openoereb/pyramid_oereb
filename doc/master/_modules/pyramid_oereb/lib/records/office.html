@@ -61,24 +61,17 @@
                  <span class="n">street</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postal_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">city</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Responsible office record.</span>
-<span class="sd">        :param name:  The official name of the authority</span>
-<span class="sd">        :type  name: str</span>
-<span class="sd">        :param uid: The unique identifier of the authority in the federal register</span>
-<span class="sd">        :type  uid: str</span>
-<span class="sd">        :param office_at_web: The URL to the office&#39;s homepage</span>
-<span class="sd">        :type office_at_web: str</span>
-<span class="sd">        :param line1: Complementary address information</span>
-<span class="sd">        :type line1: str</span>
-<span class="sd">        :param line2: Complementary address information</span>
-<span class="sd">        :type line2: str</span>
-<span class="sd">        :param street: The street where the authority is located</span>
-<span class="sd">        :type street: str</span>
-<span class="sd">        :param number: House number</span>
-<span class="sd">        :type number: str</span>
-<span class="sd">        :param postal_code: ZIP Code of the</span>
-<span class="sd">        :type postal_code: integer</span>
-<span class="sd">        :param city: The city where the authority is located</span>
-<span class="sd">        :type postal_code: str</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str):  The official name of the authority</span>
+<span class="sd">            uid (str): The unique identifier of the authority in the federal register</span>
+<span class="sd">            office_at_web (str): The URL to the office&#39;s homepage</span>
+<span class="sd">            line1 (str): Complementary address information</span>
+<span class="sd">            line2 (str): Complementary address information</span>
+<span class="sd">            street (str): The street where the authority is located</span>
+<span class="sd">            number (str): House number</span>
+<span class="sd">            postal_code (integer): ZIP Code of the</span>
+<span class="sd">            postal_code (str): The city where the authority is located</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
@@ -95,8 +88,9 @@
 <div class="viewcode-block" id="OfficeRecord.get_fields"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.office.OfficeRecord.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of available field names.</span>
-<span class="sd">        :return:    List of available field names.</span>
-<span class="sd">        :rtype:     list</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list:List of available field names.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="p">[</span>
@@ -114,8 +108,9 @@
 <div class="viewcode-block" id="OfficeRecord.to_extract"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.office.OfficeRecord.to_extract">[docs]</a>    <span class="k">def</span> <span class="nf">to_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a dictionary with all available values needed for the extract.</span>
-<span class="sd">        :return: Dictionary with values for the extract.</span>
-<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Dictionary with values for the extract.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">extract</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>

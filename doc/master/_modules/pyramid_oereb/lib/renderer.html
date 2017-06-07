@@ -55,8 +55,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a new base renderer instance.</span>
 
-<span class="sd">        :param info: Info object.</span>
-<span class="sd">        :type info: pyramid.interfaces.IRendererInfo</span>
+<span class="sd">        Args:</span>
+<span class="sd">            info (pyramid.interfaces.IRendererInfo): Info object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_info_</span> <span class="o">=</span> <span class="n">info</span>
 
@@ -65,10 +65,11 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the response object if available.</span>
 
-<span class="sd">        :param system: The available system properties.</span>
-<span class="sd">        :type system: dict</span>
-<span class="sd">        :return: The response object.</span>
-<span class="sd">        :rtype: pyramid.response.Response or None</span>
+<span class="sd">        Args:</span>
+<span class="sd">            system (dict): The available system properties.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid.response.Response or None: The response object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">request</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">Request</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">DummyRequest</span><span class="p">):</span>
@@ -80,10 +81,11 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the request object if available.</span>
 
-<span class="sd">        :param system: The available system properties.</span>
-<span class="sd">        :type system: dict</span>
-<span class="sd">        :return: The request object.</span>
-<span class="sd">        :rtype: pyramid.request.Request or None</span>
+<span class="sd">        Args:</span>
+<span class="sd">            system (dict): The available system properties.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid.request.Request or None: The request object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">request</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">Request</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">DummyRequest</span><span class="p">):</span>
@@ -95,10 +97,11 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formats the date/time according to the specification.</span>
 
-<span class="sd">        :param dt: The datetime object.</span>
-<span class="sd">        :type dt: datetime.date or datetime.time or datetime.datetime</span>
-<span class="sd">        :return: The formatted date/time.</span>
-<span class="sd">        :rtype: str</span>
+<span class="sd">        Args:</span>
+<span class="sd">            dt (datetime.dateordatetime.timeordatetime.datetime): The datetime object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The formatted date/time.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>\
                 <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
@@ -109,8 +112,8 @@
     <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">        :return: The passed renderer info object.</span>
-<span class="sd">        :rtype: pyramid.interfaces.IRendererInfo</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid.interfaces.IRendererInfo: The passed renderer info object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info_</span></div>
 </pre></div>

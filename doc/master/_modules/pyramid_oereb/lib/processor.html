@@ -67,25 +67,25 @@
 <span class="sd">        correctly. In addition it provides an easy to use method interface to access the information.</span>
 <span class="sd">        It is also used to wrap all accessors in one point to have a processing interface.</span>
 
-<span class="sd">        :param real_estate_reader: The real estate reader instance for runtime use.</span>
-<span class="sd">        :type real_estate_reader: pyramid_oereb.lib.readers.real_estate.RealEstateReader</span>
-<span class="sd">        :param municipality_reader: The municipality reader instance for runtime use.</span>
-<span class="sd">        :type municipality_reader: pyramid_oereb.lib.readers.municipality.MunicipalityReader</span>
-<span class="sd">        :param exclusion_of_liability_reader: The exclusion of liability reader instance for runtime use.</span>
-<span class="sd">        :type exclusion_of_liability_reader:</span>
-<span class="sd">            pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader</span>
-<span class="sd">        :param glossary_reader: The glossary reader instance for runtime use.</span>
-<span class="sd">        :type glossary_reader: pyramid_oereb.lib.readers.glossary.GlossaryReader</span>
-<span class="sd">        :param plr_sources: The public law restriction source instances for runtime use wrapped in a list.</span>
-<span class="sd">        :type plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource</span>
-<span class="sd">        :param extract_reader: The extract reader instance for runtime use.</span>
-<span class="sd">        :type extract_reader: pyramid_oereb.lib.readers.extract.ExtractReader</span>
-<span class="sd">        :param plr_limits: The configuration for limiting the intersection.</span>
-<span class="sd">        :type plr_limits: dict or None</span>
-<span class="sd">        :param min_area: The minimal area for a public law restriction to be displayed in the cadastre</span>
-<span class="sd">        :type min_area: decimal</span>
-<span class="sd">        :param min_length: The minimal length for a public law restriction to be displayed in the cadastre</span>
-<span class="sd">        :type min_length: decimal</span>
+<span class="sd">        Args:</span>
+<span class="sd">            real_estate_reader (pyramid_oereb.lib.readers.real_estate.RealEstateReader): The</span>
+<span class="sd">                real estate reader instance for runtime use.</span>
+<span class="sd">            municipality_reader (pyramid_oereb.lib.readers.municipality.MunicipalityReader): The</span>
+<span class="sd">                municipality reader instance for runtime use.</span>
+<span class="sd">            exclusion_of_liability_reader</span>
+<span class="sd">                (pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader):</span>
+<span class="sd">                The exclusion of liability reader instance for runtime use.</span>
+<span class="sd">            glossary_reader (pyramid_oereb.lib.readers.glossary.GlossaryReader): The glossary</span>
+<span class="sd">                reader instance for runtime use.</span>
+<span class="sd">            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource): The</span>
+<span class="sd">                public law restriction source instances for runtime use wrapped in a list.</span>
+<span class="sd">            extract_reader (pyramid_oereb.lib.readers.extract.ExtractReader): The extract reader</span>
+<span class="sd">                instance for runtime use.</span>
+<span class="sd">            plr_limits (dict or None): The configuration for limiting the intersection.</span>
+<span class="sd">            min_area (decimal): The minimal area for a public law restriction to be displayed in</span>
+<span class="sd">                the cadastre</span>
+<span class="sd">            min_length (decimal): The minimal length for a public law restriction to be</span>
+<span class="sd">                displayed in the cadastre</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_real_estate_reader_</span> <span class="o">=</span> <span class="n">real_estate_reader</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_municipality_reader_</span> <span class="o">=</span> <span class="n">municipality_reader</span>
@@ -104,9 +104,10 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Filter only published documents.</span>
 
-<span class="sd">        :param record: The public law restriction or document record.</span>
-<span class="sd">        :type record: pyramid_oereb.lib.records.plr.PlrRecord or</span>
-<span class="sd">            pyramid_oereb.lib.records.documents.DocumentRecord</span>
+<span class="sd">        Args:</span>
+<span class="sd">            record (pyramid_oereb.lib.records.plr.PlrRecord or</span>
+<span class="sd">                pyramid_oereb.lib.records.documents.DocumentRecord): The public law restriction or</span>
+<span class="sd">                document record.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">published_docs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">PlrRecord</span><span class="p">):</span>
@@ -129,10 +130,12 @@
 <span class="sd">        value defined in the configuration and should therefor be represented in the extract</span>
 <span class="sd">        or considered &#39;false trues&#39; and be removed from the results.</span>
 
-<span class="sd">        :param extract: The extract in it&#39;s unvalidated form</span>
-<span class="sd">        :type extract: pyramid_oereb.lib.records.extract.ExtractRecord</span>
-<span class="sd">        :return: Returns the updated extract</span>
-<span class="sd">        :rtype: pyramid_oereb.lib.records.extract.ExtractRecord</span>
+<span class="sd">        Args:</span>
+<span class="sd">            extract (pyramid_oereb.lib.records.extract.ExtractRecord): The extract in it&#39;s</span>
+<span class="sd">                unvalidated form</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.extract.ExtractRecord: Returns the updated extract</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">real_estate</span> <span class="o">=</span> <span class="n">extract</span><span class="o">.</span><span class="n">real_estate</span>
@@ -157,55 +160,53 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">real_estate_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :return: The real estate reader instance.</span>
-<span class="sd">        :rtype real_estate_reader: pyramid_oereb.lib.readers.real_estate.RealEstateReader</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.readers.real_estate.RealEstateReader: The real estate reader</span>
+<span class="sd">            instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_real_estate_reader_</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">municipality_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :return: The municipality reader reader instance.</span>
-<span class="sd">        :rtype municipality_reader: pyramid_oereb.lib.readers.municipality.MunicipalityReader</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.readers.municipality.MunicipalityReader: The municipality reader</span>
+<span class="sd">            reader instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_municipality_reader_</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">exclusion_of_liability_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :return: The exclusion of liability reader reader instance.</span>
-<span class="sd">        :rtype municipality_reader:</span>
-<span class="sd">            pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader:</span>
+<span class="sd">            The exclusion of liability reader reader instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exclusion_of_liability_reader_</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">glossary_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :return: The glossary reader reader instance.</span>
-<span class="sd">        :rtype municipality_reader: pyramid_oereb.lib.readers.glossary.GlossaryReader</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.readers.glossary.GlossaryReader: The glossary reader reader</span>
+<span class="sd">            instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_glossary_reader_</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">plr_sources</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :return: The list of plr source instances.</span>
-<span class="sd">        :rtype plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource: The list of plr</span>
+<span class="sd">            source instances.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">extract_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :return: The extract reader instance.</span>
-<span class="sd">        :rtype extract_reader: pyramid_oereb.lib.readers.extract.ExtractReader</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.readers.extract.ExtractReader: The extract reader instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_reader_</span>
 
@@ -213,12 +214,14 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Central processing method to hook in from webservice.</span>
 
-<span class="sd">        :param real_estate: The real estate reader to obtain the real estates record.</span>
-<span class="sd">        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord</span>
-<span class="sd">        :param params: The parameters of the extract request.</span>
-<span class="sd">        :type params: pyramid_oereb.views.webservice.Parameter</span>
-<span class="sd">        :return: The generated extract record.</span>
-<span class="sd">        :rtype: pyramid_oereb.lib.records.extract.ExtractRecord</span>
+<span class="sd">        Args:</span>
+<span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real</span>
+<span class="sd">                estate reader to obtain the real estates record.</span>
+<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract</span>
+<span class="sd">                request.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.extract.ExtractRecord: The generated extract record.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">municipalities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_municipality_reader_</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="n">exclusions_of_liability</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exclusion_of_liability_reader_</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>

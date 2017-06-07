@@ -68,8 +68,9 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds a new connection to this object. Also creates the necessary engine and session object.</span>
 
-<span class="sd">        :param connection_string: The rfc1738 URL string which defines the database connection</span>
-<span class="sd">        :type connection_string: str</span>
+<span class="sd">        Args:</span>
+<span class="sd">            connection_string (str): The rfc1738 URL string which defines the database</span>
+<span class="sd">                connection</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">connection_string</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connections_</span><span class="p">:</span>
             <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">connection_string</span><span class="p">)</span>
@@ -85,8 +86,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a dictionary with the available connections.</span>
 
-<span class="sd">        :return: The available connections.</span>
-<span class="sd">        :rtype: dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The available connections.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connections_</span></div>
 
@@ -94,14 +95,18 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The point where you will get what you need: The session to talk to the database!</span>
 
-<span class="sd">        :param key: The key to identify the desired connection in the pool of available connections.</span>
-<span class="sd">        :type key: str</span>
-<span class="sd">        :param request: The request of the underlying pyramid application. This can be useful to handle error</span>
-<span class="sd">            cases and treat sessions in the right way.</span>
-<span class="sd">        :type request: pyramid.request.Request or None</span>
-<span class="sd">        :return: The requested clean session instance ready for use</span>
-<span class="sd">        :rtype: sqlalchemy.orm.Session</span>
-<span class="sd">        :raises: KeyError</span>
+<span class="sd">        Args:</span>
+<span class="sd">            key (str): The key to identify the desired connection in the pool of available</span>
+<span class="sd">                connections.</span>
+<span class="sd">            request (pyramid.request.Request or None): The request of the underlying pyramid</span>
+<span class="sd">                application. This can be useful to handle errorcases and treat sessions in</span>
+<span class="sd">                the right way.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            sqlalchemy.orm.Session: The requested clean session instance ready for use</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connections_</span><span class="p">:</span>
             <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connections_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;session&#39;</span><span class="p">)</span>

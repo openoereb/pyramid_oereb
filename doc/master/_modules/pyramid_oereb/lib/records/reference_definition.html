@@ -51,16 +51,16 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">canton</span><span class="p">,</span> <span class="n">municipality</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">documents</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reference definition record. Definition of references which are independent from a restriction.</span>
-<span class="sd">        :param topic: PLR topic if the reference relates to a specific topic</span>
-<span class="sd">        :type  topic: str</span>
-<span class="sd">        :param canton: Abbreviation of the canton if the reference concernes a specific canton</span>
-<span class="sd">        :type  canton: str</span>
-<span class="sd">        :param municipality: Name of the municipality if the reference relates to one</span>
-<span class="sd">        :type municipality: str</span>
-<span class="sd">        :param responsible_office: Office which is responsible for this reference.</span>
-<span class="sd">        :type responsible_office: pyramid_oereb.lib.records.office.OfficeRecord</span>
-<span class="sd">        :param documents: List of documents associated with this record.</span>
-<span class="sd">        :type documents: list of pyramid_oereb.lib.records.documents.DocumentBaseRecord</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            topic (str): PLR topic if the reference relates to a specific topic</span>
+<span class="sd">            canton (str): Abbreviation of the canton if the reference concernes a specific</span>
+<span class="sd">                canton</span>
+<span class="sd">            municipality (str): Name of the municipality if the reference relates to one</span>
+<span class="sd">            responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is</span>
+<span class="sd">                responsible for this reference.</span>
+<span class="sd">            documents (list of pyramid_oereb.lib.records.documents.DocumentBaseRecord): List of</span>
+<span class="sd">                documents associated with this record.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">topic</span> <span class="o">=</span> <span class="n">topic</span>
@@ -76,8 +76,9 @@
 <div class="viewcode-block" id="ReferenceDefinitionRecord.get_fields"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.reference_definition.ReferenceDefinitionRecord.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of available field names.</span>
-<span class="sd">        :return: List of available field names.</span>
-<span class="sd">        :rtype: list</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: List of available field names.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="p">[</span>

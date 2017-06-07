@@ -51,10 +51,10 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a glossary entry with the term and it&#39;s description.</span>
-<span class="sd">        :param title: The term used in the extract</span>
-<span class="sd">        :type title: unicode</span>
-<span class="sd">        :param content: The description text for the glossary entry.</span>
-<span class="sd">        :type content: unicode</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            title (unicode): The term used in the extract</span>
+<span class="sd">            content (unicode): The description text for the glossary entry.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
@@ -63,8 +63,9 @@
 <div class="viewcode-block" id="GlossaryRecord.get_fields"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.glossary.GlossaryRecord.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of available field names.</span>
-<span class="sd">        :return: List of available field names.</span>
-<span class="sd">        :rtype: list of str</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list of str: List of available field names.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span>
             <span class="s1">&#39;title&#39;</span><span class="p">,</span>
@@ -74,8 +75,9 @@
 <div class="viewcode-block" id="GlossaryRecord.to_extract"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.glossary.GlossaryRecord.to_extract">[docs]</a>    <span class="k">def</span> <span class="nf">to_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a dictionary with all available values needed for the extract.</span>
-<span class="sd">        :return: Dictionary with values for the extract.</span>
-<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Dictionary with values for the extract.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">extract</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>

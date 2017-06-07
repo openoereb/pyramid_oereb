@@ -52,10 +52,9 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a new theme record.</span>
 
-<span class="sd">        :param code: The theme&#39;s code.</span>
-<span class="sd">        :type code: str</span>
-<span class="sd">        :param text: The multilingual description.</span>
-<span class="sd">        :type text: dict</span>
+<span class="sd">        Args:</span>
+<span class="sd">            code (str): The theme&#39;s code.</span>
+<span class="sd">            text (dict): The multilingual description.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="n">code</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
@@ -65,8 +64,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a listing of the record&#39;s fields.</span>
 
-<span class="sd">        :return: The available fields.</span>
-<span class="sd">        :rtype: list of str</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list of str: The available fields.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span>
             <span class="s1">&#39;code&#39;</span><span class="p">,</span>

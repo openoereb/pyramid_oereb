@@ -93,25 +93,18 @@
 <span class="sd">    in your canton. This is used also in the applications process to check whether a municipality is published</span>
 <span class="sd">    or not.</span>
 
-<span class="sd">    :var fosnr: The identifier of the municipality. It is the commonly known id_bfs or as or nofs in the</span>
-<span class="sd">        french part.</span>
-<span class="sd">    :vartype fosnr: int</span>
-<span class="sd">    :var name: The Name of the municipality.</span>
-<span class="sd">    :vartype name: str</span>
-<span class="sd">    :var published: Switch whether a municipality is published or not. This has direct influence on extract</span>
-<span class="sd">        generation.</span>
-<span class="sd">    :vartype published: bool</span>
-<span class="sd">    :var logo: The emblem of the municipality as string but encoded by BaseCode64. Please refer to the</span>
-<span class="sd">        specification for more details about format and dimensons.</span>
-<span class="sd">    :vartype logo: str</span>
-<span class="sd">    :var geom: The geometry of municipality borders. For type information see geoalchemy2_.</span>
-
-<span class="sd">        .. _geoalchemy2: https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html</span>
-
-<span class="sd">        docs dependent on the configured type.</span>
-
-<span class="sd">        This concrete one is MULTIPOLYGON</span>
-<span class="sd">    :vartype geom: geoalchemy2.types.Geometry</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        fosnr (int): The identifier of the municipality. It is the commonly known id_bfs or as or</span>
+<span class="sd">            nofs in the  french part.</span>
+<span class="sd">        name (str): The Name of the municipality.</span>
+<span class="sd">        published (bool): Switch whether a municipality is published or not. This has direct</span>
+<span class="sd">            influence on extract  generation.</span>
+<span class="sd">        logo (str): The emblem of the municipality as string but encoded by BaseCode64. Please refer</span>
+<span class="sd">            to the  specification for more details about format and dimensons.</span>
+<span class="sd">        geom (geoalchemy2.types.Geometry): The geometry of municipality borders. For type</span>
+<span class="sd">            information see geoalchemy2_.  .. _geoalchemy2:</span>
+<span class="sd">            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the</span>
+<span class="sd">            configured type.  This concrete one is MULTIPOLYGON</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="n">app_schema_name</span><span class="p">}</span>
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;municipality&#39;</span>
@@ -127,40 +120,28 @@
 <span class="sd">    The container where you can throw in all the real estates this application should have access to, for</span>
 <span class="sd">    creating extracts.</span>
 
-<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
-<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
-<span class="sd">    :vartype id: int</span>
-<span class="sd">    :var identdn: The identifier on cantonal level.</span>
-<span class="sd">    :vartype identdn: str</span>
-<span class="sd">    :var number: The identifier on municipality level.</span>
-<span class="sd">    :vartype number: str</span>
-<span class="sd">    :var egrid: The identifier on federal level (the all unique one...)</span>
-<span class="sd">    :vartype egrid: str</span>
-<span class="sd">    :var type: The type of the real estate (This must base on DM01)</span>
-<span class="sd">    :vartype type: str</span>
-<span class="sd">    :var canton: Which canton this real estate is situated in (use official shortened Version here. e.g. &#39;BE&#39;)</span>
-<span class="sd">    :vartype canton: str</span>
-<span class="sd">    :var municipality: The name of the municipality this real estate is situated in.</span>
-<span class="sd">    :vartype municipality: str</span>
-<span class="sd">    :var subunit_of_land_register: The name of the maybe existing sub unit of land register if municipality in</span>
-<span class="sd">        combination with number does not offer a unique constraint. Else you can skip that.</span>
-<span class="sd">    :vartype subunit_of_land_register: str</span>
-<span class="sd">    :var fosnr: The identifier of the municipality. It is the commonly known id_bfs.</span>
-<span class="sd">    :vartype fosnr: int</span>
-<span class="sd">    :var metadata_of_geographical_base_data: A link to the metadata which this geometry is based on which is</span>
-<span class="sd">        delivering a machine readable response format (XML).</span>
-<span class="sd">    :vartype metadata_of_geographical_base_data: str</span>
-<span class="sd">    :var land_registry_area: The amount of the area of this real estate as it is declared in the land</span>
-<span class="sd">        registers information.</span>
-<span class="sd">    :vartype land_registry_area: str</span>
-<span class="sd">    :var limit: The geometry of real estates border. For type information see geoalchemy2_.</span>
-
-<span class="sd">        .. _geoalchemy2: https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html</span>
-
-<span class="sd">        docs dependent on the configured type.</span>
-
-<span class="sd">        This concrete one is MULTIPOLYGON</span>
-<span class="sd">    :vartype limit: geoalchemy2.types.Geometry</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">        identdn (str): The identifier on cantonal level.</span>
+<span class="sd">        number (str): The identifier on municipality level.</span>
+<span class="sd">        egrid (str): The identifier on federal level (the all unique one...)</span>
+<span class="sd">        type (str): The type of the real estate (This must base on DM01)</span>
+<span class="sd">        canton (str): Which canton this real estate is situated in (use official shortened Version</span>
+<span class="sd">            here. e.g. &#39;BE&#39;)</span>
+<span class="sd">        municipality (str): The name of the municipality this real estate is situated in.</span>
+<span class="sd">        subunit_of_land_register (str): The name of the maybe existing sub unit of land register if</span>
+<span class="sd">            municipality in  combination with number does not offer a unique constraint.</span>
+<span class="sd">            Else you can skip that.</span>
+<span class="sd">        fosnr (int): The identifier of the municipality. It is the commonly known id_bfs.</span>
+<span class="sd">        metadata_of_geographical_base_data (str): A link to the metadata which this geometry is</span>
+<span class="sd">            based on which is  delivering a machine readable response format (XML).</span>
+<span class="sd">        land_registry_area (str): The amount of the area of this real estate as it is declared in</span>
+<span class="sd">            the land  registers information.</span>
+<span class="sd">        limit (geoalchemy2.types.Geometry): The geometry of real estates border. For type</span>
+<span class="sd">            information see geoalchemy2_.  .. _geoalchemy2:</span>
+<span class="sd">            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the</span>
+<span class="sd">            configured type.  This concrete one is MULTIPOLYGON</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="n">app_schema_name</span><span class="p">}</span>
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;real_estate&#39;</span>
@@ -184,20 +165,14 @@
 <span class="sd">    webservice. This is a bypass for the moment. In the end it seems ways more flexible to bind a service here</span>
 <span class="sd">    but if you like you can use it.</span>
 
-<span class="sd">    :var street_name: The street name for this address.</span>
-<span class="sd">    :vartype street_name: unicode</span>
-<span class="sd">    :var street_number: The house number of this address.</span>
-<span class="sd">    :vartype street_number: str</span>
-<span class="sd">    :var zip_code: The ZIP code for this address.</span>
-<span class="sd">    :vartype zip_code: int</span>
-<span class="sd">    :var geom: The geometry of real estates border. For type information see geoalchemy2_.</span>
-
-<span class="sd">        .. _geoalchemy2: https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html</span>
-
-<span class="sd">        docs dependent on the configured type.</span>
-
-<span class="sd">        This concrete one is POINT</span>
-<span class="sd">    :vartype geom: geoalchemy2.types.Geometry</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        street_name (unicode): The street name for this address.</span>
+<span class="sd">        street_number (str): The house number of this address.</span>
+<span class="sd">        zip_code (int): The ZIP code for this address.</span>
+<span class="sd">        geom (geoalchemy2.types.Geometry): The geometry of real estates border. For type information</span>
+<span class="sd">            see geoalchemy2_.  .. _geoalchemy2:</span>
+<span class="sd">            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the</span>
+<span class="sd">            configured type.  This concrete one is POINT</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">sa</span><span class="o">.</span><span class="n">PrimaryKeyConstraint</span><span class="p">(</span><span class="s2">&quot;street_name&quot;</span><span class="p">,</span> <span class="s2">&quot;street_number&quot;</span><span class="p">,</span> <span class="s2">&quot;zip_code&quot;</span><span class="p">),</span>
@@ -214,13 +189,11 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The bucket you can throw all items you want to have in the extracts glossary as reading help.</span>
 
-<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
-<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
-<span class="sd">    :vartype id: int</span>
-<span class="sd">    :var title: The title or abbreviation of a glossary item.</span>
-<span class="sd">    :vartype title: str</span>
-<span class="sd">    :var content: The description or definition of a glossary item.</span>
-<span class="sd">    :vartype content: str</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">        title (str): The title or abbreviation of a glossary item.</span>
+<span class="sd">        content (str): The description or definition of a glossary item.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="n">app_schema_name</span><span class="p">}</span>
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;glossary&#39;</span>
@@ -235,13 +208,11 @@
 <span class="sd">    webservice. This is a bypass for the moment. In the end it seems ways more flexible to bind a service here</span>
 <span class="sd">    but if you like you can use it.</span>
 
-<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
-<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
-<span class="sd">    :vartype id: int</span>
-<span class="sd">    :var title: The title which the exclusion of liability item has.</span>
-<span class="sd">    :vartype title: str</span>
-<span class="sd">    :var content: The content which the exclusion of liability item has.</span>
-<span class="sd">    :vartype content: str</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">        title (str): The title which the exclusion of liability item has.</span>
+<span class="sd">        content (str): The content which the exclusion of liability item has.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="n">app_schema_name</span><span class="p">}</span>
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;exclusion_of_liability&#39;</span>
