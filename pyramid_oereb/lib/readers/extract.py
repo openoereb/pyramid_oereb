@@ -9,9 +9,8 @@ class ExtractReader(object):
         """
         The central reader accessor for the extract inside the application.
 
-        :param dotted_source_class_path: The path to the class which represents the source used by this
-            reader. This class must exist and it must implement basic source behaviour.
-        :type dotted_source_class_path: str or pyramid_oereb.lib.sources.extract.ExtractBaseSource
+        :param plr_sources: The list of configured PLR source instances.
+        :type plr_sources: list of pyramid_oereb.lib.sources.plr.PlrBaseSource
         :param plr_cadastre_authority: The authority responsible for the PLR cadastre.
         :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OffcieRecord
         :param logos: The logos of confederation, canton and oereb wrapped in a LogoRecord
@@ -63,7 +62,7 @@ class ExtractReader(object):
         """
         return self._logos_.get('canton')
 
-    def read(self, real_estate, municipality_logo):
+    def read(self, real_estate, municipality_logo, params):
         """
         The central read accessor method to get all desired records from configured source.
 
@@ -71,11 +70,15 @@ class ExtractReader(object):
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
         :param municipality_logo: The municipality logo.
         :type municipality_logo: pyramid_oereb.lib.records.logo.LogoRecord
+        :param params: The parameters of the extract request.
+        :type params: pyramid_oereb.views.webservice.Parameter
         :return: The extract record containing all gathered data.
         :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
         """
 
         for plr_source in self._plr_sources_:
+            if params.skip_topic(plr_source.info.get('code')):
+                continue
             plr_source.read(real_estate)
 
         concerned_themes = list()

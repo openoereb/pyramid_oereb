@@ -56,6 +56,16 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         session.close()
         # session.close()
 
+    @property
+    def info(self):
+        """
+        Return the info dictionary.
+
+        :return: The info dictionary.
+        :rtype: dict
+        """
+        return self._plr_info_
+
     @staticmethod
     def geometry_parsing(geometry_value):
         return to_shape(geometry_value) if isinstance(geometry_value, _SpatialElement) else None

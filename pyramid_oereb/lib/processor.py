@@ -164,13 +164,16 @@ class Processor(object):
         """
         return self._extract_reader_
 
-    def process(self, real_estate):
+    def process(self, real_estate, params):
         """
         Central processing method to hook in from webservice.
 
         :param real_estate: The real estate reader to obtain the real estates record.
         :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
-        :return:
+        :param params: The parameters of the extract request.
+        :type params: pyramid_oereb.views.webservice.Parameter
+        :return: The generated extract record.
+        :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
         """
         municipalities = self._municipality_reader_.read()
         exclusions_of_liability = self._exclusion_of_liability_reader_.read()
@@ -179,7 +182,7 @@ class Processor(object):
             if municipality.fosnr == real_estate.fosnr:
                 if not municipality.published:
                     raise NotImplementedError  # TODO: improve message
-                extract_raw = self._extract_reader_.read(real_estate, municipality.logo)
+                extract_raw = self._extract_reader_.read(real_estate, municipality.logo, params)
                 extract = self.plr_tolerance_check(extract_raw)
                 extract.exclusions_of_liability = exclusions_of_liability
                 extract.glossaries = glossaries
