@@ -7,10 +7,11 @@ def parse_url(url):
     """
     Parse an URL
 
-    :param url: The URL
-    :type url: str
-    :return: the parsed URL (SplitResult, params)
-    :rtype: (urlparse.SplitResult, dict)
+    Args:
+        url (str): The URL
+
+    Returns:
+        (urlparse.SplitResult,dict): the parsed URL (SplitResult, params)
     """
     url = urlsplit(url)
     params = parse_qs(url.query)
@@ -21,12 +22,12 @@ def add_url_params(url, params):
     """
     Add some parameter to an URL.
 
-    :param url: The base URL
-    :type url: str
-    :param params: The parameters to add
-    :type params: dict
-    :return: The new URL
-    :rtype: str
+    Args:
+        url (str): The base URL
+        params (dict): The parameters to add
+
+    Returns:
+        str: The new URL
     """
     if len(params.items()) == 0:
         return url

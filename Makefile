@@ -62,7 +62,7 @@ do-pip:
 	pip install --upgrade -r $(REQUIREMENTS)
 
 $(SPHINXBUILD): .venv/requirements-timestamp
-	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install Sphinx
+	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install Sphinx sphinxcontrib-napoleon
 
 .PHONY: doc
 doc: $(SPHINXBUILD)
