@@ -384,7 +384,7 @@ class Renderer(Base):
         """
         map_dict = dict()
         if map_.image:
-            map_dict['Image'] = map_.image
+            map_dict['Image'] = map_.image.encode()
         if map_.link_wms:
             map_dict['ReferenceWMS'] = map_.link_wms
         if map_.legend_web:
