@@ -41,14 +41,6 @@ def test_get_plr_cadastre_authority():
     Config.init('./pyramid_oereb/tests/resources/test_config.yml', 'pyramid_oereb')
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
     assert isinstance(plr_cadastre_authority, OfficeRecord)
-    assert plr_cadastre_authority.to_extract() == {
-        'name': 'PLR cadastre authority',
-        'office_at_web': 'https://www.cadastre.ch/en/oereb.html',
-        'street': 'Seftigenstrasse',
-        'number': 264,
-        'postal_code': 3084,
-        'city': 'Wabern'
-    }
 
 
 def test_get_logos_config():

@@ -13,11 +13,11 @@ class ExtractReader(object):
         The central reader accessor for the extract inside the application.
 
         Args:
-            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of
-                configured PLR source instances.
-            plr_cadastre_authority (pyramid_oereb.lib.records.office.OffcieRecord): The
-                authority responsible for the PLR cadastre.
-            logos (dict): The logos of confederation, canton and oereb wrapped in a ImageRecord
+            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of configured PLR
+                source instances.
+            plr_cadastre_authority (pyramid_oereb.lib.records.office.OffcieRecord): The authority responsible
+                for the PLR cadastre.
+            logos (dict): The logos of confederation, canton and oereb wrapped in a ImageRecord.
         """
         self.extract = None
         self._plr_sources_ = plr_sources
@@ -40,7 +40,7 @@ class ExtractReader(object):
         """
 
         Returns:
-            pyramid_oereb.lib.records.logo.LogoRecord: The logo for oereb as a LogoRecord.
+            pyramid_oereb.lib.records.image.ImageRecord: The logo for oereb as a ImageRecord.
         """
         return self._logos_.get('oereb')
 
@@ -49,7 +49,7 @@ class ExtractReader(object):
         """
 
         Returns:
-            pyramid_oereb.lib.records.logo.LogoRecord: The federal logo as a LogoRecord.
+            pyramid_oereb.lib.records.image.ImageRecord: The federal logo as a ImageRecord.
         """
         return self._logos_.get('confederation')
 
@@ -58,7 +58,7 @@ class ExtractReader(object):
         """
 
         Returns:
-            pyramid_oereb.lib.records.logo.LogoRecord: The cantonal logos as a LogoRecord.
+            pyramid_oereb.lib.records.image.ImageRecord: The cantonal logos as a ImageRecord.
         """
         return self._logos_.get('canton')
 
@@ -69,14 +69,14 @@ class ExtractReader(object):
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate for which the report should be generated
-            municipality_logo (pyramid_oereb.lib.records.logo.LogoRecord): The municipality
+            municipality_logo (pyramid_oereb.lib.records.image.ImageRecord): The municipality
                 logo.
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract
                 request.
 
         Returns:
             pyramid_oereb.lib.records.extract.ExtractRecord: The extract record containing all
-            gathered data.
+                gathered data.
         """
 
         for plr_source in self._plr_sources_:

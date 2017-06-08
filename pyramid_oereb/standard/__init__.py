@@ -25,7 +25,7 @@ def _create_standard_configuration_models_py_(code, geometry_type, absolute_path
     The simplest way to get a python file containing a database definition in sqlalchemy orm way. It will
      contain all necessary definitions to produce an extract as the specification defines for the new topic.
 
-        Args:
+    Args:
         code (str): The unique Code for the new model (see oereb specification for more details)
         geometry_type (str): A valid geometry type.
         absolute_path (str): The absolute Path where the genderated python file will be placed. It
@@ -59,7 +59,7 @@ def _create_all_standard_models_by_yaml_(configuration_yaml_path, section='pyram
     It will loop over all configured plrs in the passed config yaml and will create the desired model files in
     the packages standard folder (pyramid_oereb/standard/models/...).
 
-        Args:
+    Args:
         configuration_yaml_path (str): The absolute path to the yaml file which contains the plr
             definitions.
         section (str): The section in yaml file where the plrs are configured in. Standard is
@@ -83,7 +83,7 @@ def _create_tables_from_standard_configuration_(configuration_yaml_path, section
     Creates all tables inside the created schemas. This only affects the sqlalchemy models which are defined
     with the Base class from pyramid_oereb.standard.models.
 
-        Args:
+    Args:
         configuration_yaml_path (str): The absolute path to the yaml file which contains the plr
             definitions.
         section (str): The section in yaml file where the plrs are configured in. Standard is
@@ -116,7 +116,7 @@ def _drop_tables_from_standard_configuration_(configuration_yaml_path, section='
     must be camel case. It will be transformed to snake case and used as schema name.
     Drops all tables inside the created schemas.
 
-        Args:
+    Args:
         configuration_yaml_path (str): The absolute path to the yaml file which contains the plr
             definitions.
         section (str): The section in yaml file where the plrs are configured in. Standard is
@@ -144,7 +144,7 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
     Creates the specified YAML file using a template. This YAML file contains the standard
     configuration to run a oereb server out of the box.
 
-        Args:
+    Args:
         (str): The name of the new file. Default
         database (str): The database connection string.Default:
             'postgresql://postgres:password@localhost/pyramid_oereb'

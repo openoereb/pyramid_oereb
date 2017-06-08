@@ -6,17 +6,6 @@ import shapely.geometry
 from pyramid_oereb.lib.records.address import AddressRecord
 
 
-def test_get_fields():
-    expected_fields = [
-            'street_name',
-            'zip_code',
-            'street_number',
-            'geom'
-        ]
-    fields = AddressRecord.get_fields()
-    assert fields == expected_fields
-
-
 def test_mandatory_fields():
     with pytest.raises(TypeError):
         AddressRecord()

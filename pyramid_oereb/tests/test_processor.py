@@ -2,6 +2,7 @@
 
 import pytest
 from pyramid_oereb.lib.processor import Processor
+from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.tests.conftest import MockRequest
 from pyramid_oereb import ExtractReader
 from pyramid_oereb import MunicipalityReader
@@ -44,7 +45,7 @@ def test_process(connection):
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
     extract = processor.process(real_estate[0], params)
-    assert isinstance(extract.to_extract(), dict)
+    assert isinstance(extract, ExtractRecord)
 
 
 def test_process_geometry_testing(connection):

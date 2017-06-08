@@ -17,18 +17,3 @@ class AddressRecord(object):
         self.zip_code = zip_code
         self.street_number = street_number
         self.geom = geom
-
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-
-        Returns:
-            list of str: List of available field names.
-        """
-        return [
-            'street_name',
-            'zip_code',
-            'street_number',
-            'geom'
-        ]

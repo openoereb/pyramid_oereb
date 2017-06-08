@@ -437,11 +437,9 @@ class Renderer(Base):
         }
         return geom_dict
 
-    @staticmethod
-    def get_localized_text(values):
+    def get_localized_text(self, values):
         """
         Returns the set language of a multilingual text element.
-        TODO: Fix implementation when multilingual values are available by respecting self.language.
 
         Args:
             values (str or dict): The multilingual values encoded as JSON.
@@ -450,15 +448,21 @@ class Renderer(Base):
             list of dict: List of dictionaries containing the multilingual representation.
         """
         text = list()
+        default_language = Config.get('default_language')
         if isinstance(values, dict):
-            for k, v in values.iteritems():
+            if self._language_ in values:
                 text.append({
-                    'Language': k,
-                    'Text': v
+                    'Language': self._language_,
+                    'Text': values.get(self._language_)
+                })
+            else:
+                text.append({
+                    'Language': default_language,
+                    'Text': values.get(default_language)
                 })
         else:
             text.append({
-                'Language': Config.get('default_language'),
+                'Language': default_language,
                 'Text': values
             })
         return text

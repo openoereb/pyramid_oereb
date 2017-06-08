@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+import warnings
 import logging
 import urllib2
 
-from pyramid_oereb.lib.records.logo import LogoRecord
+from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.url import add_url_params
 from pyramid_oereb.lib.url import uri_validator
 from pyramid_oereb.lib.config import Config
@@ -20,14 +21,17 @@ class LegendEntryRecord(object):
 
         Args:
             symbol (binary): The binary file content of the legend image.
-            legend_text (str): The description text for the legend entry.
+            legend_text (dict): The multilingual description text for the legend entry.
             type_code (str): The class of the legend entry corresponding to the plrs classes.
             type_code_list (str): An URL to the type code list.
-            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend
-                entry belongs to.
+            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend entry belongs
+                to.
             sub_theme (str): Theme sub category.
             additional_theme (str): Additional theme linked to this theme.
         """
+        if not isinstance(legend_text, dict):
+            warnings.warn('Type of "legend_text" should be "dict"')
+
         self.symbol = symbol
         self.legend_text = legend_text
         self.type_code = type_code
@@ -35,48 +39,6 @@ class LegendEntryRecord(object):
         self.theme = theme
         self.sub_theme = sub_theme
         self.additional_theme = additional_theme
-
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-
-        Returns:
-            list of str: List of available field names.
-        """
-        return [
-            'symbol',
-            'legend_text',
-            'type_code',
-            'type_code_list',
-            'theme',
-            'sub_theme',
-            'additional_theme'
-        ]
-
-    def to_extract(self):
-        """
-        Returns a dictionary with all available values needed for the extract.
-
-        Returns:
-            dict: Dictionary with values for the extract.
-        """
-        extract = dict()
-        for key in [
-            'symbol',
-            'legend_text',
-            'type_code',
-            'type_code_list',
-            'sub_theme',
-            'additional_theme'
-        ]:
-            value = getattr(self, key)
-            if value:
-                extract[key] = value
-        key = 'theme'
-        theme_record = getattr(self, key)
-        extract['theme'] = theme_record.to_extract()
-        return extract
 
 
 class ViewServiceRecord(object):
@@ -97,48 +59,6 @@ class ViewServiceRecord(object):
             self.legends = []
         else:
             self.legends = legends
-
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-
-        Returns:
-            list of str: List of available field names.
-        """
-        return [
-            'link_wms',
-            'legend_web',
-            'legends'
-        ]
-
-    def to_extract(self, type_code=None):
-        """
-        Returns a dictionary with all available values needed for the extract.
-
-        Args:
-            type_code (str): Filter referenced legend entries by the specified type code.
-
-        Returns:
-            dict: Dictionary with values for the extract.
-        """
-        extract = dict()
-        for key in ['link_wms', 'legend_web']:
-            value = getattr(self, key)
-            if value:
-                extract[key] = value
-        key = 'legends'
-        legends = getattr(self, key)
-        if legends and len(legends) > 0:
-            if type_code:
-                filtered = list()
-                for legend in legends:
-                    if legend.type_code == type_code:
-                        filtered.append(legend.to_extract())
-                extract[key] = filtered
-            else:
-                extract[key] = [legend.to_extract() for legend in legends]
-        return extract
 
     @staticmethod
     def _get_bbox(geometry, map_size, print_buffer):
@@ -197,7 +117,7 @@ class ViewServiceRecord(object):
             print self.link_wms
             response = urllib2.urlopen(self.link_wms)
             if response.getcode() == 200:
-                self.image = LogoRecord(response.read())
+                self.image = ImageRecord(response.read())
             else:
                 dedicated_msg = "The image could not be downloaded. URL was: {url}, Response was " \
                                 "{response}".format(url=self.link_wms, response=response.read())

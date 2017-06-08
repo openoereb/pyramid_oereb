@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import warnings
 
 
 class OfficeRecord(object):
@@ -18,7 +19,7 @@ class OfficeRecord(object):
         Responsible office record.
 
         Args:
-            name (str):  The official name of the authority
+            name (dict):  The official name of the authority (multilingual)
             uid (str): The unique identifier of the authority in the federal register
             office_at_web (str): The URL to the office's homepage
             line1 (str): Complementary address information
@@ -28,6 +29,8 @@ class OfficeRecord(object):
             postal_code (integer): ZIP Code of the
             postal_code (str): The city where the authority is located
         """
+        if not isinstance(name, dict):
+            warnings.warn('Type of "name" should be "dict"')
 
         self.name = name
         self.uid = uid
@@ -38,38 +41,3 @@ class OfficeRecord(object):
         self.number = number
         self.postal_code = postal_code
         self.city = city
-
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-
-        Returns:
-            list:List of available field names.
-        """
-
-        return [
-            'name',
-            'uid',
-            'office_at_web',
-            'line1',
-            'line2',
-            'street',
-            'number',
-            'postal_code',
-            'city'
-        ]
-
-    def to_extract(self):
-        """
-        Returns a dictionary with all available values needed for the extract.
-
-        Returns:
-            dict: Dictionary with values for the extract.
-        """
-        extract = dict()
-        for key in self.get_fields():
-            value = getattr(self, key)
-            if value:
-                extract[key] = value
-        return extract

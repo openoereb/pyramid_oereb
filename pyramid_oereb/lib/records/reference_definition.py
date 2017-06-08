@@ -26,20 +26,3 @@ class ReferenceDefinitionRecord(object):
             self.documents = []
         else:
             self.documents = documents
-
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-
-        Returns:
-            list: List of available field names.
-        """
-
-        return [
-            'topic',
-            'canton',
-            'municipality',
-            'responsible_office',
-            'documents'
-        ]
