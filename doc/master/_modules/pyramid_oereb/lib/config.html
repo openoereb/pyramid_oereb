@@ -50,7 +50,7 @@
 <span class="kn">from</span> <span class="nn">pyramid.config</span> <span class="k">import</span> <span class="n">ConfigurationError</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.adapter</span> <span class="k">import</span> <span class="n">FileAdapter</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.office</span> <span class="k">import</span> <span class="n">OfficeRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.logo</span> <span class="k">import</span> <span class="n">LogoRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.image</span> <span class="k">import</span> <span class="n">ImageRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.theme</span> <span class="k">import</span> <span class="n">ThemeRecord</span>
 
 
@@ -325,9 +325,9 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">logo_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">canton_key</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">canton_key</span><span class="p">,</span> <span class="n">found_config</span><span class="o">=</span><span class="n">logo_dict</span><span class="p">))</span>
         <span class="n">file_adapter</span> <span class="o">=</span> <span class="n">FileAdapter</span><span class="p">()</span>
-        <span class="n">confederation_logo</span> <span class="o">=</span> <span class="n">LogoRecord</span><span class="p">(</span><span class="n">file_adapter</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">logo_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">confederation_fkey</span><span class="p">)))</span>
-        <span class="n">oereb_logo</span> <span class="o">=</span> <span class="n">LogoRecord</span><span class="p">(</span><span class="n">file_adapter</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">logo_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">oereb_key</span><span class="p">)))</span>
-        <span class="n">canton_logo</span> <span class="o">=</span> <span class="n">LogoRecord</span><span class="p">(</span><span class="n">file_adapter</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">logo_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">canton_key</span><span class="p">)))</span>
+        <span class="n">confederation_logo</span> <span class="o">=</span> <span class="n">ImageRecord</span><span class="p">(</span><span class="n">file_adapter</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">logo_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">confederation_fkey</span><span class="p">)))</span>
+        <span class="n">oereb_logo</span> <span class="o">=</span> <span class="n">ImageRecord</span><span class="p">(</span><span class="n">file_adapter</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">logo_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">oereb_key</span><span class="p">)))</span>
+        <span class="n">canton_logo</span> <span class="o">=</span> <span class="n">ImageRecord</span><span class="p">(</span><span class="n">file_adapter</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">logo_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">canton_key</span><span class="p">)))</span>
 
         <span class="k">return</span> <span class="p">{</span>
             <span class="n">confederation_fkey</span><span class="p">:</span> <span class="n">confederation_logo</span><span class="p">,</span>

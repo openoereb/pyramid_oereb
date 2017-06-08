@@ -61,7 +61,7 @@
 <span class="sd">                authority responsible for the PLR cadastre.</span>
 <span class="sd">            logos (dict): The logos of confederation, canton and oereb wrapped in a LogoRecord</span>
 <span class="sd">            base_data (list of dict of str): A list of basic data layers used by the extract. For</span>
-<span class="sd">                instance the basic map fromswisstopo</span>
+<span class="sd">                instance the base map from swisstopo</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extract</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span> <span class="o">=</span> <span class="n">plr_sources</span>
@@ -85,7 +85,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            pyramid_oereb.lib.records.logo.LogoRecord: The logo for oereb as a LogoRecord.</span>
+<span class="sd">            pyramid_oereb.lib.records.image.ImageRecord: The logo for oereb as a ImageRecord.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;oereb&#39;</span><span class="p">)</span>
 
@@ -94,7 +94,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            pyramid_oereb.lib.records.logo.LogoRecord: The federal logo as a LogoRecord.</span>
+<span class="sd">            pyramid_oereb.lib.records.image.ImageRecord: The federal logo as a ImageRecord.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;confederation&#39;</span><span class="p">)</span>
 
@@ -103,7 +103,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            pyramid_oereb.lib.records.logo.LogoRecord: The cantonal logos as a LogoRecord.</span>
+<span class="sd">            pyramid_oereb.lib.records.image.ImageRecord: The cantonal logos as a ImageRecord.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;canton&#39;</span><span class="p">)</span>
 
@@ -114,14 +114,14 @@
 <span class="sd">        Args:</span>
 <span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real</span>
 <span class="sd">                estate for which the report should be generated</span>
-<span class="sd">            municipality_logo (pyramid_oereb.lib.records.logo.LogoRecord): The municipality</span>
+<span class="sd">            municipality_logo (pyramid_oereb.lib.records.image.ImageRecord): The municipality</span>
 <span class="sd">                logo.</span>
 <span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract</span>
 <span class="sd">                request.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.lib.records.extract.ExtractRecord: The extract record containing all</span>
-<span class="sd">            gathered data.</span>
+<span class="sd">                gathered data.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">plr_source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span><span class="p">:</span>

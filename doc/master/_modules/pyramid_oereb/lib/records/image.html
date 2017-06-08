@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyramid_oereb.lib.records.address &#8212; OEREB  documentation</title>
+    <title>pyramid_oereb.lib.records.image &#8212; OEREB  documentation</title>
     
     <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
@@ -42,26 +42,30 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for pyramid_oereb.lib.records.address</h1><div class="highlight"><pre>
+  <h1>Source code for pyramid_oereb.lib.records.image</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">base64</span>
 
 
-<div class="viewcode-block" id="AddressRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.address.AddressRecord">[docs]</a><span class="k">class</span> <span class="nc">AddressRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ImageRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.image.ImageRecord">[docs]</a><span class="k">class</span> <span class="nc">ImageRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">,</span> <span class="n">geom</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        The record for handling the address entity inside the application.</span>
+<span class="sd">        The record to hold the binary information of a image.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            street_name (unicode): The name of the street for this address.</span>
-<span class="sd">            zip_code (int): The zipcode for this address.</span>
-<span class="sd">            street_number (str): The house number for this address.</span>
-<span class="sd">            geom (str): The geometry (point) which is representing this address as a WKT.</span>
+<span class="sd">            content (str): The binary information of this image as binary string.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">street_name</span> <span class="o">=</span> <span class="n">street_name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">zip_code</span> <span class="o">=</span> <span class="n">zip_code</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">street_number</span> <span class="o">=</span> <span class="n">street_number</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">geom</span> <span class="o">=</span> <span class="n">geom</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
+
+<div class="viewcode-block" id="ImageRecord.encode"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.image.ImageRecord.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the image as base64 encoded string.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The encoded image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>
@@ -91,7 +95,7 @@
 <script type="text/javascript">$('#searchbox').show(0);</script>
 <h3>Versions</h3>
 <ul>
-    <li><a href="address.html">master</a></li>
+    <li><a href="image.html">master</a></li>
     <li><a href="../../../../../0.0.1/index.html">0.0.1</a></li>
 </ul>
         </div>

@@ -59,20 +59,19 @@
 <span class="sd">            type (str): The property type</span>
 <span class="sd">            canton (str): The abbreviation of the canton the property is located in</span>
 <span class="sd">            municipality (str): The municipality the property is located in</span>
-<span class="sd">            fosnr (integer): The federal number of the municipality defined by the statistics</span>
-<span class="sd">                office</span>
+<span class="sd">            fosnr (integer): The federal number of the municipality defined by the statistics office</span>
 <span class="sd">            land_registry_area (integer): Area of the property as defined in the land registry</span>
-<span class="sd">            limit (shapely.geometry.MultiPolygon): The boundary of the property as geometry in</span>
-<span class="sd">                as shapely multi polygon</span>
+<span class="sd">            limit (shapely.geometry.MultiPolygon): The boundary of the property as geometry in as shapely</span>
+<span class="sd">                multi polygon</span>
 <span class="sd">            metadata_of_geographical_base_data (uri): Link to the metadata of the geodata</span>
 <span class="sd">            number (str or None):  The official cantonal number of the property</span>
 <span class="sd">            identdn (str or None): The unique identifier of the property</span>
 <span class="sd">            egrid (str or None): The federal property identifier</span>
 <span class="sd">            subunit_of_land_register (str or None): Subunit of the land register if existing</span>
-<span class="sd">            public_law_restrictions (list of pyramid_oereb.lib.records.plr.PlrRecord or None): List</span>
-<span class="sd">                of public law restrictions for this real estate</span>
-<span class="sd">            references (list of pyramid_oereb.lib.records.documents.DocumentRecord or None):</span>
-<span class="sd">                Documents associated with this real estate</span>
+<span class="sd">            public_law_restrictions (list of pyramid_oereb.lib.records.plr.PlrRecord or None): List of public</span>
+<span class="sd">                law restrictions for this real estate</span>
+<span class="sd">            references (list of pyramid_oereb.lib.records.documents.DocumentRecord or None): Documents</span>
+<span class="sd">                associated with this real estate</span>
 <span class="sd">            plan_for_land_register (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view</span>
 <span class="sd">                service to be used for the land registry map</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -106,71 +105,7 @@
 <span class="sd">            plan_for_land_register (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view</span>
 <span class="sd">                service to be used for the land registry map.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register</span> <span class="o">=</span> <span class="n">plan_for_land_register</span></div>
-
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="RealEstateRecord.get_fields"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a list of available field names.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            list:List of available field names.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;type&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;canton&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;municipality&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;fosnr&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;metadata_of_geographical_base_data&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;land_registry_area&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;limit&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;number&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;identdn&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;egrid&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;subunit_of_land_register&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;plan_for_land_register&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;public_law_restrictions&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;references&#39;</span>
-        <span class="p">]</span></div>
-
-<div class="viewcode-block" id="RealEstateRecord.to_extract"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord.to_extract">[docs]</a>    <span class="k">def</span> <span class="nf">to_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a dictionary with all available values needed for the extract.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            dict: Dictionary with values for the extract.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">extract</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span>
-            <span class="s1">&#39;type&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;canton&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;municipality&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;fosnr&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;metadata_of_geographical_base_data&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;land_registry_area&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;number&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;identdn&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;egrid&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;subunit_of_land_register&#39;</span>
-        <span class="p">]:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
-                <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;plan_for_land_register&#39;</span>
-        <span class="n">record</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">record</span><span class="p">:</span>
-            <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">to_extract</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span>
-            <span class="s1">&#39;public_law_restrictions&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;references&#39;</span>
-        <span class="p">]:</span>
-            <span class="n">records</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">records</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">to_extract</span><span class="p">()</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">records</span><span class="p">]</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;limit&#39;</span>
-        <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">))</span>
-
-        <span class="k">return</span> <span class="n">extract</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register</span> <span class="o">=</span> <span class="n">plan_for_land_register</span></div></div>
 </pre></div>
 
           </div>
@@ -183,8 +118,6 @@
   <li><a href="../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../../index.html">Module code</a><ul>
   <li><a href="../../../pyramid_oereb.html">pyramid_oereb</a><ul>
-  <li><a href="../records.html">pyramid_oereb.lib.records</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
   </ul></li>

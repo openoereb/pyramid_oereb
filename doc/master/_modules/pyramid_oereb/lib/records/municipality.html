@@ -56,30 +56,14 @@
 <span class="sd">            fosnr (int): The unique id bfs of the municipality.</span>
 <span class="sd">            name (unicode): The zipcode for this address.</span>
 <span class="sd">            published (bool): Is this municipality ready for publishing via server.</span>
-<span class="sd">            logo (pyramid_oereb.lib.records.logo.LogoRecord): The municipality logo.</span>
+<span class="sd">            logo (pyramid_oereb.lib.records.image.ImageRecord): The municipality logo.</span>
 <span class="sd">            geom (str or None): The geometry which is representing this municipality as a WKT.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fosnr</span> <span class="o">=</span> <span class="n">fosnr</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">published</span> <span class="o">=</span> <span class="n">published</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logo</span> <span class="o">=</span> <span class="n">logo</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">geom</span> <span class="o">=</span> <span class="n">geom</span>
-
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="MunicipalityRecord.get_fields"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.municipality.MunicipalityRecord.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a list of available field names.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            list of str: List of available field names.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;fosnr&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;name&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;published&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;logo&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;geom&#39;</span>
-        <span class="p">]</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geom</span> <span class="o">=</span> <span class="n">geom</span></div>
 </pre></div>
 
           </div>
@@ -92,8 +76,6 @@
   <li><a href="../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../../index.html">Module code</a><ul>
   <li><a href="../../../pyramid_oereb.html">pyramid_oereb</a><ul>
-  <li><a href="../records.html">pyramid_oereb.lib.records</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
   </ul></li>

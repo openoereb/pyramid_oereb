@@ -44,6 +44,7 @@
             
   <h1>Source code for pyramid_oereb.lib.records.plr</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
 
 
@@ -54,42 +55,11 @@
 <span class="sd">        Record for empty topics.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR</span>
-<span class="sd">                belongs to.</span>
+<span class="sd">            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.</span>
 <span class="sd">            has_data (bool): True if the topic contains data.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">theme</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">has_data</span> <span class="o">=</span> <span class="n">has_data</span>
-
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="EmptyPlrRecord.get_fields"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.plr.EmptyPlrRecord.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a list of available field names.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            list of str: List of available field names.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;theme&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;has_data&#39;</span>
-        <span class="p">]</span></div>
-
-<div class="viewcode-block" id="EmptyPlrRecord.to_extract"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.plr.EmptyPlrRecord.to_extract">[docs]</a>    <span class="k">def</span> <span class="nf">to_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a dictionary with all available values needed for the extract.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            dict: Dictionary with values for the extract.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">extract</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span>
-            <span class="s1">&#39;theme&#39;</span>
-        <span class="p">]:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
-                <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="n">extract</span><span class="p">[</span><span class="s1">&#39;has_data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_data</span>
-        <span class="k">return</span> <span class="n">extract</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">has_data</span> <span class="o">=</span> <span class="n">has_data</span></div>
 
 
 <div class="viewcode-block" id="PlrRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.plr.PlrRecord">[docs]</a><span class="k">class</span> <span class="nc">PlrRecord</span><span class="p">(</span><span class="n">EmptyPlrRecord</span><span class="p">):</span>
@@ -105,36 +75,34 @@
 <span class="sd">        Public law restriction record.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            content (str): The PLR record&#39;s content.</span>
-<span class="sd">            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR</span>
-<span class="sd">                belongs to.</span>
+<span class="sd">            content (dict): The PLR record&#39;s content (multilingual).</span>
+<span class="sd">            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.</span>
 <span class="sd">            legal_state (str): The PLR record&#39;s legal state.</span>
 <span class="sd">            published_from (datetime.date): Date from/since when the PLR record is published.</span>
-<span class="sd">            responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is</span>
-<span class="sd">                responsible for this PLR.</span>
+<span class="sd">            responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is responsible</span>
+<span class="sd">                for this PLR.</span>
 <span class="sd">            subtopic (str): Optional subtopic.</span>
 <span class="sd">            additional_topic (str): Optional additional topic.</span>
 <span class="sd">            type_code (str): The PLR record&#39;s type code (also used by view service).</span>
 <span class="sd">            type_code_list (str): URL to the PLR&#39;s list of type codes.</span>
-<span class="sd">            view_service (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view</span>
-<span class="sd">                service instance associated with this record.</span>
+<span class="sd">            view_service (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service instance</span>
+<span class="sd">                associated with this record.</span>
 <span class="sd">            basis (list of PlrRecord): List of PLR records as basis for this record.</span>
 <span class="sd">            refinements (list of PlrRecord): List of PLR records as refinement of this record.</span>
-<span class="sd">            documents (list of pyramid_oereb.lib.records.documents.DocumentBaseRecord): List of</span>
-<span class="sd">                documents associated with this record.</span>
-<span class="sd">            geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of</span>
-<span class="sd">                geometry records associated with this record.</span>
-<span class="sd">            area (decimal): Area of the restriction touching the property calculated by the</span>
-<span class="sd">                processor.</span>
-<span class="sd">            part_in_percent (decimal): Part of the property area touched by the restriction in</span>
-<span class="sd">                percent.</span>
-<span class="sd">            symbol (binary): Symbol of the restriction defined for the legend entry - added on</span>
-<span class="sd">                the fly.</span>
-<span class="sd">            info (dict or None): The information read from the config</span>
-<span class="sd">        :raises TypeError: Raised on missing field value.</span>
+<span class="sd">            documents (list of pyramid_oereb.lib.records.documents.DocumentBaseRecord): List of documents</span>
+<span class="sd">                associated with this record.</span>
+<span class="sd">            geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of geometry records</span>
+<span class="sd">                associated with this record.</span>
+<span class="sd">            area (decimal): Area of the restriction touching the property calculated by the processor.</span>
+<span class="sd">            part_in_percent (decimal): Part of the property area touched by the restriction in percent.</span>
+<span class="sd">            symbol (binary): Symbol of the restriction defined for the legend entry - added on the fly.</span>
+<span class="sd">            info (dict or None): The information read from the config.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="nb">super</span><span class="p">(</span><span class="n">PlrRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;content&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">legal_state</span> <span class="o">=</span> <span class="n">legal_state</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">=</span> <span class="n">published_from</span>
@@ -171,74 +139,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: True if PLR is published.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
-
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="PlrRecord.get_fields"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.plr.PlrRecord.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a list of available field names.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            list of str: List of available field names.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;theme&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;documents&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;geometries&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;view_service&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;refinements&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;additional_topic&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;content&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;type_code_list&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;type_code&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;basis&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;published_from&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;legal_state&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;subtopic&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;responsible_office&#39;</span>
-        <span class="p">]</span></div>
-
-<div class="viewcode-block" id="PlrRecord.to_extract"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.plr.PlrRecord.to_extract">[docs]</a>    <span class="k">def</span> <span class="nf">to_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a dictionary with all available values needed for the extract.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            dict: Dictionary with values for the extract.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">extract</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span>
-            <span class="s1">&#39;content&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;subtopic&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;additional_topic&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;type_code&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;type_code_list&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;legal_state&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;area&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;part_in_percent&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;symbol&#39;</span>
-        <span class="p">]:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
-                <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span>
-            <span class="s1">&#39;geometries&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;documents&#39;</span>
-        <span class="p">]:</span>
-            <span class="n">records</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">records</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">record</span><span class="o">.</span><span class="n">to_extract</span><span class="p">()</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span>
-            <span class="s1">&#39;theme&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;responsible_office&#39;</span>
-        <span class="p">]:</span>
-            <span class="n">record</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">record</span><span class="p">:</span>
-                <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">to_extract</span><span class="p">()</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;view_service&#39;</span>
-        <span class="n">record</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">record</span><span class="p">:</span>
-            <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">to_extract</span><span class="p">(</span><span class="n">type_code</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">type_code</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">extract</span></div></div>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span></div>
 </pre></div>
 
           </div>
@@ -251,8 +152,6 @@
   <li><a href="../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../../index.html">Module code</a><ul>
   <li><a href="../../../pyramid_oereb.html">pyramid_oereb</a><ul>
-  <li><a href="../records.html">pyramid_oereb.lib.records</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
   </ul></li>

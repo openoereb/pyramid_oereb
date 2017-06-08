@@ -1402,18 +1402,14 @@ Module: pyramid_oereb.lib.records
 .. automodule:: pyramid_oereb.lib.records
    :members:
 
+Module: pyramid_oereb.lib.records.image
+---------------------------------------
 
-.. autoclass:: pyramid_oereb.lib.records.BaseRecord
-   :members:
-
-Module: pyramid_oereb.lib.records.logo
---------------------------------------
-
-.. automodule:: pyramid_oereb.lib.records.logo
+.. automodule:: pyramid_oereb.lib.records.image
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.records.logo.LogoRecord
+.. autoclass:: pyramid_oereb.lib.records.image.ImageRecord
    :members:
 
 Module: pyramid_oereb.lib.records.documents

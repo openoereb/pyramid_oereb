@@ -44,6 +44,7 @@
             
   <h1>Source code for pyramid_oereb.lib.records.exclusion_of_liability</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 
 
 <div class="viewcode-block" id="ExclusionOfLiabilityRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord">[docs]</a><span class="k">class</span> <span class="nc">ExclusionOfLiabilityRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -53,38 +54,16 @@
 <span class="sd">        Represents a exclusion of liability entry with the label and it&#39;s message.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            title (unicode): The disclaimer message label</span>
-<span class="sd">            content (unicode): The disclaimer message.</span>
+<span class="sd">            title (dict): The multilingual disclaimer message label</span>
+<span class="sd">            content (dict): The multilingual disclaimer message.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;title&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;content&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
-
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="ExclusionOfLiabilityRecord.get_fields"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a list of available field names.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            list of str: List of available field names.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;title&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;content&#39;</span>
-        <span class="p">]</span></div>
-
-<div class="viewcode-block" id="ExclusionOfLiabilityRecord.to_extract"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord.to_extract">[docs]</a>    <span class="k">def</span> <span class="nf">to_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a dictionary with all available values needed for the extract.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            dict: Dictionary with values for the extract.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">extract</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
-                <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="k">return</span> <span class="n">extract</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span></div>
 </pre></div>
 
           </div>
@@ -97,8 +76,6 @@
   <li><a href="../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../../index.html">Module code</a><ul>
   <li><a href="../../../pyramid_oereb.html">pyramid_oereb</a><ul>
-  <li><a href="../records.html">pyramid_oereb.lib.records</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
   </ul></li>

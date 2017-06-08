@@ -44,6 +44,7 @@
             
   <h1>Source code for pyramid_oereb.lib.records.theme</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 
 
 <div class="viewcode-block" id="ThemeRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.theme.ThemeRecord">[docs]</a><span class="k">class</span> <span class="nc">ThemeRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -56,33 +57,11 @@
 <span class="sd">            code (str): The theme&#39;s code.</span>
 <span class="sd">            text (dict): The multilingual description.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;text&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="n">code</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
-
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="ThemeRecord.get_fields"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.theme.ThemeRecord.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a listing of the record&#39;s fields.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            list of str: The available fields.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;code&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;text&#39;</span>
-        <span class="p">]</span></div>
-
-    <span class="k">def</span> <span class="nf">to_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
-            <span class="n">text</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                <span class="s1">&#39;language&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
-                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">v</span>
-            <span class="p">})</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">code</span><span class="p">,</span>
-            <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">text</span>
-        <span class="p">}</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span></div>
 </pre></div>
 
           </div>
@@ -95,8 +74,6 @@
   <li><a href="../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../../index.html">Module code</a><ul>
   <li><a href="../../../pyramid_oereb.html">pyramid_oereb</a><ul>
-  <li><a href="../records.html">pyramid_oereb.lib.records</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
   </ul></li>
