@@ -14,6 +14,7 @@ from pyramid_oereb import srid
 from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
 from sqlalchemy.orm import relationship
+from sqlalchemy_utils import JSONType
 
 metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = declarative_base()
@@ -46,22 +47,22 @@ class Office(Base):
     geometry.
 
     Attributes:
-        id (str): The identifier. This is used in the database only and must not be set manually. If you
-            don't like it - don't care about.
-        name (str): The name of the office.
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        name (dict): The multilingual name of the office.
         office_at_web (str): A web accessible url to a presentation of this office.
-        uid (str): The uid of this office from https://www.uid.admin.ch
+        uid (str): The uid of this office from https
         line1 (str): The first address line for this office.
         line2 (str): The second address line for this office.
         street (str): The streets name of the offices address.
         number (str): The number on street.
-        postal_code (str): The ZIP-code.
+        postal_code (int): The ZIP-code.
         city (str): The name of the city.
     """
     __table_args__ = {'schema': 'airports_building_lines'}
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
-    name = sa.Column(sa.String, nullable=False)
+    name = sa.Column(JSONType, nullable=False)
     office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
     line1 = sa.Column(sa.String, nullable=True)
@@ -85,8 +86,8 @@ class ReferenceDefinition(Base):  # TODO: Check translation
         canton (str): The canton this definition is related to.
         municipality (int): The municipality this definition is related to.
         office_id (int): The foreign key constraint which the definition is related to.
-        responsible_office (pyramid_oereb.standard.models.airports_building_lines.Office): The
-            dedicated relation to the office instance from database.
+        responsible_office (pyramid_oereb.standard.models.airports_building_lines.Office):
+            The dedicated relation to the office instance from database.
     """
     __table_args__ = {'schema': 'airports_building_lines'}
     __tablename__ = 'reference_definition'
@@ -108,7 +109,7 @@ class DocumentBase(Base):
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        text_web (str): A link which leads to the documents content in the web.
+        text_web (dict): A multilingual link which leads to the documents content in the web.
         legal_state (str): The status switch if the document is legally approved or not.
         published_from (datetime.date): The date when the document should be available for
             publishing on extracts. This  directly affects the behaviour of extract
@@ -119,7 +120,7 @@ class DocumentBase(Base):
     __table_args__ = {'schema': 'airports_building_lines'}
     __tablename__ = 'document_base'
     id = sa.Column(sa.Integer, primary_key=True)
-    text_web = sa.Column(sa.String, nullable=True)
+    text_web = sa.Column(JSONType, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     type = sa.Column(sa.Unicode, nullable=False)
@@ -138,9 +139,9 @@ class Document(DocumentBase):
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        title (str): The title or if existing the short title ot his document.
-        office_title (str): The official title of this document.
-        abbrevation (str): The shortened version of the documents title.
+        title (dict): The multilingual title or if existing the short title ot his document.
+        office_title (dict): The multilingual official title of this document.
+        abbrevation (dict): The multilingual shortened version of the documents title.
         official_number (str): The official number which uniquely identifies this document.
         canton (str): The short version of the canton which this document is about. If this is None
             this is  assumed to be a federal document.
@@ -149,17 +150,17 @@ class Document(DocumentBase):
         file (str): The document itself as a binary representation (PDF). It is string but
             BaseCode64 encoded.
         office_id (int): The foreign key to the office which is in charge for this document.
-        responsible_office (pyramid_oereb.standard.models.airports_building_lines.Office): The
-            dedicated relation to the office instance from database.
+        responsible_office (pyramid_oereb.standard.models.airports_building_lines.Office):
+            The dedicated relation to the office instance from database.
     """
     __table_args__ = {'schema': 'airports_building_lines'}
     __tablename__ = 'document'
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    title = sa.Column(sa.String, nullable=False)
-    official_title = sa.Column(sa.String, nullable=True)
-    abbreviation = sa.Column(sa.String, nullable=True)
+    title = sa.Column(JSONType, nullable=False)
+    official_title = sa.Column(JSONType, nullable=True)
+    abbreviation = sa.Column(JSONType, nullable=True)
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
@@ -187,10 +188,10 @@ class Article(DocumentBase):
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         number (str): The number which identifies this article in its parent document.
-        text (str): A simple string to describe the article or give some related info.
+        text (dict): A simple multilingual string to describe the article or give some related info.
         document_id (int): The foreign key to the document this article is taken from.
-        document_id (pyramid_oereb.standard.models.airports_building_lines.Document): The dedicated
-            relation to the document instance from database.
+        document_id (pyramid_oereb.standard.models.airports_building_lines.Document):
+            The dedicated relation to the document instance from database.
     """
     __table_args__ = {'schema': 'airports_building_lines'}
     __tablename__ = 'article'
@@ -198,7 +199,7 @@ class Article(DocumentBase):
         'polymorphic_identity': 'article'
     }
     number = sa.Column(sa.String, nullable=False)
-    text = sa.Column(sa.String, nullable=True)
+    text = sa.Column(JSONType, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(DocumentBase.id),
@@ -265,7 +266,7 @@ class LegendEntry(Base):
             you  don't like it - don't care about.
         file (str): An image with represents the legend entry. This can be png or svg. It is string
             but BaseCode64  encoded.
-        legend_text (str): Text to describe this legend entry.
+        legend_text (dict): Multilingual text to describe this legend entry.
         type_code (str): Type code of the public law restriction which is represented by this legend
             entry.
         type_code_list (str): List of all public law restrictions which are described through this
@@ -278,14 +279,14 @@ class LegendEntry(Base):
             the official two letters short version (e.g.'BE') {topic} as the name of the
             topic and {bfsnr} as the municipality id of the federal office of statistics.
         view_service_id (int): The foreign key to the view service this legend entry is related to.
-        view_service (pyramid_oereb.standard.models.airports_building_lines.ViewService): The
-            dedicated relation to the view service instance from database.
+        view_service (pyramid_oereb.standard.models.airports_building_lines.ViewService):
+            The dedicated relation to the view service instance from database.
     """
     __table_args__ = {'schema': 'airports_building_lines'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
     file = sa.Column(sa.String, nullable=False)
-    legend_text = sa.Column(sa.String, nullable=False)
+    legend_text = sa.Column(JSONType, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
@@ -307,7 +308,7 @@ class PublicLawRestriction(Base):
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        content (str): The textual representation of the public law restriction.
+        content (dict): The multilingual textual representation of the public law restriction.
         topic (str): Category for this public law restriction (name of the topic).
         subtopic (str): Textual explanation to subtype the topic attribute.
         additional_topic (str): A link to additional topics. It must be like the following patterns
@@ -324,17 +325,17 @@ class PublicLawRestriction(Base):
             generation.
         view_service_id (int): The foreign key to the view service this public law restriction is
             related to.
-        view_service (pyramid_oereb.standard.models.airports_building_lines.ViewService): The
-            dedicated relation to the view service instance from database.
+        view_service (pyramid_oereb.standard.models.airports_building_lines.ViewService):
+            The dedicated relation to the view service instance from database.
         office_id (int): The foreign key to the office which is responsible to this public law
             restriction.
-        responsible_office (pyramid_oereb.standard.models.airports_building_lines.Office): The
-            dedicated relation to the office instance from database.
+        responsible_office (pyramid_oereb.standard.models.airports_building_lines.Office):
+            The dedicated relation to the office instance from database.
     """
     __table_args__ = {'schema': 'airports_building_lines'}
     __tablename__ = 'public_law_restriction'
     id = sa.Column(sa.Integer, primary_key=True)
-    content = sa.Column(sa.String, nullable=False)
+    content = sa.Column(JSONType, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
     subtopic = sa.Column(sa.String, nullable=True)
     additional_topic = sa.Column(sa.String, nullable=True)
@@ -372,19 +373,19 @@ class Geometry(Base):
             generation.
         geo_metadata (str): A link to the metadata which this geometry is based on which delivers
             machine  readable response format (XML).
+        public_law_restriction_id (int): The foreign key to the public law restriction this geometry
+            is  related to.
+        public_law_restriction (pyramid_oereb.standard.models.airports_building_lines
+            .PublicLawRestriction): The dedicated relation to the public law restriction instance from
+            database.
+        office_id (int): The foreign key to the office which is responsible to this public law
+            restriction.
+        responsible_office (pyramid_oereb.standard.models.airports_building_lines.Office):
+            The dedicated relation to the office instance from database.
         geom (geoalchemy2.types.Geometry): The geometry it's self. For type information see
             geoalchemy2_.  .. _geoalchemy2:
             https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
             configured type.  This concrete one is POLYGON
-        public_law_restriction_id (int): The foreign key to the public law restriction this geometry
-            is  related to.
-        public_law_restriction (): The dedicated relation to the public law restriction instance
-            from  database.
-        pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction
-        office_id (int): The foreign key to the office which is responsible to this public law
-            restriction.
-        responsible_office (pyramid_oereb.standard.models.airports_building_lines.Office): The
-            dedicated relation to the office instance from database.
     """
     __table_args__ = {'schema': 'airports_building_lines'}
     __tablename__ = 'geometry'
@@ -422,12 +423,10 @@ class PublicLawRestrictionBase(Base):
             on another  public law restriction.
         public_law_restriction_base_id (int): The foreign key to the public law restriction which is
             the  base for the public law restriction.
-        plr (pyramid_oereb.standard.models.airports_building_lines.PublicLawRe striction): The
-            dedicated relation to the public law restriction (which bases on) instance from
-            database.
-        base (pyramid_oereb.standard.models.airports_building_lines.PublicLawR estriction): The
-            dedicated relation to the public law restriction (which is the base) instance
-            from  database.
+        plr (pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction):
+            The dedicated relation to the public law restriction (which bases on) instance from  database.
+        base (pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction):
+            The dedicated relation to the public law restriction (which is the base) instance from database.
     """
     __tablename__ = 'public_law_restriction_base'
     __table_args__ = {'schema': 'airports_building_lines'}
@@ -465,12 +464,10 @@ class PublicLawRestrictionRefinement(Base):
             refined by  another public law restriction.
         public_law_restriction_refinement_id (int): The foreign key to the public law restriction
             which is  the refinement of the public law restriction.
-        plr (pyramid_oereb.standard.models.airports_building_lines.PublicLawRe striction): The
-            dedicated relation to the public law restriction (which refines) instance from
-            database.
-        base (pyramid_oereb.standard.models.airports_building_lines.PublicLawR estriction): The
-            dedicated relation to the public law restriction (which is refined) instance
-            from  database.
+        plr (pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction):
+            The dedicated relation to the public law restriction (which refines) instance from  database.
+        base (pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction):
+            The dedicated relation to the public law restriction (which is refined) instance from database.
     """
     __tablename__ = 'public_law_restriction_refinement'
     __table_args__ = {'schema': 'airports_building_lines'}
@@ -507,10 +504,10 @@ class PublicLawRestrictionDocument(Base):
             relation to  a document.
         document_id (int): The foreign key to the document which has relation to the public law
             restriction.
-        plr (pyramid_oereb.standard.models.airports_building_lines.PublicLawRe striction): The
-            dedicated relation to the public law restriction instance from database.
-        document (pyramid_oereb.standard.models.airports_building_lines.DocumentBase): The dedicated
-            relation to the document instance from database.
+        plr (pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction):
+            The dedicated relation to the public law restriction instance from database.
+        document (pyramid_oereb.standard.models.airports_building_lines.DocumentBase):
+            The dedicated relation to the document instance from database.
     """
     __tablename__ = 'public_law_restriction_document'
     __table_args__ = {'schema': 'airports_building_lines'}
@@ -545,10 +542,10 @@ class DocumentReference(Base):
             you  don't like it - don't care about.
         document_id (int): The foreign key to the document which references to another document.
         reference_document_id (int): The foreign key to the document which is referenced.
-        document (pyramid_oereb.standard.models.airports_building_lines.Document): The dedicated
-            relation to the document (which references) instance from database.
-        referenced_document (pyramid_oereb.standard.models.airports_building_lines.Document): The
-            dedicated relation to the document (which is referenced) instance from database.
+        document (pyramid_oereb.standard.models.airports_building_lines.Document):
+            The dedicated relation to the document (which references) instance from database.
+        referenced_document (pyramid_oereb.standard.models.airports_building_lines.Document):
+            The dedicated relation to the document (which is referenced) instance from database.
         article_numbers (str): A colon of article numbers which clarify the reference. This is a
             string  separated by '|'.
     """

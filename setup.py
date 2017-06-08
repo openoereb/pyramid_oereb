@@ -24,6 +24,7 @@ requires = [
     'shapely',
     'simplejson',
     'SQLAlchemy',
+    'sqlalchemy-utils',
     'transaction',
     'waitress',
     'zope.sqlalchemy',

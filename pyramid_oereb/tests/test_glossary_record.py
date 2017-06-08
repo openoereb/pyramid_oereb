@@ -10,7 +10,7 @@ def test_mandatory_fields():
 
 
 def test_init():
-    record = GlossaryRecord(title=u'SGRF', content=u'Service de la géomatique et du registre foncier')
-    assert record.title == u'SGRF'
+    record = GlossaryRecord({'fr': u'SGRF'}, {'fr': u'Service de la géomatique et du registre foncier'})
+    assert record.title.get('fr') == u'SGRF'
     assert record.content is not None
-    assert isinstance(record.content, unicode)
+    assert isinstance(record.content.get('fr'), unicode)

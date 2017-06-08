@@ -28,6 +28,7 @@ But you can change it also via configuration.
 import sqlalchemy as sa
 from geoalchemy2 import Geometry
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy_utils import JSONType
 
 from pyramid_oereb.standard.models import NAMING_CONVENTION
 from pyramid_oereb import app_schema_name, srid
@@ -153,8 +154,8 @@ class Glossary(Base):
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'glossary'
     id = sa.Column(sa.Integer, primary_key=True)
-    title = sa.Column(sa.String, nullable=False)
-    content = sa.Column(sa.String, nullable=False)
+    title = sa.Column(JSONType, nullable=False)
+    content = sa.Column(JSONType, nullable=False)
 
 
 class ExclusionOfLiability(Base):

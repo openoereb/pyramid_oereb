@@ -79,7 +79,7 @@ class MockRequest(DummyRequest):
             plr_cadastre_authority,
             logos,
             # TODO: Read this from config. Will be solved by: https://jira.camptocamp.com/browse/GSOREB-195
-            [{'de': 'Daten der Swisstopo'}, {'de': 'Amtliche Vermessung'}]
+            {'de': ['Daten der Swisstopo', 'Amtliche Vermessung']}
         )
         self.processor = Processor(
             real_estate_reader=real_estate_reader,
@@ -175,8 +175,8 @@ def connection(config):
     # Add dummy glossary
     connection_.execute(Glossary.__table__.insert(), {
         'id': 1,
-        'title': u'SGRF',
-        'content': u'Service de la géomatique et du registre foncier'
+        'title': {'fr': u'SGRF', 'de': u'AGI'},
+        'content': {'fr': u'Service de la géomatique et du registre foncier', 'de': u'Amt für Geoinformation'}
     })
 
     # Add dummy real estate
@@ -212,11 +212,11 @@ def connection(config):
     })
     connection_.execute(LineOffice.__table__.insert(), {
         'id': 1,
-        'name': u'{"de": "Test Office"}'
+        'name': {'de': u'Test Office'}
     })
     connection_.execute(LinePublicLawRestriction.__table__.insert(), {
         'id': 1,
-        'content': u'{"de": "Long line PLR"}',
+        'content': {'de': u'Long line PLR'},
         'topic': u'MotorwaysBuildingLines',
         'legal_state': u'inForce',
         'published_from': unicode(date.today().isoformat()),
@@ -225,7 +225,7 @@ def connection(config):
     })
     connection_.execute(LinePublicLawRestriction.__table__.insert(), {
         'id': 2,
-        'content': u'{"de": "Short line PLR"}',
+        'content': {'de': u'Short line PLR'},
         'topic': u'MotorwaysBuildingLines',
         'legal_state': u'inForce',
         'published_from': unicode(date.today().isoformat()),
@@ -234,7 +234,7 @@ def connection(config):
     })
     connection_.execute(LinePublicLawRestriction.__table__.insert(), {
         'id': 3,
-        'content': u'{"de": "Double intersection line PLR"}',
+        'content': {'de': u'Double intersection line PLR'},
         'topic': u'MotorwaysBuildingLines',
         'legal_state': u'inForce',
         'published_from': unicode(date.today().isoformat()),
@@ -243,7 +243,7 @@ def connection(config):
     })
     connection_.execute(LinePublicLawRestriction.__table__.insert(), {
         'id': 4,
-        'content': u'{"de": "Future geometry"}',
+        'content': {'de': u'Future geometry'},
         'topic': u'MotorwaysBuildingLines',
         'legal_state': u'inForce',
         'published_from': unicode(date.today().isoformat()),
@@ -290,7 +290,7 @@ def connection(config):
     })
     connection_.execute(LineDocument.__table__.insert(), {
         'id': 1,
-        'title': u'First level document',
+        'title': {'de': u'First level document'},
         'office_id': 1
     })
     connection_.execute(LineDocumentBase.__table__.insert(), {
@@ -301,7 +301,7 @@ def connection(config):
     })
     connection_.execute(LineDocument.__table__.insert(), {
         'id': 2,
-        'title': u'First level future document',
+        'title': {'de': u'First level future document'},
         'office_id': 1
     })
     connection_.execute(LineDocumentBase.__table__.insert(), {
@@ -312,7 +312,7 @@ def connection(config):
     })
     connection_.execute(LineDocument.__table__.insert(), {
         'id': 3,
-        'title': u'Second level document',
+        'title': {'de': u'Second level document'},
         'office_id': 1
     })
     connection_.execute(LineDocumentBase.__table__.insert(), {
@@ -323,7 +323,7 @@ def connection(config):
     })
     connection_.execute(LineDocument.__table__.insert(), {
         'id': 4,
-        'title': u'Second level future document',
+        'title': {'de': u'Second level future document'},
         'office_id': 1
     })
     connection_.execute(LinePublicLawRestrictionDocument.__table__.insert(), {
@@ -354,11 +354,11 @@ def connection(config):
     })
     connection_.execute(PolyOffice.__table__.insert(), {
         'id': 1,
-        'name': u'{"de": "Test Office"}'
+        'name': {'de': u'Test Office'}
     })
     connection_.execute(PolyPublicLawRestriction.__table__.insert(), {
         'id': 1,
-        'content': u'{"de": "Large polygon PLR"}',
+        'content': {'de': u'Large polygon PLR'},
         'topic': u'ContaminatedSites',
         'legal_state': u'inForce',
         'published_from': unicode(date.today().isoformat()),
@@ -367,7 +367,7 @@ def connection(config):
     })
     connection_.execute(PolyPublicLawRestriction.__table__.insert(), {
         'id': 2,
-        'content': u'{"de": "Small polygon PLR"}',
+        'content': {'de': u'Small polygon PLR'},
         'topic': u'ContaminatedSites',
         'legal_state': u'inForce',
         'published_from': unicode(date.today().isoformat()),
@@ -376,7 +376,7 @@ def connection(config):
     })
     connection_.execute(PolyPublicLawRestriction.__table__.insert(), {
         'id': 3,
-        'content': u'{"de": "Double intersection polygon PLR"}',
+        'content': {'de': u'Double intersection polygon PLR'},
         'topic': u'ContaminatedSites',
         'legal_state': u'inForce',
         'published_from': unicode(date.today().isoformat()),
@@ -385,7 +385,7 @@ def connection(config):
     })
     connection_.execute(PolyPublicLawRestriction.__table__.insert(), {
         'id': 4,
-        'content': u'{"de": "Future PLR"}',
+        'content': {'de': u'Future PLR'},
         'topic': u'ContaminatedSites',
         'legal_state': u'inForce',
         'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
