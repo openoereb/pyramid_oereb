@@ -701,6 +701,24 @@ None.</li>
 </dd></dl>
 
 <dl class="staticmethod">
+<dt id="pyramid_oereb.lib.config.Config.get_base_data">
+<em class="property">static </em><code class="descname">get_base_data</code><span class="sig-paren">(</span><em>base_data_date</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/config.html#Config.get_base_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.config.Config.get_base_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the multilingual base data description with updated currentness.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>datetime.date</strong> (<em>base_data_date</em>) &#8211; The base data currentness.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The multilingual base data with updated currentness.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
 <dt id="pyramid_oereb.lib.config.Config.get_crs">
 <em class="property">static </em><code class="descname">get_crs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/config.html#Config.get_crs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.config.Config.get_crs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of available crs.</p>
@@ -27823,7 +27841,7 @@ records</p>
 <span id="module-pyramid-oereb-lib-readers-extract"></span><h2>Module: pyramid_oereb.lib.readers.extract<a class="headerlink" href="#module-pyramid_oereb.lib.readers.extract" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyramid_oereb.lib.readers.extract.ExtractReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.readers.extract.</code><code class="descname">ExtractReader</code><span class="sig-paren">(</span><em>plr_sources</em>, <em>plr_cadastre_authority</em>, <em>logos</em>, <em>base_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/readers/extract.html#ExtractReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.readers.extract.ExtractReader" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.readers.extract.</code><code class="descname">ExtractReader</code><span class="sig-paren">(</span><em>plr_sources</em>, <em>plr_cadastre_authority</em>, <em>logos</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/readers/extract.html#ExtractReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.readers.extract.ExtractReader" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt id="pyramid_oereb.lib.readers.extract.ExtractReader.cantonal_logo">
 <code class="descname">cantonal_logo</code><a class="headerlink" href="#pyramid_oereb.lib.readers.extract.ExtractReader.cantonal_logo" title="Permalink to this definition">¶</a></dt>
