@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb.lib.url import add_url_params
+import logging
+import urllib2
 
+from pyramid_oereb.lib.records.logo import LogoRecord
+from pyramid_oereb.lib.url import add_url_params
+from pyramid_oereb.lib.url import uri_validator
 from pyramid_oereb.lib.config import Config
+
+
+log = logging.getLogger('pyramid_oereb')
 
 
 class LegendEntryRecord(object):
@@ -171,12 +178,34 @@ class ViewServiceRecord(object):
 
         assert real_estate.limit is not None
 
-        if real_estate.limit is not None:
-            print_conf = Config.get_object_path('print', required=['map_size', 'buffer'])
-            map_size = print_conf['map_size']
-            bbox = self._get_bbox(real_estate.limit, map_size, print_conf['buffer'])
-            return add_url_params(self.link_wms, {
-                "BBOX": ",".join([str(e) for e in bbox])
-            })
+        print_conf = Config.get_object_path('print', required=['map_size', 'buffer'])
+        map_size = print_conf['map_size']
+        bbox = self._get_bbox(real_estate.limit, map_size, print_conf['buffer'])
+        return add_url_params(self.link_wms, {
+            "BBOX": ",".join([str(e) for e in bbox])
+        })
+
+    def download_wms_content(self):
+        """
+        Simply downloads the image found behind the URL stored in the instance attribute "link_wms".
+        :raises: LookupError if the response is not code 200
+        :raises: AttributeError if the URL itself isn't valid at all.
+        """
+        # TODO: Check better for a image as response than only code 200...
+        main_msg = "Image for WMS couldn't be retrieved."
+        if uri_validator(self.link_wms):
+            print self.link_wms
+            response = urllib2.urlopen(self.link_wms)
+            if response.getcode() == 200:
+                self.image = LogoRecord(response.read())
+            else:
+                dedicated_msg = "The image could not be downloaded. URL was: {url}, Response was " \
+                                "{response}".format(url=self.link_wms, response=response.read())
+                log.error(main_msg)
+                log.error(dedicated_msg)
+                raise LookupError(dedicated_msg)
         else:
-            return self.link_wms
+            dedicated_msg = "URL seems to be not valid. URL was: {url}".format(url=self.link_wms)
+            log.error(main_msg)
+            log.error(dedicated_msg)
+            raise AttributeError(dedicated_msg)

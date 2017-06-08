@@ -29,6 +29,17 @@ pyramid_oereb:
     - FULL
     - EMBEDDABLE
 
+  print:
+    # The buffer on the map around the parcel in percent
+    buffer: 10
+
+    # The map size in pixel at 72 DPI (width, height), This is the defined size of a map image inside the
+    # static extract.
+    map_size: [493, 280]
+
+    # The print DPI
+    dpi: 200
+
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
   # creation process. Because this name is used as schema name in the target database. The app_schema holds
   # all application stuff like: addresses, municipalities, real estates, etc.
@@ -73,17 +84,6 @@ pyramid_oereb:
     oereb: ${png_root_dir}logo_oereb.png
     # The logo representing your canton. Replace with your own logo!
     canton: ${png_root_dir}logo_sample.png
-
-  # Some informations about the printing
-  print:
-    # The buffer on the map around the parcel in percent
-    buffer: 10
-
-    # The map size (width, height)
-    map_size: [200, 100]
-
-    # The print DPI
-    dpi: 200
 
   # The processor of the oereb project needs access to real estate data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you like to read the real estate out of an existing

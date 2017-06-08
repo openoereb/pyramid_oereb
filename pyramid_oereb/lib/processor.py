@@ -96,7 +96,7 @@ class Processor(object):
         real_estate = extract.real_estate
         tested_plrs = []
 
-        for index, public_law_restriction in enumerate(real_estate.public_law_restrictions):
+        for public_law_restriction in real_estate.public_law_restrictions:
             if isinstance(public_law_restriction, PlrRecord):
                 tested_geometries = []
                 for geometry in public_law_restriction.geometries:
@@ -111,6 +111,30 @@ class Processor(object):
         real_estate.public_law_restrictions = tested_plrs
 
         return extract
+
+    @staticmethod
+    def view_service_handling(real_estate, images):
+        """
+        Handles all view service related stuff. In the moment this is:
+            * construction of the correct url (link_wms) depending on the real estate
+            * downloading of the image if parameter was set
+
+        :param real_estate: The real estate record to be updated.
+        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        :param images: Switch whether the images should be downloaded or not.
+        :type images: bool
+        :return: The updated extract.
+        :rtype: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        """
+        # TODO: uncomment this when issue GSOREB-194 is solved.
+        # extract.real_estate.plan_for_land_register.get_full_wms_url(extract.real_estate)
+        # if images:
+        # extract.real_estate.plan_for_land_register.download_wms_content()
+        for public_law_restriction in real_estate.public_law_restrictions:
+            public_law_restriction.view_service.get_full_wms_url(real_estate)
+            if images:
+                public_law_restriction.view_service.download_wms_content()
+        return real_estate
 
     @property
     def real_estate_reader(self):
@@ -187,6 +211,7 @@ class Processor(object):
                     raise NotImplementedError  # TODO: improve message
                 extract_raw = self._extract_reader_.read(real_estate, municipality.logo, params)
                 extract = self.plr_tolerance_check(extract_raw)
+                self.view_service_handling(extract.real_estate, params.images)
                 extract.exclusions_of_liability = exclusions_of_liability
                 extract.glossaries = glossaries
                 return extract

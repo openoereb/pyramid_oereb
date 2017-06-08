@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import pytest
 from pyramid_oereb.lib.processor import Processor
 from pyramid_oereb.tests.conftest import MockRequest
@@ -73,3 +74,40 @@ def test_filter_published_documents(connection):
         if plr.theme.code == u'MotorwaysBuildingLines':
             assert len(plr.documents) == 1
             assert len(plr.documents[0].references) == 1
+
+
+def test_processor_with_images(connection):
+    assert connection.closed
+    request = MockRequest()
+    request.matchdict.update(request_matchdict)
+    request.params.update({
+        'WITHIMAGES': '',
+        'LANG': 'de'
+    })
+    processor = request.pyramid_oereb_processor
+    real_estate = processor.real_estate_reader.read(egrid=u'TEST')
+    webservice = PlrWebservice(request)
+    params = webservice.__validate_extract_params__()
+    extract = processor.process(real_estate[0], params)
+    # TODO: uncomment this when issue GSOREB-194 is solved.
+    # assert extract.real_estate.plan_for_land_register.image is not None
+    for plr in extract.real_estate.public_law_restrictions:
+        assert plr.view_service.image is not None
+
+
+def test_processor_without_images(connection):
+    assert connection.closed
+    request = MockRequest()
+    request.matchdict.update(request_matchdict)
+    request.params.update({
+        'LANG': 'de'
+    })
+    processor = request.pyramid_oereb_processor
+    real_estate = processor.real_estate_reader.read(egrid=u'TEST')
+    webservice = PlrWebservice(request)
+    params = webservice.__validate_extract_params__()
+    extract = processor.process(real_estate[0], params)
+    # TODO: uncomment this when issue GSOREB-194 is solved.
+    # assert extract.real_estate.plan_for_land_register.image is None
+    for plr in extract.real_estate.public_law_restrictions:
+        assert plr.view_service.image is None
