@@ -46,10 +46,10 @@ def load_standard_sample():
 def _load_standard_sample_(configuration, section='pyramid_oereb'):
     """
     Performs the database operations to load the sample data.
-    :param configuration: Path to the configuration yaml file.
-    :type configuration: str
-    :param section: The used section within the yaml file.
-    :type section: str
+
+        Args:
+        configuration (str): Path to the configuration yaml file.
+        section (str): The used section within the yaml file.
     """
 
     # Create database connection

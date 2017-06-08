@@ -13,20 +13,15 @@ class LegendEntryRecord(object):
         """
         Represents a legend entry with it's text as well as it's image.
 
-        :param symbol: The binary file content of the legend image.
-        :type symbol: pyramid_oereb.lib.records.image.ImageRecord
-        :param legend_text: The multilingual description text for the legend entry.
-        :type legend_text: dict
-        :param type_code: The class of the legend entry corresponding to the plrs classes.
-        :type type_code: str
-        :param type_code_list: An URL to the type code list.
-        :type type_code_list: str
-        :param theme: The theme to which the legend entry belongs to.
-        :type  theme: pyramid_oereb.lib.records.theme.ThemeRecord
-        :param sub_theme: Theme sub category.
-        :type sub_theme: str
-        :param additional_theme: Additional theme linked to this theme.
-        :type additional_theme: str
+        Args:
+            symbol (binary): The binary file content of the legend image.
+            legend_text (dict): The multilingual description text for the legend entry.
+            type_code (str): The class of the legend entry corresponding to the plrs classes.
+            type_code_list (str): An URL to the type code list.
+            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend entry belongs
+                to.
+            sub_theme (str): Theme sub category.
+            additional_theme (str): Additional theme linked to this theme.
         """
         if not isinstance(legend_text, dict):
             warnings.warn('Type of "legend_text" should be "dict"')
@@ -47,12 +42,10 @@ class ViewServiceRecord(object):
     def __init__(self, link_wms, legend_web, legends=None):
         """
 
-        :param link_wms: The link URL to the actual service (WMS)
-        :type link_wms: str
-        :param legend_web: The link URL to the actual legend service (WMS get legend)
-        :type legend_web: str
-        :param legends: A list of all relevant legend entries.
-        :type legends: list of LegendEntry
+        Args:
+            link_wms (str): The link URL to the actual service (WMS)
+            legend_web (str): The link URL to the actual legend service (WMS get legend)
+            legends (list of LegendEntry): A list of all relevant legend entries.
         """
         self.link_wms = link_wms
         self.legend_web = legend_web
@@ -89,10 +82,12 @@ class ViewServiceRecord(object):
         """
         Returns the WMS URL to get the image.
 
-        :param real_estate: The Real Estate record.
-        :type real_estate: pyramid_oereb.lob.records.real_estate.RealEstateRecord
-        :return: The url used to query the WMS server.
-        :rtype: str
+        Args:
+            real_estate (pyramid_oereb.lob.records.real_estate.RealEstateRecord): The Real
+                Estate record.
+
+        Returns:
+            str: The url used to query the WMS server.
         """
 
         assert real_estate.limit is not None

@@ -18,24 +18,16 @@ class OfficeRecord(object):
         """
         Responsible office record.
 
-        :param name: The official name of the authority (multilingual).
-        :type name: dict
-        :param uid: The unique identifier of the authority in the federal register
-        :type uid: str
-        :param office_at_web: The URL to the office's homepage
-        :type office_at_web: str
-        :param line1: Complementary address information
-        :type line1: str
-        :param line2: Complementary address information
-        :type line2: str
-        :param street: The street where the authority is located
-        :type street: str
-        :param number: House number
-        :type number: str
-        :param postal_code: ZIP Code of the
-        :type postal_code: integer
-        :param city: The city where the authority is located
-        :type postal_code: str
+        Args:
+            name (dict):  The official name of the authority (multilingual)
+            uid (str): The unique identifier of the authority in the federal register
+            office_at_web (str): The URL to the office's homepage
+            line1 (str): Complementary address information
+            line2 (str): Complementary address information
+            street (str): The street where the authority is located
+            number (str): House number
+            postal_code (integer): ZIP Code of the
+            postal_code (str): The city where the authority is located
         """
         if not isinstance(name, dict):
             warnings.warn('Type of "name" should be "dict"')

@@ -23,34 +23,29 @@ class ExtractRecord(object):
         """
         The extract base class.
 
-        :param real_estate: The real estate in its record representation.
-        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
-        :param logo_plr_cadastre: Image file of the PLR logo
-        :type logo_plr_cadastre: pyramid_oereb.lib.records.image.ImageRecord
-        :param federal_logo:Image file of the federal logo
-        :type federal_logo: pyramid_oereb.lib.records.image.ImageRecord
-        :param cantonal_logo: Image file of the cantonal logo
-        :type cantonal_logo: pyramid_oereb.lib.records.image.ImageRecord
-        :param municipality_logo: Image file of the municipality logo
-        :type municipality_logo: pyramid_oereb.lib.records.image.ImageRecord
-        :param plr_cadastre_authority: The authority which is responsible for the PLR cadastre
-        :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OfficeRecord
-        :param base_data: A multilingual list of basic data layers used by the extract. For instance the base
-            map from swisstopo
-        :type base_data: dict of str
-        :param exclusions_of_liability: Exclusions of liability for the extract
-        :type exclusions_of_liability:
-            list of pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord
-        :param glossaries: Glossary for the extract
-        :type glossaries: list of pyramid_oereb.lib.records.glossary.GlossaryRecord
-        :param concerned_theme: Concerned themes.
-        :type concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord or None
-        :param not_concerned_theme: Not concerned themes.
-        :type not_concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord or None
-        :param theme_without_data: Themes without data.
-        :type theme_without_data: list of pyramid_oereb.lib.records.theme.ThemeRecord or None
-        :param general_information: General information for the static extract as multilingual text.
-        :type general_information: dict
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate in its
+                record representation.
+            logo_plr_cadastre (pyramid_oereb.lib.records.image.ImageRecord): Image file of the PLR logo.
+            federal_logo (pyramid_oereb.lib.records.image.ImageRecord):Image file of the federal logo.
+            cantonal_logo (pyramid_oereb.lib.records.image.ImageRecord): Image file of the cantonal logo.
+            municipality_logo (pyramid_oereb.lib.records.image.ImageRecord): Image file of the municipality
+                logo.
+            plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority which is
+                responsible for the PLR cadastre
+            base_data (dict of str): A multilingual list of basic data layers used by the extract. For instance the
+                base map fromswisstopo
+            exclusions_of_liability (list of
+                pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord): Exclusions of
+                liability for the extract
+            glossaries (list of pyramid_oereb.lib.records.glossary.GlossaryRecord): Glossaries for the
+                extract.
+            concerned_theme (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Concerned themes.
+            not_concerned_theme (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Not concerned
+                themes.
+            theme_without_data (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Themes without
+                data.
+            general_information (dict): General information for the static extract as multilingual text.
         """
         if not isinstance(base_data, dict):
             warnings.warn('Type of "base_data" should be "dict"')

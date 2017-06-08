@@ -8,10 +8,9 @@ class GlossaryRecord(object):
         """
         Represents a glossary entry with the term and it's description.
 
-        :param title: The term used in the extract (multilingual).
-        :type title: dict
-        :param content: The description text for the glossary entry (multilingual).
-        :type content: dict
+        Args:
+            title (dict): The term used in the extract (multilingual).
+            content (dict): The description text for the glossary entry (multilingual).
         """
         if not isinstance(title, dict):
             warnings.warn('Type of "title" should be "dict"')

@@ -9,18 +9,15 @@ class GeometryRecord(object):
             office=None):
         """
         Geometry record
-        :param legal_state: The PLR record's legal state.
-        :type legal_state: str
-        :param published_from: Date from/since when the PLR record is published.
-        :type published_from: datetime.date
-        :param geom: The geometry
-        :type geom: shapely.geometry.base.BaseGeometry
-        :param geo_metadata: The metadata
-        :type geo_metadata: str
-        :param public_law_restriction: The public law restriction
-        :type public_law_restriction: pyramid_oereb.lib.records.plr.PlrRecord
-        :param office: The office
-        :type office: pyramid_oereb.lib.records.office.Office
+
+        Args:
+            legal_state (str): The PLR record's legal state.
+            published_from (datetime.date): Date from/since when the PLR record is published.
+            geom (shapely.geometry.base.BaseGeometry): The geometry
+            geo_metadata (str): The metadata
+            public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law
+                restriction
+            office (pyramid_oereb.lib.records.office.Office): The office
         """
 
         self.legal_state = legal_state
@@ -40,8 +37,8 @@ class GeometryRecord(object):
         """
         Returns true if its not a future geometry.
 
-        :return: True if geometry is published.
-        :rtype: bool
+        Returns:
+            bool: True if geometry is published.
         """
         return not self.published_from > datetime.now().date()
 
@@ -58,12 +55,13 @@ class GeometryRecord(object):
     def _sum_multi_line_length(multi_line, limit=0.0):
         """
 
-        :param multi_line: The multi line string which parts should be summed.
-        :type multi_line: shapely.geometry.MultiLineString
-        :param limit: The cutting limit which is sorting parts.
-        :type limit: float
-        :return: The summed length.
-        :rtype: float
+        Args:
+            multi_line (shapely.geometry.MultiLineString): The multi line string which parts
+                should be summed.
+            limit (float): The cutting limit which is sorting parts.
+
+        Returns:
+            float: The summed length.
         """
         lengths_to_sum = []
         for part in multi_line.geoms:
@@ -76,12 +74,13 @@ class GeometryRecord(object):
     def _sum_multi_polygon_area(multi_polygon, limit=0.0):
         """
 
-        :param multi_polygon: The multi line string which parts should be summed.
-        :type multi_polygon: shapely.geometry.MultiPolygon
-        :param limit: The cutting limit which is sorting parts.
-        :type limit: float
-        :return: The summed area.
-        :rtype: float
+        Args:
+            multi_polygon (shapely.geometry.MultiPolygon): The multi line string which parts
+                should be summed.
+            limit (float): The cutting limit which is sorting parts.
+
+        Returns:
+            float: The summed area.
         """
         areas_to_sum = []
         for part in multi_polygon.geoms:
@@ -95,12 +94,13 @@ class GeometryRecord(object):
         """
         Calculates intersection area and checks if it fits the configured limits.
 
-        :param real_estate: The real estate record.
-        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
-        :param plr_limits: The configured limits.
-        :type plr_limits: dict
-        :return: True if intersection fits the limits.
-        :rtype: bool
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
+                estate record.
+            plr_limits (dict): The configured limits.
+
+        Returns:
+            bool: True if intersection fits the limits.
         """
         point_types = plr_limits.get('point').get('types')
         line_types = plr_limits.get('line').get('types')
