@@ -8,8 +8,8 @@ class ImageRecord(object):
         """
         The record to hold the binary information of a image.
 
-        :param content: The binary information of this image as binary string.
-        :type content: str
+        Args:
+            content (str): The binary information of this image as binary string.
         """
         self.content = content
 
@@ -17,7 +17,7 @@ class ImageRecord(object):
         """
         Returns the image as base64 encoded string.
 
-        :return: The encoded image.
-        :rtype: str
+        Returns:
+            str: The encoded image.
         """
         return base64.b64encode(self.content)
