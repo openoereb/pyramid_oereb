@@ -102,7 +102,7 @@ class ExtractReader(object):
                     themes_without_data.append(plr.theme)
 
         # Load base data form configuration
-        # TODO: Set correct date for base data
+        # TODO: Set correct date for base data, related to GSOREB-192
         base_data = Config.get_base_data(datetime.date.today())
 
         self.extract = ExtractRecord(
