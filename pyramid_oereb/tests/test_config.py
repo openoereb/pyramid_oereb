@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 import pytest
 from pyramid.config import ConfigurationError
 
@@ -64,3 +65,12 @@ def test_get_all_federal():
     assert isinstance(all_federal, list)
     assert len(all_federal) == 17
     assert 'RailwaysProjectPlanningZones' in all_federal
+
+
+def test_get_base_data():
+    Config._config = None
+    Config.init('./pyramid_oereb/standard/pyramid_oereb.yml', 'pyramid_oereb')
+    date = datetime.date(2017, 2, 1)
+    base_data = Config.get_base_data(date)
+    assert isinstance(base_data, dict)
+    assert base_data.get('de') == 'Daten der amtlichen Vermessung, Stand 01.02.2017.'
