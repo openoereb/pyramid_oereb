@@ -116,9 +116,9 @@ class Processor(object):
             * construction of the correct url (link_wms) depending on the real estate
             * downloading of the image if parameter was set
 
-        :param extract: The extract to be updated.
-        :type extract: pyramid_oereb.lib.records.real_estate.RealEstateRecord
-        :param images: Switch wether the images should be downloaded or not.
+        :param real_estate: The real estate record to be updated.
+        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        :param images: Switch whether the images should be downloaded or not.
         :type images: bool
         :return: The updated extract.
         :rtype: pyramid_oereb.lib.records.real_estate.RealEstateRecord

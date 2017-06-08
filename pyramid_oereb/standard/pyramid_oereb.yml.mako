@@ -33,7 +33,8 @@ pyramid_oereb:
     # The buffer on the map around the parcel in percent
     buffer: 10
 
-    # The map size (width, height), This is the defined size of a map image inside the static extract.
+    # The map size in pixel at 72 DPI (width, height), This is the defined size of a map image inside the
+    # static extract.
     map_size: [493, 280]
 
     # The print DPI
