@@ -33,8 +33,8 @@ class ExtractRecord(object):
                 logo.
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority which is
                 responsible for the PLR cadastre
-            base_data (dict of str): A multilingual list of basic data layers used by the extract. For instance the
-                base map fromswisstopo
+            base_data (dict of str): A multilingual list of basic data layers used by the extract. For
+                instance the base map fromswisstopo
             exclusions_of_liability (list of
                 pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord): Exclusions of
                 liability for the extract
