@@ -4,7 +4,7 @@
         %if collection_member.type == 'GeometryCollection':
             <%include file="geometry_collection.xml" args="geometry=geometry"/>
         %else:
-            <%include file="specific_geometry.xml" args="geometry=geometry"/>
+            <%include file="specific_geometry.xml" args="geometry=collection_member"/>
         %endif
     % endfor
 %else:

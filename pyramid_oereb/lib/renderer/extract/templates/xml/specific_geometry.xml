@@ -1,15 +1,15 @@
 <%page args="geometry"/>
 %if 'Point' == geometry.type:
-    <%include file="geometry/point.xml" args="polygon=geometry"/>
+    <%include file="geometry/point.xml" args="point=geometry"/>
 %elif 'MultiPoint' == geometry.type:
     % for point in geometry.geoms:
-        <%include file="geometry/point.xml" args="polygon=geometry"/>
+        <%include file="geometry/point.xml" args="point=geometry"/>
     % endfor
-%elif 'Line' == geometry.type:
-    <%include file="geometry/line.xml" args="polygon=geometry"/>
+%elif 'LineString' == geometry.type:
+    <%include file="geometry/line.xml" args="line=geometry"/>
 %elif 'MultiLine' == geometry.type:
     % for line in geometry.geoms:
-        <%include file="geometry/line.xml" args="polygon=geometry"/>
+        <%include file="geometry/line.xml" args="line=geometry"/>
     % endfor
 %elif 'Polygon' == geometry.type:
     <xsd:Surface>
@@ -22,5 +22,5 @@
         %endfor
     </xsd:Surface>
 % else:
-    <% raise TypeError('Passed geometry type is not defined: {type}'.format(type=geometry.geom.type))%>
+    <% raise TypeError('Passed geometry type is not defined: {type}'.format(type=geometry.type))%>
 %endif
