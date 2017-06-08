@@ -46,11 +46,11 @@
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">pyramid.config</span> <span class="k">import</span> <span class="n">ConfigurationError</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.orm.exc</span> <span class="k">import</span> <span class="n">NoResultFound</span>
 
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.documents</span> <span class="k">import</span> <span class="n">DocumentRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.plr</span> <span class="k">import</span> <span class="n">PlrRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="k">import</span> <span class="n">Config</span>
 
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span>
@@ -59,8 +59,7 @@
 <div class="viewcode-block" id="Processor"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor">[docs]</a><span class="k">class</span> <span class="nc">Processor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate_reader</span><span class="p">,</span> <span class="n">municipality_reader</span><span class="p">,</span> <span class="n">exclusion_of_liability_reader</span><span class="p">,</span>
-                 <span class="n">glossary_reader</span><span class="p">,</span> <span class="n">plr_sources</span><span class="p">,</span> <span class="n">extract_reader</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-                 <span class="n">plr_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">glossary_reader</span><span class="p">,</span> <span class="n">plr_sources</span><span class="p">,</span> <span class="n">extract_reader</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The Processor class is directly bound to the get_extract_by_id service in this application. It&#39;s task</span>
 <span class="sd">        is to unsnarl the difficult model of the oereb extract and handle all objects inside this extract</span>
@@ -81,11 +80,6 @@
 <span class="sd">                public law restriction source instances for runtime use wrapped in a list.</span>
 <span class="sd">            extract_reader (pyramid_oereb.lib.readers.extract.ExtractReader): The extract reader</span>
 <span class="sd">                instance for runtime use.</span>
-<span class="sd">            plr_limits (dict or None): The configuration for limiting the intersection.</span>
-<span class="sd">            min_area (decimal): The minimal area for a public law restriction to be displayed in</span>
-<span class="sd">                the cadastre</span>
-<span class="sd">            min_length (decimal): The minimal length for a public law restriction to be</span>
-<span class="sd">                displayed in the cadastre</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_real_estate_reader_</span> <span class="o">=</span> <span class="n">real_estate_reader</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_municipality_reader_</span> <span class="o">=</span> <span class="n">municipality_reader</span>
@@ -93,12 +87,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_glossary_reader_</span> <span class="o">=</span> <span class="n">glossary_reader</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span> <span class="o">=</span> <span class="n">plr_sources</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_extract_reader_</span> <span class="o">=</span> <span class="n">extract_reader</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_min_area_</span> <span class="o">=</span> <span class="n">min_area</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_min_length_</span> <span class="o">=</span> <span class="n">min_length</span>
-        <span class="k">if</span> <span class="n">plr_limits</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">plr_limits</span> <span class="o">=</span> <span class="n">plr_limits</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Processor.filter_published_documents"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor.filter_published_documents">[docs]</a>    <span class="k">def</span> <span class="nf">filter_published_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -143,10 +131,10 @@
 
         <span class="k">for</span> <span class="n">public_law_restriction</span> <span class="ow">in</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">public_law_restriction</span><span class="p">,</span> <span class="n">PlrRecord</span><span class="p">):</span>
+                <span class="n">plr_thresholds</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_thresholds</span><span class="p">(</span><span class="n">public_law_restriction</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
                 <span class="n">tested_geometries</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">geometries</span><span class="p">:</span>
-                    <span class="c1"># TODO: Remove the plr_limits when they are consumed directly from config</span>
-                    <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">published</span> <span class="ow">and</span> <span class="n">geometry</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">plr_limits</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">published</span> <span class="ow">and</span> <span class="n">geometry</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="n">plr_thresholds</span><span class="p">):</span>
                         <span class="n">tested_geometries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="p">)</span>
 
                 <span class="c1"># Test if the geometries list is now empty - if so remove plr from plr list</span>

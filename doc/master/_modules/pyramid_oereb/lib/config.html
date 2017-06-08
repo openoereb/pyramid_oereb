@@ -150,15 +150,40 @@
         <span class="k">return</span> <span class="kc">None</span></div>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_all_federal</span><span class="p">():</span>
+<div class="viewcode-block" id="Config.get_theme_thresholds"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_theme_thresholds">[docs]</a>    <span class="k">def</span> <span class="nf">get_theme_thresholds</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the limits for the geometries of the theme with the specified code.</span>
+
+<span class="sd">        :param code: The theme&#39;s code.</span>
+<span class="sd">        :type code: str</span>
+<span class="sd">        :return: The geometric tolerances for this theme.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="n">plrs</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">plrs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plrs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">plrs</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">theme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">code</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">theme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plr_thresholds&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_all_federal"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_all_federal">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_federal</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of all federal topic codes.</span>
+
+<span class="sd">        :return: All federal topic codes.</span>
+<span class="sd">        :rtype: list of str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">federal</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-        <span class="n">plrs</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">)</span>
+        <span class="n">plrs</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">plrs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plrs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">plr</span> <span class="ow">in</span> <span class="n">plrs</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;federal&#39;</span><span class="p">):</span>
                     <span class="n">federal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">federal</span>
+        <span class="k">return</span> <span class="n">federal</span></div>
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Config.get_crs"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_crs">[docs]</a>    <span class="k">def</span> <span class="nf">get_crs</span><span class="p">():</span>
@@ -206,6 +231,22 @@
         <span class="n">flavour</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;flavour&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">flavour</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">flavour</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">flavour</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_geometry_types"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_geometry_types">[docs]</a>    <span class="k">def</span> <span class="nf">get_geometry_types</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of available geometry_types.</span>
+
+<span class="sd">        :return: The available geometry types.</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">geometry_types</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;geometry_types&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">geometry_types</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geometry_types</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">geometry_types</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
     <span class="nd">@staticmethod</span>

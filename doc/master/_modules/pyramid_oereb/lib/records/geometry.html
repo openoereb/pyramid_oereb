@@ -45,6 +45,7 @@
   <h1>Source code for pyramid_oereb.lib.records.geometry</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="k">import</span> <span class="n">Config</span>
 
 
 <div class="viewcode-block" id="GeometryRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.geometry.GeometryRecord">[docs]</a><span class="k">class</span> <span class="nc">GeometryRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -135,23 +136,24 @@
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">areas_to_sum</span><span class="p">)</span>
 
     <span class="c1"># TODO: Make this read from config singleton provided by sbrunner</span>
-<div class="viewcode-block" id="GeometryRecord.calculate"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.geometry.GeometryRecord.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">plr_limits</span><span class="p">):</span>
+<div class="viewcode-block" id="GeometryRecord.calculate"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.geometry.GeometryRecord.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">plr_thresholds</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculates intersection area and checks if it fits the configured limits.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real</span>
 <span class="sd">                estate record.</span>
-<span class="sd">            plr_limits (dict): The configured limits.</span>
+<span class="sd">            plr_thresholds (dict): The configured limits.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: True if intersection fits the limits.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">point_types</span> <span class="o">=</span> <span class="n">plr_limits</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;point&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;types&#39;</span><span class="p">)</span>
-        <span class="n">line_types</span> <span class="o">=</span> <span class="n">plr_limits</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;line&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;types&#39;</span><span class="p">)</span>
-        <span class="n">min_length</span> <span class="o">=</span> <span class="n">plr_limits</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;line&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;min_length&#39;</span><span class="p">)</span>
-        <span class="n">polygon_types</span> <span class="o">=</span> <span class="n">plr_limits</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;polygon&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;types&#39;</span><span class="p">)</span>
-        <span class="n">min_area</span> <span class="o">=</span> <span class="n">plr_limits</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;polygon&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;min_area&#39;</span><span class="p">)</span>
+        <span class="n">geometry_types</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;geometry_types&#39;</span><span class="p">)</span>
+        <span class="n">point_types</span> <span class="o">=</span> <span class="n">geometry_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;point&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;types&#39;</span><span class="p">)</span>
+        <span class="n">line_types</span> <span class="o">=</span> <span class="n">geometry_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;line&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;types&#39;</span><span class="p">)</span>
+        <span class="n">polygon_types</span> <span class="o">=</span> <span class="n">geometry_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;polygon&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;types&#39;</span><span class="p">)</span>
+        <span class="n">min_length</span> <span class="o">=</span> <span class="n">plr_thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;min_length&#39;</span><span class="p">)</span>
+        <span class="n">min_area</span> <span class="o">=</span> <span class="n">plr_thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;min_area&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">point_types</span><span class="p">:</span>
             <span class="k">pass</span>
         <span class="k">else</span><span class="p">:</span>

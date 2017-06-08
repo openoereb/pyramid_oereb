@@ -490,7 +490,7 @@ the right way.</li>
 <span id="module-pyramid-oereb-lib-processor"></span><h2>Module: pyramid_oereb.lib.processor<a class="headerlink" href="#module-pyramid_oereb.lib.processor" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyramid_oereb.lib.processor.Processor">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.processor.</code><code class="descname">Processor</code><span class="sig-paren">(</span><em>real_estate_reader</em>, <em>municipality_reader</em>, <em>exclusion_of_liability_reader</em>, <em>glossary_reader</em>, <em>plr_sources</em>, <em>extract_reader</em>, <em>min_area=1.0</em>, <em>min_length=1.0</em>, <em>plr_limits=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/processor.html#Processor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.processor.Processor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.processor.</code><code class="descname">Processor</code><span class="sig-paren">(</span><em>real_estate_reader</em>, <em>municipality_reader</em>, <em>exclusion_of_liability_reader</em>, <em>glossary_reader</em>, <em>plr_sources</em>, <em>extract_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/processor.html#Processor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.processor.Processor" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt id="pyramid_oereb.lib.processor.Processor.exclusion_of_liability_reader">
 <code class="descname">exclusion_of_liability_reader</code><a class="headerlink" href="#pyramid_oereb.lib.processor.Processor.exclusion_of_liability_reader" title="Permalink to this definition">¶</a></dt>
@@ -701,6 +701,22 @@ None.</li>
 </dd></dl>
 
 <dl class="staticmethod">
+<dt id="pyramid_oereb.lib.config.Config.get_all_federal">
+<em class="property">static </em><code class="descname">get_all_federal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/config.html#Config.get_all_federal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.config.Config.get_all_federal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all federal topic codes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">All federal topic codes.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
 <dt id="pyramid_oereb.lib.config.Config.get_base_data">
 <em class="property">static </em><code class="descname">get_base_data</code><span class="sig-paren">(</span><em>base_data_date</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/config.html#Config.get_base_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.config.Config.get_base_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the multilingual base data description with updated currentness.</p>
@@ -775,6 +791,22 @@ None.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The available flavours.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.lib.config.Config.get_geometry_types">
+<em class="property">static </em><code class="descname">get_geometry_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/config.html#Config.get_geometry_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.config.Config.get_geometry_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of available geometry_types.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The available geometry types.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
 </tr>
@@ -923,6 +955,24 @@ authority.</td>
 code.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#pyramid_oereb.lib.records.theme.ThemeRecord" title="pyramid_oereb.lib.records.theme.ThemeRecord">pyramid_oereb.lib.records.theme.ThemeRecord</a> or None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.lib.config.Config.get_theme_thresholds">
+<em class="property">static </em><code class="descname">get_theme_thresholds</code><span class="sig-paren">(</span><em>code</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/config.html#Config.get_theme_thresholds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.config.Config.get_theme_thresholds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the limits for the geometries of the theme with the specified code.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>code</strong> (<em>str</em>) &#8211; The theme&#8217;s code.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The geometric tolerances for this theme.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
 </tr>
 </tbody>
 </table>
@@ -27357,7 +27407,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 <em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.geometry.</code><code class="descname">GeometryRecord</code><span class="sig-paren">(</span><em>legal_state</em>, <em>published_from</em>, <em>geom</em>, <em>geo_metadata=None</em>, <em>public_law_restriction=None</em>, <em>office=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/geometry.html#GeometryRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.geometry.GeometryRecord" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="pyramid_oereb.lib.records.geometry.GeometryRecord.calculate">
-<code class="descname">calculate</code><span class="sig-paren">(</span><em>real_estate</em>, <em>plr_limits</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/geometry.html#GeometryRecord.calculate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.geometry.GeometryRecord.calculate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">calculate</code><span class="sig-paren">(</span><em>real_estate</em>, <em>plr_thresholds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/geometry.html#GeometryRecord.calculate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.geometry.GeometryRecord.calculate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates intersection area and checks if it fits the configured limits.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -27366,7 +27416,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>real_estate</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real
 estate record.</li>
-<li><strong>plr_limits</strong> (<em>dict</em>) &#8211; The configured limits.</li>
+<li><strong>plr_thresholds</strong> (<em>dict</em>) &#8211; The configured limits.</li>
 </ul>
 </td>
 </tr>
