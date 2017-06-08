@@ -42,47 +42,6 @@ class GeometryRecord(object):
         """
         return not self.published_from > datetime.now().date()
 
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-
-        Returns:
-            list of str: List of available field names.
-        """
-        return [
-            'legal_state',
-            'published_from',
-            'geo_metadata',
-            'geom',
-            'public_law_restriction',
-            'office'
-        ]
-
-    def to_extract(self):
-        """
-        Returns a dictionary with all available values needed for the extract.
-
-        Returns:
-            dict: Dictionary with values for the extract.
-        """
-        extract = dict()
-        for key in [
-            'legal_state',
-            'geo_metadata',
-            'geom'
-        ]:
-            value = getattr(self, key)
-            if value:
-                extract[key] = value
-        key = 'office'
-        record = getattr(self, key)
-        if record:
-            extract[key] = record.to_extract()
-        key = 'geom'
-        extract[key] = str(getattr(self, key))
-        return extract
-
     @staticmethod
     def _is_multi_geometry(geometry):
         # TODO: Make this read from config singleton provided by sbrunner

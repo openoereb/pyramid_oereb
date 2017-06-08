@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import warnings
 
 
 class GlossaryRecord(object):
@@ -8,35 +9,13 @@ class GlossaryRecord(object):
         Represents a glossary entry with the term and it's description.
 
         Args:
-            title (unicode): The term used in the extract
-            content (unicode): The description text for the glossary entry.
+            title (dict): The term used in the extract (multilingual).
+            content (dict): The description text for the glossary entry (multilingual).
         """
+        if not isinstance(title, dict):
+            warnings.warn('Type of "title" should be "dict"')
+        if not isinstance(content, dict):
+            warnings.warn('Type of "content" should be "dict"')
+
         self.title = title
         self.content = content
-
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-
-        Returns:
-            list of str: List of available field names.
-        """
-        return [
-            'title',
-            'content'
-        ]
-
-    def to_extract(self):
-        """
-        Returns a dictionary with all available values needed for the extract.
-
-        Returns:
-            dict: Dictionary with values for the extract.
-        """
-        extract = dict()
-        for key in self.get_fields():
-            value = getattr(self, key)
-            if value:
-                extract[key] = value
-        return extract

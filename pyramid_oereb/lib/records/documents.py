@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import warnings
 from datetime import datetime
 
 
@@ -11,8 +12,11 @@ class DocumentBaseRecord(object):
         Args:
             legal_state (str): Key string of the law status.
             published_from (datetime.date): Date since this document was published.
-            text_at_web (str): The URI to the documents content.
+            text_at_web (dict): The multilingual URI to the documents content.
         """
+        if text_at_web and not isinstance(text_at_web, dict):
+            warnings.warn('Type of "text_at_web" should be "dict"')
+
         self.text_at_web = text_at_web
         self.legal_state = legal_state
         self.published_from = published_from
@@ -27,34 +31,6 @@ class DocumentBaseRecord(object):
         """
         return not self.published_from > datetime.now().date()
 
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-
-        Returns:
-            list of str: List of available field names.
-        """
-        return [
-            'text_at_web',
-            'legal_state',
-            'published_from'
-        ]
-
-    def to_extract(self):
-        """
-        Returns a dictionary with all available values needed for the extract.
-
-        Returns:
-            dict: Dictionary with values for the extract.
-        """
-        extract = dict()
-        for key in ['text_at_web', 'legal_state']:
-            value = getattr(self, key)
-            if value:
-                extract[key] = value
-        return extract
-
 
 class ArticleRecord(DocumentBaseRecord):
 
@@ -66,42 +42,16 @@ class ArticleRecord(DocumentBaseRecord):
             legal_state (str): Key string of the law status.
             published_from (datetime.date): Date since this document was published.
             number (str): The identifier of the article as a law.
-            text_at_web (str): The URI to the documents content.
-            text (str): Text in the article.
+            text_at_web (dict): The URI to the documents content (multilingual).
+            text (dict): Text in the article (multilingual).
         """
         super(ArticleRecord, self).__init__(legal_state, published_from, text_at_web)
+
+        if text and not isinstance(text, dict):
+            warnings.warn('Type of "text" should be "dict"')
+
         self.number = number
         self.text = text
-
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-
-        Returns:
-            list of str: List of available field names.
-        """
-        return [
-            'text_at_web',
-            'legal_state',
-            'published_from',
-            'number',
-            'text'
-        ]
-
-    def to_extract(self):
-        """
-        Returns a dictionary with all available values needed for the extract.
-
-        Returns:
-            dict: Dictionary with values for the extract.
-        """
-        extract = super(ArticleRecord, self).to_extract()
-        for key in ['number', 'text']:
-            value = getattr(self, key)
-            if value:
-                extract[key] = value
-        return extract
 
 
 class DocumentRecord(DocumentBaseRecord):
@@ -115,14 +65,14 @@ class DocumentRecord(DocumentBaseRecord):
         Args:
             legal_state (str):  Key string of the law status.
             published_from (datetime.date): Date since this document was published.
-            title (unicode): The title of the document. It might be shortened one.
+            title (dict): The multilingual title of the document. It might be shortened one.
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
                 responsible for this document.
-            text_at_web (str): The URI to the documents content.
-            official_title (unicode): The official title of the document.
-            abbreviation (str): Short term for this document.
+            text_at_web (dict): The multilingual URI to the documents content.
+            official_title (dict): The official title of the document (multilingual).
+            abbreviation (dict): Short term for this document (multilingual).
             official_number (str): The official number for identification of this document.
-            canton (str): The cantonal short term (length of tw, like
+            canton (str): The cantonal short term (length of two, like 'NE' or 'BL')
             municipality (str): The code for the municipality.
             article_numbers (list of str): Pointers to specific articles.
             file (bytes): The binary content of the document.
@@ -130,6 +80,14 @@ class DocumentRecord(DocumentBaseRecord):
             references (list of DocumentRecord): The references to other documents.
         """
         super(DocumentRecord, self).__init__(legal_state, published_from, text_at_web)
+
+        if not isinstance(title, dict):
+            warnings.warn('Type of "title" should be "dict"')
+        if official_title and not isinstance(official_title, dict):
+            warnings.warn('Type of "official_title" should be "dict"')
+        if abbreviation and not isinstance(abbreviation, dict):
+            warnings.warn('Type of "abbreviation" should be "dict"')
+
         self.title = title
         self.responsible_office = responsible_office
         self.official_title = official_title
@@ -150,70 +108,6 @@ class DocumentRecord(DocumentBaseRecord):
             self.references = []
         else:
             self.references = references
-
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-
-        Returns:
-            list of str: List of available field names.
-        """
-        return [
-            'text_at_web',
-            'legal_state',
-            'published_from',
-            'title',
-            'official_title',
-            'responsible_office',
-            'abbreviation',
-            'official_number',
-            'canton',
-            'municipality',
-            'article_numbers',
-            'file',
-            'articles',
-            'references'
-        ]
-
-    def to_extract(self):
-        """
-        Returns a dictionary with all available values needed for the extract.
-
-        Returns:
-            dict: Dictionary with values for the extract.
-        """
-        extract = super(DocumentRecord, self).to_extract()
-
-        for key in [
-            'title',
-            'official_title',
-            'abbreviation',
-            'official_number',
-            'canton',
-            'municipality',
-            'file'
-        ]:
-            value = getattr(self, key)
-            if value:
-                extract[key] = value
-
-        for key in ['articles', 'references']:
-            records = getattr(self, key)
-            if records and len(records) > 0:
-                extract[key] = [record.to_extract() for record in records]
-
-        key = 'responsible_office'
-        record = getattr(self, key)
-        if record:
-            extract[key] = record.to_extract()
-
-        key = 'article_numbers'
-        value = getattr(self, key)
-        if isinstance(value, list) and len(value) > 0:
-            extract[key] = value
-
-        return extract
 
 
 class LegalProvisionRecord(DocumentRecord):

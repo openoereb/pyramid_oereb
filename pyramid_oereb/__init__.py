@@ -111,7 +111,7 @@ def includeme(config):
         plr_cadastre_authority,
         logos,
         # TODO: Read this from config. Will be solved by: https://jira.camptocamp.com/browse/GSOREB-195
-        [{'de': 'Daten der Swisstopo'}, {'de': 'Amtliche Vermessung'}]
+        {'de': ['Daten der Swisstopo', 'Amtliche Vermessung']}
     )
 
     settings.update({

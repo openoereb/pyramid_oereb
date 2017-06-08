@@ -61,7 +61,9 @@ pyramid_oereb:
   # will be directly used for producing the extract output.
   plr_cadastre_authority:
     # The name of your Office. For instance: Amt für Geoinformation Basel-Landschaft
-    name: PLR cadastre authority
+    name:
+        en: PLR cadastre authority
+        de: ÖREB-Katasteraufsichtsbehörde
     # An online link to web presentation of your office. For instance: https://www.geo.bl.ch/
     office_at_web: https://www.cadastre.ch/en/oereb.html
     # The street name of the address of your office. For instance: Mühlemattstrasse

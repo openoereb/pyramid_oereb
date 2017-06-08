@@ -16,7 +16,7 @@ class ExtractReader(object):
                 authority responsible for the PLR cadastre.
             logos (dict): The logos of confederation, canton and oereb wrapped in a LogoRecord
             base_data (list of dict of str): A list of basic data layers used by the extract. For
-                instance the basic map fromswisstopo
+                instance the base map from swisstopo
         """
         self.extract = None
         self._plr_sources_ = plr_sources
@@ -40,7 +40,7 @@ class ExtractReader(object):
         """
 
         Returns:
-            pyramid_oereb.lib.records.logo.LogoRecord: The logo for oereb as a LogoRecord.
+            pyramid_oereb.lib.records.image.ImageRecord: The logo for oereb as a ImageRecord.
         """
         return self._logos_.get('oereb')
 
@@ -49,7 +49,7 @@ class ExtractReader(object):
         """
 
         Returns:
-            pyramid_oereb.lib.records.logo.LogoRecord: The federal logo as a LogoRecord.
+            pyramid_oereb.lib.records.image.ImageRecord: The federal logo as a ImageRecord.
         """
         return self._logos_.get('confederation')
 
@@ -58,7 +58,7 @@ class ExtractReader(object):
         """
 
         Returns:
-            pyramid_oereb.lib.records.logo.LogoRecord: The cantonal logos as a LogoRecord.
+            pyramid_oereb.lib.records.image.ImageRecord: The cantonal logos as a ImageRecord.
         """
         return self._logos_.get('canton')
 
@@ -69,14 +69,14 @@ class ExtractReader(object):
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate for which the report should be generated
-            municipality_logo (pyramid_oereb.lib.records.logo.LogoRecord): The municipality
+            municipality_logo (pyramid_oereb.lib.records.image.ImageRecord): The municipality
                 logo.
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract
                 request.
 
         Returns:
             pyramid_oereb.lib.records.extract.ExtractRecord: The extract record containing all
-            gathered data.
+                gathered data.
         """
 
         for plr_source in self._plr_sources_:

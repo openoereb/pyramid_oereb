@@ -13,16 +13,3 @@ class AvailabilityRecord(object):
         """
         self.fosnr = fosnr
         self.available = available
-
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-
-        Returns:
-            list of str: List of available field names.
-        """
-        return [
-            'fosnr',
-            'available'
-        ]
