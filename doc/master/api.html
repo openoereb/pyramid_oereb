@@ -475,6 +475,16 @@ the right way.</li>
 </table>
 </dd></dl>
 
+<dl class="function">
+<dt id="pyramid_oereb.lib.url.uri_validator">
+<code class="descclassname">pyramid_oereb.lib.url.</code><code class="descname">uri_validator</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/url.html#uri_validator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.url.uri_validator" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple validator for URL&#8217;s.
+:param url: The url which should be checked to be valid.
+:type url: str
+:return: The state of the validation.
+:rtype: bool</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-pyramid_oereb.lib.processor">
 <span id="module-pyramid-oereb-lib-processor"></span><h2>Module: pyramid_oereb.lib.processor<a class="headerlink" href="#module-pyramid_oereb.lib.processor" title="Permalink to this headline">¶</a></h2>
@@ -581,6 +591,37 @@ request.</li>
 <code class="descname">real_estate_reader</code><a class="headerlink" href="#pyramid_oereb.lib.processor.Processor.real_estate_reader" title="Permalink to this definition">¶</a></dt>
 <dd><p><a href="#id29"><span class="problematic" id="id30">**</span></a>Returns* &#8211; pyramid_oereb.lib.readers.real_estate.RealEstateReader* &#8211; The real estate reader
 instance.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.lib.processor.Processor.view_service_handling">
+<em class="property">static </em><code class="descname">view_service_handling</code><span class="sig-paren">(</span><em>real_estate</em>, <em>images</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/processor.html#Processor.view_service_handling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.processor.Processor.view_service_handling" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Handles all view service related stuff. In the moment this is:</dt>
+<dd><ul class="first last simple">
+<li>construction of the correct url (link_wms) depending on the real estate</li>
+<li>downloading of the image if parameter was set</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>real_estate</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real estate record to be updated.</li>
+<li><strong>images</strong> (<em>bool</em>) &#8211; Switch whether the images should be downloaded or not.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The updated extract.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord">pyramid_oereb.lib.records.real_estate.RealEstateRecord</a></p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -28632,7 +28673,15 @@ service to be used for the land registry map.</td>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.view_service.ViewServiceRecord">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.view_service.</code><code class="descname">ViewServiceRecord</code><span class="sig-paren">(</span><em>link_wms</em>, <em>legend_web</em>, <em>legends=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="classmethod">
+<dd><dl class="method">
+<dt id="pyramid_oereb.lib.records.view_service.ViewServiceRecord.download_wms_content">
+<code class="descname">download_wms_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord.download_wms_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord.download_wms_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simply downloads the image found behind the URL stored in the instance attribute &#8220;link_wms&#8221;.
+:raises: LookupError if the response is not code 200
+:raises: AttributeError if the URL itself isn&#8217;t valid at all.</p>
+</dd></dl>
+
+<dl class="classmethod">
 <dt id="pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_fields">
 <em class="property">classmethod </em><code class="descname">get_fields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord.get_fields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of available field names.</p>
