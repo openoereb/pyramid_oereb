@@ -32,12 +32,12 @@ class ExtractRecord(object):
             municipality_logo (pyramid_oereb.lib.records.image.ImageRecord): Image file of the municipality
                 logo.
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority which is
-                responsible for the PLR cadastre
+                responsible for the PLR cadastre.
             base_data (dict of str): A multilingual list of basic data layers used by the extract. For
-                instance the base map fromswisstopo
+                instance the base map from swisstopo.
             exclusions_of_liability (list of
                 pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord): Exclusions of
-                liability for the extract
+                liability for the extract.
             glossaries (list of pyramid_oereb.lib.records.glossary.GlossaryRecord): Glossaries for the
                 extract.
             concerned_theme (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Concerned themes.

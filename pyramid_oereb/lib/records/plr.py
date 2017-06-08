@@ -40,24 +40,18 @@ class PlrRecord(EmptyPlrRecord):
             additional_topic (str): Optional additional topic.
             type_code (str): The PLR record's type code (also used by view service).
             type_code_list (str): URL to the PLR's list of type codes.
-            view_service (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view
-                service instance associated with this record.
+            view_service (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service instance
+                associated with this record.
             basis (list of PlrRecord): List of PLR records as basis for this record.
             refinements (list of PlrRecord): List of PLR records as refinement of this record.
-            documents (list of pyramid_oereb.lib.records.documents.DocumentBaseRecord): List of
-                documents associated with this record.
-            geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of
-                geometry records associated with this record.
-            area (decimal): Area of the restriction touching the property calculated by the
-                processor.
-            part_in_percent (decimal): Part of the property area touched by the restriction in
-                percent.
-            symbol (binary): Symbol of the restriction defined for the legend entry - added on
-                the fly.
-            info (dict or None): The information read from the config
-
-        Raises:
-            TypeError: Raised on missing field value.
+            documents (list of pyramid_oereb.lib.records.documents.DocumentBaseRecord): List of documents
+                associated with this record.
+            geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of geometry records
+                associated with this record.
+            area (decimal): Area of the restriction touching the property calculated by the processor.
+            part_in_percent (decimal): Part of the property area touched by the restriction in percent.
+            symbol (binary): Symbol of the restriction defined for the legend entry - added on the fly.
+            info (dict or None): The information read from the config.
         """
         super(PlrRecord, self).__init__(theme)
 

@@ -83,8 +83,6 @@ class DocumentRecord(DocumentBaseRecord):
 
         if not isinstance(title, dict):
             warnings.warn('Type of "title" should be "dict"')
-        if text_at_web and not isinstance(text_at_web, dict):
-            warnings.warn('Type of "text_at_web" should be "dict"')
         if official_title and not isinstance(official_title, dict):
             warnings.warn('Type of "official_title" should be "dict"')
         if abbreviation and not isinstance(abbreviation, dict):
