@@ -6,10 +6,10 @@ class GlossaryRecord(object):
     def __init__(self, title, content):
         """
         Represents a glossary entry with the term and it's description.
-        :param title: The term used in the extract
-        :type title: unicode
-        :param content: The description text for the glossary entry.
-        :type content: unicode
+
+        Args:
+            title (unicode): The term used in the extract
+            content (unicode): The description text for the glossary entry.
         """
         self.title = title
         self.content = content
@@ -18,8 +18,9 @@ class GlossaryRecord(object):
     def get_fields(cls):
         """
         Returns a list of available field names.
-        :return: List of available field names.
-        :rtype: list of str
+
+        Returns:
+            list of str: List of available field names.
         """
         return [
             'title',
@@ -29,8 +30,9 @@ class GlossaryRecord(object):
     def to_extract(self):
         """
         Returns a dictionary with all available values needed for the extract.
-        :return: Dictionary with values for the extract.
-        :rtype: dict
+
+        Returns:
+            dict: Dictionary with values for the extract.
         """
         extract = dict()
         for key in self.get_fields():

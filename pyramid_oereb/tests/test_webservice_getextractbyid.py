@@ -161,15 +161,23 @@ def test_return_no_content():
 
 
 @pytest.mark.last
-def test_return_json():
+@pytest.mark.parametrize('topics', [
+    'ALL',
+    'ALL_FEDERAL',
+    'ContaminatedSites,RailwaysProjectPlanningZones'
+])
+def test_return_json(topics):
     with testConfig() as config:
-        config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer.json_.Extract')
+        config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer.extract.json_.Renderer')
         request = MockRequest()
         request.matchdict.update({
             'flavour': 'REDUCED',
             'format': 'JSON',
             'param1': 'GEOMETRY',
             'param2': 'TEST'
+        })
+        request.params.update({
+            'TOPICS': topics
         })
         service = PlrWebservice(request)
         response = service.get_extract_by_id()
@@ -185,4 +193,7 @@ def test_return_json():
 
     real_estate = extract.get('GetExtractByIdResponse').get('extract').get('RealEstate')
     assert isinstance(real_estate, dict)
-    assert len(real_estate.get('RestrictionOnLandownership')) == 2
+    if topics == 'ALL' or topics == 'ALL_FEDERAL':
+        assert len(real_estate.get('RestrictionOnLandownership')) == 2
+    if topics == 'ContaminatedSites,RailwaysProjectPlanningZones':
+        assert len(real_estate.get('RestrictionOnLandownership')) == 1

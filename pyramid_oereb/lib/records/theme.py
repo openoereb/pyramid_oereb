@@ -7,10 +7,9 @@ class ThemeRecord(object):
         """
         Creates a new theme record.
 
-        :param code: The theme's code.
-        :type code: str
-        :param text: The multilingual description.
-        :type text: dict
+        Args:
+            code (str): The theme's code.
+            text (dict): The multilingual description.
         """
         self.code = code
         self.text = text
@@ -20,8 +19,8 @@ class ThemeRecord(object):
         """
         Returns a listing of the record's fields.
 
-        :return: The available fields.
-        :rtype: list of str
+        Returns:
+            list of str: The available fields.
         """
         return [
             'code',

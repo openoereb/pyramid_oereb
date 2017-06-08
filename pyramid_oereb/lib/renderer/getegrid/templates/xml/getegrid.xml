@@ -1,0 +1,11 @@
+## -*- coding: utf-8 -*-
+<?xml version="1.0" encoding="UTF-8" ?>
+<GetEGRIDResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns="http://schemas.geo.admin.ch/swisstopo/OeREBK/15/Extract">
+    % for item in data['GetEGRIDResponse']:
+    <egrid>${item['egrid']}</egrid>
+    <number>${item['number']}</number>
+    <identDN>${item['identDN']}</identDN>
+    % endfor
+</GetEGRIDResponse>

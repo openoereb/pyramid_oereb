@@ -15,12 +15,11 @@ class GlossaryDatabaseSource(BaseDatabaseSource, GlossaryBaseSource):
     def read(self):
         """
         Central method to read a glossary entry.
-        :param id: The identifier in the database
-        :type id: int
-        :param title: The term used in the extract
-        :type title: unicode
-        :param content: The description text for the glossary entry.
-        :type content: unicode
+
+        Args:
+            id (int): The identifier in the database
+            title (unicode): The term used in the extract
+            content (unicode): The description text for the glossary entry.
         """
         session = self._adapter_.get_session(self._key_)
         results = session.query(self._model_).all()

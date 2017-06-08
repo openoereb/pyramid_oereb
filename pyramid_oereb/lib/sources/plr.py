@@ -56,6 +56,16 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         session.close()
         # session.close()
 
+    @property
+    def info(self):
+        """
+        Return the info dictionary.
+
+        Returns:
+            dict: The info dictionary.
+        """
+        return self._plr_info_
+
     @staticmethod
     def geometry_parsing(geometry_value):
         return to_shape(geometry_value) if isinstance(geometry_value, _SpatialElement) else None
@@ -202,8 +212,10 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def read(self, real_estate):
         """
         The read point which creates a extract, depending on a passed real estate.
-        :param real_estate: The real estate in its record representation.
-        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
+                estate in its record representation.
         """
         for availability in self.availabilities:
             if real_estate.fosnr == availability.fosnr and not availability.available:

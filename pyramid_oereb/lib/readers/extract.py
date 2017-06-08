@@ -9,16 +9,14 @@ class ExtractReader(object):
         """
         The central reader accessor for the extract inside the application.
 
-        :param dotted_source_class_path: The path to the class which represents the source used by this
-            reader. This class must exist and it must implement basic source behaviour.
-        :type dotted_source_class_path: str or pyramid_oereb.lib.sources.extract.ExtractBaseSource
-        :param plr_cadastre_authority: The authority responsible for the PLR cadastre.
-        :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OffcieRecord
-        :param logos: The logos of confederation, canton and oereb wrapped in a LogoRecord
-        :type logos: dict
-        :param base_data: A list of basic data layers used by the extract. For instance the basic map from
-            swisstopo
-        :type base_data: list of dict of str
+        Args:
+            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of
+                configured PLR source instances.
+            plr_cadastre_authority (pyramid_oereb.lib.records.office.OffcieRecord): The
+                authority responsible for the PLR cadastre.
+            logos (dict): The logos of confederation, canton and oereb wrapped in a LogoRecord
+            base_data (list of dict of str): A list of basic data layers used by the extract. For
+                instance the basic map fromswisstopo
         """
         self.extract = None
         self._plr_sources_ = plr_sources
@@ -31,8 +29,9 @@ class ExtractReader(object):
         """
         Returns the authority responsible for the PLR cadastre.
 
-        :return: The authority responsible for the PLR cadastre.
-        :rtype: pyramid_oereb.lib.records.office.OffcieRecord
+        Returns:
+            pyramid_oereb.lib.records.office.OffcieRecord: The authority responsible for the PLR
+            cadastre.
         """
         return self._plr_cadastre_authority_
 
@@ -40,8 +39,8 @@ class ExtractReader(object):
     def logo_plr_cadastre(self):
         """
 
-        :return: The logo for oereb as a LogoRecord.
-        :rtype: pyramid_oereb.lib.records.logo.LogoRecord
+        Returns:
+            pyramid_oereb.lib.records.logo.LogoRecord: The logo for oereb as a LogoRecord.
         """
         return self._logos_.get('oereb')
 
@@ -49,8 +48,8 @@ class ExtractReader(object):
     def federal_logo(self):
         """
 
-        :return: The federal logo as a LogoRecord.
-        :rtype: pyramid_oereb.lib.records.logo.LogoRecord
+        Returns:
+            pyramid_oereb.lib.records.logo.LogoRecord: The federal logo as a LogoRecord.
         """
         return self._logos_.get('confederation')
 
@@ -58,8 +57,8 @@ class ExtractReader(object):
     def cantonal_logo(self):
         """
 
-        :return: The cantonal logos as a LogoRecord.
-        :rtype: pyramid_oereb.lib.records.logo.LogoRecord
+        Returns:
+            pyramid_oereb.lib.records.logo.LogoRecord: The cantonal logos as a LogoRecord.
         """
         return self._logos_.get('canton')
 
@@ -67,17 +66,22 @@ class ExtractReader(object):
         """
         The central read accessor method to get all desired records from configured source.
 
-        :param real_estate: The real estate for which the report should be generated
-        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
-        :param municipality_logo: The municipality logo.
-        :type municipality_logo: pyramid_oereb.lib.records.logo.LogoRecord
-        :param params: The parameters of the extract request.
-        :type params: pyramid_oereb.views.webservice.Parameter
-        :return: The extract record containing all gathered data.
-        :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
+                estate for which the report should be generated
+            municipality_logo (pyramid_oereb.lib.records.logo.LogoRecord): The municipality
+                logo.
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract
+                request.
+
+        Returns:
+            pyramid_oereb.lib.records.extract.ExtractRecord: The extract record containing all
+            gathered data.
         """
 
         for plr_source in self._plr_sources_:
+            if params.skip_topic(plr_source.info.get('code')):
+                continue
             plr_source.read(real_estate)
 
         concerned_themes = list()
