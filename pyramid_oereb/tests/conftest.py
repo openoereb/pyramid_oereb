@@ -47,7 +47,6 @@ class MockRequest(DummyRequest):
         glossary_config = Config.get_glossary_config()
         logos = Config.get_logo_config()
         plr_cadastre_authority = Config.get_plr_cadastre_authority()
-        plr_limits = Config.get('plr_limits')
 
         real_estate_reader = RealEstateReader(
             real_estate_config.get('source').get('class'),
@@ -86,7 +85,6 @@ class MockRequest(DummyRequest):
             glossary_reader=glossary_reader,
             plr_sources=plr_sources,
             extract_reader=extract_reader,
-            plr_limits=plr_limits
         )
 
     @property

@@ -30,6 +30,7 @@ plr_sources = None
 app_schema_name = None
 srid = None
 default_lang = None
+geometry_types = None
 
 
 def main(global_config, **settings):
@@ -77,7 +78,6 @@ def includeme(config):
     app_schema_name = Config.get('app_schema').get('name')
     srid = Config.get('srid')
     default_lang = Config.get('default_language')
-    plr_limits = Config.get('plr_limits')
 
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
 
@@ -122,7 +122,6 @@ def includeme(config):
         glossary_reader=glossary_reader,
         plr_sources=plr_sources,
         extract_reader=extract_reader,
-        plr_limits=plr_limits
     )
 
     def pyramid_oereb_processor(request):
