@@ -10,8 +10,8 @@ class Base(object):
         """
         Creates a new base renderer instance.
 
-        :param info: Info object.
-        :type info: pyramid.interfaces.IRendererInfo
+        Args:
+            info (pyramid.interfaces.IRendererInfo): Info object.
         """
         self._info_ = info
 
@@ -20,10 +20,11 @@ class Base(object):
         """
         Returns the response object if available.
 
-        :param system: The available system properties.
-        :type system: dict
-        :return: The response object.
-        :rtype: pyramid.response.Response or None
+        Args:
+            system (dict): The available system properties.
+
+        Returns:
+            pyramid.response.Response or None: The response object.
         """
         request = system.get('request')
         if isinstance(request, Request) or isinstance(request, DummyRequest):
@@ -35,10 +36,11 @@ class Base(object):
         """
         Returns the request object if available.
 
-        :param system: The available system properties.
-        :type system: dict
-        :return: The request object.
-        :rtype: pyramid.request.Request or None
+        Args:
+            system (dict): The available system properties.
+
+        Returns:
+            pyramid.request.Request or None: The request object.
         """
         request = system.get('request')
         if isinstance(request, Request) or isinstance(request, DummyRequest):
@@ -50,10 +52,11 @@ class Base(object):
         """
         Formats the date/time according to the specification.
 
-        :param dt: The datetime object.
-        :type dt: datetime.date or datetime.time or datetime.datetime
-        :return: The formatted date/time.
-        :rtype: str
+        Args:
+            dt (datetime.dateordatetime.timeordatetime.datetime): The datetime object.
+
+        Returns:
+            str: The formatted date/time.
         """
         if isinstance(dt, datetime.date) or isinstance(dt, datetime.time)\
                 or isinstance(dt, datetime.datetime):
@@ -64,7 +67,7 @@ class Base(object):
     def info(self):
         """
 
-        :return: The passed renderer info object.
-        :rtype: pyramid.interfaces.IRendererInfo
+        Returns:
+            pyramid.interfaces.IRendererInfo: The passed renderer info object.
         """
         return self._info_

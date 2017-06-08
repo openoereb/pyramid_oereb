@@ -14,6 +14,7 @@ from pyramid_oereb import srid
 from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
 from sqlalchemy.orm import relationship
+from sqlalchemy_utils import JSONType
 
 metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = declarative_base()
@@ -28,11 +29,11 @@ class Availability(Base):
     a public law restriction is available or not. You need to fill it with the data you provided in the
     app schemas municipality table (fosnr).
 
-    :var fosnr: The identifier of the municipality in your system (id_bfs = fosnr)
-    :vartype fosnr: int
-    :var available: The switch field to configure if this plr is available for the municipality or not.
-        This field has direct influence on the applications behaviour. See documentation for more info.
-    :vartype available: bool
+    Attributes:
+        fosnr (int): The identifier of the municipality in your system (id_bfs = fosnr)
+        available (bool): The switch field to configure if this plr is available for the
+            municipality or not.  This field has direct influence on the applications
+            behaviour. See documentation for more info.
     """
     __table_args__ = {'schema': 'contaminated_sites'}
     __tablename__ = 'availability'
@@ -45,32 +46,23 @@ class Office(Base):
     The bucket to fill in all the offices you need to reference from public law restriction, document,
     geometry.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
-    :var name: The name of the office.
-    :vartype name: str
-    :var office_at_web: A web accessible url to a presentation of this office.
-    :vartype office_at_web: str
-    :var uid: The uid of this office from https://www.uid.admin.ch
-    :vartype uid: str
-    :var line1: The first address line for this office.
-    :vartype line1: str
-    :var line2: The second address line for this office.
-    :vartype line2: str
-    :var street: The streets name of the offices address.
-    :vartype street: str
-    :var number: The number on street.
-    :vartype number: str
-    :var postal_code: The ZIP-code.
-    :vartype postal_code: int
-    :var city: The name of the city.
-    :vartype city: str
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        name (dict): The multilingual name of the office.
+        office_at_web (str): A web accessible url to a presentation of this office.
+        uid (str): The uid of this office from https
+        line1 (str): The first address line for this office.
+        line2 (str): The second address line for this office.
+        street (str): The streets name of the offices address.
+        number (str): The number on street.
+        postal_code (int): The ZIP-code.
+        city (str): The name of the city.
     """
     __table_args__ = {'schema': 'contaminated_sites'}
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True)
-    name = sa.Column(sa.String, nullable=False)
+    name = sa.Column(JSONType, nullable=False)
     office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
     line1 = sa.Column(sa.String, nullable=True)
@@ -87,19 +79,15 @@ class ReferenceDefinition(Base):  # TODO: Check translation
     to the whole canton or a  whole municipality. It is used to have a place to store general documents
     which are related to an extract but not directly on a special public law restriction situation.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
-    :var topic: The topic which this definition might be related to.
-    :vartype topic: str
-    :var canton: The canton this definition is related to.
-    :vartype canton: str
-    :var municipality: The municipality this definition is related to.
-    :vartype municipality: int
-    :var office_id: The foreign key constraint which the definition is related to.
-    :vartype office_id: int
-    :var office: The dedicated relation to the office instance from database.
-    :vartype responsible_office: pyramid_oereb.standard.models.contaminated_sites.Office
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        topic (str): The topic which this definition might be related to.
+        canton (str): The canton this definition is related to.
+        municipality (int): The municipality this definition is related to.
+        office_id (int): The foreign key constraint which the definition is related to.
+        responsible_office (pyramid_oereb.standard.models.contaminated_sites.Office):
+            The dedicated relation to the office instance from database.
     """
     __table_args__ = {'schema': 'contaminated_sites'}
     __tablename__ = 'reference_definition'
@@ -118,23 +106,21 @@ class DocumentBase(Base):
     In the specification documents are cascaded in a inheritance way. So this representation is used to
     produce the addressable primary key and to provide the common document attributes.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
-    :var text_web: A link which leads to the documents content in the web.
-    :vartype text_web: str
-    :var legal_state: The status switch if the document is legally approved or not.
-    :vartype legal_state: str
-    :var published_from: The date when the document should be available for publishing on extracts. This
-        directly affects the behaviour of extract generation.
-    :vartype published_from: datetime.date
-    :var type: This is a sqlalchemy related attribute to provide database table inheritance.
-    :vartype type: unicode
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        text_web (dict): A multilingual link which leads to the documents content in the web.
+        legal_state (str): The status switch if the document is legally approved or not.
+        published_from (datetime.date): The date when the document should be available for
+            publishing on extracts. This  directly affects the behaviour of extract
+            generation.
+        type (unicode): This is a sqlalchemy related attribute to provide database table
+            inheritance.
     """
     __table_args__ = {'schema': 'contaminated_sites'}
     __tablename__ = 'document_base'
     id = sa.Column(sa.Integer, primary_key=True)
-    text_web = sa.Column(sa.String, nullable=True)
+    text_web = sa.Column(JSONType, nullable=True)
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     type = sa.Column(sa.Unicode, nullable=False)
@@ -150,38 +136,31 @@ class Document(DocumentBase):
     THE DOCUMENT
     This represents the main document in the whole system. It is specialized in some sub classes.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
-    :var title: The title or if existing the short title ot his document.
-    :vartype title: str
-    :var office_title: The official title of this document.
-    :vartype office_title: str
-    :var abbrevation: The shortened version of the documents title.
-    :vartype abbrevation: str
-    :var official_number: The official number which uniquely identifies this document.
-    :vartype official_number: str
-    :var canton: The short version of the canton which this document is about. If this is None this is
-        assumed to be a federal document.
-    :vartype canton: str
-    :var municipality: The fosnr (=id bfs) of the municipality. If this is None it is assumed the document is
-        related to the whole canton or even the confederation.
-    :vartype municipality: int
-    :var file: The document itself as a binary representation (PDF). It is string but BaseCode64 encoded.
-    :vartype file: str
-    :var office_id: The foreign key to the office which is in charge for this document.
-    :vartype office_id: int
-    :var responsible_office: The dedicated relation to the office instance from database.
-    :vartype responsible_office: pyramid_oereb.standard.models.contaminated_sites.Office
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        title (dict): The multilingual title or if existing the short title ot his document.
+        office_title (dict): The multilingual official title of this document.
+        abbrevation (dict): The multilingual shortened version of the documents title.
+        official_number (str): The official number which uniquely identifies this document.
+        canton (str): The short version of the canton which this document is about. If this is None
+            this is  assumed to be a federal document.
+        municipality (int): The fosnr (=id bfs) of the municipality. If this is None it is assumed
+            the document is  related to the whole canton or even the confederation.
+        file (str): The document itself as a binary representation (PDF). It is string but
+            BaseCode64 encoded.
+        office_id (int): The foreign key to the office which is in charge for this document.
+        responsible_office (pyramid_oereb.standard.models.contaminated_sites.Office):
+            The dedicated relation to the office instance from database.
     """
     __table_args__ = {'schema': 'contaminated_sites'}
     __tablename__ = 'document'
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
-    title = sa.Column(sa.String, nullable=False)
-    official_title = sa.Column(sa.String, nullable=True)
-    abbreviation = sa.Column(sa.String, nullable=True)
+    title = sa.Column(JSONType, nullable=False)
+    official_title = sa.Column(JSONType, nullable=True)
+    abbreviation = sa.Column(JSONType, nullable=True)
     official_number = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
@@ -205,17 +184,14 @@ class Article(DocumentBase):
     A subclass of the document representing articles. Article in the sense of a law document. It is often
     described as a special part of the whole law document and reflects a dedicated content of this.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
-    :var number: The number which identifies this article in its parent document.
-    :vartype number: str
-    :var text: A simple string to describe the article or give some related info.
-    :vartype text: str
-    :var document_id: The foreign key to the document this article is taken from.
-    :vartype document_id: int
-    :var document: The dedicated relation to the document instance from database.
-    :vartype document_id: pyramid_oereb.standard.models.contaminated_sites.Document
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        number (str): The number which identifies this article in its parent document.
+        text (dict): A simple multilingual string to describe the article or give some related info.
+        document_id (int): The foreign key to the document this article is taken from.
+        document_id (pyramid_oereb.standard.models.contaminated_sites.Document):
+            The dedicated relation to the document instance from database.
     """
     __table_args__ = {'schema': 'contaminated_sites'}
     __tablename__ = 'article'
@@ -223,7 +199,7 @@ class Article(DocumentBase):
         'polymorphic_identity': 'article'
     }
     number = sa.Column(sa.String, nullable=False)
-    text = sa.Column(sa.String, nullable=True)
+    text = sa.Column(JSONType, nullable=True)
     id = sa.Column(
         sa.Integer,
         sa.ForeignKey(DocumentBase.id),
@@ -246,9 +222,9 @@ class LegalProvision(Document):
     """
     A subclass of the document representing legal provisions. It is a specialized class of document.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
     """
     __table_args__ = {'schema': 'contaminated_sites'}
     __tablename__ = 'legal_provision'
@@ -267,13 +243,11 @@ class ViewService(Base):
     """
     A view service aka WM(T)S which can deliver a cartographic representation via web.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
-    :var link_wms: The actual url which leads to the desired cartographic representation.
-    :vartype link_wms: str
-    :var legend_web: A link leading to a wms describing document (png).
-    :vartype legend_web: str
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        link_wms (str): The actual url which leads to the desired cartographic representation.
+        legend_web (str): A link leading to a wms describing document (png).
     """
     __table_args__ = {'schema': 'contaminated_sites'}
     __tablename__ = 'view_service'
@@ -287,42 +261,32 @@ class LegendEntry(Base):
     A class based legend system which is directly related to
     :ref:`pyramid_oereb.standard.models.contaminated_sites.ViewService`.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
-    :var file: An image with represents the legend entry. This can be png or svg. It is string but BaseCode64
-        encoded.
-    :vartype file: str
-    :var legend_text: Text to describe this legend entry.
-    :vartype legend_text: str
-    :var type_code: Type code of the public law restriction which is represented by this legend entry.
-    :vartype type_code: str
-    :var type_code_list: List of all public law restrictions which are described through this legend
-        entry.
-    :vartype type_code_list: str
-    :var topic: Statement to describe to which public law restriction this legend entry belongs.
-    :vartype topic: str
-    :var subtopic: Description for sub topics this legend entry might belonging to.
-    :vartype subtopic: str
-    :var additional_topic: A link to additional topics. It must be like the following patterns:
-
-        * ch.{canton}.{topic}
-        * fl.{topic}
-        * ch.{bfsnr}.{topic}
-
-        This with {canton} as the official two letters short version (e.g.'BE') {topic} as the name of the
-        topic and {bfsnr} as the municipality id of the federal office of statistics.
-    :vartype additional_topic: str
-    :var view_service_id: The foreign key to the view service this legend entry is related to.
-    :vartype view_service_id: int
-    :var view_service: The dedicated relation to the view service instance from database.
-    :vartype view_service: pyramid_oereb.standard.models.contaminated_sites.ViewService
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        file (str): An image with represents the legend entry. This can be png or svg. It is string
+            but BaseCode64  encoded.
+        legend_text (dict): Multilingual text to describe this legend entry.
+        type_code (str): Type code of the public law restriction which is represented by this legend
+            entry.
+        type_code_list (str): List of all public law restrictions which are described through this
+            legend  entry.
+        topic (str): Statement to describe to which public law restriction this legend entry
+            belongs.
+        subtopic (str): Description for sub topics this legend entry might belonging to.
+        additional_topic (str): A link to additional topics. It must be like the following patterns
+            * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
+            the official two letters short version (e.g.'BE') {topic} as the name of the
+            topic and {bfsnr} as the municipality id of the federal office of statistics.
+        view_service_id (int): The foreign key to the view service this legend entry is related to.
+        view_service (pyramid_oereb.standard.models.contaminated_sites.ViewService):
+            The dedicated relation to the view service instance from database.
     """
     __table_args__ = {'schema': 'contaminated_sites'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
     file = sa.Column(sa.String, nullable=False)
-    legend_text = sa.Column(sa.String, nullable=False)
+    legend_text = sa.Column(JSONType, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
@@ -341,46 +305,37 @@ class PublicLawRestriction(Base):
     """
     The container where you can fill in all your public law restrictions to the topic.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
-    :var content: The textual representation of the public law restriction.
-    :vartype content: str
-    :var topic: Category for this public law restriction (name of the topic).
-    :vartype topic: str
-    :var subtopic: Textual explanation to subtype the topic attribute.
-    :vartype subtopic: str
-    :var additional_topic: A link to additional topics. It must be like the following patterns:
-        * ch.{canton}.{topic}
-        * fl.{topic}
-        * ch.{bfsnr}.{topic}
-        This with {canton} as the official two letters short version (e.g.'BE') {topic} as the name of the
-        topic and {bfsnr} as the municipality id of the federal office of statistics.
-    :vartype additional_topic: str
-    :var type_code: Type code of the public law restriction machine readable based on the original data
-        model of this public law restriction.
-    :vartype type_code: str
-    :var type_code_list: List of full range of type_codes for this public law restriction in a machine
-        readable format.
-    :vartype type_code_list: str
-    :var legal_state: The status switch if the document is legally approved or not.
-    :vartype legal_state: str
-    :var published_from: The date when the document should be available for publishing on extracts. This
-        directly affects the behaviour of extract generation.
-    :vartype published_from: datetime.date
-    :var view_service_id: The foreign key to the view service this public law restriction is related to.
-    :vartype view_service_id: int
-    :var view_service: The dedicated relation to the view service instance from database.
-    :vartype view_service: pyramid_oereb.standard.models.contaminated_sites.ViewService
-    :var office_id: The foreign key to the office which is responsible to this public law restriction.
-    :vartype office_id: int
-    :var responsible_office: The dedicated relation to the office instance from database.
-    :vartype responsible_office: pyramid_oereb.standard.models.contaminated_sites.Office
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        content (dict): The multilingual textual representation of the public law restriction.
+        topic (str): Category for this public law restriction (name of the topic).
+        subtopic (str): Textual explanation to subtype the topic attribute.
+        additional_topic (str): A link to additional topics. It must be like the following patterns
+            * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
+            the official two letters short version (e.g.'BE') {topic} as the name of the
+            topic and {bfsnr} as the municipality id of the federal office of statistics.
+        type_code (str): Type code of the public law restriction machine readable based on the
+            original data  model of this public law restriction.
+        type_code_list (str): List of full range of type_codes for this public law restriction in a
+            machine  readable format.
+        legal_state (str): The status switch if the document is legally approved or not.
+        published_from (datetime.date): The date when the document should be available for
+            publishing on extracts. This  directly affects the behaviour of extract
+            generation.
+        view_service_id (int): The foreign key to the view service this public law restriction is
+            related to.
+        view_service (pyramid_oereb.standard.models.contaminated_sites.ViewService):
+            The dedicated relation to the view service instance from database.
+        office_id (int): The foreign key to the office which is responsible to this public law
+            restriction.
+        responsible_office (pyramid_oereb.standard.models.contaminated_sites.Office):
+            The dedicated relation to the office instance from database.
     """
     __table_args__ = {'schema': 'contaminated_sites'}
     __tablename__ = 'public_law_restriction'
     id = sa.Column(sa.Integer, primary_key=True)
-    content = sa.Column(sa.String, nullable=False)
+    content = sa.Column(JSONType, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
     subtopic = sa.Column(sa.String, nullable=True)
     additional_topic = sa.Column(sa.String, nullable=True)
@@ -409,36 +364,28 @@ class Geometry(Base):
     """
     The dedicated model for all geometries in relation to their public law restriction.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
-    :var legal_state: The status switch if the document is legally approved or not.
-    :vartype legal_state: str
-    :var published_from: The date when the document should be available for publishing on extracts. This
-        directly affects the behaviour of extract generation.
-    :vartype published_from: datetime.date
-    :var geo_metadata: A link to the metadata which this geometry is based on which delivers machine
-        readable response format (XML).
-    :vartype geo_metadata: str
-    :var geom: The geometry it's self. For type information see geoalchemy2_.
-
-        .. _geoalchemy2: https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html
-
-        docs dependent on the configured type.
-
-        This concrete one is POLYGON
-    :vartype geom: geoalchemy2.types.Geometry
-    :var public_law_restriction_id: The foreign key to the public law restriction this geometry is
-        related to.
-    :vartype public_law_restriction_id: int
-    :var public_law_restriction: The dedicated relation to the public law restriction instance from
-        database.
-    :vartype public_law_restriction:
-        pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction
-    :var office_id: The foreign key to the office which is responsible to this public law restriction.
-    :vartype office_id: int
-    :var responsible_office: The dedicated relation to the office instance from database.
-    :vartype responsible_office: pyramid_oereb.standard.models.contaminated_sites.Office
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        legal_state (str): The status switch if the document is legally approved or not.
+        published_from (datetime.date): The date when the document should be available for
+            publishing on extracts. This  directly affects the behaviour of extract
+            generation.
+        geo_metadata (str): A link to the metadata which this geometry is based on which delivers
+            machine  readable response format (XML).
+        public_law_restriction_id (int): The foreign key to the public law restriction this geometry
+            is  related to.
+        public_law_restriction (pyramid_oereb.standard.models.contaminated_sites
+            .PublicLawRestriction): The dedicated relation to the public law restriction instance from
+            database.
+        office_id (int): The foreign key to the office which is responsible to this public law
+            restriction.
+        responsible_office (pyramid_oereb.standard.models.contaminated_sites.Office):
+            The dedicated relation to the office instance from database.
+        geom (geoalchemy2.types.Geometry): The geometry it's self. For type information see
+            geoalchemy2_.  .. _geoalchemy2:
+            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
+            configured type.  This concrete one is POLYGON
     """
     __table_args__ = {'schema': 'contaminated_sites'}
     __tablename__ = 'geometry'
@@ -469,21 +416,17 @@ class PublicLawRestrictionBase(Base):
     Meta bucket (join table) for public law restrictions which acts as a base for other public law
     restrictions.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
-    :var public_law_restriction_id: The foreign key to the public law restriction which bases on another
-        public law restriction.
-    :vartype public_law_restriction_id: int
-    :var public_law_restriction_base_id: The foreign key to the public law restriction which is the
-        base for the public law restriction.
-    :vartype public_law_restriction_base_id: int
-    :var plr: The dedicated relation to the public law restriction (which bases on) instance from
-        database.
-    :vartype plr: pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction
-    :var base: The dedicated relation to the public law restriction (which is the base) instance from
-        database.
-    :vartype base: pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        public_law_restriction_id (int): The foreign key to the public law restriction which bases
+            on another  public law restriction.
+        public_law_restriction_base_id (int): The foreign key to the public law restriction which is
+            the  base for the public law restriction.
+        plr (pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction):
+            The dedicated relation to the public law restriction (which bases on) instance from  database.
+        base (pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction):
+            The dedicated relation to the public law restriction (which is the base) instance from database.
     """
     __tablename__ = 'public_law_restriction_base'
     __table_args__ = {'schema': 'contaminated_sites'}
@@ -514,21 +457,17 @@ class PublicLawRestrictionRefinement(Base):
     Meta bucket (join table) for public law restrictions which acts as a refinement for other public law
     restrictions.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
-    :var public_law_restriction_id: The foreign key to the public law restriction which is refined by
-        another public law restriction.
-    :vartype public_law_restriction_id: int
-    :var public_law_restriction_refinement_id: The foreign key to the public law restriction which is
-        the refinement of the public law restriction.
-    :vartype public_law_restriction_refinement_id: int
-    :var plr: The dedicated relation to the public law restriction (which refines) instance from
-        database.
-    :vartype plr: pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction
-    :var base: The dedicated relation to the public law restriction (which is refined) instance from
-        database.
-    :vartype base: pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        public_law_restriction_id (int): The foreign key to the public law restriction which is
+            refined by  another public law restriction.
+        public_law_restriction_refinement_id (int): The foreign key to the public law restriction
+            which is  the refinement of the public law restriction.
+        plr (pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction):
+            The dedicated relation to the public law restriction (which refines) instance from  database.
+        base (pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction):
+            The dedicated relation to the public law restriction (which is refined) instance from database.
     """
     __tablename__ = 'public_law_restriction_refinement'
     __table_args__ = {'schema': 'contaminated_sites'}
@@ -558,18 +497,17 @@ class PublicLawRestrictionDocument(Base):
     """
     Meta bucket (join table) for the relationship between public law restrictions and documents.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
-    :var public_law_restriction_id: The foreign key to the public law restriction which has relation to
-        a document.
-    :vartype public_law_restriction_id: int
-    :var document_id: The foreign key to the document which has relation to the public law restriction.
-    :vartype document_id: int
-    :var plr: The dedicated relation to the public law restriction instance from database.
-    :vartype plr: pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction
-    :var document: The dedicated relation to the document instance from database.
-    :vartype document: pyramid_oereb.standard.models.contaminated_sites.DocumentBase
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        public_law_restriction_id (int): The foreign key to the public law restriction which has
+            relation to  a document.
+        document_id (int): The foreign key to the document which has relation to the public law
+            restriction.
+        plr (pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction):
+            The dedicated relation to the public law restriction instance from database.
+        document (pyramid_oereb.standard.models.contaminated_sites.DocumentBase):
+            The dedicated relation to the document instance from database.
     """
     __tablename__ = 'public_law_restriction_document'
     __table_args__ = {'schema': 'contaminated_sites'}
@@ -599,21 +537,17 @@ class DocumentReference(Base):
     """
     Meta bucket (join table) for the relationship between documents.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
-    :var document_id: The foreign key to the document which references to another document.
-    :vartype document_id: int
-    :var reference_document_id: The foreign key to the document which is referenced.
-    :vartype reference_document_id: int
-    :var document: The dedicated relation to the document (which references) instance from database.
-    :vartype document: pyramid_oereb.standard.models.contaminated_sites.Document
-    :var referenced_document: The dedicated relation to the document (which is referenced) instance from
-        database.
-    :vartype referenced_document: pyramid_oereb.standard.models.contaminated_sites.Document
-    :var article_numbers: A colon of article numbers which clarify the reference. This is a string
-        separated by '|'.
-    :vartype article_numbers: str
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        document_id (int): The foreign key to the document which references to another document.
+        reference_document_id (int): The foreign key to the document which is referenced.
+        document (pyramid_oereb.standard.models.contaminated_sites.Document):
+            The dedicated relation to the document (which references) instance from database.
+        referenced_document (pyramid_oereb.standard.models.contaminated_sites.Document):
+            The dedicated relation to the document (which is referenced) instance from database.
+        article_numbers (str): A colon of article numbers which clarify the reference. This is a
+            string  separated by '|'.
     """
     __tablename__ = 'document_reference'
     __table_args__ = {'schema': 'contaminated_sites'}
@@ -644,14 +578,13 @@ class DocumentReferenceDefinition(Base):
     """
     Meta bucket (join table) for the relationship between documents and the reference definition.
 
-    :var id: The identifier. This is used in the database only and must not be set manually. If you
-        don't like it - don't care about.
-    :vartype id: int
-    :var document_id: The foreign key to the document which is related to a reference definition.
-    :vartype document_id: int
-    :var reference_definition_id: The foreign key to the document which is related to a reference
-        definition.
-    :vartype reference_definition_id: int
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        document_id (int): The foreign key to the document which is related to a reference
+            definition.
+        reference_definition_id (int): The foreign key to the document which is related to a
+            reference  definition.
     """
     __tablename__ = 'document_reference_definition'
     __table_args__ = {'schema': 'contaminated_sites'}

@@ -1,7 +1,7 @@
 <%page args="map"/>
 ## TODO: Put image here when it is ready (we need to solve issue https://jira.camptocamp.com/browse/GSOREB-185)
 %if map.image:
-<xsd:Image>IMAGE BASE64 HERE</xsd:Image>
+<xsd:Image>${map.image.encode()}</xsd:Image>
 %endif
 %if map.link_wms:
 <xsd:ReferenceWMS>${map.link_wms|u}</xsd:ReferenceWMS>

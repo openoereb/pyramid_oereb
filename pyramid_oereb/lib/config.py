@@ -5,7 +5,7 @@ import yaml
 from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
-from pyramid_oereb.lib.records.logo import LogoRecord
+from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 
 
@@ -13,12 +13,12 @@ def parse(cfg_file, cfg_section):
     """
     Parses the defined YAML file and returns the defined section as dictionary.
 
-    :param cfg_file: The YAML file to be parsed.
-    :type  cfg_file: str
-    :param cfg_section: The section to be returned.
-    :type  cfg_section: str
-    :return: The parsed section as dictionary.
-    :rtype: dict
+    Args:
+        cfg_file (str): The YAML file to be parsed.
+        cfg_section (str): The section to be returned.
+
+    Returns:
+        dict: The parsed section as dictionary.
     """
     if cfg_file is None:
         raise ConfigurationError('Missing configuration parameter "pyramid_oereb.cfg.file".')
@@ -47,10 +47,9 @@ class Config(object):
         """
         Loads configuration from yaml file and provides methods for generating webservice output.
 
-        :param config_file: The configuration yaml file.
-        :type config_file: str
-        :param config_section: The section within the yaml file.
-        :type config_section: str
+        Args:
+            config_file (str): The configuration yaml file.
+            config_section (str): The section within the yaml file.
         """
         assert Config._config is None
 
@@ -65,8 +64,8 @@ class Config(object):
         """
         Returns a list of available themes.
 
-        :return: The available themes.
-        :rtype: list of pyramid_oereb.lib.records.theme.ThemeRecord
+        Returns:
+            list of pyramid_oereb.lib.records.theme.ThemeRecord: The available themes.
         """
         assert Config._config is not None
 
@@ -85,10 +84,12 @@ class Config(object):
         """
         Returns the theme with the specified code.
 
-        :param code: The theme's code.
-        :type code: str
-        :return: The theme with the specified code.
-        :rtype: pyramid_oereb.lib.records.theme.ThemeRecord or None
+        Args:
+            code (str): The theme's code.
+
+        Returns:
+            pyramid_oereb.lib.records.theme.ThemeRecord or None: The theme with the specified
+            code.
         """
         assert Config._config is not None
 
@@ -143,8 +144,8 @@ class Config(object):
         """
         Returns a list of available crs.
 
-        :return: The available crs.
-        :rtype: list
+        Returns:
+            list: The available crs.
         """
         assert Config._config is not None
 
@@ -159,8 +160,8 @@ class Config(object):
         """
         Returns a list of available languages.
 
-        :return: The available languages.
-        :rtype: list
+        Returns:
+            list: The available languages.
         """
         assert Config._config is not None
 
@@ -175,8 +176,8 @@ class Config(object):
         """
         Returns a list of available flavours.
 
-        :return: The available flavours.
-        :rtype: list
+        Returns:
+            list: The available flavours.
         """
         assert Config._config is not None
 
@@ -207,8 +208,8 @@ class Config(object):
         """
         Returns a dictionary of the configured real estate settings.
 
-        :return: The configured real estate settings.
-        :rtype: dict
+        Returns:
+            dict: The configured real estate settings.
         """
         assert Config._config is not None
 
@@ -219,8 +220,8 @@ class Config(object):
         """
         Returns a dictionary of the configured address settings.
 
-        :return: The configured address settings.
-        :rtype: dict
+        Returns:
+            dict: The configured address settings.
         """
         assert Config._config is not None
 
@@ -231,8 +232,8 @@ class Config(object):
         """
         Returns a dictionary of the configured glossary settings.
 
-        :return: The configured glossary settings.
-        :rtype: dict
+        Returns:
+            dict: The configured glossary settings.
         """
         assert Config._config is not None
 
@@ -243,8 +244,8 @@ class Config(object):
         """
         Returns a dictionary of the configured exclusion_of_liability settings.
 
-        :return: The configured exclusion_of_liability settings.
-        :rtype: dict
+        Returns:
+            dict: The configured exclusion_of_liability settings.
         """
         assert Config._config is not None
 
@@ -255,8 +256,8 @@ class Config(object):
         """
         Returns a dictionary of the configured municipality settings.
 
-        :return: The configured municipality settings.
-        :rtype: dict
+        Returns:
+            dict: The configured municipality settings.
         """
         assert Config._config is not None
 
@@ -267,8 +268,8 @@ class Config(object):
         """
         Returns a dictionary of the configured extract settings.
 
-        :return: The configured extract settings.
-        :rtype: dict
+        Returns:
+            dict: The configured extract settings.
         """
         assert Config._config is not None
 
@@ -279,8 +280,9 @@ class Config(object):
         """
         Returns an office record for the configured PLR cadastre authority.
 
-        :return: The configured PLR cadastre authority.
-        :rtype: pyramid_oereb.lib.records.office.OfficeRecord
+        Returns:
+            pyramid_oereb.lib.records.office.OfficeRecord: The configured PLR cadastre
+            authority.
         """
         assert Config._config is not None
 
@@ -302,8 +304,8 @@ class Config(object):
         """
         Returns a dictionary of the configured file path's to the logos.
 
-        :return: The configured paths to the logos wrapped in a dictionary.
-        :rtype: dict
+        Returns:
+            dict: The configured paths to the logos wrapped in a dictionary.
         """
         assert Config._config is not None
 
@@ -319,9 +321,9 @@ class Config(object):
         if not logo_dict.get(canton_key):
             raise ConfigurationError(msg.format(key=canton_key, found_config=logo_dict))
         file_adapter = FileAdapter()
-        confederation_logo = LogoRecord(file_adapter.read(logo_dict.get(confederation_fkey)))
-        oereb_logo = LogoRecord(file_adapter.read(logo_dict.get(oereb_key)))
-        canton_logo = LogoRecord(file_adapter.read(logo_dict.get(canton_key)))
+        confederation_logo = ImageRecord(file_adapter.read(logo_dict.get(confederation_fkey)))
+        oereb_logo = ImageRecord(file_adapter.read(logo_dict.get(oereb_key)))
+        canton_logo = ImageRecord(file_adapter.read(logo_dict.get(canton_key)))
 
         return {
             confederation_fkey: confederation_logo,
@@ -334,10 +336,13 @@ class Config(object):
         """
         Returns the specified configuration value.
 
-        :param key: Configuration parameter name.
-        :type key: str
-        :param default: Default value if the specified parameter is not defined. Defaults to None.
-        :return: The specified configuration or default value
+        Args:
+            key (str): Configuration parameter name.
+            default (*): Default value if the specified parameter is not defined. Defaults to
+                None.
+
+        Returns:
+            *: The specified configuration or default value
         """
         assert Config._config is not None
 
@@ -351,13 +356,13 @@ class Config(object):
         example:
         get_object_path('app.print', {'dpi': 300}, ['map_size'])
 
-        :param path: Dot separated path of the wonted object.
-        :type path: str
-        :param default: Default dictionary values of the object. Defaults to {}.
-        :type default: dict
-        :param required: The list of required sub values in the object. Defaults to [].
-        :type required: list
-        :return: The specified configuration object.
+        Args:
+            path (str): Dot separated path of the wonted object.
+            default (dict): Default dictionary values of the object. Defaults to {}.
+            required (list): The list of required sub values in the object. Defaults to [].
+
+        Returns:
+            *: The specified configuration object.
         """
 
         return Config._get_object_path(

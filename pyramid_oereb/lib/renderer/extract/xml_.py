@@ -9,30 +9,31 @@ from pyramid_oereb.lib.renderer import Base
 from mako import exceptions
 
 
-class Extract(Base):
+class Renderer(Base):
 
     def __init__(self, info):
         """
         Creates a new XML renderer instance for extract rendering.
 
-        :param info: Info object.
-        :type info: pyramid.interfaces.IRendererInfo
+        Args:
+            info (pyramid.interfaces.IRendererInfo): Info object.
         """
         a = AssetResolver('pyramid_oereb')
-        resolver = a.resolve('lib/renderer/templates/xml')
+        resolver = a.resolve('lib/renderer/extract/templates/xml')
         self.template_dir = resolver.abspath()
-        super(Extract, self).__init__(info)
+        super(Renderer, self).__init__(info)
 
     def __call__(self, value, system):
         """
         Returns the XML encoded extract, according to the specification.
 
-        :param value: A tuple containing the generated extract record and the params dictionary.
-        :type value: tuple
-        :param system: The available system properties.
-        :type system: dict
-        :return: The XML encoded extract.
-        :rtype: str
+        Args:
+            value (tuple): A tuple containing the generated extract record and the params
+                dictionary.
+            system (dict): The available system properties.
+
+        Returns:
+            str: The XML encoded extract.
         """
         response = self.get_response(system)
         if isinstance(response, Response) and response.content_type == response.default_content_type:

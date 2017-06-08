@@ -21,19 +21,20 @@ class Processor(object):
         correctly. In addition it provides an easy to use method interface to access the information.
         It is also used to wrap all accessors in one point to have a processing interface.
 
-        :param real_estate_reader: The real estate reader instance for runtime use.
-        :type real_estate_reader: pyramid_oereb.lib.readers.real_estate.RealEstateReader
-        :param municipality_reader: The municipality reader instance for runtime use.
-        :type municipality_reader: pyramid_oereb.lib.readers.municipality.MunicipalityReader
-        :param exclusion_of_liability_reader: The exclusion of liability reader instance for runtime use.
-        :type exclusion_of_liability_reader:
-            pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader
-        :param glossary_reader: The glossary reader instance for runtime use.
-        :type glossary_reader: pyramid_oereb.lib.readers.glossary.GlossaryReader
-        :param plr_sources: The public law restriction source instances for runtime use wrapped in a list.
-        :type plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-        :param extract_reader: The extract reader instance for runtime use.
-        :type extract_reader: pyramid_oereb.lib.readers.extract.ExtractReader
+        Args:
+            real_estate_reader (pyramid_oereb.lib.readers.real_estate.RealEstateReader): The
+                real estate reader instance for runtime use.
+            municipality_reader (pyramid_oereb.lib.readers.municipality.MunicipalityReader): The
+                municipality reader instance for runtime use.
+            exclusion_of_liability_reader
+                (pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader):
+                The exclusion of liability reader instance for runtime use.
+            glossary_reader (pyramid_oereb.lib.readers.glossary.GlossaryReader): The glossary
+                reader instance for runtime use.
+            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource): The
+                public law restriction source instances for runtime use wrapped in a list.
+            extract_reader (pyramid_oereb.lib.readers.extract.ExtractReader): The extract reader
+                instance for runtime use.
         """
         self._real_estate_reader_ = real_estate_reader
         self._municipality_reader_ = municipality_reader
@@ -46,9 +47,10 @@ class Processor(object):
         """
         Filter only published documents.
 
-        :param record: The public law restriction or document record.
-        :type record: pyramid_oereb.lib.records.plr.PlrRecord or
-            pyramid_oereb.lib.records.documents.DocumentRecord
+        Args:
+            record (pyramid_oereb.lib.records.plr.PlrRecord or
+                pyramid_oereb.lib.records.documents.DocumentRecord): The public law restriction or
+                document record.
         """
         published_docs = list()
         if isinstance(record, PlrRecord):
@@ -71,16 +73,18 @@ class Processor(object):
         value defined in the configuration and should therefor be represented in the extract
         or considered 'false trues' and be removed from the results.
 
-        :param extract: The extract in it's unvalidated form
-        :type extract: pyramid_oereb.lib.records.extract.ExtractRecord
-        :return: Returns the updated extract
-        :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
+        Args:
+            extract (pyramid_oereb.lib.records.extract.ExtractRecord): The extract in it's
+                unvalidated form
+
+        Returns:
+            pyramid_oereb.lib.records.extract.ExtractRecord: Returns the updated extract
         """
 
         real_estate = extract.real_estate
         tested_plrs = []
 
-        for index, public_law_restriction in enumerate(real_estate.public_law_restrictions):
+        for public_law_restriction in real_estate.public_law_restrictions:
             if isinstance(public_law_restriction, PlrRecord):
                 plr_thresholds = Config.get_theme_thresholds(public_law_restriction.theme.code)
                 tested_geometries = []
@@ -96,58 +100,80 @@ class Processor(object):
 
         return extract
 
+    @staticmethod
+    def view_service_handling(real_estate, images):
+        """
+        Handles all view service related stuff. In the moment this is:
+            * construction of the correct url (link_wms) depending on the real estate
+            * downloading of the image if parameter was set
+
+        :param real_estate: The real estate record to be updated.
+        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        :param images: Switch whether the images should be downloaded or not.
+        :type images: bool
+        :return: The updated extract.
+        :rtype: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        """
+        # TODO: uncomment this when issue GSOREB-194 is solved.
+        # extract.real_estate.plan_for_land_register.get_full_wms_url(extract.real_estate)
+        # if images:
+        # extract.real_estate.plan_for_land_register.download_wms_content()
+        for public_law_restriction in real_estate.public_law_restrictions:
+            public_law_restriction.view_service.get_full_wms_url(real_estate)
+            if images:
+                public_law_restriction.view_service.download_wms_content()
+        return real_estate
+
     @property
     def real_estate_reader(self):
         """
-
-        :return: The real estate reader instance.
-        :rtype real_estate_reader: pyramid_oereb.lib.readers.real_estate.RealEstateReader
+        Returns:
+            pyramid_oereb.lib.readers.real_estate.RealEstateReader: The real estate reader
+            instance.
         """
         return self._real_estate_reader_
 
     @property
     def municipality_reader(self):
         """
-
-        :return: The municipality reader reader instance.
-        :rtype municipality_reader: pyramid_oereb.lib.readers.municipality.MunicipalityReader
+        Returns:
+            pyramid_oereb.lib.readers.municipality.MunicipalityReader: The municipality reader
+            reader instance.
         """
         return self._municipality_reader_
 
     @property
     def exclusion_of_liability_reader(self):
         """
-
-        :return: The exclusion of liability reader reader instance.
-        :rtype municipality_reader:
-            pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader
+        Returns:
+            pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader:
+            The exclusion of liability reader reader instance.
         """
         return self._exclusion_of_liability_reader_
 
     @property
     def glossary_reader(self):
         """
-
-        :return: The glossary reader reader instance.
-        :rtype municipality_reader: pyramid_oereb.lib.readers.glossary.GlossaryReader
+        Returns:
+            pyramid_oereb.lib.readers.glossary.GlossaryReader: The glossary reader reader
+            instance.
         """
         return self._glossary_reader_
 
     @property
     def plr_sources(self):
         """
-
-        :return: The list of plr source instances.
-        :rtype plr_sources: list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        Returns:
+            list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource: The list of plr
+            source instances.
         """
         return self._plr_sources_
 
     @property
     def extract_reader(self):
         """
-
-        :return: The extract reader instance.
-        :rtype extract_reader: pyramid_oereb.lib.readers.extract.ExtractReader
+        Returns:
+            pyramid_oereb.lib.readers.extract.ExtractReader: The extract reader instance.
         """
         return self._extract_reader_
 
@@ -155,12 +181,14 @@ class Processor(object):
         """
         Central processing method to hook in from webservice.
 
-        :param real_estate: The real estate reader to obtain the real estates record.
-        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
-        :param params: The parameters of the extract request.
-        :type params: pyramid_oereb.views.webservice.Parameter
-        :return: The generated extract record.
-        :rtype: pyramid_oereb.lib.records.extract.ExtractRecord
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
+                estate reader to obtain the real estates record.
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract
+                request.
+
+        Returns:
+            pyramid_oereb.lib.records.extract.ExtractRecord: The generated extract record.
         """
         municipalities = self._municipality_reader_.read()
         exclusions_of_liability = self._exclusion_of_liability_reader_.read()
@@ -171,6 +199,7 @@ class Processor(object):
                     raise NotImplementedError  # TODO: improve message
                 extract_raw = self._extract_reader_.read(real_estate, municipality.logo, params)
                 extract = self.plr_tolerance_check(extract_raw)
+                self.view_service_handling(extract.real_estate, params.images)
                 extract.exclusions_of_liability = exclusions_of_liability
                 extract.glossaries = glossaries
                 return extract

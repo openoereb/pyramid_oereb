@@ -18,12 +18,11 @@ class AddressDatabaseSource(BaseDatabaseSource, AddressBaseSource):
     def read(self, street_name, zip_code, street_number):
         """
         Central method to read one address.
-        :param street_name: The name of the street for the desired address.
-        :type street_name: unicode
-        :param zip_code: The postal zipcode for the desired address.
-        :type zip_code: int
-        :param street_number: The house or so called street number of the desired address.
-        :type street_number: str
+
+        Args:
+            street_name (unicode): The name of the street for the desired address.
+            zip_code (int): The postal zipcode for the desired address.
+            street_number (str): The house or so called street number of the desired address.
         """
         session = self._adapter_.get_session(self._key_)
         query = session.query(self._model_)

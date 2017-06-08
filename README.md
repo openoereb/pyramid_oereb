@@ -90,6 +90,7 @@ http://localhost:6543/oereb/versions. To stop the server, press `CTRL + C`.
 
 Running development version on a up and running already existing pyramid_server
 -------------------------------------------------------------------------------
+
 Before you start whith the following instructions you should think about creating a branch of your applications code to not mess things up.
 
 1. In the setup.py add "pyramid_oereb" in the list of requirements (often a python list stored in the variable "requires")
@@ -125,3 +126,8 @@ load_standard_sample_data -c pyramid_oereb_standard.yml
 12. Check with a tool of your choise that the structure was created successfully in you desired database. You should find 17 database schemas named (snake_case) by their code attribute from the yml file. Plus one schema called "pyramid_oereb_main" containing the app global stuff (addresses, municipalities, etc.). At least these tables need to be filled up with your data with a tool of your choise).
 13. Start your pyramid application.
 14. Point your browser to: <your pyramid applications root url>/oereb/extract/embeddable/json/CH113928077734
+
+External link
+-------------
+
+- [Documentation](https://camptocamp.github.io/pyramid_oereb/doc/)
