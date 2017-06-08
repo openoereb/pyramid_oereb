@@ -181,6 +181,10 @@ pyramid_oereb:
   # The extract is more an abstract implementation of a source. It is the entry point which binds everything
   # related to data together.
   extract:
+    # Information about the base data used for the extract, e.g. the used base map and its currentness.
+    # This is a multlingual value. At least the set default language has to be defined.
+    base_data:
+        de: Daten der amtlichen Vermessung, Stand {0}.
     # The extract must have a property source.
     source:
       # The source must have a class which represents the accessor to the source. In this case it is a source
