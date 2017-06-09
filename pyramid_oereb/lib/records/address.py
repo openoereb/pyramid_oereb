@@ -10,8 +10,8 @@ class AddressRecord(object):
         Args:
             street_name (unicode): The name of the street for this address.
             zip_code (int): The zipcode for this address.
-            street_number (str): The house number for this address.
-            geom (str): The geometry (point) which is representing this address as a WKT.
+            street_number (unicode): The house number for this address.
+            geom (unicode): The geometry (point) which is representing this address as a WKT.
         """
         self.street_name = street_name
         self.zip_code = zip_code

@@ -41,7 +41,7 @@ class Renderer(Base):
         self._language_ = str(Config.get('default_language')).lower()
         self._params_ = value[1]
 
-        return self._render(value[0])
+        return unicode(self._render(value[0]))
 
     def _render(self, extract):
         """
@@ -71,7 +71,7 @@ class Renderer(Base):
             'CantonalLogo': extract.cantonal_logo.encode(),
             'MunicipalityLogo': extract.municipality_logo.encode(),
             'ExtractIdentifier': extract.extract_identifier,
-            'BaseData': extract.base_data,
+            'BaseData': self.get_localized_text(extract.base_data),
             'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority),
             'RealEstate': self.format_real_estate(extract.real_estate),
             'ConcernedTheme': [self.format_theme(theme) for theme in extract.concerned_theme],
@@ -84,7 +84,7 @@ class Renderer(Base):
         if extract.qr_code:
             extract_dict['QRCode'] = extract.qr_code
         if extract.general_information:
-            extract_dict['GeneralInformation'] = extract.general_information
+            extract_dict['GeneralInformation'] = self.get_localized_text(extract.general_information)
 
         if isinstance(extract.exclusions_of_liability, list) and len(extract.exclusions_of_liability) > 0:
             exclusions_of_liability = list()

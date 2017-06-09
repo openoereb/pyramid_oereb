@@ -5,15 +5,32 @@ import uuid
 
 
 class ExtractRecord(object):
+
     # Attributes calculated or defined while processing
     creation_date = None
+    """datetime.date: Date of extract generation."""
+
     electronic_signature = None
+    """unicode or None: Digital signature for the extract."""
+
     concerned_theme = None
+    """list of pyramid_oereb.lib.records.theme.ThemeRecord: List of concerned themes."""
+
     not_concerned_theme = None
+    """list of pyramid_oereb.lib.records.theme.ThemeRecord: List of not concerned themes."""
+
     theme_without_data = None
+    """list of pyramid_oereb.lib.records.theme.ThemeRecord: List of themes without data."""
+
     is_reduced = False
+    """bool: True if the extract flavour is reduced."""
+
     extract_identifier = None
+    """unicode: The extract identifier (UUID)."""
+
     qr_code = None
+    """binary or None: QR code for the extract as binary string."""
+
     plr_cadastre_authority = None
 
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
@@ -33,7 +50,7 @@ class ExtractRecord(object):
                 logo.
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority which is
                 responsible for the PLR cadastre.
-            base_data (dict of str): A multilingual list of basic data layers used by the extract. For
+            base_data (dict of unicode): A multilingual list of basic data layers used by the extract. For
                 instance the base map from swisstopo.
             exclusions_of_liability (list of
                 pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord): Exclusions of
@@ -45,7 +62,8 @@ class ExtractRecord(object):
                 themes.
             theme_without_data (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Themes without
                 data.
-            general_information (dict): General information for the static extract as multilingual text.
+            general_information (dict of unicode): General information for the static extract as multilingual
+                text.
         """
         if not isinstance(base_data, dict):
             warnings.warn('Type of "base_data" should be "dict"')

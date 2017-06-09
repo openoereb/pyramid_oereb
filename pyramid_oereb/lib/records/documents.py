@@ -10,9 +10,9 @@ class DocumentBaseRecord(object):
         The base document class.
 
         Args:
-            legal_state (str): Key string of the law status.
+            legal_state (unicode): Key string of the law status.
             published_from (datetime.date): Date since this document was published.
-            text_at_web (dict): The multilingual URI to the documents content.
+            text_at_web (dict of uri): The multilingual URI to the documents content.
         """
         if text_at_web and not isinstance(text_at_web, dict):
             warnings.warn('Type of "text_at_web" should be "dict"')
@@ -39,11 +39,11 @@ class ArticleRecord(DocumentBaseRecord):
         More specific document class representing articles.
 
         Args:
-            legal_state (str): Key string of the law status.
+            legal_state (unicode): Key string of the law status.
             published_from (datetime.date): Date since this document was published.
-            number (str): The identifier of the article as a law.
-            text_at_web (dict): The URI to the documents content (multilingual).
-            text (dict): Text in the article (multilingual).
+            number (unicode): The identifier of the article as a law.
+            text_at_web (dict of uri): The URI to the documents content (multilingual).
+            text (dict of unicode): Text in the article (multilingual).
         """
         super(ArticleRecord, self).__init__(legal_state, published_from, text_at_web)
 
@@ -63,18 +63,18 @@ class DocumentRecord(DocumentBaseRecord):
         More specific document class representing real documents.
 
         Args:
-            legal_state (str):  Key string of the law status.
+            legal_state (unicode):  Key string of the law status.
             published_from (datetime.date): Date since this document was published.
-            title (dict): The multilingual title of the document. It might be shortened one.
+            title (dict of unicode): The multilingual title of the document. It might be shortened one.
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
                 responsible for this document.
-            text_at_web (dict): The multilingual URI to the documents content.
-            official_title (dict): The official title of the document (multilingual).
-            abbreviation (dict): Short term for this document (multilingual).
-            official_number (str): The official number for identification of this document.
-            canton (str): The cantonal short term (length of two, like 'NE' or 'BL')
-            municipality (str): The code for the municipality.
-            article_numbers (list of str): Pointers to specific articles.
+            text_at_web (dict of uri): The multilingual URI to the documents content.
+            official_title (dict of unicode): The official title of the document (multilingual).
+            abbreviation (dict of unicode): Short term for this document (multilingual).
+            official_number (unicode): The official number for identification of this document.
+            canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
+            municipality (unicode): The code for the municipality.
+            article_numbers (list of unicode): Pointers to specific articles.
             file (bytes): The binary content of the document.
             articles (list of ArticleRecord): The linked articles.
             references (list of DocumentRecord): The references to other documents.

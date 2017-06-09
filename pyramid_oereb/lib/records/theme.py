@@ -9,8 +9,8 @@ class ThemeRecord(object):
         Creates a new theme record.
 
         Args:
-            code (str): The theme's code.
-            text (dict): The multilingual description.
+            code (unicode): The theme's code.
+            text (dict of unicode): The multilingual description.
         """
         if not isinstance(text, dict):
             warnings.warn('Type of "text" should be "dict"')

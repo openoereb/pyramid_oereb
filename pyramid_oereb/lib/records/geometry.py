@@ -12,10 +12,10 @@ class GeometryRecord(object):
         Geometry record
 
         Args:
-            legal_state (str): The PLR record's legal state.
+            legal_state (unicode): The PLR record's legal state.
             published_from (datetime.date): Date from/since when the PLR record is published.
             geom (shapely.geometry.base.BaseGeometry): The geometry
-            geo_metadata (str): The metadata
+            geo_metadata (uri): The metadata.
             public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law
                 restriction
             office (pyramid_oereb.lib.records.office.Office): The office
@@ -35,12 +35,7 @@ class GeometryRecord(object):
 
     @property
     def published(self):
-        """
-        Returns true if its not a future geometry.
-
-        Returns:
-            bool: True if geometry is published.
-        """
+        """bool: True if geometry is published."""
         return not self.published_from > datetime.now().date()
 
     @staticmethod
