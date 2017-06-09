@@ -3,7 +3,7 @@ import pytest
 
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
-from pyramid_oereb.tests.test_renderer_base import DummyRenderInfo
+from pyramid_oereb.tests.renderer import DummyRenderInfo
 
 
 def test_get_localized_text_from_str(config):
