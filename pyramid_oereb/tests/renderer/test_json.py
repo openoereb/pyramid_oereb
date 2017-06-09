@@ -12,7 +12,7 @@ from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
-from pyramid_oereb.tests.test_renderer_base import DummyRenderInfo
+from pyramid_oereb.tests.renderer import DummyRenderInfo
 from pyramid_oereb.views.webservice import Parameter
 
 
