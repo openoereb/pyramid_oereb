@@ -25,3 +25,4 @@ def test_init():
     assert record.identdn is None
     assert record.egrid is None
     assert record.subunit_of_land_register is None
+    assert record.areas_ratio == 0.01

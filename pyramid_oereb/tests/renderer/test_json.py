@@ -9,7 +9,9 @@ from shapely.geometry import MultiPolygon, Polygon
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
+from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
+from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
 from pyramid_oereb.tests.renderer import DummyRenderInfo
@@ -18,14 +20,14 @@ from pyramid_oereb.views.webservice import Parameter
 
 @pytest.fixture()
 def params():
-    return Parameter(u'reduced', u'json', False, False, u'BL0200002829', u'1000', u'CH775979211712', u'de')
+    return Parameter('reduced', 'json', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 
 
 def test_get_localized_text_from_str(config):
     assert isinstance(config._config, dict)
     renderer = Renderer(DummyRenderInfo())
     renderer._language_ = u'de'
-    assert renderer.get_localized_text(u'test') == [
+    assert renderer.get_localized_text('test') == [
         {
             u'Language': u'de',
             u'Text': u'test'
@@ -91,13 +93,13 @@ def test_render(config, params):
 
 def test_format_office(config):
     assert isinstance(config._config, dict)
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language_ = u'de'
     office = OfficeRecord({u'de': u'Test'}, uid=u'test_uid', office_at_web=u'http://test.example.com',
                           line1=u'test_line1', line2=u'test_line2', street=u'test_street',
                           number=u'test_number', postal_code=1234, city=u'test_city')
-    renderer = Renderer(DummyRenderInfo())
-    renderer._language_ = u'de'
     assert renderer.format_office(office) == {
-        u'Name': renderer.get_localized_text(u'Test'),
+        u'Name': renderer.get_localized_text('Test'),
         u'UID': u'test_uid',
         u'OfficeAtWeb': u'http://test.example.com',
         u'Line1': u'test_line1',
@@ -109,6 +111,59 @@ def test_format_office(config):
     }
 
 
-# def test_format_real_estate(config):
-#     assert isinstance(config._config, dict)
-#     record = RealEstateRecord()
+def test_format_real_estate(config):
+    assert isinstance(config._config, dict)
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language_ = u'de'
+    renderer._params_ = Parameter('reduced', 'json', True, False, 'BL0200002829', '1000', 'CH775979211712',
+                                  'de')
+    geometry = MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])])
+    view_service = ViewServiceRecord(u'http://geowms.bl.ch', u'http://geowms.bl.ch')
+    real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
+                                   geometry, u'http://www.geocat.ch', u'1000', u'BL0200002829',
+                                   u'CH775979211712', u'Subunit', [], plan_for_land_register=view_service)
+    result = renderer.format_real_estate(real_estate)
+    assert isinstance(result, dict)
+    assert result == {
+        u'Type': u'RealEstate',
+        u'Canton': u'BL',
+        u'Municipality': u'Liestal',
+        u'FosNr': 2829,
+        u'LandRegistryArea': 11395,
+        u'PlanForLandRegister': renderer.format_map(view_service),
+        u'Limit': renderer.from_shapely(geometry),
+        u'Number': u'1000',
+        u'IdentDN': u'BL0200002829',
+        u'EGRID': u'CH775979211712',
+        u'SubunitOfLandRegister': u'Subunit',
+        u'MetadataOfGeographicalBaseData': u'http://www.geocat.ch'
+    }
+
+
+def test_format_plr(config, params):
+    assert isinstance(config._config, dict)
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language_ = u'de'
+    renderer._params_ = params
+    theme = ThemeRecord(u'Test', {u'de': u'Test theme'})
+    office = OfficeRecord({u'de': u'Test Office'})
+    view_service = ViewServiceRecord(u'http://geowms.bl.ch', u'http://geowms.bl.ch')
+    plr = PlrRecord(theme, {u'de': u'Test PLR'}, u'inForce', datetime.date.today(), office, u'Subtopic',
+                    u'Additional topic', u'TypeCode', u'TypeCodeList', view_service)
+    result = renderer.format_plr([plr])
+    assert isinstance(result, list)
+    assert len(result) == 1
+    assert isinstance(result[0], dict)
+    assert result[0] == {
+        u'Information': renderer.get_localized_text(plr.content),
+        u'Theme': renderer.format_theme(plr.theme),
+        u'Lawstatus': u'inForce',
+        u'Area': None,
+        u'Symbol': None,
+        u'ResponsibleOffice': renderer.format_office(plr.responsible_office),
+        u'Map': renderer.format_map(plr.view_service),
+        u'SubTheme': u'Subtopic',
+        u'OtherTheme': u'Additional topic',
+        u'TypeCode': u'TypeCode',
+        u'TypeCodelist': u'TypeCodeList'
+    }
