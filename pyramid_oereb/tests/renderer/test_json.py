@@ -302,3 +302,24 @@ def test_format_map(config, params):
         'LegendAtWeb': 'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
         'OtherLegend': [renderer.format_legend_entry(legend_entry)]
     }
+
+
+def test_format_legend_entry(config, params):
+    assert isinstance(config._config, dict)
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language_ = u'de'
+    renderer._params_ = params
+    theme = ThemeRecord('test', {'de': 'Test'})
+    legend_entry = LegendEntryRecord(bin(1), {'de': 'Legendeneintrag'}, 'type1', 'type_code_list', theme,
+                                     'Subthema', 'Weiteres Thema')
+    result = renderer.format_legend_entry(legend_entry)
+    assert isinstance(result, dict)
+    assert result == {
+        'Symbol': bin(1),
+        'LegendText': renderer.get_localized_text({'de': 'Legendeneintrag'}),
+        'TypeCode': 'type1',
+        'TypeCodelist': 'type_code_list',
+        'Theme': renderer.format_theme(theme),
+        'SubTheme': 'Subthema',
+        'OtherTheme': 'Weiteres Thema'
+    }
