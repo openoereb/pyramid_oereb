@@ -14,7 +14,7 @@ from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
-from pyramid_oereb.lib.records.view_service import ViewServiceRecord
+from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
 from pyramid_oereb.tests.renderer import DummyRenderInfo
 from pyramid_oereb.views.webservice import Parameter
@@ -280,5 +280,25 @@ def test_format_theme(config, params):
     assert isinstance(result, dict)
     assert result == {
         'Code': 'TestTheme',
-        'Text': [{'Language': 'de', 'Text': 'Test-Thema'}]
+        'Text': renderer.get_localized_text({'de': 'Test-Thema'})
+    }
+
+
+def test_format_map(config, params):
+    assert isinstance(config._config, dict)
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language_ = u'de'
+    renderer._params_ = params
+    legend_entry = LegendEntryRecord(bin(1), {'de': 'Legendeneintrag'}, 'type1', 'type_code_list',
+                                     ThemeRecord('test', {'de': 'Test'}))
+    view_service = ViewServiceRecord('http://my.wms.ch',
+                                     'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic', [legend_entry])
+    view_service.image = base64.b64encode(bin(1))
+    result = renderer.format_map(view_service)
+    assert isinstance(result, dict)
+    assert result == {
+        'Image': base64.b64encode(bin(1)),
+        'ReferenceWMS': 'http://my.wms.ch',
+        'LegendAtWeb': 'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
+        'OtherLegend': [renderer.format_legend_entry(legend_entry)]
     }
