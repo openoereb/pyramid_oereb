@@ -6,6 +6,7 @@ import datetime
 import pytest
 from shapely.geometry import MultiPolygon, Polygon
 
+from pyramid_oereb.lib.records.documents import LegalProvisionRecord, ArticleRecord, DocumentRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
@@ -167,3 +168,56 @@ def test_format_plr(config, params):
         u'TypeCode': u'TypeCode',
         u'TypeCodelist': u'TypeCodeList'
     }
+
+
+@pytest.mark.parametrize('document,result_dict', [
+    (LegalProvisionRecord('inForce', datetime.date.today(), {'de': 'Test Rechtsvorschrift'},
+                          OfficeRecord({'de': 'AGI'}), {'de': 'http://meine.rechtsvorschrift.ch'},
+                          {'de': 'Test'}, 'rv.test.1', {'de': 'Rechtsvorschrift Test'}, 'BL', 'Liestal',
+                          ['Art.1', 'Art.2', 'Art.3'], bin(1), [
+                              ArticleRecord('inForce', datetime.date.today(), 'art.1')
+                          ], [
+                              DocumentRecord('inForce', datetime.date.today(), {'de': 'Test Dokument'},
+                                             OfficeRecord({'de': 'BUD'}), {'de': 'http://mein.dokument.ch'})
+                          ]), {
+        'Lawstatus': 'inForce',
+        'TextAtWeb': [{'Language': 'de', 'Text': 'http://meine.rechtsvorschrift.ch'}],
+        'Title': [{'Language': 'de', 'Text': 'Test Rechtsvorschrift'}],
+        'ResponsibleOffice': {
+            'Name': [{'Language': 'de', 'Text': 'AGI'}]
+        },
+        'OfficialTitle': [{'Language': 'de', 'Text': 'Rechtsvorschrift Test'}],
+        'Abbrevation': [{'Language': 'de', 'Text': 'Test'}],
+        'OfficialNumber': 'rv.test.1',
+        'Canton': 'BL',
+        'Municipality': 'Liestal',
+        'ArticleNumber': ['Art.1', 'Art.2', 'Art.3'],
+        'Article': [{
+            'Lawstatus': 'inForce',
+            'Number': 'art.1'
+        }],
+        'Reference': [{
+            'Lawstatus': 'inForce',
+            'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.dokument.ch'}],
+            'Title': [{'Language': 'de', 'Text': 'Test Dokument'}],
+            'ResponsibleOffice': {
+                'Name': [{'Language': 'de', 'Text': 'BUD'}]
+            }
+        }]
+    }),
+    (ArticleRecord('inForce', datetime.date.today(), 'art.2', {'de': 'http://mein.artikel.ch/2'},
+                   {'de': 'Test-Artikel'}), {
+        'Lawstatus': 'inForce',
+        'Number': 'art.2',
+        'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.artikel.ch/2'}],
+        'Text': [{'Language': 'de', 'Text': 'Test-Artikel'}]
+    })
+])
+def test_format_document(config, params, document, result_dict):
+    assert isinstance(config._config, dict)
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language_ = u'de'
+    renderer._params_ = params
+    result = renderer.format_document(document)
+    assert isinstance(result, dict)
+    assert result == result_dict

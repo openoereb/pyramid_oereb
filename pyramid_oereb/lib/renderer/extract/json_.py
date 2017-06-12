@@ -275,6 +275,8 @@ class Renderer(Base):
                     reference_list.append(self.format_document(reference))
                 document_dict['Reference'] = reference_list
 
+            # TODO: Add output for binary file.
+
         elif isinstance(document, ArticleRecord):
             document_dict.update({
                 'Lawstatus': document.legal_state,
