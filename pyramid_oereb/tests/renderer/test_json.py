@@ -4,10 +4,11 @@ from json import loads
 
 import datetime
 import pytest
-from shapely.geometry import MultiPolygon, Polygon
+from shapely.geometry import MultiPolygon, Polygon, Point, LineString
 
 from pyramid_oereb.lib.records.documents import LegalProvisionRecord, ArticleRecord, DocumentRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
+from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
@@ -219,5 +220,51 @@ def test_format_document(config, params, document, result_dict):
     renderer._language_ = u'de'
     renderer._params_ = params
     result = renderer.format_document(document)
+    assert isinstance(result, dict)
+    assert result == result_dict
+
+
+@pytest.mark.parametrize('geometry,result_dict', [
+    (GeometryRecord('inForce', datetime.date.today(), Point(0, 0), geo_metadata='http://www.geocat.ch',
+                    office=OfficeRecord({'de': 'AGI'})),  {
+        'Lawstatus': 'inForce',
+        'ResponsibleOffice': {
+            'Name': [{'Language': 'de', 'Text': 'AGI'}]
+        },
+        'MetadataOfGeographicalBaseData': 'http://www.geocat.ch',
+        'Point': {
+            'crs': 'EPSG:2056',
+            'coordinates': (0, 0)
+        }
+    }),
+    (GeometryRecord('inForce', datetime.date.today(), LineString([(0, 0), (1, 1)]),
+                    office=OfficeRecord({'de': 'AGI'})),  {
+        'Lawstatus': 'inForce',
+        'ResponsibleOffice': {
+            'Name': [{'Language': 'de', 'Text': 'AGI'}]
+        },
+        'Line': {
+            'crs': 'EPSG:2056',
+            'coordinates': ((0, 0), (1, 1))
+        }
+    }),
+    (GeometryRecord('inForce', datetime.date.today(), Polygon([(0, 0), (1, 1), (1, 0)]),
+                    office=OfficeRecord({'de': 'AGI'})),  {
+        'Lawstatus': 'inForce',
+        'ResponsibleOffice': {
+            'Name': [{'Language': 'de', 'Text': 'AGI'}]
+        },
+        'Surface': {
+            'crs': 'EPSG:2056',
+            'coordinates': (((0, 0), (1, 1), (1, 0), (0, 0)), )
+        }
+    })
+])
+def test_format_geometry(config, params, geometry, result_dict):
+    assert isinstance(config._config, dict)
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language_ = u'de'
+    renderer._params_ = params
+    result = renderer.format_geometry(geometry)
     assert isinstance(result, dict)
     assert result == result_dict
