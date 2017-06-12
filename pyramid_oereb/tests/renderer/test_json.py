@@ -268,3 +268,17 @@ def test_format_geometry(config, params, geometry, result_dict):
     result = renderer.format_geometry(geometry)
     assert isinstance(result, dict)
     assert result == result_dict
+
+
+def test_format_theme(config, params):
+    assert isinstance(config._config, dict)
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language_ = u'de'
+    renderer._params_ = params
+    theme = ThemeRecord('TestTheme', {'de': 'Test-Thema'})
+    result = renderer.format_theme(theme)
+    assert isinstance(result, dict)
+    assert result == {
+        'Code': 'TestTheme',
+        'Text': [{'Language': 'de', 'Text': 'Test-Thema'}]
+    }
