@@ -3,6 +3,9 @@
 
 class RealEstateRecord(object):
 
+    areas_ratio = 1.0
+    """decimal: Ratio of geometrical area and area from land registry."""
+
     def __init__(self, type, canton, municipality, fosnr, land_registry_area, limit,
                  metadata_of_geographical_base_data=None, number=None, identdn=None, egrid=None,
                  subunit_of_land_register=None, public_law_restrictions=None, references=None,
@@ -11,18 +14,18 @@ class RealEstateRecord(object):
         Basic caracteristics and geometry of the property to be analysed.
 
         Args:
-            type (str): The property type
-            canton (str): The abbreviation of the canton the property is located in
-            municipality (str): The municipality the property is located in
+            type (unicode): The property type
+            canton (unicode): The abbreviation of the canton the property is located in
+            municipality (unicode): The municipality the property is located in
             fosnr (integer): The federal number of the municipality defined by the statistics office
             land_registry_area (integer): Area of the property as defined in the land registry
             limit (shapely.geometry.MultiPolygon): The boundary of the property as geometry in as shapely
                 multi polygon
             metadata_of_geographical_base_data (uri): Link to the metadata of the geodata
-            number (str or None):  The official cantonal number of the property
-            identdn (str or None): The unique identifier of the property
-            egrid (str or None): The federal property identifier
-            subunit_of_land_register (str or None): Subunit of the land register if existing
+            number (unicode or None):  The official cantonal number of the property
+            identdn (unicode or None): The unique identifier of the property
+            egrid (unicode or None): The federal property identifier
+            subunit_of_land_register (unicode or None): Subunit of the land register if existing
             public_law_restrictions (list of pyramid_oereb.lib.records.plr.PlrRecord or None): List of public
                 law restrictions for this real estate
             references (list of pyramid_oereb.lib.records.documents.DocumentRecord or None): Documents

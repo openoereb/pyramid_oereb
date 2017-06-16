@@ -9,8 +9,8 @@ class ExclusionOfLiabilityRecord(object):
         Represents a exclusion of liability entry with the label and it's message.
 
         Args:
-            title (dict): The multilingual disclaimer message label
-            content (dict): The multilingual disclaimer message.
+            title (dict of unicode): The multilingual disclaimer message label
+            content (dict of unicode): The multilingual disclaimer message.
         """
         if not isinstance(title, dict):
             warnings.warn('Type of "title" should be "dict"')

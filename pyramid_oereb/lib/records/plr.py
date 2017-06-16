@@ -18,10 +18,16 @@ class EmptyPlrRecord(object):
 
 
 class PlrRecord(EmptyPlrRecord):
+
     # Attributes added or calculated by the processor
     area = None
+    """decimal: Area of the restriction touching the property calculated by the processor."""
+
     part_in_percent = None
+    """decimal: Part of the property area touched by the restriction in percent."""
+
     symbol = None
+    """binary or None: Symbol of the restriction defined for the legend entry - added on the fly."""
 
     def __init__(self, theme, content, legal_state, published_from, responsible_office, subtopic=None,
                  additional_topic=None, type_code=None, type_code_list=None, view_service=None, basis=None,
@@ -30,16 +36,16 @@ class PlrRecord(EmptyPlrRecord):
         Public law restriction record.
 
         Args:
-            content (dict): The PLR record's content (multilingual).
+            content (dict of unicode): The PLR record's content (multilingual).
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.
-            legal_state (str): The PLR record's legal state.
+            legal_state (unicode): The PLR record's legal state.
             published_from (datetime.date): Date from/since when the PLR record is published.
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is responsible
                 for this PLR.
-            subtopic (str): Optional subtopic.
-            additional_topic (str): Optional additional topic.
-            type_code (str): The PLR record's type code (also used by view service).
-            type_code_list (str): URL to the PLR's list of type codes.
+            subtopic (unicode): Optional subtopic.
+            additional_topic (unicode): Optional additional topic.
+            type_code (unicode): The PLR record's type code (also used by view service).
+            type_code_list (unicode): URL to the PLR's list of type codes.
             view_service (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service instance
                 associated with this record.
             basis (list of PlrRecord): List of PLR records as basis for this record.
@@ -48,9 +54,6 @@ class PlrRecord(EmptyPlrRecord):
                 associated with this record.
             geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of geometry records
                 associated with this record.
-            area (decimal): Area of the restriction touching the property calculated by the processor.
-            part_in_percent (decimal): Part of the property area touched by the restriction in percent.
-            symbol (binary): Symbol of the restriction defined for the legend entry - added on the fly.
             info (dict or None): The information read from the config.
         """
         super(PlrRecord, self).__init__(theme)
@@ -88,10 +91,5 @@ class PlrRecord(EmptyPlrRecord):
 
     @property
     def published(self):
-        """
-        Returns true if its not a future PLR.
-
-        Returns:
-            bool: True if PLR is published.
-        """
+        """bool: True if PLR is published."""
         return not self.published_from > datetime.now().date()

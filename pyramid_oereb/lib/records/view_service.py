@@ -21,13 +21,13 @@ class LegendEntryRecord(object):
 
         Args:
             symbol (binary): The binary file content of the legend image.
-            legend_text (dict): The multilingual description text for the legend entry.
-            type_code (str): The class of the legend entry corresponding to the plrs classes.
-            type_code_list (str): An URL to the type code list.
+            legend_text (dict of unicode): The multilingual description text for the legend entry.
+            type_code (unicode): The class of the legend entry corresponding to the plrs classes.
+            type_code_list (unicode): An URL to the type code list.
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend entry belongs
                 to.
-            sub_theme (str): Theme sub category.
-            additional_theme (str): Additional theme linked to this theme.
+            sub_theme (unicode): Theme sub category.
+            additional_theme (unicode): Additional theme linked to this theme.
         """
         if not isinstance(legend_text, dict):
             warnings.warn('Type of "legend_text" should be "dict"')
@@ -42,15 +42,17 @@ class LegendEntryRecord(object):
 
 
 class ViewServiceRecord(object):
+
     # Attributes defined while processing
     image = None    # map image resulting from calling the wms link - binary
+    """binary or None: Binary image content downloaded from WMS link."""
 
     def __init__(self, link_wms, legend_web, legends=None):
         """
 
         Args:
-            link_wms (str): The link URL to the actual service (WMS)
-            legend_web (str): The link URL to the actual legend service (WMS get legend)
+            link_wms (uri): The link URL to the actual service (WMS)
+            legend_web (uri): The link URL to the actual legend service (WMS get legend)
             legends (list of LegendEntry): A list of all relevant legend entries.
         """
         self.link_wms = link_wms
@@ -108,8 +110,10 @@ class ViewServiceRecord(object):
     def download_wms_content(self):
         """
         Simply downloads the image found behind the URL stored in the instance attribute "link_wms".
-        :raises: LookupError if the response is not code 200
-        :raises: AttributeError if the URL itself isn't valid at all.
+
+        Raises:
+            LookupError: Raised if the response is not code 200
+            AttributeError: Raised if the URL itself isn't valid at all.
         """
         # TODO: Check better for a image as response than only code 200...
         main_msg = "Image for WMS couldn't be retrieved."
