@@ -57,10 +57,10 @@
 <span class="sd">        Geometry record</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            legal_state (str): The PLR record&#39;s legal state.</span>
+<span class="sd">            legal_state (unicode): The PLR record&#39;s legal state.</span>
 <span class="sd">            published_from (datetime.date): Date from/since when the PLR record is published.</span>
 <span class="sd">            geom (shapely.geometry.base.BaseGeometry): The geometry</span>
-<span class="sd">            geo_metadata (str): The metadata</span>
+<span class="sd">            geo_metadata (uri): The metadata.</span>
 <span class="sd">            public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law</span>
 <span class="sd">                restriction</span>
 <span class="sd">            office (pyramid_oereb.lib.records.office.Office): The office</span>
@@ -80,12 +80,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">published</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns true if its not a future geometry.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            bool: True if geometry is published.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;bool: True if geometry is published.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
 
     <span class="nd">@staticmethod</span>

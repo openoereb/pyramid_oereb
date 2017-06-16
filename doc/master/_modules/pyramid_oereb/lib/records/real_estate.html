@@ -48,6 +48,9 @@
 
 <div class="viewcode-block" id="RealEstateRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord">[docs]</a><span class="k">class</span> <span class="nc">RealEstateRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
+    <span class="n">areas_ratio</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="sd">&quot;&quot;&quot;decimal: Ratio of geometrical area and area from land registry.&quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">canton</span><span class="p">,</span> <span class="n">municipality</span><span class="p">,</span> <span class="n">fosnr</span><span class="p">,</span> <span class="n">land_registry_area</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span>
                  <span class="n">metadata_of_geographical_base_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">identdn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">egrid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">subunit_of_land_register</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">public_law_restrictions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">references</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -56,18 +59,18 @@
 <span class="sd">        Basic caracteristics and geometry of the property to be analysed.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            type (str): The property type</span>
-<span class="sd">            canton (str): The abbreviation of the canton the property is located in</span>
-<span class="sd">            municipality (str): The municipality the property is located in</span>
+<span class="sd">            type (unicode): The property type</span>
+<span class="sd">            canton (unicode): The abbreviation of the canton the property is located in</span>
+<span class="sd">            municipality (unicode): The municipality the property is located in</span>
 <span class="sd">            fosnr (integer): The federal number of the municipality defined by the statistics office</span>
 <span class="sd">            land_registry_area (integer): Area of the property as defined in the land registry</span>
 <span class="sd">            limit (shapely.geometry.MultiPolygon): The boundary of the property as geometry in as shapely</span>
 <span class="sd">                multi polygon</span>
 <span class="sd">            metadata_of_geographical_base_data (uri): Link to the metadata of the geodata</span>
-<span class="sd">            number (str or None):  The official cantonal number of the property</span>
-<span class="sd">            identdn (str or None): The unique identifier of the property</span>
-<span class="sd">            egrid (str or None): The federal property identifier</span>
-<span class="sd">            subunit_of_land_register (str or None): Subunit of the land register if existing</span>
+<span class="sd">            number (unicode or None):  The official cantonal number of the property</span>
+<span class="sd">            identdn (unicode or None): The unique identifier of the property</span>
+<span class="sd">            egrid (unicode or None): The federal property identifier</span>
+<span class="sd">            subunit_of_land_register (unicode or None): Subunit of the land register if existing</span>
 <span class="sd">            public_law_restrictions (list of pyramid_oereb.lib.records.plr.PlrRecord or None): List of public</span>
 <span class="sd">                law restrictions for this real estate</span>
 <span class="sd">            references (list of pyramid_oereb.lib.records.documents.DocumentRecord or None): Documents</span>

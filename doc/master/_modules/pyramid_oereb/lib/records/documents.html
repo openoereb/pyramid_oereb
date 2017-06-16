@@ -55,9 +55,9 @@
 <span class="sd">        The base document class.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            legal_state (str): Key string of the law status.</span>
+<span class="sd">            legal_state (unicode): Key string of the law status.</span>
 <span class="sd">            published_from (datetime.date): Date since this document was published.</span>
-<span class="sd">            text_at_web (dict): The multilingual URI to the documents content.</span>
+<span class="sd">            text_at_web (dict of uri): The multilingual URI to the documents content.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">text_at_web</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text_at_web</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;text_at_web&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
@@ -84,11 +84,11 @@
 <span class="sd">        More specific document class representing articles.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            legal_state (str): Key string of the law status.</span>
+<span class="sd">            legal_state (unicode): Key string of the law status.</span>
 <span class="sd">            published_from (datetime.date): Date since this document was published.</span>
-<span class="sd">            number (str): The identifier of the article as a law.</span>
-<span class="sd">            text_at_web (dict): The URI to the documents content (multilingual).</span>
-<span class="sd">            text (dict): Text in the article (multilingual).</span>
+<span class="sd">            number (unicode): The identifier of the article as a law.</span>
+<span class="sd">            text_at_web (dict of uri): The URI to the documents content (multilingual).</span>
+<span class="sd">            text (dict of unicode): Text in the article (multilingual).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ArticleRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">legal_state</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">text_at_web</span><span class="p">)</span>
 
@@ -108,18 +108,18 @@
 <span class="sd">        More specific document class representing real documents.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            legal_state (str):  Key string of the law status.</span>
+<span class="sd">            legal_state (unicode):  Key string of the law status.</span>
 <span class="sd">            published_from (datetime.date): Date since this document was published.</span>
-<span class="sd">            title (dict): The multilingual title of the document. It might be shortened one.</span>
+<span class="sd">            title (dict of unicode): The multilingual title of the document. It might be shortened one.</span>
 <span class="sd">            responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is</span>
 <span class="sd">                responsible for this document.</span>
-<span class="sd">            text_at_web (dict): The multilingual URI to the documents content.</span>
-<span class="sd">            official_title (dict): The official title of the document (multilingual).</span>
-<span class="sd">            abbreviation (dict): Short term for this document (multilingual).</span>
-<span class="sd">            official_number (str): The official number for identification of this document.</span>
-<span class="sd">            canton (str): The cantonal short term (length of two, like &#39;NE&#39; or &#39;BL&#39;)</span>
-<span class="sd">            municipality (str): The code for the municipality.</span>
-<span class="sd">            article_numbers (list of str): Pointers to specific articles.</span>
+<span class="sd">            text_at_web (dict of uri): The multilingual URI to the documents content.</span>
+<span class="sd">            official_title (dict of unicode): The official title of the document (multilingual).</span>
+<span class="sd">            abbreviation (dict of unicode): Short term for this document (multilingual).</span>
+<span class="sd">            official_number (unicode): The official number for identification of this document.</span>
+<span class="sd">            canton (unicode): The cantonal short term (length of two, like &#39;NE&#39; or &#39;BL&#39;)</span>
+<span class="sd">            municipality (unicode): The code for the municipality.</span>
+<span class="sd">            article_numbers (list of unicode): Pointers to specific articles.</span>
 <span class="sd">            file (bytes): The binary content of the document.</span>
 <span class="sd">            articles (list of ArticleRecord): The linked articles.</span>
 <span class="sd">            references (list of DocumentRecord): The references to other documents.</span>

@@ -48,31 +48,21 @@
 
 
 <div class="viewcode-block" id="OfficeRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.office.OfficeRecord">[docs]</a><span class="k">class</span> <span class="nc">OfficeRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">uid</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">office_at_web</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">line1</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">line2</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">street</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">number</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">postal_code</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">city</span> <span class="o">=</span> <span class="kc">None</span>
-
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">uid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">office_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">street</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postal_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">city</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Responsible office record.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            name (dict):  The official name of the authority (multilingual)</span>
-<span class="sd">            uid (str): The unique identifier of the authority in the federal register</span>
-<span class="sd">            office_at_web (str): The URL to the office&#39;s homepage</span>
-<span class="sd">            line1 (str): Complementary address information</span>
-<span class="sd">            line2 (str): Complementary address information</span>
-<span class="sd">            street (str): The street where the authority is located</span>
-<span class="sd">            number (str): House number</span>
+<span class="sd">            name (dict of unicode):  The official name of the authority (multilingual)</span>
+<span class="sd">            uid (unicode): The unique identifier of the authority in the federal register</span>
+<span class="sd">            office_at_web (unicode): The URL to the office&#39;s homepage</span>
+<span class="sd">            line1 (unicode): Complementary address information</span>
+<span class="sd">            line2 (unicode): Complementary address information</span>
+<span class="sd">            street (unicode): The street where the authority is located</span>
+<span class="sd">            number (unicode): House number</span>
 <span class="sd">            postal_code (integer): ZIP Code of the</span>
-<span class="sd">            postal_code (str): The city where the authority is located</span>
+<span class="sd">            city (unicode): The city where the authority is located</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;name&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>

@@ -66,13 +66,13 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            symbol (binary): The binary file content of the legend image.</span>
-<span class="sd">            legend_text (dict): The multilingual description text for the legend entry.</span>
-<span class="sd">            type_code (str): The class of the legend entry corresponding to the plrs classes.</span>
-<span class="sd">            type_code_list (str): An URL to the type code list.</span>
+<span class="sd">            legend_text (dict of unicode): The multilingual description text for the legend entry.</span>
+<span class="sd">            type_code (unicode): The class of the legend entry corresponding to the plrs classes.</span>
+<span class="sd">            type_code_list (unicode): An URL to the type code list.</span>
 <span class="sd">            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend entry belongs</span>
 <span class="sd">                to.</span>
-<span class="sd">            sub_theme (str): Theme sub category.</span>
-<span class="sd">            additional_theme (str): Additional theme linked to this theme.</span>
+<span class="sd">            sub_theme (unicode): Theme sub category.</span>
+<span class="sd">            additional_theme (unicode): Additional theme linked to this theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">legend_text</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;legend_text&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
@@ -87,15 +87,17 @@
 
 
 <div class="viewcode-block" id="ViewServiceRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.view_service.ViewServiceRecord">[docs]</a><span class="k">class</span> <span class="nc">ViewServiceRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
     <span class="c1"># Attributes defined while processing</span>
     <span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>    <span class="c1"># map image resulting from calling the wms link - binary</span>
+    <span class="sd">&quot;&quot;&quot;binary or None: Binary image content downloaded from WMS link.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link_wms</span><span class="p">,</span> <span class="n">legend_web</span><span class="p">,</span> <span class="n">legends</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            link_wms (str): The link URL to the actual service (WMS)</span>
-<span class="sd">            legend_web (str): The link URL to the actual legend service (WMS get legend)</span>
+<span class="sd">            link_wms (uri): The link URL to the actual service (WMS)</span>
+<span class="sd">            legend_web (uri): The link URL to the actual legend service (WMS get legend)</span>
 <span class="sd">            legends (list of LegendEntry): A list of all relevant legend entries.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">link_wms</span> <span class="o">=</span> <span class="n">link_wms</span>
@@ -153,8 +155,10 @@
 <div class="viewcode-block" id="ViewServiceRecord.download_wms_content"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.view_service.ViewServiceRecord.download_wms_content">[docs]</a>    <span class="k">def</span> <span class="nf">download_wms_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Simply downloads the image found behind the URL stored in the instance attribute &quot;link_wms&quot;.</span>
-<span class="sd">        :raises: LookupError if the response is not code 200</span>
-<span class="sd">        :raises: AttributeError if the URL itself isn&#39;t valid at all.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            LookupError: Raised if the response is not code 200</span>
+<span class="sd">            AttributeError: Raised if the URL itself isn&#39;t valid at all.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: Check better for a image as response than only code 200...</span>
         <span class="n">main_msg</span> <span class="o">=</span> <span class="s2">&quot;Image for WMS couldn&#39;t be retrieved.&quot;</span>

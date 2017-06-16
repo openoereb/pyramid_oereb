@@ -50,15 +50,32 @@
 
 
 <div class="viewcode-block" id="ExtractRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.extract.ExtractRecord">[docs]</a><span class="k">class</span> <span class="nc">ExtractRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
     <span class="c1"># Attributes calculated or defined while processing</span>
     <span class="n">creation_date</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;datetime.date: Date of extract generation.&quot;&quot;&quot;</span>
+
     <span class="n">electronic_signature</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;unicode or None: Digital signature for the extract.&quot;&quot;&quot;</span>
+
     <span class="n">concerned_theme</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;list of pyramid_oereb.lib.records.theme.ThemeRecord: List of concerned themes.&quot;&quot;&quot;</span>
+
     <span class="n">not_concerned_theme</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;list of pyramid_oereb.lib.records.theme.ThemeRecord: List of not concerned themes.&quot;&quot;&quot;</span>
+
     <span class="n">theme_without_data</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;list of pyramid_oereb.lib.records.theme.ThemeRecord: List of themes without data.&quot;&quot;&quot;</span>
+
     <span class="n">is_reduced</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="sd">&quot;&quot;&quot;bool: True if the extract flavour is reduced.&quot;&quot;&quot;</span>
+
     <span class="n">extract_identifier</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;unicode: The extract identifier (UUID).&quot;&quot;&quot;</span>
+
     <span class="n">qr_code</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;binary or None: QR code for the extract as binary string.&quot;&quot;&quot;</span>
+
     <span class="n">plr_cadastre_authority</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">logo_plr_cadastre</span><span class="p">,</span> <span class="n">federal_logo</span><span class="p">,</span> <span class="n">cantonal_logo</span><span class="p">,</span> <span class="n">municipality_logo</span><span class="p">,</span>
@@ -78,7 +95,7 @@
 <span class="sd">                logo.</span>
 <span class="sd">            plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority which is</span>
 <span class="sd">                responsible for the PLR cadastre.</span>
-<span class="sd">            base_data (dict of str): A multilingual list of basic data layers used by the extract. For</span>
+<span class="sd">            base_data (dict of unicode): A multilingual list of basic data layers used by the extract. For</span>
 <span class="sd">                instance the base map from swisstopo.</span>
 <span class="sd">            exclusions_of_liability (list of</span>
 <span class="sd">                pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord): Exclusions of</span>
@@ -90,7 +107,8 @@
 <span class="sd">                themes.</span>
 <span class="sd">            theme_without_data (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Themes without</span>
 <span class="sd">                data.</span>
-<span class="sd">            general_information (dict): General information for the static extract as multilingual text.</span>
+<span class="sd">            general_information (dict of unicode): General information for the static extract as multilingual</span>
+<span class="sd">                text.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">base_data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;base_data&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>

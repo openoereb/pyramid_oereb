@@ -27308,19 +27308,27 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 <dt id="pyramid_oereb.lib.records.plr.PlrRecord">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.plr.</code><code class="descname">PlrRecord</code><span class="sig-paren">(</span><em>theme</em>, <em>content</em>, <em>legal_state</em>, <em>published_from</em>, <em>responsible_office</em>, <em>subtopic=None</em>, <em>additional_topic=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>view_service=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>geometries=None</em>, <em>info=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/plr.html#PlrRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
+<dt id="pyramid_oereb.lib.records.plr.PlrRecord.area">
+<code class="descname">area</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.area" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>decimal</em> &#8211; Area of the restriction touching the property calculated by the processor.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.plr.PlrRecord.part_in_percent">
+<code class="descname">part_in_percent</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.part_in_percent" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>decimal</em> &#8211; Part of the property area touched by the restriction in percent.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="pyramid_oereb.lib.records.plr.PlrRecord.published">
 <code class="descname">published</code><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.published" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns true if its not a future PLR.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if PLR is published.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>bool</em> &#8211; True if PLR is published.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.plr.PlrRecord.symbol">
+<code class="descname">symbol</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>binary or None</em> &#8211; Symbol of the restriction defined for the legend entry - added on the fly.</p>
 </dd></dl>
 
 </dd></dl>
@@ -27433,17 +27441,7 @@ estate record.</li>
 <dl class="attribute">
 <dt id="pyramid_oereb.lib.records.geometry.GeometryRecord.published">
 <code class="descname">published</code><a class="headerlink" href="#pyramid_oereb.lib.records.geometry.GeometryRecord.published" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns true if its not a future geometry.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if geometry is published.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>bool</em> &#8211; True if geometry is published.</p>
 </dd></dl>
 
 </dd></dl>
@@ -27470,7 +27468,13 @@ estate record.</li>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.real_estate.</code><code class="descname">RealEstateRecord</code><span class="sig-paren">(</span><em>type</em>, <em>canton</em>, <em>municipality</em>, <em>fosnr</em>, <em>land_registry_area</em>, <em>limit</em>, <em>metadata_of_geographical_base_data=None</em>, <em>number=None</em>, <em>identdn=None</em>, <em>egrid=None</em>, <em>subunit_of_land_register=None</em>, <em>public_law_restrictions=None</em>, <em>references=None</em>, <em>plan_for_land_register=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/real_estate.html#RealEstateRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><dl class="attribute">
+<dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord.areas_ratio">
+<code class="descname">areas_ratio</code><em class="property"> = 1.0</em><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord.areas_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>decimal</em> &#8211; Ratio of geometrical area and area from land registry.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord.set_view_service">
 <code class="descname">set_view_service</code><span class="sig-paren">(</span><em>plan_for_land_register</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/real_estate.html#RealEstateRecord.set_view_service"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord.set_view_service" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the view service to generate the land registry map for the real estate.</p>
@@ -27501,7 +27505,55 @@ service to be used for the land registry map.</td>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.extract.ExtractRecord">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.extract.</code><code class="descname">ExtractRecord</code><span class="sig-paren">(</span><em>real_estate</em>, <em>logo_plr_cadastre</em>, <em>federal_logo</em>, <em>cantonal_logo</em>, <em>municipality_logo</em>, <em>plr_cadastre_authority</em>, <em>base_data</em>, <em>exclusions_of_liability=None</em>, <em>glossaries=None</em>, <em>concerned_theme=None</em>, <em>not_concerned_theme=None</em>, <em>theme_without_data=None</em>, <em>general_information=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/extract.html#ExtractRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="attribute">
+<dt id="pyramid_oereb.lib.records.extract.ExtractRecord.concerned_theme">
+<code class="descname">concerned_theme</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord.concerned_theme" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.theme.ThemeRecord</em> &#8211; List of concerned themes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.extract.ExtractRecord.creation_date">
+<code class="descname">creation_date</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord.creation_date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; Date of extract generation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.extract.ExtractRecord.electronic_signature">
+<code class="descname">electronic_signature</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord.electronic_signature" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode or None</em> &#8211; Digital signature for the extract.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.extract.ExtractRecord.extract_identifier">
+<code class="descname">extract_identifier</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord.extract_identifier" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The extract identifier (UUID).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.extract.ExtractRecord.is_reduced">
+<code class="descname">is_reduced</code><em class="property"> = False</em><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord.is_reduced" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bool</em> &#8211; True if the extract flavour is reduced.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.extract.ExtractRecord.not_concerned_theme">
+<code class="descname">not_concerned_theme</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord.not_concerned_theme" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.theme.ThemeRecord</em> &#8211; List of not concerned themes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.extract.ExtractRecord.qr_code">
+<code class="descname">qr_code</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord.qr_code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>binary or None</em> &#8211; QR code for the extract as binary string.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.extract.ExtractRecord.theme_without_data">
+<code class="descname">theme_without_data</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord.theme_without_data" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.theme.ThemeRecord</em> &#8211; List of themes without data.</p>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="module-pyramid_oereb.lib.records.address">
@@ -27533,9 +27585,19 @@ service to be used for the land registry map.</td>
 <dd><dl class="method">
 <dt id="pyramid_oereb.lib.records.view_service.ViewServiceRecord.download_wms_content">
 <code class="descname">download_wms_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord.download_wms_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord.download_wms_content" title="Permalink to this definition">¶</a></dt>
-<dd><p>Simply downloads the image found behind the URL stored in the instance attribute &#8220;link_wms&#8221;.
-:raises: LookupError if the response is not code 200
-:raises: AttributeError if the URL itself isn&#8217;t valid at all.</p>
+<dd><p>Simply downloads the image found behind the URL stored in the instance attribute &#8220;link_wms&#8221;.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">LookupError</span></code> &#8211; Raised if the response is not code 200</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">AttributeError</span></code> &#8211; Raised if the URL itself isn&#8217;t valid at all.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -27555,6 +27617,12 @@ Estate record.</td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.view_service.ViewServiceRecord.image">
+<code class="descname">image</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord.image" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>binary or None</em> &#8211; Binary image content downloaded from WMS link.</p>
 </dd></dl>
 
 </dd></dl>
