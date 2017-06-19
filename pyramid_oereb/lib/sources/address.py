@@ -55,6 +55,7 @@ class AddressGeoAdminSource(AddressBaseSource):
         kwargs (dict): Keyword arguments to configure the source:
 
             - geoadmin_search_api (uri): Url of the GeoAdmin API's search service. (**required**)
+            - origins (str or list of str): Filter results by origin. Defaults to *address*. (**optional**)
             - proxies (dict): Proxy definition according to
                 http://docs.python-requests.org/en/master/user/advanced/#proxies. (**optional**)
     """
@@ -63,6 +64,13 @@ class AddressGeoAdminSource(AddressBaseSource):
         self._geoadmin_url_ = kwargs.get('geoadmin_search_api')
         self._type_ = 'locations'
         self._proxies_ = kwargs.get('proxies')
+        if 'origins' in kwargs:
+            origins = kwargs.get('origins')
+            if isinstance(origins, list):
+                origins = ','.join(origins)
+            self._origins_ = origins
+        else:
+            self._origins_ = 'address'
 
     def read(self, street_name, zip_code, street_number):
         """
@@ -75,6 +83,7 @@ class AddressGeoAdminSource(AddressBaseSource):
         """
         params = {
             'type': self._type_,
+            'origins': self._origins_,
             'searchText': '{0} {1} {2}'.format(zip_code, street_name, street_number)
         }
         response = requests.get(self._geoadmin_url_, params=params, proxies=self._proxies_)
@@ -83,8 +92,9 @@ class AddressGeoAdminSource(AddressBaseSource):
             data = response.json()
             if 'results' in data:
                 for address in data.get('results'):
-                    # Create Address record for each result
+                    # TODO: Create address record(s) from response when geometry is available.
                     pass
+                    # self.records.append(AddressRecord())
         else:
             response.raise_for_status()
 
