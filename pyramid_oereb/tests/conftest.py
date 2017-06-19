@@ -221,8 +221,8 @@ def connection(config):
     connection_.execute(LineViewService.__table__.insert(), {
         'id': 1,
         'link_wms': u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&'
-                    u'SRS=EPSG:21781&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&'
-                    u'LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
+                    u'SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&'
+                    u'LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'.format(Config.get('srid'))
     })
     connection_.execute(LineOffice.__table__.insert(), {
         'id': 1,
@@ -365,8 +365,8 @@ def connection(config):
     connection_.execute(contaminated_sites.ViewService.__table__.insert(), {
         'id': 1,
         'link_wms': u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&'
-                    u'SRS=EPSG:21781&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&'
-                    u'LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
+                    u'SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&'
+                    u'LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'.format(Config.get('srid'))
     })
 
     connection_.execute(contaminated_sites.Office.__table__.insert(), {
@@ -449,8 +449,8 @@ def connection(config):
     connection_.execute(land_use_plans.ViewService.__table__.insert(), {
         'id': 1,
         'link_wms': u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&'
-                    u'SRS=EPSG:21781&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&'
-                    u'LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
+                    u'SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&'
+                    u'LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'.format(Config.get('srid'))
     })
 
     connection_.execute(land_use_plans.Office.__table__.insert(), {

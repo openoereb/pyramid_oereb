@@ -2,7 +2,7 @@
 import logging
 from datetime import datetime
 from pyramid_oereb.lib.config import Config
-from shapely.geometry import Point, LineString, Polygon, MultiPolygon
+from shapely.geometry import Point, LineString, Polygon
 
 log = logging.getLogger('pyramid_oereb')
 
@@ -19,12 +19,13 @@ class GeometryRecord(object):
             legal_state (unicode): The PLR record's legal state.
             published_from (datetime.date): Date from/since when the PLR record is published.
             geom (Point or LineString or Polygon or MultiPolygon):
-                The geometry which must be of type POINT, LINESTRING, POLYGON or MULTIPOLYGON, everything else
+                The geometry which must be of type POINT, LINESTRING or POLYGON, everything else
                  will raise an error.
             geo_metadata (uri): The metadata.
             public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law
                 restriction
             office (pyramid_oereb.lib.records.office.Office): The office
+
         Raises:
             AttributeError: Error when a wrong geometry type was passed.
         """
@@ -32,8 +33,7 @@ class GeometryRecord(object):
         self.legal_state = legal_state
         self.published_from = published_from
         self.geo_metadata = geo_metadata
-        if isinstance(geom, Point) or isinstance(geom, LineString) or isinstance(geom, Polygon) or \
-                isinstance(geom, MultiPolygon):
+        if isinstance(geom, Point) or isinstance(geom, LineString) or isinstance(geom, Polygon):
             self.geom = geom
         else:
             raise AttributeError(u'The passed geometry is not supported: {type}'.format(type=geom.type))
@@ -58,10 +58,11 @@ class GeometryRecord(object):
 
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate record.
-            min_length (float): The limit for line elements.
-            min_area (float): The limit for area elements.
+            min_length (float): The threshold to consider or not a line element.
+            min_area (float): The threshold to consider or not a surface element.
             length_unit (unicode): The thresholds unit for area calculation.
             area_unit (unicode): The thresholds unit for area calculation.
+
         Returns:
             bool: True if intersection fits the limits.
         """
@@ -77,14 +78,14 @@ class GeometryRecord(object):
                 if self.geom.type in line_types:
                     self._units = length_unit
                     length = result.length
-                    if length > min_length:
+                    if length >= min_length:
                         self._length = length
                         self._test_passed = True
                 elif self.geom.type in polygon_types:
                     self._units = area_unit
                     area = result.area
                     compensated_area = area * real_estate.areas_ratio
-                    if compensated_area > min_area:
+                    if compensated_area >= min_area:
                         self._area = compensated_area
                         self._part_in_percent = round(((compensated_area / real_estate.limit.area) * 100), 1)
                         self._test_passed = True
@@ -97,19 +98,17 @@ class GeometryRecord(object):
     @property
     def area(self):
         """
-        Returns:
-            float or None: Returns the area of this geometry.
+        float or None: Returns the area of this geometry.
         """
         if not self.calculated:
-            log.warning(u'There was a access on property "area" before calculation was done.')
+            log.warning(u'There was an access on property "area" before calculation was done.')
         return self._area
 
     @property
     def length(self):
         """
-        Returns:
-            float or None: Returns the length of this geometry.
+        float or None: Returns the length of this geometry.
         """
         if not self.calculated:
-            log.warning(u'There was a access on property "length" before calculation was done.')
+            log.warning(u'There was an access on property "length" before calculation was done.')
         return self._length
