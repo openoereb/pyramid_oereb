@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import requests
 from geoalchemy2.elements import _SpatialElement
 from geoalchemy2.shape import to_shape
 
@@ -44,3 +45,46 @@ class AddressDatabaseSource(BaseDatabaseSource, AddressBaseSource):
             ))
 
         session.close()
+
+
+class AddressGeoAdminSource(AddressBaseSource):
+    """
+    An address source that uses the federal GeoAdmin API to return the geo location of a postal address.
+
+    Args:
+        kwargs (dict): Keyword arguments to configure the source:
+
+            - geoadmin_search_api (uri): Url of the GeoAdmin API's search service. (**required**)
+            - proxies (dict): Proxy definition according to
+                http://docs.python-requests.org/en/master/user/advanced/#proxies. (**optional**)
+    """
+    def __init__(self, **kwargs):
+        super(AddressGeoAdminSource, self).__init__()
+        self._geoadmin_url_ = kwargs.get('geoadmin_search_api')
+        self._type_ = 'locations'
+        self._proxies_ = kwargs.get('proxies')
+
+    def read(self, street_name, zip_code, street_number):
+        """
+        Queries an address using the federal GeoAdmin API location search.
+
+        Args:
+            street_name (unicode): The name of the street for the desired address.
+            zip_code (int): The postal zipcode for the desired address.
+            street_number (str): The house or so called street number of the desired address.
+        """
+        params = {
+            'type': self._type_,
+            'searchText': '{0} {1} {2}'.format(zip_code, street_name, street_number)
+        }
+        response = requests.get(self._geoadmin_url_, params=params, proxies=self._proxies_)
+        if response.status_code == requests.codes.ok:
+            self.records = list()
+            data = response.json()
+            if 'results' in data:
+                for address in data.get('results'):
+                    # Create Address record for each result
+                    pass
+        else:
+            response.raise_for_status()
+
