@@ -261,17 +261,16 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         :raises: HTTPBadRequest
         """
         srid = Config.get('srid')
-        # sql_text_point = 'ST_Intersects(ST_CollectionExtract({0}, 1), ST_GeomFromText(\'{1}\', {2}))'.
-        # format(
-        #     db_path,
-        #     real_estate_geometry.wkt,
-        #     srid
-        # )
-        # sql_text_line = 'ST_Intersects(ST_CollectionExtract({0}, 2), ST_GeomFromText(\'{1}\', {2}))'.format(
-        #     db_path,
-        #     real_estate_geometry.wkt,
-        #     srid
-        # )
+        sql_text_point = 'ST_Intersects(ST_CollectionExtract({0}, 1), ST_GeomFromText(\'{1}\', {2}))'.format(
+            db_path,
+            real_estate_geometry.wkt,
+            srid
+        )
+        sql_text_line = 'ST_Intersects(ST_CollectionExtract({0}, 2), ST_GeomFromText(\'{1}\', {2}))'.format(
+            db_path,
+            real_estate_geometry.wkt,
+            srid
+        )
         sql_text_polygon = 'ST_Intersects(ST_Envelope({0}), ' \
                            'ST_GeomFromText(\'{1}\', {2}))'.format(
                                 db_path,
@@ -279,8 +278,8 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                                 srid
                             )
         clause_blocks = [
-            # text(sql_text_point),
-            # text(sql_text_line),
+            text(sql_text_point),
+            text(sql_text_line),
             text(sql_text_polygon)
         ]
         return or_(*clause_blocks)
