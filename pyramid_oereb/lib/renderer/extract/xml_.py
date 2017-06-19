@@ -8,6 +8,8 @@ from pyramid_oereb import Config
 from pyramid_oereb.lib.renderer import Base
 from mako import exceptions
 
+from pyramid_oereb.views.webservice import Parameter
+
 
 class Renderer(Base):
 
@@ -40,6 +42,14 @@ class Renderer(Base):
             response.content_type = 'application/xml'
 
         self._params_ = value[1]
+        if not isinstance(self._params_, Parameter):
+            raise TypeError('Missing parameter definition; Expected {0}, got {1} instead'.format(
+                Parameter,
+                self._params_.__class__
+            ))
+        if self._params_.language:
+            self._language_ = str(self._params_.language).lower()
+
         templates = TemplateLookup(
             directories=[self.template_dir],
             output_encoding='utf-8',
@@ -53,6 +63,9 @@ class Renderer(Base):
                 'default_language': str(Config.get('default_language')).lower()
             })
             return content
+        except ValueError, e:
+            # TODO: use error mapping to provide HTTP errors
+            raise e
         except:
             response.content_type = 'text/html'
             return exceptions.html_error_template().render()
