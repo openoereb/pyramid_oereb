@@ -55,7 +55,7 @@ setup(
     keywords='pyramid oereb',
     packages=find_packages(),
     package_data={'pyramid_oereb': [
-        'standard/pyramid_oereb.yml',
+        'standard/pyramid_oereb.yml.mako',
         'standard/logo_confederation.png',
         'standard/logo_oereb.png',
         'standard/templates/plr.py.mako',
