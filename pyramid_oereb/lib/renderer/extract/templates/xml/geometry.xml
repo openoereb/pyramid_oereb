@@ -1,11 +1,11 @@
 <%page args="geometry"/>
 <xsd:Geometry>
     %if params.geometry:
-        <%include file="geometry_collection.xml" args="geometry=geometry.geom"/>
+        <%include file="specific_geometry.xml" args="geometry=geometry.geom"/>
     %endif
     <xsd:Lawstatus>
         ## TODO: solve code here, where may it come from?
-        <xsd:Code>PLACE THE CODE HERE</xsd:Code>
+        <xsd:Code>TODO: Provide code here</xsd:Code>
         <xsd:Text>${geometry.legal_state}</xsd:Text>
     </xsd:Lawstatus>
     <xsd:MetadataOfGeographicalBaseData>
