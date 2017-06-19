@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import warnings
 from datetime import datetime
 
 
@@ -7,13 +8,15 @@ class DocumentBaseRecord(object):
     def __init__(self, legal_state, published_from, text_at_web=None):
         """
         The base document class.
-        :param legal_state: Key string of the law status.
-        :type legal_state: str
-        :param published_from: Date since this document was published.
-        :type published_from: datetime.date
-        :param text_at_web: The URI to the documents content.
-        :type text_at_web: str
+
+        Args:
+            legal_state (unicode): Key string of the law status.
+            published_from (datetime.date): Date since this document was published.
+            text_at_web (dict of uri): The multilingual URI to the documents content.
         """
+        if text_at_web and not isinstance(text_at_web, dict):
+            warnings.warn('Type of "text_at_web" should be "dict"')
+
         self.text_at_web = text_at_web
         self.legal_state = legal_state
         self.published_from = published_from
@@ -22,36 +25,11 @@ class DocumentBaseRecord(object):
     def published(self):
         """
         Returns true if its not a future document.
-        :return: True if document is published.
-        :rtype: bool
+
+        Returns:
+            bool: True if document is published.
         """
         return not self.published_from > datetime.now().date()
-
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-        :return: List of available field names.
-        :rtype: list of str
-        """
-        return [
-            'text_at_web',
-            'legal_state',
-            'published_from'
-        ]
-
-    def to_extract(self):
-        """
-        Returns a dictionary with all available values needed for the extract.
-        :return: Dictionary with values for the extract.
-        :rtype: dict
-        """
-        extract = dict()
-        for key in ['text_at_web', 'legal_state']:
-            value = getattr(self, key)
-            if value:
-                extract[key] = value
-        return extract
 
 
 class ArticleRecord(DocumentBaseRecord):
@@ -59,48 +37,21 @@ class ArticleRecord(DocumentBaseRecord):
     def __init__(self, legal_state, published_from, number, text_at_web=None, text=None):
         """
         More specific document class representing articles.
-        :param legal_state: Key string of the law status.
-        :type legal_state: str
-        :param published_from: Date since this document was published.
-        :type published_from: datetime.date
-        :param number: The identifier of the article as a law.
-        :type number: str
-        :param text_at_web: The URI to the documents content.
-        :type text_at_web: str
-        :param text: Text in the article.
-        :type text: str
+
+        Args:
+            legal_state (unicode): Key string of the law status.
+            published_from (datetime.date): Date since this document was published.
+            number (unicode): The identifier of the article as a law.
+            text_at_web (dict of uri): The URI to the documents content (multilingual).
+            text (dict of unicode): Text in the article (multilingual).
         """
         super(ArticleRecord, self).__init__(legal_state, published_from, text_at_web)
+
+        if text and not isinstance(text, dict):
+            warnings.warn('Type of "text" should be "dict"')
+
         self.number = number
         self.text = text
-
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-        :return: List of available field names.
-        :rtype: list of str
-        """
-        return [
-            'text_at_web',
-            'legal_state',
-            'published_from',
-            'number',
-            'text'
-        ]
-
-    def to_extract(self):
-        """
-        Returns a dictionary with all available values needed for the extract.
-        :return: Dictionary with values for the extract.
-        :rtype: dict
-        """
-        extract = super(ArticleRecord, self).to_extract()
-        for key in ['number', 'text']:
-            value = getattr(self, key)
-            if value:
-                extract[key] = value
-        return extract
 
 
 class DocumentRecord(DocumentBaseRecord):
@@ -110,36 +61,33 @@ class DocumentRecord(DocumentBaseRecord):
                  municipality=None, article_numbers=None, file=None, articles=None, references=None):
         """
         More specific document class representing real documents.
-        :param legal_state:  Key string of the law status.
-        :type legal_state: str
-        :param published_from: Date since this document was published.
-        :type published_from: datetime.date
-        :param title: The title of the document. It might be shortened one.
-        :type title: unicode
-        :param responsible_office: Office which is responsible for this document.
-        :type responsible_office: pyramid_oereb.lib.records.office.OfficeRecord
-        :param text_at_web: The URI to the documents content.
-        :type text_at_web: str
-        :param official_title: The official title of the document.
-        :type official_title: unicode
-        :param abbreviation: Short term for this document.
-        :type abbreviation: str
-        :param official_number: The official number for identification of this document.
-        :type official_number: str
-        :param canton: The cantonal short term (length of tw, like: 'NE' or 'BL')
-        :type canton: str
-        :param municipality: The code for the municipality.
-        :type municipality: str
-        :param article_numbers: Pointers to specific articles.
-        :type article_numbers: list of str
-        :param file: The binary content of the document.
-        :type file: bytes
-        :param articles: The linked articles.
-        :type articles: list of ArticleRecord
-        :param references: The references to other documents.
-        :type references: list of DocumentRecord
+
+        Args:
+            legal_state (unicode):  Key string of the law status.
+            published_from (datetime.date): Date since this document was published.
+            title (dict of unicode): The multilingual title of the document. It might be shortened one.
+            responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
+                responsible for this document.
+            text_at_web (dict of uri): The multilingual URI to the documents content.
+            official_title (dict of unicode): The official title of the document (multilingual).
+            abbreviation (dict of unicode): Short term for this document (multilingual).
+            official_number (unicode): The official number for identification of this document.
+            canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
+            municipality (unicode): The code for the municipality.
+            article_numbers (list of unicode): Pointers to specific articles.
+            file (bytes): The binary content of the document.
+            articles (list of ArticleRecord): The linked articles.
+            references (list of DocumentRecord): The references to other documents.
         """
         super(DocumentRecord, self).__init__(legal_state, published_from, text_at_web)
+
+        if not isinstance(title, dict):
+            warnings.warn('Type of "title" should be "dict"')
+        if official_title and not isinstance(official_title, dict):
+            warnings.warn('Type of "official_title" should be "dict"')
+        if abbreviation and not isinstance(abbreviation, dict):
+            warnings.warn('Type of "abbreviation" should be "dict"')
+
         self.title = title
         self.responsible_office = responsible_office
         self.official_title = official_title
@@ -160,68 +108,6 @@ class DocumentRecord(DocumentBaseRecord):
             self.references = []
         else:
             self.references = references
-
-    @classmethod
-    def get_fields(cls):
-        """
-        Returns a list of available field names.
-        :return: List of available field names.
-        :rtype: list of str
-        """
-        return [
-            'text_at_web',
-            'legal_state',
-            'published_from',
-            'title',
-            'official_title',
-            'responsible_office',
-            'abbreviation',
-            'official_number',
-            'canton',
-            'municipality',
-            'article_numbers',
-            'file',
-            'articles',
-            'references'
-        ]
-
-    def to_extract(self):
-        """
-        Returns a dictionary with all available values needed for the extract.
-        :return: Dictionary with values for the extract.
-        :rtype: dict
-        """
-        extract = super(DocumentRecord, self).to_extract()
-
-        for key in [
-            'title',
-            'official_title',
-            'abbreviation',
-            'official_number',
-            'canton',
-            'municipality',
-            'file'
-        ]:
-            value = getattr(self, key)
-            if value:
-                extract[key] = value
-
-        for key in ['articles', 'references']:
-            records = getattr(self, key)
-            if records and len(records) > 0:
-                extract[key] = [record.to_extract() for record in records]
-
-        key = 'responsible_office'
-        record = getattr(self, key)
-        if record:
-            extract[key] = record.to_extract()
-
-        key = 'article_numbers'
-        value = getattr(self, key)
-        if isinstance(value, list) and len(value) > 0:
-            extract[key] = value
-
-        return extract
 
 
 class LegalProvisionRecord(DocumentRecord):

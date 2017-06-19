@@ -51,8 +51,8 @@ def includeme(config):
     """
     By including this in your pyramid web app you can easily provide a running OEREB Server
 
-    :param config: The pyramid apps config object
-    :type config: Configurator
+    Args:
+        config (Configurator): The pyramid apps config object
     """
 
     global route_prefix, real_estate_reader, municipality_reader, extract_reader, \
@@ -109,9 +109,7 @@ def includeme(config):
     extract_reader = ExtractReader(
         plr_sources,
         plr_cadastre_authority,
-        logos,
-        # TODO: Read this from config. Will be solved by: https://jira.camptocamp.com/browse/GSOREB-195
-        [{'de': 'Daten der Swisstopo'}, {'de': 'Amtliche Vermessung'}]
+        logos
     )
 
     settings.update({

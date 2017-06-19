@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 import pytest
 from pyramid.config import ConfigurationError
 
@@ -40,14 +41,6 @@ def test_get_plr_cadastre_authority():
     Config.init('./pyramid_oereb/tests/resources/test_config.yml', 'pyramid_oereb')
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
     assert isinstance(plr_cadastre_authority, OfficeRecord)
-    assert plr_cadastre_authority.to_extract() == {
-        'name': 'PLR cadastre authority',
-        'office_at_web': 'https://www.cadastre.ch/en/oereb.html',
-        'street': 'Seftigenstrasse',
-        'number': 264,
-        'postal_code': 3084,
-        'city': 'Wabern'
-    }
 
 
 def test_get_logos_config():
@@ -64,3 +57,12 @@ def test_get_all_federal():
     assert isinstance(all_federal, list)
     assert len(all_federal) == 17
     assert 'RailwaysProjectPlanningZones' in all_federal
+
+
+def test_get_base_data():
+    Config._config = None
+    Config.init('./pyramid_oereb/standard/pyramid_oereb.yml', 'pyramid_oereb')
+    date = datetime.date(2017, 2, 1)
+    base_data = Config.get_base_data(date)
+    assert isinstance(base_data, dict)
+    assert base_data.get('de') == 'Daten der amtlichen Vermessung, Stand 01.02.2017.'

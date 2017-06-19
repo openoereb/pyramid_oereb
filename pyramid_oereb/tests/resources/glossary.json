@@ -1,7 +1,11 @@
 [
   {
     "id": 1,
-    "title": "Term",
-    "content": "Definition"
+    "title": {
+      "de": "Term"
+    },
+    "content": {
+      "de": "Definition"
     }
+  }
 ]

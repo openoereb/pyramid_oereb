@@ -10,6 +10,9 @@
         text = {
             language: text
         }
+    else:
+        if language != default_language and language not in text:
+            language = default_language
 %>
 <xsd:LocalisedText>
     <xsd:Language>${language}</xsd:Language>

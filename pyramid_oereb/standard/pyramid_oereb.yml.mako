@@ -29,6 +29,17 @@ pyramid_oereb:
     - FULL
     - EMBEDDABLE
 
+  print:
+    # The buffer on the map around the parcel in percent
+    buffer: 10
+
+    # The map size in pixel at 72 DPI (width, height), This is the defined size of a map image inside the
+    # static extract.
+    map_size: [493, 280]
+
+    # The print DPI
+    dpi: 200
+
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
   # creation process. Because this name is used as schema name in the target database. The app_schema holds
   # all application stuff like: addresses, municipalities, real estates, etc.
@@ -69,7 +80,9 @@ pyramid_oereb:
   # will be directly used for producing the extract output.
   plr_cadastre_authority:
     # The name of your Office. For instance: Amt für Geoinformation Basel-Landschaft
-    name: PLR cadastre authority
+    name:
+        en: PLR cadastre authority
+        de: ÖREB-Katasteraufsichtsbehörde
     # An online link to web presentation of your office. For instance: https://www.geo.bl.ch/
     office_at_web: https://www.cadastre.ch/en/oereb.html
     # The street name of the address of your office. For instance: Mühlemattstrasse
@@ -93,17 +106,6 @@ pyramid_oereb:
     # The logo representing your canton. Replace with your own logo!
     canton: ${png_root_dir}logo_sample.png
 
-  # Some informations about the printing
-  print:
-    # The buffer on the map around the parcel in percent
-    buffer: 10
-
-    # The map size (width, height)
-    map_size: [200, 100]
-
-    # The print DPI
-    dpi: 200
-
   # The processor of the oereb project needs access to real estate data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you like to read the real estate out of an existing
   # database table to avoid imports of this data every time it gets updates you only need to change the model
@@ -111,8 +113,8 @@ pyramid_oereb:
   # does.
   real_estate:
     view_service:
-      reference_wms: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:21781&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb
-      legend_at_web: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=1.1.1&FORMAT=image/png&LAYER=ch.bav.kataster-belasteter-standorte-oev.oereb
+      reference_wms: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
+      legend_at_web: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=1.1.1&FORMAT=image/png&LAYER=ch.swisstopo-vd.amtliche-vermessung
     # The real estate must have a property source.
     source:
       # The source must have a class which represents the accessor to the source. In this case it is a source
@@ -198,6 +200,10 @@ pyramid_oereb:
   # The extract is more an abstract implementation of a source. It is the entry point which binds everything
   # related to data together.
   extract:
+    # Information about the base data used for the extract, e.g. the used base map and its currentness.
+    # This is a multlingual value. At least the set default language has to be defined.
+    base_data:
+        de: Daten der amtlichen Vermessung, Stand {0}.
     # The extract must have a property source.
     source:
       # The source must have a class which represents the accessor to the source. In this case it is a source

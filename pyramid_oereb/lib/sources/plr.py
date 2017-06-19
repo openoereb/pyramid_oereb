@@ -62,8 +62,8 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         """
         Return the info dictionary.
 
-        :return: The info dictionary.
-        :rtype: dict
+        Returns:
+            dict: The info dictionary.
         """
         return self._plr_info_
 
@@ -286,8 +286,10 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def read(self, real_estate):
         """
         The read point which creates a extract, depending on a passed real estate.
-        :param real_estate: The real estate in its record representation.
-        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
+                estate in its record representation.
         """
         geometry_types = Config.get('geometry_types')
         collection_types = geometry_types.get('collection').get('types')

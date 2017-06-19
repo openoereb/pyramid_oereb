@@ -14,8 +14,8 @@ class Renderer(Base):
         """
         Creates a new XML renderer instance for versions rendering.
 
-        :param info: Info object.
-        :type info: pyramid.interfaces.IRendererInfo
+        Args:
+            info (pyramid.interfaces.IRendererInfo): Info object.
         """
         a = AssetResolver('pyramid_oereb')
         resolver = a.resolve('lib/renderer/capabilities/templates/xml')
@@ -26,12 +26,12 @@ class Renderer(Base):
         """
         Returns the XML encoded versions response according to the specification.
 
-        :param value: A dictionary containing the versions data.
-        :type value: dict
-        :param system: The available system properties.
-        :type system: dict
-        :return: The XML encoded versions response.
-        :rtype: str
+        Args:
+            value (dict): A dictionary containing the versions data.
+            system (dict): The available system properties.
+
+        Returns:
+            str: The XML encoded versions response.
         """
         response = self.get_response(system)
         if isinstance(response, Response) and response.content_type == response.default_content_type:

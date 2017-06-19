@@ -13,12 +13,15 @@ class BaseDatabaseSource(Base):
         from pyramid_oereb import database_adapter
         """
         The plug for addresses which uses a database as source.
-        :param kwargs: Arbitrary keyword arguments. It must contain the keys 'db_connection' and 'model'.
-        The db_connection value must be a rfc1738 conform database connection string in the form of:
-            '<driver_name e.g. "postgres">://<username>:<password>@<database_host>:<port>/<database_name>'
-        The model must be a valid dotted name string which leads to an importable representation of:
-            sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.
-        :type kwargs: dict
+
+        Args:
+            kwargs (dict): Arbitrary keyword arguments. It must contain the keys 'db_connection'
+                and 'model'.The db_connection value must be a rfc1738 conform database
+                connection string in the form of:'<driver_name e.g. "
+                postgres">://<username>:<password>@<database_host>:<port>/<database_na
+                me>'The model must be a valid dotted name string which leads to an
+                importable representation of:sqlalchemy.ext.declarative.DeclarativeMeta or
+                the real class itself.
         """
         if database_adapter:
             self._adapter_ = database_adapter
