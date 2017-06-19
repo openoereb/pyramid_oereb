@@ -103,7 +103,10 @@ class ExtractReader(object):
 
         # Load base data form configuration
         # TODO: Set correct date for base data, related to GSOREB-192
-        base_data = Config.get_base_data(datetime.date.today())
+        # in function of the source of the date and zonal extension (canton/municipality/...)
+        #update_date = get_surveying_data_update_date()
+        update_date = datetime.date.today()
+        base_data = Config.get_base_data(update_date)
 
         self.extract = ExtractRecord(
             real_estate,
