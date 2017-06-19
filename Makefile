@@ -89,7 +89,7 @@ else
 @_POSTGIS_IP = localhost
 endif
 export SQLALCHEMY_URL = "postgresql://$(PG_CREDENTIALS)@$(@_POSTGIS_IP):5432/pyramid_oereb_test"
-export PNG_ROOT_DIR = pyramid_oereb/standard/
+export IMAGE_DIRECTORY = pyramid_oereb/standard/images
 
 .coverage: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB) pyramid_oereb/standard/pyramid_oereb.yml .coveragerc $(shell find -name "*.py" -print)
 	@echo Run tests using docker: $(USE_DOCKER)

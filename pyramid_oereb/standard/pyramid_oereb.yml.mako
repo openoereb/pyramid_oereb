@@ -91,17 +91,20 @@ pyramid_oereb:
     # The city name of the address of your office. For instance: Liestal
     city: Wabern
 
-  # The extract provides logos. Therefor you need to provide a path to these logos. Note: This must be a
-  # valid absolute system path available for reading by the user running this server.
-  logo:
-    # The logo representing the swiss confederation (you can use it as is cause it is provided in this
-    # repository). But if you need to change it for any reason: Feel free...
-    confederation: ${png_root_dir}logo_confederation.png
-    # The logo representing the oereb extract CI (you can use it as is cause it is provided in this
-    # repository). But if you need to change it for any reason: Feel free...
-    oereb: ${png_root_dir}logo_oereb.png
-    # The logo representing your canton. Replace with your own logo!
-    canton: ${png_root_dir}logo_sample.png
+  # The extract provides logos and other images. Therefor you need to provide a path to these files. This
+  # directory will also be used to make them accessible via web.
+  # Note: This must be a valid system path available for reading by the user running this server.
+  images:
+    directory: ${image_directory}
+    logo:
+      # The logo representing the swiss confederation (you can use it as is cause it is provided in this
+      # repository). But if you need to change it for any reason: Feel free...
+      confederation: logos/logo_confederation.png
+      # The logo representing the oereb extract CI (you can use it as is cause it is provided in this
+      # repository). But if you need to change it for any reason: Feel free...
+      oereb: logos/logo_oereb.png
+      # The logo representing your canton. Replace with your own logo!
+      canton: logos/logo_sample.png
 
   # The processor of the oereb project needs access to real estate data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you like to read the real estate out of an existing
