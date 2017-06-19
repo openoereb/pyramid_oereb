@@ -69,7 +69,26 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     @staticmethod
     def geometry_parsing(geometry_value):
-        return to_shape(geometry_value) if isinstance(geometry_value, _SpatialElement) else None
+        geometry_types = Config.get('geometry_types')
+        collection_types = geometry_types.get('collection').get('types')
+        if isinstance(geometry_value, _SpatialElement):
+            shapely_representation = to_shape(geometry_value)
+            if shapely_representation.type in collection_types:
+                # We need to check if the collection is empty
+                if len(shapely_representation.geoms) > 0:
+                    if len(shapely_representation.geoms) == 1:
+                        # Its not empty, and due to specifications we are only interested in one (the first)
+                        # geometry
+                        shapely_representation = shapely_representation.geoms[0]
+                    else:
+                        raise AttributeError(u'There was more than one element in the GeometryCollection. '
+                                             u'This is not supported!')
+                else:
+                    # There was nothing in it. So we assume it was meant to be None.
+                    shapely_representation = None
+            return shapely_representation
+        else:
+            return None
 
     def from_db_to_legend_entry_record(self, theme, legend_entries_from_db):
         legend_entry_records = []
@@ -164,6 +183,11 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return document_records
 
     def from_db_to_plr_record(self, public_law_restriction_from_db):
+        thresholds = self._plr_info_.get('thresholds')
+        min_length = thresholds.get('length').get('limit')
+        length_unit = thresholds.get('length').get('unit')
+        min_area = thresholds.get('area').get('limit')
+        area_unit = thresholds.get('area').get('unit')
         theme_record = ThemeRecord(self._plr_info_.get('code'), self._plr_info_.get('text'))
         legend_entry_records = self.from_db_to_legend_entry_record(
             theme_record,
@@ -202,7 +226,11 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             view_service_record,
             basis_plr_records,
             refinements_plr_records,
-            document_records
+            document_records,
+            min_area=min_area,
+            min_length=min_length,
+            area_unit=area_unit,
+            length_unit=length_unit
         )
         # solve circular dependency between plr and geometry
         for geometry_record in geometry_records:

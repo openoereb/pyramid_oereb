@@ -448,7 +448,9 @@ def connection(config):
     # Add dummy PLR data for collection geometry test
     connection_.execute(land_use_plans.ViewService.__table__.insert(), {
         'id': 1,
-        'link_wms': u'http://my.wms.com'
+        'link_wms': u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&'
+                    u'SRS=EPSG:21781&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&'
+                    u'LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
     })
 
     connection_.execute(land_use_plans.Office.__table__.insert(), {
@@ -508,11 +510,32 @@ def connection(config):
         'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 1,
         'office_id': 1,
+        'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((0 0, 0 1.5, 1.5 1.5, 1.5 0, 0 0)))'
+    })
+    connection_.execute(land_use_plans.Geometry.__table__.insert(), {
+        'id': 3,
+        'legal_state': u'inForce',
+        'published_from': unicode(date.today().isoformat()),
+        'public_law_restriction_id': 1,
+        'office_id': 1,
         'geom': u'SRID=2056;GEOMETRYCOLLECTION('
-                u'POLYGON((0 0, 0 1.5, 1.5 1.5, 1.5 0, 0 0)),'
-                u'POLYGON((3 2.5, 3 5, 7 5, 7 0, 3 0, 3 1, 6 1, 6 4, 4 2.5, 3 2.5)),'
-                u'POLYGON((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5)),'
-                u'POINT(1 2))'
+                u'POLYGON((3 2.5, 3 5, 7 5, 7 0, 3 0, 3 1, 6 1, 6 4, 4 2.5, 3 2.5)))'
+    })
+    connection_.execute(land_use_plans.Geometry.__table__.insert(), {
+        'id': 4,
+        'legal_state': u'inForce',
+        'published_from': unicode(date.today().isoformat()),
+        'public_law_restriction_id': 1,
+        'office_id': 1,
+        'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5)))'
+    })
+    connection_.execute(land_use_plans.Geometry.__table__.insert(), {
+        'id': 5,
+        'legal_state': u'inForce',
+        'published_from': unicode(date.today().isoformat()),
+        'public_law_restriction_id': 1,
+        'office_id': 1,
+        'geom': u'SRID=2056;GEOMETRYCOLLECTION(POINT(1 2))'
     })
 
     connection_.close()

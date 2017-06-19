@@ -5,7 +5,6 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
-from pyramid_oereb.lib.config import Config
 
 
 log = logging.getLogger('pyramid_oereb')
@@ -86,18 +85,11 @@ class Processor(object):
 
         for public_law_restriction in real_estate.public_law_restrictions:
             if isinstance(public_law_restriction, PlrRecord):
-                plr_thresholds = Config.get_theme_thresholds(public_law_restriction.theme.code)
-                tested_geometries = []
-                for geometry in public_law_restriction.geometries:
-                    if geometry.published and geometry.calculate(real_estate, plr_thresholds):
-                        tested_geometries.append(geometry)
-
+                public_law_restriction.calculate(real_estate)
                 # Test if the geometries list is now empty - if so remove plr from plr list
-                if len(tested_geometries) > 0 and public_law_restriction.published:
-                    public_law_restriction.geometries = tested_geometries
+                if len(public_law_restriction.geometries) > 0 and public_law_restriction.published:
                     tested_plrs.append(self.filter_published_documents(public_law_restriction))
         real_estate.public_law_restrictions = tested_plrs
-
         return extract
 
     @staticmethod

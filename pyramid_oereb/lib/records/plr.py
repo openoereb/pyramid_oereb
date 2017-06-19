@@ -31,7 +31,8 @@ class PlrRecord(EmptyPlrRecord):
 
     def __init__(self, theme, content, legal_state, published_from, responsible_office, subtopic=None,
                  additional_topic=None, type_code=None, type_code_list=None, view_service=None, basis=None,
-                 refinements=None, documents=None, geometries=None, info=None):
+                 refinements=None, documents=None, geometries=None, info=None, min_length=0.0,
+                 min_area=0.0, length_unit=u'm', area_unit=u'm2'):
         """
         Public law restriction record.
 
@@ -55,6 +56,10 @@ class PlrRecord(EmptyPlrRecord):
             geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of geometry records
                 associated with this record.
             info (dict or None): The information read from the config.
+            min_length (float): The threshold for area calculation.
+            min_area (float): The threshold for area calculation.
+            length_unit (unicode): The threshold for area calculation.
+            area_unit (unicode): The threshold for area calculation.
         """
         super(PlrRecord, self).__init__(theme)
 
@@ -88,8 +93,67 @@ class PlrRecord(EmptyPlrRecord):
             self.geometries = geometries
         self.info = info
         self.has_data = True
+        self.min_length = min_length
+        self.min_area = min_area
+        self.area_unit = area_unit
+        self.length_unit = length_unit
+        self._area = None
+        self._length = None
 
     @property
     def published(self):
         """bool: True if PLR is published."""
         return not self.published_from > datetime.now().date()
+
+    def _sum_length(self):
+        """
+        Returns:
+            float: The summed length.
+        """
+        lengths_to_sum = []
+        for geometry in self.geometries:
+            if geometry.length:
+                length = geometry.length
+                if length > self.min_length:
+                    lengths_to_sum.append(length)
+        return sum(lengths_to_sum)
+
+    def _sum_area(self):
+        """
+        Returns:
+            float: The summed area.
+        """
+        areas_to_sum = []
+        for geometry in self.geometries:
+            if geometry.area:
+                area = geometry.area
+                if area > self.min_area:
+                    areas_to_sum.append(area)
+        return sum(areas_to_sum)
+
+    @property
+    def area(self):
+        """
+        Returns:
+            float or None: Returns the summed area of all related geometry records of this PLR.
+        """
+        return self._area
+
+    @property
+    def length(self):
+        """
+        Returns:
+            float or None: Returns the summed length of all related geometry records of this PLR.
+        """
+        return self._length
+
+    def calculate(self, real_estate):
+        tested_geometries = []
+        for geometry in self.geometries:
+            if geometry.calculate(real_estate, self.min_length, self.min_area, self.length_unit,
+                                  self.area_unit):
+                tested_geometries.append(geometry)
+        self.geometries = tested_geometries
+        self._length = self._sum_length()
+        self._area = self._sum_area()
+        self._part_in_percent = round(((self._area / real_estate.limit.area) * 100), 1)
