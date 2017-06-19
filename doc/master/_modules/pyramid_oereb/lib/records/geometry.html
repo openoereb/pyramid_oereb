@@ -44,8 +44,12 @@
             
   <h1>Source code for pyramid_oereb.lib.records.geometry</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="k">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="GeometryRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.geometry.GeometryRecord">[docs]</a><span class="k">class</span> <span class="nc">GeometryRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -59,17 +63,25 @@
 <span class="sd">        Args:</span>
 <span class="sd">            legal_state (unicode): The PLR record&#39;s legal state.</span>
 <span class="sd">            published_from (datetime.date): Date from/since when the PLR record is published.</span>
-<span class="sd">            geom (shapely.geometry.base.BaseGeometry): The geometry</span>
+<span class="sd">            geom (Point or LineString or Polygon or MultiPolygon):</span>
+<span class="sd">                The geometry which must be of type POINT, LINESTRING or POLYGON, everything else</span>
+<span class="sd">                 will raise an error.</span>
 <span class="sd">            geo_metadata (uri): The metadata.</span>
 <span class="sd">            public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law</span>
 <span class="sd">                restriction</span>
 <span class="sd">            office (pyramid_oereb.lib.records.office.Office): The office</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            AttributeError: Error when a wrong geometry type was passed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">legal_state</span> <span class="o">=</span> <span class="n">legal_state</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">=</span> <span class="n">published_from</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">geo_metadata</span> <span class="o">=</span> <span class="n">geo_metadata</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">geom</span> <span class="o">=</span> <span class="n">geom</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">Point</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">LineString</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">geom</span> <span class="o">=</span> <span class="n">geom</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;The passed geometry is not supported: </span><span class="si">{type}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">geom</span><span class="o">.</span><span class="n">type</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">public_law_restriction</span> <span class="o">=</span> <span class="n">public_law_restriction</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">office</span> <span class="o">=</span> <span class="n">office</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_units</span> <span class="o">=</span> <span class="kc">None</span>
@@ -77,68 +89,24 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_part_in_percent</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_test_passed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculated</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">published</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;bool: True if geometry is published.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
 
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_is_multi_geometry</span><span class="p">(</span><span class="n">geometry</span><span class="p">):</span>
-        <span class="c1"># TODO: Make this read from config singleton provided by sbrunner</span>
-        <span class="n">multi_geometry_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MultiPoint&#39;</span><span class="p">,</span> <span class="s1">&#39;MultiLineString&#39;</span><span class="p">,</span> <span class="s1">&#39;MultiPolygon&#39;</span><span class="p">,</span> <span class="s1">&#39;GeometryCollection&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">multi_geometry_types</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
-
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_sum_multi_line_length</span><span class="p">(</span><span class="n">multi_line</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+<div class="viewcode-block" id="GeometryRecord.calculate"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.geometry.GeometryRecord.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">min_length</span><span class="p">,</span> <span class="n">min_area</span><span class="p">,</span> <span class="n">length_unit</span><span class="p">,</span> <span class="n">area_unit</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Entry method for calculation. It checks if the geometry type of this instance is a geometry</span>
+<span class="sd">        collection which has to be unpacked first in case of collection.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            multi_line (shapely.geometry.MultiLineString): The multi line string which parts</span>
-<span class="sd">                should be summed.</span>
-<span class="sd">            limit (float): The cutting limit which is sorting parts.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            float: The summed length.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">lengths_to_sum</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">multi_line</span><span class="o">.</span><span class="n">geoms</span><span class="p">:</span>
-            <span class="n">length</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">length</span>
-            <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="n">limit</span><span class="p">:</span>
-                <span class="n">lengths_to_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">lengths_to_sum</span><span class="p">)</span>
-
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_sum_multi_polygon_area</span><span class="p">(</span><span class="n">multi_polygon</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            multi_polygon (shapely.geometry.MultiPolygon): The multi line string which parts</span>
-<span class="sd">                should be summed.</span>
-<span class="sd">            limit (float): The cutting limit which is sorting parts.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            float: The summed area.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">areas_to_sum</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">multi_polygon</span><span class="o">.</span><span class="n">geoms</span><span class="p">:</span>
-            <span class="n">area</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">area</span>
-            <span class="k">if</span> <span class="n">area</span> <span class="o">&gt;</span> <span class="n">limit</span><span class="p">:</span>
-                <span class="n">areas_to_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">area</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">areas_to_sum</span><span class="p">)</span>
-
-    <span class="c1"># TODO: Make this read from config singleton provided by sbrunner</span>
-<div class="viewcode-block" id="GeometryRecord.calculate"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.geometry.GeometryRecord.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">plr_thresholds</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Calculates intersection area and checks if it fits the configured limits.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real</span>
-<span class="sd">                estate record.</span>
-<span class="sd">            plr_thresholds (dict): The configured limits.</span>
+<span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate record.</span>
+<span class="sd">            min_length (float): The threshold to consider or not a line element.</span>
+<span class="sd">            min_area (float): The threshold to consider or not a surface element.</span>
+<span class="sd">            length_unit (unicode): The thresholds unit for area calculation.</span>
+<span class="sd">            area_unit (unicode): The thresholds unit for area calculation.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: True if intersection fits the limits.</span>
@@ -147,38 +115,48 @@
         <span class="n">point_types</span> <span class="o">=</span> <span class="n">geometry_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;point&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;types&#39;</span><span class="p">)</span>
         <span class="n">line_types</span> <span class="o">=</span> <span class="n">geometry_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;line&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;types&#39;</span><span class="p">)</span>
         <span class="n">polygon_types</span> <span class="o">=</span> <span class="n">geometry_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;polygon&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;types&#39;</span><span class="p">)</span>
-        <span class="n">min_length</span> <span class="o">=</span> <span class="n">plr_thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;min_length&#39;</span><span class="p">)</span>
-        <span class="n">min_area</span> <span class="o">=</span> <span class="n">plr_thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;min_area&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">point_types</span><span class="p">:</span>
-            <span class="k">pass</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">line_types</span><span class="p">:</span>
-                <span class="c1"># TODO: load this from config</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_units</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_multi_geometry</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
-                    <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum_multi_line_length</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">length</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">length</span>
-                <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="n">min_length</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="n">length</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_test_passed</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">polygon_types</span><span class="p">:</span>
-                <span class="c1"># TODO: load this from config</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_units</span> <span class="o">=</span> <span class="s1">&#39;m2&#39;</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_multi_geometry</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
-                    <span class="n">area</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum_multi_polygon_area</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">area</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">area</span>
-                <span class="n">compensated_area</span> <span class="o">=</span> <span class="n">area</span> <span class="o">*</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">areas_ratio</span>
-                <span class="k">if</span> <span class="n">compensated_area</span> <span class="o">&gt;</span> <span class="n">min_area</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">=</span> <span class="n">compensated_area</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_part_in_percent</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(((</span><span class="n">compensated_area</span> <span class="o">/</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">area</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_test_passed</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">published</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">point_types</span><span class="p">:</span>
+                <span class="k">pass</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># TODO: configure a proper error message</span>
-                <span class="nb">print</span> <span class="s1">&#39;Error: unknown geometry type&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_test_passed</span></div></div>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">line_types</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_units</span> <span class="o">=</span> <span class="n">length_unit</span>
+                    <span class="n">length</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">length</span>
+                    <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;=</span> <span class="n">min_length</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="n">length</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_test_passed</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">polygon_types</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_units</span> <span class="o">=</span> <span class="n">area_unit</span>
+                    <span class="n">area</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">area</span>
+                    <span class="n">compensated_area</span> <span class="o">=</span> <span class="n">area</span> <span class="o">*</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">areas_ratio</span>
+                    <span class="k">if</span> <span class="n">compensated_area</span> <span class="o">&gt;=</span> <span class="n">min_area</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">=</span> <span class="n">compensated_area</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_part_in_percent</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(((</span><span class="n">compensated_area</span> <span class="o">/</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">area</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_test_passed</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># TODO: configure a proper error message</span>
+                    <span class="nb">print</span> <span class="s1">&#39;Error: unknown geometry type&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculated</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_test_passed</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        float or None: Returns the area of this geometry.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculated</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;There was an access on property &quot;area&quot; before calculation was done.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_area</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        float or None: Returns the length of this geometry.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculated</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;There was an access on property &quot;length&quot; before calculation was done.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span></div>
 </pre></div>
 
           </div>

@@ -91,7 +91,7 @@
 
     <span class="k">return</span> <span class="n">urlunsplit</span><span class="p">((</span>
         <span class="n">split_url</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="n">split_url</span><span class="o">.</span><span class="n">netloc</span><span class="p">,</span> <span class="n">split_url</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
-        <span class="n">urlencode</span><span class="p">(</span><span class="n">query</span><span class="p">),</span> <span class="n">split_url</span><span class="o">.</span><span class="n">fragment</span><span class="p">))</span>
+        <span class="n">urlencode</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">doseq</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">split_url</span><span class="o">.</span><span class="n">fragment</span><span class="p">))</span>
 
 
 <div class="viewcode-block" id="uri_validator"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.url.uri_validator">[docs]</a><span class="k">def</span> <span class="nf">uri_validator</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
