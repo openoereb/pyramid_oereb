@@ -2,3 +2,4 @@ include pyramid_oereb/standard/pyramid_oereb.yml.mako
 include pyramid_oereb/standard/logo_confederation.png
 include pyramid_oereb/standard/logo_oereb.png
 include pyramid_oereb/standard/logo_sample.png
+include pyramid_oereb/standard/templates/plr.py.mako
