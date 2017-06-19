@@ -97,4 +97,3 @@ class AddressGeoAdminSource(AddressBaseSource):
                     # self.records.append(AddressRecord())
         else:
             response.raise_for_status()
-
