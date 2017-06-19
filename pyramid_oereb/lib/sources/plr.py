@@ -2,6 +2,8 @@
 from geoalchemy2.elements import _SpatialElement
 from geoalchemy2.shape import to_shape, from_shape
 from pyramid.path import DottedNameResolver
+from sqlalchemy import or_
+from sqlalchemy import text
 
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.availability import AvailabilityRecord
@@ -31,7 +33,6 @@ class PlrBaseSource(Base):
 
 
 class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
-
     def __init__(self, **kwargs):
         self._plr_info_ = kwargs
         models_path = self._plr_info_.get('source').get('params').get('models')
@@ -68,7 +69,26 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     @staticmethod
     def geometry_parsing(geometry_value):
-        return to_shape(geometry_value) if isinstance(geometry_value, _SpatialElement) else None
+        geometry_types = Config.get('geometry_types')
+        collection_types = geometry_types.get('collection').get('types')
+        if isinstance(geometry_value, _SpatialElement):
+            shapely_representation = to_shape(geometry_value)
+            if shapely_representation.type in collection_types:
+                # We need to check if the collection is empty
+                if len(shapely_representation.geoms) > 0:
+                    if len(shapely_representation.geoms) == 1:
+                        # Its not empty, and due to specifications we are only interested in one (the first)
+                        # geometry
+                        shapely_representation = shapely_representation.geoms[0]
+                    else:
+                        raise AttributeError(u'There was more than one element in the GeometryCollection. '
+                                             u'This is not supported!')
+                else:
+                    # There was nothing in it. So we assume it was meant to be None.
+                    shapely_representation = None
+            return shapely_representation
+        else:
+            return None
 
     def from_db_to_legend_entry_record(self, theme, legend_entries_from_db):
         legend_entry_records = []
@@ -163,6 +183,14 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return document_records
 
     def from_db_to_plr_record(self, public_law_restriction_from_db):
+        thresholds = self._plr_info_.get('thresholds')
+        min_length = thresholds.get('length').get('limit')
+        length_unit = thresholds.get('length').get('unit')
+        length_precision = thresholds.get('length').get('precision')
+        min_area = thresholds.get('area').get('limit')
+        area_unit = thresholds.get('area').get('unit')
+        area_precision = thresholds.get('area').get('precision')
+        percentage_precision = thresholds.get('percentage').get('precision')
         theme_record = ThemeRecord(self._plr_info_.get('code'), self._plr_info_.get('text'))
         legend_entry_records = self.from_db_to_legend_entry_record(
             theme_record,
@@ -201,13 +229,92 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             view_service_record,
             basis_plr_records,
             refinements_plr_records,
-            document_records
+            document_records,
+            min_area=min_area,
+            min_length=min_length,
+            area_unit=area_unit,
+            length_unit=length_unit,
+            area_precision=area_precision,
+            length_precision=length_precision,
+            percentage_precision=percentage_precision
         )
         # solve circular dependency between plr and geometry
         for geometry_record in geometry_records:
             geometry_record.public_law_restriction = plr_record
         plr_record.geometries = geometry_records
         return plr_record
+
+    @staticmethod
+    def extract_geometry_collection_db(db_path, real_estate_geometry):
+        """
+        Decides the geometry collection cases of geometric filter operations when the database contains multi
+        geometries but the passed geometry does not.
+        The multi geometry will be extracted to it's sub parts for operation.
+
+        :param db_path: The point separated string of schema_name.table_name.column_name from which we can
+            construct a correct SQL statement.
+        :type db_path: str
+        :param real_estate_geometry: The shapely geometry representation which is used for comparison.
+        :type real_estate_geometry: shapely.geometry.base.BaseGeometry
+        :return: The clause element.
+        :rtype: sqlalchemy.sql.elements.BooleanClauseList
+        :raises: HTTPBadRequest
+        """
+        srid = Config.get('srid')
+        sql_text_point = 'ST_Intersects(ST_CollectionExtract({0}, 1), ST_GeomFromText(\'{1}\', {2}))'.format(
+            db_path,
+            real_estate_geometry.wkt,
+            srid
+        )
+        sql_text_line = 'ST_Intersects(ST_CollectionExtract({0}, 2), ST_GeomFromText(\'{1}\', {2}))'.format(
+            db_path,
+            real_estate_geometry.wkt,
+            srid
+        )
+        sql_text_polygon = 'ST_Intersects(ST_Envelope({0}), ' \
+                           'ST_GeomFromText(\'{1}\', {2}))'.format(
+                                db_path,
+                                real_estate_geometry.wkt,
+                                srid
+                            )
+        clause_blocks = [
+            text(sql_text_point),
+            text(sql_text_line),
+            text(sql_text_polygon)
+        ]
+        return or_(*clause_blocks)
+
+    def handle_collection(self, geometry_results, session, collection_types, real_estate):
+
+        # Check for Geometry type, cause we can't handle geometry collections the same as specific geometries
+        if self._plr_info_.get('geometry_type') in [x.upper() for x in collection_types]:
+
+            # The PLR is defined as a collection type. We need to do a special handling
+            db_bbox_intersection_results = session.query(self._model_).filter(
+                self.extract_geometry_collection_db(
+                    '{schema}.{table}.geom'.format(
+                        schema=self._model_.__table__.schema,
+                        table=self._model_.__table__.name
+                    ),
+                    real_estate.limit
+                )
+            )
+
+            def handle_result(result):
+                real_geometry_intersection_result = real_estate.limit.intersects(to_shape(result.geom))
+                if real_geometry_intersection_result:
+                    geometry_results.append(
+                        result
+                    )
+            for result in db_bbox_intersection_results:
+                handle_result(result)
+
+        else:
+
+            # The PLR is not problematic at all cause we do not have a collection type here
+            geometry_results.extend(session.query(self._model_).filter(self._model_.geom.ST_Intersects(
+                from_shape(real_estate.limit, srid=Config.get('srid'))
+            )).all())
 
     def read(self, real_estate):
         """
@@ -217,17 +324,28 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate in its record representation.
         """
+        geometry_types = Config.get('geometry_types')
+        collection_types = geometry_types.get('collection').get('types')
+
+        # Check if the plr is marked as available
         for availability in self.availabilities:
             if real_estate.fosnr == availability.fosnr and not availability.available:
+                # The plr is marked as not available! This stops every further processing for this PLR and
+                # adds a simple empty record for the PLR's on this real estate
                 return real_estate.public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
                     self._plr_info_.get('code'), self._plr_info_.get('text')
                 ), has_data=False))
-        # TODO: Replace hardcoded SRID with srid defined in conf
-        geoalchemy_representation = from_shape(real_estate.limit, srid=Config.get('srid'))
         session = self._adapter_.get_session(self._key_)
-        geometry_results = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
-            geoalchemy_representation
-        )).all()
+
+        if session.query(self._model_).count() == 0:
+            # We can stop here already because there are no items in the database
+            return real_estate.public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
+                self._plr_info_.get('code'), self._plr_info_.get('text')
+            ), has_data=False))
+
+        geometry_results = []
+        self.handle_collection(geometry_results, session, collection_types, real_estate)
+
         if len(geometry_results) == 0:
             return real_estate.public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
                 self._plr_info_.get('code'), self._plr_info_.get('text')

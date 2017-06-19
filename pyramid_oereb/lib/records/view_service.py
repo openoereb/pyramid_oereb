@@ -103,9 +103,11 @@ class ViewServiceRecord(object):
         print_conf = Config.get_object_path('print', required=['map_size', 'buffer'])
         map_size = print_conf['map_size']
         bbox = self._get_bbox(real_estate.limit, map_size, print_conf['buffer'])
-        return add_url_params(self.link_wms, {
-            "BBOX": ",".join([str(e) for e in bbox])
+        self.link_wms = add_url_params(self.link_wms, {
+            "BBOX": ",".join([str(e) for e in bbox]),
+            "SRS": 'EPSG:{0}'.format(Config.get('srid'))
         })
+        return self.link_wms
 
     def download_wms_content(self):
         """

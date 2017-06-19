@@ -385,7 +385,7 @@ class Geometry(Base):
         geom (geoalchemy2.types.Geometry): The geometry it's self. For type information see
             geoalchemy2_.  .. _geoalchemy2:
             https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
-            configured type.  This concrete one is POLYGON
+            configured type.  This concrete one is LINESTRING
     """
     __table_args__ = {'schema': 'forest_perimeters'}
     __tablename__ = 'geometry'
@@ -393,7 +393,7 @@ class Geometry(Base):
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     geo_metadata = sa.Column(sa.String, nullable=True)  # TODO: Check translation
-    geom = sa.Column(GeoAlchemyGeometry('POLYGON', srid=srid))
+    geom = sa.Column(GeoAlchemyGeometry('LINESTRING', srid=srid))
     public_law_restriction_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(PublicLawRestriction.id),
