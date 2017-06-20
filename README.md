@@ -129,14 +129,21 @@ load_standard_sample_data -c pyramid_oereb_standard.yml
 
 WINDOWS: Getting a development version running with a clean and basic pyramid app as base
 -------------------------------------------------------------------------------
-1.Creation of base directory for the project: oereb
+1. Creation of base directory for the project:
+```
+mkdir oereb
 cd oereb
+```
 
-2. prepare it for git
+2. Prepare it for git:
+```
 git init
+```
 
 3. Install the virtual environnement (supposed you already have python installed)
+```
 virtualenv --setuptools --no-site-packages .build/venv
+```
 
 4. Install a basic Pyramid component*
 (* if you are sure about what you do, you may activate venv with
@@ -195,7 +202,7 @@ git push upstream [branch]
 With this proper instance we start messing around:
 Create a pyramid_oereb.yml file in the project root folder copy the content of pyramid_oereb_standard.yml in it
 and adapt the necessary parameters to your environnement - p.ex db_connection and so on
-in the development.ini and production.ini at the end of the [app:main] block add 
+in the development.ini and production.ini at the end of the [app:main] block add
 pyramid_oereb.cfg.file = pyramid_oereb_standard.yml
 pyramid_oereb.cfg.section = pyramid_oereb
 
@@ -231,7 +238,7 @@ Update existing pyramid_oereb egg
 .build\venv\Scripts\pip uninstall pyramid_oereb
 - Install the new version
 .build\venv\Scripts\pip install pyramid_oereb
-	If for some reasons you need the latest version from git (master), use
+If for some reasons you need the latest version from git (master), use
 .build\venv\Scripts\pip install git+https://github.com/camptocamp/pyramid_oereb.git@master#egg=pyramid_oereb
 then rebuild the app with
 .build\venv\Scripts\python setup.py develop
