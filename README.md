@@ -281,13 +281,21 @@ http://localhost:6543/oereb/versions.json
 
 Update existing pyramid_oereb egg
 - Uninstall the existing egg
+```
 .build\venv\Scripts\pip uninstall pyramid_oereb
+```
 - Install the new version
+```
 .build\venv\Scripts\pip install pyramid_oereb
+```
 If for some reasons you need the latest version from git (master), use
+```
 .build\venv\Scripts\pip install git+https://github.com/camptocamp/pyramid_oereb.git@master#egg=pyramid_oereb
+```
 then rebuild the app with
+```
 .build\venv\Scripts\python setup.py develop
+```
 
 External link
 -------------
