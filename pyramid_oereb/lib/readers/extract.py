@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import datetime
 
+from pyramid.path import DottedNameResolver
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.plr import PlrRecord, EmptyPlrRecord
@@ -103,10 +103,11 @@ class ExtractReader(object):
 
         # Load base data form configuration
         # TODO: Set correct date for base data, related to GSOREB-192
-        # in function of the source of the date and zonal extension (canton/municipality/...)
-        #update_date = get_surveying_data_update_date()
-        update_date = datetime.date.today()
-        base_data = Config.get_base_data(update_date)
+        # maybe in function of the source of the date and zonal extension (canton/municipality/...)
+        resolver = DottedNameResolver()
+        date_method_string = Config.get("base_data").get("date_mehod")
+        date_method = resolver.resolve(date_method_string)
+        base_data = Config.get_base_data(date_method(real_estate))
 
         self.extract = ExtractRecord(
             real_estate,

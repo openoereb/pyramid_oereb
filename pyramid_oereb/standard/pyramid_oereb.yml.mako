@@ -201,6 +201,7 @@ pyramid_oereb:
     # This is a multlingual value. At least the set default language has to be defined.
     base_data:
         de: Daten der amtlichen Vermessung, Stand {0}.
+        date_mehod:  pyramid_oereb.standard.get_cadastral_data_update.get_surveying_data_update_date
     # The extract must have a property source.
     source:
       # The source must have a class which represents the accessor to the source. In this case it is a source
