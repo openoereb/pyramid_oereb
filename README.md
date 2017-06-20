@@ -232,8 +232,7 @@ With this proper instance we start messing around:
 Create a pyramid_oereb.yml file in the project root folder and copy
 the content of pyramid_oereb_standard.yml we created before in it
 and adapt the necessary parameters to your environnement - p.ex db_connection and so on
-in the development.ini and production.ini at the end of the 
-
+in the development.ini and production.ini at the end of the
 [app:main] block add
 ```
 pyramid_oereb.cfg.file = pyramid_oereb_standard.yml
