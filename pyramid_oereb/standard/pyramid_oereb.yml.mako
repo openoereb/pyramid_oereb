@@ -40,6 +40,9 @@ pyramid_oereb:
     # The print DPI
     dpi: 200
 
+    # Base URL with application of the print server
+    base_url: http://localhost:8280/print/oereb
+
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
   # creation process. Because this name is used as schema name in the target database. The app_schema holds
   # all application stuff like: addresses, municipalities, real estates, etc.
