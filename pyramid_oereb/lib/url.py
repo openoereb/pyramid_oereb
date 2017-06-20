@@ -46,7 +46,7 @@ def add_split_url_params(parsed_url, new_params):
 
     return urlunsplit((
         split_url.scheme, split_url.netloc, split_url.path,
-        urlencode(query), split_url.fragment))
+        urlencode(query, doseq=True), split_url.fragment))
 
 
 def uri_validator(url):

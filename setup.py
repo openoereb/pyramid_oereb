@@ -58,6 +58,7 @@ setup(
         'standard/pyramid_oereb.yml.mako',
         'standard/logo_confederation.png',
         'standard/logo_oereb.png',
+        'standard/logo_sample.png',
         'standard/templates/plr.py.mako',
         'tests/resources/*',
         'tests/resources/plr119/*'
