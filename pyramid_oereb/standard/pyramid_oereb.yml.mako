@@ -233,6 +233,7 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.land_use_plans
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr87
       code: MotorwaysProjectPlaningZones
@@ -246,10 +247,11 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.motorways_project_planing_zones
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.motorways_project_planing_zones
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr88
       code: MotorwaysBuildingLines
@@ -263,10 +265,11 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.motorways_building_lines
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.motorways_building_lines
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr97
       code: RailwaysBuildingLines
@@ -280,10 +283,11 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.railways_building_lines
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.railways_building_lines
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr96
       code: RailwaysProjectPlanningZones
@@ -297,10 +301,11 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.railways_project_planning_zones
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.railways_project_planning_zones
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr103
       code: AirportsProjectPlanningZones
@@ -314,10 +319,11 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.airports_project_planning_zones
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.airports_project_planning_zones
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr104
       code: AirportsBuildingLines
@@ -331,10 +337,11 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.airports_building_lines
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.airports_building_lines
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr108
       code: AirportsSecurityZonePlans
@@ -348,10 +355,11 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.airports_security_zone_plans
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.airports_security_zone_plans
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr116
       code: ContaminatedSites
@@ -365,10 +373,11 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.contaminated_sites
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.contaminated_sites
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr117
       code: ContaminatedMilitarySites
@@ -382,10 +391,11 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.contaminated_military_sites
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.contaminated_military_sites
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr118
       code: ContaminatedCivilAviationSites
@@ -399,10 +409,11 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr119
       code: ContaminatedPublicTransportSites
@@ -416,10 +427,11 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.contaminated_public_transport_sites
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.contaminated_public_transport_sites
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr131
       code: GroundwaterProtectionZones
@@ -433,10 +445,11 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.groundwater_protection_zones
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.groundwater_protection_zones
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr132
       code: GroundwaterProtectionSites
@@ -450,10 +463,11 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.groundwater_protection_sites
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.groundwater_protection_sites
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr145
       code: NoiseSensitivityLevels
@@ -467,10 +481,11 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.noise_sensitivity_levels
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.noise_sensitivity_levels
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr157
       code: ForestPerimeters
@@ -484,10 +499,11 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.forest_perimeters
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.forest_perimeters
+      get_image_method: pyramid_oereb.standard.methods.get_image
 
     - name: plr159
       code: ForestDistanceLines
@@ -501,7 +517,8 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.forest_distance_lines
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.forest_distance_lines
+      get_image_method: pyramid_oereb.standard.methods.get_image

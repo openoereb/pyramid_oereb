@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPServerError
+from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPServerError, HTTPNotFound
+from pyramid.path import DottedNameResolver
 from shapely.geometry import Point
 from pyramid.renderers import render_to_response
 from sqlalchemy.orm.exc import NoResultFound
@@ -507,3 +508,19 @@ class Parameter(object):
         if 'ALL_FEDERAL' in self.topics and theme_code in Config.get_all_federal():
             return False
         return True
+
+
+class Image(object):
+    def __init__(self, request):
+        self._request_ = request
+
+    def get_image(self):
+        method = None
+        dnr = DottedNameResolver()
+        for plr in Config.get('plrs'):
+            if str(plr.get('code')).lower() == str(self._request_.matchdict.get('theme_code')).lower():
+                method = dnr.resolve(plr.get('get_image_method'))
+                break
+        if method:
+            return method(self._request_)
+        raise HTTPNotFound()

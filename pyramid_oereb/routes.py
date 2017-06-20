@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from pyramid_oereb import route_prefix
-from pyramid_oereb.views.webservice import PlrWebservice
+from pyramid_oereb.views.webservice import PlrWebservice, Image
 
 
 def includeme(config):  # pragma: no cover
@@ -9,6 +9,11 @@ def includeme(config):  # pragma: no cover
     # Static view for images
     img_dir = config.get_settings().get('pyramid_oereb').get('images').get('directory')
     config.add_static_view('images', img_dir)
+
+    # Service for dynamic images
+    config.add_route('{0}/image'.format(route_prefix), '/image/{theme_code}/{type_code}')
+    config.add_view(Image, attr='get_image', route_name='{0}/image'.format(route_prefix),
+                    request_method='GET')
 
     # Get versions
     config.add_route('{0}/versions.json'.format(route_prefix), '/versions.json')
