@@ -96,7 +96,7 @@ pyramid_oereb:
   # Note: This must be a valid system path available for reading by the user running this server.
   images:
     directory: ${image_directory}
-    logo:
+    logos:
       # The logo representing the swiss confederation (you can use it as is cause it is provided in this
       # repository). But if you need to change it for any reason: Feel free...
       confederation: logos/logo_confederation.png

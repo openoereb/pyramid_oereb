@@ -301,6 +301,28 @@ class Config(object):
         )
 
     @staticmethod
+    def get_images_directory():
+        """
+        Returns the path of the configured images directory.
+
+        Returns:
+            str: The path of the configured images directory.
+
+        Raises:
+            ConfigurationError: Raised on missing configuration.
+        """
+        assert Config._config is not None
+        images = Config._config.get('images')
+        if isinstance(images, dict):
+            img_dir = images.get('directory')
+            if img_dir:
+                return img_dir
+            else:
+                raise ConfigurationError('Missing configuration for "images.directory".')
+        else:
+            raise ConfigurationError('Missing configuration for "images".')
+
+    @staticmethod
     def get_logo_config():
         """
         Returns a dictionary of the configured file path's to the logos.
@@ -314,7 +336,8 @@ class Config(object):
         oereb_key = 'oereb'
         canton_key = 'canton'
         msg = 'The definition for "{key}" must be set. Got: {found_config}'
-        logo_dict = Config._config.get('logo')
+        img_dir = Config.get_images_directory()
+        logo_dict = Config._config.get('images').get('logos')
         if not logo_dict.get(confederation_fkey):
             raise ConfigurationError(msg.format(key=confederation_fkey, found_config=logo_dict))
         if not logo_dict.get(oereb_key):
@@ -322,9 +345,10 @@ class Config(object):
         if not logo_dict.get(canton_key):
             raise ConfigurationError(msg.format(key=canton_key, found_config=logo_dict))
         file_adapter = FileAdapter()
-        confederation_logo = ImageRecord(file_adapter.read(logo_dict.get(confederation_fkey)))
-        oereb_logo = ImageRecord(file_adapter.read(logo_dict.get(oereb_key)))
-        canton_logo = ImageRecord(file_adapter.read(logo_dict.get(canton_key)))
+        confederation_logo = ImageRecord(file_adapter.read(os.path.join(img_dir,
+                                                                        logo_dict.get(confederation_fkey))))
+        oereb_logo = ImageRecord(file_adapter.read(os.path.join(img_dir, logo_dict.get(oereb_key))))
+        canton_logo = ImageRecord(file_adapter.read(os.path.join(img_dir, logo_dict.get(canton_key))))
 
         return {
             confederation_fkey: confederation_logo,

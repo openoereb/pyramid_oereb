@@ -7,7 +7,8 @@ from pyramid_oereb.views.webservice import PlrWebservice
 def includeme(config):  # pragma: no cover
 
     # Static view for images
-    config.add_static_view('images', '/tmp/test')
+    img_dir = config.get_settings().get('pyramid_oereb').get('images').get('directory')
+    config.add_static_view('images', img_dir)
 
     # Get versions
     config.add_route('{0}/versions.json'.format(route_prefix), '/versions.json')

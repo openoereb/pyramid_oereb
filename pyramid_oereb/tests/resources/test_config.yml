@@ -10,10 +10,12 @@ section2:
 
 pyramid_oereb:
 
-  logo:
-    confederation: pyramid_oereb/standard/logo_confederation.png
-    oereb: pyramid_oereb/standard/logo_oereb.png
-    canton: pyramid_oereb/standard/logo_sample.png
+  images:
+    directory: pyramid_oereb/standard/images
+    logos:
+      confederation: logos/logo_confederation.png
+      oereb: logos/logo_oereb.png
+      canton: logos/logo_sample.png
 
   plr_cadastre_authority:
     name:

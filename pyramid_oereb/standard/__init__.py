@@ -6,7 +6,7 @@ import re
 from mako.template import Template
 from pyramid.path import AssetResolver, DottedNameResolver
 from sqlalchemy import create_engine
-from shutil import copyfile
+from shutil import copytree
 from pyramid_oereb.lib.config import parse
 
 
@@ -151,41 +151,17 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
 
     """
 
-    # File names
-    logo_oereb_name = 'logo_oereb.png'
-    logo_confederation_name = 'logo_confederation.png'
-    logo_sample_name = 'logo_sample.png'
-
     # Create pyramid_oereb.yml from template
     template = Template(
         filename=AssetResolver('pyramid_oereb').resolve('standard/pyramid_oereb.yml.mako').abspath(),
         input_encoding='utf-8',
         output_encoding='utf-8'
     )
-    config = template.render(sqlalchemy_url=database, image_directory=os.getcwd())
+    config = template.render(sqlalchemy_url=database, image_directory=os.path.join(os.getcwd(), 'images'))
     pyramid_oereb_yml = open(name, 'w+')
     pyramid_oereb_yml.write(config)
     pyramid_oereb_yml.close()
 
     # Copy static files
-    logo_oereb_path = AssetResolver('pyramid_oereb').resolve(
-        'standard/{name}'.format(name=logo_oereb_name)
-    ).abspath()
-    logo_confederation_path = AssetResolver('pyramid_oereb').resolve(
-        'standard/{name}'.format(name=logo_confederation_name)
-    ).abspath()
-    logo_sample_path = AssetResolver('pyramid_oereb').resolve(
-        'standard/{name}'.format(name=logo_sample_name)
-    ).abspath()
-    target_path = os.path.abspath('{path}{sep}{name}'.format(
-        path=os.getcwd(), name=logo_oereb_name, sep=os.sep)
-    )
-    copyfile(logo_oereb_path, target_path)
-    target_path = os.path.abspath('{path}{sep}{name}'.format(
-        path=os.getcwd(), name=logo_confederation_name, sep=os.sep)
-    )
-    copyfile(logo_confederation_path, target_path)
-    target_path = os.path.abspath('{path}{sep}{name}'.format(
-        path=os.getcwd(), name=logo_sample_name, sep=os.sep)
-    )
-    copyfile(logo_sample_path, target_path)
+    img_path = AssetResolver('pyramid_oereb').resolve('standard/images').abspath()
+    copytree(img_path, os.path.join(os.getcwd(), 'images'))
