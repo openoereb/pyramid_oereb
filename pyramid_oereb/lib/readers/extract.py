@@ -105,7 +105,7 @@ class ExtractReader(object):
         # TODO: Set correct date for base data, related to GSOREB-192
         # maybe in function of the source of the date and zonal extension (canton/municipality/...)
         resolver = DottedNameResolver()
-        date_method_string = Config.get("base_data").get("date_mehod")
+        date_method_string = Config.get('base_data').get('date_mehod')
         date_method = resolver.resolve(date_method_string)
         base_data = Config.get_base_data(date_method(real_estate))
 
