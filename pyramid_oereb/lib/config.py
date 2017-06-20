@@ -4,7 +4,6 @@ import os
 import datetime
 import yaml
 from pyramid.config import ConfigurationError
-from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
@@ -344,11 +343,9 @@ class Config(object):
             raise ConfigurationError(msg.format(key=oereb_key, found_config=logo_dict))
         if not logo_dict.get(canton_key):
             raise ConfigurationError(msg.format(key=canton_key, found_config=logo_dict))
-        file_adapter = FileAdapter()
-        confederation_logo = ImageRecord(file_adapter.read(os.path.join(img_dir,
-                                                                        logo_dict.get(confederation_fkey))))
-        oereb_logo = ImageRecord(file_adapter.read(os.path.join(img_dir, logo_dict.get(oereb_key))))
-        canton_logo = ImageRecord(file_adapter.read(os.path.join(img_dir, logo_dict.get(canton_key))))
+        confederation_logo = ImageRecord.from_file(os.path.join(img_dir, logo_dict.get(confederation_fkey)))
+        oereb_logo = ImageRecord.from_file(os.path.join(img_dir, logo_dict.get(oereb_key)))
+        canton_logo = ImageRecord.from_file(os.path.join(img_dir, logo_dict.get(canton_key)))
 
         return {
             confederation_fkey: confederation_logo,
