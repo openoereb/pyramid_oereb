@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
+from datetime import date
 
 
 def get_update_date_from_file():
@@ -33,6 +33,6 @@ def get_surveying_data_update_date(real_estate):
         update_date (datetime.date): The date of the last update of the cadastral base data
     """
 
-    update_date = datetime.date.today()
+    update_date = date.today()
 
     return update_date
