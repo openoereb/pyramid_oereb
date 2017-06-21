@@ -50,6 +50,12 @@ Module: pyramid_oereb.standard.create_standard_models
 .. automodule:: pyramid_oereb.standard.create_standard_models
    :members:
 
+Module: pyramid_oereb.standard.get_cadastral_data_update
+--------------------------------------------------------
+
+.. automodule:: pyramid_oereb.standard.get_cadastral_data_update
+   :members:
+
 Module: pyramid_oereb.standard.load_sample_data
 -----------------------------------------------
 

@@ -335,6 +335,41 @@ environment at all!</p>
 <div class="section" id="module-pyramid_oereb.standard.create_standard_models">
 <span id="module-pyramid-oereb-standard-create-standard-models"></span><h2>Module: pyramid_oereb.standard.create_standard_models<a class="headerlink" href="#module-pyramid_oereb.standard.create_standard_models" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-pyramid_oereb.standard.get_cadastral_data_update">
+<span id="module-pyramid-oereb-standard-get-cadastral-data-update"></span><h2>Module: pyramid_oereb.standard.get_cadastral_data_update<a class="headerlink" href="#module-pyramid_oereb.standard.get_cadastral_data_update" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyramid_oereb.standard.get_cadastral_data_update.get_surveying_data_update_date">
+<code class="descclassname">pyramid_oereb.standard.get_cadastral_data_update.</code><code class="descname">get_surveying_data_update_date</code><span class="sig-paren">(</span><em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/get_cadastral_data_update.html#get_surveying_data_update_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.get_cadastral_data_update.get_surveying_data_update_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the date of the latest update of the used cadastral data for the
+situation map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real
+estate for which the last update date of the base data should be indicated</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The date of the last update of the cadastral base data</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">update_date (datetime.date)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyramid_oereb.standard.get_cadastral_data_update.get_update_date_from_db">
+<code class="descclassname">pyramid_oereb.standard.get_cadastral_data_update.</code><code class="descname">get_update_date_from_db</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/get_cadastral_data_update.html#get_update_date_from_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.get_cadastral_data_update.get_update_date_from_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the date of the latest update of the used data from a table</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyramid_oereb.standard.get_cadastral_data_update.get_update_date_from_file">
+<code class="descclassname">pyramid_oereb.standard.get_cadastral_data_update.</code><code class="descname">get_update_date_from_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/get_cadastral_data_update.html#get_update_date_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.get_cadastral_data_update.get_update_date_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the date of the latest update of the used data from a file</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-pyramid_oereb.standard.load_sample_data">
 <span id="module-pyramid-oereb-standard-load-sample-data"></span><h2>Module: pyramid_oereb.standard.load_sample_data<a class="headerlink" href="#module-pyramid_oereb.standard.load_sample_data" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -28165,6 +28200,7 @@ request.</li>
 <li><a class="reference internal" href="#module-pyramid_oereb.views.webservice">Module: pyramid_oereb.views.webservice</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.standard">Module: pyramid_oereb.standard</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.standard.create_standard_models">Module: pyramid_oereb.standard.create_standard_models</a></li>
+<li><a class="reference internal" href="#module-pyramid_oereb.standard.get_cadastral_data_update">Module: pyramid_oereb.standard.get_cadastral_data_update</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.standard.load_sample_data">Module: pyramid_oereb.standard.load_sample_data</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.standard.create_yaml">Module: pyramid_oereb.standard.create_yaml</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.standard.create_tables">Module: pyramid_oereb.standard.create_tables</a></li>
