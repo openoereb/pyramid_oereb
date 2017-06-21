@@ -97,7 +97,7 @@ Before you start whith the following instructions you should think about creatin
 2. If you are using virtual environment enable it:
 ```source <path_to_your_venv>/bin/activate```
 3. run the following command (This will install all new requirements):
-```pip install -e.```
+```pip install -e .```
 3. Now you have installed the pyramid oereb package
 4. In the root folder of your pyramid app (the one where the setup.py is stored too) run the command: ```create_standard_yaml```
 5. You got a configuration file which contains all standard things (a yaml, and two logo png files). **IMPORTANT:** There are several places where database connections are defined. They all are defined like this: ```db_connection: postgresql://postgres:password@localhost/pyramid_oereb```, you **MUST** adapt this to your database configuration. Note that the database you specify here must exist and it must be able to handle spacial data (postgis,...). **This connections are used later to create/drop standard tables and fill database with standard data.** HINT: Use *find and replace* of your favorite editor and replace all connection definitions. In addition to the database connection you can find a line with the content: ```canton: YOUR_LOGO_HERE!```. Place a png file representing your cantonal logo in this folder and replace 'YOUR_LOGO_HERE!' with the name of your logo.
@@ -124,7 +124,7 @@ create_standard_tables -c pyramid_oereb_standard.yml
 load_standard_sample_data -c pyramid_oereb_standard.yml
 ```
 12. Check with a tool of your choise that the structure was created successfully in you desired database. You should find 17 database schemas named (snake_case) by their code attribute from the yml file. Plus one schema called "pyramid_oereb_main" containing the app global stuff (addresses, municipalities, etc.). At least these tables need to be filled up with your data with a tool of your choise).
-13. Start your pyramid application.
+13. Start your pyramid application (`pserve development.ini`).
 14. Point your browser to: <your pyramid applications root url>/oereb/extract/embeddable/json/CH113928077734
 
 WINDOWS: Getting a development version running with a clean and basic pyramid app as base
