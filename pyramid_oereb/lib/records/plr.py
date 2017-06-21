@@ -26,14 +26,11 @@ class PlrRecord(EmptyPlrRecord):
     part_in_percent = None
     """decimal: Part of the property area touched by the restriction in percent."""
 
-    symbol = None
-    """binary or None: Symbol of the restriction defined for the legend entry - added on the fly."""
-
     def __init__(self, theme, content, legal_state, published_from, responsible_office, subtopic=None,
                  additional_topic=None, type_code=None, type_code_list=None, view_service=None, basis=None,
                  refinements=None, documents=None, geometries=None, info=None, min_length=0.0,
                  min_area=0.0, length_unit=u'm', area_unit=u'm2', length_precision=2, area_precision=2,
-                 percentage_precision=1):
+                 percentage_precision=1, symbol=None):
         """
         Public law restriction record.
 
@@ -64,6 +61,7 @@ class PlrRecord(EmptyPlrRecord):
             length_precision (int): The precision how the length results will be rounded.
             area_precision (int): The precision how the area results will be rounded.
             percentage_precision (int): The precision how the percentage results will be rounded.
+            symbol (str or None): Symbol of the restriction for the legend entry (base64 encoded).
         """
         super(PlrRecord, self).__init__(theme)
 
@@ -106,6 +104,7 @@ class PlrRecord(EmptyPlrRecord):
         self.percentage_precision = percentage_precision
         self._area = None
         self._length = None
+        self.symbol = symbol
 
     @property
     def published(self):

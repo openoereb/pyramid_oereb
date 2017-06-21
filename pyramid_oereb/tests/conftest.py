@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 import base64
+import os
+from contextlib import contextmanager
 
 from datetime import date, timedelta
 from pyramid.path import DottedNameResolver
-from pyramid.testing import DummyRequest
+from pyramid.testing import DummyRequest, testConfig
 import pytest
 from sqlalchemy import create_engine
 
-from pyramid_oereb import ExtractReader
+from pyramid_oereb import ExtractReader, route_prefix
 from pyramid_oereb import MunicipalityReader
 from pyramid_oereb import ExclusionOfLiabilityReader
 from pyramid_oereb import GlossaryReader
@@ -22,7 +24,7 @@ from pyramid_oereb.standard.models import contaminated_sites
 from pyramid_oereb.standard.models import land_use_plans
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.standard.models.main import Municipality, Glossary, RealEstate
-
+from pyramid_oereb.views.webservice import Image
 
 pyramid_oereb_test_yml = 'pyramid_oereb/standard/pyramid_oereb.yml'
 
@@ -32,6 +34,16 @@ def config():
     Config._config = None
     Config.init(pyramid_oereb_test_yml, 'pyramid_oereb')
     return Config
+
+
+@contextmanager
+def pyramid_oereb_test_config():
+    with testConfig() as pyramid_config:
+        pyramid_config.add_static_view('images', os.path.abspath(config().get('images').get('directory')))
+        pyramid_config.add_route('{0}/image'.format(route_prefix), '/image/{theme_code}/{type_code}')
+        pyramid_config.add_view(Image, attr='get_image', route_name='{0}/image'.format(route_prefix),
+                                request_method='GET')
+        yield pyramid_config
 
 
 class MockRequest(DummyRequest):
@@ -455,12 +467,12 @@ def connection(config):
 
     connection_.execute(land_use_plans.Office.__table__.insert(), {
         'id': 1,
-        'name': u'{"de": "Test Office"}'
+        'name': {'de': u'Test Office'}
     })
 
     connection_.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
         'id': 1,
-        'content': u'{"de": "Large polygon PLR"}',
+        'content': {'de': u'Large polygon PLR'},
         'topic': u'ContaminatedSites',
         'legal_state': u'inForce',
         'published_from': unicode(date.today().isoformat()),
@@ -469,7 +481,7 @@ def connection(config):
     })
     connection_.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
         'id': 2,
-        'content': u'{"de": "Small polygon PLR"}',
+        'content': {'de': u'Small polygon PLR'},
         'topic': u'ContaminatedSites',
         'legal_state': u'inForce',
         'published_from': unicode(date.today().isoformat()),
@@ -478,7 +490,7 @@ def connection(config):
     })
     connection_.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
         'id': 3,
-        'content': u'{"de": "Double intersection polygon PLR"}',
+        'content': {'de': u'Double intersection polygon PLR'},
         'topic': u'ContaminatedSites',
         'legal_state': u'inForce',
         'published_from': unicode(date.today().isoformat()),
@@ -487,7 +499,7 @@ def connection(config):
     })
     connection_.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
         'id': 4,
-        'content': u'{"de": "Future PLR"}',
+        'content': {'de': u'Future PLR'},
         'topic': u'ContaminatedSites',
         'legal_state': u'inForce',
         'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),

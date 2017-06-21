@@ -5,7 +5,7 @@
     "legend_text": {
       "de": "Belastet, weder überwachungs- noch sanierungsbedürftig"
     },
-    "type_code": "StaoTyp3",
+    "type_code": "StaoTyp2",
     "type_code_list": "http://my.typecode.com/list",
     "topic": "ContaminatedPublicTransportSites",
     "view_service_id": 1

@@ -3,7 +3,7 @@ from json import dumps
 
 from pyramid.response import Response
 
-from pyramid_oereb import Config
+from pyramid_oereb import Config, route_prefix
 from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord, ArticleRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
 from shapely.geometry import mapping
@@ -206,10 +206,22 @@ class Renderer(Base):
                     'Theme': self.format_theme(plr.theme),
                     'Lawstatus': plr.legal_state,
                     'Area': plr.area,
-                    'Symbol': plr.symbol,
                     'ResponsibleOffice': self.format_office(plr.responsible_office),
                     'Map': self.format_map(plr.view_service)
                 }
+
+                if self._params_.images:
+                    plr_dict.update({
+                        'Symbol': plr.symbol
+                    })
+                else:
+                    # Link to symbol is only available if type code is set!
+                    if plr.type_code:
+                        plr_dict.update({
+                            'SymbolRef': self._request_.route_url('{0}/image'.format(route_prefix),
+                                                                  theme_code=plr.theme.code,
+                                                                  type_code=plr.type_code)
+                        })
 
                 if plr.subtopic:
                     plr_dict['SubTheme'] = plr.subtopic
@@ -420,12 +432,23 @@ class Renderer(Base):
             dict: The formatted dictionary for rendering.
         """
         legend_entry_dict = {
-            'Symbol': legend_entry.symbol,
             'LegendText': self.get_localized_text(legend_entry.legend_text),
             'TypeCode': legend_entry.type_code,
             'TypeCodelist': legend_entry.type_code_list,
             'Theme': self.format_theme(legend_entry.theme)
         }
+
+        if self._params_.images:
+            legend_entry_dict.update({
+                'Symbol': legend_entry.symbol
+            })
+        else:
+            legend_entry_dict.update({
+                'SymbolRef': self._request_.route_url('{0}/image'.format(route_prefix),
+                                                      theme_code=legend_entry.theme.code,
+                                                      type_code=legend_entry.type_code)
+            })
+
         if legend_entry.sub_theme:
             legend_entry_dict['SubTheme'] = legend_entry.sub_theme
         if legend_entry.additional_theme:

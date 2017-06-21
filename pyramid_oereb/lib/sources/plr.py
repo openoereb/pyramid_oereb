@@ -210,6 +210,11 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         document_records = self.from_db_to_document_records(documents_from_db, article_numbers)
         geometry_records = self.from_db_to_geometry_records(public_law_restriction_from_db.geometries)
 
+        plr_symbol = None
+        for legend_entry in public_law_restriction_from_db.view_service.legends:
+            if legend_entry.type_code == public_law_restriction_from_db.type_code:
+                plr_symbol = legend_entry.symbol
+
         basis_plr_records = []
         for join in public_law_restriction_from_db.basis:
             basis_plr_records.append(self.from_db_to_plr_record(join.base))
@@ -236,7 +241,8 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             length_unit=length_unit,
             area_precision=area_precision,
             length_precision=length_precision,
-            percentage_precision=percentage_precision
+            percentage_precision=percentage_precision,
+            symbol=plr_symbol
         )
         # solve circular dependency between plr and geometry
         for geometry_record in geometry_records:

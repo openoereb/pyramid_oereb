@@ -18,6 +18,7 @@ from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
+from pyramid_oereb.tests.conftest import MockRequest, pyramid_oereb_test_config
 from pyramid_oereb.tests.renderer import DummyRenderInfo
 from pyramid_oereb.views.webservice import Parameter
 
@@ -353,20 +354,27 @@ def test_format_map(config, params):
 
 def test_format_legend_entry(config, params):
     assert isinstance(config._config, dict)
-    renderer = Renderer(DummyRenderInfo())
-    renderer._language_ = u'de'
-    renderer._params_ = params
-    theme = ThemeRecord('test', {'de': 'Test'})
-    legend_entry = LegendEntryRecord(bin(1), {'de': 'Legendeneintrag'}, 'type1', 'type_code_list', theme,
-                                     'Subthema', 'Weiteres Thema')
-    result = renderer.format_legend_entry(legend_entry)
-    assert isinstance(result, dict)
-    assert result == {
-        'Symbol': bin(1),
-        'LegendText': renderer.get_localized_text({'de': 'Legendeneintrag'}),
-        'TypeCode': 'type1',
-        'TypeCodelist': 'type_code_list',
-        'Theme': renderer.format_theme(theme),
-        'SubTheme': 'Subthema',
-        'OtherTheme': 'Weiteres Thema'
-    }
+    with pyramid_oereb_test_config():
+        request = MockRequest()
+        request.matchdict.update({
+            'theme_code': 'TestTheme',
+            'type_code': 'TestType'
+        })
+        renderer = Renderer(DummyRenderInfo())
+        renderer._language_ = u'de'
+        renderer._params_ = params
+        renderer._request_ = request
+        theme = ThemeRecord('test', {'de': 'Test'})
+        legend_entry = LegendEntryRecord(bin(1), {'de': 'Legendeneintrag'}, 'type1', 'type_code_list', theme,
+                                         'Subthema', 'Weiteres Thema')
+        result = renderer.format_legend_entry(legend_entry)
+        assert isinstance(result, dict)
+        assert result == {
+            'Symbol': bin(1),
+            'LegendText': renderer.get_localized_text({'de': 'Legendeneintrag'}),
+            'TypeCode': 'type1',
+            'TypeCodelist': 'type_code_list',
+            'Theme': renderer.format_theme(theme),
+            'SubTheme': 'Subthema',
+            'OtherTheme': 'Weiteres Thema'
+        }
