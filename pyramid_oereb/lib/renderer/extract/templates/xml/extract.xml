@@ -45,7 +45,7 @@
         </xsd:ThemeWithoutData>
         %endfor
     %endif
-        <xsd:isReduced>${parse_bool(extract.is_reduced)}</xsd:isReduced>
+        <xsd:isReduced>${parse_bool(params.flavour == 'reduced')}</xsd:isReduced>
     %if params.images:
         ## TODO: provide a link to the logos
         <xsd:LogoPLRCadastreRef>${extract.logo_plr_cadastre.encode()}</xsd:LogoPLRCadastreRef>
