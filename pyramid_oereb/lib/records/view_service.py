@@ -63,7 +63,7 @@ class ViewServiceRecord(object):
             self.legends = legends
 
     @staticmethod
-    def _get_bbox(geometry, map_size, print_buffer):
+    def get_bbox(geometry, map_size, print_buffer):
         width_buffer = (geometry.bounds[2] - geometry.bounds[0]) * print_buffer / 100
         height_buffer = (geometry.bounds[3] - geometry.bounds[1]) * print_buffer / 100
         print_bounds = [
@@ -102,7 +102,7 @@ class ViewServiceRecord(object):
 
         print_conf = Config.get_object_path('print', required=['map_size', 'buffer'])
         map_size = print_conf['map_size']
-        bbox = self._get_bbox(real_estate.limit, map_size, print_conf['buffer'])
+        bbox = self.get_bbox(real_estate.limit, map_size, print_conf['buffer'])
         self.link_wms = add_url_params(self.link_wms, {
             "BBOX": ",".join([str(e) for e in bbox]),
             "SRS": 'EPSG:{0}'.format(Config.get('srid'))

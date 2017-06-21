@@ -287,7 +287,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         ]
         return or_(*clause_blocks)
 
-    def handle_collection(self, geometry_results, session, collection_types, real_estate):
+    def handle_collection(self, geometry_results, session, collection_types, bbox):
 
         # Check for Geometry type, cause we can't handle geometry collections the same as specific geometries
         if self._plr_info_.get('geometry_type') in [x.upper() for x in collection_types]:
@@ -299,12 +299,12 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         schema=self._model_.__table__.schema,
                         table=self._model_.__table__.name
                     ),
-                    real_estate.limit
+                    bbox
                 )
             )
 
             def handle_result(result):
-                real_geometry_intersection_result = real_estate.limit.intersects(to_shape(result.geom))
+                real_geometry_intersection_result = bbox.intersects(to_shape(result.geom))
                 if real_geometry_intersection_result:
                     geometry_results.append(
                         result
@@ -316,46 +316,55 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
             # The PLR is not problematic at all cause we do not have a collection type here
             geometry_results.extend(session.query(self._model_).filter(self._model_.geom.ST_Intersects(
-                from_shape(real_estate.limit, srid=Config.get('srid'))
+                from_shape(bbox, srid=Config.get('srid'))
             )).all())
 
-    def read(self, real_estate):
+    def read(self, real_estate, bbox):
         """
         The read point which creates a extract, depending on a passed real estate.
 
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate in its record representation.
+            bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
+
+        Returns:
+            TODO: TODO
         """
         geometry_types = Config.get('geometry_types')
         collection_types = geometry_types.get('collection').get('types')
+
+        public_law_restrictions = []
 
         # Check if the plr is marked as available
         for availability in self.availabilities:
             if real_estate.fosnr == availability.fosnr and not availability.available:
                 # The plr is marked as not available! This stops every further processing for this PLR and
                 # adds a simple empty record for the PLR's on this real estate
-                return real_estate.public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
+                public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
                     self._plr_info_.get('code'), self._plr_info_.get('text')
                 ), has_data=False))
+                return public_law_restrictions
         session = self._adapter_.get_session(self._key_)
 
         if session.query(self._model_).count() == 0:
             # We can stop here already because there are no items in the database
-            return real_estate.public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
+            public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
                 self._plr_info_.get('code'), self._plr_info_.get('text')
             ), has_data=False))
+            return public_law_restrictions
 
         geometry_results = []
-        self.handle_collection(geometry_results, session, collection_types, real_estate)
+        self.handle_collection(geometry_results, session, collection_types, bbox)
 
         if len(geometry_results) == 0:
-            return real_estate.public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
+            public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
                 self._plr_info_.get('code'), self._plr_info_.get('text')
             )))
+            return public_law_restrictions
         for geometry_result in geometry_results:
-            real_estate.public_law_restrictions.append(
+            public_law_restrictions.append(
                 self.from_db_to_plr_record(geometry_result.public_law_restriction)
             )
         session.close()
-        return real_estate
+        return public_law_restrictions

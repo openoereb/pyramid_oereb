@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from pyramid.path import DottedNameResolver
+
+from shapely.geometry import box
+
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.plr import PlrRecord, EmptyPlrRecord
+from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 
 
 class ExtractReader(object):
@@ -79,10 +83,15 @@ class ExtractReader(object):
                 gathered data.
         """
 
+        print_conf = Config.get_object_path('print', required=['map_size', 'buffer'])
+        bbox = ViewServiceRecord.get_bbox(real_estate.limit,
+                                          print_conf['map_size'], print_conf['buffer'])
+        bbox = box(bbox[0], bbox[1], bbox[2], bbox[3])
+
         for plr_source in self._plr_sources_:
             if params.skip_topic(plr_source.info.get('code')):
                 continue
-            plr_source.read(real_estate)
+            real_estate.public_law_restrictions.extend(plr_source.read(real_estate, bbox))
 
         concerned_themes = list()
         not_concerned_themes = list()

@@ -117,6 +117,32 @@ class Processor(object):
                 public_law_restriction.view_service.download_wms_content()
         return real_estate
 
+    @staticmethod
+    def get_legend_entries(real_estate):
+        """
+        TODO
+        """
+        # Get all plr that intersect (and are completely inside) the real_estate limit.
+        real_estate_plr = []
+        outside_real_estate_plr = []
+
+        for public_law_restriction in real_estate.public_law_restrictions:
+            intersect = False
+            for geometry in public_law_restriction.geometries:
+                # TODO Not sur of that, I consider the PLR as in the real_estate as soon as ONE
+                # geometry touch the limit of the real_estate. Is that correct ?
+                if geometry.geom.intersects(real_estate.limit):
+                    intersect = True
+            if intersect:
+                real_estate_plr.append(public_law_restriction)
+            else:
+                outside_real_estate_plr.append(public_law_restriction)
+
+        # Get the legend entries
+        # TODO
+
+        # return all array ?
+
     @property
     def real_estate_reader(self):
         """
@@ -193,6 +219,7 @@ class Processor(object):
                 extract_raw = self._extract_reader_.read(real_estate, municipality.logo, params)
                 extract = self.plr_tolerance_check(extract_raw)
                 self.view_service_handling(extract.real_estate, params.images)
+                self.get_legend_entries(extract.real_estate)
                 extract.exclusions_of_liability = exclusions_of_liability
                 extract.glossaries = glossaries
                 return extract
