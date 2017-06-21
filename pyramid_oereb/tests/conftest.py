@@ -2,7 +2,9 @@
 import base64
 
 from datetime import date, timedelta
-from pyramid.path import DottedNameResolver
+
+from mako.lookup import TemplateLookup
+from pyramid.path import DottedNameResolver, AssetResolver
 from pyramid.testing import DummyRequest
 import pytest
 from sqlalchemy import create_engine
@@ -25,6 +27,59 @@ from pyramid_oereb.standard.models.main import Municipality, Glossary, RealEstat
 
 
 pyramid_oereb_test_yml = 'pyramid_oereb/standard/pyramid_oereb.yml'
+
+params = [
+    {
+        'flavour': 'INVALIDFLAVOUR',
+        'format': 'xml',
+        'param1': 'egrid'
+    },
+    {
+        'flavour': 'reduced',
+        'format': 'INVALIDFORMAT',
+        'param1': 'egrid'
+    },
+    {
+        'flavour': 'FULL',
+        'format': 'XML',
+        'param1': 'egrid'
+    },
+    {
+        'flavour': 'SIGNED',
+        'format': 'JSON',
+        'param1': 'egrid'
+    },
+    {
+        'flavour': 'EMBEDDABLE',
+        'format': 'PDF',
+        'param1': 'egrid'
+    },
+    {
+        'flavour': 'full',
+        'format': 'PDF',
+        'param1': 'GEOMETRY',
+        'param2': 'egrid'
+    }
+]
+
+
+@pytest.fixture
+def xml_templates():
+    a = AssetResolver('pyramid_oereb')
+    resolver = a.resolve('lib/renderer/extract/templates/xml')
+    templates = TemplateLookup(
+        directories=[resolver.abspath()],
+        output_encoding='utf-8',
+        input_encoding='utf-8'
+    )
+    return templates
+
+
+@pytest.fixture
+def xml_schema():
+    a = AssetResolver('pyramid_oereb')
+    resolver = a.resolve('tests/resources/Extract.xsd')
+    return open(resolver.abspath())
 
 
 @pytest.fixture(scope='module')
