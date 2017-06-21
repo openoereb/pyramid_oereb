@@ -102,8 +102,6 @@ class ExtractReader(object):
                     themes_without_data.append(plr.theme)
 
         # Load base data form configuration
-        # TODO: Set correct date for base data, related to GSOREB-192
-        # maybe in function of the source of the date and zonal extension (canton/municipality/...)
         resolver = DottedNameResolver()
         date_method_string = Config.get('extract').get('base_data').get('date_mehod')
         date_method = resolver.resolve(date_method_string)
