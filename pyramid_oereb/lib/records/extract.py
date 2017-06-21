@@ -6,10 +6,6 @@ import uuid
 
 class ExtractRecord(object):
 
-    # Attributes calculated or defined while processing
-    creation_date = None
-    """datetime.date: Date of extract generation."""
-
     electronic_signature = None
     """unicode or None: Digital signature for the extract."""
 
@@ -22,16 +18,11 @@ class ExtractRecord(object):
     theme_without_data = None
     """list of pyramid_oereb.lib.records.theme.ThemeRecord: List of themes without data."""
 
-    is_reduced = False
-    """bool: True if the extract flavour is reduced."""
-
     extract_identifier = None
     """unicode: The extract identifier (UUID)."""
 
     qr_code = None
     """binary or None: QR code for the extract as binary string."""
-
-    plr_cadastre_authority = None
 
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
                  plr_cadastre_authority, base_data, exclusions_of_liability=None, glossaries=None,
