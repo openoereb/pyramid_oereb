@@ -264,7 +264,7 @@ class LegendEntry(Base):
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        file (str): An image with represents the legend entry. This can be png or svg. It is string
+        symbol (str): An image with represents the legend entry. This can be png or svg. It is string
             but BaseCode64  encoded.
         legend_text (dict): Multilingual text to describe this legend entry.
         type_code (str): Type code of the public law restriction which is represented by this legend
@@ -285,7 +285,7 @@ class LegendEntry(Base):
     __table_args__ = {'schema': 'contaminated_civil_aviation_sites'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    file = sa.Column(sa.String, nullable=False)
+    symbol = sa.Column(sa.String, nullable=False)
     legend_text = sa.Column(JSONType, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)

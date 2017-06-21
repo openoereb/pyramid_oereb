@@ -30,7 +30,7 @@ def get_image(request):
         class_='LegendEntry'
     ))
     legend_entry = session.query(model).filter_by(type_code=request.matchdict.get('type_code')).first()
-    symbol = getattr(legend_entry, 'file', None)
+    symbol = getattr(legend_entry, 'symbol', None)
     if symbol:
         response = request.response
         response.status_int = 200
