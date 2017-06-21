@@ -40,7 +40,7 @@ class Renderer(Base):
 
         self._language_ = str(Config.get('default_language')).lower()
         self._params_ = value[1]
-        self._request_ = system.get('request')
+        self._request = system.get('request')
 
         return unicode(self._render(value[0]))
 
@@ -85,10 +85,10 @@ class Renderer(Base):
             })
         else:
             extract_dict.update({
-                'LogoPLRCadastreRef': extract.logo_plr_cadastre.get_url(self._request_),
-                'FederalLogoRef': extract.federal_logo.get_url(self._request_),
-                'CantonalLogoRef': extract.cantonal_logo.get_url(self._request_),
-                'MunicipalityLogoRef': extract.municipality_logo.get_url(self._request_)
+                'LogoPLRCadastreRef': extract.logo_plr_cadastre.get_url(self._request),
+                'FederalLogoRef': extract.federal_logo.get_url(self._request),
+                'CantonalLogoRef': extract.cantonal_logo.get_url(self._request),
+                'MunicipalityLogoRef': extract.municipality_logo.get_url(self._request)
             })
 
         if extract.electronic_signature:
@@ -218,9 +218,9 @@ class Renderer(Base):
                     # Link to symbol is only available if type code is set!
                     if plr.type_code:
                         plr_dict.update({
-                            'SymbolRef': self._request_.route_url('{0}/image'.format(route_prefix),
-                                                                  theme_code=plr.theme.code,
-                                                                  type_code=plr.type_code)
+                            'SymbolRef': self._request.route_url('{0}/image'.format(route_prefix),
+                                                                 theme_code=plr.theme.code,
+                                                                 type_code=plr.type_code)
                         })
 
                 if plr.subtopic:
@@ -444,9 +444,9 @@ class Renderer(Base):
             })
         else:
             legend_entry_dict.update({
-                'SymbolRef': self._request_.route_url('{0}/image'.format(route_prefix),
-                                                      theme_code=legend_entry.theme.code,
-                                                      type_code=legend_entry.type_code)
+                'SymbolRef': self._request.route_url('{0}/image'.format(route_prefix),
+                                                     theme_code=legend_entry.theme.code,
+                                                     type_code=legend_entry.type_code)
             })
 
         if legend_entry.sub_theme:

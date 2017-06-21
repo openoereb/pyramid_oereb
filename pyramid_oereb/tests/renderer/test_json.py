@@ -86,7 +86,7 @@ def test_render(config, parameter):
         renderer = Renderer(DummyRenderInfo())
         renderer._language_ = u'de'
         renderer._params_ = parameter
-        renderer._request_ = MockRequest()
+        renderer._request = MockRequest()
         if parameter is None:
             with pytest.raises(TypeError):
                 renderer._render(extract)
@@ -201,7 +201,7 @@ def test_format_plr(config, parameter):
         renderer = Renderer(DummyRenderInfo())
         renderer._language_ = 'de'
         renderer._params_ = parameter
-        renderer._request_ = MockRequest()
+        renderer._request = MockRequest()
         document = DocumentRecord('inForce', datetime.date.today(), {'de': 'Test Dokument'},
                                   OfficeRecord({'de': 'BUD'}), {'de': 'http://mein.dokument.ch'})
         if parameter.flavour == 'reduced':
@@ -369,7 +369,7 @@ def test_format_map(config, params):
         renderer = Renderer(DummyRenderInfo())
         renderer._language_ = u'de'
         renderer._params_ = params
-        renderer._request_ = MockRequest()
+        renderer._request = MockRequest()
         legend_entry = LegendEntryRecord(bin(1), {'de': 'Legendeneintrag'}, 'type1', 'type_code_list',
                                          ThemeRecord('test', {'de': 'Test'}))
         view_service = ViewServiceRecord('http://my.wms.ch',
@@ -396,7 +396,7 @@ def test_format_legend_entry(parameter, config):
         renderer = Renderer(DummyRenderInfo())
         renderer._language_ = u'de'
         renderer._params_ = parameter
-        renderer._request_ = MockRequest()
+        renderer._request = MockRequest()
         theme = ThemeRecord('test', {'de': 'Test'})
         legend_entry = LegendEntryRecord(bin(1), {'de': 'Legendeneintrag'}, 'type1', 'type_code_list', theme,
                                          'Subthema', 'Weiteres Thema')
