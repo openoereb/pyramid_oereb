@@ -72,6 +72,9 @@ pyramid_oereb:
        types:
        - Polygon
        - MultiPolygon
+    collection:
+        types:
+        - GeometryCollection
 
   # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
   # will be directly used for producing the extract output.
@@ -220,9 +223,17 @@ pyramid_oereb:
       geometry_type: GEOMETRYCOLLECTION
       # Define the minmal area and length for public law restrictions that should be considered as 'true' restrictions
       # and not as calculation errors (false true's) due to topological imperfections
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Nutzungsplanung
       language: de
@@ -238,9 +249,17 @@ pyramid_oereb:
     - name: plr87
       code: MotorwaysProjectPlaningZones
       geometry_type: MULTIPOLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Projektierungszonen Nationalstrassen
       language: de
@@ -256,9 +275,17 @@ pyramid_oereb:
     - name: plr88
       code: MotorwaysBuildingLines
       geometry_type: LINESTRING
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Baulinien Nationalstrassen
       language: de
@@ -274,9 +301,17 @@ pyramid_oereb:
     - name: plr97
       code: RailwaysBuildingLines
       geometry_type: LINESTRING
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Baulinien Eisenbahnanlagen
       language: de
@@ -292,9 +327,17 @@ pyramid_oereb:
     - name: plr96
       code: RailwaysProjectPlanningZones
       geometry_type: POLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Projektierungszonen Eisenbahnanlagen
       language: de
@@ -310,9 +353,17 @@ pyramid_oereb:
     - name: plr103
       code: AirportsProjectPlanningZones
       geometry_type: POLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Projektierungszonen Flughafenanlagen
       language: de
@@ -328,9 +379,17 @@ pyramid_oereb:
     - name: plr104
       code: AirportsBuildingLines
       geometry_type: LINESTRING
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Baulinien Flughafenanlagen
       language: de
@@ -346,9 +405,17 @@ pyramid_oereb:
     - name: plr108
       code: AirportsSecurityZonePlans
       geometry_type: MULTIPOLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Sicherheitszonenplan Flughafen
       language: de
@@ -364,9 +431,17 @@ pyramid_oereb:
     - name: plr116
       code: ContaminatedSites
       geometry_type: GEOMETRYCOLLECTION
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Belastete Standorte
       language: de
@@ -382,9 +457,17 @@ pyramid_oereb:
     - name: plr117
       code: ContaminatedMilitarySites
       geometry_type: GEOMETRYCOLLECTION
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Belastete Standorte Militär
       language: de
@@ -400,9 +483,17 @@ pyramid_oereb:
     - name: plr118
       code: ContaminatedCivilAviationSites
       geometry_type: POLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Belastete Standorte Zivile Flugplätze
       language: de
@@ -418,9 +509,17 @@ pyramid_oereb:
     - name: plr119
       code: ContaminatedPublicTransportSites
       geometry_type: GEOMETRYCOLLECTION
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Belastete Standorte Öeffentlicher Verkehr
       language: de
@@ -436,9 +535,17 @@ pyramid_oereb:
     - name: plr131
       code: GroundwaterProtectionZones
       geometry_type: POLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Grundwasserschutzzonen
       language: de
@@ -454,9 +561,17 @@ pyramid_oereb:
     - name: plr132
       code: GroundwaterProtectionSites
       geometry_type: POLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Grundwasserschutzareale
       language: de
@@ -472,9 +587,17 @@ pyramid_oereb:
     - name: plr145
       code: NoiseSensitivityLevels
       geometry_type: POLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Lärmemfindlichkeitsstufen
       language: de
@@ -490,9 +613,17 @@ pyramid_oereb:
     - name: plr157
       code: ForestPerimeters
       geometry_type: LINESTRING
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Waldgrenzen
       language: de
@@ -508,9 +639,17 @@ pyramid_oereb:
     - name: plr159
       code: ForestDistanceLines
       geometry_type: LINESTRING
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Waldabstandslinien
       language: de
