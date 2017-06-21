@@ -40,6 +40,7 @@ class Renderer(Base):
 
         self._language_ = str(Config.get('default_language')).lower()
         self._params_ = value[1]
+        self._request_ = system.get('request')
 
         return unicode(self._render(value[0]))
 
@@ -66,10 +67,6 @@ class Renderer(Base):
         extract_dict = {
             'CreationDate': self.date_time(extract.creation_date),
             'isReduced': self._params_.flavour == 'reduced',
-            'LogoPLRCadastre': extract.logo_plr_cadastre.encode(),
-            'FederalLogo': extract.federal_logo.encode(),
-            'CantonalLogo': extract.cantonal_logo.encode(),
-            'MunicipalityLogo': extract.municipality_logo.encode(),
             'ExtractIdentifier': extract.extract_identifier,
             'BaseData': self.get_localized_text(extract.base_data),
             'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority),
@@ -78,6 +75,21 @@ class Renderer(Base):
             'NotConcernedTheme': [self.format_theme(theme) for theme in extract.not_concerned_theme],
             'ThemeWithoutData': [self.format_theme(theme) for theme in extract.theme_without_data]
         }
+
+        if self._params_.images:
+            extract_dict.update({
+                'LogoPLRCadastre': extract.logo_plr_cadastre.encode(),
+                'FederalLogo': extract.federal_logo.encode(),
+                'CantonalLogo': extract.cantonal_logo.encode(),
+                'MunicipalityLogo': extract.municipality_logo.encode()
+            })
+        else:
+            extract_dict.update({
+                'LogoPLRCadastreRef': extract.logo_plr_cadastre.get_url(self._request_),
+                'FederalLogoRef': extract.federal_logo.get_url(self._request_),
+                'CantonalLogoRef': extract.cantonal_logo.get_url(self._request_),
+                'MunicipalityLogoRef': extract.municipality_logo.get_url(self._request_)
+            })
 
         if extract.electronic_signature:
             extract_dict['ElectronicSignature'] = extract.electronic_signature
