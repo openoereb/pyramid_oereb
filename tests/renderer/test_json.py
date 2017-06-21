@@ -385,7 +385,7 @@ def test_format_document(config, params, document, result_dict):
         datetime.date.today(),
         Point(0, 0),
         geo_metadata='http://www.geocat.ch',
-        office=OfficeRecord({u'de': u'AGI'})),  {
+        office=OfficeRecord({u'de': u'AGI'})), {
         'Lawstatus': {
             'Code': 'inForce',
             'Text': [{'Language': 'de', 'Text': 'In Kraft'}]
@@ -400,7 +400,7 @@ def test_format_document(config, params, document, result_dict):
         }
     }),
     (GeometryRecord(law_status(), datetime.date.today(), LineString([(0, 0), (1, 1)]),
-                    office=OfficeRecord({u'de': u'AGI'})),  {
+                    office=OfficeRecord({u'de': u'AGI'})), {
         'Lawstatus': {
             'Code': 'inForce',
             'Text': [{'Language': 'de', 'Text': 'In Kraft'}]
@@ -418,7 +418,7 @@ def test_format_document(config, params, document, result_dict):
         datetime.date.today(),
         Polygon([(0, 0), (1, 1), (1, 0)]),
         office=OfficeRecord({u'de': u'AGI'})
-    ),  {
+    ), {
         'Lawstatus': {
             'Code': 'inForce',
             'Text': [{'Language': 'de', 'Text': 'In Kraft'}]

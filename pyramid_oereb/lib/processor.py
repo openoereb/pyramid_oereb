@@ -152,7 +152,7 @@ class Processor(object):
                         # we check if the legend type code is not the same as the intersected plr ones and
                         # the legend type code is the same as the outside plr ones
                         if inside_plr.type_code != legend.type_code and \
-                                        outside_plr.type_code == legend.type_code:
+                                outside_plr.type_code == legend.type_code:
                             # at this point we have a legend entry which has different type code then the
                             # intersecting plr, but before we can append this we need to check if a item is
                             # already in the list. Therefor we use a self made method.

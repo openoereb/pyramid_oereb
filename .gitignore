@@ -76,3 +76,7 @@ pyramid_oereb.yml
 /logo_oereb.png
 /logo_confederation.png
 /logo_canton.png
+
+# Generated files
+/test-db/12-create.sql
+/test-db/13-fill.sql

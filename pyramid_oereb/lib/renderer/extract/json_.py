@@ -215,7 +215,7 @@ class Renderer(Base):
 
                 # PLR without legal provision is allowed in reduced extract only!
                 if self._params.flavour != 'reduced' and isinstance(plr.documents, list) and \
-                                len(plr.documents) == 0:
+                        len(plr.documents) == 0:
                     raise ValueError('Restrictions on landownership without legal provision are only allowed '
                                      'in reduced extracts!')
                 # TODO: Add lenght and units see GSOREB-207: https://jira.camptocamp.com/browse/GSOREB-207
