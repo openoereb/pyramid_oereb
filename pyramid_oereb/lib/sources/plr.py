@@ -251,14 +251,17 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         geometries but the passed geometry does not.
         The multi geometry will be extracted to it's sub parts for operation.
 
-        :param db_path: The point separated string of schema_name.table_name.column_name from which we can
-            construct a correct SQL statement.
-        :type db_path: str
-        :param real_estate_geometry: The shapely geometry representation which is used for comparison.
-        :type real_estate_geometry: shapely.geometry.base.BaseGeometry
-        :return: The clause element.
-        :rtype: sqlalchemy.sql.elements.BooleanClauseList
-        :raises: HTTPBadRequest
+        Args:
+            db_path (str): The point separated string of schema_name.table_name.column_name from
+                which we can construct a correct SQL statement.
+            real_estate_geometry (shapely.geometry.base.BaseGeometry): The shapely geometry
+                representation which is used for comparison.
+
+        Returns:
+            sqlalchemy.sql.elements.BooleanClauseList: The clause element.
+
+        Raises:
+            HTTPBadRequest
         """
         srid = Config.get('srid')
         sql_text_point = 'ST_Intersects(ST_CollectionExtract({0}, 1), ST_GeomFromText(\'{1}\', {2}))'.format(

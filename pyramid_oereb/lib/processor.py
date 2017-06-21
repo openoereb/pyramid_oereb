@@ -99,12 +99,13 @@ class Processor(object):
             * construction of the correct url (link_wms) depending on the real estate
             * downloading of the image if parameter was set
 
-        :param real_estate: The real estate record to be updated.
-        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
-        :param images: Switch whether the images should be downloaded or not.
-        :type images: bool
-        :return: The updated extract.
-        :rtype: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord):
+                The real estate record to be updated.
+            images (bool): Switch whether the images should be downloaded or not.
+
+        Returns:
+            pyramid_oereb.lib.records.real_estate.RealEstateRecord: The updated extract.
         """
         # TODO: uncomment this when issue GSOREB-194 is solved.
         # extract.real_estate.plan_for_land_register.get_full_wms_url(extract.real_estate)
