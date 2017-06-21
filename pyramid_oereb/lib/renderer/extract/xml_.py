@@ -63,7 +63,7 @@ class Renderer(Base):
                 'default_language': str(Config.get('default_language')).lower()
             })
             return content
-        except ValueError, e:
+        except ValueError as e:
             # TODO: use error mapping to provide HTTP errors
             raise e
         except:
