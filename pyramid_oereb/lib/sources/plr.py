@@ -200,7 +200,6 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             public_law_restriction_from_db.view_service,
             legend_entry_records
         )
-        # TODO: Add here the specific on plr regarding legend entry record (type_code)
         documents_from_db = []
         article_numbers = []
         for i, legal_provision in enumerate(public_law_restriction_from_db.legal_provisions):
