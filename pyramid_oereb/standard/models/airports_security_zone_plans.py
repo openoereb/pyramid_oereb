@@ -83,8 +83,8 @@ class DataIntegration(Base):
             you  don't like it - don't care about.
         date (datetime.date): The date when this data set was delivered.
         office_id (int): A foreign key which points to the actual office instance.
-        office (pyramid_oereb.standard.models.airports_security_zone_plans.Office): The actual office instance which the id
-            points to.
+        office (pyramid_oereb.standard.models.airports_security_zone_plans.Office):
+            The actual office instance which the id points to.
     """
     __table_args__ = {'schema': 'airports_security_zone_plans'}
     __tablename__ = 'data_integration'
