@@ -65,7 +65,7 @@ class Renderer(Base):
 
         extract_dict = {
             'CreationDate': self.date_time(extract.creation_date),
-            'isReduced': self._params_.flavour == 'reduced',
+            'isReduced': self._params_.flavour in ['reduced', 'embeddable'],
             'LogoPLRCadastre': extract.logo_plr_cadastre.encode(),
             'FederalLogo': extract.federal_logo.encode(),
             'CantonalLogo': extract.cantonal_logo.encode(),
