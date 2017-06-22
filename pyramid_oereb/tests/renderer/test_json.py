@@ -203,10 +203,10 @@ def test_format_plr(config, parameter):
         theme = ThemeRecord('Test', {'de': 'Test theme'})
         office = OfficeRecord({'de': 'Test Office'})
         legend_entry = LegendEntryRecord(base64.b64encode(bin(1)), {'de': 'Test'}, 'test', 'TypeCodeList',
-                                        theme)
+                                         theme)
         view_service = ViewServiceRecord('http://geowms.bl.ch', 'http://geowms.bl.ch', [legend_entry])
         plr = PlrRecord(theme, {'de': 'Test PLR'}, 'inForce', datetime.date.today(), office, 'Subtopic',
-                        'Additional topic', 'TypeCode', 'TypeCodeList', view_service, documents=documents,
+                        'Additional topic', 'test', 'TypeCodeList', view_service, documents=documents,
                         symbol=base64.b64encode(bin(1)))
         plr.part_in_percent = 0.5
         if parameter.flavour == 'full':
