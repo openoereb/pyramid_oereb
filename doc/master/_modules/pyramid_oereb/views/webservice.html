@@ -225,10 +225,9 @@
                     <span class="n">request</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_request_</span>
                 <span class="p">)</span>
             <span class="k">elif</span> <span class="n">params</span><span class="o">.</span><span class="n">format</span> <span class="o">==</span> <span class="s1">&#39;pdf&#39;</span><span class="p">:</span>
-                <span class="c1"># TODO: implement way to produce pdf</span>
                 <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span>
-                    <span class="s1">&#39;string&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;Not implemented by now...&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;pyramid_oereb_extract_print&#39;</span><span class="p">,</span>
+                    <span class="p">(</span><span class="n">extract</span><span class="p">,</span> <span class="n">params</span><span class="p">),</span>
                     <span class="n">request</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_request_</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
