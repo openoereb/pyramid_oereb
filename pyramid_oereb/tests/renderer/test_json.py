@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
+
 import base64
-from json import loads
 
 import datetime
 import pytest
@@ -31,7 +31,7 @@ def params():
 def test_get_localized_text_from_str(config):
     assert isinstance(config._config, dict)
     renderer = Renderer(DummyRenderInfo())
-    renderer._language_ = u'de'
+    renderer._language = u'de'
     assert renderer.get_localized_text('test') == [
         {
             u'Language': u'de',
@@ -48,7 +48,7 @@ def test_get_localized_text_from_str(config):
 def test_get_localized_text_from_dict(config, language, result):
     assert isinstance(config._config, dict)
     renderer = Renderer(DummyRenderInfo())
-    renderer._language_ = language
+    renderer._language = language
     multilingual_text = {
         u'de': u'Dies ist ein Test',
         u'en': u'This is a test'
@@ -82,63 +82,57 @@ def test_render(config, parameter):
         extract.qr_code = bin(1)
         extract.electronic_signature = 'Signature'
         renderer = Renderer(DummyRenderInfo())
-        renderer._language_ = u'de'
-        renderer._params_ = parameter
+        renderer._language = u'de'
         renderer._request = MockRequest()
         if parameter is None:
             with pytest.raises(TypeError):
-                renderer._render(extract)
+                renderer._render(extract, None)
         else:
-            result = loads(renderer._render(extract))
+            result = renderer._render(extract, parameter)
             assert isinstance(result, dict)
-            assert u'GetExtractByIdResponse' in result
             expected = {
-                u'ExtractIdentifier': unicode(extract.extract_identifier),
-                u'CreationDate': unicode(datetime.date.today().isoformat() + 'T00:00:00'),
-                u'ConcernedTheme': [],
-                u'NotConcernedTheme': [],
-                u'ThemeWithoutData': [],
-                u'isReduced': True,
-                u'PLRCadastreAuthority': renderer.format_office(office_record),
-                u'BaseData': renderer.get_localized_text({u'de': u'Daten der amtlichen Vermessung'}),
-                u'RealEstate': renderer.format_real_estate(real_estate),
-                u'GeneralInformation': [{u'Language': u'de', u'Text': u'Allgemeine Informationen'}],
-                u'QRCode': unicode(bin(1)),
-                u'ExclusionOfLiability': [{
-                    u'Title': [{u'Language': u'de', u'Text': u'Haftungsausschluss'}],
-                    u'Content': [{u'Language': u'de', u'Text': u'Test'}]
+                'ExtractIdentifier': unicode(extract.extract_identifier),
+                'CreationDate': datetime.date.today().isoformat() + 'T00:00:00',
+                'ConcernedTheme': [],
+                'NotConcernedTheme': [],
+                'ThemeWithoutData': [],
+                'isReduced': True,
+                'PLRCadastreAuthority': renderer.format_office(office_record),
+                'BaseData': renderer.get_localized_text({'de': u'Daten der amtlichen Vermessung'}),
+                'RealEstate': renderer.format_real_estate(real_estate),
+                'GeneralInformation': [{'Language': 'de', 'Text': 'Allgemeine Informationen'}],
+                'QRCode': bin(1),
+                'ExclusionOfLiability': [{
+                    'Title': [{'Language': 'de', 'Text': 'Haftungsausschluss'}],
+                    'Content': [{'Language': 'de', 'Text': 'Test'}]
                 }],
-                u'Glossary': [{
-                    u'Title': [{u'Language': u'de', u'Text': u'Glossar'}],
-                    u'Content': [{u'Language': u'de', u'Text': u'Test'}]
+                'Glossary': [{
+                    'Title': [{'Language': 'de', 'Text': 'Glossar'}],
+                    'Content': [{'Language': 'de', 'Text': 'Test'}]
                 }],
-                u'ElectronicSignature': u'Signature'
+                'ElectronicSignature': 'Signature'
             }
             if parameter.images:
                 expected.update({
-                    u'LogoPLRCadastre': unicode(base64.b64encode(bin(1))),
-                    u'FederalLogo': unicode(base64.b64encode(bin(2))),
-                    u'CantonalLogo': unicode(base64.b64encode(bin(3))),
-                    u'MunicipalityLogo': unicode(base64.b64encode(bin(4)))
+                    'LogoPLRCadastre': unicode(base64.b64encode(bin(1))),
+                    'FederalLogo': unicode(base64.b64encode(bin(2))),
+                    'CantonalLogo': unicode(base64.b64encode(bin(3))),
+                    'MunicipalityLogo': unicode(base64.b64encode(bin(4)))
                 })
             else:
                 expected.update({
-                    u'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb',
-                    u'FederalLogoRef': u'http://example.com/image/logo/confederation',
-                    u'CantonalLogoRef': u'http://example.com/image/logo/canton',
-                    u'MunicipalityLogoRef': u'http://example.com/image/municipality/2829'
+                    'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb',
+                    'FederalLogoRef': u'http://example.com/image/logo/confederation',
+                    'CantonalLogoRef': u'http://example.com/image/logo/canton',
+                    'MunicipalityLogoRef': u'http://example.com/image/municipality/2829'
                 })
-            assert result == {
-                u'GetExtractByIdResponse': {
-                    u'extract': expected
-                }
-            }
+            assert result == expected
 
 
 def test_format_office(config):
     assert isinstance(config._config, dict)
     renderer = Renderer(DummyRenderInfo())
-    renderer._language_ = u'de'
+    renderer._language = u'de'
     office = OfficeRecord({u'de': u'Test'}, uid=u'test_uid', office_at_web=u'http://test.example.com',
                           line1=u'test_line1', line2=u'test_line2', street=u'test_street',
                           number=u'test_number', postal_code=1234, city=u'test_city')
@@ -158,9 +152,9 @@ def test_format_office(config):
 def test_format_real_estate(config):
     assert isinstance(config._config, dict)
     renderer = Renderer(DummyRenderInfo())
-    renderer._language_ = u'de'
-    renderer._params_ = Parameter('reduced', 'json', True, False, 'BL0200002829', '1000', 'CH775979211712',
-                                  'de')
+    renderer._language = u'de'
+    renderer._params = Parameter(
+        'reduced', 'json', True, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
     geometry = MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])])
     view_service = ViewServiceRecord(u'http://geowms.bl.ch', u'http://geowms.bl.ch')
     document = DocumentRecord('inForce', datetime.date.today(), {'de': 'Test Dokument'},
@@ -194,11 +188,11 @@ def test_format_real_estate(config):
     Parameter('full', 'json', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 ])
 def test_format_plr(config, parameter):
+    assert isinstance(config._config, dict)
     with pyramid_oereb_test_config():
-        assert isinstance(config._config, dict)
         renderer = Renderer(DummyRenderInfo())
-        renderer._language_ = 'de'
-        renderer._params_ = parameter
+        renderer._language = 'de'
+        renderer._params = parameter
         renderer._request = MockRequest()
         document = DocumentRecord('inForce', datetime.date.today(), {'de': 'Test Dokument'},
                                   OfficeRecord({'de': 'BUD'}), {'de': 'http://mein.dokument.ch'})
@@ -208,11 +202,11 @@ def test_format_plr(config, parameter):
             documents = None
         theme = ThemeRecord('Test', {'de': 'Test theme'})
         office = OfficeRecord({'de': 'Test Office'})
-        legen_entry = LegendEntryRecord(base64.b64encode(bin(1)), {'de': 'Test'}, 'test', 'TypeCodeList',
+        legend_entry = LegendEntryRecord(base64.b64encode(bin(1)), {'de': 'Test'}, 'test', 'TypeCodeList',
                                         theme)
-        view_service = ViewServiceRecord('http://geowms.bl.ch', 'http://geowms.bl.ch', [legen_entry])
+        view_service = ViewServiceRecord('http://geowms.bl.ch', 'http://geowms.bl.ch', [legend_entry])
         plr = PlrRecord(theme, {'de': 'Test PLR'}, 'inForce', datetime.date.today(), office, 'Subtopic',
-                        'Additional topic', 'test', 'TypeCodeList', view_service, documents=documents,
+                        'Additional topic', 'TypeCode', 'TypeCodeList', view_service, documents=documents,
                         symbol=base64.b64encode(bin(1)))
         plr.part_in_percent = 0.5
         if parameter.flavour == 'full':
@@ -294,8 +288,8 @@ def test_format_plr(config, parameter):
 def test_format_document(config, params, document, result_dict):
     assert isinstance(config._config, dict)
     renderer = Renderer(DummyRenderInfo())
-    renderer._language_ = u'de'
-    renderer._params_ = params
+    renderer._language = u'de'
+    renderer._params = params
     result = renderer.format_document(document)
     assert isinstance(result, dict)
     assert result == result_dict
@@ -340,8 +334,8 @@ def test_format_document(config, params, document, result_dict):
 def test_format_geometry(config, params, geometry, result_dict):
     assert isinstance(config._config, dict)
     renderer = Renderer(DummyRenderInfo())
-    renderer._language_ = u'de'
-    renderer._params_ = params
+    renderer._language = u'de'
+    renderer._params = params
     result = renderer.format_geometry(geometry)
     assert isinstance(result, dict)
     assert result == result_dict
@@ -350,8 +344,8 @@ def test_format_geometry(config, params, geometry, result_dict):
 def test_format_theme(config, params):
     assert isinstance(config._config, dict)
     renderer = Renderer(DummyRenderInfo())
-    renderer._language_ = u'de'
-    renderer._params_ = params
+    renderer._language = u'de'
+    renderer._params = params
     theme = ThemeRecord('TestTheme', {'de': 'Test-Thema'})
     result = renderer.format_theme(theme)
     assert isinstance(result, dict)
@@ -365,8 +359,8 @@ def test_format_map(config, params):
     assert isinstance(config._config, dict)
     with pyramid_oereb_test_config():
         renderer = Renderer(DummyRenderInfo())
-        renderer._language_ = u'de'
-        renderer._params_ = params
+        renderer._language = u'de'
+        renderer._params = params
         renderer._request = MockRequest()
         legend_entry = LegendEntryRecord(bin(1), {'de': 'Legendeneintrag'}, 'type1', 'type_code_list',
                                          ThemeRecord('test', {'de': 'Test'}))
@@ -392,8 +386,8 @@ def test_format_legend_entry(parameter, config):
     assert isinstance(config._config, dict)
     with pyramid_oereb_test_config():
         renderer = Renderer(DummyRenderInfo())
-        renderer._language_ = u'de'
-        renderer._params_ = parameter
+        renderer._language = u'de'
+        renderer._params = parameter
         renderer._request = MockRequest()
         theme = ThemeRecord('test', {'de': 'Test'})
         legend_entry = LegendEntryRecord(bin(1), {'de': 'Legendeneintrag'}, 'type1', 'type_code_list', theme,

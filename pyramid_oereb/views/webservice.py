@@ -184,10 +184,9 @@ class PlrWebservice(object):
                     request=self._request_
                 )
             elif params.format == 'pdf':
-                # TODO: implement way to produce pdf
                 return render_to_response(
-                    'string',
-                    'Not implemented by now...',
+                    'pyramid_oereb_extract_print',
+                    (extract, params),
                     request=self._request_
                 )
             else:
