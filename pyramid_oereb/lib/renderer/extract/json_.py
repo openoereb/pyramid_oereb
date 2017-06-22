@@ -109,6 +109,8 @@ class Renderer(Base):
                 u'extract': extract_dict
             }
         }
+        if self._params_.flavour == 'embeddable':
+            response[u'GetExtractByIdResponse'][u'embeddable'] = self.format_embeddable(extract.embeddable)
 
         return dumps(response)
 
@@ -468,3 +470,30 @@ class Renderer(Base):
                 'Text': values
             })
         return text
+
+    def format_embeddable(self, embeddable):
+        time = embeddable.transfer_from_source_cadastral_surveying.strftime('%d-%m-%YT%H:%M:%S')
+        data_sources = []
+        for embeddable_theme in embeddable.data_sources:
+            sources = []
+            for source in embeddable_theme.sources:
+                sources.append({
+                    u'dataownerName': source.owner.name.get(Config.get('default_language')),
+                    u'transferFromSource': source.date.strftime('%d-%m-%YT%H:%M:%S')
+                })
+            data_sources.append({
+                u'topic': self.format_theme(embeddable_theme),
+                u'sources': sources
+            })
+        embeddable_dict = {
+            u'cadasterState': embeddable.cadaster_state.strftime('%d-%m-%YT%H:%M:%S'),
+            u'cadasterOrganisationName': embeddable.cadaster_organisation.name.get(
+                Config.get('default_language')
+            ),
+            u'dataOwnerNameCadastralSurveying': embeddable.data_owner_cadastral_surveying.name.get(
+                Config.get('default_language')
+            ),
+            u'transferFromSourceCadastralSurveying': time,
+            u'datasource': data_sources
+        }
+        return embeddable_dict
