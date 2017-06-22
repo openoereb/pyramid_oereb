@@ -124,6 +124,7 @@ class Processor(object):
         """
         # Get all plr that intersect (and are completely inside) the real_estate limit.
         real_estate_plr = []
+
         outside_real_estate_plr = []
 
         for public_law_restriction in real_estate.public_law_restrictions:

@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import base64
+
 from geoalchemy2.elements import _SpatialElement
 from geoalchemy2.shape import to_shape, from_shape
 from pyramid.path import DottedNameResolver
@@ -42,6 +44,9 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             ),
             'db_connection': kwargs.get('source').get('params').get('db_connection')
         }
+        self.legend_entry_model = DottedNameResolver().maybe_resolve(
+            '{models_path}.LegendEntry'.format(models_path=models_path)
+        )
         availability_model = DottedNameResolver().maybe_resolve(
             '{models_path}.Availability'.format(models_path=models_path)
         )
@@ -183,6 +188,12 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return document_records
 
     def from_db_to_plr_record(self, public_law_restriction_from_db):
+        session = self._adapter_.get_session(self._key_)
+        legend_entry = session.query(self.legend_entry_model).filter(
+            self.legend_entry_model.type_code == public_law_restriction_from_db.type_code
+        ).one()
+        symbol_base64 = legend_entry.file
+        session.close()
         thresholds = self._plr_info_.get('thresholds')
         min_length = thresholds.get('length').get('limit')
         length_unit = thresholds.get('length').get('unit')
@@ -222,14 +233,15 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             public_law_restriction_from_db.legal_state,
             public_law_restriction_from_db.published_from,
             self.from_db_to_office_record(public_law_restriction_from_db.responsible_office),
-            public_law_restriction_from_db.subtopic,
-            public_law_restriction_from_db.additional_topic,
-            public_law_restriction_from_db.type_code,
-            public_law_restriction_from_db.type_code_list,
-            view_service_record,
-            basis_plr_records,
-            refinements_plr_records,
-            document_records,
+            symbol_base64,
+            subtopic=public_law_restriction_from_db.subtopic,
+            additional_topic=public_law_restriction_from_db.additional_topic,
+            type_code=public_law_restriction_from_db.type_code,
+            type_code_list=public_law_restriction_from_db.type_code_list,
+            view_service=view_service_record,
+            basis=basis_plr_records,
+            refinements=refinements_plr_records,
+            documents=document_records,
             min_area=min_area,
             min_length=min_length,
             area_unit=area_unit,
