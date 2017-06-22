@@ -11,6 +11,8 @@ def includeme(config):  # pragma: no cover
     config.add_view(Symbol, attr='get_image', route_name='{0}/image/symbol'.format(route_prefix),
                     request_method='GET')
 
+
+
     # Get versions
     config.add_route('{0}/versions.json'.format(route_prefix), '/versions.json')
     config.add_view(
