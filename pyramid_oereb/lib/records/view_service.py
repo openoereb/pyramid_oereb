@@ -20,7 +20,7 @@ class LegendEntryRecord(object):
         Represents a legend entry with it's text as well as it's image.
 
         Args:
-            symbol (binary): The binary file content of the legend image.
+            symbol (pyramid_oereb.lib.records.image.ImageRecord): The binary content of the legend symbol.
             legend_text (dict of unicode): The multilingual description text for the legend entry.
             type_code (unicode): The class of the legend entry corresponding to the plrs classes.
             type_code_list (unicode): An URL to the type code list.
@@ -45,7 +45,7 @@ class ViewServiceRecord(object):
 
     # Attributes defined while processing
     image = None    # map image resulting from calling the wms link - binary
-    """binary or None: Binary image content downloaded from WMS link."""
+    """pyramid_oereb.lib.records.image.ImageRecord or None: Binary image content downloaded from WMS link."""
 
     def __init__(self, link_wms, legend_web, legends=None):
         """

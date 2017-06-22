@@ -61,7 +61,8 @@ class PlrRecord(EmptyPlrRecord):
             length_precision (int): The precision how the length results will be rounded.
             area_precision (int): The precision how the area results will be rounded.
             percentage_precision (int): The precision how the percentage results will be rounded.
-            symbol (str or None): Symbol of the restriction for the legend entry (base64 encoded).
+            symbol (pyramid_oereb.lib.records.image.ImageRecord or None): Symbol of the restriction for the
+                legend entry.
         """
         super(PlrRecord, self).__init__(theme)
 

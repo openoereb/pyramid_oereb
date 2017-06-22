@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import base64
+
 from geoalchemy2.elements import _SpatialElement
 from geoalchemy2.shape import to_shape, from_shape
 from pyramid.path import DottedNameResolver
@@ -7,6 +9,7 @@ from sqlalchemy import text
 
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.availability import AvailabilityRecord
+from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
 from pyramid_oereb.lib.records.plr import EmptyPlrRecord, PlrRecord
@@ -94,7 +97,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         legend_entry_records = []
         for legend_entry_from_db in legend_entries_from_db:
             legend_entry_records.append(self._legend_entry_record_class_(
-                legend_entry_from_db.symbol,
+                ImageRecord(base64.b64decode(legend_entry_from_db.symbol)),
                 legend_entry_from_db.legend_text,
                 legend_entry_from_db.type_code,
                 legend_entry_from_db.type_code_list,
@@ -213,7 +216,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         plr_symbol = None
         for legend_entry in public_law_restriction_from_db.view_service.legends:
             if legend_entry.type_code == public_law_restriction_from_db.type_code:
-                plr_symbol = legend_entry.symbol
+                plr_symbol = ImageRecord(base64.b64decode(legend_entry.symbol))
 
         basis_plr_records = []
         for join in public_law_restriction_from_db.basis:

@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from json import dumps
 
+from pyramid.request import Request
 from pyramid.response import Response
+from pyramid.testing import DummyRequest
 
 from pyramid_oereb import Config, route_prefix
 from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord, ArticleRecord
@@ -41,6 +43,7 @@ class Renderer(Base):
         self._language_ = str(Config.get('default_language')).lower()
         self._params_ = value[1]
         self._request = system.get('request')
+        assert isinstance(self._request, (Request, DummyRequest))
 
         return unicode(self._render(value[0]))
 
@@ -85,10 +88,16 @@ class Renderer(Base):
             })
         else:
             extract_dict.update({
-                'LogoPLRCadastreRef': extract.logo_plr_cadastre.get_url(self._request),
-                'FederalLogoRef': extract.federal_logo.get_url(self._request),
-                'CantonalLogoRef': extract.cantonal_logo.get_url(self._request),
-                'MunicipalityLogoRef': extract.municipality_logo.get_url(self._request)
+                'LogoPLRCadastreRef': self._request.route_url('{0}/image/logo'.format(route_prefix),
+                                                              logo='oereb'),
+                'FederalLogoRef': self._request.route_url('{0}/image/logo'.format(route_prefix),
+                                                          logo='confederation'),
+                'CantonalLogoRef': self._request.route_url('{0}/image/logo'.format(route_prefix),
+                                                           logo='canton'),
+                'MunicipalityLogoRef': self._request.route_url(
+                    '{0}/image/municipality'.format(route_prefix),
+                    fosnr=extract.real_estate.fosnr
+                )
             })
 
         if extract.electronic_signature:
@@ -212,7 +221,7 @@ class Renderer(Base):
 
                 if self._params_.images:
                     plr_dict.update({
-                        'Symbol': plr.symbol
+                        'Symbol': plr.symbol.encode()
                     })
                 else:
                     # Link to symbol is only available if type code is set!
@@ -440,7 +449,7 @@ class Renderer(Base):
 
         if self._params_.images:
             legend_entry_dict.update({
-                'Symbol': legend_entry.symbol
+                'Symbol': legend_entry.symbol.encode()
             })
         else:
             legend_entry_dict.update({
