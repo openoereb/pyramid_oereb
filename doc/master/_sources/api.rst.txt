@@ -6,60 +6,16 @@ OEREB API
 
 
 
-Module: pyramid_oereb
----------------------
-
-.. automodule:: pyramid_oereb
-   :members:
-
 Module: pyramid_oereb.routes
 ----------------------------
 
 .. automodule:: pyramid_oereb.routes
    :members:
 
-Module: pyramid_oereb.views
----------------------------
+Module: pyramid_oereb
+---------------------
 
-.. automodule:: pyramid_oereb.views
-   :members:
-
-Module: pyramid_oereb.views.webservice
---------------------------------------
-
-.. automodule:: pyramid_oereb.views.webservice
-   :members:
-
-
-.. autoclass:: pyramid_oereb.views.webservice.Parameter
-   :members:
-
-
-.. autoclass:: pyramid_oereb.views.webservice.PlrWebservice
-   :members:
-
-Module: pyramid_oereb.standard
-------------------------------
-
-.. automodule:: pyramid_oereb.standard
-   :members:
-
-Module: pyramid_oereb.standard.create_standard_models
------------------------------------------------------
-
-.. automodule:: pyramid_oereb.standard.create_standard_models
-   :members:
-
-Module: pyramid_oereb.standard.get_cadastral_data_update
---------------------------------------------------------
-
-.. automodule:: pyramid_oereb.standard.get_cadastral_data_update
-   :members:
-
-Module: pyramid_oereb.standard.load_sample_data
------------------------------------------------
-
-.. automodule:: pyramid_oereb.standard.load_sample_data
+.. automodule:: pyramid_oereb
    :members:
 
 Module: pyramid_oereb.standard.create_yaml
@@ -80,6 +36,82 @@ Module: pyramid_oereb.standard.drop_tables
 .. automodule:: pyramid_oereb.standard.drop_tables
    :members:
 
+Module: pyramid_oereb.standard.get_cadastral_data_update
+--------------------------------------------------------
+
+.. automodule:: pyramid_oereb.standard.get_cadastral_data_update
+   :members:
+
+Module: pyramid_oereb.standard.load_sample_data
+-----------------------------------------------
+
+.. automodule:: pyramid_oereb.standard.load_sample_data
+   :members:
+
+Module: pyramid_oereb.standard.create_standard_models
+-----------------------------------------------------
+
+.. automodule:: pyramid_oereb.standard.create_standard_models
+   :members:
+
+Module: pyramid_oereb.standard
+------------------------------
+
+.. automodule:: pyramid_oereb.standard
+   :members:
+
+Module: pyramid_oereb.views.webservice
+--------------------------------------
+
+.. automodule:: pyramid_oereb.views.webservice
+   :members:
+
+
+.. autoclass:: pyramid_oereb.views.webservice.Parameter
+   :members:
+
+
+.. autoclass:: pyramid_oereb.views.webservice.PlrWebservice
+   :members:
+
+Module: pyramid_oereb.views
+---------------------------
+
+.. automodule:: pyramid_oereb.views
+   :members:
+
+Module: pyramid_oereb.lib.url
+-----------------------------
+
+.. automodule:: pyramid_oereb.lib.url
+   :members:
+
+Module: pyramid_oereb.lib.config
+--------------------------------
+
+.. automodule:: pyramid_oereb.lib.config
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.config.Config
+   :members:
+
+Module: pyramid_oereb.lib
+-------------------------
+
+.. automodule:: pyramid_oereb.lib
+   :members:
+
+Module: pyramid_oereb.lib.exception
+-----------------------------------
+
+.. automodule:: pyramid_oereb.lib.exception
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.exception.ConfigurationError
+   :members:
+
 Module: pyramid_oereb.lib.adapter
 ---------------------------------
 
@@ -94,18 +126,6 @@ Module: pyramid_oereb.lib.adapter
 .. autoclass:: pyramid_oereb.lib.adapter.FileAdapter
    :members:
 
-Module: pyramid_oereb.lib
--------------------------
-
-.. automodule:: pyramid_oereb.lib
-   :members:
-
-Module: pyramid_oereb.lib.url
------------------------------
-
-.. automodule:: pyramid_oereb.lib.url
-   :members:
-
 Module: pyramid_oereb.lib.processor
 -----------------------------------
 
@@ -114,758 +134,6 @@ Module: pyramid_oereb.lib.processor
 
 
 .. autoclass:: pyramid_oereb.lib.processor.Processor
-   :members:
-
-Module: pyramid_oereb.lib.config
---------------------------------
-
-.. automodule:: pyramid_oereb.lib.config
-   :members:
-
-
-.. autoclass:: pyramid_oereb.lib.config.Config
-   :members:
-
-Module: pyramid_oereb.lib.exception
------------------------------------
-
-.. automodule:: pyramid_oereb.lib.exception
-   :members:
-
-
-.. autoclass:: pyramid_oereb.lib.exception.ConfigurationError
-   :members:
-
-Module: pyramid_oereb.standard.models.main
-------------------------------------------
-
-.. automodule:: pyramid_oereb.standard.models.main
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.main.Address
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.main.ExclusionOfLiability
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.main.Glossary
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.main.Municipality
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.main.RealEstate
-   :members:
-
-Module: pyramid_oereb.standard.models.contaminated_military_sites
------------------------------------------------------------------
-
-.. automodule:: pyramid_oereb.standard.models.contaminated_military_sites
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.Article
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.Availability
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.Document
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.DocumentReference
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.DocumentReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.Geometry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.LegalProvision
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.LegendEntry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.Office
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestrictionBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestrictionDocument
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestrictionRefinement
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.ReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.ViewService
-   :members:
-
-Module: pyramid_oereb.standard.models
--------------------------------------
-
-.. automodule:: pyramid_oereb.standard.models
-   :members:
-
-Module: pyramid_oereb.standard.models.land_use_plans
-----------------------------------------------------
-
-.. automodule:: pyramid_oereb.standard.models.land_use_plans
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.Article
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.Availability
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.Document
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.DocumentBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.DocumentReference
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.DocumentReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.Geometry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.LegalProvision
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.LegendEntry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.Office
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionDocument
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionRefinement
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.ReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.ViewService
-   :members:
-
-Module: pyramid_oereb.standard.models.motorways_building_lines
---------------------------------------------------------------
-
-.. automodule:: pyramid_oereb.standard.models.motorways_building_lines
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.Article
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.Availability
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.Document
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.DocumentBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.DocumentReference
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.DocumentReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.Geometry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.LegalProvision
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.LegendEntry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.Office
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestrictionBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestrictionDocument
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestrictionRefinement
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.ReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.ViewService
-   :members:
-
-Module: pyramid_oereb.standard.models.contaminated_sites
---------------------------------------------------------
-
-.. automodule:: pyramid_oereb.standard.models.contaminated_sites
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.Article
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.Availability
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.Document
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.DocumentBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.DocumentReference
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.DocumentReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.Geometry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.LegalProvision
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.LegendEntry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.Office
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.PublicLawRestrictionBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.PublicLawRestrictionDocument
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.PublicLawRestrictionRefinement
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.ReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.ViewService
-   :members:
-
-Module: pyramid_oereb.standard.models.groundwater_protection_sites
-------------------------------------------------------------------
-
-.. automodule:: pyramid_oereb.standard.models.groundwater_protection_sites
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.Article
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.Availability
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.Document
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.DocumentReference
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.DocumentReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.Geometry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.LegalProvision
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.LegendEntry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.Office
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestrictionBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestrictionDocument
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestrictionRefinement
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.ReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.ViewService
-   :members:
-
-Module: pyramid_oereb.standard.models.forest_distance_lines
------------------------------------------------------------
-
-.. automodule:: pyramid_oereb.standard.models.forest_distance_lines
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.Article
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.Availability
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.Document
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.DocumentBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.DocumentReference
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.DocumentReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.Geometry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.LegalProvision
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.LegendEntry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.Office
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestrictionBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestrictionDocument
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestrictionRefinement
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.ReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.ViewService
-   :members:
-
-Module: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
------------------------------------------------------------------------
-
-.. automodule:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Article
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Availability
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Document
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentReference
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Geometry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.LegalProvision
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.LegendEntry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Office
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestrictionBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestrictionDocument
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestrictionRefinement
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.ReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.ViewService
-   :members:
-
-Module: pyramid_oereb.standard.models.airports_building_lines
--------------------------------------------------------------
-
-.. automodule:: pyramid_oereb.standard.models.airports_building_lines
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.Article
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.Availability
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.Document
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.DocumentBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.DocumentReference
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.DocumentReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.Geometry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.LegalProvision
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.LegendEntry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.Office
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.PublicLawRestrictionBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.PublicLawRestrictionDocument
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.PublicLawRestrictionRefinement
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.ReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.ViewService
-   :members:
-
-Module: pyramid_oereb.standard.models.railways_project_planning_zones
----------------------------------------------------------------------
-
-.. automodule:: pyramid_oereb.standard.models.railways_project_planning_zones
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.Article
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.Availability
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.Document
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.DocumentReference
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.DocumentReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.Geometry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.LegalProvision
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.LegendEntry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.Office
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestrictionBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestrictionDocument
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestrictionRefinement
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.ReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.ViewService
-   :members:
-
-Module: pyramid_oereb.standard.models.forest_perimeters
--------------------------------------------------------
-
-.. automodule:: pyramid_oereb.standard.models.forest_perimeters
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.Article
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.Availability
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.Document
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.DocumentBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.DocumentReference
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.DocumentReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.Geometry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.LegalProvision
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.LegendEntry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.Office
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.PublicLawRestrictionBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.PublicLawRestrictionDocument
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.PublicLawRestrictionRefinement
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.ReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.ViewService
    :members:
 
 Module: pyramid_oereb.standard.models.contaminated_public_transport_sites
@@ -938,144 +206,74 @@ Module: pyramid_oereb.standard.models.contaminated_public_transport_sites
 .. autoclass:: pyramid_oereb.standard.models.contaminated_public_transport_sites.ViewService
    :members:
 
-Module: pyramid_oereb.standard.models.noise_sensitivity_levels
---------------------------------------------------------------
+Module: pyramid_oereb.standard.models.airports_project_planning_zones
+---------------------------------------------------------------------
 
-.. automodule:: pyramid_oereb.standard.models.noise_sensitivity_levels
+.. automodule:: pyramid_oereb.standard.models.airports_project_planning_zones
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.Article
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.Article
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.Availability
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.Availability
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.Document
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.Document
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentReference
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.DocumentReference
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentReferenceDefinition
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.DocumentReferenceDefinition
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.Geometry
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.Geometry
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.LegalProvision
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.LegalProvision
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.LegendEntry
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.LegendEntry
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.Office
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.Office
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestrictionBase
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestrictionBase
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestrictionDocument
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestrictionDocument
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestrictionRefinement
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestrictionRefinement
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.ReferenceDefinition
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.ReferenceDefinition
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.ViewService
-   :members:
-
-Module: pyramid_oereb.standard.models.railways_building_lines
--------------------------------------------------------------
-
-.. automodule:: pyramid_oereb.standard.models.railways_building_lines
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.Article
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.Availability
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.Document
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.DocumentBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.DocumentReference
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.DocumentReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.Geometry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.LegalProvision
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.LegendEntry
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.Office
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.PublicLawRestrictionBase
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.PublicLawRestrictionDocument
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.PublicLawRestrictionRefinement
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.ReferenceDefinition
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.ViewService
+.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.ViewService
    :members:
 
 Module: pyramid_oereb.standard.models.groundwater_protection_zones
@@ -1148,144 +346,284 @@ Module: pyramid_oereb.standard.models.groundwater_protection_zones
 .. autoclass:: pyramid_oereb.standard.models.groundwater_protection_zones.ViewService
    :members:
 
-Module: pyramid_oereb.standard.models.airports_project_planning_zones
----------------------------------------------------------------------
+Module: pyramid_oereb.standard.models.contaminated_sites
+--------------------------------------------------------
 
-.. automodule:: pyramid_oereb.standard.models.airports_project_planning_zones
+.. automodule:: pyramid_oereb.standard.models.contaminated_sites
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.Article
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.Article
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.Availability
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.Availability
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.Document
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.Document
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.DocumentBase
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.DocumentReference
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.DocumentReference
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.DocumentReferenceDefinition
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.DocumentReferenceDefinition
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.Geometry
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.Geometry
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.LegalProvision
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.LegalProvision
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.LegendEntry
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.LegendEntry
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.Office
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.Office
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestrictionBase
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.PublicLawRestrictionBase
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestrictionDocument
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.PublicLawRestrictionDocument
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestrictionRefinement
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.PublicLawRestrictionRefinement
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.ReferenceDefinition
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.ReferenceDefinition
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.airports_project_planning_zones.ViewService
+.. autoclass:: pyramid_oereb.standard.models.contaminated_sites.ViewService
    :members:
 
-Module: pyramid_oereb.standard.models.motorways_project_planing_zones
----------------------------------------------------------------------
+Module: pyramid_oereb.standard.models.motorways_building_lines
+--------------------------------------------------------------
 
-.. automodule:: pyramid_oereb.standard.models.motorways_project_planing_zones
-   :members:
-
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.Article
+.. automodule:: pyramid_oereb.standard.models.motorways_building_lines
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.Availability
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.Article
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.Document
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.Availability
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.Document
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentReference
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.DocumentBase
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentReferenceDefinition
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.DocumentReference
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.Geometry
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.DocumentReferenceDefinition
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.LegalProvision
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.Geometry
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.LegendEntry
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.LegalProvision
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.Office
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.LegendEntry
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.Office
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestrictionBase
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestrictionDocument
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestrictionBase
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestrictionRefinement
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestrictionDocument
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.ReferenceDefinition
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestrictionRefinement
    :members:
 
 
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.ViewService
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.ReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.motorways_building_lines.ViewService
+   :members:
+
+Module: pyramid_oereb.standard.models.land_use_plans
+----------------------------------------------------
+
+.. automodule:: pyramid_oereb.standard.models.land_use_plans
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.Article
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.Availability
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.Document
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.DocumentBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.DocumentReference
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.DocumentReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.Geometry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.LegalProvision
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.LegendEntry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.Office
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionDocument
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionRefinement
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.ReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.land_use_plans.ViewService
+   :members:
+
+Module: pyramid_oereb.standard.models.forest_distance_lines
+-----------------------------------------------------------
+
+.. automodule:: pyramid_oereb.standard.models.forest_distance_lines
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.Article
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.Availability
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.Document
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.DocumentBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.DocumentReference
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.DocumentReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.Geometry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.LegalProvision
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.LegendEntry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.Office
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestrictionBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestrictionDocument
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestrictionRefinement
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.ReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.ViewService
    :members:
 
 Module: pyramid_oereb.standard.models.airports_security_zone_plans
@@ -1358,64 +696,666 @@ Module: pyramid_oereb.standard.models.airports_security_zone_plans
 .. autoclass:: pyramid_oereb.standard.models.airports_security_zone_plans.ViewService
    :members:
 
-Module: pyramid_oereb.lib.renderer
-----------------------------------
+Module: pyramid_oereb.standard.models.groundwater_protection_sites
+------------------------------------------------------------------
 
-.. automodule:: pyramid_oereb.lib.renderer
+.. automodule:: pyramid_oereb.standard.models.groundwater_protection_sites
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.renderer.Base
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.Article
    :members:
 
-Module: pyramid_oereb.lib.records.glossary
+
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.Availability
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.Document
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.DocumentReference
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.DocumentReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.Geometry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.LegalProvision
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.LegendEntry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.Office
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestrictionBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestrictionDocument
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestrictionRefinement
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.ReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.groundwater_protection_sites.ViewService
+   :members:
+
+Module: pyramid_oereb.standard.models.contaminated_military_sites
+-----------------------------------------------------------------
+
+.. automodule:: pyramid_oereb.standard.models.contaminated_military_sites
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.Article
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.Availability
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.Document
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.DocumentReference
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.DocumentReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.Geometry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.LegalProvision
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.LegendEntry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.Office
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestrictionBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestrictionDocument
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestrictionRefinement
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.ReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_military_sites.ViewService
+   :members:
+
+Module: pyramid_oereb.standard.models.airports_building_lines
+-------------------------------------------------------------
+
+.. automodule:: pyramid_oereb.standard.models.airports_building_lines
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.Article
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.Availability
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.Document
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.DocumentBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.DocumentReference
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.DocumentReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.Geometry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.LegalProvision
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.LegendEntry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.Office
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.PublicLawRestrictionBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.PublicLawRestrictionDocument
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.PublicLawRestrictionRefinement
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.ReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.airports_building_lines.ViewService
+   :members:
+
+Module: pyramid_oereb.standard.models.forest_perimeters
+-------------------------------------------------------
+
+.. automodule:: pyramid_oereb.standard.models.forest_perimeters
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.Article
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.Availability
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.Document
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.DocumentBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.DocumentReference
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.DocumentReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.Geometry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.LegalProvision
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.LegendEntry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.Office
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.PublicLawRestrictionBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.PublicLawRestrictionDocument
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.PublicLawRestrictionRefinement
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.ReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.forest_perimeters.ViewService
+   :members:
+
+Module: pyramid_oereb.standard.models.railways_project_planning_zones
+---------------------------------------------------------------------
+
+.. automodule:: pyramid_oereb.standard.models.railways_project_planning_zones
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.Article
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.Availability
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.Document
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.DocumentReference
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.DocumentReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.Geometry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.LegalProvision
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.LegendEntry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.Office
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestrictionBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestrictionDocument
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestrictionRefinement
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.ReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_project_planning_zones.ViewService
+   :members:
+
+Module: pyramid_oereb.standard.models.railways_building_lines
+-------------------------------------------------------------
+
+.. automodule:: pyramid_oereb.standard.models.railways_building_lines
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.Article
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.Availability
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.Document
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.DocumentBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.DocumentReference
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.DocumentReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.Geometry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.LegalProvision
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.LegendEntry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.Office
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.PublicLawRestrictionBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.PublicLawRestrictionDocument
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.PublicLawRestrictionRefinement
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.ReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.railways_building_lines.ViewService
+   :members:
+
+Module: pyramid_oereb.standard.models.noise_sensitivity_levels
+--------------------------------------------------------------
+
+.. automodule:: pyramid_oereb.standard.models.noise_sensitivity_levels
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.Article
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.Availability
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.Document
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentReference
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.Geometry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.LegalProvision
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.LegendEntry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.Office
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestrictionBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestrictionDocument
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestrictionRefinement
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.ReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.ViewService
+   :members:
+
+Module: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
+-----------------------------------------------------------------------
+
+.. automodule:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Article
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Availability
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Document
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentReference
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Geometry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.LegalProvision
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.LegendEntry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Office
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestrictionBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestrictionDocument
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestrictionRefinement
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.ReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.ViewService
+   :members:
+
+Module: pyramid_oereb.standard.models.main
 ------------------------------------------
 
-.. automodule:: pyramid_oereb.lib.records.glossary
+.. automodule:: pyramid_oereb.standard.models.main
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.records.glossary.GlossaryRecord
-   :members:
-
-Module: pyramid_oereb.lib.records.office
-----------------------------------------
-
-.. automodule:: pyramid_oereb.lib.records.office
+.. autoclass:: pyramid_oereb.standard.models.main.Address
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.records.office.OfficeRecord
+.. autoclass:: pyramid_oereb.standard.models.main.ExclusionOfLiability
    :members:
 
-Module: pyramid_oereb.lib.records.plr
+
+.. autoclass:: pyramid_oereb.standard.models.main.Glossary
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.main.Municipality
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.main.RealEstate
+   :members:
+
+Module: pyramid_oereb.standard.models
 -------------------------------------
 
-.. automodule:: pyramid_oereb.lib.records.plr
+.. automodule:: pyramid_oereb.standard.models
+   :members:
+
+Module: pyramid_oereb.standard.models.motorways_project_planing_zones
+---------------------------------------------------------------------
+
+.. automodule:: pyramid_oereb.standard.models.motorways_project_planing_zones
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.records.plr.EmptyPlrRecord
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.Article
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.records.plr.PlrRecord
-   :members:
-
-Module: pyramid_oereb.lib.records
----------------------------------
-
-.. automodule:: pyramid_oereb.lib.records
-   :members:
-
-Module: pyramid_oereb.lib.records.image
----------------------------------------
-
-.. automodule:: pyramid_oereb.lib.records.image
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.Availability
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.records.image.ImageRecord
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.Document
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentReference
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.Geometry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.LegalProvision
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.LegendEntry
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.Office
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestrictionBase
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestrictionDocument
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestrictionRefinement
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.ReferenceDefinition
+   :members:
+
+
+.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.ViewService
    :members:
 
 Module: pyramid_oereb.lib.records.documents
@@ -1440,16 +1380,6 @@ Module: pyramid_oereb.lib.records.documents
 .. autoclass:: pyramid_oereb.lib.records.documents.LegalProvisionRecord
    :members:
 
-Module: pyramid_oereb.lib.records.theme
----------------------------------------
-
-.. automodule:: pyramid_oereb.lib.records.theme
-   :members:
-
-
-.. autoclass:: pyramid_oereb.lib.records.theme.ThemeRecord
-   :members:
-
 Module: pyramid_oereb.lib.records.geometry
 ------------------------------------------
 
@@ -1470,24 +1400,18 @@ Module: pyramid_oereb.lib.records.reference_definition
 .. autoclass:: pyramid_oereb.lib.records.reference_definition.ReferenceDefinitionRecord
    :members:
 
-Module: pyramid_oereb.lib.records.municipality
-----------------------------------------------
+Module: pyramid_oereb.lib.records.plr
+-------------------------------------
 
-.. automodule:: pyramid_oereb.lib.records.municipality
+.. automodule:: pyramid_oereb.lib.records.plr
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.records.municipality.MunicipalityRecord
-   :members:
-
-Module: pyramid_oereb.lib.records.real_estate
----------------------------------------------
-
-.. automodule:: pyramid_oereb.lib.records.real_estate
+.. autoclass:: pyramid_oereb.lib.records.plr.EmptyPlrRecord
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+.. autoclass:: pyramid_oereb.lib.records.plr.PlrRecord
    :members:
 
 Module: pyramid_oereb.lib.records.availability
@@ -1500,14 +1424,38 @@ Module: pyramid_oereb.lib.records.availability
 .. autoclass:: pyramid_oereb.lib.records.availability.AvailabilityRecord
    :members:
 
-Module: pyramid_oereb.lib.records.extract
------------------------------------------
+Module: pyramid_oereb.lib.records.office
+----------------------------------------
 
-.. automodule:: pyramid_oereb.lib.records.extract
+.. automodule:: pyramid_oereb.lib.records.office
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.records.extract.ExtractRecord
+.. autoclass:: pyramid_oereb.lib.records.office.OfficeRecord
+   :members:
+
+Module: pyramid_oereb.lib.records.theme
+---------------------------------------
+
+.. automodule:: pyramid_oereb.lib.records.theme
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.records.theme.ThemeRecord
+   :members:
+
+Module: pyramid_oereb.lib.records.view_service
+----------------------------------------------
+
+.. automodule:: pyramid_oereb.lib.records.view_service
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.records.view_service.LegendEntryRecord
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.records.view_service.ViewServiceRecord
    :members:
 
 Module: pyramid_oereb.lib.records.address
@@ -1530,88 +1478,136 @@ Module: pyramid_oereb.lib.records.exclusion_of_liability
 .. autoclass:: pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord
    :members:
 
-Module: pyramid_oereb.lib.records.view_service
+Module: pyramid_oereb.lib.records.extract
+-----------------------------------------
+
+.. automodule:: pyramid_oereb.lib.records.extract
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.records.extract.ExtractRecord
+   :members:
+
+Module: pyramid_oereb.lib.records.municipality
 ----------------------------------------------
 
-.. automodule:: pyramid_oereb.lib.records.view_service
+.. automodule:: pyramid_oereb.lib.records.municipality
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.records.view_service.LegendEntryRecord
+.. autoclass:: pyramid_oereb.lib.records.municipality.MunicipalityRecord
    :members:
 
-
-.. autoclass:: pyramid_oereb.lib.records.view_service.ViewServiceRecord
-   :members:
-
-Module: pyramid_oereb.lib.sources.glossary
-------------------------------------------
-
-.. automodule:: pyramid_oereb.lib.sources.glossary
-   :members:
-
-
-.. autoclass:: pyramid_oereb.lib.sources.glossary.GlossaryBaseSource
-   :members:
-
-
-.. autoclass:: pyramid_oereb.lib.sources.glossary.GlossaryDatabaseSource
-   :members:
-
-Module: pyramid_oereb.lib.sources.plr
--------------------------------------
-
-.. automodule:: pyramid_oereb.lib.sources.plr
-   :members:
-
-
-.. autoclass:: pyramid_oereb.lib.sources.plr.PlrBaseSource
-   :members:
-
-
-.. autoclass:: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-   :members:
-
-Module: pyramid_oereb.lib.sources
----------------------------------
-
-.. automodule:: pyramid_oereb.lib.sources
-   :members:
-
-
-.. autoclass:: pyramid_oereb.lib.sources.Base
-   :members:
-
-
-.. autoclass:: pyramid_oereb.lib.sources.BaseDatabaseSource
-   :members:
-
-Module: pyramid_oereb.lib.sources.municipality
-----------------------------------------------
-
-.. automodule:: pyramid_oereb.lib.sources.municipality
-   :members:
-
-
-.. autoclass:: pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource
-   :members:
-
-
-.. autoclass:: pyramid_oereb.lib.sources.municipality.MunicipalityDatabaseSource
-   :members:
-
-Module: pyramid_oereb.lib.sources.real_estate
+Module: pyramid_oereb.lib.records.real_estate
 ---------------------------------------------
 
-.. automodule:: pyramid_oereb.lib.sources.real_estate
+.. automodule:: pyramid_oereb.lib.records.real_estate
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource
+.. autoclass:: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+   :members:
+
+Module: pyramid_oereb.lib.records.glossary
+------------------------------------------
+
+.. automodule:: pyramid_oereb.lib.records.glossary
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.sources.real_estate.RealEstateDatabaseSource
+.. autoclass:: pyramid_oereb.lib.records.glossary.GlossaryRecord
+   :members:
+
+Module: pyramid_oereb.lib.records
+---------------------------------
+
+.. automodule:: pyramid_oereb.lib.records
+   :members:
+
+Module: pyramid_oereb.lib.records.image
+---------------------------------------
+
+.. automodule:: pyramid_oereb.lib.records.image
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.records.image.ImageRecord
+   :members:
+
+Module: pyramid_oereb.lib.renderer
+----------------------------------
+
+.. automodule:: pyramid_oereb.lib.renderer
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.renderer.Base
+   :members:
+
+Module: pyramid_oereb.lib.readers.address
+-----------------------------------------
+
+.. automodule:: pyramid_oereb.lib.readers.address
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.readers.address.AddressReader
+   :members:
+
+Module: pyramid_oereb.lib.readers.exclusion_of_liability
+--------------------------------------------------------
+
+.. automodule:: pyramid_oereb.lib.readers.exclusion_of_liability
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader
+   :members:
+
+Module: pyramid_oereb.lib.readers.extract
+-----------------------------------------
+
+.. automodule:: pyramid_oereb.lib.readers.extract
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.readers.extract.ExtractReader
+   :members:
+
+Module: pyramid_oereb.lib.readers.municipality
+----------------------------------------------
+
+.. automodule:: pyramid_oereb.lib.readers.municipality
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.readers.municipality.MunicipalityReader
+   :members:
+
+Module: pyramid_oereb.lib.readers.real_estate
+---------------------------------------------
+
+.. automodule:: pyramid_oereb.lib.readers.real_estate
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.readers.real_estate.RealEstateReader
+   :members:
+
+Module: pyramid_oereb.lib.readers.glossary
+------------------------------------------
+
+.. automodule:: pyramid_oereb.lib.readers.glossary
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.readers.glossary.GlossaryReader
+   :members:
+
+Module: pyramid_oereb.lib.readers
+---------------------------------
+
+.. automodule:: pyramid_oereb.lib.readers
    :members:
 
 Module: pyramid_oereb.lib.sources.legend
@@ -1626,6 +1622,20 @@ Module: pyramid_oereb.lib.sources.legend
 
 
 .. autoclass:: pyramid_oereb.lib.sources.legend.LegendDatabaseSource
+   :members:
+
+Module: pyramid_oereb.lib.sources.plr
+-------------------------------------
+
+.. automodule:: pyramid_oereb.lib.sources.plr
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.sources.plr.PlrBaseSource
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
    :members:
 
 Module: pyramid_oereb.lib.sources.address
@@ -1656,70 +1666,60 @@ Module: pyramid_oereb.lib.sources.exclusion_of_liability
 .. autoclass:: pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityDatabaseSource
    :members:
 
-Module: pyramid_oereb.lib.readers.glossary
-------------------------------------------
-
-.. automodule:: pyramid_oereb.lib.readers.glossary
-   :members:
-
-
-.. autoclass:: pyramid_oereb.lib.readers.glossary.GlossaryReader
-   :members:
-
-Module: pyramid_oereb.lib.readers
----------------------------------
-
-.. automodule:: pyramid_oereb.lib.readers
-   :members:
-
-Module: pyramid_oereb.lib.readers.municipality
+Module: pyramid_oereb.lib.sources.municipality
 ----------------------------------------------
 
-.. automodule:: pyramid_oereb.lib.readers.municipality
+.. automodule:: pyramid_oereb.lib.sources.municipality
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.readers.municipality.MunicipalityReader
+.. autoclass:: pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource
    :members:
 
-Module: pyramid_oereb.lib.readers.real_estate
+
+.. autoclass:: pyramid_oereb.lib.sources.municipality.MunicipalityDatabaseSource
+   :members:
+
+Module: pyramid_oereb.lib.sources.real_estate
 ---------------------------------------------
 
-.. automodule:: pyramid_oereb.lib.readers.real_estate
+.. automodule:: pyramid_oereb.lib.sources.real_estate
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.readers.real_estate.RealEstateReader
-   :members:
-
-Module: pyramid_oereb.lib.readers.extract
------------------------------------------
-
-.. automodule:: pyramid_oereb.lib.readers.extract
+.. autoclass:: pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.readers.extract.ExtractReader
+.. autoclass:: pyramid_oereb.lib.sources.real_estate.RealEstateDatabaseSource
    :members:
 
-Module: pyramid_oereb.lib.readers.address
------------------------------------------
+Module: pyramid_oereb.lib.sources.glossary
+------------------------------------------
 
-.. automodule:: pyramid_oereb.lib.readers.address
-   :members:
-
-
-.. autoclass:: pyramid_oereb.lib.readers.address.AddressReader
-   :members:
-
-Module: pyramid_oereb.lib.readers.exclusion_of_liability
---------------------------------------------------------
-
-.. automodule:: pyramid_oereb.lib.readers.exclusion_of_liability
+.. automodule:: pyramid_oereb.lib.sources.glossary
    :members:
 
 
-.. autoclass:: pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader
+.. autoclass:: pyramid_oereb.lib.sources.glossary.GlossaryBaseSource
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.sources.glossary.GlossaryDatabaseSource
+   :members:
+
+Module: pyramid_oereb.lib.sources
+---------------------------------
+
+.. automodule:: pyramid_oereb.lib.sources
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.sources.Base
+   :members:
+
+
+.. autoclass:: pyramid_oereb.lib.sources.BaseDatabaseSource
    :members:
 
 
