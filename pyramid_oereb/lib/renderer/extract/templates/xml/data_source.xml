@@ -1,0 +1,14 @@
+<%page args="theme"/>
+<%
+    from pyramid_oereb import Config
+%>
+<xsd:datasource>
+    <xsd:topic>
+        <xsd:Code>${theme.code}</xsd:Code>
+        <%include file="localized_text.xml" args="text=theme.text"/>
+    </xsd:topic>
+    %for source in theme.sources:
+        <xsd:dataownerName>${source.owner.name.get(Config.get('default_language'))}</xsd:dataownerName>
+        <xsd:transferFromSource>${source.date}</xsd:transferFromSource>
+    %endfor
+</xsd:datasource>

@@ -7,6 +7,7 @@
             elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.4">
 <%
     from pyramid_oereb.lib.records.plr import PlrRecord
+    from pyramid_oereb import Config
     if params.language:
         language = str(params.language).lower()
     else:
@@ -19,6 +20,17 @@
         else:
             return 'false'
 %>
+    %if params.flavour == 'embeddable':
+    <xsd:embeddable>
+        <xsd:cadasterState>${str(extract.embeddable.cadaster_state)}</xsd:cadasterState>
+        <xsd:cadasterOrganisationName>${extract.embeddable.cadaster_organisation.name.get(Config.get('default_language'))}</xsd:cadasterOrganisationName>
+        <xsd:dataOwnerNameCadastralSurveying>${extract.embeddable.data_owner_cadastral_surveying.name.get(Config.get('default_language'))}</xsd:dataOwnerNameCadastralSurveying>
+        <xsd:transferFromSourceCadastralSurveying>${extract.embeddable.transfer_from_source_cadastral_surveying.strftime('%d-%m-%YT%H:%M:%S')}</xsd:transferFromSourceCadastralSurveying>
+        % for theme in extract.embeddable.data_sources:
+        <%include file="data_source.xml" args="theme=theme"/>
+        % endfor
+    </xsd:embeddable>
+    %endif
     <xsd:Extract>
         <xsd:CreationDate>${extract.creation_date}</xsd:CreationDate>
     %if extract.electronic_signature:
