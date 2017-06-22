@@ -25,7 +25,7 @@ class ExtractRecord(object):
     """binary or None: QR code for the extract as binary string."""
 
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
-                 plr_cadastre_authority, base_data, exclusions_of_liability=None, glossaries=None,
+                 plr_cadastre_authority, base_data, embeddable, exclusions_of_liability=None, glossaries=None,
                  concerned_theme=None, not_concerned_theme=None, theme_without_data=None,
                  general_information=None):
         """
@@ -43,6 +43,7 @@ class ExtractRecord(object):
                 responsible for the PLR cadastre.
             base_data (dict of unicode): A multilingual list of basic data layers used by the extract. For
                 instance the base map from swisstopo.
+            embeddable (pyramid_oereb.lib.records.embeddable.EmbeddableRecord):
             exclusions_of_liability (list of
                 pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord): Exclusions of
                 liability for the extract.
@@ -62,6 +63,7 @@ class ExtractRecord(object):
             warnings.warn('Type of "general_information" should be "dict"')
 
         self.base_data = base_data
+        self.embeddable = embeddable
         self.general_information = general_information
         self.extract_identifier = str(uuid.uuid4())
         self.real_estate = real_estate
@@ -77,7 +79,7 @@ class ExtractRecord(object):
             self.theme_without_data = theme_without_data
         else:
             self.theme_without_data = []
-        self.creation_date = datetime.now().date()
+        self.creation_date = datetime.now()
         self.logo_plr_cadastre = logo_plr_cadastre
         self.federal_logo = federal_logo
         self.cantonal_logo = cantonal_logo

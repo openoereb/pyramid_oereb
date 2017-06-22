@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-
+import datetime
 from pyramid.path import DottedNameResolver
 from pyramid_oereb.lib.config import Config
+from pyramid_oereb.lib.records.embeddable import EmbeddableRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.plr import PlrRecord, EmptyPlrRecord
 
@@ -87,7 +88,11 @@ class ExtractReader(object):
         concerned_themes = list()
         not_concerned_themes = list()
         themes_without_data = list()
+        themes = list()
         for plr in real_estate.public_law_restrictions:
+            # TODO: Check if we really need to provide the information about all themes or only the info
+            # about concerned themes.
+            themes.append(plr.theme)
             if isinstance(plr, PlrRecord):
                 contained = False
                 for theme in concerned_themes:
@@ -103,9 +108,21 @@ class ExtractReader(object):
 
         # Load base data form configuration
         resolver = DottedNameResolver()
-        date_method_string = Config.get('extract').get('base_data').get('date_mehod')
+        date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
         date_method = resolver.resolve(date_method_string)
-        base_data = Config.get_base_data(date_method(real_estate))
+        av_update_date = date_method(real_estate)
+        base_data = Config.get_base_data(av_update_date)
+
+        av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
+        av_provider_method = resolver.resolve(av_provider_method_string)
+        cadaster_state = datetime.datetime.now()
+        embeddable = EmbeddableRecord(
+            cadaster_state,
+            self.plr_cadastre_authority,
+            av_provider_method(real_estate),
+            av_update_date,
+            themes
+        )
 
         self.extract = ExtractRecord(
             real_estate,
@@ -115,6 +132,7 @@ class ExtractReader(object):
             municipality_logo,
             self.plr_cadastre_authority,
             base_data,
+            embeddable,
             concerned_theme=concerned_themes,
             not_concerned_theme=not_concerned_themes,
             theme_without_data=themes_without_data
