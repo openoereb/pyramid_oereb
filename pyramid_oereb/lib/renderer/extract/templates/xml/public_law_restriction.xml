@@ -1,4 +1,11 @@
 <%page args="public_law_restriction"/>
+<%
+    # PLR without legal provision is allowed in reduced extract only!
+    if params.flavour != 'reduced' and isinstance(public_law_restriction.documents, list) and \
+                    len(public_law_restriction.documents) == 0:
+        raise ValueError('Restrictions on landownership without legal provision are only allowed '
+                         'in reduced extracts!')
+%>
 <xsd:RestrictionOnLandownership>
     <xsd:Information>
         <%include file="localized_text.xml" args="text=public_law_restriction.content"/>
