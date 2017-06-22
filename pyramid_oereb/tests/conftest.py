@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import base64
-import os
 from contextlib import contextmanager
 
 from datetime import date, timedelta
@@ -24,7 +23,7 @@ from pyramid_oereb.standard.models import contaminated_sites
 from pyramid_oereb.standard.models import land_use_plans
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.standard.models.main import Municipality, Glossary, RealEstate
-from pyramid_oereb.views.webservice import Symbol
+from pyramid_oereb.views import webservice
 
 pyramid_oereb_test_yml = 'pyramid_oereb/standard/pyramid_oereb.yml'
 
@@ -39,10 +38,20 @@ def config():
 @contextmanager
 def pyramid_oereb_test_config():
     with testConfig() as pyramid_config:
+        pyramid_config.add_route('{0}/image/logo'.format(route_prefix), '/image/logo/{logo}')
+        pyramid_config.add_view(webservice.Logo, attr='get_image',
+                                route_name='{0}/image/logo'.format(route_prefix), request_method='GET')
+
+        pyramid_config.add_route('{0}/image/municipality'.format(route_prefix), '/image/municipality/{fosnr}')
+        pyramid_config.add_view(webservice.Municipality, attr='get_image',
+                                route_name='{0}/image/municipality'.format(route_prefix),
+                                request_method='GET')
+
         pyramid_config.add_route('{0}/image/symbol'.format(route_prefix),
                                  '/image/symbol/{theme_code}/{type_code}')
-        pyramid_config.add_view(Symbol, attr='get_image', route_name='{0}/image/symbol'.format(route_prefix),
-                                request_method='GET')
+        pyramid_config.add_view(webservice.Symbol, attr='get_image',
+                                route_name='{0}/image/symbol'.format(route_prefix), request_method='GET')
+
         yield pyramid_config
 
 

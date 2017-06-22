@@ -73,10 +73,8 @@ def test_render(config, parameter):
                                        u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712',
                                        plan_for_land_register=view_service)
         office_record = OfficeRecord({u'de': u'AGI'})
-        extract = ExtractRecord(real_estate, ImageRecord(bin(1), 'pyramid_oereb/standard/images/1.png'),
-                                ImageRecord(bin(2), 'pyramid_oereb/standard/images/2.png'),
-                                ImageRecord(bin(3), 'pyramid_oereb/standard/images/3.png'),
-                                ImageRecord(bin(4), 'pyramid_oereb/standard/images/4.png'), office_record,
+        extract = ExtractRecord(real_estate, ImageRecord(bin(1)), ImageRecord(bin(2)), ImageRecord(bin(3)),
+                                ImageRecord(bin(4)), office_record,
                                 {u'de': u'Daten der amtlichen Vermessung'},
                                 [ExclusionOfLiabilityRecord({'de': 'Haftungsausschluss'}, {'de': 'Test'})],
                                 [GlossaryRecord({'de': 'Glossar'}, {'de': 'Test'})],
@@ -125,10 +123,10 @@ def test_render(config, parameter):
                 })
             else:
                 expected.update({
-                    u'LogoPLRCadastreRef': u'http://example.com/images/1.png',
-                    u'FederalLogoRef': u'http://example.com/images/2.png',
-                    u'CantonalLogoRef': u'http://example.com/images/3.png',
-                    u'MunicipalityLogoRef': u'http://example.com/images/4.png'
+                    u'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb',
+                    u'FederalLogoRef': u'http://example.com/image/logo/confederation',
+                    u'CantonalLogoRef': u'http://example.com/image/logo/canton',
+                    u'MunicipalityLogoRef': u'http://example.com/image/municipality/2829'
                 })
             assert result == {
                 u'GetExtractByIdResponse': {
