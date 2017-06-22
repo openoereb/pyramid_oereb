@@ -510,7 +510,7 @@ class Parameter(object):
         return True
 
 
-class Image(object):
+class Symbol(object):
     def __init__(self, request):
         self._request_ = request
 
@@ -519,7 +519,7 @@ class Image(object):
         dnr = DottedNameResolver()
         for plr in Config.get('plrs'):
             if str(plr.get('code')).lower() == str(self._request_.matchdict.get('theme_code')).lower():
-                method = dnr.resolve(plr.get('get_image_method'))
+                method = dnr.resolve(plr.get('get_symbol_method'))
                 break
         if method:
             return method(self._request_)

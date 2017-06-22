@@ -245,7 +245,7 @@ def test_format_plr(config, parameter):
                 })
             else:
                 expected.update({
-                    'SymbolRef': 'http://example.com/image/Test/test'
+                    'SymbolRef': 'http://example.com/image/symbol/Test/test'
                 })
             assert result[0] == expected
 
@@ -415,7 +415,7 @@ def test_format_legend_entry(parameter, config):
             })
         else:
             expected.update({
-                'SymbolRef': 'http://example.com/image/test/type1'
+                'SymbolRef': 'http://example.com/image/symbol/test/type1'
             })
         assert isinstance(result, dict)
         assert result == expected

@@ -24,7 +24,7 @@ from pyramid_oereb.standard.models import contaminated_sites
 from pyramid_oereb.standard.models import land_use_plans
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.standard.models.main import Municipality, Glossary, RealEstate
-from pyramid_oereb.views.webservice import Image
+from pyramid_oereb.views.webservice import Symbol
 
 pyramid_oereb_test_yml = 'pyramid_oereb/standard/pyramid_oereb.yml'
 
@@ -39,9 +39,9 @@ def config():
 @contextmanager
 def pyramid_oereb_test_config():
     with testConfig() as pyramid_config:
-        pyramid_config.add_static_view('images', os.path.abspath(config().get('images').get('directory')))
-        pyramid_config.add_route('{0}/image'.format(route_prefix), '/image/{theme_code}/{type_code}')
-        pyramid_config.add_view(Image, attr='get_image', route_name='{0}/image'.format(route_prefix),
+        pyramid_config.add_route('{0}/image/symbol'.format(route_prefix),
+                                 '/image/symbol/{theme_code}/{type_code}')
+        pyramid_config.add_view(Symbol, attr='get_image', route_name='{0}/image/symbol'.format(route_prefix),
                                 request_method='GET')
         yield pyramid_config
 

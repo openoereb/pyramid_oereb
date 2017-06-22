@@ -218,7 +218,7 @@ class Renderer(Base):
                     # Link to symbol is only available if type code is set!
                     if plr.type_code:
                         plr_dict.update({
-                            'SymbolRef': self._request.route_url('{0}/image'.format(route_prefix),
+                            'SymbolRef': self._request.route_url('{0}/image/symbol'.format(route_prefix),
                                                                  theme_code=plr.theme.code,
                                                                  type_code=plr.type_code)
                         })
@@ -444,7 +444,7 @@ class Renderer(Base):
             })
         else:
             legend_entry_dict.update({
-                'SymbolRef': self._request.route_url('{0}/image'.format(route_prefix),
+                'SymbolRef': self._request.route_url('{0}/image/symbol'.format(route_prefix),
                                                      theme_code=legend_entry.theme.code,
                                                      type_code=legend_entry.type_code)
             })
