@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import base64
+import logging
 
 from geoalchemy2.elements import _SpatialElement
 from geoalchemy2.shape import to_shape, from_shape
@@ -19,6 +19,8 @@ from pyramid_oereb.lib.records.glossary import GlossaryRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.reference_definition import ReferenceDefinitionRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
+
+log = logging.getLogger('pyramid_oereb')
 
 
 class PlrBaseSource(Base):
@@ -188,12 +190,6 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return document_records
 
     def from_db_to_plr_record(self, public_law_restriction_from_db):
-        session = self._adapter_.get_session(self._key_)
-        legend_entry = session.query(self.legend_entry_model).filter(
-            self.legend_entry_model.type_code == public_law_restriction_from_db.type_code
-        ).one()
-        symbol_base64 = legend_entry.file
-        session.close()
         thresholds = self._plr_info_.get('thresholds')
         min_length = thresholds.get('length').get('limit')
         length_unit = thresholds.get('length').get('unit')
@@ -207,6 +203,18 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             theme_record,
             public_law_restriction_from_db.view_service.legends
         )
+        symbol_base64 = None
+        for legend_entry_record in legend_entry_records:
+            if public_law_restriction_from_db.type_code == legend_entry_record:
+                symbol_base64 = legend_entry_record.file
+        if symbol_base64 is None:
+            # TODO: raise real error here when data is correct, emit warning for now
+            msg = u'No symbol was found for plr in topic {topic} with id {id}'.format(
+                topic=self._plr_info_.get('code'),
+                id=public_law_restriction_from_db.id
+            )
+            log.warning(msg)
+            # raise AttributeError(msg)
         view_service_record = self.from_db_to_view_service_record(
             public_law_restriction_from_db.view_service,
             legend_entry_records

@@ -123,9 +123,9 @@ class Processor(object):
         TODO
         """
         # Get all plr that intersect (and are completely inside) the real_estate limit.
-        real_estate_plr = []
+        real_estate_plrs = []
 
-        outside_real_estate_plr = []
+        outside_real_estate_plrs = []
 
         for public_law_restriction in real_estate.public_law_restrictions:
             intersect = False
@@ -135,14 +135,17 @@ class Processor(object):
                 if geometry.geom.intersects(real_estate.limit):
                     intersect = True
             if intersect:
-                real_estate_plr.append(public_law_restriction)
+                real_estate_plrs.append(public_law_restriction)
             else:
-                outside_real_estate_plr.append(public_law_restriction)
+                outside_real_estate_plrs.append(public_law_restriction)
+        for real_estate_plr in real_estate_plrs:
+            for outside_real_estate_plr in outside_real_estate_plrs:
+                if real_estate_plr.theme.code == outside_real_estate_plr.theme.code:
+                    real_estate_plr.view_service.legend_entries.extend(
+                        outside_real_estate_plr.view_service.legend_entries
+                    )
 
-        # Get the legend entries
-        # TODO
-
-        # return all array ?
+        return real_estate_plrs
 
     @property
     def real_estate_reader(self):
@@ -220,7 +223,7 @@ class Processor(object):
                 extract_raw = self._extract_reader_.read(real_estate, municipality.logo, params)
                 extract = self.plr_tolerance_check(extract_raw)
                 self.view_service_handling(extract.real_estate, params.images)
-                self.get_legend_entries(extract.real_estate)
+                extract.real_estate.public_law_restrictions = self.get_legend_entries(extract.real_estate)
                 extract.exclusions_of_liability = exclusions_of_liability
                 extract.glossaries = glossaries
                 return extract
