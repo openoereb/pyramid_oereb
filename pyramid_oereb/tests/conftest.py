@@ -164,6 +164,10 @@ def connection(config):
         table=LineDocumentReference.__table__.name
     ))
     connection_.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+        schema=contaminated_sites.LegendEntry.__table__.schema,
+        table=contaminated_sites.LegendEntry.__table__.name
+    ))
+    connection_.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
         schema=contaminated_sites.ViewService.__table__.schema,
         table=contaminated_sites.ViewService.__table__.name
     ))
@@ -388,6 +392,18 @@ def connection(config):
         'link_wms': u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&'
                     u'SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&'
                     u'LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'.format(Config.get('srid'))
+    })
+
+    connection_.execute(contaminated_sites.LegendEntry.__table__.insert(), {
+        'id': 1,
+        'symbol': base64.b64encode(bin(1)),
+        'legend_text': {
+            'de': u'Test'
+        },
+        'type_code': u'test',
+        'type_code_list': u'type_code_list',
+        'topic': u'ContaminatedSites',
+        'view_service_id': 1
     })
 
     connection_.execute(contaminated_sites.Office.__table__.insert(), {
