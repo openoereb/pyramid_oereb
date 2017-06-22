@@ -104,7 +104,7 @@ pyramid_oereb:
     # repository). But if you need to change it for any reason: Feel free...
     oereb: ${png_root_dir}logo_oereb.png
     # The logo representing your canton. Replace with your own logo!
-    canton: ${png_root_dir}logo_sample.png
+    canton: ${png_root_dir}logo_canton.png
 
   # The method used to return the logo images configured above.
   get_logo_method: pyramid_oereb.standard.methods.get_logo
