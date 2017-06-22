@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import logging
+
+import datetime
 from geoalchemy2.elements import _SpatialElement
 from geoalchemy2.shape import to_shape, from_shape
 from pyramid.path import DottedNameResolver
@@ -7,7 +10,8 @@ from sqlalchemy import text
 
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.availability import AvailabilityRecord
-from pyramid_oereb.lib.records.theme import ThemeRecord
+from pyramid_oereb.lib.records.embeddable import TransferFromSourceRecord
+from pyramid_oereb.lib.records.theme import EmbeddableThemeRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
 from pyramid_oereb.lib.records.plr import EmptyPlrRecord, PlrRecord
 from pyramid_oereb.lib.records.documents import DocumentRecord, ArticleRecord
@@ -17,6 +21,8 @@ from pyramid_oereb.lib.records.glossary import GlossaryRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.reference_definition import ReferenceDefinitionRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
+
+log = logging.getLogger('pyramid_oereb')
 
 
 class PlrBaseSource(Base):
@@ -45,6 +51,9 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         availability_model = DottedNameResolver().maybe_resolve(
             '{models_path}.Availability'.format(models_path=models_path)
         )
+        transfer_from_source_model = DottedNameResolver().maybe_resolve(
+            '{models_path}.DataIntegration'.format(models_path=models_path)
+        )
         super(PlrStandardDatabaseSource, self).__init__(**bds_kwargs)
 
         session = self._adapter_.get_session(self._key_)
@@ -54,8 +63,27 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             self.availabilities.append(
                 AvailabilityRecord(availability.fosnr, available=availability.available)
             )
+        self.transfer_from_source = session.query(transfer_from_source_model).all()
+        # TODO: Fix this. Its not possible to have no actuality set. It's only for test case
+        theme_sources = []
+        for source in self.transfer_from_source:
+            theme_sources.append(TransferFromSourceRecord(
+                self.transfer_from_source.date,
+                self.transfer_from_source.office(source.office)
+            ))
+        if len(theme_sources) == 0:
+            log.warning(u'The theme sources for the topic {0} are empty. This is not allowed. Going through '
+                        u'anyway'.format(self._plr_info_.get('code')))
+            theme_sources = [TransferFromSourceRecord(
+                datetime.datetime.now(),
+                Config.get_plr_cadastre_authority()
+            )]
+        self.theme_record = EmbeddableThemeRecord(
+            self._plr_info_.get('code'),
+            self._plr_info_.get('text'),
+            theme_sources
+        )
         session.close()
-        # session.close()
 
     @property
     def info(self):
@@ -191,9 +219,8 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         area_unit = thresholds.get('area').get('unit')
         area_precision = thresholds.get('area').get('precision')
         percentage_precision = thresholds.get('percentage').get('precision')
-        theme_record = ThemeRecord(self._plr_info_.get('code'), self._plr_info_.get('text'))
         legend_entry_records = self.from_db_to_legend_entry_record(
-            theme_record,
+            self.theme_record,
             public_law_restriction_from_db.view_service.legends
         )
         view_service_record = self.from_db_to_view_service_record(
@@ -217,7 +244,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         for join in public_law_restriction_from_db.refinements:
             refinements_plr_records.append(self.from_db_to_plr_record(join.refinement))
         plr_record = self._plr_record_class_(
-            theme_record,
+            self.theme_record,
             public_law_restriction_from_db.content,
             public_law_restriction_from_db.legal_state,
             public_law_restriction_from_db.published_from,
@@ -332,24 +359,24 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             if real_estate.fosnr == availability.fosnr and not availability.available:
                 # The plr is marked as not available! This stops every further processing for this PLR and
                 # adds a simple empty record for the PLR's on this real estate
-                return real_estate.public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
-                    self._plr_info_.get('code'), self._plr_info_.get('text')
-                ), has_data=False))
+                return real_estate.public_law_restrictions.append(EmptyPlrRecord(
+                    self.theme_record,
+                    has_data=False)
+                )
         session = self._adapter_.get_session(self._key_)
 
         if session.query(self._model_).count() == 0:
             # We can stop here already because there are no items in the database
-            return real_estate.public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
-                self._plr_info_.get('code'), self._plr_info_.get('text')
-            ), has_data=False))
+            return real_estate.public_law_restrictions.append(EmptyPlrRecord(
+                self.theme_record,
+                has_data=False)
+            )
 
         geometry_results = []
         self.handle_collection(geometry_results, session, collection_types, real_estate)
 
         if len(geometry_results) == 0:
-            return real_estate.public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
-                self._plr_info_.get('code'), self._plr_info_.get('text')
-            )))
+            return real_estate.public_law_restrictions.append(EmptyPlrRecord(self.theme_record))
         for geometry_result in geometry_results:
             real_estate.public_law_restrictions.append(
                 self.from_db_to_plr_record(geometry_result.public_law_restriction)
