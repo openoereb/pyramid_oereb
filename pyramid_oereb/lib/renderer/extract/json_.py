@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from json import dumps
 
+from pyramid.request import Request
 from pyramid.response import Response
+from pyramid.testing import DummyRequest
 
-from pyramid_oereb import Config
+from pyramid_oereb import Config, route_prefix
 from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord, ArticleRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
 from shapely.geometry import mapping
@@ -36,6 +38,10 @@ class Renderer(Base):
         Returns:
             str: The JSON encoded extract.
         """
+
+        self._request = self.get_request(system)
+        assert isinstance(self._request, (Request, DummyRequest))
+
         response = self.get_response(system)
         if isinstance(response, Response) and response.content_type == response.default_content_type:
             response.content_type = 'application/json'
@@ -73,10 +79,6 @@ class Renderer(Base):
         extract_dict = {
             'CreationDate': self.date_time(extract.creation_date),
             'isReduced': self._params.flavour in ['reduced', 'embeddable'],
-            'LogoPLRCadastre': extract.logo_plr_cadastre.encode(),
-            'FederalLogo': extract.federal_logo.encode(),
-            'CantonalLogo': extract.cantonal_logo.encode(),
-            'MunicipalityLogo': extract.municipality_logo.encode(),
             'ExtractIdentifier': extract.extract_identifier,
             'BaseData': self.get_localized_text(extract.base_data),
             'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority),
@@ -85,6 +87,27 @@ class Renderer(Base):
             'NotConcernedTheme': [self.format_theme(theme) for theme in extract.not_concerned_theme],
             'ThemeWithoutData': [self.format_theme(theme) for theme in extract.theme_without_data]
         }
+
+        if self._params.images:
+            extract_dict.update({
+                'LogoPLRCadastre': extract.logo_plr_cadastre.encode(),
+                'FederalLogo': extract.federal_logo.encode(),
+                'CantonalLogo': extract.cantonal_logo.encode(),
+                'MunicipalityLogo': extract.municipality_logo.encode()
+            })
+        else:
+            extract_dict.update({
+                'LogoPLRCadastreRef': self._request.route_url('{0}/image/logo'.format(route_prefix),
+                                                              logo='oereb'),
+                'FederalLogoRef': self._request.route_url('{0}/image/logo'.format(route_prefix),
+                                                          logo='confederation'),
+                'CantonalLogoRef': self._request.route_url('{0}/image/logo'.format(route_prefix),
+                                                           logo='canton'),
+                'MunicipalityLogoRef': self._request.route_url(
+                    '{0}/image/municipality'.format(route_prefix),
+                    fosnr=extract.real_estate.fosnr
+                )
+            })
 
         if extract.electronic_signature:
             extract_dict['ElectronicSignature'] = extract.electronic_signature
@@ -195,10 +218,22 @@ class Renderer(Base):
                     'Theme': self.format_theme(plr.theme),
                     'Lawstatus': plr.legal_state,
                     'Area': plr.area,
-                    'Symbol': plr.symbol,
                     'ResponsibleOffice': self.format_office(plr.responsible_office),
                     'Map': self.format_map(plr.view_service)
                 }
+
+                if self._params.images:
+                    plr_dict.update({
+                        'Symbol': plr.symbol.encode()
+                    })
+                else:
+                    # Link to symbol is only available if type code is set!
+                    if plr.type_code:
+                        plr_dict.update({
+                            'SymbolRef': self._request.route_url('{0}/image/symbol'.format(route_prefix),
+                                                                 theme_code=plr.theme.code,
+                                                                 type_code=plr.type_code)
+                        })
 
                 if plr.subtopic:
                     plr_dict['SubTheme'] = plr.subtopic
@@ -409,12 +444,23 @@ class Renderer(Base):
             dict: The formatted dictionary for rendering.
         """
         legend_entry_dict = {
-            'Symbol': legend_entry.symbol,
             'LegendText': self.get_localized_text(legend_entry.legend_text),
             'TypeCode': legend_entry.type_code,
             'TypeCodelist': legend_entry.type_code_list,
             'Theme': self.format_theme(legend_entry.theme)
         }
+
+        if self._params.images:
+            legend_entry_dict.update({
+                'Symbol': legend_entry.symbol.encode()
+            })
+        else:
+            legend_entry_dict.update({
+                'SymbolRef': self._request.route_url('{0}/image/symbol'.format(route_prefix),
+                                                     theme_code=legend_entry.theme.code,
+                                                     type_code=legend_entry.type_code)
+            })
+
         if legend_entry.sub_theme:
             legend_entry_dict['SubTheme'] = legend_entry.sub_theme
         if legend_entry.additional_theme:

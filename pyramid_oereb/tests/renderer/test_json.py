@@ -18,6 +18,7 @@ from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
+from pyramid_oereb.tests.conftest import MockRequest, pyramid_oereb_test_config
 from pyramid_oereb.tests.renderer import DummyRenderInfo
 from pyramid_oereb.views.webservice import Parameter
 
@@ -60,57 +61,72 @@ def test_get_localized_text_from_dict(config, language, result):
 
 @pytest.mark.parametrize('parameter', [
     params(),
+    Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
     None
 ])
 def test_render(config, parameter):
     assert isinstance(config._config, dict)
-    view_service = ViewServiceRecord(u'http://geowms.bl.ch', u'http://geowms.bl.ch')
-    real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
-                                   MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]), u'http://www.geocat.ch',
-                                   u'1000', u'BL0200002829', u'CH775979211712',
-                                   plan_for_land_register=view_service)
-    office_record = OfficeRecord({u'de': u'AGI'})
-    extract = ExtractRecord(real_estate, ImageRecord(bin(1)), ImageRecord(bin(2)), ImageRecord(bin(3)),
-                            ImageRecord(bin(4)), office_record, {u'de': u'Daten der amtlichen Vermessung'},
-                            [ExclusionOfLiabilityRecord({'de': 'Haftungsausschluss'}, {'de': 'Test'})],
-                            [GlossaryRecord({'de': 'Glossar'}, {'de': 'Test'})],
-                            general_information={'de': 'Allgemeine Informationen'})
-    extract.qr_code = bin(1)
-    extract.electronic_signature = 'Signature'
-    renderer = Renderer(DummyRenderInfo())
-    renderer._language = u'de'
-    if parameter is None:
-        with pytest.raises(TypeError):
-            renderer._render(extract, None)
-    else:
-        result = renderer._render(extract, parameter)
-        assert isinstance(result, dict)
-        assert result == {
-            'ExtractIdentifier': unicode(extract.extract_identifier),
-            'CreationDate': datetime.date.today().isoformat() + 'T00:00:00',
-            'ConcernedTheme': [],
-            'NotConcernedTheme': [],
-            'ThemeWithoutData': [],
-            'isReduced': True,
-            'LogoPLRCadastre': base64.b64encode(bin(1)),
-            'FederalLogo': base64.b64encode(bin(2)),
-            'CantonalLogo': base64.b64encode(bin(3)),
-            'MunicipalityLogo': base64.b64encode(bin(4)),
-            'PLRCadastreAuthority': renderer.format_office(office_record),
-            'BaseData': renderer.get_localized_text({'de': u'Daten der amtlichen Vermessung'}),
-            'RealEstate': renderer.format_real_estate(real_estate),
-            'GeneralInformation': [{'Language': 'de', 'Text': 'Allgemeine Informationen'}],
-            'QRCode': bin(1),
-            'ExclusionOfLiability': [{
-                'Title': [{'Language': 'de', 'Text': 'Haftungsausschluss'}],
-                'Content': [{'Language': 'de', 'Text': 'Test'}]
-            }],
-            'Glossary': [{
-                'Title': [{'Language': 'de', 'Text': 'Glossar'}],
-                'Content': [{'Language': 'de', 'Text': 'Test'}]
-            }],
-            'ElectronicSignature': 'Signature'
-        }
+    with pyramid_oereb_test_config():
+        view_service = ViewServiceRecord(u'http://geowms.bl.ch', u'http://geowms.bl.ch')
+        real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
+                                       MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
+                                       u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712',
+                                       plan_for_land_register=view_service)
+        office_record = OfficeRecord({u'de': u'AGI'})
+        extract = ExtractRecord(real_estate, ImageRecord(bin(1)), ImageRecord(bin(2)), ImageRecord(bin(3)),
+                                ImageRecord(bin(4)), office_record,
+                                {u'de': u'Daten der amtlichen Vermessung'},
+                                [ExclusionOfLiabilityRecord({'de': 'Haftungsausschluss'}, {'de': 'Test'})],
+                                [GlossaryRecord({'de': 'Glossar'}, {'de': 'Test'})],
+                                general_information={'de': 'Allgemeine Informationen'})
+        extract.qr_code = bin(1)
+        extract.electronic_signature = 'Signature'
+        renderer = Renderer(DummyRenderInfo())
+        renderer._language = u'de'
+        renderer._request = MockRequest()
+        if parameter is None:
+            with pytest.raises(TypeError):
+                renderer._render(extract, None)
+        else:
+            result = renderer._render(extract, parameter)
+            assert isinstance(result, dict)
+            expected = {
+                'ExtractIdentifier': unicode(extract.extract_identifier),
+                'CreationDate': datetime.date.today().isoformat() + 'T00:00:00',
+                'ConcernedTheme': [],
+                'NotConcernedTheme': [],
+                'ThemeWithoutData': [],
+                'isReduced': True,
+                'PLRCadastreAuthority': renderer.format_office(office_record),
+                'BaseData': renderer.get_localized_text({'de': u'Daten der amtlichen Vermessung'}),
+                'RealEstate': renderer.format_real_estate(real_estate),
+                'GeneralInformation': [{'Language': 'de', 'Text': 'Allgemeine Informationen'}],
+                'QRCode': bin(1),
+                'ExclusionOfLiability': [{
+                    'Title': [{'Language': 'de', 'Text': 'Haftungsausschluss'}],
+                    'Content': [{'Language': 'de', 'Text': 'Test'}]
+                }],
+                'Glossary': [{
+                    'Title': [{'Language': 'de', 'Text': 'Glossar'}],
+                    'Content': [{'Language': 'de', 'Text': 'Test'}]
+                }],
+                'ElectronicSignature': 'Signature'
+            }
+            if parameter.images:
+                expected.update({
+                    'LogoPLRCadastre': unicode(base64.b64encode(bin(1))),
+                    'FederalLogo': unicode(base64.b64encode(bin(2))),
+                    'CantonalLogo': unicode(base64.b64encode(bin(3))),
+                    'MunicipalityLogo': unicode(base64.b64encode(bin(4)))
+                })
+            else:
+                expected.update({
+                    'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb',
+                    'FederalLogoRef': u'http://example.com/image/logo/confederation',
+                    'CantonalLogoRef': u'http://example.com/image/logo/canton',
+                    'MunicipalityLogoRef': u'http://example.com/image/municipality/2829'
+                })
+            assert result == expected
 
 
 def test_format_office(config):
@@ -168,48 +184,62 @@ def test_format_real_estate(config):
 
 @pytest.mark.parametrize('parameter', [
     params(),
+    Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
     Parameter('full', 'json', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 ])
 def test_format_plr(config, parameter):
     assert isinstance(config._config, dict)
-    renderer = Renderer(DummyRenderInfo())
-    renderer._language = u'de'
-    renderer._params = parameter
-    document = DocumentRecord('inForce', datetime.date.today(), {'de': 'Test Dokument'},
-                              OfficeRecord({'de': 'BUD'}), {'de': 'http://mein.dokument.ch'})
-    if parameter.flavour == 'reduced':
-        documents = [document]
-    else:
-        documents = None
-    theme = ThemeRecord(u'Test', {u'de': u'Test theme'})
-    office = OfficeRecord({u'de': u'Test Office'})
-    view_service = ViewServiceRecord(u'http://geowms.bl.ch', u'http://geowms.bl.ch')
-    plr = PlrRecord(theme, {u'de': u'Test PLR'}, u'inForce', datetime.date.today(), office, u'Subtopic',
-                    u'Additional topic', u'TypeCode', u'TypeCodeList', view_service, documents=documents)
-    plr.part_in_percent = 0.5
-    if parameter.flavour == 'full':
-        with pytest.raises(ValueError):
-            renderer.format_plr([plr])
-    else:
-        result = renderer.format_plr([plr])
-        assert isinstance(result, list)
-        assert len(result) == 1
-        assert isinstance(result[0], dict)
-        assert result[0] == {
-            u'Information': renderer.get_localized_text(plr.content),
-            u'Theme': renderer.format_theme(plr.theme),
-            u'Lawstatus': u'inForce',
-            u'Area': None,
-            u'Symbol': None,
-            u'ResponsibleOffice': renderer.format_office(plr.responsible_office),
-            u'Map': renderer.format_map(plr.view_service),
-            u'SubTheme': u'Subtopic',
-            u'OtherTheme': u'Additional topic',
-            u'TypeCode': u'TypeCode',
-            u'TypeCodelist': u'TypeCodeList',
-            u'LegalProvisions': [renderer.format_document(document)],
-            u'PartInPercent': 0.5
-        }
+    with pyramid_oereb_test_config():
+        renderer = Renderer(DummyRenderInfo())
+        renderer._language = 'de'
+        renderer._params = parameter
+        renderer._request = MockRequest()
+        document = DocumentRecord('inForce', datetime.date.today(), {'de': 'Test Dokument'},
+                                  OfficeRecord({'de': 'BUD'}), {'de': 'http://mein.dokument.ch'})
+        if parameter.flavour == 'reduced':
+            documents = [document]
+        else:
+            documents = None
+        theme = ThemeRecord('Test', {'de': 'Test theme'})
+        office = OfficeRecord({'de': 'Test Office'})
+        legend_entry = LegendEntryRecord(base64.b64encode(bin(1)), {'de': 'Test'}, 'test', 'TypeCodeList',
+                                         theme)
+        view_service = ViewServiceRecord('http://geowms.bl.ch', 'http://geowms.bl.ch', [legend_entry])
+        plr = PlrRecord(theme, {'de': 'Test PLR'}, 'inForce', datetime.date.today(), office, 'Subtopic',
+                        'Additional topic', 'test', 'TypeCodeList', view_service, documents=documents,
+                        symbol=base64.b64encode(bin(1)))
+        plr.part_in_percent = 0.5
+        if parameter.flavour == 'full':
+            with pytest.raises(ValueError):
+                renderer.format_plr([plr])
+        else:
+            result = renderer.format_plr([plr])
+            assert isinstance(result, list)
+            assert len(result) == 1
+            assert isinstance(result[0], dict)
+            expected = {
+                'Information': renderer.get_localized_text(plr.content),
+                'Theme': renderer.format_theme(plr.theme),
+                'Lawstatus': 'inForce',
+                'Area': None,
+                'ResponsibleOffice': renderer.format_office(plr.responsible_office),
+                'Map': renderer.format_map(plr.view_service),
+                'SubTheme': 'Subtopic',
+                'OtherTheme': 'Additional topic',
+                'TypeCode': 'test',
+                'TypeCodelist': 'TypeCodeList',
+                'LegalProvisions': [renderer.format_document(document)],
+                'PartInPercent': 0.5
+            }
+            if parameter.images:
+                expected.update({
+                    'Symbol': base64.b64encode(bin(1))
+                })
+            else:
+                expected.update({
+                    'SymbolRef': 'http://example.com/image/symbol/Test/test'
+                })
+            assert result[0] == expected
 
 
 @pytest.mark.parametrize('document,result_dict', [
@@ -327,40 +357,57 @@ def test_format_theme(config, params):
 
 def test_format_map(config, params):
     assert isinstance(config._config, dict)
-    renderer = Renderer(DummyRenderInfo())
-    renderer._language = u'de'
-    renderer._params = params
-    legend_entry = LegendEntryRecord(bin(1), {'de': 'Legendeneintrag'}, 'type1', 'type_code_list',
-                                     ThemeRecord('test', {'de': 'Test'}))
-    view_service = ViewServiceRecord('http://my.wms.ch',
-                                     'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic', [legend_entry])
-    view_service.image = base64.b64encode(bin(1))
-    result = renderer.format_map(view_service)
-    assert isinstance(result, dict)
-    assert result == {
-        'Image': base64.b64encode(bin(1)),
-        'ReferenceWMS': 'http://my.wms.ch',
-        'LegendAtWeb': 'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
-        'OtherLegend': [renderer.format_legend_entry(legend_entry)]
-    }
+    with pyramid_oereb_test_config():
+        renderer = Renderer(DummyRenderInfo())
+        renderer._language = u'de'
+        renderer._params = params
+        renderer._request = MockRequest()
+        legend_entry = LegendEntryRecord(bin(1), {'de': 'Legendeneintrag'}, 'type1', 'type_code_list',
+                                         ThemeRecord('test', {'de': 'Test'}))
+        view_service = ViewServiceRecord('http://my.wms.ch',
+                                         'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
+                                         [legend_entry])
+        view_service.image = ImageRecord(bin(1))
+        result = renderer.format_map(view_service)
+        assert isinstance(result, dict)
+        assert result == {
+            'Image': base64.b64encode(bin(1)),
+            'ReferenceWMS': 'http://my.wms.ch',
+            'LegendAtWeb': 'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
+            'OtherLegend': [renderer.format_legend_entry(legend_entry)]
+        }
 
 
-def test_format_legend_entry(config, params):
+@pytest.mark.parametrize('parameter', [
+    params(),
+    Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de')
+])
+def test_format_legend_entry(parameter, config):
     assert isinstance(config._config, dict)
-    renderer = Renderer(DummyRenderInfo())
-    renderer._language = u'de'
-    renderer._params = params
-    theme = ThemeRecord('test', {'de': 'Test'})
-    legend_entry = LegendEntryRecord(bin(1), {'de': 'Legendeneintrag'}, 'type1', 'type_code_list', theme,
-                                     'Subthema', 'Weiteres Thema')
-    result = renderer.format_legend_entry(legend_entry)
-    assert isinstance(result, dict)
-    assert result == {
-        'Symbol': bin(1),
-        'LegendText': renderer.get_localized_text({'de': 'Legendeneintrag'}),
-        'TypeCode': 'type1',
-        'TypeCodelist': 'type_code_list',
-        'Theme': renderer.format_theme(theme),
-        'SubTheme': 'Subthema',
-        'OtherTheme': 'Weiteres Thema'
-    }
+    with pyramid_oereb_test_config():
+        renderer = Renderer(DummyRenderInfo())
+        renderer._language = u'de'
+        renderer._params = parameter
+        renderer._request = MockRequest()
+        theme = ThemeRecord('test', {'de': 'Test'})
+        legend_entry = LegendEntryRecord(bin(1), {'de': 'Legendeneintrag'}, 'type1', 'type_code_list', theme,
+                                         'Subthema', 'Weiteres Thema')
+        result = renderer.format_legend_entry(legend_entry)
+        expected = {
+            'LegendText': renderer.get_localized_text({'de': 'Legendeneintrag'}),
+            'TypeCode': 'type1',
+            'TypeCodelist': 'type_code_list',
+            'Theme': renderer.format_theme(theme),
+            'SubTheme': 'Subthema',
+            'OtherTheme': 'Weiteres Thema'
+        }
+        if parameter.images:
+            expected.update({
+                'Symbol': bin(1)
+            })
+        else:
+            expected.update({
+                'SymbolRef': 'http://example.com/image/symbol/test/type1'
+            })
+        assert isinstance(result, dict)
+        assert result == expected

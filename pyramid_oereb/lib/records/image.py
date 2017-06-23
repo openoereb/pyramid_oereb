@@ -9,7 +9,7 @@ class ImageRecord(object):
         The record to hold the binary information of a image.
 
         Args:
-            content (str): The binary information of this image as binary string.
+            content (binary): The binary information of this image as binary string.
         """
         self.content = content
 

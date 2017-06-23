@@ -3,6 +3,7 @@
 from pyramid.path import DottedNameResolver
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.extract import ExtractRecord
+from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.plr import PlrRecord, EmptyPlrRecord
 
 
@@ -78,6 +79,7 @@ class ExtractReader(object):
             pyramid_oereb.lib.records.extract.ExtractRecord: The extract record containing all
                 gathered data.
         """
+        assert isinstance(municipality_logo, ImageRecord)
 
         for plr_source in self._plr_sources_:
             if params.skip_topic(plr_source.info.get('code')):

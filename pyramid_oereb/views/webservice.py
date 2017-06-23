@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPServerError
+import logging
+from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPServerError, HTTPNotFound
+from pyramid.path import DottedNameResolver
 from shapely.geometry import Point
 from pyramid.renderers import render_to_response
 from sqlalchemy.orm.exc import NoResultFound
@@ -10,15 +12,17 @@ from pyramid_oereb.lib.processor import Processor
 from pyreproj import Reprojector
 
 
-class PlrWebservice(object):
-    def __init__(self, request):
-        """
-        This class provides the PLR webservice methods.
+log = logging.getLogger('pyramid_oereb')
 
-        Args:
-            request (pyramid.request.Requestorpyramid.testing.DummyRequest): The pyramid request
-                instance.
-        """
+
+class PlrWebservice(object):
+    """
+    This class provides the PLR webservice methods.
+
+    Args:
+        request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.
+    """
+    def __init__(self, request):
         if not isinstance(request.pyramid_oereb_processor, Processor):
             raise HTTPServerError('Missing processor instance')
         self._request_ = request
@@ -506,3 +510,80 @@ class Parameter(object):
         if 'ALL_FEDERAL' in self.topics and theme_code in Config.get_all_federal():
             return False
         return True
+
+
+class Logo(object):
+    """
+    Webservice to deliver logo images.
+
+    Args:
+        request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.
+    """
+    def __init__(self, request):
+        self._request_ = request
+
+    def get_image(self):
+        """
+        Returns a response containing the binary image content using the configured "get_logo_method".
+
+        Returns:
+            pyramid.response.Response: Response containing the binary image content.
+        """
+        method = Config.get('get_logo_method')
+        if method:
+            return DottedNameResolver().resolve(method)(self._request_)
+        log.error('"get_logo_method" not found')
+        raise HTTPNotFound()
+
+
+class Municipality(object):
+    """
+    Webservice to deliver municipality images.
+
+    Args:
+        request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.
+    """
+    def __init__(self, request):
+        self._request_ = request
+
+    def get_image(self):
+        """
+        Returns a response containing the binary image content using the configured "get_municipality_method".
+
+        Returns:
+            pyramid.response.Response: Response containing the binary image content.
+        """
+        method = Config.get('get_municipality_method')
+        if method:
+            return DottedNameResolver().resolve(method)(self._request_)
+        log.error('"get_municipality_method" not found')
+        raise HTTPNotFound()
+
+
+class Symbol(object):
+    """
+    Webservice to deliver legend entry images.
+
+    Args:
+        request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.
+    """
+    def __init__(self, request):
+        self._request_ = request
+
+    def get_image(self):
+        """
+        Returns a response containing the binary image content using the configured "get_symbol_method".
+
+        Returns:
+            pyramid.response.Response: Response containing the binary image content.
+        """
+        method = None
+        dnr = DottedNameResolver()
+        for plr in Config.get('plrs'):
+            if str(plr.get('code')).lower() == str(self._request_.matchdict.get('theme_code')).lower():
+                method = dnr.resolve(plr.get('get_symbol_method'))
+                break
+        if method:
+            return method(self._request_)
+        log.error('"get_symbol_method" not found')
+        raise HTTPNotFound()

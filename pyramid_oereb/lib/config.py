@@ -310,24 +310,24 @@ class Config(object):
         """
         assert Config._config is not None
 
-        confederation_fkey = 'confederation'
+        confederation_key = 'confederation'
         oereb_key = 'oereb'
         canton_key = 'canton'
         msg = 'The definition for "{key}" must be set. Got: {found_config}'
         logo_dict = Config._config.get('logo')
-        if not logo_dict.get(confederation_fkey):
-            raise ConfigurationError(msg.format(key=confederation_fkey, found_config=logo_dict))
+        if not logo_dict.get(confederation_key):
+            raise ConfigurationError(msg.format(key=confederation_key, found_config=logo_dict))
         if not logo_dict.get(oereb_key):
             raise ConfigurationError(msg.format(key=oereb_key, found_config=logo_dict))
         if not logo_dict.get(canton_key):
             raise ConfigurationError(msg.format(key=canton_key, found_config=logo_dict))
         file_adapter = FileAdapter()
-        confederation_logo = ImageRecord(file_adapter.read(logo_dict.get(confederation_fkey)))
+        confederation_logo = ImageRecord(file_adapter.read(logo_dict.get(confederation_key)))
         oereb_logo = ImageRecord(file_adapter.read(logo_dict.get(oereb_key)))
         canton_logo = ImageRecord(file_adapter.read(logo_dict.get(canton_key)))
 
         return {
-            confederation_fkey: confederation_logo,
+            confederation_key: confederation_logo,
             oereb_key: oereb_logo,
             canton_key: canton_logo
         }
