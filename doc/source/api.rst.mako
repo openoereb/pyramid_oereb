@@ -37,14 +37,14 @@ underline = ['-', '`', '\'', '.', '~', '*']
 %for module in modules:
 %if module != 'pyramid_oereb':
 Module *${module.split('.')[-1]}*
-${re.sub('.', underline[len(module.split('.')) - 2], 'Module ' + module)}
+${re.sub('.', underline[len(module.split('.')) - 2], 'Module   ' + module)}
 
 .. automodule:: ${module}
    :members:
 
 %for cls in classes[module]:
 Class *${cls}*
-${re.sub('.', underline[len(module.split('.')) - 1], 'Class ' + cls)}
+${re.sub('.', underline[len(module.split('.')) - 1], 'Class   ' + cls)}
 
 .. autoclass:: ${module}.${cls}
    :members:
