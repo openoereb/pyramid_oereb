@@ -135,3 +135,20 @@ class ViewServiceRecord(object):
             log.error(main_msg)
             log.error(dedicated_msg)
             raise AttributeError(dedicated_msg)
+
+    def unique_update_legends(self, legend):
+        """
+        Uniquely append a legend to the legend entries. It checks if a legend entry with the same type code
+         already exists in the legends of this instance.
+
+        Args:
+            legend (pyramid_oereb.lib.records.view_service.LegendEntryRecord): The legend entry which
+                should be append to the list.
+        """
+        already_exist = False
+        for item in self.legends:
+            if item.type_code == legend.type_code:
+                already_exist = True
+                break
+        if not already_exist:
+            self.legends.append(legend)
