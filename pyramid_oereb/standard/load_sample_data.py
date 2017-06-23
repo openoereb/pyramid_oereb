@@ -9,7 +9,7 @@ from sqlalchemy.orm import sessionmaker
 from pyramid_oereb.lib.config import parse
 from pyramid_oereb.standard.models.contaminated_public_transport_sites import Office, Geometry, \
     PublicLawRestriction, ViewService, PublicLawRestrictionDocument, DocumentBase, LegalProvision, \
-    Availability
+    Availability, LegendEntry
 from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality
 
 
@@ -98,6 +98,10 @@ def _load_standard_sample_(configuration, section='pyramid_oereb'):
         schema=Availability.__table__.schema,
         table=Availability.__table__.name
     ))
+    connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+        schema=LegendEntry.__table__.schema,
+        table=LegendEntry.__table__.name
+    ))
 
     # Fill tables with sample data
     with open(pkg_resources.resource_filename(
@@ -117,6 +121,12 @@ def _load_standard_sample_(configuration, section='pyramid_oereb'):
             'resources/plr119/view_service.json'
     )) as f:
         connection.execute(ViewService.__table__.insert(), json.loads(f.read()))
+
+    with open(pkg_resources.resource_filename(
+            'pyramid_oereb.tests',
+            'resources/plr119/legend_entry.json'
+    )) as f:
+        connection.execute(LegendEntry.__table__.insert(), json.loads(f.read()))
 
     with open(pkg_resources.resource_filename(
             'pyramid_oereb.tests',

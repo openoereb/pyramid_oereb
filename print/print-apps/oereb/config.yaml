@@ -1,0 +1,185 @@
+throwErrorOnExtraParameters: true
+
+
+templates:
+    A4 portrait: !template
+        reportTemplate: A4_Portrait.jrxml
+        attributes:
+            CreationDate: !string {}
+            Signature: !string &optStr
+                default: ''
+            ConcernedTheme: !datasource
+                attributes:
+                    Code: !string {}
+                    Text: !string {} # { "Language": "en", "Text": "..."}
+            NotConcernedTheme: !datasource
+                attributes:
+                    Code: !string {}
+                    Text: !datasource
+                        attributes:
+                            Text: !string {}
+                            Language: !string {}
+            ThemeWithoutData: !datasource
+                attributes:
+                    Code: !string {}
+                    Text: !string {} # { "Language": "en", "Text": "..."}
+            isReduced: !boolean {}
+            LogoPLRCadastre: *optStr
+            LogoPLRCadastreRef: *optStr
+            FederalLogo: *optStr
+            FederalLogoRef: *optStr
+            CantonalLogo: *optStr
+            CantonalLogoRef: *optStr
+            MunicipalityLogo: *optStr
+            MunicipalityLogoRef: *optStr
+            ExtractIdentifier: !string {}
+            QRCode: *optStr
+            QRCodeRef: *optStr
+            GeneralInformation: !datasource
+                default: []
+                attributes:
+                    Language: !string {}
+                    Text: !string {}
+            BaseData: !datasource
+                attributes:
+                    en: !string
+                        default: ''
+                    de: !string
+                        default: ''
+                    fr: !string
+                        default: ''
+                    it: !string
+                        default: ''
+            Glossary: !datasource
+                default: []
+                attributes:
+                    Title: !datasource
+                        attributes:
+                            Language: !string {}
+                            Text: !string {}
+                    Content: !datasource
+                        attributes:
+                            Language: !string {}
+                            Text: !string {}
+            RealEstate: !string {} # {"Number": ..., "IdentDN": ..., "EGRID": ..., "Type": ..., "Canton": ...,
+            # "Municipality": ..., "SubunitOfLandRegister": ..., "FosNr": ...,
+            # "MetadataOfGeographicalBaseData": ..., "LandRegistryArea": ...,
+            # "Limit": {"coordinates": [...], "crs": ..., "isosqlmmwkb": ...},
+            # "RestrictionOnLandownership": {...}, "PlanForLandRegister": {...},
+            # "Reference": [...]
+            ExclusionOfLiability: !datasource
+                default: []
+                attributes:
+                    Title: !datasource
+                        attributes:
+                            Language: !string {}
+                            Text: !string {}
+                    Content: !datasource
+                        attributes:
+                            Language: !string {}
+                            Text: !string {}
+            PLRCadastreAuthority: !string {} # {"Name": [...], "OfficeAtWeb": ..., "UID": ..., "Line1": ...,
+            # "Line2": ..., "Street": ..., "Number": ..., "PostalCode": ..., "City": ...}
+
+            legend: !legend {}
+            northArrow: !northArrow
+                size: 40
+                default:
+                    graphic: "file:///north.svg"
+            scalebar: !scalebar
+                width: 150
+                height: 20
+                default:
+                     fontSize: 8
+            features: !features {}
+            map: !map
+                maxDpi: 254
+                dpiSuggestions: [254]
+                zoomLevels: !zoomLevels
+                    scales: [100, 250, 500, 2500, 5000, 10000, 25000, 50000, 100000, 500000]
+                width: 555
+                height: 675
+                default:
+                    projection: "EPSG:21781"
+                    dpi: 72
+                    zoomToFeatures:
+                        minScale: 2000
+            overlayLayers: !staticLayers
+                default:
+                    layers:
+                    -   type: geoJson
+            style: !style
+                default:
+                    style:
+                        version: 2
+                        '*':
+                            symbolizers:
+                            -   type: polygon
+                                fillColor: "#ff0000"
+
+        processors:
+        - !reportBuilder # compile all reports in current directory
+            directory: '.'
+        - !configureHttpRequests
+            httpProcessors:
+            - !forwardHeaders
+                headers:
+                - Referer
+            - !restrictUris
+                matchers:
+                - !localMatch
+                  reject: false
+                #  reject: true
+                - !ipMatch
+                  ip: 10.0.0.0
+                  mask: 255.0.0.0
+                  reject: true
+                - !ipMatch
+                  ip: 172.16.0.0
+                  mask: 255.240.0.0
+                  reject: true
+                - !ipMatch
+                  ip: 192.168.0.0
+                  mask: 255.255.0.0
+                  reject: true
+                - !acceptAll {}
+        - !addOverlayLayers
+            inputMapper:
+                overlayLayers: staticLayers
+        - !setStyle {}
+        - !setFeatures {}
+        - !createMap {}
+        - !createNorthArrow {}
+        - !createScalebar {}
+        - !prepareLegend
+            template: legend.jrxml
+        - !createDataSource
+            processors: []
+            inputMapper:
+                ConcernedTheme: datasource
+            outputMapper:
+                jrDataSource: ConcernedThemeDataSource
+        - !createDataSource
+            processors:
+            - !createDataSource
+                processors: []
+                inputMapper:
+                    Text: datasource
+                outputMapper:
+                    jrDataSource: TextDataSource
+            inputMapper:
+                NotConcernedTheme: datasource
+            outputMapper:
+                jrDataSource: NotConcernedThemeDataSource
+        - !createDataSource
+            processors: []
+            inputMapper:
+                ThemeWithoutData: datasource
+            outputMapper:
+                jrDataSource: ThemeWithoutDataDataSource
+        - !createDataSource
+            processors: []
+            inputMapper:
+                BaseData: datasource
+            outputMapper:
+                jrDataSource: BaseDataDataSource

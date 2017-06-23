@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 import base64
+from contextlib import contextmanager
 
 from datetime import date, timedelta
-from pyramid.path import DottedNameResolver
-from pyramid.testing import DummyRequest
+
+from mako.lookup import TemplateLookup
+from pyramid.path import DottedNameResolver, AssetResolver
+from pyramid.testing import DummyRequest, testConfig
 import pytest
 from sqlalchemy import create_engine
 
-from pyramid_oereb import ExtractReader
+from pyramid_oereb import ExtractReader, route_prefix
 from pyramid_oereb import MunicipalityReader
 from pyramid_oereb import ExclusionOfLiabilityReader
 from pyramid_oereb import GlossaryReader
@@ -22,9 +25,62 @@ from pyramid_oereb.standard.models import contaminated_sites
 from pyramid_oereb.standard.models import land_use_plans
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.standard.models.main import Municipality, Glossary, RealEstate
-
+from pyramid_oereb.views import webservice
 
 pyramid_oereb_test_yml = 'pyramid_oereb/standard/pyramid_oereb.yml'
+
+params = [
+    {
+        'flavour': 'INVALIDFLAVOUR',
+        'format': 'xml',
+        'param1': 'egrid'
+    },
+    {
+        'flavour': 'reduced',
+        'format': 'INVALIDFORMAT',
+        'param1': 'egrid'
+    },
+    {
+        'flavour': 'FULL',
+        'format': 'XML',
+        'param1': 'egrid'
+    },
+    {
+        'flavour': 'SIGNED',
+        'format': 'JSON',
+        'param1': 'egrid'
+    },
+    {
+        'flavour': 'EMBEDDABLE',
+        'format': 'PDF',
+        'param1': 'egrid'
+    },
+    {
+        'flavour': 'full',
+        'format': 'PDF',
+        'param1': 'GEOMETRY',
+        'param2': 'egrid'
+    }
+]
+
+
+@pytest.fixture
+def xml_templates():
+    a = AssetResolver('pyramid_oereb')
+    resolver = a.resolve('lib/renderer/extract/templates/xml')
+    templates = TemplateLookup(
+        directories=[resolver.abspath()],
+        output_encoding='utf-8',
+        input_encoding='utf-8'
+    )
+    return templates
+
+
+@pytest.fixture
+def xml_schema():
+    a = AssetResolver('pyramid_oereb')
+    resolver = a.resolve('tests/resources/Extract.xsd')
+    return open(resolver.abspath())
 
 
 @pytest.fixture(scope='module')
@@ -32,6 +88,26 @@ def config():
     Config._config = None
     Config.init(pyramid_oereb_test_yml, 'pyramid_oereb')
     return Config
+
+
+@contextmanager
+def pyramid_oereb_test_config():
+    with testConfig() as pyramid_config:
+        pyramid_config.add_route('{0}/image/logo'.format(route_prefix), '/image/logo/{logo}')
+        pyramid_config.add_view(webservice.Logo, attr='get_image',
+                                route_name='{0}/image/logo'.format(route_prefix), request_method='GET')
+
+        pyramid_config.add_route('{0}/image/municipality'.format(route_prefix), '/image/municipality/{fosnr}')
+        pyramid_config.add_view(webservice.Municipality, attr='get_image',
+                                route_name='{0}/image/municipality'.format(route_prefix),
+                                request_method='GET')
+
+        pyramid_config.add_route('{0}/image/symbol'.format(route_prefix),
+                                 '/image/symbol/{theme_code}/{type_code}')
+        pyramid_config.add_view(webservice.Symbol, attr='get_image',
+                                route_name='{0}/image/symbol'.format(route_prefix), request_method='GET')
+
+        yield pyramid_config
 
 
 class MockRequest(DummyRequest):
@@ -141,6 +217,10 @@ def connection(config):
     connection_.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
         schema=LineDocumentReference.__table__.schema,
         table=LineDocumentReference.__table__.name
+    ))
+    connection_.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+        schema=contaminated_sites.LegendEntry.__table__.schema,
+        table=contaminated_sites.LegendEntry.__table__.name
     ))
     connection_.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
         schema=contaminated_sites.ViewService.__table__.schema,
@@ -369,6 +449,18 @@ def connection(config):
                     u'LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'.format(Config.get('srid'))
     })
 
+    connection_.execute(contaminated_sites.LegendEntry.__table__.insert(), {
+        'id': 1,
+        'symbol': base64.b64encode(bin(1)),
+        'legend_text': {
+            'de': u'Test'
+        },
+        'type_code': u'test',
+        'type_code_list': u'type_code_list',
+        'topic': u'ContaminatedSites',
+        'view_service_id': 1
+    })
+
     connection_.execute(contaminated_sites.Office.__table__.insert(), {
         'id': 1,
         'name': {'de': u'Test Office'}
@@ -455,12 +547,12 @@ def connection(config):
 
     connection_.execute(land_use_plans.Office.__table__.insert(), {
         'id': 1,
-        'name': u'{"de": "Test Office"}'
+        'name': {'de': u'Test Office'}
     })
 
     connection_.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
         'id': 1,
-        'content': u'{"de": "Large polygon PLR"}',
+        'content': {'de': u'Large polygon PLR'},
         'topic': u'ContaminatedSites',
         'legal_state': u'inForce',
         'published_from': unicode(date.today().isoformat()),
@@ -469,7 +561,7 @@ def connection(config):
     })
     connection_.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
         'id': 2,
-        'content': u'{"de": "Small polygon PLR"}',
+        'content': {'de': u'Small polygon PLR'},
         'topic': u'ContaminatedSites',
         'legal_state': u'inForce',
         'published_from': unicode(date.today().isoformat()),
@@ -478,7 +570,7 @@ def connection(config):
     })
     connection_.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
         'id': 3,
-        'content': u'{"de": "Double intersection polygon PLR"}',
+        'content': {'de': u'Double intersection polygon PLR'},
         'topic': u'ContaminatedSites',
         'legal_state': u'inForce',
         'published_from': unicode(date.today().isoformat()),
@@ -487,7 +579,7 @@ def connection(config):
     })
     connection_.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
         'id': 4,
-        'content': u'{"de": "Future PLR"}',
+        'content': {'de': u'Future PLR'},
         'topic': u'ContaminatedSites',
         'legal_state': u'inForce',
         'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
