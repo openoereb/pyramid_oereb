@@ -39,7 +39,7 @@ class Renderer(Base):
             str: The JSON encoded extract.
         """
 
-        self._request = system.get('request')
+        self._request = self.get_request(system)
         assert isinstance(self._request, (Request, DummyRequest))
 
         response = self.get_response(system)
