@@ -10052,6 +10052,14 @@
     "published_from": "2016-02-25",
     "id": 6750,
     "geom": "SRID=2056;GEOMETRYCOLLECTION(POLYGON ((2608921 1261968,2608971 1261961,2608971 1261929,2608924 1261942,2608921 1261968)))",
+    "public_law_restriction_id": 429,
+    "legal_state": "inForce"
+  },
+  {
+    "office_id": 0,
+    "published_from": "2016-02-25",
+    "id": 6751,
+    "geom": "SRID=2056;GEOMETRYCOLLECTION(POLYGON ((2608921 1261968,2608971 1261961,2608971 1261929,2608924 1261942,2608921 1261968)))",
     "public_law_restriction_id": 427,
     "legal_state": "inForce"
   },
