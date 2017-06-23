@@ -81,15 +81,18 @@ class Processor(object):
         """
 
         real_estate = extract.real_estate
-        tested_plrs = []
+        inside_plrs = []
+        outside_plrs = []
 
         for public_law_restriction in real_estate.public_law_restrictions:
             if isinstance(public_law_restriction, PlrRecord):
                 public_law_restriction.calculate(real_estate)
                 # Test if the geometries list is now empty - if so remove plr from plr list
-                if len(public_law_restriction.geometries) > 0 and public_law_restriction.published:
-                    tested_plrs.append(self.filter_published_documents(public_law_restriction))
-        real_estate.public_law_restrictions = tested_plrs
+                if public_law_restriction.calculate(real_estate) and public_law_restriction.published:
+                    inside_plrs.append(self.filter_published_documents(public_law_restriction))
+                else:
+                    outside_plrs.append(public_law_restriction)
+        real_estate.public_law_restrictions = self.get_legend_entries(inside_plrs, outside_plrs)
         return extract
 
     @staticmethod
@@ -118,34 +121,45 @@ class Processor(object):
         return real_estate
 
     @staticmethod
-    def get_legend_entries(real_estate):
+    def get_legend_entries(inside_plrs, outside_plrs):
         """
-        TODO
+        We need to apply the right legend entries to each plr record which is intersecting the real estate.
+        This means to make a topic wise grouping and find every legend entry which is on one hand not the same
+        type code as the intersecting plr itself and on the other hand the same type code as the non
+        intersecting one. We finally need to attach all this criteria matching legend entries to *the*
+        intersecting one.
+
+        Args:
+            inside_plrs (list of pyramid_oereb.lib.records.plr.PlrRecord): The PLR's which are intersecting
+                the real estate
+            outside_plrs (list of pyramid_oereb.lib.records.plr.PlrRecord): The PLR's which are in the BBOX
+                of the view but not intersecting the real estate
+        Returns:
+            list of pyramid_oereb.lib.records.plr.PlrRecord: The updated records with the hopefully correct
+                legend entries assigned.
         """
-        # Get all plr that intersect (and are completely inside) the real_estate limit.
-        real_estate_plrs = []
 
-        outside_real_estate_plrs = []
+        # for each plr which has intersection with the real estate
+        for inside_plr in inside_plrs:
+            # we clean its related legend entries, because it has its own entry stored via its symbol
+            #  attribute
+            inside_plr.view_service.legends = []
+            # for every plr outside of the real estate
+            for outside_plr in outside_plrs:
+                # we check if it is belonging to the same theme
+                if inside_plr.theme.code == outside_plr.theme.code:
+                    # if it is we look up every legend related to this outside plr
+                    for legend in outside_plr.view_service.legends:
+                        # we check if the legend type code is not the same as the intersected plr ones and
+                        # the legend type code is the same as the outside plr ones
+                        if inside_plr.type_code != legend.type_code and \
+                                        outside_plr.type_code == legend.type_code:
+                            # at this point we have a legend entry which has different type code then the
+                            # intersecting plr, but before we can append this we need to check if a item is
+                            # already in the list. Therefor we use a self made method.
+                            inside_plr.view_service.unique_update_legends(legend)
 
-        for public_law_restriction in real_estate.public_law_restrictions:
-            intersect = False
-            for geometry in public_law_restriction.geometries:
-                # TODO Not sur of that, I consider the PLR as in the real_estate as soon as ONE
-                # geometry touch the limit of the real_estate. Is that correct ?
-                if geometry.geom.intersects(real_estate.limit):
-                    intersect = True
-            if intersect:
-                real_estate_plrs.append(public_law_restriction)
-            else:
-                outside_real_estate_plrs.append(public_law_restriction)
-        for real_estate_plr in real_estate_plrs:
-            for outside_real_estate_plr in outside_real_estate_plrs:
-                if real_estate_plr.theme.code == outside_real_estate_plr.theme.code:
-                    real_estate_plr.view_service.legend_entries.extend(
-                        outside_real_estate_plr.view_service.legend_entries
-                    )
-
-        return real_estate_plrs
+        return inside_plrs
 
     @property
     def real_estate_reader(self):
@@ -221,9 +235,13 @@ class Processor(object):
                 if not municipality.published:
                     raise NotImplementedError  # TODO: improve message
                 extract_raw = self._extract_reader_.read(real_estate, municipality.logo, params)
+                # the selection of view services will be done whilst tolerance check. This enables us to take
+                # care about the circumstance that after tolerance check plrs will be dismissed which were
+                # recognized as intersecting before. To avoid this the tolerance check is gathering all plrs
+                # intersecting and not intersecting and starts the legend entry sorting after.
                 extract = self.plr_tolerance_check(extract_raw)
                 self.view_service_handling(extract.real_estate, params.images)
-                extract.real_estate.public_law_restrictions = self.get_legend_entries(extract.real_estate)
+
                 extract.exclusions_of_liability = exclusions_of_liability
                 extract.glossaries = glossaries
                 return extract
