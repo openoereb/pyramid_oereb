@@ -309,7 +309,7 @@
 <span class="sd">    Attributes:</span>
 <span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
-<span class="sd">        file (str): An image with represents the legend entry. This can be png or svg. It is string</span>
+<span class="sd">        symbol (str): An image with represents the legend entry. This can be png or svg. It is string</span>
 <span class="sd">            but BaseCode64  encoded.</span>
 <span class="sd">        legend_text (dict): Multilingual text to describe this legend entry.</span>
 <span class="sd">        type_code (str): Type code of the public law restriction which is represented by this legend</span>
@@ -330,7 +330,7 @@
     <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;contaminated_military_sites&#39;</span><span class="p">}</span>
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;legend_entry&#39;</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">file</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">symbol</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">legend_text</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">JSONType</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">type_code</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">type_code_list</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>

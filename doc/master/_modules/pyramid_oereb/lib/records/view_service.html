@@ -65,7 +65,7 @@
 <span class="sd">        Represents a legend entry with it&#39;s text as well as it&#39;s image.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            symbol (binary): The binary file content of the legend image.</span>
+<span class="sd">            symbol (pyramid_oereb.lib.records.image.ImageRecord): The binary content of the legend symbol.</span>
 <span class="sd">            legend_text (dict of unicode): The multilingual description text for the legend entry.</span>
 <span class="sd">            type_code (unicode): The class of the legend entry corresponding to the plrs classes.</span>
 <span class="sd">            type_code_list (unicode): An URL to the type code list.</span>
@@ -90,7 +90,7 @@
 
     <span class="c1"># Attributes defined while processing</span>
     <span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>    <span class="c1"># map image resulting from calling the wms link - binary</span>
-    <span class="sd">&quot;&quot;&quot;binary or None: Binary image content downloaded from WMS link.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;pyramid_oereb.lib.records.image.ImageRecord or None: Binary image content downloaded from WMS link.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link_wms</span><span class="p">,</span> <span class="n">legend_web</span><span class="p">,</span> <span class="n">legends</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

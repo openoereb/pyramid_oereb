@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyramid_oereb.standard.methods &#8212; OEREB  documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pyramid_oereb.standard.methods</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+
+<span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="k">import</span> <span class="n">HTTPNotFound</span>
+<span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="k">import</span> <span class="n">DottedNameResolver</span>
+
+<span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">database_adapter</span><span class="p">,</span> <span class="n">Config</span>
+
+
+<div class="viewcode-block" id="get_logo"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.standard.methods.get_logo">[docs]</a><span class="k">def</span> <span class="nf">get_logo</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the requested logo.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request (pyramid.request.Request): The request containing the logo key matchdict parameter.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pyramid.response.Response: The generated response object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logo_key</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">matchdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;logo&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">logo_key</span> <span class="ow">in</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;logo&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">logo</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_logo_config</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">logo_key</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">response</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">status_int</span> <span class="o">=</span> <span class="mi">200</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">content_type</span> <span class="o">=</span> <span class="s1">&#39;image/*&#39;</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">logo</span><span class="o">.</span><span class="n">content</span>
+        <span class="k">return</span> <span class="n">response</span>
+    <span class="k">raise</span> <span class="n">HTTPNotFound</span><span class="p">(</span><span class="s1">&#39;This logo does not exist.&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_municipality"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.standard.methods.get_municipality">[docs]</a><span class="k">def</span> <span class="nf">get_municipality</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the requested municipality logo from database.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request (pyramid.request.Request): The request containing the fosnr as matchdict parameter.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pyramid.response.Response: The generated response object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fosnr</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">matchdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fosnr&#39;</span><span class="p">)</span>
+    <span class="n">source_params</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_municipality_config</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">database_adapter</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="n">source_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">))</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">source_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">))</span>
+    <span class="n">municipality</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">fosnr</span><span class="o">=</span><span class="n">fosnr</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">municipality</span><span class="p">:</span>
+        <span class="n">logo</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">municipality</span><span class="p">,</span> <span class="s1">&#39;logo&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">logo</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">response</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">status_int</span> <span class="o">=</span> <span class="mi">200</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">content_type</span> <span class="o">=</span> <span class="s1">&#39;image/*&#39;</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">logo</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">response</span>
+    <span class="k">raise</span> <span class="n">HTTPNotFound</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_symbol"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.standard.methods.get_symbol">[docs]</a><span class="k">def</span> <span class="nf">get_symbol</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the symbol for the requested theme and type code from database.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request (pyramid.request.Request): The request containing the codes as matchdict parameters.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pyramid.response.Response: The generated response object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">plr</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">matchdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;theme_code&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="n">plr</span> <span class="o">=</span> <span class="n">p</span>
+            <span class="k">break</span>
+    <span class="n">source_params</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">database_adapter</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="n">source_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">))</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{module_}</span><span class="s1">.</span><span class="si">{class_}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">module_</span><span class="o">=</span><span class="n">source_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;models&#39;</span><span class="p">),</span>
+        <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;LegendEntry&#39;</span>
+    <span class="p">))</span>
+    <span class="n">legend_entry</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">type_code</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">matchdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type_code&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">legend_entry</span><span class="p">:</span>
+        <span class="n">symbol</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">legend_entry</span><span class="p">,</span> <span class="s1">&#39;symbol&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">symbol</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">response</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">status_int</span> <span class="o">=</span> <span class="mi">200</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">content_type</span> <span class="o">=</span> <span class="s1">&#39;image/*&#39;</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">response</span>
+    <span class="k">raise</span> <span class="n">HTTPNotFound</span><span class="p">()</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../../pyramid_oereb.html">pyramid_oereb</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h3>Versions</h3>
+<ul>
+    <li><a href="methods.html">master</a></li>
+    <li><a href="../../../../0.0.1/index.html">0.0.1</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, pyramid_oereb devs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

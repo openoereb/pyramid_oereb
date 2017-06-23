@@ -48,6 +48,7 @@
 <span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="k">import</span> <span class="n">DottedNameResolver</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="k">import</span> <span class="n">Config</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.extract</span> <span class="k">import</span> <span class="n">ExtractRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.image</span> <span class="k">import</span> <span class="n">ImageRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.plr</span> <span class="k">import</span> <span class="n">PlrRecord</span><span class="p">,</span> <span class="n">EmptyPlrRecord</span>
 
 
@@ -123,6 +124,7 @@
 <span class="sd">            pyramid_oereb.lib.records.extract.ExtractRecord: The extract record containing all</span>
 <span class="sd">                gathered data.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">municipality_logo</span><span class="p">,</span> <span class="n">ImageRecord</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">plr_source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">params</span><span class="o">.</span><span class="n">skip_topic</span><span class="p">(</span><span class="n">plr_source</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)):</span>

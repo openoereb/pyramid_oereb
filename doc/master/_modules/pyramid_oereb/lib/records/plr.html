@@ -71,14 +71,11 @@
     <span class="n">part_in_percent</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="sd">&quot;&quot;&quot;decimal: Part of the property area touched by the restriction in percent.&quot;&quot;&quot;</span>
 
-    <span class="n">symbol</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="sd">&quot;&quot;&quot;binary or None: Symbol of the restriction defined for the legend entry - added on the fly.&quot;&quot;&quot;</span>
-
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">legal_state</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">subtopic</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">additional_topic</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_code_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">view_service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">refinements</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">documents</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">geometries</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
                  <span class="n">min_area</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">length_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">area_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m2&#39;</span><span class="p">,</span> <span class="n">length_precision</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">area_precision</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                 <span class="n">percentage_precision</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+                 <span class="n">percentage_precision</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Public law restriction record.</span>
 
@@ -109,6 +106,8 @@
 <span class="sd">            length_precision (int): The precision how the length results will be rounded.</span>
 <span class="sd">            area_precision (int): The precision how the area results will be rounded.</span>
 <span class="sd">            percentage_precision (int): The precision how the percentage results will be rounded.</span>
+<span class="sd">            symbol (pyramid_oereb.lib.records.image.ImageRecord or None): Symbol of the restriction for the</span>
+<span class="sd">                legend entry.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">PlrRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
 
@@ -151,6 +150,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">percentage_precision</span> <span class="o">=</span> <span class="n">percentage_precision</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">published</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
