@@ -44,7 +44,9 @@
             
   <h1>Source code for pyramid_oereb.lib.sources.plr</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
 
 <span class="kn">from</span> <span class="nn">geoalchemy2.elements</span> <span class="k">import</span> <span class="n">_SpatialElement</span>
 <span class="kn">from</span> <span class="nn">geoalchemy2.shape</span> <span class="k">import</span> <span class="n">to_shape</span><span class="p">,</span> <span class="n">from_shape</span>
@@ -54,8 +56,9 @@
 
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="k">import</span> <span class="n">Config</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.availability</span> <span class="k">import</span> <span class="n">AvailabilityRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.embeddable</span> <span class="k">import</span> <span class="n">TransferFromSourceRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.theme</span> <span class="k">import</span> <span class="n">EmbeddableThemeRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.image</span> <span class="k">import</span> <span class="n">ImageRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.theme</span> <span class="k">import</span> <span class="n">ThemeRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources</span> <span class="k">import</span> <span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">Base</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.plr</span> <span class="k">import</span> <span class="n">EmptyPlrRecord</span><span class="p">,</span> <span class="n">PlrRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.documents</span> <span class="k">import</span> <span class="n">DocumentRecord</span><span class="p">,</span> <span class="n">ArticleRecord</span>
@@ -65,6 +68,8 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.office</span> <span class="k">import</span> <span class="n">OfficeRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.reference_definition</span> <span class="k">import</span> <span class="n">ReferenceDefinitionRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.view_service</span> <span class="k">import</span> <span class="n">ViewServiceRecord</span><span class="p">,</span> <span class="n">LegendEntryRecord</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="PlrBaseSource"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.plr.PlrBaseSource">[docs]</a><span class="k">class</span> <span class="nc">PlrBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
@@ -93,6 +98,9 @@
         <span class="n">availability_model</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">(</span>
             <span class="s1">&#39;</span><span class="si">{models_path}</span><span class="s1">.Availability&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">models_path</span><span class="o">=</span><span class="n">models_path</span><span class="p">)</span>
         <span class="p">)</span>
+        <span class="n">transfer_from_source_model</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">(</span>
+            <span class="s1">&#39;</span><span class="si">{models_path}</span><span class="s1">.DataIntegration&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">models_path</span><span class="o">=</span><span class="n">models_path</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">PlrStandardDatabaseSource</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">bds_kwargs</span><span class="p">)</span>
 
         <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
@@ -102,8 +110,27 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">availabilities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="n">AvailabilityRecord</span><span class="p">(</span><span class="n">availability</span><span class="o">.</span><span class="n">fosnr</span><span class="p">,</span> <span class="n">available</span><span class="o">=</span><span class="n">availability</span><span class="o">.</span><span class="n">available</span><span class="p">)</span>
             <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transfer_from_source</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">transfer_from_source_model</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="c1"># TODO: Fix this. Its not possible to have no actuality set. It&#39;s only for test case</span>
+        <span class="n">theme_sources</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">transfer_from_source</span><span class="p">:</span>
+            <span class="n">theme_sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TransferFromSourceRecord</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">transfer_from_source</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">transfer_from_source</span><span class="o">.</span><span class="n">office</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">office</span><span class="p">)</span>
+            <span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">theme_sources</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;The theme sources for the topic </span><span class="si">{0}</span><span class="s1"> are empty. This is not allowed. Going through &#39;</span>
+                        <span class="sa">u</span><span class="s1">&#39;anyway&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)))</span>
+            <span class="n">theme_sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">TransferFromSourceRecord</span><span class="p">(</span>
+                <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span>
+                <span class="n">Config</span><span class="o">.</span><span class="n">get_plr_cadastre_authority</span><span class="p">()</span>
+            <span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">theme_record</span> <span class="o">=</span> <span class="n">EmbeddableThemeRecord</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">),</span>
+            <span class="n">theme_sources</span>
+        <span class="p">)</span>
         <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="c1"># session.close()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -239,9 +266,8 @@
         <span class="n">area_unit</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;unit&#39;</span><span class="p">)</span>
         <span class="n">area_precision</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">)</span>
         <span class="n">percentage_precision</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;percentage&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">)</span>
-        <span class="n">theme_record</span> <span class="o">=</span> <span class="n">ThemeRecord</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">))</span>
         <span class="n">legend_entry_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_legend_entry_record</span><span class="p">(</span>
-            <span class="n">theme_record</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">theme_record</span><span class="p">,</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">legends</span>
         <span class="p">)</span>
         <span class="n">view_service_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_view_service_record</span><span class="p">(</span>
@@ -270,7 +296,7 @@
         <span class="k">for</span> <span class="n">join</span> <span class="ow">in</span> <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">refinements</span><span class="p">:</span>
             <span class="n">refinements_plr_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_plr_record</span><span class="p">(</span><span class="n">join</span><span class="o">.</span><span class="n">refinement</span><span class="p">))</span>
         <span class="n">plr_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_record_class_</span><span class="p">(</span>
-            <span class="n">theme_record</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">theme_record</span><span class="p">,</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">legal_state</span><span class="p">,</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>
@@ -386,24 +412,24 @@
             <span class="k">if</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">fosnr</span> <span class="o">==</span> <span class="n">availability</span><span class="o">.</span><span class="n">fosnr</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">availability</span><span class="o">.</span><span class="n">available</span><span class="p">:</span>
                 <span class="c1"># The plr is marked as not available! This stops every further processing for this PLR and</span>
                 <span class="c1"># adds a simple empty record for the PLR&#39;s on this real estate</span>
-                <span class="k">return</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EmptyPlrRecord</span><span class="p">(</span><span class="n">ThemeRecord</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
-                <span class="p">),</span> <span class="n">has_data</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EmptyPlrRecord</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">theme_record</span><span class="p">,</span>
+                    <span class="n">has_data</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="p">)</span>
         <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># We can stop here already because there are no items in the database</span>
-            <span class="k">return</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EmptyPlrRecord</span><span class="p">(</span><span class="n">ThemeRecord</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
-            <span class="p">),</span> <span class="n">has_data</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EmptyPlrRecord</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">theme_record</span><span class="p">,</span>
+                <span class="n">has_data</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="p">)</span>
 
         <span class="n">geometry_results</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">handle_collection</span><span class="p">(</span><span class="n">geometry_results</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">collection_types</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">geometry_results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EmptyPlrRecord</span><span class="p">(</span><span class="n">ThemeRecord</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
-            <span class="p">)))</span>
+            <span class="k">return</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EmptyPlrRecord</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theme_record</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">geometry_result</span> <span class="ow">in</span> <span class="n">geometry_results</span><span class="p">:</span>
             <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_plr_record</span><span class="p">(</span><span class="n">geometry_result</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="p">)</span>

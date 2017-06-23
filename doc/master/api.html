@@ -948,7 +948,7 @@ None.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>datetime.date</strong> (<em>base_data_date</em>) &#8211; The base data currentness.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>datetime.datetime</strong> (<em>base_data_date</em>) &#8211; The base data currentness.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The multilingual base data with updated currentness.</td>
 </tr>
@@ -1373,16 +1373,38 @@ code.</td>
 </dd></dl>
 
 </div>
-<div class="section" id="module-pyramid_oereb.standard">
-<span id="module-pyramid-oereb-standard"></span><h2>Module: pyramid_oereb.standard<a class="headerlink" href="#module-pyramid_oereb.standard" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-pyramid_oereb.standard.get_cadastral_data_update">
-<span id="module-pyramid-oereb-standard-get-cadastral-data-update"></span><h2>Module: pyramid_oereb.standard.get_cadastral_data_update<a class="headerlink" href="#module-pyramid_oereb.standard.get_cadastral_data_update" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pyramid_oereb.standard.hook_methods">
+<span id="module-pyramid-oereb-standard-hook-methods"></span><h2>Module: pyramid_oereb.standard.hook_methods<a class="headerlink" href="#module-pyramid_oereb.standard.hook_methods" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="pyramid_oereb.standard.get_cadastral_data_update.get_surveying_data_update_date">
-<code class="descclassname">pyramid_oereb.standard.get_cadastral_data_update.</code><code class="descname">get_surveying_data_update_date</code><span class="sig-paren">(</span><em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/get_cadastral_data_update.html#get_surveying_data_update_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.get_cadastral_data_update.get_surveying_data_update_date" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the date of the latest update of the used cadastral data for the
-situation map.</p>
+<dt id="pyramid_oereb.standard.hook_methods.get_surveying_data_provider">
+<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">get_surveying_data_provider</code><span class="sig-paren">(</span><em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/hook_methods.html#get_surveying_data_provider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.get_surveying_data_provider" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real estate for which the
+provider of the surveying data should be delivered.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>The provider who produced the used</dt>
+<dd>surveying data.</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">provider (<a class="reference internal" href="#pyramid_oereb.lib.records.office.OfficeRecord" title="pyramid_oereb.lib.records.office.OfficeRecord">pyramid_oereb.lib.records.office.OfficeRecord</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyramid_oereb.standard.hook_methods.get_surveying_data_update_date">
+<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">get_surveying_data_update_date</code><span class="sig-paren">(</span><em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/hook_methods.html#get_surveying_data_update_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.get_surveying_data_update_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the date of the latest update of the used survey data data for the
+situation map. The method you find here is only matching the standard configuration. But you can provide
+your own one if your configuration is different. The only thing you need to take into account is that the
+input of this method is always and only a real estate record. And the output of this method must be a
+datetime.date object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1392,24 +1414,15 @@ estate for which the last update date of the base data should be indicated</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The date of the last update of the cadastral base data</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">update_date (datetime.date)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">update_date (datetime.datetime)</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
-<dl class="function">
-<dt id="pyramid_oereb.standard.get_cadastral_data_update.get_update_date_from_db">
-<code class="descclassname">pyramid_oereb.standard.get_cadastral_data_update.</code><code class="descname">get_update_date_from_db</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/get_cadastral_data_update.html#get_update_date_from_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.get_cadastral_data_update.get_update_date_from_db" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the date of the latest update of the used data from a table</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyramid_oereb.standard.get_cadastral_data_update.get_update_date_from_file">
-<code class="descclassname">pyramid_oereb.standard.get_cadastral_data_update.</code><code class="descname">get_update_date_from_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/get_cadastral_data_update.html#get_update_date_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.get_cadastral_data_update.get_update_date_from_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the date of the latest update of the used data from a file</p>
-</dd></dl>
-
+</div>
+<div class="section" id="module-pyramid_oereb.standard">
+<span id="module-pyramid-oereb-standard"></span><h2>Module: pyramid_oereb.standard<a class="headerlink" href="#module-pyramid_oereb.standard" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-pyramid_oereb.standard.create_yaml">
 <span id="module-pyramid-oereb-standard-create-yaml"></span><h2>Module: pyramid_oereb.standard.create_yaml<a class="headerlink" href="#module-pyramid_oereb.standard.create_yaml" title="Permalink to this headline">¶</a></h2>
@@ -1453,6 +1466,11 @@ estate for which the last update date of the base data should be indicated</td>
 </div>
 <div class="section" id="module-pyramid_oereb.lib.records.theme">
 <span id="module-pyramid-oereb-lib-records-theme"></span><h2>Module: pyramid_oereb.lib.records.theme<a class="headerlink" href="#module-pyramid_oereb.lib.records.theme" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.lib.records.theme.EmbeddableThemeRecord">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.theme.</code><code class="descname">EmbeddableThemeRecord</code><span class="sig-paren">(</span><em>code</em>, <em>text</em>, <em>sources</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/theme.html#EmbeddableThemeRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.theme.EmbeddableThemeRecord" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.theme.ThemeRecord">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.theme.</code><code class="descname">ThemeRecord</code><span class="sig-paren">(</span><em>code</em>, <em>text</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/theme.html#ThemeRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.theme.ThemeRecord" title="Permalink to this definition">¶</a></dt>
@@ -1552,6 +1570,19 @@ estate for which the last update date of the base data should be indicated</td>
 </dd></dl>
 
 </dd></dl>
+
+</div>
+<div class="section" id="module-pyramid_oereb.lib.records.embeddable">
+<span id="module-pyramid-oereb-lib-records-embeddable"></span><h2>Module: pyramid_oereb.lib.records.embeddable<a class="headerlink" href="#module-pyramid_oereb.lib.records.embeddable" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.lib.records.embeddable.EmbeddableRecord">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.embeddable.</code><code class="descname">EmbeddableRecord</code><span class="sig-paren">(</span><em>cadaster_state</em>, <em>cadaster_organisation</em>, <em>data_owner_cadastral_surveying</em>, <em>transfer_from_source_cadastral_surveying</em>, <em>themes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/embeddable.html#EmbeddableRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.embeddable.EmbeddableRecord" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="pyramid_oereb.lib.records.embeddable.TransferFromSourceRecord">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.embeddable.</code><code class="descname">TransferFromSourceRecord</code><span class="sig-paren">(</span><em>date</em>, <em>owner</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/embeddable.html#TransferFromSourceRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.embeddable.TransferFromSourceRecord" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="module-pyramid_oereb.lib.records.exclusion_of_liability">
@@ -1657,17 +1688,11 @@ collection which has to be unpacked first in case of collection.</p>
 <span id="module-pyramid-oereb-lib-records-extract"></span><h2>Module: pyramid_oereb.lib.records.extract<a class="headerlink" href="#module-pyramid_oereb.lib.records.extract" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.extract.ExtractRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.extract.</code><code class="descname">ExtractRecord</code><span class="sig-paren">(</span><em>real_estate</em>, <em>logo_plr_cadastre</em>, <em>federal_logo</em>, <em>cantonal_logo</em>, <em>municipality_logo</em>, <em>plr_cadastre_authority</em>, <em>base_data</em>, <em>exclusions_of_liability=None</em>, <em>glossaries=None</em>, <em>concerned_theme=None</em>, <em>not_concerned_theme=None</em>, <em>theme_without_data=None</em>, <em>general_information=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/extract.html#ExtractRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.extract.</code><code class="descname">ExtractRecord</code><span class="sig-paren">(</span><em>real_estate</em>, <em>logo_plr_cadastre</em>, <em>federal_logo</em>, <em>cantonal_logo</em>, <em>municipality_logo</em>, <em>plr_cadastre_authority</em>, <em>base_data</em>, <em>embeddable</em>, <em>exclusions_of_liability=None</em>, <em>glossaries=None</em>, <em>concerned_theme=None</em>, <em>not_concerned_theme=None</em>, <em>theme_without_data=None</em>, <em>general_information=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/extract.html#ExtractRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt id="pyramid_oereb.lib.records.extract.ExtractRecord.concerned_theme">
 <code class="descname">concerned_theme</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord.concerned_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>list of pyramid_oereb.lib.records.theme.ThemeRecord</em> &#8211; List of concerned themes.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyramid_oereb.lib.records.extract.ExtractRecord.creation_date">
-<code class="descname">creation_date</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord.creation_date" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>datetime.date</em> &#8211; Date of extract generation.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1680,12 +1705,6 @@ collection which has to be unpacked first in case of collection.</p>
 <dt id="pyramid_oereb.lib.records.extract.ExtractRecord.extract_identifier">
 <code class="descname">extract_identifier</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord.extract_identifier" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>unicode</em> &#8211; The extract identifier (UUID).</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyramid_oereb.lib.records.extract.ExtractRecord.is_reduced">
-<code class="descname">is_reduced</code><em class="property"> = False</em><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord.is_reduced" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>bool</em> &#8211; True if the extract flavour is reduced.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1794,6 +1813,24 @@ Estate record.</td>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted date/time.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.renderer.Base.get_localized_text">
+<code class="descname">get_localized_text</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer.html#Base.get_localized_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.Base.get_localized_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the set language of a multilingual text element.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>values</strong> (<em>str</em><em> or </em><em>dict</em>) &#8211; The multilingual values encoded as JSON.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of dictionaries containing the multilingual representation.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of dict</td>
 </tr>
 </tbody>
 </table>
@@ -2407,6 +2444,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.groundwater_protection_zones.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/groundwater_protection_zones.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.groundwater_protection_zones.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -3159,6 +3228,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.groundwater_protection_zones.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/groundwater_protection_zones.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.groundwater_protection_zones.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -3925,6 +4026,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.motorways_project_planing_zones.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/motorways_project_planing_zones.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.motorways_project_planing_zones.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.motorways_project_planing_zones.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/motorways_project_planing_zones.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -4672,6 +4805,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.motorways_project_planing_zones.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/motorways_project_planing_zones.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.motorways_project_planing_zones.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -5438,6 +5603,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.contaminated_civil_aviation_sites.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/contaminated_civil_aviation_sites.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.contaminated_civil_aviation_sites.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/contaminated_civil_aviation_sites.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -6185,6 +6382,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.contaminated_civil_aviation_sites.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/contaminated_civil_aviation_sites.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -6951,6 +7180,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.railways_building_lines.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.railways_building_lines.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/railways_building_lines.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.railways_building_lines.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.railways_building_lines.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.railways_building_lines.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.railways_building_lines.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.railways_building_lines.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.railways_building_lines.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.railways_building_lines.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/railways_building_lines.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -7698,6 +7959,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.railways_building_lines.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/railways_building_lines.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.railways_building_lines.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -8464,6 +8757,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.noise_sensitivity_levels.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/noise_sensitivity_levels.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.noise_sensitivity_levels.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.noise_sensitivity_levels.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/noise_sensitivity_levels.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -9211,6 +9536,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.noise_sensitivity_levels.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/noise_sensitivity_levels.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.noise_sensitivity_levels.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -9977,6 +10334,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.contaminated_sites.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.contaminated_sites.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/contaminated_sites.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_sites.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_sites.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_sites.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_sites.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.contaminated_sites.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.contaminated_sites.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.contaminated_sites.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/contaminated_sites.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -10724,6 +11113,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.contaminated_sites.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/contaminated_sites.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.contaminated_sites.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -11490,6 +11911,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.airports_security_zone_plans.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/airports_security_zone_plans.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.airports_security_zone_plans.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.airports_security_zone_plans.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.airports_security_zone_plans.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/airports_security_zone_plans.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -12237,6 +12690,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.airports_security_zone_plans.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/airports_security_zone_plans.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.airports_security_zone_plans.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -13003,6 +13488,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.contaminated_military_sites.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/contaminated_military_sites.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.contaminated_military_sites.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.contaminated_military_sites.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.contaminated_military_sites.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/contaminated_military_sites.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -13750,6 +14267,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.contaminated_military_sites.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/contaminated_military_sites.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.contaminated_military_sites.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -14516,6 +15065,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.motorways_building_lines.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/motorways_building_lines.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.motorways_building_lines.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.motorways_building_lines.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.motorways_building_lines.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/motorways_building_lines.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -15263,6 +15844,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.motorways_building_lines.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/motorways_building_lines.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.motorways_building_lines.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -16029,6 +16642,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.airports_project_planning_zones.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/airports_project_planning_zones.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.airports_project_planning_zones.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.airports_project_planning_zones.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.airports_project_planning_zones.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/airports_project_planning_zones.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -16776,6 +17421,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.airports_project_planning_zones.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/airports_project_planning_zones.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.airports_project_planning_zones.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -17542,6 +18219,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.contaminated_public_transport_sites.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/contaminated_public_transport_sites.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.contaminated_public_transport_sites.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.contaminated_public_transport_sites.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/contaminated_public_transport_sites.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -18289,6 +18998,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.contaminated_public_transport_sites.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/contaminated_public_transport_sites.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.contaminated_public_transport_sites.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -19055,6 +19796,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.land_use_plans.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.land_use_plans.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/land_use_plans.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.land_use_plans.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.land_use_plans.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.land_use_plans.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.land_use_plans.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.land_use_plans.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.land_use_plans.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.land_use_plans.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/land_use_plans.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -19802,6 +20575,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.land_use_plans.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/land_use_plans.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.land_use_plans.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -20568,6 +21373,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.forest_distance_lines.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/forest_distance_lines.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.forest_distance_lines.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.forest_distance_lines.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.forest_distance_lines.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/forest_distance_lines.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -21315,6 +22152,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.forest_distance_lines.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/forest_distance_lines.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.forest_distance_lines.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -22081,6 +22950,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.railways_project_planning_zones.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/railways_project_planning_zones.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.railways_project_planning_zones.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.railways_project_planning_zones.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.railways_project_planning_zones.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/railways_project_planning_zones.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -22828,6 +23729,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.railways_project_planning_zones.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/railways_project_planning_zones.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.railways_project_planning_zones.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -23597,6 +24530,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.forest_perimeters.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.forest_perimeters.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/forest_perimeters.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.forest_perimeters.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.forest_perimeters.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.forest_perimeters.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.forest_perimeters.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.forest_perimeters.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.forest_perimeters.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.forest_perimeters.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/forest_perimeters.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -24344,6 +25309,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.forest_perimeters.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/forest_perimeters.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.forest_perimeters.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -25110,6 +26107,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.groundwater_protection_sites.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/groundwater_protection_sites.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.groundwater_protection_sites.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.groundwater_protection_sites.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.groundwater_protection_sites.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/groundwater_protection_sites.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -25857,6 +26886,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.groundwater_protection_sites.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/groundwater_protection_sites.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.groundwater_protection_sites.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -26623,6 +27684,38 @@ behaviour. See documentation for more info.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.standard.models.airports_building_lines.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.airports_building_lines.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/airports_building_lines.html#DataIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.airports_building_lines.DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.airports_building_lines.DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.airports_building_lines.DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.standard.models.airports_building_lines.DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.airports_building_lines.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.standard.models.airports_building_lines.Document">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.airports_building_lines.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/airports_building_lines.html#Document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>THE DOCUMENT
@@ -27370,6 +28463,38 @@ app schemas municipality table (fosnr).</p>
 <dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
 municipality or not.  This field has direct influence on the applications
 behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.airports_building_lines.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/models/airports_building_lines.html#DataIntegration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">id</code></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date</code></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office_id</code></dt>
+<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">office</code></dt>
+<dd><p><em>pyramid_oereb.standard.models.airports_building_lines.Office</em> &#8211; The actual office instance which the id points to.</p>
 </dd></dl>
 
 </dd></dl>
@@ -28559,8 +29684,8 @@ configured type.  This concrete one is MULTIPOLYGON</p>
 <li><a class="reference internal" href="#module-pyramid_oereb.standard.create_standard_models">Module: pyramid_oereb.standard.create_standard_models</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.standard.drop_tables">Module: pyramid_oereb.standard.drop_tables</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.standard.methods">Module: pyramid_oereb.standard.methods</a></li>
+<li><a class="reference internal" href="#module-pyramid_oereb.standard.hook_methods">Module: pyramid_oereb.standard.hook_methods</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.standard">Module: pyramid_oereb.standard</a></li>
-<li><a class="reference internal" href="#module-pyramid_oereb.standard.get_cadastral_data_update">Module: pyramid_oereb.standard.get_cadastral_data_update</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.standard.create_yaml">Module: pyramid_oereb.standard.create_yaml</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.lib.records.plr">Module: pyramid_oereb.lib.records.plr</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.lib.records.theme">Module: pyramid_oereb.lib.records.theme</a></li>
@@ -28570,6 +29695,7 @@ configured type.  This concrete one is MULTIPOLYGON</p>
 <li><a class="reference internal" href="#module-pyramid_oereb.lib.records.availability">Module: pyramid_oereb.lib.records.availability</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.lib.records.documents">Module: pyramid_oereb.lib.records.documents</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.lib.records.image">Module: pyramid_oereb.lib.records.image</a></li>
+<li><a class="reference internal" href="#module-pyramid_oereb.lib.records.embeddable">Module: pyramid_oereb.lib.records.embeddable</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.lib.records.exclusion_of_liability">Module: pyramid_oereb.lib.records.exclusion_of_liability</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.lib.records.reference_definition">Module: pyramid_oereb.lib.records.reference_definition</a></li>
 <li><a class="reference internal" href="#module-pyramid_oereb.lib.records.real_estate">Module: pyramid_oereb.lib.records.real_estate</a></li>

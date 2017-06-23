@@ -118,6 +118,27 @@
     <span class="n">city</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="DataIntegration"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.motorways_building_lines.DataIntegration">[docs]</a><span class="k">class</span> <span class="nc">DataIntegration</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be</span>
+<span class="sd">    able to find out who was the delivering instance.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">        date (datetime.date): The date when this data set was delivered.</span>
+<span class="sd">        office_id (int): A foreign key which points to the actual office instance.</span>
+<span class="sd">        office (pyramid_oereb.standard.models.motorways_building_lines.Office):</span>
+<span class="sd">            The actual office instance which the id points to.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;motorways_building_lines&#39;</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;data_integration&#39;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">office_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Office</span><span class="o">.</span><span class="n">id</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">office</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">Office</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="ReferenceDefinition"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.motorways_building_lines.ReferenceDefinition">[docs]</a><span class="k">class</span> <span class="nc">ReferenceDefinition</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>  <span class="c1"># TODO: Check translation</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The meta bucket for definitions which are directly related to a public law restriction in a common way or</span>

@@ -49,6 +49,8 @@
 <span class="kn">from</span> <span class="nn">pyramid.request</span> <span class="k">import</span> <span class="n">Request</span>
 <span class="kn">from</span> <span class="nn">pyramid.testing</span> <span class="k">import</span> <span class="n">DummyRequest</span>
 
+<span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">Config</span>
+
 
 <div class="viewcode-block" id="Base"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.renderer.Base">[docs]</a><span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
@@ -59,6 +61,7 @@
 <span class="sd">            info (pyramid.interfaces.IRendererInfo): Info object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_info_</span> <span class="o">=</span> <span class="n">info</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;default_language&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Base.get_response"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.renderer.Base.get_response">[docs]</a>    <span class="k">def</span> <span class="nf">get_response</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
@@ -115,7 +118,37 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid.interfaces.IRendererInfo: The passed renderer info object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info_</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info_</span>
+
+<div class="viewcode-block" id="Base.get_localized_text"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.renderer.Base.get_localized_text">[docs]</a>    <span class="k">def</span> <span class="nf">get_localized_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the set language of a multilingual text element.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            values (str or dict): The multilingual values encoded as JSON.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list of dict: List of dictionaries containing the multilingual representation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">default_language</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;default_language&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                <span class="n">text</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s1">&#39;Language&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span>
+                    <span class="s1">&#39;Text&#39;</span><span class="p">:</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">)</span>
+                <span class="p">})</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">text</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s1">&#39;Language&#39;</span><span class="p">:</span> <span class="n">default_language</span><span class="p">,</span>
+                    <span class="s1">&#39;Text&#39;</span><span class="p">:</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">default_language</span><span class="p">)</span>
+                <span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">text</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s1">&#39;Language&#39;</span><span class="p">:</span> <span class="n">default_language</span><span class="p">,</span>
+                <span class="s1">&#39;Text&#39;</span><span class="p">:</span> <span class="n">values</span>
+            <span class="p">})</span>
+        <span class="k">return</span> <span class="n">text</span></div></div>
 </pre></div>
 
           </div>

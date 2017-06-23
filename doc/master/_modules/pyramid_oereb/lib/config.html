@@ -383,14 +383,14 @@
 <span class="sd">        Returns the multilingual base data description with updated currentness.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            base_data_date datetime.date: The base data currentness.</span>
+<span class="sd">            base_data_date datetime.datetime: The base data currentness.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            dict: The multilingual base data with updated currentness.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">base_data_date</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
-        <span class="n">base_data</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_extract_config</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;base_data&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">base_data_date</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">)</span>
+        <span class="n">base_data</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_extract_config</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;base_data&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">base_data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">base_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">base_data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">base_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base_data_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y&#39;</span><span class="p">))})</span>
