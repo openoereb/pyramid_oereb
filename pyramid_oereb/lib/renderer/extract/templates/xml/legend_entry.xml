@@ -1,10 +1,13 @@
+<% from pyramid_oereb import route_prefix %>
 <%page args="legend_entry"/>
 <xsd:LegendEntry>
     %if params.images:
-    <xsd:Symbol>${legend_entry.symbol}</xsd:Symbol>
+    <xsd:Symbol>${legend_entry.symbol.encode()}</xsd:Symbol>
     %else:
     ## TODO: Push link to legend graphic here (possible when we solved this issue: https://jira.camptocamp.com/browse/GSOREB-184)
-    <xsd:SymbolRef>PROVIDE LINK TO LEGEND PIC HERE</xsd:SymbolRef>
+    <xsd:SymbolRef>${request.route_url('{0}/image/symbol'.format(route_prefix),
+                                                     theme_code=legend_entry.theme.code,
+                                                     type_code=legend_entry.type_code)}</xsd:SymbolRef>
     %endif
     <xsd:LegendText>
         <%include file="localized_text.xml" args="text=legend_entry.legend_text"/>
