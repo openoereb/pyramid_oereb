@@ -228,17 +228,19 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             self.theme_record,
             public_law_restriction_from_db.view_service.legends
         )
-        symbol_base64 = None
+        symbol = None
         for legend_entry_record in legend_entry_records:
             if public_law_restriction_from_db.type_code == legend_entry_record:
                 symbol_base64 = legend_entry_record.file
-        if symbol_base64 is None:
+                symbol = ImageRecord(base64.b64decode(symbol_base64))
+        if symbol is None:
             # TODO: raise real error here when data is correct, emit warning for now
             msg = u'No symbol was found for plr in topic {topic} with id {id}'.format(
                 topic=self._plr_info_.get('code'),
                 id=public_law_restriction_from_db.id
             )
             log.warning(msg)
+            symbol = ImageRecord(bin(1))
             # raise AttributeError(msg)
         view_service_record = self.from_db_to_view_service_record(
             public_law_restriction_from_db.view_service,
@@ -266,7 +268,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             public_law_restriction_from_db.legal_state,
             public_law_restriction_from_db.published_from,
             self.from_db_to_office_record(public_law_restriction_from_db.responsible_office),
-            ImageRecord(base64.b64decode(symbol_base64)),
+            symbol,
             subtopic=public_law_restriction_from_db.subtopic,
             additional_topic=public_law_restriction_from_db.additional_topic,
             type_code=public_law_restriction_from_db.type_code,
@@ -356,7 +358,6 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     )
             for result in db_bbox_intersection_results:
                 handle_result(result)
-
         else:
 
             # The PLR is not problematic at all cause we do not have a collection type here
