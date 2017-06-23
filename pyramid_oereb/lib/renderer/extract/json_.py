@@ -24,8 +24,6 @@ class Renderer(Base):
         """
         super(Renderer, self).__init__(info)
 
-        self._language = str(Config.get('default_language')).lower()
-
     def __call__(self, value, system):
         """
         Returns the JSON encoded extract, according to the specification.
@@ -490,36 +488,6 @@ class Renderer(Base):
         }
         return geom_dict
 
-    def get_localized_text(self, values):
-        """
-        Returns the set language of a multilingual text element.
-
-        Args:
-            values (str or dict): The multilingual values encoded as JSON.
-
-        Returns:
-            list of dict: List of dictionaries containing the multilingual representation.
-        """
-        text = list()
-        default_language = Config.get('default_language')
-        if isinstance(values, dict):
-            if self._language in values:
-                text.append({
-                    'Language': self._language,
-                    'Text': values.get(self._language)
-                })
-            else:
-                text.append({
-                    'Language': default_language,
-                    'Text': values.get(default_language)
-                })
-        else:
-            text.append({
-                'Language': default_language,
-                'Text': values
-            })
-        return text
-
     def format_embeddable(self, embeddable):
         time = embeddable.transfer_from_source_cadastral_surveying.strftime('%d-%m-%YT%H:%M:%S')
         data_sources = []
@@ -527,7 +495,7 @@ class Renderer(Base):
             sources = []
             for source in embeddable_theme.sources:
                 sources.append({
-                    u'dataownerName': source.owner.name.get(Config.get('default_language')),
+                    u'dataownerName': self.get_localized_text(source.owner.name)[0].get('Text'),
                     u'transferFromSource': source.date.strftime('%d-%m-%YT%H:%M:%S')
                 })
             data_sources.append({
@@ -536,12 +504,10 @@ class Renderer(Base):
             })
         embeddable_dict = {
             u'cadasterState': embeddable.cadaster_state.strftime('%d-%m-%YT%H:%M:%S'),
-            u'cadasterOrganisationName': embeddable.cadaster_organisation.name.get(
-                Config.get('default_language')
-            ),
-            u'dataOwnerNameCadastralSurveying': embeddable.data_owner_cadastral_surveying.name.get(
-                Config.get('default_language')
-            ),
+            u'cadasterOrganisationName': self.get_localized_text(
+                embeddable.cadaster_organisation.name)[0].get('Text'),
+            u'dataOwnerNameCadastralSurveying': self.get_localized_text(
+                embeddable.data_owner_cadastral_surveying.name)[0].get('Text'),
             u'transferFromSourceCadastralSurveying': time,
             u'datasource': data_sources
         }

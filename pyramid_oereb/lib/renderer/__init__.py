@@ -4,6 +4,8 @@ import datetime
 from pyramid.request import Request
 from pyramid.testing import DummyRequest
 
+from pyramid_oereb import Config
+
 
 class Base(object):
     def __init__(self, info):
@@ -14,6 +16,7 @@ class Base(object):
             info (pyramid.interfaces.IRendererInfo): Info object.
         """
         self._info_ = info
+        self._language = str(Config.get('default_language')).lower()
 
     @classmethod
     def get_response(cls, system):
@@ -71,3 +74,33 @@ class Base(object):
             pyramid.interfaces.IRendererInfo: The passed renderer info object.
         """
         return self._info_
+
+    def get_localized_text(self, values):
+        """
+        Returns the set language of a multilingual text element.
+
+        Args:
+            values (str or dict): The multilingual values encoded as JSON.
+
+        Returns:
+            list of dict: List of dictionaries containing the multilingual representation.
+        """
+        text = list()
+        default_language = Config.get('default_language')
+        if isinstance(values, dict):
+            if self._language in values:
+                text.append({
+                    'Language': self._language,
+                    'Text': values.get(self._language)
+                })
+            else:
+                text.append({
+                    'Language': default_language,
+                    'Text': values.get(default_language)
+                })
+        else:
+            text.append({
+                'Language': default_language,
+                'Text': values
+            })
+        return text
