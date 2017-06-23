@@ -156,11 +156,14 @@ class PlrRecord(EmptyPlrRecord):
 
     def calculate(self, real_estate):
         tested_geometries = []
+        inside = False
         for geometry in self.geometries:
             if geometry.calculate(real_estate, self.min_length, self.min_area, self.length_unit,
                                   self.area_unit):
                 tested_geometries.append(geometry)
+                inside = True
         self.geometries = tested_geometries
         self._length = round(self._sum_length(), self.length_precision)
         self._area = round(self._sum_area(), self.area_precision)
         self.part_in_percent = round(((self._area / real_estate.limit.area) * 100), self.percentage_precision)
+        return inside
