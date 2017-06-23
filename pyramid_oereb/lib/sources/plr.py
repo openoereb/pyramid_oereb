@@ -12,7 +12,7 @@ from sqlalchemy import text
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.availability import AvailabilityRecord
 from pyramid_oereb.lib.records.embeddable import TransferFromSourceRecord
-from pyramid_oereb.lib.records.theme import EmbeddableThemeRecord, ThemeRecord
+from pyramid_oereb.lib.records.theme import EmbeddableThemeRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
 from pyramid_oereb.lib.records.plr import EmptyPlrRecord, PlrRecord

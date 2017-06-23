@@ -397,8 +397,13 @@ def test_format_map(config, params):
         renderer._language = u'de'
         renderer._params = params
         renderer._request = MockRequest()
-        legend_entry = LegendEntryRecord(ImageRecord(bin(1)), {u'de': u'Legendeneintrag'}, u'type1', u'type_code_list',
-                                         ThemeRecord(u'test', {u'de': u'Test'}))
+        legend_entry = LegendEntryRecord(
+            ImageRecord(bin(1)),
+            {u'de': u'Legendeneintrag'},
+            u'type1',
+            u'type_code_list',
+            ThemeRecord(u'test', {u'de': u'Test'})
+        )
         view_service = ViewServiceRecord('http://my.wms.ch',
                                          'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
                                          [legend_entry])
@@ -425,8 +430,15 @@ def test_format_legend_entry(parameter, config):
         renderer._params = parameter
         renderer._request = MockRequest()
         theme = ThemeRecord(u'test', {u'de': u'Test'})
-        legend_entry = LegendEntryRecord(ImageRecord(bin(1)), {u'de': u'Legendeneintrag'}, u'type1', u'type_code_list', theme,
-                                         u'Subthema', u'Weiteres Thema')
+        legend_entry = LegendEntryRecord(
+            ImageRecord(bin(1)),
+            {u'de': u'Legendeneintrag'},
+            u'type1',
+            u'type_code_list',
+            theme,
+            u'Subthema',
+            u'Weiteres Thema'
+        )
         result = renderer.format_legend_entry(legend_entry)
         expected = {
             'LegendText': renderer.get_localized_text({'de': 'Legendeneintrag'}),
@@ -438,7 +450,7 @@ def test_format_legend_entry(parameter, config):
         }
         if parameter.images:
             expected.update({
-                'Symbol': bin(1)
+                'Symbol': ImageRecord(bin(1)).encode()
             })
         else:
             expected.update({
@@ -448,3 +460,52 @@ def test_format_legend_entry(parameter, config):
         assert result == expected
 
 
+def test_embeddable(params):
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language = u'de'
+    renderer._params = params
+    date = datetime.datetime.now()
+    view_service = ViewServiceRecord(u'http://geowms.bl.ch', u'http://geowms.bl.ch')
+    real_estate = RealEstateRecord(
+        u'RealEstate',
+        u'BL',
+        u'Liestal',
+        2829,
+        11395,
+        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
+        u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712',
+        plan_for_land_register=view_service
+    )
+    resolver = DottedNameResolver()
+    date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
+    date_method = resolver.resolve(date_method_string)
+    av_update_date = date_method(real_estate)
+
+    av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
+    av_provider_method = resolver.resolve(av_provider_method_string)
+    cadaster_state = date
+    # TODO: Add real theme sources here
+    theme_sources = []
+    themes = [EmbeddableThemeRecord(u'TEST', {u'de': u'TEST TEXT'}, theme_sources)]
+    plr_cadastre_authority = Config.get_plr_cadastre_authority()
+    embeddable = EmbeddableRecord(
+        cadaster_state,
+        plr_cadastre_authority,
+        av_provider_method(real_estate),
+        av_update_date,
+        themes
+    )
+    result = renderer.format_embeddable(embeddable)
+    assert result == {
+        u'cadasterOrganisationName': plr_cadastre_authority.name.get('de'),
+        u'datasource': [{
+            u'topic': {
+                'Text': [{'Text': u'TEST TEXT', 'Language': 'de'}],
+                'Code': 'TEST'
+            },
+            u'sources': []
+        }],
+        u'cadasterState': cadaster_state.strftime('%d-%m-%YT%H:%M:%S'),
+        u'dataOwnerNameCadastralSurveying': u'This is only a dummy',
+        u'transferFromSourceCadastralSurveying': av_update_date.strftime('%d-%m-%YT%H:%M:%S')
+    }
