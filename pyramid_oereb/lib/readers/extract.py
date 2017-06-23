@@ -90,21 +90,21 @@ class ExtractReader(object):
         themes_without_data = list()
         themes = list()
         for plr in real_estate.public_law_restrictions:
-            # TODO: Check if we really need to provide the information about all themes or only the info
-            # about concerned themes.
-            themes.append(plr.theme)
-            if isinstance(plr, PlrRecord):
-                contained = False
-                for theme in concerned_themes:
-                    if theme.code == plr.theme.code:
-                        contained = True
-                if not contained:
-                    concerned_themes.append(plr.theme)
-            elif isinstance(plr, EmptyPlrRecord):
-                if plr.has_data:
-                    not_concerned_themes.append(plr.theme)
-                else:
-                    themes_without_data.append(plr.theme)
+            # filter topics due to topics parameter
+            if not params.skip_topic(plr.theme.code):
+                themes.append(plr.theme)
+                if isinstance(plr, PlrRecord):
+                    contained = False
+                    for theme in concerned_themes:
+                        if theme.code == plr.theme.code:
+                            contained = True
+                    if not contained:
+                        concerned_themes.append(plr.theme)
+                elif isinstance(plr, EmptyPlrRecord):
+                    if plr.has_data:
+                        not_concerned_themes.append(plr.theme)
+                    else:
+                        themes_without_data.append(plr.theme)
 
         # Load base data form configuration
         resolver = DottedNameResolver()
