@@ -150,6 +150,11 @@ drop-standard-tables: $(PYTHON_VENV)
 serve: $(PYTHON_VENV)
 	$(VENV_BIN)pserve$(PYTHON_BIN_POSTFIX) development.ini
 
+.PHONY: serve-print-example
+serve-print-example:
+	docker build -t camptocamp/oereb-print print
+	docker run --publish=8280:8080 camptocamp/oereb-print
+
 description.rst:
 	awk 'FNR==1{print ""}1' README.md CHANGES.md | pandoc -f markdown -t rst -o description.rst
 

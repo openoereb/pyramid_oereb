@@ -26,7 +26,7 @@ class PlrRecord(EmptyPlrRecord):
     part_in_percent = None
     """decimal: Part of the property area touched by the restriction in percent."""
 
-    def __init__(self, theme, content, legal_state, published_from, responsible_office, symbol, subtopic=None,
+    def __init__(self, theme, content, legal_state, published_from, responsible_office, subtopic=None,
                  additional_topic=None, type_code=None, type_code_list=None, view_service=None, basis=None,
                  refinements=None, documents=None, geometries=None, info=None, min_length=0.0,
                  min_area=0.0, length_unit=u'm', area_unit=u'm2', length_precision=2, area_precision=2,

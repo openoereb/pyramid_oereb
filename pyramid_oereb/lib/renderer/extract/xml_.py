@@ -4,9 +4,10 @@ from pyramid.path import AssetResolver
 
 from pyramid.response import Response
 
-from pyramid_oereb import Config
 from pyramid_oereb.lib.renderer import Base
 from mako import exceptions
+
+from pyramid_oereb.views.webservice import Parameter
 
 
 class Renderer(Base):
@@ -35,11 +36,20 @@ class Renderer(Base):
         Returns:
             str: The XML encoded extract.
         """
+        self._request = self.get_request(system)
         response = self.get_response(system)
         if isinstance(response, Response) and response.content_type == response.default_content_type:
             response.content_type = 'application/xml'
 
         self._params_ = value[1]
+        if not isinstance(self._params_, Parameter):
+            raise TypeError('Missing parameter definition; Expected {0}, got {1} instead'.format(
+                Parameter,
+                self._params_.__class__
+            ))
+        if self._params_.language:
+            self._language_ = str(self._params_.language).lower()
+
         templates = TemplateLookup(
             directories=[self.template_dir],
             output_encoding='utf-8',
@@ -50,9 +60,13 @@ class Renderer(Base):
             content = template.render(**{
                 'extract': value[0],
                 'params': value[1],
-                'default_language': str(Config.get('default_language')).lower()
+                'language': self.get_localized_text,
+                'request': self._request
             })
             return content
+        except ValueError as e:
+            # TODO: use error mapping to provide HTTP errors
+            raise e
         except:
             response.content_type = 'text/html'
             return exceptions.html_error_template().render()

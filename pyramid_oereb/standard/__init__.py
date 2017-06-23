@@ -154,7 +154,7 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
     # File names
     logo_oereb_name = 'logo_oereb.png'
     logo_confederation_name = 'logo_confederation.png'
-    logo_sample_name = 'logo_sample.png'
+    logo_canton_name = 'logo_canton.png'
 
     # Create pyramid_oereb.yml from template
     template = Template(
@@ -175,7 +175,7 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
         'standard/{name}'.format(name=logo_confederation_name)
     ).abspath()
     logo_sample_path = AssetResolver('pyramid_oereb').resolve(
-        'standard/{name}'.format(name=logo_sample_name)
+        'standard/{name}'.format(name=logo_canton_name)
     ).abspath()
     target_path = os.path.abspath('{path}{sep}{name}'.format(
         path=os.getcwd(), name=logo_oereb_name, sep=os.sep)
@@ -186,6 +186,6 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
     )
     copyfile(logo_confederation_path, target_path)
     target_path = os.path.abspath('{path}{sep}{name}'.format(
-        path=os.getcwd(), name=logo_sample_name, sep=os.sep)
+        path=os.getcwd(), name=logo_canton_name, sep=os.sep)
     )
     copyfile(logo_sample_path, target_path)

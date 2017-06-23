@@ -58,7 +58,7 @@ setup(
         'standard/pyramid_oereb.yml.mako',
         'standard/logo_confederation.png',
         'standard/logo_oereb.png',
-        'standard/logo_sample.png',
+        'standard/logo_canton.png',
         'standard/templates/plr.py.mako',
         'tests/resources/*',
         'tests/resources/plr119/*'
@@ -69,14 +69,16 @@ setup(
         'testing': tests_require,
     },
     install_requires=requires,
-    entry_points="""\
-    [paste.app_factory]
-    main = pyramid_oereb:main
-    [console_scripts]
-    create_standard_model = pyramid_oereb.standard.create_standard_models:create_standard_model
-    create_standard_tables = pyramid_oereb.standard.create_tables:create_standard_tables
-    create_standard_yaml = pyramid_oereb.standard.create_yaml:create_standard_yaml
-    drop_standard_tables = pyramid_oereb.standard.drop_tables:drop_standard_tables
-    load_standard_sample_data = pyramid_oereb.standard.load_sample_data:load_standard_sample
-    """,
+    entry_points={
+        'paste.app_factory': [
+            'main = pyramid_oereb:main'
+        ],
+        'console_scripts': [
+            'create_standard_model = pyramid_oereb.standard.create_standard_models:create_standard_model',
+            'create_standard_tables = pyramid_oereb.standard.create_tables:create_standard_tables',
+            'create_standard_yaml = pyramid_oereb.standard.create_yaml:create_standard_yaml',
+            'drop_standard_tables = pyramid_oereb.standard.drop_tables:drop_standard_tables',
+            'load_standard_sample_data = pyramid_oereb.standard.load_sample_data:load_standard_sample',
+        ],
+    },
 )
