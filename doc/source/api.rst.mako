@@ -36,6 +36,8 @@ underline = ['-', '`', '\'', '.', '~', '*']
 
 %for module in modules:
 %if module != 'pyramid_oereb':
+.. _api-${module.replace('.', '-').lower()}:
+
 Module *${module.split('.')[-1]}*
 ${re.sub('.', underline[len(module.split('.')) - 2], 'Module   ' + module)}
 
@@ -43,6 +45,8 @@ ${re.sub('.', underline[len(module.split('.')) - 2], 'Module   ' + module)}
    :members:
 
 %for cls in classes[module]:
+.. _api-${module.replace('.', '-').lower()}-${cls.lower()}}:
+
 Class *${cls}*
 ${re.sub('.', underline[len(module.split('.')) - 1], 'Class   ' + cls)}
 

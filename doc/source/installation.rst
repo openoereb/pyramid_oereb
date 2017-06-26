@@ -8,6 +8,8 @@ the standard configuration. If you are planning to adapt the application to fit 
 possibilities and additional steps are described in the section :ref:`configuration`.
 
 
+.. _installation-requirements:
+
 Requirements
 ------------
 
@@ -24,6 +26,9 @@ In order to install and run an instance of ``pyramid_oereb``, the following requ
     should be able to use any spatial database, that is supported by `SQLAlchemy
     <https://www.sqlalchemy.org/>`__ and `GeoAlchemy 2 <https://geoalchemy-2.readthedocs.io/en/latest/>`__.
 
+
+.. _installation-step:
+
 Installation steps
 ------------------
 
@@ -33,10 +38,16 @@ Installation steps
 
     source <path_to_your_venv>/bin/activate
 
+
+.. _installation-step-add-package:
+
 1. Add package
 ..............
 
 Add ``pyramid_oereb`` to the list of requirements in your application's ``setup.py``.
+
+
+.. _installation-step-dependencies:
 
 2. Install dependencies
 .......................
@@ -46,6 +57,9 @@ Install the newly added dependencies using *pip*:
 .. code-block:: shell
 
  pip install -e .
+
+
+.. _installation-step-configuration:
 
 3. Create standard configuration
 ................................
@@ -62,6 +76,9 @@ connection string for your database:
 
 You could also integrate this configuration into an existing YAML file, but we suggest to keep it
 separated because it is already very complex on its own.
+
+
+.. _installation-step-database:
 
 4. Set up database
 ..................
@@ -80,6 +97,9 @@ script:
 
 .. note:: Run ``create_standard_tables --help`` for further information.
 
+
+.. _installation-step-sample-data:
+
 5. Load sample data (optional)
 ..............................
 
@@ -88,6 +108,9 @@ Included sample data can be imported into the configured database using the foll
 .. code-block:: shell
 
  load_standard_sample_data -c pyramid_oereb_standard.yml
+
+
+.. _installation-step-application:
 
 6. Include in application
 .........................
@@ -124,3 +147,18 @@ After modifying these two files, you have start/restart your application's serve
    .. code-block:: none
 
     http://<YOUR_APPLICATION_URL>/oereb/extract/embeddable/json/CH113928077734
+
+
+.. _installation-next-steps:
+
+Next steps
+----------
+
+Now you should be able to set up a running ``pyramid_oereb`` server using the standard configuration. If this
+configuration fits your needs, you can now continue with importing your data into the created database. A
+detailed description of each table can be found in the documentation of the
+:ref:`api-pyramid_oereb-standard-models`.
+
+If your data is already available in an existing database with a different structure or you need to use a
+custom data source, the possible ways to adapt the models or to extend the application are described in the
+section :ref:`configuration`.
