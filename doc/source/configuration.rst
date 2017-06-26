@@ -88,7 +88,7 @@ Name mapping
 
 The easiest example is a simple mapping of table and column names, if you use a different language. Using the
 possibilities of SQLAlchemy, you could extend the existing
-:ref:`api-pyramid_oereb-lib-standard-models-motorways_building_lines-office` like this:
+:ref:`api-pyramid_oereb-standard-models-motorways_building_lines-office` like this:
 
 .. code-block:: python
 

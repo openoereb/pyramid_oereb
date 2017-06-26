@@ -45,7 +45,7 @@ ${re.sub('.', underline[len(module.split('.')) - 2], 'Module   ' + module)}
    :members:
 
 %for cls in classes[module]:
-.. _api-${module.replace('.', '-').lower()}-${cls.lower()}}:
+.. _api-${module.replace('.', '-').lower()}-${cls.lower()}:
 
 Class *${cls}*
 ${re.sub('.', underline[len(module.split('.')) - 1], 'Class   ' + cls)}
