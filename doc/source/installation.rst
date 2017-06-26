@@ -100,6 +100,10 @@ in the main method somewhere before ``config.scan()``:
 
  config.include('pyramid_oereb', route_prefix='oereb')
 
+You can specify a different `route prefix <https://docs.pylonsproject.org/projects/pyramid/en/stable/narr/
+urldispatch.html#using-a-route-prefix-to-compose-applications>`__ or omit it, if you are running a dedicated
+server for ``pyramid_oereb``.
+
 Additionally, you have to specify the created configuration in your application's INI file (e.g.
 ``development.ini``). Add the following lines in the ``[app:main]`` section:
 
