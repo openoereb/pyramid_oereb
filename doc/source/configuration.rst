@@ -18,7 +18,7 @@ for these too, you can run a provided script to generate the required models.
 
 .. code-block:: shell
 
- create_standard_model -c <YOUR_NEW_TOPIC_CODE> -g <GEOMETRY_TYPE> -p <TARGET_PATH>
+   create_standard_model -c <YOUR_NEW_TOPIC_CODE> -g <GEOMETRY_TYPE> -p <TARGET_PATH>
 
 The first parameter is the code of your new topic and has to be defined in camelcase. The geometry type for
 the theme can be one of the following:
@@ -39,31 +39,32 @@ this:
 
 .. code-block:: yaml
 
- - name: plr88
-      code: MotorwaysBuildingLines
-      geometry_type: LINESTRING
-      thresholds:
-        length:
-          limit: 1.0
-          unit: 'm'
-          precision: 2
-        area:
-          limit: 1.0
-          unit: 'm2'
-          precision: 2
-        percentage:
-          precision: 1
-      text:
-        de: Baulinien Nationalstrassen
-      language: de
-      federal: true
-      standard: true
-      source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-        params:
-          db_connection: postgresql://postgres:password@localhost:5432/pyramid_oereb
-          models: pyramid_oereb.standard.models.motorways_building_lines
-      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+   - name: plr88
+       code: MotorwaysBuildingLines
+       geometry_type: LINESTRING
+       thresholds:
+         length:
+           limit: 1.0
+           unit: 'm'
+           precision: 2
+         area:
+           limit: 1.0
+           unit: 'm2'
+           precision: 2
+         percentage:
+           precision: 1
+       text:
+         de: Baulinien Nationalstrassen
+       language: de
+       federal: true
+       standard: true
+       source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost:5432/pyramid_oereb
+           models: pyramid_oereb.standard.models.motorways_building_lines
+       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+
 
 Apply the necessary modifications for the new topic. This should at least be the the name, code and text
 definitions and of course the models property within the source parameters. It should point to the module
@@ -82,60 +83,111 @@ structure. This method is recommended if you are using an existing database supp
 already containing all the necessary data but in a different structure. In this case you should check, if it
 is possible to transform the data by extending the existing models with a mapping to fit your structure.
 
-
-Name mapping
-............
-
 The easiest example is a simple mapping of table and column names, if you use a different language. Using the
 possibilities of SQLAlchemy, you could extend the existing
 :ref:`api-pyramid_oereb-standard-models-motorways_building_lines-office` like this:
 
 .. code-block:: python
 
- from pyramid_oereb.lib.standard.models import motorways_building_lines
+   from pyramid_oereb.lib.standard.models import motorways_building_lines
 
- class Office(motorways_building_lines.Office):
-    """
-    The bucket to fill in all the offices you need to reference from public law restriction,
-    document, geometry.
+   class Office(motorways_building_lines.Office):
+       """
+       The bucket to fill in all the offices you need to reference from public law restriction,
+       document, geometry.
 
-    Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually.
-            If you don't like it - don't care about.
-        name (dict): The multilingual name of the office.
-        office_at_web (str): A web accessible url to a presentation of this office.
-        uid (str): The uid of this office from https
-        line1 (str): The first address line for this office.
-        line2 (str): The second address line for this office.
-        street (str): The streets name of the offices address.
-        number (str): The number on street.
-        postal_code (int): The ZIP-code.
-        city (str): The name of the city.
-    """
-    __table_args__ = {'schema': 'baulinien_nationalstrassen'}
-    __tablename__ = 'amt'
-    id = sa.Column('oid', sa.Integer, primary_key=True)
-    office_at_web = sa.Column('amt_im_web', sa.String, nullable=True)
-    line1 = sa.Column('zeile1', sa.String, nullable=True)
-    line2 = sa.Column('zeile2', sa.String, nullable=True)
-    street = sa.Column('strasse', sa.String, nullable=True)
-    number = sa.Column('hausnr', sa.String, nullable=True)
-    postal_code = sa.Column('plz', sa.Integer, nullable=True)
-    city = sa.Column('ort', sa.String, nullable=True)
+       Attributes:
+           id (int): The identifier. This is used in the database only and must not be set manually.
+               If you don't like it - don't care about.
+           name (dict): The multilingual name of the office.
+           office_at_web (str): A web accessible url to a presentation of this office.
+           uid (str): The uid of this office from https
+           line1 (str): The first address line for this office.
+           line2 (str): The second address line for this office.
+           street (str): The streets name of the offices address.
+           number (str): The number on street.
+           postal_code (int): The ZIP-code.
+           city (str): The name of the city.
+       """
+       __table_args__ = {'schema': 'baulinien_nationalstrassen'}
+       __tablename__ = 'amt'
+       id = sa.Column('oid', sa.Integer, primary_key=True)
+       office_at_web = sa.Column('amt_im_web', sa.String, nullable=True)
+       line1 = sa.Column('zeile1', sa.String, nullable=True)
+       line2 = sa.Column('zeile2', sa.String, nullable=True)
+       street = sa.Column('strasse', sa.String, nullable=True)
+       number = sa.Column('hausnr', sa.String, nullable=True)
+       postal_code = sa.Column('plz', sa.Integer, nullable=True)
+       city = sa.Column('ort', sa.String, nullable=True)
 
-    ...
+       (...)
 
 The only thing, you have to care about, if you want to stay using the standard sources, is to keep the class
 name, the names of the properties and their data types.
 
+After extending the models, do not forget to change the models module in the configuration of the topic's
+source.
 
-Structure mapping
-.................
+.. code-block:: yaml
 
-
+   - name: plr88
+       code: MotorwaysBuildingLines
+       (...)
+       source:
+         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         params:
+           db_connection: postgresql://postgres:password@localhost:5432/pyramid_oereb
+           models: my_application.models.motorways_building_lines
+       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
 
 .. _configuration-create-sources:
 
 Create custom sources
 ---------------------
+
+If the possibilities described above do not fit your needs, you can implement your own sources. This is the
+only possible way, if their are no existing sources available to access your data. For example, this could be
+the case, if you are trying to access a kind of file system or some other proprietary data source.
+
+As for the models, basically every source can be replaced using the configuration. In the configuration, every
+source is defined by a `class` property, pointing on the class that should be used to instantiate it, and a
+`params` property containing keyword arguments passed to its constructor.
+
+For example, the real estate source for the standard database is configured with two parameters, the database
+connection and the model class, which looks like the following.
+
+.. code-block:: yaml
+
+   real_estate:
+     (...)
+     source:
+       # The source must have a class which represents the accessor to the source. In this case it
+       # is a source already implemented which reads data from a database.
+       class: pyramid_oereb.lib.sources.real_estate.RealEstateDatabaseSource
+       # The configured class accepts params which are also necessary to define
+       params:
+         # The connection path where the database can be found
+         db_connection: "postgresql://postgres:password@localhost:5432/pyramid_oereb"
+         # The model which maps the real estate database table.
+         model: pyramid_oereb.standard.models.main.RealEstate
+
+You can use the base source and extend it to create your own customized source implementations. With the
+parameters passed as keyword arguments, you are free to pass as many arguments you need. There are only two
+restrictions on implementing a custom source:
+
+   1.  The source has to implement the method `read()` with the arguments used in its base source. For
+       example, your custom real estate source has to accept the arguments defined in
+       :ref:`api-pyramid_oereb-lib-sources-real_estate-realestatebasesource`.
+
+   2.  The method `read()` has to add records of the corresponding type to the source' records list. Every
+       source has list property called `records`. In case of a real estate source, the method `read()` has to
+       create one or more instances of the :ref:`api-pyramid_oereb-lib-records-real_estate-realestaterecord`
+       and add them to this list.
+
+This way, you should be able to create sources for nearly every possible data source.
+
+.. note:: Implementing a custom source for public law restrictions, requires to create public law restriction
+   records with all referenced records of other classes according to the `OEREB Data Extract
+   <https://www.cadastre.ch/content/cadastre-internet/de/manual-oereb/publication/publication.download/
+   cadastre-internet/de/documents/oereb-weisungen/OEREB-Data-Extract_de.pdf>`__ model (page 5).
