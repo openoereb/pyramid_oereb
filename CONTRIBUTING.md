@@ -54,6 +54,8 @@ Create your configuration file and load the sample data.
 To start a local server run `make serve`. It should be available unter http://localhost:6543/oereb/, e.g.
 http://localhost:6543/oereb/versions. To stop the server, press `CTRL` + `C`.
 
+> **NOTE:** The sample extract can be called for the EGRID "CH113928077734", e.g. http://localhost:6543/oereb/extract/reduced/json/CH113928077734.
+
 ### ...on Windows
 
 1. Creation of base directory for the project:
