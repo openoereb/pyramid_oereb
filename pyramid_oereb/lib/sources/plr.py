@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+import logging
 import base64
+import datetime
 
 from geoalchemy2.elements import _SpatialElement
 from geoalchemy2.shape import to_shape, from_shape
@@ -9,8 +11,9 @@ from sqlalchemy import text
 
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.availability import AvailabilityRecord
+from pyramid_oereb.lib.records.embeddable import TransferFromSourceRecord
+from pyramid_oereb.lib.records.theme import EmbeddableThemeRecord
 from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
 from pyramid_oereb.lib.records.plr import EmptyPlrRecord, PlrRecord
 from pyramid_oereb.lib.records.documents import DocumentRecord, ArticleRecord
@@ -20,6 +23,8 @@ from pyramid_oereb.lib.records.glossary import GlossaryRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.reference_definition import ReferenceDefinitionRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
+
+log = logging.getLogger('pyramid_oereb')
 
 
 class PlrBaseSource(Base):
@@ -45,8 +50,14 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             ),
             'db_connection': kwargs.get('source').get('params').get('db_connection')
         }
+        self.legend_entry_model = DottedNameResolver().maybe_resolve(
+            '{models_path}.LegendEntry'.format(models_path=models_path)
+        )
         availability_model = DottedNameResolver().maybe_resolve(
             '{models_path}.Availability'.format(models_path=models_path)
+        )
+        transfer_from_source_model = DottedNameResolver().maybe_resolve(
+            '{models_path}.DataIntegration'.format(models_path=models_path)
         )
         super(PlrStandardDatabaseSource, self).__init__(**bds_kwargs)
 
@@ -57,8 +68,27 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             self.availabilities.append(
                 AvailabilityRecord(availability.fosnr, available=availability.available)
             )
+        self.transfer_from_source = session.query(transfer_from_source_model).all()
+        # TODO: Fix this. Its not possible to have no actuality set. It's only for test case
+        theme_sources = []
+        for source in self.transfer_from_source:
+            theme_sources.append(TransferFromSourceRecord(
+                self.transfer_from_source.date,
+                self.transfer_from_source.office(source.office)
+            ))
+        if len(theme_sources) == 0:
+            log.warning(u'The theme sources for the topic {0} are empty. This is not allowed. Going through '
+                        u'anyway'.format(self._plr_info_.get('code')))
+            theme_sources = [TransferFromSourceRecord(
+                datetime.datetime.now(),
+                Config.get_plr_cadastre_authority()
+            )]
+        self.theme_record = EmbeddableThemeRecord(
+            self._plr_info_.get('code'),
+            self._plr_info_.get('text'),
+            theme_sources
+        )
         session.close()
-        # session.close()
 
     @property
     def info(self):
@@ -194,11 +224,24 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         area_unit = thresholds.get('area').get('unit')
         area_precision = thresholds.get('area').get('precision')
         percentage_precision = thresholds.get('percentage').get('precision')
-        theme_record = ThemeRecord(self._plr_info_.get('code'), self._plr_info_.get('text'))
         legend_entry_records = self.from_db_to_legend_entry_record(
-            theme_record,
+            self.theme_record,
             public_law_restriction_from_db.view_service.legends
         )
+        symbol = None
+        for legend_entry_record in legend_entry_records:
+            if public_law_restriction_from_db.type_code == legend_entry_record:
+                symbol_base64 = legend_entry_record.file
+                symbol = ImageRecord(base64.b64decode(symbol_base64))
+        if symbol is None:
+            # TODO: raise real error here when data is correct, emit warning for now
+            msg = u'No symbol was found for plr in topic {topic} with id {id}'.format(
+                topic=self._plr_info_.get('code'),
+                id=public_law_restriction_from_db.id
+            )
+            log.warning(msg)
+            symbol = ImageRecord(bin(1))
+            # raise AttributeError(msg)
         view_service_record = self.from_db_to_view_service_record(
             public_law_restriction_from_db.view_service,
             legend_entry_records
@@ -213,11 +256,6 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         document_records = self.from_db_to_document_records(documents_from_db, article_numbers)
         geometry_records = self.from_db_to_geometry_records(public_law_restriction_from_db.geometries)
 
-        plr_symbol = None
-        for legend_entry in public_law_restriction_from_db.view_service.legends:
-            if legend_entry.type_code == public_law_restriction_from_db.type_code:
-                plr_symbol = ImageRecord(base64.b64decode(legend_entry.symbol))
-
         basis_plr_records = []
         for join in public_law_restriction_from_db.basis:
             basis_plr_records.append(self.from_db_to_plr_record(join.base))
@@ -225,27 +263,27 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         for join in public_law_restriction_from_db.refinements:
             refinements_plr_records.append(self.from_db_to_plr_record(join.refinement))
         plr_record = self._plr_record_class_(
-            theme_record,
+            self.theme_record,
             public_law_restriction_from_db.content,
             public_law_restriction_from_db.legal_state,
             public_law_restriction_from_db.published_from,
             self.from_db_to_office_record(public_law_restriction_from_db.responsible_office),
-            public_law_restriction_from_db.subtopic,
-            public_law_restriction_from_db.additional_topic,
-            public_law_restriction_from_db.type_code,
-            public_law_restriction_from_db.type_code_list,
-            view_service_record,
-            basis_plr_records,
-            refinements_plr_records,
-            document_records,
+            symbol,
+            subtopic=public_law_restriction_from_db.subtopic,
+            additional_topic=public_law_restriction_from_db.additional_topic,
+            type_code=public_law_restriction_from_db.type_code,
+            type_code_list=public_law_restriction_from_db.type_code_list,
+            view_service=view_service_record,
+            basis=basis_plr_records,
+            refinements=refinements_plr_records,
+            documents=document_records,
             min_area=min_area,
             min_length=min_length,
             area_unit=area_unit,
             length_unit=length_unit,
             area_precision=area_precision,
             length_precision=length_precision,
-            percentage_precision=percentage_precision,
-            symbol=plr_symbol
+            percentage_precision=percentage_precision
         )
         # solve circular dependency between plr and geometry
         for geometry_record in geometry_records:
@@ -260,14 +298,17 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         geometries but the passed geometry does not.
         The multi geometry will be extracted to it's sub parts for operation.
 
-        :param db_path: The point separated string of schema_name.table_name.column_name from which we can
-            construct a correct SQL statement.
-        :type db_path: str
-        :param real_estate_geometry: The shapely geometry representation which is used for comparison.
-        :type real_estate_geometry: shapely.geometry.base.BaseGeometry
-        :return: The clause element.
-        :rtype: sqlalchemy.sql.elements.BooleanClauseList
-        :raises: HTTPBadRequest
+        Args:
+            db_path (str): The point separated string of schema_name.table_name.column_name from
+                which we can construct a correct SQL statement.
+            real_estate_geometry (shapely.geometry.base.BaseGeometry): The shapely geometry
+                representation which is used for comparison.
+
+        Returns:
+            sqlalchemy.sql.elements.BooleanClauseList: The clause element.
+
+        Raises:
+            HTTPBadRequest
         """
         srid = Config.get('srid')
         sql_text_point = 'ST_Intersects(ST_CollectionExtract({0}, 1), ST_GeomFromText(\'{1}\', {2}))'.format(
@@ -293,7 +334,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         ]
         return or_(*clause_blocks)
 
-    def handle_collection(self, geometry_results, session, collection_types, real_estate):
+    def handle_collection(self, geometry_results, session, collection_types, bbox):
 
         # Check for Geometry type, cause we can't handle geometry collections the same as specific geometries
         if self._plr_info_.get('geometry_type') in [x.upper() for x in collection_types]:
@@ -305,63 +346,65 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         schema=self._model_.__table__.schema,
                         table=self._model_.__table__.name
                     ),
-                    real_estate.limit
+                    bbox
                 )
             )
 
             def handle_result(result):
-                real_geometry_intersection_result = real_estate.limit.intersects(to_shape(result.geom))
+                real_geometry_intersection_result = bbox.intersects(to_shape(result.geom))
                 if real_geometry_intersection_result:
                     geometry_results.append(
                         result
                     )
             for result in db_bbox_intersection_results:
                 handle_result(result)
-
         else:
 
             # The PLR is not problematic at all cause we do not have a collection type here
             geometry_results.extend(session.query(self._model_).filter(self._model_.geom.ST_Intersects(
-                from_shape(real_estate.limit, srid=Config.get('srid'))
+                from_shape(bbox, srid=Config.get('srid'))
             )).all())
 
-    def read(self, real_estate):
+    def read(self, real_estate, bbox):
         """
         The read point which creates a extract, depending on a passed real estate.
 
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate in its record representation.
+            bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
+
+        Returns:
+            TODO: TODO
         """
         geometry_types = Config.get('geometry_types')
         collection_types = geometry_types.get('collection').get('types')
+
+        public_law_restrictions = []
 
         # Check if the plr is marked as available
         for availability in self.availabilities:
             if real_estate.fosnr == availability.fosnr and not availability.available:
                 # The plr is marked as not available! This stops every further processing for this PLR and
                 # adds a simple empty record for the PLR's on this real estate
-                return real_estate.public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
-                    self._plr_info_.get('code'), self._plr_info_.get('text')
-                ), has_data=False))
+                public_law_restrictions.append(EmptyPlrRecord(self.theme_record, has_data=False))
+                return public_law_restrictions
         session = self._adapter_.get_session(self._key_)
 
         if session.query(self._model_).count() == 0:
             # We can stop here already because there are no items in the database
-            return real_estate.public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
-                self._plr_info_.get('code'), self._plr_info_.get('text')
-            ), has_data=False))
+            public_law_restrictions.append(EmptyPlrRecord(self.theme_record, has_data=False))
+            return public_law_restrictions
 
         geometry_results = []
-        self.handle_collection(geometry_results, session, collection_types, real_estate)
+        self.handle_collection(geometry_results, session, collection_types, bbox)
 
         if len(geometry_results) == 0:
-            return real_estate.public_law_restrictions.append(EmptyPlrRecord(ThemeRecord(
-                self._plr_info_.get('code'), self._plr_info_.get('text')
-            )))
+            public_law_restrictions.append(EmptyPlrRecord(self.theme_record))
+            return public_law_restrictions
         for geometry_result in geometry_results:
-            real_estate.public_law_restrictions.append(
+            public_law_restrictions.append(
                 self.from_db_to_plr_record(geometry_result.public_law_restriction)
             )
         session.close()
-        return real_estate
+        return public_law_restrictions

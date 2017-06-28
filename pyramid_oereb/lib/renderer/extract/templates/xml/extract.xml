@@ -7,10 +7,7 @@
             elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.4">
 <%
     from pyramid_oereb.lib.records.plr import PlrRecord
-    if params.language:
-        language = str(params.language).lower()
-    else:
-        language = default_language
+    from pyramid_oereb import Config, route_prefix
 %>
 <%
     def parse_bool(expression):
@@ -19,6 +16,17 @@
         else:
             return 'false'
 %>
+    %if params.flavour == 'embeddable':
+    <xsd:embeddable>
+        <xsd:cadasterState>${str(extract.embeddable.cadaster_state)}</xsd:cadasterState>
+        <xsd:cadasterOrganisationName>${language(extract.embeddable.cadaster_organisation.name)[0].get('Text')}</xsd:cadasterOrganisationName>
+        <xsd:dataOwnerNameCadastralSurveying>${language(extract.embeddable.data_owner_cadastral_surveying.name)[0].get('Text')}</xsd:dataOwnerNameCadastralSurveying>
+        <xsd:transferFromSourceCadastralSurveying>${extract.embeddable.transfer_from_source_cadastral_surveying.strftime('%d-%m-%YT%H:%M:%S')}</xsd:transferFromSourceCadastralSurveying>
+        % for theme in extract.embeddable.data_sources:
+        <%include file="data_source.xml" args="theme=theme"/>
+        % endfor
+    </xsd:embeddable>
+    %endif
     <xsd:Extract>
         <xsd:CreationDate>${extract.creation_date}</xsd:CreationDate>
     %if extract.electronic_signature:
@@ -45,18 +53,17 @@
         </xsd:ThemeWithoutData>
         %endfor
     %endif
-        <xsd:isReduced>${parse_bool(extract.is_reduced)}</xsd:isReduced>
+        <xsd:isReduced>${parse_bool(params.flavour == 'reduced')}</xsd:isReduced>
     %if params.images:
-        ## TODO: provide a link to the logos
-        <xsd:LogoPLRCadastreRef>${extract.logo_plr_cadastre.encode()}</xsd:LogoPLRCadastreRef>
-        <xsd:FederalLogoRef>${extract.federal_logo.encode()}</xsd:FederalLogoRef>
-        <xsd:CantonalLogoRef>${extract.cantonal_logo.encode()}</xsd:CantonalLogoRef>
-        <xsd:MunicipalityLogoRef>${extract.municipality_logo.encode()}</xsd:MunicipalityLogoRef>
-    %else:
         <xsd:LogoPLRCadastre>${extract.logo_plr_cadastre.encode()}</xsd:LogoPLRCadastre>
         <xsd:FederalLogo>${extract.federal_logo.encode()}</xsd:FederalLogo>
         <xsd:CantonalLogo>${extract.cantonal_logo.encode()}</xsd:CantonalLogo>
         <xsd:MunicipalityLogo>${extract.municipality_logo.encode()}</xsd:MunicipalityLogo>
+    %else:
+        <xsd:LogoPLRCadastreRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='oereb')}</xsd:LogoPLRCadastreRef>
+        <xsd:FederalLogoRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='confederation')}</xsd:FederalLogoRef>
+        <xsd:CantonalLogoRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='canton')}</xsd:CantonalLogoRef>
+        <xsd:MunicipalityLogoRef>${request.route_url('{0}/image/municipality'.format(route_prefix), fosnr=extract.real_estate.fosnr)}</xsd:MunicipalityLogoRef>
     %endif
         <xsd:ExtractIdentifier>${extract.extract_identifier}</xsd:ExtractIdentifier>
     %if extract.qr_code:

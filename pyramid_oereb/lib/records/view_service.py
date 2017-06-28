@@ -63,7 +63,7 @@ class ViewServiceRecord(object):
             self.legends = legends
 
     @staticmethod
-    def _get_bbox(geometry, map_size, print_buffer):
+    def get_bbox(geometry, map_size, print_buffer):
         width_buffer = (geometry.bounds[2] - geometry.bounds[0]) * print_buffer / 100
         height_buffer = (geometry.bounds[3] - geometry.bounds[1]) * print_buffer / 100
         print_bounds = [
@@ -102,7 +102,7 @@ class ViewServiceRecord(object):
 
         print_conf = Config.get_object_path('print', required=['map_size', 'buffer'])
         map_size = print_conf['map_size']
-        bbox = self._get_bbox(real_estate.limit, map_size, print_conf['buffer'])
+        bbox = self.get_bbox(real_estate.limit, map_size, print_conf['buffer'])
         self.link_wms = add_url_params(self.link_wms, {
             "BBOX": ",".join([str(e) for e in bbox]),
             "SRS": 'EPSG:{0}'.format(Config.get('srid'))
@@ -135,3 +135,20 @@ class ViewServiceRecord(object):
             log.error(main_msg)
             log.error(dedicated_msg)
             raise AttributeError(dedicated_msg)
+
+    def unique_update_legends(self, legend):
+        """
+        Uniquely append a legend to the legend entries. It checks if a legend entry with the same type code
+         already exists in the legends of this instance.
+
+        Args:
+            legend (pyramid_oereb.lib.records.view_service.LegendEntryRecord): The legend entry which
+                should be append to the list.
+        """
+        already_exist = False
+        for item in self.legends:
+            if item.type_code == legend.type_code:
+                already_exist = True
+                break
+        if not already_exist:
+            self.legends.append(legend)

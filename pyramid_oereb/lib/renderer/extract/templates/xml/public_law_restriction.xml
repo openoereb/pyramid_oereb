@@ -1,5 +1,6 @@
 <%page args="public_law_restriction"/>
 <%
+    from pyramid_oereb import route_prefix
     # PLR without legal provision is allowed in reduced extract only!
     if params.flavour != 'reduced' and isinstance(public_law_restriction.documents, list) and \
                     len(public_law_restriction.documents) == 0:
@@ -36,9 +37,14 @@
     <xsd:LengthUnit>${public_law_restriction.length_unit}</xsd:LengthUnit>
     %endif
     %if params.images:
-    <xsd:Symbol>TODO: deliver binary content to Symbol here...</xsd:Symbol>
+    <xsd:Symbol>${public_law_restriction.symbol.encode()}</xsd:Symbol>
     %else:
-    <xsd:SymbolRef>TODO: deliver ULR to Symbol here...</xsd:SymbolRef>
+    <xsd:SymbolRef>
+        ${request.route_url('{0}/image/symbol'.format(route_prefix),
+            theme_code=public_law_restriction.theme.code,
+            type_code=public_law_restriction.type_code)
+        }
+    </xsd:SymbolRef>
     %endif
     %for geometry in public_law_restriction.geometries:
     <%include file="geometry.xml" args="geometry=geometry"/>
