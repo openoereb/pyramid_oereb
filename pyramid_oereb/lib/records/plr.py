@@ -26,11 +26,11 @@ class PlrRecord(EmptyPlrRecord):
     part_in_percent = None
     """decimal: Part of the property area touched by the restriction in percent."""
 
-    def __init__(self, theme, content, legal_state, published_from, responsible_office, subtopic=None,
+    def __init__(self, theme, content, legal_state, published_from, responsible_office, symbol, subtopic=None,
                  additional_topic=None, type_code=None, type_code_list=None, view_service=None, basis=None,
                  refinements=None, documents=None, geometries=None, info=None, min_length=0.0,
                  min_area=0.0, length_unit=u'm', area_unit=u'm2', length_precision=2, area_precision=2,
-                 percentage_precision=1, symbol=None):
+                 percentage_precision=1):
         """
         Public law restriction record.
 
@@ -41,6 +41,8 @@ class PlrRecord(EmptyPlrRecord):
             published_from (datetime.date): Date from/since when the PLR record is published.
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is responsible
                 for this PLR.
+            symbol (pyramid_oereb.lib.records.image.ImageRecord): Symbol of the restriction defined for the
+                legend entry
             subtopic (unicode): Optional subtopic.
             additional_topic (unicode): Optional additional topic.
             type_code (unicode): The PLR record's type code (also used by view service).
@@ -61,8 +63,6 @@ class PlrRecord(EmptyPlrRecord):
             length_precision (int): The precision how the length results will be rounded.
             area_precision (int): The precision how the area results will be rounded.
             percentage_precision (int): The precision how the percentage results will be rounded.
-            symbol (pyramid_oereb.lib.records.image.ImageRecord or None): Symbol of the restriction for the
-                legend entry.
         """
         super(PlrRecord, self).__init__(theme)
 
@@ -156,11 +156,14 @@ class PlrRecord(EmptyPlrRecord):
 
     def calculate(self, real_estate):
         tested_geometries = []
+        inside = False
         for geometry in self.geometries:
             if geometry.calculate(real_estate, self.min_length, self.min_area, self.length_unit,
                                   self.area_unit):
                 tested_geometries.append(geometry)
+                inside = True
         self.geometries = tested_geometries
         self._length = round(self._sum_length(), self.length_precision)
         self._area = round(self._sum_area(), self.area_precision)
         self.part_in_percent = round(((self._area / real_estate.limit.area) * 100), self.percentage_precision)
+        return inside

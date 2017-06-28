@@ -240,9 +240,20 @@ def test_format_plr(config, parameter):
         legend_entry = LegendEntryRecord(base64.b64encode(bin(1)), {'de': 'Test'}, 'test', 'TypeCodeList',
                                          theme)
         view_service = ViewServiceRecord('http://geowms.bl.ch', 'http://geowms.bl.ch', [legend_entry])
-        plr = PlrRecord(theme, {'de': 'Test PLR'}, 'inForce', datetime.date.today(), office, 'Subtopic',
-                        'Additional topic', 'test', 'TypeCodeList', view_service, documents=documents,
-                        symbol=base64.b64encode(bin(1)))
+        plr = PlrRecord(
+            theme,
+            {'de': 'Test PLR'},
+            'inForce',
+            datetime.date.today(),
+            office,
+            ImageRecord(bin(1)),
+            subtopic='Subtopic',
+            additional_topic='Additional topic',
+            type_code='test',
+            type_code_list='TypeCodeList',
+            view_service=view_service,
+            documents=documents
+        )
         plr.part_in_percent = 0.5
         if parameter.flavour == 'full':
             with pytest.raises(ValueError):
