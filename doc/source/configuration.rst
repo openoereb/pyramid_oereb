@@ -3,6 +3,16 @@
 Configuration
 =============
 
+You are looking at a highly configurable piece of software. To get the right understanding of the server it
+is recommended to read this part carefully.
+
+Since the swiss confederation's definition and the specification for the `OEREB Data Extract
+<https://www.cadastre.ch/content/cadastre-internet/de/manual-oereb/publication/publication.download
+/cadastre-internet/de/documents/oereb-weisungen/OEREB-Data-Extract_de.pdf>`__ is really straight,
+we had very narrow margins to develop the code. Using this pyramid plugin, you will get a running server
+providing the services to satisfy the federal specification. But to get this extract, you need to bind your
+data to this server. And this is basically what you need to configure.
+
 This section describes the different possibilities to adapt the application on different data structures or
 even custom data sources. If you are planning to use such modifications, we suggest to check all possible
 solutions first, as the necessary effort can vary significantly depending on your specific needs.
