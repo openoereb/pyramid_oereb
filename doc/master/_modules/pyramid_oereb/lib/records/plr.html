@@ -71,11 +71,11 @@
     <span class="n">part_in_percent</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="sd">&quot;&quot;&quot;decimal: Part of the property area touched by the restriction in percent.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">legal_state</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">subtopic</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">legal_state</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">subtopic</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">additional_topic</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_code_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">view_service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">refinements</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">documents</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">geometries</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
                  <span class="n">min_area</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">length_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">area_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m2&#39;</span><span class="p">,</span> <span class="n">length_precision</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">area_precision</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                 <span class="n">percentage_precision</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">percentage_precision</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Public law restriction record.</span>
 
@@ -86,6 +86,8 @@
 <span class="sd">            published_from (datetime.date): Date from/since when the PLR record is published.</span>
 <span class="sd">            responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is responsible</span>
 <span class="sd">                for this PLR.</span>
+<span class="sd">            symbol (pyramid_oereb.lib.records.image.ImageRecord): Symbol of the restriction defined for the</span>
+<span class="sd">                legend entry</span>
 <span class="sd">            subtopic (unicode): Optional subtopic.</span>
 <span class="sd">            additional_topic (unicode): Optional additional topic.</span>
 <span class="sd">            type_code (unicode): The PLR record&#39;s type code (also used by view service).</span>
@@ -106,8 +108,6 @@
 <span class="sd">            length_precision (int): The precision how the length results will be rounded.</span>
 <span class="sd">            area_precision (int): The precision how the area results will be rounded.</span>
 <span class="sd">            percentage_precision (int): The precision how the percentage results will be rounded.</span>
-<span class="sd">            symbol (pyramid_oereb.lib.records.image.ImageRecord or None): Symbol of the restriction for the</span>
-<span class="sd">                legend entry.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">PlrRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
 
@@ -201,14 +201,17 @@
 
     <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">):</span>
         <span class="n">tested_geometries</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">inside</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometries</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_area</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">length_unit</span><span class="p">,</span>
                                   <span class="bp">self</span><span class="o">.</span><span class="n">area_unit</span><span class="p">):</span>
                 <span class="n">tested_geometries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="p">)</span>
+                <span class="n">inside</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">geometries</span> <span class="o">=</span> <span class="n">tested_geometries</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sum_length</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">length_precision</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sum_area</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">area_precision</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">part_in_percent</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(((</span><span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">/</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">area</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">percentage_precision</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">part_in_percent</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(((</span><span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">/</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">area</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">percentage_precision</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">inside</span></div>
 </pre></div>
 
           </div>

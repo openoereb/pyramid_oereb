@@ -742,6 +742,41 @@ document record.</td>
 </table>
 </dd></dl>
 
+<dl class="staticmethod">
+<dt id="pyramid_oereb.lib.processor.Processor.get_legend_entries">
+<em class="property">static </em><code class="descname">get_legend_entries</code><span class="sig-paren">(</span><em>inside_plrs</em>, <em>outside_plrs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/processor.html#Processor.get_legend_entries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.processor.Processor.get_legend_entries" title="Permalink to this definition">¶</a></dt>
+<dd><p>We need to apply the right legend entries to each plr record which is intersecting the real estate.
+This means to make a topic wise grouping and find every legend entry which is on one hand not the same
+type code as the intersecting plr itself and on the other hand the same type code as the non
+intersecting one. We finally need to attach all this criteria matching legend entries to <em>the</em>
+intersecting one.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inside_plrs</strong> (<em>list of pyramid_oereb.lib.records.plr.PlrRecord</em>) &#8211; The PLR&#8217;s which are intersecting
+the real estate</li>
+<li><strong>outside_plrs</strong> (<em>list of pyramid_oereb.lib.records.plr.PlrRecord</em>) &#8211; The PLR&#8217;s which are in the BBOX
+of the view but not intersecting the real estate</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>The updated records with the hopefully correct</dt>
+<dd><p class="first last">legend entries assigned.</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of pyramid_oereb.lib.records.plr.PlrRecord</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="pyramid_oereb.lib.processor.Processor.glossary_reader">
 <code class="descname">glossary_reader</code><a class="headerlink" href="#pyramid_oereb.lib.processor.Processor.glossary_reader" title="Permalink to this definition">¶</a></dt>
@@ -1436,7 +1471,7 @@ estate for which the last update date of the base data should be indicated</td>
 
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.plr.PlrRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.plr.</code><code class="descname">PlrRecord</code><span class="sig-paren">(</span><em>theme</em>, <em>content</em>, <em>legal_state</em>, <em>published_from</em>, <em>responsible_office</em>, <em>subtopic=None</em>, <em>additional_topic=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>view_service=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>geometries=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit=u'm'</em>, <em>area_unit=u'm2'</em>, <em>length_precision=2</em>, <em>area_precision=2</em>, <em>percentage_precision=1</em>, <em>symbol=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/plr.html#PlrRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.plr.</code><code class="descname">PlrRecord</code><span class="sig-paren">(</span><em>theme</em>, <em>content</em>, <em>legal_state</em>, <em>published_from</em>, <em>responsible_office</em>, <em>symbol</em>, <em>subtopic=None</em>, <em>additional_topic=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>view_service=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>geometries=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit=u'm'</em>, <em>area_unit=u'm2'</em>, <em>length_precision=2</em>, <em>area_precision=2</em>, <em>percentage_precision=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/plr.html#PlrRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt id="pyramid_oereb.lib.records.plr.PlrRecord.area">
 <code class="descname">area</code><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.area" title="Permalink to this definition">¶</a></dt>
@@ -1792,6 +1827,24 @@ Estate record.</td>
 <dd><p><em>pyramid_oereb.lib.records.image.ImageRecord or None</em> &#8211; Binary image content downloaded from WMS link.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="pyramid_oereb.lib.records.view_service.ViewServiceRecord.unique_update_legends">
+<code class="descname">unique_update_legends</code><span class="sig-paren">(</span><em>legend</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord.unique_update_legends"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord.unique_update_legends" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Uniquely append a legend to the legend entries. It checks if a legend entry with the same type code</dt>
+<dd>already exists in the legends of this instance.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>legend</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.view_service.LegendEntryRecord" title="pyramid_oereb.lib.records.view_service.LegendEntryRecord"><em>pyramid_oereb.lib.records.view_service.LegendEntryRecord</em></a>) &#8211; The legend entry which
+should be append to the list.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1902,9 +1955,10 @@ The multi geometry will be extracted to it&#8217;s sub parts for operation.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>db_path</strong> (<em>str</em>) &#8211; The point separated string of schema_name.table_name.column_name from which we can
-construct a correct SQL statement.</li>
-<li><strong>real_estate_geometry</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The shapely geometry representation which is used for comparison.</li>
+<li><strong>db_path</strong> (<em>str</em>) &#8211; The point separated string of schema_name.table_name.column_name from
+which we can construct a correct SQL statement.</li>
+<li><strong>real_estate_geometry</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The shapely geometry
+representation which is used for comparison.</li>
 </ul>
 </td>
 </tr>
@@ -1914,7 +1968,7 @@ construct a correct SQL statement.</li>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">sqlalchemy.sql.elements.BooleanClauseList</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last">HTTPBadRequest</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">HTTPBadRequest</span></code></p>
 </td>
 </tr>
 </tbody>
@@ -1939,14 +1993,24 @@ construct a correct SQL statement.</li>
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/sources/plr.html#PlrStandardDatabaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>real_estate</em>, <em>bbox</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/sources/plr.html#PlrStandardDatabaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The read point which creates a extract, depending on a passed real estate.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real
-estate in its record representation.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>real_estate</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real
+estate in its record representation.</li>
+<li><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The bbox to search the records.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">TODO</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">TODO</p>
+</td>
 </tr>
 </tbody>
 </table>

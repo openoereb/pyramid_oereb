@@ -126,15 +126,18 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">real_estate</span> <span class="o">=</span> <span class="n">extract</span><span class="o">.</span><span class="n">real_estate</span>
-        <span class="n">tested_plrs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">inside_plrs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">outside_plrs</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">for</span> <span class="n">public_law_restriction</span> <span class="ow">in</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">public_law_restriction</span><span class="p">,</span> <span class="n">PlrRecord</span><span class="p">):</span>
                 <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="n">real_estate</span><span class="p">)</span>
                 <span class="c1"># Test if the geometries list is now empty - if so remove plr from plr list</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">public_law_restriction</span><span class="o">.</span><span class="n">geometries</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">published</span><span class="p">:</span>
-                    <span class="n">tested_plrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter_published_documents</span><span class="p">(</span><span class="n">public_law_restriction</span><span class="p">))</span>
-        <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span> <span class="o">=</span> <span class="n">tested_plrs</span>
+                <span class="k">if</span> <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="n">real_estate</span><span class="p">)</span> <span class="ow">and</span> <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">published</span><span class="p">:</span>
+                    <span class="n">inside_plrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter_published_documents</span><span class="p">(</span><span class="n">public_law_restriction</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">outside_plrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">public_law_restriction</span><span class="p">)</span>
+        <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_legend_entries</span><span class="p">(</span><span class="n">inside_plrs</span><span class="p">,</span> <span class="n">outside_plrs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">extract</span></div>
 
     <span class="nd">@staticmethod</span>
@@ -144,12 +147,13 @@
 <span class="sd">            * construction of the correct url (link_wms) depending on the real estate</span>
 <span class="sd">            * downloading of the image if parameter was set</span>
 
-<span class="sd">        :param real_estate: The real estate record to be updated.</span>
-<span class="sd">        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord</span>
-<span class="sd">        :param images: Switch whether the images should be downloaded or not.</span>
-<span class="sd">        :type images: bool</span>
-<span class="sd">        :return: The updated extract.</span>
-<span class="sd">        :rtype: pyramid_oereb.lib.records.real_estate.RealEstateRecord</span>
+<span class="sd">        Args:</span>
+<span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord):</span>
+<span class="sd">                The real estate record to be updated.</span>
+<span class="sd">            images (bool): Switch whether the images should be downloaded or not.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.real_estate.RealEstateRecord: The updated extract.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: uncomment this when issue GSOREB-194 is solved.</span>
         <span class="c1"># extract.real_estate.plan_for_land_register.get_full_wms_url(extract.real_estate)</span>
@@ -160,6 +164,47 @@
             <span class="k">if</span> <span class="n">images</span><span class="p">:</span>
                 <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">download_wms_content</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">real_estate</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Processor.get_legend_entries"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor.get_legend_entries">[docs]</a>    <span class="k">def</span> <span class="nf">get_legend_entries</span><span class="p">(</span><span class="n">inside_plrs</span><span class="p">,</span> <span class="n">outside_plrs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        We need to apply the right legend entries to each plr record which is intersecting the real estate.</span>
+<span class="sd">        This means to make a topic wise grouping and find every legend entry which is on one hand not the same</span>
+<span class="sd">        type code as the intersecting plr itself and on the other hand the same type code as the non</span>
+<span class="sd">        intersecting one. We finally need to attach all this criteria matching legend entries to *the*</span>
+<span class="sd">        intersecting one.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            inside_plrs (list of pyramid_oereb.lib.records.plr.PlrRecord): The PLR&#39;s which are intersecting</span>
+<span class="sd">                the real estate</span>
+<span class="sd">            outside_plrs (list of pyramid_oereb.lib.records.plr.PlrRecord): The PLR&#39;s which are in the BBOX</span>
+<span class="sd">                of the view but not intersecting the real estate</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list of pyramid_oereb.lib.records.plr.PlrRecord: The updated records with the hopefully correct</span>
+<span class="sd">                legend entries assigned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># for each plr which has intersection with the real estate</span>
+        <span class="k">for</span> <span class="n">inside_plr</span> <span class="ow">in</span> <span class="n">inside_plrs</span><span class="p">:</span>
+            <span class="c1"># we clean its related legend entries, because it has its own entry stored via its symbol</span>
+            <span class="c1">#  attribute</span>
+            <span class="n">inside_plr</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">legends</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="c1"># for every plr outside of the real estate</span>
+            <span class="k">for</span> <span class="n">outside_plr</span> <span class="ow">in</span> <span class="n">outside_plrs</span><span class="p">:</span>
+                <span class="c1"># we check if it is belonging to the same theme</span>
+                <span class="k">if</span> <span class="n">inside_plr</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="n">outside_plr</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">:</span>
+                    <span class="c1"># if it is we look up every legend related to this outside plr</span>
+                    <span class="k">for</span> <span class="n">legend</span> <span class="ow">in</span> <span class="n">outside_plr</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">legends</span><span class="p">:</span>
+                        <span class="c1"># we check if the legend type code is not the same as the intersected plr ones and</span>
+                        <span class="c1"># the legend type code is the same as the outside plr ones</span>
+                        <span class="k">if</span> <span class="n">inside_plr</span><span class="o">.</span><span class="n">type_code</span> <span class="o">!=</span> <span class="n">legend</span><span class="o">.</span><span class="n">type_code</span> <span class="ow">and</span> \
+                                        <span class="n">outside_plr</span><span class="o">.</span><span class="n">type_code</span> <span class="o">==</span> <span class="n">legend</span><span class="o">.</span><span class="n">type_code</span><span class="p">:</span>
+                            <span class="c1"># at this point we have a legend entry which has different type code then the</span>
+                            <span class="c1"># intersecting plr, but before we can append this we need to check if a item is</span>
+                            <span class="c1"># already in the list. Therefor we use a self made method.</span>
+                            <span class="n">inside_plr</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">unique_update_legends</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">inside_plrs</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">real_estate_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -235,8 +280,13 @@
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">municipality</span><span class="o">.</span><span class="n">published</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">NotImplementedError</span>  <span class="c1"># TODO: improve message</span>
                 <span class="n">extract_raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_reader_</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="n">municipality</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+                <span class="c1"># the selection of view services will be done whilst tolerance check. This enables us to take</span>
+                <span class="c1"># care about the circumstance that after tolerance check plrs will be dismissed which were</span>
+                <span class="c1"># recognized as intersecting before. To avoid this the tolerance check is gathering all plrs</span>
+                <span class="c1"># intersecting and not intersecting and starts the legend entry sorting after.</span>
                 <span class="n">extract</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plr_tolerance_check</span><span class="p">(</span><span class="n">extract_raw</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">view_service_handling</span><span class="p">(</span><span class="n">extract</span><span class="o">.</span><span class="n">real_estate</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">images</span><span class="p">)</span>
+
                 <span class="n">extract</span><span class="o">.</span><span class="n">exclusions_of_liability</span> <span class="o">=</span> <span class="n">exclusions_of_liability</span>
                 <span class="n">extract</span><span class="o">.</span><span class="n">glossaries</span> <span class="o">=</span> <span class="n">glossaries</span>
                 <span class="k">return</span> <span class="n">extract</span>

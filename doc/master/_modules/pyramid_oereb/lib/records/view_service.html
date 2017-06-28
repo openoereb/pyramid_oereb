@@ -108,7 +108,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">legends</span> <span class="o">=</span> <span class="n">legends</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_get_bbox</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="n">map_size</span><span class="p">,</span> <span class="n">print_buffer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_bbox</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="n">map_size</span><span class="p">,</span> <span class="n">print_buffer</span><span class="p">):</span>
         <span class="n">width_buffer</span> <span class="o">=</span> <span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">print_buffer</span> <span class="o">/</span> <span class="mi">100</span>
         <span class="n">height_buffer</span> <span class="o">=</span> <span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">print_buffer</span> <span class="o">/</span> <span class="mi">100</span>
         <span class="n">print_bounds</span> <span class="o">=</span> <span class="p">[</span>
@@ -147,7 +147,7 @@
 
         <span class="n">print_conf</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_object_path</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;map_size&#39;</span><span class="p">,</span> <span class="s1">&#39;buffer&#39;</span><span class="p">])</span>
         <span class="n">map_size</span> <span class="o">=</span> <span class="n">print_conf</span><span class="p">[</span><span class="s1">&#39;map_size&#39;</span><span class="p">]</span>
-        <span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_bbox</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">,</span> <span class="n">map_size</span><span class="p">,</span> <span class="n">print_conf</span><span class="p">[</span><span class="s1">&#39;buffer&#39;</span><span class="p">])</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_bbox</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">,</span> <span class="n">map_size</span><span class="p">,</span> <span class="n">print_conf</span><span class="p">[</span><span class="s1">&#39;buffer&#39;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">link_wms</span> <span class="o">=</span> <span class="n">add_url_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">link_wms</span><span class="p">,</span> <span class="p">{</span>
             <span class="s2">&quot;BBOX&quot;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">bbox</span><span class="p">]),</span>
             <span class="s2">&quot;SRS&quot;</span><span class="p">:</span> <span class="s1">&#39;EPSG:</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">))</span>
@@ -179,7 +179,24 @@
             <span class="n">dedicated_msg</span> <span class="o">=</span> <span class="s2">&quot;URL seems to be not valid. URL was: </span><span class="si">{url}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">link_wms</span><span class="p">)</span>
             <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">main_msg</span><span class="p">)</span>
             <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span></div></div>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ViewServiceRecord.unique_update_legends"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.view_service.ViewServiceRecord.unique_update_legends">[docs]</a>    <span class="k">def</span> <span class="nf">unique_update_legends</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legend</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Uniquely append a legend to the legend entries. It checks if a legend entry with the same type code</span>
+<span class="sd">         already exists in the legends of this instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            legend (pyramid_oereb.lib.records.view_service.LegendEntryRecord): The legend entry which</span>
+<span class="sd">                should be append to the list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">already_exist</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">legends</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">type_code</span> <span class="o">==</span> <span class="n">legend</span><span class="o">.</span><span class="n">type_code</span><span class="p">:</span>
+                <span class="n">already_exist</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">already_exist</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">legends</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>
