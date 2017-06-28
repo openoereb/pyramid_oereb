@@ -24,11 +24,11 @@ and may also be used in a windows environment.
 ### ...on Linux
 
 Requirements:
--   git
--   python
--   virutalenv
--   docker
--   make
+-   [Git](https://git-scm.com/)
+-   [Python](https://www.python.org/)
+-   [Virutalenv](https://virtualenv.pypa.io/en/stable/)
+-   [Docker](https://docker.com/)
+-   [make](https://www.gnu.org/software/make/)
 
 After installing the listed requirements, clone the repository and enter its directory.
 ```
