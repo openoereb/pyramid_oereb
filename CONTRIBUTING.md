@@ -2,14 +2,13 @@ Contributing to pyramid_oereb
 =============================
 
 
-Table of contents
------------------
-
-- [Create a local development instance](#create-a-local-development-instance)
-    - [...on Linux](#on-linux)
-    - [...on Windows](#on-windows)
-        - [Update existing pyramid_oereb package](#update-existing-pyramid_oereb-package)
-- [Documentation style](#documentation-style)
+> **Table of contents**
+>
+> - [Create a local development instance](#create-a-local-development-instance)
+>     - [...on Linux](#on-linux)
+>     - [...on Windows](#on-windows)
+>         - [Update existing pyramid_oereb package](#update-existing-pyramid_oereb-package)
+> - [Documentation style](#documentation-style)
 
 
 
