@@ -3,12 +3,16 @@ import warnings
 
 
 class ExclusionOfLiabilityRecord(object):
+    """
+    Represents a exclusion of liability entry with the label and it's message.
 
+    Args:
+        title (dict of unicode): The multilingual disclaimer message label
+        content (dict of unicode): The multilingual disclaimer message.
+    """
     def __init__(self, title, content):
         """
-        Represents a exclusion of liability entry with the label and it's message.
-
-        Args:
+        Attributes:
             title (dict of unicode): The multilingual disclaimer message label
             content (dict of unicode): The multilingual disclaimer message.
         """
