@@ -34,6 +34,12 @@ for module in modules:
 underline = ['-', '`', '\'', '.', '~', '*']
 %>
 
+.. toctree::
+   :caption: Contents:
+   :hidden:
+
+   api.lib.readers
+
 %for module in modules:
 %if module != 'pyramid_oereb':
 .. _api-${module.replace('.', '-').lower()}:

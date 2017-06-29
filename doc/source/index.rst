@@ -12,7 +12,7 @@ pyramid_oereb (ÖREB-Server) documentation
 
    installation
    configuration
-   api
+   api/index
 
 ``pyramid_oereb`` is an open-source implementation of the server side
 part for the swiss `"Cadastre of Public-law Restrictions on
