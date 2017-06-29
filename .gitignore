@@ -76,3 +76,6 @@ pyramid_oereb.yml
 /logo_oereb.png
 /logo_confederation.png
 /logo_sample.png
+/doc/source/api/readers.rst
+/doc/source/api/records.rst
+/doc/source/api/sources.rst
