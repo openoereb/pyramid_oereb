@@ -22,7 +22,7 @@ In order to install and run an instance of ``pyramid_oereb``, the following requ
 
 2.  **A running Database:**
     For the standard configuration you need a running database with a role, which is allow to create schemata
-    and tables and to manipulate data. We recommend to use PostgreSQL with PostGIS, but theoretically use
+    and tables and to manipulate data. We recommend to use PostgreSQL with PostGIS, but theoretically you
     should be able to use any spatial database, that is supported by `SQLAlchemy
     <https://www.sqlalchemy.org/>`__ and `GeoAlchemy 2 <https://geoalchemy-2.readthedocs.io/en/latest/>`__.
 
