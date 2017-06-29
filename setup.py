@@ -31,7 +31,8 @@ requires = [
     'jsonschema',
     'pyreproj',
     'lxml',
-    'generateDS'
+    'generateDS',
+    'requests'
 ]
 
 setup(
