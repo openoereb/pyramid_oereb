@@ -40,7 +40,8 @@ You can set up the virtual environment using `make install` and run the unit tes
 
 Create an empty database using docker.
 ```
-docker run --name postgis-oereb -e POSTGRES_PASSWORD=password -e POSTGRES_DB=pyramid_oereb --net host -d mdillon/postgis:9.4-alpine
+docker run --name postgis-oereb -e POSTGRES_PASSWORD=password -e POSTGRES_DB=pyramid_oereb \
+--net host -d mdillon/postgis:9.4-alpine
 ```
 Now you can use `docker container start/stop/restart postgis-oereb` to control your database. Ensure the database is running.
 
