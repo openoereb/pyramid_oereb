@@ -3,14 +3,14 @@ import base64
 
 
 class ImageRecord(object):
+    """
+    The record to hold the binary information of a image.
 
+    Args:
+        content (binary): The binary information of this image as binary string.
+    """
     def __init__(self, content):
-        """
-        The record to hold the binary information of a image.
 
-        Args:
-            content (binary): The binary information of this image as binary string.
-        """
         self.content = content
 
     def encode(self):

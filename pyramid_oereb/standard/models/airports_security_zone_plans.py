@@ -73,6 +73,27 @@ class Office(Base):
     city = sa.Column(sa.String, nullable=True)
 
 
+class DataIntegration(Base):
+    """
+    The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+    able to find out who was the delivering instance.
+
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        date (datetime.date): The date when this data set was delivered.
+        office_id (int): A foreign key which points to the actual office instance.
+        office (pyramid_oereb.standard.models.airports_security_zone_plans.Office):
+            The actual office instance which the id points to.
+    """
+    __table_args__ = {'schema': 'airports_security_zone_plans'}
+    __tablename__ = 'data_integration'
+    id = sa.Column(sa.Integer, primary_key=True)
+    date = sa.Column(sa.DateTime, nullable=False)
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(Office.id), nullable=False)
+    office = relationship(Office)
+
+
 class ReferenceDefinition(Base):  # TODO: Check translation
     """
     The meta bucket for definitions which are directly related to a public law restriction in a common way or

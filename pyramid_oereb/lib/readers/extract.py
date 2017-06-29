@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
-
+import datetime
 from pyramid.path import DottedNameResolver
+
+from shapely.geometry import box
+
 from pyramid_oereb.lib.config import Config
+from pyramid_oereb.lib.records.embeddable import EmbeddableRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.plr import PlrRecord, EmptyPlrRecord
+from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 
 
 class ExtractReader(object):
@@ -81,33 +86,54 @@ class ExtractReader(object):
         """
         assert isinstance(municipality_logo, ImageRecord)
 
+        print_conf = Config.get_object_path('print', required=['map_size', 'buffer'])
+        bbox = ViewServiceRecord.get_bbox(real_estate.limit,
+                                          print_conf['map_size'], print_conf['buffer'])
+        bbox = box(bbox[0], bbox[1], bbox[2], bbox[3])
+
         for plr_source in self._plr_sources_:
             if params.skip_topic(plr_source.info.get('code')):
                 continue
-            plr_source.read(real_estate)
+            real_estate.public_law_restrictions.extend(plr_source.read(real_estate, bbox))
 
         concerned_themes = list()
         not_concerned_themes = list()
         themes_without_data = list()
+        themes = list()
         for plr in real_estate.public_law_restrictions:
-            if isinstance(plr, PlrRecord):
-                contained = False
-                for theme in concerned_themes:
-                    if theme.code == plr.theme.code:
-                        contained = True
-                if not contained:
-                    concerned_themes.append(plr.theme)
-            elif isinstance(plr, EmptyPlrRecord):
-                if plr.has_data:
-                    not_concerned_themes.append(plr.theme)
-                else:
-                    themes_without_data.append(plr.theme)
+            # filter topics due to topics parameter
+            if not params.skip_topic(plr.theme.code):
+                themes.append(plr.theme)
+                if isinstance(plr, PlrRecord):
+                    contained = False
+                    for theme in concerned_themes:
+                        if theme.code == plr.theme.code:
+                            contained = True
+                    if not contained:
+                        concerned_themes.append(plr.theme)
+                elif isinstance(plr, EmptyPlrRecord):
+                    if plr.has_data:
+                        not_concerned_themes.append(plr.theme)
+                    else:
+                        themes_without_data.append(plr.theme)
 
         # Load base data form configuration
         resolver = DottedNameResolver()
-        date_method_string = Config.get('extract').get('base_data').get('date_mehod')
+        date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
         date_method = resolver.resolve(date_method_string)
-        base_data = Config.get_base_data(date_method(real_estate))
+        av_update_date = date_method(real_estate)
+        base_data = Config.get_base_data(av_update_date)
+
+        av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
+        av_provider_method = resolver.resolve(av_provider_method_string)
+        cadaster_state = datetime.datetime.now()
+        embeddable = EmbeddableRecord(
+            cadaster_state,
+            self.plr_cadastre_authority,
+            av_provider_method(real_estate),
+            av_update_date,
+            themes
+        )
 
         self.extract = ExtractRecord(
             real_estate,
@@ -117,6 +143,7 @@ class ExtractReader(object):
             municipality_logo,
             self.plr_cadastre_authority,
             base_data,
+            embeddable,
             concerned_theme=concerned_themes,
             not_concerned_theme=not_concerned_themes,
             theme_without_data=themes_without_data

@@ -30,7 +30,7 @@ class Processor(object):
                 The exclusion of liability reader instance for runtime use.
             glossary_reader (pyramid_oereb.lib.readers.glossary.GlossaryReader): The glossary
                 reader instance for runtime use.
-            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource): The
+            plr_sources (list of pyramid_oereb.standard.sources.plr.PlrStandardDatabaseSource): The
                 public law restriction source instances for runtime use wrapped in a list.
             extract_reader (pyramid_oereb.lib.readers.extract.ExtractReader): The extract reader
                 instance for runtime use.
@@ -81,15 +81,18 @@ class Processor(object):
         """
 
         real_estate = extract.real_estate
-        tested_plrs = []
+        inside_plrs = []
+        outside_plrs = []
 
         for public_law_restriction in real_estate.public_law_restrictions:
             if isinstance(public_law_restriction, PlrRecord):
                 public_law_restriction.calculate(real_estate)
                 # Test if the geometries list is now empty - if so remove plr from plr list
-                if len(public_law_restriction.geometries) > 0 and public_law_restriction.published:
-                    tested_plrs.append(self.filter_published_documents(public_law_restriction))
-        real_estate.public_law_restrictions = tested_plrs
+                if public_law_restriction.calculate(real_estate) and public_law_restriction.published:
+                    inside_plrs.append(self.filter_published_documents(public_law_restriction))
+                else:
+                    outside_plrs.append(public_law_restriction)
+        real_estate.public_law_restrictions = self.get_legend_entries(inside_plrs, outside_plrs)
         return extract
 
     @staticmethod
@@ -99,12 +102,13 @@ class Processor(object):
             * construction of the correct url (link_wms) depending on the real estate
             * downloading of the image if parameter was set
 
-        :param real_estate: The real estate record to be updated.
-        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord
-        :param images: Switch whether the images should be downloaded or not.
-        :type images: bool
-        :return: The updated extract.
-        :rtype: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord):
+                The real estate record to be updated.
+            images (bool): Switch whether the images should be downloaded or not.
+
+        Returns:
+            pyramid_oereb.lib.records.real_estate.RealEstateRecord: The updated extract.
         """
         # TODO: uncomment this when issue GSOREB-194 is solved.
         # extract.real_estate.plan_for_land_register.get_full_wms_url(extract.real_estate)
@@ -115,6 +119,47 @@ class Processor(object):
             if images:
                 public_law_restriction.view_service.download_wms_content()
         return real_estate
+
+    @staticmethod
+    def get_legend_entries(inside_plrs, outside_plrs):
+        """
+        We need to apply the right legend entries to each plr record which is intersecting the real estate.
+        This means to make a topic wise grouping and find every legend entry which is on one hand not the same
+        type code as the intersecting plr itself and on the other hand the same type code as the non
+        intersecting one. We finally need to attach all this criteria matching legend entries to *the*
+        intersecting one.
+
+        Args:
+            inside_plrs (list of pyramid_oereb.lib.records.plr.PlrRecord): The PLR's which are intersecting
+                the real estate
+            outside_plrs (list of pyramid_oereb.lib.records.plr.PlrRecord): The PLR's which are in the BBOX
+                of the view but not intersecting the real estate
+        Returns:
+            list of pyramid_oereb.lib.records.plr.PlrRecord: The updated records with the hopefully correct
+                legend entries assigned.
+        """
+
+        # for each plr which has intersection with the real estate
+        for inside_plr in inside_plrs:
+            # we clean its related legend entries, because it has its own entry stored via its symbol
+            #  attribute
+            inside_plr.view_service.legends = []
+            # for every plr outside of the real estate
+            for outside_plr in outside_plrs:
+                # we check if it is belonging to the same theme
+                if inside_plr.theme.code == outside_plr.theme.code:
+                    # if it is we look up every legend related to this outside plr
+                    for legend in outside_plr.view_service.legends:
+                        # we check if the legend type code is not the same as the intersected plr ones and
+                        # the legend type code is the same as the outside plr ones
+                        if inside_plr.type_code != legend.type_code and \
+                                        outside_plr.type_code == legend.type_code:
+                            # at this point we have a legend entry which has different type code then the
+                            # intersecting plr, but before we can append this we need to check if a item is
+                            # already in the list. Therefor we use a self made method.
+                            inside_plr.view_service.unique_update_legends(legend)
+
+        return inside_plrs
 
     @property
     def real_estate_reader(self):
@@ -190,8 +235,13 @@ class Processor(object):
                 if not municipality.published:
                     raise NotImplementedError  # TODO: improve message
                 extract_raw = self._extract_reader_.read(real_estate, municipality.logo, params)
+                # the selection of view services will be done whilst tolerance check. This enables us to take
+                # care about the circumstance that after tolerance check plrs will be dismissed which were
+                # recognized as intersecting before. To avoid this the tolerance check is gathering all plrs
+                # intersecting and not intersecting and starts the legend entry sorting after.
                 extract = self.plr_tolerance_check(extract_raw)
                 self.view_service_handling(extract.real_estate, params.images)
+
                 extract.exclusions_of_liability = exclusions_of_liability
                 extract.glossaries = glossaries
                 return extract

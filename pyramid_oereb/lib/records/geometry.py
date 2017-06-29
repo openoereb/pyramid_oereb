@@ -8,27 +8,26 @@ log = logging.getLogger('pyramid_oereb')
 
 
 class GeometryRecord(object):
+    """
+    Geometry record
 
+    Args:
+        legal_state (unicode): The PLR record's legal state.
+        published_from (datetime.date): Date from/since when the PLR record is published.
+        geom (Point or LineString or Polygon or MultiPolygon):
+            The geometry which must be of type POINT, LINESTRING or POLYGON, everything else
+             will raise an error.
+        geo_metadata (uri): The metadata.
+        public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law
+            restriction
+        office (pyramid_oereb.lib.records.office.Office): The office
+
+    Raises:
+        AttributeError: Error when a wrong geometry type was passed.
+    """
     def __init__(
             self, legal_state, published_from, geom, geo_metadata=None, public_law_restriction=None,
             office=None):
-        """
-        Geometry record
-
-        Args:
-            legal_state (unicode): The PLR record's legal state.
-            published_from (datetime.date): Date from/since when the PLR record is published.
-            geom (Point or LineString or Polygon or MultiPolygon):
-                The geometry which must be of type POINT, LINESTRING or POLYGON, everything else
-                 will raise an error.
-            geo_metadata (uri): The metadata.
-            public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law
-                restriction
-            office (pyramid_oereb.lib.records.office.Office): The office
-
-        Raises:
-            AttributeError: Error when a wrong geometry type was passed.
-        """
 
         self.legal_state = legal_state
         self.published_from = published_from

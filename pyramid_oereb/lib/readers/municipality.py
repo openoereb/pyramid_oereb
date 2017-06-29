@@ -3,12 +3,13 @@ from pyramid.path import DottedNameResolver
 
 
 class MunicipalityReader(object):
+    """
+    The central reader accessor for municipalities inside the application.
+    """
 
     def __init__(self, dotted_source_class_path, **params):
 
         """
-        The central reader accessor for municipalities inside the application.
-
         Args:
             dotted_source_class_path
                 (strorpyramid_oereb.lib.sources.municipality.MunicipalityBaseSource): The

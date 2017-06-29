@@ -5104,7 +5104,7 @@
     "content": {
       "de": "Belastet, weder überwachungs- noch sanierungsbedürftig"
     },
-    "type_code": "StaoTyp2",
+    "type_code": "StaoTyp",
     "id": 427,
     "published_from": "2016-02-25",
     "view_service_id": 1,
@@ -5128,7 +5128,7 @@
     "content": {
       "de": "Belastet, weder überwachungs- noch sanierungsbedürftig"
     },
-    "type_code": "StaoTyp2",
+    "type_code": "Stao",
     "id": 429,
     "published_from": "2013-03-10",
     "view_service_id": 1,

@@ -3,11 +3,12 @@ from pyramid.path import DottedNameResolver
 
 
 class GlossaryReader(object):
+    """
+    The central reader for the glossary definitions inside the application.
+    """
 
     def __init__(self, dotted_source_class_path, **params):
         """
-        The central reader for the glossary definitions inside the application.
-
         Args:
             dotted_source_class_path
                 (strorpyramid_oereb.lib.sources.glossary.GlossaryBaseSource): The path to

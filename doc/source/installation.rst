@@ -77,6 +77,9 @@ connection string for your database:
 You could also integrate this configuration into an existing YAML file, but we suggest to keep it
 separated because it is already very complex on its own.
 
+.. note:: Not familiar with YAML? Please have a look at its `specification
+   <http://www.yaml.org/spec/1.2/spec.html>`__.
+
 
 .. _installation-step-database:
 
