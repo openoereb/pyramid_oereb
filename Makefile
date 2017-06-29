@@ -66,6 +66,7 @@ $(SPHINXBUILD): .venv/requirements-timestamp
 
 .PHONY: doc
 doc: $(SPHINXBUILD)
+	$(VENV_BIN)python setup.py develop
 	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 .PHONY: tests-setup-db
