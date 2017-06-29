@@ -12,7 +12,7 @@ pyramid_oereb (ÖREB-Server) documentation
 
    installation
    configuration
-   api/index
+   core/index
    faq
 
 ``pyramid_oereb`` is an open-source implementation of the server side

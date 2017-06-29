@@ -40,20 +40,20 @@ extensions = [
     'sphinxcontrib.napoleon',
 ]
 
-with open('api/readers.rst', 'w') as readers:
+with open('core/readers.rst', 'w') as readers:
     readers.write(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
-        'api/readers.rst.mako']))
+        'core/readers.rst.mako']))
 
-with open('api/records.rst', 'w') as records:
+with open('core/records.rst', 'w') as records:
     records.write(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
-        'api/records.rst.mako']))
+        'core/records.rst.mako']))
 
-with open('api/sources.rst', 'w') as sources:
+with open('core/sources.rst', 'w') as sources:
     sources.write(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
-        'api/sources.rst.mako']))
+        'core/sources.rst.mako']))
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['doc/_buildtemplates']
