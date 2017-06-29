@@ -13,14 +13,22 @@ from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 
 
 class ExtractReader(object):
+    """
+    The class which generates *the extract* as a record
+    (:ref:`api-pyramid_oereb-lib-records-extract-extractrecord`). This is the point where all necessary
+    and extract related components are bound together.
+
+    Attributes:
+        extract (pyramid_oereb.lib.records.extract.ExtractRecord or None): The extract as a record
+            representation. On initialisation this is None. It will be set by calling the read method of the
+            instance.
+    """
 
     def __init__(self, plr_sources, plr_cadastre_authority, logos):
         """
-        The central reader accessor for the extract inside the application.
-
         Args:
-            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of configured PLR
-                source instances.
+            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of PLR source
+                instances which the achieved extract should be about.
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OffcieRecord): The authority responsible
                 for the PLR cadastre.
             logos (dict): The logos of confederation, canton and oereb wrapped in a ImageRecord.
@@ -44,6 +52,7 @@ class ExtractReader(object):
     @property
     def logo_plr_cadastre(self):
         """
+        The logo of the PLR-Cadastre.
 
         Returns:
             pyramid_oereb.lib.records.image.ImageRecord: The logo for oereb as a ImageRecord.
@@ -53,6 +62,7 @@ class ExtractReader(object):
     @property
     def federal_logo(self):
         """
+        The logo of the confederation.
 
         Returns:
             pyramid_oereb.lib.records.image.ImageRecord: The federal logo as a ImageRecord.
@@ -62,6 +72,7 @@ class ExtractReader(object):
     @property
     def cantonal_logo(self):
         """
+        The cantonal logo.
 
         Returns:
             pyramid_oereb.lib.records.image.ImageRecord: The cantonal logos as a ImageRecord.
@@ -70,7 +81,12 @@ class ExtractReader(object):
 
     def read(self, real_estate, municipality_logo, params):
         """
-        The central read accessor method to get all desired records from configured source.
+        This method finally creates the extract.
+
+        .. note:: If you subclass this class your implementation needs to offer this method in the same
+            signature. Means the parameters must be the same and the return must be a
+            :ref:`api-pyramid_oereb-lib-records-extract-extractrecord`. Otherwise the API like way the server
+            works would be broken.
 
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real

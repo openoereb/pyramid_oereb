@@ -16,7 +16,8 @@ class ExclusionOfLiabilityReader(object):
             dotted_source_class_path (str or
                 pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord):
                 The path to the class which represents the source used by this reader. This
-                class must exist and it must implement basic source behaviour.
+                class must exist and it must implement basic source behaviour of the
+                :ref:`api-pyramid_oereb-lib-sources-exclusion_of_liability-exclusionofliabilitybasesource`.
             (kwargs): kwargs, which are necessary as configuration parameter for the above by
                 dotted name defined class.
         """
@@ -25,11 +26,17 @@ class ExclusionOfLiabilityReader(object):
 
     def read(self):
         """
-        The central read accessor method to get all desired records from configured source.
+        The read method of this reader. There we invoke the read method of the bound source.
+
+        .. note:: If you subclass this class your implementation needs to offer this method in the same
+            signature. Means the parameters must be the same and the return must be a list of
+            :ref:`api-pyramid_oereb-lib-records-availability-availabilityrecord`. Otherwise the API like way
+            the server works would be broken.
 
         Returns:
             list of pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord: The list of
-                found records.
+                found records. Since these are not filtered by any criteria the list simply contains all
+                records delivered by the source.
         """
         self._source_.read()
         return self._source_.records
