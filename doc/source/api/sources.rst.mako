@@ -34,7 +34,7 @@ underline = ['-', '`', '\'', '.', '~', '*']
 
 
 %for cls in classes[module]:
-.. _api-${module.replace('.', '-').lower()}-${cls.lower()}}:
+.. _api-${module.replace('.', '-').lower()}-${cls.lower()}:
 
 *${cls}*
 ${re.sub('.', underline[0], 'Class   ' + cls)}
