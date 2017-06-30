@@ -52,10 +52,13 @@ Create your configuration file and load the sample data.
 .venv/bin/load_standard_sample_data -c pyramid_oereb_standard.yml
 ```
 
-To start a local server run `make serve`. It should be available unter http://localhost:6543/oereb/, e.g.
-http://localhost:6543/oereb/versions. To stop the server, press `CTRL` + `C`.
+To start a local server run `make serve`. It should be available unter http://localhost:6543/oereb/. To stop the server, press `CTRL` + `C`.
 
-> **NOTE:** The sample extract can be called for the EGRID "CH113928077734", e.g. http://localhost:6543/oereb/extract/reduced/json/CH113928077734.
+> **NOTE:** These sample requests should work, if you have loaded the sample data:
+> - http://localhost:6543/oereb/versions
+> - http://localhost:6543/oereb/capabilities
+> - http://localhost:6543/oereb/getegrid?XY=2608883,1261844
+> - http://localhost:6543/oereb/extract/reduced/xml/CH113928077734
 
 ### ...on Windows
 

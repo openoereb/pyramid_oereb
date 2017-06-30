@@ -15,7 +15,7 @@ from pyramid_oereb.lib.readers.municipality import MunicipalityReader
 from pyramid_oereb.lib.readers.real_estate import RealEstateReader
 from pyramid_oereb.lib.processor import Processor
 
-__version__ = '1.0.0-alpha.1'
+__version__ = '1.0.0-alpha.2'
 
 
 log = logging.getLogger('pyramid_oereb')
