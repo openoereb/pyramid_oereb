@@ -1,0 +1,490 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyramid_oereb.lib.processor &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="pyramid_oereb  documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyramid_oereb.lib.processor</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyramid_oereb.lib.processor</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm.exc</span> <span class="k">import</span> <span class="n">NoResultFound</span>
+
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.documents</span> <span class="k">import</span> <span class="n">DocumentRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.plr</span> <span class="k">import</span> <span class="n">PlrRecord</span>
+
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Processor"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor">[docs]</a><span class="k">class</span> <span class="nc">Processor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate_reader</span><span class="p">,</span> <span class="n">municipality_reader</span><span class="p">,</span> <span class="n">exclusion_of_liability_reader</span><span class="p">,</span>
+                 <span class="n">glossary_reader</span><span class="p">,</span> <span class="n">plr_sources</span><span class="p">,</span> <span class="n">extract_reader</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The Processor class is directly bound to the get_extract_by_id service in this application. It&#39;s task</span>
+<span class="sd">        is to unsnarl the difficult model of the oereb extract and handle all objects inside this extract</span>
+<span class="sd">        correctly. In addition it provides an easy to use method interface to access the information.</span>
+<span class="sd">        It is also used to wrap all accessors in one point to have a processing interface.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            real_estate_reader (pyramid_oereb.lib.readers.real_estate.RealEstateReader): The</span>
+<span class="sd">                real estate reader instance for runtime use.</span>
+<span class="sd">            municipality_reader (pyramid_oereb.lib.readers.municipality.MunicipalityReader): The</span>
+<span class="sd">                municipality reader instance for runtime use.</span>
+<span class="sd">            exclusion_of_liability_reader</span>
+<span class="sd">                (pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader):</span>
+<span class="sd">                The exclusion of liability reader instance for runtime use.</span>
+<span class="sd">            glossary_reader (pyramid_oereb.lib.readers.glossary.GlossaryReader): The glossary</span>
+<span class="sd">                reader instance for runtime use.</span>
+<span class="sd">            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource): The</span>
+<span class="sd">                public law restriction source instances for runtime use wrapped in a list.</span>
+<span class="sd">            extract_reader (pyramid_oereb.lib.readers.extract.ExtractReader): The extract reader</span>
+<span class="sd">                instance for runtime use.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_real_estate_reader_</span> <span class="o">=</span> <span class="n">real_estate_reader</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_municipality_reader_</span> <span class="o">=</span> <span class="n">municipality_reader</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_exclusion_of_liability_reader_</span> <span class="o">=</span> <span class="n">exclusion_of_liability_reader</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_glossary_reader_</span> <span class="o">=</span> <span class="n">glossary_reader</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span> <span class="o">=</span> <span class="n">plr_sources</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_extract_reader_</span> <span class="o">=</span> <span class="n">extract_reader</span>
+
+<div class="viewcode-block" id="Processor.filter_published_documents"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor.filter_published_documents">[docs]</a>    <span class="k">def</span> <span class="nf">filter_published_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Filter only published documents.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            record (pyramid_oereb.lib.records.plr.PlrRecord or</span>
+<span class="sd">                pyramid_oereb.lib.records.documents.DocumentRecord): The public law restriction or</span>
+<span class="sd">                document record.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">published_docs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">PlrRecord</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">record</span><span class="o">.</span><span class="n">documents</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">doc</span><span class="o">.</span><span class="n">published</span><span class="p">:</span>
+                    <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_published_documents</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+                    <span class="n">published_docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+            <span class="n">record</span><span class="o">.</span><span class="n">documents</span> <span class="o">=</span> <span class="n">published_docs</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">DocumentRecord</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">record</span><span class="o">.</span><span class="n">references</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">doc</span><span class="o">.</span><span class="n">published</span><span class="p">:</span>
+                    <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_published_documents</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+                    <span class="n">published_docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+            <span class="n">record</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="n">published_docs</span>
+        <span class="k">return</span> <span class="n">record</span></div>
+
+<div class="viewcode-block" id="Processor.plr_tolerance_check"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor.plr_tolerance_check">[docs]</a>    <span class="k">def</span> <span class="nf">plr_tolerance_check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extract</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The function checking if the found plr results exceed the minimal surface or length</span>
+<span class="sd">        value defined in the configuration and should therefor be represented in the extract</span>
+<span class="sd">        or considered &#39;false trues&#39; and be removed from the results.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            extract (pyramid_oereb.lib.records.extract.ExtractRecord): The extract in it&#39;s</span>
+<span class="sd">                unvalidated form</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.extract.ExtractRecord: Returns the updated extract</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">real_estate</span> <span class="o">=</span> <span class="n">extract</span><span class="o">.</span><span class="n">real_estate</span>
+        <span class="n">inside_plrs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">outside_plrs</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">public_law_restriction</span> <span class="ow">in</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">public_law_restriction</span><span class="p">,</span> <span class="n">PlrRecord</span><span class="p">):</span>
+                <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="n">real_estate</span><span class="p">)</span>
+                <span class="c1"># Test if the geometries list is now empty - if so remove plr from plr list</span>
+                <span class="k">if</span> <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="n">real_estate</span><span class="p">)</span> <span class="ow">and</span> <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">published</span><span class="p">:</span>
+                    <span class="n">inside_plrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter_published_documents</span><span class="p">(</span><span class="n">public_law_restriction</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">outside_plrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">public_law_restriction</span><span class="p">)</span>
+        <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_legend_entries</span><span class="p">(</span><span class="n">inside_plrs</span><span class="p">,</span> <span class="n">outside_plrs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">extract</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Processor.view_service_handling"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor.view_service_handling">[docs]</a>    <span class="k">def</span> <span class="nf">view_service_handling</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="n">images</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles all view service related stuff. In the moment this is:</span>
+<span class="sd">            * construction of the correct url (link_wms) depending on the real estate</span>
+<span class="sd">            * downloading of the image if parameter was set</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord):</span>
+<span class="sd">                The real estate record to be updated.</span>
+<span class="sd">            images (bool): Switch whether the images should be downloaded or not.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.real_estate.RealEstateRecord: The updated extract.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: uncomment this when issue GSOREB-194 is solved.</span>
+        <span class="c1"># extract.real_estate.plan_for_land_register.get_full_wms_url(extract.real_estate)</span>
+        <span class="c1"># if images:</span>
+        <span class="c1"># extract.real_estate.plan_for_land_register.download_wms_content()</span>
+        <span class="k">for</span> <span class="n">public_law_restriction</span> <span class="ow">in</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="p">:</span>
+            <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">get_full_wms_url</span><span class="p">(</span><span class="n">real_estate</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">images</span><span class="p">:</span>
+                <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">download_wms_content</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">real_estate</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Processor.get_legend_entries"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor.get_legend_entries">[docs]</a>    <span class="k">def</span> <span class="nf">get_legend_entries</span><span class="p">(</span><span class="n">inside_plrs</span><span class="p">,</span> <span class="n">outside_plrs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        We need to apply the right legend entries to each plr record which is intersecting the real estate.</span>
+<span class="sd">        This means to make a topic wise grouping and find every legend entry which is on one hand not the same</span>
+<span class="sd">        type code as the intersecting plr itself and on the other hand the same type code as the non</span>
+<span class="sd">        intersecting one. We finally need to attach all this criteria matching legend entries to *the*</span>
+<span class="sd">        intersecting one.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            inside_plrs (list of pyramid_oereb.lib.records.plr.PlrRecord): The PLR&#39;s which are intersecting</span>
+<span class="sd">                the real estate</span>
+<span class="sd">            outside_plrs (list of pyramid_oereb.lib.records.plr.PlrRecord): The PLR&#39;s which are in the BBOX</span>
+<span class="sd">                of the view but not intersecting the real estate</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list of pyramid_oereb.lib.records.plr.PlrRecord: The updated records with the hopefully correct</span>
+<span class="sd">                legend entries assigned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># for each plr which has intersection with the real estate</span>
+        <span class="k">for</span> <span class="n">inside_plr</span> <span class="ow">in</span> <span class="n">inside_plrs</span><span class="p">:</span>
+            <span class="c1"># we clean its related legend entries, because it has its own entry stored via its symbol</span>
+            <span class="c1">#  attribute</span>
+            <span class="n">inside_plr</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">legends</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="c1"># for every plr outside of the real estate</span>
+            <span class="k">for</span> <span class="n">outside_plr</span> <span class="ow">in</span> <span class="n">outside_plrs</span><span class="p">:</span>
+                <span class="c1"># we check if it is belonging to the same theme</span>
+                <span class="k">if</span> <span class="n">inside_plr</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="n">outside_plr</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">:</span>
+                    <span class="c1"># if it is we look up every legend related to this outside plr</span>
+                    <span class="k">for</span> <span class="n">legend</span> <span class="ow">in</span> <span class="n">outside_plr</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">legends</span><span class="p">:</span>
+                        <span class="c1"># we check if the legend type code is not the same as the intersected plr ones and</span>
+                        <span class="c1"># the legend type code is the same as the outside plr ones</span>
+                        <span class="k">if</span> <span class="n">inside_plr</span><span class="o">.</span><span class="n">type_code</span> <span class="o">!=</span> <span class="n">legend</span><span class="o">.</span><span class="n">type_code</span> <span class="ow">and</span> \
+                                        <span class="n">outside_plr</span><span class="o">.</span><span class="n">type_code</span> <span class="o">==</span> <span class="n">legend</span><span class="o">.</span><span class="n">type_code</span><span class="p">:</span>
+                            <span class="c1"># at this point we have a legend entry which has different type code then the</span>
+                            <span class="c1"># intersecting plr, but before we can append this we need to check if a item is</span>
+                            <span class="c1"># already in the list. Therefor we use a self made method.</span>
+                            <span class="n">inside_plr</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">unique_update_legends</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">inside_plrs</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">real_estate_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.readers.real_estate.RealEstateReader: The real estate reader</span>
+<span class="sd">            instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_real_estate_reader_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">municipality_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.readers.municipality.MunicipalityReader: The municipality reader</span>
+<span class="sd">            reader instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_municipality_reader_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">exclusion_of_liability_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader:</span>
+<span class="sd">            The exclusion of liability reader reader instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exclusion_of_liability_reader_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">glossary_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.readers.glossary.GlossaryReader: The glossary reader reader</span>
+<span class="sd">            instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_glossary_reader_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">plr_sources</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource: The list of plr</span>
+<span class="sd">            source instances.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">extract_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.readers.extract.ExtractReader: The extract reader instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_reader_</span>
+
+<div class="viewcode-block" id="Processor.process"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Central processing method to hook in from webservice.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real</span>
+<span class="sd">                estate reader to obtain the real estates record.</span>
+<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract</span>
+<span class="sd">                request.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.extract.ExtractRecord: The generated extract record.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">municipalities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_municipality_reader_</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">exclusions_of_liability</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exclusion_of_liability_reader_</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">glossaries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_glossary_reader_</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">municipality</span> <span class="ow">in</span> <span class="n">municipalities</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">municipality</span><span class="o">.</span><span class="n">fosnr</span> <span class="o">==</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">fosnr</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">municipality</span><span class="o">.</span><span class="n">published</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">NotImplementedError</span>  <span class="c1"># TODO: improve message</span>
+                <span class="n">extract_raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_reader_</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="n">municipality</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+                <span class="c1"># the selection of view services will be done whilst tolerance check. This enables us to take</span>
+                <span class="c1"># care about the circumstance that after tolerance check plrs will be dismissed which were</span>
+                <span class="c1"># recognized as intersecting before. To avoid this the tolerance check is gathering all plrs</span>
+                <span class="c1"># intersecting and not intersecting and starts the legend entry sorting after.</span>
+                <span class="n">extract</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plr_tolerance_check</span><span class="p">(</span><span class="n">extract_raw</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">view_service_handling</span><span class="p">(</span><span class="n">extract</span><span class="o">.</span><span class="n">real_estate</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">images</span><span class="p">)</span>
+
+                <span class="n">extract</span><span class="o">.</span><span class="n">exclusions_of_liability</span> <span class="o">=</span> <span class="n">exclusions_of_liability</span>
+                <span class="n">extract</span><span class="o">.</span><span class="n">glossaries</span> <span class="o">=</span> <span class="n">glossaries</span>
+                <span class="k">return</span> <span class="n">extract</span>
+        <span class="k">raise</span> <span class="n">NoResultFound</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, pyramid_oereb devs.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: v1.0.0-alpha.2
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="../../../../0.0.1/index.html">0.0.1</a></dd>
+            <dd><a href="processor.html">v1.0.0-alpha.2</a></dd>
+        </dl>
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="../../../../master/index.html">master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

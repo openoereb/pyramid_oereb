@@ -1,50 +1,166 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyramid_oereb.views.webservice &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>pyramid_oereb.views.webservice &#8212; OEREB  documentation</title>
-    
-    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
     <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="pyramid_oereb  documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body role="document">
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../../../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyramid_oereb.views.webservice</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <h1>Source code for pyramid_oereb.views.webservice</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="k">import</span> <span class="n">HTTPBadRequest</span><span class="p">,</span> <span class="n">HTTPNoContent</span><span class="p">,</span> <span class="n">HTTPServerError</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="k">import</span> <span class="n">HTTPBadRequest</span><span class="p">,</span> <span class="n">HTTPNoContent</span><span class="p">,</span> <span class="n">HTTPServerError</span><span class="p">,</span> <span class="n">HTTPNotFound</span>
+<span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="k">import</span> <span class="n">DottedNameResolver</span>
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">Point</span>
 <span class="kn">from</span> <span class="nn">pyramid.renderers</span> <span class="k">import</span> <span class="n">render_to_response</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.orm.exc</span> <span class="k">import</span> <span class="n">NoResultFound</span>
@@ -55,14 +171,17 @@
 <span class="kn">from</span> <span class="nn">pyreproj</span> <span class="k">import</span> <span class="n">Reprojector</span>
 
 
-<div class="viewcode-block" id="PlrWebservice"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.views.webservice.PlrWebservice">[docs]</a><span class="k">class</span> <span class="nc">PlrWebservice</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This class provides the PLR webservice methods.</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span>
 
-<span class="sd">        :param request: The pyramid request instance.</span>
-<span class="sd">        :type request:  pyramid.request.Request or pyramid.testing.DummyRequest</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="PlrWebservice"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.views.webservice.PlrWebservice">[docs]</a><span class="k">class</span> <span class="nc">PlrWebservice</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class provides the PLR webservice methods.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">pyramid_oereb_processor</span><span class="p">,</span> <span class="n">Processor</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">HTTPServerError</span><span class="p">(</span><span class="s1">&#39;Missing processor instance&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_request_</span> <span class="o">=</span> <span class="n">request</span>
@@ -73,8 +192,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the available versions of this service.</span>
 
-<span class="sd">        :return: The available service versions.</span>
-<span class="sd">        :rtype:  dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The available service versions.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">endpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_</span><span class="o">.</span><span class="n">application_url</span>
         <span class="k">if</span> <span class="n">route_prefix</span><span class="p">:</span>
@@ -94,8 +213,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the capabilities of this service.</span>
 
-<span class="sd">        :return: The service capabilities.</span>
-<span class="sd">        :rtype:  dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The service capabilities.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">themes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_themes</span><span class="p">():</span>
@@ -123,8 +242,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list with the matched EGRIDs for the given coordinates.</span>
 
-<span class="sd">        :return: The matched EGRIDs.</span>
-<span class="sd">        :rtype:  list of dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list of dict: The matched EGRIDs.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">xy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span>
         <span class="n">gnss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;GNSS&#39;</span><span class="p">)</span>
@@ -144,8 +263,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list with the matched EGRIDs for the given NBIdent and property number.</span>
 
-<span class="sd">        :return: The matched EGRIDs.</span>
-<span class="sd">        :rtype:  list of dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list of dict: The matched EGRIDs.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">identdn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_</span><span class="o">.</span><span class="n">matchdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;identdn&#39;</span><span class="p">)</span>
         <span class="n">number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_</span><span class="o">.</span><span class="n">matchdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;number&#39;</span><span class="p">)</span>
@@ -162,8 +281,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list with the matched EGRIDs for the given postal address.</span>
 
-<span class="sd">        :return: The matched EGRIDs.</span>
-<span class="sd">        :rtype:  list of dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list of dict: The matched EGRIDs.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">postalcode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_</span><span class="o">.</span><span class="n">matchdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;postalcode&#39;</span><span class="p">)</span>
         <span class="n">localisation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_</span><span class="o">.</span><span class="n">matchdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;localisation&#39;</span><span class="p">)</span>
@@ -178,8 +297,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the extract in the specified format and flavour.</span>
 
-<span class="sd">        :return: The requested extract.</span>
-<span class="sd">        :rtype:  dict</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The requested extract.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__validate_extract_params__</span><span class="p">()</span>
         <span class="n">processor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_</span><span class="o">.</span><span class="n">pyramid_oereb_processor</span>
@@ -224,10 +343,9 @@
                     <span class="n">request</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_request_</span>
                 <span class="p">)</span>
             <span class="k">elif</span> <span class="n">params</span><span class="o">.</span><span class="n">format</span> <span class="o">==</span> <span class="s1">&#39;pdf&#39;</span><span class="p">:</span>
-                <span class="c1"># TODO: implement way to produce pdf</span>
                 <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span>
-                    <span class="s1">&#39;string&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;Not implemented by now...&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;pyramid_oereb_extract_print&#39;</span><span class="p">,</span>
+                    <span class="p">(</span><span class="n">extract</span><span class="p">,</span> <span class="n">params</span><span class="p">),</span>
                     <span class="n">request</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_request_</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -239,8 +357,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Validates the input parameters for get_extract_by_id.</span>
 
-<span class="sd">        :return: The validated parameters.</span>
-<span class="sd">        :rtype: pyramid_oereb.views.webservice.Parameter</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.views.webservice.Parameter: The validated parameters.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Check flavour</span>
@@ -312,12 +430,13 @@
 <span class="sd">        Transforms the specified coordinates from the specified CRS to the configured target CRS and creates a</span>
 <span class="sd">        point geometry.</span>
 
-<span class="sd">        :param coord: The coordinates to transform (x, y).</span>
-<span class="sd">        :type coord: tuple</span>
-<span class="sd">        :param source_crs: The source CRS</span>
-<span class="sd">        :type source_crs: int or str</span>
-<span class="sd">        :return: The transformed coordinates as Point.</span>
-<span class="sd">        :rtype: shapely.geometry.Point or shapely.geometry.Polygon</span>
+<span class="sd">        Args:</span>
+<span class="sd">            coord (tuple): The coordinates to transform (x, y).</span>
+<span class="sd">            source_crs (intorstr): The source CRS</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            shapely.geometry.Point or shapely.geometry.Polygon: The transformed coordinates as</span>
+<span class="sd">            Point.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">epsg</span> <span class="o">=</span> <span class="s1">&#39;epsg:</span><span class="si">{0}</span><span class="s1">&#39;</span>
         <span class="n">srid</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">)</span>
@@ -329,10 +448,12 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a valid GetEGRID response from a list of real estate records.</span>
 
-<span class="sd">        :param records: List of real estate records.</span>
-<span class="sd">        :type records: list of pyramid_oereb.lib.records.real_estate.RealEstateRecord</span>
-<span class="sd">        :return: Valid GetEGRID response.</span>
-<span class="sd">        :rtype: list of dict</span>
+<span class="sd">        Args:</span>
+<span class="sd">            records (list of pyramid_oereb.lib.records.real_estate.RealEstateRecord): List of real</span>
+<span class="sd">                estate records.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list of dict: Valid GetEGRID response.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">response</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
@@ -348,13 +469,14 @@
 <span class="sd">        Parses the coordinates from the XY parameter, transforms them to target CRS and creates a point</span>
 <span class="sd">        geometry. If a buffer distance is defined, a buffer with the specified distance will be applied.</span>
 
-<span class="sd">        :param xy: XY parameter from the getegrid request.</span>
-<span class="sd">        :type xy: str</span>
-<span class="sd">        :param buffer_dist: Distance for the buffer applied to the transformed point.</span>
-<span class="sd">                            If None, no buffer will be applied.</span>
-<span class="sd">        :type buffer_dist: float or None</span>
-<span class="sd">        :return: The transformed coordinates as Point.</span>
-<span class="sd">        :rtype: shapely.geometry.Point or shapely.geometry.Polygon</span>
+<span class="sd">        Args:</span>
+<span class="sd">            xy (str): XY parameter from the getegrid request.</span>
+<span class="sd">            buffer_dist (float or None): Distance for the buffer applied to the transformed</span>
+<span class="sd">                point.If None, no buffer will be applied.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            shapely.geometry.Point or shapely.geometry.Polygon: The transformed coordinates as</span>
+<span class="sd">            Point.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">coords</span> <span class="o">=</span> <span class="n">xy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -373,10 +495,12 @@
 <span class="sd">        Parses the coordinates from the GNSS parameter, transforms them to target CRS and creates a Point with</span>
 <span class="sd">        a 1 meter buffer.</span>
 
-<span class="sd">        :param gnss: GNSS parameter from the getegrid request.</span>
-<span class="sd">        :type gnss: str</span>
-<span class="sd">        :return: The transformed coordinates as Point.</span>
-<span class="sd">        :rtype: shapely.geometry.Point or shapely.geometry.Polygon</span>
+<span class="sd">        Args:</span>
+<span class="sd">            gnss (str): GNSS parameter from the getegrid request.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            shapely.geometry.Point or shapely.geometry.Polygon: The transformed coordinates as</span>
+<span class="sd">            Point.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">coords</span> <span class="o">=</span> <span class="n">gnss</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -390,24 +514,16 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a new parameter instance.</span>
 
-<span class="sd">        :param flavour: The extract flavour.</span>
-<span class="sd">        :type flavour: str</span>
-<span class="sd">        :param format: The extract format.</span>
-<span class="sd">        :type format: str</span>
-<span class="sd">        :param geometry: Extract with/without geometry.</span>
-<span class="sd">        :type geometry: bool</span>
-<span class="sd">        :param images: Extract with/without images.</span>
-<span class="sd">        :type images: bool</span>
-<span class="sd">        :param identdn: The IdentDN as real estate identifier.</span>
-<span class="sd">        :type identdn: str</span>
-<span class="sd">        :param number: The parcel number as real estate identifier.</span>
-<span class="sd">        :type number: str</span>
-<span class="sd">        :param egrid: The EGRID as real estate identifier.</span>
-<span class="sd">        :type egrid: str</span>
-<span class="sd">        :param language: The requested language.</span>
-<span class="sd">        :type language: str</span>
-<span class="sd">        :param topics: The list of requested topics.</span>
-<span class="sd">        :type topics: list of str</span>
+<span class="sd">        Args:</span>
+<span class="sd">            flavour (str): The extract flavour.</span>
+<span class="sd">            format (str): The extract format.</span>
+<span class="sd">            geometry (bool): Extract with/without geometry.</span>
+<span class="sd">            images (bool): Extract with/without images.</span>
+<span class="sd">            identdn (str): The IdentDN as real estate identifier.</span>
+<span class="sd">            number (str): The parcel number as real estate identifier.</span>
+<span class="sd">            egrid (str): The EGRID as real estate identifier.</span>
+<span class="sd">            language (str): The requested language.</span>
+<span class="sd">            topics (list of str): The list of requested topics.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__flavour__</span> <span class="o">=</span> <span class="n">flavour</span>
         <span class="bp">self</span><span class="o">.</span><span class="fm">__format__</span> <span class="o">=</span> <span class="nb">format</span>
@@ -423,8 +539,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates the IdentDN.</span>
 
-<span class="sd">        :param identdn: The IdentDN as real estate identifier.</span>
-<span class="sd">        :type identdn: str</span>
+<span class="sd">        Args:</span>
+<span class="sd">            identdn (str): The IdentDN as real estate identifier.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__identdn__</span> <span class="o">=</span> <span class="n">identdn</span></div>
 
@@ -432,8 +548,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates the parcel number.</span>
 
-<span class="sd">        :param number: The parcel number as real estate identifier.</span>
-<span class="sd">        :type number: str</span>
+<span class="sd">        Args:</span>
+<span class="sd">            number (str): The parcel number as real estate identifier.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__number__</span> <span class="o">=</span> <span class="n">number</span></div>
 
@@ -441,8 +557,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates the EGRID.</span>
 
-<span class="sd">        :param egrid: The EGRID as real estate identifier.</span>
-<span class="sd">        :type egrid: str</span>
+<span class="sd">        Args:</span>
+<span class="sd">            egrid (str): The EGRID as real estate identifier.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__egrid__</span> <span class="o">=</span> <span class="n">egrid</span></div>
 
@@ -450,8 +566,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates the language.</span>
 
-<span class="sd">        :param language: The requested language.</span>
-<span class="sd">        :type language: str</span>
+<span class="sd">        Args:</span>
+<span class="sd">            language (str): The requested language.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__language__</span> <span class="o">=</span> <span class="n">language</span></div>
 
@@ -459,89 +575,80 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates the requested topics.</span>
 
-<span class="sd">        :param topics: The list of requested topics.</span>
-<span class="sd">        :type topics: list of str</span>
+<span class="sd">        Args:</span>
+<span class="sd">            topics (list of str): The list of requested topics.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__topics__</span> <span class="o">=</span> <span class="n">topics</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">flavour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :return: The requested flavour.</span>
-<span class="sd">        :rtype: str</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The requested flavour.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__flavour__</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :return: The requested format.</span>
-<span class="sd">        :rtype: str</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The requested format.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__format__</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :return: Extract requested with geometries.</span>
-<span class="sd">        :rtype: bool</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: Extract requested with geometries.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__geometry__</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">images</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :return: Extract requested with images.</span>
-<span class="sd">        :rtype: bool</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: Extract requested with images.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__images__</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">identdn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :return: The requested IdentDN.</span>
-<span class="sd">        :rtype: str</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The requested IdentDN.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__identdn__</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :return: The requested number.</span>
-<span class="sd">        :rtype: str</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The requested number.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__number__</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">egrid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :return: The requested EGRID.</span>
-<span class="sd">        :rtype: str</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The requested EGRID.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__egrid__</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">language</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :return: The requested language.</span>
-<span class="sd">        :rtype: str</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The requested language.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__language__</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">topics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :return: The requested topics.</span>
-<span class="sd">        :rtype: list of str</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list of str: The requested topics.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__topics__</span>
 
@@ -549,10 +656,11 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if the topic should be skipped in extract.</span>
 
-<span class="sd">        :param theme_code: The PLR theme code.</span>
-<span class="sd">        :type theme_code: str</span>
-<span class="sd">        :return: True if the topic should be skipped.</span>
-<span class="sd">        :rtype: bool</span>
+<span class="sd">        Args:</span>
+<span class="sd">            theme_code (str): The PLR theme code.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the topic should be skipped.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">topics</span> <span class="ow">or</span> <span class="s1">&#39;ALL&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">topics</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
@@ -561,52 +669,163 @@
         <span class="k">if</span> <span class="s1">&#39;ALL_FEDERAL&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">topics</span> <span class="ow">and</span> <span class="n">theme_code</span> <span class="ow">in</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_all_federal</span><span class="p">():</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="kc">True</span></div></div>
+
+
+<div class="viewcode-block" id="Logo"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.views.webservice.Logo">[docs]</a><span class="k">class</span> <span class="nc">Logo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Webservice to deliver logo images.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request_</span> <span class="o">=</span> <span class="n">request</span>
+
+<div class="viewcode-block" id="Logo.get_image"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.views.webservice.Logo.get_image">[docs]</a>    <span class="k">def</span> <span class="nf">get_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a response containing the binary image content using the configured &quot;get_logo_method&quot;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid.response.Response: Response containing the binary image content.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;get_logo_method&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">method</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">method</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request_</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;&quot;get_logo_method&quot; not found&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">HTTPNotFound</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="Municipality"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.views.webservice.Municipality">[docs]</a><span class="k">class</span> <span class="nc">Municipality</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Webservice to deliver municipality images.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request_</span> <span class="o">=</span> <span class="n">request</span>
+
+<div class="viewcode-block" id="Municipality.get_image"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.views.webservice.Municipality.get_image">[docs]</a>    <span class="k">def</span> <span class="nf">get_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a response containing the binary image content using the configured &quot;get_municipality_method&quot;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid.response.Response: Response containing the binary image content.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;get_municipality_method&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">method</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">method</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request_</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;&quot;get_municipality_method&quot; not found&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">HTTPNotFound</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="Symbol"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.views.webservice.Symbol">[docs]</a><span class="k">class</span> <span class="nc">Symbol</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Webservice to deliver legend entry images.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request_</span> <span class="o">=</span> <span class="n">request</span>
+
+<div class="viewcode-block" id="Symbol.get_image"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.views.webservice.Symbol.get_image">[docs]</a>    <span class="k">def</span> <span class="nf">get_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a response containing the binary image content using the configured &quot;get_symbol_method&quot;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid.response.Response: Response containing the binary image content.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">dnr</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">plr</span> <span class="ow">in</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request_</span><span class="o">.</span><span class="n">matchdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;theme_code&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="n">method</span> <span class="o">=</span> <span class="n">dnr</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;get_symbol_method&#39;</span><span class="p">))</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">method</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request_</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;&quot;get_symbol_method&quot; not found&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">HTTPNotFound</span><span class="p">()</span></div></div>
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, pyramid_oereb devs.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../../index.html">Documentation overview</a><ul>
-  <li><a href="../../index.html">Module code</a><ul>
-  <li><a href="../../pyramid_oereb.html">pyramid_oereb</a><ul>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-<h3>Versions</h3>
-<ul>
-    <li><a href="../../../master/_modules/pyramid_oereb/views/webservice.html">master</a></li>
-</ul>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, pyramid_oereb devs.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: v1.0.0-alpha.2
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="../../../0.0.1/index.html">0.0.1</a></dd>
+            <dd><a href="../../../v1.0.0-alpha.2/_modules/pyramid_oereb/views/webservice.html">v1.0.0-alpha.2</a></dd>
+        </dl>
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="../../../master/index.html">master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

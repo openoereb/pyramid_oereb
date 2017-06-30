@@ -1,46 +1,160 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyramid_oereb.standard.models.main &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>pyramid_oereb.standard.models.main &#8212; OEREB  documentation</title>
-    
-    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
     <link rel="stylesheet" href="../../../../_static/banner.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../../',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <link rel="index" title="Index" href="../../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../../search.html" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="pyramid_oereb  documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body role="document">
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../../../../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyramid_oereb.standard.models.main</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <h1>Source code for pyramid_oereb.standard.models.main</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
@@ -73,6 +187,7 @@
 <span class="kn">import</span> <span class="nn">sqlalchemy</span> <span class="k">as</span> <span class="nn">sa</span>
 <span class="kn">from</span> <span class="nn">geoalchemy2</span> <span class="k">import</span> <span class="n">Geometry</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="k">import</span> <span class="n">declarative_base</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy_utils</span> <span class="k">import</span> <span class="n">JSONType</span>
 
 <span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models</span> <span class="k">import</span> <span class="n">NAMING_CONVENTION</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">app_schema_name</span><span class="p">,</span> <span class="n">srid</span>
@@ -93,25 +208,18 @@
 <span class="sd">    in your canton. This is used also in the applications process to check whether a municipality is published</span>
 <span class="sd">    or not.</span>
 
-<span class="sd">    :var fosnr: The identifier of the municipality. It is the commonly known id_bfs or as or nofs in the</span>
-<span class="sd">        french part.</span>
-<span class="sd">    :vartype fosnr: int</span>
-<span class="sd">    :var name: The Name of the municipality.</span>
-<span class="sd">    :vartype name: str</span>
-<span class="sd">    :var published: Switch whether a municipality is published or not. This has direct influence on extract</span>
-<span class="sd">        generation.</span>
-<span class="sd">    :vartype published: bool</span>
-<span class="sd">    :var logo: The emblem of the municipality as string but encoded by BaseCode64. Please refer to the</span>
-<span class="sd">        specification for more details about format and dimensons.</span>
-<span class="sd">    :vartype logo: str</span>
-<span class="sd">    :var geom: The geometry of municipality borders. For type information see geoalchemy2_.</span>
-
-<span class="sd">        .. _geoalchemy2: https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html</span>
-
-<span class="sd">        docs dependent on the configured type.</span>
-
-<span class="sd">        This concrete one is MULTIPOLYGON</span>
-<span class="sd">    :vartype geom: geoalchemy2.types.Geometry</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        fosnr (int): The identifier of the municipality. It is the commonly known id_bfs or as or</span>
+<span class="sd">            nofs in the  french part.</span>
+<span class="sd">        name (str): The Name of the municipality.</span>
+<span class="sd">        published (bool): Switch whether a municipality is published or not. This has direct</span>
+<span class="sd">            influence on extract  generation.</span>
+<span class="sd">        logo (str): The emblem of the municipality as string but encoded by BaseCode64. Please refer</span>
+<span class="sd">            to the  specification for more details about format and dimensons.</span>
+<span class="sd">        geom (geoalchemy2.types.Geometry): The geometry of municipality borders. For type</span>
+<span class="sd">            information see geoalchemy2_.  .. _geoalchemy2:</span>
+<span class="sd">            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the</span>
+<span class="sd">            configured type.  This concrete one is MULTIPOLYGON</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="n">app_schema_name</span><span class="p">}</span>
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;municipality&#39;</span>
@@ -127,40 +235,28 @@
 <span class="sd">    The container where you can throw in all the real estates this application should have access to, for</span>
 <span class="sd">    creating extracts.</span>
 
-<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
-<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
-<span class="sd">    :vartype id: int</span>
-<span class="sd">    :var identdn: The identifier on cantonal level.</span>
-<span class="sd">    :vartype identdn: str</span>
-<span class="sd">    :var number: The identifier on municipality level.</span>
-<span class="sd">    :vartype number: str</span>
-<span class="sd">    :var egrid: The identifier on federal level (the all unique one...)</span>
-<span class="sd">    :vartype egrid: str</span>
-<span class="sd">    :var type: The type of the real estate (This must base on DM01)</span>
-<span class="sd">    :vartype type: str</span>
-<span class="sd">    :var canton: Which canton this real estate is situated in (use official shortened Version here. e.g. &#39;BE&#39;)</span>
-<span class="sd">    :vartype canton: str</span>
-<span class="sd">    :var municipality: The name of the municipality this real estate is situated in.</span>
-<span class="sd">    :vartype municipality: str</span>
-<span class="sd">    :var subunit_of_land_register: The name of the maybe existing sub unit of land register if municipality in</span>
-<span class="sd">        combination with number does not offer a unique constraint. Else you can skip that.</span>
-<span class="sd">    :vartype subunit_of_land_register: str</span>
-<span class="sd">    :var fosnr: The identifier of the municipality. It is the commonly known id_bfs.</span>
-<span class="sd">    :vartype fosnr: int</span>
-<span class="sd">    :var metadata_of_geographical_base_data: A link to the metadata which this geometry is based on which is</span>
-<span class="sd">        delivering a machine readable response format (XML).</span>
-<span class="sd">    :vartype metadata_of_geographical_base_data: str</span>
-<span class="sd">    :var land_registry_area: The amount of the area of this real estate as it is declared in the land</span>
-<span class="sd">        registers information.</span>
-<span class="sd">    :vartype land_registry_area: str</span>
-<span class="sd">    :var limit: The geometry of real estates border. For type information see geoalchemy2_.</span>
-
-<span class="sd">        .. _geoalchemy2: https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html</span>
-
-<span class="sd">        docs dependent on the configured type.</span>
-
-<span class="sd">        This concrete one is MULTIPOLYGON</span>
-<span class="sd">    :vartype limit: geoalchemy2.types.Geometry</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">        identdn (str): The identifier on cantonal level.</span>
+<span class="sd">        number (str): The identifier on municipality level.</span>
+<span class="sd">        egrid (str): The identifier on federal level (the all unique one...)</span>
+<span class="sd">        type (str): The type of the real estate (This must base on DM01)</span>
+<span class="sd">        canton (str): Which canton this real estate is situated in (use official shortened Version</span>
+<span class="sd">            here. e.g. &#39;BE&#39;)</span>
+<span class="sd">        municipality (str): The name of the municipality this real estate is situated in.</span>
+<span class="sd">        subunit_of_land_register (str): The name of the maybe existing sub unit of land register if</span>
+<span class="sd">            municipality in  combination with number does not offer a unique constraint.</span>
+<span class="sd">            Else you can skip that.</span>
+<span class="sd">        fosnr (int): The identifier of the municipality. It is the commonly known id_bfs.</span>
+<span class="sd">        metadata_of_geographical_base_data (str): A link to the metadata which this geometry is</span>
+<span class="sd">            based on which is  delivering a machine readable response format (XML).</span>
+<span class="sd">        land_registry_area (str): The amount of the area of this real estate as it is declared in</span>
+<span class="sd">            the land  registers information.</span>
+<span class="sd">        limit (geoalchemy2.types.Geometry): The geometry of real estates border. For type</span>
+<span class="sd">            information see geoalchemy2_.  .. _geoalchemy2:</span>
+<span class="sd">            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the</span>
+<span class="sd">            configured type.  This concrete one is MULTIPOLYGON</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="n">app_schema_name</span><span class="p">}</span>
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;real_estate&#39;</span>
@@ -184,20 +280,14 @@
 <span class="sd">    webservice. This is a bypass for the moment. In the end it seems ways more flexible to bind a service here</span>
 <span class="sd">    but if you like you can use it.</span>
 
-<span class="sd">    :var street_name: The street name for this address.</span>
-<span class="sd">    :vartype street_name: unicode</span>
-<span class="sd">    :var street_number: The house number of this address.</span>
-<span class="sd">    :vartype street_number: str</span>
-<span class="sd">    :var zip_code: The ZIP code for this address.</span>
-<span class="sd">    :vartype zip_code: int</span>
-<span class="sd">    :var geom: The geometry of real estates border. For type information see geoalchemy2_.</span>
-
-<span class="sd">        .. _geoalchemy2: https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html</span>
-
-<span class="sd">        docs dependent on the configured type.</span>
-
-<span class="sd">        This concrete one is POINT</span>
-<span class="sd">    :vartype geom: geoalchemy2.types.Geometry</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        street_name (unicode): The street name for this address.</span>
+<span class="sd">        street_number (str): The house number of this address.</span>
+<span class="sd">        zip_code (int): The ZIP code for this address.</span>
+<span class="sd">        geom (geoalchemy2.types.Geometry): The geometry of real estates border. For type information</span>
+<span class="sd">            see geoalchemy2_.  .. _geoalchemy2:</span>
+<span class="sd">            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the</span>
+<span class="sd">            configured type.  This concrete one is POINT</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">sa</span><span class="o">.</span><span class="n">PrimaryKeyConstraint</span><span class="p">(</span><span class="s2">&quot;street_name&quot;</span><span class="p">,</span> <span class="s2">&quot;street_number&quot;</span><span class="p">,</span> <span class="s2">&quot;zip_code&quot;</span><span class="p">),</span>
@@ -214,19 +304,17 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The bucket you can throw all items you want to have in the extracts glossary as reading help.</span>
 
-<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
-<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
-<span class="sd">    :vartype id: int</span>
-<span class="sd">    :var title: The title or abbreviation of a glossary item.</span>
-<span class="sd">    :vartype title: str</span>
-<span class="sd">    :var content: The description or definition of a glossary item.</span>
-<span class="sd">    :vartype content: str</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">        title (str): The title or abbreviation of a glossary item.</span>
+<span class="sd">        content (str): The description or definition of a glossary item.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="n">app_schema_name</span><span class="p">}</span>
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;glossary&#39;</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">content</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">JSONType</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">JSONType</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ExclusionOfLiability"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.standard.models.main.ExclusionOfLiability">[docs]</a><span class="k">class</span> <span class="nc">ExclusionOfLiability</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
@@ -235,13 +323,11 @@
 <span class="sd">    webservice. This is a bypass for the moment. In the end it seems ways more flexible to bind a service here</span>
 <span class="sd">    but if you like you can use it.</span>
 
-<span class="sd">    :var id: The identifier. This is used in the database only and must not be set manually. If you</span>
-<span class="sd">        don&#39;t like it - don&#39;t care about.</span>
-<span class="sd">    :vartype id: int</span>
-<span class="sd">    :var title: The title which the exclusion of liability item has.</span>
-<span class="sd">    :vartype title: str</span>
-<span class="sd">    :var content: The content which the exclusion of liability item has.</span>
-<span class="sd">    :vartype content: str</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">        title (str): The title which the exclusion of liability item has.</span>
+<span class="sd">        content (str): The content which the exclusion of liability item has.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="n">app_schema_name</span><span class="p">}</span>
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;exclusion_of_liability&#39;</span>
@@ -250,50 +336,84 @@
     <span class="n">content</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, pyramid_oereb devs.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../../../index.html">Documentation overview</a><ul>
-  <li><a href="../../../index.html">Module code</a><ul>
-  <li><a href="../../../pyramid_oereb.html">pyramid_oereb</a><ul>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../../../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-<h3>Versions</h3>
-<ul>
-    <li><a href="../../../../master/_modules/pyramid_oereb/standard/models/main.html">master</a></li>
-</ul>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, pyramid_oereb devs.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: v1.0.0-alpha.2
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="../../../../0.0.1/index.html">0.0.1</a></dd>
+            <dd><a href="../../../../v1.0.0-alpha.2/_modules/pyramid_oereb/standard/models/main.html">v1.0.0-alpha.2</a></dd>
+        </dl>
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="../../../../master/index.html">master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

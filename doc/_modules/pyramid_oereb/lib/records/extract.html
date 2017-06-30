@@ -1,100 +1,229 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyramid_oereb.lib.records.extract &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>pyramid_oereb.lib.records.extract &#8212; OEREB  documentation</title>
-    
-    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
     <link rel="stylesheet" href="../../../../_static/banner.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../../',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <link rel="index" title="Index" href="../../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../../search.html" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="pyramid_oereb  documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body role="document">
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../../../../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyramid_oereb.lib.records.extract</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <h1>Source code for pyramid_oereb.lib.records.extract</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">uuid</span>
 
 
 <div class="viewcode-block" id="ExtractRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.extract.ExtractRecord">[docs]</a><span class="k">class</span> <span class="nc">ExtractRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c1"># Attributes calculated or defined while processing</span>
-    <span class="n">creation_date</span> <span class="o">=</span> <span class="kc">None</span>
+
     <span class="n">electronic_signature</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;unicode or None: Digital signature for the extract.&quot;&quot;&quot;</span>
+
     <span class="n">concerned_theme</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;list of pyramid_oereb.lib.records.theme.ThemeRecord: List of concerned themes.&quot;&quot;&quot;</span>
+
     <span class="n">not_concerned_theme</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;list of pyramid_oereb.lib.records.theme.ThemeRecord: List of not concerned themes.&quot;&quot;&quot;</span>
+
     <span class="n">theme_without_data</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">is_reduced</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="sd">&quot;&quot;&quot;list of pyramid_oereb.lib.records.theme.ThemeRecord: List of themes without data.&quot;&quot;&quot;</span>
+
     <span class="n">extract_identifier</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;unicode: The extract identifier (UUID).&quot;&quot;&quot;</span>
+
     <span class="n">qr_code</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">general_information</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">plr_cadastre_authority</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;binary or None: QR code for the extract as binary string.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">logo_plr_cadastre</span><span class="p">,</span> <span class="n">federal_logo</span><span class="p">,</span> <span class="n">cantonal_logo</span><span class="p">,</span> <span class="n">municipality_logo</span><span class="p">,</span>
-                 <span class="n">plr_cadastre_authority</span><span class="p">,</span> <span class="n">base_data</span><span class="p">,</span> <span class="n">exclusions_of_liability</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">glossaries</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">concerned_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">not_concerned_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">theme_without_data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">plr_cadastre_authority</span><span class="p">,</span> <span class="n">base_data</span><span class="p">,</span> <span class="n">embeddable</span><span class="p">,</span> <span class="n">exclusions_of_liability</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">glossaries</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">concerned_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">not_concerned_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">theme_without_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">general_information</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The extract base class.</span>
 
-<span class="sd">        :param real_estate: The real estate in its record representation.</span>
-<span class="sd">        :type real_estate: pyramid_oereb.lib.records.real_estate.RealEstateRecord</span>
-<span class="sd">        :param logo_plr_cadastre: Image file of the PLR logo</span>
-<span class="sd">        :type logo_plr_cadastre: pyramid_oereb.lib.records.logo.LogoRecord</span>
-<span class="sd">        :param federal_logo:Image file of the federal logo</span>
-<span class="sd">        :type federal_logo: pyramid_oereb.lib.records.logo.LogoRecord</span>
-<span class="sd">        :param cantonal_logo: Image file of the cantonal logo</span>
-<span class="sd">        :type cantonal_logo: pyramid_oereb.lib.records.logo.LogoRecord</span>
-<span class="sd">        :param municipality_logo: Image file of the municipality logo</span>
-<span class="sd">        :type municipality_logo: pyramid_oereb.lib.records.logo.LogoRecord</span>
-<span class="sd">        :param plr_cadastre_authority: The authority which is responsible for the PLR cadastre</span>
-<span class="sd">        :type plr_cadastre_authority: pyramid_oereb.lib.records.office.OfficeRecord</span>
-<span class="sd">        :param base_data: A list of basic data layers used by the extract. For instance the basic map from</span>
-<span class="sd">            swisstopo</span>
-<span class="sd">        :type base_data: list of dict of str</span>
-<span class="sd">        :param exclusions_of_liability: Exclusions of liability for the extract</span>
-<span class="sd">        :type exclusions_of_liability:</span>
-<span class="sd">            list of pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord</span>
-<span class="sd">        :param glossaries: Glossary for the extract</span>
-<span class="sd">        :type glossaries: list of pyramid_oereb.lib.records.glossary.GlossaryRecord</span>
-<span class="sd">        :param concerned_theme: Concerned themes.</span>
-<span class="sd">        :type concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord or None</span>
-<span class="sd">        :param not_concerned_theme: Not concerned themes.</span>
-<span class="sd">        :type not_concerned_theme: list of pyramid_oereb.lib.records.theme.ThemeRecord or None</span>
-<span class="sd">        :param theme_without_data: Themes without data.</span>
-<span class="sd">        :type theme_without_data: list of pyramid_oereb.lib.records.theme.ThemeRecord or None</span>
+<span class="sd">        Args:</span>
+<span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate in its</span>
+<span class="sd">                record representation.</span>
+<span class="sd">            logo_plr_cadastre (pyramid_oereb.lib.records.image.ImageRecord): Image file of the PLR logo.</span>
+<span class="sd">            federal_logo (pyramid_oereb.lib.records.image.ImageRecord):Image file of the federal logo.</span>
+<span class="sd">            cantonal_logo (pyramid_oereb.lib.records.image.ImageRecord): Image file of the cantonal logo.</span>
+<span class="sd">            municipality_logo (pyramid_oereb.lib.records.image.ImageRecord): Image file of the municipality</span>
+<span class="sd">                logo.</span>
+<span class="sd">            plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority which is</span>
+<span class="sd">                responsible for the PLR cadastre.</span>
+<span class="sd">            base_data (dict of unicode): A multilingual list of basic data layers used by the extract. For</span>
+<span class="sd">                instance the base map from swisstopo.</span>
+<span class="sd">            embeddable (pyramid_oereb.lib.records.embeddable.EmbeddableRecord):</span>
+<span class="sd">            exclusions_of_liability (list of</span>
+<span class="sd">                pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord): Exclusions of</span>
+<span class="sd">                liability for the extract.</span>
+<span class="sd">            glossaries (list of pyramid_oereb.lib.records.glossary.GlossaryRecord): Glossaries for the</span>
+<span class="sd">                extract.</span>
+<span class="sd">            concerned_theme (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Concerned themes.</span>
+<span class="sd">            not_concerned_theme (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Not concerned</span>
+<span class="sd">                themes.</span>
+<span class="sd">            theme_without_data (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Themes without</span>
+<span class="sd">                data.</span>
+<span class="sd">            general_information (dict of unicode): General information for the static extract as multilingual</span>
+<span class="sd">                text.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">base_data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;base_data&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">general_information</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">general_information</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;general_information&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">base_data</span> <span class="o">=</span> <span class="n">base_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embeddable</span> <span class="o">=</span> <span class="n">embeddable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">general_information</span> <span class="o">=</span> <span class="n">general_information</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extract_identifier</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">real_estate</span> <span class="o">=</span> <span class="n">real_estate</span>
         <span class="k">if</span> <span class="n">concerned_theme</span><span class="p">:</span>
@@ -109,7 +238,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">theme_without_data</span> <span class="o">=</span> <span class="n">theme_without_data</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">theme_without_data</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">creation_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">creation_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logo_plr_cadastre</span> <span class="o">=</span> <span class="n">logo_plr_cadastre</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">federal_logo</span> <span class="o">=</span> <span class="n">federal_logo</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cantonal_logo</span> <span class="o">=</span> <span class="n">cantonal_logo</span>
@@ -122,115 +251,87 @@
         <span class="k">if</span> <span class="n">glossaries</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">glossaries</span> <span class="o">=</span> <span class="n">glossaries</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">glossaries</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="ExtractRecord.get_fields"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.extract.ExtractRecord.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a list of available field names.</span>
-
-<span class="sd">        :return: List of available field names.</span>
-<span class="sd">        :rtype: list of str</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;extract_identifier&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;real_estate&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;not_concerned_theme&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;concerned_theme&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;theme_without_data&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;logo_plr_cadastre&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;creation_date&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;federal_logo&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;cantonal_logo&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;municipality_logo&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;plr_cadastre_authority&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;base_data&#39;</span>
-            <span class="s1">&#39;exclusions_of_liability&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;glossaries&#39;</span>
-        <span class="p">]</span></div>
-
-<div class="viewcode-block" id="ExtractRecord.to_extract"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.extract.ExtractRecord.to_extract">[docs]</a>    <span class="k">def</span> <span class="nf">to_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a dictionary with all available values needed for the extract.</span>
-
-<span class="sd">        :return: Dictionary with values for the extract.</span>
-<span class="sd">        :rtype: dict</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">extract</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span>
-            <span class="s1">&#39;extract_identifier&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;exclusions_of_liability&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;glossaries&#39;</span>
-        <span class="p">]:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
-                <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;real_estate&#39;</span>
-        <span class="n">record</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">record</span><span class="p">:</span>
-            <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">to_extract</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span>
-            <span class="s1">&#39;not_concerned_theme&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;concerned_theme&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;theme_without_data&#39;</span>
-        <span class="p">]:</span>
-            <span class="n">themes</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">themes</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">themes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">theme</span><span class="o">.</span><span class="n">to_extract</span><span class="p">()</span> <span class="k">for</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">themes</span><span class="p">]</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;creation_date&#39;</span>
-        <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;logo_plr_cadastre&#39;</span><span class="p">,</span> <span class="s1">&#39;federal_logo&#39;</span><span class="p">,</span> <span class="s1">&#39;cantonal_logo&#39;</span><span class="p">,</span> <span class="s1">&#39;municipality_logo&#39;</span><span class="p">]:</span>
-            <span class="n">extract</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">to_extract</span><span class="p">()</span>
-
-        <span class="k">return</span> <span class="n">extract</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">glossaries</span> <span class="o">=</span> <span class="p">[]</span></div>
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, pyramid_oereb devs.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../../../index.html">Documentation overview</a><ul>
-  <li><a href="../../../index.html">Module code</a><ul>
-  <li><a href="../../../pyramid_oereb.html">pyramid_oereb</a><ul>
-  <li><a href="../records.html">pyramid_oereb.lib.records</a><ul>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../../../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-<h3>Versions</h3>
-<ul>
-    <li><a href="../../../../master/_modules/pyramid_oereb/lib/records/extract.html">master</a></li>
-</ul>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, pyramid_oereb devs.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: v1.0.0-alpha.2
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="../../../../0.0.1/index.html">0.0.1</a></dd>
+            <dd><a href="../../../../v1.0.0-alpha.2/_modules/pyramid_oereb/lib/records/extract.html">v1.0.0-alpha.2</a></dd>
+        </dl>
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="../../../../master/index.html">master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>
