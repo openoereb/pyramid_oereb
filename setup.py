@@ -37,7 +37,7 @@ requires = [
 
 setup(
     name='pyramid_oereb',
-    version='1.0.0-alpha.1',
+    version='1.0.0-alpha.2',
     description='pyramid_oereb, extension for pyramid web frame work to provide '
             'a basic server part for the oereb project',
     long_description=DESCRIPTION,

@@ -1,6 +1,16 @@
 Changelog
 =========
 
+## 1.0.0-alpha.2
+
+* proceed with renderer for xml and json
+* add metadata for embeddable flavour
+* images accessible via URL
+* add configurable methods for processing
+* improve geometry handling
+* add documentation on https://camptocamp.github.io/pyramid_oereb/doc/
+* several bugfixes
+
 ## 1.0.0-alpha.1
 
 * first running approach of server
