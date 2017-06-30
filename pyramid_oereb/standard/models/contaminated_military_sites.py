@@ -73,6 +73,27 @@ class Office(Base):
     city = sa.Column(sa.String, nullable=True)
 
 
+class DataIntegration(Base):
+    """
+    The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
+    able to find out who was the delivering instance.
+
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        date (datetime.date): The date when this data set was delivered.
+        office_id (int): A foreign key which points to the actual office instance.
+        office (pyramid_oereb.standard.models.contaminated_military_sites.Office):
+            The actual office instance which the id points to.
+    """
+    __table_args__ = {'schema': 'contaminated_military_sites'}
+    __tablename__ = 'data_integration'
+    id = sa.Column(sa.Integer, primary_key=True)
+    date = sa.Column(sa.DateTime, nullable=False)
+    office_id = sa.Column(sa.Integer, sa.ForeignKey(Office.id), nullable=False)
+    office = relationship(Office)
+
+
 class ReferenceDefinition(Base):  # TODO: Check translation
     """
     The meta bucket for definitions which are directly related to a public law restriction in a common way or
@@ -264,7 +285,7 @@ class LegendEntry(Base):
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        file (str): An image with represents the legend entry. This can be png or svg. It is string
+        symbol (str): An image with represents the legend entry. This can be png or svg. It is string
             but BaseCode64  encoded.
         legend_text (dict): Multilingual text to describe this legend entry.
         type_code (str): Type code of the public law restriction which is represented by this legend
@@ -285,7 +306,7 @@ class LegendEntry(Base):
     __table_args__ = {'schema': 'contaminated_military_sites'}
     __tablename__ = 'legend_entry'
     id = sa.Column(sa.Integer, primary_key=True)
-    file = sa.Column(sa.String, nullable=False)
+    symbol = sa.Column(sa.String, nullable=False)
     legend_text = sa.Column(JSONType, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
@@ -385,7 +406,7 @@ class Geometry(Base):
         geom (geoalchemy2.types.Geometry): The geometry it's self. For type information see
             geoalchemy2_.  .. _geoalchemy2:
             https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
-            configured type.  This concrete one is POLYGON
+            configured type.  This concrete one is GEOMETRYCOLLECTION
     """
     __table_args__ = {'schema': 'contaminated_military_sites'}
     __tablename__ = 'geometry'
@@ -393,7 +414,7 @@ class Geometry(Base):
     legal_state = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     geo_metadata = sa.Column(sa.String, nullable=True)  # TODO: Check translation
-    geom = sa.Column(GeoAlchemyGeometry('POLYGON', srid=srid))
+    geom = sa.Column(GeoAlchemyGeometry('GEOMETRYCOLLECTION', srid=srid))
     public_law_restriction_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(PublicLawRestriction.id),

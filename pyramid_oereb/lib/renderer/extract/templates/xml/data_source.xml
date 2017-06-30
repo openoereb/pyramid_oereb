@@ -1,0 +1,11 @@
+<%page args="theme"/>
+<xsd:datasource>
+    <xsd:topic>
+        <xsd:Code>${theme.code}</xsd:Code>
+        <%include file="localized_text.xml" args="text=theme.text"/>
+    </xsd:topic>
+    %for source in theme.sources:
+        <xsd:dataownerName>${language(source.owner.name)[0].get('Text')}</xsd:dataownerName>
+        <xsd:transferFromSource>${source.date}</xsd:transferFromSource>
+    %endfor
+</xsd:datasource>

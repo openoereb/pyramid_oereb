@@ -1,0 +1,26 @@
+<%page args="geometry"/>
+%if 'Point' == geometry.type:
+    <%include file="geometry/point.xml" args="point=geometry"/>
+%elif 'MultiPoint' == geometry.type:
+    % for point in geometry.geoms:
+        <%include file="geometry/point.xml" args="point=geometry"/>
+    % endfor
+%elif 'LineString' == geometry.type:
+    <%include file="geometry/line.xml" args="line=geometry"/>
+%elif 'MultiLine' == geometry.type:
+    % for line in geometry.geoms:
+        <%include file="geometry/line.xml" args="line=geometry"/>
+    % endfor
+%elif 'Polygon' == geometry.type:
+    <xsd:Surface>
+        <%include file="geometry/polygon.xml" args="polygon=geometry"/>
+    </xsd:Surface>
+%elif 'MultiPolygon' == geometry.type:
+    <xsd:Surface>
+        %for polygon in geometry.geoms:
+            <%include file="geometry/polygon.xml" args="polygon=geometry"/>
+        %endfor
+    </xsd:Surface>
+% else:
+    <% raise TypeError('Passed geometry type is not defined: {type}'.format(type=geometry.type))%>
+%endif

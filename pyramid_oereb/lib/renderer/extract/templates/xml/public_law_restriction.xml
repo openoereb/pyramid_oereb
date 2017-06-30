@@ -1,4 +1,12 @@
 <%page args="public_law_restriction"/>
+<%
+    from pyramid_oereb import route_prefix
+    # PLR without legal provision is allowed in reduced extract only!
+    if params.flavour != 'reduced' and isinstance(public_law_restriction.documents, list) and \
+                    len(public_law_restriction.documents) == 0:
+        raise ValueError('Restrictions on landownership without legal provision are only allowed '
+                         'in reduced extracts!')
+%>
 <xsd:RestrictionOnLandownership>
     <xsd:Information>
         <%include file="localized_text.xml" args="text=public_law_restriction.content"/>
@@ -14,18 +22,29 @@
     <xsd:TypeCodelist>${public_law_restriction.type_code_list}</xsd:TypeCodelist>
     %endif
     %if public_law_restriction.legal_state:
+    ## TODO: solve code here, where may it come from?
     <xsd:Lawstatus>${public_law_restriction.legal_state}</xsd:Lawstatus>
     %endif
-     %if public_law_restriction.area:
+    %if public_law_restriction.area:
     <xsd:Area>${public_law_restriction.area}</xsd:Area>
+    <xsd:AreaUnit>${public_law_restriction.area_unit}</xsd:AreaUnit>
     %endif
     %if public_law_restriction.part_in_percent:
     <xsd:PartInPercent>${public_law_restriction.part_in_percent}</xsd:PartInPercent>
     %endif
+    %if public_law_restriction.length:
+    <xsd:Length>${public_law_restriction.length}</xsd:Length>
+    <xsd:LengthUnit>${public_law_restriction.length_unit}</xsd:LengthUnit>
+    %endif
     %if params.images:
-    <xsd:Symbol>${public_law_restriction.symbol}</xsd:Symbol>
+    <xsd:Symbol>${public_law_restriction.symbol.encode()}</xsd:Symbol>
     %else:
-    <xsd:SymbolRef>${public_law_restriction.symbol}</xsd:SymbolRef>
+    <xsd:SymbolRef>
+        ${request.route_url('{0}/image/symbol'.format(route_prefix),
+            theme_code=public_law_restriction.theme.code,
+            type_code=public_law_restriction.type_code)
+        }
+    </xsd:SymbolRef>
     %endif
     %for geometry in public_law_restriction.geometries:
     <%include file="geometry.xml" args="geometry=geometry"/>

@@ -40,6 +40,9 @@ pyramid_oereb:
     # The print DPI
     dpi: 200
 
+    # Base URL with application of the print server
+    base_url: http://localhost:8280/print/oereb
+
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
   # creation process. Because this name is used as schema name in the target database. The app_schema holds
   # all application stuff like: addresses, municipalities, real estates, etc.
@@ -72,6 +75,9 @@ pyramid_oereb:
        types:
        - Polygon
        - MultiPolygon
+    collection:
+        types:
+        - GeometryCollection
 
   # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
   # will be directly used for producing the extract output.
@@ -101,7 +107,13 @@ pyramid_oereb:
     # repository). But if you need to change it for any reason: Feel free...
     oereb: ${png_root_dir}logo_oereb.png
     # The logo representing your canton. Replace with your own logo!
-    canton: ${png_root_dir}logo_sample.png
+    canton: ${png_root_dir}logo_canton.png
+
+  # The method used to return the logo images configured above.
+  get_logo_method: pyramid_oereb.standard.methods.get_logo
+
+  # The method used to return the municipality logos.
+  get_municipality_method: pyramid_oereb.standard.methods.get_municipality
 
   # The processor of the oereb project needs access to real estate data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you like to read the real estate out of an existing
@@ -200,7 +212,11 @@ pyramid_oereb:
     # Information about the base data used for the extract, e.g. the used base map and its currentness.
     # This is a multlingual value. At least the set default language has to be defined.
     base_data:
-        de: Daten der amtlichen Vermessung, Stand {0}.
+        text:
+          de: Daten der amtlichen Vermessung, Stand {0}.
+        methods:
+          date: pyramid_oereb.standard.hook_methods.get_surveying_data_update_date
+          provider:  pyramid_oereb.standard.hook_methods.get_surveying_data_provider
     # The extract must have a property source.
     source:
       # The source must have a class which represents the accessor to the source. In this case it is a source
@@ -217,9 +233,17 @@ pyramid_oereb:
       geometry_type: GEOMETRYCOLLECTION
       # Define the minmal area and length for public law restrictions that should be considered as 'true' restrictions
       # and not as calculation errors (false true's) due to topological imperfections
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Nutzungsplanung
       language: de
@@ -230,275 +254,420 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.land_use_plans
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr87
       code: MotorwaysProjectPlaningZones
       geometry_type: MULTIPOLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Projektierungszonen Nationalstrassen
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.motorways_project_planing_zones
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.motorways_project_planing_zones
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr88
       code: MotorwaysBuildingLines
       geometry_type: LINESTRING
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Baulinien Nationalstrassen
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.motorways_building_lines
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.motorways_building_lines
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr97
       code: RailwaysBuildingLines
       geometry_type: LINESTRING
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Baulinien Eisenbahnanlagen
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.railways_building_lines
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.railways_building_lines
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr96
       code: RailwaysProjectPlanningZones
       geometry_type: POLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Projektierungszonen Eisenbahnanlagen
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.railways_project_planning_zones
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.railways_project_planning_zones
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr103
       code: AirportsProjectPlanningZones
       geometry_type: POLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Projektierungszonen Flughafenanlagen
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.airports_project_planning_zones
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.airports_project_planning_zones
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr104
       code: AirportsBuildingLines
       geometry_type: LINESTRING
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Baulinien Flughafenanlagen
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.airports_building_lines
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.airports_building_lines
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr108
       code: AirportsSecurityZonePlans
       geometry_type: MULTIPOLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Sicherheitszonenplan Flughafen
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.airports_security_zone_plans
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.airports_security_zone_plans
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr116
       code: ContaminatedSites
       geometry_type: GEOMETRYCOLLECTION
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Belastete Standorte
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.contaminated_sites
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.contaminated_sites
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr117
       code: ContaminatedMilitarySites
       geometry_type: GEOMETRYCOLLECTION
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Belastete Standorte Militär
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.contaminated_military_sites
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.contaminated_military_sites
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr118
       code: ContaminatedCivilAviationSites
       geometry_type: POLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Belastete Standorte Zivile Flugplätze
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr119
       code: ContaminatedPublicTransportSites
       geometry_type: GEOMETRYCOLLECTION
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Belastete Standorte Öeffentlicher Verkehr
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.contaminated_public_transport_sites
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.contaminated_public_transport_sites
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr131
       code: GroundwaterProtectionZones
       geometry_type: POLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Grundwasserschutzzonen
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.groundwater_protection_zones
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.groundwater_protection_zones
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr132
       code: GroundwaterProtectionSites
       geometry_type: POLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Grundwasserschutzareale
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.groundwater_protection_sites
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.groundwater_protection_sites
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr145
       code: NoiseSensitivityLevels
       geometry_type: POLYGON
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Lärmemfindlichkeitsstufen
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.noise_sensitivity_levels
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.noise_sensitivity_levels
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr157
       code: ForestPerimeters
       geometry_type: LINESTRING
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Waldgrenzen
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.forest_perimeters
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.forest_perimeters
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
     - name: plr159
       code: ForestDistanceLines
       geometry_type: LINESTRING
-      plr_thresholds:
-        min_length: 1.0
-        min_area: 1.0
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm2'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Waldabstandslinien
       language: de
       federal: true
       standard: true
       source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
-         params:
-           db_connection: ${sqlalchemy_url}
-           models: pyramid_oereb.standard.models.forest_distance_lines
+        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        params:
+          db_connection: ${sqlalchemy_url}
+          models: pyramid_oereb.standard.models.forest_distance_lines
+      get_symbol_method: pyramid_oereb.standard.methods.get_symbol

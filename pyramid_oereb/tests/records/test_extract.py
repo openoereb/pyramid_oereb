@@ -1,26 +1,27 @@
 # -*- coding: utf-8 -*-
 import datetime
 import pytest
+from pyramid.path import DottedNameResolver
 
+from pyramid_oereb import Config
+from pyramid_oereb.lib.records.embeddable import EmbeddableRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from shapely.geometry.multipolygon import MultiPolygon
 
+from pyramid_oereb.lib.records.theme import EmbeddableThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 
 
 def test_class_variables():
-    assert ExtractRecord.creation_date is None
     assert ExtractRecord.electronic_signature is None
     assert ExtractRecord.concerned_theme is None
     assert ExtractRecord.not_concerned_theme is None
     assert ExtractRecord.theme_without_data is None
-    assert ExtractRecord.is_reduced is False
     assert ExtractRecord.extract_identifier is None
     assert ExtractRecord.qr_code is None
-    assert ExtractRecord.plr_cadastre_authority is None
 
 
 def test_mandatory_fields():
@@ -29,12 +30,33 @@ def test_mandatory_fields():
 
 
 def test_init():
-    real_estate = RealEstateRecord('test', 'BL', 'Laufen', 2770, 1000, MultiPolygon(), ViewServiceRecord(
+    date = datetime.datetime.now()
+    real_estate = RealEstateRecord(u'test', u'BL', u'Laufen', 2770, 1000, MultiPolygon(), ViewServiceRecord(
             'test_link',
             'test_legend'
         )
     )
-    plr_office = OfficeRecord({'en': 'PLR Authority'})
+    plr_office = OfficeRecord({u'en': u'PLR Authority'})
+    resolver = DottedNameResolver()
+    date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
+    date_method = resolver.resolve(date_method_string)
+    av_update_date = date_method(real_estate)
+    base_data = Config.get_base_data(av_update_date)
+
+    av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
+    av_provider_method = resolver.resolve(av_provider_method_string)
+    cadaster_state = date
+    # TODO: Add real theme sources here
+    theme_sources = []
+    themes = [EmbeddableThemeRecord(u'TEST', {u'de': u'TEST TEXT'}, theme_sources)]
+    plr_cadastre_authority = Config.get_plr_cadastre_authority()
+    embeddable = EmbeddableRecord(
+        cadaster_state,
+        plr_cadastre_authority,
+        av_provider_method(real_estate),
+        av_update_date,
+        themes
+    )
     record = ExtractRecord(
         real_estate,
         ImageRecord(bin(100)),
@@ -42,7 +64,8 @@ def test_init():
         ImageRecord(bin(100)),
         ImageRecord(bin(100)),
         plr_office,
-        {'de': 'Daten der Swisstopo\nAmtliche Vermessung'}
+        base_data,
+        embeddable
     )
     assert isinstance(record.extract_identifier, str)
     assert isinstance(record.real_estate, RealEstateRecord)

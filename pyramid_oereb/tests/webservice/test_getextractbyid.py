@@ -4,9 +4,8 @@ import json
 import pytest
 from jsonschema import Draft4Validator
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
-from pyramid.testing import testConfig
 
-from pyramid_oereb.tests.conftest import MockRequest
+from pyramid_oereb.tests.conftest import MockRequest, pyramid_oereb_test_config
 from pyramid_oereb.views.webservice import PlrWebservice
 
 
@@ -167,8 +166,9 @@ def test_return_no_content():
     'ContaminatedSites,RailwaysProjectPlanningZones'
 ])
 def test_return_json(topics):
-    with testConfig() as config:
-        config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer.extract.json_.Renderer')
+    with pyramid_oereb_test_config() as pyramid_config:
+        pyramid_config.add_renderer('pyramid_oereb_extract_json',
+                                    'pyramid_oereb.lib.renderer.extract.json_.Renderer')
         request = MockRequest()
         request.matchdict.update({
             'flavour': 'REDUCED',
@@ -194,6 +194,6 @@ def test_return_json(topics):
     real_estate = extract.get('GetExtractByIdResponse').get('extract').get('RealEstate')
     assert isinstance(real_estate, dict)
     if topics == 'ALL' or topics == 'ALL_FEDERAL':
-        assert len(real_estate.get('RestrictionOnLandownership')) == 2
+        assert len(real_estate.get('RestrictionOnLandownership')) == 5
     if topics == 'ContaminatedSites,RailwaysProjectPlanningZones':
         assert len(real_estate.get('RestrictionOnLandownership')) == 1

@@ -62,7 +62,7 @@ do-pip:
 	pip install --upgrade -r $(REQUIREMENTS)
 
 $(SPHINXBUILD): .venv/requirements-timestamp
-	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install Sphinx sphinxcontrib-napoleon
+	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install Sphinx sphinxcontrib-napoleon sphinx_rtd_theme
 
 .PHONY: doc
 doc: $(SPHINXBUILD)
@@ -149,6 +149,11 @@ drop-standard-tables: $(PYTHON_VENV)
 .PHONY: serve
 serve: $(PYTHON_VENV)
 	$(VENV_BIN)pserve$(PYTHON_BIN_POSTFIX) development.ini
+
+.PHONY: serve-print-example
+serve-print-example:
+	docker build -t camptocamp/oereb-print print
+	docker run --publish=8280:8080 camptocamp/oereb-print
 
 description.rst:
 	awk 'FNR==1{print ""}1' README.md CHANGES.md | pandoc -f markdown -t rst -o description.rst

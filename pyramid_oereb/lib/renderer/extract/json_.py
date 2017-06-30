@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from json import dumps
 
+from pyramid.request import Request
 from pyramid.response import Response
+from pyramid.testing import DummyRequest
 
-from pyramid_oereb import Config
+from pyramid_oereb import Config, route_prefix
 from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord, ArticleRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
 from shapely.geometry import mapping
@@ -34,42 +36,51 @@ class Renderer(Base):
         Returns:
             str: The JSON encoded extract.
         """
+
+        self._request = self.get_request(system)
+        assert isinstance(self._request, (Request, DummyRequest))
+
         response = self.get_response(system)
         if isinstance(response, Response) and response.content_type == response.default_content_type:
             response.content_type = 'application/json'
 
-        self._language_ = str(Config.get('default_language')).lower()
-        self._params_ = value[1]
+        extract_dict = self._render(value[0], value[1])
+        result = {
+            u'GetExtractByIdResponse': {
+                u'extract': extract_dict
+            }
+        }
+        if self._params.flavour == 'embeddable':
+            result[u'GetExtractByIdResponse'][u'embeddable'] = self.format_embeddable(value[0].embeddable)
+        return unicode(dumps(result))
 
-        return unicode(self._render(value[0]))
-
-    def _render(self, extract):
+    def _render(self, extract, param):
         """
         Serializes the extract record.
 
         Args:
             extract (pyramid_oereb.lib.records.extract.ExtractRecord): The extract record
+            param (pyramid_oereb.views.webservice.Parameter): The parameter instance holding information and
+                methods for handling request parameters.
 
         Returns:
             str: The JSON encoded extract.
         """
 
-        if not isinstance(self._params_, Parameter):
+        self._params = param
+
+        if not isinstance(self._params, Parameter):
             raise TypeError('Missing parameter definition; Expected {0}, got {1} instead'.format(
                 Parameter,
-                self._params_.__class__
+                self._params.__class__
             ))
 
-        if self._params_.language:
-            self._language_ = str(self._params_.language).lower()
+        if self._params.language:
+            self._language = str(self._params.language).lower()
 
         extract_dict = {
             'CreationDate': self.date_time(extract.creation_date),
-            'isReduced': self._params_.flavour == 'reduced',
-            'LogoPLRCadastre': extract.logo_plr_cadastre.encode(),
-            'FederalLogo': extract.federal_logo.encode(),
-            'CantonalLogo': extract.cantonal_logo.encode(),
-            'MunicipalityLogo': extract.municipality_logo.encode(),
+            'isReduced': self._params.flavour in ['reduced', 'embeddable'],
             'ExtractIdentifier': extract.extract_identifier,
             'BaseData': self.get_localized_text(extract.base_data),
             'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority),
@@ -78,6 +89,27 @@ class Renderer(Base):
             'NotConcernedTheme': [self.format_theme(theme) for theme in extract.not_concerned_theme],
             'ThemeWithoutData': [self.format_theme(theme) for theme in extract.theme_without_data]
         }
+
+        if self._params.images:
+            extract_dict.update({
+                'LogoPLRCadastre': extract.logo_plr_cadastre.encode(),
+                'FederalLogo': extract.federal_logo.encode(),
+                'CantonalLogo': extract.cantonal_logo.encode(),
+                'MunicipalityLogo': extract.municipality_logo.encode()
+            })
+        else:
+            extract_dict.update({
+                'LogoPLRCadastreRef': self._request.route_url('{0}/image/logo'.format(route_prefix),
+                                                              logo='oereb'),
+                'FederalLogoRef': self._request.route_url('{0}/image/logo'.format(route_prefix),
+                                                          logo='confederation'),
+                'CantonalLogoRef': self._request.route_url('{0}/image/logo'.format(route_prefix),
+                                                           logo='canton'),
+                'MunicipalityLogoRef': self._request.route_url(
+                    '{0}/image/municipality'.format(route_prefix),
+                    fosnr=extract.real_estate.fosnr
+                )
+            })
 
         if extract.electronic_signature:
             extract_dict['ElectronicSignature'] = extract.electronic_signature
@@ -104,13 +136,7 @@ class Renderer(Base):
                 })
             extract_dict['Glossary'] = glossaries
 
-        response = {
-            u'GetExtractByIdResponse': {
-                u'extract': extract_dict
-            }
-        }
-
-        return dumps(response)
+        return extract_dict
 
     def format_real_estate(self, real_estate):
         """
@@ -124,7 +150,7 @@ class Renderer(Base):
             dict: The formatted dictionary for rendering.
         """
 
-        assert isinstance(self._params_, Parameter)
+        assert isinstance(self._params, Parameter)
 
         real_estate_dict = {
             'Type': real_estate.type,
@@ -135,7 +161,7 @@ class Renderer(Base):
             'PlanForLandRegister': self.format_map(real_estate.plan_for_land_register)
         }
 
-        if self._params_.geometry:
+        if self._params.geometry:
             real_estate_dict['Limit'] = self.from_shapely(real_estate.limit)
 
         if real_estate.number:
@@ -175,7 +201,7 @@ class Renderer(Base):
             list of dict: The formatted dictionaries for rendering.
         """
 
-        assert isinstance(self._params_, Parameter)
+        assert isinstance(self._params, Parameter)
 
         plr_list = list()
 
@@ -184,20 +210,32 @@ class Renderer(Base):
             if isinstance(plr, PlrRecord):
 
                 # PLR without legal provision is allowed in reduced extract only!
-                if self._params_.flavour != 'reduced' and isinstance(plr.documents, list) and \
+                if self._params.flavour != 'reduced' and isinstance(plr.documents, list) and \
                                 len(plr.documents) == 0:
                     raise ValueError('Restrictions on landownership without legal provision are only allowed '
                                      'in reduced extracts!')
-
+                # TODO: Add lenght and units see GSOREB-207: https://jira.camptocamp.com/browse/GSOREB-207
                 plr_dict = {
                     'Information': self.get_localized_text(plr.content),
                     'Theme': self.format_theme(plr.theme),
                     'Lawstatus': plr.legal_state,
                     'Area': plr.area,
-                    'Symbol': plr.symbol,
                     'ResponsibleOffice': self.format_office(plr.responsible_office),
                     'Map': self.format_map(plr.view_service)
                 }
+
+                if self._params.images:
+                    plr_dict.update({
+                        'Symbol': plr.symbol.encode()
+                    })
+                else:
+                    # Link to symbol is only available if type code is set!
+                    if plr.type_code:
+                        plr_dict.update({
+                            'SymbolRef': self._request.route_url('{0}/image/symbol'.format(route_prefix),
+                                                                 theme_code=plr.theme.code,
+                                                                 type_code=plr.type_code)
+                        })
 
                 if plr.subtopic:
                     plr_dict['SubTheme'] = plr.subtopic
@@ -210,7 +248,7 @@ class Renderer(Base):
                 if plr.part_in_percent:
                     plr_dict['PartInPercent'] = plr.part_in_percent
 
-                if self._params_.geometry and isinstance(plr.geometries, list) and len(plr.geometries) > 0:
+                if self._params.geometry and isinstance(plr.geometries, list) and len(plr.geometries) > 0:
                     geometry_list = list()
                     for geometry in plr.geometries:
                         geometry_list.append(self.format_geometry(geometry))
@@ -408,12 +446,23 @@ class Renderer(Base):
             dict: The formatted dictionary for rendering.
         """
         legend_entry_dict = {
-            'Symbol': legend_entry.symbol,
             'LegendText': self.get_localized_text(legend_entry.legend_text),
             'TypeCode': legend_entry.type_code,
             'TypeCodelist': legend_entry.type_code_list,
             'Theme': self.format_theme(legend_entry.theme)
         }
+
+        if self._params.images:
+            legend_entry_dict.update({
+                'Symbol': legend_entry.symbol.encode()
+            })
+        else:
+            legend_entry_dict.update({
+                'SymbolRef': self._request.route_url('{0}/image/symbol'.format(route_prefix),
+                                                     theme_code=legend_entry.theme.code,
+                                                     type_code=legend_entry.type_code)
+            })
+
         if legend_entry.sub_theme:
             legend_entry_dict['SubTheme'] = legend_entry.sub_theme
         if legend_entry.additional_theme:
@@ -439,32 +488,27 @@ class Renderer(Base):
         }
         return geom_dict
 
-    def get_localized_text(self, values):
-        """
-        Returns the set language of a multilingual text element.
-
-        Args:
-            values (str or dict): The multilingual values encoded as JSON.
-
-        Returns:
-            list of dict: List of dictionaries containing the multilingual representation.
-        """
-        text = list()
-        default_language = Config.get('default_language')
-        if isinstance(values, dict):
-            if self._language_ in values:
-                text.append({
-                    'Language': self._language_,
-                    'Text': values.get(self._language_)
+    def format_embeddable(self, embeddable):
+        time = embeddable.transfer_from_source_cadastral_surveying.strftime('%d-%m-%YT%H:%M:%S')
+        data_sources = []
+        for embeddable_theme in embeddable.data_sources:
+            sources = []
+            for source in embeddable_theme.sources:
+                sources.append({
+                    u'dataownerName': self.get_localized_text(source.owner.name)[0].get('Text'),
+                    u'transferFromSource': source.date.strftime('%d-%m-%YT%H:%M:%S')
                 })
-            else:
-                text.append({
-                    'Language': default_language,
-                    'Text': values.get(default_language)
-                })
-        else:
-            text.append({
-                'Language': default_language,
-                'Text': values
+            data_sources.append({
+                u'topic': self.format_theme(embeddable_theme),
+                u'sources': sources
             })
-        return text
+        embeddable_dict = {
+            u'cadasterState': embeddable.cadaster_state.strftime('%d-%m-%YT%H:%M:%S'),
+            u'cadasterOrganisationName': self.get_localized_text(
+                embeddable.cadaster_organisation.name)[0].get('Text'),
+            u'dataOwnerNameCadastralSurveying': self.get_localized_text(
+                embeddable.data_owner_cadastral_surveying.name)[0].get('Text'),
+            u'transferFromSourceCadastralSurveying': time,
+            u'datasource': data_sources
+        }
+        return embeddable_dict
