@@ -21,9 +21,10 @@
     %if public_law_restriction.type_code_list:
     <xsd:TypeCodelist>${public_law_restriction.type_code_list}</xsd:TypeCodelist>
     %endif
-    %if public_law_restriction.legal_state:
-    ## TODO: solve code here, where may it come from?
-    <xsd:Lawstatus>${public_law_restriction.legal_state}</xsd:Lawstatus>
+    %if public_law_restriction.law_status:
+    <xsd:Lawstatus>
+        <%include file="law_status.xml" args="law_status=public_law_restriction.law_status"/>
+    </xsd:Lawstatus>
     %endif
     %if public_law_restriction.area:
     <xsd:Area>${public_law_restriction.area}</xsd:Area>

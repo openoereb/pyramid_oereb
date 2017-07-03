@@ -4,9 +4,7 @@
         <%include file="specific_geometry.xml" args="geometry=geometry.geom"/>
     %endif
     <xsd:Lawstatus>
-        ## TODO: solve code here, where may it come from?
-        <xsd:Code>TODO: Provide code here</xsd:Code>
-        <xsd:Text>${geometry.legal_state}</xsd:Text>
+        <%include file="law_status.xml" args="law_status=geometry.law_status"/>
     </xsd:Lawstatus>
     <xsd:MetadataOfGeographicalBaseData>
         ${geometry.geo_metadata}

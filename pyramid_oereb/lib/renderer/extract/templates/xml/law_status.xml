@@ -1,0 +1,3 @@
+<%page args="law_status"/>
+<xsd:Code>${law_status.code}</xsd:Code>
+<%include file="localized_text.xml" args="text=law_status.text"/>

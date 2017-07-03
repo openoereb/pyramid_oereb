@@ -132,7 +132,7 @@ class DocumentBase(Base):
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         text_web (dict): A multilingual link which leads to the documents content in the web.
-        legal_state (str): The status switch if the document is legally approved or not.
+        law_status (str): The status switch if the document is legally approved or not.
         published_from (datetime.date): The date when the document should be available for
             publishing on extracts. This  directly affects the behaviour of extract
             generation.
@@ -143,7 +143,7 @@ class DocumentBase(Base):
     __tablename__ = 'document_base'
     id = sa.Column(sa.Integer, primary_key=True)
     text_web = sa.Column(JSONType, nullable=True)
-    legal_state = sa.Column(sa.String, nullable=False)
+    law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
@@ -341,7 +341,7 @@ class PublicLawRestriction(Base):
             original data  model of this public law restriction.
         type_code_list (str): List of full range of type_codes for this public law restriction in a
             machine  readable format.
-        legal_state (str): The status switch if the document is legally approved or not.
+        law_status (str): The status switch if the document is legally approved or not.
         published_from (datetime.date): The date when the document should be available for
             publishing on extracts. This  directly affects the behaviour of extract
             generation.
@@ -363,7 +363,7 @@ class PublicLawRestriction(Base):
     additional_topic = sa.Column(sa.String, nullable=True)
     type_code = sa.Column(sa.String(40), nullable=True)
     type_code_list = sa.Column(sa.String, nullable=True)
-    legal_state = sa.Column(sa.String, nullable=False)
+    law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     view_service_id = sa.Column(
         sa.Integer,
@@ -389,7 +389,7 @@ class Geometry(Base):
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        legal_state (str): The status switch if the document is legally approved or not.
+        law_status (str): The status switch if the document is legally approved or not.
         published_from (datetime.date): The date when the document should be available for
             publishing on extracts. This  directly affects the behaviour of extract
             generation.
@@ -412,7 +412,7 @@ class Geometry(Base):
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'geometry'
     id = sa.Column(sa.Integer, primary_key=True)
-    legal_state = sa.Column(sa.String, nullable=False)
+    law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     geo_metadata = sa.Column(sa.String, nullable=True)  # TODO: Check translation
     geom = sa.Column(GeoAlchemyGeometry('${geometry_type}', srid=srid))

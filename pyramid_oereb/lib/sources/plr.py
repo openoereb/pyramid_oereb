@@ -21,6 +21,7 @@ from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilit
 from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.glossary import GlossaryRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
+from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.reference_definition import ReferenceDefinitionRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 
@@ -38,6 +39,7 @@ class PlrBaseSource(Base):
     _plr_record_class_ = PlrRecord
     _reference_definition_record_class_ = ReferenceDefinitionRecord
     _view_service_record_class_ = ViewServiceRecord
+    _law_status_record_class_ = LawStatusRecord
 
 
 class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
@@ -146,8 +148,15 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def from_db_to_geometry_records(self, geometries_from_db):
         geometry_records = []
         for geometry_from_db in geometries_from_db:
+            law_status = LawStatusRecord(
+                Config.get_law_status(
+                    self._plr_info_.get('code'),
+                    self._plr_info_.get('law_status'),
+                    geometry_from_db.law_status
+                )
+            )
             geometry_records.append(self._geometry_record_class_(
-                geometry_from_db.legal_state,
+                law_status,
                 geometry_from_db.published_from,
                 self.geometry_parsing(geometry_from_db.geom),
                 geometry_from_db.geo_metadata,
@@ -172,8 +181,15 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def from_db_to_article_records(self, articles_from_db):
         article_records = []
         for article_from_db in articles_from_db:
+            law_status = LawStatusRecord(
+                Config.get_law_status(
+                    self._plr_info_.get('code'),
+                    self._plr_info_.get('law_status'),
+                    article_from_db.law_status
+                )
+            )
             article_records.append(self._article_record_class_(
-                article_from_db.legal_state,
+                law_status,
                 article_from_db.published_from,
                 article_from_db.number,
                 article_from_db.text_at_web,
@@ -197,8 +213,15 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             article_records = self.from_db_to_article_records(legal_provision.articles)
             office_record = self.from_db_to_office_record(legal_provision.responsible_office)
             article_nrs = article_numbers[i] if isinstance(article_numbers, list) else None
+            law_status = LawStatusRecord(
+                Config.get_law_status(
+                    self._plr_info_.get('code'),
+                    self._plr_info_.get('law_status'),
+                    legal_provision.law_status
+                )
+            )
             document_records.append(self._documents_reocord_class_(
-                legal_provision.legal_state,
+                law_status,
                 legal_provision.published_from,
                 legal_provision.title,
                 office_record,
@@ -262,10 +285,17 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         refinements_plr_records = []
         for join in public_law_restriction_from_db.refinements:
             refinements_plr_records.append(self.from_db_to_plr_record(join.refinement))
+        law_status = LawStatusRecord(
+            Config.get_law_status(
+                self._plr_info_.get('code'),
+                self._plr_info_.get('law_status'),
+                public_law_restriction_from_db.law_status
+            )
+        )
         plr_record = self._plr_record_class_(
             self.theme_record,
             public_law_restriction_from_db.content,
-            public_law_restriction_from_db.legal_state,
+            law_status,
             public_law_restriction_from_db.published_from,
             self.from_db_to_office_record(public_law_restriction_from_db.responsible_office),
             symbol,
