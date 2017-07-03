@@ -32,7 +32,8 @@ requires = [
     'pyreproj',
     'lxml',
     'generateDS',
-    'requests'
+    'requests',
+    'geolink_formatter'
 ]
 
 setup(
