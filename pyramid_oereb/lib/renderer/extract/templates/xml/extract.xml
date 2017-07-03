@@ -75,9 +75,7 @@
         </xsd:GeneralInformation>
     %endif
         <xsd:BaseData>
-            %for text in extract.base_data:
-            <%include file="localized_text.xml" args="text=text"/>
-            %endfor
+            <%include file="localized_text.xml" args="text=extract.base_data"/>
         </xsd:BaseData>
         %for glossary in extract.glossaries:
         <%include file="glossary.xml" args="glossary=glossary"/>
