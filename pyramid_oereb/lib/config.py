@@ -435,7 +435,7 @@ class Config(object):
         """
         if law_status_config.get('in_force') == law_status_code:
             return 'inForce'
-        elif law_status_code.get('running_modifications') == law_status_code:
+        elif law_status_config.get('running_modifications') == law_status_code:
             return 'runningModifications'
         else:
             raise AttributeError(
