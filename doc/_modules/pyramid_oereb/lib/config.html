@@ -160,6 +160,7 @@
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 <span class="kn">from</span> <span class="nn">pyramid.config</span> <span class="k">import</span> <span class="n">ConfigurationError</span>
@@ -167,6 +168,8 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.office</span> <span class="k">import</span> <span class="n">OfficeRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.image</span> <span class="k">import</span> <span class="n">ImageRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.theme</span> <span class="k">import</span> <span class="n">ThemeRecord</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="parse"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.parse">[docs]</a><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">,</span> <span class="n">cfg_section</span><span class="p">):</span>
@@ -571,7 +574,69 @@
             <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;The configuration </span><span class="si">{}</span><span class="s1"> is not an object.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">current_path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)))</span>
 
-        <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">_get_object_path</span><span class="p">(</span><span class="n">current_path</span><span class="p">,</span> <span class="n">current_object</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">default</span><span class="p">,</span> <span class="n">required</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">_get_object_path</span><span class="p">(</span><span class="n">current_path</span><span class="p">,</span> <span class="n">current_object</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">default</span><span class="p">,</span> <span class="n">required</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_law_status"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_law_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_law_status</span><span class="p">(</span><span class="n">theme_code</span><span class="p">,</span> <span class="n">law_status_config</span><span class="p">,</span> <span class="n">law_status_code</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            theme_code (str): The theme code.</span>
+<span class="sd">            law_status_config (dict): The configured mapping of the plrs law status.</span>
+<span class="sd">            law_status_code (str): The law status code read from the data to wrap it into the only two allowed</span>
+<span class="sd">                values: &quot;inForce&quot; or &quot;runningModifications&quot; which are possible on the extract.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The mapped law status. This is &quot;inForce&quot; or &quot;runningModifications&quot;.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            AttributeError: If the passed law status code does not match one of the configured ones.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">law_status_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;in_force&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">law_status_code</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;inForce&#39;</span>
+        <span class="k">elif</span> <span class="n">law_status_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;running_modifications&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">law_status_code</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;runningModifications&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                <span class="sa">u</span><span class="s1">&#39;There was no proper configuration for the theme &quot;</span><span class="si">{theme}</span><span class="s1">&quot; on the law &#39;</span>
+                <span class="sa">u</span><span class="s1">&#39;status it has to be configured depending on the data you imported. Law &#39;</span>
+                <span class="sa">u</span><span class="s1">&#39;status in your data was: </span><span class="si">{data_law_status}</span><span class="s1">, the configured options are: &#39;</span>
+                <span class="sa">u</span><span class="s1">&#39;</span><span class="si">{in_force}</span><span class="s1"> and </span><span class="si">{running_modifications}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">theme</span><span class="o">=</span><span class="n">theme_code</span><span class="p">,</span>
+                    <span class="n">data_law_status</span><span class="o">=</span><span class="n">law_status_code</span><span class="p">,</span>
+                    <span class="n">in_force</span><span class="o">=</span><span class="n">law_status_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;in_force&#39;</span><span class="p">),</span>
+                    <span class="n">running_modifications</span><span class="o">=</span><span class="n">law_status_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;running_modifications&#39;</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_law_status_translations"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_law_status_translations">[docs]</a>    <span class="k">def</span> <span class="nf">get_law_status_translations</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Obtaining the law status translations from config via the code.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            code (str): The law status code. This must be &quot;inForce&quot; or &quot;runningModifications&quot;. Any other</span>
+<span class="sd">                value won&#39;t match and throw a silent error.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The translation from the configuration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">translations</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;law_status_translations&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="s1">&#39;inForce&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">translations</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;in_force&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">code</span> <span class="o">==</span> <span class="s1">&#39;runningModifications&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">translations</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;running_modifications&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;No translation for law status found in config for the passed code: </span><span class="si">{code}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">code</span><span class="o">=</span><span class="n">code</span>
+            <span class="p">))</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s1">&#39;de&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;Keine Übersetzung gefunden&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;fr&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;Pas de traduction&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;it&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;Nessuna traduzione trovato&#39;</span><span class="p">,</span>
+                <span class="c1"># TODO: Add romanian translation here</span>
+                <span class="s1">&#39;rm&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;...&#39;</span>
+            <span class="p">}</span></div></div>
 </pre></div>
 
            </div>

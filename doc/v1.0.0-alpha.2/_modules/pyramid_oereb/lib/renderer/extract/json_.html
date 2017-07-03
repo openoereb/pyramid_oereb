@@ -379,7 +379,7 @@
                 <span class="n">plr_dict</span> <span class="o">=</span> <span class="p">{</span>
                     <span class="s1">&#39;Information&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">content</span><span class="p">),</span>
                     <span class="s1">&#39;Theme&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_theme</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">theme</span><span class="p">),</span>
-                    <span class="s1">&#39;Lawstatus&#39;</span><span class="p">:</span> <span class="n">plr</span><span class="o">.</span><span class="n">legal_state</span><span class="p">,</span>
+                    <span class="s1">&#39;Lawstatus&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_law_status</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">law_status</span><span class="p">),</span>
                     <span class="s1">&#39;Area&#39;</span><span class="p">:</span> <span class="n">plr</span><span class="o">.</span><span class="n">area</span><span class="p">,</span>
                     <span class="s1">&#39;ResponsibleOffice&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_office</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">responsible_office</span><span class="p">),</span>
                     <span class="s1">&#39;Map&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">view_service</span><span class="p">)</span>
@@ -425,6 +425,19 @@
 
         <span class="k">return</span> <span class="n">plr_list</span></div>
 
+<div class="viewcode-block" id="Renderer.format_law_status"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_law_status">[docs]</a>    <span class="k">def</span> <span class="nf">format_law_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status to format into</span>
+<span class="sd">                a dictionary.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The transformed law status.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;Code&#39;</span><span class="p">:</span> <span class="n">law_status</span><span class="o">.</span><span class="n">code</span><span class="p">,</span>
+            <span class="s1">&#39;Text&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">law_status</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="p">}</span></div>
+
 <div class="viewcode-block" id="Renderer.format_document"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_document">[docs]</a>    <span class="k">def</span> <span class="nf">format_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formats a document record for rendering according to the federal specification.</span>
@@ -442,7 +455,7 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">DocumentRecord</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">LegalProvisionRecord</span><span class="p">):</span>
 
             <span class="n">document_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-                <span class="s1">&#39;Lawstatus&#39;</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">legal_state</span><span class="p">,</span>
+                <span class="s1">&#39;Lawstatus&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_law_status</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">law_status</span><span class="p">),</span>
                 <span class="s1">&#39;TextAtWeb&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">text_at_web</span><span class="p">),</span>
                 <span class="s1">&#39;Title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">title</span><span class="p">),</span>
                 <span class="s1">&#39;ResponsibleOffice&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_office</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">responsible_office</span><span class="p">)</span>
@@ -478,7 +491,7 @@
 
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">ArticleRecord</span><span class="p">):</span>
             <span class="n">document_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-                <span class="s1">&#39;Lawstatus&#39;</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">legal_state</span><span class="p">,</span>
+                <span class="s1">&#39;Lawstatus&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_law_status</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">law_status</span><span class="p">),</span>
                 <span class="s1">&#39;Number&#39;</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">number</span>
             <span class="p">})</span>
 
@@ -514,7 +527,7 @@
 
         <span class="n">geometry_dict</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">geometry_type</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_shapely</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">geom</span><span class="p">),</span>
-            <span class="s1">&#39;Lawstatus&#39;</span><span class="p">:</span> <span class="n">geometry</span><span class="o">.</span><span class="n">legal_state</span><span class="p">,</span>
+            <span class="s1">&#39;Lawstatus&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_law_status</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">law_status</span><span class="p">),</span>
             <span class="s1">&#39;ResponsibleOffice&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_office</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">office</span><span class="p">)</span>
         <span class="p">}</span>
 

@@ -169,13 +169,13 @@
 <div class="viewcode-block" id="GeometryRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.geometry.GeometryRecord">[docs]</a><span class="k">class</span> <span class="nc">GeometryRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">legal_state</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">geom</span><span class="p">,</span> <span class="n">geo_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">public_law_restriction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">geom</span><span class="p">,</span> <span class="n">geo_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">public_law_restriction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">office</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Geometry record</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            legal_state (unicode): The PLR record&#39;s legal state.</span>
+<span class="sd">            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.</span>
 <span class="sd">            published_from (datetime.date): Date from/since when the PLR record is published.</span>
 <span class="sd">            geom (Point or LineString or Polygon or MultiPolygon):</span>
 <span class="sd">                The geometry which must be of type POINT, LINESTRING or POLYGON, everything else</span>
@@ -189,7 +189,7 @@
 <span class="sd">            AttributeError: Error when a wrong geometry type was passed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">legal_state</span> <span class="o">=</span> <span class="n">legal_state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">law_status</span> <span class="o">=</span> <span class="n">law_status</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">=</span> <span class="n">published_from</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">geo_metadata</span> <span class="o">=</span> <span class="n">geo_metadata</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">Point</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">LineString</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">):</span>

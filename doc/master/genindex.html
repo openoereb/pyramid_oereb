@@ -1257,10 +1257,12 @@
 </li>
       <li><a href="api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_geometry">format_geometry() (pyramid_oereb.lib.renderer.extract.json_.Renderer method)</a>
 </li>
-      <li><a href="api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_legend_entry">format_legend_entry() (pyramid_oereb.lib.renderer.extract.json_.Renderer method)</a>
+      <li><a href="api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_law_status">format_law_status() (pyramid_oereb.lib.renderer.extract.json_.Renderer method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_legend_entry">format_legend_entry() (pyramid_oereb.lib.renderer.extract.json_.Renderer method)</a>
+</li>
       <li><a href="api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_map">format_map() (pyramid_oereb.lib.renderer.extract.json_.Renderer method)</a>
 </li>
       <li><a href="api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_office">format_office() (pyramid_oereb.lib.renderer.extract.json_.Renderer method)</a>
@@ -1480,6 +1482,10 @@
 </li>
       </ul></li>
       <li><a href="api.html#pyramid_oereb.lib.config.Config.get_language">get_language() (pyramid_oereb.lib.config.Config static method)</a>
+</li>
+      <li><a href="api.html#pyramid_oereb.lib.config.Config.get_law_status">get_law_status() (pyramid_oereb.lib.config.Config static method)</a>
+</li>
+      <li><a href="api.html#pyramid_oereb.lib.config.Config.get_law_status_translations">get_law_status_translations() (pyramid_oereb.lib.config.Config static method)</a>
 </li>
       <li><a href="api.html#pyramid_oereb.lib.processor.Processor.get_legend_entries">get_legend_entries() (pyramid_oereb.lib.processor.Processor static method)</a>
 </li>
@@ -2121,110 +2127,112 @@
 </li>
       <li><a href="api.html#pyramid_oereb.views.webservice.Parameter.language">language (pyramid_oereb.views.webservice.Parameter attribute)</a>
 </li>
-      <li><a href="api.html#pyramid_oereb.standard.models.airports_building_lines.DocumentBase.legal_state">legal_state (pyramid_oereb.standard.models.airports_building_lines.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_building_lines.DocumentBase.legal_state">[1]</a>
+      <li><a href="api.html#pyramid_oereb.standard.models.airports_building_lines.DocumentBase.law_status">law_status (pyramid_oereb.standard.models.airports_building_lines.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_building_lines.DocumentBase.law_status">[1]</a>
 
       <ul>
-        <li><a href="api.html#pyramid_oereb.standard.models.airports_building_lines.Geometry.legal_state">(pyramid_oereb.standard.models.airports_building_lines.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_building_lines.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.airports_building_lines.Geometry.law_status">(pyramid_oereb.standard.models.airports_building_lines.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_building_lines.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase.legal_state">(pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase.law_status">(pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.airports_project_planning_zones.Geometry.legal_state">(pyramid_oereb.standard.models.airports_project_planning_zones.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_project_planning_zones.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.airports_project_planning_zones.Geometry.law_status">(pyramid_oereb.standard.models.airports_project_planning_zones.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_project_planning_zones.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.airports_security_zone_plans.DocumentBase.legal_state">(pyramid_oereb.standard.models.airports_security_zone_plans.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_security_zone_plans.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.airports_security_zone_plans.DocumentBase.law_status">(pyramid_oereb.standard.models.airports_security_zone_plans.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_security_zone_plans.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.airports_security_zone_plans.Geometry.legal_state">(pyramid_oereb.standard.models.airports_security_zone_plans.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_security_zone_plans.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.airports_security_zone_plans.Geometry.law_status">(pyramid_oereb.standard.models.airports_security_zone_plans.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_security_zone_plans.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase.legal_state">(pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase.law_status">(pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Geometry.legal_state">(pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Geometry.law_status">(pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase.legal_state">(pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase.law_status">(pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_military_sites.Geometry.legal_state">(pyramid_oereb.standard.models.contaminated_military_sites.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_military_sites.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_military_sites.Geometry.law_status">(pyramid_oereb.standard.models.contaminated_military_sites.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_military_sites.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_public_transport_sites.DocumentBase.legal_state">(pyramid_oereb.standard.models.contaminated_public_transport_sites.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_public_transport_sites.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_public_transport_sites.DocumentBase.law_status">(pyramid_oereb.standard.models.contaminated_public_transport_sites.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_public_transport_sites.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_public_transport_sites.Geometry.legal_state">(pyramid_oereb.standard.models.contaminated_public_transport_sites.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_public_transport_sites.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_public_transport_sites.Geometry.law_status">(pyramid_oereb.standard.models.contaminated_public_transport_sites.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_public_transport_sites.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_sites.DocumentBase.legal_state">(pyramid_oereb.standard.models.contaminated_sites.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_sites.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_sites.DocumentBase.law_status">(pyramid_oereb.standard.models.contaminated_sites.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_sites.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_sites.Geometry.legal_state">(pyramid_oereb.standard.models.contaminated_sites.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_sites.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_sites.Geometry.law_status">(pyramid_oereb.standard.models.contaminated_sites.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_sites.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.forest_distance_lines.DocumentBase.legal_state">(pyramid_oereb.standard.models.forest_distance_lines.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.forest_distance_lines.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.forest_distance_lines.DocumentBase.law_status">(pyramid_oereb.standard.models.forest_distance_lines.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.forest_distance_lines.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.forest_distance_lines.Geometry.legal_state">(pyramid_oereb.standard.models.forest_distance_lines.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.forest_distance_lines.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.forest_distance_lines.Geometry.law_status">(pyramid_oereb.standard.models.forest_distance_lines.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.forest_distance_lines.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.forest_perimeters.DocumentBase.legal_state">(pyramid_oereb.standard.models.forest_perimeters.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.forest_perimeters.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.forest_perimeters.DocumentBase.law_status">(pyramid_oereb.standard.models.forest_perimeters.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.forest_perimeters.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.forest_perimeters.Geometry.legal_state">(pyramid_oereb.standard.models.forest_perimeters.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.forest_perimeters.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.forest_perimeters.Geometry.law_status">(pyramid_oereb.standard.models.forest_perimeters.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.forest_perimeters.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase.legal_state">(pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase.law_status">(pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.groundwater_protection_sites.Geometry.legal_state">(pyramid_oereb.standard.models.groundwater_protection_sites.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.groundwater_protection_sites.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.groundwater_protection_sites.Geometry.law_status">(pyramid_oereb.standard.models.groundwater_protection_sites.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.groundwater_protection_sites.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase.legal_state">(pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase.law_status">(pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.groundwater_protection_zones.Geometry.legal_state">(pyramid_oereb.standard.models.groundwater_protection_zones.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.groundwater_protection_zones.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.groundwater_protection_zones.Geometry.law_status">(pyramid_oereb.standard.models.groundwater_protection_zones.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.groundwater_protection_zones.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.land_use_plans.DocumentBase.legal_state">(pyramid_oereb.standard.models.land_use_plans.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.land_use_plans.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.land_use_plans.DocumentBase.law_status">(pyramid_oereb.standard.models.land_use_plans.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.land_use_plans.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.land_use_plans.Geometry.legal_state">(pyramid_oereb.standard.models.land_use_plans.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.land_use_plans.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.land_use_plans.Geometry.law_status">(pyramid_oereb.standard.models.land_use_plans.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.land_use_plans.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.motorways_building_lines.DocumentBase.legal_state">(pyramid_oereb.standard.models.motorways_building_lines.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.motorways_building_lines.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.motorways_building_lines.DocumentBase.law_status">(pyramid_oereb.standard.models.motorways_building_lines.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.motorways_building_lines.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.motorways_building_lines.Geometry.legal_state">(pyramid_oereb.standard.models.motorways_building_lines.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.motorways_building_lines.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.motorways_building_lines.Geometry.law_status">(pyramid_oereb.standard.models.motorways_building_lines.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.motorways_building_lines.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase.legal_state">(pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase.law_status">(pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.motorways_project_planing_zones.Geometry.legal_state">(pyramid_oereb.standard.models.motorways_project_planing_zones.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.motorways_project_planing_zones.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.motorways_project_planing_zones.Geometry.law_status">(pyramid_oereb.standard.models.motorways_project_planing_zones.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.motorways_project_planing_zones.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase.legal_state">(pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase.law_status">(pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.noise_sensitivity_levels.Geometry.legal_state">(pyramid_oereb.standard.models.noise_sensitivity_levels.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.noise_sensitivity_levels.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.noise_sensitivity_levels.Geometry.law_status">(pyramid_oereb.standard.models.noise_sensitivity_levels.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.noise_sensitivity_levels.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.railways_building_lines.DocumentBase.legal_state">(pyramid_oereb.standard.models.railways_building_lines.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.railways_building_lines.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.railways_building_lines.DocumentBase.law_status">(pyramid_oereb.standard.models.railways_building_lines.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.railways_building_lines.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.railways_building_lines.Geometry.legal_state">(pyramid_oereb.standard.models.railways_building_lines.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.railways_building_lines.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.railways_building_lines.Geometry.law_status">(pyramid_oereb.standard.models.railways_building_lines.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.railways_building_lines.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase.legal_state">(pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase.law_status">(pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.railways_project_planning_zones.Geometry.legal_state">(pyramid_oereb.standard.models.railways_project_planning_zones.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.railways_project_planning_zones.Geometry.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.railways_project_planning_zones.Geometry.law_status">(pyramid_oereb.standard.models.railways_project_planning_zones.Geometry attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.railways_project_planning_zones.Geometry.law_status">[1]</a>
 </li>
-        <li><a href="api.html#pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.legal_state">(pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.legal_state">[1]</a>
+        <li><a href="api.html#pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.law_status">(pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction attribute)</a>, <a href="api.html#pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.law_status">[1]</a>
 </li>
       </ul></li>
+      <li><a href="api.html#pyramid_oereb.lib.records.law_status.LawStatusRecord">LawStatusRecord (class in pyramid_oereb.lib.records.law_status)</a>
+</li>
       <li><a href="api.html#pyramid_oereb.standard.models.airports_building_lines.LegalProvision">LegalProvision (class in pyramid_oereb.standard.models.airports_building_lines)</a>, <a href="api.html#pyramid_oereb.standard.models.airports_building_lines.LegalProvision">[1]</a>
 
       <ul>
@@ -3770,6 +3778,8 @@
       <li><a href="api.html#module-pyramid_oereb.lib.records.glossary">pyramid_oereb.lib.records.glossary (module)</a>
 </li>
       <li><a href="api.html#module-pyramid_oereb.lib.records.image">pyramid_oereb.lib.records.image (module)</a>
+</li>
+      <li><a href="api.html#module-pyramid_oereb.lib.records.law_status">pyramid_oereb.lib.records.law_status (module)</a>
 </li>
       <li><a href="api.html#module-pyramid_oereb.lib.records.municipality">pyramid_oereb.lib.records.municipality (module)</a>
 </li>

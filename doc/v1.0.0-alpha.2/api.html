@@ -575,6 +575,53 @@ None.</li>
 </dd></dl>
 
 <dl class="staticmethod">
+<dt id="pyramid_oereb.lib.config.Config.get_law_status">
+<em class="property">static </em><code class="descname">get_law_status</code><span class="sig-paren">(</span><em>theme_code</em>, <em>law_status_config</em>, <em>law_status_code</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/config.html#Config.get_law_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.config.Config.get_law_status" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>theme_code</strong> (<em>str</em>) &#8211; The theme code.</li>
+<li><strong>law_status_config</strong> (<em>dict</em>) &#8211; The configured mapping of the plrs law status.</li>
+<li><strong>law_status_code</strong> (<em>str</em>) &#8211; The law status code read from the data to wrap it into the only two allowed
+values: &#8220;inForce&#8221; or &#8220;runningModifications&#8221; which are possible on the extract.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The mapped law status. This is &#8220;inForce&#8221; or &#8220;runningModifications&#8221;.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">str</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">AttributeError</span></code> &#8211; If the passed law status code does not match one of the configured ones.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.lib.config.Config.get_law_status_translations">
+<em class="property">static </em><code class="descname">get_law_status_translations</code><span class="sig-paren">(</span><em>code</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/config.html#Config.get_law_status_translations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.config.Config.get_law_status_translations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtaining the law status translations from config via the code.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>code</strong> (<em>str</em>) &#8211; The law status code. This must be &#8220;inForce&#8221; or &#8220;runningModifications&#8221;. Any other
+value won&#8217;t match and throw a silent error.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The translation from the configuration.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
 <dt id="pyramid_oereb.lib.config.Config.get_logo_config">
 <em class="property">static </em><code class="descname">get_logo_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/config.html#Config.get_logo_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.config.Config.get_logo_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a dictionary of the configured file path&#8217;s to the logos.</p>
@@ -1226,7 +1273,7 @@ records</p>
 <span id="api-pyramid-oereb-lib-records-documents-articlerecord"></span><h5>Class <em>ArticleRecord</em><a class="headerlink" href="#class-articlerecord" title="Permalink to this headline">¶</a></h5>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.documents.ArticleRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">ArticleRecord</code><span class="sig-paren">(</span><em>legal_state</em>, <em>published_from</em>, <em>number</em>, <em>text_at_web=None</em>, <em>text=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/documents.html#ArticleRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.ArticleRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">ArticleRecord</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>number</em>, <em>text_at_web=None</em>, <em>text=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/documents.html#ArticleRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.ArticleRecord" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -1234,7 +1281,7 @@ records</p>
 <span id="api-pyramid-oereb-lib-records-documents-documentbaserecord"></span><h5>Class <em>DocumentBaseRecord</em><a class="headerlink" href="#class-documentbaserecord" title="Permalink to this headline">¶</a></h5>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.documents.DocumentBaseRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">DocumentBaseRecord</code><span class="sig-paren">(</span><em>legal_state</em>, <em>published_from</em>, <em>text_at_web=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/documents.html#DocumentBaseRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentBaseRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">DocumentBaseRecord</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>text_at_web=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/documents.html#DocumentBaseRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentBaseRecord" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt id="pyramid_oereb.lib.records.documents.DocumentBaseRecord.published">
 <code class="descname">published</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentBaseRecord.published" title="Permalink to this definition">¶</a></dt>
@@ -1258,7 +1305,7 @@ records</p>
 <span id="api-pyramid-oereb-lib-records-documents-documentrecord"></span><h5>Class <em>DocumentRecord</em><a class="headerlink" href="#class-documentrecord" title="Permalink to this headline">¶</a></h5>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.documents.DocumentRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">DocumentRecord</code><span class="sig-paren">(</span><em>legal_state</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/documents.html#DocumentRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">DocumentRecord</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/documents.html#DocumentRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentRecord" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -1266,7 +1313,7 @@ records</p>
 <span id="api-pyramid-oereb-lib-records-documents-legalprovisionrecord"></span><h5>Class <em>LegalProvisionRecord</em><a class="headerlink" href="#class-legalprovisionrecord" title="Permalink to this headline">¶</a></h5>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">LegalProvisionRecord</code><span class="sig-paren">(</span><em>legal_state</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/documents.html#LegalProvisionRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">LegalProvisionRecord</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/documents.html#LegalProvisionRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -1354,7 +1401,7 @@ records</p>
 <span id="api-pyramid-oereb-lib-records-geometry-geometryrecord"></span><h5>Class <em>GeometryRecord</em><a class="headerlink" href="#class-geometryrecord" title="Permalink to this headline">¶</a></h5>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.geometry.GeometryRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.geometry.</code><code class="descname">GeometryRecord</code><span class="sig-paren">(</span><em>legal_state</em>, <em>published_from</em>, <em>geom</em>, <em>geo_metadata=None</em>, <em>public_law_restriction=None</em>, <em>office=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/geometry.html#GeometryRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.geometry.GeometryRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.geometry.</code><code class="descname">GeometryRecord</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>geom</em>, <em>geo_metadata=None</em>, <em>public_law_restriction=None</em>, <em>office=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/geometry.html#GeometryRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.geometry.GeometryRecord" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt id="pyramid_oereb.lib.records.geometry.GeometryRecord.area">
 <code class="descname">area</code><a class="headerlink" href="#pyramid_oereb.lib.records.geometry.GeometryRecord.area" title="Permalink to this definition">¶</a></dt>
@@ -1479,7 +1526,7 @@ collection which has to be unpacked first in case of collection.</p>
 <span id="api-pyramid-oereb-lib-records-plr-plrrecord"></span><h5>Class <em>PlrRecord</em><a class="headerlink" href="#class-plrrecord" title="Permalink to this headline">¶</a></h5>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.plr.PlrRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.plr.</code><code class="descname">PlrRecord</code><span class="sig-paren">(</span><em>theme</em>, <em>content</em>, <em>legal_state</em>, <em>published_from</em>, <em>responsible_office</em>, <em>symbol</em>, <em>subtopic=None</em>, <em>additional_topic=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>view_service=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>geometries=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit=u'm'</em>, <em>area_unit=u'm2'</em>, <em>length_precision=2</em>, <em>area_precision=2</em>, <em>percentage_precision=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/plr.html#PlrRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.plr.</code><code class="descname">PlrRecord</code><span class="sig-paren">(</span><em>theme</em>, <em>content</em>, <em>law_status</em>, <em>published_from</em>, <em>responsible_office</em>, <em>symbol</em>, <em>subtopic=None</em>, <em>additional_topic=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>view_service=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>geometries=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit=u'm'</em>, <em>area_unit=u'm2'</em>, <em>length_precision=2</em>, <em>area_precision=2</em>, <em>percentage_precision=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/plr.html#PlrRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt id="pyramid_oereb.lib.records.plr.PlrRecord.area">
 <code class="descname">area</code><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.area" title="Permalink to this definition">¶</a></dt>
@@ -1793,6 +1840,24 @@ record to be formatted.</td>
 be formatted.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionary for rendering.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.renderer.extract.json_.Renderer.format_law_status">
+<code class="descname">format_law_status</code><span class="sig-paren">(</span><em>law_status</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer/extract/json_.html#Renderer.format_law_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_law_status" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>law_status</strong> (<em>pyramid_oereb.lib.records.law_status.LawStatusRecord</em>) &#8211; The law status to format into
+a dictionary.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The transformed law status.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
 </tr>
@@ -2682,8 +2747,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_building_lines.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_building_lines.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -2787,8 +2852,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_building_lines.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_building_lines.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -3054,8 +3119,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -3481,7 +3546,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -3595,7 +3660,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -3874,7 +3939,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -4310,8 +4375,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -4415,8 +4480,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -4682,8 +4747,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -5109,7 +5174,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -5223,7 +5288,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -5502,7 +5567,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -5938,8 +6003,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -6043,8 +6108,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -6310,8 +6375,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -6737,7 +6802,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -6851,7 +6916,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -7130,7 +7195,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -7566,8 +7631,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -7671,8 +7736,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -7938,8 +8003,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -8365,7 +8430,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -8479,7 +8544,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -8758,7 +8823,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -9194,8 +9259,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -9299,8 +9364,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_military_sites.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -9566,8 +9631,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -9993,7 +10058,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -10107,7 +10172,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -10386,7 +10451,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -10822,8 +10887,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -10927,8 +10992,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -11194,8 +11259,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -11621,7 +11686,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -11735,7 +11800,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -12014,7 +12079,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -12450,8 +12515,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_sites.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_sites.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -12555,8 +12620,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_sites.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_sites.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -12822,8 +12887,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -13249,7 +13314,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -13363,7 +13428,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -13642,7 +13707,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -14078,8 +14143,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_distance_lines.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -14183,8 +14248,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_distance_lines.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -14450,8 +14515,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -14877,7 +14942,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -14991,7 +15056,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -15270,7 +15335,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -15706,8 +15771,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_perimeters.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_perimeters.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -15811,8 +15876,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_perimeters.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_perimeters.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -16078,8 +16143,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -16505,7 +16570,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -16619,7 +16684,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -16898,7 +16963,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -17334,8 +17399,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -17439,8 +17504,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -17706,8 +17771,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -18133,7 +18198,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -18247,7 +18312,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -18526,7 +18591,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -18962,8 +19027,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -19067,8 +19132,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -19334,8 +19399,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -19761,7 +19826,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -19875,7 +19940,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -20154,7 +20219,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -20590,8 +20655,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.land_use_plans.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.land_use_plans.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -20695,8 +20760,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.land_use_plans.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.land_use_plans.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -20962,8 +21027,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -21389,7 +21454,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -21503,7 +21568,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -21782,7 +21847,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -22699,8 +22764,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_building_lines.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -22804,8 +22869,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_building_lines.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -23071,8 +23136,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -23498,7 +23563,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -23612,7 +23677,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -23891,7 +23956,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -24327,8 +24392,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -24432,8 +24497,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -24699,8 +24764,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -25126,7 +25191,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -25240,7 +25305,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -25519,7 +25584,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -25955,8 +26020,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -26060,8 +26125,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -26327,8 +26392,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -26754,7 +26819,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -26868,7 +26933,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -27147,7 +27212,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -27583,8 +27648,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_building_lines.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_building_lines.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -27688,8 +27753,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_building_lines.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_building_lines.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -27955,8 +28020,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -28382,7 +28447,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -28496,7 +28561,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -28775,7 +28840,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -29211,8 +29276,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -29316,8 +29381,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.Geometry.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.Geometry.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.Geometry.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -29583,8 +29648,8 @@ machine  readable format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -30010,7 +30075,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -30124,7 +30189,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 
@@ -30403,7 +30468,7 @@ machine  readable format.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legal_state</code></dt>
+<code class="descname">law_status</code></dt>
 <dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
 </dd></dl>
 

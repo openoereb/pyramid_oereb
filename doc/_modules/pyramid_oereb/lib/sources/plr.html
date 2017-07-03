@@ -182,6 +182,7 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.geometry</span> <span class="k">import</span> <span class="n">GeometryRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.glossary</span> <span class="k">import</span> <span class="n">GlossaryRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.office</span> <span class="k">import</span> <span class="n">OfficeRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.law_status</span> <span class="k">import</span> <span class="n">LawStatusRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.reference_definition</span> <span class="k">import</span> <span class="n">ReferenceDefinitionRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.view_service</span> <span class="k">import</span> <span class="n">ViewServiceRecord</span><span class="p">,</span> <span class="n">LegendEntryRecord</span>
 
@@ -198,7 +199,8 @@
     <span class="n">_office_record_class_</span> <span class="o">=</span> <span class="n">OfficeRecord</span>
     <span class="n">_plr_record_class_</span> <span class="o">=</span> <span class="n">PlrRecord</span>
     <span class="n">_reference_definition_record_class_</span> <span class="o">=</span> <span class="n">ReferenceDefinitionRecord</span>
-    <span class="n">_view_service_record_class_</span> <span class="o">=</span> <span class="n">ViewServiceRecord</span></div>
+    <span class="n">_view_service_record_class_</span> <span class="o">=</span> <span class="n">ViewServiceRecord</span>
+    <span class="n">_law_status_record_class_</span> <span class="o">=</span> <span class="n">LawStatusRecord</span></div>
 
 
 <div class="viewcode-block" id="PlrStandardDatabaseSource"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource">[docs]</a><span class="k">class</span> <span class="nc">PlrStandardDatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">PlrBaseSource</span><span class="p">):</span>
@@ -307,8 +309,15 @@
     <span class="k">def</span> <span class="nf">from_db_to_geometry_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geometries_from_db</span><span class="p">):</span>
         <span class="n">geometry_records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">geometry_from_db</span> <span class="ow">in</span> <span class="n">geometries_from_db</span><span class="p">:</span>
+            <span class="n">law_status</span> <span class="o">=</span> <span class="n">LawStatusRecord</span><span class="p">(</span>
+                <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;law_status&#39;</span><span class="p">),</span>
+                    <span class="n">geometry_from_db</span><span class="o">.</span><span class="n">law_status</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
             <span class="n">geometry_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_geometry_record_class_</span><span class="p">(</span>
-                <span class="n">geometry_from_db</span><span class="o">.</span><span class="n">legal_state</span><span class="p">,</span>
+                <span class="n">law_status</span><span class="p">,</span>
                 <span class="n">geometry_from_db</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">geometry_parsing</span><span class="p">(</span><span class="n">geometry_from_db</span><span class="o">.</span><span class="n">geom</span><span class="p">),</span>
                 <span class="n">geometry_from_db</span><span class="o">.</span><span class="n">geo_metadata</span><span class="p">,</span>
@@ -333,8 +342,15 @@
     <span class="k">def</span> <span class="nf">from_db_to_article_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">articles_from_db</span><span class="p">):</span>
         <span class="n">article_records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">article_from_db</span> <span class="ow">in</span> <span class="n">articles_from_db</span><span class="p">:</span>
+            <span class="n">law_status</span> <span class="o">=</span> <span class="n">LawStatusRecord</span><span class="p">(</span>
+                <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;law_status&#39;</span><span class="p">),</span>
+                    <span class="n">article_from_db</span><span class="o">.</span><span class="n">law_status</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
             <span class="n">article_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_article_record_class_</span><span class="p">(</span>
-                <span class="n">article_from_db</span><span class="o">.</span><span class="n">legal_state</span><span class="p">,</span>
+                <span class="n">law_status</span><span class="p">,</span>
                 <span class="n">article_from_db</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>
                 <span class="n">article_from_db</span><span class="o">.</span><span class="n">number</span><span class="p">,</span>
                 <span class="n">article_from_db</span><span class="o">.</span><span class="n">text_at_web</span><span class="p">,</span>
@@ -358,8 +374,15 @@
             <span class="n">article_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_article_records</span><span class="p">(</span><span class="n">legal_provision</span><span class="o">.</span><span class="n">articles</span><span class="p">)</span>
             <span class="n">office_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_office_record</span><span class="p">(</span><span class="n">legal_provision</span><span class="o">.</span><span class="n">responsible_office</span><span class="p">)</span>
             <span class="n">article_nrs</span> <span class="o">=</span> <span class="n">article_numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">article_numbers</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">law_status</span> <span class="o">=</span> <span class="n">LawStatusRecord</span><span class="p">(</span>
+                <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;law_status&#39;</span><span class="p">),</span>
+                    <span class="n">legal_provision</span><span class="o">.</span><span class="n">law_status</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
             <span class="n">document_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_documents_reocord_class_</span><span class="p">(</span>
-                <span class="n">legal_provision</span><span class="o">.</span><span class="n">legal_state</span><span class="p">,</span>
+                <span class="n">law_status</span><span class="p">,</span>
                 <span class="n">legal_provision</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>
                 <span class="n">legal_provision</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
                 <span class="n">office_record</span><span class="p">,</span>
@@ -423,10 +446,17 @@
         <span class="n">refinements_plr_records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">join</span> <span class="ow">in</span> <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">refinements</span><span class="p">:</span>
             <span class="n">refinements_plr_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_plr_record</span><span class="p">(</span><span class="n">join</span><span class="o">.</span><span class="n">refinement</span><span class="p">))</span>
+        <span class="n">law_status</span> <span class="o">=</span> <span class="n">LawStatusRecord</span><span class="p">(</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;law_status&#39;</span><span class="p">),</span>
+                <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">law_status</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
         <span class="n">plr_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_record_class_</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">theme_record</span><span class="p">,</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
-            <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">legal_state</span><span class="p">,</span>
+            <span class="n">law_status</span><span class="p">,</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_office_record</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">responsible_office</span><span class="p">),</span>
             <span class="n">symbol</span><span class="p">,</span>

@@ -374,6 +374,22 @@ Class *ImageRecord*
 .. autoclass:: pyramid_oereb.lib.records.image.ImageRecord
    :members:
 
+.. _api-pyramid_oereb-lib-records-law_status:
+
+Module *law_status*
+'''''''''''''''''''''''''''''''''''''''''''''
+
+.. automodule:: pyramid_oereb.lib.records.law_status
+   :members:
+
+.. _api-pyramid_oereb-lib-records-law_status-lawstatusrecord:
+
+Class *LawStatusRecord*
+.......................
+
+.. autoclass:: pyramid_oereb.lib.records.law_status.LawStatusRecord
+   :members:
+
 .. _api-pyramid_oereb-lib-records-municipality:
 
 Module *municipality*
