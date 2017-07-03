@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import base64
 from urllib import urlencode
-from urllib2 import urlopen, URLError
+from urllib2 import urlopen
 from urlparse import urlsplit, urlunsplit, parse_qs, urlparse
 
 
@@ -73,13 +73,24 @@ def url_to_base64(url):
         url (str): url to request and deliver as base64 document.
 
     Returns:
-        base64 or str: the document as base64 string or None on errors
+        base64 or str: the document as base64 string or None on empty urls
+
+    Raises:
+        LookupError: Raised if the response is not code 200.
+        AttributeError: Raised if the URL itself isn't valid at all.
+
     """
     response = None
-    if url:
-        try:
-            response = urlopen(url)
-        except URLError as e:
-            raise LookupError(e)
+    if url is None:
+        return None
+    if uri_validator(url):
+        response = urlopen(url)
+        if response.getcode() != 200:
+            dedicated_msg = "The url could not be downloaded. URL was: {url}, Response was " \
+                            "{response}".format(url=url, response=response.read())
+            raise LookupError(dedicated_msg)
+    else:
+        dedicated_msg = "URL seems to be not valid. URL was: {url}".format(url=url)
+        raise AttributeError(dedicated_msg)
 
-    return None if response is None else base64.b64encode(response.read())
+    return base64.b64encode(response.read())
