@@ -52,10 +52,12 @@ def add_split_url_params(parsed_url, new_params):
 def uri_validator(url):
     """
     A simple validator for URL's.
-    :param url: The url which should be checked to be valid.
-    :type url: str
-    :return: The state of the validation.
-    :rtype: bool
+    
+    Args:
+        url (str): The url which should be checked to be valid.
+
+    Returns:
+        bool: The state of the validation.
     """
     result = urlparse(url)
     return True if result.scheme and result.netloc else False
