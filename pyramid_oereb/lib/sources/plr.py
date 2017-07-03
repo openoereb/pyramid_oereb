@@ -147,7 +147,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         geometry_records = []
         for geometry_from_db in geometries_from_db:
             geometry_records.append(self._geometry_record_class_(
-                geometry_from_db.legal_state,
+                geometry_from_db.law_status,
                 geometry_from_db.published_from,
                 self.geometry_parsing(geometry_from_db.geom),
                 geometry_from_db.geo_metadata,
@@ -173,7 +173,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         article_records = []
         for article_from_db in articles_from_db:
             article_records.append(self._article_record_class_(
-                article_from_db.legal_state,
+                article_from_db.law_status,
                 article_from_db.published_from,
                 article_from_db.number,
                 article_from_db.text_at_web,
@@ -198,7 +198,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             office_record = self.from_db_to_office_record(legal_provision.responsible_office)
             article_nrs = article_numbers[i] if isinstance(article_numbers, list) else None
             document_records.append(self._documents_reocord_class_(
-                legal_provision.legal_state,
+                legal_provision.law_status,
                 legal_provision.published_from,
                 legal_provision.title,
                 office_record,
@@ -265,7 +265,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         plr_record = self._plr_record_class_(
             self.theme_record,
             public_law_restriction_from_db.content,
-            public_law_restriction_from_db.legal_state,
+            public_law_restriction_from_db.law_status,
             public_law_restriction_from_db.published_from,
             self.from_db_to_office_record(public_law_restriction_from_db.responsible_office),
             symbol,

@@ -26,7 +26,7 @@ class PlrRecord(EmptyPlrRecord):
     part_in_percent = None
     """decimal: Part of the property area touched by the restriction in percent."""
 
-    def __init__(self, theme, content, legal_state, published_from, responsible_office, symbol, subtopic=None,
+    def __init__(self, theme, content, law_status, published_from, responsible_office, symbol, subtopic=None,
                  additional_topic=None, type_code=None, type_code_list=None, view_service=None, basis=None,
                  refinements=None, documents=None, geometries=None, info=None, min_length=0.0,
                  min_area=0.0, length_unit=u'm', area_unit=u'm2', length_precision=2, area_precision=2,
@@ -37,7 +37,7 @@ class PlrRecord(EmptyPlrRecord):
         Args:
             content (dict of unicode): The PLR record's content (multilingual).
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.
-            legal_state (unicode): The PLR record's legal state.
+            law_status (unicode): The PLR record's legal state.
             published_from (datetime.date): Date from/since when the PLR record is published.
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is responsible
                 for this PLR.
@@ -70,7 +70,7 @@ class PlrRecord(EmptyPlrRecord):
             warnings.warn('Type of "content" should be "dict"')
 
         self.content = content
-        self.legal_state = legal_state
+        self.law_status = law_status
         self.published_from = published_from
         self.responsible_office = responsible_office
         self.subtopic = subtopic

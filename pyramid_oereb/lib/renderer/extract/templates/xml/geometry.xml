@@ -6,7 +6,7 @@
     <xsd:Lawstatus>
         ## TODO: solve code here, where may it come from?
         <xsd:Code>TODO: Provide code here</xsd:Code>
-        <xsd:Text>${geometry.legal_state}</xsd:Text>
+        <xsd:Text>${geometry.law_status}</xsd:Text>
     </xsd:Lawstatus>
     <xsd:MetadataOfGeographicalBaseData>
         ${geometry.geo_metadata}
