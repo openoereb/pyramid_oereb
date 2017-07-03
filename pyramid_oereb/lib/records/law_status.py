@@ -10,7 +10,7 @@ class LawStatusRecord(object):
         Responsible office record.
 
         Args:
-            code (str):  The official name of the authority (multilingual)
+            code (str or unicode):  The official name of the authority (multilingual)
         """
         if code != u'inForce' and code != u'runningModifications':
             raise AttributeError('wrong code for law status was deliverd. Only "inForce" or '

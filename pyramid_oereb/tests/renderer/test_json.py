@@ -18,12 +18,13 @@ from pyramid_oereb.lib.records.glossary import GlossaryRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
+from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord, EmbeddableThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.renderer import Base
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
-from pyramid_oereb.tests.conftest import MockRequest, pyramid_oereb_test_config
+from pyramid_oereb.tests.conftest import MockRequest, pyramid_oereb_test_config, law_status
 from pyramid_oereb.tests.renderer import DummyRenderInfo
 from pyramid_oereb.views.webservice import Parameter
 
@@ -192,7 +193,7 @@ def test_format_real_estate(config):
         'reduced', 'json', True, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
     geometry = MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])])
     view_service = ViewServiceRecord(u'http://geowms.bl.ch', u'http://geowms.bl.ch')
-    document = DocumentRecord(u'inForce', datetime.date.today(), {u'de': u'Test Dokument'},
+    document = DocumentRecord(LawStatusRecord(u'inForce'), datetime.date.today(), {u'de': u'Test Dokument'},
                               OfficeRecord({u'de': u'BUD'}), {'de': 'http://mein.dokument.ch'})
     real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
                                    geometry, u'http://www.geocat.ch', u'1000', u'BL0200002829',
@@ -229,8 +230,13 @@ def test_format_plr(config, parameter):
         renderer._language = 'de'
         renderer._params = parameter
         renderer._request = MockRequest()
-        document = DocumentRecord(u'inForce', datetime.date.today(), {u'de': u'Test Dokument'},
-                                  OfficeRecord({u'de': u'BUD'}), {'de': 'http://mein.dokument.ch'})
+        document = DocumentRecord(
+            LawStatusRecord(u'inForce'),
+            datetime.date.today(),
+            {u'de': u'Test Dokument'},
+            OfficeRecord({u'de': u'BUD'}),
+            {'de': 'http://mein.dokument.ch'}
+        )
         if parameter.flavour == 'reduced':
             documents = [document]
         else:
@@ -243,7 +249,7 @@ def test_format_plr(config, parameter):
         plr = PlrRecord(
             theme,
             {'de': 'Test PLR'},
-            'inForce',
+            LawStatusRecord('inForce'),
             datetime.date.today(),
             office,
             ImageRecord(bin(1)),
@@ -266,7 +272,10 @@ def test_format_plr(config, parameter):
             expected = {
                 'Information': renderer.get_localized_text(plr.content),
                 'Theme': renderer.format_theme(plr.theme),
-                'Lawstatus': 'inForce',
+                'Lawstatus': {
+                    'Code': 'inForce',
+                    'Text': [{'Language': 'de', 'Text': 'In Kraft'}]
+                },
                 'Area': None,
                 'ResponsibleOffice': renderer.format_office(plr.responsible_office),
                 'Map': renderer.format_map(plr.view_service),
@@ -289,33 +298,50 @@ def test_format_plr(config, parameter):
 
 
 @pytest.mark.parametrize('document,result_dict', [
-    (LegalProvisionRecord('inForce', datetime.date.today(), {'de': 'Test Rechtsvorschrift'},
-                          OfficeRecord({'de': 'AGI'}), {'de': 'http://meine.rechtsvorschrift.ch'},
-                          {'de': 'Test'}, 'rv.test.1', {'de': 'Rechtsvorschrift Test'}, 'BL', 'Liestal',
-                          ['Art.1', 'Art.2', 'Art.3'], bin(1), [
-                              ArticleRecord('inForce', datetime.date.today(), 'art.1')
-                          ], [
-                              DocumentRecord('inForce', datetime.date.today(), {'de': 'Test Dokument'},
-                                             OfficeRecord({'de': 'BUD'}), {'de': 'http://mein.dokument.ch'})
-                          ]), {
-        'Lawstatus': 'inForce',
-        'TextAtWeb': [{'Language': 'de', 'Text': 'http://meine.rechtsvorschrift.ch'}],
-        'Title': [{'Language': 'de', 'Text': 'Test Rechtsvorschrift'}],
-        'ResponsibleOffice': {
-            'Name': [{'Language': 'de', 'Text': 'AGI'}]
-        },
-        'OfficialTitle': [{'Language': 'de', 'Text': 'Rechtsvorschrift Test'}],
-        'Abbrevation': [{'Language': 'de', 'Text': 'Test'}],
-        'OfficialNumber': 'rv.test.1',
-        'Canton': 'BL',
-        'Municipality': 'Liestal',
-        'ArticleNumber': ['Art.1', 'Art.2', 'Art.3'],
-        'Article': [{
-            'Lawstatus': 'inForce',
-            'Number': 'art.1'
-        }],
+    (LegalProvisionRecord(
+        law_status(),
+        datetime.date.today(),
+        {'de': 'Test Rechtsvorschrift'},
+        OfficeRecord({'de': 'AGI'}),
+        {'de': 'http://meine.rechtsvorschrift.ch'},
+        {'de': 'Test'},
+        'rv.test.1',
+        {'de': 'Rechtsvorschrift Test'},
+        'BL', 'Liestal',
+        ['Art.1', 'Art.2', 'Art.3'],
+        bin(1), [
+            ArticleRecord(law_status(), datetime.date.today(), 'art.1')
+        ], [
+            DocumentRecord(law_status(), datetime.date.today(), {'de': 'Test Dokument'},
+                           OfficeRecord({'de': 'BUD'}), {'de': 'http://mein.dokument.ch'})
+        ]), {
+            'Lawstatus': {
+                'Code': 'inForce',
+                'Text': [{'Language': 'de', 'Text': 'In Kraft'}]
+            },
+            'TextAtWeb': [{'Language': 'de', 'Text': 'http://meine.rechtsvorschrift.ch'}],
+            'Title': [{'Language': 'de', 'Text': 'Test Rechtsvorschrift'}],
+            'ResponsibleOffice': {
+                'Name': [{'Language': 'de', 'Text': 'AGI'}]
+            },
+            'OfficialTitle': [{'Language': 'de', 'Text': 'Rechtsvorschrift Test'}],
+            'Abbrevation': [{'Language': 'de', 'Text': 'Test'}],
+            'OfficialNumber': 'rv.test.1',
+            'Canton': 'BL',
+            'Municipality': 'Liestal',
+            'ArticleNumber': ['Art.1', 'Art.2', 'Art.3'],
+            'Article': [{
+                'Lawstatus': {
+                    'Code': 'inForce',
+                    'Text': [{'Language': 'de', 'Text': 'In Kraft'}]
+                },
+                'Number': 'art.1'
+            }],
         'Reference': [{
-            'Lawstatus': 'inForce',
+            'Lawstatus': {
+                'Code': 'inForce',
+                'Text': [{'Language': 'de', 'Text': 'In Kraft'}]
+            },
             'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.dokument.ch'}],
             'Title': [{'Language': 'de', 'Text': 'Test Dokument'}],
             'ResponsibleOffice': {
@@ -323,9 +349,17 @@ def test_format_plr(config, parameter):
             }
         }]
     }),
-    (ArticleRecord(u'inForce', datetime.date.today(), u'art.2', {'de': 'http://mein.artikel.ch/2'},
-                   {u'de': u'Test-Artikel'}), {
-        'Lawstatus': 'inForce',
+    (ArticleRecord(
+        law_status(),
+        datetime.date.today(),
+        u'art.2',
+        {'de': 'http://mein.artikel.ch/2'},
+        {u'de': u'Test-Artikel'}
+    ), {
+        'Lawstatus': {
+            'Code': 'inForce',
+            'Text': [{'Language': 'de', 'Text': 'In Kraft'}]
+        },
         'Number': 'art.2',
         'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.artikel.ch/2'}],
         'Text': [{'Language': 'de', 'Text': 'Test-Artikel'}]
@@ -342,9 +376,16 @@ def test_format_document(config, params, document, result_dict):
 
 
 @pytest.mark.parametrize('geometry,result_dict', [
-    (GeometryRecord(u'inForce', datetime.date.today(), Point(0, 0), geo_metadata='http://www.geocat.ch',
-                    office=OfficeRecord({u'de': u'AGI'})),  {
-        'Lawstatus': 'inForce',
+    (GeometryRecord(
+        law_status(),
+        datetime.date.today(),
+        Point(0, 0),
+        geo_metadata='http://www.geocat.ch',
+        office=OfficeRecord({u'de': u'AGI'})),  {
+        'Lawstatus': {
+            'Code': 'inForce',
+            'Text': [{'Language': 'de', 'Text': 'In Kraft'}]
+        },
         'ResponsibleOffice': {
             'Name': [{'Language': 'de', 'Text': 'AGI'}]
         },
@@ -354,9 +395,12 @@ def test_format_document(config, params, document, result_dict):
             'coordinates': (0, 0)
         }
     }),
-    (GeometryRecord(u'inForce', datetime.date.today(), LineString([(0, 0), (1, 1)]),
+    (GeometryRecord(law_status(), datetime.date.today(), LineString([(0, 0), (1, 1)]),
                     office=OfficeRecord({u'de': u'AGI'})),  {
-        'Lawstatus': 'inForce',
+        'Lawstatus': {
+            'Code': 'inForce',
+            'Text': [{'Language': 'de', 'Text': 'In Kraft'}]
+        },
         'ResponsibleOffice': {
             'Name': [{'Language': 'de', 'Text': 'AGI'}]
         },
@@ -365,9 +409,16 @@ def test_format_document(config, params, document, result_dict):
             'coordinates': ((0, 0), (1, 1))
         }
     }),
-    (GeometryRecord(u'inForce', datetime.date.today(), Polygon([(0, 0), (1, 1), (1, 0)]),
-                    office=OfficeRecord({u'de': u'AGI'})),  {
-        'Lawstatus': 'inForce',
+    (GeometryRecord(
+        law_status(),
+        datetime.date.today(),
+        Polygon([(0, 0), (1, 1), (1, 0)]),
+        office=OfficeRecord({u'de': u'AGI'})
+    ),  {
+        'Lawstatus': {
+            'Code': 'inForce',
+            'Text': [{'Language': 'de', 'Text': 'In Kraft'}]
+        },
         'ResponsibleOffice': {
             'Name': [{'Language': 'de', 'Text': 'AGI'}]
         },

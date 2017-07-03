@@ -16,6 +16,7 @@ from pyramid_oereb import ExclusionOfLiabilityReader
 from pyramid_oereb import GlossaryReader
 from pyramid_oereb import Processor
 from pyramid_oereb import RealEstateReader
+from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.standard.models.motorways_building_lines import Geometry as LineGeometry, \
     PublicLawRestriction as LinePublicLawRestriction, Office as LineOffice, ViewService as LineViewService, \
     Document as LineDocument, DocumentBase as LineDocumentBase, \
@@ -88,6 +89,13 @@ def config():
     Config._config = None
     Config.init(pyramid_oereb_test_yml, 'pyramid_oereb')
     return Config
+
+
+@pytest.fixture(scope='module')
+def law_status():
+    Config._config = None
+    Config.init(pyramid_oereb_test_yml, 'pyramid_oereb')
+    return LawStatusRecord('inForce')
 
 
 @contextmanager
