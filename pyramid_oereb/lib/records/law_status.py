@@ -7,10 +7,11 @@ class LawStatusRecord(object):
 
     def __init__(self, code):
         """
-        Responsible office record.
+        Law status record.
 
         Args:
-            code (str or unicode):  The official name of the authority (multilingual)
+            code (str or unicode): The code of the law status. It must be "inForce" or "runningModifications"
+                every other value will raise an error.
         """
         if code != u'inForce' and code != u'runningModifications':
             raise AttributeError('wrong code for law status was deliverd. Only "inForce" or '
