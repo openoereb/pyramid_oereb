@@ -4,4 +4,6 @@
     <%include file="localized_text.xml" args="text=document.text_at_web"/>
 </xsd:TextAtWeb>
 %endif
-<xsd:Lawstatus>${document.law_status}</xsd:Lawstatus>
+<xsd:Lawstatus>
+    <%include file="law_status.xml" args="law_status=document.law_status"/>
+</xsd:Lawstatus>

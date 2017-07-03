@@ -218,7 +218,7 @@ class Renderer(Base):
                 plr_dict = {
                     'Information': self.get_localized_text(plr.content),
                     'Theme': self.format_theme(plr.theme),
-                    'Lawstatus': plr.law_status,
+                    'Lawstatus': self.format_law_status(plr.law_status),
                     'Area': plr.area,
                     'ResponsibleOffice': self.format_office(plr.responsible_office),
                     'Map': self.format_map(plr.view_service)
@@ -264,6 +264,19 @@ class Renderer(Base):
 
         return plr_list
 
+    def format_law_status(self, law_status):
+        """
+        Args:
+            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status to format into
+                a dictionary.
+        Returns:
+            dict: The transformed law status.
+        """
+        return {
+            'Code': law_status.code,
+            'Text': self.get_localized_text(law_status.text)
+        }
+
     def format_document(self, document):
         """
         Formats a document record for rendering according to the federal specification.
@@ -281,7 +294,7 @@ class Renderer(Base):
         if isinstance(document, DocumentRecord) or isinstance(document, LegalProvisionRecord):
 
             document_dict.update({
-                'Lawstatus': document.law_status,
+                'Lawstatus': self.format_law_status(document.law_status),
                 'TextAtWeb': self.get_localized_text(document.text_at_web),
                 'Title': self.get_localized_text(document.title),
                 'ResponsibleOffice': self.format_office(document.responsible_office)
@@ -317,7 +330,7 @@ class Renderer(Base):
 
         elif isinstance(document, ArticleRecord):
             document_dict.update({
-                'Lawstatus': document.law_status,
+                'Lawstatus': self.format_law_status(document.law_status),
                 'Number': document.number
             })
 
@@ -353,7 +366,7 @@ class Renderer(Base):
 
         geometry_dict = {
             geometry_type: self.from_shapely(geometry.geom),
-            'Lawstatus': geometry.law_status,
+            'Lawstatus': self.format_law_status(geometry.law_status),
             'ResponsibleOffice': self.format_office(geometry.office)
         }
 

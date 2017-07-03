@@ -16,7 +16,7 @@ class GeometryRecord(object):
         Geometry record
 
         Args:
-            law_status (unicode): The PLR record's legal state.
+            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
             published_from (datetime.date): Date from/since when the PLR record is published.
             geom (Point or LineString or Polygon or MultiPolygon):
                 The geometry which must be of type POINT, LINESTRING or POLYGON, everything else

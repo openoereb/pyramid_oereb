@@ -37,7 +37,7 @@ class PlrRecord(EmptyPlrRecord):
         Args:
             content (dict of unicode): The PLR record's content (multilingual).
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.
-            law_status (unicode): The PLR record's legal state.
+            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
             published_from (datetime.date): Date from/since when the PLR record is published.
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is responsible
                 for this PLR.
