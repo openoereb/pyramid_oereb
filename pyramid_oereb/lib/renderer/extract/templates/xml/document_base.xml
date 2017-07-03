@@ -1,7 +1,21 @@
 <%page args="document"/>
+<%
+    from pyramid_oereb.lib.url import url_to_base64
+%>
 %if document.text_at_web:
 <xsd:TextAtWeb>
     <%include file="localized_text.xml" args="text=document.text_at_web"/>
+    %if params.flavour == 'full':
+    <%
+        localized_text_at_web = language(document.text_at_web)
+        base64_document = url_to_base64(localized_text_at_web[0].get('Text'))
+    %>
+    %if base64_document is not None:
+    <xsd:base64Document>
+        <xsd:base64Binary>${base64_document}</xsd:base64Binary>
+    </xsd:base64Document>
+    %endif
+    %endif
 </xsd:TextAtWeb>
 %endif
 <xsd:Lawstatus>

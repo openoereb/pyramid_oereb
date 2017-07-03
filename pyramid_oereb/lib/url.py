@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+import base64
 from urllib import urlencode
+from urllib2 import urlopen, URLError
 from urlparse import urlsplit, urlunsplit, parse_qs, urlparse
 
 
@@ -52,7 +54,7 @@ def add_split_url_params(parsed_url, new_params):
 def uri_validator(url):
     """
     A simple validator for URL's.
-    
+
     Args:
         url (str): The url which should be checked to be valid.
 
@@ -61,3 +63,23 @@ def uri_validator(url):
     """
     result = urlparse(url)
     return True if result.scheme and result.netloc else False
+
+
+def url_to_base64(url):
+    """
+    Request the document at the given url and return it as a base64 document.
+
+    Args:
+        url (str): url to request and deliver as base64 document.
+
+    Returns:
+        base64 or str: the document as base64 string or None on errors
+    """
+    response = None
+    if url:
+        try:
+            response = urlopen(url)
+        except URLError as e:
+            raise LookupError(e)
+
+    return None if response is None else base64.b64encode(response.read())
