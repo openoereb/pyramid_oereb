@@ -49,7 +49,7 @@ def test_process(connection):
     real_estate = processor.real_estate_reader.read(egrid=u'TEST')
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
-    extract = processor.process(real_estate[0], params)
+    extract = processor.process(real_estate[0], params, 'http://test.ch')
     assert isinstance(extract, ExtractRecord)
 
 
@@ -61,7 +61,7 @@ def test_process_geometry_testing(connection):
     real_estate = processor.real_estate_reader.read(egrid=u'TEST')
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
-    extract = processor.process(real_estate[0], params)
+    extract = processor.process(real_estate[0], params, 'http://test.ch')
     for plr in extract.real_estate.public_law_restrictions:
         for g in plr.geometries:
             assert g._test_passed
@@ -75,7 +75,7 @@ def test_filter_published_documents(connection):
     real_estate = processor.real_estate_reader.read(egrid=u'TEST')
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
-    extract = processor.process(real_estate[0], params)
+    extract = processor.process(real_estate[0], params, 'http://test.ch')
     for plr in extract.real_estate.public_law_restrictions:
         if plr.theme.code == u'MotorwaysBuildingLines':
             assert len(plr.documents) == 1
@@ -94,7 +94,7 @@ def test_processor_with_images(connection):
     real_estate = processor.real_estate_reader.read(egrid=u'TEST')
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
-    extract = processor.process(real_estate[0], params)
+    extract = processor.process(real_estate[0], params, 'http://test.ch')
     # TODO: uncomment this when issue GSOREB-194 is solved.
     # assert extract.real_estate.plan_for_land_register.image is not None
     for plr in extract.real_estate.public_law_restrictions:
@@ -112,7 +112,7 @@ def test_processor_without_images(connection):
     real_estate = processor.real_estate_reader.read(egrid=u'TEST')
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
-    extract = processor.process(real_estate[0], params)
+    extract = processor.process(real_estate[0], params, 'http://test.ch')
     # TODO: uncomment this when issue GSOREB-194 is solved.
     # assert extract.real_estate.plan_for_land_register.image is None
     for plr in extract.real_estate.public_law_restrictions:
