@@ -229,7 +229,7 @@ pyramid_oereb:
           de: Daten der amtlichen Vermessung, Stand {0}.
           fr: Données de la mensuration officielle, état actuel {0}
           it: Dati della misurazione ufficiale, stato attuale {0}
-          rm: Daten der amtlichen Vermessung, Stand {0}
+          rm: Datas da la mesiraziun uffiziala, versiun dal {0}
         methods:
           date: pyramid_oereb.standard.hook_methods.get_surveying_data_update_date
           provider:  pyramid_oereb.standard.hook_methods.get_surveying_data_provider
