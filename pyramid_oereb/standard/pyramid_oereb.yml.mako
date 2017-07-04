@@ -139,6 +139,9 @@ pyramid_oereb:
       legend_at_web: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=1.1.1&FORMAT=image/png&LAYER=ch.swisstopo-vd.amtliche-vermessung
     visualisation:
       method: pyramid_oereb.standard.hook_methods.produce_sld_content
+      # Note: This parameters must fit to the attributes provided by the RealEstateRecord!!!!
+      url_params:
+        - egrid
       layer:
         name: ch.swisstopo-vd.amtliche-vermessung
       style:
