@@ -8,6 +8,7 @@ from pyramid.testing import DummyRequest
 from pyramid_oereb import Config, route_prefix
 from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord, ArticleRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
+from pyramid_oereb.lib.url import url_to_base64
 from shapely.geometry import mapping
 
 from pyramid_oereb.lib.renderer import Base
@@ -280,6 +281,8 @@ class Renderer(Base):
     def format_document(self, document):
         """
         Formats a document record for rendering according to the federal specification.
+        If the render is requested with a *full* flavour, it will render the *textAtWeb*
+        into a *Base64TextAtWeb* field (for LegalProvisionRecord documents).
 
         Args:
             document (pyramid_oereb.lib.records.documents.DocumentBaseRecord): The document
@@ -293,12 +296,18 @@ class Renderer(Base):
 
         if isinstance(document, DocumentRecord) or isinstance(document, LegalProvisionRecord):
 
+            localized_text_at_web = self.get_localized_text(document.text_at_web)
+
             document_dict.update({
                 'Lawstatus': self.format_law_status(document.law_status),
-                'TextAtWeb': self.get_localized_text(document.text_at_web),
+                'TextAtWeb': localized_text_at_web,
                 'Title': self.get_localized_text(document.title),
                 'ResponsibleOffice': self.format_office(document.responsible_office)
             })
+            if self._params.flavour == 'full' and isinstance(document, LegalProvisionRecord):
+                base64_text_at_web = url_to_base64(localized_text_at_web[0].get('Text'))
+                if base64_text_at_web is not None:
+                    document_dict['Base64TextAtWeb'] = base64_text_at_web
 
             if document.official_title:
                 document_dict['OfficialTitle'] = self.get_localized_text(document.official_title)
