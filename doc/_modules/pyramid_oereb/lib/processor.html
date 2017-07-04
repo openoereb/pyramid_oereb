@@ -269,10 +269,10 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.lib.records.real_estate.RealEstateRecord: The updated extract.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># TODO: uncomment this when issue GSOREB-194 is solved.</span>
-        <span class="c1"># extract.real_estate.plan_for_land_register.get_full_wms_url(extract.real_estate)</span>
-        <span class="c1"># if images:</span>
-        <span class="c1"># extract.real_estate.plan_for_land_register.download_wms_content()</span>
+        <span class="n">real_estate</span><span class="o">.</span><span class="n">plan_for_land_register</span><span class="o">.</span><span class="n">get_full_wms_url</span><span class="p">(</span><span class="n">real_estate</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">images</span><span class="p">:</span>
+            <span class="n">real_estate</span><span class="o">.</span><span class="n">plan_for_land_register</span><span class="o">.</span><span class="n">download_wms_content</span><span class="p">()</span>
+
         <span class="k">for</span> <span class="n">public_law_restriction</span> <span class="ow">in</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="p">:</span>
             <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">get_full_wms_url</span><span class="p">(</span><span class="n">real_estate</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">images</span><span class="p">:</span>
