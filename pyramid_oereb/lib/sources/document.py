@@ -39,9 +39,6 @@ class OEREBlexSource(Base):
 
         Args:
             geolink_id (int): The geoLink ID.
-
-        Returns:
-            list of pyramid_oereb.lib.records.documents.DocumentRecord: The records of the received documents.
         """
 
         # Request documents
@@ -58,13 +55,11 @@ class OEREBlexSource(Base):
                 referenced_documents.append(document)
 
         # Convert to records
-        records = []
+        self.records = []
         for document in main_documents:
-            records.append(self._get_document_record(document, referenced_documents))
+            self.records.extend(self._get_document_records(document, referenced_documents))
 
-        return records
-
-    def _get_document_record(self, document, references=list()):
+    def _get_document_records(self, document, references=list()):
         """
         Converts the received documents into records.
 
@@ -74,8 +69,7 @@ class OEREBlexSource(Base):
             references (list of geolink_formatter.entity.Document): Referenced geoLink documents.
 
         Returns:
-            pyramid_oereb.lib.records.documents.DocumentRecord or
-                pyramid_oereb.lib.records.documents.LegalProvisionRecord: The converted record.
+            list of pyramid_oereb.lib.records.documents.DocumentRecord: The converted record.
         """
 
         # Get document type
@@ -86,63 +80,35 @@ class OEREBlexSource(Base):
         else:
             raise TypeError('Wrong doctype: expected decree or edict, got {0}'.format(document.doctype))
 
+        # Convert referenced documents
+        referenced_records = []
+        for reference in references:
+            referenced_records.extend(self._get_document_records(reference))
+
         # Assign multilingual values
         title = {self._language: document.title}
 
         # Create related office record
         office = OfficeRecord({self._language: document.authority}, office_at_web=document.authority_url)
 
-        # Get optional values
-        abbreviation = self._get_mapped_value(document, 'abbreviation', True)
-        official_number = self._get_mapped_value(document, 'official_number')
-        official_title = self._get_mapped_value(document, 'official_title', True)
-        municipality = self._get_mapped_value(document, 'municipality')
-
-        # Create referenced records list
-        referenced_records = []
-
         # Get files
-        text_at_web = None
-        if len(document.files) > 1:
-            for f in document.files:
-                if f.category == 'main':
-                    text_at_web = {self._language: document.files[0].href}
-                else:
-                    referenced_records.append(document_class(
-                        law_status=LawStatusRecord(u'inForce'),
-                        published_from=document.enactment_date,
-                        title=title,
-                        responsible_office=office,
-                        text_at_web={self._language: f.href},
-                        abbreviation=abbreviation,
-                        official_number=official_number,
-                        official_title=official_title,
-                        canton=self._canton,
-                        municipality=municipality
-                    ))
-        else:
-            text_at_web = {self._language: document.files[0].href}
-        assert text_at_web is not None
+        records = []
+        for f in document.files:
+            records.append(document_class(
+                law_status=LawStatusRecord(u'inForce'),
+                published_from=document.enactment_date,
+                title=title,
+                responsible_office=office,
+                text_at_web={self._language: f.href},
+                abbreviation=self._get_mapped_value(document, 'abbreviation', True),
+                official_number=self._get_mapped_value(document, 'official_number'),
+                official_title=self._get_mapped_value(document, 'official_title', True),
+                canton=self._canton,
+                municipality=self._get_mapped_value(document, 'municipality'),
+                references=referenced_records if len(referenced_records) > 0 else None
+            ))
 
-        # Convert referenced documents
-        for reference in references:
-            referenced_records.append(self._get_document_record(reference))
-
-        record = document_class(
-            law_status=LawStatusRecord(u'inForce'),
-            published_from=document.enactment_date,
-            title=title,
-            responsible_office=office,
-            text_at_web=text_at_web,
-            abbreviation=abbreviation,
-            official_number=official_number,
-            official_title=official_title,
-            canton=self._canton,
-            municipality=municipality,
-            references=referenced_records if len(referenced_records) > 0 else None
-        )
-
-        return record
+        return records
 
     def _get_mapped_value(self, document, key, multilingual=False):
         """

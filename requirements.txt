@@ -7,4 +7,5 @@ pycodestyle
 psycopg2
 McCabe
 c2c.template
+requests-mock
 -e .
