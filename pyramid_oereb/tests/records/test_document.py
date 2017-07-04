@@ -15,7 +15,7 @@ def test_init():
     office_record = OfficeRecord({'en': 'name'})
     record = DocumentRecord('runningModifications', datetime.date(1985, 8, 29), {'en': 'title'},
                             office_record)
-    assert isinstance(record.legal_state, str)
+    assert isinstance(record.law_status, str)
     assert isinstance(record.published_from, datetime.date)
     assert isinstance(record.title, dict)
     assert isinstance(record.responsible_office, OfficeRecord)
@@ -47,7 +47,7 @@ def test_init_with_relation():
     ]
     record = DocumentRecord('runningModifications', datetime.date(1985, 8, 29), {'de': 'title'},
                             office_record, articles=articles, references=references, article_numbers=['test'])
-    assert isinstance(record.legal_state, str)
+    assert isinstance(record.law_status, str)
     assert isinstance(record.published_from, datetime.date)
     assert isinstance(record.title, dict)
     assert isinstance(record.responsible_office, OfficeRecord)

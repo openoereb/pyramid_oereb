@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
+import logging
 import datetime
 import yaml
 from pyramid.config import ConfigurationError
@@ -8,6 +9,8 @@ from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
+
+log = logging.getLogger('pyramid_oereb')
 
 
 def parse(cfg_file, cfg_section):
@@ -425,3 +428,65 @@ class Config(object):
                 current_path.join('.')))
 
         return Config._get_object_path(current_path, current_object[k], path[1:], default, required)
+
+    @staticmethod
+    def get_law_status(theme_code, law_status_config, law_status_code):
+        """
+
+        Args:
+            theme_code (str): The theme code.
+            law_status_config (dict): The configured mapping of the plrs law status.
+            law_status_code (str): The law status code read from the data to wrap it into the only two allowed
+                values: "inForce" or "runningModifications" which are possible on the extract.
+
+        Returns:
+            str: The mapped law status. This is "inForce" or "runningModifications".
+
+        Raises:
+            AttributeError: If the passed law status code does not match one of the configured ones.
+        """
+        if law_status_config.get('in_force') == law_status_code:
+            return 'inForce'
+        elif law_status_config.get('running_modifications') == law_status_code:
+            return 'runningModifications'
+        else:
+            raise AttributeError(
+                u'There was no proper configuration for the theme "{theme}" on the law '
+                u'status it has to be configured depending on the data you imported. Law '
+                u'status in your data was: {data_law_status}, the configured options are: '
+                u'{in_force} and {running_modifications}'.format(
+                    theme=theme_code,
+                    data_law_status=law_status_code,
+                    in_force=law_status_config.get('in_force'),
+                    running_modifications=law_status_config.get('running_modifications')
+                )
+            )
+
+    @staticmethod
+    def get_law_status_translations(code):
+        """
+        Obtaining the law status translations from config via the code.
+
+        Args:
+            code (str): The law status code. This must be "inForce" or "runningModifications". Any other
+                value won't match and throw a silent error.
+
+        Returns:
+            dict: The translation from the configuration.
+        """
+        translations = Config.get('law_status_translations')
+        if code == 'inForce':
+            return translations.get('in_force')
+        elif code == 'runningModifications':
+            return translations.get('running_modifications')
+        else:
+            log.error(u'No translation for law status found in config for the passed code: {code}'.format(
+                code=code
+            ))
+            return {
+                'de': u'Keine Übersetzung gefunden',
+                'fr': u'Pas de traduction',
+                'it': u'Nessuna traduzione trovato',
+                # TODO: Add romanian translation here
+                'rm': u'...'
+            }

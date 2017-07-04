@@ -5,12 +5,12 @@ from datetime import datetime
 
 class DocumentBaseRecord(object):
 
-    def __init__(self, legal_state, published_from, text_at_web=None):
+    def __init__(self, law_status, published_from, text_at_web=None):
         """
         The base document class.
 
         Args:
-            legal_state (unicode): Key string of the law status.
+            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
             published_from (datetime.date): Date since this document was published.
             text_at_web (dict of uri): The multilingual URI to the documents content.
         """
@@ -18,7 +18,7 @@ class DocumentBaseRecord(object):
             warnings.warn('Type of "text_at_web" should be "dict"')
 
         self.text_at_web = text_at_web
-        self.legal_state = legal_state
+        self.law_status = law_status
         self.published_from = published_from
 
     @property
@@ -34,18 +34,18 @@ class DocumentBaseRecord(object):
 
 class ArticleRecord(DocumentBaseRecord):
 
-    def __init__(self, legal_state, published_from, number, text_at_web=None, text=None):
+    def __init__(self, law_status, published_from, number, text_at_web=None, text=None):
         """
         More specific document class representing articles.
 
         Args:
-            legal_state (unicode): Key string of the law status.
+            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
             published_from (datetime.date): Date since this document was published.
             number (unicode): The identifier of the article as a law.
             text_at_web (dict of uri): The URI to the documents content (multilingual).
             text (dict of unicode): Text in the article (multilingual).
         """
-        super(ArticleRecord, self).__init__(legal_state, published_from, text_at_web)
+        super(ArticleRecord, self).__init__(law_status, published_from, text_at_web)
 
         if text and not isinstance(text, dict):
             warnings.warn('Type of "text" should be "dict"')
@@ -56,14 +56,14 @@ class ArticleRecord(DocumentBaseRecord):
 
 class DocumentRecord(DocumentBaseRecord):
 
-    def __init__(self, legal_state, published_from, title, responsible_office, text_at_web=None,
+    def __init__(self, law_status, published_from, title, responsible_office, text_at_web=None,
                  abbreviation=None, official_number=None, official_title=None, canton=None,
                  municipality=None, article_numbers=None, file=None, articles=None, references=None):
         """
         More specific document class representing real documents.
 
         Args:
-            legal_state (unicode):  Key string of the law status.
+            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
             published_from (datetime.date): Date since this document was published.
             title (dict of unicode): The multilingual title of the document. It might be shortened one.
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
@@ -79,7 +79,7 @@ class DocumentRecord(DocumentBaseRecord):
             articles (list of ArticleRecord): The linked articles.
             references (list of DocumentRecord): The references to other documents.
         """
-        super(DocumentRecord, self).__init__(legal_state, published_from, text_at_web)
+        super(DocumentRecord, self).__init__(law_status, published_from, text_at_web)
 
         if not isinstance(title, dict):
             warnings.warn('Type of "title" should be "dict"')

@@ -11,6 +11,6 @@ def test_mandatory_fields():
 
 def test_init():
     record = DocumentBaseRecord('runningModifications', datetime.date(1985, 8, 29))
-    assert isinstance(record.legal_state, str)
+    assert isinstance(record.law_status, str)
     assert record.text_at_web is None
     assert isinstance(record.published_from, datetime.date)

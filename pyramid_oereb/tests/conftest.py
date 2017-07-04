@@ -16,6 +16,7 @@ from pyramid_oereb import ExclusionOfLiabilityReader
 from pyramid_oereb import GlossaryReader
 from pyramid_oereb import Processor
 from pyramid_oereb import RealEstateReader
+from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.standard.models.motorways_building_lines import Geometry as LineGeometry, \
     PublicLawRestriction as LinePublicLawRestriction, Office as LineOffice, ViewService as LineViewService, \
     Document as LineDocument, DocumentBase as LineDocumentBase, \
@@ -88,6 +89,13 @@ def config():
     Config._config = None
     Config.init(pyramid_oereb_test_yml, 'pyramid_oereb')
     return Config
+
+
+@pytest.fixture(scope='module')
+def law_status():
+    Config._config = None
+    Config.init(pyramid_oereb_test_yml, 'pyramid_oereb')
+    return LawStatusRecord('inForce')
 
 
 @contextmanager
@@ -312,7 +320,7 @@ def connection(config):
         'id': 1,
         'content': {'de': u'Long line PLR'},
         'topic': u'MotorwaysBuildingLines',
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'view_service_id': 1,
         'office_id': 1
@@ -321,7 +329,7 @@ def connection(config):
         'id': 2,
         'content': {'de': u'Short line PLR'},
         'topic': u'MotorwaysBuildingLines',
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'view_service_id': 1,
         'office_id': 1
@@ -330,7 +338,7 @@ def connection(config):
         'id': 3,
         'content': {'de': u'Double intersection line PLR'},
         'topic': u'MotorwaysBuildingLines',
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'view_service_id': 1,
         'office_id': 1
@@ -339,14 +347,14 @@ def connection(config):
         'id': 4,
         'content': {'de': u'Future geometry'},
         'topic': u'MotorwaysBuildingLines',
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'view_service_id': 1,
         'office_id': 1
     })
     connection_.execute(LineGeometry.__table__.insert(), {
         'id': 1,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 1,
         'office_id': 1,
@@ -354,7 +362,7 @@ def connection(config):
     })
     connection_.execute(LineGeometry.__table__.insert(), {
         'id': 2,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 2,
         'office_id': 1,
@@ -362,7 +370,7 @@ def connection(config):
     })
     connection_.execute(LineGeometry.__table__.insert(), {
         'id': 3,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 3,
         'office_id': 1,
@@ -370,7 +378,7 @@ def connection(config):
     })
     connection_.execute(LineGeometry.__table__.insert(), {
         'id': 4,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
         'public_law_restriction_id': 4,
         'office_id': 1,
@@ -378,7 +386,7 @@ def connection(config):
     })
     connection_.execute(LineDocumentBase.__table__.insert(), {
         'id': 1,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'type': u'document'
     })
@@ -389,7 +397,7 @@ def connection(config):
     })
     connection_.execute(LineDocumentBase.__table__.insert(), {
         'id': 2,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
         'type': u'document'
     })
@@ -400,7 +408,7 @@ def connection(config):
     })
     connection_.execute(LineDocumentBase.__table__.insert(), {
         'id': 3,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'type': u'document'
     })
@@ -411,7 +419,7 @@ def connection(config):
     })
     connection_.execute(LineDocumentBase.__table__.insert(), {
         'id': 4,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
         'type': u'document'
     })
@@ -470,7 +478,7 @@ def connection(config):
         'id': 1,
         'content': {'de': u'Large polygon PLR'},
         'topic': u'ContaminatedSites',
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'view_service_id': 1,
         'office_id': 1
@@ -479,7 +487,7 @@ def connection(config):
         'id': 2,
         'content': {'de': u'Small polygon PLR'},
         'topic': u'ContaminatedSites',
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'view_service_id': 1,
         'office_id': 1
@@ -488,7 +496,7 @@ def connection(config):
         'id': 3,
         'content': {'de': u'Double intersection polygon PLR'},
         'topic': u'ContaminatedSites',
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'view_service_id': 1,
         'office_id': 1
@@ -497,7 +505,7 @@ def connection(config):
         'id': 4,
         'content': {'de': u'Future PLR'},
         'topic': u'ContaminatedSites',
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
         'view_service_id': 1,
         'office_id': 1
@@ -505,7 +513,7 @@ def connection(config):
 
     connection_.execute(contaminated_sites.Geometry.__table__.insert(), {
         'id': 1,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 1,
         'office_id': 1,
@@ -513,7 +521,7 @@ def connection(config):
     })
     connection_.execute(contaminated_sites.Geometry.__table__.insert(), {
         'id': 2,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 2,
         'office_id': 1,
@@ -521,7 +529,7 @@ def connection(config):
     })
     connection_.execute(contaminated_sites.Geometry.__table__.insert(), {
         'id': 3,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 3,
         'office_id': 1,
@@ -530,7 +538,7 @@ def connection(config):
     })
     connection_.execute(contaminated_sites.Geometry.__table__.insert(), {
         'id': 4,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 4,
         'office_id': 1,
@@ -554,7 +562,7 @@ def connection(config):
         'id': 1,
         'content': {'de': u'Large polygon PLR'},
         'topic': u'ContaminatedSites',
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'view_service_id': 1,
         'office_id': 1
@@ -563,7 +571,7 @@ def connection(config):
         'id': 2,
         'content': {'de': u'Small polygon PLR'},
         'topic': u'ContaminatedSites',
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'view_service_id': 1,
         'office_id': 1
@@ -572,7 +580,7 @@ def connection(config):
         'id': 3,
         'content': {'de': u'Double intersection polygon PLR'},
         'topic': u'ContaminatedSites',
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'view_service_id': 1,
         'office_id': 1
@@ -581,7 +589,7 @@ def connection(config):
         'id': 4,
         'content': {'de': u'Future PLR'},
         'topic': u'ContaminatedSites',
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
         'view_service_id': 1,
         'office_id': 1
@@ -589,7 +597,7 @@ def connection(config):
 
     connection_.execute(land_use_plans.Geometry.__table__.insert(), {
         'id': 1,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 1,
         'office_id': 1,
@@ -598,7 +606,7 @@ def connection(config):
     })
     connection_.execute(land_use_plans.Geometry.__table__.insert(), {
         'id': 2,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 1,
         'office_id': 1,
@@ -606,7 +614,7 @@ def connection(config):
     })
     connection_.execute(land_use_plans.Geometry.__table__.insert(), {
         'id': 3,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 1,
         'office_id': 1,
@@ -615,7 +623,7 @@ def connection(config):
     })
     connection_.execute(land_use_plans.Geometry.__table__.insert(), {
         'id': 4,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 1,
         'office_id': 1,
@@ -623,7 +631,7 @@ def connection(config):
     })
     connection_.execute(land_use_plans.Geometry.__table__.insert(), {
         'id': 5,
-        'legal_state': u'inForce',
+        'law_status': u'inForce',
         'published_from': unicode(date.today().isoformat()),
         'public_law_restriction_id': 1,
         'office_id': 1,
