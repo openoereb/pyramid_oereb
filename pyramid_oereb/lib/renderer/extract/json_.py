@@ -282,7 +282,7 @@ class Renderer(Base):
         """
         Formats a document record for rendering according to the federal specification.
         If the render is requested with a *full* flavour, it will render the *textAtWeb*
-        into a *base64Document* field.
+        into a *base64Document* field (for LegalProvisionRecord documents).
 
         Args:
             document (pyramid_oereb.lib.records.documents.DocumentBaseRecord): The document
@@ -294,18 +294,17 @@ class Renderer(Base):
 
         document_dict = dict()
 
-        text_at_web = self.get_localized_text(document.text_at_web)
-        if self._params.flavour == 'full':
-            for text in text_at_web:
-                base64Document = url_to_base64(text.get('Text'))
-                if base64Document is not None:
-                    text['base64Document'] = base64Document
-
         if isinstance(document, DocumentRecord) or isinstance(document, LegalProvisionRecord):
+
+            localized_text_at_web = self.get_localized_text(document.text_at_web)
+            if self._params.flavour == 'full' and isinstance(document, LegalProvisionRecord):
+                base64Document = url_to_base64(localized_text_at_web[0].get('Text'))
+                if base64Document is not None:
+                    localized_text_at_web[0]['base64Document'] = base64Document
 
             document_dict.update({
                 'Lawstatus': self.format_law_status(document.law_status),
-                'TextAtWeb': text_at_web,
+                'TextAtWeb': localized_text_at_web,
                 'Title': self.get_localized_text(document.title),
                 'ResponsibleOffice': self.format_office(document.responsible_office)
             })
@@ -345,7 +344,7 @@ class Renderer(Base):
             })
 
             if document.text_at_web:
-                document_dict['TextAtWeb'] = text_at_web
+                document_dict['TextAtWeb'] = self.get_localized_text(document.text_at_web)
             if document.text:
                 document_dict['Text'] = self.get_localized_text(document.text)
 

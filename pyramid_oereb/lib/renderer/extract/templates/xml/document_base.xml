@@ -1,11 +1,12 @@
 <%page args="document"/>
 <%
     from pyramid_oereb.lib.url import url_to_base64
+    from pyramid_oereb.lib.records.documents import LegalProvisionRecord
 %>
 %if document.text_at_web:
 <xsd:TextAtWeb>
     <%include file="localized_text.xml" args="text=document.text_at_web"/>
-    %if params.flavour == 'full':
+    %if params.flavour == 'full' and isinstance(document, LegalProvisionRecord):
     <%
         localized_text_at_web = language(document.text_at_web)
         base64_document = url_to_base64(localized_text_at_web[0].get('Text'))
