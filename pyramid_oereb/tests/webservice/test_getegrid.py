@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import json
 import math
+import urllib
 
+import requests_mock
 from jsonschema import Draft4Validator
 from shapely.geometry import Point, Polygon, MultiPolygon
 
@@ -99,18 +101,39 @@ def test_getegrid_ident_missing_parameter():
 def test_getegrid_address():
     request = MockRequest()
     request.matchdict.update({
-        'postalcode': '4321',
+        'postalcode': '4410',
         'localisation': 'test',
-        'number': '123'
+        'number': '10'
     })
+    url = 'https://api3.geo.admin.ch/rest/services/api/SearchServer?' + str(urllib.urlencode({
+       'searchText': '{0} {1} {2}'.format(
+           request.matchdict.get('postalcode'),
+           request.matchdict.get('localisation'),
+           request.matchdict.get('number')
+       )
+    }))
     webservice = PlrWebservice(request)
-    response = webservice.get_egrid_address()
+    with requests_mock.mock() as m:
+        m.get(url, json={
+            'results': [{
+                'attrs': {
+                    'origin': 'address',
+                    'lon': -19.91798993747352,
+                    'lat': 32.124497846031005
+                }
+            }]
+        })
+        response = webservice.get_egrid_address()
     with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
         schema = json.loads(f.read())
     Draft4Validator.check_schema(schema)
     validator = Draft4Validator(schema)
     validator.validate(response)
     assert isinstance(response, dict)
+    assert response.get('GetEGRIDResponse') is not None
+    assert response.get('GetEGRIDResponse')[0].get('egrid') == u'TEST'
+    assert response.get('GetEGRIDResponse')[0].get('number') == u'1000'
+    assert response.get('GetEGRIDResponse')[0].get('identDN') == u'BLTEST'
 
 
 def test_getegrid_address_missing_parameter():
