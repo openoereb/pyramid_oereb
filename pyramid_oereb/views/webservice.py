@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 import logging
+
+from mako import exceptions
+from mako.template import Template
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPServerError, HTTPNotFound
-from pyramid.path import DottedNameResolver
+from pyramid.path import DottedNameResolver, AssetResolver
 from shapely.geometry import Point
 from pyramid.renderers import render_to_response
+from pyramid.response import Response
 from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb import route_prefix
@@ -587,3 +591,42 @@ class Symbol(object):
             return method(self._request_)
         log.error('"get_symbol_method" not found')
         raise HTTPNotFound()
+
+
+class Sld(object):
+    """
+    Webservice to deliver a valid sld content to filter a av base layer to only one dedicated real estate.
+
+    """
+
+    def __init__(self, request):
+        """
+        Args:
+            request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.
+        """
+        self._request_ = request
+
+    def get_sld(self):
+        response = self._request_.response
+        template = Template(
+            filename=AssetResolver('pyramid_oereb').resolve('standard/templates/sld.xml').abspath(),
+            input_encoding='utf-8',
+            output_encoding='utf-8'
+        )
+        layer = Config.get_real_estate_config().get('visualisation').get('layer')
+        identifier = Config.get_real_estate_config().get('visualisation').get('identifier')
+        template_params = {}
+        template_params.update(Config.get_real_estate_config().get('visualisation').get('style'))
+        template_params.update({'layer_name': layer.get('name')})
+        template_params.update({'identifier_name': identifier.get('name')})
+        template_params.update({'identifier': self._request_.matchdict.get('identifier')})
+        print template_params
+        try:
+            if isinstance(response, Response) and response.content_type == response.default_content_type:
+                response.content_type = 'application/xml'
+            response.body = template.render(**template_params)
+            return response
+        except:
+            response.content_type = 'text/html'
+            response.body = exceptions.html_error_template().render()
+            return response

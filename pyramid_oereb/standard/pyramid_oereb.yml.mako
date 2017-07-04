@@ -137,6 +137,15 @@ pyramid_oereb:
     view_service:
       reference_wms: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
       legend_at_web: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=1.1.1&FORMAT=image/png&LAYER=ch.swisstopo-vd.amtliche-vermessung
+    visualisation:
+      identifier:
+        name: egrid
+      layer:
+        name: ch.swisstopo-vd.amtliche-vermessung
+      style:
+        stroke_opacity: 1
+        stroke_color: '#ff0000'
+        stroke_width: 5
     # The real estate must have a property source.
     source:
       # The source must have a class which represents the accessor to the source. In this case it is a source
