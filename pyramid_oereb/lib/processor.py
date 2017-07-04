@@ -246,8 +246,7 @@ class Processor(object):
 
                 extract.exclusions_of_liability = exclusions_of_liability
                 extract.glossaries = glossaries
-                # obtain the highlight wms url
+                # obtain the highlight wms url and its content
                 extract.real_estate.set_high_light_url(sld_url)
-                print extract.real_estate.high_ligth_url
                 return extract
         raise NoResultFound()

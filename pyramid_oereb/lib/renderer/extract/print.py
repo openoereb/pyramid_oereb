@@ -22,9 +22,9 @@ class PrintRenderer(Renderer):
         Returns:
             str: The JSON encoded extract.
         """
-
+        self._request = self.get_request(system)
         extract_dict = self._render(value[0], value[1])
-
+        print extract_dict
         extract_dict["features"] = {
             "features": {
                 "type": "FeatureCollection",

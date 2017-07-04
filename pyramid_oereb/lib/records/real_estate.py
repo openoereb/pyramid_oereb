@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb import Config
+from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 from pyramid_oereb.lib.url import add_url_params
 
 
 class RealEstateRecord(object):
 
-    high_ligth_url = None
+    high_light = None
     """str: The url which produces a image with the highlighted real estate from a wms."""
     areas_ratio = 1.0
     """decimal: Ratio of geometrical area and area from land registry."""
@@ -75,4 +76,8 @@ class RealEstateRecord(object):
         for param in configured_params:
             additional_url_params.update({param: getattr(self, param)})
         updated_sld_url = add_url_params(sld_url, additional_url_params)
-        self.high_ligth_url = add_url_params(self.plan_for_land_register.link_wms, {'sld': updated_sld_url})
+        self.high_light = ViewServiceRecord(
+            add_url_params(self.plan_for_land_register.link_wms, {'sld': updated_sld_url}),
+            ''
+        )
+        self.high_light.download_wms_content()

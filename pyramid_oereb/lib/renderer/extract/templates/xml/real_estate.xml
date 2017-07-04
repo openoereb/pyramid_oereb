@@ -43,5 +43,10 @@
         <xsd:PlanForLandRegister>
             <%include file="view_service.xml" args="map=real_estate.plan_for_land_register"/>
         </xsd:PlanForLandRegister>
+        % if params.flavour == 'full':
+        <xsd:HighLight>
+            <%include file="view_service.xml" args="map=real_estate.high_light"/>
+        </xsd:HighLight>
+        % endif
     </xsd:RealEstate_DPR>
 </xsd:RealEstate>
