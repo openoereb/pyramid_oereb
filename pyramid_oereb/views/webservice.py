@@ -167,7 +167,11 @@ class PlrWebservice(object):
         # check if result is strictly one (we queried with primary keys)
         if len(real_estate_records) == 1:
             try:
-                extract = processor.process(real_estate_records[0], params)
+                extract = processor.process(
+                    real_estate_records[0],
+                    params,
+                    self._request_.route_url('{0}/sld'.format(route_prefix))
+                )
             except LookupError:
                 raise HTTPNoContent()
             except NotImplementedError:
