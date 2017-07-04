@@ -169,6 +169,7 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">route_prefix</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.documents</span> <span class="k">import</span> <span class="n">DocumentRecord</span><span class="p">,</span> <span class="n">LegalProvisionRecord</span><span class="p">,</span> <span class="n">ArticleRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources.plr</span> <span class="k">import</span> <span class="n">PlrRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.url</span> <span class="k">import</span> <span class="n">url_to_base64</span>
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">mapping</span>
 
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.renderer</span> <span class="k">import</span> <span class="n">Base</span>
@@ -441,6 +442,8 @@
 <div class="viewcode-block" id="Renderer.format_document"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_document">[docs]</a>    <span class="k">def</span> <span class="nf">format_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formats a document record for rendering according to the federal specification.</span>
+<span class="sd">        If the render is requested with a *full* flavour, it will render the *textAtWeb*</span>
+<span class="sd">        into a *Base64TextAtWeb* field (for LegalProvisionRecord documents).</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            document (pyramid_oereb.lib.records.documents.DocumentBaseRecord): The document</span>
@@ -454,12 +457,18 @@
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">DocumentRecord</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">LegalProvisionRecord</span><span class="p">):</span>
 
+            <span class="n">localized_text_at_web</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">text_at_web</span><span class="p">)</span>
+
             <span class="n">document_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
                 <span class="s1">&#39;Lawstatus&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_law_status</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">law_status</span><span class="p">),</span>
-                <span class="s1">&#39;TextAtWeb&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">text_at_web</span><span class="p">),</span>
+                <span class="s1">&#39;TextAtWeb&#39;</span><span class="p">:</span> <span class="n">localized_text_at_web</span><span class="p">,</span>
                 <span class="s1">&#39;Title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">title</span><span class="p">),</span>
                 <span class="s1">&#39;ResponsibleOffice&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_office</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">responsible_office</span><span class="p">)</span>
             <span class="p">})</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="o">.</span><span class="n">flavour</span> <span class="o">==</span> <span class="s1">&#39;full&#39;</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">LegalProvisionRecord</span><span class="p">):</span>
+                <span class="n">base64_text_at_web</span> <span class="o">=</span> <span class="n">url_to_base64</span><span class="p">(</span><span class="n">localized_text_at_web</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Text&#39;</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">base64_text_at_web</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">document_dict</span><span class="p">[</span><span class="s1">&#39;Base64TextAtWeb&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">base64_text_at_web</span>
 
             <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">official_title</span><span class="p">:</span>
                 <span class="n">document_dict</span><span class="p">[</span><span class="s1">&#39;OfficialTitle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">official_title</span><span class="p">)</span>
