@@ -6,18 +6,18 @@
 %if document.text_at_web:
 <xsd:TextAtWeb>
     <%include file="localized_text.xml" args="text=document.text_at_web"/>
-    %if params.flavour == 'full' and isinstance(document, LegalProvisionRecord):
-    <%
-        localized_text_at_web = language(document.text_at_web)
-        base64_document = url_to_base64(localized_text_at_web[0].get('Text'))
-    %>
-    %if base64_document is not None:
-    <xsd:base64Document>
-        <xsd:base64Binary>${base64_document}</xsd:base64Binary>
-    </xsd:base64Document>
-    %endif
-    %endif
 </xsd:TextAtWeb>
+%if params.flavour == 'full' and isinstance(document, LegalProvisionRecord):
+<%
+    localized_text_at_web = language(document.text_at_web)
+    base64_text_at_web = url_to_base64(localized_text_at_web[0].get('Text'))
+%>
+%if base64_text_at_web is not None:
+<xsd:Base64TextAtWeb>
+    <xsd:base64Binary>${base64_text_at_web}</xsd:base64Binary>
+</xsd:Base64TextAtWeb>
+%endif
+%endif
 %endif
 <xsd:Lawstatus>
     <%include file="law_status.xml" args="law_status=document.law_status"/>
