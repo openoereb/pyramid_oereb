@@ -13,7 +13,7 @@
                 <sld:Rule>
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
-                            <ogc:PropertyName>${identifier_name}</ogc:PropertyName>
+                            <ogc:PropertyName>egrid</ogc:PropertyName>
                             <ogc:Literal>${identifier}</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>

@@ -22,7 +22,7 @@ def includeme(config):  # pragma: no cover
                     request_method='GET')
 
     # Service for sld creation on egrid input
-    config.add_route('{0}/sld'.format(route_prefix), '/sld/{identifier}')
+    config.add_route('{0}/sld'.format(route_prefix), '/sld')
     config.add_view(Sld, attr='get_sld', route_name='{0}/sld'.format(route_prefix),
                     request_method='GET')
 

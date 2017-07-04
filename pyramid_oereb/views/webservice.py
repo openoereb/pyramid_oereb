@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from mako import exceptions
-from mako.template import Template
-from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPServerError, HTTPNotFound
-from pyramid.path import DottedNameResolver, AssetResolver
+from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPServerError, HTTPNotFound, \
+    HTTPInternalServerError
+from pyramid.path import DottedNameResolver
 from shapely.geometry import Point
 from pyramid.renderers import render_to_response
 from pyramid.response import Response
@@ -607,26 +606,33 @@ class Sld(object):
         self._request_ = request
 
     def get_sld(self):
-        response = self._request_.response
-        template = Template(
-            filename=AssetResolver('pyramid_oereb').resolve('standard/templates/sld.xml').abspath(),
-            input_encoding='utf-8',
-            output_encoding='utf-8'
-        )
-        layer = Config.get_real_estate_config().get('visualisation').get('layer')
-        identifier = Config.get_real_estate_config().get('visualisation').get('identifier')
-        template_params = {}
-        template_params.update(Config.get_real_estate_config().get('visualisation').get('style'))
-        template_params.update({'layer_name': layer.get('name')})
-        template_params.update({'identifier_name': identifier.get('name')})
-        template_params.update({'identifier': self._request_.matchdict.get('identifier')})
-        print template_params
-        try:
-            if isinstance(response, Response) and response.content_type == response.default_content_type:
-                response.content_type = 'application/xml'
-            response.body = template.render(**template_params)
-            return response
-        except:
-            response.content_type = 'text/html'
-            response.body = exceptions.html_error_template().render()
-            return response
+        """
+
+        Returns:
+             pyramid.response.Response: The response provided by the hooked method provided by the
+                configuration
+
+        Raises:
+            pyramid.httpexceptions.HTTPInternalServerError: When the return value of the hooked method was not
+                of type pyramid.response.Response
+            pyramid.httpexceptions.HTTPNotFound: When the configured method was not found.
+        """
+        dnr = DottedNameResolver()
+        visualisation_config = Config.get_real_estate_config().get('visualisation')
+        method_path = visualisation_config.get('method')
+        method = dnr.resolve(method_path)
+        if method:
+            result = method(self._request_)
+            if isinstance(result, Response):
+                return result
+            else:
+                log.error(
+                    u'The called method {path} does not returned the expected '
+                    u'pyramid.response.Response instance. Returned value was {type}'.format(
+                        path=method_path,
+                        type=type(result)
+                    )
+                )
+                raise HTTPInternalServerError()
+        log.error(u'method in path "{path}" not found'.format(path=method_path))
+        raise HTTPNotFound()
