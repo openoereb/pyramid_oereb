@@ -21,11 +21,11 @@ class OEREBlexSource(Base):
         """
         super(OEREBlexSource, self).__init__()
 
-        self._language = kwargs.get('language')
-        assert self._language is not None
+        self._language = str(kwargs.get('language')).lower()
+        assert self._language is not None and len(self._language) == 2
 
         self._canton = kwargs.get('canton')
-        assert len(self._canton) == 2
+        assert self._canton is not None and len(self._canton) == 2
 
         self._parser = XML(host_url=kwargs.get('host'))
         assert self._parser.host_url is not None
