@@ -2,6 +2,7 @@
 from geolink_formatter import XML
 
 from pyramid_oereb.lib.records.documents import LegalProvisionRecord, DocumentRecord
+from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.sources import Base
 
@@ -56,10 +57,14 @@ class OEREBlexSource(Base):
             elif document.category == 'related':
                 referenced_documents.append(document)
 
-        # TODO: Call _get_document_record and return documents.
+        # Convert to records
+        records = []
+        for document in main_documents:
+            records.append(self._get_document_record(document, referenced_documents))
 
+        return records
 
-    def _get_document_record(self, document, references=None):
+    def _get_document_record(self, document, references=list()):
         """
         Converts the received documents into records.
 
@@ -104,7 +109,7 @@ class OEREBlexSource(Base):
                     text_at_web = {self._language: document.files[0].href}
                 else:
                     referenced_records.append(document_class(
-                        legal_state='inForce',
+                        law_status=LawStatusRecord(u'inForce'),
                         published_from=document.enactment_date,
                         title=title,
                         responsible_office=office,
@@ -117,7 +122,6 @@ class OEREBlexSource(Base):
                     ))
         else:
             text_at_web = {self._language: document.files[0].href}
-
         assert text_at_web is not None
 
         # Convert referenced documents
@@ -125,7 +129,7 @@ class OEREBlexSource(Base):
             referenced_records.append(self._get_document_record(reference))
 
         record = document_class(
-            legal_state='inForce',
+            law_status=LawStatusRecord(u'inForce'),
             published_from=document.enactment_date,
             title=title,
             responsible_office=office,
