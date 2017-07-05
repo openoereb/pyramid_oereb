@@ -158,10 +158,15 @@
             
   <h1>Source code for pyramid_oereb.lib.records.real_estate</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.view_service</span> <span class="k">import</span> <span class="n">ViewServiceRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.url</span> <span class="k">import</span> <span class="n">add_url_params</span>
 
 
 <div class="viewcode-block" id="RealEstateRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord">[docs]</a><span class="k">class</span> <span class="nc">RealEstateRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
+    <span class="n">highlight</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;str: The url which produces a image with the highlighted real estate from a wms.&quot;&quot;&quot;</span>
     <span class="n">areas_ratio</span> <span class="o">=</span> <span class="mf">1.0</span>
     <span class="sd">&quot;&quot;&quot;decimal: Ratio of geometrical area and area from land registry.&quot;&quot;&quot;</span>
 
@@ -222,7 +227,19 @@
 <span class="sd">            plan_for_land_register (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view</span>
 <span class="sd">                service to be used for the land registry map.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register</span> <span class="o">=</span> <span class="n">plan_for_land_register</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register</span> <span class="o">=</span> <span class="n">plan_for_land_register</span></div>
+
+    <span class="k">def</span> <span class="nf">set_highlight_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sld_url</span><span class="p">):</span>
+        <span class="n">configured_params</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_real_estate_config</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;visualisation&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;url_params&#39;</span><span class="p">)</span>
+        <span class="n">additional_url_params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">configured_params</span><span class="p">:</span>
+            <span class="n">additional_url_params</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">param</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">)})</span>
+        <span class="n">updated_sld_url</span> <span class="o">=</span> <span class="n">add_url_params</span><span class="p">(</span><span class="n">sld_url</span><span class="p">,</span> <span class="n">additional_url_params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">highlight</span> <span class="o">=</span> <span class="n">ViewServiceRecord</span><span class="p">(</span>
+            <span class="n">add_url_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register</span><span class="o">.</span><span class="n">link_wms</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;sld&#39;</span><span class="p">:</span> <span class="n">updated_sld_url</span><span class="p">}),</span>
+            <span class="s1">&#39;&#39;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">highlight</span><span class="o">.</span><span class="n">download_wms_content</span><span class="p">()</span></div>
 </pre></div>
 
            </div>

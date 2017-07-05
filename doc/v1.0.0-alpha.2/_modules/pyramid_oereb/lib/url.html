@@ -172,7 +172,7 @@
 <span class="sd">        url (str): The URL</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        (urlparse.SplitResult,dict): the parsed URL (SplitResult, params)</span>
+<span class="sd">        (urlparse.SplitResult, dict): the parsed URL (SplitResult, params)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">url</span> <span class="o">=</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="n">params</span> <span class="o">=</span> <span class="n">parse_qs</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>

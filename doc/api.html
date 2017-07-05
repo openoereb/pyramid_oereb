@@ -200,6 +200,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#api-pyramid-oereb-views-webservice-municipality">Class <em>Municipality</em></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#class-parameter">Class <em>Parameter</em></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#class-plrwebservice">Class <em>PlrWebservice</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#class-sld">Class <em>Sld</em></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#class-symbol">Class <em>Symbol</em></a></li>
 </ul>
 </li>
@@ -931,7 +932,7 @@ unvalidated form</td>
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.processor.Processor.process">
-<code class="descname">process</code><span class="sig-paren">(</span><em>real_estate</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/processor.html#Processor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.processor.Processor.process" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process</code><span class="sig-paren">(</span><em>real_estate</em>, <em>params</em>, <em>sld_url</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/processor.html#Processor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.processor.Processor.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Central processing method to hook in from webservice.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -942,6 +943,8 @@ unvalidated form</td>
 estate reader to obtain the real estates record.</li>
 <li><strong>params</strong> (<a class="reference internal" href="#pyramid_oereb.views.webservice.Parameter" title="pyramid_oereb.views.webservice.Parameter"><em>pyramid_oereb.views.webservice.Parameter</em></a>) &#8211; The parameters of the extract
 request.</li>
+<li><strong>sld_url</strong> (<em>str</em>) &#8211; The URL which provides the sld to style and filter the highlight of the real
+estate.</li>
 </ul>
 </td>
 </tr>
@@ -1582,6 +1585,12 @@ collection which has to be unpacked first in case of collection.</p>
 <dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord.areas_ratio">
 <code class="descname">areas_ratio</code><em class="property"> = 1.0</em><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord.areas_ratio" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>decimal</em> &#8211; Ratio of geometrical area and area from land registry.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord.highlight">
+<code class="descname">highlight</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord.highlight" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The url which produces a image with the highlighted real estate from a wms.</p>
 </dd></dl>
 
 <dl class="method">
@@ -2423,7 +2432,7 @@ estates. This maydeliver several results.</li>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the parsed URL (SplitResult, params)</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(urlparse.SplitResult,dict)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(urlparse.SplitResult, dict)</td>
 </tr>
 </tbody>
 </table>
@@ -2535,6 +2544,31 @@ estate for which the last update date of the base data should be indicated</td>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The date of the last update of the cadastral base data</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">update_date (datetime.datetime)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyramid_oereb.standard.hook_methods.produce_sld_content">
+<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">produce_sld_content</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/hook_methods.html#produce_sld_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.produce_sld_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the standard hook method to provide the sld content. Of course you can set it to another one. For
+instance to use another template. Or to use other parameters to provide the correctly constructed SLD.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">What to know about this Method: REQUEST-Method: GET, parameters only as url parameters</p>
+</div>
+<p>When you are replacing this method take care that it has to accept a pyramid request as input and must
+deliver a valid SLD wrapped in a pyramid response instance as output. It is in your responsibility.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The request from the pyramid application.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
 </tr>
 </tbody>
 </table>
@@ -30944,6 +30978,50 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="pyramid_oereb.views.webservice.Sld">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.views.webservice.</code><code class="descname">Sld</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/views/webservice.html#Sld"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.views.webservice.Sld" title="Permalink to this definition">¶</a></dt>
+<dd><p>Webservice to deliver a valid sld content to filter a av base layer to only one dedicated real estate.</p>
+<dl class="method">
+<dt id="pyramid_oereb.views.webservice.Sld.get_sld">
+<code class="descname">get_sld</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/views/webservice.html#Sld.get_sld"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.views.webservice.Sld.get_sld" title="Permalink to this definition">¶</a></dt>
+<dd><p>Webservice which delivers an SLD file from parameter input. However this is a proxy pass through only.
+We use it to call the real method configured in the dedicated yaml file and hope that this method is
+accepting a pyramid.request.Request as input and is returning a pyramid.response.Response which
+encapsulates a well designed SLD.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The config path to define this hook method is:
+<em>pyramid_oereb.real_estate.visualisation.method</em></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>The response provided by the hooked method provided by the</dt>
+<dd><p class="first last">configuration</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">pyramid.response.Response</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">pyramid.httpexceptions.HTTPInternalServerError</span></code> &#8211; When the return value of the hooked method was not
+of type pyramid.response.Response</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">pyramid.httpexceptions.HTTPNotFound</span></code> &#8211; When the configured method was not found.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyramid_oereb.views.webservice.Symbol">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.views.webservice.</code><code class="descname">Symbol</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/views/webservice.html#Symbol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.views.webservice.Symbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Webservice to deliver legend entry images.</p>
@@ -31294,6 +31372,53 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The available service versions.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="class-sld">
+<span id="api-pyramid-oereb-views-webservice-sld"></span><h4>Class <em>Sld</em><a class="headerlink" href="#class-sld" title="Permalink to this headline">¶</a></h4>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.views.webservice.</code><code class="descname">Sld</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/views/webservice.html#Sld"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Webservice to deliver a valid sld content to filter a av base layer to only one dedicated real estate.</p>
+<dl class="method">
+<dt>
+<code class="descname">get_sld</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/views/webservice.html#Sld.get_sld"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Webservice which delivers an SLD file from parameter input. However this is a proxy pass through only.
+We use it to call the real method configured in the dedicated yaml file and hope that this method is
+accepting a pyramid.request.Request as input and is returning a pyramid.response.Response which
+encapsulates a well designed SLD.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The config path to define this hook method is:
+<em>pyramid_oereb.real_estate.visualisation.method</em></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>The response provided by the hooked method provided by the</dt>
+<dd><p class="first last">configuration</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">pyramid.response.Response</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">pyramid.httpexceptions.HTTPInternalServerError</span></code> &#8211; When the return value of the hooked method was not
+of type pyramid.response.Response</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">pyramid.httpexceptions.HTTPNotFound</span></code> &#8211; When the configured method was not found.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>

@@ -159,10 +159,13 @@
   <h1>Source code for pyramid_oereb.views.webservice</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="k">import</span> <span class="n">HTTPBadRequest</span><span class="p">,</span> <span class="n">HTTPNoContent</span><span class="p">,</span> <span class="n">HTTPServerError</span><span class="p">,</span> <span class="n">HTTPNotFound</span>
+
+<span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="k">import</span> <span class="n">HTTPBadRequest</span><span class="p">,</span> <span class="n">HTTPNoContent</span><span class="p">,</span> <span class="n">HTTPServerError</span><span class="p">,</span> <span class="n">HTTPNotFound</span><span class="p">,</span> \
+    <span class="n">HTTPInternalServerError</span>
 <span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="k">import</span> <span class="n">DottedNameResolver</span>
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">Point</span>
 <span class="kn">from</span> <span class="nn">pyramid.renderers</span> <span class="k">import</span> <span class="n">render_to_response</span>
+<span class="kn">from</span> <span class="nn">pyramid.response</span> <span class="k">import</span> <span class="n">Response</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.orm.exc</span> <span class="k">import</span> <span class="n">NoResultFound</span>
 
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">route_prefix</span>
@@ -323,7 +326,11 @@
         <span class="c1"># check if result is strictly one (we queried with primary keys)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">real_estate_records</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">extract</span> <span class="o">=</span> <span class="n">processor</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">real_estate_records</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">params</span><span class="p">)</span>
+                <span class="n">extract</span> <span class="o">=</span> <span class="n">processor</span><span class="o">.</span><span class="n">process</span><span class="p">(</span>
+                    <span class="n">real_estate_records</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="n">params</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_request_</span><span class="o">.</span><span class="n">route_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/sld&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">))</span>
+                <span class="p">)</span>
             <span class="k">except</span> <span class="ne">LookupError</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">HTTPNoContent</span><span class="p">()</span>
             <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
@@ -745,6 +752,59 @@
         <span class="k">if</span> <span class="n">method</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request_</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;&quot;get_symbol_method&quot; not found&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">HTTPNotFound</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="Sld"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.views.webservice.Sld">[docs]</a><span class="k">class</span> <span class="nc">Sld</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Webservice to deliver a valid sld content to filter a av base layer to only one dedicated real estate.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request_</span> <span class="o">=</span> <span class="n">request</span>
+
+<div class="viewcode-block" id="Sld.get_sld"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.views.webservice.Sld.get_sld">[docs]</a>    <span class="k">def</span> <span class="nf">get_sld</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Webservice which delivers an SLD file from parameter input. However this is a proxy pass through only.</span>
+<span class="sd">        We use it to call the real method configured in the dedicated yaml file and hope that this method is</span>
+<span class="sd">        accepting a pyramid.request.Request as input and is returning a pyramid.response.Response which</span>
+<span class="sd">        encapsulates a well designed SLD.</span>
+
+<span class="sd">        .. note:: The config path to define this hook method is:</span>
+<span class="sd">            *pyramid_oereb.real_estate.visualisation.method*</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             pyramid.response.Response: The response provided by the hooked method provided by the</span>
+<span class="sd">                configuration</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            pyramid.httpexceptions.HTTPInternalServerError: When the return value of the hooked method was not</span>
+<span class="sd">                of type pyramid.response.Response</span>
+<span class="sd">            pyramid.httpexceptions.HTTPNotFound: When the configured method was not found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dnr</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span>
+        <span class="n">visualisation_config</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_real_estate_config</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;visualisation&#39;</span><span class="p">)</span>
+        <span class="n">method_path</span> <span class="o">=</span> <span class="n">visualisation_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;method&#39;</span><span class="p">)</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="n">dnr</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">method_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">method</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request_</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">Response</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">result</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="sa">u</span><span class="s1">&#39;The called method </span><span class="si">{path}</span><span class="s1"> does not returned the expected &#39;</span>
+                    <span class="sa">u</span><span class="s1">&#39;pyramid.response.Response instance. Returned value was </span><span class="si">{type}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">path</span><span class="o">=</span><span class="n">method_path</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="k">raise</span> <span class="n">HTTPInternalServerError</span><span class="p">()</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;method in path &quot;</span><span class="si">{path}</span><span class="s1">&quot; not found&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">method_path</span><span class="p">))</span>
         <span class="k">raise</span> <span class="n">HTTPNotFound</span><span class="p">()</span></div></div>
 </pre></div>
 

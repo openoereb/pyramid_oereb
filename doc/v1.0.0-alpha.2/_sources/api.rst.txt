@@ -3478,6 +3478,14 @@ Class *PlrWebservice*
 .. autoclass:: pyramid_oereb.views.webservice.PlrWebservice
    :members:
 
+.. _api-pyramid_oereb-views-webservice-sld:
+
+Class *Sld*
+'''''''''''
+
+.. autoclass:: pyramid_oereb.views.webservice.Sld
+   :members:
+
 .. _api-pyramid_oereb-views-webservice-symbol:
 
 Class *Symbol*

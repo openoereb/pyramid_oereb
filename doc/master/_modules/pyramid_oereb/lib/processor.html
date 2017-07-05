@@ -373,7 +373,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_reader_</span>
 
-<div class="viewcode-block" id="Processor.process"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+<div class="viewcode-block" id="Processor.process"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sld_url</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Central processing method to hook in from webservice.</span>
 
@@ -382,6 +382,8 @@
 <span class="sd">                estate reader to obtain the real estates record.</span>
 <span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract</span>
 <span class="sd">                request.</span>
+<span class="sd">            sld_url (str): The URL which provides the sld to style and filter the highlight of the real</span>
+<span class="sd">                estate.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.lib.records.extract.ExtractRecord: The generated extract record.</span>
@@ -403,6 +405,9 @@
 
                 <span class="n">extract</span><span class="o">.</span><span class="n">exclusions_of_liability</span> <span class="o">=</span> <span class="n">exclusions_of_liability</span>
                 <span class="n">extract</span><span class="o">.</span><span class="n">glossaries</span> <span class="o">=</span> <span class="n">glossaries</span>
+                <span class="c1"># obtain the highlight wms url and its content only if the parameter full was requested (PDF)</span>
+                <span class="k">if</span> <span class="n">params</span><span class="o">.</span><span class="n">flavour</span> <span class="o">==</span> <span class="s1">&#39;full&#39;</span><span class="p">:</span>
+                    <span class="n">extract</span><span class="o">.</span><span class="n">real_estate</span><span class="o">.</span><span class="n">set_highlight_url</span><span class="p">(</span><span class="n">sld_url</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">extract</span>
         <span class="k">raise</span> <span class="n">NoResultFound</span><span class="p">()</span></div></div>
 </pre></div>
