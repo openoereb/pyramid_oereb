@@ -50,7 +50,7 @@ def produce_sld_content(request):
     This is the standard hook method to provide the sld content. Of course you can set it to another one. For
     instance to use another template. Or to use other parameters to provide the correctly constructed SLD.
 
-    .. note:: What to know about this Method: REQUEST-Method: GET, parameters only over url parameters
+    .. note:: What to know about this Method: REQUEST-Method: GET, parameters only as url parameters
 
     When you are replacing this method take care that it has to accept a pyramid request as input and must
     deliver a valid SLD wrapped in a pyramid response instance as output. It is in your responsibility.
