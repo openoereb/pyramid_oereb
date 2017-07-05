@@ -10,7 +10,7 @@ from pyramid.testing import DummyRequest, testConfig
 import pytest
 from sqlalchemy import create_engine
 
-from pyramid_oereb import ExtractReader, route_prefix
+from pyramid_oereb import ExtractReader
 from pyramid_oereb import MunicipalityReader
 from pyramid_oereb import ExclusionOfLiabilityReader
 from pyramid_oereb import GlossaryReader
@@ -26,7 +26,6 @@ from pyramid_oereb.standard.models import contaminated_sites
 from pyramid_oereb.standard.models import land_use_plans
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.standard.models import main
-from pyramid_oereb.views import webservice
 
 pyramid_oereb_test_yml = 'pyramid_oereb/standard/pyramid_oereb.yml'
 
@@ -101,19 +100,7 @@ def law_status():
 @contextmanager
 def pyramid_oereb_test_config():
     with testConfig() as pyramid_config:
-        pyramid_config.add_route('{0}/image/logo'.format(route_prefix), '/image/logo/{logo}')
-        pyramid_config.add_view(webservice.Logo, attr='get_image',
-                                route_name='{0}/image/logo'.format(route_prefix), request_method='GET')
-
-        pyramid_config.add_route('{0}/image/municipality'.format(route_prefix), '/image/municipality/{fosnr}')
-        pyramid_config.add_view(webservice.Municipality, attr='get_image',
-                                route_name='{0}/image/municipality'.format(route_prefix),
-                                request_method='GET')
-
-        pyramid_config.add_route('{0}/image/symbol'.format(route_prefix),
-                                 '/image/symbol/{theme_code}/{type_code}')
-        pyramid_config.add_view(webservice.Symbol, attr='get_image',
-                                route_name='{0}/image/symbol'.format(route_prefix), request_method='GET')
+        pyramid_config.include('pyramid_oereb.routes')
 
         yield pyramid_config
 

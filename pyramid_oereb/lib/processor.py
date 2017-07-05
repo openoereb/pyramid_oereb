@@ -214,7 +214,7 @@ class Processor(object):
         """
         return self._extract_reader_
 
-    def process(self, real_estate, params):
+    def process(self, real_estate, params, sld_url):
         """
         Central processing method to hook in from webservice.
 
@@ -223,6 +223,8 @@ class Processor(object):
                 estate reader to obtain the real estates record.
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract
                 request.
+            sld_url (str): The URL which provides the sld to style and filter the highlight of the real
+                estate.
 
         Returns:
             pyramid_oereb.lib.records.extract.ExtractRecord: The generated extract record.
@@ -244,5 +246,8 @@ class Processor(object):
 
                 extract.exclusions_of_liability = exclusions_of_liability
                 extract.glossaries = glossaries
+                # obtain the highlight wms url and its content only if the parameter full was requested (PDF)
+                if params.flavour == 'full':
+                    extract.real_estate.set_highlight_url(sld_url)
                 return extract
         raise NoResultFound()
