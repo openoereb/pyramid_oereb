@@ -14,6 +14,7 @@ from pyramid_oereb import Config
 from pyramid_oereb.lib.processor import Processor
 from pyreproj import Reprojector
 
+from pyramid_oereb.lib.readers.address import AddressReader
 
 log = logging.getLogger('pyramid_oereb')
 
@@ -132,8 +133,16 @@ class PlrWebservice(object):
         localisation = self._request_.matchdict.get('localisation')
         number = self._request_.matchdict.get('number')
         if postalcode and localisation and number:
-            # TODO: Collect the EGRIDs using the property source
-            return {'GetEGRIDResponse': []}
+            reader = AddressReader(
+                Config.get_address_config().get('source').get('class'),
+                **Config.get_address_config().get('source').get('params')
+            )
+            addresses = reader.read(unicode(localisation), int(postalcode), str(number))
+            if len(addresses) == 0:
+                raise HTTPNotFound('Address not found.')
+            geometry = 'SRID={srid};{wkt}'.format(srid=Config.get('srid'), wkt=addresses[0].geom)
+            records = self._real_estate_reader_.read(**{'geometry': geometry})
+            return self.__get_egrid_response__(records)
         else:
             raise HTTPBadRequest('POSTALCODE, LOCALISATION and NUMBER must be defined.')
 

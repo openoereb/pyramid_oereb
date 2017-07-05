@@ -99,9 +99,9 @@ def test_getegrid_ident_missing_parameter():
 def test_getegrid_address():
     request = MockRequest()
     request.matchdict.update({
-        'postalcode': '4321',
+        'postalcode': '4410',
         'localisation': 'test',
-        'number': '123'
+        'number': '10'
     })
     webservice = PlrWebservice(request)
     response = webservice.get_egrid_address()
@@ -111,6 +111,10 @@ def test_getegrid_address():
     validator = Draft4Validator(schema)
     validator.validate(response)
     assert isinstance(response, dict)
+    assert response.get('GetEGRIDResponse') is not None
+    assert response.get('GetEGRIDResponse')[0].get('egrid') == u'TEST'
+    assert response.get('GetEGRIDResponse')[0].get('number') == u'1000'
+    assert response.get('GetEGRIDResponse')[0].get('identDN') == u'BLTEST'
 
 
 def test_getegrid_address_missing_parameter():
