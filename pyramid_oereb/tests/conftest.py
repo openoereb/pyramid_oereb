@@ -24,7 +24,7 @@ from pyramid_oereb.standard.models.motorways_building_lines import Geometry as L
 from pyramid_oereb.standard.models import contaminated_sites
 from pyramid_oereb.standard.models import land_use_plans
 from pyramid_oereb.lib.config import Config
-from pyramid_oereb.standard.models.main import Municipality, Glossary, RealEstate
+from pyramid_oereb.standard.models import main
 from pyramid_oereb.views import webservice
 
 pyramid_oereb_test_yml = 'pyramid_oereb/standard/pyramid_oereb.yml'
@@ -175,16 +175,20 @@ def connection(config):
 
     # Truncate tables
     connection_.execute('TRUNCATE {schema}.{table};'.format(
-        schema=Municipality.__table__.schema,
-        table=Municipality.__table__.name
+        schema=main.Address.__table__.schema,
+        table=main.Address.__table__.name
     ))
     connection_.execute('TRUNCATE {schema}.{table};'.format(
-        schema=Glossary.__table__.schema,
-        table=Glossary.__table__.name
+        schema=main.Municipality.__table__.schema,
+        table=main.Municipality.__table__.name
     ))
     connection_.execute('TRUNCATE {schema}.{table};'.format(
-        schema=RealEstate.__table__.schema,
-        table=RealEstate.__table__.name
+        schema=main.Glossary.__table__.schema,
+        table=main.Glossary.__table__.name
+    ))
+    connection_.execute('TRUNCATE {schema}.{table};'.format(
+        schema=main.RealEstate.__table__.schema,
+        table=main.RealEstate.__table__.name
     ))
     connection_.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
         schema=LineGeometry.__table__.schema,
@@ -255,8 +259,16 @@ def connection(config):
         table=land_use_plans.Geometry.__table__.name
     ))
 
+    # Add dummy address
+    connection_.execute(main.Address.__table__.insert(), {
+        'street_name': 'test',
+        'street_number': '10',
+        'zip_code': 4410,
+        'geom': 'SRID=2056;POINT(1 1)'
+    })
+
     # Add dummy municipality
-    connection_.execute(Municipality.__table__.insert(), {
+    connection_.execute(main.Municipality.__table__.insert(), {
         'fosnr': 1234,
         'name': 'Test',
         'published': True,
@@ -265,14 +277,14 @@ def connection(config):
     })
 
     # Add dummy glossary
-    connection_.execute(Glossary.__table__.insert(), {
+    connection_.execute(main.Glossary.__table__.insert(), {
         'id': 1,
-        'title': {'fr': u'SGRF', 'de': u'AGI'},
+        'title': {u'fr': u'SGRF', u'de': u'AGI'},
         'content': {'fr': u'Service de la géomatique et du registre foncier', 'de': u'Amt für Geoinformation'}
     })
 
     # Add dummy real estate
-    connection_.execute(RealEstate.__table__.insert(), {
+    connection_.execute(main.RealEstate.__table__.insert(), {
         'id': 1,
         'egrid': u'TEST',
         'number': u'1000',
@@ -284,7 +296,7 @@ def connection(config):
         'land_registry_area': 4,
         'limit': 'SRID=2056;MULTIPOLYGON(((0 0, 0 2, 2 2, 2 0, 0 0)))'
     })
-    connection_.execute(RealEstate.__table__.insert(), {
+    connection_.execute(main.RealEstate.__table__.insert(), {
         'id': 2,
         'egrid': u'TEST2',
         'number': u'9999',

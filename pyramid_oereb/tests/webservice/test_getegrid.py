@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import math
-import urllib
 
-import requests_mock
 from jsonschema import Draft4Validator
 from shapely.geometry import Point, Polygon, MultiPolygon
 
@@ -105,25 +103,8 @@ def test_getegrid_address():
         'localisation': 'test',
         'number': '10'
     })
-    url = 'https://api3.geo.admin.ch/rest/services/api/SearchServer?' + str(urllib.urlencode({
-       'searchText': '{0} {1} {2}'.format(
-           request.matchdict.get('postalcode'),
-           request.matchdict.get('localisation'),
-           request.matchdict.get('number')
-       )
-    }))
     webservice = PlrWebservice(request)
-    with requests_mock.mock() as m:
-        m.get(url, json={
-            'results': [{
-                'attrs': {
-                    'origin': 'address',
-                    'lon': -19.91798993747352,
-                    'lat': 32.124497846031005
-                }
-            }]
-        })
-        response = webservice.get_egrid_address()
+    response = webservice.get_egrid_address()
     with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
         schema = json.loads(f.read())
     Draft4Validator.check_schema(schema)
