@@ -6,6 +6,38 @@ API
 
 
 
+.. _api-pyramid_oereb-contrib:
+
+Module *contrib*
+------------------------------
+
+.. automodule:: pyramid_oereb.contrib
+   :members:
+
+.. _api-pyramid_oereb-contrib-sources:
+
+Module *sources*
+``````````````````````````````````````
+
+.. automodule:: pyramid_oereb.contrib.sources
+   :members:
+
+.. _api-pyramid_oereb-contrib-sources-document:
+
+Module *document*
+'''''''''''''''''''''''''''''''''''''''''''''''
+
+.. automodule:: pyramid_oereb.contrib.sources.document
+   :members:
+
+.. _api-pyramid_oereb-contrib-sources-document-oereblexsource:
+
+Class *OEREBlexSource*
+......................
+
+.. autoclass:: pyramid_oereb.contrib.sources.document.OEREBlexSource
+   :members:
+
 .. _api-pyramid_oereb-lib:
 
 Module *lib*

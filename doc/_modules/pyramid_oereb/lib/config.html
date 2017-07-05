@@ -495,6 +495,18 @@
         <span class="p">}</span></div>
 
     <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_oereblex_config"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_oereblex_config">[docs]</a>    <span class="k">def</span> <span class="nf">get_oereblex_config</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary of the configured OEREBlex settings.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured OEREBlex settings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;oereblex&#39;</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Config.get_base_data"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_base_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_base_data</span><span class="p">(</span><span class="n">base_data_date</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the multilingual base data description with updated currentness.</span>
