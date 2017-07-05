@@ -24,3 +24,10 @@ pyramid_oereb:
     number: 264
     postal_code: 3084
     city: Wabern
+
+  oereblex:
+    host: http://oereblex.example.com
+    language: de
+    proxy:
+      http: http://my.proxy.org
+      https:

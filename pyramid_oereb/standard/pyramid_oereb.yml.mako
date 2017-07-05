@@ -92,6 +92,22 @@ pyramid_oereb:
         types:
         - GeometryCollection
 
+  # Configuration for OEREBlex
+  oereblex:
+    # OEREBlex host
+    host: https://oereblex.bl.ch
+    # Language of returned values
+    language: de
+    # Value for canton attribute
+    canton: BL
+    # Mapping for other optional attributes
+    mapping:
+      municipality: subtype
+    # Proxy to be used for web requests
+    # proxy:
+    #   http:
+    #   https:
+
   # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
   # will be directly used for producing the extract output.
   plr_cadastre_authority:

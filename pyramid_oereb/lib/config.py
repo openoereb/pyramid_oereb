@@ -336,6 +336,18 @@ class Config(object):
         }
 
     @staticmethod
+    def get_oereblex_config():
+        """
+        Returns a dictionary of the configured OEREBlex settings.
+
+        Returns:
+            dict: The configured OEREBlex settings.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('oereblex')
+
+    @staticmethod
     def get_base_data(base_data_date):
         """
         Returns the multilingual base data description with updated currentness.
