@@ -13,7 +13,7 @@ def parse_url(url):
         url (str): The URL
 
     Returns:
-        (urlparse.SplitResult,dict): the parsed URL (SplitResult, params)
+        (urlparse.SplitResult, dict): the parsed URL (SplitResult, params)
     """
     url = urlsplit(url)
     params = parse_qs(url.query)

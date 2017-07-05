@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 import logging
-from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPServerError, HTTPNotFound
+
+from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPServerError, HTTPNotFound, \
+    HTTPInternalServerError
 from pyramid.path import DottedNameResolver
 from shapely.geometry import Point
 from pyramid.renderers import render_to_response
+from pyramid.response import Response
 from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb import route_prefix
@@ -164,7 +167,11 @@ class PlrWebservice(object):
         # check if result is strictly one (we queried with primary keys)
         if len(real_estate_records) == 1:
             try:
-                extract = processor.process(real_estate_records[0], params)
+                extract = processor.process(
+                    real_estate_records[0],
+                    params,
+                    self._request_.route_url('{0}/sld'.format(route_prefix))
+                )
             except LookupError:
                 raise HTTPNoContent()
             except NotImplementedError:
@@ -586,4 +593,57 @@ class Symbol(object):
         if method:
             return method(self._request_)
         log.error('"get_symbol_method" not found')
+        raise HTTPNotFound()
+
+
+class Sld(object):
+    """
+    Webservice to deliver a valid sld content to filter a av base layer to only one dedicated real estate.
+
+    """
+
+    def __init__(self, request):
+        """
+        Args:
+            request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.
+        """
+        self._request_ = request
+
+    def get_sld(self):
+        """
+        Webservice which delivers an SLD file from parameter input. However this is a proxy pass through only.
+        We use it to call the real method configured in the dedicated yaml file and hope that this method is
+        accepting a pyramid.request.Request as input and is returning a pyramid.response.Response which
+        encapsulates a well designed SLD.
+
+        .. note:: The config path to define this hook method is:
+            *pyramid_oereb.real_estate.visualisation.method*
+
+        Returns:
+             pyramid.response.Response: The response provided by the hooked method provided by the
+                configuration
+
+        Raises:
+            pyramid.httpexceptions.HTTPInternalServerError: When the return value of the hooked method was not
+                of type pyramid.response.Response
+            pyramid.httpexceptions.HTTPNotFound: When the configured method was not found.
+        """
+        dnr = DottedNameResolver()
+        visualisation_config = Config.get_real_estate_config().get('visualisation')
+        method_path = visualisation_config.get('method')
+        method = dnr.resolve(method_path)
+        if method:
+            result = method(self._request_)
+            if isinstance(result, Response):
+                return result
+            else:
+                log.error(
+                    u'The called method {path} does not returned the expected '
+                    u'pyramid.response.Response instance. Returned value was {type}'.format(
+                        path=method_path,
+                        type=type(result)
+                    )
+                )
+                raise HTTPInternalServerError()
+        log.error(u'method in path "{path}" not found'.format(path=method_path))
         raise HTTPNotFound()
