@@ -611,6 +611,13 @@ class Sld(object):
 
     def get_sld(self):
         """
+        Webservice which delivers an SLD file from parameter input. However this is a proxy pass through only.
+        We use it to call the real method configured in the dedicated yaml file and hope that this method is
+        accepting a pyramid.request.Request as input and is returning a pyramid.response.Response which
+        encapsulates a well designed SLD.
+
+        .. note:: The config path to define this hook method is:
+            *pyramid_oereb.real_estate.visualisation.method*
 
         Returns:
              pyramid.response.Response: The response provided by the hooked method provided by the

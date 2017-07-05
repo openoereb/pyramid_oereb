@@ -188,7 +188,7 @@ class Renderer(Base):
             real_estate_dict['Reference'] = reference_list
 
         if self._params.flavour == 'full':
-            real_estate_dict['HighLight'] = self.format_map(real_estate.high_light)
+            real_estate_dict['HighLight'] = self.format_map(real_estate.highlight)
 
         return real_estate_dict
 

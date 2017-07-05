@@ -248,6 +248,6 @@ class Processor(object):
                 extract.glossaries = glossaries
                 # obtain the highlight wms url and its content only if the parameter full was requested (PDF)
                 if params.flavour == 'full':
-                    extract.real_estate.set_high_light_url(sld_url)
+                    extract.real_estate.set_highlight_url(sld_url)
                 return extract
         raise NoResultFound()
