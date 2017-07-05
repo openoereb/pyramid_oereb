@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 import datetime
+
 import pytest
 import requests_mock
 from geolink_formatter.entity import Document, File
 
+from pyramid_oereb.contrib.sources.document import OEREBlexSource
 from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
-from pyramid_oereb.lib.sources.document import OEREBlexSource
 
 
 @pytest.mark.parametrize('valid,cfg', [
