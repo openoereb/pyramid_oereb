@@ -8,6 +8,10 @@ from pyramid_oereb.lib.sources import Base
 
 
 class OEREBlexSource(Base):
+    """
+    A document source, that creates records for the received documents from OEREBlex for the specified
+    geoLink.
+    """
     def __init__(self, **kwargs):
         """
         Creates a new OEREBlex document source.

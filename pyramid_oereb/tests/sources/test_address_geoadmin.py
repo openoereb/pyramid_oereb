@@ -6,7 +6,7 @@ import requests_mock
 from requests import HTTPError
 
 from pyramid_oereb.lib.records.address import AddressRecord
-from pyramid_oereb.lib.sources.address import AddressGeoAdminSource
+from pyramid_oereb.contrib.sources.address import AddressGeoAdminSource
 
 
 @pytest.mark.parametrize('i,cfg', [
