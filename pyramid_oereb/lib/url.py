@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+import base64
 from urllib import urlencode
+from urllib2 import urlopen
 from urlparse import urlsplit, urlunsplit, parse_qs, urlparse
 
 
@@ -52,10 +54,43 @@ def add_split_url_params(parsed_url, new_params):
 def uri_validator(url):
     """
     A simple validator for URL's.
-    :param url: The url which should be checked to be valid.
-    :type url: str
-    :return: The state of the validation.
-    :rtype: bool
+
+    Args:
+        url (str): The url which should be checked to be valid.
+
+    Returns:
+        bool: The state of the validation.
     """
     result = urlparse(url)
     return True if result.scheme and result.netloc else False
+
+
+def url_to_base64(url):
+    """
+    Request the document at the given url and return it as a base64 document.
+
+    Args:
+        url (str): url to request and deliver as base64 document.
+
+    Returns:
+        base64 or str: the document as base64 string or None on empty urls
+
+    Raises:
+        LookupError: Raised if the response is not code 200.
+        AttributeError: Raised if the URL itself isn't valid at all.
+
+    """
+    response = None
+    if url is None:
+        return None
+    if uri_validator(url):
+        response = urlopen(url)
+        if response.getcode() != 200:
+            dedicated_msg = "The url could not be downloaded. URL was: {url}, Response was " \
+                            "{response}".format(url=url, response=response.read())
+            raise LookupError(dedicated_msg)
+    else:
+        dedicated_msg = "URL seems to be not valid. URL was: {url}".format(url=url)
+        raise AttributeError(dedicated_msg)
+
+    return base64.b64encode(response.read())

@@ -110,10 +110,10 @@ class Processor(object):
         Returns:
             pyramid_oereb.lib.records.real_estate.RealEstateRecord: The updated extract.
         """
-        # TODO: uncomment this when issue GSOREB-194 is solved.
-        # extract.real_estate.plan_for_land_register.get_full_wms_url(extract.real_estate)
-        # if images:
-        # extract.real_estate.plan_for_land_register.download_wms_content()
+        real_estate.plan_for_land_register.get_full_wms_url(real_estate)
+        if images:
+            real_estate.plan_for_land_register.download_wms_content()
+
         for public_law_restriction in real_estate.public_law_restrictions:
             public_law_restriction.view_service.get_full_wms_url(real_estate)
             if images:

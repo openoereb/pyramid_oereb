@@ -66,3 +66,18 @@ def test_get_base_data():
     base_data = Config.get_base_data(date)
     assert isinstance(base_data, dict)
     assert base_data.get('de') == 'Daten der amtlichen Vermessung, Stand 01.02.2017.'
+
+
+def test_get_oereblex_config():
+    Config._config = None
+    Config.init('./pyramid_oereb/tests/resources/test_config.yml', 'pyramid_oereb')
+    cfg = Config.get_oereblex_config()
+    assert isinstance(cfg, dict)
+    assert cfg == {
+        'host': 'http://oereblex.example.com',
+        'language': 'de',
+        'proxy': {
+            'http': 'http://my.proxy.org',
+            'https': None
+        }
+    }

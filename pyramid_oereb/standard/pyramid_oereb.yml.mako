@@ -14,6 +14,19 @@ pyramid_oereb:
     - it
     - rm
 
+  # The law status translations based on the two possible codes 'inForce' and 'runningModifications'
+  law_status_translations:
+    in_force:
+      de: In Kraft
+      fr: TODO
+      it: TODO
+      rm: TODO
+    running_modifications:
+      de: Laufende Änderungen
+      fr: TODO
+      it: TODO
+      rm: TODO
+
   # The language that should be used by default, if no other language is specified in the request.
   # This has to be one of the languages defined above.
   default_language: de
@@ -78,6 +91,22 @@ pyramid_oereb:
     collection:
         types:
         - GeometryCollection
+
+  # Configuration for OEREBlex
+  oereblex:
+    # OEREBlex host
+    host: https://oereblex.bl.ch
+    # Language of returned values
+    language: de
+    # Value for canton attribute
+    canton: BL
+    # Mapping for other optional attributes
+    mapping:
+      municipality: subtype
+    # Proxy to be used for web requests
+    # proxy:
+    #   http:
+    #   https:
 
   # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
   # will be directly used for producing the extract output.
@@ -222,6 +251,9 @@ pyramid_oereb:
     base_data:
         text:
           de: Daten der amtlichen Vermessung, Stand {0}.
+          fr: Données de la mensuration officielle, état actuel {0}
+          it: Dati della misurazione ufficiale, stato attuale {0}
+          rm: Datas da la mesiraziun uffiziala, versiun dal {0}
         methods:
           date: pyramid_oereb.standard.hook_methods.get_surveying_data_update_date
           provider:  pyramid_oereb.standard.hook_methods.get_surveying_data_provider
@@ -263,6 +295,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.land_use_plans
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr87
       code: MotorwaysProjectPlaningZones
@@ -289,6 +324,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.motorways_project_planing_zones
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr88
       code: MotorwaysBuildingLines
@@ -315,6 +353,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.motorways_building_lines
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr97
       code: RailwaysBuildingLines
@@ -341,6 +382,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.railways_building_lines
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr96
       code: RailwaysProjectPlanningZones
@@ -367,6 +411,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.railways_project_planning_zones
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr103
       code: AirportsProjectPlanningZones
@@ -393,6 +440,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.airports_project_planning_zones
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr104
       code: AirportsBuildingLines
@@ -419,6 +469,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.airports_building_lines
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr108
       code: AirportsSecurityZonePlans
@@ -445,6 +498,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.airports_security_zone_plans
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr116
       code: ContaminatedSites
@@ -471,6 +527,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_sites
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr117
       code: ContaminatedMilitarySites
@@ -497,6 +556,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_military_sites
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr118
       code: ContaminatedCivilAviationSites
@@ -523,6 +585,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr119
       code: ContaminatedPublicTransportSites
@@ -549,6 +614,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_public_transport_sites
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr131
       code: GroundwaterProtectionZones
@@ -575,6 +643,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.groundwater_protection_zones
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr132
       code: GroundwaterProtectionSites
@@ -601,6 +672,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.groundwater_protection_sites
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr145
       code: NoiseSensitivityLevels
@@ -627,6 +701,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.noise_sensitivity_levels
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr157
       code: ForestPerimeters
@@ -653,6 +730,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.forest_perimeters
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr159
       code: ForestDistanceLines
@@ -679,3 +759,6 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.forest_distance_lines
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
