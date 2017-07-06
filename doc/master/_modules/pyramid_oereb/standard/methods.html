@@ -200,17 +200,22 @@
     <span class="n">fosnr</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">matchdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fosnr&#39;</span><span class="p">)</span>
     <span class="n">source_params</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_municipality_config</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span>
     <span class="n">session</span> <span class="o">=</span> <span class="n">database_adapter</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="n">source_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">))</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">source_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">))</span>
-    <span class="n">municipality</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">fosnr</span><span class="o">=</span><span class="n">fosnr</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">municipality</span><span class="p">:</span>
-        <span class="n">logo</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">municipality</span><span class="p">,</span> <span class="s1">&#39;logo&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">logo</span><span class="p">:</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">response</span>
-            <span class="n">response</span><span class="o">.</span><span class="n">status_int</span> <span class="o">=</span> <span class="mi">200</span>
-            <span class="n">response</span><span class="o">.</span><span class="n">content_type</span> <span class="o">=</span> <span class="s1">&#39;image/*&#39;</span>
-            <span class="n">response</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">logo</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">response</span>
-    <span class="k">raise</span> <span class="n">HTTPNotFound</span><span class="p">()</span></div>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">source_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">))</span>
+        <span class="n">municipality</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">fosnr</span><span class="o">=</span><span class="n">fosnr</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">municipality</span><span class="p">:</span>
+            <span class="n">logo</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">municipality</span><span class="p">,</span> <span class="s1">&#39;logo&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">logo</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">response</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">status_int</span> <span class="o">=</span> <span class="mi">200</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">content_type</span> <span class="o">=</span> <span class="s1">&#39;image/*&#39;</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">logo</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">response</span>
+        <span class="k">raise</span> <span class="n">HTTPNotFound</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">raise</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="get_symbol"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.standard.methods.get_symbol">[docs]</a><span class="k">def</span> <span class="nf">get_symbol</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
@@ -230,20 +235,25 @@
             <span class="k">break</span>
     <span class="n">source_params</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span>
     <span class="n">session</span> <span class="o">=</span> <span class="n">database_adapter</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="n">source_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">))</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{module_}</span><span class="s1">.</span><span class="si">{class_}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">module_</span><span class="o">=</span><span class="n">source_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;models&#39;</span><span class="p">),</span>
-        <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;LegendEntry&#39;</span>
-    <span class="p">))</span>
-    <span class="n">legend_entry</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">type_code</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">matchdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type_code&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">legend_entry</span><span class="p">:</span>
-        <span class="n">symbol</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">legend_entry</span><span class="p">,</span> <span class="s1">&#39;symbol&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">symbol</span><span class="p">:</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">response</span>
-            <span class="n">response</span><span class="o">.</span><span class="n">status_int</span> <span class="o">=</span> <span class="mi">200</span>
-            <span class="n">response</span><span class="o">.</span><span class="n">content_type</span> <span class="o">=</span> <span class="s1">&#39;image/*&#39;</span>
-            <span class="n">response</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">response</span>
-    <span class="k">raise</span> <span class="n">HTTPNotFound</span><span class="p">()</span></div>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{module_}</span><span class="s1">.</span><span class="si">{class_}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">module_</span><span class="o">=</span><span class="n">source_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;models&#39;</span><span class="p">),</span>
+            <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;LegendEntry&#39;</span>
+        <span class="p">))</span>
+        <span class="n">legend_entry</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">type_code</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">matchdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type_code&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">legend_entry</span><span class="p">:</span>
+            <span class="n">symbol</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">legend_entry</span><span class="p">,</span> <span class="s1">&#39;symbol&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">symbol</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">response</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">status_int</span> <span class="o">=</span> <span class="mi">200</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">content_type</span> <span class="o">=</span> <span class="s1">&#39;image/*&#39;</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">response</span>
+        <span class="k">raise</span> <span class="n">HTTPNotFound</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">raise</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 </pre></div>
 
            </div>

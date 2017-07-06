@@ -163,21 +163,39 @@
 
 
 <div class="viewcode-block" id="LawStatusRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.law_status.LawStatusRecord">[docs]</a><span class="k">class</span> <span class="nc">LawStatusRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Law status record.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Law status record.</span>
+<span class="sd">        Create a new law status record.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            code (str or unicode): The code of the law status. It must be &quot;inForce&quot; or &quot;runningModifications&quot;</span>
 <span class="sd">                every other value will raise an error.</span>
+<span class="sd">            text (dict of unicode): The multilingual law status description.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">code</span> <span class="o">!=</span> <span class="sa">u</span><span class="s1">&#39;inForce&#39;</span> <span class="ow">and</span> <span class="n">code</span> <span class="o">!=</span> <span class="sa">u</span><span class="s1">&#39;runningModifications&#39;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;wrong code for law status was deliverd. Only &quot;inForce&quot; or &#39;</span>
                                  <span class="s1">&#39;&quot;runningModifications&quot; are allowed. Value was </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">code</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="n">code</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status_translations</span><span class="p">(</span><span class="n">code</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="LawStatusRecord.from_config"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.law_status.LawStatusRecord.from_config">[docs]</a>    <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a new law status record using the translations specified in the configuration.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            code (str or unicode): The code of the law status. It must be &quot;inForce&quot; or &quot;runningModifications&quot;</span>
+<span class="sd">                every other value will raise an error.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.law_status.LawStatusRecord: The created law status record.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">LawStatusRecord</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status_translations</span><span class="p">(</span><span class="n">code</span><span class="p">))</span></div></div>
 </pre></div>
 
            </div>

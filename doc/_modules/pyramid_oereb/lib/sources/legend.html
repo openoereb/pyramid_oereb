@@ -178,25 +178,30 @@
 <span class="sd">            (kwargs): Arbitrary keyword arguments. It must contain the key &#39;type_code&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
-        <span class="n">query</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type_code&#39;</span><span class="p">):</span>
-            <span class="n">results</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">type_code</span> <span class="o">==</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type_code&#39;</span><span class="p">)</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Necessary parameter is missing.&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type_code&#39;</span><span class="p">):</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">type_code</span> <span class="o">==</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type_code&#39;</span><span class="p">)</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Necessary parameter is missing.&#39;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">LegendEntryRecord</span><span class="p">(</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">legend_text</span><span class="p">,</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">type_code_list</span><span class="p">,</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">theme</span>
-            <span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">LegendEntryRecord</span><span class="p">(</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">legend_text</span><span class="p">,</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">type_code_list</span><span class="p">,</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">theme</span>
+                <span class="p">))</span>
 
-        <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">raise</span>
+
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
 </pre></div>
 
            </div>

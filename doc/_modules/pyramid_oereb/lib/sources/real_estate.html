@@ -193,8 +193,8 @@
 <span class="sd">            geometry (str): A geometry as WKT string which is used to obtain intersected real</span>
 <span class="sd">                estates. This maydeliver several results.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
             <span class="n">query</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">nb_ident</span> <span class="ow">and</span> <span class="n">number</span><span class="p">:</span>
                 <span class="c1"># explicitly querying for one result, this will cause an error if more than one ore none</span>
@@ -226,10 +226,12 @@
                     <span class="n">identdn</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">identdn</span><span class="p">,</span>
                     <span class="n">egrid</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">egrid</span><span class="p">,</span>
                 <span class="p">))</span>
+
         <span class="k">except</span> <span class="n">NoResultFound</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
-        <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
 </pre></div>
 
            </div>

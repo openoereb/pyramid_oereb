@@ -264,43 +264,43 @@
 
     <span class="c1"># Fill tables with sample data</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;pyramid_oereb.tests&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
             <span class="s1">&#39;resources/plr119/availabilities.json&#39;</span>
     <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Availability</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;pyramid_oereb.tests&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
             <span class="s1">&#39;resources/plr119/office.json&#39;</span>
     <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Office</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;pyramid_oereb.tests&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
             <span class="s1">&#39;resources/plr119/view_service.json&#39;</span>
     <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">ViewService</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;pyramid_oereb.tests&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
             <span class="s1">&#39;resources/plr119/legend_entry.json&#39;</span>
     <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">LegendEntry</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;pyramid_oereb.tests&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
             <span class="s1">&#39;resources/plr119/public_law_restriction.json&#39;</span>
     <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">PublicLawRestriction</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;pyramid_oereb.tests&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
             <span class="s1">&#39;resources/plr119/geometry.json&#39;</span>
     <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Geometry</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;pyramid_oereb.tests&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
             <span class="s1">&#39;resources/plr119/legal_provision.json&#39;</span>
     <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">lps</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
@@ -312,25 +312,25 @@
         <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;pyramid_oereb.tests&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
             <span class="s1">&#39;resources/plr119/public_law_restriction_document.json&#39;</span>
     <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">PublicLawRestrictionDocument</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;pyramid_oereb.tests&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
             <span class="s1">&#39;resources/real_estates.json&#39;</span>
     <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">RealEstate</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;pyramid_oereb.tests&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
             <span class="s1">&#39;resources/addresses.json&#39;</span>
     <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Address</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;pyramid_oereb.tests&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
             <span class="s1">&#39;resources/municipalities_with_logo.json&#39;</span>
     <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Municipality</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
