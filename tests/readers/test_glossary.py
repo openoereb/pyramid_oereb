@@ -15,8 +15,7 @@ def test_init(config):
 
 
 @pytest.mark.run(order=2)
-def test_read(connection, config):
-    assert connection.closed
+def test_read(config):
     reader = GlossaryReader(
         config.get_glossary_config().get('source').get('class'),
         **config.get_glossary_config().get('source').get('params')

@@ -8,14 +8,13 @@ from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
-from pyramid_oereb.tests.conftest import MockRequest
 from pyramid_oereb import ExtractReader
 from pyramid_oereb import MunicipalityReader
 from pyramid_oereb import ExclusionOfLiabilityReader
 from pyramid_oereb import GlossaryReader
 from pyramid_oereb import RealEstateReader
 from pyramid_oereb.views.webservice import PlrWebservice
-
+from tests.conftest import MockRequest
 
 request_matchdict = {
     'flavour': 'reduced',
@@ -41,8 +40,7 @@ def test_properties():
     assert isinstance(processor.real_estate_reader, RealEstateReader)
 
 
-def test_process(connection):
-    assert connection.closed
+def test_process():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     processor = request.pyramid_oereb_processor
@@ -53,8 +51,7 @@ def test_process(connection):
     assert isinstance(extract, ExtractRecord)
 
 
-def test_process_geometry_testing(connection):
-    assert connection.closed
+def test_process_geometry_testing():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     processor = request.pyramid_oereb_processor
@@ -67,8 +64,7 @@ def test_process_geometry_testing(connection):
             assert g._test_passed
 
 
-def test_filter_published_documents(connection):
-    assert connection.closed
+def test_filter_published_documents():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     processor = request.pyramid_oereb_processor
@@ -82,8 +78,7 @@ def test_filter_published_documents(connection):
             assert len(plr.documents[0].references) == 1
 
 
-def test_processor_with_images(connection):
-    assert connection.closed
+def test_processor_with_images():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     request.params.update({
@@ -101,8 +96,7 @@ def test_processor_with_images(connection):
         assert plr.view_service.image is not None
 
 
-def test_processor_without_images(connection):
-    assert connection.closed
+def test_processor_without_images():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     request.params.update({
@@ -119,7 +113,7 @@ def test_processor_without_images(connection):
         assert plr.view_service.image is None
 
 
-def test_processor_get_legend_entries():
+def test_processor_get_legend_entries(law_status):
     theme1 = ThemeRecord(u'TEST', {'de': 'Theme 1'})
     theme2 = ThemeRecord(u'TEST', {'de': 'Theme 2'})
     office = OfficeRecord({'de': 'Test Office'})
@@ -141,7 +135,7 @@ def test_processor_get_legend_entries():
     plr1 = PlrRecord(
         theme1,
         {'de': 'CONTENT'},
-        u'inForce',
+        law_status,
         datetime.datetime.now(),
         office,
         image,
@@ -151,7 +145,7 @@ def test_processor_get_legend_entries():
     plr2 = PlrRecord(
         theme1,
         {'de': 'CONTENT'},
-        u'inForce',
+        law_status,
         datetime.datetime.now(),
         office,
         image,
@@ -161,7 +155,7 @@ def test_processor_get_legend_entries():
     plr3 = PlrRecord(
         theme1,
         {'de': 'CONTENT'},
-        u'inForce',
+        law_status,
         datetime.datetime.now(),
         office,
         image,
@@ -171,7 +165,7 @@ def test_processor_get_legend_entries():
     plr4 = PlrRecord(
         theme1,
         {'de': 'CONTENT'},
-        u'inForce',
+        law_status,
         datetime.datetime.now(),
         office,
         image,

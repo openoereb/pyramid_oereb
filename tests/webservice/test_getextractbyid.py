@@ -5,7 +5,7 @@ import pytest
 from jsonschema import Draft4Validator
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
 
-from pyramid_oereb.tests.conftest import MockRequest, pyramid_oereb_test_config
+from tests.conftest import MockRequest, pyramid_oereb_test_config, schema_json_extract
 from pyramid_oereb.views.webservice import PlrWebservice
 
 
@@ -159,7 +159,6 @@ def test_return_no_content():
         service.get_extract_by_id()
 
 
-@pytest.mark.last
 @pytest.mark.parametrize('topics', [
     'ALL',
     'ALL_FEDERAL',
@@ -182,7 +181,7 @@ def test_return_json(topics):
         service = PlrWebservice(request)
         response = service.get_extract_by_id()
 
-    with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
+    with open(schema_json_extract) as f:
         schema = json.loads(f.read())
     Draft4Validator.check_schema(schema)
     validator = Draft4Validator(schema)

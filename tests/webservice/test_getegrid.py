@@ -11,7 +11,7 @@ import pytest
 from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
-from pyramid_oereb.tests.conftest import MockRequest
+from tests.conftest import MockRequest, schema_json_extract
 from pyramid_oereb.views.webservice import PlrWebservice
 
 
@@ -21,8 +21,7 @@ def test_getegrid_coord_missing_parameter():
         webservice.get_egrid_coord()
 
 
-def test_getegrid_ident(connection, config):
-    assert connection.closed
+def test_getegrid_ident(config):
     pyramid_oereb.config = config
     request = MockRequest()
     request.matchdict.update({
@@ -31,7 +30,7 @@ def test_getegrid_ident(connection, config):
     })
     webservice = PlrWebservice(request)
     response = webservice.get_egrid_ident()
-    with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
+    with open(schema_json_extract) as f:
         schema = json.loads(f.read())
     Draft4Validator.check_schema(schema)
     validator = Draft4Validator(schema)
@@ -45,8 +44,7 @@ def test_getegrid_ident(connection, config):
     assert real_estates[0]['identDN'] == u'BLTEST'
 
 
-def test_getegrid_xy(connection, config):
-    assert connection.closed
+def test_getegrid_xy(config):
     pyramid_oereb.config = config
     request = MockRequest()
     request.params.update({
@@ -54,7 +52,7 @@ def test_getegrid_xy(connection, config):
     })
     webservice = PlrWebservice(request)
     response = webservice.get_egrid_coord()
-    with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
+    with open(schema_json_extract) as f:
         schema = json.loads(f.read())
     Draft4Validator.check_schema(schema)
     validator = Draft4Validator(schema)
@@ -76,7 +74,7 @@ def test_getegrid_gnss(config):
     })
     webservice = PlrWebservice(request)
     response = webservice.get_egrid_coord()
-    with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
+    with open(schema_json_extract) as f:
         schema = json.loads(f.read())
     Draft4Validator.check_schema(schema)
     validator = Draft4Validator(schema)
@@ -105,7 +103,7 @@ def test_getegrid_address():
     })
     webservice = PlrWebservice(request)
     response = webservice.get_egrid_address()
-    with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
+    with open(schema_json_extract) as f:
         schema = json.loads(f.read())
     Draft4Validator.check_schema(schema)
     validator = Draft4Validator(schema)

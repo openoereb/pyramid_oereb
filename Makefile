@@ -93,7 +93,7 @@ export PNG_ROOT_DIR = pyramid_oereb/standard/
 
 .coverage: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB) pyramid_oereb/standard/pyramid_oereb.yml .coveragerc $(shell find -name "*.py" -print)
 	@echo Run tests using docker: $(USE_DOCKER)
-	$(VENV_BIN)py.test$(PYTHON_BIN_POSTFIX) -vv --cov-config .coveragerc --cov-report term-missing:skip-covered --cov pyramid_oereb pyramid_oereb/tests
+	$(VENV_BIN)py.test$(PYTHON_BIN_POSTFIX) -vv --cov-config .coveragerc --cov-report term-missing:skip-covered --cov pyramid_oereb tests
 
 .PHONY: lint
 lint: $(PYTHON_VENV)

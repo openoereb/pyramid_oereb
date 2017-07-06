@@ -4,13 +4,13 @@ import json
 
 from jsonschema import Draft4Validator
 
-from pyramid_oereb.tests.conftest import MockRequest
+from tests.conftest import MockRequest, schema_json_extract
 from pyramid_oereb.views.webservice import PlrWebservice
 
 
 def test_getcapabilities(config):
     service = PlrWebservice(MockRequest())
-    with open('./pyramid_oereb/tests/resources/schema_webservices.json') as f:
+    with open(schema_json_extract) as f:
         schema = json.loads(f.read())
     Draft4Validator.check_schema(schema)
     validator = Draft4Validator(schema)

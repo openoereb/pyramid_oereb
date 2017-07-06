@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from shapely.geometry import LineString, Point, Polygon
-from pyramid_oereb.tests.conftest import params
+from tests.conftest import params
 import pytest
 
 

@@ -5,7 +5,7 @@ from pyramid.response import Response
 from pyramid.testing import DummyRequest
 
 from pyramid_oereb.lib.renderer import Base
-from pyramid_oereb.tests.renderer import DummyRenderInfo
+from tests.renderer import DummyRenderInfo
 
 
 def test_call():
