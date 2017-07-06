@@ -77,8 +77,8 @@ def xml_templates():
 
 @pytest.fixture
 def xml_schema():
-    a = AssetResolver('pyramid_oereb')
-    resolver = a.resolve('tests/resources/Extract.xsd')
+    a = AssetResolver('tests')
+    resolver = a.resolve('resources/Extract.xsd')
     return open(resolver.abspath())
 
 
@@ -93,7 +93,6 @@ def config():
 def pyramid_oereb_test_config():
     with testConfig() as pyramid_config:
         pyramid_config.include('pyramid_oereb.routes')
-
         yield pyramid_config
 
 
