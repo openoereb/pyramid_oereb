@@ -19,7 +19,7 @@ def test_missing_configuration_section():
 
 def test_wrong_configuration_section():
     with pytest.raises(ConfigurationError):
-        parse('./pyramid_oereb/tests/resources/test_config.yml', 'invalidsection')
+        parse('./tests/resources/test_config.yml', 'invalidsection')
 
 
 def test_configuration_file_not_found():
@@ -29,7 +29,7 @@ def test_configuration_file_not_found():
 
 
 def test_parse_configuration():
-    cfg = parse('./pyramid_oereb/tests/resources/test_config.yml', 'section2')
+    cfg = parse('./tests/resources/test_config.yml', 'section2')
     assert cfg.get('param1') == 1
     assert len(cfg.get('param2')) == 2
     assert cfg.get('param2')[0] == 'first'
@@ -38,14 +38,14 @@ def test_parse_configuration():
 
 def test_get_plr_cadastre_authority():
     Config._config = None
-    Config.init('./pyramid_oereb/tests/resources/test_config.yml', 'pyramid_oereb')
+    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
     assert isinstance(plr_cadastre_authority, OfficeRecord)
 
 
 def test_get_logos_config():
     Config._config = None
-    Config.init('./pyramid_oereb/tests/resources/test_config.yml', 'pyramid_oereb')
+    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
     logos = Config.get_logo_config()
     assert isinstance(logos, dict)
 
@@ -70,7 +70,7 @@ def test_get_base_data():
 
 def test_get_oereblex_config():
     Config._config = None
-    Config.init('./pyramid_oereb/tests/resources/test_config.yml', 'pyramid_oereb')
+    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
     cfg = Config.get_oereblex_config()
     assert isinstance(cfg, dict)
     assert cfg == {

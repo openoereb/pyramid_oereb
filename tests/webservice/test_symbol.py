@@ -3,27 +3,28 @@ import pytest
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.response import Response
 
-from pyramid_oereb.tests.conftest import MockRequest
-from pyramid_oereb.views.webservice import Logo
+from tests.conftest import MockRequest
+from pyramid_oereb.views.webservice import Symbol
 
 
-def test_get_image(config):
-    assert isinstance(config._config, dict)
+def test_get_image():
     request = MockRequest()
     request.matchdict.update({
-        'logo': 'oereb'
+        'theme_code': 'ContaminatedSites',
+        'type_code': 'test'
     })
-    webservice = Logo(request)
+    webservice = Symbol(request)
     result = webservice.get_image()
     assert isinstance(result, Response)
-    assert result.body == config.get_logo_config().get('oereb').content
+    assert result.body == bin(1)
 
 
 def test_get_image_invalid():
     request = MockRequest()
     request.matchdict.update({
-        'logo': 'invalid'
+        'theme_code': 'ContaminatedSites',
+        'type_code': 'notExisting'
     })
-    webservice = Logo(request)
+    webservice = Symbol(request)
     with pytest.raises(HTTPNotFound):
         webservice.get_image()

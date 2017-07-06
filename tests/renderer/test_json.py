@@ -24,14 +24,13 @@ from pyramid_oereb.lib.records.theme import ThemeRecord, EmbeddableThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.renderer import Base
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
-from pyramid_oereb.tests.conftest import MockRequest, pyramid_oereb_test_config, law_status
-from pyramid_oereb.tests.renderer import DummyRenderInfo
+from tests.conftest import MockRequest, pyramid_oereb_test_config
+from tests.renderer import DummyRenderInfo
 from pyramid_oereb.views.webservice import Parameter
 
 
-@pytest.fixture()
-def params():
-    return Parameter('reduced', 'json', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
+def law_status():
+    return LawStatusRecord(u'inForce', {u'de': u'In Kraft'})
 
 
 def test_get_localized_text_from_str(config):
@@ -44,6 +43,11 @@ def test_get_localized_text_from_str(config):
             u'Text': u'test'
         }
     ]
+
+
+@pytest.fixture()
+def params():
+    return Parameter('reduced', 'json', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 
 
 @pytest.mark.parametrize('language,result', [
@@ -193,7 +197,7 @@ def test_format_real_estate(config):
         'reduced', 'json', True, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
     geometry = MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])])
     view_service = ViewServiceRecord(u'http://geowms.bl.ch', u'http://geowms.bl.ch')
-    document = DocumentRecord(LawStatusRecord(u'inForce'), datetime.date.today(), {u'de': u'Test Dokument'},
+    document = DocumentRecord(law_status(), datetime.date.today(), {u'de': u'Test Dokument'},
                               OfficeRecord({u'de': u'BUD'}), {'de': 'http://mein.dokument.ch'})
     real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
                                    geometry, u'http://www.geocat.ch', u'1000', u'BL0200002829',
@@ -231,7 +235,7 @@ def test_format_plr(config, parameter):
         renderer._params = parameter
         renderer._request = MockRequest()
         document = DocumentRecord(
-            LawStatusRecord(u'inForce'),
+            law_status(),
             datetime.date.today(),
             {u'de': u'Test Dokument'},
             OfficeRecord({u'de': u'BUD'}),
@@ -249,7 +253,7 @@ def test_format_plr(config, parameter):
         plr = PlrRecord(
             theme,
             {'de': 'Test PLR'},
-            LawStatusRecord('inForce'),
+            law_status(),
             datetime.date.today(),
             office,
             ImageRecord(bin(1)),

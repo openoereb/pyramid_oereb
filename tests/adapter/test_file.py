@@ -22,7 +22,7 @@ def test_cd():
 
 
 def test_ls():
-    base_path = os.path.abspath('./pyramid_oereb/tests/resources')
+    base_path = os.path.abspath('./tests/resources')
     file_adapter = FileAdapter(base_path)
     dir_list = file_adapter.ls()
     assert isinstance(dir_list, list)
@@ -42,14 +42,14 @@ def test_ls():
 
 
 def test_read():
-    base_path = os.path.abspath('./pyramid_oereb/tests/resources')
+    base_path = os.path.abspath('./tests/resources')
     file_adapter = FileAdapter(base_path)
     content = file_adapter.read('file_adapter_dummy.txt')
     assert content.startswith('If the content looks like this, the test has been successful.')
 
 
 def test_read_no_file():
-    base_path = os.path.abspath('./pyramid_oereb/tests/resources')
+    base_path = os.path.abspath('./tests/resources')
     file_adapter = FileAdapter(base_path)
     with pytest.raises(IOError) as exc_info:
         file_adapter.read('plr119')

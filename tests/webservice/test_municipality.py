@@ -3,12 +3,11 @@ import pytest
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.response import Response
 
-from pyramid_oereb.tests.conftest import MockRequest
+from tests.conftest import MockRequest
 from pyramid_oereb.views.webservice import Municipality
 
 
-def test_get_image(connection):
-    assert connection.closed
+def test_get_image():
     request = MockRequest()
     request.matchdict.update({
         'fosnr': '1234'
@@ -19,8 +18,7 @@ def test_get_image(connection):
     assert result.body == 'abcdefg'
 
 
-def test_get_image_invalid(connection):
-    assert connection.closed
+def test_get_image_invalid():
     request = MockRequest()
     request.matchdict.update({
         'fosnr': '0'
