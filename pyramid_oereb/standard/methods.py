@@ -41,17 +41,22 @@ def get_municipality(request):
     fosnr = request.matchdict.get('fosnr')
     source_params = Config.get_municipality_config().get('source').get('params')
     session = database_adapter.get_session(source_params.get('db_connection'))
-    model = DottedNameResolver().resolve(source_params.get('model'))
-    municipality = session.query(model).filter_by(fosnr=fosnr).first()
-    if municipality:
-        logo = getattr(municipality, 'logo', None)
-        if logo:
-            response = request.response
-            response.status_int = 200
-            response.content_type = 'image/*'
-            response.body = base64.b64decode(logo)
-            return response
-    raise HTTPNotFound()
+    try:
+        model = DottedNameResolver().resolve(source_params.get('model'))
+        municipality = session.query(model).filter_by(fosnr=fosnr).first()
+        if municipality:
+            logo = getattr(municipality, 'logo', None)
+            if logo:
+                response = request.response
+                response.status_int = 200
+                response.content_type = 'image/*'
+                response.body = base64.b64decode(logo)
+                return response
+        raise HTTPNotFound()
+    except:
+        raise
+    finally:
+        session.close()
 
 
 def get_symbol(request):
@@ -71,17 +76,22 @@ def get_symbol(request):
             break
     source_params = plr.get('source').get('params')
     session = database_adapter.get_session(source_params.get('db_connection'))
-    model = DottedNameResolver().resolve('{module_}.{class_}'.format(
-        module_=source_params.get('models'),
-        class_='LegendEntry'
-    ))
-    legend_entry = session.query(model).filter_by(type_code=request.matchdict.get('type_code')).first()
-    if legend_entry:
-        symbol = getattr(legend_entry, 'symbol', None)
-        if symbol:
-            response = request.response
-            response.status_int = 200
-            response.content_type = 'image/*'
-            response.body = base64.b64decode(symbol)
-            return response
-    raise HTTPNotFound()
+    try:
+        model = DottedNameResolver().resolve('{module_}.{class_}'.format(
+            module_=source_params.get('models'),
+            class_='LegendEntry'
+        ))
+        legend_entry = session.query(model).filter_by(type_code=request.matchdict.get('type_code')).first()
+        if legend_entry:
+            symbol = getattr(legend_entry, 'symbol', None)
+            if symbol:
+                response = request.response
+                response.status_int = 200
+                response.content_type = 'image/*'
+                response.body = base64.b64decode(symbol)
+                return response
+        raise HTTPNotFound()
+    except:
+        raise
+    finally:
+        session.close()

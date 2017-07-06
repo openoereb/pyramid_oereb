@@ -64,33 +64,40 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         super(PlrStandardDatabaseSource, self).__init__(**bds_kwargs)
 
         session = self._adapter_.get_session(self._key_)
-        availabilities_from_db = session.query(availability_model).all()
-        self.availabilities = []
-        for availability in availabilities_from_db:
-            self.availabilities.append(
-                AvailabilityRecord(availability.fosnr, available=availability.available)
+
+        try:
+            availabilities_from_db = session.query(availability_model).all()
+            self.availabilities = []
+            for availability in availabilities_from_db:
+                self.availabilities.append(
+                    AvailabilityRecord(availability.fosnr, available=availability.available)
+                )
+            self.transfer_from_source = session.query(transfer_from_source_model).all()
+            # TODO: Fix this. Its not possible to have no actuality set. It's only for test case
+            theme_sources = []
+            for source in self.transfer_from_source:
+                theme_sources.append(TransferFromSourceRecord(
+                    self.transfer_from_source.date,
+                    self.transfer_from_source.office(source.office)
+                ))
+            if len(theme_sources) == 0:
+                log.warning(u'The theme sources for the topic {0} are empty. This is not allowed. Going '
+                            u'through anyway'.format(self._plr_info_.get('code')))
+                theme_sources = [TransferFromSourceRecord(
+                    datetime.datetime.now(),
+                    Config.get_plr_cadastre_authority()
+                )]
+            self.theme_record = EmbeddableThemeRecord(
+                self._plr_info_.get('code'),
+                self._plr_info_.get('text'),
+                theme_sources
             )
-        self.transfer_from_source = session.query(transfer_from_source_model).all()
-        # TODO: Fix this. Its not possible to have no actuality set. It's only for test case
-        theme_sources = []
-        for source in self.transfer_from_source:
-            theme_sources.append(TransferFromSourceRecord(
-                self.transfer_from_source.date,
-                self.transfer_from_source.office(source.office)
-            ))
-        if len(theme_sources) == 0:
-            log.warning(u'The theme sources for the topic {0} are empty. This is not allowed. Going through '
-                        u'anyway'.format(self._plr_info_.get('code')))
-            theme_sources = [TransferFromSourceRecord(
-                datetime.datetime.now(),
-                Config.get_plr_cadastre_authority()
-            )]
-        self.theme_record = EmbeddableThemeRecord(
-            self._plr_info_.get('code'),
-            self._plr_info_.get('text'),
-            theme_sources
-        )
-        session.close()
+
+        except:
+            raise
+
+        finally:
+            session.close()
 
     @property
     def info(self):
@@ -148,7 +155,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def from_db_to_geometry_records(self, geometries_from_db):
         geometry_records = []
         for geometry_from_db in geometries_from_db:
-            law_status = LawStatusRecord(
+            law_status = LawStatusRecord.from_config(
                 Config.get_law_status(
                     self._plr_info_.get('code'),
                     self._plr_info_.get('law_status'),
@@ -181,7 +188,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def from_db_to_article_records(self, articles_from_db):
         article_records = []
         for article_from_db in articles_from_db:
-            law_status = LawStatusRecord(
+            law_status = LawStatusRecord.from_config(
                 Config.get_law_status(
                     self._plr_info_.get('code'),
                     self._plr_info_.get('law_status'),
@@ -213,7 +220,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             article_records = self.from_db_to_article_records(legal_provision.articles)
             office_record = self.from_db_to_office_record(legal_provision.responsible_office)
             article_nrs = article_numbers[i] if isinstance(article_numbers, list) else None
-            law_status = LawStatusRecord(
+            law_status = LawStatusRecord.from_config(
                 Config.get_law_status(
                     self._plr_info_.get('code'),
                     self._plr_info_.get('law_status'),
@@ -285,7 +292,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         refinements_plr_records = []
         for join in public_law_restriction_from_db.refinements:
             refinements_plr_records.append(self.from_db_to_plr_record(join.refinement))
-        law_status = LawStatusRecord(
+        law_status = LawStatusRecord.from_config(
             Config.get_law_status(
                 self._plr_info_.get('code'),
                 self._plr_info_.get('law_status'),
@@ -419,22 +426,30 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 # adds a simple empty record for the PLR's on this real estate
                 public_law_restrictions.append(EmptyPlrRecord(self.theme_record, has_data=False))
                 return public_law_restrictions
+
         session = self._adapter_.get_session(self._key_)
 
-        if session.query(self._model_).count() == 0:
-            # We can stop here already because there are no items in the database
-            public_law_restrictions.append(EmptyPlrRecord(self.theme_record, has_data=False))
-            return public_law_restrictions
+        try:
+            if session.query(self._model_).count() == 0:
+                # We can stop here already because there are no items in the database
+                public_law_restrictions.append(EmptyPlrRecord(self.theme_record, has_data=False))
+                return public_law_restrictions
 
-        geometry_results = []
-        self.handle_collection(geometry_results, session, collection_types, bbox)
+            geometry_results = []
+            self.handle_collection(geometry_results, session, collection_types, bbox)
 
-        if len(geometry_results) == 0:
-            public_law_restrictions.append(EmptyPlrRecord(self.theme_record))
-            return public_law_restrictions
-        for geometry_result in geometry_results:
-            public_law_restrictions.append(
-                self.from_db_to_plr_record(geometry_result.public_law_restriction)
-            )
-        session.close()
+            if len(geometry_results) == 0:
+                public_law_restrictions.append(EmptyPlrRecord(self.theme_record))
+                return public_law_restrictions
+            for geometry_result in geometry_results:
+                public_law_restrictions.append(
+                    self.from_db_to_plr_record(geometry_result.public_law_restriction)
+                )
+
+        except:
+            raise
+
+        finally:
+            session.close()
+
         return public_law_restrictions

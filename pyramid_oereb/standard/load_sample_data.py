@@ -105,43 +105,43 @@ def _load_standard_sample_(configuration, section='pyramid_oereb'):
 
     # Fill tables with sample data
     with open(pkg_resources.resource_filename(
-            'pyramid_oereb.tests',
+            'tests',
             'resources/plr119/availabilities.json'
     )) as f:
         connection.execute(Availability.__table__.insert(), json.loads(f.read()))
 
     with open(pkg_resources.resource_filename(
-            'pyramid_oereb.tests',
+            'tests',
             'resources/plr119/office.json'
     )) as f:
         connection.execute(Office.__table__.insert(), json.loads(f.read()))
 
     with open(pkg_resources.resource_filename(
-            'pyramid_oereb.tests',
+            'tests',
             'resources/plr119/view_service.json'
     )) as f:
         connection.execute(ViewService.__table__.insert(), json.loads(f.read()))
 
     with open(pkg_resources.resource_filename(
-            'pyramid_oereb.tests',
+            'tests',
             'resources/plr119/legend_entry.json'
     )) as f:
         connection.execute(LegendEntry.__table__.insert(), json.loads(f.read()))
 
     with open(pkg_resources.resource_filename(
-            'pyramid_oereb.tests',
+            'tests',
             'resources/plr119/public_law_restriction.json'
     )) as f:
         connection.execute(PublicLawRestriction.__table__.insert(), json.loads(f.read()))
 
     with open(pkg_resources.resource_filename(
-            'pyramid_oereb.tests',
+            'tests',
             'resources/plr119/geometry.json'
     )) as f:
         connection.execute(Geometry.__table__.insert(), json.loads(f.read()))
 
     with open(pkg_resources.resource_filename(
-            'pyramid_oereb.tests',
+            'tests',
             'resources/plr119/legal_provision.json'
     )) as f:
         lps = json.loads(f.read())
@@ -153,25 +153,25 @@ def _load_standard_sample_(configuration, section='pyramid_oereb'):
         session.close()
 
     with open(pkg_resources.resource_filename(
-            'pyramid_oereb.tests',
+            'tests',
             'resources/plr119/public_law_restriction_document.json'
     )) as f:
         connection.execute(PublicLawRestrictionDocument.__table__.insert(), json.loads(f.read()))
 
     with open(pkg_resources.resource_filename(
-            'pyramid_oereb.tests',
+            'tests',
             'resources/real_estates.json'
     )) as f:
         connection.execute(RealEstate.__table__.insert(), json.loads(f.read()))
 
     with open(pkg_resources.resource_filename(
-            'pyramid_oereb.tests',
+            'tests',
             'resources/addresses.json'
     )) as f:
         connection.execute(Address.__table__.insert(), json.loads(f.read()))
 
     with open(pkg_resources.resource_filename(
-            'pyramid_oereb.tests',
+            'tests',
             'resources/municipalities_with_logo.json'
     )) as f:
         connection.execute(Municipality.__table__.insert(), json.loads(f.read()))
