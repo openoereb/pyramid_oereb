@@ -1,7 +1,7 @@
 Contributing to pyramid\_oereb
 ==============================
 
-.. toctree::
+.. contents::
 
 Create a local development instance
 -----------------------------------
