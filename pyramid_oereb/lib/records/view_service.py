@@ -15,7 +15,7 @@ log = logging.getLogger('pyramid_oereb')
 class LegendEntryRecord(object):
 
     def __init__(self, symbol, legend_text, type_code, type_code_list, theme, sub_theme=None,
-                 additional_theme=None):
+                 other_theme=None):
         """
         Represents a legend entry with it's text as well as it's image.
 
@@ -27,7 +27,7 @@ class LegendEntryRecord(object):
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend entry belongs
                 to.
             sub_theme (unicode): Theme sub category.
-            additional_theme (unicode): Additional theme linked to this theme.
+            other_theme (unicode): Additional theme linked to this theme.
         """
         if not isinstance(legend_text, dict):
             warnings.warn('Type of "legend_text" should be "dict"')
@@ -38,7 +38,7 @@ class LegendEntryRecord(object):
         self.type_code_list = type_code_list
         self.theme = theme
         self.sub_theme = sub_theme
-        self.additional_theme = additional_theme
+        self.other_theme = other_theme
 
 
 class ViewServiceRecord(object):
@@ -47,16 +47,16 @@ class ViewServiceRecord(object):
     image = None    # map image resulting from calling the wms link - binary
     """pyramid_oereb.lib.records.image.ImageRecord or None: Binary image content downloaded from WMS link."""
 
-    def __init__(self, link_wms, legend_web, legends=None):
+    def __init__(self, reference_wms, legend_at_web=None, legends=None):
         """
 
         Args:
-            link_wms (uri): The link URL to the actual service (WMS)
-            legend_web (uri): The link URL to the actual legend service (WMS get legend)
+            reference_wms (uri): The link URL to the actual service (WMS)
+            legend_at_web (uri): The link URL to the actual legend service (WMS get legend)
             legends (list of LegendEntry): A list of all relevant legend entries.
         """
-        self.link_wms = link_wms
-        self.legend_web = legend_web
+        self.reference_wms = reference_wms
+        self.legend_at_web = legend_at_web
         if legends is None:
             self.legends = []
         else:
@@ -103,15 +103,15 @@ class ViewServiceRecord(object):
         print_conf = Config.get_object_path('print', required=['map_size', 'buffer'])
         map_size = print_conf['map_size']
         bbox = self.get_bbox(real_estate.limit, map_size, print_conf['buffer'])
-        self.link_wms = add_url_params(self.link_wms, {
+        self.reference_wms = add_url_params(self.reference_wms, {
             "BBOX": ",".join([str(e) for e in bbox]),
             "SRS": 'EPSG:{0}'.format(Config.get('srid'))
         })
-        return self.link_wms
+        return self.reference_wms
 
     def download_wms_content(self):
         """
-        Simply downloads the image found behind the URL stored in the instance attribute "link_wms".
+        Simply downloads the image found behind the URL stored in the instance attribute "reference_wms".
 
         Raises:
             LookupError: Raised if the response is not code 200
@@ -119,19 +119,19 @@ class ViewServiceRecord(object):
         """
         # TODO: Check better for a image as response than only code 200...
         main_msg = "Image for WMS couldn't be retrieved."
-        if uri_validator(self.link_wms):
-            print self.link_wms
-            response = urllib2.urlopen(self.link_wms)
+        if uri_validator(self.reference_wms):
+            print self.reference_wms
+            response = urllib2.urlopen(self.reference_wms)
             if response.getcode() == 200:
                 self.image = ImageRecord(response.read())
             else:
                 dedicated_msg = "The image could not be downloaded. URL was: {url}, Response was " \
-                                "{response}".format(url=self.link_wms, response=response.read())
+                                "{response}".format(url=self.reference_wms, response=response.read())
                 log.error(main_msg)
                 log.error(dedicated_msg)
                 raise LookupError(dedicated_msg)
         else:
-            dedicated_msg = "URL seems to be not valid. URL was: {url}".format(url=self.link_wms)
+            dedicated_msg = "URL seems to be not valid. URL was: {url}".format(url=self.reference_wms)
             log.error(main_msg)
             log.error(dedicated_msg)
             raise AttributeError(dedicated_msg)

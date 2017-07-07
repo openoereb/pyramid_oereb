@@ -81,8 +81,8 @@ def test_render(config, parameter):
         view_service = ViewServiceRecord(u'http://geowms.bl.ch', u'http://geowms.bl.ch')
         real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
                                        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
-                                       u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712',
-                                       plan_for_land_register=view_service)
+                                       u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712')
+        real_estate.plan_for_land_register = view_service
         office_record = OfficeRecord({u'de': u'AGI'})
         resolver = DottedNameResolver()
         date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
@@ -201,8 +201,8 @@ def test_format_real_estate(config):
                               OfficeRecord({u'de': u'BUD'}), {'de': 'http://mein.dokument.ch'})
     real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
                                    geometry, u'http://www.geocat.ch', u'1000', u'BL0200002829',
-                                   u'CH775979211712', u'Subunit', [], plan_for_land_register=view_service,
-                                   references=[document])
+                                   u'CH775979211712', u'Subunit', [], references=[document])
+    real_estate.plan_for_land_register = view_service
     result = renderer.format_real_estate(real_estate)
     assert isinstance(result, dict)
     assert result == {
@@ -250,6 +250,7 @@ def test_format_plr(config, parameter):
         legend_entry = LegendEntryRecord(base64.b64encode(bin(1)), {'de': 'Test'}, 'test', 'TypeCodeList',
                                          theme)
         view_service = ViewServiceRecord('http://geowms.bl.ch', 'http://geowms.bl.ch', [legend_entry])
+        geometry = GeometryRecord(law_status(), datetime.date.today(), Point(1, 1))
         plr = PlrRecord(
             theme,
             {'de': 'Test PLR'},
@@ -257,11 +258,12 @@ def test_format_plr(config, parameter):
             datetime.date.today(),
             office,
             ImageRecord(bin(1)),
-            subtopic='Subtopic',
-            additional_topic='Additional topic',
+            view_service,
+            [geometry],
+            sub_theme='Subtopic',
+            other_theme='Additional topic',
             type_code='test',
             type_code_list='TypeCodeList',
-            view_service=view_service,
             documents=documents
         )
         plr.part_in_percent = 0.5
@@ -274,7 +276,7 @@ def test_format_plr(config, parameter):
             assert len(result) == 1
             assert isinstance(result[0], dict)
             expected = {
-                'Information': renderer.get_localized_text(plr.content),
+                'Information': renderer.get_localized_text(plr.information),
                 'Theme': renderer.format_theme(plr.theme),
                 'Lawstatus': {
                     'Code': 'inForce',
@@ -539,9 +541,9 @@ def test_embeddable(params):
         2829,
         11395,
         MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
-        u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712',
-        plan_for_land_register=view_service
+        u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712'
     )
+    real_estate.plan_for_land_register = view_service
     resolver = DottedNameResolver()
     date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
     date_method = resolver.resolve(date_method_string)

@@ -44,8 +44,8 @@ class RealEstateReader(object):
             records
         """
         real_estate_view_service = ViewServiceRecord(
-            link_wms=Config.get_real_estate_config().get('view_service').get('reference_wms'),
-            legend_web=Config.get_real_estate_config().get('view_service').get('legend_at_web')
+            reference_wms=Config.get_real_estate_config().get('view_service').get('reference_wms'),
+            legend_at_web=Config.get_real_estate_config().get('view_service').get('legend_at_web')
         )
         self._source_.read(nb_ident=nb_ident, number=number, egrid=egrid, geometry=geometry)
         for r in self._source_.records:
