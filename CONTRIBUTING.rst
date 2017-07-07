@@ -10,7 +10,8 @@ You can checkout the current master and run *pyramid\_oereb* locally, but we can
 configuration as it is under development. We recommend to use a linux system but the application is tested and
 may also be used in a windows environment.
 
-.. note:: Use the installation instructions below for local development instances only!
+NOTE
+   Use the installation instructions below for local development instances only!
 
 ...on Linux
 ~~~~~~~~~~~
@@ -54,7 +55,9 @@ Create your configuration file and load the sample data.
 To start a local server run ``make serve``. It should be available unter http://localhost:6543/oereb/. To stop
 the server, press ``CTRL`` + ``C``.
 
-.. note:: These sample requests should work, if you have loaded thesample data:
+NOTE
+   These sample requests should work, if you have loaded thesample data:
+
    -  http://localhost:6543/oereb/versions
    -  http://localhost:6543/oereb/capabilities
    -  http://localhost:6543/oereb/getegrid?XY=2608883,1261844
@@ -84,7 +87,8 @@ the server, press ``CTRL`` + ``C``.
 
 #. Install a basic Pyramid component
 
-   .. note:: If you are sure about what you do, you may activate venv with
+   NOTE
+      If you are sure about what you do, you may activate venv with
 
       .. code-block:: shell
 
@@ -234,8 +238,9 @@ the server, press ``CTRL`` + ``C``.
 
     .build\venv\Scripts\pserve --reload development.ini
 
-   .. warning:: On windows you may have an error message regarding 'encoding'. If that's the case, remove the
-      --reload from the command
+   WARNING
+      On windows you may have an error message regarding 'encoding'. If that's the case, remove the --reload
+      from the command
 
       .. code-block:: shell
 
