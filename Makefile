@@ -155,9 +155,6 @@ serve-print-example:
 	docker build -t camptocamp/oereb-print print
 	docker run --publish=8280:8080 camptocamp/oereb-print
 
-description.rst: README.md CHANGES.md
-	awk 'FNR==1{print ""}1' README.md CHANGES.md | pandoc -f markdown -t rst -o description.rst
-
 .PHONY: deploy
-deploy: description.rst
+deploy:
 	$(VENV_BIN)python setup.py sdist bdist_wheel upload
