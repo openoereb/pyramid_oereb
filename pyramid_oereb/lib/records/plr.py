@@ -26,16 +26,16 @@ class PlrRecord(EmptyPlrRecord):
     part_in_percent = None
     """decimal: Part of the property area touched by the restriction in percent."""
 
-    def __init__(self, theme, content, law_status, published_from, responsible_office, symbol, subtopic=None,
-                 additional_topic=None, type_code=None, type_code_list=None, view_service=None, basis=None,
-                 refinements=None, documents=None, geometries=None, info=None, min_length=0.0,
+    def __init__(self, theme, information, law_status, published_from, responsible_office, symbol,
+                 view_service, geometries, sub_theme=None, other_theme=None, type_code=None,
+                 type_code_list=None, basis=None, refinements=None, documents=None, info=None, min_length=0.0,
                  min_area=0.0, length_unit=u'm', area_unit=u'm2', length_precision=2, area_precision=2,
                  percentage_precision=1):
         """
         Public law restriction record.
 
         Args:
-            content (dict of unicode): The PLR record's content (multilingual).
+            information (dict of unicode): The PLR record's information (multilingual).
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.
             law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
             published_from (datetime.date): Date from/since when the PLR record is published.
@@ -43,17 +43,17 @@ class PlrRecord(EmptyPlrRecord):
                 for this PLR.
             symbol (pyramid_oereb.lib.records.image.ImageRecord): Symbol of the restriction defined for the
                 legend entry
-            subtopic (unicode): Optional subtopic.
-            additional_topic (unicode): Optional additional topic.
-            type_code (unicode): The PLR record's type code (also used by view service).
-            type_code_list (unicode): URL to the PLR's list of type codes.
             view_service (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service instance
                 associated with this record.
+            geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of geometry records
+                associated with this record.
+            sub_theme (unicode): Optional subtopic.
+            other_theme (unicode): Optional additional topic.
+            type_code (unicode): The PLR record's type code (also used by view service).
+            type_code_list (unicode): URL to the PLR's list of type codes.
             basis (list of PlrRecord): List of PLR records as basis for this record.
             refinements (list of PlrRecord): List of PLR records as refinement of this record.
             documents (list of pyramid_oereb.lib.records.documents.DocumentBaseRecord): List of documents
-                associated with this record.
-            geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of geometry records
                 associated with this record.
             info (dict or None): The information read from the config.
             min_length (float): The threshold for area calculation.
@@ -66,15 +66,18 @@ class PlrRecord(EmptyPlrRecord):
         """
         super(PlrRecord, self).__init__(theme)
 
-        if not isinstance(content, dict):
-            warnings.warn('Type of "content" should be "dict"')
+        if not isinstance(information, dict):
+            warnings.warn('Type of "information" should be "dict"')
 
-        self.content = content
+        assert isinstance(geometries, list)
+        assert len(geometries) > 0
+
+        self.information = information
         self.law_status = law_status
         self.published_from = published_from
         self.responsible_office = responsible_office
-        self.subtopic = subtopic
-        self.additional_topic = additional_topic
+        self.sub_theme = sub_theme
+        self.other_theme = other_theme
         self.type_code = type_code
         self.type_code_list = type_code_list
         self.view_service = view_service

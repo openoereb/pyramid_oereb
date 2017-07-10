@@ -20,5 +20,5 @@ def test_init():
     assert isinstance(record.type_code_list, str)
     assert isinstance(record.theme, ThemeRecord)
     assert record.sub_theme is None
-    assert record.additional_theme is None
+    assert record.other_theme is None
     assert record.legend_text == {'de': 'test'}

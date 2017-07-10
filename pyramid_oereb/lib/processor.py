@@ -99,7 +99,7 @@ class Processor(object):
     def view_service_handling(real_estate, images):
         """
         Handles all view service related stuff. In the moment this is:
-            * construction of the correct url (link_wms) depending on the real estate
+            * construction of the correct url (reference_wms) depending on the real estate
             * downloading of the image if parameter was set
 
         Args:

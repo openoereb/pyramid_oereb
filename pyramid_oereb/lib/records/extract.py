@@ -6,6 +6,9 @@ import uuid
 
 class ExtractRecord(object):
 
+    creation_date = None
+    """datetime.datetime: The date and time of the extract creation."""
+
     electronic_signature = None
     """unicode or None: Digital signature for the extract."""
 

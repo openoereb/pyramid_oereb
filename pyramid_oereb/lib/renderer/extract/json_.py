@@ -220,7 +220,7 @@ class Renderer(Base):
                                      'in reduced extracts!')
                 # TODO: Add lenght and units see GSOREB-207: https://jira.camptocamp.com/browse/GSOREB-207
                 plr_dict = {
-                    'Information': self.get_localized_text(plr.content),
+                    'Information': self.get_localized_text(plr.information),
                     'Theme': self.format_theme(plr.theme),
                     'Lawstatus': self.format_law_status(plr.law_status),
                     'Area': plr.area,
@@ -241,10 +241,10 @@ class Renderer(Base):
                                                                  type_code=plr.type_code)
                         })
 
-                if plr.subtopic:
-                    plr_dict['SubTheme'] = plr.subtopic
-                if plr.additional_topic:
-                    plr_dict['OtherTheme'] = plr.additional_topic
+                if plr.sub_theme:
+                    plr_dict['SubTheme'] = plr.sub_theme
+                if plr.other_theme:
+                    plr_dict['OtherTheme'] = plr.other_theme
                 if plr.type_code:
                     plr_dict['TypeCode'] = plr.type_code
                 if plr.type_code_list:
@@ -450,10 +450,10 @@ class Renderer(Base):
         map_dict = dict()
         if map_.image:
             map_dict['Image'] = map_.image.encode()
-        if map_.link_wms:
-            map_dict['ReferenceWMS'] = map_.link_wms
-        if map_.legend_web:
-            map_dict['LegendAtWeb'] = map_.legend_web
+        if map_.reference_wms:
+            map_dict['ReferenceWMS'] = map_.reference_wms
+        if map_.legend_at_web:
+            map_dict['LegendAtWeb'] = map_.legend_at_web
         if isinstance(map_.legends, list) and len(map_.legends) > 0:
             map_dict['OtherLegend'] = [
                 self.format_legend_entry(legend_entry) for legend_entry in map_.legends]
@@ -490,8 +490,8 @@ class Renderer(Base):
 
         if legend_entry.sub_theme:
             legend_entry_dict['SubTheme'] = legend_entry.sub_theme
-        if legend_entry.additional_theme:
-            legend_entry_dict['OtherTheme'] = legend_entry.additional_theme
+        if legend_entry.other_theme:
+            legend_entry_dict['OtherTheme'] = legend_entry.other_theme
         return legend_entry_dict
 
     @staticmethod

@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 import datetime
 import pytest
+from shapely.geometry import Point
+
 from pyramid_oereb.lib.processor import Processor
 from pyramid_oereb.lib.records.extract import ExtractRecord
+from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
@@ -117,6 +120,7 @@ def test_processor_get_legend_entries(law_status):
     theme1 = ThemeRecord(u'TEST', {'de': 'Theme 1'})
     theme2 = ThemeRecord(u'TEST', {'de': 'Theme 2'})
     office = OfficeRecord({'de': 'Test Office'})
+    geometries = [GeometryRecord(law_status, datetime.date.today(), Point(1, 1))]
     legend1 = LegendEntryRecord(ImageRecord(bin(1)), {'de': 'legend1'}, u'type1', u'bla', theme1)
     legend2 = LegendEntryRecord(ImageRecord(bin(1)), {'de': 'legend2'}, u'type2', u'bla', theme1)
     legend3 = LegendEntryRecord(ImageRecord(bin(1)), {'de': 'legend3'}, u'type3', u'bla', theme2)
@@ -139,8 +143,9 @@ def test_processor_get_legend_entries(law_status):
         datetime.datetime.now(),
         office,
         image,
+        view_service1,
+        geometries,
         type_code=u'type1',
-        view_service=view_service1
     )
     plr2 = PlrRecord(
         theme1,
@@ -149,8 +154,9 @@ def test_processor_get_legend_entries(law_status):
         datetime.datetime.now(),
         office,
         image,
-        type_code=u'type2',
-        view_service=view_service1
+        view_service1,
+        geometries,
+        type_code=u'type2'
     )
     plr3 = PlrRecord(
         theme1,
@@ -159,8 +165,9 @@ def test_processor_get_legend_entries(law_status):
         datetime.datetime.now(),
         office,
         image,
-        type_code=u'type2',
-        view_service=view_service2
+        view_service2,
+        geometries,
+        type_code=u'type2'
     )
     plr4 = PlrRecord(
         theme1,
@@ -169,8 +176,9 @@ def test_processor_get_legend_entries(law_status):
         datetime.datetime.now(),
         office,
         image,
-        type_code=u'type2',
-        view_service=view_service2
+        view_service2,
+        geometries,
+        type_code=u'type2'
     )
 
     inside_plrs = [plr1]

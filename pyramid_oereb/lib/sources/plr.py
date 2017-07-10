@@ -22,7 +22,6 @@ from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.glossary import GlossaryRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
-from pyramid_oereb.lib.records.reference_definition import ReferenceDefinitionRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 
 log = logging.getLogger('pyramid_oereb')
@@ -37,7 +36,6 @@ class PlrBaseSource(Base):
     _legend_entry_record_class_ = LegendEntryRecord
     _office_record_class_ = OfficeRecord
     _plr_record_class_ = PlrRecord
-    _reference_definition_record_class_ = ReferenceDefinitionRecord
     _view_service_record_class_ = ViewServiceRecord
     _law_status_record_class_ = LawStatusRecord
 
@@ -140,14 +138,16 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 legend_entry_from_db.legend_text,
                 legend_entry_from_db.type_code,
                 legend_entry_from_db.type_code_list,
-                theme
+                theme,
+                sub_theme=legend_entry_from_db.sub_theme,
+                other_theme=legend_entry_from_db.other_theme
             ))
         return legend_entry_records
 
     def from_db_to_view_service_record(self, view_service_from_db, legend_entry_records):
         view_service_record = self._view_service_record_class_(
-            view_service_from_db.link_wms,
-            view_service_from_db.legend_web,
+            view_service_from_db.reference_wms,
+            view_service_from_db.legend_at_web,
             legends=legend_entry_records
         )
         return view_service_record
@@ -301,16 +301,17 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         )
         plr_record = self._plr_record_class_(
             self.theme_record,
-            public_law_restriction_from_db.content,
+            public_law_restriction_from_db.information,
             law_status,
             public_law_restriction_from_db.published_from,
             self.from_db_to_office_record(public_law_restriction_from_db.responsible_office),
             symbol,
-            subtopic=public_law_restriction_from_db.subtopic,
-            additional_topic=public_law_restriction_from_db.additional_topic,
+            view_service_record,
+            geometry_records,
+            sub_theme=public_law_restriction_from_db.sub_theme,
+            other_theme=public_law_restriction_from_db.other_theme,
             type_code=public_law_restriction_from_db.type_code,
             type_code_list=public_law_restriction_from_db.type_code_list,
-            view_service=view_service_record,
             basis=basis_plr_records,
             refinements=refinements_plr_records,
             documents=document_records,
@@ -323,9 +324,9 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             percentage_precision=percentage_precision
         )
         # solve circular dependency between plr and geometry
-        for geometry_record in geometry_records:
-            geometry_record.public_law_restriction = plr_record
-        plr_record.geometries = geometry_records
+        # for geometry_record in geometry_records:
+        #     geometry_record.public_law_restriction = plr_record
+        # plr_record.geometries = geometry_records
         return plr_record
 
     @staticmethod

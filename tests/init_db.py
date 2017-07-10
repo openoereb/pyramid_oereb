@@ -171,13 +171,12 @@ class DummyData(object):
         connection = self._engine.connect()
 
         # Add dummy PLR data for line geometry
+        wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default' \
+                  u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
+                  u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(motorways_building_lines.ViewService.__table__.insert(), {
             'id': 1,
-            'link_wms': u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&'
-                        u'SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&'
-                        u'LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'.format(
-                                                                                     self._config.get('srid')
-                                                                                 )
+            'reference_wms': wms_url.format(self._config.get('srid'))
         })
         connection.execute(motorways_building_lines.Office.__table__.insert(), {
             'id': 1,
@@ -185,7 +184,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': 1,
-            'content': {'de': u'Long line PLR'},
+            'information': {'de': u'Long line PLR'},
             'topic': u'MotorwaysBuildingLines',
             'law_status': u'inForce',
             'published_from': unicode(date.today().isoformat()),
@@ -194,7 +193,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': 2,
-            'content': {'de': u'Short line PLR'},
+            'information': {'de': u'Short line PLR'},
             'topic': u'MotorwaysBuildingLines',
             'law_status': u'inForce',
             'published_from': unicode(date.today().isoformat()),
@@ -203,7 +202,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': 3,
-            'content': {'de': u'Double intersection line PLR'},
+            'information': {'de': u'Double intersection line PLR'},
             'topic': u'MotorwaysBuildingLines',
             'law_status': u'inForce',
             'published_from': unicode(date.today().isoformat()),
@@ -212,7 +211,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': 4,
-            'content': {'de': u'Future geometry'},
+            'information': {'de': u'Future geometry'},
             'topic': u'MotorwaysBuildingLines',
             'law_status': u'inForce',
             'published_from': unicode(date.today().isoformat()),
@@ -322,13 +321,12 @@ class DummyData(object):
         connection = self._engine.connect()
 
         # Add dummy PLR data for polygon geometry
+        wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default' \
+                  u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
+                  u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(contaminated_sites.ViewService.__table__.insert(), {
             'id': 1,
-            'link_wms': u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&'
-                        u'SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&'
-                        u'LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'.format(
-                                                                                     self._config.get('srid')
-                                                                                 )
+            'reference_wms': wms_url.format(self._config.get('srid'))
         })
 
         connection.execute(contaminated_sites.LegendEntry.__table__.insert(), {
@@ -350,7 +348,7 @@ class DummyData(object):
 
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': 1,
-            'content': {'de': u'Large polygon PLR'},
+            'information': {'de': u'Large polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': unicode(date.today().isoformat()),
@@ -359,7 +357,7 @@ class DummyData(object):
         })
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': 2,
-            'content': {'de': u'Small polygon PLR'},
+            'information': {'de': u'Small polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': unicode(date.today().isoformat()),
@@ -368,7 +366,7 @@ class DummyData(object):
         })
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': 3,
-            'content': {'de': u'Double intersection polygon PLR'},
+            'information': {'de': u'Double intersection polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': unicode(date.today().isoformat()),
@@ -377,7 +375,7 @@ class DummyData(object):
         })
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': 4,
-            'content': {'de': u'Future PLR'},
+            'information': {'de': u'Future PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
@@ -425,13 +423,12 @@ class DummyData(object):
         connection = self._engine.connect()
 
         # Add dummy PLR data for collection geometry test
+        wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default' \
+                  u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
+                  u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(land_use_plans.ViewService.__table__.insert(), {
             'id': 1,
-            'link_wms': u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&'
-                        u'SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&'
-                        u'LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'.format(
-                                                                                     self._config.get('srid')
-                                                                                 )
+            'reference_wms': wms_url.format(self._config.get('srid'))
         })
 
         connection.execute(land_use_plans.Office.__table__.insert(), {
@@ -441,7 +438,7 @@ class DummyData(object):
 
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': 1,
-            'content': {'de': u'Large polygon PLR'},
+            'information': {'de': u'Large polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': unicode(date.today().isoformat()),
@@ -450,7 +447,7 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': 2,
-            'content': {'de': u'Small polygon PLR'},
+            'information': {'de': u'Small polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': unicode(date.today().isoformat()),
@@ -459,7 +456,7 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': 3,
-            'content': {'de': u'Double intersection polygon PLR'},
+            'information': {'de': u'Double intersection polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': unicode(date.today().isoformat()),
@@ -468,7 +465,7 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': 4,
-            'content': {'de': u'Future PLR'},
+            'information': {'de': u'Future PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
