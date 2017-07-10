@@ -4,9 +4,10 @@ API
 ===
 
 <%!
-import glob, inspect, re, sys
+import glob, inspect, re, sys, pyramid_oereb
 %>
 <%
+reload(pyramid_oereb)
 modules = [m for m in sys.modules.keys() if m.startswith('pyramid_oereb')]
 files = glob.glob('../../pyramid_oereb/*.py')
 files += glob.glob('../../pyramid_oereb/*/*.py')
