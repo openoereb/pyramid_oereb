@@ -30,9 +30,7 @@ deploy:
 - provider: script
   script: sphinx-versioning push doc/source/ gh-pages doc
   on:
-    branch:
-      - master
-      - fix-doc
+    branch: master
     repo: camptocamp/pyramid_oereb
 - provider: script
   script: sphinx-versioning push doc/source/ gh-pages doc
