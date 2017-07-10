@@ -185,16 +185,16 @@
     <span class="n">part_in_percent</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="sd">&quot;&quot;&quot;decimal: Part of the property area touched by the restriction in percent.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">subtopic</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">additional_topic</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_code_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">view_service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">refinements</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">documents</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">geometries</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">information</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span>
+                 <span class="n">view_service</span><span class="p">,</span> <span class="n">geometries</span><span class="p">,</span> <span class="n">sub_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">other_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">type_code_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refinements</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">documents</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
                  <span class="n">min_area</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">length_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">area_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m2&#39;</span><span class="p">,</span> <span class="n">length_precision</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">area_precision</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                  <span class="n">percentage_precision</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Public law restriction record.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            content (dict of unicode): The PLR record&#39;s content (multilingual).</span>
+<span class="sd">            information (dict of unicode): The PLR record&#39;s information (multilingual).</span>
 <span class="sd">            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.</span>
 <span class="sd">            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.</span>
 <span class="sd">            published_from (datetime.date): Date from/since when the PLR record is published.</span>
@@ -202,17 +202,17 @@
 <span class="sd">                for this PLR.</span>
 <span class="sd">            symbol (pyramid_oereb.lib.records.image.ImageRecord): Symbol of the restriction defined for the</span>
 <span class="sd">                legend entry</span>
-<span class="sd">            subtopic (unicode): Optional subtopic.</span>
-<span class="sd">            additional_topic (unicode): Optional additional topic.</span>
-<span class="sd">            type_code (unicode): The PLR record&#39;s type code (also used by view service).</span>
-<span class="sd">            type_code_list (unicode): URL to the PLR&#39;s list of type codes.</span>
 <span class="sd">            view_service (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service instance</span>
 <span class="sd">                associated with this record.</span>
+<span class="sd">            geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of geometry records</span>
+<span class="sd">                associated with this record.</span>
+<span class="sd">            sub_theme (unicode): Optional subtopic.</span>
+<span class="sd">            other_theme (unicode): Optional additional topic.</span>
+<span class="sd">            type_code (unicode): The PLR record&#39;s type code (also used by view service).</span>
+<span class="sd">            type_code_list (unicode): URL to the PLR&#39;s list of type codes.</span>
 <span class="sd">            basis (list of PlrRecord): List of PLR records as basis for this record.</span>
 <span class="sd">            refinements (list of PlrRecord): List of PLR records as refinement of this record.</span>
 <span class="sd">            documents (list of pyramid_oereb.lib.records.documents.DocumentBaseRecord): List of documents</span>
-<span class="sd">                associated with this record.</span>
-<span class="sd">            geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of geometry records</span>
 <span class="sd">                associated with this record.</span>
 <span class="sd">            info (dict or None): The information read from the config.</span>
 <span class="sd">            min_length (float): The threshold for area calculation.</span>
@@ -225,15 +225,18 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">PlrRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;content&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">information</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;information&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geometries</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">geometries</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">information</span> <span class="o">=</span> <span class="n">information</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">law_status</span> <span class="o">=</span> <span class="n">law_status</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">=</span> <span class="n">published_from</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">responsible_office</span> <span class="o">=</span> <span class="n">responsible_office</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">subtopic</span> <span class="o">=</span> <span class="n">subtopic</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">additional_topic</span> <span class="o">=</span> <span class="n">additional_topic</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub_theme</span> <span class="o">=</span> <span class="n">sub_theme</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">other_theme</span> <span class="o">=</span> <span class="n">other_theme</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type_code</span> <span class="o">=</span> <span class="n">type_code</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type_code_list</span> <span class="o">=</span> <span class="n">type_code_list</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view_service</span> <span class="o">=</span> <span class="n">view_service</span>

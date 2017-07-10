@@ -174,7 +174,7 @@
 <div class="viewcode-block" id="LegendEntryRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.view_service.LegendEntryRecord">[docs]</a><span class="k">class</span> <span class="nc">LegendEntryRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">legend_text</span><span class="p">,</span> <span class="n">type_code</span><span class="p">,</span> <span class="n">type_code_list</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">sub_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">additional_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">other_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a legend entry with it&#39;s text as well as it&#39;s image.</span>
 
@@ -186,7 +186,7 @@
 <span class="sd">            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend entry belongs</span>
 <span class="sd">                to.</span>
 <span class="sd">            sub_theme (unicode): Theme sub category.</span>
-<span class="sd">            additional_theme (unicode): Additional theme linked to this theme.</span>
+<span class="sd">            other_theme (unicode): Additional theme linked to this theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">legend_text</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;legend_text&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
@@ -197,7 +197,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">type_code_list</span> <span class="o">=</span> <span class="n">type_code_list</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">theme</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sub_theme</span> <span class="o">=</span> <span class="n">sub_theme</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">additional_theme</span> <span class="o">=</span> <span class="n">additional_theme</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">other_theme</span> <span class="o">=</span> <span class="n">other_theme</span></div>
 
 
 <div class="viewcode-block" id="ViewServiceRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.view_service.ViewServiceRecord">[docs]</a><span class="k">class</span> <span class="nc">ViewServiceRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -206,16 +206,16 @@
     <span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>    <span class="c1"># map image resulting from calling the wms link - binary</span>
     <span class="sd">&quot;&quot;&quot;pyramid_oereb.lib.records.image.ImageRecord or None: Binary image content downloaded from WMS link.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link_wms</span><span class="p">,</span> <span class="n">legend_web</span><span class="p">,</span> <span class="n">legends</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_wms</span><span class="p">,</span> <span class="n">legend_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legends</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            link_wms (uri): The link URL to the actual service (WMS)</span>
-<span class="sd">            legend_web (uri): The link URL to the actual legend service (WMS get legend)</span>
+<span class="sd">            reference_wms (uri): The link URL to the actual service (WMS)</span>
+<span class="sd">            legend_at_web (uri): The link URL to the actual legend service (WMS get legend)</span>
 <span class="sd">            legends (list of LegendEntry): A list of all relevant legend entries.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">link_wms</span> <span class="o">=</span> <span class="n">link_wms</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">legend_web</span> <span class="o">=</span> <span class="n">legend_web</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span> <span class="o">=</span> <span class="n">reference_wms</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">legend_at_web</span> <span class="o">=</span> <span class="n">legend_at_web</span>
         <span class="k">if</span> <span class="n">legends</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">legends</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">else</span><span class="p">:</span>
@@ -262,15 +262,15 @@
         <span class="n">print_conf</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_object_path</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;map_size&#39;</span><span class="p">,</span> <span class="s1">&#39;buffer&#39;</span><span class="p">])</span>
         <span class="n">map_size</span> <span class="o">=</span> <span class="n">print_conf</span><span class="p">[</span><span class="s1">&#39;map_size&#39;</span><span class="p">]</span>
         <span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_bbox</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">,</span> <span class="n">map_size</span><span class="p">,</span> <span class="n">print_conf</span><span class="p">[</span><span class="s1">&#39;buffer&#39;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">link_wms</span> <span class="o">=</span> <span class="n">add_url_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">link_wms</span><span class="p">,</span> <span class="p">{</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span> <span class="o">=</span> <span class="n">add_url_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">,</span> <span class="p">{</span>
             <span class="s2">&quot;BBOX&quot;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">bbox</span><span class="p">]),</span>
             <span class="s2">&quot;SRS&quot;</span><span class="p">:</span> <span class="s1">&#39;EPSG:</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">))</span>
         <span class="p">})</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_wms</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span></div>
 
 <div class="viewcode-block" id="ViewServiceRecord.download_wms_content"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.view_service.ViewServiceRecord.download_wms_content">[docs]</a>    <span class="k">def</span> <span class="nf">download_wms_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Simply downloads the image found behind the URL stored in the instance attribute &quot;link_wms&quot;.</span>
+<span class="sd">        Simply downloads the image found behind the URL stored in the instance attribute &quot;reference_wms&quot;.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            LookupError: Raised if the response is not code 200</span>
@@ -278,19 +278,19 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: Check better for a image as response than only code 200...</span>
         <span class="n">main_msg</span> <span class="o">=</span> <span class="s2">&quot;Image for WMS couldn&#39;t be retrieved.&quot;</span>
-        <span class="k">if</span> <span class="n">uri_validator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">link_wms</span><span class="p">):</span>
-            <span class="nb">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_wms</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">link_wms</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">uri_validator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">):</span>
+            <span class="c1"># print self.reference_wms</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">getcode</span><span class="p">()</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">ImageRecord</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">dedicated_msg</span> <span class="o">=</span> <span class="s2">&quot;The image could not be downloaded. URL was: </span><span class="si">{url}</span><span class="s2">, Response was &quot;</span> \
-                                <span class="s2">&quot;</span><span class="si">{response}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">link_wms</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+                                <span class="s2">&quot;</span><span class="si">{response}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
                 <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">main_msg</span><span class="p">)</span>
                 <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">dedicated_msg</span> <span class="o">=</span> <span class="s2">&quot;URL seems to be not valid. URL was: </span><span class="si">{url}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">link_wms</span><span class="p">)</span>
+            <span class="n">dedicated_msg</span> <span class="o">=</span> <span class="s2">&quot;URL seems to be not valid. URL was: </span><span class="si">{url}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">)</span>
             <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">main_msg</span><span class="p">)</span>
             <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span></div>

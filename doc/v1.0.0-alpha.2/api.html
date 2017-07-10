@@ -971,7 +971,7 @@ instance.</p>
 <dd><dl class="docutils">
 <dt>Handles all view service related stuff. In the moment this is:</dt>
 <dd><ul class="first last simple">
-<li>construction of the correct url (link_wms) depending on the real estate</li>
+<li>construction of the correct url (reference_wms) depending on the real estate</li>
 <li>downloading of the image if parameter was set</li>
 </ul>
 </dd>
@@ -1324,7 +1324,7 @@ records</p>
 <span id="api-pyramid-oereb-lib-records-documents-documentrecord"></span><h5>Class <em>DocumentRecord</em><a class="headerlink" href="#class-documentrecord" title="Permalink to this headline">¶</a></h5>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.documents.DocumentRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">DocumentRecord</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/documents.html#DocumentRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">DocumentRecord</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/documents.html#DocumentRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentRecord" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -1332,7 +1332,7 @@ records</p>
 <span id="api-pyramid-oereb-lib-records-documents-legalprovisionrecord"></span><h5>Class <em>LegalProvisionRecord</em><a class="headerlink" href="#class-legalprovisionrecord" title="Permalink to this headline">¶</a></h5>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">LegalProvisionRecord</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/documents.html#LegalProvisionRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">LegalProvisionRecord</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/documents.html#LegalProvisionRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -1378,6 +1378,12 @@ records</p>
 <dt id="pyramid_oereb.lib.records.extract.ExtractRecord.concerned_theme">
 <code class="descname">concerned_theme</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord.concerned_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>list of pyramid_oereb.lib.records.theme.ThemeRecord</em> &#8211; List of concerned themes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.extract.ExtractRecord.creation_date">
+<code class="descname">creation_date</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.extract.ExtractRecord.creation_date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.datetime</em> &#8211; The date and time of the extract creation.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1545,7 +1551,7 @@ collection which has to be unpacked first in case of collection.</p>
 <span id="api-pyramid-oereb-lib-records-plr-plrrecord"></span><h5>Class <em>PlrRecord</em><a class="headerlink" href="#class-plrrecord" title="Permalink to this headline">¶</a></h5>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.plr.PlrRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.plr.</code><code class="descname">PlrRecord</code><span class="sig-paren">(</span><em>theme</em>, <em>content</em>, <em>law_status</em>, <em>published_from</em>, <em>responsible_office</em>, <em>symbol</em>, <em>subtopic=None</em>, <em>additional_topic=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>view_service=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>geometries=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit=u'm'</em>, <em>area_unit=u'm2'</em>, <em>length_precision=2</em>, <em>area_precision=2</em>, <em>percentage_precision=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/plr.html#PlrRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.plr.</code><code class="descname">PlrRecord</code><span class="sig-paren">(</span><em>theme</em>, <em>information</em>, <em>law_status</em>, <em>published_from</em>, <em>responsible_office</em>, <em>symbol</em>, <em>view_service</em>, <em>geometries</em>, <em>sub_theme=None</em>, <em>other_theme=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit=u'm'</em>, <em>area_unit=u'm2'</em>, <em>length_precision=2</em>, <em>area_precision=2</em>, <em>percentage_precision=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/plr.html#PlrRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt id="pyramid_oereb.lib.records.plr.PlrRecord.area">
 <code class="descname">area</code><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.area" title="Permalink to this definition">¶</a></dt>
@@ -1580,7 +1586,7 @@ collection which has to be unpacked first in case of collection.</p>
 <span id="api-pyramid-oereb-lib-records-real-estate-realestaterecord"></span><h5>Class <em>RealEstateRecord</em><a class="headerlink" href="#class-realestaterecord" title="Permalink to this headline">¶</a></h5>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.real_estate.</code><code class="descname">RealEstateRecord</code><span class="sig-paren">(</span><em>type</em>, <em>canton</em>, <em>municipality</em>, <em>fosnr</em>, <em>land_registry_area</em>, <em>limit</em>, <em>metadata_of_geographical_base_data=None</em>, <em>number=None</em>, <em>identdn=None</em>, <em>egrid=None</em>, <em>subunit_of_land_register=None</em>, <em>public_law_restrictions=None</em>, <em>references=None</em>, <em>plan_for_land_register=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/real_estate.html#RealEstateRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.real_estate.</code><code class="descname">RealEstateRecord</code><span class="sig-paren">(</span><em>type</em>, <em>canton</em>, <em>municipality</em>, <em>fosnr</em>, <em>land_registry_area</em>, <em>limit</em>, <em>metadata_of_geographical_base_data=None</em>, <em>number=None</em>, <em>identdn=None</em>, <em>egrid=None</em>, <em>subunit_of_land_register=None</em>, <em>public_law_restrictions=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/real_estate.html#RealEstateRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord.areas_ratio">
 <code class="descname">areas_ratio</code><em class="property"> = 1.0</em><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord.areas_ratio" title="Permalink to this definition">¶</a></dt>
@@ -1591,6 +1597,13 @@ collection which has to be unpacked first in case of collection.</p>
 <dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord.highlight">
 <code class="descname">highlight</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord.highlight" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The url which produces a image with the highlighted real estate from a wms.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord.plan_for_land_register">
+<code class="descname">plan_for_land_register</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord.plan_for_land_register" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.view_service.ViewServiceRecord</em> &#8211; The view service to be used for the land
+registry map.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1614,14 +1627,6 @@ service to be used for the land registry map.</td>
 </div>
 <div class="section" id="module-pyramid_oereb.lib.records.reference_definition">
 <span id="module-reference-definition"></span><span id="api-pyramid-oereb-lib-records-reference-definition"></span><h4>Module <em>reference_definition</em><a class="headerlink" href="#module-pyramid_oereb.lib.records.reference_definition" title="Permalink to this headline">¶</a></h4>
-<div class="section" id="class-referencedefinitionrecord">
-<span id="api-pyramid-oereb-lib-records-reference-definition-referencedefinitionrecord"></span><h5>Class <em>ReferenceDefinitionRecord</em><a class="headerlink" href="#class-referencedefinitionrecord" title="Permalink to this headline">¶</a></h5>
-<dl class="class">
-<dt id="pyramid_oereb.lib.records.reference_definition.ReferenceDefinitionRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.reference_definition.</code><code class="descname">ReferenceDefinitionRecord</code><span class="sig-paren">(</span><em>topic</em>, <em>canton</em>, <em>municipality</em>, <em>responsible_office</em>, <em>documents=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/reference_definition.html#ReferenceDefinitionRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.reference_definition.ReferenceDefinitionRecord" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 </div>
 <div class="section" id="module-pyramid_oereb.lib.records.theme">
 <span id="module-theme"></span><span id="api-pyramid-oereb-lib-records-theme"></span><h4>Module <em>theme</em><a class="headerlink" href="#module-pyramid_oereb.lib.records.theme" title="Permalink to this headline">¶</a></h4>
@@ -1648,7 +1653,7 @@ service to be used for the land registry map.</td>
 <span id="api-pyramid-oereb-lib-records-view-service-legendentryrecord"></span><h5>Class <em>LegendEntryRecord</em><a class="headerlink" href="#class-legendentryrecord" title="Permalink to this headline">¶</a></h5>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.view_service.LegendEntryRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.view_service.</code><code class="descname">LegendEntryRecord</code><span class="sig-paren">(</span><em>symbol</em>, <em>legend_text</em>, <em>type_code</em>, <em>type_code_list</em>, <em>theme</em>, <em>sub_theme=None</em>, <em>additional_theme=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/view_service.html#LegendEntryRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.LegendEntryRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.view_service.</code><code class="descname">LegendEntryRecord</code><span class="sig-paren">(</span><em>symbol</em>, <em>legend_text</em>, <em>type_code</em>, <em>type_code_list</em>, <em>theme</em>, <em>sub_theme=None</em>, <em>other_theme=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/view_service.html#LegendEntryRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.LegendEntryRecord" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -1656,11 +1661,11 @@ service to be used for the land registry map.</td>
 <span id="api-pyramid-oereb-lib-records-view-service-viewservicerecord"></span><h5>Class <em>ViewServiceRecord</em><a class="headerlink" href="#class-viewservicerecord" title="Permalink to this headline">¶</a></h5>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.view_service.ViewServiceRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.view_service.</code><code class="descname">ViewServiceRecord</code><span class="sig-paren">(</span><em>link_wms</em>, <em>legend_web</em>, <em>legends=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.view_service.</code><code class="descname">ViewServiceRecord</code><span class="sig-paren">(</span><em>reference_wms</em>, <em>legend_at_web=None</em>, <em>legends=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="pyramid_oereb.lib.records.view_service.ViewServiceRecord.download_wms_content">
 <code class="descname">download_wms_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord.download_wms_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord.download_wms_content" title="Permalink to this definition">¶</a></dt>
-<dd><p>Simply downloads the image found behind the URL stored in the instance attribute &#8220;link_wms&#8221;.</p>
+<dd><p>Simply downloads the image found behind the URL stored in the instance attribute &#8220;reference_wms&#8221;.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3057,14 +3062,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_building_lines.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_building_lines.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_building_lines.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_building_lines.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -3165,8 +3170,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -3177,14 +3182,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -3423,14 +3428,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_building_lines.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_building_lines.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_building_lines.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_building_lines.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -3871,13 +3876,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -3985,7 +3990,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -3997,13 +4002,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -4258,13 +4263,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -4685,14 +4690,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -4793,8 +4798,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -4805,14 +4810,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -5051,14 +5056,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -5499,13 +5504,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -5613,7 +5618,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -5625,13 +5630,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -5886,13 +5891,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -6313,14 +6318,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -6421,8 +6426,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -6433,14 +6438,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -6679,14 +6684,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -7127,13 +7132,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -7241,7 +7246,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -7253,13 +7258,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -7514,13 +7519,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -7941,14 +7946,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -8049,8 +8054,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -8061,14 +8066,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -8307,14 +8312,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -8755,13 +8760,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -8869,7 +8874,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -8881,13 +8886,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -9142,13 +9147,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -9569,14 +9574,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_military_sites.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_military_sites.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -9677,8 +9682,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -9689,14 +9694,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -9935,14 +9940,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_military_sites.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_military_sites.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -10383,13 +10388,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -10497,7 +10502,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -10509,13 +10514,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -10770,13 +10775,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -11197,14 +11202,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -11305,8 +11310,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -11317,14 +11322,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -11563,14 +11568,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -12011,13 +12016,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -12125,7 +12130,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -12137,13 +12142,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -12398,13 +12403,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -12825,14 +12830,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_sites.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_sites.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_sites.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_sites.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -12933,8 +12938,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -12945,14 +12950,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -13191,14 +13196,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_sites.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_sites.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_sites.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_sites.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -13639,13 +13644,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -13753,7 +13758,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -13765,13 +13770,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -14026,13 +14031,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -14453,14 +14458,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_distance_lines.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_distance_lines.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -14561,8 +14566,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -14573,14 +14578,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -14819,14 +14824,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_distance_lines.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_distance_lines.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -15267,13 +15272,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -15381,7 +15386,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -15393,13 +15398,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -15654,13 +15659,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -16081,14 +16086,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_perimeters.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_perimeters.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_perimeters.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_perimeters.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -16189,8 +16194,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -16201,14 +16206,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -16447,14 +16452,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_perimeters.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_perimeters.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_perimeters.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_perimeters.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -16895,13 +16900,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -17009,7 +17014,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -17021,13 +17026,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -17282,13 +17287,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -17709,14 +17714,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -17817,8 +17822,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -17829,14 +17834,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -18075,14 +18080,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -18523,13 +18528,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -18637,7 +18642,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -18649,13 +18654,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -18910,13 +18915,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -19337,14 +19342,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -19445,8 +19450,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -19457,14 +19462,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -19703,14 +19708,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -20151,13 +20156,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -20265,7 +20270,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -20277,13 +20282,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -20538,13 +20543,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -20965,14 +20970,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.land_use_plans.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.land_use_plans.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.land_use_plans.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.land_use_plans.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -21073,8 +21078,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -21085,14 +21090,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -21331,14 +21336,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.land_use_plans.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.land_use_plans.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.land_use_plans.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.land_use_plans.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -21779,13 +21784,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -21893,7 +21898,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -21905,13 +21910,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -22166,13 +22171,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -23074,14 +23079,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_building_lines.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_building_lines.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -23182,8 +23187,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -23194,14 +23199,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -23440,14 +23445,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_building_lines.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_building_lines.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -23888,13 +23893,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -24002,7 +24007,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -24014,13 +24019,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -24275,13 +24280,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -24702,14 +24707,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -24810,8 +24815,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -24822,14 +24827,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -25068,14 +25073,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -25516,13 +25521,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -25630,7 +25635,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -25642,13 +25647,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -25903,13 +25908,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -26330,14 +26335,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -26438,8 +26443,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -26450,14 +26455,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -26696,14 +26701,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -27144,13 +27149,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -27258,7 +27263,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -27270,13 +27275,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -27531,13 +27536,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -27958,14 +27963,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_building_lines.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_building_lines.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_building_lines.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_building_lines.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -28066,8 +28071,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -28078,14 +28083,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -28324,14 +28329,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_building_lines.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_building_lines.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_building_lines.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_building_lines.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -28772,13 +28777,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -28886,7 +28891,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -28898,13 +28903,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -29159,13 +29164,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -29586,14 +29591,14 @@ belongs.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.LegendEntry.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.LegendEntry.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.LegendEntry.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.LegendEntry.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.LegendEntry.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.LegendEntry.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -29694,8 +29699,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.content">
-<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.information">
+<code class="descname">information</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.information" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -29706,14 +29711,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.subtopic">
-<code class="descname">subtopic</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.subtopic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.sub_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.additional_topic">
-<code class="descname">additional_topic</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.additional_topic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.other_theme">
+<code class="descname">other_theme</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.PublicLawRestriction.other_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -29952,14 +29957,14 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.ViewService.link_wms">
-<code class="descname">link_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.ViewService.link_wms" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.ViewService.legend_web">
-<code class="descname">legend_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.ViewService.legend_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.ViewService.legend_at_web">
+<code class="descname">legend_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.ViewService.legend_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 
@@ -30400,13 +30405,13 @@ belongs.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Description for sub topics this legend entry might belonging to.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -30514,7 +30519,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">content</code></dt>
+<code class="descname">information</code></dt>
 <dd><p><em>dict</em> &#8211; The multilingual textual representation of the public law restriction.</p>
 </dd></dl>
 
@@ -30526,13 +30531,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">subtopic</code></dt>
+<code class="descname">sub_theme</code></dt>
 <dd><p><em>str</em> &#8211; Textual explanation to subtype the topic attribute.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">additional_topic</code></dt>
+<code class="descname">other_theme</code></dt>
 <dd><p><em>str</em> &#8211; A link to additional topics. It must be like the following patterns
 * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
 the official two letters short version (e.g.&#8217;BE&#8217;) {topic} as the name of the
@@ -30787,13 +30792,13 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">link_wms</code></dt>
+<code class="descname">reference_wms</code></dt>
 <dd><p><em>str</em> &#8211; The actual url which leads to the desired cartographic representation.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">legend_web</code></dt>
+<code class="descname">legend_at_web</code></dt>
 <dd><p><em>str</em> &#8211; A link leading to a wms describing document (png).</p>
 </dd></dl>
 

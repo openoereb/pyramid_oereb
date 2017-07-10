@@ -510,22 +510,6 @@ Class *RealEstateRecord*
 .. autoclass:: pyramid_oereb.lib.records.real_estate.RealEstateRecord
    :members:
 
-.. _api-pyramid_oereb-lib-records-reference_definition:
-
-Module *reference_definition*
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-.. automodule:: pyramid_oereb.lib.records.reference_definition
-   :members:
-
-.. _api-pyramid_oereb-lib-records-reference_definition-referencedefinitionrecord:
-
-Class *ReferenceDefinitionRecord*
-.................................
-
-.. autoclass:: pyramid_oereb.lib.records.reference_definition.ReferenceDefinitionRecord
-   :members:
-
 .. _api-pyramid_oereb-lib-records-theme:
 
 Module *theme*

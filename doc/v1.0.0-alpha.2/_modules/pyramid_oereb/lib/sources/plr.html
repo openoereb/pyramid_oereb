@@ -183,7 +183,6 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.glossary</span> <span class="k">import</span> <span class="n">GlossaryRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.office</span> <span class="k">import</span> <span class="n">OfficeRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.law_status</span> <span class="k">import</span> <span class="n">LawStatusRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.reference_definition</span> <span class="k">import</span> <span class="n">ReferenceDefinitionRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.view_service</span> <span class="k">import</span> <span class="n">ViewServiceRecord</span><span class="p">,</span> <span class="n">LegendEntryRecord</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span>
@@ -198,7 +197,6 @@
     <span class="n">_legend_entry_record_class_</span> <span class="o">=</span> <span class="n">LegendEntryRecord</span>
     <span class="n">_office_record_class_</span> <span class="o">=</span> <span class="n">OfficeRecord</span>
     <span class="n">_plr_record_class_</span> <span class="o">=</span> <span class="n">PlrRecord</span>
-    <span class="n">_reference_definition_record_class_</span> <span class="o">=</span> <span class="n">ReferenceDefinitionRecord</span>
     <span class="n">_view_service_record_class_</span> <span class="o">=</span> <span class="n">ViewServiceRecord</span>
     <span class="n">_law_status_record_class_</span> <span class="o">=</span> <span class="n">LawStatusRecord</span></div>
 
@@ -301,14 +299,16 @@
                 <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">legend_text</span><span class="p">,</span>
                 <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span>
                 <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">type_code_list</span><span class="p">,</span>
-                <span class="n">theme</span>
+                <span class="n">theme</span><span class="p">,</span>
+                <span class="n">sub_theme</span><span class="o">=</span><span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">sub_theme</span><span class="p">,</span>
+                <span class="n">other_theme</span><span class="o">=</span><span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">other_theme</span>
             <span class="p">))</span>
         <span class="k">return</span> <span class="n">legend_entry_records</span>
 
     <span class="k">def</span> <span class="nf">from_db_to_view_service_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view_service_from_db</span><span class="p">,</span> <span class="n">legend_entry_records</span><span class="p">):</span>
         <span class="n">view_service_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_service_record_class_</span><span class="p">(</span>
-            <span class="n">view_service_from_db</span><span class="o">.</span><span class="n">link_wms</span><span class="p">,</span>
-            <span class="n">view_service_from_db</span><span class="o">.</span><span class="n">legend_web</span><span class="p">,</span>
+            <span class="n">view_service_from_db</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">,</span>
+            <span class="n">view_service_from_db</span><span class="o">.</span><span class="n">legend_at_web</span><span class="p">,</span>
             <span class="n">legends</span><span class="o">=</span><span class="n">legend_entry_records</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">view_service_record</span>
@@ -462,16 +462,17 @@
         <span class="p">)</span>
         <span class="n">plr_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_record_class_</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">theme_record</span><span class="p">,</span>
-            <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+            <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">information</span><span class="p">,</span>
             <span class="n">law_status</span><span class="p">,</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_office_record</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">responsible_office</span><span class="p">),</span>
             <span class="n">symbol</span><span class="p">,</span>
-            <span class="n">subtopic</span><span class="o">=</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">subtopic</span><span class="p">,</span>
-            <span class="n">additional_topic</span><span class="o">=</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">additional_topic</span><span class="p">,</span>
+            <span class="n">view_service_record</span><span class="p">,</span>
+            <span class="n">geometry_records</span><span class="p">,</span>
+            <span class="n">sub_theme</span><span class="o">=</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">sub_theme</span><span class="p">,</span>
+            <span class="n">other_theme</span><span class="o">=</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">other_theme</span><span class="p">,</span>
             <span class="n">type_code</span><span class="o">=</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span>
             <span class="n">type_code_list</span><span class="o">=</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">type_code_list</span><span class="p">,</span>
-            <span class="n">view_service</span><span class="o">=</span><span class="n">view_service_record</span><span class="p">,</span>
             <span class="n">basis</span><span class="o">=</span><span class="n">basis_plr_records</span><span class="p">,</span>
             <span class="n">refinements</span><span class="o">=</span><span class="n">refinements_plr_records</span><span class="p">,</span>
             <span class="n">documents</span><span class="o">=</span><span class="n">document_records</span><span class="p">,</span>
@@ -484,9 +485,9 @@
             <span class="n">percentage_precision</span><span class="o">=</span><span class="n">percentage_precision</span>
         <span class="p">)</span>
         <span class="c1"># solve circular dependency between plr and geometry</span>
-        <span class="k">for</span> <span class="n">geometry_record</span> <span class="ow">in</span> <span class="n">geometry_records</span><span class="p">:</span>
-            <span class="n">geometry_record</span><span class="o">.</span><span class="n">public_law_restriction</span> <span class="o">=</span> <span class="n">plr_record</span>
-        <span class="n">plr_record</span><span class="o">.</span><span class="n">geometries</span> <span class="o">=</span> <span class="n">geometry_records</span>
+        <span class="c1"># for geometry_record in geometry_records:</span>
+        <span class="c1">#     geometry_record.public_law_restriction = plr_record</span>
+        <span class="c1"># plr_record.geometries = geometry_records</span>
         <span class="k">return</span> <span class="n">plr_record</span>
 
     <span class="nd">@staticmethod</span>

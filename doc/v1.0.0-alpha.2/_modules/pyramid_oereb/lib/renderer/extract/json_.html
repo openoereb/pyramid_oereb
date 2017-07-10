@@ -381,7 +381,7 @@
                                      <span class="s1">&#39;in reduced extracts!&#39;</span><span class="p">)</span>
                 <span class="c1"># TODO: Add lenght and units see GSOREB-207: https://jira.camptocamp.com/browse/GSOREB-207</span>
                 <span class="n">plr_dict</span> <span class="o">=</span> <span class="p">{</span>
-                    <span class="s1">&#39;Information&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">content</span><span class="p">),</span>
+                    <span class="s1">&#39;Information&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">information</span><span class="p">),</span>
                     <span class="s1">&#39;Theme&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_theme</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">theme</span><span class="p">),</span>
                     <span class="s1">&#39;Lawstatus&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_law_status</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">law_status</span><span class="p">),</span>
                     <span class="s1">&#39;Area&#39;</span><span class="p">:</span> <span class="n">plr</span><span class="o">.</span><span class="n">area</span><span class="p">,</span>
@@ -402,10 +402,10 @@
                                                                  <span class="n">type_code</span><span class="o">=</span><span class="n">plr</span><span class="o">.</span><span class="n">type_code</span><span class="p">)</span>
                         <span class="p">})</span>
 
-                <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">subtopic</span><span class="p">:</span>
-                    <span class="n">plr_dict</span><span class="p">[</span><span class="s1">&#39;SubTheme&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">subtopic</span>
-                <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">additional_topic</span><span class="p">:</span>
-                    <span class="n">plr_dict</span><span class="p">[</span><span class="s1">&#39;OtherTheme&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">additional_topic</span>
+                <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">sub_theme</span><span class="p">:</span>
+                    <span class="n">plr_dict</span><span class="p">[</span><span class="s1">&#39;SubTheme&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">sub_theme</span>
+                <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">other_theme</span><span class="p">:</span>
+                    <span class="n">plr_dict</span><span class="p">[</span><span class="s1">&#39;OtherTheme&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">other_theme</span>
                 <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">type_code</span><span class="p">:</span>
                     <span class="n">plr_dict</span><span class="p">[</span><span class="s1">&#39;TypeCode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">type_code</span>
                 <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">type_code_list</span><span class="p">:</span>
@@ -611,10 +611,10 @@
         <span class="n">map_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">map_</span><span class="o">.</span><span class="n">image</span><span class="p">:</span>
             <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;Image&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">map_</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">map_</span><span class="o">.</span><span class="n">link_wms</span><span class="p">:</span>
-            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;ReferenceWMS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">map_</span><span class="o">.</span><span class="n">link_wms</span>
-        <span class="k">if</span> <span class="n">map_</span><span class="o">.</span><span class="n">legend_web</span><span class="p">:</span>
-            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;LegendAtWeb&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">map_</span><span class="o">.</span><span class="n">legend_web</span>
+        <span class="k">if</span> <span class="n">map_</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">:</span>
+            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;ReferenceWMS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">map_</span><span class="o">.</span><span class="n">reference_wms</span>
+        <span class="k">if</span> <span class="n">map_</span><span class="o">.</span><span class="n">legend_at_web</span><span class="p">:</span>
+            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;LegendAtWeb&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">map_</span><span class="o">.</span><span class="n">legend_at_web</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">map_</span><span class="o">.</span><span class="n">legends</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">map_</span><span class="o">.</span><span class="n">legends</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;OtherLegend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">format_legend_entry</span><span class="p">(</span><span class="n">legend_entry</span><span class="p">)</span> <span class="k">for</span> <span class="n">legend_entry</span> <span class="ow">in</span> <span class="n">map_</span><span class="o">.</span><span class="n">legends</span><span class="p">]</span>
@@ -651,8 +651,8 @@
 
         <span class="k">if</span> <span class="n">legend_entry</span><span class="o">.</span><span class="n">sub_theme</span><span class="p">:</span>
             <span class="n">legend_entry_dict</span><span class="p">[</span><span class="s1">&#39;SubTheme&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">legend_entry</span><span class="o">.</span><span class="n">sub_theme</span>
-        <span class="k">if</span> <span class="n">legend_entry</span><span class="o">.</span><span class="n">additional_theme</span><span class="p">:</span>
-            <span class="n">legend_entry_dict</span><span class="p">[</span><span class="s1">&#39;OtherTheme&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">legend_entry</span><span class="o">.</span><span class="n">additional_theme</span>
+        <span class="k">if</span> <span class="n">legend_entry</span><span class="o">.</span><span class="n">other_theme</span><span class="p">:</span>
+            <span class="n">legend_entry_dict</span><span class="p">[</span><span class="s1">&#39;OtherTheme&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">legend_entry</span><span class="o">.</span><span class="n">other_theme</span>
         <span class="k">return</span> <span class="n">legend_entry_dict</span></div>
 
     <span class="nd">@staticmethod</span>
