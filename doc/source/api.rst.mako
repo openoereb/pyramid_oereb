@@ -4,10 +4,9 @@ API
 ===
 
 <%!
-import glob, inspect, re, sys, pyramid_oereb
+import glob, inspect, re, sys
 %>
 <%
-reload(pyramid_oereb)
 modules = [m for m in sys.modules.keys() if m.startswith('pyramid_oereb')]
 files = glob.glob('../../pyramid_oereb/*.py')
 files += glob.glob('../../pyramid_oereb/*/*.py')
@@ -21,8 +20,17 @@ modules = [
       and not f.startswith("../../pyramid_oereb/models.py")
 ]
 modules.sort()
-for module in modules:
-    __import__(module)
+
+delete_modules = []
+for i, module in enumerate(modules):
+    try:
+        __import__(module)
+    except ImportError:
+        delete_modules.append(i)
+delete_modules.reverse()
+for i in delete_modules:
+    del modules[i]
+
 modules = [m for m in modules if m in sys.modules]
 
 classes = {}
