@@ -4,8 +4,10 @@ import os
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'description.rst')) as f:
-    DESCRIPTION = f.read()
+with open(os.path.join(here, 'README.rst')) as f:
+    README = f.read()
+with open(os.path.join(here, 'CHANGES.rst')) as f:
+    CHANGES = f.read()
 
 tests_require = [
     'WebTest >= 1.3.1',  # py3 compat
@@ -41,7 +43,7 @@ setup(
     version='1.0.0-alpha.2',
     description='pyramid_oereb, extension for pyramid web frame work to provide '
             'a basic server part for the oereb project',
-    long_description=DESCRIPTION,
+    long_description='{readme}\n\n{changes}'.format(readme=README, changes=CHANGES),
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",

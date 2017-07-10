@@ -23,9 +23,7 @@ after_success:
   - make doc
 
 before_deploy:
-  - sudo apt-get install pandoc
-  - make description.rst
-  - pip install --upgrade  sphinxcontrib-versioning 'Sphinx<1.6'
+  - pip install --upgrade sphinxcontrib-versioning 'Sphinx<1.6'
 
 # deploy to pypi
 deploy:
