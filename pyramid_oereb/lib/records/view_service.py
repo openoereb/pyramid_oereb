@@ -120,7 +120,7 @@ class ViewServiceRecord(object):
         # TODO: Check better for a image as response than only code 200...
         main_msg = "Image for WMS couldn't be retrieved."
         if uri_validator(self.reference_wms):
-            print self.reference_wms
+            # print self.reference_wms
             response = urllib2.urlopen(self.reference_wms)
             if response.getcode() == 200:
                 self.image = ImageRecord(response.read())
