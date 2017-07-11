@@ -20,7 +20,7 @@ def convert_camel_case_to_text_form(name):
     return re.sub('([a-z0-9])([A-Z])', r'\1 \2', s1)
 
 
-def _create_standard_configuration_models_py_(code, geometry_type, absolute_path):
+def _create_standard_configuration_models_py_(code, geometry_type, absolute_path, schema):
     """
     The simplest way to get a python file containing a database definition in sqlalchemy orm way. It will
      contain all necessary definitions to produce an extract as the specification defines for the new topic.
@@ -30,6 +30,7 @@ def _create_standard_configuration_models_py_(code, geometry_type, absolute_path
         geometry_type (str): A valid geometry type.
         absolute_path (str): The absolute Path where the genderated python file will be placed. It
             must bewriteable by the user running this command.
+        schema (str): The schema name. If not specified, "name" will be used.
     """
     template = Template(
         filename=AssetResolver('pyramid_oereb').resolve('standard/templates/plr.py.mako').abspath()
@@ -37,7 +38,7 @@ def _create_standard_configuration_models_py_(code, geometry_type, absolute_path
     name = convert_camel_case_to_snake_case(code)
     content = template.render(**{
         'topic': convert_camel_case_to_text_form(code),
-        'schema_name': name,
+        'schema_name': schema or name,
         'geometry_type': geometry_type
     })
     models_path = '{path}/{name}.py'.format(
