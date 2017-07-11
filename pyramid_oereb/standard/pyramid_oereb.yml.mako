@@ -17,15 +17,17 @@ pyramid_oereb:
   # The law status translations based on the two possible codes 'inForce' and 'runningModifications'
   law_status_translations:
     in_force:
-      de: In Kraft
-      fr: TODO
-      it: TODO
-      rm: TODO
+      de: in Kraft
+      fr: en vigueur
+      it: in vigore
+      rm: en vigur
+      en: in force
     running_modifications:
-      de: Laufende Änderungen
-      fr: TODO
-      it: TODO
-      rm: TODO
+      de: laufende Änderungen
+      fr: modification en cours
+      it: modificazione in corso
+      rm: midada current
+      en: ongoing modification
 
   # The language that should be used by default, if no other language is specified in the request.
   # This has to be one of the languages defined above.
