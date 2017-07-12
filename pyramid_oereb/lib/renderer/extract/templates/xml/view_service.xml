@@ -3,11 +3,11 @@
 %if map.image:
 <xsd:Image>${map.image.encode()}</xsd:Image>
 %endif
-%if map.link_wms:
-<xsd:ReferenceWMS>${map.link_wms|u}</xsd:ReferenceWMS>
+%if map.reference_wms:
+<xsd:ReferenceWMS>${map.reference_wms|u}</xsd:ReferenceWMS>
 %endif
-%if map.legend_web:
-<xsd:LegendAtWeb>${map.legend_web|u}</xsd:LegendAtWeb>
+%if map.reference_wms:
+<xsd:LegendAtWeb>${map.reference_wms|u}</xsd:LegendAtWeb>
 %endif
 %if map.legends:
 <xsd:OtherLegend>

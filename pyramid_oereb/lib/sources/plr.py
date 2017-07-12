@@ -22,7 +22,6 @@ from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.glossary import GlossaryRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
-from pyramid_oereb.lib.records.reference_definition import ReferenceDefinitionRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 
 log = logging.getLogger('pyramid_oereb')
@@ -37,7 +36,6 @@ class PlrBaseSource(Base):
     _legend_entry_record_class_ = LegendEntryRecord
     _office_record_class_ = OfficeRecord
     _plr_record_class_ = PlrRecord
-    _reference_definition_record_class_ = ReferenceDefinitionRecord
     _view_service_record_class_ = ViewServiceRecord
     _law_status_record_class_ = LawStatusRecord
 
@@ -64,33 +62,40 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         super(PlrStandardDatabaseSource, self).__init__(**bds_kwargs)
 
         session = self._adapter_.get_session(self._key_)
-        availabilities_from_db = session.query(availability_model).all()
-        self.availabilities = []
-        for availability in availabilities_from_db:
-            self.availabilities.append(
-                AvailabilityRecord(availability.fosnr, available=availability.available)
+
+        try:
+            availabilities_from_db = session.query(availability_model).all()
+            self.availabilities = []
+            for availability in availabilities_from_db:
+                self.availabilities.append(
+                    AvailabilityRecord(availability.fosnr, available=availability.available)
+                )
+            self.transfer_from_source = session.query(transfer_from_source_model).all()
+            # TODO: Fix this. Its not possible to have no actuality set. It's only for test case
+            theme_sources = []
+            for source in self.transfer_from_source:
+                theme_sources.append(TransferFromSourceRecord(
+                    self.transfer_from_source.date,
+                    self.transfer_from_source.office(source.office)
+                ))
+            if len(theme_sources) == 0:
+                log.warning(u'The theme sources for the topic {0} are empty. This is not allowed. Going '
+                            u'through anyway'.format(self._plr_info_.get('code')))
+                theme_sources = [TransferFromSourceRecord(
+                    datetime.datetime.now(),
+                    Config.get_plr_cadastre_authority()
+                )]
+            self.theme_record = EmbeddableThemeRecord(
+                self._plr_info_.get('code'),
+                self._plr_info_.get('text'),
+                theme_sources
             )
-        self.transfer_from_source = session.query(transfer_from_source_model).all()
-        # TODO: Fix this. Its not possible to have no actuality set. It's only for test case
-        theme_sources = []
-        for source in self.transfer_from_source:
-            theme_sources.append(TransferFromSourceRecord(
-                self.transfer_from_source.date,
-                self.transfer_from_source.office(source.office)
-            ))
-        if len(theme_sources) == 0:
-            log.warning(u'The theme sources for the topic {0} are empty. This is not allowed. Going through '
-                        u'anyway'.format(self._plr_info_.get('code')))
-            theme_sources = [TransferFromSourceRecord(
-                datetime.datetime.now(),
-                Config.get_plr_cadastre_authority()
-            )]
-        self.theme_record = EmbeddableThemeRecord(
-            self._plr_info_.get('code'),
-            self._plr_info_.get('text'),
-            theme_sources
-        )
-        session.close()
+
+        except:
+            raise
+
+        finally:
+            session.close()
 
     @property
     def info(self):
@@ -133,14 +138,16 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 legend_entry_from_db.legend_text,
                 legend_entry_from_db.type_code,
                 legend_entry_from_db.type_code_list,
-                theme
+                theme,
+                sub_theme=legend_entry_from_db.sub_theme,
+                other_theme=legend_entry_from_db.other_theme
             ))
         return legend_entry_records
 
     def from_db_to_view_service_record(self, view_service_from_db, legend_entry_records):
         view_service_record = self._view_service_record_class_(
-            view_service_from_db.link_wms,
-            view_service_from_db.legend_web,
+            view_service_from_db.reference_wms,
+            view_service_from_db.legend_at_web,
             legends=legend_entry_records
         )
         return view_service_record
@@ -148,7 +155,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def from_db_to_geometry_records(self, geometries_from_db):
         geometry_records = []
         for geometry_from_db in geometries_from_db:
-            law_status = LawStatusRecord(
+            law_status = LawStatusRecord.from_config(
                 Config.get_law_status(
                     self._plr_info_.get('code'),
                     self._plr_info_.get('law_status'),
@@ -181,7 +188,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def from_db_to_article_records(self, articles_from_db):
         article_records = []
         for article_from_db in articles_from_db:
-            law_status = LawStatusRecord(
+            law_status = LawStatusRecord.from_config(
                 Config.get_law_status(
                     self._plr_info_.get('code'),
                     self._plr_info_.get('law_status'),
@@ -213,7 +220,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             article_records = self.from_db_to_article_records(legal_provision.articles)
             office_record = self.from_db_to_office_record(legal_provision.responsible_office)
             article_nrs = article_numbers[i] if isinstance(article_numbers, list) else None
-            law_status = LawStatusRecord(
+            law_status = LawStatusRecord.from_config(
                 Config.get_law_status(
                     self._plr_info_.get('code'),
                     self._plr_info_.get('law_status'),
@@ -285,7 +292,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         refinements_plr_records = []
         for join in public_law_restriction_from_db.refinements:
             refinements_plr_records.append(self.from_db_to_plr_record(join.refinement))
-        law_status = LawStatusRecord(
+        law_status = LawStatusRecord.from_config(
             Config.get_law_status(
                 self._plr_info_.get('code'),
                 self._plr_info_.get('law_status'),
@@ -294,16 +301,17 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         )
         plr_record = self._plr_record_class_(
             self.theme_record,
-            public_law_restriction_from_db.content,
+            public_law_restriction_from_db.information,
             law_status,
             public_law_restriction_from_db.published_from,
             self.from_db_to_office_record(public_law_restriction_from_db.responsible_office),
             symbol,
-            subtopic=public_law_restriction_from_db.subtopic,
-            additional_topic=public_law_restriction_from_db.additional_topic,
+            view_service_record,
+            geometry_records,
+            sub_theme=public_law_restriction_from_db.sub_theme,
+            other_theme=public_law_restriction_from_db.other_theme,
             type_code=public_law_restriction_from_db.type_code,
             type_code_list=public_law_restriction_from_db.type_code_list,
-            view_service=view_service_record,
             basis=basis_plr_records,
             refinements=refinements_plr_records,
             documents=document_records,
@@ -316,9 +324,9 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             percentage_precision=percentage_precision
         )
         # solve circular dependency between plr and geometry
-        for geometry_record in geometry_records:
-            geometry_record.public_law_restriction = plr_record
-        plr_record.geometries = geometry_records
+        # for geometry_record in geometry_records:
+        #     geometry_record.public_law_restriction = plr_record
+        # plr_record.geometries = geometry_records
         return plr_record
 
     @staticmethod
@@ -419,22 +427,30 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 # adds a simple empty record for the PLR's on this real estate
                 public_law_restrictions.append(EmptyPlrRecord(self.theme_record, has_data=False))
                 return public_law_restrictions
+
         session = self._adapter_.get_session(self._key_)
 
-        if session.query(self._model_).count() == 0:
-            # We can stop here already because there are no items in the database
-            public_law_restrictions.append(EmptyPlrRecord(self.theme_record, has_data=False))
-            return public_law_restrictions
+        try:
+            if session.query(self._model_).count() == 0:
+                # We can stop here already because there are no items in the database
+                public_law_restrictions.append(EmptyPlrRecord(self.theme_record, has_data=False))
+                return public_law_restrictions
 
-        geometry_results = []
-        self.handle_collection(geometry_results, session, collection_types, bbox)
+            geometry_results = []
+            self.handle_collection(geometry_results, session, collection_types, bbox)
 
-        if len(geometry_results) == 0:
-            public_law_restrictions.append(EmptyPlrRecord(self.theme_record))
-            return public_law_restrictions
-        for geometry_result in geometry_results:
-            public_law_restrictions.append(
-                self.from_db_to_plr_record(geometry_result.public_law_restriction)
-            )
-        session.close()
+            if len(geometry_results) == 0:
+                public_law_restrictions.append(EmptyPlrRecord(self.theme_record))
+                return public_law_restrictions
+            for geometry_result in geometry_results:
+                public_law_restrictions.append(
+                    self.from_db_to_plr_record(geometry_result.public_law_restriction)
+                )
+
+        except:
+            raise
+
+        finally:
+            session.close()
+
         return public_law_restrictions

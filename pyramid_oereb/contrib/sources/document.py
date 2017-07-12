@@ -99,7 +99,7 @@ class OEREBlexSource(Base):
         records = []
         for f in document.files:
             records.append(document_class(
-                law_status=LawStatusRecord(u'inForce'),
+                law_status=LawStatusRecord.from_config(u'inForce'),
                 published_from=document.enactment_date,
                 title=title,
                 responsible_office=office,

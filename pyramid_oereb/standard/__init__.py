@@ -93,6 +93,7 @@ def _create_tables_from_standard_configuration_(configuration_yaml_path, section
     main_schema_engine = create_engine(config.get('app_schema').get('db_connection'), echo=True)
     main_schema_connection = main_schema_engine.connect()
     main_schema_connection.execute('CREATE SCHEMA {name};'.format(name=config.get('app_schema').get('name')))
+    main_schema_connection.close()
     main_base_class = DottedNameResolver().maybe_resolve('{package}.Base'.format(
         package=config.get('app_schema').get('models')
     ))

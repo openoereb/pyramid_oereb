@@ -32,8 +32,8 @@ class RealEstateDatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
             geometry (str): A geometry as WKT string which is used to obtain intersected real
                 estates. This maydeliver several results.
         """
+        session = self._adapter_.get_session(self._key_)
         try:
-            session = self._adapter_.get_session(self._key_)
             query = session.query(self._model_)
             if nb_ident and number:
                 # explicitly querying for one result, this will cause an error if more than one ore none
@@ -65,7 +65,9 @@ class RealEstateDatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
                     identdn=result.identdn,
                     egrid=result.egrid,
                 ))
+
         except NoResultFound as e:
             raise LookupError(e)
 
-        session.close()
+        finally:
+            session.close()
