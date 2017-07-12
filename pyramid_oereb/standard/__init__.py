@@ -99,16 +99,18 @@ def _create_tables_from_standard_configuration_(configuration_yaml_path, section
     ))
     main_base_class.metadata.create_all(main_schema_engine)
     for schema in config.get('plrs'):
-        plr_schema_engine = create_engine(schema.get('source').get('params').get('db_connection'), echo=True)
-        plr_schema_connection = plr_schema_engine.connect()
-        plr_schema_connection.execute('CREATE SCHEMA {name};'.format(
-            name=convert_camel_case_to_snake_case(schema.get('code')))
-        )
-        plr_base = DottedNameResolver().maybe_resolve('{package}.Base'.format(
-            package=schema.get('source').get('params').get('models')
-        ))
-        plr_schema_connection.close()
-        plr_base.metadata.create_all(plr_schema_engine)
+        if schema.get('standard'):
+            plr_schema_engine = create_engine(schema.get('source').get('params').get('db_connection'),
+                                              echo=True)
+            plr_schema_connection = plr_schema_engine.connect()
+            plr_schema_connection.execute('CREATE SCHEMA {name};'.format(
+                name=convert_camel_case_to_snake_case(schema.get('code')))
+            )
+            plr_base = DottedNameResolver().maybe_resolve('{package}.Base'.format(
+                package=schema.get('source').get('params').get('models')
+            ))
+            plr_schema_connection.close()
+            plr_base.metadata.create_all(plr_schema_engine)
 
 
 def _drop_tables_from_standard_configuration_(configuration_yaml_path, section='pyramid_oereb'):
@@ -131,12 +133,14 @@ def _drop_tables_from_standard_configuration_(configuration_yaml_path, section='
     )
     main_schema_connection.close()
     for schema in config.get('plrs'):
-        plr_schema_engine = create_engine(schema.get('source').get('params').get('db_connection'), echo=True)
-        plr_schema_connection = plr_schema_engine.connect()
-        plr_schema_connection.execute('DROP SCHEMA IF EXISTS {name} CASCADE;'.format(
-            name=convert_camel_case_to_snake_case(schema.get('code')))
-        )
-        plr_schema_connection.close()
+        if schema.get('standard'):
+            plr_schema_engine = create_engine(schema.get('source').get('params').get('db_connection'),
+                                              echo=True)
+            plr_schema_connection = plr_schema_engine.connect()
+            plr_schema_connection.execute('DROP SCHEMA IF EXISTS {name} CASCADE;'.format(
+                name=convert_camel_case_to_snake_case(schema.get('code')))
+            )
+            plr_schema_connection.close()
 
 
 def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
