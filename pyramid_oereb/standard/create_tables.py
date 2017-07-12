@@ -22,7 +22,6 @@ def _create_theme_tables(configuration_yaml_path, section, theme):
         configuration_yaml_path (str): Path to the configuration file.
         section (str): Section within the specified configuration file used for pyramid_oereb.
         theme (str): Code of the theme to create the tables for.
-    :return:
     """
 
     # Parse themes from configuration
@@ -32,6 +31,7 @@ def _create_theme_tables(configuration_yaml_path, section, theme):
         raise ConfigurationError('No list of themes found.')
 
     # Find the specified theme
+    found = False
     for t in themes:
         if t.get('code') == theme:
 
@@ -60,16 +60,16 @@ def _create_theme_tables(configuration_yaml_path, section, theme):
             try:
                 for schema in schemas:
                     connection.execute(create_schema_sql.format(schema=schema))
-            except:
-                raise
             finally:
                 connection.close()
 
             # Create tables
             models.Base.metadata.create_all(engine)
-            return
+            found = True
+            break
 
-    raise ValueError('Specified theme "{theme}" not found in configuration.'.format(theme=theme))
+    if not found:
+        raise ValueError('Specified theme "{theme}" not found in configuration.'.format(theme=theme))
 
 
 def create_standard_tables():
@@ -82,7 +82,7 @@ def create_standard_tables():
         dest='configuration',
         metavar='YAML',
         type='string',
-        help='The absolute path to the configuration yaml file (standard is: pyramid_oereb.yml).'
+        help='The absolute path to the configuration yaml file.'
     )
     parser.add_option(
         '-s', '--section',
@@ -111,7 +111,7 @@ def create_theme_tables():
         dest='configuration',
         metavar='YAML',
         type='string',
-        help='The absolute path to the configuration yaml file (standard is: pyramid_oereb.yml).'
+        help='The absolute path to the configuration yaml file.'
     )
     parser.add_option(
         '-s', '--section',
