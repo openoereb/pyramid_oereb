@@ -39,7 +39,7 @@ def _create_theme_tables(configuration_yaml_path, section, theme):
             params = t.get('source').get('params')
             if not isinstance(params, dict):
                 raise ConfigurationError('Missing params property in source definition.')
-            if not (params.has_key('db_connection') and params.has_key('models')):
+            if not ('db_connection' in params and 'models' in params):
                 raise ConfigurationError('Params has to contain "db_connection" and "models" properties.')
 
             # Create sqlalchemy engine for configured connection and load module containing models
