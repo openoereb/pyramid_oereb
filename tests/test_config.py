@@ -55,7 +55,7 @@ def test_get_all_federal():
     Config.init('./pyramid_oereb/standard/pyramid_oereb.yml', 'pyramid_oereb')
     all_federal = Config.get_all_federal()
     assert isinstance(all_federal, list)
-    assert len(all_federal) == 17
+    assert len(all_federal) == 10
     assert 'RailwaysProjectPlanningZones' in all_federal
 
 
