@@ -298,7 +298,7 @@ pyramid_oereb:
       text:
         de: Nutzungsplanung
       language: de
-      federal: true
+      federal: false
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -530,7 +530,7 @@ pyramid_oereb:
       text:
         de: Belastete Standorte
       language: de
-      federal: true
+      federal: false
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -646,7 +646,7 @@ pyramid_oereb:
       text:
         de: Grundwasserschutzzonen
       language: de
-      federal: true
+      federal: false
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -675,7 +675,7 @@ pyramid_oereb:
       text:
         de: Grundwasserschutzareale
       language: de
-      federal: true
+      federal: false
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -704,7 +704,7 @@ pyramid_oereb:
       text:
         de: Lärmemfindlichkeitsstufen
       language: de
-      federal: true
+      federal: false
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -733,7 +733,7 @@ pyramid_oereb:
       text:
         de: Waldgrenzen
       language: de
-      federal: true
+      federal: false
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -762,7 +762,7 @@ pyramid_oereb:
       text:
         de: Waldabstandslinien
       language: de
-      federal: true
+      federal: false
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource

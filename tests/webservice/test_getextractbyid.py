@@ -192,7 +192,9 @@ def test_return_json(topics):
 
     real_estate = extract.get('GetExtractByIdResponse').get('extract').get('RealEstate')
     assert isinstance(real_estate, dict)
-    if topics == 'ALL' or topics == 'ALL_FEDERAL':
+    if topics == 'ALL':
         assert len(real_estate.get('RestrictionOnLandownership')) == 5
+    if topics == 'ALL_FEDERAL':
+        assert len(real_estate.get('RestrictionOnLandownership')) == 1
     if topics == 'ContaminatedSites,RailwaysProjectPlanningZones':
         assert len(real_estate.get('RestrictionOnLandownership')) == 1
