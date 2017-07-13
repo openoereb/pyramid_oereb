@@ -14,15 +14,16 @@ logging.basicConfig()
 log = logging.getLogger('pyramid_oereb')
 
 
-def _create_theme_tables(configuration_yaml_path, section, theme, tables_only):
+def _create_theme_tables(configuration_yaml_path, theme, section='pyramid_oereb', tables_only=False):
     """
     Create all tables defined in the specified module.
 
     Args:
         configuration_yaml_path (str): Path to the configuration file.
-        section (str): Section within the specified configuration file used for pyramid_oereb.
         theme (str): Code of the theme to create the tables for.
-        tables_only (bool): True to skip creation of schema.
+        section (str): Section within the specified configuration file used for pyramid_oereb. Default is
+            'pyramid_oereb'.
+        tables_only (bool): True to skip creation of schema. Default is False.
     """
 
     # Parse themes from configuration
@@ -92,7 +93,7 @@ def create_standard_tables():
         metavar='SECTION',
         type='string',
         default='pyramid_oereb',
-        help='The section which contains configruation (default is: pyramid_oereb).'
+        help='The section which contains configuration (default is: pyramid_oereb).'
     )
     parser.add_option(
         '-T', '--tables-only',
@@ -105,7 +106,7 @@ def create_standard_tables():
     if not options.configuration:
         parser.error('No configuration file set.')
     _create_tables_from_standard_configuration_(
-        configuration_yaml_path=options.configuration,
+        options.configuration,
         section=options.section,
         tables_only=options.tables_only
     )
@@ -129,7 +130,7 @@ def create_theme_tables():
         metavar='SECTION',
         type='string',
         default='pyramid_oereb',
-        help='The section which contains configruation (default is: pyramid_oereb).'
+        help='The section which contains configuration (default is: pyramid_oereb).'
     )
     parser.add_option(
         '-t', '--theme',
@@ -152,9 +153,9 @@ def create_theme_tables():
         parser.error('No theme code defined.')
     try:
         _create_theme_tables(
-            configuration_yaml_path=options.configuration,
+            options.configuration,
+            options.theme,
             section=options.section,
-            theme=options.theme,
             tables_only=options.tables_only
         )
     except Exception as e:

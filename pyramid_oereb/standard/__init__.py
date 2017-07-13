@@ -63,8 +63,7 @@ def _create_all_standard_models_by_yaml_(configuration_yaml_path, section='pyram
     Args:
         configuration_yaml_path (str): The absolute path to the yaml file which contains the plr
             definitions.
-        section (str): The section in yaml file where the plrs are configured in. Standard is
-            'pyramid
+        section (str): The section in yaml file where the plrs are configured in. Default is 'pyramid_oereb'.
     """
     config = parse(configuration_yaml_path, section)
     absolute_path = AssetResolver('pyramid_oereb.standard.models').resolve('').abspath()
@@ -77,7 +76,8 @@ def _create_all_standard_models_by_yaml_(configuration_yaml_path, section='pyram
             )
 
 
-def _create_tables_from_standard_configuration_(configuration_yaml_path, section, tables_only):
+def _create_tables_from_standard_configuration_(configuration_yaml_path, section='pyramid_oereb',
+                                                tables_only=False):
     """
     Creates all schemas which are defined in the passed yaml file: <section>.<plrs>.[<plr>.<code>]. The code
     must be camel case. It will be transformed to snake case and used as schema name.
@@ -87,9 +87,8 @@ def _create_tables_from_standard_configuration_(configuration_yaml_path, section
     Args:
         configuration_yaml_path (str): The absolute path to the yaml file which contains the plr
             definitions.
-        section (str): The section in yaml file where the plrs are configured in. Standard is
-            'pyramid
-        tables_only (bool): True to skip creation of schema.
+        section (str): The section in yaml file where the plrs are configured in. Default is 'pyramid_oereb'.
+        tables_only (bool): True to skip creation of schema. Default is False.
     """
     config = parse(configuration_yaml_path, section)
     main_schema_engine = create_engine(config.get('app_schema').get('db_connection'), echo=True)
@@ -136,8 +135,7 @@ def _drop_tables_from_standard_configuration_(configuration_yaml_path, section='
     Args:
         configuration_yaml_path (str): The absolute path to the yaml file which contains the plr
             definitions.
-        section (str): The section in yaml file where the plrs are configured in. Standard is
-            'pyramid
+        section (str): The section in yaml file where the plrs are configured in. Default is 'pyramid_oereb'.
     """
     config = parse(configuration_yaml_path, section)
     main_schema_engine = create_engine(config.get('app_schema').get('db_connection'), echo=True)
@@ -167,7 +165,6 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
         (str): The name of the new file. Default
         database (str): The database connection string.Default:
             'postgresql://postgres:password@localhost/pyramid_oereb'
-
     """
 
     # File names
