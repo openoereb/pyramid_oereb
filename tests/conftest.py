@@ -161,8 +161,6 @@ class MockRequest(DummyRequest):
 
 
 # Set up test database
-_create_tables_from_standard_configuration_(
-    configuration_yaml_path=pyramid_oereb_test_yml
-)
+_create_tables_from_standard_configuration_(pyramid_oereb_test_yml)
 dummy_data = DummyData(config())
 dummy_data.init()
