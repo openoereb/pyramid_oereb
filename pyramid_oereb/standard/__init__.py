@@ -20,7 +20,7 @@ def convert_camel_case_to_text_form(name):
     return re.sub('([a-z0-9])([A-Z])', r'\1 \2', s1)
 
 
-def _create_standard_configuration_models_py_(code, geometry_type, absolute_path, schema):
+def _create_standard_configuration_models_py_(code, geometry_type, absolute_path, schema=None):
     """
     The simplest way to get a python file containing a database definition in sqlalchemy orm way. It will
      contain all necessary definitions to produce an extract as the specification defines for the new topic.
@@ -77,7 +77,7 @@ def _create_all_standard_models_by_yaml_(configuration_yaml_path, section='pyram
             )
 
 
-def _create_tables_from_standard_configuration_(configuration_yaml_path, section='pyramid_oereb'):
+def _create_tables_from_standard_configuration_(configuration_yaml_path, section, tables_only):
     """
     Creates all schemas which are defined in the passed yaml file: <section>.<plrs>.[<plr>.<code>]. The code
     must be camel case. It will be transformed to snake case and used as schema name.
@@ -89,14 +89,20 @@ def _create_tables_from_standard_configuration_(configuration_yaml_path, section
             definitions.
         section (str): The section in yaml file where the plrs are configured in. Standard is
             'pyramid
+        tables_only (bool): True to skip creation of schema.
     """
     config = parse(configuration_yaml_path, section)
     main_schema_engine = create_engine(config.get('app_schema').get('db_connection'), echo=True)
-    main_schema_connection = main_schema_engine.connect()
-    main_schema_connection.execute(
-        'CREATE SCHEMA IF NOT EXISTS {name};'.format(name=config.get('app_schema').get('name'))
-    )
-    main_schema_connection.close()
+
+    if not tables_only:
+        main_schema_connection = main_schema_engine.connect()
+        try:
+            main_schema_connection.execute(
+                'CREATE SCHEMA IF NOT EXISTS {name};'.format(name=config.get('app_schema').get('name'))
+            )
+        finally:
+            main_schema_connection.close()
+
     main_base_class = DottedNameResolver().maybe_resolve('{package}.Base'.format(
         package=config.get('app_schema').get('models')
     ))
@@ -105,14 +111,19 @@ def _create_tables_from_standard_configuration_(configuration_yaml_path, section
         if schema.get('standard'):
             plr_schema_engine = create_engine(schema.get('source').get('params').get('db_connection'),
                                               echo=True)
-            plr_schema_connection = plr_schema_engine.connect()
-            plr_schema_connection.execute('CREATE SCHEMA IF NOT EXISTS {name};'.format(
-                name=convert_camel_case_to_snake_case(schema.get('code')))
-            )
+
+            if not tables_only:
+                plr_schema_connection = plr_schema_engine.connect()
+                try:
+                    plr_schema_connection.execute('CREATE SCHEMA IF NOT EXISTS {name};'.format(
+                        name=convert_camel_case_to_snake_case(schema.get('code')))
+                    )
+                finally:
+                    plr_schema_connection.close()
+
             plr_base = DottedNameResolver().maybe_resolve('{package}.Base'.format(
                 package=schema.get('source').get('params').get('models')
             ))
-            plr_schema_connection.close()
             plr_base.metadata.create_all(plr_schema_engine)
 
 

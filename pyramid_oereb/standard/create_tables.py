@@ -14,7 +14,7 @@ logging.basicConfig()
 log = logging.getLogger('pyramid_oereb')
 
 
-def _create_theme_tables(configuration_yaml_path, section, theme):
+def _create_theme_tables(configuration_yaml_path, section, theme, tables_only):
     """
     Create all tables defined in the specified module.
 
@@ -22,6 +22,7 @@ def _create_theme_tables(configuration_yaml_path, section, theme):
         configuration_yaml_path (str): Path to the configuration file.
         section (str): Section within the specified configuration file used for pyramid_oereb.
         theme (str): Code of the theme to create the tables for.
+        tables_only (bool): True to skip creation of schema.
     """
 
     # Parse themes from configuration
@@ -46,22 +47,23 @@ def _create_theme_tables(configuration_yaml_path, section, theme):
             engine = create_engine(params.get('db_connection'), echo=True)
             models = DottedNameResolver().resolve(params.get('models'))
 
-            # Iterate over contained classes to collect needed schemas
-            classes = inspect.getmembers(models, inspect.isclass)
-            schemas = []
-            create_schema_sql = 'CREATE SCHEMA IF NOT EXISTS {schema};'
-            for c in classes:
-                class_ = c[1]
-                if hasattr(class_, '__table__') and class_.__table__.schema not in schemas:
-                    schemas.append(class_.__table__.schema)
+            if not tables_only:
+                # Iterate over contained classes to collect needed schemas
+                classes = inspect.getmembers(models, inspect.isclass)
+                schemas = []
+                create_schema_sql = 'CREATE SCHEMA IF NOT EXISTS {schema};'
+                for c in classes:
+                    class_ = c[1]
+                    if hasattr(class_, '__table__') and class_.__table__.schema not in schemas:
+                        schemas.append(class_.__table__.schema)
 
-            # Try to create missing schemas
-            connection = engine.connect()
-            try:
-                for schema in schemas:
-                    connection.execute(create_schema_sql.format(schema=schema))
-            finally:
-                connection.close()
+                # Try to create missing schemas
+                connection = engine.connect()
+                try:
+                    for schema in schemas:
+                        connection.execute(create_schema_sql.format(schema=schema))
+                finally:
+                    connection.close()
 
             # Create tables
             models.Base.metadata.create_all(engine)
@@ -92,12 +94,20 @@ def create_standard_tables():
         default='pyramid_oereb',
         help='The section which contains configruation (default is: pyramid_oereb).'
     )
+    parser.add_option(
+        '-T', '--tables-only',
+        dest='tables_only',
+        action='store_true',
+        default=False,
+        help='Use this flag to skip the creation of the schema.'
+    )
     options, args = parser.parse_args()
     if not options.configuration:
         parser.error('No configuration file set.')
     _create_tables_from_standard_configuration_(
         configuration_yaml_path=options.configuration,
-        section=options.section
+        section=options.section,
+        tables_only=options.tables_only
     )
 
 
@@ -128,6 +138,13 @@ def create_theme_tables():
         type='string',
         help='The theme code. Has to be available in configuration!'
     )
+    parser.add_option(
+        '-T', '--tables-only',
+        dest='tables_only',
+        action='store_true',
+        default=False,
+        help='Use this flag to skip the creation of the schema.'
+    )
     options, args = parser.parse_args()
     if not options.configuration:
         parser.error('No configuration file set.')
@@ -137,7 +154,8 @@ def create_theme_tables():
         _create_theme_tables(
             configuration_yaml_path=options.configuration,
             section=options.section,
-            theme=options.theme
+            theme=options.theme,
+            tables_only=options.tables_only
         )
     except Exception as e:
         log.error(e)
