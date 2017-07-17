@@ -656,3 +656,27 @@ class Sld(object):
                 raise HTTPInternalServerError()
         log.error(u'method in path "{path}" not found'.format(path=method_path))
         raise HTTPNotFound()
+
+
+class Error(object):
+    """
+    Responses for failed requests.
+    """
+
+    def __init__(self, request):
+        """
+        Creates a new error response.
+
+        Args:
+            request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.
+        """
+        self._request = request
+
+    def not_found(self):
+        """
+        Returns a HTTPNotFound response.
+
+        Return:
+            pyramid.httpexceptions.HTTPNotFound: HTTP 404 - Not found.
+        """
+        return HTTPNotFound()
