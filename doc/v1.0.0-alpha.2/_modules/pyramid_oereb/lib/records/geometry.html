@@ -250,7 +250,7 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">_test_passed</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="c1"># TODO: configure a proper error message</span>
-                    <span class="nb">print</span> <span class="s1">&#39;Error: unknown geometry type&#39;</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Unknown geometry type&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">calculated</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_test_passed</span></div>
 

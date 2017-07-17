@@ -3550,4 +3550,3 @@ Class *Symbol*
 .. autoclass:: pyramid_oereb.views.webservice.Symbol
    :members:
 
-
