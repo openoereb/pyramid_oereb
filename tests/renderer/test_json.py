@@ -282,7 +282,6 @@ def test_format_plr(config, parameter):
                     'Code': 'inForce',
                     'Text': [{'Language': 'de', 'Text': 'In Kraft'}]
                 },
-                'Area': None,
                 'ResponsibleOffice': renderer.format_office(plr.responsible_office),
                 'Map': renderer.format_map(plr.view_service),
                 'SubTheme': 'Subtopic',
