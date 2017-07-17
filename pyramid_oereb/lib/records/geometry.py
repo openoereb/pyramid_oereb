@@ -91,7 +91,7 @@ class GeometryRecord(object):
                         self._test_passed = True
                 else:
                     # TODO: configure a proper error message
-                    print 'Error: unknown geometry type'
+                    log.error('Unknown geometry type')
         self.calculated = True
         return self._test_passed
 

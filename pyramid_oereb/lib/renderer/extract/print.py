@@ -3,9 +3,13 @@
 import json
 import requests
 import urlparse
+import logging
 
 from pyramid_oereb import Config
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
+
+
+log = logging.getLogger('pyramid_oereb')
 
 
 class PrintRenderer(Renderer):
@@ -24,7 +28,7 @@ class PrintRenderer(Renderer):
         """
         self._request = self.get_request(system)
         extract_dict = self._render(value[0], value[1])
-        print extract_dict
+        log.debug(extract_dict)
         extract_dict["features"] = {
             "features": {
                 "type": "FeatureCollection",
