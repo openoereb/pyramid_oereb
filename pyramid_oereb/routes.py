@@ -35,7 +35,7 @@ def includeme(config):  # pragma: no cover
         request_method='GET',
         renderer='json'
     )
-    config.add_route('{0}/versions'.format(route_prefix), '/versions')
+    config.add_route('{0}/versions'.format(route_prefix), '/versions/')
     config.add_view(
         PlrWebservice,
         attr='get_versions',
