@@ -33,17 +33,28 @@ class PlrWebservice(object):
         self._real_estate_reader_ = request.pyramid_oereb_processor.real_estate_reader
         self._municipality_reader_ = request.pyramid_oereb_processor.municipality_reader
 
+    # TODO: Remove this method when format parameter is available in URL (new specification).
+    def _is_json(self):
+        """
+        Returns True if the requests format is JSON.
+
+        Returns:
+            bool: True if requested format is JSON.
+        """
+        url = self._request_.current_route_url().split('?')
+        return url[0].endswith('.json')
+
     def get_versions(self):
         """
         Returns the available versions of this service.
 
         Returns:
-            dict: The available service versions.
+            pyramid.response.Response: The `versions` response.
         """
         endpoint = self._request_.application_url
         if route_prefix:
             endpoint += '/' + route_prefix  # pragma: no cover
-        return {
+        versions = {
             u'GetVersionsResponse': {
                 u'supportedVersion': [
                     {
@@ -53,27 +64,29 @@ class PlrWebservice(object):
                 ]
             }
         }
+        renderer_name = 'json' if self._is_json() else 'pyramid_oereb_versions_xml'
+        return render_to_response(renderer_name, versions, request=self._request_)
 
     def get_capabilities(self):
         """
         Returns the capabilities of this service.
 
         Returns:
-            dict: The service capabilities.
+            pyramid.response.Response: The `capabilities` response.
         """
         themes = list()
         for theme in Config.get_themes():
             text = list()
-            for k, v in theme.text.iteritems():
+            for lang in theme.text:
                 text.append({
-                    'Language': k,
-                    'Text': v
+                    'Language': lang,
+                    'Text': theme.text[lang]
                 })
             themes.append({
                 'Code': theme.code,
                 'Text': text
             })
-        return {
+        capabilities = {
             u'GetCapabilitiesResponse': {
                 u'topic': themes,
                 u'municipality': [record.fosnr for record in self._municipality_reader_.read()],
@@ -82,13 +95,15 @@ class PlrWebservice(object):
                 u'crs': Config.get_crs()
             }
         }
+        renderer_name = 'json' if self._is_json() else 'pyramid_oereb_capabilities_xml'
+        return render_to_response(renderer_name, capabilities, request=self._request_)
 
     def get_egrid_coord(self):
         """
         Returns a list with the matched EGRIDs for the given coordinates.
 
         Returns:
-            list of dict: The matched EGRIDs.
+            pyramid.response.Response: The `getegrid` response.
         """
         xy = self._request_.params.get('XY')
         gnss = self._request_.params.get('GNSS')
@@ -109,7 +124,7 @@ class PlrWebservice(object):
         Returns a list with the matched EGRIDs for the given NBIdent and property number.
 
         Returns:
-            list of dict: The matched EGRIDs.
+            pyramid.response.Response: The `getegrid` response.
         """
         identdn = self._request_.matchdict.get('identdn')
         number = self._request_.matchdict.get('number')
@@ -127,7 +142,7 @@ class PlrWebservice(object):
         Returns a list with the matched EGRIDs for the given postal address.
 
         Returns:
-            list of dict: The matched EGRIDs.
+            pyramid.response.Response: The `getegrid` response.
         """
         postalcode = self._request_.matchdict.get('postalcode')
         localisation = self._request_.matchdict.get('localisation')
@@ -151,7 +166,7 @@ class PlrWebservice(object):
         Returns the extract in the specified format and flavour.
 
         Returns:
-            dict: The requested extract.
+            pyramid.response.Response: The `extract` response.
         """
         params = self.__validate_extract_params__()
         processor = self._request_.pyramid_oereb_processor
@@ -310,7 +325,7 @@ class PlrWebservice(object):
                 estate records.
 
         Returns:
-            list of dict: Valid GetEGRID response.
+            pyramid.response.Response: The `getegrid` response.
         """
         response = list()
         for r in records:
@@ -319,7 +334,9 @@ class PlrWebservice(object):
                 'number': getattr(r, 'number'),
                 'identDN': getattr(r, 'identdn')
             })
-        return {'GetEGRIDResponse': response}
+        egrid = {'GetEGRIDResponse': response}
+        renderer_name = 'json' if self._is_json() else 'pyramid_oereb_getegrid_xml'
+        return render_to_response(renderer_name, egrid, request=self._request_)
 
     def __parse_xy__(self, xy, buffer_dist=None):
         """
@@ -656,27 +673,3 @@ class Sld(object):
                 raise HTTPInternalServerError()
         log.error(u'method in path "{path}" not found'.format(path=method_path))
         raise HTTPNotFound()
-
-
-class Error(object):
-    """
-    Responses for failed requests.
-    """
-
-    def __init__(self, request):
-        """
-        Creates a new error response.
-
-        Args:
-            request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.
-        """
-        self._request = request
-
-    def not_found(self):
-        """
-        Returns a HTTPNotFound response.
-
-        Return:
-            pyramid.httpexceptions.HTTPNotFound: HTTP 404 - Not found.
-        """
-        return HTTPNotFound()
