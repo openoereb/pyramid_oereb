@@ -384,7 +384,6 @@
                     <span class="s1">&#39;Information&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">information</span><span class="p">),</span>
                     <span class="s1">&#39;Theme&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_theme</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">theme</span><span class="p">),</span>
                     <span class="s1">&#39;Lawstatus&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_law_status</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">law_status</span><span class="p">),</span>
-                    <span class="s1">&#39;Area&#39;</span><span class="p">:</span> <span class="n">plr</span><span class="o">.</span><span class="n">area</span><span class="p">,</span>
                     <span class="s1">&#39;ResponsibleOffice&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_office</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">responsible_office</span><span class="p">),</span>
                     <span class="s1">&#39;Map&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">view_service</span><span class="p">)</span>
                 <span class="p">}</span>
@@ -402,6 +401,10 @@
                                                                  <span class="n">type_code</span><span class="o">=</span><span class="n">plr</span><span class="o">.</span><span class="n">type_code</span><span class="p">)</span>
                         <span class="p">})</span>
 
+                <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">area</span><span class="p">:</span>
+                    <span class="n">plr_dict</span><span class="p">[</span><span class="s1">&#39;Area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">area</span>
+                <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">length</span><span class="p">:</span>
+                    <span class="n">plr_dict</span><span class="p">[</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">length</span>
                 <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">sub_theme</span><span class="p">:</span>
                     <span class="n">plr_dict</span><span class="p">[</span><span class="s1">&#39;SubTheme&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">sub_theme</span>
                 <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">other_theme</span><span class="p">:</span>
