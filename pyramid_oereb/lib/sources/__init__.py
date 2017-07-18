@@ -4,6 +4,12 @@ from pyramid.path import DottedNameResolver
 
 
 class Base(object):
+    """
+    Base class for all kind of sources.
+
+    Attributes:
+        records (list): List of records, that can be read using this source.
+    """
     records = list()
 
 

@@ -73,6 +73,10 @@ class DummyData(object):
             table=motorways_building_lines.DocumentReference.__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+            schema=motorways_building_lines.DataIntegration.__table__.schema,
+            table=motorways_building_lines.DataIntegration.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
             schema=contaminated_sites.LegendEntry.__table__.schema,
             table=contaminated_sites.LegendEntry.__table__.name
         ))
@@ -93,6 +97,10 @@ class DummyData(object):
             table=contaminated_sites.Geometry.__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+            schema=contaminated_sites.DataIntegration.__table__.schema,
+            table=contaminated_sites.DataIntegration.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
             schema=land_use_plans.ViewService.__table__.schema,
             table=land_use_plans.ViewService.__table__.name
         ))
@@ -107,6 +115,10 @@ class DummyData(object):
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
             schema=land_use_plans.Geometry.__table__.schema,
             table=land_use_plans.Geometry.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+            schema=land_use_plans.DataIntegration.__table__.schema,
+            table=land_use_plans.DataIntegration.__table__.name
         ))
 
         connection.close()
@@ -181,6 +193,11 @@ class DummyData(object):
         connection.execute(motorways_building_lines.Office.__table__.insert(), {
             'id': 1,
             'name': {'de': u'Test Office'}
+        })
+        connection.execute(motorways_building_lines.DataIntegration.__table__.insert(), {
+            'id': 1,
+            'date': u'2017-07-01T00:00:00',
+            'office_id': 1
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': 1,
@@ -346,6 +363,12 @@ class DummyData(object):
             'name': {'de': u'Test Office'}
         })
 
+        connection.execute(contaminated_sites.DataIntegration.__table__.insert(), {
+            'id': 1,
+            'date': u'2017-07-01T00:00:00',
+            'office_id': 1
+        })
+
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': 1,
             'information': {'de': u'Large polygon PLR'},
@@ -434,6 +457,12 @@ class DummyData(object):
         connection.execute(land_use_plans.Office.__table__.insert(), {
             'id': 1,
             'name': {'de': u'Test Office'}
+        })
+
+        connection.execute(land_use_plans.DataIntegration.__table__.insert(), {
+            'id': 1,
+            'date': u'2017-07-01T00:00:00',
+            'office_id': 1
         })
 
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
