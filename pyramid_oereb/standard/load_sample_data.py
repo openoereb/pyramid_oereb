@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import json
 import optparse
+import os
 
-import pkg_resources
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -37,19 +37,28 @@ def load_standard_sample():
         default='pyramid_oereb',
         help='The section which contains configruation (default is: pyramid_oereb).'
     )
+    parser.add_option(
+        '-d', '--dir',
+        dest='directory',
+        metavar='DIRECTORY',
+        type='string',
+        default='sample_data',
+        help='The directory containing the sample data (default is: sample_data).'
+    )
     options, args = parser.parse_args()
     if not options.configuration:
         parser.error('No configuration file set.')
-    _load_standard_sample_(configuration=options.configuration, section=options.section)
+    _load_standard_sample_(options.configuration, section=options.section, directory=options.directory)
 
 
-def _load_standard_sample_(configuration, section='pyramid_oereb'):
+def _load_standard_sample_(configuration, section='pyramid_oereb', directory='sample_data'):
     """
     Performs the database operations to load the sample data.
 
         Args:
         configuration (str): Path to the configuration yaml file.
         section (str): The used section within the yaml file.
+        directory (str): The directory containing the sample data.
     """
 
     # Create database connection
@@ -108,52 +117,28 @@ def _load_standard_sample_(configuration, section='pyramid_oereb'):
     ))
 
     # Fill tables with sample data
-    with open(pkg_resources.resource_filename(
-            'tests',
-            'resources/plr119/availabilities.json'
-    )) as f:
+    with open(os.path.join(directory, 'plr119/availabilities.json')) as f:
         connection.execute(Availability.__table__.insert(), json.loads(f.read()))
 
-    with open(pkg_resources.resource_filename(
-            'tests',
-            'resources/plr119/office.json'
-    )) as f:
+    with open(os.path.join(directory, 'plr119/office.json')) as f:
         connection.execute(Office.__table__.insert(), json.loads(f.read()))
 
-    with open(pkg_resources.resource_filename(
-            'tests',
-            'resources/plr119/data_integration.json'
-    )) as f:
+    with open(os.path.join(directory, 'plr119/data_integration.json')) as f:
         connection.execute(DataIntegration.__table__.insert(), json.loads(f.read()))
 
-    with open(pkg_resources.resource_filename(
-            'tests',
-            'resources/plr119/view_service.json'
-    )) as f:
+    with open(os.path.join(directory, 'plr119/view_service.json')) as f:
         connection.execute(ViewService.__table__.insert(), json.loads(f.read()))
 
-    with open(pkg_resources.resource_filename(
-            'tests',
-            'resources/plr119/legend_entry.json'
-    )) as f:
+    with open(os.path.join(directory, 'plr119/legend_entry.json')) as f:
         connection.execute(LegendEntry.__table__.insert(), json.loads(f.read()))
 
-    with open(pkg_resources.resource_filename(
-            'tests',
-            'resources/plr119/public_law_restriction.json'
-    )) as f:
+    with open(os.path.join(directory, 'plr119/public_law_restriction.json')) as f:
         connection.execute(PublicLawRestriction.__table__.insert(), json.loads(f.read()))
 
-    with open(pkg_resources.resource_filename(
-            'tests',
-            'resources/plr119/geometry.json'
-    )) as f:
+    with open(os.path.join(directory, 'plr119/geometry.json')) as f:
         connection.execute(Geometry.__table__.insert(), json.loads(f.read()))
 
-    with open(pkg_resources.resource_filename(
-            'tests',
-            'resources/plr119/legal_provision.json'
-    )) as f:
+    with open(os.path.join(directory, 'plr119/legal_provision.json')) as f:
         lps = json.loads(f.read())
         Session = sessionmaker(bind=engine)  # Use session because of table inheritance
         session = Session()
@@ -162,29 +147,21 @@ def _load_standard_sample_(configuration, section='pyramid_oereb'):
         session.commit()
         session.close()
 
-    with open(pkg_resources.resource_filename(
-            'tests',
-            'resources/plr119/public_law_restriction_document.json'
-    )) as f:
+    with open(os.path.join(directory, 'plr119/public_law_restriction_document.json')) as f:
         connection.execute(PublicLawRestrictionDocument.__table__.insert(), json.loads(f.read()))
 
-    with open(pkg_resources.resource_filename(
-            'tests',
-            'resources/real_estates.json'
-    )) as f:
+    with open(os.path.join(directory, 'real_estates.json')) as f:
         connection.execute(RealEstate.__table__.insert(), json.loads(f.read()))
 
-    with open(pkg_resources.resource_filename(
-            'tests',
-            'resources/addresses.json'
-    )) as f:
+    with open(os.path.join(directory, 'addresses.json')) as f:
         connection.execute(Address.__table__.insert(), json.loads(f.read()))
 
-    with open(pkg_resources.resource_filename(
-            'tests',
-            'resources/municipalities_with_logo.json'
-    )) as f:
+    with open(os.path.join(directory, 'municipalities_with_logo.json')) as f:
         connection.execute(Municipality.__table__.insert(), json.loads(f.read()))
 
     # Close database connection
     connection.close()
+
+
+if __name__ == '__main__':
+    load_standard_sample()
