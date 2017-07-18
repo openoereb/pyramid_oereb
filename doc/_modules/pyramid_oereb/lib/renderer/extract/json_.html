@@ -677,30 +677,39 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">geom_dict</span></div>
 
-    <span class="k">def</span> <span class="nf">format_embeddable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">embeddable</span><span class="p">):</span>
-        <span class="n">time</span> <span class="o">=</span> <span class="n">embeddable</span><span class="o">.</span><span class="n">transfer_from_source_cadastral_surveying</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">-%m-%YT%H:%M:%S&#39;</span><span class="p">)</span>
-        <span class="n">data_sources</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">embeddable_theme</span> <span class="ow">in</span> <span class="n">embeddable</span><span class="o">.</span><span class="n">data_sources</span><span class="p">:</span>
-            <span class="n">sources</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">embeddable_theme</span><span class="o">.</span><span class="n">sources</span><span class="p">:</span>
-                <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                    <span class="sa">u</span><span class="s1">&#39;dataownerName&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Text&#39;</span><span class="p">),</span>
-                    <span class="sa">u</span><span class="s1">&#39;transferFromSource&#39;</span><span class="p">:</span> <span class="n">source</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">-%m-%YT%H:%M:%S&#39;</span><span class="p">)</span>
-                <span class="p">})</span>
-            <span class="n">data_sources</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                <span class="sa">u</span><span class="s1">&#39;topic&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_theme</span><span class="p">(</span><span class="n">embeddable_theme</span><span class="p">),</span>
-                <span class="sa">u</span><span class="s1">&#39;sources&#39;</span><span class="p">:</span> <span class="n">sources</span>
+<div class="viewcode-block" id="Renderer.format_embeddable"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_embeddable">[docs]</a>    <span class="k">def</span> <span class="nf">format_embeddable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">embeddable</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Formats a embeddable record for rendering according to the specification.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            embeddable (pyramid_oereb.lib.records.embeddable.EmbeddableRecord): The record to be formatted.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The formatted record for rendering.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">datasources</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">embeddable</span><span class="o">.</span><span class="n">datasources</span><span class="p">:</span>
+            <span class="n">datasources</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="sa">u</span><span class="s1">&#39;topic&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_theme</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">theme</span><span class="p">),</span>
+                <span class="sa">u</span><span class="s1">&#39;dataownerName&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Text&#39;</span><span class="p">),</span>
+                <span class="sa">u</span><span class="s1">&#39;transferFromSource&#39;</span><span class="p">:</span> <span class="n">source</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">-%m-%YT%H:%M:%S&#39;</span><span class="p">)</span>
             <span class="p">})</span>
+
         <span class="n">embeddable_dict</span> <span class="o">=</span> <span class="p">{</span>
             <span class="sa">u</span><span class="s1">&#39;cadasterState&#39;</span><span class="p">:</span> <span class="n">embeddable</span><span class="o">.</span><span class="n">cadaster_state</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">-%m-%YT%H:%M:%S&#39;</span><span class="p">),</span>
             <span class="sa">u</span><span class="s1">&#39;cadasterOrganisationName&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span>
-                <span class="n">embeddable</span><span class="o">.</span><span class="n">cadaster_organisation</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Text&#39;</span><span class="p">),</span>
+                <span class="n">embeddable</span><span class="o">.</span><span class="n">cadaster_organisation</span><span class="o">.</span><span class="n">name</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Text&#39;</span><span class="p">),</span>
             <span class="sa">u</span><span class="s1">&#39;dataOwnerNameCadastralSurveying&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span>
-                <span class="n">embeddable</span><span class="o">.</span><span class="n">data_owner_cadastral_surveying</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Text&#39;</span><span class="p">),</span>
-            <span class="sa">u</span><span class="s1">&#39;transferFromSourceCadastralSurveying&#39;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span>
-            <span class="sa">u</span><span class="s1">&#39;datasource&#39;</span><span class="p">:</span> <span class="n">data_sources</span>
+                <span class="n">embeddable</span><span class="o">.</span><span class="n">data_owner_cadastral_surveying</span><span class="o">.</span><span class="n">name</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Text&#39;</span><span class="p">),</span>
+            <span class="sa">u</span><span class="s1">&#39;transferFromSourceCadastralSurveying&#39;</span><span class="p">:</span> <span class="n">embeddable</span><span class="o">.</span><span class="n">transfer_from_source_cadastral_surveying</span>
+                <span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">-%m-%YT%H:%M:%S&#39;</span><span class="p">),</span>
+            <span class="sa">u</span><span class="s1">&#39;datasource&#39;</span><span class="p">:</span> <span class="n">datasources</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">embeddable_dict</span></div>
+
+        <span class="k">return</span> <span class="n">embeddable_dict</span></div></div>
 </pre></div>
 
            </div>

@@ -250,19 +250,23 @@
                                           <span class="n">print_conf</span><span class="p">[</span><span class="s1">&#39;map_size&#39;</span><span class="p">],</span> <span class="n">print_conf</span><span class="p">[</span><span class="s1">&#39;buffer&#39;</span><span class="p">])</span>
         <span class="n">bbox</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
 
+        <span class="n">datasource</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">plr_source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">params</span><span class="o">.</span><span class="n">skip_topic</span><span class="p">(</span><span class="n">plr_source</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)):</span>
                 <span class="k">continue</span>
-            <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">plr_source</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">))</span>
+            <span class="n">plr_source</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">plr_source</span><span class="o">.</span><span class="n">datasource</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">params</span><span class="o">.</span><span class="n">skip_topic</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">):</span>
+                    <span class="n">datasource</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+            <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">plr_source</span><span class="o">.</span><span class="n">records</span><span class="p">)</span>
 
         <span class="n">concerned_themes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="n">not_concerned_themes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="n">themes_without_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-        <span class="n">themes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">plr</span> <span class="ow">in</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="p">:</span>
-            <span class="c1"># filter topics due to topics parameter</span>
+
+            <span class="c1"># Filter topics due to topics parameter</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">params</span><span class="o">.</span><span class="n">skip_topic</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">):</span>
-                <span class="n">themes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plr</span><span class="p">,</span> <span class="n">PlrRecord</span><span class="p">):</span>
                     <span class="n">contained</span> <span class="o">=</span> <span class="kc">False</span>
                     <span class="k">for</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">concerned_themes</span><span class="p">:</span>
@@ -291,7 +295,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">plr_cadastre_authority</span><span class="p">,</span>
             <span class="n">av_provider_method</span><span class="p">(</span><span class="n">real_estate</span><span class="p">),</span>
             <span class="n">av_update_date</span><span class="p">,</span>
-            <span class="n">themes</span>
+            <span class="n">datasource</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">extract</span> <span class="o">=</span> <span class="n">ExtractRecord</span><span class="p">(</span>

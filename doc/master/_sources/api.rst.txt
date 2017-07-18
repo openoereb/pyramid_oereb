@@ -326,20 +326,20 @@ Module *embeddable*
 .. automodule:: pyramid_oereb.lib.records.embeddable
    :members:
 
+.. _api-pyramid_oereb-lib-records-embeddable-datasourcerecord:
+
+Class *DatasourceRecord*
+........................
+
+.. autoclass:: pyramid_oereb.lib.records.embeddable.DatasourceRecord
+   :members:
+
 .. _api-pyramid_oereb-lib-records-embeddable-embeddablerecord:
 
 Class *EmbeddableRecord*
 ........................
 
 .. autoclass:: pyramid_oereb.lib.records.embeddable.EmbeddableRecord
-   :members:
-
-.. _api-pyramid_oereb-lib-records-embeddable-transferfromsourcerecord:
-
-Class *TransferFromSourceRecord*
-................................
-
-.. autoclass:: pyramid_oereb.lib.records.embeddable.TransferFromSourceRecord
    :members:
 
 .. _api-pyramid_oereb-lib-records-exclusion_of_liability:
@@ -524,14 +524,6 @@ Module *theme*
 ''''''''''''''''''''''''''''''''''''''''
 
 .. automodule:: pyramid_oereb.lib.records.theme
-   :members:
-
-.. _api-pyramid_oereb-lib-records-theme-embeddablethemerecord:
-
-Class *EmbeddableThemeRecord*
-.............................
-
-.. autoclass:: pyramid_oereb.lib.records.theme.EmbeddableThemeRecord
    :members:
 
 .. _api-pyramid_oereb-lib-records-theme-themerecord:

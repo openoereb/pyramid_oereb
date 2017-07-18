@@ -1339,19 +1339,19 @@ records</p>
 </div>
 <div class="section" id="module-pyramid_oereb.lib.records.embeddable">
 <span id="module-embeddable"></span><span id="api-pyramid-oereb-lib-records-embeddable"></span><h4>Module <em>embeddable</em><a class="headerlink" href="#module-pyramid_oereb.lib.records.embeddable" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="class-datasourcerecord">
+<span id="api-pyramid-oereb-lib-records-embeddable-datasourcerecord"></span><h5>Class <em>DatasourceRecord</em><a class="headerlink" href="#class-datasourcerecord" title="Permalink to this headline">¶</a></h5>
+<dl class="class">
+<dt id="pyramid_oereb.lib.records.embeddable.DatasourceRecord">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.embeddable.</code><code class="descname">DatasourceRecord</code><span class="sig-paren">(</span><em>theme</em>, <em>date</em>, <em>owner</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/embeddable.html#DatasourceRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.embeddable.DatasourceRecord" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
 <div class="section" id="class-embeddablerecord">
 <span id="api-pyramid-oereb-lib-records-embeddable-embeddablerecord"></span><h5>Class <em>EmbeddableRecord</em><a class="headerlink" href="#class-embeddablerecord" title="Permalink to this headline">¶</a></h5>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.embeddable.EmbeddableRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.embeddable.</code><code class="descname">EmbeddableRecord</code><span class="sig-paren">(</span><em>cadaster_state</em>, <em>cadaster_organisation</em>, <em>data_owner_cadastral_surveying</em>, <em>transfer_from_source_cadastral_surveying</em>, <em>themes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/embeddable.html#EmbeddableRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.embeddable.EmbeddableRecord" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="class-transferfromsourcerecord">
-<span id="api-pyramid-oereb-lib-records-embeddable-transferfromsourcerecord"></span><h5>Class <em>TransferFromSourceRecord</em><a class="headerlink" href="#class-transferfromsourcerecord" title="Permalink to this headline">¶</a></h5>
-<dl class="class">
-<dt id="pyramid_oereb.lib.records.embeddable.TransferFromSourceRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.embeddable.</code><code class="descname">TransferFromSourceRecord</code><span class="sig-paren">(</span><em>date</em>, <em>owner</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/embeddable.html#TransferFromSourceRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.embeddable.TransferFromSourceRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.embeddable.</code><code class="descname">EmbeddableRecord</code><span class="sig-paren">(</span><em>cadaster_state</em>, <em>cadaster_organisation</em>, <em>data_owner_cadastral_surveying</em>, <em>transfer_from_source_cadastral_surveying</em>, <em>datasources</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/embeddable.html#EmbeddableRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.embeddable.EmbeddableRecord" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -1630,14 +1630,6 @@ service to be used for the land registry map.</td>
 </div>
 <div class="section" id="module-pyramid_oereb.lib.records.theme">
 <span id="module-theme"></span><span id="api-pyramid-oereb-lib-records-theme"></span><h4>Module <em>theme</em><a class="headerlink" href="#module-pyramid_oereb.lib.records.theme" title="Permalink to this headline">¶</a></h4>
-<div class="section" id="class-embeddablethemerecord">
-<span id="api-pyramid-oereb-lib-records-theme-embeddablethemerecord"></span><h5>Class <em>EmbeddableThemeRecord</em><a class="headerlink" href="#class-embeddablethemerecord" title="Permalink to this headline">¶</a></h5>
-<dl class="class">
-<dt id="pyramid_oereb.lib.records.theme.EmbeddableThemeRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.theme.</code><code class="descname">EmbeddableThemeRecord</code><span class="sig-paren">(</span><em>code</em>, <em>text</em>, <em>sources</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/theme.html#EmbeddableThemeRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.theme.EmbeddableThemeRecord" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 <div class="section" id="class-themerecord">
 <span id="api-pyramid-oereb-lib-records-theme-themerecord"></span><h5>Class <em>ThemeRecord</em><a class="headerlink" href="#class-themerecord" title="Permalink to this headline">¶</a></h5>
 <dl class="class">
@@ -1853,6 +1845,24 @@ into a <em>Base64TextAtWeb</em> field (for LegalProvisionRecord documents).</p>
 record to be formatted.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionary for rendering.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.renderer.extract.json_.Renderer.format_embeddable">
+<code class="descname">format_embeddable</code><span class="sig-paren">(</span><em>embeddable</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer/extract/json_.html#Renderer.format_embeddable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_embeddable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats a embeddable record for rendering according to the specification.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>embeddable</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.embeddable.EmbeddableRecord" title="pyramid_oereb.lib.records.embeddable.EmbeddableRecord"><em>pyramid_oereb.lib.records.embeddable.EmbeddableRecord</em></a>) &#8211; The record to be formatted.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted record for rendering.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
 </tr>
@@ -2087,12 +2097,31 @@ formatted.</td>
 </div>
 <div class="section" id="module-pyramid_oereb.lib.sources">
 <span id="module-sources"></span><span id="api-pyramid-oereb-lib-sources"></span><h3>Module <em>sources</em><a class="headerlink" href="#module-pyramid_oereb.lib.sources" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="api-pyramid-oereb-lib-sources-base">
-<span id="id38"></span><h4>Class <em>Base</em><a class="headerlink" href="#api-pyramid-oereb-lib-sources-base" title="Permalink to this headline">¶</a></h4>
 <dl class="class">
 <dt id="pyramid_oereb.lib.sources.Base">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.lib.sources.</code><code class="descname">Base</code><a class="reference internal" href="_modules/pyramid_oereb/lib/sources.html#Base"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.Base" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Base class for all kind of sources.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.sources.Base.records">
+<code class="descname">records</code><a class="headerlink" href="#pyramid_oereb.lib.sources.Base.records" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list</em> &#8211; List of records, that can be read using this source.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="api-pyramid-oereb-lib-sources-base">
+<span id="id38"></span><h4>Class <em>Base</em><a class="headerlink" href="#api-pyramid-oereb-lib-sources-base" title="Permalink to this headline">¶</a></h4>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.sources.</code><code class="descname">Base</code><a class="reference internal" href="_modules/pyramid_oereb/lib/sources.html#Base"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Base class for all kind of sources.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">records</code></dt>
+<dd><p><em>list</em> &#8211; List of records, that can be read using this source.</p>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="class-basedatabasesource">
@@ -2264,12 +2293,117 @@ formatted.</td>
 </div>
 <div class="section" id="api-pyramid-oereb-lib-sources-plr">
 <span id="id43"></span><h4>Module <em>plr</em><a class="headerlink" href="#api-pyramid-oereb-lib-sources-plr" title="Permalink to this headline">¶</a></h4>
-<span class="target" id="module-pyramid_oereb.lib.sources.plr"></span><div class="section" id="class-plrbasesource">
+<span class="target" id="module-pyramid_oereb.lib.sources.plr"></span><dl class="class">
+<dt id="pyramid_oereb.lib.sources.plr.PlrBaseSource">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.sources.plr.</code><code class="descname">PlrBaseSource</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/sources/plr.html#PlrBaseSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrBaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for public law restriction sources.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.sources.plr.PlrBaseSource.records">
+<code class="descname">records</code><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.plr.EmptyPlrRecord</em> &#8211; List of public law restriction
+records.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.sources.plr.PlrBaseSource.datasource">
+<code class="descname">datasource</code><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrBaseSource.datasource" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.embeddable.DatasourceRecord</em> &#8211; List of data source
+records used for the additional data in flavour <cite>embeddable</cite>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.sources.plr.PlrBaseSource.info">
+<code class="descname">info</code><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrBaseSource.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the info dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The info dictionary.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.plr.PlrBaseSource.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>real_estate</em>, <em>bbox</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/sources/plr.html#PlrBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>The read point which creates a extract, depending on a passed real estate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>real_estate</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real
+estate in its record representation.</li>
+<li><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The bbox to search the records.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="class-plrbasesource">
 <span id="api-pyramid-oereb-lib-sources-plr-plrbasesource"></span><h5>Class <em>PlrBaseSource</em><a class="headerlink" href="#class-plrbasesource" title="Permalink to this headline">¶</a></h5>
 <dl class="class">
-<dt id="pyramid_oereb.lib.sources.plr.PlrBaseSource">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.sources.plr.</code><code class="descname">PlrBaseSource</code><a class="reference internal" href="_modules/pyramid_oereb/lib/sources/plr.html#PlrBaseSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrBaseSource" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.sources.plr.</code><code class="descname">PlrBaseSource</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/sources/plr.html#PlrBaseSource"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Base class for public law restriction sources.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">records</code></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.plr.EmptyPlrRecord</em> &#8211; List of public law restriction
+records.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">datasource</code></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.embeddable.DatasourceRecord</em> &#8211; List of data source
+records used for the additional data in flavour <cite>embeddable</cite>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">info</code></dt>
+<dd><p>Return the info dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The info dictionary.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>real_estate</em>, <em>bbox</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/sources/plr.html#PlrBaseSource.read"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>The read point which creates a extract, depending on a passed real estate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>real_estate</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real
+estate in its record representation.</li>
+<li><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The bbox to search the records.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="class-plrstandarddatabasesource">
@@ -2308,22 +2442,6 @@ representation which is used for comparison.</li>
 </table>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource.info">
-<code class="descname">info</code><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource.info" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the info dictionary.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The info dictionary.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 <dl class="method">
 <dt id="pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource.read">
 <code class="descname">read</code><span class="sig-paren">(</span><em>real_estate</em>, <em>bbox</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/sources/plr.html#PlrStandardDatabaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource.read" title="Permalink to this definition">¶</a></dt>
@@ -2332,17 +2450,11 @@ representation which is used for comparison.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>real_estate</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real
 estate in its record representation.</li>
 <li><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The bbox to search the records.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">TODO</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">TODO</p>
 </td>
 </tr>
 </tbody>
