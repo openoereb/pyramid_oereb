@@ -2492,6 +2492,20 @@ estates. This maydeliver several results.</li>
 </div>
 <div class="section" id="module-pyramid_oereb.routes">
 <span id="module-routes"></span><span id="api-pyramid-oereb-routes"></span><h2>Module <em>routes</em><a class="headerlink" href="#module-pyramid_oereb.routes" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyramid_oereb.routes.includeme">
+<code class="descclassname">pyramid_oereb.routes.</code><code class="descname">includeme</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/routes.html#includeme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.routes.includeme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create all necessary routes and views for the <cite>pyramid_oereb</cite> application.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<em>pyramid.config.Configurator</em>) &#8211; The application&#8217;s configurator instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="module-pyramid_oereb.standard">
 <span id="module-standard"></span><span id="api-pyramid-oereb-standard"></span><h2>Module <em>standard</em><a class="headerlink" href="#module-pyramid_oereb.standard" title="Permalink to this headline">¶</a></h2>
@@ -30892,9 +30906,9 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The service capabilities.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The <cite>capabilities</cite> response.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
 </tr>
 </tbody>
 </table>
@@ -30908,9 +30922,9 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The matched EGRIDs.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The <cite>getegrid</cite> response.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of dict</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
 </tr>
 </tbody>
 </table>
@@ -30924,9 +30938,9 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The matched EGRIDs.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The <cite>getegrid</cite> response.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of dict</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
 </tr>
 </tbody>
 </table>
@@ -30940,9 +30954,9 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The matched EGRIDs.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The <cite>getegrid</cite> response.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of dict</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
 </tr>
 </tbody>
 </table>
@@ -30956,9 +30970,9 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The requested extract.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The <cite>extract</cite> response.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
 </tr>
 </tbody>
 </table>
@@ -30972,9 +30986,9 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The available service versions.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The <cite>versions</cite> response.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
 </tr>
 </tbody>
 </table>
@@ -31294,9 +31308,9 @@ of type pyramid.response.Response</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The service capabilities.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The <cite>capabilities</cite> response.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
 </tr>
 </tbody>
 </table>
@@ -31310,9 +31324,9 @@ of type pyramid.response.Response</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The matched EGRIDs.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The <cite>getegrid</cite> response.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of dict</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
 </tr>
 </tbody>
 </table>
@@ -31326,9 +31340,9 @@ of type pyramid.response.Response</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The matched EGRIDs.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The <cite>getegrid</cite> response.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of dict</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
 </tr>
 </tbody>
 </table>
@@ -31342,9 +31356,9 @@ of type pyramid.response.Response</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The matched EGRIDs.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The <cite>getegrid</cite> response.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of dict</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
 </tr>
 </tbody>
 </table>
@@ -31358,9 +31372,9 @@ of type pyramid.response.Response</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The requested extract.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The <cite>extract</cite> response.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
 </tr>
 </tbody>
 </table>
@@ -31374,9 +31388,9 @@ of type pyramid.response.Response</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The available service versions.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The <cite>versions</cite> response.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
 </tr>
 </tbody>
 </table>
