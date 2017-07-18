@@ -103,8 +103,10 @@ def law_status(config):
 
 
 class MockRequest(DummyRequest):
-    def __init__(self):
+    def __init__(self, current_route_url=None):
         super(MockRequest, self).__init__()
+
+        self._current_route_url = current_route_url
 
         Config._config = None
         Config.init(pyramid_oereb_test_yml, 'pyramid_oereb')
@@ -158,6 +160,12 @@ class MockRequest(DummyRequest):
     @property
     def pyramid_oereb_processor(self):
         return self.processor
+
+    def current_route_url(self, *elements, **kw):
+        if self._current_route_url:
+            return self._current_route_url
+        else:
+            return super(MockRequest, self).current_route_url(*elements, **kw)
 
 
 # Set up test database
