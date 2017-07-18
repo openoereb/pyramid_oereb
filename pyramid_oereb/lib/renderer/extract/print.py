@@ -5,6 +5,8 @@ import requests
 import urlparse
 import logging
 
+from pyramid.httpexceptions import HTTPBadRequest
+
 from pyramid_oereb import Config
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
 
@@ -26,6 +28,10 @@ class PrintRenderer(Renderer):
         Returns:
             str: The JSON encoded extract.
         """
+
+        if value[1].images:
+            return HTTPBadRequest("With image is not allowed in the print")
+
         self._request = self.get_request(system)
         extract_dict = self._render(value[0], value[1])
         log.debug(extract_dict)
