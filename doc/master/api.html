@@ -2799,6 +2799,51 @@ estates. This maydeliver several results.</li>
 </div>
 <div class="section" id="module-pyramid_oereb.standard">
 <span id="module-standard"></span><span id="api-pyramid-oereb-standard"></span><h2>Module <em>standard</em><a class="headerlink" href="#module-pyramid_oereb.standard" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyramid_oereb.standard.create_tables_from_standard_configuration">
+<code class="descclassname">pyramid_oereb.standard.</code><code class="descname">create_tables_from_standard_configuration</code><span class="sig-paren">(</span><em>configuration_yaml_path</em>, <em>section='pyramid_oereb'</em>, <em>tables_only=False</em>, <em>sql_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard.html#create_tables_from_standard_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.create_tables_from_standard_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates all schemas which are defined in the passed yaml file: &lt;section&gt;.&lt;plrs&gt;.[&lt;plr&gt;.&lt;code&gt;]. The code
+must be camel case. It will be transformed to snake case and used as schema name.
+Creates all tables inside the created schemas. This only affects the sqlalchemy models which are defined
+with the Base class from pyramid_oereb.standard.models.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>configuration_yaml_path</strong> (<em>str</em>) &#8211; The absolute path to the yaml file which contains the plr
+definitions.</li>
+<li><strong>section</strong> (<em>str</em>) &#8211; The section in yaml file where the plrs are configured in. Default is &#8216;pyramid_oereb&#8217;.</li>
+<li><strong>tables_only</strong> (<em>bool</em>) &#8211; True to skip creation of schema. Default is False.</li>
+<li><strong>sql_file</strong> (<a class="reference internal" href="#pyramid_oereb.standard.models.railways_project_planning_zones.Document.file" title="pyramid_oereb.standard.models.railways_project_planning_zones.Document.file"><em>file</em></a>) &#8211; the file to generate. Default is None (in the database).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyramid_oereb.standard.drop_tables_from_standard_configuration">
+<code class="descclassname">pyramid_oereb.standard.</code><code class="descname">drop_tables_from_standard_configuration</code><span class="sig-paren">(</span><em>configuration_yaml_path</em>, <em>section='pyramid_oereb'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard.html#drop_tables_from_standard_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.drop_tables_from_standard_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drops all schemas which are defined in the passed yaml file: &lt;section&gt;.&lt;plrs&gt;.[&lt;plr&gt;.&lt;code&gt;]. The code
+must be camel case. It will be transformed to snake case and used as schema name.
+Drops all tables inside the created schemas.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>configuration_yaml_path</strong> (<em>str</em>) &#8211; The absolute path to the yaml file which contains the plr
+definitions.</li>
+<li><strong>section</strong> (<em>str</em>) &#8211; The section in yaml file where the plrs are configured in. Default is &#8216;pyramid_oereb&#8217;.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <div class="section" id="module-pyramid_oereb.standard.create_standard_models">
 <span id="module-create-standard-models"></span><span id="api-pyramid-oereb-standard-create-standard-models"></span><h3>Module <em>create_standard_models</em><a class="headerlink" href="#module-pyramid_oereb.standard.create_standard_models" title="Permalink to this headline">¶</a></h3>
 </div>

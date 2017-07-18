@@ -537,12 +537,13 @@
             <span class="n">real_estate_geometry</span><span class="o">.</span><span class="n">wkt</span><span class="p">,</span>
             <span class="n">srid</span>
         <span class="p">)</span>
-        <span class="n">sql_text_polygon</span> <span class="o">=</span> <span class="s1">&#39;ST_Intersects(ST_Envelope(</span><span class="si">{0}</span><span class="s1">), &#39;</span> \
-                           <span class="s1">&#39;ST_GeomFromText(</span><span class="se">\&#39;</span><span class="si">{1}</span><span class="se">\&#39;</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">))&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                                <span class="n">db_path</span><span class="p">,</span>
-                                <span class="n">real_estate_geometry</span><span class="o">.</span><span class="n">wkt</span><span class="p">,</span>
-                                <span class="n">srid</span>
-                            <span class="p">)</span>
+        <span class="n">sql_text_polygon</span> <span class="o">=</span> \
+            <span class="s1">&#39;ST_Intersects(ST_Envelope(</span><span class="si">{0}</span><span class="s1">), &#39;</span> \
+            <span class="s1">&#39;ST_GeomFromText(</span><span class="se">\&#39;</span><span class="si">{1}</span><span class="se">\&#39;</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">))&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">db_path</span><span class="p">,</span>
+                <span class="n">real_estate_geometry</span><span class="o">.</span><span class="n">wkt</span><span class="p">,</span>
+                <span class="n">srid</span>
+            <span class="p">)</span>
         <span class="n">clause_blocks</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">text</span><span class="p">(</span><span class="n">sql_text_point</span><span class="p">),</span>
             <span class="n">text</span><span class="p">(</span><span class="n">sql_text_line</span><span class="p">),</span>

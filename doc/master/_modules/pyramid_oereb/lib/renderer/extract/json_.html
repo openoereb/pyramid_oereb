@@ -376,7 +376,7 @@
 
                 <span class="c1"># PLR without legal provision is allowed in reduced extract only!</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="o">.</span><span class="n">flavour</span> <span class="o">!=</span> <span class="s1">&#39;reduced&#39;</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">documents</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> \
-                                <span class="nb">len</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">documents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="nb">len</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">documents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Restrictions on landownership without legal provision are only allowed &#39;</span>
                                      <span class="s1">&#39;in reduced extracts!&#39;</span><span class="p">)</span>
                 <span class="c1"># TODO: Add lenght and units see GSOREB-207: https://jira.camptocamp.com/browse/GSOREB-207</span>

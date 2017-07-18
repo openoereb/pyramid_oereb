@@ -38,7 +38,7 @@
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
     <link rel="top" title="pyramid_oereb  documentation" href="../../../index.html"/>
-        <link rel="up" title="Module code" href="../../index.html"/> 
+        <link rel="up" title="pyramid_oereb.standard" href="../standard.html"/> 
 
   
   <script src="../../../_static/js/modernizr.min.js"></script>
@@ -139,6 +139,8 @@
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
+          <li><a href="../standard.html">pyramid_oereb.standard</a> &raquo;</li>
+        
       <li>pyramid_oereb.standard.load_sample_data</li>
     
     
@@ -158,17 +160,19 @@
             
   <h1>Source code for pyramid_oereb.standard.load_sample_data</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">optparse</span>
 
 <span class="kn">import</span> <span class="nn">pkg_resources</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">create_engine</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="k">import</span> <span class="n">sessionmaker</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="k">import</span> <span class="n">sessionmaker</span><span class="p">,</span> <span class="n">class_mapper</span>
 
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="k">import</span> <span class="n">parse</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models.contaminated_public_transport_sites</span> <span class="k">import</span> <span class="n">Office</span><span class="p">,</span> <span class="n">Geometry</span><span class="p">,</span> \
     <span class="n">PublicLawRestriction</span><span class="p">,</span> <span class="n">ViewService</span><span class="p">,</span> <span class="n">PublicLawRestrictionDocument</span><span class="p">,</span> <span class="n">DocumentBase</span><span class="p">,</span> <span class="n">LegalProvision</span><span class="p">,</span> \
-    <span class="n">Availability</span><span class="p">,</span> <span class="n">LegendEntry</span><span class="p">,</span> <span class="n">DataIntegration</span>
+    <span class="n">Availability</span><span class="p">,</span> <span class="n">LegendEntry</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models.main</span> <span class="k">import</span> <span class="n">RealEstate</span><span class="p">,</span> <span class="n">Address</span><span class="p">,</span> <span class="n">Municipality</span>
 
 
@@ -196,157 +200,239 @@
         <span class="n">default</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span>
         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The section which contains configruation (default is: pyramid_oereb).&#39;</span>
     <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;--sql-file&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Generate an SQL file.&#39;</span>
+    <span class="p">)</span>
     <span class="n">options</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">:</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No configuration file set.&#39;</span><span class="p">)</span>
-    <span class="n">_load_standard_sample_</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">)</span></div>
+    <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_load_standard_sample</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">sql_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sql_file</span><span class="p">:</span>
+            <span class="n">_load_standard_sample</span><span class="p">(</span>
+                <span class="n">configuration</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">,</span> <span class="n">sql_file</span><span class="o">=</span><span class="n">sql_file</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">_load_standard_sample_</span><span class="p">(</span><span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_format_value</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Format the value in SQL.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        value (str): The value</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The formatted value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">unicode</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">u</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;&#39;&quot;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;&#39;t&#39;&quot;</span> <span class="k">if</span> <span class="n">value</span> <span class="k">else</span> <span class="s2">&quot;&#39;f&#39;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_format_value</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+    <span class="k">raise</span> <span class="s2">&quot;Unsupported type </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_do_sql_insert</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">items</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write the SQL inserts in a file.</span>
+
+<span class="sd">    # Create database connection</span>
+<span class="sd">    config = parse(configuration, section)</span>
+<span class="sd">    engine = create_engine(config.get(&#39;app_schema&#39;).get(&#39;db_connection&#39;), echo=True)</span>
+<span class="sd">    connection = engine.connect()</span>
+
+<span class="sd">    # Truncate tables</span>
+<span class="sd">    connection.execute(&#39;TRUNCATE {schema}.{table} CASCADE;&#39;.format(</span>
+<span class="sd">        schema=Municipality.__table__.schema,</span>
+<span class="sd">        table=Municipality.__table__.name</span>
+<span class="sd">    ))</span>
+<span class="sd">    connection.execute(&#39;TRUNCATE {schema}.{table} CASCADE;&#39;.format(</span>
+<span class="sd">        schema=Address.__table__.schema,</span>
+<span class="sd">        table=Address.__table__.name</span>
+<span class="sd">    ))</span>
+<span class="sd">    connection.execute(&#39;TRUNCATE {schema}.{table} CASCADE;&#39;.format(</span>
+<span class="sd">        schema=RealEstate.__table__.schema,</span>
+<span class="sd">        table=RealEstate.__table__.name</span>
+<span class="sd">    ))</span>
+<span class="sd">    connection.execute(&#39;TRUNCATE {schema}.{table} CASCADE;&#39;.format(</span>
+<span class="sd">        schema=PublicLawRestrictionDocument.__table__.schema,</span>
+<span class="sd">        table=PublicLawRestrictionDocument.__table__.name</span>
+<span class="sd">    ))</span>
+<span class="sd">    connection.execute(&#39;TRUNCATE {schema}.{table} CASCADE;&#39;.format(</span>
+<span class="sd">        schema=DocumentBase.__table__.schema,</span>
+<span class="sd">        table=DocumentBase.__table__.name</span>
+<span class="sd">    ))</span>
+<span class="sd">    connection.execute(&#39;TRUNCATE {schema}.{table} CASCADE;&#39;.format(</span>
+<span class="sd">        schema=Geometry.__table__.schema,</span>
+<span class="sd">        table=Geometry.__table__.name</span>
+<span class="sd">    ))</span>
+<span class="sd">    connection.execute(&#39;TRUNCATE {schema}.{table} CASCADE;&#39;.format(</span>
+<span class="sd">        schema=PublicLawRestriction.__table__.schema,</span>
+<span class="sd">        table=PublicLawRestriction.__table__.name</span>
+<span class="sd">    ))</span>
+<span class="sd">    connection.execute(&#39;TRUNCATE {schema}.{table} CASCADE;&#39;.format(</span>
+<span class="sd">        schema=ViewService.__table__.schema,</span>
+<span class="sd">        table=ViewService.__table__.name</span>
+<span class="sd">    ))</span>
+<span class="sd">    connection.execute(&#39;TRUNCATE {schema}.{table} CASCADE;&#39;.format(</span>
+<span class="sd">        schema=Office.__table__.schema,</span>
+<span class="sd">        table=Office.__table__.name</span>
+<span class="sd">    ))</span>
+<span class="sd">    connection.execute(&#39;TRUNCATE {schema}.{table} CASCADE;&#39;.format(</span>
+<span class="sd">        schema=Availability.__table__.schema,</span>
+<span class="sd">        table=Availability.__table__.name</span>
+<span class="sd">    ))</span>
+<span class="sd">    connection.execute(&#39;TRUNCATE {schema}.{table} CASCADE;&#39;.format(</span>
+<span class="sd">        schema=LegendEntry.__table__.schema,</span>
+<span class="sd">        table=LegendEntry.__table__.name</span>
+<span class="sd">    ))</span>
+<span class="sd">    connection.execute(&#39;TRUNCATE {schema}.{table} CASCADE;&#39;.format(</span>
+<span class="sd">        schema=DataIntegration.__table__.schema,</span>
+<span class="sd">        table=DataIntegration.__table__.name</span>
+<span class="sd">    ))</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sql (str): The based SQL statement</span>
+<span class="sd">        items (array): The values</span>
+<span class="sd">        sql_file (file): The SQL file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">items</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;:</span><span class="si">{}</span><span class="s2">\b&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">k</span><span class="p">)),</span> <span class="n">_format_value</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">sql</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;:[a-z_0-9]+\b&quot;</span><span class="p">,</span> <span class="n">sql</span><span class="p">):</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;, :?</span><span class="si">{}</span><span class="s2">\b&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">column</span><span class="p">[</span><span class="mi">1</span><span class="p">:])),</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sql</span><span class="p">)</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;:?</span><span class="si">{}</span><span class="s2">, &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">column</span><span class="p">[</span><span class="mi">1</span><span class="p">:])),</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sql</span><span class="p">)</span>
+
+    <span class="n">sql_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_load_sample</span><span class="p">(</span><span class="n">class_</span><span class="p">,</span> <span class="n">import_file_name</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load the samples in the database ir in an SQL file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        class_ (sqlalchemy.ext.declarative.ConcreteBase): SQLAlchemy class</span>
+<span class="sd">        import_file_name (str): The resource file name to import</span>
+<span class="sd">        connection (sqlalchemy.engine.Connection): The connection</span>
+<span class="sd">        sql_file (file): The SQL file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;tests&#39;</span><span class="p">,</span> <span class="n">import_file_name</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">class_</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">class_</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()):</span>
+                <span class="n">_do_sql_insert</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_load_standard_sample</span><span class="p">(</span><span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">sql_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Performs the database operations to load the sample data.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">    Args:</span>
 <span class="sd">        configuration (str): Path to the configuration yaml file.</span>
 <span class="sd">        section (str): The used section within the yaml file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Create database connection</span>
-    <span class="n">config</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span>
-    <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">),</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">connection</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span>
+        <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">),</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
 
-    <span class="c1"># Truncate tables</span>
-    <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">schema</span><span class="o">=</span><span class="n">Municipality</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
-        <span class="n">table</span><span class="o">=</span><span class="n">Municipality</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
-    <span class="p">))</span>
-    <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">schema</span><span class="o">=</span><span class="n">Address</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
-        <span class="n">table</span><span class="o">=</span><span class="n">Address</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
-    <span class="p">))</span>
-    <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">schema</span><span class="o">=</span><span class="n">RealEstate</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
-        <span class="n">table</span><span class="o">=</span><span class="n">RealEstate</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
-    <span class="p">))</span>
-    <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">schema</span><span class="o">=</span><span class="n">PublicLawRestrictionDocument</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
-        <span class="n">table</span><span class="o">=</span><span class="n">PublicLawRestrictionDocument</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
-    <span class="p">))</span>
-    <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">schema</span><span class="o">=</span><span class="n">DocumentBase</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
-        <span class="n">table</span><span class="o">=</span><span class="n">DocumentBase</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
-    <span class="p">))</span>
-    <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">schema</span><span class="o">=</span><span class="n">Geometry</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
-        <span class="n">table</span><span class="o">=</span><span class="n">Geometry</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
-    <span class="p">))</span>
-    <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">schema</span><span class="o">=</span><span class="n">PublicLawRestriction</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
-        <span class="n">table</span><span class="o">=</span><span class="n">PublicLawRestriction</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
-    <span class="p">))</span>
-    <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">schema</span><span class="o">=</span><span class="n">ViewService</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
-        <span class="n">table</span><span class="o">=</span><span class="n">ViewService</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
-    <span class="p">))</span>
-    <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">schema</span><span class="o">=</span><span class="n">Office</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
-        <span class="n">table</span><span class="o">=</span><span class="n">Office</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
-    <span class="p">))</span>
-    <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">schema</span><span class="o">=</span><span class="n">Availability</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
-        <span class="n">table</span><span class="o">=</span><span class="n">Availability</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
-    <span class="p">))</span>
-    <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">schema</span><span class="o">=</span><span class="n">LegendEntry</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
-        <span class="n">table</span><span class="o">=</span><span class="n">LegendEntry</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
-    <span class="p">))</span>
-    <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">schema</span><span class="o">=</span><span class="n">DataIntegration</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
-        <span class="n">table</span><span class="o">=</span><span class="n">DataIntegration</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
-    <span class="p">))</span>
+        <span class="c1"># Truncate tables</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="n">Municipality</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="n">Municipality</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">))</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="n">Address</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="n">Address</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">))</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="n">RealEstate</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="n">RealEstate</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">))</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="n">PublicLawRestrictionDocument</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="n">PublicLawRestrictionDocument</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">))</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="n">DocumentBase</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="n">DocumentBase</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">))</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="n">Geometry</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="n">Geometry</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">))</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="n">PublicLawRestriction</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="n">PublicLawRestriction</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">))</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="n">ViewService</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="n">ViewService</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">))</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="n">Office</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="n">Office</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">))</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="n">Availability</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="n">Availability</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">))</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="n">LegendEntry</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="n">LegendEntry</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1"># Fill tables with sample data</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;resources/plr119/availabilities.json&#39;</span>
-    <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Availability</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
-
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;resources/plr119/office.json&#39;</span>
-    <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Office</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
-
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;resources/plr119/data_integration.json&#39;</span>
-    <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">DataIntegration</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
-
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;resources/plr119/view_service.json&#39;</span>
-    <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">ViewService</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
-
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;resources/plr119/legend_entry.json&#39;</span>
-    <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">LegendEntry</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
-
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;resources/plr119/public_law_restriction.json&#39;</span>
-    <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">PublicLawRestriction</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
-
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;resources/plr119/geometry.json&#39;</span>
-    <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Geometry</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">Availability</span><span class="p">,</span> <span class="s1">&#39;resources/plr119/availabilities.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">Office</span><span class="p">,</span> <span class="s1">&#39;resources/plr119/office.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">ViewService</span><span class="p">,</span> <span class="s1">&#39;resources/plr119/view_service.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">LegendEntry</span><span class="p">,</span> <span class="s1">&#39;resources/plr119/legend_entry.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">PublicLawRestriction</span><span class="p">,</span> <span class="s1">&#39;resources/plr119/public_law_restriction.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">Geometry</span><span class="p">,</span> <span class="s1">&#39;resources/plr119/geometry.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
             <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
             <span class="s1">&#39;resources/plr119/legal_provision.json&#39;</span>
     <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">lps</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-        <span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>  <span class="c1"># Use session because of table inheritance</span>
-        <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">lp</span> <span class="ow">in</span> <span class="n">lps</span><span class="p">:</span>
-            <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LegalProvision</span><span class="p">(</span><span class="o">**</span><span class="n">lp</span><span class="p">))</span>
-        <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-        <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>  <span class="c1"># Use session because of table inheritance</span>
+            <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">lp</span> <span class="ow">in</span> <span class="n">lps</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LegalProvision</span><span class="p">(</span><span class="o">**</span><span class="n">lp</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">lp</span> <span class="ow">in</span> <span class="n">lps</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">table_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;document_base&#39;</span><span class="p">,</span> <span class="s1">&#39;document&#39;</span><span class="p">,</span> <span class="s1">&#39;legal_provision&#39;</span><span class="p">]:</span>
+                    <span class="n">table</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">class_mapper</span><span class="p">(</span><span class="n">LegalProvision</span><span class="p">)</span><span class="o">.</span><span class="n">tables</span> <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">table_name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;legal_provision&#39;</span>
+                    <span class="p">}</span>
+                    <span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lp</span><span class="p">)</span>
+                    <span class="n">_do_sql_insert</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">insert</span><span class="p">()),</span> <span class="n">data</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
 
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;resources/plr119/public_law_restriction_document.json&#39;</span>
-    <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">PublicLawRestrictionDocument</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
-
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;resources/real_estates.json&#39;</span>
-    <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">RealEstate</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
-
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;resources/addresses.json&#39;</span>
-    <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Address</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
-
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;resources/municipalities_with_logo.json&#39;</span>
-    <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Municipality</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
+    <span class="n">_load_sample</span><span class="p">(</span>
+        <span class="n">PublicLawRestrictionDocument</span><span class="p">,</span> <span class="s1">&#39;resources/plr119/public_law_restriction_document.json&#39;</span><span class="p">,</span>
+        <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">RealEstate</span><span class="p">,</span> <span class="s1">&#39;resources/real_estates.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">Address</span><span class="p">,</span> <span class="s1">&#39;resources/addresses.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span>
+        <span class="n">Municipality</span><span class="p">,</span> <span class="s1">&#39;resources/municipalities_with_logo.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
 
     <span class="c1"># Close database connection</span>
-    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 
            </div>
