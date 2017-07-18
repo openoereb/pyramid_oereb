@@ -96,7 +96,9 @@ class ExtractReader(object):
             if params.skip_topic(plr_source.info.get('code')):
                 continue
             plr_source.read(real_estate, bbox)
-            datasource.extend(plr_source.datasource)
+            for ds in plr_source.datasource:
+                if not params.skip_topic(ds.theme.code):
+                    datasource.append(ds)
             real_estate.public_law_restrictions.extend(plr_source.records)
 
         concerned_themes = list()
@@ -105,18 +107,7 @@ class ExtractReader(object):
         for plr in real_estate.public_law_restrictions:
 
             # Filter topics due to topics parameter
-            if params.skip_topic(plr.theme.code):
-
-                # Delete data sources for skipped topics
-                to_delete = list()
-                for i, source in enumerate(datasource):
-                    if source.theme.code == plr.theme.code:
-                        to_delete.append(i)
-                to_delete.reverse()
-                for i in to_delete:
-                    datasource.pop(i)
-
-            else:
+            if not params.skip_topic(plr.theme.code):
                 if isinstance(plr, PlrRecord):
                     contained = False
                     for theme in concerned_themes:
