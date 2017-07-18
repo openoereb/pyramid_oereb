@@ -289,11 +289,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -318,11 +320,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -347,11 +351,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -376,11 +382,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -405,11 +413,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -434,11 +444,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -463,11 +475,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -492,11 +506,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -521,11 +537,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -550,11 +568,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -579,11 +599,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -608,11 +630,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -637,11 +661,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -666,11 +692,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -695,11 +723,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -724,11 +754,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -753,11 +785,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1

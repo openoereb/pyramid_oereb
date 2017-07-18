@@ -223,7 +223,6 @@ class Renderer(Base):
                     'Information': self.get_localized_text(plr.information),
                     'Theme': self.format_theme(plr.theme),
                     'Lawstatus': self.format_law_status(plr.law_status),
-                    'Area': plr.area,
                     'ResponsibleOffice': self.format_office(plr.responsible_office),
                     'Map': self.format_map(plr.view_service)
                 }
@@ -241,6 +240,10 @@ class Renderer(Base):
                                                                  type_code=plr.type_code)
                         })
 
+                if plr.area:
+                    plr_dict['Area'] = plr.area
+                if plr.length:
+                    plr_dict['Length'] = plr.length
                 if plr.sub_theme:
                     plr_dict['SubTheme'] = plr.sub_theme
                 if plr.other_theme:
