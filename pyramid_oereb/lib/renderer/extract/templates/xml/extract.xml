@@ -22,8 +22,8 @@
         <xsd:cadasterOrganisationName>${language(extract.embeddable.cadaster_organisation.name)[0].get('Text')}</xsd:cadasterOrganisationName>
         <xsd:dataOwnerNameCadastralSurveying>${language(extract.embeddable.data_owner_cadastral_surveying.name)[0].get('Text')}</xsd:dataOwnerNameCadastralSurveying>
         <xsd:transferFromSourceCadastralSurveying>${extract.embeddable.transfer_from_source_cadastral_surveying.strftime('%d-%m-%YT%H:%M:%S')}</xsd:transferFromSourceCadastralSurveying>
-        % for theme in extract.embeddable.data_sources:
-        <%include file="data_source.xml" args="theme=theme"/>
+        % for datasource in extract.embeddable.datasources:
+        <%include file="data_source.xml" args="datasource=datasource"/>
         % endfor
     </xsd:embeddable>
     %endif

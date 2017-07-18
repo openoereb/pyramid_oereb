@@ -10,7 +10,7 @@ from pyramid.path import DottedNameResolver
 
 from pyramid_oereb import Config
 from pyramid_oereb.lib.records.documents import LegalProvisionRecord, ArticleRecord, DocumentRecord
-from pyramid_oereb.lib.records.embeddable import EmbeddableRecord
+from pyramid_oereb.lib.records.embeddable import EmbeddableRecord, DatasourceRecord
 from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
@@ -20,7 +20,7 @@ from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
-from pyramid_oereb.lib.records.theme import ThemeRecord, EmbeddableThemeRecord
+from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.renderer import Base
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
@@ -93,16 +93,15 @@ def test_render(config, parameter):
         av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
         av_provider_method = resolver.resolve(av_provider_method_string)
         cadaster_state = date
-        # TODO: Add real theme sources here
-        theme_sources = []
-        themes = [EmbeddableThemeRecord(u'TEST', {u'de': u'TEST TEXT'}, theme_sources)]
+        theme = ThemeRecord(u'TEST', {u'de': u'TEST TEXT'})
+        datasources = [DatasourceRecord(theme, date, office_record)]
         plr_cadastre_authority = Config.get_plr_cadastre_authority()
         embeddable = EmbeddableRecord(
             cadaster_state,
             plr_cadastre_authority,
             av_provider_method(real_estate),
             av_update_date,
-            themes
+            datasources
         )
         extract = ExtractRecord(
             real_estate,
@@ -552,16 +551,15 @@ def test_embeddable(params):
     av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
     av_provider_method = resolver.resolve(av_provider_method_string)
     cadaster_state = date
-    # TODO: Add real theme sources here
-    theme_sources = []
-    themes = [EmbeddableThemeRecord(u'TEST', {u'de': u'TEST TEXT'}, theme_sources)]
+    theme = ThemeRecord(u'TEST', {u'de': u'TEST TEXT'})
+    datasources = [DatasourceRecord(theme, date, OfficeRecord({u'de': u'Test Office'}))]
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
     embeddable = EmbeddableRecord(
         cadaster_state,
         plr_cadastre_authority,
         av_provider_method(real_estate),
         av_update_date,
-        themes
+        datasources
     )
     result = renderer.format_embeddable(embeddable)
     assert result == {
@@ -571,7 +569,8 @@ def test_embeddable(params):
                 'Text': [{'Text': u'TEST TEXT', 'Language': 'de'}],
                 'Code': 'TEST'
             },
-            u'sources': []
+            u'dataownerName': u'Test Office',
+            u'transferFromSource': date.strftime('%d-%m-%YT%H:%M:%S')
         }],
         u'cadasterState': cadaster_state.strftime('%d-%m-%YT%H:%M:%S'),
         u'dataOwnerNameCadastralSurveying': u'This is only a dummy',

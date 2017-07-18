@@ -514,26 +514,35 @@ class Renderer(Base):
         return geom_dict
 
     def format_embeddable(self, embeddable):
-        time = embeddable.transfer_from_source_cadastral_surveying.strftime('%d-%m-%YT%H:%M:%S')
-        data_sources = []
-        for embeddable_theme in embeddable.data_sources:
-            sources = []
-            for source in embeddable_theme.sources:
-                sources.append({
-                    u'dataownerName': self.get_localized_text(source.owner.name)[0].get('Text'),
-                    u'transferFromSource': source.date.strftime('%d-%m-%YT%H:%M:%S')
-                })
-            data_sources.append({
-                u'topic': self.format_theme(embeddable_theme),
-                u'sources': sources
+        """
+        Formats a embeddable record for rendering according to the specification.
+
+        Args:
+            embeddable (pyramid_oereb.lib.records.embeddable.EmbeddableRecord): The record to be formatted.
+
+        Returns:
+            dict: The formatted record for rendering.
+        """
+
+        datasources = []
+        for source in embeddable.datasources:
+            datasources.append({
+                u'topic': self.format_theme(source.theme),
+                u'dataownerName': self.get_localized_text(source.owner.name)[0].get('Text'),
+                u'transferFromSource': source.date.strftime('%d-%m-%YT%H:%M:%S')
             })
+
         embeddable_dict = {
             u'cadasterState': embeddable.cadaster_state.strftime('%d-%m-%YT%H:%M:%S'),
             u'cadasterOrganisationName': self.get_localized_text(
-                embeddable.cadaster_organisation.name)[0].get('Text'),
+                embeddable.cadaster_organisation.name
+            )[0].get('Text'),
             u'dataOwnerNameCadastralSurveying': self.get_localized_text(
-                embeddable.data_owner_cadastral_surveying.name)[0].get('Text'),
-            u'transferFromSourceCadastralSurveying': time,
-            u'datasource': data_sources
+                embeddable.data_owner_cadastral_surveying.name
+            )[0].get('Text'),
+            u'transferFromSourceCadastralSurveying': embeddable.transfer_from_source_cadastral_surveying
+                .strftime('%d-%m-%YT%H:%M:%S'),
+            u'datasource': datasources
         }
+
         return embeddable_dict

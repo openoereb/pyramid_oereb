@@ -91,19 +91,32 @@ class ExtractReader(object):
                                           print_conf['map_size'], print_conf['buffer'])
         bbox = box(bbox[0], bbox[1], bbox[2], bbox[3])
 
+        datasource = list()
         for plr_source in self._plr_sources_:
             if params.skip_topic(plr_source.info.get('code')):
                 continue
-            real_estate.public_law_restrictions.extend(plr_source.read(real_estate, bbox))
+            plr_source.read(real_estate, bbox)
+            datasource.extend(plr_source.datasource)
+            real_estate.public_law_restrictions.extend(plr_source.records)
 
         concerned_themes = list()
         not_concerned_themes = list()
         themes_without_data = list()
-        themes = list()
         for plr in real_estate.public_law_restrictions:
-            # filter topics due to topics parameter
-            if not params.skip_topic(plr.theme.code):
-                themes.append(plr.theme)
+
+            # Filter topics due to topics parameter
+            if params.skip_topic(plr.theme.code):
+
+                # Delete data sources for skipped topics
+                to_delete = list()
+                for i, source in enumerate(datasource):
+                    if source.theme.code == plr.theme.code:
+                        to_delete.append(i)
+                to_delete.reverse()
+                for i in to_delete:
+                    datasource.pop(i)
+
+            else:
                 if isinstance(plr, PlrRecord):
                     contained = False
                     for theme in concerned_themes:
@@ -132,7 +145,7 @@ class ExtractReader(object):
             self.plr_cadastre_authority,
             av_provider_method(real_estate),
             av_update_date,
-            themes
+            datasource
         )
 
         self.extract = ExtractRecord(

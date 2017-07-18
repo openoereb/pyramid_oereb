@@ -4,14 +4,14 @@ import pytest
 from pyramid.path import DottedNameResolver
 
 from pyramid_oereb import Config
-from pyramid_oereb.lib.records.embeddable import EmbeddableRecord
+from pyramid_oereb.lib.records.embeddable import EmbeddableRecord, DatasourceRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from shapely.geometry.multipolygon import MultiPolygon
 
-from pyramid_oereb.lib.records.theme import EmbeddableThemeRecord
+from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 
 
@@ -46,16 +46,15 @@ def test_init():
     av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
     av_provider_method = resolver.resolve(av_provider_method_string)
     cadaster_state = date
-    # TODO: Add real theme sources here
-    theme_sources = []
-    themes = [EmbeddableThemeRecord(u'TEST', {u'de': u'TEST TEXT'}, theme_sources)]
+    theme = ThemeRecord(u'TEST', {u'de': u'TEST TEXT'})
+    datasources = [DatasourceRecord(theme, date, plr_office)]
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
     embeddable = EmbeddableRecord(
         cadaster_state,
         plr_cadastre_authority,
         av_provider_method(real_estate),
         av_update_date,
-        themes
+        datasources
     )
     record = ExtractRecord(
         real_estate,
@@ -81,3 +80,4 @@ def test_init():
     assert isinstance(record.glossaries, list)
     assert isinstance(record.plr_cadastre_authority, OfficeRecord)
     assert isinstance(record.base_data, dict)
+    assert isinstance(record.embeddable, EmbeddableRecord)

@@ -21,17 +21,17 @@ class ThemeRecord(object):
         self.text = text
 
 
-class EmbeddableThemeRecord(ThemeRecord):
-
-    def __init__(self, code, text, sources):
-        """
-        Creates a new theme record.
-
-        Args:
-            code (unicode): The theme's code.
-            text (dict of unicode): The multilingual description.
-            sources (list of pyramid_oereb.lib.records.embeddable.TransferFromSourceRecord): All the
-                sources belonging to this theme.
-        """
-        super(EmbeddableThemeRecord, self).__init__(code, text)
-        self.sources = sources
+# class EmbeddableThemeRecord(ThemeRecord):
+#
+#     def __init__(self, code, text, sources):
+#         """
+#         Creates a new theme record.
+#
+#         Args:
+#             code (unicode): The theme's code.
+#             text (dict of unicode): The multilingual description.
+#             sources (list of pyramid_oereb.lib.records.embeddable.TransferFromSourceRecord): All the
+#                 sources belonging to this theme.
+#         """
+#         super(EmbeddableThemeRecord, self).__init__(code, text)
+#         self.sources = sources
