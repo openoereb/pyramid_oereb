@@ -50,7 +50,7 @@ Create your configuration file and load the sample data.
 
  .venv/bin/create_standard_yaml
  .venv/bin/create_standard_tables -c pyramid_oereb_standard.yml
- .venv/bin/load_standard_sample_data -c pyramid_oereb_standard.yml
+ .venv/bin/python pyramid_oereb/standard/load_sample_data.py -c pyramid_oereb_standard.yml
 
 To start a local server run ``make serve``. It should be available unter http://localhost:6543/oereb/. To stop
 the server, press ``CTRL`` + ``C``.
@@ -222,7 +222,7 @@ NOTE
 
    .. code-block:: shell
 
-    .build\venv\Scripts\load_standard_sample_data.exe -c pyramid_oereb_standard.yml
+    .build\venv\Scripts\python pyramid_oereb\standard\load_sample_data.py -c pyramid_oereb_standard.yml
 
 #. Don't forget to include the configuration adding
 
