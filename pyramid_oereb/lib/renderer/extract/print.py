@@ -64,6 +64,13 @@ class PrintRenderer(Renderer):
             "outputFormat": "pdf",
             "attributes": extract_dict,
         }
+
+        response = self.get_response(system)
+
+        if self._request.GET.get('getspec', 'no') != 'no':
+            response.headers['Content-Type'] = 'application/json; charset=UTF-8'
+            return json.dumps(spec, sort_keys=True, indent=4)
+
         print_result = requests.post(
             urlparse.urljoin(Config.get('print', {})['base_url'] + "/", 'buildreport.pdf'),
             headers={
@@ -71,7 +78,6 @@ class PrintRenderer(Renderer):
             },
             data=json.dumps(spec)
         )
-        response = self.get_response(system)
         response.status_code = print_result.status_code
         response.headers = print_result.headers
         return print_result.content
