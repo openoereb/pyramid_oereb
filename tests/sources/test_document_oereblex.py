@@ -107,7 +107,7 @@ def test_get_document_records(i, document):
             assert record.title == {'de': 'Document {0}'.format(i)}
             assert record.published_from == datetime.date.today()
             assert record.canton == 'BL'
-            assert record.text_at_web == {'de': '/api/attachments/{fid}'.format(fid=i+idx)}
+            assert record.text_at_web == {'de': '/api/attachments/{fid}'.format(fid=i + idx)}
             assert len(record.references) == 1
             reference = record.references[0]
             assert isinstance(reference, DocumentRecord)

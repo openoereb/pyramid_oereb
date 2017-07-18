@@ -1,7 +1,8 @@
 OPERATING_SYSTEM ?= LINUX
 
 USE_DOCKER ?= TRUE
-DOCKER_CONTAINER_PG ?= postgis-oereb-test
+DOCKER_BASE = camptocamp/oereb
+DOCKER_CONTAINER_BASE = camptocamp-oereb
 
 PG_DROP_DB ?= DROP DATABASE IF EXISTS pyramid_oereb_test;
 PG_CREATE_DB ?= CREATE DATABASE pyramid_oereb_test;
@@ -57,6 +58,10 @@ install: $(PYTHON_VENV)
 	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install -r $(REQUIREMENTS)
 	touch $@
 
+.venv/install-timestamp: .venv/timestamp setup.py $(REQUIREMENTS)
+	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install -e .
+	touch $@
+
 .PHONY: do-pip
 do-pip:
 	pip install --upgrade -r $(REQUIREMENTS)
@@ -84,7 +89,7 @@ checks: git-attributes lint coverage-html
 tests: .coverage
 
 ifeq ($(USE_DOCKER), TRUE)
-@_POSTGIS_IP = $(shell docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(DOCKER_CONTAINER_PG))
+@_POSTGIS_IP = $(shell docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(DOCKER_CONTAINER_BASE)-db-test 2> /dev/null)
 else
 @_POSTGIS_IP = localhost
 endif
@@ -111,16 +116,19 @@ coverage_report/index.html: $(PYTHON_VENV) .coverage
 
 .PHONY: tests-docker-setup-db
 tests-docker-setup-db:
-	docker run --name $(DOCKER_CONTAINER_PG) -e POSTGRES_PASSWORD=$(PG_PASSWORD) -d mdillon/postgis:9.4-alpine
-	bash wait-for-db.sh $(DOCKER_CONTAINER_PG) $(PG_PASSWORD) $(PG_USER)
-	docker run -i --link $(DOCKER_CONTAINER_PG):postgres --rm postgres sh -c 'PGPASSWORD=$(PG_PASSWORD) exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -U $(PG_USER) -w -c "$(PG_CREATE_DB)"'
-	docker run -i --link $(DOCKER_CONTAINER_PG):postgres --rm postgres sh -c 'PGPASSWORD=$(PG_PASSWORD) exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U $(PG_USER) -w -c "$(PG_CREATE_EXT)"'
-	docker run -i --link $(DOCKER_CONTAINER_PG):postgres --rm postgres sh -c 'PGPASSWORD=$(PG_PASSWORD) exec psql -h "$$POSTGRES_PORT_5432_TCP_ADDR" -p "$$POSTGRES_PORT_5432_TCP_PORT" -d pyramid_oereb_test -U $(PG_USER) -w -c "$(PG_CREATE_SCHEMA)"'
+	docker stop $(DOCKER_CONTAINER_BASE)-db-test || true
+	docker build -t $(DOCKER_BASE)-db-test test-db
+	docker run --detach \
+		--name $(DOCKER_CONTAINER_BASE)-db-test \
+		--publish=5432:5432 \
+		--env=POSTGRES_DB=pyramid_oereb_test \
+		$(DOCKER_BASE)-db-test
+	bash wait-for-db.sh $(DOCKER_CONTAINER_BASE)-db-test $(PG_PASSWORD) $(PG_USER)
 
 .PHONY: tests-docker-drop-db
 tests-docker-drop-db:
-	docker stop $(DOCKER_CONTAINER_PG)
-	docker rm $(DOCKER_CONTAINER_PG)
+	docker stop $(DOCKER_CONTAINER_BASE)-db-test || true
+	docker rm $(DOCKER_CONTAINER_BASE)-db-test || true
 
 .PHONY: tests-win-setup-db
 tests-win-setup-db:
@@ -150,10 +158,29 @@ drop-standard-tables: $(PYTHON_VENV)
 serve: $(PYTHON_VENV)
 	$(VENV_BIN)pserve$(PYTHON_BIN_POSTFIX) development.ini
 
+pyramid_oereb_standard.yml: .venv/install-timestamp
+	$(VENV_BIN)create_standard_yaml$(PYTHON_BIN_POSTFIX)
+
+test-db/12-create.sql: pyramid_oereb_standard.yml .venv/install-timestamp
+	$(VENV_BIN)create_standard_tables$(PYTHON_BIN_POSTFIX) --configuration $< --sql-file $@
+
+test-db/13-fill.sql: pyramid_oereb_standard.yml .venv/install-timestamp
+	$(VENV_BIN)load_standard_sample_data$(PYTHON_BIN_POSTFIX) --configuration $< --sql-file $@
+
+.PHONY: serve-db-dev
+serve-db-dev: test-db/12-create.sql test-db/13-fill.sql
+	docker build -t $(DOCKER_BASE)-db-dev test-db
+	docker run --rm --name $(DOCKER_CONTAINER_BASE)-db-dev \
+	    --publish=5432:5432 \
+	    --env=POSTGRES_DB=pyramid_oereb \
+	    $(DOCKER_BASE)-db-dev
+
 .PHONY: serve-print-example
 serve-print-example:
-	docker build -t camptocamp/oereb-print print
-	docker run --publish=8280:8080 camptocamp/oereb-print
+	docker build -t $(DOCKER_BASE)-print-dev print
+	docker run --rm --name $(DOCKER_CONTAINER_BASE)-print-dev \
+	    --publish=8280:8080 \
+	    $(DOCKER_BASE)-print-dev
 
 .PHONY: deploy
 deploy:

@@ -6,6 +6,7 @@ import re
 from mako.template import Template
 from pyramid.path import AssetResolver, DottedNameResolver
 from sqlalchemy import create_engine
+from sqlalchemy.schema import CreateTable
 from shutil import copyfile
 from pyramid_oereb.lib.config import parse
 
@@ -76,8 +77,8 @@ def _create_all_standard_models_by_yaml_(configuration_yaml_path, section='pyram
             )
 
 
-def _create_tables_from_standard_configuration_(configuration_yaml_path, section='pyramid_oereb',
-                                                tables_only=False):
+def create_tables_from_standard_configuration(
+        configuration_yaml_path, section='pyramid_oereb', tables_only=False, sql_file=None):
     """
     Creates all schemas which are defined in the passed yaml file: <section>.<plrs>.[<plr>.<code>]. The code
     must be camel case. It will be transformed to snake case and used as schema name.
@@ -89,44 +90,62 @@ def _create_tables_from_standard_configuration_(configuration_yaml_path, section
             definitions.
         section (str): The section in yaml file where the plrs are configured in. Default is 'pyramid_oereb'.
         tables_only (bool): True to skip creation of schema. Default is False.
+        sql_file (file): the file to generate. Default is None (in the database).
     """
     config = parse(configuration_yaml_path, section)
-    main_schema_engine = create_engine(config.get('app_schema').get('db_connection'), echo=True)
 
-    if not tables_only:
-        main_schema_connection = main_schema_engine.connect()
-        try:
-            main_schema_connection.execute(
-                'CREATE SCHEMA IF NOT EXISTS {name};'.format(name=config.get('app_schema').get('name'))
-            )
-        finally:
-            main_schema_connection.close()
+    if sql_file is None:
+        main_schema_engine = create_engine(config.get('app_schema').get('db_connection'), echo=True)
+        if not tables_only:
+            main_schema_connection = main_schema_engine.connect()
+            try:
+                main_schema_connection.execute(
+                    'CREATE SCHEMA IF NOT EXISTS {name};'.format(name=config.get('app_schema').get('name'))
+                )
+            finally:
+                main_schema_connection.close()
+    else:
+        sql_file.write('CREATE SCHEMA {name};\n'.format(name=config.get('app_schema').get('name')))
 
     main_base_class = DottedNameResolver().maybe_resolve('{package}.Base'.format(
         package=config.get('app_schema').get('models')
     ))
-    main_base_class.metadata.create_all(main_schema_engine)
+    if sql_file is None:
+        main_base_class.metadata.create_all(main_schema_engine)
+    else:
+        for table in main_base_class.metadata.sorted_tables:
+            sql_file.write('{};\n'.format(str(CreateTable(table)).replace('DATETIME', 'timestamp')))
     for schema in config.get('plrs'):
-        if schema.get('standard'):
-            plr_schema_engine = create_engine(schema.get('source').get('params').get('db_connection'),
-                                              echo=True)
+        if sql_file is None:
+            if schema.get('standard'):
+                plr_schema_engine = create_engine(schema.get('source').get('params').get('db_connection'),
+                                                  echo=True)
 
-            if not tables_only:
-                plr_schema_connection = plr_schema_engine.connect()
-                try:
-                    plr_schema_connection.execute('CREATE SCHEMA IF NOT EXISTS {name};'.format(
-                        name=convert_camel_case_to_snake_case(schema.get('code')))
-                    )
-                finally:
-                    plr_schema_connection.close()
+                if not tables_only:
+                    plr_schema_connection = plr_schema_engine.connect()
+                    try:
+                        plr_schema_connection.execute('CREATE SCHEMA IF NOT EXISTS {name};'.format(
+                            name=convert_camel_case_to_snake_case(schema.get('code')))
+                        )
+                    finally:
+                        plr_schema_connection.close()
 
+                plr_base = DottedNameResolver().maybe_resolve('{package}.Base'.format(
+                    package=schema.get('source').get('params').get('models')
+                ))
+                plr_base.metadata.create_all(plr_schema_engine)
+        else:
             plr_base = DottedNameResolver().maybe_resolve('{package}.Base'.format(
                 package=schema.get('source').get('params').get('models')
             ))
-            plr_base.metadata.create_all(plr_schema_engine)
+            sql_file.write('CREATE SCHEMA {name};\n'.format(
+                name=convert_camel_case_to_snake_case(schema.get('code')))
+            )
+            for table in plr_base.metadata.sorted_tables:
+                sql_file.write('{};\n'.format(str(CreateTable(table)).replace('DATETIME', 'timestamp')))
 
 
-def _drop_tables_from_standard_configuration_(configuration_yaml_path, section='pyramid_oereb'):
+def drop_tables_from_standard_configuration(configuration_yaml_path, section='pyramid_oereb'):
     """
     Drops all schemas which are defined in the passed yaml file: <section>.<plrs>.[<plr>.<code>]. The code
     must be camel case. It will be transformed to snake case and used as schema name.

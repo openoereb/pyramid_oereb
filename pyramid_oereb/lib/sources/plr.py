@@ -376,12 +376,13 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             real_estate_geometry.wkt,
             srid
         )
-        sql_text_polygon = 'ST_Intersects(ST_Envelope({0}), ' \
-                           'ST_GeomFromText(\'{1}\', {2}))'.format(
-                                db_path,
-                                real_estate_geometry.wkt,
-                                srid
-                            )
+        sql_text_polygon = \
+            'ST_Intersects(ST_Envelope({0}), ' \
+            'ST_GeomFromText(\'{1}\', {2}))'.format(
+                db_path,
+                real_estate_geometry.wkt,
+                srid
+            )
         clause_blocks = [
             text(sql_text_point),
             text(sql_text_line),
