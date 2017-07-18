@@ -11,7 +11,7 @@ templates:
             ConcernedTheme: !datasource
                 attributes:
                     Code: !string {}
-                    Text: !string {} # { "Language": "en", "Text": "..."}
+                    Text: !string {} #/definitions/LocalisedText
             NotConcernedTheme: !datasource
                 attributes:
                     Code: !string {}
@@ -22,7 +22,7 @@ templates:
             ThemeWithoutData: !datasource
                 attributes:
                     Code: !string {}
-                    Text: !string {} # { "Language": "en", "Text": "..."}
+                    Text: !string {} #/definitions/LocalisedText
             isReduced: !boolean {}
             LogoPLRCadastre: *optStr
             LogoPLRCadastreRef: *optStr
@@ -35,12 +35,12 @@ templates:
             ExtractIdentifier: !string {}
             QRCode: *optStr
             QRCodeRef: *optStr
-            GeneralInformation: !datasource
+            GeneralInformation: !datasource #/definitions/MultilingualMText
                 default: []
                 attributes:
                     Language: !string {}
                     Text: !string {}
-            BaseData: !datasource
+            BaseData: !datasource #/definitions/MultilingualMText
                 attributes:
                     en: !string
                         default: ''
@@ -53,20 +53,95 @@ templates:
             Glossary: !datasource
                 default: []
                 attributes:
-                    Title: !datasource
+                    Title: !datasource #/definitions/MultilingualText
                         attributes:
                             Language: !string {}
                             Text: !string {}
-                    Content: !datasource
+                    Content: !datasource #/definitions/MultilingualText
                         attributes:
                             Language: !string {}
                             Text: !string {}
-            RealEstate: !string {} # {"Number": ..., "IdentDN": ..., "EGRID": ..., "Type": ..., "Canton": ...,
-            # "Municipality": ..., "SubunitOfLandRegister": ..., "FosNr": ...,
-            # "MetadataOfGeographicalBaseData": ..., "LandRegistryArea": ...,
-            # "Limit": {"coordinates": [...], "crs": ..., "isosqlmmwkb": ...},
-            # "RestrictionOnLandownership": {...}, "PlanForLandRegister": {...},
-            # "Reference": [...]
+            RealEstate_Number: !string {}
+            RealEstate_IdentDN: !string {}
+            RealEstate_EGRID: !string {}
+            RealEstate_Type: !string {}
+            RealEstate_Canton: !string {}
+            RealEstate_Municipality: !string {}
+            RealEstate_SubunitOfLandRegister: !string
+                default: ''
+            RealEstate_FosNr: !string {}
+            RealEstate_MetadataOfGeographicalBaseData: !string
+                default: ''
+            RealEstate_LandRegistryArea: !string {}
+            RealEstate_Limit: !string #/definitions/MultiSurface"
+                default: '{}'
+            RealEstate_RestrictionOnLandownership_Information: !string #/definitions/MultilingualMText
+                default: ''
+            RealEstate_RestrictionOnLandownership_Theme: !string #/definitions/Theme
+                default: ''
+            RealEstate_RestrictionOnLandownership_SubTheme: !string
+                default: ''
+            RealEstate_RestrictionOnLandownership_TypeCode: !string #/definitions/RestrictiontypeCode
+                default: ''
+            RealEstate_RestrictionOnLandownership_TypeCodelist: !string
+                default: ''
+            RealEstate_RestrictionOnLandownership_Lawstatus: !string #/definitions/Lawstatus
+                default: ''
+            RealEstate_RestrictionOnLandownership_Area: !string #/definitions/Area
+                default: ''
+            RealEstate_RestrictionOnLandownership_PartInPercent: !float
+                default: -1
+            RealEstate_RestrictionOnLandownership_Symbol: !string
+                default: ''
+            RealEstate_RestrictionOnLandownership_SymbolRef: !string
+                default: ''
+            RealEstate_RestrictionOnLandownership_Geometry: !datasource
+                default: []
+                attributes:
+                    Point: !string {} #/definitions/PointPropertyType
+                    Line: !string {} #/definitions/CurvePropertyType
+                    Surface: !string {} #/definitions/SurfacePropertyType
+                    Lawstatus: !string {} #/definitions/Lawstatus
+                    MetadataOfGeographicalBaseData: !string {}
+                    ResponsibleOffice_Name: !string {} #/definitions/MultilingualText
+                    ResponsibleOffice_OfficeAtWeb: !string {} #/definitions/WebReference
+                    ResponsibleOffice_UID: !string #/definitions/UID
+                        default: ''
+                    ResponsibleOffice_Line1: !string
+                        default: ''
+                    ResponsibleOffice_Line2: !string
+                        default: ''
+                    ResponsibleOffice_Street: !string {}
+                    ResponsibleOffice_Number: !string {}
+                    ResponsibleOffice_PostalCode: !string {}
+                    ResponsibleOffice_City: !string {}
+            RealEstate_RestrictionOnLandownership: !datasource
+                default: []
+                attributes:
+                  TextAtWeb: !string {} #/definitions/MultilingualUri
+                  Lawstatus: !string {} #/definitions/Lawstatus
+            RealEstate_RestrictionOnLandownership_ResponsibleOffice_Name: !string #/definitions/MultilingualText
+                default: ''
+            RealEstate_RestrictionOnLandownership_ResponsibleOffice_OfficeAtWeb: !string #/definitions/WebReference
+                default: ''
+            RealEstate_RestrictionOnLandownership_ResponsibleOffice_UID: !string #/definitions/UID
+                default: ''
+            RealEstate_RestrictionOnLandownership_ResponsibleOffice_Line1: !string
+                default: ''
+            RealEstate_RestrictionOnLandownership_ResponsibleOffice_Line2: !string
+                default: ''
+            RealEstate_RestrictionOnLandownership_ResponsibleOffice_Street: !string
+                default: ''
+            RealEstate_RestrictionOnLandownership_ResponsibleOffice_Number: !string
+                default: ''
+            RealEstate_RestrictionOnLandownership_ResponsibleOffice_PostalCode: !string
+                default: ''
+            RealEstate_RestrictionOnLandownership_ResponsibleOffice_City: !string
+                default: ''
+            RealEstate_PlanForLandRegister: !string {} #/definitions/Map
+            RealEstate_Reference: !datasource
+                default: []
+                attributes: {}
             ExclusionOfLiability: !datasource
                 default: []
                 attributes:
@@ -78,8 +153,18 @@ templates:
                         attributes:
                             Language: !string {}
                             Text: !string {}
-            PLRCadastreAuthority: !string {} # {"Name": [...], "OfficeAtWeb": ..., "UID": ..., "Line1": ...,
-            # "Line2": ..., "Street": ..., "Number": ..., "PostalCode": ..., "City": ...}
+            PLRCadastreAuthority_Name: !string {} #/definitions/MultilingualText
+            PLRCadastreAuthority_OfficeAtWeb: !string {} #/definitions/WebReference
+            PLRCadastreAuthority_UID: !string #/definitions/UID
+                default: ''
+            PLRCadastreAuthority_Line1: !string
+                default: ''
+            PLRCadastreAuthority_Line2: !string
+                default: ''
+            PLRCadastreAuthority_Street: !string {}
+            PLRCadastreAuthority_Number: !string {}
+            PLRCadastreAuthority_PostalCode: !string {}
+            PLRCadastreAuthority_City: !string {}
 
             legend: !legend {}
             northArrow: !northArrow

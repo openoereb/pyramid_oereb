@@ -34,7 +34,12 @@ class PrintRenderer(Renderer):
 
         self._request = self.get_request(system)
         extract_dict = self._render(value[0], value[1])
-        log.debug(extract_dict)
+        self._flatten_object(extract_dict, 'PLRCadastreAuthority')
+        self._flatten_object(extract_dict, 'RealEstate')
+        self._flatten_object(extract_dict, 'RealEstate_RestrictionOnLandownership')
+        self._flatten_object(extract_dict, 'RealEstate_RestrictionOnLandownership_ResponsibleOffice')
+        self._flatten_array_object(
+            extract_dict, 'RealEstate_RestrictionOnLandownership_Geometry', 'ResponsibleOffice')
         extract_dict["features"] = {
             "features": {
                 "type": "FeatureCollection",
@@ -87,3 +92,15 @@ class PrintRenderer(Renderer):
         response.status_code = print_result.status_code
         response.headers = print_result.headers
         return print_result.content
+
+    def _flatten_array_object(self, parent, array_name, object_name):
+        if array_name in parent:
+            for item in parent[array_name]:
+                self._flatten_object(item, object_name)
+
+    @staticmethod
+    def _flatten_object(parent, name):
+        if name in parent:
+            for key, value in parent[name].items():
+                parent['{}_{}'.format(name, key)] = value
+            del parent[name]
