@@ -54,74 +54,76 @@ templates:
             RealEstate_LandRegistryArea: !string {}
             RealEstate_Limit: !string #/definitions/MultiSurface"
                 default: '{}'
-            RealEstate_RestrictionOnLandownership_Information: !string #/definitions/MultilingualMText
-                default: ''
-            RealEstate_RestrictionOnLandownership_Theme_Code: !string
-                default: ''
-            #/definitions/LocalisedText
-            RealEstate_RestrictionOnLandownership_Theme_Text_Language: !string
-                default: ''
-            RealEstate_RestrictionOnLandownership_Theme_Text_Text: !string
-                default: ''
-            RealEstate_RestrictionOnLandownership_SubTheme: !string
-                default: ''
-            RealEstate_RestrictionOnLandownership_TypeCode: !string #/definitions/RestrictiontypeCode
-                default: ''
-            RealEstate_RestrictionOnLandownership_TypeCodelist: !string
-                default: ''
-            RealEstate_RestrictionOnLandownership_Lawstatus: !string #/definitions/Lawstatus
-                default: ''
-            RealEstate_RestrictionOnLandownership_Area: !string #/definitions/Area
-                default: ''
-            RealEstate_RestrictionOnLandownership_PartInPercent: !float
-                default: -1
-            RealEstate_RestrictionOnLandownership_Symbol: !string
-                default: ''
-            RealEstate_RestrictionOnLandownership_SymbolRef: !string
-                default: ''
-            RealEstate_RestrictionOnLandownership_Geometry: !datasource
+            RealEstate_RestrictionOnLandownership: !datasource
                 default: []
                 attributes:
-                    Point: !string {} #/definitions/PointPropertyType
-                    Line: !string {} #/definitions/CurvePropertyType
-                    Surface: !string {} #/definitions/SurfacePropertyType
-                    Lawstatus: !string {} #/definitions/Lawstatus
-                    MetadataOfGeographicalBaseData: !string {}
-                    ResponsibleOffice_Name: !string {} #/definitions/MultilingualText
-                    ResponsibleOffice_OfficeAtWeb: !string {} #/definitions/WebReference
+                    Information: !string #/definitions/MultilingualMText
+                        default: ''
+                    Theme_Code: !string
+                        default: ''
+                    Theme_Text: !string #/definitions/LocalisedText
+                        default: ''
+                    SubTheme: !string
+                        default: ''
+                    TypeCode: !string #/definitions/RestrictiontypeCode
+                        default: ''
+                    TypeCodelist: !string
+                        default: ''
+                    Lawstatus: !string #/definitions/Lawstatus
+                        default: ''
+                    Area: !string #/definitions/Area
+                        default: ''
+                    PartInPercent: !float
+                        default: -1
+                    Symbol: !string
+                        default: ''
+                    SymbolRef: !string
+                        default: ''
+                    Geometry: !datasource
+                        default: []
+                        attributes:
+                            Point: !string {} #/definitions/PointPropertyType
+                            Line: !string {} #/definitions/CurvePropertyType
+                            Surface: !string {} #/definitions/SurfacePropertyType
+                            Lawstatus: !string {} #/definitions/Lawstatus
+                            MetadataOfGeographicalBaseData: !string {}
+                            ResponsibleOffice_Name: !string {} #/definitions/MultilingualText
+                            ResponsibleOffice_OfficeAtWeb: !string {} #/definitions/WebReference
+                            ResponsibleOffice_UID: !string #/definitions/UID
+                                default: ''
+                            ResponsibleOffice_Line1: !string
+                                default: ''
+                            ResponsibleOffice_Line2: !string
+                                default: ''
+                            ResponsibleOffice_Street: !string {}
+                            ResponsibleOffice_Number: !string {}
+                            ResponsibleOffice_PostalCode: !string {}
+                            ResponsibleOffice_City: !string {}
+                    Map: !string #/definitions/Map
+                        default: '{}'
+                    LegalProvisions: !datasource
+                        default: []
+                        attributes:
+                          TextAtWeb: !string {} #/definitions/MultilingualUri
+                          Lawstatus: !string {} #/definitions/Lawstatus
+                    ResponsibleOffice_Name: !string #/definitions/MultilingualText
+                        default: ''
+                    ResponsibleOffice_OfficeAtWeb: !string #/definitions/WebReference
+                        default: ''
                     ResponsibleOffice_UID: !string #/definitions/UID
                         default: ''
                     ResponsibleOffice_Line1: !string
                         default: ''
                     ResponsibleOffice_Line2: !string
                         default: ''
-                    ResponsibleOffice_Street: !string {}
-                    ResponsibleOffice_Number: !string {}
-                    ResponsibleOffice_PostalCode: !string {}
-                    ResponsibleOffice_City: !string {}
-            RealEstate_RestrictionOnLandownership: !datasource
-                default: []
-                attributes:
-                  TextAtWeb: !string {} #/definitions/MultilingualUri
-                  Lawstatus: !string {} #/definitions/Lawstatus
-            RealEstate_RestrictionOnLandownership_ResponsibleOffice_Name: !string #/definitions/MultilingualText
-                default: ''
-            RealEstate_RestrictionOnLandownership_ResponsibleOffice_OfficeAtWeb: !string #/definitions/WebReference
-                default: ''
-            RealEstate_RestrictionOnLandownership_ResponsibleOffice_UID: !string #/definitions/UID
-                default: ''
-            RealEstate_RestrictionOnLandownership_ResponsibleOffice_Line1: !string
-                default: ''
-            RealEstate_RestrictionOnLandownership_ResponsibleOffice_Line2: !string
-                default: ''
-            RealEstate_RestrictionOnLandownership_ResponsibleOffice_Street: !string
-                default: ''
-            RealEstate_RestrictionOnLandownership_ResponsibleOffice_Number: !string
-                default: ''
-            RealEstate_RestrictionOnLandownership_ResponsibleOffice_PostalCode: !string
-                default: ''
-            RealEstate_RestrictionOnLandownership_ResponsibleOffice_City: !string
-                default: ''
+                    ResponsibleOffice_Street: !string
+                        default: ''
+                    ResponsibleOffice_Number: !string
+                        default: ''
+                    ResponsibleOffice_PostalCode: !string
+                        default: ''
+                    ResponsibleOffice_City: !string
+                        default: ''
             RealEstate_PlanForLandRegister: !string {} #/definitions/Map
             RealEstate_Reference: !datasource
                 default: []
@@ -241,17 +243,23 @@ templates:
             outputMapper:
                 jrDataSource: GlossaryDataSource
         - !createDataSource
-            processors: []
+            processors:
+            - !createDataSource
+                processors: []
+                inputMapper:
+                    Geometry: datasource
+                outputMapper:
+                    jrDataSource: GeometryDataSource
+            - !createDataSource
+                processors: []
+                inputMapper:
+                    LegalProvisions: datasource
+                outputMapper:
+                    jrDataSource: LegalProvisionsDataSource
             inputMapper:
-                RealEstate_RestrictionOnLandownership_Geometry: datasource
+                RealEstate_RestrictionOnLandownership: datasource
             outputMapper:
-                jrDataSource: RealEstate_RestrictionOnLandownership_GeometryDataSource
-        - !createDataSource
-            processors: []
-            inputMapper:
-                RealEstate_RestrictionOnLandownership_LegalProvisions: datasource
-            outputMapper:
-                jrDataSource: RealEstate_RestrictionOnLandownership_LegalProvisionsDataSource
+                jrDataSource: RealEstate_RestrictionOnLandownershipDataSource
         - !createDataSource
             processors: []
             inputMapper:

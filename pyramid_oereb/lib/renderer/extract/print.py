@@ -42,27 +42,26 @@ class PrintRenderer(Renderer):
             self.lang = self.default_lang
 
         extract_dict = self._render(value[0], value[1])
-        self._flatten_object(extract_dict, 'PLRCadastreAuthority')
-        self._flatten_object(extract_dict, 'RealEstate')
-        self._flatten_object(extract_dict, 'RealEstate_RestrictionOnLandownership')
-        self._flatten_object(extract_dict, 'RealEstate_RestrictionOnLandownership_Theme')
-        self._flatten_object(extract_dict, 'RealEstate_RestrictionOnLandownership_ResponsibleOffice')
-        self._flatten_array_object(
-            extract_dict, 'RealEstate_RestrictionOnLandownership_Geometry', 'ResponsibleOffice')
         for attr_name in ['NotConcernedTheme', 'ThemeWithoutData', 'ConcernedTheme']:
             for theme in extract_dict[attr_name]:
                 self._localised_text(theme, 'Text')
-        self._localised_text(extract_dict, 'RealEstate_RestrictionOnLandownership_Theme_Text')
+        self._flatten_object(extract_dict, 'PLRCadastreAuthority')
+        self._flatten_object(extract_dict, 'RealEstate')
         self._multilingual_m_text(extract_dict, 'GeneralInformation')
         self._multilingual_m_text(extract_dict, 'BaseData')
         for item in extract_dict.get('Glossary', []):
             self._multilingual_text(item, 'Title')
             self._multilingual_text(item, 'Content')
-        self._multilingual_m_text(extract_dict, 'RealEstate_RestrictionOnLandownership_Information')
-        self._multilingual_text(extract_dict, 'RealEstate_RestrictionOnLandownership_ResponsibleOffice_Name')
-        for item in extract_dict.get('RealEstate_RestrictionOnLandownership_Geometry', []):
-            self._multilingual_text(item, 'ResponsibleOffice_Name')
         self._multilingual_text(extract_dict, 'PLRCadastreAuthority_Name')
+        for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
+            self._flatten_object(restriction_on_landownership, 'Theme')
+            self._flatten_object(restriction_on_landownership, 'ResponsibleOffice')
+            self._flatten_array_object(restriction_on_landownership, 'Geometry', 'ResponsibleOffice')
+            self._localised_text(restriction_on_landownership, 'Theme_Text')
+            self._multilingual_m_text(restriction_on_landownership, 'Information')
+            self._multilingual_text(restriction_on_landownership, 'ResponsibleOffice_Name')
+            for item in restriction_on_landownership.get('Geometry', []):
+                self._multilingual_text(item, 'ResponsibleOffice_Name')
         for item in extract_dict.get('ExclusionOfLiability', []):
             self._multilingual_text(item, 'Title')
             self._multilingual_text(item, 'Content')
