@@ -47,13 +47,13 @@ pyramid_oereb:
   print:
     # The buffer on the map around the parcel in percent
     buffer: 10
-
     # The map size in pixel at 72 DPI (width, height), This is the defined size of a map image inside the
-    # static extract.
-    map_size: [493, 280]
-
-    # The print DPI
-    dpi: 200
+    # static extract. On a pdf report, it will be overidden with the config above on a pdf export.
+    basic_map_size: [493, 280]
+    # The dpi used to define the map size on a pdf export.
+    pdf_dpi: 300
+    # The map size in milimeters used to calculate the map size (in px) on a pdf export.
+    pdf_map_size_milimeters: [174, 99]
 
     # Base URL with application of the print server
     base_url: http://localhost:8280/print/oereb
