@@ -66,7 +66,7 @@ class ViewServiceRecord(object):
     def get_map_size(format):
         print_conf = Config.get_object_path('print', required=['basic_map_size',
                                             'pdf_dpi', 'pdf_map_size_milimeters'])
-        if format != 'pdf':
+        if format == 'pdf':
             return print_conf['basic_map_size']
         else:
             pixel_size = print_conf['pdf_dpi'] / 25.4
@@ -74,8 +74,7 @@ class ViewServiceRecord(object):
             return [pixel_size * map_size_mm[0], pixel_size * map_size_mm[1]]
 
     @staticmethod
-    def get_bbox(geometry, print_buffer, format):
-        map_size = ViewServiceRecord.get_map_size(format)
+    def get_bbox(geometry, map_size, print_buffer):
         width_buffer = (geometry.bounds[2] - geometry.bounds[0]) * print_buffer / 100
         height_buffer = (geometry.bounds[3] - geometry.bounds[1]) * print_buffer / 100
         print_bounds = [
@@ -118,10 +117,13 @@ class ViewServiceRecord(object):
         assert real_estate.limit is not None
 
         print_conf = Config.get_object_path('print', required=['buffer'])
-        bbox = self.get_bbox(real_estate.limit, print_conf['buffer'], format)
+        map_size = self.get_map_size(format)
+        bbox = self.get_bbox(real_estate.limit, map_size, print_conf['buffer'])
         self.reference_wms = add_url_params(self.reference_wms, {
             "BBOX": ",".join([str(e) for e in bbox]),
-            "SRS": 'EPSG:{0}'.format(Config.get('srid'))
+            "SRS": 'EPSG:{0}'.format(Config.get('srid')),
+            "WIDTH": map_size[0],
+            "HEIGHT": map_size[1],
         })
         return self.reference_wms
 

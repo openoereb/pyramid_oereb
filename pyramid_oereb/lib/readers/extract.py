@@ -87,7 +87,8 @@ class ExtractReader(object):
         assert isinstance(municipality_logo, ImageRecord)
 
         print_conf = Config.get_object_path('print', required=['buffer'])
-        bbox = ViewServiceRecord.get_bbox(real_estate.limit, print_conf['buffer'], params.format)
+        map_size = ViewServiceRecord.get_map_size(params.format)
+        bbox = ViewServiceRecord.get_bbox(real_estate.limit, map_size, print_conf['buffer'])
         bbox = box(bbox[0], bbox[1], bbox[2], bbox[3])
 
         datasource = list()
