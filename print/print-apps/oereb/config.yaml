@@ -234,3 +234,33 @@ templates:
                 ThemeWithoutData: datasource
             outputMapper:
                 jrDataSource: ThemeWithoutDataDataSource
+        - !createDataSource
+            processors: []
+            inputMapper:
+                Glossary: datasource
+            outputMapper:
+                jrDataSource: GlossaryDataSource
+        - !createDataSource
+            processors: []
+            inputMapper:
+                RealEstate_RestrictionOnLandownership_Geometry: datasource
+            outputMapper:
+                jrDataSource: RealEstate_RestrictionOnLandownership_GeometryDataSource
+        - !createDataSource
+            processors: []
+            inputMapper:
+                RealEstate_RestrictionOnLandownership_LegalProvisions: datasource
+            outputMapper:
+                jrDataSource: RealEstate_RestrictionOnLandownership_LegalProvisionsDataSource
+        - !createDataSource
+            processors: []
+            inputMapper:
+                RealEstate_Reference: datasource
+            outputMapper:
+                jrDataSource: RealEstate_ReferenceDataSource
+        - !createDataSource
+            processors: []
+            inputMapper:
+                ExclusionOfLiability: datasource
+            outputMapper:
+                jrDataSource: ExclusionOfLiabilityDataSource
