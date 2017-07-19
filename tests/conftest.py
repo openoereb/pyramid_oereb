@@ -52,8 +52,8 @@ params = [
 ]
 
 
-schema_json_versions = './tests/resources/schema_versions.json'
-schema_json_extract = './tests/resources/schema_webservices.json'
+schema_json_versions = './tests/resources/versions.json'
+schema_json_extract = './tests/resources/extract.json'
 schema_json_extract_data = './tests/resources/extractdata.json'
 schema_xml_versions = None
 schema_xml_extract = './tests/resources/Extract.xsd'

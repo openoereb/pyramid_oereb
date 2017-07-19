@@ -83,7 +83,6 @@ setup(
             'create_theme_tables = pyramid_oereb.standard.create_tables:create_theme_tables',
             'create_standard_yaml = pyramid_oereb.standard.create_yaml:create_standard_yaml',
             'drop_standard_tables = pyramid_oereb.standard.drop_tables:drop_standard_tables',
-            'load_standard_sample_data = pyramid_oereb.standard.load_sample_data:load_standard_sample',
         ],
     },
 )

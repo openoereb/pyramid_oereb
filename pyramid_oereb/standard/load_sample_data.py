@@ -3,8 +3,8 @@
 import re
 import json
 import optparse
+import os
 
-import pkg_resources
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, class_mapper
 
@@ -40,6 +40,14 @@ def load_standard_sample():
         help='The section which contains configruation (default is: pyramid_oereb).'
     )
     parser.add_option(
+        '-d', '--dir',
+        dest='directory',
+        metavar='DIRECTORY',
+        type='string',
+        default='sample_data',
+        help='The directory containing the sample data (default is: sample_data).'
+    )
+    parser.add_option(
         '--sql-file',
         type='string',
         help='Generate an SQL file.'
@@ -48,11 +56,11 @@ def load_standard_sample():
     if not options.configuration:
         parser.error('No configuration file set.')
     if options.sql_file is None:
-        _load_standard_sample(configuration=options.configuration, section=options.section)
+        _load_standard_sample(options.configuration, section=options.section, directory='sample_data')
     else:
         with open(options.sql_file, 'w') as sql_file:
             _load_standard_sample(
-                configuration=options.configuration, section=options.section, sql_file=sql_file)
+                options.configuration, section=options.section, directory='sample_data', sql_file=sql_file)
 
 
 def _format_value(value):
@@ -159,7 +167,7 @@ def _load_sample(class_, import_file_name, connection, sql_file=None):
         connection (sqlalchemy.engine.Connection): The connection
         sql_file (file): The SQL file
     """
-    with open(pkg_resources.resource_filename('tests', import_file_name)) as f:
+    with open(import_file_name) as f:
         if sql_file is None:
             connection.execute(class_.__table__.insert(), json.loads(f.read()))
         else:
@@ -168,7 +176,7 @@ def _load_sample(class_, import_file_name, connection, sql_file=None):
                 _do_sql_insert(sql, r, sql_file)
 
 
-def _load_standard_sample(configuration, section='pyramid_oereb', sql_file=None):
+def _load_standard_sample(configuration, section='pyramid_oereb', directory='sample_data', sql_file=None):
     """
     Performs the database operations to load the sample data.
 
@@ -232,17 +240,15 @@ def _load_standard_sample(configuration, section='pyramid_oereb', sql_file=None)
         connection = None
 
     # Fill tables with sample data
-    _load_sample(Availability, 'resources/plr119/availabilities.json', connection, sql_file)
-    _load_sample(Office, 'resources/plr119/office.json', connection, sql_file)
-    _load_sample(ViewService, 'resources/plr119/view_service.json', connection, sql_file)
-    _load_sample(LegendEntry, 'resources/plr119/legend_entry.json', connection, sql_file)
-    _load_sample(PublicLawRestriction, 'resources/plr119/public_law_restriction.json', connection, sql_file)
-    _load_sample(Geometry, 'resources/plr119/geometry.json', connection, sql_file)
+    _load_sample(Availability, os.path.join(directory, 'plr119/availabilities.json'), connection, sql_file)
+    _load_sample(Office, os.path.join(directory, 'plr119/office.json'), connection, sql_file)
+    _load_sample(ViewService, os.path.join(directory, 'plr119/view_service.json'), connection, sql_file)
+    _load_sample(LegendEntry, os.path.join(directory, 'plr119/legend_entry.json'), connection, sql_file)
+    _load_sample(PublicLawRestriction, os.path.join(directory, 'plr119/public_law_restriction.json'),
+                 connection, sql_file)
+    _load_sample(Geometry, os.path.join(directory, 'plr119/geometry.json'), connection, sql_file)
 
-    with open(pkg_resources.resource_filename(
-            'tests',
-            'resources/plr119/legal_provision.json'
-    )) as f:
+    with open(os.path.join(directory, 'plr119/legal_provision.json')) as f:
         lps = json.loads(f.read())
         if sql_file is None:
             Session = sessionmaker(bind=engine)  # Use session because of table inheritance
@@ -261,14 +267,16 @@ def _load_standard_sample(configuration, section='pyramid_oereb', sql_file=None)
                     data.update(lp)
                     _do_sql_insert(str(table.insert()), data, sql_file)
 
-    _load_sample(
-        PublicLawRestrictionDocument, 'resources/plr119/public_law_restriction_document.json',
-        connection, sql_file)
-    _load_sample(RealEstate, 'resources/real_estates.json', connection, sql_file)
-    _load_sample(Address, 'resources/addresses.json', connection, sql_file)
-    _load_sample(
-        Municipality, 'resources/municipalities_with_logo.json', connection, sql_file)
+    _load_sample(PublicLawRestrictionDocument,
+                 os.path.join(directory, 'plr119/public_law_restriction_document.json'), connection, sql_file)
+    _load_sample(RealEstate, os.path.join(directory, 'real_estates.json'), connection, sql_file)
+    _load_sample(Address, os.path.join(directory, 'addresses.json'), connection, sql_file)
+    _load_sample(Municipality, os.path.join(directory, 'municipalities_with_logo.json'), connection, sql_file)
 
     # Close database connection
     if sql_file is None:
         connection.close()
+
+
+if __name__ == '__main__':
+    load_standard_sample()

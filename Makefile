@@ -165,10 +165,10 @@ test-db/12-create.sql: pyramid_oereb_standard.yml .venv/install-timestamp
 	$(VENV_BIN)create_standard_tables$(PYTHON_BIN_POSTFIX) --configuration $< --sql-file $@
 
 test-db/13-fill.sql: pyramid_oereb_standard.yml .venv/install-timestamp
-	$(VENV_BIN)load_standard_sample_data$(PYTHON_BIN_POSTFIX) --configuration $< --sql-file $@
+	$(VENV_BIN)python pyramid_oereb/standard/load_sample_data.py --configuration $< --sql-file $@
 
 .PHONY: serve-db-dev
-serve-db-dev: test-db/12-create.sql test-db/13-fill.sql
+serve-db-dev: tests-docker-drop-db test-db/12-create.sql test-db/13-fill.sql
 	docker build -t $(DOCKER_BASE)-db-dev test-db
 	docker run --rm --name $(DOCKER_CONTAINER_BASE)-db-dev \
 	    --publish=5432:5432 \
