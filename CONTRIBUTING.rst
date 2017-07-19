@@ -34,6 +34,17 @@ its directory.
 
 You can set up the virtual environment using ``make install`` and run the unit tests using ``make checks``.
 
+Quick way to have a working environment, commands to call on different consoles (notes that you shouldn't
+have a other postgres running on localhost):
+
+.. code-block:: shell
+
+   make serve-db-dev # Runs the example database
+   make serve-print-example # Runs a simple print server
+   make serve # Runs the application
+
+In details:
+
 Create an empty database using docker.
 
 .. code-block:: shell
@@ -52,11 +63,11 @@ Create your configuration file and load the sample data.
  .venv/bin/create_standard_tables -c pyramid_oereb_standard.yml
  .venv/bin/python pyramid_oereb/standard/load_sample_data.py -c pyramid_oereb_standard.yml
 
-To start a local server run ``make serve``. It should be available unter http://localhost:6543/oereb/. To stop
+To start a local server run ``make serve``. It should be available under http://localhost:6543/oereb/. To stop
 the server, press ``CTRL`` + ``C``.
 
 NOTE
-   These sample requests should work, if you have loaded thesample data:
+   These sample requests should work, if you have loaded the sample data:
 
    -  http://localhost:6543/oereb/versions
    -  http://localhost:6543/oereb/capabilities
