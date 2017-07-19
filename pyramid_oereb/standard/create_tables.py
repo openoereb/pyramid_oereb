@@ -8,7 +8,7 @@ from pyramid.path import DottedNameResolver
 from sqlalchemy import create_engine
 
 from pyramid_oereb.lib.config import parse
-from pyramid_oereb.standard import _create_tables_from_standard_configuration_
+from pyramid_oereb.standard import create_tables_from_standard_configuration
 
 logging.basicConfig()
 log = logging.getLogger('pyramid_oereb')
@@ -102,14 +102,28 @@ def create_standard_tables():
         default=False,
         help='Use this flag to skip the creation of the schema.'
     )
+    parser.add_option(
+        '--sql-file',
+        type='string',
+        help='Generate an SQL file.'
+    )
     options, args = parser.parse_args()
     if not options.configuration:
         parser.error('No configuration file set.')
-    _create_tables_from_standard_configuration_(
-        options.configuration,
-        section=options.section,
-        tables_only=options.tables_only
-    )
+
+    if options.sql_file is None:
+        create_tables_from_standard_configuration(
+            configuration_yaml_path=options.configuration,
+            section=options.section,
+            tables_only=options.tables_only
+        )
+    else:
+        with open(options.sql_file, 'w') as sql_file:
+            create_tables_from_standard_configuration(
+                configuration_yaml_path=options.configuration,
+                section=options.section,
+                sql_file=sql_file
+            )
 
 
 def create_theme_tables():

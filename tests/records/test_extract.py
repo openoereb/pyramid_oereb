@@ -32,10 +32,9 @@ def test_mandatory_fields():
 def test_init():
     date = datetime.datetime.now()
     real_estate = RealEstateRecord(u'test', u'BL', u'Laufen', 2770, 1000, MultiPolygon(), ViewServiceRecord(
-            'test_link',
-            'test_legend'
-        )
-    )
+        'test_link',
+        'test_legend'
+    ))
     plr_office = OfficeRecord({u'en': u'PLR Authority'})
     resolver = DottedNameResolver()
     date_method_string = Config.get('extract').get('base_data').get('methods').get('date')

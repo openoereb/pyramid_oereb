@@ -22,6 +22,7 @@ class DummyData(object):
 
     def _truncate(self):
         connection = self._engine.connect()
+        trans = connection.begin()
 
         # Truncate tables
         connection.execute('TRUNCATE {schema}.{table};'.format(
@@ -121,6 +122,7 @@ class DummyData(object):
             table=land_use_plans.DataIntegration.__table__.name
         ))
 
+        trans.commit()
         connection.close()
 
     def _import_main(self):

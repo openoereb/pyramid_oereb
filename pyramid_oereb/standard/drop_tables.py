@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import optparse
-from pyramid_oereb.standard import _drop_tables_from_standard_configuration_
+from pyramid_oereb.standard import drop_tables_from_standard_configuration
 
 
 def drop_standard_tables():
@@ -26,7 +26,7 @@ def drop_standard_tables():
     options, args = parser.parse_args()
     if not options.configuration:
         parser.error('No configuration file set.')
-    _drop_tables_from_standard_configuration_(
+    drop_tables_from_standard_configuration(
         configuration_yaml_path=options.configuration,
         section=options.section
     )

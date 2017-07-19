@@ -14,7 +14,7 @@ from pyramid_oereb import Processor
 from pyramid_oereb import RealEstateReader
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.config import Config
-from pyramid_oereb.standard import _create_tables_from_standard_configuration_
+from pyramid_oereb.standard import create_tables_from_standard_configuration
 from tests.init_db import DummyData
 
 params = [
@@ -169,6 +169,6 @@ class MockRequest(DummyRequest):
 
 
 # Set up test database
-_create_tables_from_standard_configuration_(pyramid_oereb_test_yml)
+create_tables_from_standard_configuration(pyramid_oereb_test_yml)
 dummy_data = DummyData(config())
 dummy_data.init()
