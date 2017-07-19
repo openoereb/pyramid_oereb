@@ -966,6 +966,14 @@ Module *load_sample_data*
 .. automodule:: pyramid_oereb.standard.load_sample_data
    :members:
 
+.. _api-pyramid_oereb-standard-load_sample_data-sampledata:
+
+Class *SampleData*
+''''''''''''''''''
+
+.. autoclass:: pyramid_oereb.standard.load_sample_data.SampleData
+   :members:
+
 .. _api-pyramid_oereb-standard-methods:
 
 Module *methods*

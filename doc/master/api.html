@@ -178,7 +178,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-pyramid_oereb.standard.create_yaml">Module <em>create_yaml</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyramid_oereb.standard.drop_tables">Module <em>drop_tables</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyramid_oereb.standard.hook_methods">Module <em>hook_methods</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyramid_oereb.standard.load_sample_data">Module <em>load_sample_data</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyramid_oereb.standard.load_sample_data">Module <em>load_sample_data</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#class-sampledata">Class <em>SampleData</em></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyramid_oereb.standard.methods">Module <em>methods</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyramid_oereb.standard.models">Module <em>models</em></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#module-pyramid_oereb.standard.models.airports_building_lines">Module <em>airports_building_lines</em></a></li>
@@ -2931,13 +2934,33 @@ deliver a valid SLD wrapped in a pyramid response instance as output. It is in y
 </div>
 <div class="section" id="module-pyramid_oereb.standard.load_sample_data">
 <span id="module-load-sample-data"></span><span id="api-pyramid-oereb-standard-load-sample-data"></span><h3>Module <em>load_sample_data</em><a class="headerlink" href="#module-pyramid_oereb.standard.load_sample_data" title="Permalink to this headline">¶</a></h3>
-<dl class="function">
-<dt id="pyramid_oereb.standard.load_sample_data.load_standard_sample">
-<code class="descclassname">pyramid_oereb.standard.load_sample_data.</code><code class="descname">load_standard_sample</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/load_sample_data.html#load_standard_sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_sample_data.load_standard_sample" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads sample data from the json files with the repository. The method can be called by running
-&#8216;load_sample_data&#8217; from the virtual environment. Check &#8216;load_sample_data &#8211;help&#8217; for available options.</p>
+<dl class="class">
+<dt id="pyramid_oereb.standard.load_sample_data.SampleData">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.load_sample_data.</code><code class="descname">SampleData</code><span class="sig-paren">(</span><em>configuration</em>, <em>section='pyramid_oereb'</em>, <em>directory='sample_data'</em>, <em>sql_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/load_sample_data.html#SampleData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_sample_data.SampleData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for sample data handling.</p>
+<dl class="method">
+<dt id="pyramid_oereb.standard.load_sample_data.SampleData.load">
+<code class="descname">load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/load_sample_data.html#SampleData.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_sample_data.SampleData.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs the database operations to load the sample data.</p>
 </dd></dl>
 
+</dd></dl>
+
+<div class="section" id="class-sampledata">
+<span id="api-pyramid-oereb-standard-load-sample-data-sampledata"></span><h4>Class <em>SampleData</em><a class="headerlink" href="#class-sampledata" title="Permalink to this headline">¶</a></h4>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.load_sample_data.</code><code class="descname">SampleData</code><span class="sig-paren">(</span><em>configuration</em>, <em>section='pyramid_oereb'</em>, <em>directory='sample_data'</em>, <em>sql_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/load_sample_data.html#SampleData"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Class for sample data handling.</p>
+<dl class="method">
+<dt>
+<code class="descname">load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/load_sample_data.html#SampleData.load"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Performs the database operations to load the sample data.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 </div>
 <div class="section" id="module-pyramid_oereb.standard.methods">
 <span id="module-methods"></span><span id="api-pyramid-oereb-standard-methods"></span><h3>Module <em>methods</em><a class="headerlink" href="#module-pyramid_oereb.standard.methods" title="Permalink to this headline">¶</a></h3>
