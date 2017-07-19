@@ -62,6 +62,29 @@ class PrintRenderer(Renderer):
             self._multilingual_text(restriction_on_landownership, 'ResponsibleOffice_Name')
             for item in restriction_on_landownership.get('Geometry', []):
                 self._multilingual_text(item, 'ResponsibleOffice_Name')
+
+            legal_provisions = []
+            legal_provisions += restriction_on_landownership.get('LegalProvisions', [])
+            finish = False
+            while finish:
+                finish = True
+                for legal_provision in legal_provisions:
+                    if 'Reference' in legal_provision:
+                        legal_provisions += legal_provision['Reference']
+                        del legal_provision['Reference']
+                        finish = False
+                    if 'Article' in legal_provision:
+                        legal_provisions += legal_provision['Article']
+                        del legal_provision['Article']
+                        finish = False
+            restriction_on_landownership['LegalProvisions'] = legal_provisions
+
+            for item in restriction_on_landownership.get('LegalProvisions', []):
+                self._multilingual_m_text(item, 'Text')
+                self._multilingual_text(item, 'Title')
+                self._multilingual_text(item, 'OfficialTitle')
+                self._multilingual_text(item, 'Abbrevation')
+
         for item in extract_dict.get('ExclusionOfLiability', []):
             self._multilingual_text(item, 'Title')
             self._multilingual_text(item, 'Content')

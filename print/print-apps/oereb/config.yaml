@@ -106,6 +106,17 @@ templates:
                         attributes:
                           TextAtWeb: !string {} #/definitions/MultilingualUri
                           Lawstatus: !string {} #/definitions/Lawstatus
+                          Number: *optStr #/definitions/ArticleNumber
+                          Text: *optStr #/definitions/MultilingualMText
+                          Title: *optStr #/definitions/MultilingualText
+                          OfficialTitle: *optStr #/definitions/MultilingualText
+                          Abbrevation: *optStr #/definitions/MultilingualText
+                          OfficialNumber: *optStr
+                          Canton: *optStr #/definitions/CantonCode
+                          Municipality: *optStr #/definitions/MunicipalityCode
+                          ResponsibleOffice: *optStr #/definitions/Office
+                          OfficialNumber: *optStr #/definitions/CantonCode
+                          ArticleNumber: *optStr #array of /definitions/ArticleNumber
                     ResponsibleOffice_Name: !string #/definitions/MultilingualText
                         default: ''
                     ResponsibleOffice_OfficeAtWeb: !string #/definitions/WebReference
