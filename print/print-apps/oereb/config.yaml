@@ -15,10 +15,7 @@ templates:
             NotConcernedTheme: !datasource
                 attributes:
                     Code: !string {}
-                    Text: !datasource
-                        attributes:
-                            Text: !string {}
-                            Language: !string {}
+                    Text: !string {} #/definitions/LocalisedText
             ThemeWithoutData: !datasource
                 attributes:
                     Code: !string {}
@@ -35,32 +32,14 @@ templates:
             ExtractIdentifier: !string {}
             QRCode: *optStr
             QRCodeRef: *optStr
-            GeneralInformation: !datasource #/definitions/MultilingualMText
-                default: []
-                attributes:
-                    Language: !string {}
-                    Text: !string {}
-            BaseData: !datasource #/definitions/MultilingualMText
-                attributes:
-                    en: !string
-                        default: ''
-                    de: !string
-                        default: ''
-                    fr: !string
-                        default: ''
-                    it: !string
-                        default: ''
+            GeneralInformation: !string #/definitions/MultilingualMText
+                default: ''
+            BaseData: !string {} #/definitions/MultilingualMText
             Glossary: !datasource
                 default: []
                 attributes:
-                    Title: !datasource #/definitions/MultilingualText
-                        attributes:
-                            Language: !string {}
-                            Text: !string {}
-                    Content: !datasource #/definitions/MultilingualText
-                        attributes:
-                            Language: !string {}
-                            Text: !string {}
+                    Title: !string {} #/definitions/MultilingualText
+                    Content: !string {} #/definitions/MultilingualText
             RealEstate_Number: !string {}
             RealEstate_IdentDN: !string {}
             RealEstate_EGRID: !string {}
@@ -77,7 +56,12 @@ templates:
                 default: '{}'
             RealEstate_RestrictionOnLandownership_Information: !string #/definitions/MultilingualMText
                 default: ''
-            RealEstate_RestrictionOnLandownership_Theme: !string #/definitions/Theme
+            RealEstate_RestrictionOnLandownership_Theme_Code: !string
+                default: ''
+            #/definitions/LocalisedText
+            RealEstate_RestrictionOnLandownership_Theme_Text_Language: !string
+                default: ''
+            RealEstate_RestrictionOnLandownership_Theme_Text_Text: !string
                 default: ''
             RealEstate_RestrictionOnLandownership_SubTheme: !string
                 default: ''
@@ -145,14 +129,8 @@ templates:
             ExclusionOfLiability: !datasource
                 default: []
                 attributes:
-                    Title: !datasource
-                        attributes:
-                            Language: !string {}
-                            Text: !string {}
-                    Content: !datasource
-                        attributes:
-                            Language: !string {}
-                            Text: !string {}
+                    Title: !string {} #/definitions/MultilingualText
+                    Content: !string {} #/definitions/MultilingualText
             PLRCadastreAuthority_Name: !string {} #/definitions/MultilingualText
             PLRCadastreAuthority_OfficeAtWeb: !string {} #/definitions/WebReference
             PLRCadastreAuthority_UID: !string #/definitions/UID
@@ -245,13 +223,7 @@ templates:
             outputMapper:
                 jrDataSource: ConcernedThemeDataSource
         - !createDataSource
-            processors:
-            - !createDataSource
-                processors: []
-                inputMapper:
-                    Text: datasource
-                outputMapper:
-                    jrDataSource: TextDataSource
+            processors: []
             inputMapper:
                 NotConcernedTheme: datasource
             outputMapper:
@@ -262,9 +234,3 @@ templates:
                 ThemeWithoutData: datasource
             outputMapper:
                 jrDataSource: ThemeWithoutDataDataSource
-        - !createDataSource
-            processors: []
-            inputMapper:
-                BaseData: datasource
-            outputMapper:
-                jrDataSource: BaseDataDataSource
