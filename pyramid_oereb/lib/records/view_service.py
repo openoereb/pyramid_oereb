@@ -65,12 +65,12 @@ class ViewServiceRecord(object):
     @staticmethod
     def get_map_size(format):
         print_conf = Config.get_object_path('print', required=['basic_map_size',
-                                            'pdf_dpi', 'pdf_map_size_milimeters'])
-        if format == 'pdf':
+                                            'pdf_dpi', 'pdf_map_size_millimeters'])
+        if format != 'pdf':
             return print_conf['basic_map_size']
         else:
             pixel_size = print_conf['pdf_dpi'] / 25.4
-            map_size_mm = print_conf['pdf_map_size_milimeters']
+            map_size_mm = print_conf['pdf_map_size_millimeters']
             return [pixel_size * map_size_mm[0], pixel_size * map_size_mm[1]]
 
     @staticmethod
