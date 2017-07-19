@@ -63,6 +63,17 @@ class ViewServiceRecord(object):
             self.legends = legends
 
     @staticmethod
+    def get_map_size(format):
+        print_conf = Config.get_object_path('print', required=['basic_map_size',
+                                            'pdf_dpi', 'pdf_map_size_millimeters'])
+        if format != 'pdf':
+            return print_conf['basic_map_size']
+        else:
+            pixel_size = print_conf['pdf_dpi'] / 25.4
+            map_size_mm = print_conf['pdf_map_size_millimeters']
+            return [pixel_size * map_size_mm[0], pixel_size * map_size_mm[1]]
+
+    @staticmethod
     def get_bbox(geometry, map_size, print_buffer):
         width_buffer = (geometry.bounds[2] - geometry.bounds[0]) * print_buffer / 100
         height_buffer = (geometry.bounds[3] - geometry.bounds[1]) * print_buffer / 100
@@ -89,13 +100,15 @@ class ViewServiceRecord(object):
 
         return print_bounds
 
-    def get_full_wms_url(self, real_estate):
+    def get_full_wms_url(self, real_estate, format):
         """
         Returns the WMS URL to get the image.
 
         Args:
             real_estate (pyramid_oereb.lob.records.real_estate.RealEstateRecord): The Real
                 Estate record.
+            format (string): The format currently used. For 'pdf' format,
+                the used map size will be adapted to the pdf format,
 
         Returns:
             str: The url used to query the WMS server.
@@ -103,12 +116,14 @@ class ViewServiceRecord(object):
 
         assert real_estate.limit is not None
 
-        print_conf = Config.get_object_path('print', required=['map_size', 'buffer'])
-        map_size = print_conf['map_size']
+        print_conf = Config.get_object_path('print', required=['buffer'])
+        map_size = self.get_map_size(format)
         bbox = self.get_bbox(real_estate.limit, map_size, print_conf['buffer'])
         self.reference_wms = add_url_params(self.reference_wms, {
             "BBOX": ",".join([str(e) for e in bbox]),
-            "SRS": 'EPSG:{0}'.format(Config.get('srid'))
+            "SRS": 'EPSG:{0}'.format(Config.get('srid')),
+            "WIDTH": map_size[0],
+            "HEIGHT": map_size[1],
         })
         return self.reference_wms
 

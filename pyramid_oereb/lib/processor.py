@@ -95,7 +95,7 @@ class Processor(object):
         return extract
 
     @staticmethod
-    def view_service_handling(real_estate, images):
+    def view_service_handling(real_estate, images, format):
         """
         Handles all view service related stuff. In the moment this is:
             * construction of the correct url (reference_wms) depending on the real estate
@@ -105,16 +105,18 @@ class Processor(object):
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord):
                 The real estate record to be updated.
             images (bool): Switch whether the images should be downloaded or not.
+            format (string): The format currently used. For 'pdf' format,
+                the used map size will be adapted to the pdf format,
 
         Returns:
             pyramid_oereb.lib.records.real_estate.RealEstateRecord: The updated extract.
         """
-        real_estate.plan_for_land_register.get_full_wms_url(real_estate)
+        real_estate.plan_for_land_register.get_full_wms_url(real_estate, format)
         if images:
             real_estate.plan_for_land_register.download_wms_content()
 
         for public_law_restriction in real_estate.public_law_restrictions:
-            public_law_restriction.view_service.get_full_wms_url(real_estate)
+            public_law_restriction.view_service.get_full_wms_url(real_estate, format)
             if images:
                 public_law_restriction.view_service.download_wms_content()
         return real_estate
@@ -241,7 +243,7 @@ class Processor(object):
                 # recognized as intersecting before. To avoid this the tolerance check is gathering all plrs
                 # intersecting and not intersecting and starts the legend entry sorting after.
                 extract = self.plr_tolerance_check(extract_raw)
-                self.view_service_handling(extract.real_estate, params.images)
+                self.view_service_handling(extract.real_estate, params.images, params.format)
 
                 extract.exclusions_of_liability = exclusions_of_liability
                 extract.glossaries = glossaries
