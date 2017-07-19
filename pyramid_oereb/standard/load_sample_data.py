@@ -94,7 +94,7 @@ class SampleData(object):
             import_file_name (str): The resource file name to import
             connection (sqlalchemy.engine.Connection): The connection
         """
-        with open(import_file_name) as f:
+        with open(os.path.join(self._directory, import_file_name)) as f:
             if self._sql_file is None and self._has_connection():
                 self._connection.execute(class_.__table__.insert(), json.loads(f.read()))
             else:
@@ -169,13 +169,12 @@ class SampleData(object):
             self._truncate_existing()
 
             # Fill tables with sample data
-            self._load_sample(Availability, os.path.join(self._directory, 'plr119/availabilities.json'))
-            self._load_sample(Office, os.path.join(self._directory, 'plr119/office.json'))
-            self._load_sample(ViewService, os.path.join(self._directory, 'plr119/view_service.json'))
-            self._load_sample(LegendEntry, os.path.join(self._directory, 'plr119/legend_entry.json'))
-            self._load_sample(PublicLawRestriction,
-                              os.path.join(self._directory, 'plr119/public_law_restriction.json'))
-            self._load_sample(Geometry, os.path.join(self._directory, 'plr119/geometry.json'))
+            self._load_sample(Availability, 'plr119/availabilities.json')
+            self._load_sample(Office, 'plr119/office.json')
+            self._load_sample(ViewService, 'plr119/view_service.json')
+            self._load_sample(LegendEntry, 'plr119/legend_entry.json')
+            self._load_sample(PublicLawRestriction, 'plr119/public_law_restriction.json')
+            self._load_sample(Geometry, 'plr119/geometry.json')
 
             with open(os.path.join(self._directory, 'plr119/legal_provision.json')) as f:
                 lps = json.loads(f.read())
@@ -198,11 +197,10 @@ class SampleData(object):
                             data.update(lp)
                             self._do_sql_insert(str(table.insert()), data)
 
-            self._load_sample(PublicLawRestrictionDocument,
-                              os.path.join(self._directory, 'plr119/public_law_restriction_document.json'))
-            self._load_sample(RealEstate, os.path.join(self._directory, 'real_estates.json'))
-            self._load_sample(Address, os.path.join(self._directory, 'addresses.json'))
-            self._load_sample(Municipality, os.path.join(self._directory, 'municipalities_with_logo.json'))
+            self._load_sample(PublicLawRestrictionDocument, 'plr119/public_law_restriction_document.json')
+            self._load_sample(RealEstate, 'real_estates.json')
+            self._load_sample(Address, 'addresses.json')
+            self._load_sample(Municipality, 'municipalities_with_logo.json')
 
         finally:
             if self._has_connection():
