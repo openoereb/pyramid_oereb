@@ -164,8 +164,8 @@
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">optparse</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
-<span class="kn">import</span> <span class="nn">pkg_resources</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">create_engine</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="k">import</span> <span class="n">sessionmaker</span><span class="p">,</span> <span class="n">class_mapper</span>
 
@@ -201,6 +201,14 @@
         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The section which contains configruation (default is: pyramid_oereb).&#39;</span>
     <span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;--dir&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;directory&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;DIRECTORY&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s1">&#39;sample_data&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The directory containing the sample data (default is: sample_data).&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
         <span class="s1">&#39;--sql-file&#39;</span><span class="p">,</span>
         <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span>
         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Generate an SQL file.&#39;</span>
@@ -209,11 +217,11 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">:</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No configuration file set.&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">_load_standard_sample</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">)</span>
+        <span class="n">_load_standard_sample</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="s1">&#39;sample_data&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">sql_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sql_file</span><span class="p">:</span>
             <span class="n">_load_standard_sample</span><span class="p">(</span>
-                <span class="n">configuration</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">,</span> <span class="n">sql_file</span><span class="o">=</span><span class="n">sql_file</span><span class="p">)</span></div>
+                <span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="s1">&#39;sample_data&#39;</span><span class="p">,</span> <span class="n">sql_file</span><span class="o">=</span><span class="n">sql_file</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">_format_value</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
@@ -320,7 +328,7 @@
 <span class="sd">        connection (sqlalchemy.engine.Connection): The connection</span>
 <span class="sd">        sql_file (file): The SQL file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;tests&#39;</span><span class="p">,</span> <span class="n">import_file_name</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">import_file_name</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">class_</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">insert</span><span class="p">(),</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
         <span class="k">else</span><span class="p">:</span>
@@ -329,7 +337,7 @@
                 <span class="n">_do_sql_insert</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_load_standard_sample</span><span class="p">(</span><span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">sql_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_load_standard_sample</span><span class="p">(</span><span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="s1">&#39;sample_data&#39;</span><span class="p">,</span> <span class="n">sql_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Performs the database operations to load the sample data.</span>
 
@@ -393,17 +401,15 @@
         <span class="n">connection</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1"># Fill tables with sample data</span>
-    <span class="n">_load_sample</span><span class="p">(</span><span class="n">Availability</span><span class="p">,</span> <span class="s1">&#39;resources/plr119/availabilities.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
-    <span class="n">_load_sample</span><span class="p">(</span><span class="n">Office</span><span class="p">,</span> <span class="s1">&#39;resources/plr119/office.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
-    <span class="n">_load_sample</span><span class="p">(</span><span class="n">ViewService</span><span class="p">,</span> <span class="s1">&#39;resources/plr119/view_service.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
-    <span class="n">_load_sample</span><span class="p">(</span><span class="n">LegendEntry</span><span class="p">,</span> <span class="s1">&#39;resources/plr119/legend_entry.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
-    <span class="n">_load_sample</span><span class="p">(</span><span class="n">PublicLawRestriction</span><span class="p">,</span> <span class="s1">&#39;resources/plr119/public_law_restriction.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
-    <span class="n">_load_sample</span><span class="p">(</span><span class="n">Geometry</span><span class="p">,</span> <span class="s1">&#39;resources/plr119/geometry.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">Availability</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;plr119/availabilities.json&#39;</span><span class="p">),</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">Office</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;plr119/office.json&#39;</span><span class="p">),</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">ViewService</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;plr119/view_service.json&#39;</span><span class="p">),</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">LegendEntry</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;plr119/legend_entry.json&#39;</span><span class="p">),</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">PublicLawRestriction</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;plr119/public_law_restriction.json&#39;</span><span class="p">),</span>
+                 <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">Geometry</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;plr119/geometry.json&#39;</span><span class="p">),</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
 
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-            <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;resources/plr119/legal_provision.json&#39;</span>
-    <span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;plr119/legal_provision.json&#39;</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">lps</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
         <span class="k">if</span> <span class="n">sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>  <span class="c1"># Use session because of table inheritance</span>
@@ -422,17 +428,19 @@
                     <span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lp</span><span class="p">)</span>
                     <span class="n">_do_sql_insert</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">insert</span><span class="p">()),</span> <span class="n">data</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
 
-    <span class="n">_load_sample</span><span class="p">(</span>
-        <span class="n">PublicLawRestrictionDocument</span><span class="p">,</span> <span class="s1">&#39;resources/plr119/public_law_restriction_document.json&#39;</span><span class="p">,</span>
-        <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
-    <span class="n">_load_sample</span><span class="p">(</span><span class="n">RealEstate</span><span class="p">,</span> <span class="s1">&#39;resources/real_estates.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
-    <span class="n">_load_sample</span><span class="p">(</span><span class="n">Address</span><span class="p">,</span> <span class="s1">&#39;resources/addresses.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
-    <span class="n">_load_sample</span><span class="p">(</span>
-        <span class="n">Municipality</span><span class="p">,</span> <span class="s1">&#39;resources/municipalities_with_logo.json&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">PublicLawRestrictionDocument</span><span class="p">,</span>
+                 <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;plr119/public_law_restriction_document.json&#39;</span><span class="p">),</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">RealEstate</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;real_estates.json&#39;</span><span class="p">),</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">Address</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;addresses.json&#39;</span><span class="p">),</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
+    <span class="n">_load_sample</span><span class="p">(</span><span class="n">Municipality</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;municipalities_with_logo.json&#39;</span><span class="p">),</span> <span class="n">connection</span><span class="p">,</span> <span class="n">sql_file</span><span class="p">)</span>
 
     <span class="c1"># Close database connection</span>
     <span class="k">if</span> <span class="n">sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">load_standard_sample</span><span class="p">()</span>
 </pre></div>
 
            </div>
