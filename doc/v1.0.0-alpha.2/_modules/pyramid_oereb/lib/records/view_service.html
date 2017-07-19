@@ -222,6 +222,17 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">legends</span> <span class="o">=</span> <span class="n">legends</span>
 
     <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_map_size</span><span class="p">(</span><span class="nb">format</span><span class="p">):</span>
+        <span class="n">print_conf</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_object_path</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;basic_map_size&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;pdf_dpi&#39;</span><span class="p">,</span> <span class="s1">&#39;pdf_map_size_millimeters&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">format</span> <span class="o">!=</span> <span class="s1">&#39;pdf&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">print_conf</span><span class="p">[</span><span class="s1">&#39;basic_map_size&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pixel_size</span> <span class="o">=</span> <span class="n">print_conf</span><span class="p">[</span><span class="s1">&#39;pdf_dpi&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mf">25.4</span>
+            <span class="n">map_size_mm</span> <span class="o">=</span> <span class="n">print_conf</span><span class="p">[</span><span class="s1">&#39;pdf_map_size_millimeters&#39;</span><span class="p">]</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">pixel_size</span> <span class="o">*</span> <span class="n">map_size_mm</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pixel_size</span> <span class="o">*</span> <span class="n">map_size_mm</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_bbox</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="n">map_size</span><span class="p">,</span> <span class="n">print_buffer</span><span class="p">):</span>
         <span class="n">width_buffer</span> <span class="o">=</span> <span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">print_buffer</span> <span class="o">/</span> <span class="mi">100</span>
         <span class="n">height_buffer</span> <span class="o">=</span> <span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">print_buffer</span> <span class="o">/</span> <span class="mi">100</span>
@@ -248,13 +259,15 @@
 
         <span class="k">return</span> <span class="n">print_bounds</span>
 
-<div class="viewcode-block" id="ViewServiceRecord.get_full_wms_url"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_full_wms_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_full_wms_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">):</span>
+<div class="viewcode-block" id="ViewServiceRecord.get_full_wms_url"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_full_wms_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_full_wms_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the WMS URL to get the image.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            real_estate (pyramid_oereb.lob.records.real_estate.RealEstateRecord): The Real</span>
 <span class="sd">                Estate record.</span>
+<span class="sd">            format (string): The format currently used. For &#39;pdf&#39; format,</span>
+<span class="sd">                the used map size will be adapted to the pdf format,</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str: The url used to query the WMS server.</span>
@@ -262,12 +275,14 @@
 
         <span class="k">assert</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
-        <span class="n">print_conf</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_object_path</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;map_size&#39;</span><span class="p">,</span> <span class="s1">&#39;buffer&#39;</span><span class="p">])</span>
-        <span class="n">map_size</span> <span class="o">=</span> <span class="n">print_conf</span><span class="p">[</span><span class="s1">&#39;map_size&#39;</span><span class="p">]</span>
+        <span class="n">print_conf</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_object_path</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;buffer&#39;</span><span class="p">])</span>
+        <span class="n">map_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_map_size</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
         <span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_bbox</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">,</span> <span class="n">map_size</span><span class="p">,</span> <span class="n">print_conf</span><span class="p">[</span><span class="s1">&#39;buffer&#39;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span> <span class="o">=</span> <span class="n">add_url_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">,</span> <span class="p">{</span>
             <span class="s2">&quot;BBOX&quot;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">bbox</span><span class="p">]),</span>
-            <span class="s2">&quot;SRS&quot;</span><span class="p">:</span> <span class="s1">&#39;EPSG:</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">))</span>
+            <span class="s2">&quot;SRS&quot;</span><span class="p">:</span> <span class="s1">&#39;EPSG:</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">)),</span>
+            <span class="s2">&quot;WIDTH&quot;</span><span class="p">:</span> <span class="n">map_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="s2">&quot;HEIGHT&quot;</span><span class="p">:</span> <span class="n">map_size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
         <span class="p">})</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span></div>
 

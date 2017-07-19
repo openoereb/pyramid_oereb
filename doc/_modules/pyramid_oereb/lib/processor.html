@@ -254,7 +254,7 @@
         <span class="k">return</span> <span class="n">extract</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Processor.view_service_handling"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor.view_service_handling">[docs]</a>    <span class="k">def</span> <span class="nf">view_service_handling</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="n">images</span><span class="p">):</span>
+<div class="viewcode-block" id="Processor.view_service_handling"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.processor.Processor.view_service_handling">[docs]</a>    <span class="k">def</span> <span class="nf">view_service_handling</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Handles all view service related stuff. In the moment this is:</span>
 <span class="sd">            * construction of the correct url (reference_wms) depending on the real estate</span>
@@ -264,16 +264,18 @@
 <span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord):</span>
 <span class="sd">                The real estate record to be updated.</span>
 <span class="sd">            images (bool): Switch whether the images should be downloaded or not.</span>
+<span class="sd">            format (string): The format currently used. For &#39;pdf&#39; format,</span>
+<span class="sd">                the used map size will be adapted to the pdf format,</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.lib.records.real_estate.RealEstateRecord: The updated extract.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">real_estate</span><span class="o">.</span><span class="n">plan_for_land_register</span><span class="o">.</span><span class="n">get_full_wms_url</span><span class="p">(</span><span class="n">real_estate</span><span class="p">)</span>
+        <span class="n">real_estate</span><span class="o">.</span><span class="n">plan_for_land_register</span><span class="o">.</span><span class="n">get_full_wms_url</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">images</span><span class="p">:</span>
             <span class="n">real_estate</span><span class="o">.</span><span class="n">plan_for_land_register</span><span class="o">.</span><span class="n">download_wms_content</span><span class="p">()</span>
 
         <span class="k">for</span> <span class="n">public_law_restriction</span> <span class="ow">in</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="p">:</span>
-            <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">get_full_wms_url</span><span class="p">(</span><span class="n">real_estate</span><span class="p">)</span>
+            <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">get_full_wms_url</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">images</span><span class="p">:</span>
                 <span class="n">public_law_restriction</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">download_wms_content</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">real_estate</span></div>
@@ -400,7 +402,7 @@
                 <span class="c1"># recognized as intersecting before. To avoid this the tolerance check is gathering all plrs</span>
                 <span class="c1"># intersecting and not intersecting and starts the legend entry sorting after.</span>
                 <span class="n">extract</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plr_tolerance_check</span><span class="p">(</span><span class="n">extract_raw</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">view_service_handling</span><span class="p">(</span><span class="n">extract</span><span class="o">.</span><span class="n">real_estate</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">images</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">view_service_handling</span><span class="p">(</span><span class="n">extract</span><span class="o">.</span><span class="n">real_estate</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">images</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
 
                 <span class="n">extract</span><span class="o">.</span><span class="n">exclusions_of_liability</span> <span class="o">=</span> <span class="n">exclusions_of_liability</span>
                 <span class="n">extract</span><span class="o">.</span><span class="n">glossaries</span> <span class="o">=</span> <span class="n">glossaries</span>

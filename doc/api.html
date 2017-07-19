@@ -970,7 +970,7 @@ instance.</p>
 
 <dl class="staticmethod">
 <dt id="pyramid_oereb.lib.processor.Processor.view_service_handling">
-<em class="property">static </em><code class="descname">view_service_handling</code><span class="sig-paren">(</span><em>real_estate</em>, <em>images</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/processor.html#Processor.view_service_handling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.processor.Processor.view_service_handling" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">view_service_handling</code><span class="sig-paren">(</span><em>real_estate</em>, <em>images</em>, <em>format</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/processor.html#Processor.view_service_handling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.processor.Processor.view_service_handling" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Handles all view service related stuff. In the moment this is:</dt>
 <dd><ul class="first last simple">
@@ -986,6 +986,8 @@ instance.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>real_estate</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real estate record to be updated.</li>
 <li><strong>images</strong> (<em>bool</em>) &#8211; Switch whether the images should be downloaded or not.</li>
+<li><strong>format</strong> (<em>string</em>) &#8211; The format currently used. For &#8216;pdf&#8217; format,
+the used map size will be adapted to the pdf format,</li>
 </ul>
 </td>
 </tr>
@@ -1677,18 +1679,25 @@ service to be used for the land registry map.</td>
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_full_wms_url">
-<code class="descname">get_full_wms_url</code><span class="sig-paren">(</span><em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord.get_full_wms_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_full_wms_url" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_full_wms_url</code><span class="sig-paren">(</span><em>real_estate</em>, <em>format</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord.get_full_wms_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_full_wms_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the WMS URL to get the image.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<em>pyramid_oereb.lob.records.real_estate.RealEstateRecord</em>) &#8211; The Real
-Estate record.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>real_estate</strong> (<em>pyramid_oereb.lob.records.real_estate.RealEstateRecord</em>) &#8211; The Real
+Estate record.</li>
+<li><strong>format</strong> (<em>string</em>) &#8211; The format currently used. For &#8216;pdf&#8217; format,
+the used map size will be adapted to the pdf format,</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The url used to query the WMS server.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The url used to query the WMS server.</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
+</td>
 </tr>
 </tbody>
 </table>
