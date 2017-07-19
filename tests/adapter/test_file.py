@@ -26,14 +26,19 @@ def test_ls():
     file_adapter = FileAdapter(base_path)
     dir_list = file_adapter.ls()
     assert isinstance(dir_list, list)
-    assert len(dir_list) == 8
+    assert len(dir_list) == 4
     file_found = False
+    dir_found = False
     for entry in dir_list:
         if entry[0] == 'test_config.yml':
             file_found = True
             assert entry[1].get('is_file')
             assert not entry[1].get('is_dir')
-    assert file_found
+        if entry[0] == 'schema':
+            dir_found = True
+            assert not entry[1].get('is_file')
+            assert entry[1].get('is_dir')
+    assert file_found and dir_found
 
 
 def test_read():
