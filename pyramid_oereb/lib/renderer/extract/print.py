@@ -5,6 +5,7 @@ import requests
 import urlparse
 import logging
 
+from shapely.geometry import mapping
 from pyramid.httpexceptions import HTTPBadRequest
 
 from pyramid_oereb import Config
@@ -69,31 +70,11 @@ class PrintRenderer(Renderer):
         extract_dict["features"] = {
             "features": {
                 "type": "FeatureCollection",
-                "features": [
-                    {
-                        "type": "Feature",
-                        "geometry": {
-                            "type": "Polygon",
-                            "coordinates": [
-                                [
-                                    [
-                                        600000, 20000
-                                    ],
-                                    [
-                                        600100, 20000
-                                    ],
-                                    [
-                                        600000, 20100
-                                    ],
-                                    [
-                                        600000, 20000
-                                    ]
-                                ]
-                            ]
-                        },
-                        "properties": {}
-                    }
-                ]
+                "features": [{
+                    "type": "Feature",
+                    "geometry": mapping(value[0].real_estate.limit),
+                    "properties": {}
+                }]
             }
         }
         spec = {

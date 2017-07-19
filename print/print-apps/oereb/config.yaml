@@ -163,10 +163,10 @@ templates:
                 width: 555
                 height: 675
                 default:
-                    projection: "EPSG:21781"
+                    projection: "EPSG:2056"
                     dpi: 72
                     zoomToFeatures:
-                        minScale: 2000
+                        minScale: 500
             overlayLayers: !staticLayers
                 default:
                     layers:
