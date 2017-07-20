@@ -154,8 +154,10 @@ pyramid_oereb:
   # does.
   real_estate:
     view_service:
+      # WMS URL to query the plan for land register
       reference_wms: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
-      legend_at_web: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=1.1.1&FORMAT=image/png&LAYER=ch.swisstopo-vd.amtliche-vermessung
+      # Legend is optional
+      # legend_at_web:
     visualisation:
       method: pyramid_oereb.standard.hook_methods.produce_sld_content
       # Note: This parameters must fit to the attributes provided by the RealEstateRecord!!!!
