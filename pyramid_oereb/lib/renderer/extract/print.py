@@ -54,10 +54,12 @@ class PrintRenderer(Renderer):
             self._multilingual_text(item, 'Content')
         self._multilingual_text(extract_dict, 'PLRCadastreAuthority_Name')
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
+            self._flatten_object(restriction_on_landownership, 'Lawstatus')
             self._flatten_object(restriction_on_landownership, 'Theme')
             self._flatten_object(restriction_on_landownership, 'ResponsibleOffice')
             self._flatten_array_object(restriction_on_landownership, 'Geometry', 'ResponsibleOffice')
             self._localised_text(restriction_on_landownership, 'Theme_Text')
+            self._localised_text(restriction_on_landownership, 'Lawstatus_Text')
             self._multilingual_m_text(restriction_on_landownership, 'Information')
             self._multilingual_text(restriction_on_landownership, 'ResponsibleOffice_Name')
             for item in restriction_on_landownership.get('Geometry', []):
@@ -78,6 +80,12 @@ class PrintRenderer(Renderer):
                         del legal_provision['Article']
                         finish = False
             restriction_on_landownership['LegalProvisions'] = legal_provisions
+            for item in restriction_on_landownership.get('LegalProvisions', []):
+                self._flatten_object(item, 'Lawstatus')
+                self._localised_text(item, 'Lawstatus_Text')
+                self._flatten_object(item, 'ResponsibleOffice')
+                self._multilingual_text(item, 'ResponsibleOffice_Name')
+                self._multilingual_text(item, 'TextAtWeb')
 
             for item in restriction_on_landownership.get('LegalProvisions', []):
                 self._multilingual_m_text(item, 'Text')

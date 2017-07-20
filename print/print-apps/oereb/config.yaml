@@ -69,8 +69,8 @@ templates:
                         default: ''
                     TypeCodelist: !string
                         default: ''
-                    Lawstatus: !string #/definitions/Lawstatus
-                        default: ''
+                    Lawstatus_Code: *optStr
+                    Lawstatus_Text: *optStr #/definitions/LocalisedText
                     Area: !string #/definitions/Area
                         default: ''
                     PartInPercent: !float
@@ -89,34 +89,40 @@ templates:
                             MetadataOfGeographicalBaseData: !string {}
                             ResponsibleOffice_Name: !string {} #/definitions/MultilingualText
                             ResponsibleOffice_OfficeAtWeb: !string {} #/definitions/WebReference
-                            ResponsibleOffice_UID: !string #/definitions/UID
-                                default: ''
-                            ResponsibleOffice_Line1: !string
-                                default: ''
-                            ResponsibleOffice_Line2: !string
-                                default: ''
-                            ResponsibleOffice_Street: !string {}
-                            ResponsibleOffice_Number: !string {}
-                            ResponsibleOffice_PostalCode: !string {}
-                            ResponsibleOffice_City: !string {}
+                            ResponsibleOffice_UID: *optStr #/definitions/UID
+                            ResponsibleOffice_Line1: *optStr
+                            ResponsibleOffice_Line2: *optStr
+                            ResponsibleOffice_Street: *optStr
+                            ResponsibleOffice_Number: *optStr
+                            ResponsibleOffice_PostalCode: *optStr
+                            ResponsibleOffice_City: *optStr
                     Map: !string #/definitions/Map
                         default: '{}'
                     LegalProvisions: !datasource
                         default: []
                         attributes:
-                          TextAtWeb: !string {} #/definitions/MultilingualUri
-                          Lawstatus: !string {} #/definitions/Lawstatus
-                          Number: *optStr #/definitions/ArticleNumber
-                          Text: *optStr #/definitions/MultilingualMText
-                          Title: *optStr #/definitions/MultilingualText
-                          OfficialTitle: *optStr #/definitions/MultilingualText
-                          Abbrevation: *optStr #/definitions/MultilingualText
-                          OfficialNumber: *optStr
-                          Canton: *optStr #/definitions/CantonCode
-                          Municipality: *optStr #/definitions/MunicipalityCode
-                          ResponsibleOffice: *optStr #/definitions/Office
-                          OfficialNumber: *optStr #/definitions/CantonCode
-                          ArticleNumber: *optStr #array of /definitions/ArticleNumber
+                            TextAtWeb: !string {} #/definitions/MultilingualUri
+                            Lawstatus_Code: *optStr
+                            Lawstatus_Text: *optStr #/definitions/LocalisedText
+                            Number: *optStr #/definitions/ArticleNumber
+                            Text: *optStr #/definitions/MultilingualMText
+                            Title: *optStr #/definitions/MultilingualText
+                            OfficialTitle: *optStr #/definitions/MultilingualText
+                            Abbrevation: *optStr #/definitions/MultilingualText
+                            OfficialNumber: *optStr
+                            Canton: *optStr #/definitions/CantonCode
+                            Municipality: *optStr #/definitions/MunicipalityCode
+                            ResponsibleOffice_Name: !string {} #/definitions/MultilingualText
+                            ResponsibleOffice_OfficeAtWeb: !string {} #/definitions/WebReference
+                            ResponsibleOffice_UID: *optStr #/definitions/UID
+                            ResponsibleOffice_Line1: *optStr
+                            ResponsibleOffice_Line2: *optStr
+                            ResponsibleOffice_Street: *optStr
+                            ResponsibleOffice_Number: *optStr
+                            ResponsibleOffice_PostalCode: *optStr
+                            ResponsibleOffice_City: *optStr
+                            OfficialNumber: *optStr #/definitions/CantonCode
+                            ArticleNumber: *optStr #array of /definitions/ArticleNumber
                     ResponsibleOffice_Name: !string #/definitions/MultilingualText
                         default: ''
                     ResponsibleOffice_OfficeAtWeb: !string #/definitions/WebReference
