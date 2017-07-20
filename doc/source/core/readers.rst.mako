@@ -1,7 +1,7 @@
 .. _readers:
 
 Readers
-=======
+-------
 
 <%! import glob, inspect, re, sys%>
 <%
@@ -24,7 +24,7 @@ for module in modules:
         if inspect.isclass(obj) and obj.__module__ == module:
             classes[module].append(name)
 
-underline = ['-', '`', '\'', '.', '~', '*']
+underline = ['^', '`', '\'', '.', '~', '*']
 %>
 
 %for module in modules:
