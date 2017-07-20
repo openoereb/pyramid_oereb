@@ -3,4 +3,5 @@ include pyramid_oereb/standard/logo_confederation.png
 include pyramid_oereb/standard/logo_oereb.png
 include pyramid_oereb/standard/logo_canton.png
 include pyramid_oereb/standard/templates/plr.py.mako
+recursive-include pyramid_oereb/lib/renderer *.xml
 recursive-exclude tests *.*
