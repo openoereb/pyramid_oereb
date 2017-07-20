@@ -1,13 +1,13 @@
 <%page args="text"/>
 <%
     import urlparse
-    localized_text = language(text)
+    localized_text = localized(text)
 %>
 <xsd:LocalisedText>
-    <xsd:Language>${localized_text[0].get('Language')}</xsd:Language>
-    % if urlparse.urlparse(localized_text[0].get('Text')).scheme:
-        <xsd:Text>${localized_text[0].get('Text')|u}</xsd:Text>
+    <xsd:Language>${localized_text.get('Language')}</xsd:Language>
+    % if urlparse.urlparse(localized_text.get('Text')).scheme:
+        <xsd:Text>${localized_text.get('Text')|u}</xsd:Text>
     %else:
-        <xsd:Text>${localized_text[0].get('Text')}</xsd:Text>
+        <xsd:Text>${localized_text.get('Text')}</xsd:Text>
     % endif
 </xsd:LocalisedText>

@@ -9,7 +9,7 @@
 %>
 <xsd:RestrictionOnLandownership>
     <xsd:Information>
-        <%include file="localized_text.xml" args="text=public_law_restriction.information"/>
+        <%include file="multilingual_m_text.xml" args="text=public_law_restriction.information"/>
     </xsd:Information>
     <%include file="theme.xml" args="theme=public_law_restriction.theme"/>
     %if public_law_restriction.sub_theme:

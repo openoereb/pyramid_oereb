@@ -10,7 +10,7 @@
                                                      type_code=legend_entry.type_code)}</xsd:SymbolRef>
     %endif
     <xsd:LegendText>
-        <%include file="localized_text.xml" args="text=legend_entry.legend_text"/>
+        <%include file="multilingual_text.xml" args="text=legend_entry.legend_text"/>
     </xsd:LegendText>
     <xsd:TypeCode>${legend_entry.type_code}</xsd:TypeCode>
     <xsd:TypeCodelist>${legend_entry.type_code_list}</xsd:TypeCodelist>

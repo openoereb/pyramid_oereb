@@ -5,6 +5,7 @@ from pyramid.response import Response
 from pyramid.testing import DummyRequest
 
 from pyramid_oereb.lib.renderer import Base
+from pyramid_oereb.lib.renderer.extract.json_ import Renderer
 from tests.renderer import DummyRenderInfo
 
 
@@ -44,3 +45,51 @@ def test_get_response():
 def test_get_missing_response():
     response = Base.get_response({})
     assert response is None
+
+
+def test_get_localized_text_from_string(config):
+    assert isinstance(config._config, dict)
+    renderer = Renderer(DummyRenderInfo())
+    localized_text = renderer.get_localized_text('Test')
+    assert isinstance(localized_text, dict)
+    assert localized_text.get('Text') == 'Test'
+    assert localized_text.get('Language') == config.get('default_language')
+
+
+@pytest.mark.parametrize('language,result', [
+    ('de', u'Dies ist ein Test'),
+    ('en', u'This is a test'),
+    ('fr', u'Dies ist ein Test')  # fr not available; use default language (de)
+])
+def test_get_localized_text_from_dict(config, language, result):
+    assert isinstance(config._config, dict)
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language = language
+    multilingual_text = {
+        'de': u'Dies ist ein Test',
+        'en': u'This is a test'
+    }
+    localized_text = renderer.get_localized_text(multilingual_text)
+    assert isinstance(localized_text, dict)
+    assert localized_text.get('Language') in ['de', 'en']
+    assert localized_text.get('Text') == result
+
+
+@pytest.mark.parametrize('language,result', [
+    ('de', u'Dies ist ein Test'),
+    ('en', u'This is a test'),
+    ('fr', u'Dies ist ein Test')  # fr not available; use default language (de)
+])
+def test_get_multilingual_text_from_dict(config, language, result):
+    assert isinstance(config._config, dict)
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language = language
+    multilingual_text = {
+        'de': u'Dies ist ein Test',
+        'en': u'This is a test'
+    }
+    ml_text = renderer.get_multilingual_text(multilingual_text)
+    assert isinstance(ml_text, list)
+    assert len(ml_text) == 1
+    assert ml_text[0].get('Language') in ['de', 'en']
+    assert ml_text[0].get('Text') == result

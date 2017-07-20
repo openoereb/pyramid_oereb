@@ -29,9 +29,9 @@ class PlrWebservice(object):
     def __init__(self, request):
         if not isinstance(request.pyramid_oereb_processor, Processor):
             raise HTTPServerError('Missing processor instance')
-        self._request_ = request
-        self._real_estate_reader_ = request.pyramid_oereb_processor.real_estate_reader
-        self._municipality_reader_ = request.pyramid_oereb_processor.municipality_reader
+        self._request = request
+        self._real_estate_reader = request.pyramid_oereb_processor.real_estate_reader
+        self._municipality_reader = request.pyramid_oereb_processor.municipality_reader
 
     # TODO: Remove this method when format parameter is available in URL (new specification).
     def _is_json(self):
@@ -41,7 +41,7 @@ class PlrWebservice(object):
         Returns:
             bool: True if requested format is JSON.
         """
-        url = self._request_.current_route_url().split('?')
+        url = self._request.current_route_url().split('?')
         return url[0].endswith('.json')
 
     def get_versions(self):
@@ -51,21 +51,28 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `versions` response.
         """
-        endpoint = self._request_.application_url
         if route_prefix:
-            endpoint += '/' + route_prefix  # pragma: no cover
+            endpoint = u'{application}/{route_prefix}'.format(
+                application=self._request.application_url,
+                route_prefix=route_prefix
+            )
+        else:
+            endpoint = u'{application}'.format(application=self._request.application_url)
         versions = {
             u'GetVersionsResponse': {
                 u'supportedVersion': [
                     {
                         u'version': u'1.0.0',
-                        u'serviceEndpointBase': unicode(endpoint)
+                        u'serviceEndpointBase': endpoint
                     }
                 ]
             }
         }
         renderer_name = 'json' if self._is_json() else 'pyramid_oereb_versions_xml'
-        return render_to_response(renderer_name, versions, request=self._request_)
+        response = render_to_response(renderer_name, versions, request=self._request)
+        if self._is_json():
+            response.content_type = 'application/json; charset=UTF-8'
+        return response
 
     def get_capabilities(self):
         """
@@ -89,14 +96,17 @@ class PlrWebservice(object):
         capabilities = {
             u'GetCapabilitiesResponse': {
                 u'topic': themes,
-                u'municipality': [record.fosnr for record in self._municipality_reader_.read()],
+                u'municipality': [record.fosnr for record in self._municipality_reader.read()],
                 u'flavour': Config.get_flavour(),
                 u'language': Config.get_language(),
                 u'crs': Config.get_crs()
             }
         }
         renderer_name = 'json' if self._is_json() else 'pyramid_oereb_capabilities_xml'
-        return render_to_response(renderer_name, capabilities, request=self._request_)
+        response = render_to_response(renderer_name, capabilities, request=self._request)
+        if self._is_json():
+            response.content_type = 'application/json; charset=UTF-8'
+        return response
 
     def get_egrid_coord(self):
         """
@@ -105,8 +115,8 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `getegrid` response.
         """
-        xy = self._request_.params.get('XY')
-        gnss = self._request_.params.get('GNSS')
+        xy = self._request.params.get('XY')
+        gnss = self._request.params.get('GNSS')
         if xy or gnss:
             geom_wkt = 'SRID={0};{1}'
             if xy:
@@ -114,7 +124,7 @@ class PlrWebservice(object):
                                            self.__parse_xy__(xy, buffer_dist=1.0).wkt)
             elif gnss:
                 geom_wkt = geom_wkt.format(Config.get('srid'), self.__parse_gnss__(gnss).wkt)
-            records = self._real_estate_reader_.read(**{'geometry': geom_wkt})
+            records = self._real_estate_reader.read(**{'geometry': geom_wkt})
             return self.__get_egrid_response__(records)
         else:
             raise HTTPBadRequest('XY or GNSS must be defined.')
@@ -126,10 +136,10 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `getegrid` response.
         """
-        identdn = self._request_.matchdict.get('identdn')
-        number = self._request_.matchdict.get('number')
+        identdn = self._request.matchdict.get('identdn')
+        number = self._request.matchdict.get('number')
         if identdn and number:
-            records = self._real_estate_reader_.read(**{
+            records = self._real_estate_reader.read(**{
                 'nb_ident': identdn,
                 'number': number
             })
@@ -144,9 +154,9 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `getegrid` response.
         """
-        postalcode = self._request_.matchdict.get('postalcode')
-        localisation = self._request_.matchdict.get('localisation')
-        number = self._request_.matchdict.get('number')
+        postalcode = self._request.matchdict.get('postalcode')
+        localisation = self._request.matchdict.get('localisation')
+        number = self._request.matchdict.get('number')
         if postalcode and localisation and number:
             reader = AddressReader(
                 Config.get_address_config().get('source').get('class'),
@@ -156,7 +166,7 @@ class PlrWebservice(object):
             if len(addresses) == 0:
                 raise HTTPNotFound('Address not found.')
             geometry = 'SRID={srid};{wkt}'.format(srid=Config.get('srid'), wkt=addresses[0].geom)
-            records = self._real_estate_reader_.read(**{'geometry': geometry})
+            records = self._real_estate_reader.read(**{'geometry': geometry})
             return self.__get_egrid_response__(records)
         else:
             raise HTTPBadRequest('POSTALCODE, LOCALISATION and NUMBER must be defined.')
@@ -169,7 +179,7 @@ class PlrWebservice(object):
             pyramid.response.Response: The `extract` response.
         """
         params = self.__validate_extract_params__()
-        processor = self._request_.pyramid_oereb_processor
+        processor = self._request.pyramid_oereb_processor
         # read the real estate from configured source by the passed parameters
         real_estate_reader = processor.real_estate_reader
         if params.egrid:
@@ -194,7 +204,7 @@ class PlrWebservice(object):
                 extract = processor.process(
                     real_estate_records[0],
                     params,
-                    self._request_.route_url('{0}/sld'.format(route_prefix))
+                    self._request.route_url('{0}/sld'.format(route_prefix))
                 )
             except LookupError:
                 raise HTTPNoContent()
@@ -206,19 +216,19 @@ class PlrWebservice(object):
                 return render_to_response(
                     'pyramid_oereb_extract_json',
                     (extract, params),
-                    request=self._request_
+                    request=self._request
                 )
             elif params.format == 'xml':
                 return render_to_response(
                     'pyramid_oereb_extract_xml',
                     (extract, params),
-                    request=self._request_
+                    request=self._request
                 )
             elif params.format == 'pdf':
                 return render_to_response(
                     'pyramid_oereb_extract_print',
                     (extract, params),
-                    request=self._request_
+                    request=self._request
                 )
             else:
                 raise HTTPBadRequest()
@@ -234,18 +244,18 @@ class PlrWebservice(object):
         """
 
         # Check flavour
-        extract_flavour = self._request_.matchdict.get('flavour').lower()
+        extract_flavour = self._request.matchdict.get('flavour').lower()
         if extract_flavour not in ['reduced', 'full', 'signed', 'embeddable']:
             raise HTTPBadRequest('Invalid flavour: {0}'.format(extract_flavour))
 
         # Check format
-        extract_format = self._request_.matchdict.get('format').lower()
+        extract_format = self._request.matchdict.get('format').lower()
         if extract_format not in ['pdf', 'xml', 'json']:
             raise HTTPBadRequest('Invalid format: {0}'.format(extract_format))
 
         # With geometry?
         with_geometry = False
-        if self._request_.matchdict.get('param1').lower() == 'geometry':
+        if self._request.matchdict.get('param1').lower() == 'geometry':
             with_geometry = True
 
         # Check for invalid combinations
@@ -257,7 +267,7 @@ class PlrWebservice(object):
             raise HTTPBadRequest('Geometry is not available for format PDF.')
 
         # With images?
-        with_images = self._request_.params.get('WITHIMAGES') is not None
+        with_images = self._request.params.get('WITHIMAGES') is not None
 
         params = Parameter(extract_flavour, extract_format, with_geometry, with_images)
 
@@ -268,8 +278,8 @@ class PlrWebservice(object):
         else:
             id_param_1 = 'param1'
             id_param_2 = 'param2'
-        id_part_1 = self._request_.matchdict.get(id_param_1)
-        id_part_2 = self._request_.matchdict.get(id_param_2)
+        id_part_1 = self._request.matchdict.get(id_param_1)
+        id_part_2 = self._request.matchdict.get(id_param_2)
         if id_part_2:
             params.set_identdn(id_part_1)
             params.set_number(id_part_2)
@@ -277,8 +287,8 @@ class PlrWebservice(object):
             params.set_egrid(id_part_1)
 
         # Language
-        language = str(self._request_.params.get('LANG')).lower()
-        if language not in Config.get_language() and self._request_.params.get('LANG') is not \
+        language = str(self._request.params.get('LANG')).lower()
+        if language not in Config.get_language() and self._request.params.get('LANG') is not \
                 None:
             raise HTTPBadRequest(
                 'Requested language is not available. Following languages are configured: {languages} The '
@@ -287,11 +297,11 @@ class PlrWebservice(object):
                     language=language
                 )
             )
-        if self._request_.params.get('LANG'):
+        if self._request.params.get('LANG'):
             params.set_language(language)
 
         # Topics
-        topics = self._request_.params.get('TOPICS')
+        topics = self._request.params.get('TOPICS')
         if topics:
             params.set_topics(topics.split(','))
 
@@ -327,16 +337,19 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `getegrid` response.
         """
-        response = list()
+        real_estates = list()
         for r in records:
-            response.append({
+            real_estates.append({
                 'egrid': getattr(r, 'egrid'),
                 'number': getattr(r, 'number'),
                 'identDN': getattr(r, 'identdn')
             })
-        egrid = {'GetEGRIDResponse': response}
+        egrid = {'GetEGRIDResponse': real_estates}
         renderer_name = 'json' if self._is_json() else 'pyramid_oereb_getegrid_xml'
-        return render_to_response(renderer_name, egrid, request=self._request_)
+        response = render_to_response(renderer_name, egrid, request=self._request)
+        if self._is_json():
+            response.content_type = 'application/json; charset=UTF-8'
+        return response
 
     def __parse_xy__(self, xy, buffer_dist=None):
         """
