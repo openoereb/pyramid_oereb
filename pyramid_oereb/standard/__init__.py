@@ -94,8 +94,8 @@ def create_tables_from_standard_configuration(
     """
     config = parse(configuration_yaml_path, section)
 
+    main_schema_engine = create_engine(config.get('app_schema').get('db_connection'), echo=True)
     if sql_file is None:
-        main_schema_engine = create_engine(config.get('app_schema').get('db_connection'), echo=True)
         if not tables_only:
             main_schema_connection = main_schema_engine.connect()
             try:
@@ -114,12 +114,16 @@ def create_tables_from_standard_configuration(
         main_base_class.metadata.create_all(main_schema_engine)
     else:
         for table in main_base_class.metadata.sorted_tables:
-            sql_file.write('{};\n'.format(str(CreateTable(table)).replace('DATETIME', 'timestamp')))
+            create_table = str(CreateTable(table).compile(main_schema_engine))\
+                .replace('DATETIME', 'timestamp')
+            sql_file.write('{};\n'.format(create_table))
+
     for schema in config.get('plrs'):
+
+        plr_schema_engine = create_engine(schema.get('source').get('params').get('db_connection'), echo=True)
+
         if sql_file is None:
             if schema.get('standard'):
-                plr_schema_engine = create_engine(schema.get('source').get('params').get('db_connection'),
-                                                  echo=True)
 
                 if not tables_only:
                     plr_schema_connection = plr_schema_engine.connect()
@@ -134,6 +138,7 @@ def create_tables_from_standard_configuration(
                     package=schema.get('source').get('params').get('models')
                 ))
                 plr_base.metadata.create_all(plr_schema_engine)
+
         else:
             plr_base = DottedNameResolver().maybe_resolve('{package}.Base'.format(
                 package=schema.get('source').get('params').get('models')
@@ -142,7 +147,9 @@ def create_tables_from_standard_configuration(
                 name=convert_camel_case_to_snake_case(schema.get('code')))
             )
             for table in plr_base.metadata.sorted_tables:
-                sql_file.write('{};\n'.format(str(CreateTable(table)).replace('DATETIME', 'timestamp')))
+                create_table = str(CreateTable(table).compile(plr_schema_engine))\
+                    .replace('DATETIME', 'timestamp')
+                sql_file.write('{};\n'.format(create_table))
 
 
 def drop_tables_from_standard_configuration(configuration_yaml_path, section='pyramid_oereb'):
