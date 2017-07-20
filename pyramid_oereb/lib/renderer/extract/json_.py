@@ -43,7 +43,7 @@ class Renderer(Base):
 
         response = self.get_response(system)
         if isinstance(response, Response) and response.content_type == response.default_content_type:
-            response.content_type = 'application/json'
+            response.content_type = 'application/json; charset=UTF-8'
 
         extract_dict = self._render(value[0], value[1])
         result = {
