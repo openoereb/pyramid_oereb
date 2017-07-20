@@ -77,6 +77,34 @@ class Base(object):
 
     def get_localized_text(self, values):
         """
+        Returns the requested language of a multilingual text element.
+
+        Args:
+            values (str or dict): The multilingual values encoded as JSON.
+
+        Returns:
+            dict of str: Dictionary containing the localized representation.
+        """
+        default_language = Config.get('default_language')
+        if isinstance(values, dict):
+            if self._language in values:
+                return {
+                    'Language': self._language,
+                    'Text': values.get(self._language)
+                }
+            else:
+                return {
+                    'Language': default_language,
+                    'Text': values.get(default_language)
+                }
+        else:
+            return {
+                'Language': default_language,
+                'Text': values
+            }
+
+    def get_multilingual_text(self, values):
+        """
         Returns the set language of a multilingual text element.
 
         Args:
@@ -85,22 +113,4 @@ class Base(object):
         Returns:
             list of dict: List of dictionaries containing the multilingual representation.
         """
-        text = list()
-        default_language = Config.get('default_language')
-        if isinstance(values, dict):
-            if self._language in values:
-                text.append({
-                    'Language': self._language,
-                    'Text': values.get(self._language)
-                })
-            else:
-                text.append({
-                    'Language': default_language,
-                    'Text': values.get(default_language)
-                })
-        else:
-            text.append({
-                'Language': default_language,
-                'Text': values
-            })
-        return text
+        return [self.get_localized_text(values)]

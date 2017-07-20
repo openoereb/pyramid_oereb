@@ -249,7 +249,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 legal_provision.published_from,
                 legal_provision.title,
                 office_record,
-                legal_provision.text_web,
+                legal_provision.text_at_web,
                 legal_provision.abbreviation,
                 legal_provision.official_number,
                 legal_provision.official_title,

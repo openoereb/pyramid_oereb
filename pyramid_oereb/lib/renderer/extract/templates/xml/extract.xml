@@ -19,8 +19,8 @@
     %if params.flavour == 'embeddable':
     <xsd:embeddable>
         <xsd:cadasterState>${str(extract.embeddable.cadaster_state)}</xsd:cadasterState>
-        <xsd:cadasterOrganisationName>${language(extract.embeddable.cadaster_organisation.name)[0].get('Text')}</xsd:cadasterOrganisationName>
-        <xsd:dataOwnerNameCadastralSurveying>${language(extract.embeddable.data_owner_cadastral_surveying.name)[0].get('Text')}</xsd:dataOwnerNameCadastralSurveying>
+        <xsd:cadasterOrganisationName>${localized(extract.embeddable.cadaster_organisation.name).get('Text')}</xsd:cadasterOrganisationName>
+        <xsd:dataOwnerNameCadastralSurveying>${localized(extract.embeddable.data_owner_cadastral_surveying.name).get('Text')}</xsd:dataOwnerNameCadastralSurveying>
         <xsd:transferFromSourceCadastralSurveying>${extract.embeddable.transfer_from_source_cadastral_surveying.strftime('%d-%m-%YT%H:%M:%S')}</xsd:transferFromSourceCadastralSurveying>
         % for datasource in extract.embeddable.datasources:
         <%include file="data_source.xml" args="datasource=datasource"/>
@@ -71,11 +71,11 @@
     %endif
     % if extract.general_information:
         <xsd:GeneralInformation>
-            <%include file="localized_text.xml" args="text=extract.general_information"/>
+            <%include file="multilingual_m_text.xml" args="text=extract.general_information"/>
         </xsd:GeneralInformation>
     %endif
         <xsd:BaseData>
-            <%include file="localized_text.xml" args="text=extract.base_data"/>
+            <%include file="multilingual_m_text.xml" args="text=extract.base_data"/>
         </xsd:BaseData>
         %for glossary in extract.glossaries:
         <%include file="glossary.xml" args="glossary=glossary"/>

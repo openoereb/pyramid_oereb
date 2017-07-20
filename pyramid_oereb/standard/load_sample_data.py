@@ -92,11 +92,11 @@ class SampleData(object):
         Args:
             class_ (sqlalchemy.ext.declarative.ConcreteBase): SQLAlchemy class
             import_file_name (str): The resource file name to import
-            connection (sqlalchemy.engine.Connection): The connection
         """
         with open(os.path.join(self._directory, import_file_name)) as f:
-            if self._sql_file is None and self._has_connection():
-                self._connection.execute(class_.__table__.insert(), json.loads(f.read()))
+            if self._sql_file is None:
+                if self._has_connection():
+                    self._connection.execute(class_.__table__.insert(), json.loads(f.read()))
             else:
                 sql = str(class_.__table__.insert())
                 for r in json.loads(f.read()):

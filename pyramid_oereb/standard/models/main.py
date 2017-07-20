@@ -173,5 +173,5 @@ class ExclusionOfLiability(Base):
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'exclusion_of_liability'
     id = sa.Column(sa.Integer, primary_key=True)
-    title = sa.Column(sa.String, nullable=False)
-    content = sa.Column(sa.String, nullable=False)
+    title = sa.Column(JSONType, nullable=False)
+    content = sa.Column(JSONType, nullable=False)

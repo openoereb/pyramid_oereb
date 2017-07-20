@@ -1,0 +1,12 @@
+<%page args="text"/>
+<%
+    multilingual_text = multilingual(text)
+%>
+<xsd:MultilingualMText>
+% for localized_text in multilingual_text:
+    <xsd:LocalisedMText>
+        <xsd:Language>${localized_text.get('Language')}</xsd:Language>
+        <xsd:Text>${localized_text.get('Text')}</xsd:Text>
+    </xsd:LocalisedMText>
+% endfor
+</xsd:MultilingualMText>

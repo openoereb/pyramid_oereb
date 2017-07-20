@@ -1,0 +1,17 @@
+<%page args="text"/>
+<%
+    import urlparse
+    multilingual_text = multilingual(text)
+%>
+<xsd:MultilingualText>
+% for localized_text in multilingual_text:
+    <xsd:LocalisedText>
+        <xsd:Language>${localized_text.get('Language')}</xsd:Language>
+        % if urlparse.urlparse(localized_text.get('Text')).scheme:
+            <xsd:Text>${localized_text.get('Text')|u}</xsd:Text>
+        %else:
+            <xsd:Text>${localized_text.get('Text')}</xsd:Text>
+        % endif
+    </xsd:LocalisedText>
+% endfor
+</xsd:MultilingualText>
