@@ -22,7 +22,7 @@ In order to install and run an instance of ``pyramid_oereb``, the following requ
 
 2.  **A running Database:**
     For the standard configuration you need a running database with a role, which is allow to create schemata
-    and tables and to manipulate data. We recommend to use PostgreSQL with PostGIS, but theoretically use
+    and tables and to manipulate data. We recommend to use PostgreSQL with PostGIS, but theoretically you
     should be able to use any spatial database, that is supported by `SQLAlchemy
     <https://www.sqlalchemy.org/>`__ and `GeoAlchemy 2 <https://geoalchemy-2.readthedocs.io/en/latest/>`__.
 
@@ -106,11 +106,19 @@ script:
 5. Load sample data (optional)
 ..............................
 
-Included sample data can be imported into the configured database using the following script:
+A set of sample data is available in the repository_ in the directory `sample_data`. After downloading it, you
+can import the sample data into the configured database using the following script:
 
 .. code-block:: shell
 
- load_standard_sample_data -c pyramid_oereb_standard.yml
+ python pyramid_oereb/standard/load_sample_data.py -c pyramid_oereb_standard.yml
+
+We assume, you have put your downloaded sample data in a folder named `sample_data` in your projects root
+directory, as found in the repository_. Otherwise you have to specify the location of your sample data using
+the ``-d`` or ``--dir=`` argument.
+
+.. warning:: Use the sample data corresponding to the installed version of ``pyramid_oereb`` by selection the
+   matching release.
 
 
 .. _installation-step-application:
@@ -165,3 +173,6 @@ detailed description of each table can be found in the documentation of the
 If your data is already available in an existing database with a different structure or you need to use a
 custom data source, the possible ways to adapt the models or to extend the application are described in the
 section :ref:`configuration`.
+
+
+.. _repository: https://github.com/camptocamp/pyramid_oereb/

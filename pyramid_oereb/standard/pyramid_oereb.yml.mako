@@ -14,6 +14,21 @@ pyramid_oereb:
     - it
     - rm
 
+  # The law status translations based on the two possible codes 'inForce' and 'runningModifications'
+  law_status_translations:
+    in_force:
+      de: in Kraft
+      fr: en vigueur
+      it: in vigore
+      rm: en vigur
+      en: in force
+    running_modifications:
+      de: laufende Änderungen
+      fr: modification en cours
+      it: modificazione in corso
+      rm: midada current
+      en: ongoing modification
+
   # The language that should be used by default, if no other language is specified in the request.
   # This has to be one of the languages defined above.
   default_language: de
@@ -32,13 +47,14 @@ pyramid_oereb:
   print:
     # The buffer on the map around the parcel in percent
     buffer: 10
-
-    # The map size in pixel at 72 DPI (width, height), This is the defined size of a map image inside the
-    # static extract.
-    map_size: [493, 280]
-
-    # The print DPI
-    dpi: 200
+    # The map size in pixel at 72 DPI (width, height), This is the defined size of a map image
+    # (requested in wms urls) inside the static extract. On a pdf report, tha map size will
+    # be calculated with the pdf_dpi and the pdf_map_size_millimeters below.
+    basic_map_size: [493, 280]
+    # The dpi used to calculate the size of the requested map (for pdf export only).
+    pdf_dpi: 300
+    # The map size (in millimeters) used to calculate the size of the requested map (for pdf export only).
+    pdf_map_size_millimeters: [174, 99]
 
     # Base URL with application of the print server
     base_url: http://localhost:8280/print/oereb
@@ -78,6 +94,22 @@ pyramid_oereb:
     collection:
         types:
         - GeometryCollection
+
+  # Configuration for OEREBlex
+  oereblex:
+    # OEREBlex host
+    host: https://oereblex.bl.ch
+    # Language of returned values
+    language: de
+    # Value for canton attribute
+    canton: BL
+    # Mapping for other optional attributes
+    mapping:
+      municipality: subtype
+    # Proxy to be used for web requests
+    # proxy:
+    #   http:
+    #   https:
 
   # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
   # will be directly used for producing the extract output.
@@ -122,8 +154,21 @@ pyramid_oereb:
   # does.
   real_estate:
     view_service:
+      # WMS URL to query the plan for land register
       reference_wms: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
-      legend_at_web: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=1.1.1&FORMAT=image/png&LAYER=ch.swisstopo-vd.amtliche-vermessung
+      # Legend is optional
+      # legend_at_web:
+    visualisation:
+      method: pyramid_oereb.standard.hook_methods.produce_sld_content
+      # Note: This parameters must fit to the attributes provided by the RealEstateRecord!!!!
+      url_params:
+        - egrid
+      layer:
+        name: ch.swisstopo-vd.amtliche-vermessung
+      style:
+        stroke_opacity: 1
+        stroke_color: '#ff0000'
+        stroke_width: 5
     # The real estate must have a property source.
     source:
       # The source must have a class which represents the accessor to the source. In this case it is a source
@@ -152,6 +197,14 @@ pyramid_oereb:
         db_connection: ${sqlalchemy_url}
         # The model which maps the address database table.
         model: pyramid_oereb.standard.models.main.Address
+      # Alternatively you can use the search service of the GeoAdmin API to look up the real estate by
+      # address. Replace the configuration above with the following lines:
+      # class: pyramid_oereb.lib.sources.address.AddressGeoAdminSource
+      # params:
+        # URL of the GeoAdmin API SearchServer
+        # geoadmin_search_api: https://api3.geo.admin.ch/rest/services/api/SearchServer
+        # Origins to use (should be "address" only)
+        # origins: address
 
   # The processor of the oereb project needs access to municipality data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you like to read the municipality out of an existing
@@ -214,6 +267,9 @@ pyramid_oereb:
     base_data:
         text:
           de: Daten der amtlichen Vermessung, Stand {0}.
+          fr: Données de la mensuration officielle, état actuel {0}
+          it: Dati della misurazione ufficiale, stato attuale {0}
+          rm: Datas da la mesiraziun uffiziala, versiun dal {0}
         methods:
           date: pyramid_oereb.standard.hook_methods.get_surveying_data_update_date
           provider:  pyramid_oereb.standard.hook_methods.get_surveying_data_provider
@@ -236,18 +292,20 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
       text:
         de: Nutzungsplanung
       language: de
-      federal: true
+      federal: false
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -255,6 +313,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.land_use_plans
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr87
       code: MotorwaysProjectPlaningZones
@@ -262,11 +323,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -281,6 +344,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.motorways_project_planing_zones
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr88
       code: MotorwaysBuildingLines
@@ -288,11 +354,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -307,6 +375,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.motorways_building_lines
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr97
       code: RailwaysBuildingLines
@@ -314,11 +385,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -333,6 +406,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.railways_building_lines
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr96
       code: RailwaysProjectPlanningZones
@@ -340,11 +416,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -359,6 +437,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.railways_project_planning_zones
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr103
       code: AirportsProjectPlanningZones
@@ -366,11 +447,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -385,6 +468,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.airports_project_planning_zones
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr104
       code: AirportsBuildingLines
@@ -392,11 +478,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -411,6 +499,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.airports_building_lines
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr108
       code: AirportsSecurityZonePlans
@@ -418,11 +509,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -437,6 +530,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.airports_security_zone_plans
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr116
       code: ContaminatedSites
@@ -444,18 +540,20 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
       text:
         de: Belastete Standorte
       language: de
-      federal: true
+      federal: false
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -463,6 +561,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_sites
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr117
       code: ContaminatedMilitarySites
@@ -470,11 +571,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -489,6 +592,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_military_sites
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr118
       code: ContaminatedCivilAviationSites
@@ -496,11 +602,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -515,6 +623,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr119
       code: ContaminatedPublicTransportSites
@@ -522,11 +633,13 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
@@ -541,6 +654,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_public_transport_sites
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr131
       code: GroundwaterProtectionZones
@@ -548,18 +664,20 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
       text:
         de: Grundwasserschutzzonen
       language: de
-      federal: true
+      federal: false
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -567,6 +685,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.groundwater_protection_zones
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr132
       code: GroundwaterProtectionSites
@@ -574,18 +695,20 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
       text:
         de: Grundwasserschutzareale
       language: de
-      federal: true
+      federal: false
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -593,6 +716,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.groundwater_protection_sites
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr145
       code: NoiseSensitivityLevels
@@ -600,18 +726,20 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
       text:
         de: Lärmemfindlichkeitsstufen
       language: de
-      federal: true
+      federal: false
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -619,6 +747,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.noise_sensitivity_levels
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr157
       code: ForestPerimeters
@@ -626,18 +757,20 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
       text:
         de: Waldgrenzen
       language: de
-      federal: true
+      federal: false
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -645,6 +778,9 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.forest_perimeters
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications
 
     - name: plr159
       code: ForestDistanceLines
@@ -652,18 +788,20 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          unit: 'm2'
+          # Unit used internally only until now!
+          unit: 'm²'
           precision: 2
         percentage:
           precision: 1
       text:
         de: Waldabstandslinien
       language: de
-      federal: true
+      federal: false
       standard: true
       source:
         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
@@ -671,3 +809,6 @@ pyramid_oereb:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.forest_distance_lines
       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+      law_status:
+        in_force: inForce
+        running_modifications: runningModifications

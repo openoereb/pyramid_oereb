@@ -131,7 +131,7 @@ class DocumentBase(Base):
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         text_web (dict): A multilingual link which leads to the documents content in the web.
-        legal_state (str): The status switch if the document is legally approved or not.
+        law_status (str): The status switch if the document is legally approved or not.
         published_from (datetime.date): The date when the document should be available for
             publishing on extracts. This  directly affects the behaviour of extract
             generation.
@@ -142,7 +142,7 @@ class DocumentBase(Base):
     __tablename__ = 'document_base'
     id = sa.Column(sa.Integer, primary_key=True)
     text_web = sa.Column(JSONType, nullable=True)
-    legal_state = sa.Column(sa.String, nullable=False)
+    law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     type = sa.Column(sa.Unicode, nullable=False)
     __mapper_args__ = {
@@ -267,14 +267,14 @@ class ViewService(Base):
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        link_wms (str): The actual url which leads to the desired cartographic representation.
-        legend_web (str): A link leading to a wms describing document (png).
+        reference_wms (str): The actual url which leads to the desired cartographic representation.
+        legend_at_web (str): A link leading to a wms describing document (png).
     """
     __table_args__ = {'schema': 'forest_perimeters'}
     __tablename__ = 'view_service'
     id = sa.Column(sa.Integer, primary_key=True)
-    link_wms = sa.Column(sa.String, nullable=False)
-    legend_web = sa.Column(sa.String, nullable=True)
+    reference_wms = sa.Column(sa.String, nullable=False)
+    legend_at_web = sa.Column(sa.String, nullable=True)
 
 
 class LegendEntry(Base):
@@ -294,8 +294,8 @@ class LegendEntry(Base):
             legend  entry.
         topic (str): Statement to describe to which public law restriction this legend entry
             belongs.
-        subtopic (str): Description for sub topics this legend entry might belonging to.
-        additional_topic (str): A link to additional topics. It must be like the following patterns
+        sub_theme (str): Description for sub topics this legend entry might belonging to.
+        other_theme (str): A link to additional topics. It must be like the following patterns
             * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
             the official two letters short version (e.g.'BE') {topic} as the name of the
             topic and {bfsnr} as the municipality id of the federal office of statistics.
@@ -311,8 +311,8 @@ class LegendEntry(Base):
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
-    subtopic = sa.Column(sa.String, nullable=True)
-    additional_topic = sa.Column(sa.String, nullable=True)
+    sub_theme = sa.Column(sa.String, nullable=True)
+    other_theme = sa.Column(sa.String, nullable=True)
     view_service_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(ViewService.id),
@@ -329,10 +329,10 @@ class PublicLawRestriction(Base):
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        content (dict): The multilingual textual representation of the public law restriction.
+        information (dict): The multilingual textual representation of the public law restriction.
         topic (str): Category for this public law restriction (name of the topic).
-        subtopic (str): Textual explanation to subtype the topic attribute.
-        additional_topic (str): A link to additional topics. It must be like the following patterns
+        sub_theme (str): Textual explanation to subtype the topic attribute.
+        other_theme (str): A link to additional topics. It must be like the following patterns
             * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
             the official two letters short version (e.g.'BE') {topic} as the name of the
             topic and {bfsnr} as the municipality id of the federal office of statistics.
@@ -340,7 +340,7 @@ class PublicLawRestriction(Base):
             original data  model of this public law restriction.
         type_code_list (str): List of full range of type_codes for this public law restriction in a
             machine  readable format.
-        legal_state (str): The status switch if the document is legally approved or not.
+        law_status (str): The status switch if the document is legally approved or not.
         published_from (datetime.date): The date when the document should be available for
             publishing on extracts. This  directly affects the behaviour of extract
             generation.
@@ -356,18 +356,18 @@ class PublicLawRestriction(Base):
     __table_args__ = {'schema': 'forest_perimeters'}
     __tablename__ = 'public_law_restriction'
     id = sa.Column(sa.Integer, primary_key=True)
-    content = sa.Column(JSONType, nullable=False)
+    information = sa.Column(JSONType, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
-    subtopic = sa.Column(sa.String, nullable=True)
-    additional_topic = sa.Column(sa.String, nullable=True)
+    sub_theme = sa.Column(sa.String, nullable=True)
+    other_theme = sa.Column(sa.String, nullable=True)
     type_code = sa.Column(sa.String(40), nullable=True)
     type_code_list = sa.Column(sa.String, nullable=True)
-    legal_state = sa.Column(sa.String, nullable=False)
+    law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     view_service_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(ViewService.id),
-        nullable=True
+        nullable=False
     )
     view_service = relationship(
         ViewService,
@@ -388,7 +388,7 @@ class Geometry(Base):
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        legal_state (str): The status switch if the document is legally approved or not.
+        law_status (str): The status switch if the document is legally approved or not.
         published_from (datetime.date): The date when the document should be available for
             publishing on extracts. This  directly affects the behaviour of extract
             generation.
@@ -411,10 +411,10 @@ class Geometry(Base):
     __table_args__ = {'schema': 'forest_perimeters'}
     __tablename__ = 'geometry'
     id = sa.Column(sa.Integer, primary_key=True)
-    legal_state = sa.Column(sa.String, nullable=False)
+    law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     geo_metadata = sa.Column(sa.String, nullable=True)  # TODO: Check translation
-    geom = sa.Column(GeoAlchemyGeometry('LINESTRING', srid=srid))
+    geom = sa.Column(GeoAlchemyGeometry('LINESTRING', srid=srid), nullable=False)
     public_law_restriction_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(PublicLawRestriction.id),

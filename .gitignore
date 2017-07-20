@@ -79,3 +79,7 @@ pyramid_oereb.yml
 /doc/source/core/readers.rst
 /doc/source/core/records.rst
 /doc/source/core/sources.rst
+
+# Generated files
+/test-db/12-create.sql
+/test-db/13-fill.sql

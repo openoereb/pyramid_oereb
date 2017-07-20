@@ -15,22 +15,15 @@ from pyramid_oereb.lib.readers.municipality import MunicipalityReader
 from pyramid_oereb.lib.readers.real_estate import RealEstateReader
 from pyramid_oereb.lib.processor import Processor
 
-__version__ = '1.0.0-alpha.1'
+__version__ = '1.0.0-alpha.2'
 
 
 log = logging.getLogger('pyramid_oereb')
 route_prefix = None
 # initially instantiate database adapter for global session handling
 database_adapter = DatabaseAdapter()
-plr_cadastre_authority = None
-real_estate_reader = None
-municipality_reader = None
-extract_reader = None
-plr_sources = None
 app_schema_name = None
 srid = None
-default_lang = None
-geometry_types = None
 
 
 def main(global_config, **settings):
@@ -55,8 +48,7 @@ def includeme(config):
         config (Configurator): The pyramid apps config object
     """
 
-    global route_prefix, real_estate_reader, municipality_reader, extract_reader, \
-        plr_sources, plr_cadastre_authority, app_schema_name, srid, default_lang
+    global route_prefix, app_schema_name, srid
 
     # Set route prefix
     route_prefix = config.route_prefix
@@ -77,7 +69,6 @@ def includeme(config):
     logos = Config.get_logo_config()
     app_schema_name = Config.get('app_schema').get('name')
     srid = Config.get('srid')
-    default_lang = Config.get('default_language')
 
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
 

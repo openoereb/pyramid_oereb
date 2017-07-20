@@ -1,0 +1,33 @@
+section1:
+  param1: one
+  param2: 2
+
+section2:
+  param1: 1
+  param2:
+    - first
+    - second
+
+pyramid_oereb:
+
+  logo:
+    confederation: pyramid_oereb/standard/logo_confederation.png
+    oereb: pyramid_oereb/standard/logo_oereb.png
+    canton: pyramid_oereb/standard/logo_canton.png
+
+  plr_cadastre_authority:
+    name:
+      en: PLR cadastre authority
+      de: ÖREB-Katasteraufsichtsbehörde
+    office_at_web: https://www.cadastre.ch/en/oereb.html
+    street: Seftigenstrasse
+    number: 264
+    postal_code: 3084
+    city: Wabern
+
+  oereblex:
+    host: http://oereblex.example.com
+    language: de
+    proxy:
+      http: http://my.proxy.org
+      https:

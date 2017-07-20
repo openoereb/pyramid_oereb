@@ -32,6 +32,13 @@ def create_standard_model():
         type='string',
         help='The absolute path where the result will be stored.'
     )
+    parser.add_option(
+        '-s', '--schema',
+        dest='schema',
+        metavar='SCHEMA',
+        type='string',
+        help='The schema name. If not specified, it will be derived from the code.'
+    )
     options, args = parser.parse_args()
     if not options.code:
         parser.error('No oereb code set.')
@@ -39,4 +46,5 @@ def create_standard_model():
         parser.error('No geometry_type set.')
     if not options.target_path:
         parser.error('No target_path set.')
-    _create_standard_configuration_models_py_(options.code, options.geometry_type, options.target_path)
+    _create_standard_configuration_models_py_(options.code, options.geometry_type, options.target_path,
+                                              options.schema)

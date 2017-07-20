@@ -48,7 +48,7 @@ class Renderer(Base):
                 self._params_.__class__
             ))
         if self._params_.language:
-            self._language_ = str(self._params_.language).lower()
+            self._language = str(self._params_.language).lower()
 
         templates = TemplateLookup(
             directories=[self.template_dir],

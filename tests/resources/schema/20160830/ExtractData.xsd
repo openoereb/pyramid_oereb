@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  xmlns="http://schemas.geo.admin.ch/swisstopo/OeREBK/15/ExtractData" 
+  xmlns:gml="http://www.opengis.net/gml/3.2"
+  xmlns:xmlsig="http://www.w3.org/2000/09/xmldsig#" 
+  targetNamespace=
+"http://schemas.geo.admin.ch/swisstopo/OeREBK/15/ExtractData" 
+  elementFormDefault="qualified" attributeFormDefault="unqualified"
+  version="0.4"
+  >
+  <xsd:import namespace="http://www.opengis.net/gml/3.2" 
+  schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+  <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" 
+  schemaLocation="http://www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd"/>
+  
+  <xsd:element name="extensions">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:complexType name="WebReference">
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:anyURI"/>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="UID">
+    <xsd:restriction base="xsd:normalizedString">
+      <xsd:maxLength value="12"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ArticleNumber">
+    <xsd:restriction base="xsd:normalizedString">
+      <xsd:maxLength value="20"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="RestrictiontypeCode">
+    <xsd:restriction base="xsd:normalizedString">
+      <xsd:maxLength value="40"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="CantonCode">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="ZH"/>
+      <xsd:enumeration value="BE"/>
+      <xsd:enumeration value="LU"/>
+      <xsd:enumeration value="UR"/>
+      <xsd:enumeration value="SZ"/>
+      <xsd:enumeration value="OW"/>
+      <xsd:enumeration value="NW"/>
+      <xsd:enumeration value="GL"/>
+      <xsd:enumeration value="ZG"/>
+      <xsd:enumeration value="FR"/>
+      <xsd:enumeration value="SO"/>
+      <xsd:enumeration value="BS"/>
+      <xsd:enumeration value="BL"/>
+      <xsd:enumeration value="SH"/>
+      <xsd:enumeration value="AR"/>
+      <xsd:enumeration value="AI"/>
+      <xsd:enumeration value="SG"/>
+      <xsd:enumeration value="GR"/>
+      <xsd:enumeration value="AG"/>
+      <xsd:enumeration value="TG"/>
+      <xsd:enumeration value="TI"/>
+      <xsd:enumeration value="VD"/>
+      <xsd:enumeration value="VS"/>
+      <xsd:enumeration value="NE"/>
+      <xsd:enumeration value="GE"/>
+      <xsd:enumeration value="JU"/>
+      <xsd:enumeration value="FL"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="MunicipalityCode">
+    <xsd:restriction base="xsd:integer">
+      <xsd:minInclusive value="1"/>
+      <xsd:maxInclusive value="9999"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType  name="Lawstatus">
+    <xsd:sequence>
+      <xsd:element name="Code" type="LawstatusCode">
+      </xsd:element>
+      <xsd:element name="Text" type="LocalisedText">
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="LawstatusCode">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="inForce"/>
+      <xsd:enumeration value="runningModifications"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType  name="Theme">
+    <xsd:sequence>
+      <xsd:element name="Code" type="ThemeCode">
+      </xsd:element>
+      <xsd:element name="Text" type="LocalisedText">
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="ThemeCode">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="LandUsePlans|MotorwaysProjectPlaningZones|MotorwaysBuildingLines|RailwaysProjectPlanningZones|RailwaysBuildingLines|AirportsProjectPlanningZones|AirportsBuildingLines|AirportsSecurityZonePlans|ContaminatedSites|ContaminatedMilitarySites|ContaminatedCivilAviationSites|ContaminatedPublicTransportSites|GroundwaterProtectionZones|GroundwaterProtectionSites|NoiseSensitivityLevels|ForestPerimeters|ForestDistanceLines|(ch\.[A-Z]{2}\.[a-zA-Z][a-zA-Z0-9]*)|(ch\.[0-9]{4}\.[a-zA-Z][a-zA-Z0-9]*)|(fl\.[a-zA-Z][a-zA-Z0-9]*)"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType  name="LocalisedUri">
+    <xsd:sequence>
+      <xsd:element name="Language" type="LanguageCode" minOccurs="0"/>
+      <xsd:element name="Text" type="xsd:anyURI"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType  name="MultilingualUri">
+    <xsd:sequence>
+      <xsd:element name="LocalisedText" type="LocalisedUri" maxOccurs="unbounded">
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="LanguageCode">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="de"/>
+      <xsd:enumeration value="fr"/>
+      <xsd:enumeration value="it"/>
+      <xsd:enumeration value="rm"/>
+      <xsd:enumeration value="en"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType  name="LocalisedText">
+    <xsd:sequence>
+      <xsd:element name="Language" type="LanguageCode" minOccurs="0"/>
+      <xsd:element name="Text">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:normalizedString">
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType  name="LocalisedMText">
+    <xsd:sequence>
+      <xsd:element name="Language" type="LanguageCode" minOccurs="0"/>
+      <xsd:element name="Text">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType  name="MultilingualText">
+    <xsd:sequence>
+      <xsd:element name="LocalisedText" type="LocalisedText" maxOccurs="unbounded">
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType  name="MultilingualMText">
+    <xsd:sequence>
+      <xsd:element name="LocalisedText" type="LocalisedMText" maxOccurs="unbounded">
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="Area">
+    <xsd:restriction base="xsd:integer">
+      <xsd:minInclusive value="0"/>
+      <xsd:maxInclusive value="999999999"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="RealEstateType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="RealEstate"/>
+      <xsd:enumeration value="Distinct_and_permanent_rights.BuildingRight"/>
+      <xsd:enumeration value="Distinct_and_permanent_rights.right_to_spring_water"/>
+      <xsd:enumeration value="Distinct_and_permanent_rights.concession"/>
+      <xsd:enumeration value="Distinct_and_permanent_rights.other"/>
+      <xsd:enumeration value="Mineral_rights"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType  name="Office">
+    <xsd:sequence>
+      <xsd:element name="Name" type="MultilingualText">
+      </xsd:element>
+      <xsd:element name="OfficeAtWeb" type="WebReference" minOccurs="0"/>
+      <xsd:element name="UID" type="UID" minOccurs="0"/>
+      <xsd:element name="Line1" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:normalizedString">
+            <xsd:maxLength value="80"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="Line2" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:normalizedString">
+            <xsd:maxLength value="80"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="Street" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:normalizedString">
+            <xsd:maxLength value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="Number" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:normalizedString">
+            <xsd:maxLength value="7"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="PostalCode" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:normalizedString">
+            <xsd:maxLength value="4"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="City" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:normalizedString">
+            <xsd:maxLength value="60"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element ref="extensions" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType  name="DocumentBase">
+    <xsd:sequence>
+      <xsd:element name="TextAtWeb" type="MultilingualUri" minOccurs="0">
+      </xsd:element>
+      <xsd:element name="Lawstatus" type="Lawstatus"/>
+      <xsd:element ref="extensions" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType  name="Glossary">
+    <xsd:sequence>
+      <xsd:element name="Title" type="MultilingualText">
+      </xsd:element>
+      <xsd:element name="Content" type="MultilingualMText">
+      </xsd:element>
+      <xsd:element ref="extensions" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType  name="ExclusionOfLiability">
+    <xsd:sequence>
+      <xsd:element name="Title" type="MultilingualText">
+      </xsd:element>
+      <xsd:element name="Content" type="MultilingualMText">
+      </xsd:element>
+      <xsd:element ref="extensions" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType  name="LegendEntry">
+    <xsd:sequence>
+      <xsd:choice>
+        <xsd:element name="Symbol" type="xsd:base64Binary">
+        </xsd:element>
+        <xsd:element name="SymbolRef" type="xsd:anyURI">
+        </xsd:element>
+      </xsd:choice>
+      <xsd:element name="LegendText" type="MultilingualText">
+      </xsd:element>
+      <xsd:element name="TypeCode" type="RestrictiontypeCode"/>
+      <xsd:element name="TypeCodelist" type="xsd:anyURI"/>
+      <xsd:element name="Theme" type="Theme"/>
+      <xsd:element name="SubTheme" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:normalizedString">
+            <xsd:maxLength value="60"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element ref="extensions" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType  name="Article">
+    <xsd:complexContent>
+      <xsd:extension base="DocumentBase">
+        <xsd:sequence>
+          <xsd:element name="Number" type="ArticleNumber"/>
+          <xsd:element name="Text" type="MultilingualMText" minOccurs="0">
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType  name="Geometry">
+    <xsd:sequence>
+      <xsd:choice minOccurs="0">
+        <xsd:element name="Point" type="gml:PointPropertyType"/>
+        <xsd:element name="Line" type="gml:CurvePropertyType" />
+        <xsd:element name="Surface" type="gml:SurfacePropertyType"/>
+      </xsd:choice>
+      <xsd:element name="Lawstatus" type="Lawstatus"/>
+      <xsd:element name="MetadataOfGeographicalBaseData" type="xsd:anyURI" minOccurs="0"/>
+      <xsd:element name="ResponsibleOffice" type="Office">
+      </xsd:element>
+      <xsd:element ref="extensions" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType  name="Map">
+    <xsd:sequence>
+      <xsd:element name="Image" type="xsd:base64Binary" minOccurs="0">
+      </xsd:element>
+      <xsd:element name="ReferenceWMS" type="xsd:anyURI" minOccurs="0"/>
+      <xsd:element name="LegendAtWeb" type="WebReference" minOccurs="0"/>
+      <xsd:element name="OtherLegend" type="LegendEntry" minOccurs="0" maxOccurs="unbounded">
+      </xsd:element>
+      <xsd:element ref="extensions" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType  name="Document">
+    <xsd:complexContent>
+      <xsd:extension base="DocumentBase">
+        <xsd:sequence>
+            <xsd:element name="Title" type="MultilingualText">
+            </xsd:element>
+            <xsd:element name="OfficialTitle" type="MultilingualText" minOccurs="0">
+            </xsd:element>
+            <xsd:element name="Abbrevation" type="MultilingualText" minOccurs="0">
+            </xsd:element>
+            <xsd:element name="OfficialNumber" minOccurs="0">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:normalizedString">
+                  <xsd:maxLength value="20"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="Canton" type="CantonCode" minOccurs="0"/>
+            <xsd:element name="Municipality" type="MunicipalityCode" minOccurs="0"/>
+            <xsd:element name="ResponsibleOffice" type="Office">
+            </xsd:element>
+            <xsd:element name="ArticleNumber" type="ArticleNumber" minOccurs="0" maxOccurs="unbounded">
+            </xsd:element>
+            <xsd:element name="Article" type="Article" minOccurs="0" maxOccurs="unbounded">
+            </xsd:element>
+          <xsd:element name="Reference" type="Document" minOccurs="0" maxOccurs="unbounded">
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType  name="RestrictionOnLandownership">
+    <xsd:sequence>
+      <xsd:element name="Information" type="MultilingualMText">
+      </xsd:element>
+      <xsd:element name="Theme" type="Theme"/>
+      <xsd:element name="SubTheme" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:normalizedString">
+            <xsd:maxLength value="60"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="TypeCode" type="RestrictiontypeCode" minOccurs="0"/>
+      <xsd:element name="TypeCodelist" type="xsd:anyURI" minOccurs="0"/>
+      <xsd:element name="Lawstatus" type="Lawstatus"/>
+      <xsd:element name="Area" type="Area" minOccurs="0"/>
+      <xsd:element name="PartInPercent" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:integer">
+            <xsd:minInclusive value="0"/>
+            <xsd:maxInclusive value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:choice>
+        <xsd:element name="Symbol" type="xsd:base64Binary">
+        </xsd:element>
+        <xsd:element name="SymbolRef" type="xsd:anyURI">
+        </xsd:element>
+      </xsd:choice>
+      <xsd:element name="Geometry" type="Geometry" maxOccurs="unbounded">
+      </xsd:element>
+      <xsd:element name="Map" type="Map">
+      </xsd:element>
+      <xsd:element name="LegalProvisions" type="DocumentBase" minOccurs="0" 
+                                                            maxOccurs="unbounded">
+      </xsd:element>
+      <xsd:element name="ResponsibleOffice" type="Office">
+      </xsd:element>
+      <xsd:element ref="extensions" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType  name="RealEstate_DPR">
+    <xsd:sequence>
+      <xsd:element name="Number" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:normalizedString">
+            <xsd:maxLength value="12"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="IdentDN" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:normalizedString">
+            <xsd:maxLength value="12"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="EGRID" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:normalizedString">
+            <xsd:maxLength value="14"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="Type" type="RealEstateType"/>
+      <xsd:element name="Canton" type="CantonCode"/>
+      <xsd:element name="Municipality">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:normalizedString">
+            <xsd:maxLength value="60"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="SubunitOfLandRegister" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:normalizedString">
+            <xsd:maxLength value="60"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="FosNr" type="MunicipalityCode"/>
+      <xsd:element name="MetadataOfGeographicalBaseData" type="xsd:anyURI" minOccurs="0"/>
+      <xsd:element name="LandRegistryArea" type="Area"/>
+      <xsd:element name="Limit" type="gml:MultiSurfacePropertyType" minOccurs="0">
+      </xsd:element>
+      <xsd:element name="RestrictionOnLandownership" type="RestrictionOnLandownership" minOccurs="0" maxOccurs="unbounded">
+      </xsd:element>
+      <xsd:element name="PlanForLandRegister" type="Map">
+      </xsd:element>
+      <xsd:element name="Reference" type="Document" minOccurs="0" maxOccurs="unbounded">
+      </xsd:element>
+      <xsd:element ref="extensions" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType  name="LegalProvisions">
+    <xsd:complexContent>
+      <xsd:extension base="Document">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element  name="Extract" type="Extract"/>
+  <xsd:complexType  name="Extract">
+    <xsd:sequence>
+      <xsd:element name="CreationDate">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:dateTime">
+            <xsd:minInclusive value="2009-01-01T00:00:00.000"/>
+            <xsd:maxInclusive value="2999-12-31T23:59:59.000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element ref="xmlsig:Signature" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="ConcernedTheme" type="Theme" minOccurs="0" maxOccurs="unbounded">
+      </xsd:element>
+      <xsd:element name="NotConcernedTheme" type="Theme" minOccurs="0" maxOccurs="unbounded">
+      </xsd:element>
+      <xsd:element name="ThemeWithoutData" type="Theme" minOccurs="0" maxOccurs="unbounded" >
+      </xsd:element>
+      <xsd:element name="isReduced" type="xsd:boolean"/>
+      <xsd:choice>
+        <xsd:element name="LogoPLRCadastre" type="xsd:base64Binary" >
+        </xsd:element>
+        <xsd:element name="LogoPLRCadastreRef" type="xsd:anyURI" >
+        </xsd:element>
+      </xsd:choice>
+      <xsd:choice>
+        <xsd:element name="FederalLogo" type="xsd:base64Binary">
+        </xsd:element>
+        <xsd:element name="FederalLogoRef" type="xsd:anyURI">
+        </xsd:element>
+      </xsd:choice>
+      <xsd:choice>
+        <xsd:element name="CantonalLogo" type="xsd:base64Binary" >
+        </xsd:element>
+        <xsd:element name="CantonalLogoRef" type="xsd:anyURI" >
+        </xsd:element>
+      </xsd:choice>
+      <xsd:choice>
+        <xsd:element name="MunicipalityLogo" type="xsd:base64Binary" >
+        </xsd:element>
+        <xsd:element name="MunicipalityLogoRef" type="xsd:anyURI" >
+        </xsd:element>
+      </xsd:choice>
+      <xsd:element name="ExtractIdentifier">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:normalizedString">
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:choice  minOccurs="0">
+        <xsd:element name="QRCode" type="xsd:base64Binary">
+        </xsd:element>
+        <xsd:element name="QRCodeRef" type="xsd:anyURI">
+        </xsd:element>
+      </xsd:choice>
+      <xsd:element name="GeneralInformation" type="MultilingualMText" minOccurs="0">
+      </xsd:element>
+      <xsd:element name="BaseData" type="MultilingualMText">
+      </xsd:element>
+      <xsd:element name="Glossary" type="Glossary" minOccurs="0" maxOccurs="unbounded">
+      </xsd:element>
+      <xsd:element name="RealEstate" type="RealEstate_DPR">
+      </xsd:element>
+      <xsd:element name="ExclusionOfLiability" type="ExclusionOfLiability" minOccurs="0" maxOccurs="unbounded">
+      </xsd:element>
+      <xsd:element name="PLRCadastreAuthority" type="Office">
+      </xsd:element>
+      <xsd:element ref="extensions" minOccurs="0"/>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:ID" use="optional"/>
+    <xsd:anyAttribute processContents="lax"/>
+  </xsd:complexType>
+</xsd:schema>
+

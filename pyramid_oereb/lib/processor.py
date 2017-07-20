@@ -85,10 +85,9 @@ class Processor(object):
         outside_plrs = []
 
         for public_law_restriction in real_estate.public_law_restrictions:
-            if isinstance(public_law_restriction, PlrRecord):
-                public_law_restriction.calculate(real_estate)
+            if isinstance(public_law_restriction, PlrRecord) and public_law_restriction.published:
                 # Test if the geometries list is now empty - if so remove plr from plr list
-                if public_law_restriction.calculate(real_estate) and public_law_restriction.published:
+                if public_law_restriction.calculate(real_estate):
                     inside_plrs.append(self.filter_published_documents(public_law_restriction))
                 else:
                     outside_plrs.append(public_law_restriction)
@@ -96,26 +95,28 @@ class Processor(object):
         return extract
 
     @staticmethod
-    def view_service_handling(real_estate, images):
+    def view_service_handling(real_estate, images, format):
         """
         Handles all view service related stuff. In the moment this is:
-            * construction of the correct url (link_wms) depending on the real estate
+            * construction of the correct url (reference_wms) depending on the real estate
             * downloading of the image if parameter was set
 
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord):
                 The real estate record to be updated.
             images (bool): Switch whether the images should be downloaded or not.
+            format (string): The format currently used. For 'pdf' format,
+                the used map size will be adapted to the pdf format,
 
         Returns:
             pyramid_oereb.lib.records.real_estate.RealEstateRecord: The updated extract.
         """
-        # TODO: uncomment this when issue GSOREB-194 is solved.
-        # extract.real_estate.plan_for_land_register.get_full_wms_url(extract.real_estate)
-        # if images:
-        # extract.real_estate.plan_for_land_register.download_wms_content()
+        real_estate.plan_for_land_register.get_full_wms_url(real_estate, format)
+        if images:
+            real_estate.plan_for_land_register.download_wms_content()
+
         for public_law_restriction in real_estate.public_law_restrictions:
-            public_law_restriction.view_service.get_full_wms_url(real_estate)
+            public_law_restriction.view_service.get_full_wms_url(real_estate, format)
             if images:
                 public_law_restriction.view_service.download_wms_content()
         return real_estate
@@ -153,7 +154,7 @@ class Processor(object):
                         # we check if the legend type code is not the same as the intersected plr ones and
                         # the legend type code is the same as the outside plr ones
                         if inside_plr.type_code != legend.type_code and \
-                                        outside_plr.type_code == legend.type_code:
+                                outside_plr.type_code == legend.type_code:
                             # at this point we have a legend entry which has different type code then the
                             # intersecting plr, but before we can append this we need to check if a item is
                             # already in the list. Therefor we use a self made method.
@@ -214,7 +215,7 @@ class Processor(object):
         """
         return self._extract_reader_
 
-    def process(self, real_estate, params):
+    def process(self, real_estate, params, sld_url):
         """
         Central processing method to hook in from webservice.
 
@@ -223,6 +224,8 @@ class Processor(object):
                 estate reader to obtain the real estates record.
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract
                 request.
+            sld_url (str): The URL which provides the sld to style and filter the highlight of the real
+                estate.
 
         Returns:
             pyramid_oereb.lib.records.extract.ExtractRecord: The generated extract record.
@@ -240,9 +243,12 @@ class Processor(object):
                 # recognized as intersecting before. To avoid this the tolerance check is gathering all plrs
                 # intersecting and not intersecting and starts the legend entry sorting after.
                 extract = self.plr_tolerance_check(extract_raw)
-                self.view_service_handling(extract.real_estate, params.images)
+                self.view_service_handling(extract.real_estate, params.images, params.format)
 
                 extract.exclusions_of_liability = exclusions_of_liability
                 extract.glossaries = glossaries
+                # obtain the highlight wms url and its content only if the parameter full was requested (PDF)
+                if params.flavour == 'full':
+                    extract.real_estate.set_highlight_url(sld_url)
                 return extract
         raise NoResultFound()

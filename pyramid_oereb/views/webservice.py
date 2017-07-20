@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 import logging
-from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPServerError, HTTPNotFound
+
+from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPServerError, HTTPNotFound, \
+    HTTPInternalServerError
 from pyramid.path import DottedNameResolver
 from shapely.geometry import Point
 from pyramid.renderers import render_to_response
+from pyramid.response import Response
 from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb import route_prefix
@@ -11,6 +14,7 @@ from pyramid_oereb import Config
 from pyramid_oereb.lib.processor import Processor
 from pyreproj import Reprojector
 
+from pyramid_oereb.lib.readers.address import AddressReader
 
 log = logging.getLogger('pyramid_oereb')
 
@@ -29,17 +33,28 @@ class PlrWebservice(object):
         self._real_estate_reader_ = request.pyramid_oereb_processor.real_estate_reader
         self._municipality_reader_ = request.pyramid_oereb_processor.municipality_reader
 
+    # TODO: Remove this method when format parameter is available in URL (new specification).
+    def _is_json(self):
+        """
+        Returns True if the requests format is JSON.
+
+        Returns:
+            bool: True if requested format is JSON.
+        """
+        url = self._request_.current_route_url().split('?')
+        return url[0].endswith('.json')
+
     def get_versions(self):
         """
         Returns the available versions of this service.
 
         Returns:
-            dict: The available service versions.
+            pyramid.response.Response: The `versions` response.
         """
         endpoint = self._request_.application_url
         if route_prefix:
             endpoint += '/' + route_prefix  # pragma: no cover
-        return {
+        versions = {
             u'GetVersionsResponse': {
                 u'supportedVersion': [
                     {
@@ -49,27 +64,29 @@ class PlrWebservice(object):
                 ]
             }
         }
+        renderer_name = 'json' if self._is_json() else 'pyramid_oereb_versions_xml'
+        return render_to_response(renderer_name, versions, request=self._request_)
 
     def get_capabilities(self):
         """
         Returns the capabilities of this service.
 
         Returns:
-            dict: The service capabilities.
+            pyramid.response.Response: The `capabilities` response.
         """
         themes = list()
         for theme in Config.get_themes():
             text = list()
-            for k, v in theme.text.iteritems():
+            for lang in theme.text:
                 text.append({
-                    'Language': k,
-                    'Text': v
+                    'Language': lang,
+                    'Text': theme.text[lang]
                 })
             themes.append({
                 'Code': theme.code,
                 'Text': text
             })
-        return {
+        capabilities = {
             u'GetCapabilitiesResponse': {
                 u'topic': themes,
                 u'municipality': [record.fosnr for record in self._municipality_reader_.read()],
@@ -78,13 +95,15 @@ class PlrWebservice(object):
                 u'crs': Config.get_crs()
             }
         }
+        renderer_name = 'json' if self._is_json() else 'pyramid_oereb_capabilities_xml'
+        return render_to_response(renderer_name, capabilities, request=self._request_)
 
     def get_egrid_coord(self):
         """
         Returns a list with the matched EGRIDs for the given coordinates.
 
         Returns:
-            list of dict: The matched EGRIDs.
+            pyramid.response.Response: The `getegrid` response.
         """
         xy = self._request_.params.get('XY')
         gnss = self._request_.params.get('GNSS')
@@ -105,7 +124,7 @@ class PlrWebservice(object):
         Returns a list with the matched EGRIDs for the given NBIdent and property number.
 
         Returns:
-            list of dict: The matched EGRIDs.
+            pyramid.response.Response: The `getegrid` response.
         """
         identdn = self._request_.matchdict.get('identdn')
         number = self._request_.matchdict.get('number')
@@ -123,14 +142,22 @@ class PlrWebservice(object):
         Returns a list with the matched EGRIDs for the given postal address.
 
         Returns:
-            list of dict: The matched EGRIDs.
+            pyramid.response.Response: The `getegrid` response.
         """
         postalcode = self._request_.matchdict.get('postalcode')
         localisation = self._request_.matchdict.get('localisation')
         number = self._request_.matchdict.get('number')
         if postalcode and localisation and number:
-            # TODO: Collect the EGRIDs using the property source
-            return {'GetEGRIDResponse': []}
+            reader = AddressReader(
+                Config.get_address_config().get('source').get('class'),
+                **Config.get_address_config().get('source').get('params')
+            )
+            addresses = reader.read(unicode(localisation), int(postalcode), str(number))
+            if len(addresses) == 0:
+                raise HTTPNotFound('Address not found.')
+            geometry = 'SRID={srid};{wkt}'.format(srid=Config.get('srid'), wkt=addresses[0].geom)
+            records = self._real_estate_reader_.read(**{'geometry': geometry})
+            return self.__get_egrid_response__(records)
         else:
             raise HTTPBadRequest('POSTALCODE, LOCALISATION and NUMBER must be defined.')
 
@@ -139,7 +166,7 @@ class PlrWebservice(object):
         Returns the extract in the specified format and flavour.
 
         Returns:
-            dict: The requested extract.
+            pyramid.response.Response: The `extract` response.
         """
         params = self.__validate_extract_params__()
         processor = self._request_.pyramid_oereb_processor
@@ -164,7 +191,11 @@ class PlrWebservice(object):
         # check if result is strictly one (we queried with primary keys)
         if len(real_estate_records) == 1:
             try:
-                extract = processor.process(real_estate_records[0], params)
+                extract = processor.process(
+                    real_estate_records[0],
+                    params,
+                    self._request_.route_url('{0}/sld'.format(route_prefix))
+                )
             except LookupError:
                 raise HTTPNoContent()
             except NotImplementedError:
@@ -294,7 +325,7 @@ class PlrWebservice(object):
                 estate records.
 
         Returns:
-            list of dict: Valid GetEGRID response.
+            pyramid.response.Response: The `getegrid` response.
         """
         response = list()
         for r in records:
@@ -303,7 +334,9 @@ class PlrWebservice(object):
                 'number': getattr(r, 'number'),
                 'identDN': getattr(r, 'identdn')
             })
-        return {'GetEGRIDResponse': response}
+        egrid = {'GetEGRIDResponse': response}
+        renderer_name = 'json' if self._is_json() else 'pyramid_oereb_getegrid_xml'
+        return render_to_response(renderer_name, egrid, request=self._request_)
 
     def __parse_xy__(self, xy, buffer_dist=None):
         """
@@ -586,4 +619,57 @@ class Symbol(object):
         if method:
             return method(self._request_)
         log.error('"get_symbol_method" not found')
+        raise HTTPNotFound()
+
+
+class Sld(object):
+    """
+    Webservice to deliver a valid sld content to filter a av base layer to only one dedicated real estate.
+
+    """
+
+    def __init__(self, request):
+        """
+        Args:
+            request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.
+        """
+        self._request_ = request
+
+    def get_sld(self):
+        """
+        Webservice which delivers an SLD file from parameter input. However this is a proxy pass through only.
+        We use it to call the real method configured in the dedicated yaml file and hope that this method is
+        accepting a pyramid.request.Request as input and is returning a pyramid.response.Response which
+        encapsulates a well designed SLD.
+
+        .. note:: The config path to define this hook method is:
+            *pyramid_oereb.real_estate.visualisation.method*
+
+        Returns:
+             pyramid.response.Response: The response provided by the hooked method provided by the
+                configuration
+
+        Raises:
+            pyramid.httpexceptions.HTTPInternalServerError: When the return value of the hooked method was not
+                of type pyramid.response.Response
+            pyramid.httpexceptions.HTTPNotFound: When the configured method was not found.
+        """
+        dnr = DottedNameResolver()
+        visualisation_config = Config.get_real_estate_config().get('visualisation')
+        method_path = visualisation_config.get('method')
+        method = dnr.resolve(method_path)
+        if method:
+            result = method(self._request_)
+            if isinstance(result, Response):
+                return result
+            else:
+                log.error(
+                    u'The called method {path} does not returned the expected '
+                    u'pyramid.response.Response instance. Returned value was {type}'.format(
+                        path=method_path,
+                        type=type(result)
+                    )
+                )
+                raise HTTPInternalServerError()
+        log.error(u'method in path "{path}" not found'.format(path=method_path))
         raise HTTPNotFound()

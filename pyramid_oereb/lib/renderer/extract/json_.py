@@ -8,6 +8,7 @@ from pyramid.testing import DummyRequest
 from pyramid_oereb import Config, route_prefix
 from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord, ArticleRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
+from pyramid_oereb.lib.url import url_to_base64
 from shapely.geometry import mapping
 
 from pyramid_oereb.lib.renderer import Base
@@ -187,6 +188,9 @@ class Renderer(Base):
                 reference_list.append(self.format_document(reference))
             real_estate_dict['Reference'] = reference_list
 
+        if self._params.flavour == 'full':
+            real_estate_dict['Highlight'] = self.format_map(real_estate.highlight)
+
         return real_estate_dict
 
     def format_plr(self, plrs):
@@ -211,15 +215,14 @@ class Renderer(Base):
 
                 # PLR without legal provision is allowed in reduced extract only!
                 if self._params.flavour != 'reduced' and isinstance(plr.documents, list) and \
-                                len(plr.documents) == 0:
+                        len(plr.documents) == 0:
                     raise ValueError('Restrictions on landownership without legal provision are only allowed '
                                      'in reduced extracts!')
                 # TODO: Add lenght and units see GSOREB-207: https://jira.camptocamp.com/browse/GSOREB-207
                 plr_dict = {
-                    'Information': self.get_localized_text(plr.content),
+                    'Information': self.get_localized_text(plr.information),
                     'Theme': self.format_theme(plr.theme),
-                    'Lawstatus': plr.legal_state,
-                    'Area': plr.area,
+                    'Lawstatus': self.format_law_status(plr.law_status),
                     'ResponsibleOffice': self.format_office(plr.responsible_office),
                     'Map': self.format_map(plr.view_service)
                 }
@@ -237,10 +240,14 @@ class Renderer(Base):
                                                                  type_code=plr.type_code)
                         })
 
-                if plr.subtopic:
-                    plr_dict['SubTheme'] = plr.subtopic
-                if plr.additional_topic:
-                    plr_dict['OtherTheme'] = plr.additional_topic
+                if plr.area:
+                    plr_dict['Area'] = plr.area
+                if plr.length:
+                    plr_dict['Length'] = plr.length
+                if plr.sub_theme:
+                    plr_dict['SubTheme'] = plr.sub_theme
+                if plr.other_theme:
+                    plr_dict['OtherTheme'] = plr.other_theme
                 if plr.type_code:
                     plr_dict['TypeCode'] = plr.type_code
                 if plr.type_code_list:
@@ -264,9 +271,24 @@ class Renderer(Base):
 
         return plr_list
 
+    def format_law_status(self, law_status):
+        """
+        Args:
+            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status to format into
+                a dictionary.
+        Returns:
+            dict: The transformed law status.
+        """
+        return {
+            'Code': law_status.code,
+            'Text': self.get_localized_text(law_status.text)
+        }
+
     def format_document(self, document):
         """
         Formats a document record for rendering according to the federal specification.
+        If the render is requested with a *full* flavour, it will render the *textAtWeb*
+        into a *Base64TextAtWeb* field (for LegalProvisionRecord documents).
 
         Args:
             document (pyramid_oereb.lib.records.documents.DocumentBaseRecord): The document
@@ -280,12 +302,18 @@ class Renderer(Base):
 
         if isinstance(document, DocumentRecord) or isinstance(document, LegalProvisionRecord):
 
+            localized_text_at_web = self.get_localized_text(document.text_at_web)
+
             document_dict.update({
-                'Lawstatus': document.legal_state,
-                'TextAtWeb': self.get_localized_text(document.text_at_web),
+                'Lawstatus': self.format_law_status(document.law_status),
+                'TextAtWeb': localized_text_at_web,
                 'Title': self.get_localized_text(document.title),
                 'ResponsibleOffice': self.format_office(document.responsible_office)
             })
+            if self._params.flavour == 'full' and isinstance(document, LegalProvisionRecord):
+                base64_text_at_web = url_to_base64(localized_text_at_web[0].get('Text'))
+                if base64_text_at_web is not None:
+                    document_dict['Base64TextAtWeb'] = base64_text_at_web
 
             if document.official_title:
                 document_dict['OfficialTitle'] = self.get_localized_text(document.official_title)
@@ -317,7 +345,7 @@ class Renderer(Base):
 
         elif isinstance(document, ArticleRecord):
             document_dict.update({
-                'Lawstatus': document.legal_state,
+                'Lawstatus': self.format_law_status(document.law_status),
                 'Number': document.number
             })
 
@@ -353,7 +381,7 @@ class Renderer(Base):
 
         geometry_dict = {
             geometry_type: self.from_shapely(geometry.geom),
-            'Lawstatus': geometry.legal_state,
+            'Lawstatus': self.format_law_status(geometry.law_status),
             'ResponsibleOffice': self.format_office(geometry.office)
         }
 
@@ -425,10 +453,10 @@ class Renderer(Base):
         map_dict = dict()
         if map_.image:
             map_dict['Image'] = map_.image.encode()
-        if map_.link_wms:
-            map_dict['ReferenceWMS'] = map_.link_wms
-        if map_.legend_web:
-            map_dict['LegendAtWeb'] = map_.legend_web
+        if map_.reference_wms:
+            map_dict['ReferenceWMS'] = map_.reference_wms
+        if map_.legend_at_web:
+            map_dict['LegendAtWeb'] = map_.legend_at_web
         if isinstance(map_.legends, list) and len(map_.legends) > 0:
             map_dict['OtherLegend'] = [
                 self.format_legend_entry(legend_entry) for legend_entry in map_.legends]
@@ -465,8 +493,8 @@ class Renderer(Base):
 
         if legend_entry.sub_theme:
             legend_entry_dict['SubTheme'] = legend_entry.sub_theme
-        if legend_entry.additional_theme:
-            legend_entry_dict['OtherTheme'] = legend_entry.additional_theme
+        if legend_entry.other_theme:
+            legend_entry_dict['OtherTheme'] = legend_entry.other_theme
         return legend_entry_dict
 
     @staticmethod
@@ -489,26 +517,35 @@ class Renderer(Base):
         return geom_dict
 
     def format_embeddable(self, embeddable):
-        time = embeddable.transfer_from_source_cadastral_surveying.strftime('%d-%m-%YT%H:%M:%S')
-        data_sources = []
-        for embeddable_theme in embeddable.data_sources:
-            sources = []
-            for source in embeddable_theme.sources:
-                sources.append({
-                    u'dataownerName': self.get_localized_text(source.owner.name)[0].get('Text'),
-                    u'transferFromSource': source.date.strftime('%d-%m-%YT%H:%M:%S')
-                })
-            data_sources.append({
-                u'topic': self.format_theme(embeddable_theme),
-                u'sources': sources
+        """
+        Formats a embeddable record for rendering according to the specification.
+
+        Args:
+            embeddable (pyramid_oereb.lib.records.embeddable.EmbeddableRecord): The record to be formatted.
+
+        Returns:
+            dict: The formatted record for rendering.
+        """
+
+        datasources = []
+        for source in embeddable.datasources:
+            datasources.append({
+                u'topic': self.format_theme(source.theme),
+                u'dataownerName': self.get_localized_text(source.owner.name)[0].get('Text'),
+                u'transferFromSource': source.date.strftime('%d-%m-%YT%H:%M:%S')
             })
+
         embeddable_dict = {
             u'cadasterState': embeddable.cadaster_state.strftime('%d-%m-%YT%H:%M:%S'),
             u'cadasterOrganisationName': self.get_localized_text(
-                embeddable.cadaster_organisation.name)[0].get('Text'),
+                embeddable.cadaster_organisation.name
+            )[0].get('Text'),
             u'dataOwnerNameCadastralSurveying': self.get_localized_text(
-                embeddable.data_owner_cadastral_surveying.name)[0].get('Text'),
-            u'transferFromSourceCadastralSurveying': time,
-            u'datasource': data_sources
+                embeddable.data_owner_cadastral_surveying.name
+            )[0].get('Text'),
+            u'transferFromSourceCadastralSurveying': embeddable.transfer_from_source_cadastral_surveying
+                .strftime('%d-%m-%YT%H:%M:%S'),
+            u'datasource': datasources
         }
+
         return embeddable_dict
