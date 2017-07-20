@@ -1,16 +1,16 @@
 <%page args="document"/>
 <%include file="document_base.xml" args="document=document"/>
 <xsd:Title>
-    <%include file="localized_text.xml" args="text=document.title"/>
+    <%include file="multilingual_text.xml" args="text=document.title"/>
 </xsd:Title>
 %if document.official_title:
 <xsd:OfficialTitle>
-    <%include file="localized_text.xml" args="text=document.official_title"/>
+    <%include file="multilingual_text.xml" args="text=document.official_title"/>
 </xsd:OfficialTitle>
 %endif
 %if document.abbreviation:
 <xsd:Abbrevation>
-    <%include file="localized_text.xml" args="text=document.abbreviation"/>
+    <%include file="multilingual_text.xml" args="text=document.abbreviation"/>
 </xsd:Abbrevation>
 %endif
 %if document.official_number:

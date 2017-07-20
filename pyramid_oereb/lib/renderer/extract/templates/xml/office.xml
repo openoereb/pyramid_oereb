@@ -1,6 +1,6 @@
 <%page args="office"/>
 <xsd:Name>
-    <%include file="localized_text.xml" args="text=office.name"/>
+    <%include file="multilingual_text.xml" args="text=office.name"/>
 </xsd:Name>
 %if office.office_at_web:
 <xsd:OfficeAtWeb>${office.office_at_web|u}</xsd:OfficeAtWeb>

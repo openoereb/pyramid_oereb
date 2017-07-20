@@ -83,7 +83,7 @@ class Renderer(Base):
             'CreationDate': self.date_time(extract.creation_date),
             'isReduced': self._params.flavour in ['reduced', 'embeddable'],
             'ExtractIdentifier': extract.extract_identifier,
-            'BaseData': self.get_localized_text(extract.base_data),
+            'BaseData': self.get_multilingual_text(extract.base_data),
             'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority),
             'RealEstate': self.format_real_estate(extract.real_estate),
             'ConcernedTheme': [self.format_theme(theme) for theme in extract.concerned_theme],
@@ -117,14 +117,14 @@ class Renderer(Base):
         if extract.qr_code:
             extract_dict['QRCode'] = extract.qr_code
         if extract.general_information:
-            extract_dict['GeneralInformation'] = self.get_localized_text(extract.general_information)
+            extract_dict['GeneralInformation'] = self.get_multilingual_text(extract.general_information)
 
         if isinstance(extract.exclusions_of_liability, list) and len(extract.exclusions_of_liability) > 0:
             exclusions_of_liability = list()
             for eol in extract.exclusions_of_liability:
                 exclusions_of_liability.append({
-                    'Title': self.get_localized_text(eol.title),
-                    'Content': self.get_localized_text(eol.content)
+                    'Title': self.get_multilingual_text(eol.title),
+                    'Content': self.get_multilingual_text(eol.content)
                 })
             extract_dict['ExclusionOfLiability'] = exclusions_of_liability
 
@@ -132,8 +132,8 @@ class Renderer(Base):
             glossaries = list()
             for gls in extract.glossaries:
                 glossaries.append({
-                    'Title': self.get_localized_text(gls.title),
-                    'Content': self.get_localized_text(gls.content)
+                    'Title': self.get_multilingual_text(gls.title),
+                    'Content': self.get_multilingual_text(gls.content)
                 })
             extract_dict['Glossary'] = glossaries
 
@@ -220,7 +220,7 @@ class Renderer(Base):
                                      'in reduced extracts!')
                 # TODO: Add lenght and units see GSOREB-207: https://jira.camptocamp.com/browse/GSOREB-207
                 plr_dict = {
-                    'Information': self.get_localized_text(plr.information),
+                    'Information': self.get_multilingual_text(plr.information),
                     'Theme': self.format_theme(plr.theme),
                     'Lawstatus': self.format_law_status(plr.law_status),
                     'ResponsibleOffice': self.format_office(plr.responsible_office),
@@ -302,23 +302,23 @@ class Renderer(Base):
 
         if isinstance(document, DocumentRecord) or isinstance(document, LegalProvisionRecord):
 
-            localized_text_at_web = self.get_localized_text(document.text_at_web)
+            multilingual_text_at_web = self.get_multilingual_text(document.text_at_web)
 
             document_dict.update({
                 'Lawstatus': self.format_law_status(document.law_status),
-                'TextAtWeb': localized_text_at_web,
-                'Title': self.get_localized_text(document.title),
+                'TextAtWeb': multilingual_text_at_web,
+                'Title': self.get_multilingual_text(document.title),
                 'ResponsibleOffice': self.format_office(document.responsible_office)
             })
             if self._params.flavour == 'full' and isinstance(document, LegalProvisionRecord):
-                base64_text_at_web = url_to_base64(localized_text_at_web[0].get('Text'))
+                base64_text_at_web = url_to_base64(multilingual_text_at_web[0].get('Text'))
                 if base64_text_at_web is not None:
                     document_dict['Base64TextAtWeb'] = base64_text_at_web
 
             if document.official_title:
-                document_dict['OfficialTitle'] = self.get_localized_text(document.official_title)
+                document_dict['OfficialTitle'] = self.get_multilingual_text(document.official_title)
             if document.abbreviation:
-                document_dict['Abbrevation'] = self.get_localized_text(document.abbreviation)
+                document_dict['Abbrevation'] = self.get_multilingual_text(document.abbreviation)
             if document.official_number:
                 document_dict['OfficialNumber'] = document.official_number
             if document.canton:
@@ -350,9 +350,9 @@ class Renderer(Base):
             })
 
             if document.text_at_web:
-                document_dict['TextAtWeb'] = self.get_localized_text(document.text_at_web)
+                document_dict['TextAtWeb'] = self.get_multilingual_text(document.text_at_web)
             if document.text:
-                document_dict['Text'] = self.get_localized_text(document.text)
+                document_dict['Text'] = self.get_multilingual_text(document.text)
 
         return document_dict
 
@@ -402,7 +402,7 @@ class Renderer(Base):
             dict: The formatted dictionary for rendering.
         """
         office_dict = {
-            'Name': self.get_localized_text(office.name)
+            'Name': self.get_multilingual_text(office.name)
         }
         if office.office_at_web:
             office_dict['OfficeAtWeb'] = office.office_at_web
@@ -474,7 +474,7 @@ class Renderer(Base):
             dict: The formatted dictionary for rendering.
         """
         legend_entry_dict = {
-            'LegendText': self.get_localized_text(legend_entry.legend_text),
+            'LegendText': self.get_multilingual_text(legend_entry.legend_text),
             'TypeCode': legend_entry.type_code,
             'TypeCodelist': legend_entry.type_code_list,
             'Theme': self.format_theme(legend_entry.theme)
@@ -530,22 +530,22 @@ class Renderer(Base):
         datasources = []
         for source in embeddable.datasources:
             datasources.append({
-                u'topic': self.format_theme(source.theme),
-                u'dataownerName': self.get_localized_text(source.owner.name)[0].get('Text'),
-                u'transferFromSource': source.date.strftime('%d-%m-%YT%H:%M:%S')
+                'topic': self.format_theme(source.theme),
+                'dataownerName': self.get_localized_text(source.owner.name).get('Text'),
+                'transferFromSource': source.date.strftime('%d-%m-%YT%H:%M:%S')
             })
 
         embeddable_dict = {
-            u'cadasterState': embeddable.cadaster_state.strftime('%d-%m-%YT%H:%M:%S'),
-            u'cadasterOrganisationName': self.get_localized_text(
+            'cadasterState': embeddable.cadaster_state.strftime('%d-%m-%YT%H:%M:%S'),
+            'cadasterOrganisationName': self.get_localized_text(
                 embeddable.cadaster_organisation.name
-            )[0].get('Text'),
-            u'dataOwnerNameCadastralSurveying': self.get_localized_text(
+            ).get('Text'),
+            'dataOwnerNameCadastralSurveying': self.get_localized_text(
                 embeddable.data_owner_cadastral_surveying.name
-            )[0].get('Text'),
-            u'transferFromSourceCadastralSurveying': embeddable.transfer_from_source_cadastral_surveying
-                .strftime('%d-%m-%YT%H:%M:%S'),
-            u'datasource': datasources
+            ).get('Text'),
+            'transferFromSourceCadastralSurveying':
+                embeddable.transfer_from_source_cadastral_surveying.strftime('%d-%m-%YT%H:%M:%S'),
+            'datasource': datasources
         }
 
         return embeddable_dict

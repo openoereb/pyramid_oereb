@@ -21,7 +21,7 @@
         %endif
             <xsd:FosNr>${real_estate.fosnr}</xsd:FosNr>
         %if extract.real_estate.metadata_of_geographical_base_data:
-            <xsd:MetadataOfGeographicalBaseData>${real_estate.metadata_of_geographical_base_data.encode('utf-8')}</xsd:MetadataOfGeographicalBaseData>
+            <xsd:MetadataOfGeographicalBaseData>${real_estate.metadata_of_geographical_base_data}</xsd:MetadataOfGeographicalBaseData>
         %endif
             <xsd:LandRegistryArea>${real_estate.land_registry_area}</xsd:LandRegistryArea>
         %if extract.real_estate.limit and params.geometry:
