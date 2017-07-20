@@ -236,6 +236,34 @@
 
 <div class="viewcode-block" id="Base.get_localized_text"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.renderer.Base.get_localized_text">[docs]</a>    <span class="k">def</span> <span class="nf">get_localized_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the requested language of a multilingual text element.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            values (str or dict): The multilingual values encoded as JSON.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict of str: Dictionary containing the localized representation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">default_language</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;default_language&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="s1">&#39;Language&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span>
+                    <span class="s1">&#39;Text&#39;</span><span class="p">:</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="s1">&#39;Language&#39;</span><span class="p">:</span> <span class="n">default_language</span><span class="p">,</span>
+                    <span class="s1">&#39;Text&#39;</span><span class="p">:</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">default_language</span><span class="p">)</span>
+                <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s1">&#39;Language&#39;</span><span class="p">:</span> <span class="n">default_language</span><span class="p">,</span>
+                <span class="s1">&#39;Text&#39;</span><span class="p">:</span> <span class="n">values</span>
+            <span class="p">}</span></div>
+
+<div class="viewcode-block" id="Base.get_multilingual_text"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.renderer.Base.get_multilingual_text">[docs]</a>    <span class="k">def</span> <span class="nf">get_multilingual_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the set language of a multilingual text element.</span>
 
 <span class="sd">        Args:</span>
@@ -244,25 +272,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            list of dict: List of dictionaries containing the multilingual representation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-        <span class="n">default_language</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;default_language&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
-                <span class="n">text</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                    <span class="s1">&#39;Language&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span>
-                    <span class="s1">&#39;Text&#39;</span><span class="p">:</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">)</span>
-                <span class="p">})</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">text</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                    <span class="s1">&#39;Language&#39;</span><span class="p">:</span> <span class="n">default_language</span><span class="p">,</span>
-                    <span class="s1">&#39;Text&#39;</span><span class="p">:</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">default_language</span><span class="p">)</span>
-                <span class="p">})</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">text</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                <span class="s1">&#39;Language&#39;</span><span class="p">:</span> <span class="n">default_language</span><span class="p">,</span>
-                <span class="s1">&#39;Text&#39;</span><span class="p">:</span> <span class="n">values</span>
-            <span class="p">})</span>
-        <span class="k">return</span> <span class="n">text</span></div></div>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">values</span><span class="p">)]</span></div></div>
 </pre></div>
 
            </div>

@@ -1938,6 +1938,24 @@ should be append to the list.</td>
 <dl class="method">
 <dt id="pyramid_oereb.lib.renderer.Base.get_localized_text">
 <code class="descname">get_localized_text</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer.html#Base.get_localized_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.Base.get_localized_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the requested language of a multilingual text element.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>values</strong> (<em>str</em><em> or </em><em>dict</em>) &#8211; The multilingual values encoded as JSON.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Dictionary containing the localized representation.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict of str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.renderer.Base.get_multilingual_text">
+<code class="descname">get_multilingual_text</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer.html#Base.get_multilingual_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.Base.get_multilingual_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the set language of a multilingual text element.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -3214,8 +3232,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_building_lines.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_building_lines.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_building_lines.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -4013,7 +4031,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -4842,8 +4860,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_project_planning_zones.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -5641,7 +5659,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -6470,8 +6488,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.airports_security_zone_plans.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.airports_security_zone_plans.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -7269,7 +7287,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -8098,8 +8116,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_civil_aviation_sites.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -8897,7 +8915,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -9726,8 +9744,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_military_sites.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -10525,7 +10543,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -11354,8 +11372,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_public_transport_sites.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_public_transport_sites.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -12153,7 +12171,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -12982,8 +13000,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.contaminated_sites.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.contaminated_sites.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.contaminated_sites.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -13781,7 +13799,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -14610,8 +14628,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_distance_lines.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_distance_lines.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_distance_lines.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -15409,7 +15427,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -16238,8 +16256,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.forest_perimeters.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.forest_perimeters.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.forest_perimeters.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -17037,7 +17055,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -17866,8 +17884,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_sites.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -18665,7 +18683,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -19494,8 +19512,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.groundwater_protection_zones.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -20293,7 +20311,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -21122,8 +21140,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.land_use_plans.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.land_use_plans.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -21921,7 +21939,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -23231,8 +23249,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_building_lines.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_building_lines.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_building_lines.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -24030,7 +24048,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -24859,8 +24877,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.motorways_project_planing_zones.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -25658,7 +25676,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -26487,8 +26505,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -27286,7 +27304,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -28115,8 +28133,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_building_lines.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_building_lines.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_building_lines.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -28914,7 +28932,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -29743,8 +29761,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase.text_web">
-<code class="descname">text_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase.text_web" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.standard.models.railways_project_planning_zones.DocumentBase.text_at_web" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
@@ -30542,7 +30560,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">text_web</code></dt>
+<code class="descname">text_at_web</code></dt>
 <dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
 </dd></dl>
 
