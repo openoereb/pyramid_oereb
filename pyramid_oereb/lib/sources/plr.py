@@ -277,9 +277,8 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         )
         symbol = None
         for legend_entry_record in legend_entry_records:
-            if public_law_restriction_from_db.type_code == legend_entry_record:
-                symbol_base64 = legend_entry_record.file
-                symbol = ImageRecord(base64.b64decode(symbol_base64))
+            if public_law_restriction_from_db.type_code == legend_entry_record.type_code:
+                symbol = legend_entry_record.symbol
         if symbol is None:
             # TODO: raise real error here when data is correct, emit warning for now
             msg = u'No symbol was found for plr in topic {topic} with id {id}'.format(
