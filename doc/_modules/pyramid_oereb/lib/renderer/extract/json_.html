@@ -394,6 +394,7 @@
                     <span class="p">})</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="c1"># Link to symbol is only available if type code is set!</span>
+                    <span class="c1"># TODO: How to handle restrictions without type code? Is this possible?</span>
                     <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">type_code</span><span class="p">:</span>
                         <span class="n">plr_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
                             <span class="s1">&#39;SymbolRef&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">route_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/image/symbol&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">),</span>
