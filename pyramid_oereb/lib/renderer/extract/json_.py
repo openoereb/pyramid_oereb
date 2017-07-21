@@ -238,7 +238,6 @@ class Renderer(Base):
                         plr_dict.update({
                             'SymbolRef': self._request.route_url('{0}/image/symbol'.format(route_prefix),
                                                                  theme_code=plr.theme.code,
-                                                                 # TODO: What if type_code = None?
                                                                  type_code=plr.type_code)
                         })
 
