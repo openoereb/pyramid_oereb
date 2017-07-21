@@ -958,6 +958,14 @@ Module *hook_methods*
 .. automodule:: pyramid_oereb.standard.hook_methods
    :members:
 
+.. _api-pyramid_oereb-standard-load_legend_entries:
+
+Module *load_legend_entries*
+```````````````````````````````````````````````````
+
+.. automodule:: pyramid_oereb.standard.load_legend_entries
+   :members:
+
 .. _api-pyramid_oereb-standard-load_sample_data:
 
 Module *load_sample_data*

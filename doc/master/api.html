@@ -178,6 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-pyramid_oereb.standard.create_yaml">Module <em>create_yaml</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyramid_oereb.standard.drop_tables">Module <em>drop_tables</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyramid_oereb.standard.hook_methods">Module <em>hook_methods</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyramid_oereb.standard.load_legend_entries">Module <em>load_legend_entries</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyramid_oereb.standard.load_sample_data">Module <em>load_sample_data</em></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#class-sampledata">Class <em>SampleData</em></a></li>
 </ul>
@@ -2953,6 +2954,37 @@ deliver a valid SLD wrapped in a pyramid response instance as output. It is in y
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyramid_oereb.standard.load_legend_entries">
+<span id="module-load-legend-entries"></span><span id="api-pyramid-oereb-standard-load-legend-entries"></span><h3>Module <em>load_legend_entries</em><a class="headerlink" href="#module-pyramid_oereb.standard.load_legend_entries" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db">
+<code class="descclassname">pyramid_oereb.standard.load_legend_entries.</code><code class="descname">create_legend_entries_in_standard_db</code><span class="sig-paren">(</span><em>config</em>, <em>topic_code</em>, <em>temp_creation_path='/tmp/pyconizer'</em>, <em>language='de'</em>, <em>section='pyramid_oereb'</em>, <em>image_format='image/png'</em>, <em>image_height=36</em>, <em>image_width=72</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/load_legend_entries.html#create_legend_entries_in_standard_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses the pyconizer lib to create images out of the OEREB server configuration. It is creating symbols for
+a dedicated topic. This function will clean all previously created icons from database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>config</strong> (<em>str</em>) &#8211; The path to the used OEREB server configuration YAML file.</li>
+<li><strong>topic_code</strong> (<em>str</em>) &#8211; The topic code for which the symbols should be created. It must be configured in
+the passed yml.</li>
+<li><strong>temp_creation_path</strong> &#8211; The path where the images are created in.</li>
+<li><strong>language</strong> &#8211; The language which is used to produce the WMS rules. This is a tricky part. You must
+provide the language your WMS is using.</li>
+<li><strong>section</strong> &#8211; The section which the config can be found in the yml.</li>
+<li><strong>image_format</strong> &#8211; The image format. This is passed throug to the WMS request. You need to provide a
+format your WMS is supporting here.</li>
+<li><strong>image_height</strong> &#8211; The height of the produced image.</li>
+<li><strong>image_width</strong> &#8211; The width of the produced image.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
