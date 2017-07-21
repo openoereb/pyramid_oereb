@@ -130,6 +130,8 @@ class PrintRenderer(Renderer):
         response.headers = print_result.headers
         if 'Transfer-Encoding' in response.headers:
             del response.headers['Transfer-Encoding']
+        if 'Connection' in response.headers:
+            del response.headers['Connection']
         return print_result.content
 
     def _flatten_array_object(self, parent, array_name, object_name):
