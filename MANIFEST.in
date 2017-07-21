@@ -1,5 +1,5 @@
-include pyramid_oereb/standard/pyramid_oereb.yml.mako
-include pyramid_oereb/standard/logo_confederation.png
-include pyramid_oereb/standard/logo_oereb.png
-include pyramid_oereb/standard/logo_canton.png
-include pyramid_oereb/standard/templates/plr.py.mako
+recursive-include pyramid_oereb/standard *.mako
+recursive-include pyramid_oereb/standard *.png
+recursive-include pyramid_oereb/standard *.xml
+recursive-include pyramid_oereb/lib/renderer *.xml
+recursive-exclude tests *.*
