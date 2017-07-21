@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 import datetime
 
+import logging
+from pyramid.httpexceptions import HTTPServerError
+from pyramid.path import DottedNameResolver
 from pyramid.request import Request
 from pyramid.testing import DummyRequest
 
 from pyramid_oereb import Config
+
+
+log = logging.getLogger('pyramid_oereb')
 
 
 class Base(object):
@@ -17,6 +23,29 @@ class Base(object):
         """
         self._info_ = info
         self._language = str(Config.get('default_language')).lower()
+
+    @classmethod
+    def get_symbol_ref(cls, request, record):
+        """
+        Returns the link to the symbol of the specified public law restriction.
+
+        Args:
+            request (pyramid.request.Request): The current request instance.
+            record (pyramid_oereb.lib.records.plr.PlrRecord or
+                pyramid_oereb.lib.records.view_service.LegendEntryRecord): The record of the public law
+                restriction to get the symbol reference for.
+
+        Returns:
+            uri: The link to the symbol for the specified public law restriction.
+        """
+        method = None
+        for plr in Config.get('plrs'):
+            if str(plr.get('code')).lower() == str(record.theme.code).lower():
+                method = DottedNameResolver().resolve(plr.get('hooks').get('get_symbol_ref'))
+        if callable(method):
+            return method(request, record)
+        log.error('No "get_symbol_ref" method found for theme {}'.format(record.theme.code))
+        raise HTTPServerError()
 
     @classmethod
     def get_response(cls, system):

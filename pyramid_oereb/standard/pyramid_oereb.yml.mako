@@ -312,7 +312,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.land_use_plans
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -343,7 +345,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.motorways_project_planing_zones
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -374,7 +378,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.motorways_building_lines
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -405,7 +411,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.railways_building_lines
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -436,7 +444,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.railways_project_planning_zones
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -467,7 +477,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.airports_project_planning_zones
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -498,7 +510,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.airports_building_lines
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -529,7 +543,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.airports_security_zone_plans
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -560,7 +576,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_sites
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -591,7 +609,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_military_sites
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -622,7 +642,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -653,7 +675,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_public_transport_sites
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -684,7 +708,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.groundwater_protection_zones
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -715,7 +741,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.groundwater_protection_sites
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -746,7 +774,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.noise_sensitivity_levels
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -777,7 +807,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.forest_perimeters
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
@@ -808,7 +840,9 @@ pyramid_oereb:
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.forest_distance_lines
-      get_symbol_method: pyramid_oereb.standard.hook_methods.get_symbol
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
         in_force: inForce
         running_modifications: runningModifications
