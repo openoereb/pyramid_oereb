@@ -28,7 +28,8 @@ requires = [
     'lxml',
     'generateDS',
     'requests',
-    'geolink_formatter'
+    'geolink_formatter',
+    'pyconizer'
 ]
 
 setup(
