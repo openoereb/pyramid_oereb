@@ -62,7 +62,8 @@ class Renderer(Base):
                 'params': value[1],
                 'localized': self.get_localized_text,
                 'multilingual': self.get_multilingual_text,
-                'request': self._request
+                'request': self._request,
+                'get_symbol_ref': self.get_symbol_ref
             })
             return content
         except ValueError as e:
