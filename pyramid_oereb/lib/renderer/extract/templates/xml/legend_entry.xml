@@ -4,9 +4,7 @@
     %if params.images:
     <xsd:Symbol>${legend_entry.symbol.encode()}</xsd:Symbol>
     %else:
-    <xsd:SymbolRef>${request.route_url('{0}/image/symbol'.format(route_prefix),
-                                                     theme_code=legend_entry.theme.code,
-                                                     type_code=legend_entry.type_code)}</xsd:SymbolRef>
+    <xsd:SymbolRef>${get_symbol_ref(request, legend_entry)|u}</xsd:SymbolRef>
     %endif
     <xsd:LegendText>
         <%include file="multilingual_text.xml" args="text=legend_entry.legend_text"/>

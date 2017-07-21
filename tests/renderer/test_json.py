@@ -3,6 +3,8 @@
 import base64
 
 import datetime
+import json
+
 import pytest
 from shapely.geometry import MultiPolygon, Polygon, Point, LineString
 
@@ -213,7 +215,7 @@ def test_format_plr(config, parameter):
             documents = [document]
         else:
             documents = None
-        theme = ThemeRecord(u'Test', {u'de': u'Test theme'})
+        theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test theme'})
         office = OfficeRecord({'de': 'Test Office'})
         legend_entry = LegendEntryRecord(base64.b64encode(bin(1)), {'de': 'Test'}, 'test', 'TypeCodeList',
                                          theme)
@@ -221,7 +223,7 @@ def test_format_plr(config, parameter):
         geometry = GeometryRecord(law_status(), datetime.date.today(), Point(1, 1))
         plr = PlrRecord(
             theme,
-            {'de': 'Test PLR'},
+            {'de': 'Test'},
             law_status(),
             datetime.date.today(),
             office,
@@ -265,7 +267,11 @@ def test_format_plr(config, parameter):
                 })
             else:
                 expected.update({
-                    'SymbolRef': 'http://example.com/image/symbol/Test/test'
+                    'SymbolRef': 'http://example.com/image/symbol/{theme}?TEXT={text}&CODE={code}'.format(
+                        theme='ContaminatedSites',
+                        text=base64.b64encode(json.dumps(legend_entry.legend_text)).replace('=', '%3D'),
+                        code='test'
+                    )
                 })
             assert result[0] == expected
 
@@ -437,7 +443,7 @@ def test_format_map(config, params):
             {u'de': u'Legendeneintrag'},
             u'type1',
             u'type_code_list',
-            ThemeRecord(u'test', {u'de': u'Test'})
+            ThemeRecord(u'ContaminatedSites', {u'de': u'Test'})
         )
         view_service = ViewServiceRecord('http://my.wms.ch',
                                          'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
@@ -464,7 +470,7 @@ def test_format_legend_entry(parameter, config):
         renderer._language = u'de'
         renderer._params = parameter
         renderer._request = MockRequest()
-        theme = ThemeRecord(u'test', {u'de': u'Test'})
+        theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test'})
         legend_entry = LegendEntryRecord(
             ImageRecord(bin(1)),
             {u'de': u'Legendeneintrag'},
@@ -489,7 +495,11 @@ def test_format_legend_entry(parameter, config):
             })
         else:
             expected.update({
-                'SymbolRef': 'http://example.com/image/symbol/test/type1'
+                'SymbolRef': 'http://example.com/image/symbol/{theme_code}?TEXT={text}&CODE={code}'.format(
+                    theme_code='ContaminatedSites',
+                    text=base64.b64encode(json.dumps(legend_entry.legend_text)).replace('=', '%3D'),
+                    code='type1'
+                )
             })
         assert isinstance(result, dict)
         assert result == expected

@@ -1,13 +1,153 @@
 # -*- coding: utf-8 -*-
+import base64
 import datetime
+import json
 
 from mako import exceptions
 from mako.template import Template
-from pyramid.path import AssetResolver
+from pyramid.httpexceptions import HTTPNotFound, HTTPBadRequest
+from pyramid.path import AssetResolver, DottedNameResolver
 from pyramid.response import Response
+from sqlalchemy import cast, Text
+from sqlalchemy_utils import JSONType
 
-from pyramid_oereb import Config
+from pyramid_oereb import Config, database_adapter, route_prefix
 from pyramid_oereb.lib.records.office import OfficeRecord
+from pyramid_oereb.lib.records.plr import PlrRecord
+
+
+def get_logo(request):
+    """
+    Returns the requested logo.
+
+    Args:
+        request (pyramid.request.Request): The request containing the logo key matchdict parameter.
+
+    Returns:
+        pyramid.response.Response: The generated response object.
+    """
+    logo_key = request.matchdict.get('logo')
+    if logo_key in Config.get('logo').keys():
+        logo = Config.get_logo_config().get(logo_key)
+        response = request.response
+        response.status_int = 200
+        response.content_type = 'image/*'
+        response.body = logo.content
+        return response
+    raise HTTPNotFound('This logo does not exist.')
+
+
+def get_municipality(request):
+    """
+    Returns the requested municipality logo from database.
+
+    Args:
+        request (pyramid.request.Request): The request containing the fosnr as matchdict parameter.
+
+    Returns:
+        pyramid.response.Response: The generated response object.
+    """
+    fosnr = request.matchdict.get('fosnr')
+    source_params = Config.get_municipality_config().get('source').get('params')
+    session = database_adapter.get_session(source_params.get('db_connection'))
+    try:
+        model = DottedNameResolver().resolve(source_params.get('model'))
+        municipality = session.query(model).filter_by(fosnr=fosnr).first()
+        if municipality:
+            logo = getattr(municipality, 'logo', None)
+            if logo:
+                response = request.response
+                response.status_int = 200
+                response.content_type = 'image/*'
+                response.body = base64.b64decode(logo)
+                return response
+        raise HTTPNotFound()
+    except:
+        raise
+    finally:
+        session.close()
+
+
+def get_symbol(request):
+    """
+    Returns the symbol for the requested theme and type code from database.
+
+    Args:
+        request (pyramid.request.Request): The request containing the codes as matchdict parameters.
+
+    Returns:
+        pyramid.response.Response: The generated response object.
+    """
+
+    theme_code = request.matchdict.get('theme_code')
+
+    plr = None
+    for p in Config.get('plrs'):
+        if str(p.get('code')).lower() == str(theme_code).lower():
+            plr = p
+            break
+
+    if plr is None:
+        raise HTTPNotFound('No theme with code {}.'.format(theme_code))
+
+    source_params = plr.get('source').get('params')
+    session = database_adapter.get_session(source_params.get('db_connection'))
+
+    type_code = request.params.get('CODE')
+    legend_text = request.params.get('TEXT')
+
+    if type_code is None:
+        raise HTTPBadRequest('Missing parameter CODE.')
+    if legend_text is None:
+        raise HTTPBadRequest('Missing parameter TEXT.')
+
+    try:
+        model = DottedNameResolver().resolve('{module_}.{class_}'.format(
+            module_=source_params.get('models'),
+            class_='LegendEntry'
+        ))
+        legend_entry = session.query(model).filter(
+            model.type_code == type_code,
+            cast(model.legend_text, Text) == cast(cast(json.loads(base64.b64decode(legend_text)), JSONType),
+                                                  Text)
+        ).first()
+        if legend_entry:
+            symbol = getattr(legend_entry, 'symbol', None)
+            if symbol:
+                response = request.response
+                response.status_int = 200
+                response.content_type = 'image/*'
+                response.body = base64.b64decode(symbol)
+                return response
+        raise HTTPNotFound()
+
+    finally:
+        session.close()
+
+
+def get_symbol_ref(request, record):
+    """
+    Returns the link to the symbol of the specified public law restriction.
+
+    Args:
+        request (pyramid.request.Request): The current request instance.
+        record (pyramid_oereb.lib.records.plr.PlrRecord or
+            pyramid_oereb.lib.records.view_service.LegendEntryRecord): The record of the public law
+            restriction to get the symbol reference for.
+
+    Returns:
+        uri: The link to the symbol for the specified public law restriction.
+    """
+    text = record.information if isinstance(record, PlrRecord) else record.legend_text
+    text_encoded = base64.b64encode(json.dumps(text))
+    return request.route_url(
+        '{0}/image/symbol'.format(route_prefix),
+        theme_code=record.theme.code,
+        _query={
+            'TEXT': text_encoded,
+            'CODE': record.type_code
+        }
+    )
 
 
 def get_surveying_data_provider(real_estate):
