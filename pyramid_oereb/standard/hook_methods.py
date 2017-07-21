@@ -59,7 +59,7 @@ def get_municipality(request):
                 response = request.response
                 response.status_int = 200
                 response.content_type = 'image/*'
-                response.body = base64.b64decode(logo)
+                response.body = base64.b64decode(logo.encode('ascii'))
                 return response
         raise HTTPNotFound()
     except:
@@ -117,7 +117,7 @@ def get_symbol(request):
                 response = request.response
                 response.status_int = 200
                 response.content_type = 'image/*'
-                response.body = base64.b64decode(symbol)
+                response.body = base64.b64decode(symbol.encode('ascii'))
                 return response
         raise HTTPNotFound()
 
@@ -139,7 +139,7 @@ def get_symbol_ref(request, record):
         uri: The link to the symbol for the specified public law restriction.
     """
     text = record.information if isinstance(record, PlrRecord) else record.legend_text
-    text_encoded = base64.b64encode(json.dumps(text))
+    text_encoded = base64.b64encode(json.dumps(text).encode('utf-8')).decode('ascii')
     return request.route_url(
         '{0}/image/symbol'.format(route_prefix),
         theme_code=record.theme.code,

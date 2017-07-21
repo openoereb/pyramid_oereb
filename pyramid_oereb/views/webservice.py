@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import logging
 
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPServerError, HTTPNotFound, \
@@ -162,7 +163,7 @@ class PlrWebservice(object):
                 Config.get_address_config().get('source').get('class'),
                 **Config.get_address_config().get('source').get('params')
             )
-            addresses = reader.read(unicode(localisation), int(postalcode), str(number))
+            addresses = reader.read(localisation, int(postalcode), number)
             if len(addresses) == 0:
                 raise HTTPNotFound('Address not found.')
             geometry = 'SRID={srid};{wkt}'.format(srid=Config.get('srid'), wkt=addresses[0].geom)

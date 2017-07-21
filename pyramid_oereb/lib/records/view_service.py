@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
+
+import sys
 import warnings
 import logging
-import urllib2
 
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.url import add_url_params
 from pyramid_oereb.lib.url import uri_validator
 from pyramid_oereb.lib.config import Config
+
+if sys.version_info.major == 2:
+    import urllib2
+else:
+    from urllib import request as urllib2
 
 
 log = logging.getLogger('pyramid_oereb')
@@ -60,6 +66,8 @@ class ViewServiceRecord(object):
         if legends is None:
             self.legends = []
         else:
+            for legend in legends:
+                assert isinstance(legend.symbol, ImageRecord)
             self.legends = legends
 
     @staticmethod

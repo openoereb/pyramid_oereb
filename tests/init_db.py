@@ -141,7 +141,7 @@ class DummyData(object):
             'fosnr': 1234,
             'name': 'Test',
             'published': True,
-            'logo': base64.b64encode('abcdefg'),
+            'logo': base64.b64encode('abcdefg'.encode('utf-8')).decode('ascii'),
             'geom': 'SRID=2056;MULTIPOLYGON(((0 0, 0 10, 10 10, 10 0, 0 0)))'
         })
 
@@ -206,7 +206,7 @@ class DummyData(object):
             'information': {'de': u'Long line PLR'},
             'topic': u'MotorwaysBuildingLines',
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'view_service_id': 1,
             'office_id': 1
         })
@@ -215,7 +215,7 @@ class DummyData(object):
             'information': {'de': u'Short line PLR'},
             'topic': u'MotorwaysBuildingLines',
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'view_service_id': 1,
             'office_id': 1
         })
@@ -224,7 +224,7 @@ class DummyData(object):
             'information': {'de': u'Double intersection line PLR'},
             'topic': u'MotorwaysBuildingLines',
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'view_service_id': 1,
             'office_id': 1
         })
@@ -233,14 +233,14 @@ class DummyData(object):
             'information': {'de': u'Future geometry'},
             'topic': u'MotorwaysBuildingLines',
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'view_service_id': 1,
             'office_id': 1
         })
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
             'id': 1,
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'public_law_restriction_id': 1,
             'office_id': 1,
             'geom': u'SRID=2056;LINESTRING (0 0, 2 2)'
@@ -248,7 +248,7 @@ class DummyData(object):
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
             'id': 2,
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'public_law_restriction_id': 2,
             'office_id': 1,
             'geom': u'SRID=2056;LINESTRING (1.5 1.5, 1.5 2.5)'
@@ -256,7 +256,7 @@ class DummyData(object):
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
             'id': 3,
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'public_law_restriction_id': 3,
             'office_id': 1,
             'geom': u'SRID=2056;LINESTRING (3 1, 3 4, 6 4, 6 1, 4.5 1)'
@@ -264,7 +264,7 @@ class DummyData(object):
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
             'id': 4,
             'law_status': u'inForce',
-            'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
+            'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'public_law_restriction_id': 4,
             'office_id': 1,
             'geom': u'SRID=2056;LINESTRING (0 0, 4 4)'
@@ -272,7 +272,7 @@ class DummyData(object):
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
             'id': 1,
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'type': u'document'
         })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
@@ -283,7 +283,7 @@ class DummyData(object):
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
             'id': 2,
             'law_status': u'inForce',
-            'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
+            'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'type': u'document'
         })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
@@ -294,7 +294,7 @@ class DummyData(object):
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
             'id': 3,
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'type': u'document'
         })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
@@ -305,7 +305,7 @@ class DummyData(object):
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
             'id': 4,
             'law_status': u'inForce',
-            'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
+            'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'type': u'document'
         })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
@@ -350,7 +350,7 @@ class DummyData(object):
 
         connection.execute(contaminated_sites.LegendEntry.__table__.insert(), {
             'id': 1,
-            'symbol': base64.b64encode(bin(1)),
+            'symbol': base64.b64encode("1".encode('utf-8')).decode('ascii'),
             'legend_text': {
                 'de': u'Test'
             },
@@ -376,7 +376,7 @@ class DummyData(object):
             'information': {'de': u'Large polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'view_service_id': 1,
             'office_id': 1
         })
@@ -385,7 +385,7 @@ class DummyData(object):
             'information': {'de': u'Small polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'view_service_id': 1,
             'office_id': 1
         })
@@ -394,7 +394,7 @@ class DummyData(object):
             'information': {'de': u'Double intersection polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'view_service_id': 1,
             'office_id': 1
         })
@@ -403,7 +403,7 @@ class DummyData(object):
             'information': {'de': u'Future PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
-            'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
+            'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'view_service_id': 1,
             'office_id': 1
         })
@@ -411,7 +411,7 @@ class DummyData(object):
         connection.execute(contaminated_sites.Geometry.__table__.insert(), {
             'id': 1,
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'public_law_restriction_id': 1,
             'office_id': 1,
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((0 0, 0 1.5, 1.5 1.5, 1.5 0, 0 0)))'
@@ -419,7 +419,7 @@ class DummyData(object):
         connection.execute(contaminated_sites.Geometry.__table__.insert(), {
             'id': 2,
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'public_law_restriction_id': 2,
             'office_id': 1,
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5)))'
@@ -427,7 +427,7 @@ class DummyData(object):
         connection.execute(contaminated_sites.Geometry.__table__.insert(), {
             'id': 3,
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'public_law_restriction_id': 3,
             'office_id': 1,
             'geom': u'SRID=2056;GEOMETRYCOLLECTION('
@@ -436,7 +436,7 @@ class DummyData(object):
         connection.execute(contaminated_sites.Geometry.__table__.insert(), {
             'id': 4,
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'public_law_restriction_id': 4,
             'office_id': 1,
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((0 0, 0 2, 2 2, 2 0, 0 0)))'
@@ -472,7 +472,7 @@ class DummyData(object):
             'information': {'de': u'Large polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'view_service_id': 1,
             'office_id': 1
         })
@@ -481,7 +481,7 @@ class DummyData(object):
             'information': {'de': u'Small polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'view_service_id': 1,
             'office_id': 1
         })
@@ -490,7 +490,7 @@ class DummyData(object):
             'information': {'de': u'Double intersection polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'view_service_id': 1,
             'office_id': 1
         })
@@ -499,7 +499,7 @@ class DummyData(object):
             'information': {'de': u'Future PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
-            'published_from': unicode((date.today() + timedelta(days=7)).isoformat()),
+            'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'view_service_id': 1,
             'office_id': 1
         })
@@ -507,7 +507,7 @@ class DummyData(object):
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
             'id': 1,
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'public_law_restriction_id': 1,
             'office_id': 1,
             'geom': u'SRID=2056;GEOMETRYCOLLECTION('
@@ -516,7 +516,7 @@ class DummyData(object):
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
             'id': 2,
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'public_law_restriction_id': 1,
             'office_id': 1,
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((0 0, 0 1.5, 1.5 1.5, 1.5 0, 0 0)))'
@@ -524,7 +524,7 @@ class DummyData(object):
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
             'id': 3,
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'public_law_restriction_id': 1,
             'office_id': 1,
             'geom': u'SRID=2056;GEOMETRYCOLLECTION('
@@ -533,7 +533,7 @@ class DummyData(object):
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
             'id': 4,
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'public_law_restriction_id': 1,
             'office_id': 1,
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5)))'
@@ -541,7 +541,7 @@ class DummyData(object):
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
             'id': 5,
             'law_status': u'inForce',
-            'published_from': unicode(date.today().isoformat()),
+            'published_from': date.today().isoformat(),
             'public_law_restriction_id': 1,
             'office_id': 1,
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POINT(1 2))'

@@ -287,7 +287,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 id=public_law_restriction_from_db.id
             )
             log.warning(msg)
-            symbol = ImageRecord(bin(1))
+            symbol = ImageRecord('1'.encode('utf-8'))
             # raise AttributeError(msg)
         view_service_record = self.from_db_to_view_service_record(
             public_law_restriction_from_db.view_service,

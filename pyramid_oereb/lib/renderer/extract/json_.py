@@ -53,7 +53,7 @@ class Renderer(Base):
         }
         if self._params.flavour == 'embeddable':
             result[u'GetExtractByIdResponse'][u'embeddable'] = self.format_embeddable(value[0].embeddable)
-        return unicode(dumps(result))
+        return dumps(result)
 
     def _render(self, extract, param):
         """
