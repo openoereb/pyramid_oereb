@@ -12,6 +12,7 @@ pyramid_oereb (ÖREB-Server) documentation
 
    installation
    configuration
+   standard/index
    core/index
    faq
 
