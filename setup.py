@@ -9,13 +9,6 @@ with open(os.path.join(here, 'README.rst')) as f:
 with open(os.path.join(here, 'CHANGES.rst')) as f:
     CHANGES = f.read()
 
-tests_require = [
-    'WebTest >= 1.3.1',  # py3 compat
-    'pytest',  # includes virtualenv
-    'pytest-cov',
-    'pytest-ordering'
-]
-
 requires = [
     'dicttoxml',
     'geoalchemy2',
@@ -35,7 +28,8 @@ requires = [
     'lxml',
     'generateDS',
     'requests',
-    'geolink_formatter'
+    'geolink_formatter',
+    'pyconizer'
 ]
 
 setup(
@@ -58,20 +52,8 @@ setup(
     url='https://github.com/camptocamp/pyramid_oereb',
     keywords='pyramid oereb',
     packages=find_packages(),
-    package_data={'pyramid_oereb': [
-        'standard/pyramid_oereb.yml.mako',
-        'standard/logo_confederation.png',
-        'standard/logo_oereb.png',
-        'standard/logo_canton.png',
-        'standard/templates/plr.py.mako',
-        'tests/resources/*',
-        'tests/resources/plr119/*'
-    ]},
     include_package_data=True,
     zip_safe=False,
-    extras_require={
-        'testing': tests_require,
-    },
     install_requires=requires,
     entry_points={
         'paste.app_factory': [

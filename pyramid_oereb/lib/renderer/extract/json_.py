@@ -233,11 +233,10 @@ class Renderer(Base):
                     })
                 else:
                     # Link to symbol is only available if type code is set!
+                    # TODO: How to handle restrictions without type code? Is this possible?
                     if plr.type_code:
                         plr_dict.update({
-                            'SymbolRef': self._request.route_url('{0}/image/symbol'.format(route_prefix),
-                                                                 theme_code=plr.theme.code,
-                                                                 type_code=plr.type_code)
+                            'SymbolRef': self.get_symbol_ref(self._request, plr)
                         })
 
                 if plr.area:
@@ -486,9 +485,7 @@ class Renderer(Base):
             })
         else:
             legend_entry_dict.update({
-                'SymbolRef': self._request.route_url('{0}/image/symbol'.format(route_prefix),
-                                                     theme_code=legend_entry.theme.code,
-                                                     type_code=legend_entry.type_code)
+                'SymbolRef': self.get_symbol_ref(self._request, legend_entry)
             })
 
         if legend_entry.sub_theme:

@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import base64
+import json
+
 import pytest
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.response import Response
@@ -10,8 +13,11 @@ from pyramid_oereb.views.webservice import Symbol
 def test_get_image():
     request = MockRequest()
     request.matchdict.update({
-        'theme_code': 'ContaminatedSites',
-        'type_code': 'test'
+        'theme_code': 'ContaminatedSites'
+    })
+    request.params.update({
+        'CODE': 'test',
+        'TEXT': base64.b64encode(json.dumps({'de': u'Test'}))
     })
     webservice = Symbol(request)
     result = webservice.get_image()
@@ -22,8 +28,11 @@ def test_get_image():
 def test_get_image_invalid():
     request = MockRequest()
     request.matchdict.update({
-        'theme_code': 'ContaminatedSites',
-        'type_code': 'notExisting'
+        'theme_code': 'ContaminatedSites'
+    })
+    request.params.update({
+        'CODE': 'notExisting',
+        'TEXT': base64.b64encode(json.dumps({'de': u'Test'}))
     })
     webservice = Symbol(request)
     with pytest.raises(HTTPNotFound):

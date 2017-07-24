@@ -44,10 +44,7 @@
     <xsd:Symbol>${public_law_restriction.symbol.encode()}</xsd:Symbol>
     %else:
     <xsd:SymbolRef>
-        ${request.route_url('{0}/image/symbol'.format(route_prefix),
-            theme_code=public_law_restriction.theme.code,
-            type_code=public_law_restriction.type_code)
-        }
+        ${get_symbol_ref(request, public_law_restriction)|u}
     </xsd:SymbolRef>
     %endif
     %for geometry in public_law_restriction.geometries:

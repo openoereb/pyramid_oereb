@@ -627,7 +627,7 @@ class Symbol(object):
         dnr = DottedNameResolver()
         for plr in Config.get('plrs'):
             if str(plr.get('code')).lower() == str(self._request_.matchdict.get('theme_code')).lower():
-                method = dnr.resolve(plr.get('get_symbol_method'))
+                method = dnr.resolve(plr.get('hooks').get('get_symbol'))
                 break
         if method:
             return method(self._request_)
