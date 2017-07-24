@@ -76,10 +76,10 @@ def test_render(config, parameter):
         )
         extract = ExtractRecord(
             real_estate,
-            ImageRecord(bin(1)),
-            ImageRecord(bin(2)),
-            ImageRecord(bin(3)),
-            ImageRecord(bin(4)),
+            ImageRecord('1'.encode('utf-8')),
+            ImageRecord('2'.encode('utf-8')),
+            ImageRecord('3'.encode('utf-8')),
+            ImageRecord('4'.encode('utf-8')),
             office_record,
             base_data,
             embeddable,
@@ -89,7 +89,7 @@ def test_render(config, parameter):
             glossaries=[GlossaryRecord({'de': u'Glossar'}, {'de': u'Test'})],
             general_information={'de': u'Allgemeine Informationen'}
         )
-        extract.qr_code = bin(1)
+        extract.qr_code = '1'.encode('utf-8')
         extract.electronic_signature = 'Signature'
         renderer = Renderer(DummyRenderInfo())
         renderer._language = u'de'
@@ -101,7 +101,7 @@ def test_render(config, parameter):
             result = renderer._render(extract, parameter)
             assert isinstance(result, dict)
             expected = {
-                'ExtractIdentifier': unicode(extract.extract_identifier),
+                'ExtractIdentifier': extract.extract_identifier,
                 'CreationDate': Base.date_time(extract.creation_date),
                 'ConcernedTheme': [],
                 'NotConcernedTheme': [],
@@ -111,7 +111,7 @@ def test_render(config, parameter):
                 'BaseData': renderer.get_multilingual_text(Config.get_base_data(av_update_date)),
                 'RealEstate': renderer.format_real_estate(real_estate),
                 'GeneralInformation': [{'Language': 'de', 'Text': 'Allgemeine Informationen'}],
-                'QRCode': bin(1),
+                'QRCode': '1'.encode('utf-8'),
                 'ExclusionOfLiability': [{
                     'Title': [{'Language': 'de', 'Text': 'Haftungsausschluss'}],
                     'Content': [{'Language': 'de', 'Text': 'Test'}]
@@ -124,10 +124,10 @@ def test_render(config, parameter):
             }
             if parameter.images:
                 expected.update({
-                    'LogoPLRCadastre': unicode(base64.b64encode(bin(1))),
-                    'FederalLogo': unicode(base64.b64encode(bin(2))),
-                    'CantonalLogo': unicode(base64.b64encode(bin(3))),
-                    'MunicipalityLogo': unicode(base64.b64encode(bin(4)))
+                    'LogoPLRCadastre': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
+                    'FederalLogo': base64.b64encode('2'.encode('utf-8')).decode('ascii'),
+                    'CantonalLogo': base64.b64encode('3'.encode('utf-8')).decode('ascii'),
+                    'MunicipalityLogo': base64.b64encode('4'.encode('utf-8')).decode('ascii'),
                 })
             else:
                 expected.update({
@@ -217,8 +217,9 @@ def test_format_plr(config, parameter):
             documents = None
         theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test theme'})
         office = OfficeRecord({'de': 'Test Office'})
-        legend_entry = LegendEntryRecord(base64.b64encode(bin(1)), {'de': 'Test'}, 'test', 'TypeCodeList',
-                                         theme)
+        legend_entry = LegendEntryRecord(
+            ImageRecord(base64.b64encode('1'.encode('utf-8'))),
+            {'de': 'Test'}, 'test', 'TypeCodeList', theme)
         view_service = ViewServiceRecord('http://geowms.bl.ch', 'http://geowms.bl.ch', [legend_entry])
         geometry = GeometryRecord(law_status(), datetime.date.today(), Point(1, 1))
         plr = PlrRecord(
@@ -227,7 +228,7 @@ def test_format_plr(config, parameter):
             law_status(),
             datetime.date.today(),
             office,
-            ImageRecord(bin(1)),
+            ImageRecord('1'.encode('utf-8')),
             view_service,
             [geometry],
             sub_theme='Subtopic',
@@ -263,13 +264,15 @@ def test_format_plr(config, parameter):
             }
             if parameter.images:
                 expected.update({
-                    'Symbol': base64.b64encode(bin(1))
+                    'Symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii')
                 })
             else:
                 expected.update({
                     'SymbolRef': 'http://example.com/image/symbol/{theme}?TEXT={text}&CODE={code}'.format(
                         theme='ContaminatedSites',
-                        text=base64.b64encode(json.dumps(legend_entry.legend_text)).replace('=', '%3D'),
+                        text=base64.b64encode(
+                            json.dumps(legend_entry.legend_text).encode('utf-8')
+                        ).decode('ascii').replace('=', '%3D'),
                         code='test'
                     )
                 })
@@ -288,7 +291,7 @@ def test_format_plr(config, parameter):
         {'de': 'Rechtsvorschrift Test'},
         'BL', 'Liestal',
         ['Art.1', 'Art.2', 'Art.3'],
-        bin(1), [
+        '1'.encode('utf-8'), [
             ArticleRecord(law_status(), datetime.date.today(), 'art.1')
         ], [
             DocumentRecord(law_status(), datetime.date.today(), {'de': 'Test Dokument'},
@@ -439,7 +442,7 @@ def test_format_map(config, params):
         renderer._params = params
         renderer._request = MockRequest()
         legend_entry = LegendEntryRecord(
-            ImageRecord(bin(1)),
+            ImageRecord('1'.encode('utf-8')),
             {u'de': u'Legendeneintrag'},
             u'type1',
             u'type_code_list',
@@ -448,11 +451,11 @@ def test_format_map(config, params):
         view_service = ViewServiceRecord('http://my.wms.ch',
                                          'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
                                          [legend_entry])
-        view_service.image = ImageRecord(bin(1))
+        view_service.image = ImageRecord('1'.encode('utf-8'))
         result = renderer.format_map(view_service)
         assert isinstance(result, dict)
         assert result == {
-            'Image': base64.b64encode(bin(1)),
+            'Image': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
             'ReferenceWMS': 'http://my.wms.ch',
             'LegendAtWeb': 'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
             'OtherLegend': [renderer.format_legend_entry(legend_entry)]
@@ -472,7 +475,7 @@ def test_format_legend_entry(parameter, config):
         renderer._request = MockRequest()
         theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test'})
         legend_entry = LegendEntryRecord(
-            ImageRecord(bin(1)),
+            ImageRecord('1'.encode('utf-8')),
             {u'de': u'Legendeneintrag'},
             u'type1',
             u'type_code_list',
@@ -491,13 +494,15 @@ def test_format_legend_entry(parameter, config):
         }
         if parameter.images:
             expected.update({
-                'Symbol': ImageRecord(bin(1)).encode()
+                'Symbol': ImageRecord('1'.encode('utf-8')).encode()
             })
         else:
             expected.update({
                 'SymbolRef': 'http://example.com/image/symbol/{theme_code}?TEXT={text}&CODE={code}'.format(
                     theme_code='ContaminatedSites',
-                    text=base64.b64encode(json.dumps(legend_entry.legend_text)).replace('=', '%3D'),
+                    text=base64.b64encode(
+                        json.dumps(legend_entry.legend_text).encode('utf-8')
+                    ).decode('ascii').replace('=', '%3D'),
                     code='type1'
                 )
             })

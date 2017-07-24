@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from shapely.geometry import LineString, Point, Polygon
 from tests.conftest import params
 import pytest
@@ -12,7 +13,7 @@ def test_line(parameters, xml_templates):
         'params': parameters,
         'default_language': 'de',
         'line': line
-    }).split('\n')
+    }).decode('utf-8').split('\n')
     expected_content = """
     <gml:LineString>
         <gml:pos>0.0 0.0</gml:pos>
@@ -35,7 +36,7 @@ def test_point(parameters, xml_templates):
         'params': parameters,
         'default_language': 'de',
         'point': point
-    }).split('\n')
+    }).decode('utf-8').split('\n')
     expected_content = """
     <gml:Point>
         <gml:pos>0.0 0.0</gml:pos>
@@ -57,7 +58,7 @@ def test_polygon(parameters, xml_templates):
         'params': parameters,
         'default_language': 'de',
         'polygon': polygon
-    }).split('\n')
+    }).decode('utf-8').split('\n')
     expected_content = """
     <gml:Polygon>
         <gml:exterior>

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import datetime
 
 import pytest
@@ -118,7 +119,7 @@ def test_get_document_records(i, document):
 
 def test_read():
     with requests_mock.mock() as m:
-        with open('./tests/resources/geolink.xml') as f:
+        with open('./tests/resources/geolink.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL')
         source.read(100)

@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+import sys
 import pytest
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.response import Response
@@ -15,7 +17,10 @@ def test_get_image():
     webservice = Municipality(request)
     result = webservice.get_image()
     assert isinstance(result, Response)
-    assert result.body == 'abcdefg'
+    if sys.version_info.major == 2:
+        assert result.body == 'abcdefg'
+    else:
+        assert result.body == b'abcdefg'
 
 
 def test_get_image_invalid():

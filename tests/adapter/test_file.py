@@ -44,7 +44,7 @@ def test_ls():
 def test_read():
     base_path = os.path.abspath('./tests/resources')
     file_adapter = FileAdapter(base_path)
-    content = file_adapter.read('file_adapter_dummy.txt')
+    content = file_adapter.read('file_adapter_dummy.txt').decode('utf-8')
     assert content.startswith('If the content looks like this, the test has been successful.')
 
 

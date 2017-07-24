@@ -12,7 +12,7 @@ def test_mandatory_fields():
 
 
 def test_init():
-    record = LegendEntryRecord(ImageRecord(bin(100)), {'de': 'test'}, 'test_code', 'test',
+    record = LegendEntryRecord(ImageRecord('100'.encode('utf-8')), {'de': 'test'}, 'test_code', 'test',
                                ThemeRecord('test', {'de': 'Test'}))
     assert isinstance(record.symbol, ImageRecord)
     assert isinstance(record.legend_text, dict)

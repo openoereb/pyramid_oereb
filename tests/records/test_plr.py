@@ -20,8 +20,9 @@ def test_init(law_status):
     office = OfficeRecord({'en': 'Office'})
     view_service = ViewServiceRecord('http://my.wms.com')
     geometry = GeometryRecord(law_status, datetime.date.today(), Point(1, 1))
-    record = PlrRecord(ThemeRecord('code', dict()), {'en': 'Content'}, law_status,
-                       datetime.date(1985, 8, 29), office, ImageRecord(bin(1)), view_service, [geometry])
+    record = PlrRecord(
+        ThemeRecord('code', dict()), {'en': 'Content'}, law_status, datetime.date(1985, 8, 29), office,
+        ImageRecord('1'.encode('utf-8')), view_service, [geometry])
     assert record.information == {'en': 'Content'}
     assert record.sub_theme is None
     assert isinstance(record.geometries, list)

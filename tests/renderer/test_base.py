@@ -113,7 +113,7 @@ def test_get_symbol_ref(config, theme_code):
     with pyramid_oereb_test_config():
         request = MockRequest()
         record = LegendEntryRecord(
-            ImageRecord(bin(1)),
+            ImageRecord('1'.encode('utf-8')),
             {'de': 'Test'},
             u'test',
             u'test',
@@ -126,6 +126,8 @@ def test_get_symbol_ref(config, theme_code):
             ref = Base.get_symbol_ref(request, record)
             assert ref == 'http://example.com/image/symbol/{}?TEXT={}&CODE={}'.format(
                 theme_code,
-                base64.b64encode(json.dumps(record.legend_text)).replace('=', '%3D'),
+                base64.b64encode(
+                    json.dumps(record.legend_text).encode('utf-8')
+                ).decode('ascii').replace('=', '%3D'),
                 record.type_code
             )

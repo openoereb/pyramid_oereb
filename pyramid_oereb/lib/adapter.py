@@ -95,7 +95,7 @@ class FileAdapter(object):
             })),
         return result
 
-    def read(self, filename, mode='r'):
+    def read(self, filename, mode='rb'):
         filepath = os.path.join(self._cwd_, filename)
         if os.path.isfile(filepath):
             with open(filepath, mode=mode) as f:

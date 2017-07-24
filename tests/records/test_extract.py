@@ -57,10 +57,10 @@ def test_init():
     )
     record = ExtractRecord(
         real_estate,
-        ImageRecord(bin(100)),
-        ImageRecord(bin(100)),
-        ImageRecord(bin(100)),
-        ImageRecord(bin(100)),
+        ImageRecord('100'.encode('utf-8')),
+        ImageRecord('100'.encode('utf-8')),
+        ImageRecord('100'.encode('utf-8')),
+        ImageRecord('100'.encode('utf-8')),
         plr_office,
         base_data,
         embeddable

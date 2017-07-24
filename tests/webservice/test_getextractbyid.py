@@ -115,7 +115,7 @@ def test_matchdict(params, expected):
     request.matchdict.update(params)
     service = PlrWebservice(request)
     params = service.__validate_extract_params__()
-    for k, v in expected.iteritems():
+    for k, v in expected.items():
         assert getattr(params, k) == v
 
 
@@ -142,7 +142,7 @@ def test_params():
         'language': 'de',
         'topics': ['top_A', 'top_B', 'top_C']
     }
-    for k, v in expected.iteritems():
+    for k, v in expected.items():
         assert getattr(params, k) == v
 
 
@@ -185,7 +185,7 @@ def test_return_json(topics):
         schema = json.loads(f.read())
     Draft4Validator.check_schema(schema)
     validator = Draft4Validator(schema)
-    extract = json.loads(response.body)
+    extract = json.loads(response.body.decode('utf-8'))
     validator.validate(extract)
 
     assert isinstance(extract, dict)

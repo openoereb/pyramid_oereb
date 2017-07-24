@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
-import urllib
 
+import sys
 import pytest
 import requests_mock
 from requests import HTTPError
 
 from pyramid_oereb.lib.records.address import AddressRecord
 from pyramid_oereb.contrib.sources.address import AddressGeoAdminSource
+if sys.version_info.major == 2:
+    from urllib import urlencode
+else:
+    from urllib.parse import urlencode
 
 
 @pytest.mark.parametrize('i,cfg', [
@@ -59,11 +63,11 @@ def test_read(status_code, config):
     zip_code = 4410
     street_name = u'Muehlemattstrasse'
     street_number = u'36'
-    url = u'http://my.api.com/addresses?' + unicode(urllib.urlencode({
+    url = u'http://my.api.com/addresses?' + urlencode({
         'searchText': u'{0} {1} {2}'.format(zip_code, street_name, street_number),
         'type': source._type,
         'origins': source._origins
-    }))
+    })
     with requests_mock.mock() as m:
         m.get(url, json=response, status_code=status_code)
         if status_code == 400:
@@ -77,4 +81,7 @@ def test_read(status_code, config):
             assert address.street_number == u'36'
             assert address.zip_code == 4410
             assert address.street_name == u'Muehlemattstrasse'
-            assert address.geom == 'POINT(2621857.987 1259852.8231)'
+            if sys.version_info.major == 2:
+                assert address.geom == 'POINT(2621857.987 1259852.8231)'
+            else:
+                assert address.geom == 'POINT(2621857.9869956686 1259852.8231037352)'
