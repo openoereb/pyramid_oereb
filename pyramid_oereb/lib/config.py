@@ -413,19 +413,19 @@ class Config(object):
             for key in required:
                 if key not in result:
                     raise ConfigurationError('Missing configuration value for {}.{}.'.format(
-                        current_path.join('.'), key))
+                        '.'.join(current_path), key))
             return result
 
         k = path[0]
         if k not in current_object:
             raise ConfigurationError('Missing configuration object for {}.{}.'.format(
-                current_path.join('.'), k))
+                '.'.join(current_path), k))
 
         current_path.append(k)
 
         if type(current_object[k]) != dict:
             raise ConfigurationError('The configuration {} is not an object.'.format(
-                current_path.join('.')))
+                '.'.join(current_path)))
 
         return Config._get_object_path(current_path, current_object[k], path[1:], default, required)
 

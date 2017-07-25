@@ -567,7 +567,7 @@ class Logo(object):
         request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.
     """
     def __init__(self, request):
-        self._request_ = request
+        self._request = request
 
     def get_image(self):
         """
@@ -578,7 +578,7 @@ class Logo(object):
         """
         method = Config.get('get_logo_method')
         if method:
-            return DottedNameResolver().resolve(method)(self._request_)
+            return DottedNameResolver().resolve(method)(self._request)
         log.error('"get_logo_method" not found')
         raise HTTPNotFound()
 
