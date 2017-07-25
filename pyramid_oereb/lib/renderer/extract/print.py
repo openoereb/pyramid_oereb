@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import sys
 import json
 import requests
-import urlparse
+
 import logging
 
 from shapely.geometry import mapping
@@ -10,6 +11,10 @@ from pyramid.httpexceptions import HTTPBadRequest
 
 from pyramid_oereb import Config
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
+if sys.version_info.major == 2:
+    import urlparse
+else:
+    from urllib import parse as urlparse
 
 
 log = logging.getLogger('pyramid_oereb')

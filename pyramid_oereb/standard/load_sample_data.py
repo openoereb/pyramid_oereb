@@ -77,7 +77,7 @@ class SampleData(object):
             sql = re.sub(r", :?{}\b".format(re.escape(column[1:])), '', sql)
             sql = re.sub(r":?{}, ".format(re.escape(column[1:])), '', sql)
 
-        self._sql_file.write(u"{};\n".format(sql).encode('utf-8'))
+        self._sql_file.write(u"{};\n".format(sql))
 
     def _has_connection(self):
         """
