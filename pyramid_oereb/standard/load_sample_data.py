@@ -13,7 +13,7 @@ from sqlalchemy.orm import sessionmaker, class_mapper
 from pyramid_oereb.lib.config import parse
 from pyramid_oereb.standard.models.contaminated_public_transport_sites import Office, Geometry, \
     PublicLawRestriction, ViewService, PublicLawRestrictionDocument, DocumentBase, LegalProvision, \
-    Availability, LegendEntry
+    Availability, LegendEntry, DocumentReference, Document
 from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality
 
 
@@ -130,6 +130,10 @@ class SampleData(object):
                 table=PublicLawRestrictionDocument.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+                schema=DocumentReference.__table__.schema,
+                table=DocumentReference.__table__.name
+            ))
+            self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
                 schema=DocumentBase.__table__.schema,
                 table=DocumentBase.__table__.name
             ))
@@ -179,6 +183,27 @@ class SampleData(object):
             self._load_sample(PublicLawRestriction, 'plr119/public_law_restriction.json')
             self._load_sample(Geometry, 'plr119/geometry.json')
 
+            with open(os.path.join(self._directory, 'plr119/document.json')) as f:
+                lps = json.loads(f.read())
+                if self._sql_file is None:
+                    Session = sessionmaker(bind=self._engine)  # Use session because of table inheritance
+                    session = Session()
+                    for lp in lps:
+                        session.add(Document(**lp))
+                    session.commit()
+                    session.close()
+                else:
+                    for lp in lps:
+                        for table_name in ['document_base', 'document']:
+                            table = [
+                                t for t in class_mapper(Document).tables if t.name == table_name
+                            ][0]
+                            data = {
+                                'type': 'document'
+                            }
+                            data.update(lp)
+                            self._do_sql_insert(str(table.insert()), data)
+
             with open(os.path.join(self._directory, 'plr119/legal_provision.json')) as f:
                 lps = json.loads(f.read())
                 if self._sql_file is None:
@@ -201,6 +226,7 @@ class SampleData(object):
                             self._do_sql_insert(str(table.insert()), data)
 
             self._load_sample(PublicLawRestrictionDocument, 'plr119/public_law_restriction_document.json')
+            self._load_sample(DocumentReference, 'plr119/document_reference.json')
             self._load_sample(RealEstate, 'real_estates.json')
             self._load_sample(Address, 'addresses.json')
             self._load_sample(Municipality, 'municipalities_with_logo.json')

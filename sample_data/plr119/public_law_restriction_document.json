@@ -1,6742 +1,6762 @@
 [
   {
-    "document_id": 2598,
-    "id": 6742,
+    "id": 1,
+    "document_id": 1310,
+    "public_law_restriction_id": 1
+  },
+  {
+    "id": 2,
+    "document_id": 1209,
     "public_law_restriction_id": 2
   },
   {
-    "document_id": 2521,
-    "id": 6743,
+    "id": 3,
+    "document_id": 1193,
     "public_law_restriction_id": 3
   },
   {
-    "document_id": 2504,
-    "id": 6744,
+    "id": 4,
+    "document_id": 1181,
     "public_law_restriction_id": 4
   },
   {
-    "document_id": 2491,
-    "id": 6745,
+    "id": 5,
+    "document_id": 1161,
     "public_law_restriction_id": 5
   },
   {
-    "document_id": 2469,
-    "id": 6746,
+    "id": 6,
+    "document_id": 1122,
     "public_law_restriction_id": 6
   },
   {
-    "document_id": 2430,
-    "id": 6747,
+    "id": 7,
+    "document_id": 1076,
     "public_law_restriction_id": 7
   },
   {
-    "document_id": 2384,
-    "id": 6748,
+    "id": 8,
+    "document_id": 1060,
     "public_law_restriction_id": 8
   },
   {
-    "document_id": 2368,
-    "id": 6749,
+    "id": 9,
+    "document_id": 1043,
     "public_law_restriction_id": 9
   },
   {
-    "document_id": 2351,
-    "id": 6750,
+    "id": 10,
+    "document_id": 1040,
     "public_law_restriction_id": 10
   },
   {
-    "document_id": 2348,
-    "id": 6751,
+    "id": 11,
+    "document_id": 1027,
     "public_law_restriction_id": 11
   },
   {
-    "document_id": 2335,
-    "id": 6752,
+    "id": 12,
+    "document_id": 1012,
     "public_law_restriction_id": 12
   },
   {
-    "document_id": 2320,
-    "id": 6753,
+    "id": 13,
+    "document_id": 969,
     "public_law_restriction_id": 13
   },
   {
-    "document_id": 2276,
-    "id": 6754,
+    "id": 14,
+    "document_id": 966,
     "public_law_restriction_id": 14
   },
   {
-    "document_id": 2273,
-    "id": 6755,
+    "id": 15,
+    "document_id": 958,
     "public_law_restriction_id": 15
   },
   {
-    "document_id": 2265,
-    "id": 6756,
+    "id": 16,
+    "document_id": 901,
     "public_law_restriction_id": 16
   },
   {
-    "document_id": 2208,
-    "id": 6757,
+    "id": 17,
+    "document_id": 875,
     "public_law_restriction_id": 17
   },
   {
-    "document_id": 2182,
-    "id": 6758,
+    "id": 18,
+    "document_id": 869,
     "public_law_restriction_id": 18
   },
   {
-    "document_id": 2176,
-    "id": 6759,
+    "id": 19,
+    "document_id": 859,
     "public_law_restriction_id": 19
   },
   {
-    "document_id": 2166,
-    "id": 6760,
+    "id": 20,
+    "document_id": 792,
     "public_law_restriction_id": 20
   },
   {
-    "document_id": 2099,
-    "id": 6761,
+    "id": 21,
+    "document_id": 738,
     "public_law_restriction_id": 21
   },
   {
-    "document_id": 2045,
-    "id": 6762,
+    "id": 22,
+    "document_id": 708,
     "public_law_restriction_id": 22
   },
   {
-    "document_id": 2015,
-    "id": 6763,
+    "id": 23,
+    "document_id": 649,
     "public_law_restriction_id": 23
   },
   {
-    "document_id": 1951,
-    "id": 6764,
+    "id": 24,
+    "document_id": 643,
     "public_law_restriction_id": 24
   },
   {
-    "document_id": 1950,
-    "id": 6765,
+    "id": 25,
+    "document_id": 640,
     "public_law_restriction_id": 25
   },
   {
-    "document_id": 1922,
-    "id": 6766,
+    "id": 26,
+    "document_id": 617,
     "public_law_restriction_id": 26
   },
   {
-    "document_id": 1913,
-    "id": 6767,
+    "id": 27,
+    "document_id": 609,
     "public_law_restriction_id": 27
   },
   {
-    "document_id": 1895,
-    "id": 6768,
+    "id": 28,
+    "document_id": 549,
     "public_law_restriction_id": 28
   },
   {
-    "document_id": 1863,
-    "id": 6769,
+    "id": 29,
+    "document_id": 493,
     "public_law_restriction_id": 29
   },
   {
-    "document_id": 1804,
-    "id": 6770,
+    "id": 30,
+    "document_id": 459,
     "public_law_restriction_id": 30
   },
   {
-    "document_id": 1771,
-    "id": 6771,
+    "id": 31,
+    "document_id": 457,
     "public_law_restriction_id": 31
   },
   {
-    "document_id": 1769,
-    "id": 6772,
+    "id": 32,
+    "document_id": 421,
     "public_law_restriction_id": 32
   },
   {
-    "document_id": 1733,
-    "id": 6773,
+    "id": 33,
+    "document_id": 387,
     "public_law_restriction_id": 33
   },
   {
-    "document_id": 1699,
-    "id": 6774,
+    "id": 34,
+    "document_id": 385,
     "public_law_restriction_id": 34
   },
   {
-    "document_id": 1697,
-    "id": 6775,
+    "id": 35,
+    "document_id": 333,
     "public_law_restriction_id": 35
   },
   {
-    "document_id": 1645,
-    "id": 6776,
+    "id": 36,
+    "document_id": 300,
     "public_law_restriction_id": 36
   },
   {
-    "document_id": 1612,
-    "id": 6777,
+    "id": 37,
+    "document_id": 282,
     "public_law_restriction_id": 37
   },
   {
-    "document_id": 1594,
-    "id": 6778,
+    "id": 38,
+    "document_id": 176,
     "public_law_restriction_id": 38
   },
   {
-    "document_id": 1484,
-    "id": 6779,
+    "id": 39,
+    "document_id": 175,
     "public_law_restriction_id": 39
   },
   {
-    "document_id": 1483,
-    "id": 6780,
+    "id": 40,
+    "document_id": 174,
     "public_law_restriction_id": 40
   },
   {
-    "document_id": 1482,
-    "id": 6781,
+    "id": 41,
+    "document_id": 170,
     "public_law_restriction_id": 41
   },
   {
-    "document_id": 1478,
-    "id": 6782,
+    "id": 42,
+    "document_id": 129,
     "public_law_restriction_id": 42
   },
   {
-    "document_id": 1437,
-    "id": 6783,
+    "id": 43,
+    "document_id": 107,
     "public_law_restriction_id": 43
   },
   {
-    "document_id": 1415,
-    "id": 6784,
+    "id": 44,
+    "document_id": 102,
     "public_law_restriction_id": 44
   },
   {
-    "document_id": 1410,
-    "id": 6785,
+    "id": 45,
+    "document_id": 100,
     "public_law_restriction_id": 45
   },
   {
-    "document_id": 1408,
-    "id": 6786,
+    "id": 46,
+    "document_id": 86,
     "public_law_restriction_id": 46
   },
   {
-    "document_id": 1393,
-    "id": 6787,
+    "id": 47,
+    "document_id": 59,
     "public_law_restriction_id": 47
   },
   {
-    "document_id": 1366,
-    "id": 6788,
+    "id": 48,
+    "document_id": 1344,
     "public_law_restriction_id": 48
   },
   {
-    "document_id": 2696,
-    "id": 6789,
+    "id": 49,
+    "document_id": 1324,
     "public_law_restriction_id": 49
   },
   {
-    "document_id": 2695,
-    "id": 6790,
+    "id": 50,
+    "document_id": 1321,
     "public_law_restriction_id": 50
   },
   {
-    "document_id": 2694,
-    "id": 6791,
+    "id": 51,
+    "document_id": 1320,
     "public_law_restriction_id": 51
   },
   {
-    "document_id": 2642,
-    "id": 6792,
+    "id": 52,
+    "document_id": 1319,
     "public_law_restriction_id": 52
   },
   {
-    "document_id": 2625,
-    "id": 6793,
+    "id": 53,
+    "document_id": 1312,
     "public_law_restriction_id": 53
   },
   {
-    "document_id": 2624,
-    "id": 6794,
+    "id": 54,
+    "document_id": 1311,
     "public_law_restriction_id": 54
   },
   {
-    "document_id": 2619,
-    "id": 6795,
+    "id": 55,
+    "document_id": 1305,
     "public_law_restriction_id": 55
   },
   {
-    "document_id": 2615,
-    "id": 6796,
+    "id": 56,
+    "document_id": 1301,
     "public_law_restriction_id": 56
   },
   {
-    "document_id": 2614,
-    "id": 6797,
+    "id": 57,
+    "document_id": 1300,
     "public_law_restriction_id": 57
   },
   {
-    "document_id": 2613,
-    "id": 6798,
+    "id": 58,
+    "document_id": 1283,
     "public_law_restriction_id": 58
   },
   {
-    "document_id": 2612,
-    "id": 6799,
+    "id": 59,
+    "document_id": 1282,
     "public_law_restriction_id": 59
   },
   {
-    "document_id": 2595,
-    "id": 6800,
+    "id": 60,
+    "document_id": 1277,
     "public_law_restriction_id": 60
   },
   {
-    "document_id": 2594,
-    "id": 6801,
+    "id": 61,
+    "document_id": 1276,
     "public_law_restriction_id": 61
   },
   {
-    "document_id": 2589,
-    "id": 6802,
+    "id": 62,
+    "document_id": 1272,
     "public_law_restriction_id": 62
   },
   {
-    "document_id": 2588,
-    "id": 6803,
+    "id": 63,
+    "document_id": 1271,
     "public_law_restriction_id": 63
   },
   {
-    "document_id": 2584,
-    "id": 6804,
+    "id": 64,
+    "document_id": 1270,
     "public_law_restriction_id": 64
   },
   {
-    "document_id": 2583,
-    "id": 6805,
+    "id": 65,
+    "document_id": 1269,
     "public_law_restriction_id": 65
   },
   {
-    "document_id": 2582,
-    "id": 6806,
+    "id": 66,
+    "document_id": 1268,
     "public_law_restriction_id": 66
   },
   {
-    "document_id": 2581,
-    "id": 6807,
+    "id": 67,
+    "document_id": 1266,
     "public_law_restriction_id": 67
   },
   {
-    "document_id": 2580,
-    "id": 6808,
+    "id": 68,
+    "document_id": 1265,
     "public_law_restriction_id": 68
   },
   {
-    "document_id": 2578,
-    "id": 6809,
+    "id": 69,
+    "document_id": 1259,
     "public_law_restriction_id": 69
   },
   {
-    "document_id": 2577,
-    "id": 6810,
+    "id": 70,
+    "document_id": 1255,
     "public_law_restriction_id": 70
   },
   {
-    "document_id": 2571,
-    "id": 6811,
+    "id": 71,
+    "document_id": 1252,
     "public_law_restriction_id": 71
   },
   {
-    "document_id": 2567,
-    "id": 6812,
+    "id": 72,
+    "document_id": 1251,
     "public_law_restriction_id": 72
   },
   {
-    "document_id": 2564,
-    "id": 6813,
+    "id": 73,
+    "document_id": 1250,
     "public_law_restriction_id": 73
   },
   {
-    "document_id": 2563,
-    "id": 6814,
+    "id": 74,
+    "document_id": 1249,
     "public_law_restriction_id": 74
   },
   {
-    "document_id": 2562,
-    "id": 6815,
+    "id": 75,
+    "document_id": 1241,
     "public_law_restriction_id": 75
   },
   {
-    "document_id": 2561,
-    "id": 6816,
+    "id": 76,
+    "document_id": 1240,
     "public_law_restriction_id": 76
   },
   {
-    "document_id": 2553,
-    "id": 6817,
+    "id": 77,
+    "document_id": 1239,
     "public_law_restriction_id": 77
   },
   {
-    "document_id": 2552,
-    "id": 6818,
+    "id": 78,
+    "document_id": 1238,
     "public_law_restriction_id": 78
   },
   {
-    "document_id": 2551,
-    "id": 6819,
+    "id": 79,
+    "document_id": 1237,
     "public_law_restriction_id": 79
   },
   {
-    "document_id": 2550,
-    "id": 6820,
+    "id": 80,
+    "document_id": 1236,
     "public_law_restriction_id": 80
   },
   {
-    "document_id": 2549,
-    "id": 6821,
+    "id": 81,
+    "document_id": 1235,
     "public_law_restriction_id": 81
   },
   {
-    "document_id": 2548,
-    "id": 6822,
+    "id": 82,
+    "document_id": 1234,
     "public_law_restriction_id": 82
   },
   {
-    "document_id": 2547,
-    "id": 6823,
+    "id": 83,
+    "document_id": 1233,
     "public_law_restriction_id": 83
   },
   {
-    "document_id": 2546,
-    "id": 6824,
+    "id": 84,
+    "document_id": 1232,
     "public_law_restriction_id": 84
   },
   {
-    "document_id": 2545,
-    "id": 6825,
+    "id": 85,
+    "document_id": 1230,
     "public_law_restriction_id": 85
   },
   {
-    "document_id": 2544,
-    "id": 6826,
+    "id": 86,
+    "document_id": 1225,
     "public_law_restriction_id": 86
   },
   {
-    "document_id": 2542,
-    "id": 6827,
+    "id": 87,
+    "document_id": 1223,
     "public_law_restriction_id": 87
   },
   {
-    "document_id": 2537,
-    "id": 6828,
+    "id": 88,
+    "document_id": 1222,
     "public_law_restriction_id": 88
   },
   {
-    "document_id": 2535,
-    "id": 6829,
+    "id": 89,
+    "document_id": 1218,
     "public_law_restriction_id": 89
   },
   {
-    "document_id": 2534,
-    "id": 6830,
+    "id": 90,
+    "document_id": 1216,
     "public_law_restriction_id": 90
   },
   {
-    "document_id": 2530,
-    "id": 6831,
+    "id": 91,
+    "document_id": 1215,
     "public_law_restriction_id": 91
   },
   {
-    "document_id": 2528,
-    "id": 6832,
+    "id": 92,
+    "document_id": 1214,
     "public_law_restriction_id": 92
   },
   {
-    "document_id": 2527,
-    "id": 6833,
+    "id": 93,
+    "document_id": 1213,
     "public_law_restriction_id": 93
   },
   {
-    "document_id": 2526,
-    "id": 6834,
+    "id": 94,
+    "document_id": 1212,
     "public_law_restriction_id": 94
   },
   {
-    "document_id": 2525,
-    "id": 6835,
+    "id": 95,
+    "document_id": 1210,
     "public_law_restriction_id": 95
   },
   {
-    "document_id": 2524,
-    "id": 6836,
+    "id": 96,
+    "document_id": 1206,
     "public_law_restriction_id": 96
   },
   {
-    "document_id": 2522,
-    "id": 6837,
+    "id": 97,
+    "document_id": 1205,
     "public_law_restriction_id": 97
   },
   {
-    "document_id": 2518,
-    "id": 6838,
+    "id": 98,
+    "document_id": 1204,
     "public_law_restriction_id": 98
   },
   {
-    "document_id": 2517,
-    "id": 6839,
+    "id": 99,
+    "document_id": 1203,
     "public_law_restriction_id": 99
   },
   {
-    "document_id": 2516,
-    "id": 6840,
+    "id": 100,
+    "document_id": 1202,
     "public_law_restriction_id": 100
   },
   {
-    "document_id": 2515,
-    "id": 6841,
+    "id": 101,
+    "document_id": 1201,
     "public_law_restriction_id": 101
   },
   {
-    "document_id": 2514,
-    "id": 6842,
+    "id": 102,
+    "document_id": 1200,
     "public_law_restriction_id": 102
   },
   {
-    "document_id": 2513,
-    "id": 6843,
+    "id": 103,
+    "document_id": 1191,
     "public_law_restriction_id": 103
   },
   {
-    "document_id": 2512,
-    "id": 6844,
+    "id": 104,
+    "document_id": 1190,
     "public_law_restriction_id": 104
   },
   {
-    "document_id": 2511,
-    "id": 6845,
+    "id": 105,
+    "document_id": 1189,
     "public_law_restriction_id": 105
   },
   {
-    "document_id": 2502,
-    "id": 6846,
+    "id": 106,
+    "document_id": 1188,
     "public_law_restriction_id": 106
   },
   {
-    "document_id": 2501,
-    "id": 6847,
+    "id": 107,
+    "document_id": 1187,
     "public_law_restriction_id": 107
   },
   {
-    "document_id": 2500,
-    "id": 6848,
+    "id": 108,
+    "document_id": 1186,
     "public_law_restriction_id": 108
   },
   {
-    "document_id": 2499,
-    "id": 6849,
+    "id": 109,
+    "document_id": 1177,
     "public_law_restriction_id": 109
   },
   {
-    "document_id": 2498,
-    "id": 6850,
+    "id": 110,
+    "document_id": 1173,
     "public_law_restriction_id": 110
   },
   {
-    "document_id": 2497,
-    "id": 6851,
+    "id": 111,
+    "document_id": 1158,
     "public_law_restriction_id": 111
   },
   {
-    "document_id": 2486,
-    "id": 6852,
+    "id": 112,
+    "document_id": 1157,
     "public_law_restriction_id": 112
   },
   {
-    "document_id": 2485,
-    "id": 6853,
+    "id": 113,
+    "document_id": 1156,
     "public_law_restriction_id": 113
   },
   {
-    "document_id": 2481,
-    "id": 6854,
+    "id": 114,
+    "document_id": 1155,
     "public_law_restriction_id": 114
   },
   {
-    "document_id": 2466,
-    "id": 6855,
+    "id": 115,
+    "document_id": 1154,
     "public_law_restriction_id": 115
   },
   {
-    "document_id": 2465,
-    "id": 6856,
+    "id": 116,
+    "document_id": 1153,
     "public_law_restriction_id": 116
   },
   {
-    "document_id": 2464,
-    "id": 6857,
+    "id": 117,
+    "document_id": 1152,
     "public_law_restriction_id": 117
   },
   {
-    "document_id": 2463,
-    "id": 6858,
+    "id": 118,
+    "document_id": 1121,
     "public_law_restriction_id": 118
   },
   {
-    "document_id": 2462,
-    "id": 6859,
+    "id": 119,
+    "document_id": 1114,
     "public_law_restriction_id": 119
   },
   {
-    "document_id": 2461,
-    "id": 6860,
+    "id": 120,
+    "document_id": 1108,
     "public_law_restriction_id": 120
   },
   {
-    "document_id": 2460,
-    "id": 6861,
+    "id": 121,
+    "document_id": 1105,
     "public_law_restriction_id": 121
   },
   {
-    "document_id": 2429,
-    "id": 6862,
+    "id": 122,
+    "document_id": 1103,
     "public_law_restriction_id": 122
   },
   {
-    "document_id": 2422,
-    "id": 6863,
+    "id": 123,
+    "document_id": 1102,
     "public_law_restriction_id": 123
   },
   {
-    "document_id": 2416,
-    "id": 6864,
+    "id": 124,
+    "document_id": 1101,
     "public_law_restriction_id": 124
   },
   {
-    "document_id": 2413,
-    "id": 6865,
+    "id": 125,
+    "document_id": 1100,
     "public_law_restriction_id": 125
   },
   {
-    "document_id": 2411,
-    "id": 6866,
+    "id": 126,
+    "document_id": 1099,
     "public_law_restriction_id": 126
   },
   {
-    "document_id": 2410,
-    "id": 6867,
+    "id": 127,
+    "document_id": 1098,
     "public_law_restriction_id": 127
   },
   {
-    "document_id": 2409,
-    "id": 6868,
+    "id": 128,
+    "document_id": 1097,
     "public_law_restriction_id": 128
   },
   {
-    "document_id": 2408,
-    "id": 6869,
+    "id": 129,
+    "document_id": 1096,
     "public_law_restriction_id": 129
   },
   {
-    "document_id": 2407,
-    "id": 6870,
+    "id": 130,
+    "document_id": 1094,
     "public_law_restriction_id": 130
   },
   {
-    "document_id": 2406,
-    "id": 6871,
+    "id": 131,
+    "document_id": 1093,
     "public_law_restriction_id": 131
   },
   {
-    "document_id": 2405,
-    "id": 6872,
+    "id": 132,
+    "document_id": 1092,
     "public_law_restriction_id": 132
   },
   {
-    "document_id": 2404,
-    "id": 6873,
+    "id": 133,
+    "document_id": 1089,
     "public_law_restriction_id": 133
   },
   {
-    "document_id": 2402,
-    "id": 6874,
+    "id": 134,
+    "document_id": 1080,
     "public_law_restriction_id": 134
   },
   {
-    "document_id": 2401,
-    "id": 6875,
+    "id": 135,
+    "document_id": 1032,
     "public_law_restriction_id": 135
   },
   {
-    "document_id": 2400,
-    "id": 6876,
+    "id": 136,
+    "document_id": 1031,
     "public_law_restriction_id": 136
   },
   {
-    "document_id": 2397,
-    "id": 6877,
+    "id": 137,
+    "document_id": 1030,
     "public_law_restriction_id": 137
   },
   {
-    "document_id": 2388,
-    "id": 6878,
+    "id": 138,
+    "document_id": 1021,
     "public_law_restriction_id": 138
   },
   {
-    "document_id": 2340,
-    "id": 6879,
+    "id": 139,
+    "document_id": 1017,
     "public_law_restriction_id": 139
   },
   {
-    "document_id": 2339,
-    "id": 6880,
+    "id": 140,
+    "document_id": 1016,
     "public_law_restriction_id": 140
   },
   {
-    "document_id": 2338,
-    "id": 6881,
+    "id": 141,
+    "document_id": 1015,
     "public_law_restriction_id": 141
   },
   {
-    "document_id": 2329,
-    "id": 6882,
+    "id": 142,
+    "document_id": 1014,
     "public_law_restriction_id": 142
   },
   {
-    "document_id": 2325,
-    "id": 6883,
+    "id": 143,
+    "document_id": 1009,
     "public_law_restriction_id": 143
   },
   {
-    "document_id": 2324,
-    "id": 6884,
+    "id": 144,
+    "document_id": 1004,
     "public_law_restriction_id": 144
   },
   {
-    "document_id": 2323,
-    "id": 6885,
+    "id": 145,
+    "document_id": 1003,
     "public_law_restriction_id": 145
   },
   {
-    "document_id": 2322,
-    "id": 6886,
+    "id": 146,
+    "document_id": 1001,
     "public_law_restriction_id": 146
   },
   {
-    "document_id": 2317,
-    "id": 6887,
+    "id": 147,
+    "document_id": 998,
     "public_law_restriction_id": 147
   },
   {
-    "document_id": 2312,
-    "id": 6888,
+    "id": 148,
+    "document_id": 989,
     "public_law_restriction_id": 148
   },
   {
-    "document_id": 2311,
-    "id": 6889,
+    "id": 149,
+    "document_id": 987,
     "public_law_restriction_id": 149
   },
   {
-    "document_id": 2309,
-    "id": 6890,
+    "id": 150,
+    "document_id": 985,
     "public_law_restriction_id": 150
   },
   {
-    "document_id": 2306,
-    "id": 6891,
+    "id": 151,
+    "document_id": 984,
     "public_law_restriction_id": 151
   },
   {
-    "document_id": 2297,
-    "id": 6892,
+    "id": 152,
+    "document_id": 983,
     "public_law_restriction_id": 152
   },
   {
-    "document_id": 2295,
-    "id": 6893,
+    "id": 153,
+    "document_id": 982,
     "public_law_restriction_id": 153
   },
   {
-    "document_id": 2293,
-    "id": 6894,
+    "id": 154,
+    "document_id": 979,
     "public_law_restriction_id": 154
   },
   {
-    "document_id": 2292,
-    "id": 6895,
+    "id": 155,
+    "document_id": 978,
     "public_law_restriction_id": 155
   },
   {
-    "document_id": 2291,
-    "id": 6896,
+    "id": 156,
+    "document_id": 975,
     "public_law_restriction_id": 156
   },
   {
-    "document_id": 2290,
-    "id": 6897,
+    "id": 157,
+    "document_id": 972,
     "public_law_restriction_id": 157
   },
   {
-    "document_id": 2287,
-    "id": 6898,
+    "id": 158,
+    "document_id": 971,
     "public_law_restriction_id": 158
   },
   {
-    "document_id": 2286,
-    "id": 6899,
+    "id": 159,
+    "document_id": 957,
     "public_law_restriction_id": 159
   },
   {
-    "document_id": 2282,
-    "id": 6900,
+    "id": 160,
+    "document_id": 951,
     "public_law_restriction_id": 160
   },
   {
-    "document_id": 2279,
-    "id": 6901,
+    "id": 161,
+    "document_id": 944,
     "public_law_restriction_id": 161
   },
   {
-    "document_id": 2278,
-    "id": 6902,
+    "id": 162,
+    "document_id": 942,
     "public_law_restriction_id": 162
   },
   {
-    "document_id": 2264,
-    "id": 6903,
+    "id": 163,
+    "document_id": 939,
     "public_law_restriction_id": 163
   },
   {
-    "document_id": 2258,
-    "id": 6904,
+    "id": 164,
+    "document_id": 926,
     "public_law_restriction_id": 164
   },
   {
-    "document_id": 2251,
-    "id": 6905,
+    "id": 165,
+    "document_id": 923,
     "public_law_restriction_id": 165
   },
   {
-    "document_id": 2249,
-    "id": 6906,
+    "id": 166,
+    "document_id": 915,
     "public_law_restriction_id": 166
   },
   {
-    "document_id": 2246,
-    "id": 6907,
+    "id": 167,
+    "document_id": 911,
     "public_law_restriction_id": 167
   },
   {
-    "document_id": 2233,
-    "id": 6908,
+    "id": 168,
+    "document_id": 910,
     "public_law_restriction_id": 168
   },
   {
-    "document_id": 2230,
-    "id": 6909,
+    "id": 169,
+    "document_id": 908,
     "public_law_restriction_id": 169
   },
   {
-    "document_id": 2222,
-    "id": 6910,
+    "id": 170,
+    "document_id": 907,
     "public_law_restriction_id": 170
   },
   {
-    "document_id": 2218,
-    "id": 6911,
+    "id": 171,
+    "document_id": 897,
     "public_law_restriction_id": 171
   },
   {
-    "document_id": 2217,
-    "id": 6912,
+    "id": 172,
+    "document_id": 866,
     "public_law_restriction_id": 172
   },
   {
-    "document_id": 2215,
-    "id": 6913,
+    "id": 173,
+    "document_id": 861,
     "public_law_restriction_id": 173
   },
   {
-    "document_id": 2214,
-    "id": 6914,
+    "id": 174,
+    "document_id": 858,
     "public_law_restriction_id": 174
   },
   {
-    "document_id": 2204,
-    "id": 6915,
+    "id": 175,
+    "document_id": 856,
     "public_law_restriction_id": 175
   },
   {
-    "document_id": 2173,
-    "id": 6916,
+    "id": 176,
+    "document_id": 855,
     "public_law_restriction_id": 176
   },
   {
-    "document_id": 2168,
-    "id": 6917,
+    "id": 177,
+    "document_id": 848,
     "public_law_restriction_id": 177
   },
   {
-    "document_id": 2165,
-    "id": 6918,
+    "id": 178,
+    "document_id": 846,
     "public_law_restriction_id": 178
   },
   {
-    "document_id": 2163,
-    "id": 6919,
+    "id": 179,
+    "document_id": 845,
     "public_law_restriction_id": 179
   },
   {
-    "document_id": 2162,
-    "id": 6920,
+    "id": 180,
+    "document_id": 829,
     "public_law_restriction_id": 180
   },
   {
-    "document_id": 2155,
-    "id": 6921,
+    "id": 181,
+    "document_id": 828,
     "public_law_restriction_id": 181
   },
   {
-    "document_id": 2153,
-    "id": 6922,
+    "id": 182,
+    "document_id": 826,
     "public_law_restriction_id": 182
   },
   {
-    "document_id": 2152,
-    "id": 6923,
+    "id": 183,
+    "document_id": 825,
     "public_law_restriction_id": 183
   },
   {
-    "document_id": 2136,
-    "id": 6924,
+    "id": 184,
+    "document_id": 824,
     "public_law_restriction_id": 184
   },
   {
-    "document_id": 2135,
-    "id": 6925,
+    "id": 185,
+    "document_id": 823,
     "public_law_restriction_id": 185
   },
   {
-    "document_id": 2133,
-    "id": 6926,
+    "id": 186,
+    "document_id": 822,
     "public_law_restriction_id": 186
   },
   {
-    "document_id": 2132,
-    "id": 6927,
+    "id": 187,
+    "document_id": 821,
     "public_law_restriction_id": 187
   },
   {
-    "document_id": 2131,
-    "id": 6928,
+    "id": 188,
+    "document_id": 798,
     "public_law_restriction_id": 188
   },
   {
-    "document_id": 2130,
-    "id": 6929,
+    "id": 189,
+    "document_id": 790,
     "public_law_restriction_id": 189
   },
   {
-    "document_id": 2129,
-    "id": 6930,
+    "id": 190,
+    "document_id": 755,
     "public_law_restriction_id": 190
   },
   {
-    "document_id": 2128,
-    "id": 6931,
+    "id": 191,
+    "document_id": 754,
     "public_law_restriction_id": 191
   },
   {
-    "document_id": 2105,
-    "id": 6932,
+    "id": 192,
+    "document_id": 750,
     "public_law_restriction_id": 192
   },
   {
-    "document_id": 2097,
-    "id": 6933,
+    "id": 193,
+    "document_id": 718,
     "public_law_restriction_id": 193
   },
   {
-    "document_id": 2062,
-    "id": 6934,
+    "id": 194,
+    "document_id": 717,
     "public_law_restriction_id": 194
   },
   {
-    "document_id": 2061,
-    "id": 6935,
+    "id": 195,
+    "document_id": 705,
     "public_law_restriction_id": 195
   },
   {
-    "document_id": 2057,
-    "id": 6936,
+    "id": 196,
+    "document_id": 704,
     "public_law_restriction_id": 196
   },
   {
-    "document_id": 2025,
-    "id": 6937,
+    "id": 197,
+    "document_id": 703,
     "public_law_restriction_id": 197
   },
   {
-    "document_id": 2024,
-    "id": 6938,
+    "id": 198,
+    "document_id": 658,
     "public_law_restriction_id": 198
   },
   {
-    "document_id": 1988,
-    "id": 6939,
+    "id": 199,
+    "document_id": 651,
     "public_law_restriction_id": 199
   },
   {
-    "document_id": 1960,
-    "id": 6940,
+    "id": 200,
+    "document_id": 638,
     "public_law_restriction_id": 200
   },
   {
-    "document_id": 1953,
-    "id": 6941,
+    "id": 201,
+    "document_id": 637,
     "public_law_restriction_id": 201
   },
   {
-    "document_id": 1948,
-    "id": 6942,
+    "id": 202,
+    "document_id": 636,
     "public_law_restriction_id": 202
   },
   {
-    "document_id": 1947,
-    "id": 6943,
+    "id": 203,
+    "document_id": 635,
     "public_law_restriction_id": 203
   },
   {
-    "document_id": 1946,
-    "id": 6944,
+    "id": 204,
+    "document_id": 629,
     "public_law_restriction_id": 204
   },
   {
-    "document_id": 1945,
-    "id": 6945,
+    "id": 205,
+    "document_id": 626,
     "public_law_restriction_id": 205
   },
   {
-    "document_id": 1939,
-    "id": 6946,
+    "id": 206,
+    "document_id": 625,
     "public_law_restriction_id": 206
   },
   {
-    "document_id": 1936,
-    "id": 6947,
+    "id": 207,
+    "document_id": 624,
     "public_law_restriction_id": 207
   },
   {
-    "document_id": 1935,
-    "id": 6948,
+    "id": 208,
+    "document_id": 619,
     "public_law_restriction_id": 208
   },
   {
-    "document_id": 1930,
-    "id": 6949,
+    "id": 209,
+    "document_id": 618,
     "public_law_restriction_id": 209
   },
   {
-    "document_id": 1929,
-    "id": 6950,
+    "id": 210,
+    "document_id": 616,
     "public_law_restriction_id": 210
   },
   {
-    "document_id": 1923,
-    "id": 6951,
+    "id": 211,
+    "document_id": 610,
     "public_law_restriction_id": 211
   },
   {
-    "document_id": 1921,
-    "id": 6952,
+    "id": 212,
+    "document_id": 607,
     "public_law_restriction_id": 212
   },
   {
-    "document_id": 1911,
-    "id": 6953,
+    "id": 213,
+    "document_id": 606,
     "public_law_restriction_id": 213
   },
   {
-    "document_id": 1908,
-    "id": 6954,
+    "id": 214,
+    "document_id": 595,
     "public_law_restriction_id": 214
   },
   {
-    "document_id": 1907,
-    "id": 6955,
+    "id": 215,
+    "document_id": 591,
     "public_law_restriction_id": 215
   },
   {
-    "document_id": 1901,
-    "id": 6956,
+    "id": 216,
+    "document_id": 585,
     "public_law_restriction_id": 216
   },
   {
-    "document_id": 1900,
-    "id": 6957,
+    "id": 217,
+    "document_id": 584,
     "public_law_restriction_id": 217
   },
   {
-    "document_id": 1899,
-    "id": 6958,
+    "id": 218,
+    "document_id": 583,
     "public_law_restriction_id": 218
   },
   {
-    "document_id": 1898,
-    "id": 6959,
+    "id": 219,
+    "document_id": 582,
     "public_law_restriction_id": 219
   },
   {
-    "document_id": 1894,
-    "id": 6960,
+    "id": 220,
+    "document_id": 579,
     "public_law_restriction_id": 220
   },
   {
-    "document_id": 1892,
-    "id": 6961,
+    "id": 221,
+    "document_id": 577,
     "public_law_restriction_id": 221
   },
   {
-    "document_id": 1891,
-    "id": 6962,
+    "id": 222,
+    "document_id": 576,
     "public_law_restriction_id": 222
   },
   {
-    "document_id": 1886,
-    "id": 6963,
+    "id": 223,
+    "document_id": 571,
     "public_law_restriction_id": 223
   },
   {
-    "document_id": 1885,
-    "id": 6964,
+    "id": 224,
+    "document_id": 570,
     "public_law_restriction_id": 224
   },
   {
-    "document_id": 1882,
-    "id": 6965,
+    "id": 225,
+    "document_id": 565,
     "public_law_restriction_id": 225
   },
   {
-    "document_id": 1879,
-    "id": 6966,
+    "id": 226,
+    "document_id": 564,
     "public_law_restriction_id": 226
   },
   {
-    "document_id": 1878,
-    "id": 6967,
+    "id": 227,
+    "document_id": 558,
     "public_law_restriction_id": 227
   },
   {
-    "document_id": 1872,
-    "id": 6968,
+    "id": 228,
+    "document_id": 553,
     "public_law_restriction_id": 228
   },
   {
-    "document_id": 1867,
-    "id": 6969,
+    "id": 229,
+    "document_id": 552,
     "public_law_restriction_id": 229
   },
   {
-    "document_id": 1866,
-    "id": 6970,
+    "id": 230,
+    "document_id": 551,
     "public_law_restriction_id": 230
   },
   {
-    "document_id": 1865,
-    "id": 6971,
+    "id": 231,
+    "document_id": 550,
     "public_law_restriction_id": 231
   },
   {
-    "document_id": 1864,
-    "id": 6972,
+    "id": 232,
+    "document_id": 543,
     "public_law_restriction_id": 232
   },
   {
-    "document_id": 1856,
-    "id": 6973,
+    "id": 233,
+    "document_id": 542,
     "public_law_restriction_id": 233
   },
   {
-    "document_id": 1855,
-    "id": 6974,
+    "id": 234,
+    "document_id": 534,
     "public_law_restriction_id": 234
   },
   {
-    "document_id": 1847,
-    "id": 6975,
+    "id": 235,
+    "document_id": 533,
     "public_law_restriction_id": 235
   },
   {
-    "document_id": 1846,
-    "id": 6976,
+    "id": 236,
+    "document_id": 532,
     "public_law_restriction_id": 236
   },
   {
-    "document_id": 1845,
-    "id": 6977,
+    "id": 237,
+    "document_id": 531,
     "public_law_restriction_id": 237
   },
   {
-    "document_id": 1844,
-    "id": 6978,
+    "id": 238,
+    "document_id": 530,
     "public_law_restriction_id": 238
   },
   {
-    "document_id": 1843,
-    "id": 6979,
+    "id": 239,
+    "document_id": 529,
     "public_law_restriction_id": 239
   },
   {
-    "document_id": 1842,
-    "id": 6980,
+    "id": 240,
+    "document_id": 524,
     "public_law_restriction_id": 240
   },
   {
-    "document_id": 1837,
-    "id": 6981,
+    "id": 241,
+    "document_id": 522,
     "public_law_restriction_id": 241
   },
   {
-    "document_id": 1835,
-    "id": 6982,
+    "id": 242,
+    "document_id": 515,
     "public_law_restriction_id": 242
   },
   {
-    "document_id": 1828,
-    "id": 6983,
+    "id": 243,
+    "document_id": 514,
     "public_law_restriction_id": 243
   },
   {
-    "document_id": 1827,
-    "id": 6984,
+    "id": 244,
+    "document_id": 508,
     "public_law_restriction_id": 244
   },
   {
-    "document_id": 1820,
-    "id": 6985,
+    "id": 245,
+    "document_id": 507,
     "public_law_restriction_id": 245
   },
   {
-    "document_id": 1818,
-    "id": 6986,
+    "id": 246,
+    "document_id": 506,
     "public_law_restriction_id": 246
   },
   {
-    "document_id": 1817,
-    "id": 6987,
+    "id": 247,
+    "document_id": 503,
     "public_law_restriction_id": 247
   },
   {
-    "document_id": 1814,
-    "id": 6988,
+    "id": 248,
+    "document_id": 495,
     "public_law_restriction_id": 248
   },
   {
-    "document_id": 1806,
-    "id": 6989,
+    "id": 249,
+    "document_id": 491,
     "public_law_restriction_id": 249
   },
   {
-    "document_id": 1802,
-    "id": 6990,
+    "id": 250,
+    "document_id": 489,
     "public_law_restriction_id": 250
   },
   {
-    "document_id": 1800,
-    "id": 6991,
+    "id": 251,
+    "document_id": 488,
     "public_law_restriction_id": 251
   },
   {
-    "document_id": 1799,
-    "id": 6992,
+    "id": 252,
+    "document_id": 487,
     "public_law_restriction_id": 252
   },
   {
-    "document_id": 1798,
-    "id": 6993,
+    "id": 253,
+    "document_id": 486,
     "public_law_restriction_id": 253
   },
   {
-    "document_id": 1797,
-    "id": 6994,
+    "id": 254,
+    "document_id": 485,
     "public_law_restriction_id": 254
   },
   {
-    "document_id": 1796,
-    "id": 6995,
+    "id": 255,
+    "document_id": 484,
     "public_law_restriction_id": 255
   },
   {
-    "document_id": 1795,
-    "id": 6996,
+    "id": 256,
+    "document_id": 483,
     "public_law_restriction_id": 256
   },
   {
-    "document_id": 1794,
-    "id": 6997,
+    "id": 257,
+    "document_id": 482,
     "public_law_restriction_id": 257
   },
   {
-    "document_id": 1793,
-    "id": 6998,
+    "id": 258,
+    "document_id": 481,
     "public_law_restriction_id": 258
   },
   {
-    "document_id": 1792,
-    "id": 6999,
+    "id": 259,
+    "document_id": 480,
     "public_law_restriction_id": 259
   },
   {
-    "document_id": 1791,
-    "id": 7000,
+    "id": 260,
+    "document_id": 479,
     "public_law_restriction_id": 260
   },
   {
-    "document_id": 1782,
-    "id": 7001,
+    "id": 261,
+    "document_id": 470,
     "public_law_restriction_id": 261
   },
   {
-    "document_id": 1767,
-    "id": 7002,
+    "id": 262,
+    "document_id": 455,
     "public_law_restriction_id": 262
   },
   {
-    "document_id": 1758,
-    "id": 7003,
+    "id": 263,
+    "document_id": 446,
     "public_law_restriction_id": 263
   },
   {
-    "document_id": 1757,
-    "id": 7004,
+    "id": 264,
+    "document_id": 445,
     "public_law_restriction_id": 264
   },
   {
-    "document_id": 1754,
-    "id": 7005,
+    "id": 265,
+    "document_id": 442,
     "public_law_restriction_id": 265
   },
   {
-    "document_id": 1753,
-    "id": 7006,
+    "id": 266,
+    "document_id": 441,
     "public_law_restriction_id": 266
   },
   {
-    "document_id": 1745,
-    "id": 7007,
+    "id": 267,
+    "document_id": 433,
     "public_law_restriction_id": 267
   },
   {
-    "document_id": 1744,
-    "id": 7008,
+    "id": 268,
+    "document_id": 432,
     "public_law_restriction_id": 268
   },
   {
-    "document_id": 1743,
-    "id": 7009,
+    "id": 269,
+    "document_id": 431,
     "public_law_restriction_id": 269
   },
   {
-    "document_id": 1742,
-    "id": 7010,
+    "id": 270,
+    "document_id": 430,
     "public_law_restriction_id": 270
   },
   {
-    "document_id": 1741,
-    "id": 7011,
+    "id": 271,
+    "document_id": 429,
     "public_law_restriction_id": 271
   },
   {
-    "document_id": 1737,
-    "id": 7012,
+    "id": 272,
+    "document_id": 425,
     "public_law_restriction_id": 272
   },
   {
-    "document_id": 1735,
-    "id": 7013,
+    "id": 273,
+    "document_id": 423,
     "public_law_restriction_id": 273
   },
   {
-    "document_id": 1734,
-    "id": 7014,
+    "id": 274,
+    "document_id": 422,
     "public_law_restriction_id": 274
   },
   {
-    "document_id": 1731,
-    "id": 7015,
+    "id": 275,
+    "document_id": 419,
     "public_law_restriction_id": 275
   },
   {
-    "document_id": 1730,
-    "id": 7016,
+    "id": 276,
+    "document_id": 418,
     "public_law_restriction_id": 276
   },
   {
-    "document_id": 1729,
-    "id": 7017,
+    "id": 277,
+    "document_id": 417,
     "public_law_restriction_id": 277
   },
   {
-    "document_id": 1728,
-    "id": 7018,
+    "id": 278,
+    "document_id": 416,
     "public_law_restriction_id": 278
   },
   {
-    "document_id": 1726,
-    "id": 7019,
+    "id": 279,
+    "document_id": 414,
     "public_law_restriction_id": 279
   },
   {
-    "document_id": 1725,
-    "id": 7020,
+    "id": 280,
+    "document_id": 413,
     "public_law_restriction_id": 280
   },
   {
-    "document_id": 1724,
-    "id": 7021,
+    "id": 281,
+    "document_id": 412,
     "public_law_restriction_id": 281
   },
   {
-    "document_id": 1720,
-    "id": 7022,
+    "id": 282,
+    "document_id": 408,
     "public_law_restriction_id": 282
   },
   {
-    "document_id": 1719,
-    "id": 7023,
+    "id": 283,
+    "document_id": 407,
     "public_law_restriction_id": 283
   },
   {
-    "document_id": 1718,
-    "id": 7024,
+    "id": 284,
+    "document_id": 406,
     "public_law_restriction_id": 284
   },
   {
-    "document_id": 1717,
-    "id": 7025,
+    "id": 285,
+    "document_id": 405,
     "public_law_restriction_id": 285
   },
   {
-    "document_id": 1715,
-    "id": 7026,
+    "id": 286,
+    "document_id": 403,
     "public_law_restriction_id": 286
   },
   {
-    "document_id": 1712,
-    "id": 7027,
+    "id": 287,
+    "document_id": 400,
     "public_law_restriction_id": 287
   },
   {
-    "document_id": 1703,
-    "id": 7028,
+    "id": 288,
+    "document_id": 391,
     "public_law_restriction_id": 288
   },
   {
-    "document_id": 1701,
-    "id": 7029,
+    "id": 289,
+    "document_id": 389,
     "public_law_restriction_id": 289
   },
   {
-    "document_id": 1695,
-    "id": 7030,
+    "id": 290,
+    "document_id": 383,
     "public_law_restriction_id": 290
   },
   {
-    "document_id": 1687,
-    "id": 7031,
+    "id": 291,
+    "document_id": 375,
     "public_law_restriction_id": 291
   },
   {
-    "document_id": 1685,
-    "id": 7032,
+    "id": 292,
+    "document_id": 373,
     "public_law_restriction_id": 292
   },
   {
-    "document_id": 1676,
-    "id": 7033,
+    "id": 293,
+    "document_id": 364,
     "public_law_restriction_id": 293
   },
   {
-    "document_id": 1675,
-    "id": 7034,
+    "id": 294,
+    "document_id": 363,
     "public_law_restriction_id": 294
   },
   {
-    "document_id": 1663,
-    "id": 7035,
+    "id": 295,
+    "document_id": 351,
     "public_law_restriction_id": 295
   },
   {
-    "document_id": 1653,
-    "id": 7036,
+    "id": 296,
+    "document_id": 341,
     "public_law_restriction_id": 296
   },
   {
-    "document_id": 1652,
-    "id": 7037,
+    "id": 297,
+    "document_id": 340,
     "public_law_restriction_id": 297
   },
   {
-    "document_id": 1647,
-    "id": 7038,
+    "id": 298,
+    "document_id": 335,
     "public_law_restriction_id": 298
   },
   {
-    "document_id": 1644,
-    "id": 7039,
+    "id": 299,
+    "document_id": 332,
     "public_law_restriction_id": 299
   },
   {
-    "document_id": 1643,
-    "id": 7040,
+    "id": 300,
+    "document_id": 331,
     "public_law_restriction_id": 300
   },
   {
-    "document_id": 1641,
-    "id": 7041,
+    "id": 301,
+    "document_id": 329,
     "public_law_restriction_id": 301
   },
   {
-    "document_id": 1630,
-    "id": 7042,
+    "id": 302,
+    "document_id": 318,
     "public_law_restriction_id": 302
   },
   {
-    "document_id": 1629,
-    "id": 7043,
+    "id": 303,
+    "document_id": 317,
     "public_law_restriction_id": 303
   },
   {
-    "document_id": 1628,
-    "id": 7044,
+    "id": 304,
+    "document_id": 316,
     "public_law_restriction_id": 304
   },
   {
-    "document_id": 1622,
-    "id": 7045,
+    "id": 305,
+    "document_id": 310,
     "public_law_restriction_id": 305
   },
   {
-    "document_id": 1621,
-    "id": 7046,
+    "id": 306,
+    "document_id": 309,
     "public_law_restriction_id": 306
   },
   {
-    "document_id": 1616,
-    "id": 7047,
+    "id": 307,
+    "document_id": 304,
     "public_law_restriction_id": 307
   },
   {
-    "document_id": 1614,
-    "id": 7048,
+    "id": 308,
+    "document_id": 302,
     "public_law_restriction_id": 308
   },
   {
-    "document_id": 1613,
-    "id": 7049,
+    "id": 309,
+    "document_id": 301,
     "public_law_restriction_id": 309
   },
   {
-    "document_id": 1593,
-    "id": 7050,
+    "id": 310,
+    "document_id": 281,
     "public_law_restriction_id": 310
   },
   {
-    "document_id": 1587,
-    "id": 7051,
+    "id": 311,
+    "document_id": 276,
     "public_law_restriction_id": 311
   },
   {
-    "document_id": 1586,
-    "id": 7052,
+    "id": 312,
+    "document_id": 275,
     "public_law_restriction_id": 312
   },
   {
-    "document_id": 1585,
-    "id": 7053,
+    "id": 313,
+    "document_id": 274,
     "public_law_restriction_id": 313
   },
   {
-    "document_id": 1578,
-    "id": 7054,
+    "id": 314,
+    "document_id": 263,
     "public_law_restriction_id": 314
   },
   {
-    "document_id": 1571,
-    "id": 7055,
+    "id": 315,
+    "document_id": 262,
     "public_law_restriction_id": 315
   },
   {
-    "document_id": 1570,
-    "id": 7056,
+    "id": 316,
+    "document_id": 261,
     "public_law_restriction_id": 316
   },
   {
-    "document_id": 1569,
-    "id": 7057,
+    "id": 317,
+    "document_id": 259,
     "public_law_restriction_id": 317
   },
   {
-    "document_id": 1567,
-    "id": 7058,
+    "id": 318,
+    "document_id": 250,
     "public_law_restriction_id": 318
   },
   {
-    "document_id": 1558,
-    "id": 7059,
+    "id": 319,
+    "document_id": 249,
     "public_law_restriction_id": 319
   },
   {
-    "document_id": 1557,
-    "id": 7060,
+    "id": 320,
+    "document_id": 241,
     "public_law_restriction_id": 320
   },
   {
-    "document_id": 1549,
-    "id": 7061,
+    "id": 321,
+    "document_id": 240,
     "public_law_restriction_id": 321
   },
   {
-    "document_id": 1548,
-    "id": 7062,
+    "id": 322,
+    "document_id": 239,
     "public_law_restriction_id": 322
   },
   {
-    "document_id": 1547,
-    "id": 7063,
+    "id": 323,
+    "document_id": 237,
     "public_law_restriction_id": 323
   },
   {
-    "document_id": 1545,
-    "id": 7064,
+    "id": 324,
+    "document_id": 234,
     "public_law_restriction_id": 324
   },
   {
-    "document_id": 1542,
-    "id": 7065,
+    "id": 325,
+    "document_id": 233,
     "public_law_restriction_id": 325
   },
   {
-    "document_id": 1541,
-    "id": 7066,
+    "id": 326,
+    "document_id": 219,
     "public_law_restriction_id": 326
   },
   {
-    "document_id": 1527,
-    "id": 7067,
+    "id": 327,
+    "document_id": 217,
     "public_law_restriction_id": 327
   },
   {
-    "document_id": 1525,
-    "id": 7068,
+    "id": 328,
+    "document_id": 215,
     "public_law_restriction_id": 328
   },
   {
-    "document_id": 1523,
-    "id": 7069,
+    "id": 329,
+    "document_id": 187,
     "public_law_restriction_id": 329
   },
   {
-    "document_id": 1495,
-    "id": 7070,
+    "id": 330,
+    "document_id": 177,
     "public_law_restriction_id": 330
   },
   {
-    "document_id": 1485,
-    "id": 7071,
+    "id": 331,
+    "document_id": 173,
     "public_law_restriction_id": 331
   },
   {
-    "document_id": 1481,
-    "id": 7072,
+    "id": 332,
+    "document_id": 172,
     "public_law_restriction_id": 332
   },
   {
-    "document_id": 1480,
-    "id": 7073,
+    "id": 333,
+    "document_id": 164,
     "public_law_restriction_id": 333
   },
   {
-    "document_id": 1472,
-    "id": 7074,
+    "id": 334,
+    "document_id": 158,
     "public_law_restriction_id": 334
   },
   {
-    "document_id": 1466,
-    "id": 7075,
+    "id": 335,
+    "document_id": 157,
     "public_law_restriction_id": 335
   },
   {
-    "document_id": 1465,
-    "id": 7076,
+    "id": 336,
+    "document_id": 156,
     "public_law_restriction_id": 336
   },
   {
-    "document_id": 1464,
-    "id": 7077,
+    "id": 337,
+    "document_id": 145,
     "public_law_restriction_id": 337
   },
   {
-    "document_id": 1453,
-    "id": 7078,
+    "id": 338,
+    "document_id": 127,
     "public_law_restriction_id": 338
   },
   {
-    "document_id": 1435,
-    "id": 7079,
+    "id": 339,
+    "document_id": 126,
     "public_law_restriction_id": 339
   },
   {
-    "document_id": 1434,
-    "id": 7080,
+    "id": 340,
+    "document_id": 84,
     "public_law_restriction_id": 340
   },
   {
-    "document_id": 1391,
-    "id": 7081,
+    "id": 341,
+    "document_id": 76,
     "public_law_restriction_id": 341
   },
   {
-    "document_id": 1383,
-    "id": 7082,
+    "id": 342,
+    "document_id": 75,
     "public_law_restriction_id": 342
   },
   {
-    "document_id": 1382,
-    "id": 7083,
+    "id": 343,
+    "document_id": 74,
     "public_law_restriction_id": 343
   },
   {
-    "document_id": 1381,
-    "id": 7084,
+    "id": 344,
+    "document_id": 70,
     "public_law_restriction_id": 344
   },
   {
-    "document_id": 1377,
-    "id": 7085,
+    "id": 345,
+    "document_id": 51,
     "public_law_restriction_id": 345
   },
   {
-    "document_id": 1358,
-    "id": 7086,
+    "id": 346,
+    "document_id": 18,
     "public_law_restriction_id": 346
   },
   {
-    "document_id": 2697,
-    "id": 7087,
+    "id": 347,
+    "document_id": 1352,
     "public_law_restriction_id": 347
   },
   {
-    "document_id": 2693,
-    "id": 7088,
+    "id": 348,
+    "document_id": 1351,
     "public_law_restriction_id": 348
   },
   {
-    "document_id": 2692,
-    "id": 7089,
+    "id": 349,
+    "document_id": 1350,
     "public_law_restriction_id": 349
   },
   {
-    "document_id": 2691,
-    "id": 7090,
+    "id": 350,
+    "document_id": 1349,
     "public_law_restriction_id": 350
   },
   {
-    "document_id": 2690,
-    "id": 7091,
+    "id": 351,
+    "document_id": 1348,
     "public_law_restriction_id": 351
   },
   {
-    "document_id": 2689,
-    "id": 7092,
+    "id": 352,
+    "document_id": 1347,
     "public_law_restriction_id": 352
   },
   {
-    "document_id": 2688,
-    "id": 7093,
+    "id": 353,
+    "document_id": 1346,
     "public_law_restriction_id": 353
   },
   {
-    "document_id": 2687,
-    "id": 7094,
+    "id": 354,
+    "document_id": 1345,
     "public_law_restriction_id": 354
   },
   {
-    "document_id": 2686,
-    "id": 7095,
+    "id": 355,
+    "document_id": 1343,
     "public_law_restriction_id": 355
   },
   {
-    "document_id": 2685,
-    "id": 7096,
+    "id": 356,
+    "document_id": 1342,
     "public_law_restriction_id": 356
   },
   {
-    "document_id": 2684,
-    "id": 7097,
+    "id": 357,
+    "document_id": 1341,
     "public_law_restriction_id": 357
   },
   {
-    "document_id": 2683,
-    "id": 7098,
+    "id": 358,
+    "document_id": 1340,
     "public_law_restriction_id": 358
   },
   {
-    "document_id": 2682,
-    "id": 7099,
+    "id": 359,
+    "document_id": 1339,
     "public_law_restriction_id": 359
   },
   {
-    "document_id": 2681,
-    "id": 7100,
+    "id": 360,
+    "document_id": 1338,
     "public_law_restriction_id": 360
   },
   {
-    "document_id": 2680,
-    "id": 7101,
+    "id": 361,
+    "document_id": 1337,
     "public_law_restriction_id": 361
   },
   {
-    "document_id": 2679,
-    "id": 7102,
+    "id": 362,
+    "document_id": 1336,
     "public_law_restriction_id": 362
   },
   {
-    "document_id": 2678,
-    "id": 7103,
+    "id": 363,
+    "document_id": 1335,
     "public_law_restriction_id": 363
   },
   {
-    "document_id": 2677,
-    "id": 7104,
+    "id": 364,
+    "document_id": 1334,
     "public_law_restriction_id": 364
   },
   {
-    "document_id": 2676,
-    "id": 7105,
+    "id": 365,
+    "document_id": 1333,
     "public_law_restriction_id": 365
   },
   {
-    "document_id": 2675,
-    "id": 7106,
+    "id": 366,
+    "document_id": 1332,
     "public_law_restriction_id": 366
   },
   {
-    "document_id": 2674,
-    "id": 7107,
+    "id": 367,
+    "document_id": 1331,
     "public_law_restriction_id": 367
   },
   {
-    "document_id": 2673,
-    "id": 7108,
+    "id": 368,
+    "document_id": 1330,
     "public_law_restriction_id": 368
   },
   {
-    "document_id": 2672,
-    "id": 7109,
+    "id": 369,
+    "document_id": 1329,
     "public_law_restriction_id": 369
   },
   {
-    "document_id": 2671,
-    "id": 7110,
+    "id": 370,
+    "document_id": 1328,
     "public_law_restriction_id": 370
   },
   {
-    "document_id": 2670,
-    "id": 7111,
+    "id": 371,
+    "document_id": 1327,
     "public_law_restriction_id": 371
   },
   {
-    "document_id": 2669,
-    "id": 7112,
+    "id": 372,
+    "document_id": 1326,
     "public_law_restriction_id": 372
   },
   {
-    "document_id": 2668,
-    "id": 7113,
+    "id": 373,
+    "document_id": 1325,
     "public_law_restriction_id": 373
   },
   {
-    "document_id": 2667,
-    "id": 7114,
+    "id": 374,
+    "document_id": 1323,
     "public_law_restriction_id": 374
   },
   {
-    "document_id": 2666,
-    "id": 7115,
+    "id": 375,
+    "document_id": 1322,
     "public_law_restriction_id": 375
   },
   {
-    "document_id": 2665,
-    "id": 7116,
+    "id": 376,
+    "document_id": 1318,
     "public_law_restriction_id": 376
   },
   {
-    "document_id": 2664,
-    "id": 7117,
+    "id": 377,
+    "document_id": 1317,
     "public_law_restriction_id": 377
   },
   {
-    "document_id": 2663,
-    "id": 7118,
+    "id": 378,
+    "document_id": 1316,
     "public_law_restriction_id": 378
   },
   {
-    "document_id": 2662,
-    "id": 7119,
+    "id": 379,
+    "document_id": 1315,
     "public_law_restriction_id": 379
   },
   {
-    "document_id": 2661,
-    "id": 7120,
+    "id": 380,
+    "document_id": 1314,
     "public_law_restriction_id": 380
   },
   {
-    "document_id": 2660,
-    "id": 7121,
+    "id": 381,
+    "document_id": 1313,
     "public_law_restriction_id": 381
   },
   {
-    "document_id": 2659,
-    "id": 7122,
+    "id": 382,
+    "document_id": 1309,
     "public_law_restriction_id": 382
   },
   {
-    "document_id": 2658,
-    "id": 7123,
+    "id": 383,
+    "document_id": 1308,
     "public_law_restriction_id": 383
   },
   {
-    "document_id": 2657,
-    "id": 7124,
+    "id": 384,
+    "document_id": 1307,
     "public_law_restriction_id": 384
   },
   {
-    "document_id": 2656,
-    "id": 7125,
+    "id": 385,
+    "document_id": 1306,
     "public_law_restriction_id": 385
   },
   {
-    "document_id": 2655,
-    "id": 7126,
+    "id": 386,
+    "document_id": 1304,
     "public_law_restriction_id": 386
   },
   {
-    "document_id": 2654,
-    "id": 7127,
+    "id": 387,
+    "document_id": 1303,
     "public_law_restriction_id": 387
   },
   {
-    "document_id": 2653,
-    "id": 7128,
+    "id": 388,
+    "document_id": 1302,
     "public_law_restriction_id": 388
   },
   {
-    "document_id": 2652,
-    "id": 7129,
+    "id": 389,
+    "document_id": 1299,
     "public_law_restriction_id": 389
   },
   {
-    "document_id": 2651,
-    "id": 7130,
+    "id": 390,
+    "document_id": 1298,
     "public_law_restriction_id": 390
   },
   {
-    "document_id": 2650,
-    "id": 7131,
+    "id": 391,
+    "document_id": 1297,
     "public_law_restriction_id": 391
   },
   {
-    "document_id": 2649,
-    "id": 7132,
+    "id": 392,
+    "document_id": 1296,
     "public_law_restriction_id": 392
   },
   {
-    "document_id": 2648,
-    "id": 7133,
+    "id": 393,
+    "document_id": 1295,
     "public_law_restriction_id": 393
   },
   {
-    "document_id": 2647,
-    "id": 7134,
+    "id": 394,
+    "document_id": 1294,
     "public_law_restriction_id": 394
   },
   {
-    "document_id": 2646,
-    "id": 7135,
+    "id": 395,
+    "document_id": 1293,
     "public_law_restriction_id": 395
   },
   {
-    "document_id": 2645,
-    "id": 7136,
+    "id": 396,
+    "document_id": 1292,
     "public_law_restriction_id": 396
   },
   {
-    "document_id": 2644,
-    "id": 7137,
+    "id": 397,
+    "document_id": 1291,
     "public_law_restriction_id": 397
   },
   {
-    "document_id": 2643,
-    "id": 7138,
+    "id": 398,
+    "document_id": 1290,
     "public_law_restriction_id": 398
   },
   {
-    "document_id": 2641,
-    "id": 7139,
+    "id": 399,
+    "document_id": 1289,
     "public_law_restriction_id": 399
   },
   {
-    "document_id": 2640,
-    "id": 7140,
+    "id": 400,
+    "document_id": 1288,
     "public_law_restriction_id": 400
   },
   {
-    "document_id": 2639,
-    "id": 7141,
+    "id": 401,
+    "document_id": 1287,
     "public_law_restriction_id": 401
   },
   {
-    "document_id": 2638,
-    "id": 7142,
+    "id": 402,
+    "document_id": 1286,
     "public_law_restriction_id": 402
   },
   {
-    "document_id": 2637,
-    "id": 7143,
+    "id": 403,
+    "document_id": 1285,
     "public_law_restriction_id": 403
   },
   {
-    "document_id": 2636,
-    "id": 7144,
+    "id": 404,
+    "document_id": 1284,
     "public_law_restriction_id": 404
   },
   {
-    "document_id": 2635,
-    "id": 7145,
+    "id": 405,
+    "document_id": 1281,
     "public_law_restriction_id": 405
   },
   {
-    "document_id": 2634,
-    "id": 7146,
+    "id": 406,
+    "document_id": 1280,
     "public_law_restriction_id": 406
   },
   {
-    "document_id": 2633,
-    "id": 7147,
+    "id": 407,
+    "document_id": 1279,
     "public_law_restriction_id": 407
   },
   {
-    "document_id": 2632,
-    "id": 7148,
+    "id": 408,
+    "document_id": 1278,
     "public_law_restriction_id": 408
   },
   {
-    "document_id": 2631,
-    "id": 7149,
+    "id": 409,
+    "document_id": 1275,
     "public_law_restriction_id": 409
   },
   {
-    "document_id": 2630,
-    "id": 7150,
+    "id": 410,
+    "document_id": 1274,
     "public_law_restriction_id": 410
   },
   {
-    "document_id": 2629,
-    "id": 7151,
+    "id": 411,
+    "document_id": 1273,
     "public_law_restriction_id": 411
   },
   {
-    "document_id": 2628,
-    "id": 7152,
+    "id": 412,
+    "document_id": 1267,
     "public_law_restriction_id": 412
   },
   {
-    "document_id": 2627,
-    "id": 7153,
+    "id": 413,
+    "document_id": 1264,
     "public_law_restriction_id": 413
   },
   {
-    "document_id": 2626,
-    "id": 7154,
+    "id": 414,
+    "document_id": 1263,
     "public_law_restriction_id": 414
   },
   {
-    "document_id": 2623,
-    "id": 7155,
+    "id": 415,
+    "document_id": 1262,
     "public_law_restriction_id": 415
   },
   {
-    "document_id": 2622,
-    "id": 7156,
+    "id": 416,
+    "document_id": 1261,
     "public_law_restriction_id": 416
   },
   {
-    "document_id": 2621,
-    "id": 7157,
+    "id": 417,
+    "document_id": 1260,
     "public_law_restriction_id": 417
   },
   {
-    "document_id": 2620,
-    "id": 7158,
+    "id": 418,
+    "document_id": 1258,
     "public_law_restriction_id": 418
   },
   {
-    "document_id": 2618,
-    "id": 7159,
+    "id": 419,
+    "document_id": 1257,
     "public_law_restriction_id": 419
   },
   {
-    "document_id": 2617,
-    "id": 7160,
+    "id": 420,
+    "document_id": 1256,
     "public_law_restriction_id": 420
   },
   {
-    "document_id": 2616,
-    "id": 7161,
+    "id": 421,
+    "document_id": 1254,
     "public_law_restriction_id": 421
   },
   {
-    "document_id": 2611,
-    "id": 7162,
+    "id": 422,
+    "document_id": 1253,
     "public_law_restriction_id": 422
   },
   {
-    "document_id": 2610,
-    "id": 7163,
+    "id": 423,
+    "document_id": 1248,
     "public_law_restriction_id": 423
   },
   {
-    "document_id": 2609,
-    "id": 7164,
+    "id": 424,
+    "document_id": 1247,
     "public_law_restriction_id": 424
   },
   {
-    "document_id": 2608,
-    "id": 7165,
+    "id": 425,
+    "document_id": 1246,
     "public_law_restriction_id": 425
   },
   {
-    "document_id": 2607,
-    "id": 7166,
+    "id": 426,
+    "document_id": 1245,
     "public_law_restriction_id": 426
   },
   {
-    "document_id": 2606,
-    "id": 7167,
+    "id": 427,
+    "document_id": 1244,
     "public_law_restriction_id": 427
   },
   {
-    "document_id": 2605,
-    "id": 7168,
+    "id": 428,
+    "document_id": 1243,
     "public_law_restriction_id": 428
   },
   {
-    "document_id": 2604,
-    "id": 7169,
+    "id": 429,
+    "document_id": 1242,
     "public_law_restriction_id": 429
   },
   {
-    "document_id": 2603,
-    "id": 7170,
+    "id": 430,
+    "document_id": 1231,
     "public_law_restriction_id": 430
   },
   {
-    "document_id": 2602,
-    "id": 7171,
+    "id": 431,
+    "document_id": 1229,
     "public_law_restriction_id": 431
   },
   {
-    "document_id": 2601,
-    "id": 7172,
+    "id": 432,
+    "document_id": 1228,
     "public_law_restriction_id": 432
   },
   {
-    "document_id": 2600,
-    "id": 7173,
+    "id": 433,
+    "document_id": 1227,
     "public_law_restriction_id": 433
   },
   {
-    "document_id": 2599,
-    "id": 7174,
+    "id": 434,
+    "document_id": 1226,
     "public_law_restriction_id": 434
   },
   {
-    "document_id": 2597,
-    "id": 7175,
+    "id": 435,
+    "document_id": 1224,
     "public_law_restriction_id": 435
   },
   {
-    "document_id": 2596,
-    "id": 7176,
+    "id": 436,
+    "document_id": 1221,
     "public_law_restriction_id": 436
   },
   {
-    "document_id": 2593,
-    "id": 7177,
+    "id": 437,
+    "document_id": 1220,
     "public_law_restriction_id": 437
   },
   {
-    "document_id": 2592,
-    "id": 7178,
+    "id": 438,
+    "document_id": 1219,
     "public_law_restriction_id": 438
   },
   {
-    "document_id": 2591,
-    "id": 7179,
+    "id": 439,
+    "document_id": 1217,
     "public_law_restriction_id": 439
   },
   {
-    "document_id": 2590,
-    "id": 7180,
+    "id": 440,
+    "document_id": 1211,
     "public_law_restriction_id": 440
   },
   {
-    "document_id": 2587,
-    "id": 7181,
+    "id": 441,
+    "document_id": 1208,
     "public_law_restriction_id": 441
   },
   {
-    "document_id": 2586,
-    "id": 7182,
+    "id": 442,
+    "document_id": 1207,
     "public_law_restriction_id": 442
   },
   {
-    "document_id": 2585,
-    "id": 7183,
+    "id": 443,
+    "document_id": 1199,
     "public_law_restriction_id": 443
   },
   {
-    "document_id": 2579,
-    "id": 7184,
+    "id": 444,
+    "document_id": 1198,
     "public_law_restriction_id": 444
   },
   {
-    "document_id": 2576,
-    "id": 7185,
+    "id": 445,
+    "document_id": 1197,
     "public_law_restriction_id": 445
   },
   {
-    "document_id": 2575,
-    "id": 7186,
+    "id": 446,
+    "document_id": 1196,
     "public_law_restriction_id": 446
   },
   {
-    "document_id": 2574,
-    "id": 7187,
+    "id": 447,
+    "document_id": 1195,
     "public_law_restriction_id": 447
   },
   {
-    "document_id": 2573,
-    "id": 7188,
+    "id": 448,
+    "document_id": 1194,
     "public_law_restriction_id": 448
   },
   {
-    "document_id": 2572,
-    "id": 7189,
+    "id": 449,
+    "document_id": 1192,
     "public_law_restriction_id": 449
   },
   {
-    "document_id": 2570,
-    "id": 7190,
+    "id": 450,
+    "document_id": 1185,
     "public_law_restriction_id": 450
   },
   {
-    "document_id": 2569,
-    "id": 7191,
+    "id": 451,
+    "document_id": 1184,
     "public_law_restriction_id": 451
   },
   {
-    "document_id": 2568,
-    "id": 7192,
+    "id": 452,
+    "document_id": 1183,
     "public_law_restriction_id": 452
   },
   {
-    "document_id": 2566,
-    "id": 7193,
+    "id": 453,
+    "document_id": 1182,
     "public_law_restriction_id": 453
   },
   {
-    "document_id": 2565,
-    "id": 7194,
+    "id": 454,
+    "document_id": 1180,
     "public_law_restriction_id": 454
   },
   {
-    "document_id": 2560,
-    "id": 7195,
+    "id": 455,
+    "document_id": 1179,
     "public_law_restriction_id": 455
   },
   {
-    "document_id": 2559,
-    "id": 7196,
+    "id": 456,
+    "document_id": 1178,
     "public_law_restriction_id": 456
   },
   {
-    "document_id": 2558,
-    "id": 7197,
+    "id": 457,
+    "document_id": 1176,
     "public_law_restriction_id": 457
   },
   {
-    "document_id": 2557,
-    "id": 7198,
+    "id": 458,
+    "document_id": 1175,
     "public_law_restriction_id": 458
   },
   {
-    "document_id": 2556,
-    "id": 7199,
+    "id": 459,
+    "document_id": 1174,
     "public_law_restriction_id": 459
   },
   {
-    "document_id": 2555,
-    "id": 7200,
+    "id": 460,
+    "document_id": 1172,
     "public_law_restriction_id": 460
   },
   {
-    "document_id": 2554,
-    "id": 7201,
+    "id": 461,
+    "document_id": 1171,
     "public_law_restriction_id": 461
   },
   {
-    "document_id": 2543,
-    "id": 7202,
+    "id": 462,
+    "document_id": 1170,
     "public_law_restriction_id": 462
   },
   {
-    "document_id": 2541,
-    "id": 7203,
+    "id": 463,
+    "document_id": 1169,
     "public_law_restriction_id": 463
   },
   {
-    "document_id": 2540,
-    "id": 7204,
+    "id": 464,
+    "document_id": 1168,
     "public_law_restriction_id": 464
   },
   {
-    "document_id": 2539,
-    "id": 7205,
+    "id": 465,
+    "document_id": 1167,
     "public_law_restriction_id": 465
   },
   {
-    "document_id": 2538,
-    "id": 7206,
+    "id": 466,
+    "document_id": 1166,
     "public_law_restriction_id": 466
   },
   {
-    "document_id": 2536,
-    "id": 7207,
+    "id": 467,
+    "document_id": 1165,
     "public_law_restriction_id": 467
   },
   {
-    "document_id": 2533,
-    "id": 7208,
+    "id": 468,
+    "document_id": 1164,
     "public_law_restriction_id": 468
   },
   {
-    "document_id": 2532,
-    "id": 7209,
+    "id": 469,
+    "document_id": 1163,
     "public_law_restriction_id": 469
   },
   {
-    "document_id": 2531,
-    "id": 7210,
+    "id": 470,
+    "document_id": 1162,
     "public_law_restriction_id": 470
   },
   {
-    "document_id": 2529,
-    "id": 7211,
+    "id": 471,
+    "document_id": 1160,
     "public_law_restriction_id": 471
   },
   {
-    "document_id": 2523,
-    "id": 7212,
+    "id": 472,
+    "document_id": 1159,
     "public_law_restriction_id": 472
   },
   {
-    "document_id": 2520,
-    "id": 7213,
+    "id": 473,
+    "document_id": 1151,
     "public_law_restriction_id": 473
   },
   {
-    "document_id": 2519,
-    "id": 7214,
+    "id": 474,
+    "document_id": 1150,
     "public_law_restriction_id": 474
   },
   {
-    "document_id": 2510,
-    "id": 7215,
+    "id": 475,
+    "document_id": 1149,
     "public_law_restriction_id": 475
   },
   {
-    "document_id": 2509,
-    "id": 7216,
+    "id": 476,
+    "document_id": 1148,
     "public_law_restriction_id": 476
   },
   {
-    "document_id": 2508,
-    "id": 7217,
+    "id": 477,
+    "document_id": 1147,
     "public_law_restriction_id": 477
   },
   {
-    "document_id": 2507,
-    "id": 7218,
+    "id": 478,
+    "document_id": 1146,
     "public_law_restriction_id": 478
   },
   {
-    "document_id": 2506,
-    "id": 7219,
+    "id": 479,
+    "document_id": 1145,
     "public_law_restriction_id": 479
   },
   {
-    "document_id": 2505,
-    "id": 7220,
+    "id": 480,
+    "document_id": 1144,
     "public_law_restriction_id": 480
   },
   {
-    "document_id": 2503,
-    "id": 7221,
+    "id": 481,
+    "document_id": 1143,
     "public_law_restriction_id": 481
   },
   {
-    "document_id": 2496,
-    "id": 7222,
+    "id": 482,
+    "document_id": 1142,
     "public_law_restriction_id": 482
   },
   {
-    "document_id": 2495,
-    "id": 7223,
+    "id": 483,
+    "document_id": 1141,
     "public_law_restriction_id": 483
   },
   {
-    "document_id": 2494,
-    "id": 7224,
+    "id": 484,
+    "document_id": 1140,
     "public_law_restriction_id": 484
   },
   {
-    "document_id": 2493,
-    "id": 7225,
+    "id": 485,
+    "document_id": 1139,
     "public_law_restriction_id": 485
   },
   {
-    "document_id": 2492,
-    "id": 7226,
+    "id": 486,
+    "document_id": 1138,
     "public_law_restriction_id": 486
   },
   {
-    "document_id": 2490,
-    "id": 7227,
+    "id": 487,
+    "document_id": 1137,
     "public_law_restriction_id": 487
   },
   {
-    "document_id": 2489,
-    "id": 7228,
+    "id": 488,
+    "document_id": 1136,
     "public_law_restriction_id": 488
   },
   {
-    "document_id": 2488,
-    "id": 7229,
+    "id": 489,
+    "document_id": 1135,
     "public_law_restriction_id": 489
   },
   {
-    "document_id": 2487,
-    "id": 7230,
+    "id": 490,
+    "document_id": 1134,
     "public_law_restriction_id": 490
   },
   {
-    "document_id": 2484,
-    "id": 7231,
+    "id": 491,
+    "document_id": 1133,
     "public_law_restriction_id": 491
   },
   {
-    "document_id": 2483,
-    "id": 7232,
+    "id": 492,
+    "document_id": 1132,
     "public_law_restriction_id": 492
   },
   {
-    "document_id": 2482,
-    "id": 7233,
+    "id": 493,
+    "document_id": 1131,
     "public_law_restriction_id": 493
   },
   {
-    "document_id": 2480,
-    "id": 7234,
+    "id": 494,
+    "document_id": 1130,
     "public_law_restriction_id": 494
   },
   {
-    "document_id": 2479,
-    "id": 7235,
+    "id": 495,
+    "document_id": 1129,
     "public_law_restriction_id": 495
   },
   {
-    "document_id": 2478,
-    "id": 7236,
+    "id": 496,
+    "document_id": 1128,
     "public_law_restriction_id": 496
   },
   {
-    "document_id": 2477,
-    "id": 7237,
+    "id": 497,
+    "document_id": 1127,
     "public_law_restriction_id": 497
   },
   {
-    "document_id": 2476,
-    "id": 7238,
+    "id": 498,
+    "document_id": 1126,
     "public_law_restriction_id": 498
   },
   {
-    "document_id": 2475,
-    "id": 7239,
+    "id": 499,
+    "document_id": 1125,
     "public_law_restriction_id": 499
   },
   {
-    "document_id": 2474,
-    "id": 7240,
+    "id": 500,
+    "document_id": 1124,
     "public_law_restriction_id": 500
   },
   {
-    "document_id": 2473,
-    "id": 7241,
+    "id": 501,
+    "document_id": 1123,
     "public_law_restriction_id": 501
   },
   {
-    "document_id": 2472,
-    "id": 7242,
+    "id": 502,
+    "document_id": 1120,
     "public_law_restriction_id": 502
   },
   {
-    "document_id": 2471,
-    "id": 7243,
+    "id": 503,
+    "document_id": 1119,
     "public_law_restriction_id": 503
   },
   {
-    "document_id": 2470,
-    "id": 7244,
+    "id": 504,
+    "document_id": 1118,
     "public_law_restriction_id": 504
   },
   {
-    "document_id": 2468,
-    "id": 7245,
+    "id": 505,
+    "document_id": 1117,
     "public_law_restriction_id": 505
   },
   {
-    "document_id": 2467,
-    "id": 7246,
+    "id": 506,
+    "document_id": 1116,
     "public_law_restriction_id": 506
   },
   {
-    "document_id": 2459,
-    "id": 7247,
+    "id": 507,
+    "document_id": 1115,
     "public_law_restriction_id": 507
   },
   {
-    "document_id": 2458,
-    "id": 7248,
+    "id": 508,
+    "document_id": 1113,
     "public_law_restriction_id": 508
   },
   {
-    "document_id": 2457,
-    "id": 7249,
+    "id": 509,
+    "document_id": 1112,
     "public_law_restriction_id": 509
   },
   {
-    "document_id": 2456,
-    "id": 7250,
+    "id": 510,
+    "document_id": 1111,
     "public_law_restriction_id": 510
   },
   {
-    "document_id": 2455,
-    "id": 7251,
+    "id": 511,
+    "document_id": 1110,
     "public_law_restriction_id": 511
   },
   {
-    "document_id": 2454,
-    "id": 7252,
+    "id": 512,
+    "document_id": 1109,
     "public_law_restriction_id": 512
   },
   {
-    "document_id": 2453,
-    "id": 7253,
+    "id": 513,
+    "document_id": 1107,
     "public_law_restriction_id": 513
   },
   {
-    "document_id": 2452,
-    "id": 7254,
+    "id": 514,
+    "document_id": 1106,
     "public_law_restriction_id": 514
   },
   {
-    "document_id": 2451,
-    "id": 7255,
+    "id": 515,
+    "document_id": 1104,
     "public_law_restriction_id": 515
   },
   {
-    "document_id": 2450,
-    "id": 7256,
+    "id": 516,
+    "document_id": 1095,
     "public_law_restriction_id": 516
   },
   {
-    "document_id": 2449,
-    "id": 7257,
+    "id": 517,
+    "document_id": 1091,
     "public_law_restriction_id": 517
   },
   {
-    "document_id": 2448,
-    "id": 7258,
+    "id": 518,
+    "document_id": 1090,
     "public_law_restriction_id": 518
   },
   {
-    "document_id": 2447,
-    "id": 7259,
+    "id": 519,
+    "document_id": 1088,
     "public_law_restriction_id": 519
   },
   {
-    "document_id": 2446,
-    "id": 7260,
+    "id": 520,
+    "document_id": 1087,
     "public_law_restriction_id": 520
   },
   {
-    "document_id": 2445,
-    "id": 7261,
+    "id": 521,
+    "document_id": 1086,
     "public_law_restriction_id": 521
   },
   {
-    "document_id": 2444,
-    "id": 7262,
+    "id": 522,
+    "document_id": 1085,
     "public_law_restriction_id": 522
   },
   {
-    "document_id": 2443,
-    "id": 7263,
+    "id": 523,
+    "document_id": 1084,
     "public_law_restriction_id": 523
   },
   {
-    "document_id": 2442,
-    "id": 7264,
+    "id": 524,
+    "document_id": 1083,
     "public_law_restriction_id": 524
   },
   {
-    "document_id": 2441,
-    "id": 7265,
+    "id": 525,
+    "document_id": 1082,
     "public_law_restriction_id": 525
   },
   {
-    "document_id": 2440,
-    "id": 7266,
+    "id": 526,
+    "document_id": 1081,
     "public_law_restriction_id": 526
   },
   {
-    "document_id": 2439,
-    "id": 7267,
+    "id": 527,
+    "document_id": 1079,
     "public_law_restriction_id": 527
   },
   {
-    "document_id": 2438,
-    "id": 7268,
+    "id": 528,
+    "document_id": 1078,
     "public_law_restriction_id": 528
   },
   {
-    "document_id": 2437,
-    "id": 7269,
+    "id": 529,
+    "document_id": 1077,
     "public_law_restriction_id": 529
   },
   {
-    "document_id": 2436,
-    "id": 7270,
+    "id": 530,
+    "document_id": 1075,
     "public_law_restriction_id": 530
   },
   {
-    "document_id": 2435,
-    "id": 7271,
+    "id": 531,
+    "document_id": 1074,
     "public_law_restriction_id": 531
   },
   {
-    "document_id": 2434,
-    "id": 7272,
+    "id": 532,
+    "document_id": 1073,
     "public_law_restriction_id": 532
   },
   {
-    "document_id": 2433,
-    "id": 7273,
+    "id": 533,
+    "document_id": 1072,
     "public_law_restriction_id": 533
   },
   {
-    "document_id": 2432,
-    "id": 7274,
+    "id": 534,
+    "document_id": 1071,
     "public_law_restriction_id": 534
   },
   {
-    "document_id": 2431,
-    "id": 7275,
+    "id": 535,
+    "document_id": 1070,
     "public_law_restriction_id": 535
   },
   {
-    "document_id": 2428,
-    "id": 7276,
+    "id": 536,
+    "document_id": 1069,
     "public_law_restriction_id": 536
   },
   {
-    "document_id": 2427,
-    "id": 7277,
+    "id": 537,
+    "document_id": 1068,
     "public_law_restriction_id": 537
   },
   {
-    "document_id": 2426,
-    "id": 7278,
+    "id": 538,
+    "document_id": 1067,
     "public_law_restriction_id": 538
   },
   {
-    "document_id": 2425,
-    "id": 7279,
+    "id": 539,
+    "document_id": 1066,
     "public_law_restriction_id": 539
   },
   {
-    "document_id": 2424,
-    "id": 7280,
+    "id": 540,
+    "document_id": 1065,
     "public_law_restriction_id": 540
   },
   {
-    "document_id": 2423,
-    "id": 7281,
+    "id": 541,
+    "document_id": 1064,
     "public_law_restriction_id": 541
   },
   {
-    "document_id": 2421,
-    "id": 7282,
+    "id": 542,
+    "document_id": 1063,
     "public_law_restriction_id": 542
   },
   {
-    "document_id": 2420,
-    "id": 7283,
+    "id": 543,
+    "document_id": 1062,
     "public_law_restriction_id": 543
   },
   {
-    "document_id": 2419,
-    "id": 7284,
+    "id": 544,
+    "document_id": 1061,
     "public_law_restriction_id": 544
   },
   {
-    "document_id": 2418,
-    "id": 7285,
+    "id": 545,
+    "document_id": 1059,
     "public_law_restriction_id": 545
   },
   {
-    "document_id": 2417,
-    "id": 7286,
+    "id": 546,
+    "document_id": 1058,
     "public_law_restriction_id": 546
   },
   {
-    "document_id": 2415,
-    "id": 7287,
+    "id": 547,
+    "document_id": 1057,
     "public_law_restriction_id": 547
   },
   {
-    "document_id": 2414,
-    "id": 7288,
+    "id": 548,
+    "document_id": 1056,
     "public_law_restriction_id": 548
   },
   {
-    "document_id": 2412,
-    "id": 7289,
+    "id": 549,
+    "document_id": 1055,
     "public_law_restriction_id": 549
   },
   {
-    "document_id": 2403,
-    "id": 7290,
+    "id": 550,
+    "document_id": 1054,
     "public_law_restriction_id": 550
   },
   {
-    "document_id": 2399,
-    "id": 7291,
+    "id": 551,
+    "document_id": 1053,
     "public_law_restriction_id": 551
   },
   {
-    "document_id": 2398,
-    "id": 7292,
+    "id": 552,
+    "document_id": 1052,
     "public_law_restriction_id": 552
   },
   {
-    "document_id": 2396,
-    "id": 7293,
+    "id": 553,
+    "document_id": 1051,
     "public_law_restriction_id": 553
   },
   {
-    "document_id": 2395,
-    "id": 7294,
+    "id": 554,
+    "document_id": 1050,
     "public_law_restriction_id": 554
   },
   {
-    "document_id": 2394,
-    "id": 7295,
+    "id": 555,
+    "document_id": 1049,
     "public_law_restriction_id": 555
   },
   {
-    "document_id": 2393,
-    "id": 7296,
+    "id": 556,
+    "document_id": 1048,
     "public_law_restriction_id": 556
   },
   {
-    "document_id": 2392,
-    "id": 7297,
+    "id": 557,
+    "document_id": 1047,
     "public_law_restriction_id": 557
   },
   {
-    "document_id": 2391,
-    "id": 7298,
+    "id": 558,
+    "document_id": 1046,
     "public_law_restriction_id": 558
   },
   {
-    "document_id": 2390,
-    "id": 7299,
+    "id": 559,
+    "document_id": 1045,
     "public_law_restriction_id": 559
   },
   {
-    "document_id": 2389,
-    "id": 7300,
+    "id": 560,
+    "document_id": 1044,
     "public_law_restriction_id": 560
   },
   {
-    "document_id": 2387,
-    "id": 7301,
+    "id": 561,
+    "document_id": 1042,
     "public_law_restriction_id": 561
   },
   {
-    "document_id": 2386,
-    "id": 7302,
+    "id": 562,
+    "document_id": 1041,
     "public_law_restriction_id": 562
   },
   {
-    "document_id": 2385,
-    "id": 7303,
+    "id": 563,
+    "document_id": 1039,
     "public_law_restriction_id": 563
   },
   {
-    "document_id": 2383,
-    "id": 7304,
+    "id": 564,
+    "document_id": 1038,
     "public_law_restriction_id": 564
   },
   {
-    "document_id": 2382,
-    "id": 7305,
+    "id": 565,
+    "document_id": 1037,
     "public_law_restriction_id": 565
   },
   {
-    "document_id": 2381,
-    "id": 7306,
+    "id": 566,
+    "document_id": 1036,
     "public_law_restriction_id": 566
   },
   {
-    "document_id": 2380,
-    "id": 7307,
+    "id": 567,
+    "document_id": 1035,
     "public_law_restriction_id": 567
   },
   {
-    "document_id": 2379,
-    "id": 7308,
+    "id": 568,
+    "document_id": 1034,
     "public_law_restriction_id": 568
   },
   {
-    "document_id": 2378,
-    "id": 7309,
+    "id": 569,
+    "document_id": 1033,
     "public_law_restriction_id": 569
   },
   {
-    "document_id": 2377,
-    "id": 7310,
+    "id": 570,
+    "document_id": 1029,
     "public_law_restriction_id": 570
   },
   {
-    "document_id": 2376,
-    "id": 7311,
+    "id": 571,
+    "document_id": 1028,
     "public_law_restriction_id": 571
   },
   {
-    "document_id": 2375,
-    "id": 7312,
+    "id": 572,
+    "document_id": 1026,
     "public_law_restriction_id": 572
   },
   {
-    "document_id": 2374,
-    "id": 7313,
+    "id": 573,
+    "document_id": 1025,
     "public_law_restriction_id": 573
   },
   {
-    "document_id": 2373,
-    "id": 7314,
+    "id": 574,
+    "document_id": 1024,
     "public_law_restriction_id": 574
   },
   {
-    "document_id": 2372,
-    "id": 7315,
+    "id": 575,
+    "document_id": 1023,
     "public_law_restriction_id": 575
   },
   {
-    "document_id": 2371,
-    "id": 7316,
+    "id": 576,
+    "document_id": 1022,
     "public_law_restriction_id": 576
   },
   {
-    "document_id": 2370,
-    "id": 7317,
+    "id": 577,
+    "document_id": 1020,
     "public_law_restriction_id": 577
   },
   {
-    "document_id": 2369,
-    "id": 7318,
+    "id": 578,
+    "document_id": 1019,
     "public_law_restriction_id": 578
   },
   {
-    "document_id": 2367,
-    "id": 7319,
+    "id": 579,
+    "document_id": 1018,
     "public_law_restriction_id": 579
   },
   {
-    "document_id": 2366,
-    "id": 7320,
+    "id": 580,
+    "document_id": 1013,
     "public_law_restriction_id": 580
   },
   {
-    "document_id": 2365,
-    "id": 7321,
+    "id": 581,
+    "document_id": 1011,
     "public_law_restriction_id": 581
   },
   {
-    "document_id": 2364,
-    "id": 7322,
+    "id": 582,
+    "document_id": 1010,
     "public_law_restriction_id": 582
   },
   {
-    "document_id": 2363,
-    "id": 7323,
+    "id": 583,
+    "document_id": 1008,
     "public_law_restriction_id": 583
   },
   {
-    "document_id": 2362,
-    "id": 7324,
+    "id": 584,
+    "document_id": 1007,
     "public_law_restriction_id": 584
   },
   {
-    "document_id": 2361,
-    "id": 7325,
+    "id": 585,
+    "document_id": 1006,
     "public_law_restriction_id": 585
   },
   {
-    "document_id": 2360,
-    "id": 7326,
+    "id": 586,
+    "document_id": 1005,
     "public_law_restriction_id": 586
   },
   {
-    "document_id": 2359,
-    "id": 7327,
+    "id": 587,
+    "document_id": 1002,
     "public_law_restriction_id": 587
   },
   {
-    "document_id": 2358,
-    "id": 7328,
+    "id": 588,
+    "document_id": 1000,
     "public_law_restriction_id": 588
   },
   {
-    "document_id": 2357,
-    "id": 7329,
+    "id": 589,
+    "document_id": 999,
     "public_law_restriction_id": 589
   },
   {
-    "document_id": 2356,
-    "id": 7330,
+    "id": 590,
+    "document_id": 997,
     "public_law_restriction_id": 590
   },
   {
-    "document_id": 2355,
-    "id": 7331,
+    "id": 591,
+    "document_id": 996,
     "public_law_restriction_id": 591
   },
   {
-    "document_id": 2354,
-    "id": 7332,
+    "id": 592,
+    "document_id": 995,
     "public_law_restriction_id": 592
   },
   {
-    "document_id": 2353,
-    "id": 7333,
+    "id": 593,
+    "document_id": 994,
     "public_law_restriction_id": 593
   },
   {
-    "document_id": 2352,
-    "id": 7334,
+    "id": 594,
+    "document_id": 993,
     "public_law_restriction_id": 594
   },
   {
-    "document_id": 2350,
-    "id": 7335,
+    "id": 595,
+    "document_id": 992,
     "public_law_restriction_id": 595
   },
   {
-    "document_id": 2349,
-    "id": 7336,
+    "id": 596,
+    "document_id": 991,
     "public_law_restriction_id": 596
   },
   {
-    "document_id": 2347,
-    "id": 7337,
+    "id": 597,
+    "document_id": 990,
     "public_law_restriction_id": 597
   },
   {
-    "document_id": 2346,
-    "id": 7338,
+    "id": 598,
+    "document_id": 988,
     "public_law_restriction_id": 598
   },
   {
-    "document_id": 2345,
-    "id": 7339,
+    "id": 599,
+    "document_id": 986,
     "public_law_restriction_id": 599
   },
   {
-    "document_id": 2344,
-    "id": 7340,
+    "id": 600,
+    "document_id": 981,
     "public_law_restriction_id": 600
   },
   {
-    "document_id": 2343,
-    "id": 7341,
+    "id": 601,
+    "document_id": 980,
     "public_law_restriction_id": 601
   },
   {
-    "document_id": 2342,
-    "id": 7342,
+    "id": 602,
+    "document_id": 977,
     "public_law_restriction_id": 602
   },
   {
-    "document_id": 2341,
-    "id": 7343,
+    "id": 603,
+    "document_id": 976,
     "public_law_restriction_id": 603
   },
   {
-    "document_id": 2337,
-    "id": 7344,
+    "id": 604,
+    "document_id": 974,
     "public_law_restriction_id": 604
   },
   {
-    "document_id": 2336,
-    "id": 7345,
+    "id": 605,
+    "document_id": 973,
     "public_law_restriction_id": 605
   },
   {
-    "document_id": 2334,
-    "id": 7346,
+    "id": 606,
+    "document_id": 970,
     "public_law_restriction_id": 606
   },
   {
-    "document_id": 2333,
-    "id": 7347,
+    "id": 607,
+    "document_id": 968,
     "public_law_restriction_id": 607
   },
   {
-    "document_id": 2332,
-    "id": 7348,
+    "id": 608,
+    "document_id": 967,
     "public_law_restriction_id": 608
   },
   {
-    "document_id": 2331,
-    "id": 7349,
+    "id": 609,
+    "document_id": 965,
     "public_law_restriction_id": 609
   },
   {
-    "document_id": 2330,
-    "id": 7350,
+    "id": 610,
+    "document_id": 964,
     "public_law_restriction_id": 610
   },
   {
-    "document_id": 2328,
-    "id": 7351,
+    "id": 611,
+    "document_id": 963,
     "public_law_restriction_id": 611
   },
   {
-    "document_id": 2327,
-    "id": 7352,
+    "id": 612,
+    "document_id": 962,
     "public_law_restriction_id": 612
   },
   {
-    "document_id": 2326,
-    "id": 7353,
+    "id": 613,
+    "document_id": 961,
     "public_law_restriction_id": 613
   },
   {
-    "document_id": 2321,
-    "id": 7354,
+    "id": 614,
+    "document_id": 960,
     "public_law_restriction_id": 614
   },
   {
-    "document_id": 2319,
-    "id": 7355,
+    "id": 615,
+    "document_id": 959,
     "public_law_restriction_id": 615
   },
   {
-    "document_id": 2318,
-    "id": 7356,
+    "id": 616,
+    "document_id": 956,
     "public_law_restriction_id": 616
   },
   {
-    "document_id": 2316,
-    "id": 7357,
+    "id": 617,
+    "document_id": 955,
     "public_law_restriction_id": 617
   },
   {
-    "document_id": 2315,
-    "id": 7358,
+    "id": 618,
+    "document_id": 954,
     "public_law_restriction_id": 618
   },
   {
-    "document_id": 2314,
-    "id": 7359,
+    "id": 619,
+    "document_id": 953,
     "public_law_restriction_id": 619
   },
   {
-    "document_id": 2313,
-    "id": 7360,
+    "id": 620,
+    "document_id": 952,
     "public_law_restriction_id": 620
   },
   {
-    "document_id": 2310,
-    "id": 7361,
+    "id": 621,
+    "document_id": 950,
     "public_law_restriction_id": 621
   },
   {
-    "document_id": 2308,
-    "id": 7362,
+    "id": 622,
+    "document_id": 949,
     "public_law_restriction_id": 622
   },
   {
-    "document_id": 2307,
-    "id": 7363,
+    "id": 623,
+    "document_id": 948,
     "public_law_restriction_id": 623
   },
   {
-    "document_id": 2305,
-    "id": 7364,
+    "id": 624,
+    "document_id": 947,
     "public_law_restriction_id": 624
   },
   {
-    "document_id": 2304,
-    "id": 7365,
+    "id": 625,
+    "document_id": 946,
     "public_law_restriction_id": 625
   },
   {
-    "document_id": 2303,
-    "id": 7366,
+    "id": 626,
+    "document_id": 945,
     "public_law_restriction_id": 626
   },
   {
-    "document_id": 2302,
-    "id": 7367,
+    "id": 627,
+    "document_id": 943,
     "public_law_restriction_id": 627
   },
   {
-    "document_id": 2301,
-    "id": 7368,
+    "id": 628,
+    "document_id": 941,
     "public_law_restriction_id": 628
   },
   {
-    "document_id": 2300,
-    "id": 7369,
+    "id": 629,
+    "document_id": 940,
     "public_law_restriction_id": 629
   },
   {
-    "document_id": 2299,
-    "id": 7370,
+    "id": 630,
+    "document_id": 938,
     "public_law_restriction_id": 630
   },
   {
-    "document_id": 2298,
-    "id": 7371,
+    "id": 631,
+    "document_id": 937,
     "public_law_restriction_id": 631
   },
   {
-    "document_id": 2296,
-    "id": 7372,
+    "id": 632,
+    "document_id": 936,
     "public_law_restriction_id": 632
   },
   {
-    "document_id": 2294,
-    "id": 7373,
+    "id": 633,
+    "document_id": 935,
     "public_law_restriction_id": 633
   },
   {
-    "document_id": 2289,
-    "id": 7374,
+    "id": 634,
+    "document_id": 934,
     "public_law_restriction_id": 634
   },
   {
-    "document_id": 2288,
-    "id": 7375,
+    "id": 635,
+    "document_id": 933,
     "public_law_restriction_id": 635
   },
   {
-    "document_id": 2285,
-    "id": 7376,
+    "id": 636,
+    "document_id": 932,
     "public_law_restriction_id": 636
   },
   {
-    "document_id": 2284,
-    "id": 7377,
+    "id": 637,
+    "document_id": 931,
     "public_law_restriction_id": 637
   },
   {
-    "document_id": 2283,
-    "id": 7378,
+    "id": 638,
+    "document_id": 930,
     "public_law_restriction_id": 638
   },
   {
-    "document_id": 2281,
-    "id": 7379,
+    "id": 639,
+    "document_id": 929,
     "public_law_restriction_id": 639
   },
   {
-    "document_id": 2280,
-    "id": 7380,
+    "id": 640,
+    "document_id": 928,
     "public_law_restriction_id": 640
   },
   {
-    "document_id": 2277,
-    "id": 7381,
+    "id": 641,
+    "document_id": 927,
     "public_law_restriction_id": 641
   },
   {
-    "document_id": 2275,
-    "id": 7382,
+    "id": 642,
+    "document_id": 925,
     "public_law_restriction_id": 642
   },
   {
-    "document_id": 2274,
-    "id": 7383,
+    "id": 643,
+    "document_id": 924,
     "public_law_restriction_id": 643
   },
   {
-    "document_id": 2272,
-    "id": 7384,
+    "id": 644,
+    "document_id": 922,
     "public_law_restriction_id": 644
   },
   {
-    "document_id": 2271,
-    "id": 7385,
+    "id": 645,
+    "document_id": 921,
     "public_law_restriction_id": 645
   },
   {
-    "document_id": 2270,
-    "id": 7386,
+    "id": 646,
+    "document_id": 920,
     "public_law_restriction_id": 646
   },
   {
-    "document_id": 2269,
-    "id": 7387,
+    "id": 647,
+    "document_id": 919,
     "public_law_restriction_id": 647
   },
   {
-    "document_id": 2268,
-    "id": 7388,
+    "id": 648,
+    "document_id": 918,
     "public_law_restriction_id": 648
   },
   {
-    "document_id": 2267,
-    "id": 7389,
+    "id": 649,
+    "document_id": 917,
     "public_law_restriction_id": 649
   },
   {
-    "document_id": 2266,
-    "id": 7390,
+    "id": 650,
+    "document_id": 916,
     "public_law_restriction_id": 650
   },
   {
-    "document_id": 2263,
-    "id": 7391,
+    "id": 651,
+    "document_id": 914,
     "public_law_restriction_id": 651
   },
   {
-    "document_id": 2262,
-    "id": 7392,
+    "id": 652,
+    "document_id": 913,
     "public_law_restriction_id": 652
   },
   {
-    "document_id": 2261,
-    "id": 7393,
+    "id": 653,
+    "document_id": 912,
     "public_law_restriction_id": 653
   },
   {
-    "document_id": 2260,
-    "id": 7394,
+    "id": 654,
+    "document_id": 909,
     "public_law_restriction_id": 654
   },
   {
-    "document_id": 2259,
-    "id": 7395,
+    "id": 655,
+    "document_id": 906,
     "public_law_restriction_id": 655
   },
   {
-    "document_id": 2257,
-    "id": 7396,
+    "id": 656,
+    "document_id": 905,
     "public_law_restriction_id": 656
   },
   {
-    "document_id": 2256,
-    "id": 7397,
+    "id": 657,
+    "document_id": 904,
     "public_law_restriction_id": 657
   },
   {
-    "document_id": 2255,
-    "id": 7398,
+    "id": 658,
+    "document_id": 903,
     "public_law_restriction_id": 658
   },
   {
-    "document_id": 2254,
-    "id": 7399,
+    "id": 659,
+    "document_id": 902,
     "public_law_restriction_id": 659
   },
   {
-    "document_id": 2253,
-    "id": 7400,
+    "id": 660,
+    "document_id": 900,
     "public_law_restriction_id": 660
   },
   {
-    "document_id": 2252,
-    "id": 7401,
+    "id": 661,
+    "document_id": 899,
     "public_law_restriction_id": 661
   },
   {
-    "document_id": 2250,
-    "id": 7402,
+    "id": 662,
+    "document_id": 898,
     "public_law_restriction_id": 662
   },
   {
-    "document_id": 2248,
-    "id": 7403,
+    "id": 663,
+    "document_id": 896,
     "public_law_restriction_id": 663
   },
   {
-    "document_id": 2247,
-    "id": 7404,
+    "id": 664,
+    "document_id": 895,
     "public_law_restriction_id": 664
   },
   {
-    "document_id": 2245,
-    "id": 7405,
+    "id": 665,
+    "document_id": 894,
     "public_law_restriction_id": 665
   },
   {
-    "document_id": 2244,
-    "id": 7406,
+    "id": 666,
+    "document_id": 893,
     "public_law_restriction_id": 666
   },
   {
-    "document_id": 2243,
-    "id": 7407,
+    "id": 667,
+    "document_id": 892,
     "public_law_restriction_id": 667
   },
   {
-    "document_id": 2242,
-    "id": 7408,
+    "id": 668,
+    "document_id": 891,
     "public_law_restriction_id": 668
   },
   {
-    "document_id": 2241,
-    "id": 7409,
+    "id": 669,
+    "document_id": 890,
     "public_law_restriction_id": 669
   },
   {
-    "document_id": 2240,
-    "id": 7410,
+    "id": 670,
+    "document_id": 889,
     "public_law_restriction_id": 670
   },
   {
-    "document_id": 2239,
-    "id": 7411,
+    "id": 671,
+    "document_id": 888,
     "public_law_restriction_id": 671
   },
   {
-    "document_id": 2238,
-    "id": 7412,
+    "id": 672,
+    "document_id": 887,
     "public_law_restriction_id": 672
   },
   {
-    "document_id": 2237,
-    "id": 7413,
+    "id": 673,
+    "document_id": 886,
     "public_law_restriction_id": 673
   },
   {
-    "document_id": 2236,
-    "id": 7414,
+    "id": 674,
+    "document_id": 885,
     "public_law_restriction_id": 674
   },
   {
-    "document_id": 2235,
-    "id": 7415,
+    "id": 675,
+    "document_id": 884,
     "public_law_restriction_id": 675
   },
   {
-    "document_id": 2234,
-    "id": 7416,
+    "id": 676,
+    "document_id": 883,
     "public_law_restriction_id": 676
   },
   {
-    "document_id": 2232,
-    "id": 7417,
+    "id": 677,
+    "document_id": 882,
     "public_law_restriction_id": 677
   },
   {
-    "document_id": 2231,
-    "id": 7418,
+    "id": 678,
+    "document_id": 881,
     "public_law_restriction_id": 678
   },
   {
-    "document_id": 2229,
-    "id": 7419,
+    "id": 679,
+    "document_id": 880,
     "public_law_restriction_id": 679
   },
   {
-    "document_id": 2228,
-    "id": 7420,
+    "id": 680,
+    "document_id": 879,
     "public_law_restriction_id": 680
   },
   {
-    "document_id": 2227,
-    "id": 7421,
+    "id": 681,
+    "document_id": 878,
     "public_law_restriction_id": 681
   },
   {
-    "document_id": 2226,
-    "id": 7422,
+    "id": 682,
+    "document_id": 877,
     "public_law_restriction_id": 682
   },
   {
-    "document_id": 2225,
-    "id": 7423,
+    "id": 683,
+    "document_id": 876,
     "public_law_restriction_id": 683
   },
   {
-    "document_id": 2224,
-    "id": 7424,
+    "id": 684,
+    "document_id": 874,
     "public_law_restriction_id": 684
   },
   {
-    "document_id": 2223,
-    "id": 7425,
+    "id": 685,
+    "document_id": 873,
     "public_law_restriction_id": 685
   },
   {
-    "document_id": 2221,
-    "id": 7426,
+    "id": 686,
+    "document_id": 872,
     "public_law_restriction_id": 686
   },
   {
-    "document_id": 2220,
-    "id": 7427,
+    "id": 687,
+    "document_id": 871,
     "public_law_restriction_id": 687
   },
   {
-    "document_id": 2219,
-    "id": 7428,
+    "id": 688,
+    "document_id": 870,
     "public_law_restriction_id": 688
   },
   {
-    "document_id": 2216,
-    "id": 7429,
+    "id": 689,
+    "document_id": 868,
     "public_law_restriction_id": 689
   },
   {
-    "document_id": 2213,
-    "id": 7430,
+    "id": 690,
+    "document_id": 867,
     "public_law_restriction_id": 690
   },
   {
-    "document_id": 2212,
-    "id": 7431,
+    "id": 691,
+    "document_id": 865,
     "public_law_restriction_id": 691
   },
   {
-    "document_id": 2211,
-    "id": 7432,
+    "id": 692,
+    "document_id": 864,
     "public_law_restriction_id": 692
   },
   {
-    "document_id": 2210,
-    "id": 7433,
+    "id": 693,
+    "document_id": 863,
     "public_law_restriction_id": 693
   },
   {
-    "document_id": 2209,
-    "id": 7434,
+    "id": 694,
+    "document_id": 862,
     "public_law_restriction_id": 694
   },
   {
-    "document_id": 2207,
-    "id": 7435,
+    "id": 695,
+    "document_id": 860,
     "public_law_restriction_id": 695
   },
   {
-    "document_id": 2206,
-    "id": 7436,
+    "id": 696,
+    "document_id": 857,
     "public_law_restriction_id": 696
   },
   {
-    "document_id": 2205,
-    "id": 7437,
+    "id": 697,
+    "document_id": 854,
     "public_law_restriction_id": 697
   },
   {
-    "document_id": 2203,
-    "id": 7438,
+    "id": 698,
+    "document_id": 853,
     "public_law_restriction_id": 698
   },
   {
-    "document_id": 2202,
-    "id": 7439,
+    "id": 699,
+    "document_id": 852,
     "public_law_restriction_id": 699
   },
   {
-    "document_id": 2201,
-    "id": 7440,
+    "id": 700,
+    "document_id": 851,
     "public_law_restriction_id": 700
   },
   {
-    "document_id": 2200,
-    "id": 7441,
+    "id": 701,
+    "document_id": 850,
     "public_law_restriction_id": 701
   },
   {
-    "document_id": 2199,
-    "id": 7442,
+    "id": 702,
+    "document_id": 849,
     "public_law_restriction_id": 702
   },
   {
-    "document_id": 2198,
-    "id": 7443,
+    "id": 703,
+    "document_id": 847,
     "public_law_restriction_id": 703
   },
   {
-    "document_id": 2197,
-    "id": 7444,
+    "id": 704,
+    "document_id": 844,
     "public_law_restriction_id": 704
   },
   {
-    "document_id": 2196,
-    "id": 7445,
+    "id": 705,
+    "document_id": 843,
     "public_law_restriction_id": 705
   },
   {
-    "document_id": 2195,
-    "id": 7446,
+    "id": 706,
+    "document_id": 842,
     "public_law_restriction_id": 706
   },
   {
-    "document_id": 2194,
-    "id": 7447,
+    "id": 707,
+    "document_id": 841,
     "public_law_restriction_id": 707
   },
   {
-    "document_id": 2193,
-    "id": 7448,
+    "id": 708,
+    "document_id": 840,
     "public_law_restriction_id": 708
   },
   {
-    "document_id": 2192,
-    "id": 7449,
+    "id": 709,
+    "document_id": 839,
     "public_law_restriction_id": 709
   },
   {
-    "document_id": 2191,
-    "id": 7450,
+    "id": 710,
+    "document_id": 838,
     "public_law_restriction_id": 710
   },
   {
-    "document_id": 2190,
-    "id": 7451,
+    "id": 711,
+    "document_id": 837,
     "public_law_restriction_id": 711
   },
   {
-    "document_id": 2189,
-    "id": 7452,
+    "id": 712,
+    "document_id": 836,
     "public_law_restriction_id": 712
   },
   {
-    "document_id": 2188,
-    "id": 7453,
+    "id": 713,
+    "document_id": 835,
     "public_law_restriction_id": 713
   },
   {
-    "document_id": 2187,
-    "id": 7454,
+    "id": 714,
+    "document_id": 834,
     "public_law_restriction_id": 714
   },
   {
-    "document_id": 2186,
-    "id": 7455,
+    "id": 715,
+    "document_id": 833,
     "public_law_restriction_id": 715
   },
   {
-    "document_id": 2185,
-    "id": 7456,
+    "id": 716,
+    "document_id": 832,
     "public_law_restriction_id": 716
   },
   {
-    "document_id": 2184,
-    "id": 7457,
+    "id": 717,
+    "document_id": 831,
     "public_law_restriction_id": 717
   },
   {
-    "document_id": 2183,
-    "id": 7458,
+    "id": 718,
+    "document_id": 830,
     "public_law_restriction_id": 718
   },
   {
-    "document_id": 2181,
-    "id": 7459,
+    "id": 719,
+    "document_id": 827,
     "public_law_restriction_id": 719
   },
   {
-    "document_id": 2180,
-    "id": 7460,
+    "id": 720,
+    "document_id": 820,
     "public_law_restriction_id": 720
   },
   {
-    "document_id": 2179,
-    "id": 7461,
+    "id": 721,
+    "document_id": 819,
     "public_law_restriction_id": 721
   },
   {
-    "document_id": 2178,
-    "id": 7462,
+    "id": 722,
+    "document_id": 818,
     "public_law_restriction_id": 722
   },
   {
-    "document_id": 2177,
-    "id": 7463,
+    "id": 723,
+    "document_id": 817,
     "public_law_restriction_id": 723
   },
   {
-    "document_id": 2175,
-    "id": 7464,
+    "id": 724,
+    "document_id": 816,
     "public_law_restriction_id": 724
   },
   {
-    "document_id": 2174,
-    "id": 7465,
+    "id": 725,
+    "document_id": 815,
     "public_law_restriction_id": 725
   },
   {
-    "document_id": 2172,
-    "id": 7466,
+    "id": 726,
+    "document_id": 814,
     "public_law_restriction_id": 726
   },
   {
-    "document_id": 2171,
-    "id": 7467,
+    "id": 727,
+    "document_id": 813,
     "public_law_restriction_id": 727
   },
   {
-    "document_id": 2170,
-    "id": 7468,
+    "id": 728,
+    "document_id": 812,
     "public_law_restriction_id": 728
   },
   {
-    "document_id": 2169,
-    "id": 7469,
+    "id": 729,
+    "document_id": 811,
     "public_law_restriction_id": 729
   },
   {
-    "document_id": 2167,
-    "id": 7470,
+    "id": 730,
+    "document_id": 810,
     "public_law_restriction_id": 730
   },
   {
-    "document_id": 2164,
-    "id": 7471,
+    "id": 731,
+    "document_id": 809,
     "public_law_restriction_id": 731
   },
   {
-    "document_id": 2161,
-    "id": 7472,
+    "id": 732,
+    "document_id": 808,
     "public_law_restriction_id": 732
   },
   {
-    "document_id": 2160,
-    "id": 7473,
+    "id": 733,
+    "document_id": 807,
     "public_law_restriction_id": 733
   },
   {
-    "document_id": 2159,
-    "id": 7474,
+    "id": 734,
+    "document_id": 806,
     "public_law_restriction_id": 734
   },
   {
-    "document_id": 2158,
-    "id": 7475,
+    "id": 735,
+    "document_id": 805,
     "public_law_restriction_id": 735
   },
   {
-    "document_id": 2157,
-    "id": 7476,
+    "id": 736,
+    "document_id": 804,
     "public_law_restriction_id": 736
   },
   {
-    "document_id": 2156,
-    "id": 7477,
+    "id": 737,
+    "document_id": 803,
     "public_law_restriction_id": 737
   },
   {
-    "document_id": 2154,
-    "id": 7478,
+    "id": 738,
+    "document_id": 802,
     "public_law_restriction_id": 738
   },
   {
-    "document_id": 2151,
-    "id": 7479,
+    "id": 739,
+    "document_id": 801,
     "public_law_restriction_id": 739
   },
   {
-    "document_id": 2150,
-    "id": 7480,
+    "id": 740,
+    "document_id": 800,
     "public_law_restriction_id": 740
   },
   {
-    "document_id": 2149,
-    "id": 7481,
+    "id": 741,
+    "document_id": 799,
     "public_law_restriction_id": 741
   },
   {
-    "document_id": 2148,
-    "id": 7482,
+    "id": 742,
+    "document_id": 797,
     "public_law_restriction_id": 742
   },
   {
-    "document_id": 2147,
-    "id": 7483,
+    "id": 743,
+    "document_id": 796,
     "public_law_restriction_id": 743
   },
   {
-    "document_id": 2146,
-    "id": 7484,
+    "id": 744,
+    "document_id": 795,
     "public_law_restriction_id": 744
   },
   {
-    "document_id": 2145,
-    "id": 7485,
+    "id": 745,
+    "document_id": 794,
     "public_law_restriction_id": 745
   },
   {
-    "document_id": 2144,
-    "id": 7486,
+    "id": 746,
+    "document_id": 793,
     "public_law_restriction_id": 746
   },
   {
-    "document_id": 2143,
-    "id": 7487,
+    "id": 747,
+    "document_id": 791,
     "public_law_restriction_id": 747
   },
   {
-    "document_id": 2142,
-    "id": 7488,
+    "id": 748,
+    "document_id": 789,
     "public_law_restriction_id": 748
   },
   {
-    "document_id": 2141,
-    "id": 7489,
+    "id": 749,
+    "document_id": 788,
     "public_law_restriction_id": 749
   },
   {
-    "document_id": 2140,
-    "id": 7490,
+    "id": 750,
+    "document_id": 787,
     "public_law_restriction_id": 750
   },
   {
-    "document_id": 2139,
-    "id": 7491,
+    "id": 751,
+    "document_id": 786,
     "public_law_restriction_id": 751
   },
   {
-    "document_id": 2138,
-    "id": 7492,
+    "id": 752,
+    "document_id": 785,
     "public_law_restriction_id": 752
   },
   {
-    "document_id": 2137,
-    "id": 7493,
+    "id": 753,
+    "document_id": 784,
     "public_law_restriction_id": 753
   },
   {
-    "document_id": 2134,
-    "id": 7494,
+    "id": 754,
+    "document_id": 783,
     "public_law_restriction_id": 754
   },
   {
-    "document_id": 2127,
-    "id": 7495,
+    "id": 755,
+    "document_id": 782,
     "public_law_restriction_id": 755
   },
   {
-    "document_id": 2126,
-    "id": 7496,
+    "id": 756,
+    "document_id": 781,
     "public_law_restriction_id": 756
   },
   {
-    "document_id": 2125,
-    "id": 7497,
+    "id": 757,
+    "document_id": 780,
     "public_law_restriction_id": 757
   },
   {
-    "document_id": 2124,
-    "id": 7498,
+    "id": 758,
+    "document_id": 779,
     "public_law_restriction_id": 758
   },
   {
-    "document_id": 2123,
-    "id": 7499,
+    "id": 759,
+    "document_id": 778,
     "public_law_restriction_id": 759
   },
   {
-    "document_id": 2122,
-    "id": 7500,
+    "id": 760,
+    "document_id": 777,
     "public_law_restriction_id": 760
   },
   {
-    "document_id": 2121,
-    "id": 7501,
+    "id": 761,
+    "document_id": 776,
     "public_law_restriction_id": 761
   },
   {
-    "document_id": 2120,
-    "id": 7502,
+    "id": 762,
+    "document_id": 775,
     "public_law_restriction_id": 762
   },
   {
-    "document_id": 2119,
-    "id": 7503,
+    "id": 763,
+    "document_id": 774,
     "public_law_restriction_id": 763
   },
   {
-    "document_id": 2118,
-    "id": 7504,
+    "id": 764,
+    "document_id": 773,
     "public_law_restriction_id": 764
   },
   {
-    "document_id": 2117,
-    "id": 7505,
+    "id": 765,
+    "document_id": 772,
     "public_law_restriction_id": 765
   },
   {
-    "document_id": 2116,
-    "id": 7506,
+    "id": 766,
+    "document_id": 771,
     "public_law_restriction_id": 766
   },
   {
-    "document_id": 2115,
-    "id": 7507,
+    "id": 767,
+    "document_id": 770,
     "public_law_restriction_id": 767
   },
   {
-    "document_id": 2114,
-    "id": 7508,
+    "id": 768,
+    "document_id": 769,
     "public_law_restriction_id": 768
   },
   {
-    "document_id": 2113,
-    "id": 7509,
+    "id": 769,
+    "document_id": 768,
     "public_law_restriction_id": 769
   },
   {
-    "document_id": 2112,
-    "id": 7510,
+    "id": 770,
+    "document_id": 767,
     "public_law_restriction_id": 770
   },
   {
-    "document_id": 2111,
-    "id": 7511,
+    "id": 771,
+    "document_id": 766,
     "public_law_restriction_id": 771
   },
   {
-    "document_id": 2110,
-    "id": 7512,
+    "id": 772,
+    "document_id": 765,
     "public_law_restriction_id": 772
   },
   {
-    "document_id": 2109,
-    "id": 7513,
+    "id": 773,
+    "document_id": 764,
     "public_law_restriction_id": 773
   },
   {
-    "document_id": 2108,
-    "id": 7514,
+    "id": 774,
+    "document_id": 763,
     "public_law_restriction_id": 774
   },
   {
-    "document_id": 2107,
-    "id": 7515,
+    "id": 775,
+    "document_id": 762,
     "public_law_restriction_id": 775
   },
   {
-    "document_id": 2106,
-    "id": 7516,
+    "id": 776,
+    "document_id": 761,
     "public_law_restriction_id": 776
   },
   {
-    "document_id": 2104,
-    "id": 7517,
+    "id": 777,
+    "document_id": 760,
     "public_law_restriction_id": 777
   },
   {
-    "document_id": 2103,
-    "id": 7518,
+    "id": 778,
+    "document_id": 759,
     "public_law_restriction_id": 778
   },
   {
-    "document_id": 2102,
-    "id": 7519,
+    "id": 779,
+    "document_id": 758,
     "public_law_restriction_id": 779
   },
   {
-    "document_id": 2101,
-    "id": 7520,
+    "id": 780,
+    "document_id": 757,
     "public_law_restriction_id": 780
   },
   {
-    "document_id": 2100,
-    "id": 7521,
+    "id": 781,
+    "document_id": 756,
     "public_law_restriction_id": 781
   },
   {
-    "document_id": 2098,
-    "id": 7522,
+    "id": 782,
+    "document_id": 753,
     "public_law_restriction_id": 782
   },
   {
-    "document_id": 2096,
-    "id": 7523,
+    "id": 783,
+    "document_id": 752,
     "public_law_restriction_id": 783
   },
   {
-    "document_id": 2095,
-    "id": 7524,
+    "id": 784,
+    "document_id": 751,
     "public_law_restriction_id": 784
   },
   {
-    "document_id": 2094,
-    "id": 7525,
+    "id": 785,
+    "document_id": 749,
     "public_law_restriction_id": 785
   },
   {
-    "document_id": 2093,
-    "id": 7526,
+    "id": 786,
+    "document_id": 748,
     "public_law_restriction_id": 786
   },
   {
-    "document_id": 2092,
-    "id": 7527,
+    "id": 787,
+    "document_id": 747,
     "public_law_restriction_id": 787
   },
   {
-    "document_id": 2091,
-    "id": 7528,
+    "id": 788,
+    "document_id": 746,
     "public_law_restriction_id": 788
   },
   {
-    "document_id": 2090,
-    "id": 7529,
+    "id": 789,
+    "document_id": 745,
     "public_law_restriction_id": 789
   },
   {
-    "document_id": 2089,
-    "id": 7530,
+    "id": 790,
+    "document_id": 744,
     "public_law_restriction_id": 790
   },
   {
-    "document_id": 2088,
-    "id": 7531,
+    "id": 791,
+    "document_id": 743,
     "public_law_restriction_id": 791
   },
   {
-    "document_id": 2087,
-    "id": 7532,
+    "id": 792,
+    "document_id": 742,
     "public_law_restriction_id": 792
   },
   {
-    "document_id": 2086,
-    "id": 7533,
+    "id": 793,
+    "document_id": 741,
     "public_law_restriction_id": 793
   },
   {
-    "document_id": 2085,
-    "id": 7534,
+    "id": 794,
+    "document_id": 740,
     "public_law_restriction_id": 794
   },
   {
-    "document_id": 2084,
-    "id": 7535,
+    "id": 795,
+    "document_id": 739,
     "public_law_restriction_id": 795
   },
   {
-    "document_id": 2083,
-    "id": 7536,
+    "id": 796,
+    "document_id": 737,
     "public_law_restriction_id": 796
   },
   {
-    "document_id": 2082,
-    "id": 7537,
+    "id": 797,
+    "document_id": 736,
     "public_law_restriction_id": 797
   },
   {
-    "document_id": 2081,
-    "id": 7538,
+    "id": 798,
+    "document_id": 735,
     "public_law_restriction_id": 798
   },
   {
-    "document_id": 2080,
-    "id": 7539,
+    "id": 799,
+    "document_id": 734,
     "public_law_restriction_id": 799
   },
   {
-    "document_id": 2079,
-    "id": 7540,
+    "id": 800,
+    "document_id": 733,
     "public_law_restriction_id": 800
   },
   {
-    "document_id": 2078,
-    "id": 7541,
+    "id": 801,
+    "document_id": 732,
     "public_law_restriction_id": 801
   },
   {
-    "document_id": 2077,
-    "id": 7542,
+    "id": 802,
+    "document_id": 731,
     "public_law_restriction_id": 802
   },
   {
-    "document_id": 2076,
-    "id": 7543,
+    "id": 803,
+    "document_id": 730,
     "public_law_restriction_id": 803
   },
   {
-    "document_id": 2075,
-    "id": 7544,
+    "id": 804,
+    "document_id": 729,
     "public_law_restriction_id": 804
   },
   {
-    "document_id": 2074,
-    "id": 7545,
+    "id": 805,
+    "document_id": 728,
     "public_law_restriction_id": 805
   },
   {
-    "document_id": 2073,
-    "id": 7546,
+    "id": 806,
+    "document_id": 727,
     "public_law_restriction_id": 806
   },
   {
-    "document_id": 2072,
-    "id": 7547,
+    "id": 807,
+    "document_id": 726,
     "public_law_restriction_id": 807
   },
   {
-    "document_id": 2071,
-    "id": 7548,
+    "id": 808,
+    "document_id": 725,
     "public_law_restriction_id": 808
   },
   {
-    "document_id": 2070,
-    "id": 7549,
+    "id": 809,
+    "document_id": 724,
     "public_law_restriction_id": 809
   },
   {
-    "document_id": 2069,
-    "id": 7550,
+    "id": 810,
+    "document_id": 723,
     "public_law_restriction_id": 810
   },
   {
-    "document_id": 2068,
-    "id": 7551,
+    "id": 811,
+    "document_id": 722,
     "public_law_restriction_id": 811
   },
   {
-    "document_id": 2067,
-    "id": 7552,
+    "id": 812,
+    "document_id": 721,
     "public_law_restriction_id": 812
   },
   {
-    "document_id": 2066,
-    "id": 7553,
+    "id": 813,
+    "document_id": 720,
     "public_law_restriction_id": 813
   },
   {
-    "document_id": 2065,
-    "id": 7554,
+    "id": 814,
+    "document_id": 719,
     "public_law_restriction_id": 814
   },
   {
-    "document_id": 2064,
-    "id": 7555,
+    "id": 815,
+    "document_id": 716,
     "public_law_restriction_id": 815
   },
   {
-    "document_id": 2063,
-    "id": 7556,
+    "id": 816,
+    "document_id": 715,
     "public_law_restriction_id": 816
   },
   {
-    "document_id": 2060,
-    "id": 7557,
+    "id": 817,
+    "document_id": 714,
     "public_law_restriction_id": 817
   },
   {
-    "document_id": 2059,
-    "id": 7558,
+    "id": 818,
+    "document_id": 713,
     "public_law_restriction_id": 818
   },
   {
-    "document_id": 2058,
-    "id": 7559,
+    "id": 819,
+    "document_id": 712,
     "public_law_restriction_id": 819
   },
   {
-    "document_id": 2056,
-    "id": 7560,
+    "id": 820,
+    "document_id": 711,
     "public_law_restriction_id": 820
   },
   {
-    "document_id": 2055,
-    "id": 7561,
+    "id": 821,
+    "document_id": 710,
     "public_law_restriction_id": 821
   },
   {
-    "document_id": 2054,
-    "id": 7562,
+    "id": 822,
+    "document_id": 709,
     "public_law_restriction_id": 822
   },
   {
-    "document_id": 2053,
-    "id": 7563,
+    "id": 823,
+    "document_id": 707,
     "public_law_restriction_id": 823
   },
   {
-    "document_id": 2052,
-    "id": 7564,
+    "id": 824,
+    "document_id": 706,
     "public_law_restriction_id": 824
   },
   {
-    "document_id": 2051,
-    "id": 7565,
+    "id": 825,
+    "document_id": 702,
     "public_law_restriction_id": 825
   },
   {
-    "document_id": 2050,
-    "id": 7566,
+    "id": 826,
+    "document_id": 701,
     "public_law_restriction_id": 826
   },
   {
-    "document_id": 2049,
-    "id": 7567,
+    "id": 827,
+    "document_id": 700,
     "public_law_restriction_id": 827
   },
   {
-    "document_id": 2048,
-    "id": 7568,
+    "id": 828,
+    "document_id": 699,
     "public_law_restriction_id": 828
   },
   {
-    "document_id": 2047,
-    "id": 7569,
+    "id": 829,
+    "document_id": 698,
     "public_law_restriction_id": 829
   },
   {
-    "document_id": 2046,
-    "id": 7570,
+    "id": 830,
+    "document_id": 697,
     "public_law_restriction_id": 830
   },
   {
-    "document_id": 2044,
-    "id": 7571,
+    "id": 831,
+    "document_id": 696,
     "public_law_restriction_id": 831
   },
   {
-    "document_id": 2043,
-    "id": 7572,
+    "id": 832,
+    "document_id": 695,
     "public_law_restriction_id": 832
   },
   {
-    "document_id": 2042,
-    "id": 7573,
+    "id": 833,
+    "document_id": 694,
     "public_law_restriction_id": 833
   },
   {
-    "document_id": 2041,
-    "id": 7574,
+    "id": 834,
+    "document_id": 693,
     "public_law_restriction_id": 834
   },
   {
-    "document_id": 2040,
-    "id": 7575,
+    "id": 835,
+    "document_id": 692,
     "public_law_restriction_id": 835
   },
   {
-    "document_id": 2039,
-    "id": 7576,
+    "id": 836,
+    "document_id": 691,
     "public_law_restriction_id": 836
   },
   {
-    "document_id": 2038,
-    "id": 7577,
+    "id": 837,
+    "document_id": 690,
     "public_law_restriction_id": 837
   },
   {
-    "document_id": 2037,
-    "id": 7578,
+    "id": 838,
+    "document_id": 689,
     "public_law_restriction_id": 838
   },
   {
-    "document_id": 2036,
-    "id": 7579,
+    "id": 839,
+    "document_id": 688,
     "public_law_restriction_id": 839
   },
   {
-    "document_id": 2035,
-    "id": 7580,
+    "id": 840,
+    "document_id": 687,
     "public_law_restriction_id": 840
   },
   {
-    "document_id": 2034,
-    "id": 7581,
+    "id": 841,
+    "document_id": 686,
     "public_law_restriction_id": 841
   },
   {
-    "document_id": 2033,
-    "id": 7582,
+    "id": 842,
+    "document_id": 685,
     "public_law_restriction_id": 842
   },
   {
-    "document_id": 2032,
-    "id": 7583,
+    "id": 843,
+    "document_id": 684,
     "public_law_restriction_id": 843
   },
   {
-    "document_id": 2031,
-    "id": 7584,
+    "id": 844,
+    "document_id": 683,
     "public_law_restriction_id": 844
   },
   {
-    "document_id": 2030,
-    "id": 7585,
+    "id": 845,
+    "document_id": 682,
     "public_law_restriction_id": 845
   },
   {
-    "document_id": 2029,
-    "id": 7586,
+    "id": 846,
+    "document_id": 681,
     "public_law_restriction_id": 846
   },
   {
-    "document_id": 2028,
-    "id": 7587,
+    "id": 847,
+    "document_id": 680,
     "public_law_restriction_id": 847
   },
   {
-    "document_id": 2027,
-    "id": 7588,
+    "id": 848,
+    "document_id": 679,
     "public_law_restriction_id": 848
   },
   {
-    "document_id": 2026,
-    "id": 7589,
+    "id": 849,
+    "document_id": 678,
     "public_law_restriction_id": 849
   },
   {
-    "document_id": 2023,
-    "id": 7590,
+    "id": 850,
+    "document_id": 677,
     "public_law_restriction_id": 850
   },
   {
-    "document_id": 2022,
-    "id": 7591,
+    "id": 851,
+    "document_id": 676,
     "public_law_restriction_id": 851
   },
   {
-    "document_id": 2021,
-    "id": 7592,
+    "id": 852,
+    "document_id": 675,
     "public_law_restriction_id": 852
   },
   {
-    "document_id": 2020,
-    "id": 7593,
+    "id": 853,
+    "document_id": 674,
     "public_law_restriction_id": 853
   },
   {
-    "document_id": 2019,
-    "id": 7594,
+    "id": 854,
+    "document_id": 673,
     "public_law_restriction_id": 854
   },
   {
-    "document_id": 2018,
-    "id": 7595,
+    "id": 855,
+    "document_id": 672,
     "public_law_restriction_id": 855
   },
   {
-    "document_id": 2017,
-    "id": 7596,
+    "id": 856,
+    "document_id": 671,
     "public_law_restriction_id": 856
   },
   {
-    "document_id": 2016,
-    "id": 7597,
+    "id": 857,
+    "document_id": 670,
     "public_law_restriction_id": 857
   },
   {
-    "document_id": 2014,
-    "id": 7598,
+    "id": 858,
+    "document_id": 669,
     "public_law_restriction_id": 858
   },
   {
-    "document_id": 2013,
-    "id": 7599,
+    "id": 859,
+    "document_id": 668,
     "public_law_restriction_id": 859
   },
   {
-    "document_id": 2012,
-    "id": 7600,
+    "id": 860,
+    "document_id": 667,
     "public_law_restriction_id": 860
   },
   {
-    "document_id": 2011,
-    "id": 7601,
+    "id": 861,
+    "document_id": 666,
     "public_law_restriction_id": 861
   },
   {
-    "document_id": 2010,
-    "id": 7602,
+    "id": 862,
+    "document_id": 665,
     "public_law_restriction_id": 862
   },
   {
-    "document_id": 2009,
-    "id": 7603,
+    "id": 863,
+    "document_id": 664,
     "public_law_restriction_id": 863
   },
   {
-    "document_id": 2008,
-    "id": 7604,
+    "id": 864,
+    "document_id": 663,
     "public_law_restriction_id": 864
   },
   {
-    "document_id": 2007,
-    "id": 7605,
+    "id": 865,
+    "document_id": 662,
     "public_law_restriction_id": 865
   },
   {
-    "document_id": 2006,
-    "id": 7606,
+    "id": 866,
+    "document_id": 661,
     "public_law_restriction_id": 866
   },
   {
-    "document_id": 2005,
-    "id": 7607,
+    "id": 867,
+    "document_id": 660,
     "public_law_restriction_id": 867
   },
   {
-    "document_id": 2004,
-    "id": 7608,
+    "id": 868,
+    "document_id": 659,
     "public_law_restriction_id": 868
   },
   {
-    "document_id": 2003,
-    "id": 7609,
+    "id": 869,
+    "document_id": 657,
     "public_law_restriction_id": 869
   },
   {
-    "document_id": 2002,
-    "id": 7610,
+    "id": 870,
+    "document_id": 656,
     "public_law_restriction_id": 870
   },
   {
-    "document_id": 2001,
-    "id": 7611,
+    "id": 871,
+    "document_id": 655,
     "public_law_restriction_id": 871
   },
   {
-    "document_id": 2000,
-    "id": 7612,
+    "id": 872,
+    "document_id": 654,
     "public_law_restriction_id": 872
   },
   {
-    "document_id": 1999,
-    "id": 7613,
+    "id": 873,
+    "document_id": 653,
     "public_law_restriction_id": 873
   },
   {
-    "document_id": 1998,
-    "id": 7614,
+    "id": 874,
+    "document_id": 652,
     "public_law_restriction_id": 874
   },
   {
-    "document_id": 1997,
-    "id": 7615,
+    "id": 875,
+    "document_id": 650,
     "public_law_restriction_id": 875
   },
   {
-    "document_id": 1996,
-    "id": 7616,
+    "id": 876,
+    "document_id": 648,
     "public_law_restriction_id": 876
   },
   {
-    "document_id": 1995,
-    "id": 7617,
+    "id": 877,
+    "document_id": 647,
     "public_law_restriction_id": 877
   },
   {
-    "document_id": 1994,
-    "id": 7618,
+    "id": 878,
+    "document_id": 646,
     "public_law_restriction_id": 878
   },
   {
-    "document_id": 1993,
-    "id": 7619,
+    "id": 879,
+    "document_id": 645,
     "public_law_restriction_id": 879
   },
   {
-    "document_id": 1992,
-    "id": 7620,
+    "id": 880,
+    "document_id": 644,
     "public_law_restriction_id": 880
   },
   {
-    "document_id": 1991,
-    "id": 7621,
+    "id": 881,
+    "document_id": 642,
     "public_law_restriction_id": 881
   },
   {
-    "document_id": 1990,
-    "id": 7622,
+    "id": 882,
+    "document_id": 641,
     "public_law_restriction_id": 882
   },
   {
-    "document_id": 1989,
-    "id": 7623,
+    "id": 883,
+    "document_id": 639,
     "public_law_restriction_id": 883
   },
   {
-    "document_id": 1987,
-    "id": 7624,
+    "id": 884,
+    "document_id": 634,
     "public_law_restriction_id": 884
   },
   {
-    "document_id": 1986,
-    "id": 7625,
+    "id": 885,
+    "document_id": 633,
     "public_law_restriction_id": 885
   },
   {
-    "document_id": 1985,
-    "id": 7626,
+    "id": 886,
+    "document_id": 632,
     "public_law_restriction_id": 886
   },
   {
-    "document_id": 1984,
-    "id": 7627,
+    "id": 887,
+    "document_id": 631,
     "public_law_restriction_id": 887
   },
   {
-    "document_id": 1983,
-    "id": 7628,
+    "id": 888,
+    "document_id": 630,
     "public_law_restriction_id": 888
   },
   {
-    "document_id": 1982,
-    "id": 7629,
+    "id": 889,
+    "document_id": 628,
     "public_law_restriction_id": 889
   },
   {
-    "document_id": 1981,
-    "id": 7630,
+    "id": 890,
+    "document_id": 627,
     "public_law_restriction_id": 890
   },
   {
-    "document_id": 1980,
-    "id": 7631,
+    "id": 891,
+    "document_id": 623,
     "public_law_restriction_id": 891
   },
   {
-    "document_id": 1979,
-    "id": 7632,
+    "id": 892,
+    "document_id": 622,
     "public_law_restriction_id": 892
   },
   {
-    "document_id": 1978,
-    "id": 7633,
+    "id": 893,
+    "document_id": 621,
     "public_law_restriction_id": 893
   },
   {
-    "document_id": 1977,
-    "id": 7634,
+    "id": 894,
+    "document_id": 620,
     "public_law_restriction_id": 894
   },
   {
-    "document_id": 1976,
-    "id": 7635,
+    "id": 895,
+    "document_id": 615,
     "public_law_restriction_id": 895
   },
   {
-    "document_id": 1975,
-    "id": 7636,
+    "id": 896,
+    "document_id": 614,
     "public_law_restriction_id": 896
   },
   {
-    "document_id": 1974,
-    "id": 7637,
+    "id": 897,
+    "document_id": 613,
     "public_law_restriction_id": 897
   },
   {
-    "document_id": 1973,
-    "id": 7638,
+    "id": 898,
+    "document_id": 612,
     "public_law_restriction_id": 898
   },
   {
-    "document_id": 1972,
-    "id": 7639,
+    "id": 899,
+    "document_id": 611,
     "public_law_restriction_id": 899
   },
   {
-    "document_id": 1971,
-    "id": 7640,
+    "id": 900,
+    "document_id": 608,
     "public_law_restriction_id": 900
   },
   {
-    "document_id": 1970,
-    "id": 7641,
+    "id": 901,
+    "document_id": 605,
     "public_law_restriction_id": 901
   },
   {
-    "document_id": 1969,
-    "id": 7642,
+    "id": 902,
+    "document_id": 604,
     "public_law_restriction_id": 902
   },
   {
-    "document_id": 1968,
-    "id": 7643,
+    "id": 903,
+    "document_id": 603,
     "public_law_restriction_id": 903
   },
   {
-    "document_id": 1967,
-    "id": 7644,
+    "id": 904,
+    "document_id": 602,
     "public_law_restriction_id": 904
   },
   {
-    "document_id": 1966,
-    "id": 7645,
+    "id": 905,
+    "document_id": 601,
     "public_law_restriction_id": 905
   },
   {
-    "document_id": 1965,
-    "id": 7646,
+    "id": 906,
+    "document_id": 600,
     "public_law_restriction_id": 906
   },
   {
-    "document_id": 1964,
-    "id": 7647,
+    "id": 907,
+    "document_id": 599,
     "public_law_restriction_id": 907
   },
   {
-    "document_id": 1963,
-    "id": 7648,
+    "id": 908,
+    "document_id": 598,
     "public_law_restriction_id": 908
   },
   {
-    "document_id": 1962,
-    "id": 7649,
+    "id": 909,
+    "document_id": 597,
     "public_law_restriction_id": 909
   },
   {
-    "document_id": 1961,
-    "id": 7650,
+    "id": 910,
+    "document_id": 596,
     "public_law_restriction_id": 910
   },
   {
-    "document_id": 1959,
-    "id": 7651,
+    "id": 911,
+    "document_id": 594,
     "public_law_restriction_id": 911
   },
   {
-    "document_id": 1958,
-    "id": 7652,
+    "id": 912,
+    "document_id": 593,
     "public_law_restriction_id": 912
   },
   {
-    "document_id": 1957,
-    "id": 7653,
+    "id": 913,
+    "document_id": 592,
     "public_law_restriction_id": 913
   },
   {
-    "document_id": 1956,
-    "id": 7654,
+    "id": 914,
+    "document_id": 590,
     "public_law_restriction_id": 914
   },
   {
-    "document_id": 1955,
-    "id": 7655,
+    "id": 915,
+    "document_id": 589,
     "public_law_restriction_id": 915
   },
   {
-    "document_id": 1954,
-    "id": 7656,
+    "id": 916,
+    "document_id": 588,
     "public_law_restriction_id": 916
   },
   {
-    "document_id": 1952,
-    "id": 7657,
+    "id": 917,
+    "document_id": 587,
     "public_law_restriction_id": 917
   },
   {
-    "document_id": 1949,
-    "id": 7658,
+    "id": 918,
+    "document_id": 586,
     "public_law_restriction_id": 918
   },
   {
-    "document_id": 1944,
-    "id": 7659,
+    "id": 919,
+    "document_id": 581,
     "public_law_restriction_id": 919
   },
   {
-    "document_id": 1943,
-    "id": 7660,
+    "id": 920,
+    "document_id": 580,
     "public_law_restriction_id": 920
   },
   {
-    "document_id": 1942,
-    "id": 7661,
+    "id": 921,
+    "document_id": 578,
     "public_law_restriction_id": 921
   },
   {
-    "document_id": 1941,
-    "id": 7662,
+    "id": 922,
+    "document_id": 575,
     "public_law_restriction_id": 922
   },
   {
-    "document_id": 1940,
-    "id": 7663,
+    "id": 923,
+    "document_id": 574,
     "public_law_restriction_id": 923
   },
   {
-    "document_id": 1938,
-    "id": 7664,
+    "id": 924,
+    "document_id": 573,
     "public_law_restriction_id": 924
   },
   {
-    "document_id": 1937,
-    "id": 7665,
+    "id": 925,
+    "document_id": 572,
     "public_law_restriction_id": 925
   },
   {
-    "document_id": 1934,
-    "id": 7666,
+    "id": 926,
+    "document_id": 569,
     "public_law_restriction_id": 926
   },
   {
-    "document_id": 1933,
-    "id": 7667,
+    "id": 927,
+    "document_id": 568,
     "public_law_restriction_id": 927
   },
   {
-    "document_id": 1932,
-    "id": 7668,
+    "id": 928,
+    "document_id": 567,
     "public_law_restriction_id": 928
   },
   {
-    "document_id": 1931,
-    "id": 7669,
+    "id": 929,
+    "document_id": 566,
     "public_law_restriction_id": 929
   },
   {
-    "document_id": 1928,
-    "id": 7670,
+    "id": 930,
+    "document_id": 563,
     "public_law_restriction_id": 930
   },
   {
-    "document_id": 1927,
-    "id": 7671,
+    "id": 931,
+    "document_id": 562,
     "public_law_restriction_id": 931
   },
   {
-    "document_id": 1926,
-    "id": 7672,
+    "id": 932,
+    "document_id": 561,
     "public_law_restriction_id": 932
   },
   {
-    "document_id": 1925,
-    "id": 7673,
+    "id": 933,
+    "document_id": 560,
     "public_law_restriction_id": 933
   },
   {
-    "document_id": 1924,
-    "id": 7674,
+    "id": 934,
+    "document_id": 559,
     "public_law_restriction_id": 934
   },
   {
-    "document_id": 1920,
-    "id": 7675,
+    "id": 935,
+    "document_id": 557,
     "public_law_restriction_id": 935
   },
   {
-    "document_id": 1919,
-    "id": 7676,
+    "id": 936,
+    "document_id": 556,
     "public_law_restriction_id": 936
   },
   {
-    "document_id": 1918,
-    "id": 7677,
+    "id": 937,
+    "document_id": 555,
     "public_law_restriction_id": 937
   },
   {
-    "document_id": 1917,
-    "id": 7678,
+    "id": 938,
+    "document_id": 554,
     "public_law_restriction_id": 938
   },
   {
-    "document_id": 1916,
-    "id": 7679,
+    "id": 939,
+    "document_id": 548,
     "public_law_restriction_id": 939
   },
   {
-    "document_id": 1915,
-    "id": 7680,
+    "id": 940,
+    "document_id": 547,
     "public_law_restriction_id": 940
   },
   {
-    "document_id": 1914,
-    "id": 7681,
+    "id": 941,
+    "document_id": 546,
     "public_law_restriction_id": 941
   },
   {
-    "document_id": 1912,
-    "id": 7682,
+    "id": 942,
+    "document_id": 545,
     "public_law_restriction_id": 942
   },
   {
-    "document_id": 1910,
-    "id": 7683,
+    "id": 943,
+    "document_id": 544,
     "public_law_restriction_id": 943
   },
   {
-    "document_id": 1909,
-    "id": 7684,
+    "id": 944,
+    "document_id": 541,
     "public_law_restriction_id": 944
   },
   {
-    "document_id": 1906,
-    "id": 7685,
+    "id": 945,
+    "document_id": 540,
     "public_law_restriction_id": 945
   },
   {
-    "document_id": 1905,
-    "id": 7686,
+    "id": 946,
+    "document_id": 539,
     "public_law_restriction_id": 946
   },
   {
-    "document_id": 1904,
-    "id": 7687,
+    "id": 947,
+    "document_id": 538,
     "public_law_restriction_id": 947
   },
   {
-    "document_id": 1903,
-    "id": 7688,
+    "id": 948,
+    "document_id": 537,
     "public_law_restriction_id": 948
   },
   {
-    "document_id": 1902,
-    "id": 7689,
+    "id": 949,
+    "document_id": 536,
     "public_law_restriction_id": 949
   },
   {
-    "document_id": 1897,
-    "id": 7690,
+    "id": 950,
+    "document_id": 535,
     "public_law_restriction_id": 950
   },
   {
-    "document_id": 1896,
-    "id": 7691,
+    "id": 951,
+    "document_id": 528,
     "public_law_restriction_id": 951
   },
   {
-    "document_id": 1893,
-    "id": 7692,
+    "id": 952,
+    "document_id": 527,
     "public_law_restriction_id": 952
   },
   {
-    "document_id": 1890,
-    "id": 7693,
+    "id": 953,
+    "document_id": 526,
     "public_law_restriction_id": 953
   },
   {
-    "document_id": 1889,
-    "id": 7694,
+    "id": 954,
+    "document_id": 525,
     "public_law_restriction_id": 954
   },
   {
-    "document_id": 1888,
-    "id": 7695,
+    "id": 955,
+    "document_id": 523,
     "public_law_restriction_id": 955
   },
   {
-    "document_id": 1887,
-    "id": 7696,
+    "id": 956,
+    "document_id": 521,
     "public_law_restriction_id": 956
   },
   {
-    "document_id": 1884,
-    "id": 7697,
+    "id": 957,
+    "document_id": 520,
     "public_law_restriction_id": 957
   },
   {
-    "document_id": 1883,
-    "id": 7698,
+    "id": 958,
+    "document_id": 519,
     "public_law_restriction_id": 958
   },
   {
-    "document_id": 1881,
-    "id": 7699,
+    "id": 959,
+    "document_id": 518,
     "public_law_restriction_id": 959
   },
   {
-    "document_id": 1880,
-    "id": 7700,
+    "id": 960,
+    "document_id": 517,
     "public_law_restriction_id": 960
   },
   {
-    "document_id": 1877,
-    "id": 7701,
+    "id": 961,
+    "document_id": 516,
     "public_law_restriction_id": 961
   },
   {
-    "document_id": 1876,
-    "id": 7702,
+    "id": 962,
+    "document_id": 513,
     "public_law_restriction_id": 962
   },
   {
-    "document_id": 1875,
-    "id": 7703,
+    "id": 963,
+    "document_id": 512,
     "public_law_restriction_id": 963
   },
   {
-    "document_id": 1874,
-    "id": 7704,
+    "id": 964,
+    "document_id": 511,
     "public_law_restriction_id": 964
   },
   {
-    "document_id": 1873,
-    "id": 7705,
+    "id": 965,
+    "document_id": 510,
     "public_law_restriction_id": 965
   },
   {
-    "document_id": 1871,
-    "id": 7706,
+    "id": 966,
+    "document_id": 509,
     "public_law_restriction_id": 966
   },
   {
-    "document_id": 1870,
-    "id": 7707,
+    "id": 967,
+    "document_id": 505,
     "public_law_restriction_id": 967
   },
   {
-    "document_id": 1869,
-    "id": 7708,
+    "id": 968,
+    "document_id": 504,
     "public_law_restriction_id": 968
   },
   {
-    "document_id": 1868,
-    "id": 7709,
+    "id": 969,
+    "document_id": 502,
     "public_law_restriction_id": 969
   },
   {
-    "document_id": 1862,
-    "id": 7710,
+    "id": 970,
+    "document_id": 501,
     "public_law_restriction_id": 970
   },
   {
-    "document_id": 1861,
-    "id": 7711,
+    "id": 971,
+    "document_id": 500,
     "public_law_restriction_id": 971
   },
   {
-    "document_id": 1860,
-    "id": 7712,
+    "id": 972,
+    "document_id": 499,
     "public_law_restriction_id": 972
   },
   {
-    "document_id": 1859,
-    "id": 7713,
+    "id": 973,
+    "document_id": 498,
     "public_law_restriction_id": 973
   },
   {
-    "document_id": 1858,
-    "id": 7714,
+    "id": 974,
+    "document_id": 497,
     "public_law_restriction_id": 974
   },
   {
-    "document_id": 1857,
-    "id": 7715,
+    "id": 975,
+    "document_id": 496,
     "public_law_restriction_id": 975
   },
   {
-    "document_id": 1854,
-    "id": 7716,
+    "id": 976,
+    "document_id": 494,
     "public_law_restriction_id": 976
   },
   {
-    "document_id": 1853,
-    "id": 7717,
+    "id": 977,
+    "document_id": 492,
     "public_law_restriction_id": 977
   },
   {
-    "document_id": 1852,
-    "id": 7718,
+    "id": 978,
+    "document_id": 490,
     "public_law_restriction_id": 978
   },
   {
-    "document_id": 1851,
-    "id": 7719,
+    "id": 979,
+    "document_id": 478,
     "public_law_restriction_id": 979
   },
   {
-    "document_id": 1850,
-    "id": 7720,
+    "id": 980,
+    "document_id": 477,
     "public_law_restriction_id": 980
   },
   {
-    "document_id": 1849,
-    "id": 7721,
+    "id": 981,
+    "document_id": 476,
     "public_law_restriction_id": 981
   },
   {
-    "document_id": 1848,
-    "id": 7722,
+    "id": 982,
+    "document_id": 475,
     "public_law_restriction_id": 982
   },
   {
-    "document_id": 1841,
-    "id": 7723,
+    "id": 983,
+    "document_id": 474,
     "public_law_restriction_id": 983
   },
   {
-    "document_id": 1840,
-    "id": 7724,
+    "id": 984,
+    "document_id": 473,
     "public_law_restriction_id": 984
   },
   {
-    "document_id": 1839,
-    "id": 7725,
+    "id": 985,
+    "document_id": 472,
     "public_law_restriction_id": 985
   },
   {
-    "document_id": 1838,
-    "id": 7726,
+    "id": 986,
+    "document_id": 471,
     "public_law_restriction_id": 986
   },
   {
-    "document_id": 1836,
-    "id": 7727,
+    "id": 987,
+    "document_id": 469,
     "public_law_restriction_id": 987
   },
   {
-    "document_id": 1834,
-    "id": 7728,
+    "id": 988,
+    "document_id": 468,
     "public_law_restriction_id": 988
   },
   {
-    "document_id": 1833,
-    "id": 7729,
+    "id": 989,
+    "document_id": 467,
     "public_law_restriction_id": 989
   },
   {
-    "document_id": 1832,
-    "id": 7730,
+    "id": 990,
+    "document_id": 466,
     "public_law_restriction_id": 990
   },
   {
-    "document_id": 1831,
-    "id": 7731,
+    "id": 991,
+    "document_id": 465,
     "public_law_restriction_id": 991
   },
   {
-    "document_id": 1830,
-    "id": 7732,
+    "id": 992,
+    "document_id": 464,
     "public_law_restriction_id": 992
   },
   {
-    "document_id": 1829,
-    "id": 7733,
+    "id": 993,
+    "document_id": 463,
     "public_law_restriction_id": 993
   },
   {
-    "document_id": 1826,
-    "id": 7734,
+    "id": 994,
+    "document_id": 462,
     "public_law_restriction_id": 994
   },
   {
-    "document_id": 1825,
-    "id": 7735,
+    "id": 995,
+    "document_id": 461,
     "public_law_restriction_id": 995
   },
   {
-    "document_id": 1824,
-    "id": 7736,
+    "id": 996,
+    "document_id": 460,
     "public_law_restriction_id": 996
   },
   {
-    "document_id": 1823,
-    "id": 7737,
+    "id": 997,
+    "document_id": 458,
     "public_law_restriction_id": 997
   },
   {
-    "document_id": 1822,
-    "id": 7738,
+    "id": 998,
+    "document_id": 456,
     "public_law_restriction_id": 998
   },
   {
-    "document_id": 1821,
-    "id": 7739,
+    "id": 999,
+    "document_id": 454,
     "public_law_restriction_id": 999
   },
   {
-    "document_id": 1819,
-    "id": 7740,
+    "id": 1000,
+    "document_id": 453,
     "public_law_restriction_id": 1000
   },
   {
-    "document_id": 1816,
-    "id": 7741,
+    "id": 1001,
+    "document_id": 452,
     "public_law_restriction_id": 1001
   },
   {
-    "document_id": 1815,
-    "id": 7742,
+    "id": 1002,
+    "document_id": 451,
     "public_law_restriction_id": 1002
   },
   {
-    "document_id": 1813,
-    "id": 7743,
+    "id": 1003,
+    "document_id": 450,
     "public_law_restriction_id": 1003
   },
   {
-    "document_id": 1812,
-    "id": 7744,
+    "id": 1004,
+    "document_id": 449,
     "public_law_restriction_id": 1004
   },
   {
-    "document_id": 1811,
-    "id": 7745,
+    "id": 1005,
+    "document_id": 448,
     "public_law_restriction_id": 1005
   },
   {
-    "document_id": 1810,
-    "id": 7746,
+    "id": 1006,
+    "document_id": 447,
     "public_law_restriction_id": 1006
   },
   {
-    "document_id": 1809,
-    "id": 7747,
+    "id": 1007,
+    "document_id": 444,
     "public_law_restriction_id": 1007
   },
   {
-    "document_id": 1808,
-    "id": 7748,
+    "id": 1008,
+    "document_id": 443,
     "public_law_restriction_id": 1008
   },
   {
-    "document_id": 1807,
-    "id": 7749,
+    "id": 1009,
+    "document_id": 440,
     "public_law_restriction_id": 1009
   },
   {
-    "document_id": 1805,
-    "id": 7750,
+    "id": 1010,
+    "document_id": 439,
     "public_law_restriction_id": 1010
   },
   {
-    "document_id": 1803,
-    "id": 7751,
+    "id": 1011,
+    "document_id": 438,
     "public_law_restriction_id": 1011
   },
   {
-    "document_id": 1801,
-    "id": 7752,
+    "id": 1012,
+    "document_id": 437,
     "public_law_restriction_id": 1012
   },
   {
-    "document_id": 1790,
-    "id": 7753,
+    "id": 1013,
+    "document_id": 436,
     "public_law_restriction_id": 1013
   },
   {
-    "document_id": 1789,
-    "id": 7754,
+    "id": 1014,
+    "document_id": 435,
     "public_law_restriction_id": 1014
   },
   {
-    "document_id": 1788,
-    "id": 7755,
+    "id": 1015,
+    "document_id": 434,
     "public_law_restriction_id": 1015
   },
   {
-    "document_id": 1787,
-    "id": 7756,
+    "id": 1016,
+    "document_id": 428,
     "public_law_restriction_id": 1016
   },
   {
-    "document_id": 1786,
-    "id": 7757,
+    "id": 1017,
+    "document_id": 427,
     "public_law_restriction_id": 1017
   },
   {
-    "document_id": 1785,
-    "id": 7758,
+    "id": 1018,
+    "document_id": 426,
     "public_law_restriction_id": 1018
   },
   {
-    "document_id": 1784,
-    "id": 7759,
+    "id": 1019,
+    "document_id": 424,
     "public_law_restriction_id": 1019
   },
   {
-    "document_id": 1783,
-    "id": 7760,
+    "id": 1020,
+    "document_id": 420,
     "public_law_restriction_id": 1020
   },
   {
-    "document_id": 1781,
-    "id": 7761,
+    "id": 1021,
+    "document_id": 415,
     "public_law_restriction_id": 1021
   },
   {
-    "document_id": 1780,
-    "id": 7762,
+    "id": 1022,
+    "document_id": 411,
     "public_law_restriction_id": 1022
   },
   {
-    "document_id": 1779,
-    "id": 7763,
+    "id": 1023,
+    "document_id": 410,
     "public_law_restriction_id": 1023
   },
   {
-    "document_id": 1778,
-    "id": 7764,
+    "id": 1024,
+    "document_id": 409,
     "public_law_restriction_id": 1024
   },
   {
-    "document_id": 1777,
-    "id": 7765,
+    "id": 1025,
+    "document_id": 404,
     "public_law_restriction_id": 1025
   },
   {
-    "document_id": 1776,
-    "id": 7766,
+    "id": 1026,
+    "document_id": 402,
     "public_law_restriction_id": 1026
   },
   {
-    "document_id": 1775,
-    "id": 7767,
+    "id": 1027,
+    "document_id": 401,
     "public_law_restriction_id": 1027
   },
   {
-    "document_id": 1774,
-    "id": 7768,
+    "id": 1028,
+    "document_id": 399,
     "public_law_restriction_id": 1028
   },
   {
-    "document_id": 1773,
-    "id": 7769,
+    "id": 1029,
+    "document_id": 398,
     "public_law_restriction_id": 1029
   },
   {
-    "document_id": 1772,
-    "id": 7770,
+    "id": 1030,
+    "document_id": 397,
     "public_law_restriction_id": 1030
   },
   {
-    "document_id": 1770,
-    "id": 7771,
+    "id": 1031,
+    "document_id": 396,
     "public_law_restriction_id": 1031
   },
   {
-    "document_id": 1768,
-    "id": 7772,
+    "id": 1032,
+    "document_id": 395,
     "public_law_restriction_id": 1032
   },
   {
-    "document_id": 1766,
-    "id": 7773,
+    "id": 1033,
+    "document_id": 394,
     "public_law_restriction_id": 1033
   },
   {
-    "document_id": 1765,
-    "id": 7774,
+    "id": 1034,
+    "document_id": 393,
     "public_law_restriction_id": 1034
   },
   {
-    "document_id": 1764,
-    "id": 7775,
+    "id": 1035,
+    "document_id": 392,
     "public_law_restriction_id": 1035
   },
   {
-    "document_id": 1763,
-    "id": 7776,
+    "id": 1036,
+    "document_id": 390,
     "public_law_restriction_id": 1036
   },
   {
-    "document_id": 1762,
-    "id": 7777,
+    "id": 1037,
+    "document_id": 388,
     "public_law_restriction_id": 1037
   },
   {
-    "document_id": 1761,
-    "id": 7778,
+    "id": 1038,
+    "document_id": 386,
     "public_law_restriction_id": 1038
   },
   {
-    "document_id": 1760,
-    "id": 7779,
+    "id": 1039,
+    "document_id": 384,
     "public_law_restriction_id": 1039
   },
   {
-    "document_id": 1759,
-    "id": 7780,
+    "id": 1040,
+    "document_id": 382,
     "public_law_restriction_id": 1040
   },
   {
-    "document_id": 1756,
-    "id": 7781,
+    "id": 1041,
+    "document_id": 381,
     "public_law_restriction_id": 1041
   },
   {
-    "document_id": 1755,
-    "id": 7782,
+    "id": 1042,
+    "document_id": 380,
     "public_law_restriction_id": 1042
   },
   {
-    "document_id": 1752,
-    "id": 7783,
+    "id": 1043,
+    "document_id": 379,
     "public_law_restriction_id": 1043
   },
   {
-    "document_id": 1751,
-    "id": 7784,
+    "id": 1044,
+    "document_id": 378,
     "public_law_restriction_id": 1044
   },
   {
-    "document_id": 1750,
-    "id": 7785,
+    "id": 1045,
+    "document_id": 377,
     "public_law_restriction_id": 1045
   },
   {
-    "document_id": 1749,
-    "id": 7786,
+    "id": 1046,
+    "document_id": 376,
     "public_law_restriction_id": 1046
   },
   {
-    "document_id": 1748,
-    "id": 7787,
+    "id": 1047,
+    "document_id": 374,
     "public_law_restriction_id": 1047
   },
   {
-    "document_id": 1747,
-    "id": 7788,
+    "id": 1048,
+    "document_id": 372,
     "public_law_restriction_id": 1048
   },
   {
-    "document_id": 1746,
-    "id": 7789,
+    "id": 1049,
+    "document_id": 371,
     "public_law_restriction_id": 1049
   },
   {
-    "document_id": 1740,
-    "id": 7790,
+    "id": 1050,
+    "document_id": 370,
     "public_law_restriction_id": 1050
   },
   {
-    "document_id": 1739,
-    "id": 7791,
+    "id": 1051,
+    "document_id": 369,
     "public_law_restriction_id": 1051
   },
   {
-    "document_id": 1738,
-    "id": 7792,
+    "id": 1052,
+    "document_id": 368,
     "public_law_restriction_id": 1052
   },
   {
-    "document_id": 1736,
-    "id": 7793,
+    "id": 1053,
+    "document_id": 367,
     "public_law_restriction_id": 1053
   },
   {
-    "document_id": 1732,
-    "id": 7794,
+    "id": 1054,
+    "document_id": 366,
     "public_law_restriction_id": 1054
   },
   {
-    "document_id": 1727,
-    "id": 7795,
+    "id": 1055,
+    "document_id": 365,
     "public_law_restriction_id": 1055
   },
   {
-    "document_id": 1723,
-    "id": 7796,
+    "id": 1056,
+    "document_id": 362,
     "public_law_restriction_id": 1056
   },
   {
-    "document_id": 1722,
-    "id": 7797,
+    "id": 1057,
+    "document_id": 361,
     "public_law_restriction_id": 1057
   },
   {
-    "document_id": 1721,
-    "id": 7798,
+    "id": 1058,
+    "document_id": 360,
     "public_law_restriction_id": 1058
   },
   {
-    "document_id": 1716,
-    "id": 7799,
+    "id": 1059,
+    "document_id": 359,
     "public_law_restriction_id": 1059
   },
   {
-    "document_id": 1714,
-    "id": 7800,
+    "id": 1060,
+    "document_id": 358,
     "public_law_restriction_id": 1060
   },
   {
-    "document_id": 1713,
-    "id": 7801,
+    "id": 1061,
+    "document_id": 357,
     "public_law_restriction_id": 1061
   },
   {
-    "document_id": 1711,
-    "id": 7802,
+    "id": 1062,
+    "document_id": 356,
     "public_law_restriction_id": 1062
   },
   {
-    "document_id": 1710,
-    "id": 7803,
+    "id": 1063,
+    "document_id": 355,
     "public_law_restriction_id": 1063
   },
   {
-    "document_id": 1709,
-    "id": 7804,
+    "id": 1064,
+    "document_id": 354,
     "public_law_restriction_id": 1064
   },
   {
-    "document_id": 1708,
-    "id": 7805,
+    "id": 1065,
+    "document_id": 353,
     "public_law_restriction_id": 1065
   },
   {
-    "document_id": 1707,
-    "id": 7806,
+    "id": 1066,
+    "document_id": 352,
     "public_law_restriction_id": 1066
   },
   {
-    "document_id": 1706,
-    "id": 7807,
+    "id": 1067,
+    "document_id": 350,
     "public_law_restriction_id": 1067
   },
   {
-    "document_id": 1705,
-    "id": 7808,
+    "id": 1068,
+    "document_id": 349,
     "public_law_restriction_id": 1068
   },
   {
-    "document_id": 1704,
-    "id": 7809,
+    "id": 1069,
+    "document_id": 348,
     "public_law_restriction_id": 1069
   },
   {
-    "document_id": 1702,
-    "id": 7810,
+    "id": 1070,
+    "document_id": 347,
     "public_law_restriction_id": 1070
   },
   {
-    "document_id": 1700,
-    "id": 7811,
+    "id": 1071,
+    "document_id": 346,
     "public_law_restriction_id": 1071
   },
   {
-    "document_id": 1698,
-    "id": 7812,
+    "id": 1072,
+    "document_id": 345,
     "public_law_restriction_id": 1072
   },
   {
-    "document_id": 1696,
-    "id": 7813,
+    "id": 1073,
+    "document_id": 344,
     "public_law_restriction_id": 1073
   },
   {
-    "document_id": 1694,
-    "id": 7814,
+    "id": 1074,
+    "document_id": 343,
     "public_law_restriction_id": 1074
   },
   {
-    "document_id": 1693,
-    "id": 7815,
+    "id": 1075,
+    "document_id": 342,
     "public_law_restriction_id": 1075
   },
   {
-    "document_id": 1692,
-    "id": 7816,
+    "id": 1076,
+    "document_id": 339,
     "public_law_restriction_id": 1076
   },
   {
-    "document_id": 1691,
-    "id": 7817,
+    "id": 1077,
+    "document_id": 338,
     "public_law_restriction_id": 1077
   },
   {
-    "document_id": 1690,
-    "id": 7818,
+    "id": 1078,
+    "document_id": 337,
     "public_law_restriction_id": 1078
   },
   {
-    "document_id": 1689,
-    "id": 7819,
+    "id": 1079,
+    "document_id": 336,
     "public_law_restriction_id": 1079
   },
   {
-    "document_id": 1688,
-    "id": 7820,
+    "id": 1080,
+    "document_id": 334,
     "public_law_restriction_id": 1080
   },
   {
-    "document_id": 1686,
-    "id": 7821,
+    "id": 1081,
+    "document_id": 330,
     "public_law_restriction_id": 1081
   },
   {
-    "document_id": 1684,
-    "id": 7822,
+    "id": 1082,
+    "document_id": 328,
     "public_law_restriction_id": 1082
   },
   {
-    "document_id": 1683,
-    "id": 7823,
+    "id": 1083,
+    "document_id": 327,
     "public_law_restriction_id": 1083
   },
   {
-    "document_id": 1682,
-    "id": 7824,
+    "id": 1084,
+    "document_id": 326,
     "public_law_restriction_id": 1084
   },
   {
-    "document_id": 1681,
-    "id": 7825,
+    "id": 1085,
+    "document_id": 325,
     "public_law_restriction_id": 1085
   },
   {
-    "document_id": 1680,
-    "id": 7826,
+    "id": 1086,
+    "document_id": 324,
     "public_law_restriction_id": 1086
   },
   {
-    "document_id": 1679,
-    "id": 7827,
+    "id": 1087,
+    "document_id": 323,
     "public_law_restriction_id": 1087
   },
   {
-    "document_id": 1678,
-    "id": 7828,
+    "id": 1088,
+    "document_id": 322,
     "public_law_restriction_id": 1088
   },
   {
-    "document_id": 1677,
-    "id": 7829,
+    "id": 1089,
+    "document_id": 321,
     "public_law_restriction_id": 1089
   },
   {
-    "document_id": 1674,
-    "id": 7830,
+    "id": 1090,
+    "document_id": 320,
     "public_law_restriction_id": 1090
   },
   {
-    "document_id": 1673,
-    "id": 7831,
+    "id": 1091,
+    "document_id": 319,
     "public_law_restriction_id": 1091
   },
   {
-    "document_id": 1672,
-    "id": 7832,
+    "id": 1092,
+    "document_id": 315,
     "public_law_restriction_id": 1092
   },
   {
-    "document_id": 1671,
-    "id": 7833,
+    "id": 1093,
+    "document_id": 314,
     "public_law_restriction_id": 1093
   },
   {
-    "document_id": 1670,
-    "id": 7834,
+    "id": 1094,
+    "document_id": 313,
     "public_law_restriction_id": 1094
   },
   {
-    "document_id": 1669,
-    "id": 7835,
+    "id": 1095,
+    "document_id": 312,
     "public_law_restriction_id": 1095
   },
   {
-    "document_id": 1668,
-    "id": 7836,
+    "id": 1096,
+    "document_id": 311,
     "public_law_restriction_id": 1096
   },
   {
-    "document_id": 1667,
-    "id": 7837,
+    "id": 1097,
+    "document_id": 308,
     "public_law_restriction_id": 1097
   },
   {
-    "document_id": 1666,
-    "id": 7838,
+    "id": 1098,
+    "document_id": 307,
     "public_law_restriction_id": 1098
   },
   {
-    "document_id": 1665,
-    "id": 7839,
+    "id": 1099,
+    "document_id": 306,
     "public_law_restriction_id": 1099
   },
   {
-    "document_id": 1664,
-    "id": 7840,
+    "id": 1100,
+    "document_id": 305,
     "public_law_restriction_id": 1100
   },
   {
-    "document_id": 1662,
-    "id": 7841,
+    "id": 1101,
+    "document_id": 303,
     "public_law_restriction_id": 1101
   },
   {
-    "document_id": 1661,
-    "id": 7842,
+    "id": 1102,
+    "document_id": 299,
     "public_law_restriction_id": 1102
   },
   {
-    "document_id": 1660,
-    "id": 7843,
+    "id": 1103,
+    "document_id": 298,
     "public_law_restriction_id": 1103
   },
   {
-    "document_id": 1659,
-    "id": 7844,
+    "id": 1104,
+    "document_id": 297,
     "public_law_restriction_id": 1104
   },
   {
-    "document_id": 1658,
-    "id": 7845,
+    "id": 1105,
+    "document_id": 296,
     "public_law_restriction_id": 1105
   },
   {
-    "document_id": 1657,
-    "id": 7846,
+    "id": 1106,
+    "document_id": 295,
     "public_law_restriction_id": 1106
   },
   {
-    "document_id": 1656,
-    "id": 7847,
+    "id": 1107,
+    "document_id": 294,
     "public_law_restriction_id": 1107
   },
   {
-    "document_id": 1655,
-    "id": 7848,
+    "id": 1108,
+    "document_id": 293,
     "public_law_restriction_id": 1108
   },
   {
-    "document_id": 1654,
-    "id": 7849,
+    "id": 1109,
+    "document_id": 292,
     "public_law_restriction_id": 1109
   },
   {
-    "document_id": 1651,
-    "id": 7850,
+    "id": 1110,
+    "document_id": 291,
     "public_law_restriction_id": 1110
   },
   {
-    "document_id": 1650,
-    "id": 7851,
+    "id": 1111,
+    "document_id": 290,
     "public_law_restriction_id": 1111
   },
   {
-    "document_id": 1649,
-    "id": 7852,
+    "id": 1112,
+    "document_id": 289,
     "public_law_restriction_id": 1112
   },
   {
-    "document_id": 1648,
-    "id": 7853,
+    "id": 1113,
+    "document_id": 288,
     "public_law_restriction_id": 1113
   },
   {
-    "document_id": 1646,
-    "id": 7854,
+    "id": 1114,
+    "document_id": 287,
     "public_law_restriction_id": 1114
   },
   {
-    "document_id": 1642,
-    "id": 7855,
+    "id": 1115,
+    "document_id": 286,
     "public_law_restriction_id": 1115
   },
   {
-    "document_id": 1640,
-    "id": 7856,
+    "id": 1116,
+    "document_id": 285,
     "public_law_restriction_id": 1116
   },
   {
-    "document_id": 1639,
-    "id": 7857,
+    "id": 1117,
+    "document_id": 284,
     "public_law_restriction_id": 1117
   },
   {
-    "document_id": 1638,
-    "id": 7858,
+    "id": 1118,
+    "document_id": 283,
     "public_law_restriction_id": 1118
   },
   {
-    "document_id": 1637,
-    "id": 7859,
+    "id": 1119,
+    "document_id": 280,
     "public_law_restriction_id": 1119
   },
   {
-    "document_id": 1636,
-    "id": 7860,
+    "id": 1120,
+    "document_id": 279,
     "public_law_restriction_id": 1120
   },
   {
-    "document_id": 1635,
-    "id": 7861,
+    "id": 1121,
+    "document_id": 278,
     "public_law_restriction_id": 1121
   },
   {
-    "document_id": 1634,
-    "id": 7862,
+    "id": 1122,
+    "document_id": 277,
     "public_law_restriction_id": 1122
   },
   {
-    "document_id": 1633,
-    "id": 7863,
+    "id": 1123,
+    "document_id": 273,
     "public_law_restriction_id": 1123
   },
   {
-    "document_id": 1632,
-    "id": 7864,
+    "id": 1124,
+    "document_id": 272,
     "public_law_restriction_id": 1124
   },
   {
-    "document_id": 1631,
-    "id": 7865,
+    "id": 1125,
+    "document_id": 271,
     "public_law_restriction_id": 1125
   },
   {
-    "document_id": 1627,
-    "id": 7866,
+    "id": 1126,
+    "document_id": 270,
     "public_law_restriction_id": 1126
   },
   {
-    "document_id": 1626,
-    "id": 7867,
+    "id": 1127,
+    "document_id": 269,
     "public_law_restriction_id": 1127
   },
   {
-    "document_id": 1625,
-    "id": 7868,
+    "id": 1128,
+    "document_id": 268,
     "public_law_restriction_id": 1128
   },
   {
-    "document_id": 1624,
-    "id": 7869,
+    "id": 1129,
+    "document_id": 267,
     "public_law_restriction_id": 1129
   },
   {
-    "document_id": 1623,
-    "id": 7870,
+    "id": 1130,
+    "document_id": 266,
     "public_law_restriction_id": 1130
   },
   {
-    "document_id": 1620,
-    "id": 7871,
+    "id": 1131,
+    "document_id": 265,
     "public_law_restriction_id": 1131
   },
   {
-    "document_id": 1619,
-    "id": 7872,
+    "id": 1132,
+    "document_id": 264,
     "public_law_restriction_id": 1132
   },
   {
-    "document_id": 1618,
-    "id": 7873,
+    "id": 1133,
+    "document_id": 260,
     "public_law_restriction_id": 1133
   },
   {
-    "document_id": 1617,
-    "id": 7874,
+    "id": 1134,
+    "document_id": 258,
     "public_law_restriction_id": 1134
   },
   {
-    "document_id": 1615,
-    "id": 7875,
+    "id": 1135,
+    "document_id": 257,
     "public_law_restriction_id": 1135
   },
   {
-    "document_id": 1611,
-    "id": 7876,
+    "id": 1136,
+    "document_id": 256,
     "public_law_restriction_id": 1136
   },
   {
-    "document_id": 1610,
-    "id": 7877,
+    "id": 1137,
+    "document_id": 255,
     "public_law_restriction_id": 1137
   },
   {
-    "document_id": 1609,
-    "id": 7878,
+    "id": 1138,
+    "document_id": 254,
     "public_law_restriction_id": 1138
   },
   {
-    "document_id": 1608,
-    "id": 7879,
+    "id": 1139,
+    "document_id": 253,
     "public_law_restriction_id": 1139
   },
   {
-    "document_id": 1607,
-    "id": 7880,
+    "id": 1140,
+    "document_id": 252,
     "public_law_restriction_id": 1140
   },
   {
-    "document_id": 1606,
-    "id": 7881,
+    "id": 1141,
+    "document_id": 251,
     "public_law_restriction_id": 1141
   },
   {
-    "document_id": 1605,
-    "id": 7882,
+    "id": 1142,
+    "document_id": 248,
     "public_law_restriction_id": 1142
   },
   {
-    "document_id": 1604,
-    "id": 7883,
+    "id": 1143,
+    "document_id": 247,
     "public_law_restriction_id": 1143
   },
   {
-    "document_id": 1603,
-    "id": 7884,
+    "id": 1144,
+    "document_id": 246,
     "public_law_restriction_id": 1144
   },
   {
-    "document_id": 1602,
-    "id": 7885,
+    "id": 1145,
+    "document_id": 245,
     "public_law_restriction_id": 1145
   },
   {
-    "document_id": 1601,
-    "id": 7886,
+    "id": 1146,
+    "document_id": 244,
     "public_law_restriction_id": 1146
   },
   {
-    "document_id": 1600,
-    "id": 7887,
+    "id": 1147,
+    "document_id": 243,
     "public_law_restriction_id": 1147
   },
   {
-    "document_id": 1599,
-    "id": 7888,
+    "id": 1148,
+    "document_id": 242,
     "public_law_restriction_id": 1148
   },
   {
-    "document_id": 1598,
-    "id": 7889,
+    "id": 1149,
+    "document_id": 238,
     "public_law_restriction_id": 1149
   },
   {
-    "document_id": 1597,
-    "id": 7890,
+    "id": 1150,
+    "document_id": 236,
     "public_law_restriction_id": 1150
   },
   {
-    "document_id": 1596,
-    "id": 7891,
+    "id": 1151,
+    "document_id": 235,
     "public_law_restriction_id": 1151
   },
   {
-    "document_id": 1595,
-    "id": 7892,
+    "id": 1152,
+    "document_id": 232,
     "public_law_restriction_id": 1152
   },
   {
-    "document_id": 1592,
-    "id": 7893,
+    "id": 1153,
+    "document_id": 231,
     "public_law_restriction_id": 1153
   },
   {
-    "document_id": 1591,
-    "id": 7894,
+    "id": 1154,
+    "document_id": 230,
     "public_law_restriction_id": 1154
   },
   {
-    "document_id": 1590,
-    "id": 7895,
+    "id": 1155,
+    "document_id": 229,
     "public_law_restriction_id": 1155
   },
   {
-    "document_id": 1589,
-    "id": 7896,
+    "id": 1156,
+    "document_id": 228,
     "public_law_restriction_id": 1156
   },
   {
-    "document_id": 1588,
-    "id": 7897,
+    "id": 1157,
+    "document_id": 227,
     "public_law_restriction_id": 1157
   },
   {
-    "document_id": 1584,
-    "id": 7898,
+    "id": 1158,
+    "document_id": 226,
     "public_law_restriction_id": 1158
   },
   {
-    "document_id": 1583,
-    "id": 7899,
+    "id": 1159,
+    "document_id": 225,
     "public_law_restriction_id": 1159
   },
   {
-    "document_id": 1582,
-    "id": 7900,
+    "id": 1160,
+    "document_id": 224,
     "public_law_restriction_id": 1160
   },
   {
-    "document_id": 1581,
-    "id": 7901,
+    "id": 1161,
+    "document_id": 223,
     "public_law_restriction_id": 1161
   },
   {
-    "document_id": 1580,
-    "id": 7902,
+    "id": 1162,
+    "document_id": 222,
     "public_law_restriction_id": 1162
   },
   {
-    "document_id": 1579,
-    "id": 7903,
+    "id": 1163,
+    "document_id": 221,
     "public_law_restriction_id": 1163
   },
   {
-    "document_id": 1577,
-    "id": 7904,
+    "id": 1164,
+    "document_id": 220,
     "public_law_restriction_id": 1164
   },
   {
-    "document_id": 1576,
-    "id": 7905,
+    "id": 1165,
+    "document_id": 218,
     "public_law_restriction_id": 1165
   },
   {
-    "document_id": 1575,
-    "id": 7906,
+    "id": 1166,
+    "document_id": 216,
     "public_law_restriction_id": 1166
   },
   {
-    "document_id": 1574,
-    "id": 7907,
+    "id": 1167,
+    "document_id": 214,
     "public_law_restriction_id": 1167
   },
   {
-    "document_id": 1573,
-    "id": 7908,
+    "id": 1168,
+    "document_id": 213,
     "public_law_restriction_id": 1168
   },
   {
-    "document_id": 1572,
-    "id": 7909,
+    "id": 1169,
+    "document_id": 212,
     "public_law_restriction_id": 1169
   },
   {
-    "document_id": 1568,
-    "id": 7910,
+    "id": 1170,
+    "document_id": 211,
     "public_law_restriction_id": 1170
   },
   {
-    "document_id": 1566,
-    "id": 7911,
+    "id": 1171,
+    "document_id": 210,
     "public_law_restriction_id": 1171
   },
   {
-    "document_id": 1565,
-    "id": 7912,
+    "id": 1172,
+    "document_id": 209,
     "public_law_restriction_id": 1172
   },
   {
-    "document_id": 1564,
-    "id": 7913,
+    "id": 1173,
+    "document_id": 208,
     "public_law_restriction_id": 1173
   },
   {
-    "document_id": 1563,
-    "id": 7914,
+    "id": 1174,
+    "document_id": 207,
     "public_law_restriction_id": 1174
   },
   {
-    "document_id": 1562,
-    "id": 7915,
+    "id": 1175,
+    "document_id": 206,
     "public_law_restriction_id": 1175
   },
   {
-    "document_id": 1561,
-    "id": 7916,
+    "id": 1176,
+    "document_id": 205,
     "public_law_restriction_id": 1176
   },
   {
-    "document_id": 1560,
-    "id": 7917,
+    "id": 1177,
+    "document_id": 204,
     "public_law_restriction_id": 1177
   },
   {
-    "document_id": 1559,
-    "id": 7918,
+    "id": 1178,
+    "document_id": 203,
     "public_law_restriction_id": 1178
   },
   {
-    "document_id": 1556,
-    "id": 7919,
+    "id": 1179,
+    "document_id": 202,
     "public_law_restriction_id": 1179
   },
   {
-    "document_id": 1555,
-    "id": 7920,
+    "id": 1180,
+    "document_id": 201,
     "public_law_restriction_id": 1180
   },
   {
-    "document_id": 1554,
-    "id": 7921,
+    "id": 1181,
+    "document_id": 200,
     "public_law_restriction_id": 1181
   },
   {
-    "document_id": 1553,
-    "id": 7922,
+    "id": 1182,
+    "document_id": 199,
     "public_law_restriction_id": 1182
   },
   {
-    "document_id": 1552,
-    "id": 7923,
+    "id": 1183,
+    "document_id": 198,
     "public_law_restriction_id": 1183
   },
   {
-    "document_id": 1551,
-    "id": 7924,
+    "id": 1184,
+    "document_id": 197,
     "public_law_restriction_id": 1184
   },
   {
-    "document_id": 1550,
-    "id": 7925,
+    "id": 1185,
+    "document_id": 196,
     "public_law_restriction_id": 1185
   },
   {
-    "document_id": 1546,
-    "id": 7926,
+    "id": 1186,
+    "document_id": 195,
     "public_law_restriction_id": 1186
   },
   {
-    "document_id": 1544,
-    "id": 7927,
+    "id": 1187,
+    "document_id": 194,
     "public_law_restriction_id": 1187
   },
   {
-    "document_id": 1543,
-    "id": 7928,
+    "id": 1188,
+    "document_id": 193,
     "public_law_restriction_id": 1188
   },
   {
-    "document_id": 1540,
-    "id": 7929,
+    "id": 1189,
+    "document_id": 192,
     "public_law_restriction_id": 1189
   },
   {
-    "document_id": 1539,
-    "id": 7930,
+    "id": 1190,
+    "document_id": 191,
     "public_law_restriction_id": 1190
   },
   {
-    "document_id": 1538,
-    "id": 7931,
+    "id": 1191,
+    "document_id": 190,
     "public_law_restriction_id": 1191
   },
   {
-    "document_id": 1537,
-    "id": 7932,
+    "id": 1192,
+    "document_id": 189,
     "public_law_restriction_id": 1192
   },
   {
-    "document_id": 1536,
-    "id": 7933,
+    "id": 1193,
+    "document_id": 188,
     "public_law_restriction_id": 1193
   },
   {
-    "document_id": 1535,
-    "id": 7934,
+    "id": 1194,
+    "document_id": 186,
     "public_law_restriction_id": 1194
   },
   {
-    "document_id": 1534,
-    "id": 7935,
+    "id": 1195,
+    "document_id": 185,
     "public_law_restriction_id": 1195
   },
   {
-    "document_id": 1533,
-    "id": 7936,
+    "id": 1196,
+    "document_id": 184,
     "public_law_restriction_id": 1196
   },
   {
-    "document_id": 1532,
-    "id": 7937,
+    "id": 1197,
+    "document_id": 183,
     "public_law_restriction_id": 1197
   },
   {
-    "document_id": 1531,
-    "id": 7938,
+    "id": 1198,
+    "document_id": 182,
     "public_law_restriction_id": 1198
   },
   {
-    "document_id": 1530,
-    "id": 7939,
+    "id": 1199,
+    "document_id": 181,
     "public_law_restriction_id": 1199
   },
   {
-    "document_id": 1529,
-    "id": 7940,
+    "id": 1200,
+    "document_id": 180,
     "public_law_restriction_id": 1200
   },
   {
-    "document_id": 1528,
-    "id": 7941,
+    "id": 1201,
+    "document_id": 179,
     "public_law_restriction_id": 1201
   },
   {
-    "document_id": 1526,
-    "id": 7942,
+    "id": 1202,
+    "document_id": 178,
     "public_law_restriction_id": 1202
   },
   {
-    "document_id": 1524,
-    "id": 7943,
+    "id": 1203,
+    "document_id": 171,
     "public_law_restriction_id": 1203
   },
   {
-    "document_id": 1522,
-    "id": 7944,
+    "id": 1204,
+    "document_id": 169,
     "public_law_restriction_id": 1204
   },
   {
-    "document_id": 1521,
-    "id": 7945,
+    "id": 1205,
+    "document_id": 168,
     "public_law_restriction_id": 1205
   },
   {
-    "document_id": 1520,
-    "id": 7946,
+    "id": 1206,
+    "document_id": 167,
     "public_law_restriction_id": 1206
   },
   {
-    "document_id": 1519,
-    "id": 7947,
+    "id": 1207,
+    "document_id": 166,
     "public_law_restriction_id": 1207
   },
   {
-    "document_id": 1518,
-    "id": 7948,
+    "id": 1208,
+    "document_id": 165,
     "public_law_restriction_id": 1208
   },
   {
-    "document_id": 1517,
-    "id": 7949,
+    "id": 1209,
+    "document_id": 163,
     "public_law_restriction_id": 1209
   },
   {
-    "document_id": 1516,
-    "id": 7950,
+    "id": 1210,
+    "document_id": 162,
     "public_law_restriction_id": 1210
   },
   {
-    "document_id": 1515,
-    "id": 7951,
+    "id": 1211,
+    "document_id": 161,
     "public_law_restriction_id": 1211
   },
   {
-    "document_id": 1514,
-    "id": 7952,
+    "id": 1212,
+    "document_id": 160,
     "public_law_restriction_id": 1212
   },
   {
-    "document_id": 1513,
-    "id": 7953,
+    "id": 1213,
+    "document_id": 159,
     "public_law_restriction_id": 1213
   },
   {
-    "document_id": 1512,
-    "id": 7954,
+    "id": 1214,
+    "document_id": 155,
     "public_law_restriction_id": 1214
   },
   {
-    "document_id": 1511,
-    "id": 7955,
+    "id": 1215,
+    "document_id": 154,
     "public_law_restriction_id": 1215
   },
   {
-    "document_id": 1510,
-    "id": 7956,
+    "id": 1216,
+    "document_id": 153,
     "public_law_restriction_id": 1216
   },
   {
-    "document_id": 1509,
-    "id": 7957,
+    "id": 1217,
+    "document_id": 152,
     "public_law_restriction_id": 1217
   },
   {
-    "document_id": 1508,
-    "id": 7958,
+    "id": 1218,
+    "document_id": 151,
     "public_law_restriction_id": 1218
   },
   {
-    "document_id": 1507,
-    "id": 7959,
+    "id": 1219,
+    "document_id": 150,
     "public_law_restriction_id": 1219
   },
   {
-    "document_id": 1506,
-    "id": 7960,
+    "id": 1220,
+    "document_id": 149,
     "public_law_restriction_id": 1220
   },
   {
-    "document_id": 1505,
-    "id": 7961,
+    "id": 1221,
+    "document_id": 148,
     "public_law_restriction_id": 1221
   },
   {
-    "document_id": 1504,
-    "id": 7962,
+    "id": 1222,
+    "document_id": 147,
     "public_law_restriction_id": 1222
   },
   {
-    "document_id": 1503,
-    "id": 7963,
+    "id": 1223,
+    "document_id": 146,
     "public_law_restriction_id": 1223
   },
   {
-    "document_id": 1502,
-    "id": 7964,
+    "id": 1224,
+    "document_id": 144,
     "public_law_restriction_id": 1224
   },
   {
-    "document_id": 1501,
-    "id": 7965,
+    "id": 1225,
+    "document_id": 143,
     "public_law_restriction_id": 1225
   },
   {
-    "document_id": 1500,
-    "id": 7966,
+    "id": 1226,
+    "document_id": 142,
     "public_law_restriction_id": 1226
   },
   {
-    "document_id": 1499,
-    "id": 7967,
+    "id": 1227,
+    "document_id": 141,
     "public_law_restriction_id": 1227
   },
   {
-    "document_id": 1498,
-    "id": 7968,
+    "id": 1228,
+    "document_id": 140,
     "public_law_restriction_id": 1228
   },
   {
-    "document_id": 1497,
-    "id": 7969,
+    "id": 1229,
+    "document_id": 139,
     "public_law_restriction_id": 1229
   },
   {
-    "document_id": 1496,
-    "id": 7970,
+    "id": 1230,
+    "document_id": 138,
     "public_law_restriction_id": 1230
   },
   {
-    "document_id": 1494,
-    "id": 7971,
+    "id": 1231,
+    "document_id": 137,
     "public_law_restriction_id": 1231
   },
   {
-    "document_id": 1493,
-    "id": 7972,
+    "id": 1232,
+    "document_id": 136,
     "public_law_restriction_id": 1232
   },
   {
-    "document_id": 1492,
-    "id": 7973,
+    "id": 1233,
+    "document_id": 135,
     "public_law_restriction_id": 1233
   },
   {
-    "document_id": 1491,
-    "id": 7974,
+    "id": 1234,
+    "document_id": 134,
     "public_law_restriction_id": 1234
   },
   {
-    "document_id": 1490,
-    "id": 7975,
+    "id": 1235,
+    "document_id": 133,
     "public_law_restriction_id": 1235
   },
   {
-    "document_id": 1489,
-    "id": 7976,
+    "id": 1236,
+    "document_id": 132,
     "public_law_restriction_id": 1236
   },
   {
-    "document_id": 1488,
-    "id": 7977,
+    "id": 1237,
+    "document_id": 131,
     "public_law_restriction_id": 1237
   },
   {
-    "document_id": 1487,
-    "id": 7978,
+    "id": 1238,
+    "document_id": 130,
     "public_law_restriction_id": 1238
   },
   {
-    "document_id": 1486,
-    "id": 7979,
+    "id": 1239,
+    "document_id": 128,
     "public_law_restriction_id": 1239
   },
   {
-    "document_id": 1479,
-    "id": 7980,
+    "id": 1240,
+    "document_id": 125,
     "public_law_restriction_id": 1240
   },
   {
-    "document_id": 1477,
-    "id": 7981,
+    "id": 1241,
+    "document_id": 124,
     "public_law_restriction_id": 1241
   },
   {
-    "document_id": 1476,
-    "id": 7982,
+    "id": 1242,
+    "document_id": 123,
     "public_law_restriction_id": 1242
   },
   {
-    "document_id": 1475,
-    "id": 7983,
+    "id": 1243,
+    "document_id": 122,
     "public_law_restriction_id": 1243
   },
   {
-    "document_id": 1474,
-    "id": 7984,
+    "id": 1244,
+    "document_id": 121,
     "public_law_restriction_id": 1244
   },
   {
-    "document_id": 1473,
-    "id": 7985,
+    "id": 1245,
+    "document_id": 120,
     "public_law_restriction_id": 1245
   },
   {
-    "document_id": 1471,
-    "id": 7986,
+    "id": 1246,
+    "document_id": 119,
     "public_law_restriction_id": 1246
   },
   {
-    "document_id": 1470,
-    "id": 7987,
+    "id": 1247,
+    "document_id": 118,
     "public_law_restriction_id": 1247
   },
   {
-    "document_id": 1469,
-    "id": 7988,
+    "id": 1248,
+    "document_id": 117,
     "public_law_restriction_id": 1248
   },
   {
-    "document_id": 1468,
-    "id": 7989,
+    "id": 1249,
+    "document_id": 116,
     "public_law_restriction_id": 1249
   },
   {
-    "document_id": 1467,
-    "id": 7990,
+    "id": 1250,
+    "document_id": 115,
     "public_law_restriction_id": 1250
   },
   {
-    "document_id": 1463,
-    "id": 7991,
+    "id": 1251,
+    "document_id": 114,
     "public_law_restriction_id": 1251
   },
   {
-    "document_id": 1462,
-    "id": 7992,
+    "id": 1252,
+    "document_id": 113,
     "public_law_restriction_id": 1252
   },
   {
-    "document_id": 1461,
-    "id": 7993,
+    "id": 1253,
+    "document_id": 112,
     "public_law_restriction_id": 1253
   },
   {
-    "document_id": 1460,
-    "id": 7994,
+    "id": 1254,
+    "document_id": 111,
     "public_law_restriction_id": 1254
   },
   {
-    "document_id": 1459,
-    "id": 7995,
+    "id": 1255,
+    "document_id": 110,
     "public_law_restriction_id": 1255
   },
   {
-    "document_id": 1458,
-    "id": 7996,
+    "id": 1256,
+    "document_id": 109,
     "public_law_restriction_id": 1256
   },
   {
-    "document_id": 1457,
-    "id": 7997,
+    "id": 1257,
+    "document_id": 108,
     "public_law_restriction_id": 1257
   },
   {
-    "document_id": 1456,
-    "id": 7998,
+    "id": 1258,
+    "document_id": 106,
     "public_law_restriction_id": 1258
   },
   {
-    "document_id": 1455,
-    "id": 7999,
+    "id": 1259,
+    "document_id": 105,
     "public_law_restriction_id": 1259
   },
   {
-    "document_id": 1454,
-    "id": 8000,
+    "id": 1260,
+    "document_id": 104,
     "public_law_restriction_id": 1260
   },
   {
-    "document_id": 1452,
-    "id": 8001,
+    "id": 1261,
+    "document_id": 103,
     "public_law_restriction_id": 1261
   },
   {
-    "document_id": 1451,
-    "id": 8002,
+    "id": 1262,
+    "document_id": 101,
     "public_law_restriction_id": 1262
   },
   {
-    "document_id": 1450,
-    "id": 8003,
+    "id": 1263,
+    "document_id": 99,
     "public_law_restriction_id": 1263
   },
   {
-    "document_id": 1449,
-    "id": 8004,
+    "id": 1264,
+    "document_id": 98,
     "public_law_restriction_id": 1264
   },
   {
-    "document_id": 1448,
-    "id": 8005,
+    "id": 1265,
+    "document_id": 97,
     "public_law_restriction_id": 1265
   },
   {
-    "document_id": 1447,
-    "id": 8006,
+    "id": 1266,
+    "document_id": 96,
     "public_law_restriction_id": 1266
   },
   {
-    "document_id": 1446,
-    "id": 8007,
+    "id": 1267,
+    "document_id": 95,
     "public_law_restriction_id": 1267
   },
   {
-    "document_id": 1445,
-    "id": 8008,
+    "id": 1268,
+    "document_id": 94,
     "public_law_restriction_id": 1268
   },
   {
-    "document_id": 1444,
-    "id": 8009,
+    "id": 1269,
+    "document_id": 93,
     "public_law_restriction_id": 1269
   },
   {
-    "document_id": 1443,
-    "id": 8010,
+    "id": 1270,
+    "document_id": 92,
     "public_law_restriction_id": 1270
   },
   {
-    "document_id": 1442,
-    "id": 8011,
+    "id": 1271,
+    "document_id": 91,
     "public_law_restriction_id": 1271
   },
   {
-    "document_id": 1441,
-    "id": 8012,
+    "id": 1272,
+    "document_id": 90,
     "public_law_restriction_id": 1272
   },
   {
-    "document_id": 1440,
-    "id": 8013,
+    "id": 1273,
+    "document_id": 89,
     "public_law_restriction_id": 1273
   },
   {
-    "document_id": 1439,
-    "id": 8014,
+    "id": 1274,
+    "document_id": 88,
     "public_law_restriction_id": 1274
   },
   {
-    "document_id": 1438,
-    "id": 8015,
+    "id": 1275,
+    "document_id": 87,
     "public_law_restriction_id": 1275
   },
   {
-    "document_id": 1436,
-    "id": 8016,
+    "id": 1276,
+    "document_id": 85,
     "public_law_restriction_id": 1276
   },
   {
-    "document_id": 1433,
-    "id": 8017,
+    "id": 1277,
+    "document_id": 83,
     "public_law_restriction_id": 1277
   },
   {
-    "document_id": 1432,
-    "id": 8018,
+    "id": 1278,
+    "document_id": 82,
     "public_law_restriction_id": 1278
   },
   {
-    "document_id": 1431,
-    "id": 8019,
+    "id": 1279,
+    "document_id": 81,
     "public_law_restriction_id": 1279
   },
   {
-    "document_id": 1430,
-    "id": 8020,
+    "id": 1280,
+    "document_id": 80,
     "public_law_restriction_id": 1280
   },
   {
-    "document_id": 1429,
-    "id": 8021,
+    "id": 1281,
+    "document_id": 79,
     "public_law_restriction_id": 1281
   },
   {
-    "document_id": 1428,
-    "id": 8022,
+    "id": 1282,
+    "document_id": 78,
     "public_law_restriction_id": 1282
   },
   {
-    "document_id": 1427,
-    "id": 8023,
+    "id": 1283,
+    "document_id": 77,
     "public_law_restriction_id": 1283
   },
   {
-    "document_id": 1426,
-    "id": 8024,
+    "id": 1284,
+    "document_id": 73,
     "public_law_restriction_id": 1284
   },
   {
-    "document_id": 1425,
-    "id": 8025,
+    "id": 1285,
+    "document_id": 72,
     "public_law_restriction_id": 1285
   },
   {
-    "document_id": 1424,
-    "id": 8026,
+    "id": 1286,
+    "document_id": 71,
     "public_law_restriction_id": 1286
   },
   {
-    "document_id": 1423,
-    "id": 8027,
+    "id": 1287,
+    "document_id": 69,
     "public_law_restriction_id": 1287
   },
   {
-    "document_id": 1422,
-    "id": 8028,
+    "id": 1288,
+    "document_id": 68,
     "public_law_restriction_id": 1288
   },
   {
-    "document_id": 1421,
-    "id": 8029,
+    "id": 1289,
+    "document_id": 67,
     "public_law_restriction_id": 1289
   },
   {
-    "document_id": 1420,
-    "id": 8030,
+    "id": 1290,
+    "document_id": 66,
     "public_law_restriction_id": 1290
   },
   {
-    "document_id": 1419,
-    "id": 8031,
+    "id": 1291,
+    "document_id": 65,
     "public_law_restriction_id": 1291
   },
   {
-    "document_id": 1418,
-    "id": 8032,
+    "id": 1292,
+    "document_id": 64,
     "public_law_restriction_id": 1292
   },
   {
-    "document_id": 1417,
-    "id": 8033,
+    "id": 1293,
+    "document_id": 63,
     "public_law_restriction_id": 1293
   },
   {
-    "document_id": 1416,
-    "id": 8034,
+    "id": 1294,
+    "document_id": 62,
     "public_law_restriction_id": 1294
   },
   {
-    "document_id": 1414,
-    "id": 8035,
+    "id": 1295,
+    "document_id": 61,
     "public_law_restriction_id": 1295
   },
   {
-    "document_id": 1413,
-    "id": 8036,
+    "id": 1296,
+    "document_id": 60,
     "public_law_restriction_id": 1296
   },
   {
-    "document_id": 1412,
-    "id": 8037,
+    "id": 1297,
+    "document_id": 58,
     "public_law_restriction_id": 1297
   },
   {
-    "document_id": 1411,
-    "id": 8038,
+    "id": 1298,
+    "document_id": 57,
     "public_law_restriction_id": 1298
   },
   {
-    "document_id": 1409,
-    "id": 8039,
+    "id": 1299,
+    "document_id": 56,
     "public_law_restriction_id": 1299
   },
   {
-    "document_id": 1407,
-    "id": 8040,
+    "id": 1300,
+    "document_id": 55,
     "public_law_restriction_id": 1300
   },
   {
-    "document_id": 1406,
-    "id": 8041,
+    "id": 1301,
+    "document_id": 54,
     "public_law_restriction_id": 1301
   },
   {
-    "document_id": 1405,
-    "id": 8042,
+    "id": 1302,
+    "document_id": 53,
     "public_law_restriction_id": 1302
   },
   {
-    "document_id": 1404,
-    "id": 8043,
+    "id": 1303,
+    "document_id": 52,
     "public_law_restriction_id": 1303
   },
   {
-    "document_id": 1403,
-    "id": 8044,
+    "id": 1304,
+    "document_id": 50,
     "public_law_restriction_id": 1304
   },
   {
-    "document_id": 1402,
-    "id": 8045,
+    "id": 1305,
+    "document_id": 49,
     "public_law_restriction_id": 1305
   },
   {
-    "document_id": 1401,
-    "id": 8046,
+    "id": 1306,
+    "document_id": 48,
     "public_law_restriction_id": 1306
   },
   {
-    "document_id": 1400,
-    "id": 8047,
+    "id": 1307,
+    "document_id": 47,
     "public_law_restriction_id": 1307
   },
   {
-    "document_id": 1399,
-    "id": 8048,
+    "id": 1308,
+    "document_id": 46,
     "public_law_restriction_id": 1308
   },
   {
-    "document_id": 1398,
-    "id": 8049,
+    "id": 1309,
+    "document_id": 45,
     "public_law_restriction_id": 1309
   },
   {
-    "document_id": 1397,
-    "id": 8050,
+    "id": 1310,
+    "document_id": 44,
     "public_law_restriction_id": 1310
   },
   {
-    "document_id": 1396,
-    "id": 8051,
+    "id": 1311,
+    "document_id": 43,
     "public_law_restriction_id": 1311
   },
   {
-    "document_id": 1395,
-    "id": 8052,
+    "id": 1312,
+    "document_id": 42,
     "public_law_restriction_id": 1312
   },
   {
-    "document_id": 1394,
-    "id": 8053,
+    "id": 1313,
+    "document_id": 41,
     "public_law_restriction_id": 1313
   },
   {
-    "document_id": 1392,
-    "id": 8054,
+    "id": 1314,
+    "document_id": 40,
     "public_law_restriction_id": 1314
   },
   {
-    "document_id": 1390,
-    "id": 8055,
+    "id": 1315,
+    "document_id": 39,
     "public_law_restriction_id": 1315
   },
   {
-    "document_id": 1389,
-    "id": 8056,
+    "id": 1316,
+    "document_id": 38,
     "public_law_restriction_id": 1316
   },
   {
-    "document_id": 1388,
-    "id": 8057,
+    "id": 1317,
+    "document_id": 37,
     "public_law_restriction_id": 1317
   },
   {
-    "document_id": 1387,
-    "id": 8058,
+    "id": 1318,
+    "document_id": 36,
     "public_law_restriction_id": 1318
   },
   {
-    "document_id": 1386,
-    "id": 8059,
+    "id": 1319,
+    "document_id": 35,
     "public_law_restriction_id": 1319
   },
   {
-    "document_id": 1385,
-    "id": 8060,
+    "id": 1320,
+    "document_id": 34,
     "public_law_restriction_id": 1320
   },
   {
-    "document_id": 1384,
-    "id": 8061,
+    "id": 1321,
+    "document_id": 33,
     "public_law_restriction_id": 1321
   },
   {
-    "document_id": 1380,
-    "id": 8062,
+    "id": 1322,
+    "document_id": 32,
     "public_law_restriction_id": 1322
   },
   {
-    "document_id": 1379,
-    "id": 8063,
+    "id": 1323,
+    "document_id": 31,
     "public_law_restriction_id": 1323
   },
   {
-    "document_id": 1378,
-    "id": 8064,
+    "id": 1324,
+    "document_id": 30,
     "public_law_restriction_id": 1324
   },
   {
-    "document_id": 1376,
-    "id": 8065,
+    "id": 1325,
+    "document_id": 29,
     "public_law_restriction_id": 1325
   },
   {
-    "document_id": 1375,
-    "id": 8066,
+    "id": 1326,
+    "document_id": 28,
     "public_law_restriction_id": 1326
   },
   {
-    "document_id": 1374,
-    "id": 8067,
+    "id": 1327,
+    "document_id": 27,
     "public_law_restriction_id": 1327
   },
   {
-    "document_id": 1373,
-    "id": 8068,
+    "id": 1328,
+    "document_id": 26,
     "public_law_restriction_id": 1328
   },
   {
-    "document_id": 1372,
-    "id": 8069,
+    "id": 1329,
+    "document_id": 25,
     "public_law_restriction_id": 1329
   },
   {
-    "document_id": 1371,
-    "id": 8070,
+    "id": 1330,
+    "document_id": 24,
     "public_law_restriction_id": 1330
   },
   {
-    "document_id": 1370,
-    "id": 8071,
+    "id": 1331,
+    "document_id": 23,
     "public_law_restriction_id": 1331
   },
   {
-    "document_id": 1369,
-    "id": 8072,
+    "id": 1332,
+    "document_id": 22,
     "public_law_restriction_id": 1332
   },
   {
-    "document_id": 1368,
-    "id": 8073,
+    "id": 1333,
+    "document_id": 21,
     "public_law_restriction_id": 1333
   },
   {
-    "document_id": 1367,
-    "id": 8074,
+    "id": 1334,
+    "document_id": 20,
     "public_law_restriction_id": 1334
   },
   {
-    "document_id": 1365,
-    "id": 8075,
+    "id": 1335,
+    "document_id": 19,
     "public_law_restriction_id": 1335
   },
   {
-    "document_id": 1364,
-    "id": 8076,
+    "id": 1336,
+    "document_id": 17,
     "public_law_restriction_id": 1336
   },
   {
-    "document_id": 1363,
-    "id": 8077,
+    "id": 1337,
+    "document_id": 16,
     "public_law_restriction_id": 1337
   },
   {
-    "document_id": 1362,
-    "id": 8078,
+    "id": 1338,
+    "document_id": 15,
     "public_law_restriction_id": 1338
   },
   {
-    "document_id": 1361,
-    "id": 8079,
+    "id": 1339,
+    "document_id": 14,
     "public_law_restriction_id": 1339
   },
   {
-    "document_id": 1360,
-    "id": 8080,
+    "id": 1340,
+    "document_id": 13,
     "public_law_restriction_id": 1340
   },
   {
-    "document_id": 1359,
-    "id": 8081,
+    "id": 1341,
+    "document_id": 12,
     "public_law_restriction_id": 1341
   },
   {
-    "document_id": 1357,
-    "id": 8082,
+    "id": 1342,
+    "document_id": 11,
     "public_law_restriction_id": 1342
   },
   {
-    "document_id": 1356,
-    "id": 8083,
+    "id": 1343,
+    "document_id": 10,
     "public_law_restriction_id": 1343
   },
   {
-    "document_id": 1355,
-    "id": 8084,
+    "id": 1344,
+    "document_id": 9,
     "public_law_restriction_id": 1344
   },
   {
-    "document_id": 1354,
-    "id": 8085,
+    "id": 1345,
+    "document_id": 8,
     "public_law_restriction_id": 1345
   },
   {
-    "document_id": 1353,
-    "id": 8086,
+    "id": 1346,
+    "document_id": 7,
     "public_law_restriction_id": 1346
   },
   {
-    "document_id": 1352,
-    "id": 8087,
+    "id": 1347,
+    "document_id": 6,
     "public_law_restriction_id": 1347
   },
   {
-    "document_id": 1351,
-    "id": 8088,
+    "id": 1348,
+    "document_id": 5,
     "public_law_restriction_id": 1348
   },
   {
-    "document_id": 1350,
-    "id": 8089,
+    "id": 1349,
+    "document_id": 4,
     "public_law_restriction_id": 1349
+  },
+  {
+    "id": 1350,
+    "document_id": 3,
+    "public_law_restriction_id": 1350
+  },
+  {
+    "id": 1351,
+    "document_id": 2,
+    "public_law_restriction_id": 1351
+  },
+  {
+    "id": 1352,
+    "document_id": 1,
+    "public_law_restriction_id": 1352
   }
 ]

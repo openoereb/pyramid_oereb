@@ -1,9 +1,22 @@
 [
   {
-    "id": 0,
+    "id": 1,
     "name": {
-      "de": "Bundesamt für Verkehr BAV"
+      "de": "Bundesamt für Verkehr BAV",
+      "fr": "Office fédéral des transports OFT",
+      "it": "Ufficio federale dei trasporti UFT"
     },
     "office_at_web": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html"
+  },
+  {
+    "id": 2,
+    "name": {
+      "de": "Bundeskanzlei",
+      "fr": "Chancellerie fédérale",
+      "it": "Cancelleria federale",
+      "rm": "Chanzlia federala",
+      "en": "Federal Chancellery"
+    },
+    "office_at_web": "http://www.bk.admin.ch"
   }
 ]
