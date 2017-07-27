@@ -180,3 +180,11 @@ def test_parse_gnss(config):
     assert round(geom.centroid.x, 3) == 2621858.036
     assert round(geom.centroid.y, 3) == 1259856.747
     assert round(geom.area, 2) == round(math.pi, 2)
+
+
+def test_parse_invalid_coordinates(config):
+    pyramid_oereb.config = config
+    with pytest.raises(HTTPBadRequest):
+        PlrWebservice(MockRequest()).__parse_gnss__('7.72866')
+    with pytest.raises(HTTPBadRequest):
+        PlrWebservice(MockRequest()).__parse_xy__('2621857.856;1259856.578')

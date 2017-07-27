@@ -365,6 +365,10 @@ class PlrWebservice(object):
             Point.
         """
         coords = xy.split(',')
+
+        if len(coords) != 2:
+            raise HTTPBadRequest('The parameter XY has to be a comma-separated pair of coordinates.')
+
         x = float(coords[0])
         y = float(coords[1])
         src_crs = 21781
@@ -389,6 +393,10 @@ class PlrWebservice(object):
             Point.
         """
         coords = gnss.split(',')
+
+        if len(coords) != 2:
+            raise HTTPBadRequest('The parameter GNSS has to be a comma-separated pair of coordinates.')
+
         x = float(coords[0])
         y = float(coords[1])
         return self.__coord_transform__((x, y), 4326).buffer(1.0)
