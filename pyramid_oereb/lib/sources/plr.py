@@ -316,6 +316,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 public_law_restriction_from_db.law_status
             )
         )
+
         plr_record = self._plr_record_class(
             self._theme_record,
             public_law_restriction_from_db.information,
@@ -340,10 +341,7 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
             length_precision=length_precision,
             percentage_precision=percentage_precision
         )
-        # solve circular dependency between plr and geometry
-        # for geometry_record in geometry_records:
-        #     geometry_record.public_law_restriction = plr_record
-        # plr_record.geometries = geometry_records
+
         return plr_record
 
     @staticmethod
@@ -412,8 +410,10 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     geometry_results.append(
                         result
                     )
+
             for result in db_bbox_intersection_results:
                 handle_result(result)
+
         else:
 
             # The PLR is not problematic at all cause we do not have a collection type here
@@ -433,36 +433,50 @@ class PlrStandardDatabaseSource(BaseDatabaseSource, PlrBaseSource):
         geometry_types = Config.get('geometry_types')
         collection_types = geometry_types.get('collection').get('types')
 
-        public_law_restrictions = []
-
         # Check if the plr is marked as available
+        if self._is_available(real_estate):
+
+            session = self._adapter_.get_session(self._key_)
+
+            try:
+
+                if session.query(self._model_).count() == 0:
+                    # We can stop here already because there are no items in the database
+                    self.records = [EmptyPlrRecord(self._theme_record, has_data=False)]
+
+                else:
+
+                    geometry_results = []
+                    self.handle_collection(geometry_results, session, collection_types, bbox)
+
+                    if len(geometry_results) == 0:
+                        self.records = [EmptyPlrRecord(self._theme_record)]
+                    else:
+                        self.records = []
+                        for geometry_result in geometry_results:
+                            self.records.append(
+                                self.from_db_to_plr_record(geometry_result.public_law_restriction)
+                            )
+
+            finally:
+                session.close()
+
+        # Add empty record if topic is not available
+        else:
+            self.records = [EmptyPlrRecord(self._theme_record, has_data=False)]
+
+    def _is_available(self, real_estate):
+        """
+        Checks if the topic is available for the specified real estate.
+
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
+                estate in its record representation.
+
+        Returns:
+             bool: True if the topic is available, false otherwise.
+        """
         for availability in self.availabilities:
             if real_estate.fosnr == availability.fosnr and not availability.available:
-                # The plr is marked as not available! This stops every further processing for this PLR and
-                # adds a simple empty record for the PLR's on this real estate
-                public_law_restrictions.append(EmptyPlrRecord(self._theme_record, has_data=False))
-                return public_law_restrictions
-
-        session = self._adapter_.get_session(self._key_)
-
-        try:
-            if session.query(self._model_).count() == 0:
-                # We can stop here already because there are no items in the database
-                public_law_restrictions.append(EmptyPlrRecord(self._theme_record, has_data=False))
-                return public_law_restrictions
-
-            geometry_results = []
-            self.handle_collection(geometry_results, session, collection_types, bbox)
-
-            if len(geometry_results) == 0:
-                public_law_restrictions.append(EmptyPlrRecord(self._theme_record))
-                return public_law_restrictions
-            for geometry_result in geometry_results:
-                public_law_restrictions.append(
-                    self.from_db_to_plr_record(geometry_result.public_law_restriction)
-                )
-
-            self.records = public_law_restrictions
-
-        finally:
-            session.close()
+                return False
+        return True

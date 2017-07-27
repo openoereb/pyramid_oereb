@@ -666,7 +666,7 @@ pyramid_oereb:
         percentage:
           precision: 1
       text:
-        de: Belastete Standorte Öeffentlicher Verkehr
+        de: Belastete Standorte Öffentlicher Verkehr
       language: de
       federal: true
       standard: true
