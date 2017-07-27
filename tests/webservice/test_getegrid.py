@@ -8,7 +8,7 @@ from shapely.geometry import Point, Polygon, MultiPolygon
 import pyramid_oereb
 import pytest
 
-from pyramid.httpexceptions import HTTPBadRequest
+from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 from tests.conftest import MockRequest, schema_json_extract, pyramid_oereb_test_config
@@ -148,6 +148,13 @@ def test_get_egrid_response():
         }
 
 
+def test_get_egrid_response_no_content():
+    with pyramid_oereb_test_config():
+        request = MockRequest(current_route_url='http://example.com/oereb/getegrid.json')
+        response = PlrWebservice(request).__get_egrid_response__([])
+        assert isinstance(response, HTTPNoContent)
+
+
 @pytest.mark.parametrize('src,dst,buffer_dist', [
     ('2621857.856,1259856.578', (2621857.856, 1259856.578), None),
     ('621857.759,259856.554', (2621857.799, 1259856.500), 1.0)
@@ -173,3 +180,11 @@ def test_parse_gnss(config):
     assert round(geom.centroid.x, 3) == 2621858.036
     assert round(geom.centroid.y, 3) == 1259856.747
     assert round(geom.area, 2) == round(math.pi, 2)
+
+
+def test_parse_invalid_coordinates(config):
+    pyramid_oereb.config = config
+    with pytest.raises(HTTPBadRequest):
+        PlrWebservice(MockRequest()).__parse_gnss__('7.72866')
+    with pytest.raises(HTTPBadRequest):
+        PlrWebservice(MockRequest()).__parse_xy__('2621857.856;1259856.578')

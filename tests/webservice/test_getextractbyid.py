@@ -155,8 +155,8 @@ def test_return_no_content():
         'param2': 'MISSINGEGRID'
     })
     service = PlrWebservice(request)
-    with pytest.raises(HTTPNoContent):
-        service.get_extract_by_id()
+    response = service.get_extract_by_id()
+    assert isinstance(response, HTTPNoContent)
 
 
 @pytest.mark.parametrize('topics', [

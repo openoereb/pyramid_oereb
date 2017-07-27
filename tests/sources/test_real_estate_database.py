@@ -2,6 +2,7 @@
 import pytest
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter
+from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.sources.real_estate import RealEstateDatabaseSource
 from pyramid_oereb.standard.models.main import RealEstate
 
@@ -15,22 +16,17 @@ def test_init(config):
 
 @pytest.mark.run(order=2)
 @pytest.mark.parametrize("param", [
-    {'nb_ident': 'BL0200002789', 'number': '545'}
+    {'nb_ident': 'BLTEST', 'number': '1000'},
+    {'egrid': 'TEST'},
+    {'geometry': 'SRID=2056;POINT(1 1)'}
 ])
-def test_read_ndident_number(param, config):
+def test_read(param, config):
     source = RealEstateDatabaseSource(**config.get_real_estate_config().get('source').get('params'))
-    with pytest.raises(LookupError):
-        source.read(nb_ident=param.get('nb_ident'), number=param.get('number'))
-
-
-@pytest.mark.run(order=2)
-@pytest.mark.parametrize("param", [
-    {'egrid': 'CH1234'}
-])
-def test_read_egrid(param, config):
-    source = RealEstateDatabaseSource(**config.get_real_estate_config().get('source').get('params'))
-    with pytest.raises(LookupError):
-        source.read(egrid=param.get('egrid'))
+    source.read(**param)
+    assert len(source.records) == 1
+    record = source.records[0]
+    assert isinstance(record, RealEstateRecord)
+    assert record.fosnr == 1234
 
 
 @pytest.mark.run(order=2)
