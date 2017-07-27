@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import codecs
 import sys
 import re
 import json
@@ -13,7 +13,7 @@ from sqlalchemy.orm import sessionmaker, class_mapper
 from pyramid_oereb.lib.config import parse
 from pyramid_oereb.standard.models.contaminated_public_transport_sites import Office, Geometry, \
     PublicLawRestriction, ViewService, PublicLawRestrictionDocument, DocumentBase, LegalProvision, \
-    Availability, LegendEntry, DocumentReference, Document
+    Availability, LegendEntry, DocumentReference, Document, DataIntegration
 from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality
 
 
@@ -96,7 +96,7 @@ class SampleData(object):
             class_ (sqlalchemy.ext.declarative.ConcreteBase): SQLAlchemy class
             import_file_name (str): The resource file name to import
         """
-        with open(os.path.join(self._directory, import_file_name)) as f:
+        with codecs.open(os.path.join(self._directory, import_file_name), encoding='utf-8') as f:
             if self._sql_file is None:
                 if self._has_connection():
                     self._connection.execute(class_.__table__.insert(), json.loads(f.read()))
@@ -161,6 +161,10 @@ class SampleData(object):
                 schema=LegendEntry.__table__.schema,
                 table=LegendEntry.__table__.name
             ))
+            self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+                schema=DataIntegration.__table__.schema,
+                table=DataIntegration.__table__.name
+            ))
 
     def load(self):
         """
@@ -178,6 +182,7 @@ class SampleData(object):
             # Fill tables with sample data
             self._load_sample(Availability, 'plr119/availabilities.json')
             self._load_sample(Office, 'plr119/office.json')
+            self._load_sample(DataIntegration, 'plr119/data_integration.json')
             self._load_sample(ViewService, 'plr119/view_service.json')
             self._load_sample(LegendEntry, 'plr119/legend_entry.json')
             self._load_sample(PublicLawRestriction, 'plr119/public_law_restriction.json')
@@ -279,7 +284,7 @@ def _run():
     if options.sql_file is None:
         SampleData(options.configuration, section=options.section, directory=options.directory).load()
     else:
-        with open(options.sql_file, 'w') as sql_file:
+        with codecs.open(options.sql_file, mode='w', encoding='utf-8') as sql_file:
             SampleData(
                 options.configuration,
                 section=options.section,
