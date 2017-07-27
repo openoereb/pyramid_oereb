@@ -27,7 +27,7 @@ class BaseDatabaseSource(Base):
 
         Keyword Args:
             db_connection (str): A rfc1738 conform database connection string in the form of:
-                '<driver_name e.g. "postgres">://<username>:<password>@<database_host>:<port>/<database_name>'
+                ``<driver_name>://<username>:<password>@<database_host>:<port>/<database_name>``
             model (str): A valid dotted name string which leads to an importable representation of
                 sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.
         """
