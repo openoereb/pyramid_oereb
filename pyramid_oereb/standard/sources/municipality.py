@@ -7,8 +7,10 @@ from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from geoalchemy2.shape import to_shape
 
+from pyramid_oereb.lib.sources.municipality import MunicipalityBaseSource
 
-class DatabaseSource(BaseDatabaseSource):
+
+class DatabaseSource(BaseDatabaseSource, MunicipalityBaseSource):
 
     def read(self):
         """

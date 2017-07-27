@@ -4,8 +4,10 @@ from geoalchemy2.elements import _SpatialElement
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from geoalchemy2.shape import to_shape
 
+from pyramid_oereb.lib.sources.real_estate import RealEstateBaseSource
 
-class DatabaseSource(BaseDatabaseSource):
+
+class DatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
 
     def read(self, nb_ident=None, number=None, egrid=None, geometry=None):
         """
