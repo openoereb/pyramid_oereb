@@ -36,17 +36,10 @@ class RealEstateDatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
         try:
             query = session.query(self._model_)
             if nb_ident and number:
-                # explicitly querying for one result, this will cause an error if more than one ore none
-                results = [
-                    query.filter(self._model_.number == number).filter(self._model_.identdn == nb_ident).one()
-                ]
+                results = query.filter(self._model_.number == number, self._model_.identdn == nb_ident).all()
             elif egrid:
-                # explicitly querying for one result, this will cause an error if more than one ore none
-                results = [
-                    query.filter(self._model_.egrid == egrid).one()
-                ]
+                results = query.filter(self._model_.egrid == egrid).all()
             elif geometry:
-                # querying for all results
                 results = query.filter(self._model_.limit.ST_Intersects(geometry)).all()
             else:
                 raise AttributeError('Necessary parameter were missing.')
