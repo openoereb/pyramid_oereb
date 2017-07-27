@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from geoalchemy2.elements import _SpatialElement
 from geoalchemy2.shape import to_shape
+from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
 from pyramid_oereb.lib.records.address import AddressRecord
@@ -35,7 +36,7 @@ class AddressDatabaseSource(BaseDatabaseSource, AddressBaseSource):
                 self._model_.street_number == street_number
             ).one()]
 
-            self.records = list()
+            self.records = []
             for result in results:
                 self.records.append(self._record_class_(
                     result.street_name,
@@ -44,8 +45,8 @@ class AddressDatabaseSource(BaseDatabaseSource, AddressBaseSource):
                     to_shape(result.geom).wkt if isinstance(result.geom, _SpatialElement) else None
                 ))
 
-        except:
-            raise
+        except NoResultFound:
+            self.records = []
 
         finally:
             session.close()

@@ -165,7 +165,7 @@ class PlrWebservice(object):
             )
             addresses = reader.read(localisation, int(postalcode), number)
             if len(addresses) == 0:
-                raise HTTPNotFound('Address not found.')
+                return HTTPNoContent()
             geometry = 'SRID={srid};{wkt}'.format(srid=Config.get('srid'), wkt=addresses[0].geom)
             records = self._real_estate_reader.read(**{'geometry': geometry})
             return self.__get_egrid_response__(records)
@@ -184,18 +184,12 @@ class PlrWebservice(object):
         # read the real estate from configured source by the passed parameters
         real_estate_reader = processor.real_estate_reader
         if params.egrid:
-            try:
-                real_estate_records = real_estate_reader.read(egrid=params.egrid)
-            except LookupError:
-                raise HTTPNoContent()
+            real_estate_records = real_estate_reader.read(egrid=params.egrid)
         elif params.identdn and params.number:
-            try:
-                real_estate_records = real_estate_reader.read(
-                    nb_ident=params.identdn,
-                    number=params.number
-                )
-            except LookupError:
-                raise HTTPNoContent()
+            real_estate_records = real_estate_reader.read(
+                nb_ident=params.identdn,
+                number=params.number
+            )
         else:
             raise HTTPBadRequest()
 
@@ -234,7 +228,7 @@ class PlrWebservice(object):
             else:
                 raise HTTPBadRequest()
         else:
-            raise HTTPBadRequest()
+            return HTTPNoContent()
 
     def __validate_extract_params__(self):
         """
@@ -338,6 +332,10 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `getegrid` response.
         """
+
+        if len(records) == 0:
+            return HTTPNoContent()
+
         real_estates = list()
         for r in records:
             real_estates.append({

@@ -8,7 +8,7 @@ from shapely.geometry import Point, Polygon, MultiPolygon
 import pyramid_oereb
 import pytest
 
-from pyramid.httpexceptions import HTTPBadRequest
+from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 from tests.conftest import MockRequest, schema_json_extract, pyramid_oereb_test_config
@@ -146,6 +146,13 @@ def test_get_egrid_response():
                 'identDN': 'identdn'
             }]
         }
+
+
+def test_get_egrid_response_no_content():
+    with pyramid_oereb_test_config():
+        request = MockRequest(current_route_url='http://example.com/oereb/getegrid.json')
+        response = PlrWebservice(request).__get_egrid_response__([])
+        assert isinstance(response, HTTPNoContent)
 
 
 @pytest.mark.parametrize('src,dst,buffer_dist', [

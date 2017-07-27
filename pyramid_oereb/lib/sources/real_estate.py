@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from geoalchemy2.elements import _SpatialElement
-from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
@@ -58,9 +57,6 @@ class RealEstateDatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
                     identdn=result.identdn,
                     egrid=result.egrid,
                 ))
-
-        except NoResultFound as e:
-            raise LookupError(e)
 
         finally:
             session.close()
