@@ -42,9 +42,9 @@ extensions = [
 ]
 
 with open('api.rst', 'w') as api:
-    api.write(subprocess.check_output([
+    api.write(str(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
-        'api.rst.mako']))
+        'api.rst.mako'])))
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['doc/_buildtemplates']
