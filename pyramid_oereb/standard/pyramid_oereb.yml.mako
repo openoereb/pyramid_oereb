@@ -308,7 +308,7 @@ pyramid_oereb:
       federal: false
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.land_use_plans
@@ -341,7 +341,7 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.motorways_project_planing_zones
@@ -374,7 +374,7 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.motorways_building_lines
@@ -407,7 +407,7 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.railways_building_lines
@@ -440,7 +440,7 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.railways_project_planning_zones
@@ -473,7 +473,7 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.airports_project_planning_zones
@@ -506,7 +506,7 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.airports_building_lines
@@ -539,7 +539,7 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.airports_security_zone_plans
@@ -572,7 +572,7 @@ pyramid_oereb:
       federal: false
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_sites
@@ -605,7 +605,7 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_military_sites
@@ -638,7 +638,7 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
@@ -671,7 +671,7 @@ pyramid_oereb:
       federal: true
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.contaminated_public_transport_sites
@@ -704,7 +704,7 @@ pyramid_oereb:
       federal: false
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.groundwater_protection_zones
@@ -737,7 +737,7 @@ pyramid_oereb:
       federal: false
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.groundwater_protection_sites
@@ -770,7 +770,7 @@ pyramid_oereb:
       federal: false
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.noise_sensitivity_levels
@@ -803,7 +803,7 @@ pyramid_oereb:
       federal: false
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.forest_perimeters
@@ -836,7 +836,7 @@ pyramid_oereb:
       federal: false
       standard: true
       source:
-        class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: ${sqlalchemy_url}
           models: pyramid_oereb.standard.models.forest_distance_lines

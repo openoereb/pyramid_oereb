@@ -69,7 +69,7 @@ this:
        federal: true
        standard: true
        source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         class: pyramid_oereb.lib.sources.plr.DatabaseSource
          params:
            db_connection: postgresql://postgres:password@localhost:5432/pyramid_oereb
            models: pyramid_oereb.standard.models.motorways_building_lines
@@ -144,7 +144,7 @@ source.
        code: MotorwaysBuildingLines
        (...)
        source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         class: pyramid_oereb.lib.sources.plr.DatabaseSource
          params:
            db_connection: postgresql://postgres:password@localhost:5432/pyramid_oereb
            models: my_application.models.motorways_building_lines
