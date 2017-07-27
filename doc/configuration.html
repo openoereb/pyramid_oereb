@@ -38,7 +38,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="pyramid_oereb  documentation" href="index.html"/>
-        <link rel="next" title="&lt;no title&gt;" href="api.html"/>
+        <link rel="next" title="API" href="api.html"/>
         <link rel="prev" title="Installation" href="installation.html"/> 
 
   
@@ -97,6 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#create-custom-sources">Create custom sources</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
@@ -234,7 +235,7 @@ already containing all the necessary data but in a different structure. In this 
 is possible to transform the data by extending the existing models with a mapping to fit your structure.</p>
 <p>The easiest example is a simple mapping of table and column names, if you use a different language. Using the
 possibilities of SQLAlchemy, you could extend the existing
-<span class="xref std std-ref">api-pyramid_oereb-standard-models-motorways_building_lines-office</span> like this:</p>
+<a class="reference internal" href="api.html#api-pyramid-oereb-standard-models-motorways-building-lines-office"><span class="std std-ref">Class Office</span></a> like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyramid_oereb.lib.standard.models</span> <span class="kn">import</span> <span class="n">motorways_building_lines</span>
 
 <span class="k">class</span> <span class="nc">Office</span><span class="p">(</span><span class="n">motorways_building_lines</span><span class="o">.</span><span class="n">Office</span><span class="p">):</span>
@@ -316,10 +317,10 @@ restrictions on implementing a custom source:</p>
 <div><ol class="arabic simple">
 <li>The source has to implement the method <cite>read()</cite> with the arguments used in its base source. For
 example, your custom real estate source has to accept the arguments defined in
-<span class="xref std std-ref">api-pyramid_oereb-lib-sources-real_estate-realestatebasesource</span>.</li>
+<a class="reference internal" href="api.html#api-pyramid-oereb-lib-sources-real-estate-realestatebasesource"><span class="std std-ref">Class RealEstateBaseSource</span></a>.</li>
 <li>The method <cite>read()</cite> has to add records of the corresponding type to the source&#8217; records list. Every
 source has list property called <cite>records</cite>. In case of a real estate source, the method <cite>read()</cite> has to
-create one or more instances of the <span class="xref std std-ref">api-pyramid_oereb-lib-records-real_estate-realestaterecord</span>
+create one or more instances of the <a class="reference internal" href="api.html#api-pyramid-oereb-lib-records-real-estate-realestaterecord"><span class="std std-ref">Class RealEstateRecord</span></a>
 and add them to this list.</li>
 </ol>
 </div></blockquote>
@@ -342,7 +343,7 @@ records with all referenced records of other classes according to the <a class="
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="api.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -250,6 +250,23 @@
                     <span class="n">inside_plrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter_published_documents</span><span class="p">(</span><span class="n">public_law_restriction</span><span class="p">))</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">outside_plrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">public_law_restriction</span><span class="p">)</span>
+
+        <span class="c1"># Check if theme is concerned</span>
+        <span class="k">def</span> <span class="nf">is_inside_plr</span><span class="p">(</span><span class="n">theme_code</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">plr</span> <span class="ow">in</span> <span class="n">inside_plrs</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="n">theme_code</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Ensure ConcernedThemes contains only inside PLRs</span>
+        <span class="n">themes_to_move</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">theme</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">extract</span><span class="o">.</span><span class="n">concerned_theme</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_inside_plr</span><span class="p">(</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">):</span>
+                <span class="n">themes_to_move</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">themes_to_move</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">themes_to_move</span><span class="p">:</span>
+            <span class="n">extract</span><span class="o">.</span><span class="n">not_concerned_theme</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">extract</span><span class="o">.</span><span class="n">concerned_theme</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
+
         <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_legend_entries</span><span class="p">(</span><span class="n">inside_plrs</span><span class="p">,</span> <span class="n">outside_plrs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">extract</span></div>
 
