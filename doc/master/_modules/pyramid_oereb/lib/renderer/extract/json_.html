@@ -214,7 +214,7 @@
         <span class="p">}</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="o">.</span><span class="n">flavour</span> <span class="o">==</span> <span class="s1">&#39;embeddable&#39;</span><span class="p">:</span>
             <span class="n">result</span><span class="p">[</span><span class="sa">u</span><span class="s1">&#39;GetExtractByIdResponse&#39;</span><span class="p">][</span><span class="sa">u</span><span class="s1">&#39;embeddable&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_embeddable</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">embeddable</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">unicode</span><span class="p">(</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extract</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -397,9 +397,7 @@
                     <span class="c1"># TODO: How to handle restrictions without type code? Is this possible?</span>
                     <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">type_code</span><span class="p">:</span>
                         <span class="n">plr_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-                            <span class="s1">&#39;SymbolRef&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">route_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/image/symbol&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">),</span>
-                                                                 <span class="n">theme_code</span><span class="o">=</span><span class="n">plr</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">,</span>
-                                                                 <span class="n">type_code</span><span class="o">=</span><span class="n">plr</span><span class="o">.</span><span class="n">type_code</span><span class="p">)</span>
+                            <span class="s1">&#39;SymbolRef&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_symbol_ref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">,</span> <span class="n">plr</span><span class="p">)</span>
                         <span class="p">})</span>
 
                 <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">area</span><span class="p">:</span>
@@ -648,9 +646,7 @@
             <span class="p">})</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">legend_entry_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-                <span class="s1">&#39;SymbolRef&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">route_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/image/symbol&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">),</span>
-                                                     <span class="n">theme_code</span><span class="o">=</span><span class="n">legend_entry</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">,</span>
-                                                     <span class="n">type_code</span><span class="o">=</span><span class="n">legend_entry</span><span class="o">.</span><span class="n">type_code</span><span class="p">)</span>
+                <span class="s1">&#39;SymbolRef&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_symbol_ref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">,</span> <span class="n">legend_entry</span><span class="p">)</span>
             <span class="p">})</span>
 
         <span class="k">if</span> <span class="n">legend_entry</span><span class="o">.</span><span class="n">sub_theme</span><span class="p">:</span>
@@ -747,11 +743,6 @@
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
-        <dl>
-            <dt>Tags</dt>
-            <dd><a href="../../../../../../0.0.1/index.html">0.0.1</a></dd>
-            <dd><a href="../../../../../../v1.0.0-alpha.2/index.html">v1.0.0-alpha.2</a></dd>
-        </dl>
         <dl>
             <dt>Branches</dt>
             <dd><a href="json_.html">master</a></dd>

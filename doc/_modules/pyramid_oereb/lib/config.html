@@ -232,7 +232,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">plrs</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">plrs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plrs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">plrs</span><span class="p">:</span>
@@ -294,7 +294,7 @@
 <span class="sd">        :rtype: list of str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="n">federal</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">federal</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">plrs</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">plrs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plrs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">plr</span> <span class="ow">in</span> <span class="n">plrs</span><span class="p">:</span>
@@ -312,10 +312,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
-        <span class="n">crs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">crs</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">srid</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">srid</span><span class="p">:</span>
-            <span class="n">crs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;epsg:&#39;</span> <span class="o">+</span> <span class="n">unicode</span><span class="p">(</span><span class="n">srid</span><span class="p">))</span>
+            <span class="n">crs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;epsg:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">srid</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">crs</span></div>
 
     <span class="nd">@staticmethod</span>
@@ -328,7 +328,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">language</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;language&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">language</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">language</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">language</span><span class="p">)</span>
@@ -344,7 +344,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">flavour</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;flavour&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">flavour</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">flavour</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">flavour</span><span class="p">)</span>
@@ -360,7 +360,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">geometry_types</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;geometry_types&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">geometry_types</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geometry_types</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">geometry_types</span><span class="p">)</span>
@@ -572,19 +572,19 @@
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">required</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;Missing configuration value for </span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">current_path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">),</span> <span class="n">key</span><span class="p">))</span>
+                        <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_path</span><span class="p">),</span> <span class="n">key</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">result</span>
 
         <span class="n">k</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current_object</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;Missing configuration object for </span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">current_path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">),</span> <span class="n">k</span><span class="p">))</span>
+                <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_path</span><span class="p">),</span> <span class="n">k</span><span class="p">))</span>
 
         <span class="n">current_path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">current_object</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">!=</span> <span class="nb">dict</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;The configuration </span><span class="si">{}</span><span class="s1"> is not an object.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">current_path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)))</span>
+                <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_path</span><span class="p">)))</span>
 
         <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">_get_object_path</span><span class="p">(</span><span class="n">current_path</span><span class="p">,</span> <span class="n">current_object</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">default</span><span class="p">,</span> <span class="n">required</span><span class="p">)</span>
 
@@ -681,18 +681,13 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: v1.0.0-alpha.2
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
         <dl>
-            <dt>Tags</dt>
-            <dd><a href="../../../0.0.1/index.html">0.0.1</a></dd>
-            <dd><a href="../../../v1.0.0-alpha.2/_modules/pyramid_oereb/lib/config.html">v1.0.0-alpha.2</a></dd>
-        </dl>
-        <dl>
             <dt>Branches</dt>
-            <dd><a href="../../../master/index.html">master</a></dd>
+            <dd><a href="../../../master/_modules/pyramid_oereb/lib/config.html">master</a></dd>
         </dl>
     </div>
 </div>

@@ -6,6 +6,54 @@ API
 
 
 
+.. _api-pyramid_oereb-contrib:
+
+Module *contrib*
+------------------------------
+
+.. automodule:: pyramid_oereb.contrib
+   :members:
+
+.. _api-pyramid_oereb-contrib-sources:
+
+Module *sources*
+``````````````````````````````````````
+
+.. automodule:: pyramid_oereb.contrib.sources
+   :members:
+
+.. _api-pyramid_oereb-contrib-sources-address:
+
+Module *address*
+''''''''''''''''''''''''''''''''''''''''''''''
+
+.. automodule:: pyramid_oereb.contrib.sources.address
+   :members:
+
+.. _api-pyramid_oereb-contrib-sources-address-addressgeoadminsource:
+
+Class *AddressGeoAdminSource*
+.............................
+
+.. autoclass:: pyramid_oereb.contrib.sources.address.AddressGeoAdminSource
+   :members:
+
+.. _api-pyramid_oereb-contrib-sources-document:
+
+Module *document*
+'''''''''''''''''''''''''''''''''''''''''''''''
+
+.. automodule:: pyramid_oereb.contrib.sources.document
+   :members:
+
+.. _api-pyramid_oereb-contrib-sources-document-oereblexsource:
+
+Class *OEREBlexSource*
+......................
+
+.. autoclass:: pyramid_oereb.contrib.sources.document.OEREBlexSource
+   :members:
+
 .. _api-pyramid_oereb-lib:
 
 Module *lib*
@@ -374,6 +422,22 @@ Class *ImageRecord*
 .. autoclass:: pyramid_oereb.lib.records.image.ImageRecord
    :members:
 
+.. _api-pyramid_oereb-lib-records-law_status:
+
+Module *law_status*
+'''''''''''''''''''''''''''''''''''''''''''''
+
+.. automodule:: pyramid_oereb.lib.records.law_status
+   :members:
+
+.. _api-pyramid_oereb-lib-records-law_status-lawstatusrecord:
+
+Class *LawStatusRecord*
+.......................
+
+.. autoclass:: pyramid_oereb.lib.records.law_status.LawStatusRecord
+   :members:
+
 .. _api-pyramid_oereb-lib-records-municipality:
 
 Module *municipality*
@@ -444,14 +508,6 @@ Class *RealEstateRecord*
 ........................
 
 .. autoclass:: pyramid_oereb.lib.records.real_estate.RealEstateRecord
-   :members:
-
-.. _api-pyramid_oereb-lib-records-reference_definition:
-
-Module *reference_definition*
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-.. automodule:: pyramid_oereb.lib.records.reference_definition
    :members:
 
 .. _api-pyramid_oereb-lib-records-theme:
@@ -894,6 +950,14 @@ Module *hook_methods*
 .. automodule:: pyramid_oereb.standard.hook_methods
    :members:
 
+.. _api-pyramid_oereb-standard-load_legend_entries:
+
+Module *load_legend_entries*
+```````````````````````````````````````````````````
+
+.. automodule:: pyramid_oereb.standard.load_legend_entries
+   :members:
+
 .. _api-pyramid_oereb-standard-load_sample_data:
 
 Module *load_sample_data*
@@ -908,14 +972,6 @@ Class *SampleData*
 ''''''''''''''''''
 
 .. autoclass:: pyramid_oereb.standard.load_sample_data.SampleData
-   :members:
-
-.. _api-pyramid_oereb-standard-methods:
-
-Module *methods*
-```````````````````````````````````````
-
-.. automodule:: pyramid_oereb.standard.methods
    :members:
 
 .. _api-pyramid_oereb-standard-models:

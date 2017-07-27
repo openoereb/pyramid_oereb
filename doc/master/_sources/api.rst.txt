@@ -510,14 +510,6 @@ Class *RealEstateRecord*
 .. autoclass:: pyramid_oereb.lib.records.real_estate.RealEstateRecord
    :members:
 
-.. _api-pyramid_oereb-lib-records-reference_definition:
-
-Module *reference_definition*
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-.. automodule:: pyramid_oereb.lib.records.reference_definition
-   :members:
-
 .. _api-pyramid_oereb-lib-records-theme:
 
 Module *theme*
@@ -980,14 +972,6 @@ Class *SampleData*
 ''''''''''''''''''
 
 .. autoclass:: pyramid_oereb.standard.load_sample_data.SampleData
-   :members:
-
-.. _api-pyramid_oereb-standard-methods:
-
-Module *methods*
-```````````````````````````````````````
-
-.. automodule:: pyramid_oereb.standard.methods
    :members:
 
 .. _api-pyramid_oereb-standard-models:

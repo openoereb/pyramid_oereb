@@ -181,7 +181,8 @@
                     <span class="n">request_method</span><span class="o">=</span><span class="s1">&#39;GET&#39;</span><span class="p">)</span>
 
     <span class="c1"># Service for symbol images</span>
-    <span class="n">config</span><span class="o">.</span><span class="n">add_route</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/image/symbol&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">),</span> <span class="s1">&#39;/image/symbol/</span><span class="si">{theme_code}</span><span class="s1">/</span><span class="si">{type_code}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">add_route</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/image/symbol&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">),</span>
+                     <span class="s1">&#39;/image/symbol/</span><span class="si">{theme_code}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">config</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">attr</span><span class="o">=</span><span class="s1">&#39;get_image&#39;</span><span class="p">,</span> <span class="n">route_name</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/image/symbol&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">),</span>
                     <span class="n">request_method</span><span class="o">=</span><span class="s1">&#39;GET&#39;</span><span class="p">)</span>
 
@@ -392,11 +393,6 @@
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
-        <dl>
-            <dt>Tags</dt>
-            <dd><a href="../../../0.0.1/index.html">0.0.1</a></dd>
-            <dd><a href="../../../v1.0.0-alpha.2/index.html">v1.0.0-alpha.2</a></dd>
-        </dl>
         <dl>
             <dt>Branches</dt>
             <dd><a href="routes.html">master</a></dd>

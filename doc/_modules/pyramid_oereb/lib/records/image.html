@@ -179,7 +179,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: The encoded image.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>
@@ -212,18 +212,13 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: v1.0.0-alpha.2
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
         <dl>
-            <dt>Tags</dt>
-            <dd><a href="../../../../0.0.1/index.html">0.0.1</a></dd>
-            <dd><a href="../../../../v1.0.0-alpha.2/_modules/pyramid_oereb/lib/records/image.html">v1.0.0-alpha.2</a></dd>
-        </dl>
-        <dl>
             <dt>Branches</dt>
-            <dd><a href="../../../../master/index.html">master</a></dd>
+            <dd><a href="../../../../master/_modules/pyramid_oereb/lib/records/image.html">master</a></dd>
         </dl>
     </div>
 </div>

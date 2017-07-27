@@ -160,10 +160,16 @@
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
 
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="k">import</span> <span class="n">HTTPServerError</span>
+<span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="k">import</span> <span class="n">DottedNameResolver</span>
 <span class="kn">from</span> <span class="nn">pyramid.request</span> <span class="k">import</span> <span class="n">Request</span>
 <span class="kn">from</span> <span class="nn">pyramid.testing</span> <span class="k">import</span> <span class="n">DummyRequest</span>
 
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">Config</span>
+
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Base"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.renderer.Base">[docs]</a><span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -176,6 +182,29 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_info_</span> <span class="o">=</span> <span class="n">info</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;default_language&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Base.get_symbol_ref"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.renderer.Base.get_symbol_ref">[docs]</a>    <span class="k">def</span> <span class="nf">get_symbol_ref</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the link to the symbol of the specified public law restriction.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            request (pyramid.request.Request): The current request instance.</span>
+<span class="sd">            record (pyramid_oereb.lib.records.plr.PlrRecord or</span>
+<span class="sd">                pyramid_oereb.lib.records.view_service.LegendEntryRecord): The record of the public law</span>
+<span class="sd">                restriction to get the symbol reference for.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            uri: The link to the symbol for the specified public law restriction.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">plr</span> <span class="ow">in</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="n">method</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;hooks&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;get_symbol_ref&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">record</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No &quot;get_symbol_ref&quot; method found for theme </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="n">HTTPServerError</span><span class="p">()</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Base.get_response"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.renderer.Base.get_response">[docs]</a>    <span class="k">def</span> <span class="nf">get_response</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
@@ -305,18 +334,13 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: v1.0.0-alpha.2
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
         <dl>
-            <dt>Tags</dt>
-            <dd><a href="../../../0.0.1/index.html">0.0.1</a></dd>
-            <dd><a href="../../../v1.0.0-alpha.2/_modules/pyramid_oereb/lib/renderer.html">v1.0.0-alpha.2</a></dd>
-        </dl>
-        <dl>
             <dt>Branches</dt>
-            <dd><a href="../../../master/index.html">master</a></dd>
+            <dd><a href="../../../master/_modules/pyramid_oereb/lib/renderer.html">master</a></dd>
         </dl>
     </div>
 </div>

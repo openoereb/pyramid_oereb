@@ -161,7 +161,6 @@
   <h1>Source code for pyramid_oereb.lib.sources.real_estate</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">from</span> <span class="nn">geoalchemy2.elements</span> <span class="k">import</span> <span class="n">_SpatialElement</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.orm.exc</span> <span class="k">import</span> <span class="n">NoResultFound</span>
 
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources</span> <span class="k">import</span> <span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">Base</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.real_estate</span> <span class="k">import</span> <span class="n">RealEstateRecord</span>
@@ -197,17 +196,10 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">query</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">nb_ident</span> <span class="ow">and</span> <span class="n">number</span><span class="p">:</span>
-                <span class="c1"># explicitly querying for one result, this will cause an error if more than one ore none</span>
-                <span class="n">results</span> <span class="o">=</span> <span class="p">[</span>
-                    <span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">number</span> <span class="o">==</span> <span class="n">number</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">identdn</span> <span class="o">==</span> <span class="n">nb_ident</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
-                <span class="p">]</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">number</span> <span class="o">==</span> <span class="n">number</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">identdn</span> <span class="o">==</span> <span class="n">nb_ident</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
             <span class="k">elif</span> <span class="n">egrid</span><span class="p">:</span>
-                <span class="c1"># explicitly querying for one result, this will cause an error if more than one ore none</span>
-                <span class="n">results</span> <span class="o">=</span> <span class="p">[</span>
-                    <span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">egrid</span> <span class="o">==</span> <span class="n">egrid</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
-                <span class="p">]</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">egrid</span> <span class="o">==</span> <span class="n">egrid</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
             <span class="k">elif</span> <span class="n">geometry</span><span class="p">:</span>
-                <span class="c1"># querying for all results</span>
                 <span class="n">results</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">ST_Intersects</span><span class="p">(</span><span class="n">geometry</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Necessary parameter were missing.&#39;</span><span class="p">)</span>
@@ -226,9 +218,6 @@
                     <span class="n">identdn</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">identdn</span><span class="p">,</span>
                     <span class="n">egrid</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">egrid</span><span class="p">,</span>
                 <span class="p">))</span>
-
-        <span class="k">except</span> <span class="n">NoResultFound</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
@@ -268,11 +257,6 @@
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
-        <dl>
-            <dt>Tags</dt>
-            <dd><a href="../../../../../0.0.1/index.html">0.0.1</a></dd>
-            <dd><a href="../../../../../v1.0.0-alpha.2/index.html">v1.0.0-alpha.2</a></dd>
-        </dl>
         <dl>
             <dt>Branches</dt>
             <dd><a href="real_estate.html">master</a></dd>

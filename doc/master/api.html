@@ -143,7 +143,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-pyramid_oereb.lib.records.office">Module <em>office</em></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-pyramid_oereb.lib.records.plr">Module <em>plr</em></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#api-pyramid-oereb-lib-records-real-estate">Module <em>real_estate</em></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-pyramid_oereb.lib.records.reference_definition">Module <em>reference_definition</em></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-pyramid_oereb.lib.records.theme">Module <em>theme</em></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-pyramid_oereb.lib.records.view_service">Module <em>view_service</em></a></li>
 </ul>
@@ -183,7 +182,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#class-sampledata">Class <em>SampleData</em></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyramid_oereb.standard.methods">Module <em>methods</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyramid_oereb.standard.models">Module <em>models</em></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#module-pyramid_oereb.standard.models.airports_building_lines">Module <em>airports_building_lines</em></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-pyramid_oereb.standard.models.airports_project_planning_zones">Module <em>airports_project_planning_zones</em></a></li>
@@ -1809,9 +1807,6 @@ service to be used for the land registry map.</td>
 
 </div>
 </div>
-<div class="section" id="module-pyramid_oereb.lib.records.reference_definition">
-<span id="module-reference-definition"></span><span id="api-pyramid-oereb-lib-records-reference-definition"></span><h4>Module <em>reference_definition</em><a class="headerlink" href="#module-pyramid_oereb.lib.records.reference_definition" title="Permalink to this headline">¶</a></h4>
-</div>
 <div class="section" id="module-pyramid_oereb.lib.records.theme">
 <span id="module-theme"></span><span id="api-pyramid-oereb-lib-records-theme"></span><h4>Module <em>theme</em><a class="headerlink" href="#module-pyramid_oereb.lib.records.theme" title="Permalink to this headline">¶</a></h4>
 <div class="section" id="class-themerecord">
@@ -2003,6 +1998,31 @@ should be append to the list.</td>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The response object.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response or None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="pyramid_oereb.lib.renderer.Base.get_symbol_ref">
+<em class="property">classmethod </em><code class="descname">get_symbol_ref</code><span class="sig-paren">(</span><em>request</em>, <em>record</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/lib/renderer.html#Base.get_symbol_ref"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.renderer.Base.get_symbol_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the link to the symbol of the specified public law restriction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The current request instance.</li>
+<li><strong>(</strong><strong>pyramid_oereb.lib.records.plr.PlrRecord or</strong> (<em>record</em>) &#8211; pyramid_oereb.lib.records.view_service.LegendEntryRecord): The record of the public law
+restriction to get the symbol reference for.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The link to the symbol for the specified public law restriction.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">uri</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -2890,6 +2910,42 @@ definitions.</li>
 <div class="section" id="module-pyramid_oereb.standard.hook_methods">
 <span id="module-hook-methods"></span><span id="api-pyramid-oereb-standard-hook-methods"></span><h3>Module <em>hook_methods</em><a class="headerlink" href="#module-pyramid_oereb.standard.hook_methods" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
+<dt id="pyramid_oereb.standard.hook_methods.get_logo">
+<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">get_logo</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/hook_methods.html#get_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.get_logo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the requested logo.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The request containing the logo key matchdict parameter.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The generated response object.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyramid_oereb.standard.hook_methods.get_municipality">
+<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">get_municipality</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/hook_methods.html#get_municipality"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.get_municipality" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the requested municipality logo from database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The request containing the fosnr as matchdict parameter.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The generated response object.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyramid_oereb.standard.hook_methods.get_surveying_data_provider">
 <code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">get_surveying_data_provider</code><span class="sig-paren">(</span><em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/hook_methods.html#get_surveying_data_provider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.get_surveying_data_provider" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -2929,6 +2985,49 @@ estate for which the last update date of the base data should be indicated</td>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The date of the last update of the cadastral base data</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">update_date (datetime.datetime)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyramid_oereb.standard.hook_methods.get_symbol">
+<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">get_symbol</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/hook_methods.html#get_symbol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.get_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the symbol for the requested theme and type code from database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The request containing the codes as matchdict parameters.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The generated response object.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyramid_oereb.standard.hook_methods.get_symbol_ref">
+<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">get_symbol_ref</code><span class="sig-paren">(</span><em>request</em>, <em>record</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/hook_methods.html#get_symbol_ref"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.get_symbol_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the link to the symbol of the specified public law restriction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The current request instance.</li>
+<li><strong>(</strong><strong>pyramid_oereb.lib.records.plr.PlrRecord or</strong> (<em>record</em>) &#8211; pyramid_oereb.lib.records.view_service.LegendEntryRecord): The record of the public law
+restriction to get the symbol reference for.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The link to the symbol for the specified public law restriction.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">uri</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -3020,63 +3119,6 @@ format your WMS is supporting here.</li>
 </dd></dl>
 
 </div>
-</div>
-<div class="section" id="module-pyramid_oereb.standard.methods">
-<span id="module-methods"></span><span id="api-pyramid-oereb-standard-methods"></span><h3>Module <em>methods</em><a class="headerlink" href="#module-pyramid_oereb.standard.methods" title="Permalink to this headline">¶</a></h3>
-<dl class="function">
-<dt id="pyramid_oereb.standard.methods.get_logo">
-<code class="descclassname">pyramid_oereb.standard.methods.</code><code class="descname">get_logo</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/methods.html#get_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.methods.get_logo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the requested logo.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The request containing the logo key matchdict parameter.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The generated response object.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyramid_oereb.standard.methods.get_municipality">
-<code class="descclassname">pyramid_oereb.standard.methods.</code><code class="descname">get_municipality</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/methods.html#get_municipality"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.methods.get_municipality" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the requested municipality logo from database.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The request containing the fosnr as matchdict parameter.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The generated response object.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyramid_oereb.standard.methods.get_symbol">
-<code class="descclassname">pyramid_oereb.standard.methods.</code><code class="descname">get_symbol</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyramid_oereb/standard/methods.html#get_symbol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.methods.get_symbol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the symbol for the requested theme and type code from database.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The request containing the codes as matchdict parameters.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The generated response object.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </div>
 <div class="section" id="module-pyramid_oereb.standard.models">
 <span id="module-models"></span><span id="api-pyramid-oereb-standard-models"></span><h3>Module <em>models</em><a class="headerlink" href="#module-pyramid_oereb.standard.models" title="Permalink to this headline">¶</a></h3>
@@ -31944,11 +31986,6 @@ of type pyramid.response.Response</li>
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
-        <dl>
-            <dt>Tags</dt>
-            <dd><a href="../0.0.1/api.html">0.0.1</a></dd>
-            <dd><a href="../v1.0.0-alpha.2/api.html">v1.0.0-alpha.2</a></dd>
-        </dl>
         <dl>
             <dt>Branches</dt>
             <dd><a href="api.html">master</a></dd>

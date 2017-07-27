@@ -245,9 +245,18 @@ following steps.</p>
 </div>
 <div class="section" id="load-sample-data-optional">
 <span id="installation-step-sample-data"></span><h3>5. Load sample data (optional)<a class="headerlink" href="#load-sample-data-optional" title="Permalink to this headline">¶</a></h3>
-<p>Included sample data can be imported into the configured database using the following script:</p>
-<div class="highlight-shell"><div class="highlight"><pre><span></span>load_standard_sample_data -c pyramid_oereb_standard.yml
+<p>A set of sample data is available in the <a class="reference external" href="https://github.com/camptocamp/pyramid_oereb/">repository</a> in the directory <cite>sample_data</cite>. After downloading it, you
+can import the sample data into the configured database using the following script:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>python pyramid_oereb/standard/load_sample_data.py -c pyramid_oereb_standard.yml
 </pre></div>
+</div>
+<p>We assume, you have put your downloaded sample data in a folder named <cite>sample_data</cite> in your projects root
+directory, as found in the <a class="reference external" href="https://github.com/camptocamp/pyramid_oereb/">repository</a>. Otherwise you have to specify the location of your sample data using
+the <code class="docutils literal"><span class="pre">-d</span></code> or <code class="docutils literal"><span class="pre">--dir=</span></code> argument.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Use the sample data corresponding to the installed version of <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> by selection the
+matching release.</p>
 </div>
 </div>
 <div class="section" id="include-in-application">
@@ -332,15 +341,10 @@ section <a class="reference internal" href="configuration.html#configuration"><s
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: v1.0.0-alpha.2
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
-        <dl>
-            <dt>Tags</dt>
-            <dd><a href="0.0.1/index.html">0.0.1</a></dd>
-            <dd><a href="v1.0.0-alpha.2/installation.html">v1.0.0-alpha.2</a></dd>
-        </dl>
         <dl>
             <dt>Branches</dt>
             <dd><a href="master/installation.html">master</a></dd>
