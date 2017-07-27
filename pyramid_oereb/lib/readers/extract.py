@@ -109,13 +109,14 @@ class ExtractReader(object):
 
         datasource = list()
         for plr_source in self._plr_sources_:
-            if params.skip_topic(plr_source.info.get('code')):
-                continue
-            plr_source.read(real_estate, bbox)
-            for ds in plr_source.datasource:
-                if not params.skip_topic(ds.theme.code):
-                    datasource.append(ds)
-            real_estate.public_law_restrictions.extend(plr_source.records)
+            if not params.skip_topic(plr_source.info.get('code')):
+                plr_source.read(real_estate, bbox)
+                for ds in plr_source.datasource:
+                    if not params.skip_topic(ds.theme.code):
+                        datasource.append(ds)
+                real_estate.public_law_restrictions.extend(plr_source.records)
+
+        print(real_estate.public_law_restrictions)
 
         concerned_themes = list()
         not_concerned_themes = list()

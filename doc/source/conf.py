@@ -19,6 +19,7 @@
 import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import re
 import subprocess
 import sphinx_rtd_theme
 
@@ -41,9 +42,9 @@ extensions = [
 ]
 
 with open('core/readers.rst', 'w') as readers:
-    readers.write(subprocess.check_output([
+    readers.write(str(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
-        'core/readers.rst.mako']))
+        'core/readers.rst.mako'])))
 
 with open('core/records.rst', 'w') as records:
     records.write(subprocess.check_output([
@@ -206,3 +207,4 @@ epub_exclude_files = ['search.html']
 # https://robpol86.github.io/sphinxcontrib-versioning/settings.html
 scv_greatest_tag = True
 scv_whitelist_branches = ('master', )
+scv_whitelist_tags = (re.compile(r'^v\d+\.\d+\.\d+$'),)

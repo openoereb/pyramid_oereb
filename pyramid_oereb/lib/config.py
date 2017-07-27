@@ -73,7 +73,7 @@ class Config(object):
         """
         assert Config._config is not None
 
-        result = list()
+        result = []
         plrs = Config._config.get('plrs')
         if plrs and isinstance(plrs, list):
             for theme in plrs:
@@ -135,7 +135,7 @@ class Config(object):
         :rtype: list of str
         """
         assert Config._config is not None
-        federal = list()
+        federal = []
         plrs = Config.get('plrs')
         if plrs and isinstance(plrs, list):
             for plr in plrs:
@@ -153,10 +153,10 @@ class Config(object):
         """
         assert Config._config is not None
 
-        crs = list()
+        crs = []
         srid = Config._config.get('srid')
         if srid:
-            crs.append(u'epsg:' + unicode(srid))
+            crs.append(u'epsg:{}'.format(srid))
         return crs
 
     @staticmethod
@@ -169,7 +169,7 @@ class Config(object):
         """
         assert Config._config is not None
 
-        result = list()
+        result = []
         language = Config._config.get('language')
         if language and isinstance(language, list):
             result.extend(language)
@@ -185,7 +185,7 @@ class Config(object):
         """
         assert Config._config is not None
 
-        result = list()
+        result = []
         flavour = Config._config.get('flavour')
         if flavour and isinstance(flavour, list):
             result.extend(flavour)
@@ -201,7 +201,7 @@ class Config(object):
         """
         assert Config._config is not None
 
-        result = list()
+        result = []
         geometry_types = Config._config.get('geometry_types')
         if geometry_types and isinstance(geometry_types, list):
             result.extend(geometry_types)
@@ -413,19 +413,19 @@ class Config(object):
             for key in required:
                 if key not in result:
                     raise ConfigurationError('Missing configuration value for {}.{}.'.format(
-                        current_path.join('.'), key))
+                        '.'.join(current_path), key))
             return result
 
         k = path[0]
         if k not in current_object:
             raise ConfigurationError('Missing configuration object for {}.{}.'.format(
-                current_path.join('.'), k))
+                '.'.join(current_path), k))
 
         current_path.append(k)
 
         if type(current_object[k]) != dict:
             raise ConfigurationError('The configuration {} is not an object.'.format(
-                current_path.join('.')))
+                '.'.join(current_path)))
 
         return Config._get_object_path(current_path, current_object[k], path[1:], default, required)
 

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import logging
 
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPServerError, HTTPNotFound, \
@@ -162,9 +163,9 @@ class PlrWebservice(object):
                 Config.get_address_config().get('source').get('class'),
                 **Config.get_address_config().get('source').get('params')
             )
-            addresses = reader.read(unicode(localisation), int(postalcode), str(number))
+            addresses = reader.read(localisation, int(postalcode), number)
             if len(addresses) == 0:
-                raise HTTPNotFound('Address not found.')
+                return HTTPNoContent()
             geometry = 'SRID={srid};{wkt}'.format(srid=Config.get('srid'), wkt=addresses[0].geom)
             records = self._real_estate_reader.read(**{'geometry': geometry})
             return self.__get_egrid_response__(records)
@@ -183,18 +184,12 @@ class PlrWebservice(object):
         # read the real estate from configured source by the passed parameters
         real_estate_reader = processor.real_estate_reader
         if params.egrid:
-            try:
-                real_estate_records = real_estate_reader.read(egrid=params.egrid)
-            except LookupError:
-                raise HTTPNoContent()
+            real_estate_records = real_estate_reader.read(egrid=params.egrid)
         elif params.identdn and params.number:
-            try:
-                real_estate_records = real_estate_reader.read(
-                    nb_ident=params.identdn,
-                    number=params.number
-                )
-            except LookupError:
-                raise HTTPNoContent()
+            real_estate_records = real_estate_reader.read(
+                nb_ident=params.identdn,
+                number=params.number
+            )
         else:
             raise HTTPBadRequest()
 
@@ -233,7 +228,7 @@ class PlrWebservice(object):
             else:
                 raise HTTPBadRequest()
         else:
-            raise HTTPBadRequest()
+            return HTTPNoContent()
 
     def __validate_extract_params__(self):
         """
@@ -337,6 +332,10 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `getegrid` response.
         """
+
+        if len(records) == 0:
+            return HTTPNoContent()
+
         real_estates = list()
         for r in records:
             real_estates.append({
@@ -366,6 +365,10 @@ class PlrWebservice(object):
             Point.
         """
         coords = xy.split(',')
+
+        if len(coords) != 2:
+            raise HTTPBadRequest('The parameter XY has to be a comma-separated pair of coordinates.')
+
         x = float(coords[0])
         y = float(coords[1])
         src_crs = 21781
@@ -390,6 +393,10 @@ class PlrWebservice(object):
             Point.
         """
         coords = gnss.split(',')
+
+        if len(coords) != 2:
+            raise HTTPBadRequest('The parameter GNSS has to be a comma-separated pair of coordinates.')
+
         x = float(coords[0])
         y = float(coords[1])
         return self.__coord_transform__((x, y), 4326).buffer(1.0)
@@ -566,7 +573,7 @@ class Logo(object):
         request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.
     """
     def __init__(self, request):
-        self._request_ = request
+        self._request = request
 
     def get_image(self):
         """
@@ -577,7 +584,7 @@ class Logo(object):
         """
         method = Config.get('get_logo_method')
         if method:
-            return DottedNameResolver().resolve(method)(self._request_)
+            return DottedNameResolver().resolve(method)(self._request)
         log.error('"get_logo_method" not found')
         raise HTTPNotFound()
 

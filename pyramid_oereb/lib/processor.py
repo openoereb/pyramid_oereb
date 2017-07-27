@@ -91,6 +91,23 @@ class Processor(object):
                     inside_plrs.append(self.filter_published_documents(public_law_restriction))
                 else:
                     outside_plrs.append(public_law_restriction)
+
+        # Check if theme is concerned
+        def is_inside_plr(theme_code):
+            for plr in inside_plrs:
+                if plr.theme.code == theme_code:
+                    return True
+            return False
+
+        # Ensure ConcernedThemes contains only inside PLRs
+        themes_to_move = []
+        for i, theme in enumerate(extract.concerned_theme):
+            if not is_inside_plr(theme.code):
+                themes_to_move.append(i)
+        themes_to_move.reverse()
+        for idx in themes_to_move:
+            extract.not_concerned_theme.append(extract.concerned_theme.pop(idx))
+
         real_estate.public_law_restrictions = self.get_legend_entries(inside_plrs, outside_plrs)
         return extract
 

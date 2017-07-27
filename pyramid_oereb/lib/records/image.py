@@ -20,4 +20,4 @@ class ImageRecord(object):
         Returns:
             str: The encoded image.
         """
-        return base64.b64encode(self.content)
+        return base64.b64encode(self.content).decode('ascii')

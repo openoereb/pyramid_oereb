@@ -1,6 +1,10 @@
 <%page args="text"/>
 <%
-    import urlparse
+    import sys
+    if sys.version_info.major == 2:
+        import urlparse
+    else:
+        from urllib import parse as urlparse
     localized_text = localized(text)
 %>
 <xsd:LocalisedText>

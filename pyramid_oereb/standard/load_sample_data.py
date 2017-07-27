@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-
+import codecs
+import sys
 import re
 import json
 import optparse
@@ -12,7 +13,7 @@ from sqlalchemy.orm import sessionmaker, class_mapper
 from pyramid_oereb.lib.config import parse
 from pyramid_oereb.standard.models.contaminated_public_transport_sites import Office, Geometry, \
     PublicLawRestriction, ViewService, PublicLawRestrictionDocument, DocumentBase, LegalProvision, \
-    Availability, LegendEntry
+    Availability, LegendEntry, DocumentReference, Document, DataIntegration
 from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality
 
 
@@ -49,7 +50,9 @@ class SampleData(object):
         Returns:
             str: The formatted value
         """
-        if isinstance(value, str) or isinstance(value, unicode):
+        if sys.version_info.major == 2 and (isinstance(value, str) or isinstance(value, unicode)):  # noqa
+            return u"'{}'".format(value.replace("'", "''"))
+        if sys.version_info.major > 2 and (isinstance(value, str) or isinstance(value, bytes)):
             return u"'{}'".format(value.replace("'", "''"))
         if isinstance(value, int) or isinstance(value, float):
             return str(value)
@@ -74,7 +77,7 @@ class SampleData(object):
             sql = re.sub(r", :?{}\b".format(re.escape(column[1:])), '', sql)
             sql = re.sub(r":?{}, ".format(re.escape(column[1:])), '', sql)
 
-        self._sql_file.write(u"{};\n".format(sql).encode('utf-8'))
+        self._sql_file.write(u"{};\n".format(sql))
 
     def _has_connection(self):
         """
@@ -93,7 +96,7 @@ class SampleData(object):
             class_ (sqlalchemy.ext.declarative.ConcreteBase): SQLAlchemy class
             import_file_name (str): The resource file name to import
         """
-        with open(os.path.join(self._directory, import_file_name)) as f:
+        with codecs.open(os.path.join(self._directory, import_file_name), encoding='utf-8') as f:
             if self._sql_file is None:
                 if self._has_connection():
                     self._connection.execute(class_.__table__.insert(), json.loads(f.read()))
@@ -127,6 +130,10 @@ class SampleData(object):
                 table=PublicLawRestrictionDocument.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+                schema=DocumentReference.__table__.schema,
+                table=DocumentReference.__table__.name
+            ))
+            self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
                 schema=DocumentBase.__table__.schema,
                 table=DocumentBase.__table__.name
             ))
@@ -154,6 +161,10 @@ class SampleData(object):
                 schema=LegendEntry.__table__.schema,
                 table=LegendEntry.__table__.name
             ))
+            self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+                schema=DataIntegration.__table__.schema,
+                table=DataIntegration.__table__.name
+            ))
 
     def load(self):
         """
@@ -171,10 +182,32 @@ class SampleData(object):
             # Fill tables with sample data
             self._load_sample(Availability, 'plr119/availabilities.json')
             self._load_sample(Office, 'plr119/office.json')
+            self._load_sample(DataIntegration, 'plr119/data_integration.json')
             self._load_sample(ViewService, 'plr119/view_service.json')
             self._load_sample(LegendEntry, 'plr119/legend_entry.json')
             self._load_sample(PublicLawRestriction, 'plr119/public_law_restriction.json')
             self._load_sample(Geometry, 'plr119/geometry.json')
+
+            with open(os.path.join(self._directory, 'plr119/document.json')) as f:
+                lps = json.loads(f.read())
+                if self._sql_file is None:
+                    Session = sessionmaker(bind=self._engine)  # Use session because of table inheritance
+                    session = Session()
+                    for lp in lps:
+                        session.add(Document(**lp))
+                    session.commit()
+                    session.close()
+                else:
+                    for lp in lps:
+                        for table_name in ['document_base', 'document']:
+                            table = [
+                                t for t in class_mapper(Document).tables if t.name == table_name
+                            ][0]
+                            data = {
+                                'type': 'document'
+                            }
+                            data.update(lp)
+                            self._do_sql_insert(str(table.insert()), data)
 
             with open(os.path.join(self._directory, 'plr119/legal_provision.json')) as f:
                 lps = json.loads(f.read())
@@ -198,6 +231,7 @@ class SampleData(object):
                             self._do_sql_insert(str(table.insert()), data)
 
             self._load_sample(PublicLawRestrictionDocument, 'plr119/public_law_restriction_document.json')
+            self._load_sample(DocumentReference, 'plr119/document_reference.json')
             self._load_sample(RealEstate, 'real_estates.json')
             self._load_sample(Address, 'addresses.json')
             self._load_sample(Municipality, 'municipalities_with_logo.json')
@@ -250,7 +284,7 @@ def _run():
     if options.sql_file is None:
         SampleData(options.configuration, section=options.section, directory=options.directory).load()
     else:
-        with open(options.sql_file, 'w') as sql_file:
+        with codecs.open(options.sql_file, mode='w', encoding='utf-8') as sql_file:
             SampleData(
                 options.configuration,
                 section=options.section,

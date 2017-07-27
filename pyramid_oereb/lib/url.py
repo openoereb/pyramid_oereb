@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
+
+import sys
 import base64
-from urllib import urlencode
-from urllib2 import urlopen
-from urlparse import urlsplit, urlunsplit, parse_qs, urlparse
+if sys.version_info.major == 2:
+    from urllib import urlencode
+    from urllib2 import urlopen
+    from urlparse import urlsplit, urlunsplit, parse_qs, urlparse
+else:
+    from urllib.parse import urlencode, urlsplit, urlunsplit, parse_qs, urlparse
+    from urllib.request import urlopen
 
 
 def parse_url(url):
@@ -41,7 +47,9 @@ def add_split_url_params(parsed_url, new_params):
     query = {}
     query.update(params)
     for key, value in new_params.items():
-        if isinstance(key, unicode):
+        if sys.version_info.major == 2 and isinstance(value, unicode):  # noqa
+            query[key] = value.encode("utf-8")
+        elif sys.version_info.major > 2 and isinstance(value, str):
             query[key] = value.encode("utf-8")
         else:
             query[key] = value

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from urlparse import urlunsplit
+
+import sys
 
 from pyconizer import create_icons_from_scratch, get_icon
 from pyconizer.lib.url import parse_url
@@ -7,6 +8,12 @@ from pyramid.path import DottedNameResolver
 from sqlalchemy import create_engine, orm, Text
 
 from pyramid_oereb import parse
+
+if sys.version_info.major == 2:
+    from urlparse import urlunsplit
+else:
+
+    from urllib.parse import urlunsplit
 
 
 def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path='/tmp/pyconizer',

@@ -115,7 +115,7 @@ def test_matchdict(params, expected):
     request.matchdict.update(params)
     service = PlrWebservice(request)
     params = service.__validate_extract_params__()
-    for k, v in expected.iteritems():
+    for k, v in expected.items():
         assert getattr(params, k) == v
 
 
@@ -142,7 +142,7 @@ def test_params():
         'language': 'de',
         'topics': ['top_A', 'top_B', 'top_C']
     }
-    for k, v in expected.iteritems():
+    for k, v in expected.items():
         assert getattr(params, k) == v
 
 
@@ -155,8 +155,8 @@ def test_return_no_content():
         'param2': 'MISSINGEGRID'
     })
     service = PlrWebservice(request)
-    with pytest.raises(HTTPNoContent):
-        service.get_extract_by_id()
+    response = service.get_extract_by_id()
+    assert isinstance(response, HTTPNoContent)
 
 
 @pytest.mark.parametrize('topics', [
@@ -185,16 +185,24 @@ def test_return_json(topics):
         schema = json.loads(f.read())
     Draft4Validator.check_schema(schema)
     validator = Draft4Validator(schema)
-    extract = json.loads(response.body)
-    validator.validate(extract)
+    response = json.loads(response.body.decode('utf-8'))
+    validator.validate(response)
 
-    assert isinstance(extract, dict)
+    assert isinstance(response, dict)
 
-    real_estate = extract.get('GetExtractByIdResponse').get('extract').get('RealEstate')
+    extract = response.get('GetExtractByIdResponse').get('extract')
+    real_estate = extract.get('RealEstate')
+
     assert isinstance(real_estate, dict)
     if topics == 'ALL':
         assert len(real_estate.get('RestrictionOnLandownership')) == 6
+        assert len(extract.get('ConcernedTheme')) == 3
+        assert len(extract.get('ThemeWithoutData')) > 0
     if topics == 'ALL_FEDERAL':
         assert len(real_estate.get('RestrictionOnLandownership')) == 1
+        assert len(extract.get('ConcernedTheme')) == 1
+        assert len(extract.get('ThemeWithoutData')) > 0
     if topics == 'ContaminatedSites,RailwaysProjectPlanningZones':
         assert len(real_estate.get('RestrictionOnLandownership')) == 1
+        assert len(extract.get('ConcernedTheme')) == 1
+        assert len(extract.get('ThemeWithoutData')) > 0
