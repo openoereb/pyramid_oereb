@@ -40,6 +40,24 @@ class PlrBaseSource(Base):
     datasource = list()
 
     def __init__(self, **kwargs):
+        """
+        Keyword Arguments:
+            name (str): The name. You are free to choose one.
+            code (str): The official code. Regarding to the federal specifications.
+            geometry_type (str): The geometry type. Possible are: POINT, POLYGON, LINESTRING,
+                GEOMETRYCOLLECTION
+            thresholds (dict): The configuration of limits, units and precision which is used for processing.
+            text (dict of str): The speaking title. It must be a dictionary containing language (as
+                configured) as key and text as value.
+            language (str): The language this public law restriction is originally shipped whith.
+            federal (bool): Switch if it is a federal topic. This will be taken into account in processing
+                steps.
+            source (dict): The configuration dictionary of the public law restriction
+            hooks (dict of str): The hook methods: get_symbol, get_symbol_ref. They have to be provided as
+                dotted string for further use with dotted name resolver of pyramid package.
+            law_status (dict of str): The multiple match configuration to provide more flexible use of the
+                federal specified classifiers 'inForce' and 'runningModifications'.
+        """
         self._plr_info = kwargs
 
     @property
@@ -54,11 +72,16 @@ class PlrBaseSource(Base):
 
     def read(self, real_estate, bbox):
         """
-        The read point which creates a extract, depending on a passed real estate.
+        Every public law restriction source has to implement a read method. This method must accept the two
+        key word parameters. If you want adapt to your own source for real estates, this is the point where
+        to hook in.
 
         Args:
-            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
-                estate in its record representation.
-            bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate which is
+                used as filter to find all related public law restrictions.
+            bbox (shapely.geometry.base.BaseGeometry): The bounding box which is used as a pre-filter to find
+                all public law restrictions. This is related to the fact that we need to provide not only the
+                public law restrictions that are related to the real estate but also the ones which are in
+                the visible extent of the map.
         """
         self.records = list()
