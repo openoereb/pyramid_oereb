@@ -1,15 +1,16 @@
-.. _helper_methods:
+.. _standard-sources
 
-Methods
+Sources
 -------
 
 <%! import glob, inspect, re, sys %>
 <%
 modules = [m for m in sys.modules.keys() if m.startswith('pyramid_oereb')]
-files = glob.glob('../../pyramid_oereb/standard//*.py')
+files = glob.glob('../../pyramid_oereb/standard/sources/*.py')
 modules = [
     re.sub(r'\.__init__', '', f[6:-3].replace("/", ".")) for f in files
 ]
+
 modules.sort()
 for module in modules:
     __import__(module)
@@ -31,4 +32,18 @@ underline = ['^', '`', '\'', '.', '~', '*']
 
 .. automodule:: ${module}
 
+
+%for cls in classes[module]:
+.. _api-${module.replace('.', '-').lower()}-${cls.lower()}:
+
+*${module.split('.')[-1].title().replace('_', ' ')} ${cls}*
+${re.sub('.', underline[0], module.split('.')[-1] + '   ' + cls)}
+
+.. autoclass:: ${module}.${cls}
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+%endfor
 %endfor

@@ -1,4 +1,4 @@
-.. _sources:
+.. _base-sources:
 
 Sources
 -------

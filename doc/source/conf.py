@@ -56,10 +56,10 @@ with open('core/sources.rst', 'w') as sources:
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
         'core/sources.rst.mako']))
 
-with open('standard/helper_methods.rst', 'w') as sources:
+with open('standard/sources.rst', 'w') as sources:
     sources.write(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
-        'standard/helper_methods.rst.mako']))
+        'standard/sources.rst.mako']))
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['doc/_buildtemplates']

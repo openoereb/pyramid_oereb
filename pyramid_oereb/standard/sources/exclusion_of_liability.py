@@ -7,7 +7,9 @@ class DatabaseSource(BaseDatabaseSource, ExclusionOfLiabilityBaseSource):
 
     def read(self):
         """
-        Central method to read a exclusion of liability definition.
+        The read method to access the standard database structure. It uses SQL-Alchemy for querying. It does
+        not accept any parameters nor it applies any filter on the database query. It simply loads all
+        content from the configured model.
         """
         session = self._adapter_.get_session(self._key_)
         try:

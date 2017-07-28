@@ -11,7 +11,9 @@ class DatabaseSource(BaseDatabaseSource, AddressBaseSource):
 
     def read(self, street_name, zip_code, street_number):
         """
-        Central method to read one address.
+        The read method to access the standard database structure. It uses SQL-Alchemy for querying. It tries
+        to find the items via passed arguments. If there was no result found it goes on with assigning an
+        empty list as records instance attribute.
 
         Args:
             street_name (unicode): The name of the street for the desired address.
