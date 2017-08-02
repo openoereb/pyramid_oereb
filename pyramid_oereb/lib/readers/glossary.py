@@ -34,8 +34,9 @@ class GlossaryReader(object):
             the server works would be broken.
 
         Returns:
-            list of pyramid_oereb.lib.records.glossary.GlossaryRecord: The list of found records. Since these
-                are not filtered by any criteria the list simply contains all records delivered by the source.
+            list of pyramid_oereb.lib.records.glossary.GlossaryRecord:
+                The list of found records. Since these are not filtered by any criteria the list simply
+                contains all records delivered by the source.
         """
         self._source_.read()
         return self._source_.records

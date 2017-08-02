@@ -50,8 +50,8 @@ class RealEstateReader(object):
                 estates. This may deliver several results.
 
         Returns:
-            list of pyramid_oereb.lib.records.real_estate.RealEstateRecord: the list of all found
-            records filtered by the passed criteria.
+            list of pyramid_oereb.lib.records.real_estate.RealEstateRecord:
+                The list of all found records filtered by the passed criteria.
         """
         real_estate_view_service = ViewServiceRecord(
             reference_wms=Config.get_real_estate_config().get('view_service').get('reference_wms'),

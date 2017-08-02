@@ -97,8 +97,8 @@ class ExtractReader(object):
                 request.
 
         Returns:
-            pyramid_oereb.lib.records.extract.ExtractRecord: The extract record containing all
-                gathered data.
+            pyramid_oereb.lib.records.extract.ExtractRecord:
+                The extract record containing all gathered data.
         """
         assert isinstance(municipality_logo, ImageRecord)
 

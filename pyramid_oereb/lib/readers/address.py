@@ -39,8 +39,8 @@ class AddressReader(object):
             street_number (str): The house or so called street number of the desired address.
 
         Returns:
-            list of pyramid_oereb.lib.records.address.AddressRecord: The list of found records filtered by
-                the passed criteria.
+            list of pyramid_oereb.lib.records.address.AddressRecord:
+                The list of found records filtered by the passed criteria.
         """
         self._source_.read(street_name, zip_code, street_number)
         return self._source_.records
