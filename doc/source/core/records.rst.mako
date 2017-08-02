@@ -1,26 +1,16 @@
-.. _api:
+.. _records:
 
-API
-===
+Records
+-------
 
-<%!
-import glob, inspect, re, sys
-%>
+<%! import glob, inspect, re, sys %>
 <%
 modules = [m for m in sys.modules.keys() if m.startswith('pyramid_oereb')]
-files = glob.glob('../../pyramid_oereb/*.py')
-files += glob.glob('../../pyramid_oereb/*/*.py')
-files += glob.glob('../../pyramid_oereb/*/*/*.py')
-files += glob.glob('../../pyramid_oereb/*/*/*/*.py')
-files += glob.glob('../../pyramid_oereb/*/*/*/*/*.py')
+files = glob.glob('../../pyramid_oereb/lib/records/*.py')
 modules = [
     re.sub(r'\.__init__', '', f[6:-3].replace("/", ".")) for f in files
-    if not f.startswith("../../pyramid_oereb/tests/")
-      and not f.startswith("../../pyramid_oereb/standard/templates/")
-      and not f.startswith("../../pyramid_oereb/models.py")
 ]
 modules.sort()
-
 delete_modules = []
 for i, module in enumerate(modules):
     try:
@@ -31,8 +21,6 @@ delete_modules.reverse()
 for i in delete_modules:
     del modules[i]
 
-modules = [m for m in modules if m in sys.modules]
-
 classes = {}
 for module in modules:
     classes[module] = []
@@ -40,28 +28,26 @@ for module in modules:
         if inspect.isclass(obj) and obj.__module__ == module:
             classes[module].append(name)
 
-underline = ['-', '`', '\'', '.', '~', '*']
+underline = ['^', '`', '\'', '.', '~', '*']
 %>
 
 %for module in modules:
-%if module != 'pyramid_oereb':
 .. _api-${module.replace('.', '-').lower()}:
 
-Module *${module.split('.')[-1]}*
-${re.sub('.', underline[len(module.split('.')) - 2], 'Module   ' + module)}
-
 .. automodule:: ${module}
-   :members:
 
 %for cls in classes[module]:
 .. _api-${module.replace('.', '-').lower()}-${cls.lower()}:
 
-Class *${cls}*
-${re.sub('.', underline[len(module.split('.')) - 1], 'Class   ' + cls)}
+*${cls}*
+${re.sub('.', underline[0], 'Class   ' + cls)}
 
 .. autoclass:: ${module}.${cls}
    :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
 
 %endfor
-%endif
 %endfor

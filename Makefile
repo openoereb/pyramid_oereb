@@ -64,13 +64,14 @@ install: $(PYTHON_VENV)
 
 .PHONY: do-pip
 do-pip:
-	pip install --upgrade -r $(REQUIREMENTS)
+	pip install -r $(REQUIREMENTS)
 
 $(SPHINXBUILD): .venv/requirements-timestamp
 	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install Sphinx sphinxcontrib-napoleon sphinx_rtd_theme
 
 .PHONY: doc
 doc: $(SPHINXBUILD)
+	$(VENV_BIN)python setup.py develop
 	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 .PHONY: tests-setup-db

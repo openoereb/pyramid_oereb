@@ -1,62 +1,32 @@
 # -*- coding: utf-8 -*-
-from geoalchemy2.elements import _SpatialElement
-
-from pyramid_oereb.lib.sources import BaseDatabaseSource, Base
+from pyramid_oereb.lib.sources import Base
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
-from geoalchemy2.shape import to_shape
 
 
 class RealEstateBaseSource(Base):
+    """
+    Base class for real estate sources.
+
+    Attributes:
+        records (list of pyramid_oereb.lib.records.real_estate.RealEstateRecord): List of real estate records.
+    """
     _record_class_ = RealEstateRecord
 
     def read(self, nb_ident=None, number=None, egrid=None, geometry=None):
-        pass
-
-
-class RealEstateDatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
-
-    def read(self, nb_ident=None, number=None, egrid=None, geometry=None):
         """
-        Central method to read all plrs (geometry input) or explicitly one plr (nb_ident+number/egrid input).
+        Every real estate source has to implement a read method. This method must accept the four key word
+        parameters. If you want adapt to your own source for real estates, this is the point where to hook in.
 
         Args:
             nb_ident (int or None): The identification number of the desired real estate. This
-                parameter is directlyrelated to the number parameter and both must be set!
-                Combination will deliver only one result orcrashes.
+                parameter is directly related to the number parameter and both must be set!
+                Combination must deliver only one result or must raise an error.
             number (str or None): The number of parcel or also known real estate. This parameter
-                is directlyrelated to the nb_ident parameter and both must be set!
-                Combination will deliver only one resultor crashes.
-            (str or None): The unique identifier of the desired real estate. This will deliver
-                only one result orcrashes.
+                is directly related to the nb_ident parameter and both must be set!
+                Combination must deliver only one result or must raise an error.
+            (str or None): The unique identifier of the desired real estate. This must deliver only one
+                result or must raise an error.
             geometry (str): A geometry as WKT string which is used to obtain intersected real
-                estates. This maydeliver several results.
+                estates. This may deliver several results.
         """
-        session = self._adapter_.get_session(self._key_)
-        try:
-            query = session.query(self._model_)
-            if nb_ident and number:
-                results = query.filter(self._model_.number == number, self._model_.identdn == nb_ident).all()
-            elif egrid:
-                results = query.filter(self._model_.egrid == egrid).all()
-            elif geometry:
-                results = query.filter(self._model_.limit.ST_Intersects(geometry)).all()
-            else:
-                raise AttributeError('Necessary parameter were missing.')
-
-            self.records = list()
-            for result in results:
-                self.records.append(self._record_class_(
-                    result.type,
-                    result.canton,
-                    result.municipality,
-                    result.fosnr,
-                    result.land_registry_area,
-                    to_shape(result.limit) if isinstance(result.limit, _SpatialElement) else None,
-                    metadata_of_geographical_base_data=result.metadata_of_geographical_base_data,
-                    number=result.number,
-                    identdn=result.identdn,
-                    egrid=result.egrid,
-                ))
-
-        finally:
-            session.close()
+        pass  # pragma: no cover

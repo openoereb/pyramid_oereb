@@ -30,7 +30,7 @@ class Processor(object):
                 The exclusion of liability reader instance for runtime use.
             glossary_reader (pyramid_oereb.lib.readers.glossary.GlossaryReader): The glossary
                 reader instance for runtime use.
-            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource): The
+            plr_sources (list of pyramid_oereb.standard.sources.plr.DatabaseSource): The
                 public law restriction source instances for runtime use wrapped in a list.
             extract_reader (pyramid_oereb.lib.readers.extract.ExtractReader): The extract reader
                 instance for runtime use.
@@ -219,7 +219,7 @@ class Processor(object):
     def plr_sources(self):
         """
         Returns:
-            list of pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource: The list of plr
+            list of pyramid_oereb.lib.sources.plr.DatabaseSource: The list of plr
             source instances.
         """
         return self._plr_sources_

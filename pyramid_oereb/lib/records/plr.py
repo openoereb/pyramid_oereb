@@ -18,13 +18,18 @@ class EmptyPlrRecord(object):
 
 
 class PlrRecord(EmptyPlrRecord):
+    """
+    Public law restriction record.
+
+    Attributes:
+        part_in_percent (decimal): Part of the property area touched by the restriction in percent.
+        area (decimal): Area of the restriction touching the property calculated by the processor.
+    """
 
     # Attributes added or calculated by the processor
     area = None
-    """decimal: Area of the restriction touching the property calculated by the processor."""
 
     part_in_percent = None
-    """decimal: Part of the property area touched by the restriction in percent."""
 
     def __init__(self, theme, information, law_status, published_from, responsible_office, symbol,
                  view_service, geometries, sub_theme=None, other_theme=None, type_code=None,
@@ -32,8 +37,6 @@ class PlrRecord(EmptyPlrRecord):
                  min_area=0.0, length_unit=u'm', area_unit=u'm2', length_precision=2, area_precision=2,
                  percentage_precision=1):
         """
-        Public law restriction record.
-
         Args:
             information (dict of unicode): The PLR record's information (multilingual).
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.

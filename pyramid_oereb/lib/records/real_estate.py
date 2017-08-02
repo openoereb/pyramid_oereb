@@ -5,23 +5,25 @@ from pyramid_oereb.lib.url import add_url_params
 
 
 class RealEstateRecord(object):
+    """
+    Basic caracteristics and geometry of the property to be analysed.
+
+    Attributes:
+        plan_for_land_register (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service to
+            be used for the land registry map.
+        highlight (str): The url which produces a image with the highlighted real estate from a wms.
+        areas_ratio (decimal): Ratio of geometrical area and area from land registry.
+    """
 
     plan_for_land_register = None
-    """
-    pyramid_oereb.lib.records.view_service.ViewServiceRecord: The view service to be used for the land
-        registry map.
-    """
-
     highlight = None
-    """str: The url which produces a image with the highlighted real estate from a wms."""
     areas_ratio = 1.0
-    """decimal: Ratio of geometrical area and area from land registry."""
 
     def __init__(self, type, canton, municipality, fosnr, land_registry_area, limit,
                  metadata_of_geographical_base_data=None, number=None, identdn=None, egrid=None,
-                 subunit_of_land_register=None, public_law_restrictions=None, references=None):
+                 subunit_of_land_register=None, public_law_restrictions=None, references=None,
+                 plan_for_land_register=None):
         """
-        Basic caracteristics and geometry of the property to be analysed.
 
         Args:
             type (unicode): The property type
@@ -40,6 +42,8 @@ class RealEstateRecord(object):
                 law restrictions for this real estate
             references (list of pyramid_oereb.lib.records.documents.DocumentRecord or None): Documents
                 associated with this real estate
+            plan_for_land_register (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view
+                service to be used for the land registry map
         """
         self.number = number
         self.identdn = identdn

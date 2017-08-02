@@ -76,6 +76,13 @@ pyramid_oereb.yml
 /logo_oereb.png
 /logo_confederation.png
 /logo_canton.png
+/doc/source/core/readers.rst
+/doc/source/core/records.rst
+/doc/source/core/sources.rst
+/doc/source/standard/sources.rst
+/doc/source/standard/models.rst
+/doc/source/standard/models/pyramid_*
+/doc/source/standard/models/index.rst
 
 # Generated files
 /test-db/12-create.sql

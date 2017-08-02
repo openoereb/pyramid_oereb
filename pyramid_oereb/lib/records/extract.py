@@ -5,6 +5,7 @@ import uuid
 
 
 class ExtractRecord(object):
+    """The extract base class."""
 
     creation_date = None
     """datetime.datetime: The date and time of the extract creation."""
@@ -32,8 +33,6 @@ class ExtractRecord(object):
                  concerned_theme=None, not_concerned_theme=None, theme_without_data=None,
                  general_information=None):
         """
-        The extract base class.
-
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate in its
                 record representation.

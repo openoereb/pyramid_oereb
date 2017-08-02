@@ -16,7 +16,10 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+import glob
+import inspect
 import os
+from mako.template import Template
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 import re
@@ -33,6 +36,8 @@ import sphinx_rtd_theme
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
+import sys
+
 extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
@@ -41,10 +46,51 @@ extensions = [
     'sphinxcontrib.napoleon',
 ]
 
-with open('api.rst', 'w') as api:
-    api.write(str(subprocess.check_output([
+with open('core/readers.rst', 'w') as readers:
+    readers.write(str(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
-        'api.rst.mako'])))
+        'core/readers.rst.mako'])))
+
+with open('core/records.rst', 'w') as records:
+    records.write(subprocess.check_output([
+        '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
+        'core/records.rst.mako']))
+
+with open('core/sources.rst', 'w') as sources:
+    sources.write(subprocess.check_output([
+        '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
+        'core/sources.rst.mako']))
+
+with open('standard/sources.rst', 'w') as sources:
+    sources.write(subprocess.check_output([
+        '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
+        'standard/sources.rst.mako']))
+
+files = glob.glob('../../pyramid_oereb/standard/models/*.py')
+modules = [
+    re.sub(r'\.__init__', '', f[6:-3].replace("/", ".")) for f in files
+    if not f.startswith("../../pyramid_oereb/standard/models/main.py")
+    and not f.startswith("../../pyramid_oereb/standard/models/__init__.py")
+]
+modules.sort()
+for module in modules:
+    __import__(module)
+classes = {}
+for module in modules:
+    classes[module] = []
+    for name, obj in inspect.getmembers(sys.modules[module]):
+        if inspect.isclass(obj) and obj.__module__ == module:
+            classes[module].append(name)
+module_file_names = []
+for module_name, classes in classes.iteritems():
+    file_name = module_name.replace('.', '_').lower()
+    module_file_names.append(file_name)
+    with open('standard/models/{name}.rst'.format(name=file_name), 'w') as sources:
+        template = Template(filename='standard/models/models.rst.mako')
+        sources.write(template.render(**{'module_name': module_name, 'classes': classes}))
+with open('standard/models/index.rst', 'w') as sources:
+    template = Template(filename='standard/models/index.rst.mako')
+    sources.write(template.render(**{'module_file_names': module_file_names}))
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['doc/_buildtemplates']

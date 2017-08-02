@@ -1,5 +1,4 @@
 sudo: required
-
 language: python
 
 python:
@@ -25,7 +24,7 @@ after_success:
   - make doc
 
 before_deploy:
-  - pip install --upgrade sphinxcontrib-versioning 'Sphinx<1.6'
+  - pip install sphinxcontrib-versioning 'Sphinx<1.6'
 
 # deploy to pypi
 deploy:

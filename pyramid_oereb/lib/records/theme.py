@@ -3,11 +3,10 @@ import warnings
 
 
 class ThemeRecord(object):
+    """Creates a new theme record."""
 
     def __init__(self, code, text):
         """
-        Creates a new theme record.
-
         Args:
             code (unicode): The theme's code.
             text (dict of unicode): The multilingual description.

@@ -19,22 +19,23 @@ log = logging.getLogger('pyramid_oereb')
 
 
 class LegendEntryRecord(object):
+    """
+    Represents a legend entry with it's text as well as it's image.
+
+    Args:
+        symbol (pyramid_oereb.lib.records.image.ImageRecord): The binary content of the legend symbol.
+        legend_text (dict of unicode): The multilingual description text for the legend entry.
+        type_code (unicode): The class of the legend entry corresponding to the plrs classes.
+        type_code_list (unicode): An URL to the type code list.
+        theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend entry belongs
+            to.
+        sub_theme (unicode): Theme sub category.
+        other_theme (unicode): Additional theme linked to this theme.
+    """
 
     def __init__(self, symbol, legend_text, type_code, type_code_list, theme, sub_theme=None,
                  other_theme=None):
-        """
-        Represents a legend entry with it's text as well as it's image.
 
-        Args:
-            symbol (pyramid_oereb.lib.records.image.ImageRecord): The binary content of the legend symbol.
-            legend_text (dict of unicode): The multilingual description text for the legend entry.
-            type_code (unicode): The class of the legend entry corresponding to the plrs classes.
-            type_code_list (unicode): An URL to the type code list.
-            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend entry belongs
-                to.
-            sub_theme (unicode): Theme sub category.
-            other_theme (unicode): Additional theme linked to this theme.
-        """
         if not isinstance(legend_text, dict):
             warnings.warn('Type of "legend_text" should be "dict"')
 
@@ -48,10 +49,16 @@ class LegendEntryRecord(object):
 
 
 class ViewServiceRecord(object):
+    """
+    A view service contains a valid WMS URL with a defined set of layers.
+
+    Attributes:
+        image (pyramid_oereb.lib.records.image.ImageRecord or None): Binary image content downloaded from WMS
+            link.
+    """
 
     # Attributes defined while processing
     image = None    # map image resulting from calling the wms link - binary
-    """pyramid_oereb.lib.records.image.ImageRecord or None: Binary image content downloaded from WMS link."""
 
     def __init__(self, reference_wms, legend_at_web=None, legends=None):
         """

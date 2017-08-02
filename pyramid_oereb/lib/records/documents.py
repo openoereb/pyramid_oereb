@@ -4,11 +4,16 @@ from datetime import datetime
 
 
 class DocumentBaseRecord(object):
+    """
+    The base document class.
 
+    Attributes:
+        legal_state (unicode): Key string of the law status.
+        published_from (datetime.date): Date since this document was published.
+        text_at_web (dict of uri): The multilingual URI to the documents content.
+    """
     def __init__(self, law_status, published_from, text_at_web=None):
         """
-        The base document class.
-
         Args:
             law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
             published_from (datetime.date): Date since this document was published.
@@ -33,11 +38,18 @@ class DocumentBaseRecord(object):
 
 
 class ArticleRecord(DocumentBaseRecord):
+    """
+    More specific document class representing articles.
 
+    Attributes:
+        legal_state (unicode): Key string of the law status.
+        published_from (datetime.date): Date since this document was published.
+        number (unicode): The identifier of the article as a law.
+        text_at_web (dict of uri): The URI to the documents content (multilingual).
+        text (dict of unicode): Text in the article (multilingual).
+    """
     def __init__(self, law_status, published_from, number, text_at_web=None, text=None):
         """
-        More specific document class representing articles.
-
         Args:
             law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
             published_from (datetime.date): Date since this document was published.
@@ -55,12 +67,30 @@ class ArticleRecord(DocumentBaseRecord):
 
 
 class DocumentRecord(DocumentBaseRecord):
+    """
+    More specific document class representing real documents.
 
-    def __init__(self, law_status, published_from, title, responsible_office, text_at_web,
+    Attributes:
+        legal_state (unicode):  Key string of the law status.
+        published_from (datetime.date): Date since this document was published.
+        title (dict of unicode): The multilingual title of the document. It might be shortened one.
+        responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
+            responsible for this document.
+        text_at_web (dict of uri): The multilingual URI to the documents content.
+        official_title (dict of unicode): The official title of the document (multilingual).
+        abbreviation (dict of unicode): Short term for this document (multilingual).
+        official_number (unicode): The official number for identification of this document.
+        canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
+        municipality (unicode): The code for the municipality.
+        article_numbers (list of unicode): Pointers to specific articles.
+        file (bytes): The binary content of the document.
+        articles (list of ArticleRecord): The linked articles.
+        references (list of DocumentRecord): The references to other documents.
+    """
+    def __init__(self, law_status, published_from, title, responsible_office, text_at_web=None,
                  abbreviation=None, official_number=None, official_title=None, canton=None,
                  municipality=None, article_numbers=None, file=None, articles=None, references=None):
         """
-        More specific document class representing real documents.
 
         Args:
             law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
