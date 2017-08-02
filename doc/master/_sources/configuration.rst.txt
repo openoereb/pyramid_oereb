@@ -69,7 +69,7 @@ this:
        federal: true
        standard: true
        source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         class: pyramid_oereb.lib.sources.plr.DatabaseSource
          params:
            db_connection: postgresql://postgres:password@localhost:5432/pyramid_oereb
            models: pyramid_oereb.standard.models.motorways_building_lines
@@ -144,7 +144,7 @@ source.
        code: MotorwaysBuildingLines
        (...)
        source:
-         class: pyramid_oereb.lib.sources.plr.PlrStandardDatabaseSource
+         class: pyramid_oereb.lib.sources.plr.DatabaseSource
          params:
            db_connection: postgresql://postgres:password@localhost:5432/pyramid_oereb
            models: my_application.models.motorways_building_lines
@@ -174,7 +174,7 @@ connection and the model class, which looks like the following.
      source:
        # The source must have a class which represents the accessor to the source. In this case it
        # is a source already implemented which reads data from a database.
-       class: pyramid_oereb.lib.sources.real_estate.RealEstateDatabaseSource
+       class: pyramid_oereb.lib.sources.real_estate.DatabaseSource
        # The configured class accepts params which are also necessary to define
        params:
          # The connection path where the database can be found

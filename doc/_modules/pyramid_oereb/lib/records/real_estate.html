@@ -91,7 +91,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -163,24 +164,26 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.url</span> <span class="k">import</span> <span class="n">add_url_params</span>
 
 
-<div class="viewcode-block" id="RealEstateRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord">[docs]</a><span class="k">class</span> <span class="nc">RealEstateRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
-    <span class="n">plan_for_land_register</span> <span class="o">=</span> <span class="kc">None</span>
+<div class="viewcode-block" id="RealEstateRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord">[docs]</a><span class="k">class</span> <span class="nc">RealEstateRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    pyramid_oereb.lib.records.view_service.ViewServiceRecord: The view service to be used for the land</span>
-<span class="sd">        registry map.</span>
+<span class="sd">    Basic caracteristics and geometry of the property to be analysed.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        plan_for_land_register (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service to</span>
+<span class="sd">            be used for the land registry map.</span>
+<span class="sd">        highlight (str): The url which produces a image with the highlighted real estate from a wms.</span>
+<span class="sd">        areas_ratio (decimal): Ratio of geometrical area and area from land registry.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">plan_for_land_register</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">highlight</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="sd">&quot;&quot;&quot;str: The url which produces a image with the highlighted real estate from a wms.&quot;&quot;&quot;</span>
     <span class="n">areas_ratio</span> <span class="o">=</span> <span class="mf">1.0</span>
-    <span class="sd">&quot;&quot;&quot;decimal: Ratio of geometrical area and area from land registry.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">canton</span><span class="p">,</span> <span class="n">municipality</span><span class="p">,</span> <span class="n">fosnr</span><span class="p">,</span> <span class="n">land_registry_area</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span>
+<div class="viewcode-block" id="RealEstateRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">canton</span><span class="p">,</span> <span class="n">municipality</span><span class="p">,</span> <span class="n">fosnr</span><span class="p">,</span> <span class="n">land_registry_area</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span>
                  <span class="n">metadata_of_geographical_base_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">identdn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">egrid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">subunit_of_land_register</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">public_law_restrictions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">references</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">subunit_of_land_register</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">public_law_restrictions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">references</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">plan_for_land_register</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Basic caracteristics and geometry of the property to be analysed.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            type (unicode): The property type</span>
@@ -199,6 +202,8 @@
 <span class="sd">                law restrictions for this real estate</span>
 <span class="sd">            references (list of pyramid_oereb.lib.records.documents.DocumentRecord or None): Documents</span>
 <span class="sd">                associated with this real estate</span>
+<span class="sd">            plan_for_land_register (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view</span>
+<span class="sd">                service to be used for the land registry map</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">number</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">identdn</span> <span class="o">=</span> <span class="n">identdn</span>
@@ -219,9 +224,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="n">references</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">areas_ratio</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">area</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">land_registry_area</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">areas_ratio</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">area</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">land_registry_area</span></div>
 
-<div class="viewcode-block" id="RealEstateRecord.set_view_service"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord.set_view_service">[docs]</a>    <span class="k">def</span> <span class="nf">set_view_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plan_for_land_register</span><span class="p">):</span>
+<div class="viewcode-block" id="RealEstateRecord.set_view_service"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord.set_view_service">[docs]</a>    <span class="k">def</span> <span class="nf">set_view_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plan_for_land_register</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the view service to generate the land registry map for the real estate.</span>
 

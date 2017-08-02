@@ -91,7 +91,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -166,41 +167,51 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.view_service</span> <span class="k">import</span> <span class="n">ViewServiceRecord</span>
 
 
-<div class="viewcode-block" id="RealEstateReader"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.readers.real_estate.RealEstateReader">[docs]</a><span class="k">class</span> <span class="nc">RealEstateReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="RealEstateReader"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.real_estate.RealEstateReader">[docs]</a><span class="k">class</span> <span class="nc">RealEstateReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The central reader for real estates. It is directly bound to a so called source</span>
+<span class="sd">    which is defined by a pythonic dotted string to the class definition of this source.</span>
+<span class="sd">    An instance of the passed source will be created on instantiation of this reader class by passing through</span>
+<span class="sd">    the parameter kwargs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dotted_source_class_path</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+<div class="viewcode-block" id="RealEstateReader.__init__"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.real_estate.RealEstateReader.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dotted_source_class_path</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        The central reader accessor for real estates inside the application.</span>
-
 <span class="sd">        Args:</span>
-<span class="sd">            dotted_source_class_path (str): The path to the class which represents the source</span>
-<span class="sd">                used by thisreader. This class must exist and it must implement basic source</span>
-<span class="sd">                behaviour.</span>
+<span class="sd">            dotted_source_class_path (str or pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource): The</span>
+<span class="sd">                path to the class which represents the source used by this reader. This class must exist and</span>
+<span class="sd">                it must implement basic source behaviour of the</span>
+<span class="sd">                :ref:`api-pyramid_oereb-lib-sources-real_estate-realestatebasesource`.</span>
 <span class="sd">            (kwargs): kwargs, which are necessary as configuration parameter for the above by</span>
-<span class="sd">                dotted namedefined class.</span>
+<span class="sd">                dotted name defined class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">source_class</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">dotted_source_class_path</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span> <span class="o">=</span> <span class="n">source_class</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span> <span class="o">=</span> <span class="n">source_class</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RealEstateReader.read"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.readers.real_estate.RealEstateReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nb_ident</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">egrid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="RealEstateReader.read"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.real_estate.RealEstateReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nb_ident</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">egrid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The central read accessor method to get all desired records from configured source.</span>
 
+<span class="sd">        .. note:: If you subclass this class your implementation needs to offer this method in the same</span>
+<span class="sd">            signature. Means the parameters must be the same and the return must be a list of</span>
+<span class="sd">            :ref:`api-pyramid_oereb-lib-records-real_estate-realestaterecord`. Otherwise the API like way the</span>
+<span class="sd">            server works would be broken.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            nb_ident (int or None): The identification number of the desired real estate. This</span>
-<span class="sd">                parameter is directlyrelated to the number parameter and both must be set!</span>
-<span class="sd">                Combination will deliver only one result orcrashes.</span>
+<span class="sd">                parameter is directly related to the number parameter and both must be set!</span>
+<span class="sd">                Combination will deliver only one result or crashes.</span>
 <span class="sd">            number (str or None): The number of parcel or also known real estate. This parameter</span>
-<span class="sd">                is directlyrelated to the nb_ident parameter and both must be set!</span>
-<span class="sd">                Combination will deliver only one result orcrashes.</span>
+<span class="sd">                is directly related to the nb_ident parameter and both must be set!</span>
+<span class="sd">                Combination will deliver only one result or crashes.</span>
 <span class="sd">            (str or None): The unique identifier of the desired real estate. This will deliver</span>
-<span class="sd">                only one result orcrashes.</span>
+<span class="sd">                only one result or crashes.</span>
 <span class="sd">            geometry (str): A geometry as WKT string which is used to obtain intersected real</span>
-<span class="sd">                estates. This maydeliver several results.</span>
+<span class="sd">                estates. This may deliver several results.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            list of pyramid_oereb.lib.records.real_estate.RealEstateRecord: the list of all found</span>
-<span class="sd">            records</span>
+<span class="sd">            list of pyramid_oereb.lib.records.real_estate.RealEstateRecord:</span>
+<span class="sd">                The list of all found records filtered by the passed criteria.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">real_estate_view_service</span> <span class="o">=</span> <span class="n">ViewServiceRecord</span><span class="p">(</span>
             <span class="n">reference_wms</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get_real_estate_config</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;view_service&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;reference_wms&#39;</span><span class="p">),</span>

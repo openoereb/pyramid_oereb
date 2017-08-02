@@ -91,7 +91,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -160,57 +161,31 @@
             
   <h1>Source code for pyramid_oereb.lib.sources.address</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">geoalchemy2.elements</span> <span class="k">import</span> <span class="n">_SpatialElement</span>
-<span class="kn">from</span> <span class="nn">geoalchemy2.shape</span> <span class="k">import</span> <span class="n">to_shape</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.orm.exc</span> <span class="k">import</span> <span class="n">NoResultFound</span>
 
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources</span> <span class="k">import</span> <span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">Base</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources</span> <span class="k">import</span> <span class="n">Base</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.address</span> <span class="k">import</span> <span class="n">AddressRecord</span>
 
 
-<div class="viewcode-block" id="AddressBaseSource"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.address.AddressBaseSource">[docs]</a><span class="k">class</span> <span class="nc">AddressBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="AddressBaseSource"><a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.lib.sources.address.AddressBaseSource">[docs]</a><span class="k">class</span> <span class="nc">AddressBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for address sources.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        records (list of pyramid_oereb.lib.records.address.AddressRecord): List of address records.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_record_class_</span> <span class="o">=</span> <span class="n">AddressRecord</span>
 
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
-        <span class="k">pass</span></div>
-
-
-<div class="viewcode-block" id="AddressDatabaseSource"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.address.AddressDatabaseSource">[docs]</a><span class="k">class</span> <span class="nc">AddressDatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">AddressBaseSource</span><span class="p">):</span>
-
-<div class="viewcode-block" id="AddressDatabaseSource.read"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.address.AddressDatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
+<div class="viewcode-block" id="AddressBaseSource.read"><a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.lib.sources.address.AddressBaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Central method to read one address.</span>
+<span class="sd">        Every address source has to implement a read method. This method must accept the three parameters. If</span>
+<span class="sd">        you want adapt to your own source for addresses, this is the point where to hook in.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            street_name (unicode): The name of the street for the desired address.</span>
 <span class="sd">            zip_code (int): The postal zipcode for the desired address.</span>
 <span class="sd">            street_number (str): The house or so called street number of the desired address.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">query</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span>
-            <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">street_name</span> <span class="o">==</span> <span class="n">street_name</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">zip_code</span> <span class="o">==</span> <span class="n">zip_code</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">street_number</span> <span class="o">==</span> <span class="n">street_number</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()]</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_record_class_</span><span class="p">(</span>
-                    <span class="n">result</span><span class="o">.</span><span class="n">street_name</span><span class="p">,</span>
-                    <span class="n">result</span><span class="o">.</span><span class="n">zip_code</span><span class="p">,</span>
-                    <span class="n">result</span><span class="o">.</span><span class="n">street_number</span><span class="p">,</span>
-                    <span class="n">to_shape</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">geom</span><span class="p">)</span><span class="o">.</span><span class="n">wkt</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">geom</span><span class="p">,</span> <span class="n">_SpatialElement</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
-                <span class="p">))</span>
-
-        <span class="k">except</span> <span class="n">NoResultFound</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="k">finally</span><span class="p">:</span>
-            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+        <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div></div>
 </pre></div>
 
            </div>

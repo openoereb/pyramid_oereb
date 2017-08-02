@@ -91,7 +91,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -166,28 +167,27 @@
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="GeometryRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.geometry.GeometryRecord">[docs]</a><span class="k">class</span> <span class="nc">GeometryRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="GeometryRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.geometry.GeometryRecord">[docs]</a><span class="k">class</span> <span class="nc">GeometryRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Geometry record</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+<span class="sd">    Args:</span>
+<span class="sd">        law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.</span>
+<span class="sd">        published_from (datetime.date): Date from/since when the PLR record is published.</span>
+<span class="sd">        geom (Point or LineString or Polygon or MultiPolygon):</span>
+<span class="sd">            The geometry which must be of type POINT, LINESTRING or POLYGON, everything else</span>
+<span class="sd">             will raise an error.</span>
+<span class="sd">        geo_metadata (uri): The metadata.</span>
+<span class="sd">        public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law</span>
+<span class="sd">            restriction</span>
+<span class="sd">        office (pyramid_oereb.lib.records.office.Office): The office</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        AttributeError: Error when a wrong geometry type was passed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="GeometryRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.geometry.GeometryRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">geom</span><span class="p">,</span> <span class="n">geo_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">public_law_restriction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">office</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Geometry record</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.</span>
-<span class="sd">            published_from (datetime.date): Date from/since when the PLR record is published.</span>
-<span class="sd">            geom (Point or LineString or Polygon or MultiPolygon):</span>
-<span class="sd">                The geometry which must be of type POINT, LINESTRING or POLYGON, everything else</span>
-<span class="sd">                 will raise an error.</span>
-<span class="sd">            geo_metadata (uri): The metadata.</span>
-<span class="sd">            public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law</span>
-<span class="sd">                restriction</span>
-<span class="sd">            office (pyramid_oereb.lib.records.office.Office): The office</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            AttributeError: Error when a wrong geometry type was passed.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">law_status</span> <span class="o">=</span> <span class="n">law_status</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">=</span> <span class="n">published_from</span>
@@ -203,14 +203,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_part_in_percent</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_test_passed</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">calculated</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculated</span> <span class="o">=</span> <span class="kc">False</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">published</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;bool: True if geometry is published.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
 
-<div class="viewcode-block" id="GeometryRecord.calculate"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.geometry.GeometryRecord.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">min_length</span><span class="p">,</span> <span class="n">min_area</span><span class="p">,</span> <span class="n">length_unit</span><span class="p">,</span> <span class="n">area_unit</span><span class="p">):</span>
+<div class="viewcode-block" id="GeometryRecord.calculate"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.geometry.GeometryRecord.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">min_length</span><span class="p">,</span> <span class="n">min_area</span><span class="p">,</span> <span class="n">length_unit</span><span class="p">,</span> <span class="n">area_unit</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Entry method for calculation. It checks if the geometry type of this instance is a geometry</span>
 <span class="sd">        collection which has to be unpacked first in case of collection.</span>

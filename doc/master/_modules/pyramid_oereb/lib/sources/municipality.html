@@ -91,7 +91,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -160,50 +161,27 @@
             
   <h1>Source code for pyramid_oereb.lib.sources.municipality</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">base64</span>
-
-<span class="kn">from</span> <span class="nn">geoalchemy2.elements</span> <span class="k">import</span> <span class="n">_SpatialElement</span>
-
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.image</span> <span class="k">import</span> <span class="n">ImageRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources</span> <span class="k">import</span> <span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">Base</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources</span> <span class="k">import</span> <span class="n">Base</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.municipality</span> <span class="k">import</span> <span class="n">MunicipalityRecord</span>
-<span class="kn">from</span> <span class="nn">geoalchemy2.shape</span> <span class="k">import</span> <span class="n">to_shape</span>
 
 
-<div class="viewcode-block" id="MunicipalityBaseSource"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource">[docs]</a><span class="k">class</span> <span class="nc">MunicipalityBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="MunicipalityBaseSource"><a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource">[docs]</a><span class="k">class</span> <span class="nc">MunicipalityBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for municipality sources.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        records (list of pyramid_oereb.lib.records.municipality.MunicipalityRecord): List of municipality</span>
+<span class="sd">            records.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_record_class_</span> <span class="o">=</span> <span class="n">MunicipalityRecord</span>
 
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div>
-
-
-<div class="viewcode-block" id="MunicipalityDatabaseSource"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.municipality.MunicipalityDatabaseSource">[docs]</a><span class="k">class</span> <span class="nc">MunicipalityDatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">MunicipalityBaseSource</span><span class="p">):</span>
-
-<div class="viewcode-block" id="MunicipalityDatabaseSource.read"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.municipality.MunicipalityDatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="MunicipalityBaseSource.read"><a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Central method to read a municipality by it&#39;s id_bfs identifier.</span>
+<span class="sd">        Every municipality source has to implement a read method. This method must accept no parameters.</span>
+<span class="sd">        Because it should deliver all items available.</span>
+<span class="sd">        If you want adapt to your own source for municipalities, this is the point where to hook in.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">results</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-                <span class="n">logo</span> <span class="o">=</span> <span class="n">ImageRecord</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">logo</span><span class="p">))</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_record_class_</span><span class="p">(</span>
-                    <span class="n">result</span><span class="o">.</span><span class="n">fosnr</span><span class="p">,</span>
-                    <span class="n">result</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                    <span class="n">result</span><span class="o">.</span><span class="n">published</span><span class="p">,</span>
-                    <span class="n">logo</span><span class="p">,</span>
-                    <span class="n">geom</span><span class="o">=</span><span class="n">to_shape</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">geom</span><span class="p">)</span><span class="o">.</span><span class="n">wkt</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
-                        <span class="n">result</span><span class="o">.</span><span class="n">geom</span><span class="p">,</span> <span class="n">_SpatialElement</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-                <span class="p">))</span>
-
-        <span class="k">except</span><span class="p">:</span>
-            <span class="k">raise</span>
-
-        <span class="k">finally</span><span class="p">:</span>
-            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+        <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div></div>
 </pre></div>
 
            </div>

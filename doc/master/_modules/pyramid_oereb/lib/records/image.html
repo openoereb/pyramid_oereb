@@ -91,7 +91,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -161,18 +162,18 @@
 <span class="kn">import</span> <span class="nn">base64</span>
 
 
-<div class="viewcode-block" id="ImageRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.image.ImageRecord">[docs]</a><span class="k">class</span> <span class="nc">ImageRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ImageRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.image.ImageRecord">[docs]</a><span class="k">class</span> <span class="nc">ImageRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The record to hold the binary information of a image.</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        The record to hold the binary information of a image.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        content (binary): The binary information of this image as binary string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ImageRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.image.ImageRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            content (binary): The binary information of this image as binary string.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span></div>
 
-<div class="viewcode-block" id="ImageRecord.encode"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.image.ImageRecord.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ImageRecord.encode"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.image.ImageRecord.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the image as base64 encoded string.</span>
 

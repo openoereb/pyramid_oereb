@@ -91,7 +91,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -171,15 +172,23 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.view_service</span> <span class="k">import</span> <span class="n">ViewServiceRecord</span>
 
 
-<div class="viewcode-block" id="ExtractReader"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.readers.extract.ExtractReader">[docs]</a><span class="k">class</span> <span class="nc">ExtractReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ExtractReader"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.extract.ExtractReader">[docs]</a><span class="k">class</span> <span class="nc">ExtractReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The class which generates *the extract* as a record</span>
+<span class="sd">    (:ref:`api-pyramid_oereb-lib-records-extract-extractrecord`). This is the point where all necessary</span>
+<span class="sd">    and extract related components are bound together.</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_sources</span><span class="p">,</span> <span class="n">plr_cadastre_authority</span><span class="p">,</span> <span class="n">logos</span><span class="p">):</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        extract (pyramid_oereb.lib.records.extract.ExtractRecord or None): The extract as a record</span>
+<span class="sd">            representation. On initialisation this is None. It will be set by calling the read method of the</span>
+<span class="sd">            instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ExtractReader.__init__"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.extract.ExtractReader.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_sources</span><span class="p">,</span> <span class="n">plr_cadastre_authority</span><span class="p">,</span> <span class="n">logos</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        The central reader accessor for the extract inside the application.</span>
-
 <span class="sd">        Args:</span>
-<span class="sd">            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of configured PLR</span>
-<span class="sd">                source instances.</span>
+<span class="sd">            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of PLR source</span>
+<span class="sd">                instances which the achieved extract should be about.</span>
 <span class="sd">            plr_cadastre_authority (pyramid_oereb.lib.records.office.OffcieRecord): The authority responsible</span>
 <span class="sd">                for the PLR cadastre.</span>
 <span class="sd">            logos (dict): The logos of confederation, canton and oereb wrapped in a ImageRecord.</span>
@@ -187,7 +196,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">extract</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span> <span class="o">=</span> <span class="n">plr_sources</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plr_cadastre_authority_</span> <span class="o">=</span> <span class="n">plr_cadastre_authority</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span> <span class="o">=</span> <span class="n">logos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span> <span class="o">=</span> <span class="n">logos</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">plr_cadastre_authority</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -203,6 +212,7 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">logo_plr_cadastre</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The logo of the PLR-Cadastre.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.lib.records.image.ImageRecord: The logo for oereb as a ImageRecord.</span>
@@ -212,6 +222,7 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">federal_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The logo of the confederation.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.lib.records.image.ImageRecord: The federal logo as a ImageRecord.</span>
@@ -221,15 +232,21 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">cantonal_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The cantonal logo.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.lib.records.image.ImageRecord: The cantonal logos as a ImageRecord.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;canton&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ExtractReader.read"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.readers.extract.ExtractReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">municipality_logo</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+<div class="viewcode-block" id="ExtractReader.read"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.extract.ExtractReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">municipality_logo</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        The central read accessor method to get all desired records from configured source.</span>
+<span class="sd">        This method finally creates the extract.</span>
+
+<span class="sd">        .. note:: If you subclass this class your implementation needs to offer this method in the same</span>
+<span class="sd">            signature. Means the parameters must be the same and the return must be a</span>
+<span class="sd">            :ref:`api-pyramid_oereb-lib-records-extract-extractrecord`. Otherwise the API like way the server</span>
+<span class="sd">            works would be broken.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real</span>
@@ -240,8 +257,8 @@
 <span class="sd">                request.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            pyramid_oereb.lib.records.extract.ExtractRecord: The extract record containing all</span>
-<span class="sd">                gathered data.</span>
+<span class="sd">            pyramid_oereb.lib.records.extract.ExtractRecord:</span>
+<span class="sd">                The extract record containing all gathered data.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">municipality_logo</span><span class="p">,</span> <span class="n">ImageRecord</span><span class="p">)</span>
 

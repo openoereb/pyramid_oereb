@@ -91,7 +91,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -177,7 +178,7 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.plr</span> <span class="k">import</span> <span class="n">PlrRecord</span>
 
 
-<div class="viewcode-block" id="get_logo"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.standard.hook_methods.get_logo">[docs]</a><span class="k">def</span> <span class="nf">get_logo</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="get_logo"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.hook_methods.get_logo">[docs]</a><span class="k">def</span> <span class="nf">get_logo</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the requested logo.</span>
 
@@ -198,7 +199,7 @@
     <span class="k">raise</span> <span class="n">HTTPNotFound</span><span class="p">(</span><span class="s1">&#39;This logo does not exist.&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_municipality"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.standard.hook_methods.get_municipality">[docs]</a><span class="k">def</span> <span class="nf">get_municipality</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="get_municipality"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.hook_methods.get_municipality">[docs]</a><span class="k">def</span> <span class="nf">get_municipality</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the requested municipality logo from database.</span>
 
@@ -229,7 +230,7 @@
         <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_symbol"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.standard.hook_methods.get_symbol">[docs]</a><span class="k">def</span> <span class="nf">get_symbol</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="get_symbol"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.hook_methods.get_symbol">[docs]</a><span class="k">def</span> <span class="nf">get_symbol</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the symbol for the requested theme and type code from database.</span>
 
@@ -286,7 +287,7 @@
         <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_symbol_ref"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.standard.hook_methods.get_symbol_ref">[docs]</a><span class="k">def</span> <span class="nf">get_symbol_ref</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+<div class="viewcode-block" id="get_symbol_ref"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.hook_methods.get_symbol_ref">[docs]</a><span class="k">def</span> <span class="nf">get_symbol_ref</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the link to the symbol of the specified public law restriction.</span>
 
@@ -311,7 +312,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_surveying_data_provider"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.standard.hook_methods.get_surveying_data_provider">[docs]</a><span class="k">def</span> <span class="nf">get_surveying_data_provider</span><span class="p">(</span><span class="n">real_estate</span><span class="p">):</span>
+<div class="viewcode-block" id="get_surveying_data_provider"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.hook_methods.get_surveying_data_provider">[docs]</a><span class="k">def</span> <span class="nf">get_surveying_data_provider</span><span class="p">(</span><span class="n">real_estate</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Args:</span>
@@ -325,7 +326,7 @@
     <span class="k">return</span> <span class="n">provider</span></div>
 
 
-<div class="viewcode-block" id="get_surveying_data_update_date"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.standard.hook_methods.get_surveying_data_update_date">[docs]</a><span class="k">def</span> <span class="nf">get_surveying_data_update_date</span><span class="p">(</span><span class="n">real_estate</span><span class="p">):</span>
+<div class="viewcode-block" id="get_surveying_data_update_date"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.hook_methods.get_surveying_data_update_date">[docs]</a><span class="k">def</span> <span class="nf">get_surveying_data_update_date</span><span class="p">(</span><span class="n">real_estate</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets the date of the latest update of the used survey data data for the</span>
 <span class="sd">    situation map. The method you find here is only matching the standard configuration. But you can provide</span>
@@ -346,7 +347,7 @@
     <span class="k">return</span> <span class="n">update_date</span></div>
 
 
-<div class="viewcode-block" id="produce_sld_content"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.standard.hook_methods.produce_sld_content">[docs]</a><span class="k">def</span> <span class="nf">produce_sld_content</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="produce_sld_content"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.hook_methods.produce_sld_content">[docs]</a><span class="k">def</span> <span class="nf">produce_sld_content</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is the standard hook method to provide the sld content. Of course you can set it to another one. For</span>
 <span class="sd">    instance to use another template. Or to use other parameters to provide the correctly constructed SLD.</span>

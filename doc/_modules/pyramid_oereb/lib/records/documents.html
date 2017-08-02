@@ -91,7 +91,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -162,12 +163,17 @@
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
 
 
-<div class="viewcode-block" id="DocumentBaseRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.documents.DocumentBaseRecord">[docs]</a><span class="k">class</span> <span class="nc">DocumentBaseRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="DocumentBaseRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.documents.DocumentBaseRecord">[docs]</a><span class="k">class</span> <span class="nc">DocumentBaseRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The base document class.</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">text_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        legal_state (unicode): Key string of the law status.</span>
+<span class="sd">        published_from (datetime.date): Date since this document was published.</span>
+<span class="sd">        text_at_web (dict of uri): The multilingual URI to the documents content.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="DocumentBaseRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.documents.DocumentBaseRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">text_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        The base document class.</span>
-
 <span class="sd">        Args:</span>
 <span class="sd">            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.</span>
 <span class="sd">            published_from (datetime.date): Date since this document was published.</span>
@@ -178,7 +184,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">text_at_web</span> <span class="o">=</span> <span class="n">text_at_web</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">law_status</span> <span class="o">=</span> <span class="n">law_status</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">=</span> <span class="n">published_from</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">=</span> <span class="n">published_from</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">published</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -191,12 +197,19 @@
         <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="ArticleRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.documents.ArticleRecord">[docs]</a><span class="k">class</span> <span class="nc">ArticleRecord</span><span class="p">(</span><span class="n">DocumentBaseRecord</span><span class="p">):</span>
+<div class="viewcode-block" id="ArticleRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.documents.ArticleRecord">[docs]</a><span class="k">class</span> <span class="nc">ArticleRecord</span><span class="p">(</span><span class="n">DocumentBaseRecord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    More specific document class representing articles.</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">number</span><span class="p">,</span> <span class="n">text_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        legal_state (unicode): Key string of the law status.</span>
+<span class="sd">        published_from (datetime.date): Date since this document was published.</span>
+<span class="sd">        number (unicode): The identifier of the article as a law.</span>
+<span class="sd">        text_at_web (dict of uri): The URI to the documents content (multilingual).</span>
+<span class="sd">        text (dict of unicode): Text in the article (multilingual).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ArticleRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.documents.ArticleRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">number</span><span class="p">,</span> <span class="n">text_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        More specific document class representing articles.</span>
-
 <span class="sd">        Args:</span>
 <span class="sd">            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.</span>
 <span class="sd">            published_from (datetime.date): Date since this document was published.</span>
@@ -210,16 +223,34 @@
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;text&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">number</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span></div></div>
 
 
-<div class="viewcode-block" id="DocumentRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.documents.DocumentRecord">[docs]</a><span class="k">class</span> <span class="nc">DocumentRecord</span><span class="p">(</span><span class="n">DocumentBaseRecord</span><span class="p">):</span>
+<div class="viewcode-block" id="DocumentRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.documents.DocumentRecord">[docs]</a><span class="k">class</span> <span class="nc">DocumentRecord</span><span class="p">(</span><span class="n">DocumentBaseRecord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    More specific document class representing real documents.</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">text_at_web</span><span class="p">,</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        legal_state (unicode):  Key string of the law status.</span>
+<span class="sd">        published_from (datetime.date): Date since this document was published.</span>
+<span class="sd">        title (dict of unicode): The multilingual title of the document. It might be shortened one.</span>
+<span class="sd">        responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is</span>
+<span class="sd">            responsible for this document.</span>
+<span class="sd">        text_at_web (dict of uri): The multilingual URI to the documents content.</span>
+<span class="sd">        official_title (dict of unicode): The official title of the document (multilingual).</span>
+<span class="sd">        abbreviation (dict of unicode): Short term for this document (multilingual).</span>
+<span class="sd">        official_number (unicode): The official number for identification of this document.</span>
+<span class="sd">        canton (unicode): The cantonal short term (length of two, like &#39;NE&#39; or &#39;BL&#39;)</span>
+<span class="sd">        municipality (unicode): The code for the municipality.</span>
+<span class="sd">        article_numbers (list of unicode): Pointers to specific articles.</span>
+<span class="sd">        file (bytes): The binary content of the document.</span>
+<span class="sd">        articles (list of ArticleRecord): The linked articles.</span>
+<span class="sd">        references (list of DocumentRecord): The references to other documents.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="DocumentRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.documents.DocumentRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">text_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">abbreviation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">official_number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">official_title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">canton</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">municipality</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">article_numbers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">articles</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">references</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        More specific document class representing real documents.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.</span>
@@ -266,10 +297,10 @@
         <span class="k">if</span> <span class="n">references</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="n">references</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="n">references</span></div></div>
 
 
-<div class="viewcode-block" id="LegalProvisionRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.documents.LegalProvisionRecord">[docs]</a><span class="k">class</span> <span class="nc">LegalProvisionRecord</span><span class="p">(</span><span class="n">DocumentRecord</span><span class="p">):</span>
+<div class="viewcode-block" id="LegalProvisionRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.documents.LegalProvisionRecord">[docs]</a><span class="k">class</span> <span class="nc">LegalProvisionRecord</span><span class="p">(</span><span class="n">DocumentRecord</span><span class="p">):</span>
     <span class="k">pass</span></div>
 </pre></div>
 

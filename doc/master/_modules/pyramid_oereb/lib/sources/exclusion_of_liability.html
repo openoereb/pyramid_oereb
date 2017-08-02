@@ -91,7 +91,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -160,39 +161,27 @@
             
   <h1>Source code for pyramid_oereb.lib.sources.exclusion_of_liability</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources</span> <span class="k">import</span> <span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">Base</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources</span> <span class="k">import</span> <span class="n">Base</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.exclusion_of_liability</span> <span class="k">import</span> <span class="n">ExclusionOfLiabilityRecord</span>
 
 
-<div class="viewcode-block" id="ExclusionOfLiabilityBaseSource"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityBaseSource">[docs]</a><span class="k">class</span> <span class="nc">ExclusionOfLiabilityBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="ExclusionOfLiabilityBaseSource"><a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityBaseSource">[docs]</a><span class="k">class</span> <span class="nc">ExclusionOfLiabilityBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for exclusion of liability sources.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        records (list of pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord): List</span>
+<span class="sd">            of exclusion of liability records.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_record_class_</span> <span class="o">=</span> <span class="n">ExclusionOfLiabilityRecord</span>
 
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div>
-
-
-<div class="viewcode-block" id="ExclusionOfLiabilityDatabaseSource"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityDatabaseSource">[docs]</a><span class="k">class</span> <span class="nc">ExclusionOfLiabilityDatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">ExclusionOfLiabilityBaseSource</span><span class="p">):</span>
-
-<div class="viewcode-block" id="ExclusionOfLiabilityDatabaseSource.read"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityDatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ExclusionOfLiabilityBaseSource.read"><a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityBaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Central method to read a exclusion of liability definition.</span>
+<span class="sd">        Every exclusion of liability source has to implement a read method. This method must accept no</span>
+<span class="sd">        parameters. Because it should deliver all items available.</span>
+<span class="sd">        If you want adapt to your own source for exclusion of liabilities, this is the point where to hook in.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">results</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_record_class_</span><span class="p">(</span>
-                    <span class="n">result</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
-                    <span class="n">result</span><span class="o">.</span><span class="n">content</span>
-                <span class="p">))</span>
-
-        <span class="k">except</span><span class="p">:</span>
-            <span class="k">raise</span>
-
-        <span class="k">finally</span><span class="p">:</span>
-            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+        <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div></div>
 </pre></div>
 
            </div>

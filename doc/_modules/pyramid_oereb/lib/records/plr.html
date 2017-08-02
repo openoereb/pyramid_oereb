@@ -91,7 +91,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -162,9 +163,9 @@
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
 
 
-<div class="viewcode-block" id="EmptyPlrRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.plr.EmptyPlrRecord">[docs]</a><span class="k">class</span> <span class="nc">EmptyPlrRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="EmptyPlrRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.plr.EmptyPlrRecord">[docs]</a><span class="k">class</span> <span class="nc">EmptyPlrRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">has_data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="EmptyPlrRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.plr.EmptyPlrRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">has_data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Record for empty topics.</span>
 
@@ -173,26 +174,29 @@
 <span class="sd">            has_data (bool): True if the topic contains data.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">theme</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">has_data</span> <span class="o">=</span> <span class="n">has_data</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">has_data</span> <span class="o">=</span> <span class="n">has_data</span></div></div>
 
 
-<div class="viewcode-block" id="PlrRecord"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.lib.records.plr.PlrRecord">[docs]</a><span class="k">class</span> <span class="nc">PlrRecord</span><span class="p">(</span><span class="n">EmptyPlrRecord</span><span class="p">):</span>
+<div class="viewcode-block" id="PlrRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.plr.PlrRecord">[docs]</a><span class="k">class</span> <span class="nc">PlrRecord</span><span class="p">(</span><span class="n">EmptyPlrRecord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Public law restriction record.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        part_in_percent (decimal): Part of the property area touched by the restriction in percent.</span>
+<span class="sd">        area (decimal): Area of the restriction touching the property calculated by the processor.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Attributes added or calculated by the processor</span>
     <span class="n">area</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="sd">&quot;&quot;&quot;decimal: Area of the restriction touching the property calculated by the processor.&quot;&quot;&quot;</span>
 
     <span class="n">part_in_percent</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="sd">&quot;&quot;&quot;decimal: Part of the property area touched by the restriction in percent.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">information</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span>
+<div class="viewcode-block" id="PlrRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.plr.PlrRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">information</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span>
                  <span class="n">view_service</span><span class="p">,</span> <span class="n">geometries</span><span class="p">,</span> <span class="n">sub_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">other_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">type_code_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refinements</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">documents</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
                  <span class="n">min_area</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">length_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">area_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m2&#39;</span><span class="p">,</span> <span class="n">length_precision</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">area_precision</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                  <span class="n">percentage_precision</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Public law restriction record.</span>
-
 <span class="sd">        Args:</span>
 <span class="sd">            information (dict of unicode): The PLR record&#39;s information (multilingual).</span>
 <span class="sd">            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.</span>
@@ -267,7 +271,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">percentage_precision</span> <span class="o">=</span> <span class="n">percentage_precision</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">published</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

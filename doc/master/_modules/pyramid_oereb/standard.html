@@ -91,7 +91,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
 </ul>
 
@@ -236,7 +237,7 @@
             <span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_tables_from_standard_configuration"><a class="viewcode-back" href="../../api.html#pyramid_oereb.standard.create_tables_from_standard_configuration">[docs]</a><span class="k">def</span> <span class="nf">create_tables_from_standard_configuration</span><span class="p">(</span>
+<div class="viewcode-block" id="create_tables_from_standard_configuration"><a class="viewcode-back" href="../../standard/index.html#pyramid_oereb.standard.create_tables_from_standard_configuration">[docs]</a><span class="k">def</span> <span class="nf">create_tables_from_standard_configuration</span><span class="p">(</span>
         <span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">tables_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sql_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates all schemas which are defined in the passed yaml file: &lt;section&gt;.&lt;plrs&gt;.[&lt;plr&gt;.&lt;code&gt;]. The code</span>
@@ -311,7 +312,7 @@
                 <span class="n">sql_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">create_table</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="drop_tables_from_standard_configuration"><a class="viewcode-back" href="../../api.html#pyramid_oereb.standard.drop_tables_from_standard_configuration">[docs]</a><span class="k">def</span> <span class="nf">drop_tables_from_standard_configuration</span><span class="p">(</span><span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="drop_tables_from_standard_configuration"><a class="viewcode-back" href="../../standard/index.html#pyramid_oereb.standard.drop_tables_from_standard_configuration">[docs]</a><span class="k">def</span> <span class="nf">drop_tables_from_standard_configuration</span><span class="p">(</span><span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Drops all schemas which are defined in the passed yaml file: &lt;section&gt;.&lt;plrs&gt;.[&lt;plr&gt;.&lt;code&gt;]. The code</span>
 <span class="sd">    must be camel case. It will be transformed to snake case and used as schema name.</span>
@@ -340,7 +341,7 @@
             <span class="n">plr_schema_connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 
-<span class="k">def</span> <span class="nf">_create_standard_yaml_config_</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb_standard.yml&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="_create_standard_yaml_config_"><a class="viewcode-back" href="../../standard/index.html#pyramid_oereb.standard._create_standard_yaml_config_">[docs]</a><span class="k">def</span> <span class="nf">_create_standard_yaml_config_</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb_standard.yml&#39;</span><span class="p">,</span>
                                   <span class="n">database</span><span class="o">=</span><span class="s1">&#39;postgresql://postgres:password@localhost/pyramid_oereb&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the specified YAML file using a template. This YAML file contains the standard</span>
@@ -389,7 +390,7 @@
     <span class="n">target_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{path}{sep}{name}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
         <span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="n">logo_canton_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
     <span class="p">)</span>
-    <span class="n">copyfile</span><span class="p">(</span><span class="n">logo_sample_path</span><span class="p">,</span> <span class="n">target_path</span><span class="p">)</span>
+    <span class="n">copyfile</span><span class="p">(</span><span class="n">logo_sample_path</span><span class="p">,</span> <span class="n">target_path</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
