@@ -9,9 +9,10 @@ configuration and an example usage of the pyconizer package to provide legend en
 layer.
 
 .. toctree::
+   :hidden:
 
    sources
-   models
+   models/index
 
 Functions for creating standard environment
 -------------------------------------------
