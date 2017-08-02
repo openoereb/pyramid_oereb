@@ -70,6 +70,7 @@ files = glob.glob('../../pyramid_oereb/standard/models/*.py')
 modules = [
     re.sub(r'\.__init__', '', f[6:-3].replace("/", ".")) for f in files
     if not f.startswith("../../pyramid_oereb/standard/models/main.py")
+    and not f.startswith("../../pyramid_oereb/standard/models/__init__.py")
 ]
 modules.sort()
 for module in modules:
@@ -80,11 +81,16 @@ for module in modules:
     for name, obj in inspect.getmembers(sys.modules[module]):
         if inspect.isclass(obj) and obj.__module__ == module:
             classes[module].append(name)
-for module in modules:
-    print classes
-    with open('standard/{name}.rst'.format(name=module.replace('.', '_').lower()), 'w') as sources:
-        template = Template(filename='standard/models.rst.mako')
-        sources.write(template.render(**{'module_name': module, 'classes': classes}))
+module_file_names = []
+for module_name, classes in classes.iteritems():
+    file_name = module_name.replace('.', '_').lower()
+    module_file_names.append(file_name)
+    with open('standard/models/{name}.rst'.format(name=file_name), 'w') as sources:
+        template = Template(filename='standard/models/models.rst.mako')
+        sources.write(template.render(**{'module_name': module_name, 'classes': classes}))
+with open('standard/models/index.rst', 'w') as sources:
+    template = Template(filename='standard/models/index.rst.mako')
+    sources.write(template.render(**{'module_file_names': module_file_names}))
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['doc/_buildtemplates']
