@@ -11,6 +11,7 @@ layer.
 .. toctree::
 
    sources
+   models
 
 Functions for creating standard environment
 -------------------------------------------

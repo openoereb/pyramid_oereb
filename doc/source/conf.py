@@ -16,7 +16,10 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+import glob
+import inspect
 import os
+from mako.template import Template
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 import re
@@ -33,6 +36,8 @@ import sphinx_rtd_theme
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
+import sys
+
 extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
@@ -60,6 +65,26 @@ with open('standard/sources.rst', 'w') as sources:
     sources.write(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
         'standard/sources.rst.mako']))
+
+files = glob.glob('../../pyramid_oereb/standard/models/*.py')
+modules = [
+    re.sub(r'\.__init__', '', f[6:-3].replace("/", ".")) for f in files
+    if not f.startswith("../../pyramid_oereb/standard/models/main.py")
+]
+modules.sort()
+for module in modules:
+    __import__(module)
+classes = {}
+for module in modules:
+    classes[module] = []
+    for name, obj in inspect.getmembers(sys.modules[module]):
+        if inspect.isclass(obj) and obj.__module__ == module:
+            classes[module].append(name)
+for module in modules:
+    print classes
+    with open('standard/{name}.rst'.format(name=module.replace('.', '_').lower()), 'w') as sources:
+        template = Template(filename='standard/models.rst.mako')
+        sources.write(template.render(**{'module_name': module, 'classes': classes}))
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['doc/_buildtemplates']
