@@ -81,7 +81,8 @@ pyramid_oereb.yml
 /doc/source/core/sources.rst
 /doc/source/standard/sources.rst
 /doc/source/standard/models.rst
-/doc/source/standard/pyramid_*
+/doc/source/standard/models/pyramid_*
+/doc/source/standard/models/index.rst
 
 # Generated files
 /test-db/12-create.sql
