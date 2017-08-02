@@ -20,10 +20,6 @@ for i, module in enumerate(modules):
 delete_modules.reverse()
 for i in delete_modules:
     del modules[i]
-for module in modules:
-    __import__(module)
-    # TODO: Ask SBrunner why this is not working as expected (packages are missing)
-    # modules = [m for m in modules if m in sys.modules]
 
 classes = {}
 for module in modules:
