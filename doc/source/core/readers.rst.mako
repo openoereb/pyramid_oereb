@@ -12,6 +12,16 @@ modules = [
 ]
 modules.sort()
 
+delete_modules = []
+for i, module in enumerate(modules):
+    try:
+        __import__(module)
+    except ImportError:
+        delete_modules.append(i)
+delete_modules.reverse()
+for i in delete_modules:
+    del modules[i]
+
 for module in modules:
     __import__(module)
     # TODO: Ask SBrunner why this is not working as expected (packages are missing)
