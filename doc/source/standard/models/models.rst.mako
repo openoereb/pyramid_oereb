@@ -1,16 +1,18 @@
 <% import re%>
-.. _api-${module_name}:
 
 .. _api-${module_name.replace('.', '-').lower()}:
 
+*${module_name.split('.')[-1].title().replace('_', ' ')}*
+${re.sub('.', '^', module_name.split('.')[-1].title().replace('_', ' ') + '  ')}
+
 .. automodule:: ${module_name}
 
+%for cls in classes:
 
-%for cls in classes[module_name]:
 .. _api-${module_name.replace('.', '-').lower()}-${cls.lower()}:
 
-*${module_name.split('.')[-1].title().replace('_', ' ')} ${cls}*
-${re.sub('.', underline[0], module_name.split('.')[-1] + '   ' + cls)}
+${cls}
+${re.sub('.', '~', cls)}
 
 .. autoclass:: ${module_name}.${cls}
    :members:
