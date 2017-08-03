@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Sources &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="pyramid_oereb  documentation" href="../index.html"/>
+        <link rel="up" title="Contribution" href="index.html"/>
+        <link rel="next" title="Core" href="../core/index.html"/>
+        <link rel="prev" title="Contribution" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../standard/index.html">Standard</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Contribution</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Sources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#addressgeoadminsource"><em>AddressGeoAdminSource</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#oereblexsource"><em>OEREBlexSource</em></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Contribution</a> &raquo;</li>
+        
+      <li>Sources</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sources">
+<span id="contrib-sources"></span><h1>Sources<a class="headerlink" href="#sources" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-pyramid_oereb.contrib.sources"><span id="api-pyramid-oereb-contrib-sources"></span></span><p>Commonly used sources, that are not part of the core. These are useful extensions which bind to a common
+known and stable API mostly.</p>
+<span class="target" id="module-pyramid_oereb.contrib.sources.address"><span id="api-pyramid-oereb-contrib-sources-address"></span></span><div class="section" id="addressgeoadminsource">
+<span id="api-pyramid-oereb-contrib-sources-address-addressgeoadminsource"></span><h2><em>AddressGeoAdminSource</em><a class="headerlink" href="#addressgeoadminsource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.sources.address.AddressGeoAdminSource">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.sources.address.</code><code class="descname">AddressGeoAdminSource</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/sources/address.html#AddressGeoAdminSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.sources.address.AddressGeoAdminSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>An address source that uses the federal GeoAdmin API to return the geo location of a postal address.</p>
+<dl class="method">
+<dt id="pyramid_oereb.contrib.sources.address.AddressGeoAdminSource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/sources/address.html#AddressGeoAdminSource.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.sources.address.AddressGeoAdminSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new AddressGeoAdminSource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
+<li><strong>geoadmin_search_api</strong> (<em>uri</em>) &#8211; Url of the GeoAdmin API&#8217;s search service. (<strong>required</strong>)</li>
+<li><strong>origins</strong> (<em>str</em><em> or </em><em>list of str</em>) &#8211; Filter results by origin. Defaults to <em>address</em>. (<strong>optional</strong>)</li>
+<li><strong>proxies</strong> (<em>dict</em>) &#8211; Proxy definition according to
+<a class="reference external" href="http://docs.python-requests.org/en/master/user/advanced/#proxies">http://docs.python-requests.org/en/master/user/advanced/#proxies</a>. (<strong>optional</strong>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.sources.address.AddressGeoAdminSource.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>street_name</em>, <em>zip_code</em>, <em>street_number</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/sources/address.html#AddressGeoAdminSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.sources.address.AddressGeoAdminSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries an address using the federal GeoAdmin API location search.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>street_name</strong> (<em>unicode</em>) &#8211; The name of the street for the desired address.</li>
+<li><strong>zip_code</strong> (<em>int</em>) &#8211; The postal zipcode for the desired address.</li>
+<li><strong>street_number</strong> (<em>unicode</em>) &#8211; The house or so called street number of the desired address.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.sources.document"><span id="api-pyramid-oereb-contrib-sources-document"></span></span></div>
+<div class="section" id="oereblexsource">
+<span id="api-pyramid-oereb-contrib-sources-document-oereblexsource"></span><h2><em>OEREBlexSource</em><a class="headerlink" href="#oereblexsource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.sources.document.OEREBlexSource">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.sources.document.</code><code class="descname">OEREBlexSource</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/sources/document.html#OEREBlexSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.sources.document.OEREBlexSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>A document source, that creates records for the received documents from OEREBlex for the specified
+geoLink.</p>
+<dl class="method">
+<dt id="pyramid_oereb.contrib.sources.document.OEREBlexSource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/sources/document.html#OEREBlexSource.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.sources.document.OEREBlexSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new OEREBlex document source.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
+<li><strong>host</strong> (<em>uri</em>) &#8211; Host URL of OEREBlex (without /api/...).</li>
+<li><strong>language</strong> (<em>str</em>) &#8211; The language of the received data.</li>
+<li><strong>canton</strong> (<em>str</em>) &#8211; Canton code used for the documents.</li>
+<li><strong>mapping</strong> (<em>dict of str</em>) &#8211; Mapping for optional attributes.</li>
+<li><strong>proxy</strong> (<em>dict of uri</em>) &#8211; Optional proxy configuration for HTTP and/or HTTPS.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.sources.document.OEREBlexSource.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>geolink_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/sources/document.html#OEREBlexSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.sources.document.OEREBlexSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Requests the geoLink for the specified ID and returns records for the received documents.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>geolink_id</strong> (<em>int</em>) &#8211; The geoLink ID.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../core/index.html" class="btn btn-neutral float-right" title="Core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Contribution" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, pyramid_oereb devs.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: master
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="../master/contrib/sources.html">master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

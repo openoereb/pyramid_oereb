@@ -91,7 +91,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contrib/index.html">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -166,11 +168,11 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources.address</span> <span class="k">import</span> <span class="n">AddressBaseSource</span>
 
 
-<div class="viewcode-block" id="AddressGeoAdminSource"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.contrib.sources.address.AddressGeoAdminSource">[docs]</a><span class="k">class</span> <span class="nc">AddressGeoAdminSource</span><span class="p">(</span><span class="n">AddressBaseSource</span><span class="p">):</span>
+<div class="viewcode-block" id="AddressGeoAdminSource"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.address.AddressGeoAdminSource">[docs]</a><span class="k">class</span> <span class="nc">AddressGeoAdminSource</span><span class="p">(</span><span class="n">AddressBaseSource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An address source that uses the federal GeoAdmin API to return the geo location of a postal address.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="AddressGeoAdminSource.__init__"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.address.AddressGeoAdminSource.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a new AddressGeoAdminSource.</span>
 
@@ -191,9 +193,9 @@
                 <span class="n">origins</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">origins</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_origins</span> <span class="o">=</span> <span class="n">origins</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_origins</span> <span class="o">=</span> <span class="s1">&#39;address&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_origins</span> <span class="o">=</span> <span class="s1">&#39;address&#39;</span></div>
 
-<div class="viewcode-block" id="AddressGeoAdminSource.read"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.contrib.sources.address.AddressGeoAdminSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
+<div class="viewcode-block" id="AddressGeoAdminSource.read"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.address.AddressGeoAdminSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Queries an address using the federal GeoAdmin API location search.</span>
 

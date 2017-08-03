@@ -91,7 +91,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contrib/index.html">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -166,12 +168,12 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources</span> <span class="k">import</span> <span class="n">Base</span>
 
 
-<div class="viewcode-block" id="OEREBlexSource"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.contrib.sources.document.OEREBlexSource">[docs]</a><span class="k">class</span> <span class="nc">OEREBlexSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="OEREBlexSource"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.document.OEREBlexSource">[docs]</a><span class="k">class</span> <span class="nc">OEREBlexSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A document source, that creates records for the received documents from OEREBlex for the specified</span>
 <span class="sd">    geoLink.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="OEREBlexSource.__init__"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.document.OEREBlexSource.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a new OEREBlex document source.</span>
 
@@ -194,9 +196,9 @@
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">host_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_mapping</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mapping&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_proxies</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;proxy&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_proxies</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;proxy&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="OEREBlexSource.read"><a class="viewcode-back" href="../../../../api.html#pyramid_oereb.contrib.sources.document.OEREBlexSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geolink_id</span><span class="p">):</span>
+<div class="viewcode-block" id="OEREBlexSource.read"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.document.OEREBlexSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geolink_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Requests the geoLink for the specified ID and returns records for the received documents.</span>
 
