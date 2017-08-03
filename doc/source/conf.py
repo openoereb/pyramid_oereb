@@ -66,6 +66,11 @@ with open('standard/sources.rst', 'w') as sources:
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
         'standard/sources.rst.mako'])))
 
+with open('contrib/sources.rst', 'w') as sources:
+    sources.write(str(subprocess.check_output([
+        '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
+        'contrib/sources.rst.mako'])))
+
 files = glob.glob('../../pyramid_oereb/standard/models/*.py')
 modules = [
     re.sub(r'\.__init__', '', f[6:-3].replace("/", ".")) for f in files
