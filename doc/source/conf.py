@@ -47,29 +47,29 @@ extensions = [
 ]
 
 with open('core/readers.rst', 'w') as readers:
-    readers.write(str(subprocess.check_output([
+    readers.write(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
-        'core/readers.rst.mako'])))
+        'core/readers.rst.mako']).decode('utf-8'))
 
 with open('core/records.rst', 'w') as records:
-    records.write(str(subprocess.check_output([
+    records.write(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
-        'core/records.rst.mako'])))
+        'core/records.rst.mako']).decode('utf-8'))
 
 with open('core/sources.rst', 'w') as sources:
-    sources.write(str(subprocess.check_output([
+    sources.write(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
-        'core/sources.rst.mako'])))
+        'core/sources.rst.mako']).decode('utf-8'))
 
 with open('standard/sources.rst', 'w') as sources:
-    sources.write(str(subprocess.check_output([
+    sources.write(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
-        'standard/sources.rst.mako'])))
+        'standard/sources.rst.mako']).decode('utf-8'))
 
 with open('contrib/sources.rst', 'w') as sources:
-    sources.write(str(subprocess.check_output([
+    sources.write(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
-        'contrib/sources.rst.mako'])))
+        'contrib/sources.rst.mako']).decode('utf-8'))
 
 files = glob.glob('../../pyramid_oereb/standard/models/*.py')
 modules = [
@@ -92,10 +92,10 @@ for module_name, classes in classes.iteritems():
     module_file_names.append(file_name)
     with open('standard/models/{name}.rst'.format(name=file_name), 'w') as sources:
         template = Template(filename='standard/models/models.rst.mako')
-        sources.write(str(template.render(**{'module_name': module_name, 'classes': classes})))
+        sources.write(template.render(**{'module_name': module_name, 'classes': classes}).decode('utf-8'))
 with open('standard/models/index.rst', 'w') as sources:
     template = Template(filename='standard/models/index.rst.mako')
-    sources.write(str(template.render(**{'module_file_names': module_file_names})))
+    sources.write(template.render(**{'module_file_names': module_file_names}).decode('utf-8'))
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['doc/_buildtemplates']
