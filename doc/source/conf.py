@@ -23,6 +23,7 @@ from mako.template import Template
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 import re
+import six
 import subprocess
 import sphinx_rtd_theme
 
@@ -87,7 +88,7 @@ for module in modules:
         if inspect.isclass(obj) and obj.__module__ == module:
             classes[module].append(name)
 module_file_names = []
-for module_name, classes in classes.iteritems():
+for module_name, classes in six.iteritems(classes):
     file_name = module_name.replace('.', '_').lower()
     module_file_names.append(file_name)
     with open('standard/models/{name}.rst'.format(name=file_name), 'w') as sources:
