@@ -88,4 +88,3 @@ pyramid_oereb.yml
 # Generated files
 /test-db/12-create.sql
 /test-db/13-fill.sql
-
