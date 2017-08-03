@@ -93,10 +93,10 @@ for module_name, classes in six.iteritems(classes):
     module_file_names.append(file_name)
     with open('standard/models/{name}.rst'.format(name=file_name), 'w') as sources:
         template = Template(filename='standard/models/models.rst.mako')
-        sources.write(template.render(**{'module_name': module_name, 'classes': classes}).decode('utf-8'))
+        sources.write(template.render(**{'module_name': module_name, 'classes': classes}))
 with open('standard/models/index.rst', 'w') as sources:
     template = Template(filename='standard/models/index.rst.mako')
-    sources.write(template.render(**{'module_file_names': module_file_names}).decode('utf-8'))
+    sources.write(template.render(**{'module_file_names': module_file_names}))
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['doc/_buildtemplates']
