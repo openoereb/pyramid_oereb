@@ -111,7 +111,7 @@ can import the sample data into the configured database using the following scri
 
 .. code-block:: shell
 
- python pyramid_oereb/standard/load_sample_data.py -c pyramid_oereb_standard.yml
+ python <PATH TO VENV SITE_PACKAGES>/pyramid_oereb/standard/load_sample_data.py -c pyramid_oereb_standard.yml
 
 We assume, you have put your downloaded sample data in a folder named `sample_data` in your projects root
 directory, as found in the repository_. Otherwise you have to specify the location of your sample data using
