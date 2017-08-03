@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+1.0.0
+*****
+
+- improved doc
+- fix bug for doc creation on python 3.6
+
 1.0.0-beta.1
 ************
 
