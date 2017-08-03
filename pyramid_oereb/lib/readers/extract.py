@@ -116,8 +116,6 @@ class ExtractReader(object):
                         datasource.append(ds)
                 real_estate.public_law_restrictions.extend(plr_source.records)
 
-        print(real_estate.public_law_restrictions)
-
         concerned_themes = list()
         not_concerned_themes = list()
         themes_without_data = list()
