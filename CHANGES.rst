@@ -2,6 +2,21 @@
 Changelog
 ---------
 
+1.0.0-beta.1
+************
+
+- first approach of OEREB server
+- improved documentation on https://camptocamp.github.io/pyramid_oereb/doc/
+- cleaned and reorganized code
+- binding to OEREB-LEX and GeoAdmin-Api-Address-Service
+  (http://api.geo.admin.ch/services/sdiservices.html#search) as sources
+- providing pyconizer as icon generator (https://pypi.python.org/pypi/pyconizer)
+- proxy binding of geomapfish_print for pdf output as renderer
+  (http://mapfish.github.io/mapfish-print-doc/#/overview)
+- providing extensive standard configuration for out-of-the-box-usage
+- general bug fixing
+- add python 3.x support
+
 1.0.0-alpha.2
 *************
 
