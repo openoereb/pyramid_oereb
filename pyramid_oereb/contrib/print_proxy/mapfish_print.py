@@ -1,16 +1,13 @@
 # -*- coding: utf-8 -*-
-
 import sys
 import json
 import requests
-
 import logging
 
 from shapely.geometry import mapping
 from pyramid.httpexceptions import HTTPBadRequest
-
 from pyramid_oereb import Config
-from pyramid_oereb.lib.renderer.extract.json_ import Renderer
+from pyramid_oereb.lib.renderer.extract.json_ import Renderer as JsonRenderer
 if sys.version_info.major == 2:
     import urlparse
 else:
@@ -20,11 +17,12 @@ else:
 log = logging.getLogger('pyramid_oereb')
 
 
-class PrintRenderer(Renderer):
+class Renderer(JsonRenderer):
 
     def __call__(self, value, system):
         """
-        Returns the JSON encoded extract, according to the specification.
+        Implements a subclass of pyramid_oereb.lib.renderer.extract.json_.Renderer to create a print result
+        out of a json. The json extract is reformatted to fit the structure of mapfish print.
 
         Args:
             value (tuple): A tuple containing the generated extract record and the params
@@ -32,11 +30,11 @@ class PrintRenderer(Renderer):
             system (dict): The available system properties.
 
         Returns:
-            str: The JSON encoded extract.
+            buffer: The pdf content as received from configured mapfish print instance url.
         """
 
         if value[1].images:
-            return HTTPBadRequest("With image is not allowed in the print")
+            raise HTTPBadRequest("With image is not allowed in the print")
 
         self._request = self.get_request(system)
 

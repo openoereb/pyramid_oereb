@@ -4,6 +4,8 @@
 # The line below represents the "entry point" for the yaml configuration also called section. Keep this in
 # mind for later stuff. You can change it to your favorite name. For the moment this is enough to know.
 pyramid_oereb:
+
+
   # Here you can set a central proxy which can be used somewhere in the application.
   # proxies:
     # http: http://"username":"password"@your_proxy.com:8088
@@ -49,6 +51,10 @@ pyramid_oereb:
     - EMBEDDABLE
 
   print:
+    # The pyramid renderer which is used as proxy pass through to the desired service for printable static
+    # extract. Here you can define the path to the logic which prepares the output as payload for print
+    # service and returns the result to the user.
+    renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.PrintRenderer
     # The buffer on the map around the parcel in percent
     buffer: 10
     # The map size in pixel at 72 DPI (width, height), This is the defined size of a map image
@@ -59,7 +65,6 @@ pyramid_oereb:
     pdf_dpi: 300
     # The map size (in millimeters) used to calculate the size of the requested map (for pdf export only).
     pdf_map_size_millimeters: [174, 99]
-
     # Base URL with application of the print server
     base_url: http://localhost:8280/print/oereb
 
