@@ -4,6 +4,10 @@
 # The line below represents the "entry point" for the yaml configuration also called section. Keep this in
 # mind for later stuff. You can change it to your favorite name. For the moment this is enough to know.
 pyramid_oereb:
+  # Here you can set a central proxy which can be used somewhere in the application.
+  # proxies:
+    # http: http://"username":"password"@your_proxy.com:8088
+    # https: https://"username":"password"@your_proxy.com:8088
 
   # The "language" property is a list of all languages provided by this application. In the moment this only
   # affects the output of the capabilities webservice. Whatever in later versions it will be the configuration
