@@ -91,7 +91,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contrib/index.html">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -176,15 +178,15 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.views.webservice</span> <span class="k">import</span> <span class="n">Parameter</span>
 
 
-<div class="viewcode-block" id="Renderer"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer">[docs]</a><span class="k">class</span> <span class="nc">Renderer</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Renderer</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.__init__"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a new JSON renderer instance for extract rendering.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            info (pyramid.interfaces.IRendererInfo): Info object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Renderer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Renderer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">info</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -300,7 +302,7 @@
 
         <span class="k">return</span> <span class="n">extract_dict</span>
 
-<div class="viewcode-block" id="Renderer.format_real_estate"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_real_estate">[docs]</a>    <span class="k">def</span> <span class="nf">format_real_estate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.format_real_estate"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.format_real_estate">[docs]</a>    <span class="k">def</span> <span class="nf">format_real_estate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formats a real estate record for rendering according to the federal specification.</span>
 
@@ -354,7 +356,7 @@
 
         <span class="k">return</span> <span class="n">real_estate_dict</span></div>
 
-<div class="viewcode-block" id="Renderer.format_plr"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_plr">[docs]</a>    <span class="k">def</span> <span class="nf">format_plr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plrs</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.format_plr"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.format_plr">[docs]</a>    <span class="k">def</span> <span class="nf">format_plr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plrs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formats a public law restriction record for rendering according to the federal specification.</span>
 
@@ -431,7 +433,7 @@
 
         <span class="k">return</span> <span class="n">plr_list</span></div>
 
-<div class="viewcode-block" id="Renderer.format_law_status"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_law_status">[docs]</a>    <span class="k">def</span> <span class="nf">format_law_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.format_law_status"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.format_law_status">[docs]</a>    <span class="k">def</span> <span class="nf">format_law_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status to format into</span>
@@ -444,7 +446,7 @@
             <span class="s1">&#39;Text&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">law_status</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
         <span class="p">}</span></div>
 
-<div class="viewcode-block" id="Renderer.format_document"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_document">[docs]</a>    <span class="k">def</span> <span class="nf">format_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.format_document"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.format_document">[docs]</a>    <span class="k">def</span> <span class="nf">format_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formats a document record for rendering according to the federal specification.</span>
 <span class="sd">        If the render is requested with a *full* flavour, it will render the *textAtWeb*</span>
@@ -516,7 +518,7 @@
 
         <span class="k">return</span> <span class="n">document_dict</span></div>
 
-<div class="viewcode-block" id="Renderer.format_geometry"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_geometry">[docs]</a>    <span class="k">def</span> <span class="nf">format_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geometry</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.format_geometry"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.format_geometry">[docs]</a>    <span class="k">def</span> <span class="nf">format_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geometry</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formats a geometry record for rendering according to the federal specification.</span>
 
@@ -550,7 +552,7 @@
 
         <span class="k">return</span> <span class="n">geometry_dict</span></div>
 
-<div class="viewcode-block" id="Renderer.format_office"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_office">[docs]</a>    <span class="k">def</span> <span class="nf">format_office</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">office</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.format_office"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.format_office">[docs]</a>    <span class="k">def</span> <span class="nf">format_office</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">office</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formats an office record for rendering according to the federal specification.</span>
 
@@ -582,7 +584,7 @@
             <span class="n">office_dict</span><span class="p">[</span><span class="s1">&#39;City&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">office</span><span class="o">.</span><span class="n">city</span>
         <span class="k">return</span> <span class="n">office_dict</span></div>
 
-<div class="viewcode-block" id="Renderer.format_theme"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_theme">[docs]</a>    <span class="k">def</span> <span class="nf">format_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.format_theme"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.format_theme">[docs]</a>    <span class="k">def</span> <span class="nf">format_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formats a theme record for rendering according to the federal specification.</span>
 
@@ -599,7 +601,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">theme_dict</span></div>
 
-<div class="viewcode-block" id="Renderer.format_map"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_map">[docs]</a>    <span class="k">def</span> <span class="nf">format_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">map_</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.format_map"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.format_map">[docs]</a>    <span class="k">def</span> <span class="nf">format_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">map_</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formats a view service record for rendering according to the federal specification.</span>
 
@@ -622,7 +624,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">format_legend_entry</span><span class="p">(</span><span class="n">legend_entry</span><span class="p">)</span> <span class="k">for</span> <span class="n">legend_entry</span> <span class="ow">in</span> <span class="n">map_</span><span class="o">.</span><span class="n">legends</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">map_dict</span></div>
 
-<div class="viewcode-block" id="Renderer.format_legend_entry"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_legend_entry">[docs]</a>    <span class="k">def</span> <span class="nf">format_legend_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legend_entry</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.format_legend_entry"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.format_legend_entry">[docs]</a>    <span class="k">def</span> <span class="nf">format_legend_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legend_entry</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formats a legend entry record for rendering according to the federal specification.</span>
 
@@ -656,7 +658,7 @@
         <span class="k">return</span> <span class="n">legend_entry_dict</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Renderer.from_shapely"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.from_shapely">[docs]</a>    <span class="k">def</span> <span class="nf">from_shapely</span><span class="p">(</span><span class="n">geom</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.from_shapely"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.from_shapely">[docs]</a>    <span class="k">def</span> <span class="nf">from_shapely</span><span class="p">(</span><span class="n">geom</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formats shapely geometry for rendering according to the federal specification.</span>
 
@@ -674,7 +676,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">geom_dict</span></div>
 
-<div class="viewcode-block" id="Renderer.format_embeddable"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.json_.Renderer.format_embeddable">[docs]</a>    <span class="k">def</span> <span class="nf">format_embeddable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">embeddable</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.format_embeddable"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.format_embeddable">[docs]</a>    <span class="k">def</span> <span class="nf">format_embeddable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">embeddable</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formats a embeddable record for rendering according to the specification.</span>
 
@@ -706,7 +708,7 @@
             <span class="s1">&#39;datasource&#39;</span><span class="p">:</span> <span class="n">datasources</span>
         <span class="p">}</span>
 
-        <span class="k">return</span> <span class="n">embeddable_dict</span></div></div>
+        <span class="k">return</span> <span class="n">embeddable_dict</span></div>
 </pre></div>
 
            </div>
@@ -743,6 +745,10 @@
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="../../../../../../v1.0.0/index.html">v1.0.0</a></dd>
+        </dl>
         <dl>
             <dt>Branches</dt>
             <dd><a href="json_.html">master</a></dd>

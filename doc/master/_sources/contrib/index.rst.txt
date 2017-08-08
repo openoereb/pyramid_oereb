@@ -9,3 +9,4 @@ provided here as well.
    :hidden:
 
    sources
+   print_proxy
