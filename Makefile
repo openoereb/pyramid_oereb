@@ -48,6 +48,7 @@ SPHINXPROJ = OEREB
 SOURCEDIR = doc/source
 BUILDDIR = doc/build
 
+.PHONY: install
 install: $(PYTHON_VENV)
 
 .venv/timestamp:
