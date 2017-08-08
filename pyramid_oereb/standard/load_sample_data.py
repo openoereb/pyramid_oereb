@@ -14,7 +14,7 @@ from pyramid_oereb.lib.config import parse
 from pyramid_oereb.standard.models.contaminated_public_transport_sites import Office, Geometry, \
     PublicLawRestriction, ViewService, PublicLawRestrictionDocument, DocumentBase, LegalProvision, \
     Availability, LegendEntry, DocumentReference, Document, DataIntegration
-from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality
+from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality, Glossary
 
 
 class SampleData(object):
@@ -113,6 +113,10 @@ class SampleData(object):
         if self._has_connection():
 
             # Truncate tables
+            self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+                schema=Glossary.__table__.schema,
+                table=Glossary.__table__.name
+            ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
                 schema=Municipality.__table__.schema,
                 table=Municipality.__table__.name
@@ -235,6 +239,7 @@ class SampleData(object):
             self._load_sample(RealEstate, 'real_estates.json')
             self._load_sample(Address, 'addresses.json')
             self._load_sample(Municipality, 'municipalities_with_logo.json')
+            self._load_sample(Glossary, 'glossary.json')
 
         finally:
             if self._has_connection():
