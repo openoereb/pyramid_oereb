@@ -72,6 +72,11 @@ with open('contrib/sources.rst', 'w') as sources:
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
         'contrib/sources.rst.mako']).decode('utf-8'))
 
+with open('contrib/print_proxy.rst', 'w') as sources:
+    sources.write(subprocess.check_output([
+        '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
+        'contrib/print_proxy.rst.mako']).decode('utf-8'))
+
 files = glob.glob('../../pyramid_oereb/standard/models/*.py')
 modules = [
     re.sub(r'\.__init__', '', f[6:-3].replace("/", ".")) for f in files

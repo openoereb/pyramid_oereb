@@ -38,7 +38,7 @@ class Availability(Base):
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'availability'
-    fosnr = sa.Column(sa.Integer, primary_key=True)
+    fosnr = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     available = sa.Column(sa.Boolean, nullable=False, default=False)
 
 
@@ -62,7 +62,7 @@ class Office(Base):
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'office'
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     name = sa.Column(JSONType, nullable=False)
     office_at_web = sa.Column(sa.String, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
@@ -89,7 +89,7 @@ class DataIntegration(Base):
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'data_integration'
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     date = sa.Column(sa.DateTime, nullable=False)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(Office.id), nullable=False)
     office = relationship(Office)
@@ -113,7 +113,7 @@ class ReferenceDefinition(Base):  # TODO: Check translation
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'reference_definition'
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     topic = sa.Column(sa.String, nullable=True)
     canton = sa.Column(sa.String(2), nullable=True)
     municipality = sa.Column(sa.Integer, nullable=True)
@@ -141,7 +141,7 @@ class DocumentBase(Base):
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'document_base'
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     text_at_web = sa.Column(JSONType, nullable=True)
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
@@ -273,7 +273,7 @@ class ViewService(Base):
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'view_service'
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     reference_wms = sa.Column(sa.String, nullable=False)
     legend_at_web = sa.Column(sa.String, nullable=True)
 
@@ -306,7 +306,7 @@ class LegendEntry(Base):
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'legend_entry'
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     symbol = sa.Column(sa.String, nullable=False)
     legend_text = sa.Column(JSONType, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
@@ -356,7 +356,7 @@ class PublicLawRestriction(Base):
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'public_law_restriction'
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     information = sa.Column(JSONType, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
     sub_theme = sa.Column(sa.String, nullable=True)
@@ -411,7 +411,7 @@ class Geometry(Base):
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'geometry'
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     geo_metadata = sa.Column(sa.String, nullable=True)  # TODO: Check translation
@@ -452,7 +452,7 @@ class PublicLawRestrictionBase(Base):
     """
     __tablename__ = 'public_law_restriction_base'
     __table_args__ = {'schema': '${schema_name}'}
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     public_law_restriction_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(PublicLawRestriction.id),
@@ -493,7 +493,7 @@ class PublicLawRestrictionRefinement(Base):
     """
     __tablename__ = 'public_law_restriction_refinement'
     __table_args__ = {'schema': '${schema_name}'}
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     public_law_restriction_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(PublicLawRestriction.id),
@@ -533,7 +533,7 @@ class PublicLawRestrictionDocument(Base):
     """
     __tablename__ = 'public_law_restriction_document'
     __table_args__ = {'schema': '${schema_name}'}
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     public_law_restriction_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(PublicLawRestriction.id),
@@ -573,7 +573,7 @@ class DocumentReference(Base):
     """
     __tablename__ = 'document_reference'
     __table_args__ = {'schema': '${schema_name}'}
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Document.id),
@@ -610,7 +610,7 @@ class DocumentReferenceDefinition(Base):
     """
     __tablename__ = 'document_reference_definition'
     __table_args__ = {'schema': '${schema_name}'}
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     document_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(Document.id),

@@ -1,18 +1,13 @@
 # -*- coding: utf-8 -*-
 
-import sys
 import warnings
 import logging
+import requests
 
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.url import add_url_params
 from pyramid_oereb.lib.url import uri_validator
 from pyramid_oereb.lib.config import Config
-
-if sys.version_info.major == 2:
-    import urllib2
-else:
-    from urllib import request as urllib2
 
 
 log = logging.getLogger('pyramid_oereb')
@@ -153,13 +148,15 @@ class ViewServiceRecord(object):
         # TODO: Check better for a image as response than only code 200...
         main_msg = "Image for WMS couldn't be retrieved."
         if uri_validator(self.reference_wms):
-            # print self.reference_wms
-            response = urllib2.urlopen(self.reference_wms)
-            if response.getcode() == 200:
-                self.image = ImageRecord(response.read())
+            response = requests.get(self.reference_wms, proxies=Config.get('proxies'))
+            if response.status_code == 200:
+                self.image = ImageRecord(response.content)
             else:
                 dedicated_msg = "The image could not be downloaded. URL was: {url}, Response was " \
-                                "{response}".format(url=self.reference_wms, response=response.read())
+                                "{response}".format(
+                                    url=self.reference_wms,
+                                    response=response.content.decode('utf-8')
+                                )
                 log.error(main_msg)
                 log.error(dedicated_msg)
                 raise LookupError(dedicated_msg)

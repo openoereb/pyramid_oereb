@@ -64,7 +64,7 @@ class Municipality(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'municipality'
-    fosnr = sa.Column(sa.Integer, primary_key=True)
+    fosnr = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     name = sa.Column(sa.String, nullable=False)
     published = sa.Column(sa.Boolean, nullable=False, default=False, server_default=sa.text('FALSE'))
     logo = sa.Column(sa.String, nullable=False)
@@ -101,7 +101,7 @@ class RealEstate(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'real_estate'
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     identdn = sa.Column(sa.String, nullable=True)
     number = sa.Column(sa.String, nullable=True)
     egrid = sa.Column(sa.String, nullable=True)
@@ -153,7 +153,7 @@ class Glossary(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'glossary'
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     title = sa.Column(JSONType, nullable=False)
     content = sa.Column(JSONType, nullable=False)
 
@@ -172,6 +172,6 @@ class ExclusionOfLiability(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'exclusion_of_liability'
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     title = sa.Column(JSONType, nullable=False)
     content = sa.Column(JSONType, nullable=False)
