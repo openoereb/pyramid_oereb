@@ -54,7 +54,7 @@ pyramid_oereb:
     # The pyramid renderer which is used as proxy pass through to the desired service for printable static
     # extract. Here you can define the path to the logic which prepares the output as payload for print
     # service and returns the result to the user.
-    renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.PrintRenderer
+    renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer
     # The buffer on the map around the parcel in percent
     buffer: 10
     # The map size in pixel at 72 DPI (width, height), This is the defined size of a map image
