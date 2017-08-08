@@ -154,10 +154,10 @@ class ViewServiceRecord(object):
             else:
                 response = requests.get(self.reference_wms)
             if response.status_code == 200:
-                self.image = ImageRecord(response.raw.read())
+                self.image = ImageRecord(response.content)
             else:
                 dedicated_msg = "The image could not be downloaded. URL was: {url}, Response was " \
-                                "{response}".format(url=self.reference_wms, response=response.raw.read())
+                                "{response}".format(url=self.reference_wms, response=response.content)
                 log.error(main_msg)
                 log.error(dedicated_msg)
                 raise LookupError(dedicated_msg)
