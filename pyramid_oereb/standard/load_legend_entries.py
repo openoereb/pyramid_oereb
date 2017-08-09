@@ -120,13 +120,16 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
         url, params = parse_url(unique_plr.view_service.reference_wms)
 
         # obtain symbol from pyconizer structure.
+        if isinstance(unique_plr.information, dict):
+            class_name = unique_plr.information.get(language)
+        else:
+            class_name = unique_plr.information
         symbol = get_icon(
             temp_creation_path,
             params.get('LAYERS')[0],
-            unique_plr.information.get(language)
+            class_name
         )
         if symbol:
-            # TODO: Handle symbol assignment to PLR
             session.add(LegendEntry(
                 symbol=symbol,
                 legend_text=unique_plr.information,
@@ -139,7 +142,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
         else:
             print(
                 'WARNING: It was not possible to find a symbol for the class:',
-                unique_plr.information.get(language).encode('utf-8')
+                class_name.encode('utf-8')
             )
     session.commit()
     session.close()
