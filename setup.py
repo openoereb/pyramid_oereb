@@ -66,6 +66,7 @@ setup(
             'create_theme_tables = pyramid_oereb.standard.create_tables:create_theme_tables',
             'create_standard_yaml = pyramid_oereb.standard.create_yaml:create_standard_yaml',
             'drop_standard_tables = pyramid_oereb.standard.drop_tables:drop_standard_tables',
-        ],
-    },
+            'create_legend_entries = pyramid_oereb.standard.load_legend_entries:run'
+        ]
+    }
 )
