@@ -177,7 +177,7 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models.contaminated_public_transport_sites</span> <span class="k">import</span> <span class="n">Office</span><span class="p">,</span> <span class="n">Geometry</span><span class="p">,</span> \
     <span class="n">PublicLawRestriction</span><span class="p">,</span> <span class="n">ViewService</span><span class="p">,</span> <span class="n">PublicLawRestrictionDocument</span><span class="p">,</span> <span class="n">DocumentBase</span><span class="p">,</span> <span class="n">LegalProvision</span><span class="p">,</span> \
     <span class="n">Availability</span><span class="p">,</span> <span class="n">LegendEntry</span><span class="p">,</span> <span class="n">DocumentReference</span><span class="p">,</span> <span class="n">Document</span><span class="p">,</span> <span class="n">DataIntegration</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models.main</span> <span class="k">import</span> <span class="n">RealEstate</span><span class="p">,</span> <span class="n">Address</span><span class="p">,</span> <span class="n">Municipality</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models.main</span> <span class="k">import</span> <span class="n">RealEstate</span><span class="p">,</span> <span class="n">Address</span><span class="p">,</span> <span class="n">Municipality</span><span class="p">,</span> <span class="n">Glossary</span>
 
 
 <div class="viewcode-block" id="SampleData"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.load_sample_data.SampleData">[docs]</a><span class="k">class</span> <span class="nc">SampleData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -276,6 +276,10 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_connection</span><span class="p">():</span>
 
             <span class="c1"># Truncate tables</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">schema</span><span class="o">=</span><span class="n">Glossary</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
+                <span class="n">table</span><span class="o">=</span><span class="n">Glossary</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
+            <span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">schema</span><span class="o">=</span><span class="n">Municipality</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
                 <span class="n">table</span><span class="o">=</span><span class="n">Municipality</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
@@ -398,6 +402,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_load_sample</span><span class="p">(</span><span class="n">RealEstate</span><span class="p">,</span> <span class="s1">&#39;real_estates.json&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_load_sample</span><span class="p">(</span><span class="n">Address</span><span class="p">,</span> <span class="s1">&#39;addresses.json&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_load_sample</span><span class="p">(</span><span class="n">Municipality</span><span class="p">,</span> <span class="s1">&#39;municipalities_with_logo.json&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_load_sample</span><span class="p">(</span><span class="n">Glossary</span><span class="p">,</span> <span class="s1">&#39;glossary.json&#39;</span><span class="p">)</span>
 
         <span class="k">finally</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_connection</span><span class="p">():</span>
