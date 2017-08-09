@@ -185,7 +185,7 @@ def run():
         '-p', '--path',
         dest='temp_creation_path',
         metavar='TEMP_PATH',
-        type='string'
+        type='string',
         default='/tmp/pyconizer',
         help='Temporary working directory (default is: /tmp/pyconizer).'
     )
@@ -193,7 +193,7 @@ def run():
         '-l', '--lang',
         dest='language',
         metavar='LANGUAGE',
-        type='string'
+        type='string',
         default='de',
         help='The language to use for multilingual data (default is: de).'
     )
@@ -201,7 +201,7 @@ def run():
         '-f', '--format',
         dest='image_format',
         metavar='IMAGE_FORMAT',
-        type='string'
+        type='string',
         default='image/png',
         help='The format of the symbols to be created (default is: image/png).'
     )
@@ -209,7 +209,7 @@ def run():
         '-H', '--height',
         dest='image_height',
         metavar='HEIGHT',
-        type='int'
+        type='int',
         default=36,
         help='The height in pixels of the symbols to be created (default is: 36).'
     )
@@ -217,7 +217,7 @@ def run():
         '-W', '--width',
         dest='image_width',
         metavar='WIDTH',
-        type='int'
+        type='int',
         default=72,
         help='The width in pixels of the symbols to be created (default is: 72).'
     )
