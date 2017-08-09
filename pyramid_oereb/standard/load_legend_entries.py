@@ -228,13 +228,13 @@ def run():
         parser.error('No theme code defined.')
     try:
         create_legend_entries_in_standard_db(
-            options.config, 
-            options.topic_code, 
+            options.config,
+            options.topic_code,
             temp_creation_path=options.temp_creation_path,
-            language=options.language, 
-            section=options.section, 
+            language=options.language,
+            section=options.section,
             image_format=options.image_format,
-            image_height=options.image_height, 
+            image_height=options.image_height,
             image_width=options.image_width
         )
     except Exception as e:
