@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import optparse
+import logging
 
 from pyconizer import create_icons_from_scratch, get_icon
 from pyconizer.lib.url import parse_url
@@ -14,6 +16,10 @@ if sys.version_info.major == 2:
 else:
 
     from urllib.parse import urlunsplit
+
+
+logging.basicConfig()
+log = logging.getLogger('pyramid_oereb')
 
 
 def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path='/tmp/pyconizer',
@@ -120,13 +126,16 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
         url, params = parse_url(unique_plr.view_service.reference_wms)
 
         # obtain symbol from pyconizer structure.
+        if isinstance(unique_plr.information, dict):
+            class_name = unique_plr.information.get(language)
+        else:
+            class_name = unique_plr.information
         symbol = get_icon(
             temp_creation_path,
             params.get('LAYERS')[0],
-            unique_plr.information.get(language)
+            class_name
         )
         if symbol:
-            # TODO: Handle symbol assignment to PLR
             session.add(LegendEntry(
                 symbol=symbol,
                 legend_text=unique_plr.information,
@@ -139,7 +148,94 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
         else:
             print(
                 'WARNING: It was not possible to find a symbol for the class:',
-                unique_plr.information.get(language).encode('utf-8')
+                class_name.encode('utf-8')
             )
     session.commit()
     session.close()
+
+
+def run():
+    parser = optparse.OptionParser(
+        usage='usage: %prog [options]',
+        description='Create and insert legend entries for the specified theme.'
+    )
+    parser.add_option(
+        '-c', '--configuration',
+        dest='config',
+        metavar='YAML',
+        type='string',
+        help='The absolute path to the configuration yaml file.'
+    )
+    parser.add_option(
+        '-s', '--section',
+        dest='section',
+        metavar='SECTION',
+        type='string',
+        default='pyramid_oereb',
+        help='The section which contains configuration (default is: pyramid_oereb).'
+    )
+    parser.add_option(
+        '-t', '--theme',
+        dest='topic_code',
+        metavar='THEME_CODE',
+        type='string',
+        help='The theme code. Has to be available in configuration!'
+    )
+    parser.add_option(
+        '-p', '--path',
+        dest='temp_creation_path',
+        metavar='TEMP_PATH',
+        type='string',
+        default='/tmp/pyconizer',
+        help='Temporary working directory (default is: /tmp/pyconizer).'
+    )
+    parser.add_option(
+        '-l', '--lang',
+        dest='language',
+        metavar='LANGUAGE',
+        type='string',
+        default='de',
+        help='The language to use for multilingual data (default is: de).'
+    )
+    parser.add_option(
+        '-f', '--format',
+        dest='image_format',
+        metavar='IMAGE_FORMAT',
+        type='string',
+        default='image/png',
+        help='The format of the symbols to be created (default is: image/png).'
+    )
+    parser.add_option(
+        '-H', '--height',
+        dest='image_height',
+        metavar='HEIGHT',
+        type='int',
+        default=36,
+        help='The height in pixels of the symbols to be created (default is: 36).'
+    )
+    parser.add_option(
+        '-W', '--width',
+        dest='image_width',
+        metavar='WIDTH',
+        type='int',
+        default=72,
+        help='The width in pixels of the symbols to be created (default is: 72).'
+    )
+    options, args = parser.parse_args()
+    if not options.config:
+        parser.error('No configuration file set.')
+    if not options.topic_code:
+        parser.error('No theme code defined.')
+    try:
+        create_legend_entries_in_standard_db(
+            options.config,
+            options.topic_code,
+            temp_creation_path=options.temp_creation_path,
+            language=options.language,
+            section=options.section,
+            image_format=options.image_format,
+            image_height=options.image_height,
+            image_width=options.image_width
+        )
+    except Exception as e:
+        log.error(e)
