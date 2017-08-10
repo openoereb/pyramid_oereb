@@ -137,7 +137,7 @@ class Address(Base):
     __tablename__ = 'address'
     street_name = sa.Column(sa.Unicode, nullable=False)
     street_number = sa.Column(sa.String, nullable=False)
-    zip_code = sa.Column(sa.Integer, nullable=False)
+    zip_code = sa.Column(sa.Integer, nullable=False, autoincrement=False)
     geom = sa.Column(Geometry('POINT', srid=srid))
 
 
