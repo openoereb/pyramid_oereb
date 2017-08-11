@@ -108,7 +108,7 @@ def get_symbol(request):
         ))
         legend_entry = session.query(model).filter(
             model.type_code == type_code,
-            cast(model.legend_text, Text) == cast(cast(json.loads(base64.b64decode(legend_text)), JSONType),
+            cast(model.legend_text, Text) == cast(cast(json.loads(base64.b64decode(legend_text).decode('utf-8')), JSONType),
                                                   Text)
         ).first()
         if legend_entry:
