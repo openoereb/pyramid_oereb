@@ -350,7 +350,7 @@ class DummyData(object):
 
         connection.execute(contaminated_sites.LegendEntry.__table__.insert(), {
             'id': 1,
-            'symbol': base64.b64encode("1".encode('utf-8')).decode('ascii'),
+            'symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
             'legend_text': {
                 'de': u'Test'
             },
