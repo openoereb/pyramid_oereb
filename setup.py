@@ -34,7 +34,7 @@ requires = [
 
 setup(
     name='pyramid_oereb',
-    version='1.0.0',
+    version='1.0.1',
     description='pyramid_oereb, extension for pyramid web frame work to provide '
             'a basic server part for the oereb project',
     long_description='{readme}\n\n{changes}'.format(readme=README, changes=CHANGES),
