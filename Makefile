@@ -146,7 +146,6 @@ tests-win-drop-db:
 clean-all:
 	rm -rf .venv
 	rm -rf $(BUILDDIR)
-	rm tests/resources/pyramid_oereb_test.yml
 
 .PHONY: create-standard-tables
 create-standard-tables: $(PYTHON_VENV)
