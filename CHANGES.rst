@@ -2,6 +2,15 @@
 Changelog
 ---------
 
+1.0.1
+*****
+
+- introduce configurable pdf print service (print proxy)
+- enable proxy configuration for external web api usage
+- fix standard database
+- improve python 3 compatibility
+- minor bug fixing
+
 1.0.0
 *****
 
