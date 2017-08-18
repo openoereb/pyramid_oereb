@@ -91,7 +91,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contrib/index.html">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -172,7 +174,7 @@
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Base"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.renderer.Base">[docs]</a><span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a new base renderer instance.</span>
@@ -184,7 +186,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;default_language&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Base.get_symbol_ref"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.renderer.Base.get_symbol_ref">[docs]</a>    <span class="k">def</span> <span class="nf">get_symbol_ref</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_symbol_ref</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the link to the symbol of the specified public law restriction.</span>
 
@@ -204,10 +206,10 @@
         <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">record</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No &quot;get_symbol_ref&quot; method found for theme </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">))</span>
-        <span class="k">raise</span> <span class="n">HTTPServerError</span><span class="p">()</span></div>
+        <span class="k">raise</span> <span class="n">HTTPServerError</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Base.get_response"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.renderer.Base.get_response">[docs]</a>    <span class="k">def</span> <span class="nf">get_response</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_response</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the response object if available.</span>
 
@@ -220,10 +222,10 @@
         <span class="n">request</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">Request</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">DummyRequest</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">response</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="kc">None</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Base.get_request"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.renderer.Base.get_request">[docs]</a>    <span class="k">def</span> <span class="nf">get_request</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_request</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the request object if available.</span>
 
@@ -236,10 +238,10 @@
         <span class="n">request</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">Request</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">DummyRequest</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">request</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="kc">None</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Base.date_time"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.renderer.Base.date_time">[docs]</a>    <span class="k">def</span> <span class="nf">date_time</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">date_time</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formats the date/time according to the specification.</span>
 
@@ -252,7 +254,7 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>\
                 <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">dt</span></div>
+        <span class="k">return</span> <span class="n">dt</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -263,7 +265,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info_</span>
 
-<div class="viewcode-block" id="Base.get_localized_text"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.renderer.Base.get_localized_text">[docs]</a>    <span class="k">def</span> <span class="nf">get_localized_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_localized_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the requested language of a multilingual text element.</span>
 
@@ -289,9 +291,9 @@
             <span class="k">return</span> <span class="p">{</span>
                 <span class="s1">&#39;Language&#39;</span><span class="p">:</span> <span class="n">default_language</span><span class="p">,</span>
                 <span class="s1">&#39;Text&#39;</span><span class="p">:</span> <span class="n">values</span>
-            <span class="p">}</span></div>
+            <span class="p">}</span>
 
-<div class="viewcode-block" id="Base.get_multilingual_text"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.renderer.Base.get_multilingual_text">[docs]</a>    <span class="k">def</span> <span class="nf">get_multilingual_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_multilingual_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the set language of a multilingual text element.</span>
 
@@ -301,7 +303,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            list of dict: List of dictionaries containing the multilingual representation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">values</span><span class="p">)]</span></div></div>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">values</span><span class="p">)]</span>
 </pre></div>
 
            </div>
@@ -334,13 +336,18 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: master
+        v: v1.0.1
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
         <dl>
+            <dt>Tags</dt>
+            <dd><a href="../../../v1.0.0/index.html">v1.0.0</a></dd>
+            <dd><a href="../../../v1.0.1/_modules/pyramid_oereb/lib/renderer.html">v1.0.1</a></dd>
+        </dl>
+        <dl>
             <dt>Branches</dt>
-            <dd><a href="../../../master/_modules/pyramid_oereb/lib/renderer.html">master</a></dd>
+            <dd><a href="../../../master/index.html">master</a></dd>
         </dl>
     </div>
 </div>

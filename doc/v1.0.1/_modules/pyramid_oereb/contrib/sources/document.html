@@ -1,0 +1,379 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyramid_oereb.contrib.sources.document &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../../_static/banner.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="pyramid_oereb  documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contrib/index.html">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyramid_oereb.contrib.sources.document</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyramid_oereb.contrib.sources.document</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">geolink_formatter</span> <span class="k">import</span> <span class="n">XML</span>
+
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.documents</span> <span class="k">import</span> <span class="n">LegalProvisionRecord</span><span class="p">,</span> <span class="n">DocumentRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.law_status</span> <span class="k">import</span> <span class="n">LawStatusRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.office</span> <span class="k">import</span> <span class="n">OfficeRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources</span> <span class="k">import</span> <span class="n">Base</span>
+
+
+<div class="viewcode-block" id="OEREBlexSource"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.document.OEREBlexSource">[docs]</a><span class="k">class</span> <span class="nc">OEREBlexSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A document source, that creates records for the received documents from OEREBlex for the specified</span>
+<span class="sd">    geoLink.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="OEREBlexSource.__init__"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.document.OEREBlexSource.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a new OEREBlex document source.</span>
+
+<span class="sd">        Keyword Args:</span>
+<span class="sd">            host (uri): Host URL of OEREBlex (without /api/...).</span>
+<span class="sd">            language (str): The language of the received data.</span>
+<span class="sd">            canton (str): Canton code used for the documents.</span>
+<span class="sd">            mapping (dict of str): Mapping for optional attributes.</span>
+<span class="sd">            proxy (dict of uri): Optional proxy configuration for HTTP and/or HTTPS.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OEREBlexSource</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;language&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_canton</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;canton&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_canton</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_canton</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="o">=</span> <span class="n">XML</span><span class="p">(</span><span class="n">host_url</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;host&#39;</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">host_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mapping</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mapping&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_proxies</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;proxy&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OEREBlexSource.read"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.document.OEREBlexSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geolink_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Requests the geoLink for the specified ID and returns records for the received documents.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            geolink_id (int): The geoLink ID.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Request documents</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{host}</span><span class="s1">/api/geolinks/</span><span class="si">{id}</span><span class="s1">.xml&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">host_url</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">geolink_id</span><span class="p">)</span>
+        <span class="n">documents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="p">{},</span> <span class="n">proxies</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_proxies</span><span class="p">)</span>
+
+        <span class="c1"># Get main documents</span>
+        <span class="n">main_documents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">referenced_documents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">documents</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="s1">&#39;main&#39;</span><span class="p">:</span>
+                <span class="n">main_documents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">document</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="s1">&#39;related&#39;</span><span class="p">:</span>
+                <span class="n">referenced_documents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
+
+        <span class="c1"># Convert to records</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">main_documents</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_document_records</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">referenced_documents</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">,</span> <span class="n">references</span><span class="o">=</span><span class="nb">list</span><span class="p">()):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts the received documents into records.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            document (geolink_formatter.entity.Document): The geoLink document to be returned as document</span>
+<span class="sd">                record.</span>
+<span class="sd">            references (list of geolink_formatter.entity.Document): Referenced geoLink documents.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list of pyramid_oereb.lib.records.documents.DocumentRecord: The converted record.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Get document type</span>
+        <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">doctype</span> <span class="o">==</span> <span class="s1">&#39;decree&#39;</span><span class="p">:</span>
+            <span class="n">document_class</span> <span class="o">=</span> <span class="n">LegalProvisionRecord</span>
+        <span class="k">elif</span> <span class="n">document</span><span class="o">.</span><span class="n">doctype</span> <span class="o">==</span> <span class="s1">&#39;edict&#39;</span><span class="p">:</span>
+            <span class="n">document_class</span> <span class="o">=</span> <span class="n">DocumentRecord</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Wrong doctype: expected decree or edict, got </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">doctype</span><span class="p">))</span>
+
+        <span class="c1"># Convert referenced documents</span>
+        <span class="n">referenced_records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">reference</span> <span class="ow">in</span> <span class="n">references</span><span class="p">:</span>
+            <span class="n">referenced_records</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_document_records</span><span class="p">(</span><span class="n">reference</span><span class="p">))</span>
+
+        <span class="c1"># Assign multilingual values</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">title</span><span class="p">}</span>
+
+        <span class="c1"># Create related office record</span>
+        <span class="n">office</span> <span class="o">=</span> <span class="n">OfficeRecord</span><span class="p">({</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">authority</span><span class="p">},</span> <span class="n">office_at_web</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">authority_url</span><span class="p">)</span>
+
+        <span class="c1"># Get files</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">document</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+            <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">document_class</span><span class="p">(</span>
+                <span class="n">law_status</span><span class="o">=</span><span class="n">LawStatusRecord</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;inForce&#39;</span><span class="p">),</span>
+                <span class="n">published_from</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">enactment_date</span><span class="p">,</span>
+                <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+                <span class="n">responsible_office</span><span class="o">=</span><span class="n">office</span><span class="p">,</span>
+                <span class="n">text_at_web</span><span class="o">=</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">href</span><span class="p">},</span>
+                <span class="n">abbreviation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_mapped_value</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="s1">&#39;abbreviation&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+                <span class="n">official_number</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_mapped_value</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="s1">&#39;official_number&#39;</span><span class="p">),</span>
+                <span class="n">official_title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_mapped_value</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="s1">&#39;official_title&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+                <span class="n">canton</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_canton</span><span class="p">,</span>
+                <span class="n">municipality</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_mapped_value</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="s1">&#39;municipality&#39;</span><span class="p">),</span>
+                <span class="n">references</span><span class="o">=</span><span class="n">referenced_records</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">referenced_records</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">records</span>
+
+    <span class="k">def</span> <span class="nf">_get_mapped_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">multilingual</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the value of a mapped optional attribute.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            document (geolink_formatter.entity.Document): The document entity.</span>
+<span class="sd">            key (str): The key of the attribute to be mapped.</span>
+<span class="sd">            multilingual (bool): True to wrap value in multilingual dictionary.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str or None: The value of the mapped attribute.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapping</span><span class="p">:</span>
+            <span class="n">attribute</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapping</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">attribute</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span> <span class="k">if</span> <span class="n">multilingual</span> <span class="k">else</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, pyramid_oereb devs.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: v1.0.1
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="../../../../../v1.0.0/index.html">v1.0.0</a></dd>
+            <dd><a href="document.html">v1.0.1</a></dd>
+        </dl>
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="../../../../../master/index.html">master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
