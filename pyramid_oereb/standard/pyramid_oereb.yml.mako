@@ -39,11 +39,23 @@ pyramid_oereb:
   # This has to be one of the languages defined above.
   default_language: de
 
-  # The "flavour" property is a list of all flavours provided by this application. In the moment this only
-  # affects the output of the capabilities webservice. Whatever in later versions it is the place to directly
-  # influence the available output formats.
+  # The "flavour" property is a list of all flavours of data extracts provided by this application.
+  # For the moment this only affects the output of the capabilities webservice. Whatever in later
+  # versions it is the place to directly influence the available output formats.
   #
   # Possible flavours are: REDUCED, FULL, EMBEDDABLE, SIGNED
+  # REDUCED:  Means that depending on the cantonal implementation you may be able to select
+  #	          a defined combination ot topics to extract (e.g. only 'federal' topics without
+  #	          cantonal extensions - and choosing this option legal provions are only output
+  #           as link.
+  # FULL:			Means you get all topics wheter they are defined in the 17 base topics or if they
+  #						are cantonal specificities.
+  #						The extract will also have the legal provisions and referenced documents
+  #						included as PDF.
+  # SIGNED: 		Is essentially the same as FULL, but the extract is certified by the competent
+  # 					authority
+  # EMBEDDABLE: With this flavour all images and documents are included as base64 binary
+  #
   # TODO: Add more details When this feature is fully implemented!
   flavour:
     - REDUCED
