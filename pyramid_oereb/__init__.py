@@ -58,8 +58,9 @@ def includeme(config):
 
     # Load configuration file
     cfg_file = settings.get('pyramid_oereb.cfg.file', None)
+    cfg_c2ctemplate_file = settings.get('pyramid_oereb.cfg.c2ctemplate.file', None)
     cfg_section = settings.get('pyramid_oereb.cfg.section', None)
-    Config.init(cfg_file, cfg_section)
+    Config.init(cfg_file or cfg_c2ctemplate_file, cfg_section, cfg_file is None)
     Config.update_settings(settings)
 
     real_estate_config = Config.get_real_estate_config()
@@ -104,7 +105,7 @@ def includeme(config):
     )
 
     settings.update({
-        'pyramid_oereb': parse(cfg_file, cfg_section)
+        'pyramid_oereb': parse(cfg_file or cfg_c2ctemplate_file, cfg_section, cfg_file is None)
     })
     processor = Processor(
         real_estate_reader=real_estate_reader,

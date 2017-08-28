@@ -13,7 +13,7 @@ from pyramid_oereb.lib.records.theme import ThemeRecord
 log = logging.getLogger('pyramid_oereb')
 
 
-def parse(cfg_file, cfg_section):
+def parse(cfg_file, cfg_section, c2ctemplate_style=False):
     """
     Parses the defined YAML file and returns the defined section as dictionary.
 
@@ -25,13 +25,20 @@ def parse(cfg_file, cfg_section):
         dict: The parsed section as dictionary.
     """
     if cfg_file is None:
-        raise ConfigurationError('Missing configuration parameter "pyramid_oereb.cfg.file".')
+        raise ConfigurationError(
+            'Missing configuration parameter "pyramid_oereb.cfg.file" or '
+            '"pyramid_oereb.cfg.c2ctemplate.file".'
+        )
     if cfg_section is None:
         raise ConfigurationError('Missing configuration parameter "pyramid_oereb.cfg.section".')
 
     try:
-        with open(cfg_file) as f:
-            content = yaml.safe_load(f.read())
+        if c2ctemplate_style:
+            import c2c.template
+            content = c2c.template.get_config(cfg_file)
+        else:
+            with open(cfg_file) as f:
+                content = yaml.safe_load(f.read())
     except IOError as e:
         e.strerror = '{0}{1} \'{2}\', Current working directory is {3}'.format(
             e.strerror, e.args[1], e.filename, os.getcwd())
@@ -47,7 +54,7 @@ class Config(object):
     _config = None
 
     @staticmethod
-    def init(configfile, configsection):
+    def init(configfile, configsection, c2ctemplate_style=False):
         """
         Loads configuration from yaml file and provides methods for generating webservice output.
 
@@ -57,7 +64,7 @@ class Config(object):
         """
         assert Config._config is None
 
-        Config._config = parse(configfile, configsection)
+        Config._config = parse(configfile, configsection, c2ctemplate_style)
 
     @staticmethod
     def update_settings(settings):

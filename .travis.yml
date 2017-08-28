@@ -12,6 +12,8 @@ env:
   global:
   - TRAVIS_USERNAME=sbrunner
   - secure: "EuOwzJOL1IUt4j8PYxsjIa9iTiGxHN1IwuhIyKJ2QZy3kO2/VQP7z1CUPAjxiXSCA8kwhK+Xq2mqwRfCPBH/CHHE6gZuHRkqd5wOn4ireifYFoBt6MGBPZvTr5S5ha2POUMXuBqpbzey5bMUNUabrS9VbUGSmCNnFnNu/gnPOi31Fw3PIVdjI1+k2JqbBMbDHlUYCDR2lInisGQaQE3mCrs8kmCa4h1FhamANCIHarrxkNsEH5YzBGbnJUbCQrHEEyVq6oNO1jcMrRf3KJR2hwgg8onr9t9/pDFbYUhuPyrewp3UOmmqWPkfR3Z9So69Tcgkz4+G0XXJizF/dQLJZTRWjdcZnI6aeLj8a32JcUPlrDEqjLajK+8rkgv1pD01I+8FyQnVTYARGlovZ6gn+5UTx3SddByEVARIGiOkLY9RrTWe1AuImMBCYYXKKWL4OIvW02fILMWU1JuGGqa+CAUSpRznfZc1bCKbS6iL1xtsRX9dnHkg4S5NKhXlbYYsXhyuztv8rkh/jXEYaqptHtQU3D1+cyD0bT5Wx5PhZSKQJ48p73+SZXHXGeHGdV/P0mT7YhNxwaQA6cbCH65rOQZ1zQaF6/N2CNgYDiJp5aYzLjol9hncH+WJh2AwdhujFewgxbTO8dOypXrNTlM1EfTBZ6oQriLSWbXbMI6VsUc="
+  - DOCKER_USERNAME=sbrunner
+  - secure: "Jaue9MKSY5BcZSJ8/E+saS885xQfxDF10Tflew8vUBsBqQOoumzB/yE697xNXgTfdrwfDJDR9zo2yB32j0z5oRN8V7H5Lhxu1vCeg3XFYkM8U6jlAP6uTH0cOl3EUIalCI9+SPaYRSC70z5l1n4sQDMaxNeaS8FaobWC/+EsCq5SO7cNDW5ZzLlCbgOF/lK8SDPJJsnSHU9Sr4RjdXtB2R3nGiIgfMUSHH2+pv6BHFV6APjvr+cnAii+TZwXXzca5i2MExh2kcMArTTpzBQlorVAXtxIlL1AtOUNktQJBabFxoo0VFOn9+xPIFNnqNVuqaRsysDmIrdlhMzvbZahJxx/1W4hHn4ITNOt+vhxZ+/C2FhauZMB+F1r1S7JIHr891PoLl7TlAGM3xqU24/KIRV/VsMQQqxUzW9DkuQ7d25qkWOCis78abrgeTyrT4FZlxU93WjxeXJfQ1Dcpzjd6l7X/ZEKAQnDSxyZlNfuepVUqRVnkg7e/9/ezIWOcvW1Jm+nAtAvPsbqYvO6/io8VsvwPK6K1d0h7uhAZw128lzwvg8tHrGgXglJKKpo4YbK3G9ohCEYYuJEnZh7DE/1LRyql+3IXHUTUn+aD53jvHHCE4YfCSQPJUOsgr3HirG8HDkXbTZiObE0rRKENDTFkFmXWPwhCySgvDVvfu/037s="
 
 # command to install dependencies
 install:
@@ -24,6 +26,7 @@ script:
   - make lint
   - make tests-docker-setup-db
   - make tests
+  - '[ $TRAVIS_PYTHON_VERSION != "3.6" ] || make build-docker .'
 
 after_success:
   - make doc
@@ -48,18 +51,29 @@ deploy:
   user: kdeininger
   password:
     secure: U9VKY1WXnpEyarOjju/weA701WjM3Ok55qoV0EB3SzEh5Bg8Hne09GY9Kl0rzhCsaLTb8jp2tEE+oihWHmU+JH3AB/dodFRL5WCcSbmoFFsE9KbTUgMFdGZ6fMmL90CIzXtiuKTEMdUBvEMFr9qR3GNGRonKD3G6uwbPpiK2TRCNpbjTx5uIl4pfsRAQXJrAsZMGX9907ghBHYHntf+SIM0QrRf1DCHS3yqb03QG9hSZguEhX98UzJVz8Q7ls7WhhIwhCWgG7inr+I5Kq8j9ktuJU1T0Fj4StmaKW/YZbzDxArkiSYpphOvNptp7wZX7OAmV9OuNS7EzedwhaE+XeTO8UdgREKWyq+i4ydU20cQbCSEZeDjDZrRi/9HteXTbTK2hWw8oQ8d0Rwq9kz/2trle4M33IA7Skbxq6oknwShbPGEzKiHXu8R8+oump5jtza77/zR4XnzuJW0BbHpSQhVrCAhxCCMZEJmUxMSn2HIovoF29lZOzrpDIBz2Qa6VHBzUCAvdLGOGSoib3/V7zkxWe9AOJWrP0LK29MiEHpqgOQXxnuGQESJDhm71kQXvpHHBhTnOxtPEbytMiygnN9LypnnMBl3GV6hxv0ErF28nwJhyBaiL3JFeIUK1fmOwL8xc7587/2212Li3R1IZS/pSSn9OUCgsfGxvkiuxsjg=
+  distributions: sdist bdist_wheel
+  skip_upload_docs: true
+  skip_cleanup: true
   on:
     tags: true
     repo: camptocamp/pyramid_oereb
-  distributions: sdist bdist_wheel
-  skip_cleanup: true
-  skip_upload_docs: true
 - provider: script
-  script: travis/deploy-daily-pipy-build.sh
+  script: travis/deploy-daily-pypi-build.sh
   on:
-    repo: camptocamp/pyramid_oereb
-    branch: master
     condition: '"${TRAVIS_EVENT_TYPE}" = cron'
+    repo: camptocamp/pyramid_oereb
+- provider: script
+  script: travis/deploy-docker.sh
+  skip_cleanup: true
+  on:
+    branch: master
+    repo: camptocamp/pyramid_oereb
+- provider: script
+  script: travis/deploy-docker.sh
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: camptocamp/pyramid_oereb
 
 # configure notifications
 notifications:

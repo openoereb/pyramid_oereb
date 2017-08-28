@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -ex
 
 # Prepare .pypirc config
 echo "[distutils]" > ~/.pypirc
