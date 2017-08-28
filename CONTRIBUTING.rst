@@ -3,7 +3,7 @@ Contributing to pyramid\_oereb
 
 .. contents::
 
-Contributor Licence Agreement
+Contributor License Agreement
 -----------------------------
 Please follow the `instructions <https://github.com/camptocamp/pyramid_oereb/tree/master/cla>`__ and sign the CLA.
 
