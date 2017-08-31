@@ -54,29 +54,6 @@ def _create_standard_configuration_models_py_(code, geometry_type, absolute_path
     models_file.close()
 
 
-def _create_all_standard_models_by_yaml_(configuration_yaml_path, section='pyramid_oereb'):
-    """
-    This method is more a developer method. It is used to create the models python files out of the parsed
-    config yaml. This is handy in developing time. Of cause it can be used for other things. But keep in mind:
-    It will loop over all configured plrs in the passed config yaml and will create the desired model files in
-    the packages standard folder (pyramid_oereb/standard/models/...).
-
-    Args:
-        configuration_yaml_path (str): The absolute path to the yaml file which contains the plr
-            definitions.
-        section (str): The section in yaml file where the plrs are configured in. Default is 'pyramid_oereb'.
-    """
-    config = parse(configuration_yaml_path, section)
-    absolute_path = AssetResolver('pyramid_oereb.standard.models').resolve('').abspath()
-    for plr in config.get('plrs'):
-        if plr.get('standard'):
-            _create_standard_configuration_models_py_(
-                plr.get('code'),
-                plr.get('geometry_type'),
-                absolute_path
-            )
-
-
 def create_tables_from_standard_configuration(
         configuration_yaml_path, section='pyramid_oereb', tables_only=False, sql_file=None):
     """

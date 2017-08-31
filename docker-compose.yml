@@ -1,0 +1,27 @@
+version: '2'
+
+volumes: {}
+
+services:
+
+  db:
+    build: test-db
+    image: camptocamp/oereb-db-dev
+
+  print:
+    build: print
+    image: camptocamp/oereb-print-dev
+
+  wsgi:
+    build: .
+    image: camptocamp/oereb-wsgi
+    ports:
+    - 6543:80
+    environment:
+    - PRINT_SERVICE_HOST=print
+    - PRINT_SERVICE_PORT=8080
+    - POSTGRES_SERVICE_USER=postgres
+    - POSTGRES_SERVICE_PASS=password
+    - POSTGRES_SERVICE_HOST=db
+    - POSTGRES_SERVICE_PORT=5432
+    - POSTGRES_SERVICE_DATABASE=pyramid_oereb

@@ -8,29 +8,8 @@ with open(os.path.join(here, 'README.rst')) as f:
     README = f.read()
 with open(os.path.join(here, 'CHANGES.rst')) as f:
     CHANGES = f.read()
-
-requires = [
-    'dicttoxml==1.7.4',
-    'geoalchemy2==0.4.0',
-    'psycopg2==2.7.3.1',
-    'pyramid==1.9.1',
-    'pyramid_debugtoolbar==4.3',
-    'PyYAML==3.12',
-    'shapely==1.6.0',
-    'simplejson==3.11.1',
-    'SQLAlchemy==1.1.13',
-    'sqlalchemy-utils==0.32.14',
-    'transaction==2.1.2',
-    'waitress==1.0.2',
-    'zope.sqlalchemy==0.7.7',
-    'jsonschema==2.6.0',
-    'pyreproj==1.0.0',
-    'lxml==3.8.0',
-    'generateDS==2.28b0',
-    'requests==2.18.4',
-    'geolink_formatter==1.1.0',
-    'pyconizer==0.1.2'
-]
+with open('requirements.txt') as f:
+    requires = f.read().splitlines()
 
 setup(
     name='pyramid_oereb',

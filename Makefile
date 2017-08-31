@@ -14,7 +14,7 @@ PG_CREDENTIALS ?= $(PG_USER):$(PG_PASSWORD)
 
 VENV_FLAGS ?=
 
-REQUIREMENTS ?= requirements.txt
+REQUIREMENTS ?= dev-requirements.txt
 
 ifeq ($(CI),true)
   PYTHON_VENV = do-pip
@@ -33,7 +33,7 @@ else
     PG_CREATE_DB = "CREATE DATABASE pyramid_oereb_test;"
     PG_CREATE_EXT = "CREATE EXTENSION postgis;"
     PG_CREATE_SCHEMA = "CREATE SCHEMA plr;"
-    REQUIREMENTS = requirements-windows.txt
+    REQUIREMENTS = dev-requirements-windows.txt
   else
     VENV_BIN ?= .venv/bin/
     PYTHON_BIN_POSTFIX =
@@ -156,8 +156,8 @@ drop-standard-tables: $(PYTHON_VENV)
 	$(VENV_BIN)drop_tables$(PYTHON_BIN_POSTFIX) -c pyramid_oereb.yml
 
 .PHONY: serve
-serve: $(PYTHON_VENV)
-	$(VENV_BIN)pserve$(PYTHON_BIN_POSTFIX) development.ini
+serve: pyramid_oereb_standard.yml test-db/12-create.sql test-db/13-fill.sql
+	docker-compose up --build --remove-orphans
 
 pyramid_oereb_standard.yml: .venv/install-timestamp
 	$(VENV_BIN)create_standard_yaml$(PYTHON_BIN_POSTFIX)
@@ -168,21 +168,13 @@ test-db/12-create.sql: pyramid_oereb_standard.yml .venv/install-timestamp
 test-db/13-fill.sql: pyramid_oereb_standard.yml .venv/install-timestamp
 	$(VENV_BIN)python pyramid_oereb/standard/load_sample_data.py --configuration $< --sql-file $@
 
-.PHONY: serve-db-dev
-serve-db-dev: tests-docker-drop-db test-db/12-create.sql test-db/13-fill.sql
-	docker build -t $(DOCKER_BASE)-db-dev test-db
-	docker run --rm --name $(DOCKER_CONTAINER_BASE)-db-dev \
-	    --publish=5432:5432 \
-	    --env=POSTGRES_DB=pyramid_oereb \
-	    $(DOCKER_BASE)-db-dev
-
-.PHONY: serve-print-example
-serve-print-example:
-	docker build -t $(DOCKER_BASE)-print-dev print
-	docker run --rm --name $(DOCKER_CONTAINER_BASE)-print-dev \
-	    --publish=8280:8080 \
-	    $(DOCKER_BASE)-print-dev
-
 .PHONY: deploy
 deploy:
 	$(VENV_BIN)python setup.py sdist bdist_wheel upload
+
+logo_%.png: pyramid_oereb_standard.yml
+	touch --no-create $@
+
+.PHONY: build-docker
+build-docker: logo_oereb.png logo_confederation.png logo_canton.png
+	docker build --tag camptocamp/pyramid-oereb:latest .

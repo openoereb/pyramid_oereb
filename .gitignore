@@ -1,86 +1,19 @@
-.installed.cfg
-.idea
-
-# Byte-compiled / optimized / DLL files
-*.py[cod]
-.idea/*
-
 ### Python template
 # Byte-compiled / optimized / DLL files
-__pycache__/
 *.py[cod]
-
-# C extensions
-*.so
+__pycache__/
 
 # Distribution / packaging
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
+/dist/
+/pyramid_oereb.egg-info/
+/.cache/
+/.coverage
 /coverage_report/
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*,cover
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-
-# Sphinx documentation
-doc/source/api.rst
-doc/build/
-
-# PyBuilder
-target/
 
 # Virtual environment
-/.venv
+/.venv/
 
-# Mako generated files
-pyramid_oereb.yml
-
-# Standard configuration
-/pyramid_oereb_standard.yml
-/logo_oereb.png
-/logo_confederation.png
-/logo_canton.png
-
-
-# Generated files
-/test-db/12-create.sql
-/test-db/13-fill.sql
+# Sphinx documentation
 /doc/source/core/readers.rst
 /doc/source/core/records.rst
 /doc/source/core/sources.rst
@@ -89,3 +22,15 @@ pyramid_oereb.yml
 /doc/source/standard/models/index.rst
 /doc/source/contrib/sources.rst
 /doc/source/contrib/print_proxy.rst
+/doc/source/api.rst
+/doc/build/
+
+# Standard configuration
+/pyramid_oereb_standard.yml
+/logo_*.png
+
+# Generated files
+/pyramid_oereb.yml
+/test-db/12-create.sql
+/test-db/13-fill.sql
+/docker/logo_*.png
