@@ -19,7 +19,7 @@ requires = [
     'shapely==1.6.0',
     'simplejson==3.11.1',
     'SQLAlchemy==1.1.13',
-    'sqlalchemy-utils==0.32.14',
+    'sqlalchemy-utils==0.32.15',
     'transaction==2.1.2',
     'waitress==1.0.2',
     'zope.sqlalchemy==0.7.7',
