@@ -38,11 +38,13 @@ before_deploy:
 deploy:
 - provider: script
   script: sphinx-versioning push doc/source/ gh-pages doc
+  skip_cleanup: true
   on:
     branch: master
     repo: camptocamp/pyramid_oereb
 - provider: script
   script: sphinx-versioning push doc/source/ gh-pages doc
+  skip_cleanup: true
   on:
     tags: true
     repo: camptocamp/pyramid_oereb
