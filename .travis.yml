@@ -1,12 +1,12 @@
 sudo: required
-language: python
 
+language: python
 python:
-  - "2.7"
-  - "3.6"
+- '2.7'
+- '3.6'
 
 services:
-  - docker
+- docker
 
 env:
   global:
@@ -15,26 +15,24 @@ env:
   - DOCKER_USERNAME=sbrunner
   - secure: "Jaue9MKSY5BcZSJ8/E+saS885xQfxDF10Tflew8vUBsBqQOoumzB/yE697xNXgTfdrwfDJDR9zo2yB32j0z5oRN8V7H5Lhxu1vCeg3XFYkM8U6jlAP6uTH0cOl3EUIalCI9+SPaYRSC70z5l1n4sQDMaxNeaS8FaobWC/+EsCq5SO7cNDW5ZzLlCbgOF/lK8SDPJJsnSHU9Sr4RjdXtB2R3nGiIgfMUSHH2+pv6BHFV6APjvr+cnAii+TZwXXzca5i2MExh2kcMArTTpzBQlorVAXtxIlL1AtOUNktQJBabFxoo0VFOn9+xPIFNnqNVuqaRsysDmIrdlhMzvbZahJxx/1W4hHn4ITNOt+vhxZ+/C2FhauZMB+F1r1S7JIHr891PoLl7TlAGM3xqU24/KIRV/VsMQQqxUzW9DkuQ7d25qkWOCis78abrgeTyrT4FZlxU93WjxeXJfQ1Dcpzjd6l7X/ZEKAQnDSxyZlNfuepVUqRVnkg7e/9/ezIWOcvW1Jm+nAtAvPsbqYvO6/io8VsvwPK6K1d0h7uhAZw128lzwvg8tHrGgXglJKKpo4YbK3G9ohCEYYuJEnZh7DE/1LRyql+3IXHUTUn+aD53jvHHCE4YfCSQPJUOsgr3HirG8HDkXbTZiObE0rRKENDTFkFmXWPwhCySgvDVvfu/037s="
 
-# command to install dependencies
 install:
-  - sudo service postgresql stop
-  - make install
+- sudo service postgresql stop
+- make install
 
-# command to run tests
 script:
-  - make git-attributes
-  - make lint
-  - make tests-docker-setup-db
-  - make tests
-  - '[ $TRAVIS_PYTHON_VERSION != "3.6" ] || make build-docker .'
+- make git-attributes
+- make lint
+- make tests-docker-setup-db
+- make tests
+- '[ $TRAVIS_PYTHON_VERSION != "3.6" ] || make build-docker .'
 
 after_success:
-  - make doc
+- make doc
 
 before_deploy:
-  - pip install sphinxcontrib-versioning 'Sphinx<1.6'
+- pip install sphinxcontrib-versioning 'Sphinx<1.6'
+- openssl aes-256-cbc -K $encrypted_43de73a10f25_key -iv $encrypted_43de73a10f25_iv -in deploy_rsa.enc -out ~/.ssh/id_rsa -d
 
-# deploy to pypi
 deploy:
 - provider: script
   script: sphinx-versioning push doc/source/ gh-pages doc
@@ -77,6 +75,5 @@ deploy:
     tags: true
     repo: camptocamp/pyramid_oereb
 
-# configure notifications
 notifications:
   email: false
