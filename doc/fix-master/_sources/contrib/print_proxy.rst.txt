@@ -1,0 +1,29 @@
+.. _contrib-print_proxy:
+
+Print Proxy
+-----------
+
+
+
+
+.. _api-pyramid_oereb-contrib-print_proxy:
+
+.. automodule:: pyramid_oereb.contrib.print_proxy
+
+
+.. _api-pyramid_oereb-contrib-print_proxy-mapfish_print:
+
+.. automodule:: pyramid_oereb.contrib.print_proxy.mapfish_print
+
+
+.. _api-pyramid_oereb-contrib-print_proxy-mapfish_print-renderer:
+
+*Mapfish Print Renderer*
+^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
