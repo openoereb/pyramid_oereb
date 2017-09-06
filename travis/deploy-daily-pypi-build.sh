@@ -1,5 +1,8 @@
 #!/bin/bash -ex
 
+# Build the project
+make install
+
 # Prepare .pypirc config
 echo "[distutils]" > ~/.pypirc
 echo "index-servers = pypi" >> ~/.pypirc
