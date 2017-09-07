@@ -67,6 +67,8 @@ pyramid_oereb:
     pdf_map_size_millimeters: [174, 99]
     # Base URL with application of the print server
     base_url: http://print:8080/print/oereb
+    # Name of the print tempate to use
+    template_name: A4 portrait
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
   # creation process. Because this name is used as schema name in the target database. The app_schema holds
