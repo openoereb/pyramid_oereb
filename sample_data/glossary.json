@@ -2,10 +2,21 @@
   {
     "id": 1,
     "title": {
-      "de": "Term"
+      "de": "ÖREB",
+      "fr": "RDPPF"
     },
     "content": {
-      "de": "Definition"
+      "de": "Öffentlich-rechtliche Eigentumsbeschränkung",
+      "fr": "Restriction de droit public à la propriété foncière"
+    }
+  },
+  {
+    "id": 2,
+    "title": {
+      "fr": "SGRF"
+    },
+    "content": {
+      "fr": "Service de la géomatique et du registre foncier"
     }
   }
 ]

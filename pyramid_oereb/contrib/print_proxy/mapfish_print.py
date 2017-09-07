@@ -8,6 +8,7 @@ from shapely.geometry import mapping
 from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import Config
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer as JsonRenderer
+from pyramid_oereb.lib.url import parse_url
 if sys.version_info.major == 2:
     import urlparse
 else:
@@ -18,6 +19,19 @@ log = logging.getLogger('pyramid_oereb')
 
 
 class Renderer(JsonRenderer):
+
+    def lpra_flatten(self, items):
+        for item in items:
+            self._flatten_object(item, 'Lawstatus')
+            self._localised_text(item, 'Lawstatus_Text')
+            self._flatten_object(item, 'ResponsibleOffice')
+            self._multilingual_text(item, 'ResponsibleOffice_Name')
+            self._multilingual_text(item, 'TextAtWeb')
+
+            self._multilingual_m_text(item, 'Text')
+            self._multilingual_text(item, 'Title')
+            self._multilingual_text(item, 'OfficialTitle')
+            self._multilingual_text(item, 'Abbrevation')
 
     def __call__(self, value, system):
         """
@@ -50,12 +64,26 @@ class Renderer(JsonRenderer):
                 self._localised_text(theme, 'Text')
         self._flatten_object(extract_dict, 'PLRCadastreAuthority')
         self._flatten_object(extract_dict, 'RealEstate')
+
+        url, params = parse_url(extract_dict['RealEstate_PlanForLandRegister']['ReferenceWMS'])
+        extract_dict['baseLayers'] = {
+            'layers': [{
+                'type': 'wms',
+                'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
+                'layers': params['LAYERS'][0].split(','),
+                'imageFormat': 'image/png',
+            }]
+        }
+        extract_dict['legend'] = extract_dict['RealEstate_PlanForLandRegister'].get('LegendAtWeb', '')
+        del extract_dict['RealEstate_PlanForLandRegister']  # /definitions/Map
+
         self._multilingual_m_text(extract_dict, 'GeneralInformation')
         self._multilingual_m_text(extract_dict, 'BaseData')
         for item in extract_dict.get('Glossary', []):
             self._multilingual_text(item, 'Title')
             self._multilingual_text(item, 'Content')
         self._multilingual_text(extract_dict, 'PLRCadastreAuthority_Name')
+
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
             self._flatten_object(restriction_on_landownership, 'Lawstatus')
             self._flatten_object(restriction_on_landownership, 'Theme')
@@ -65,36 +93,49 @@ class Renderer(JsonRenderer):
             self._localised_text(restriction_on_landownership, 'Lawstatus_Text')
             self._multilingual_m_text(restriction_on_landownership, 'Information')
             self._multilingual_text(restriction_on_landownership, 'ResponsibleOffice_Name')
+
+            url, params = parse_url(restriction_on_landownership['Map']['ReferenceWMS'])
+            restriction_on_landownership['baseLayers'] = {
+                'layers': [{
+                    'type': 'wms',
+                    'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
+                    'layers': params['LAYERS'][0].split(','),
+                    'imageFormat': 'image/png',
+                }]
+            }
+            restriction_on_landownership['legend'] = restriction_on_landownership['Map'].get(
+                'LegendAtWeb', '')
+            del restriction_on_landownership['Map']  # /definitions/Map
+
             for item in restriction_on_landownership.get('Geometry', []):
                 self._multilingual_text(item, 'ResponsibleOffice_Name')
 
             legal_provisions = []
-            legal_provisions += restriction_on_landownership.get('LegalProvisions', [])
-            finish = False
-            while finish:
-                finish = True
-                for legal_provision in legal_provisions:
-                    if 'Reference' in legal_provision:
-                        legal_provisions += legal_provision['Reference']
-                        del legal_provision['Reference']
-                        finish = False
-                    if 'Article' in legal_provision:
-                        legal_provisions += legal_provision['Article']
-                        del legal_provision['Article']
-                        finish = False
-            restriction_on_landownership['LegalProvisions'] = legal_provisions
-            for item in restriction_on_landownership.get('LegalProvisions', []):
-                self._flatten_object(item, 'Lawstatus')
-                self._localised_text(item, 'Lawstatus_Text')
-                self._flatten_object(item, 'ResponsibleOffice')
-                self._multilingual_text(item, 'ResponsibleOffice_Name')
-                self._multilingual_text(item, 'TextAtWeb')
+            reference = []
+            article = []
+            if 'LegalProvisions' in restriction_on_landownership:
+                finish = False
+                while not finish:
+                    finish = True
+                    for legal_provision in restriction_on_landownership['LegalProvisions']:
+                        if 'Reference' in legal_provision:
+                            reference += legal_provision['Reference']
+                            del legal_provision['Reference']
+                            finish = False
+                        if 'Article' in legal_provision:
+                            article += legal_provision['Article']
+                            del legal_provision['Article']
+                            finish = False
 
-            for item in restriction_on_landownership.get('LegalProvisions', []):
-                self._multilingual_m_text(item, 'Text')
-                self._multilingual_text(item, 'Title')
-                self._multilingual_text(item, 'OfficialTitle')
-                self._multilingual_text(item, 'Abbrevation')
+                legal_provisions += restriction_on_landownership['LegalProvisions']
+                del restriction_on_landownership['LegalProvisions']
+
+            self.lpra_flatten(legal_provisions)
+            self.lpra_flatten(reference)
+            self.lpra_flatten(article)
+            restriction_on_landownership['LegalProvisions'] = legal_provisions
+            restriction_on_landownership['Reference'] = reference
+            restriction_on_landownership['Article'] = article
 
         for item in extract_dict.get('ExclusionOfLiability', []):
             self._multilingual_text(item, 'Title')
@@ -113,6 +154,7 @@ class Renderer(JsonRenderer):
         spec = {
             "layout": "A4 portrait",
             "outputFormat": "pdf",
+            "lang": self.lang,
             "attributes": extract_dict,
         }
 

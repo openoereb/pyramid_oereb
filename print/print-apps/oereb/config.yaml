@@ -1,9 +1,11 @@
 throwErrorOnExtraParameters: true
 
+resourceBundle: Report
 
 templates:
     A4 portrait: !template
-        reportTemplate: A4_Portrait.jrxml
+        reportTemplate: pdfextract.jrxml
+        outputFilename: ${yyyyMMddhhmmss}_extract
         attributes:
             CreationDate: !string {}
             Signature: !string &optStr
@@ -13,19 +15,28 @@ templates:
                     Code: !string {}
                     Text: !string {} #/definitions/LocalisedText
             NotConcernedTheme: !datasource
+                default:
+                  - Code: 'Code not concerned'
+                    Text: 'Theme theme not concerned'
                 attributes:
                     Code: !string {}
                     Text: !string {} #/definitions/LocalisedText
             ThemeWithoutData: !datasource
+                default:
+                  - Code: 'Code without data'
+                    Text: 'Theme without data'
                 attributes:
                     Code: !string {}
                     Text: !string {} #/definitions/LocalisedText
             isReduced: !boolean {}
-            LogoPLRCadastre: *optStr
+            LogoPLRCadastre: !string
+              default: ""
             LogoPLRCadastreRef: *optStr
-            FederalLogo: *optStr
+            FederalLogo: !string
+              default: ""
             FederalLogoRef: *optStr
-            CantonalLogo: *optStr
+            CantonalLogo: !string
+              default: ""
             CantonalLogoRef: *optStr
             MunicipalityLogo: *optStr
             MunicipalityLogoRef: *optStr
@@ -33,10 +44,12 @@ templates:
             QRCode: *optStr
             QRCodeRef: *optStr
             GeneralInformation: !string #/definitions/MultilingualMText
-                default: ''
+                default: 'Disclaimer'
             BaseData: !string {} #/definitions/MultilingualMText
             Glossary: !datasource
-                default: []
+                default:
+                  - Title: 'No term'
+                    Content: 'No definition'
                 attributes:
                     Title: !string {} #/definitions/MultilingualText
                     Content: !string {} #/definitions/MultilingualText
@@ -96,11 +109,43 @@ templates:
                             ResponsibleOffice_Number: *optStr
                             ResponsibleOffice_PostalCode: *optStr
                             ResponsibleOffice_City: *optStr
-                    Map: !string #/definitions/Map
-                        default: '{}'
+
+                    legend: !string {}
+                    map: !map
+                        maxDpi: 254
+                        dpiSuggestions: [254]
+                        zoomLevels: !zoomLevels
+                            scales: [100, 250, 500, 2500, 5000, 10000, 25000, 50000, 100000, 500000]
+                        width: 493
+                        height: 280
+                        default:
+                            projection: "EPSG:2056"
+                            dpi: 72
+                            zoomToFeatures:
+                                minScale: 500
+                    baseLayers: !staticLayers {}
+
+                    ResponsibleOffice_Name: !string #/definitions/MultilingualText
+                        default: ''
+                    ResponsibleOffice_OfficeAtWeb: !string #/definitions/WebReference
+                        default: ''
+                    ResponsibleOffice_UID: !string #/definitions/UID
+                        default: ''
+                    ResponsibleOffice_Line1: !string
+                        default: ''
+                    ResponsibleOffice_Line2: !string
+                        default: ''
+                    ResponsibleOffice_Street: !string
+                        default: ''
+                    ResponsibleOffice_Number: !string
+                        default: ''
+                    ResponsibleOffice_PostalCode: !string
+                        default: ''
+                    ResponsibleOffice_City: !string
+                        default: ''
                     LegalProvisions: !datasource
                         default: []
-                        attributes:
+                        attributes: &lpra
                             TextAtWeb: !string {} #/definitions/MultilingualUri
                             Lawstatus_Code: *optStr
                             Lawstatus_Text: *optStr #/definitions/LocalisedText
@@ -123,28 +168,12 @@ templates:
                             ResponsibleOffice_City: *optStr
                             OfficialNumber: *optStr #/definitions/CantonCode
                             ArticleNumber: *optStr #array of /definitions/ArticleNumber
-                    ResponsibleOffice_Name: !string #/definitions/MultilingualText
-                        default: ''
-                    ResponsibleOffice_OfficeAtWeb: !string #/definitions/WebReference
-                        default: ''
-                    ResponsibleOffice_UID: !string #/definitions/UID
-                        default: ''
-                    ResponsibleOffice_Line1: !string
-                        default: ''
-                    ResponsibleOffice_Line2: !string
-                        default: ''
-                    ResponsibleOffice_Street: !string
-                        default: ''
-                    ResponsibleOffice_Number: !string
-                        default: ''
-                    ResponsibleOffice_PostalCode: !string
-                        default: ''
-                    ResponsibleOffice_City: !string
-                        default: ''
-            RealEstate_PlanForLandRegister: !string {} #/definitions/Map
-            RealEstate_Reference: !datasource
-                default: []
-                attributes: {}
+                    Reference: !datasource
+                        default: []
+                        attributes: *lpra
+                    Article: !datasource
+                        default: []
+                        attributes: *lpra
             ExclusionOfLiability: !datasource
                 default: []
                 attributes:
@@ -163,29 +192,29 @@ templates:
             PLRCadastreAuthority_PostalCode: !string {}
             PLRCadastreAuthority_City: !string {}
 
-            legend: !legend {}
             northArrow: !northArrow
-                size: 40
+                size: 17
                 default:
                     graphic: "file:///north.svg"
             scalebar: !scalebar
-                width: 150
-                height: 20
+                width: 93
+                height: 15
                 default:
-                     fontSize: 8
+                     fontSize: 7
             features: !features {}
             map: !map
                 maxDpi: 254
                 dpiSuggestions: [254]
                 zoomLevels: !zoomLevels
                     scales: [100, 250, 500, 2500, 5000, 10000, 25000, 50000, 100000, 500000]
-                width: 555
-                height: 675
+                width: 493
+                height: 280
                 default:
                     projection: "EPSG:2056"
                     dpi: 72
                     zoomToFeatures:
                         minScale: 500
+            baseLayers: !staticLayers {}
             overlayLayers: !staticLayers
                 default:
                     layers:
@@ -198,20 +227,29 @@ templates:
                             symbolizers:
                             -   type: polygon
                                 fillColor: "#ff0000"
+                                fillOpacity: 0.1
+                                strokeColor: "#660000"
+                                strokeOpacity: 1
+                                strokeWidth: 2
+                                strokeLinecap: "round"
 
         processors:
         - !reportBuilder # compile all reports in current directory
             directory: '.'
         - !configureHttpRequests
             httpProcessors:
+            - !mapUri
+                mapping:
+                  (https?)://localhost:6543/(.*): "http://wsgi/$2"
             - !forwardHeaders
                 headers:
                 - Referer
             - !restrictUris
                 matchers:
-                - !localMatch
+                - !dnsMatch
+                  host: wsgi
+                  port: 80
                   reject: false
-                #  reject: true
                 - !ipMatch
                   ip: 10.0.0.0
                   mask: 255.0.0.0
@@ -228,13 +266,14 @@ templates:
         - !addOverlayLayers
             inputMapper:
                 overlayLayers: staticLayers
+        - !addBackgroundLayers
+            inputMapper:
+                baseLayers: staticLayers
         - !setStyle {}
         - !setFeatures {}
         - !createMap {}
         - !createNorthArrow {}
         - !createScalebar {}
-        - !prepareLegend
-            template: legend.jrxml
         - !createDataSource
             processors: []
             inputMapper:
@@ -260,6 +299,7 @@ templates:
             outputMapper:
                 jrDataSource: GlossaryDataSource
         - !createDataSource
+            copyAttributes: [overlayLayers, style, features]
             processors:
             - !createDataSource
                 processors: []
@@ -273,16 +313,31 @@ templates:
                     LegalProvisions: datasource
                 outputMapper:
                     jrDataSource: LegalProvisionsDataSource
+            - !createDataSource
+                processors: []
+                inputMapper:
+                    Reference: datasource
+                outputMapper:
+                    jrDataSource: ReferenceDataSource
+            - !createDataSource
+                processors: []
+                inputMapper:
+                    Article: datasource
+                outputMapper:
+                    jrDataSource: ArticleDataSource
+            - !addOverlayLayers
+                inputMapper:
+                    overlayLayers: staticLayers
+            - !addBackgroundLayers
+                inputMapper:
+                    baseLayers: staticLayers
+            - !setStyle {}
+            - !setFeatures {}
+            - !createMap {}
             inputMapper:
                 RealEstate_RestrictionOnLandownership: datasource
             outputMapper:
                 jrDataSource: RealEstate_RestrictionOnLandownershipDataSource
-        - !createDataSource
-            processors: []
-            inputMapper:
-                RealEstate_Reference: datasource
-            outputMapper:
-                jrDataSource: RealEstate_ReferenceDataSource
         - !createDataSource
             processors: []
             inputMapper:

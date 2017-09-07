@@ -55,17 +55,17 @@ install: $(PYTHON_VENV)
 	virtualenv $(VENV_FLAGS) .venv
 	touch $@
 
-.venv/requirements-timestamp: .venv/timestamp setup.py $(REQUIREMENTS)
-	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install -r $(REQUIREMENTS)
+.venv/requirements-timestamp: .venv/install-timestamp .venv/timestamp setup.py $(REQUIREMENTS)
+	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --requirement $(REQUIREMENTS)
 	touch $@
 
 .venv/install-timestamp: .venv/timestamp setup.py $(REQUIREMENTS)
-	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install -e .
+	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --editable .
 	touch $@
 
 .PHONY: do-pip
 do-pip:
-	pip install -r $(REQUIREMENTS)
+	pip install --requirement $(REQUIREMENTS) --editable .
 
 $(SPHINXBUILD): .venv/requirements-timestamp
 	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install Sphinx sphinxcontrib-napoleon sphinx_rtd_theme
