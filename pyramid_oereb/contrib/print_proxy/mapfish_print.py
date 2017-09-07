@@ -152,7 +152,7 @@ class Renderer(JsonRenderer):
             }
         }
         spec = {
-            "layout": "A4 portrait",
+            "layout": Config.get('print', {})['template_name'],
             "outputFormat": "pdf",
             "lang": self.lang,
             "attributes": extract_dict,
