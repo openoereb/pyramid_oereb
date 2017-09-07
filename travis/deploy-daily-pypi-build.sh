@@ -1,8 +1,5 @@
 #!/bin/bash -ex
 
-# Build the project
-make install
-
 # Prepare .pypirc config
 echo "[distutils]" > ~/.pypirc
 echo "index-servers = pypi" >> ~/.pypirc
@@ -12,4 +9,4 @@ echo "username:${TRAVIS_USERNAME}" >> ~/.pypirc
 echo "password:${TRAVIS_PASSWORD}" >> ~/.pypirc
 
 # Deploy daily pypi build
-.venv/bin/python setup.py egg_info --tag-date --tag-build=dev sdist bdist_wheel upload -r pypi
+python setup.py egg_info --tag-date --tag-build=dev sdist bdist_wheel upload -r pypi
