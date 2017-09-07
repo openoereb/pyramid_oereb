@@ -16,12 +16,8 @@ VENV_FLAGS ?=
 
 REQUIREMENTS ?= dev-requirements.txt
 
-ifeq ($(CI),true)
-  PYTHON_VENV = do-pip
-  VENV_BIN =
-else
-  PYTHON_VENV=.venv/requirements-timestamp
-  ifeq ($(OPERATING_SYSTEM), WINDOWS)
+PYTHON_VENV=.venv/requirements-timestamp
+ifeq ($(OPERATING_SYSTEM), WINDOWS)
     export PGPASSWORD = $(PG_PASSWORD)
     VENV_BIN = .venv/Scripts/
     VENV_FLAGS += --system-site-packages
@@ -34,12 +30,11 @@ else
     PG_CREATE_EXT = "CREATE EXTENSION postgis;"
     PG_CREATE_SCHEMA = "CREATE SCHEMA plr;"
     REQUIREMENTS = dev-requirements-windows.txt
-  else
+else
     VENV_BIN ?= .venv/bin/
     PYTHON_BIN_POSTFIX =
     TESTS_SETUP_DB = tests-docker-setup-db
     TESTS_DROP_DB = tests-docker-drop-db
-  endif
 endif
 
 SPHINXOPTS =
@@ -62,10 +57,6 @@ install: $(PYTHON_VENV)
 .venv/install-timestamp: .venv/timestamp setup.py $(REQUIREMENTS)
 	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --editable .
 	touch $@
-
-.PHONY: do-pip
-do-pip:
-	pip install --requirement $(REQUIREMENTS) --editable .
 
 $(SPHINXBUILD): .venv/requirements-timestamp
 	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install Sphinx sphinxcontrib-napoleon sphinx_rtd_theme

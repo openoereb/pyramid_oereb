@@ -13,7 +13,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='pyramid_oereb',
-    version='1.0.1',
+    version='1.1.0',
     description='pyramid_oereb, extension for pyramid web frame work to provide '
             'a basic server part for the oereb project',
     long_description='{readme}\n\n{changes}'.format(readme=README, changes=CHANGES),
