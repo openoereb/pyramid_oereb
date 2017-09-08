@@ -30,7 +30,7 @@ after_success:
 - make doc
 
 before_deploy:
-- pip install sphinxcontrib-versioning 'Sphinx<1.6'
+- pip install sphinxcontrib-versioning 'Sphinx<1.6' Mako sphinx_rtd_theme sphinxcontrib.napoleon --editable .
 - openssl aes-256-cbc -K $encrypted_43de73a10f25_key -iv $encrypted_43de73a10f25_iv -in deploy_rsa.enc -out ~/.ssh/id_rsa -d
 - eval "$(ssh-agent -s)"
 - chmod 0600 ~/.ssh/id_rsa
