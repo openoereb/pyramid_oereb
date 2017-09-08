@@ -28,6 +28,7 @@ script:
 
 after_success:
 - make doc
+- git clean -x
 
 before_deploy:
 - pip install sphinxcontrib-versioning 'Sphinx<1.6' Mako sphinx_rtd_theme sphinxcontrib.napoleon --editable .
