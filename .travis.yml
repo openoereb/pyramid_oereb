@@ -25,9 +25,9 @@ script:
 - make tests-docker-setup-db
 - make tests
 - '[ $TRAVIS_PYTHON_VERSION != "3.6" ] || make build-docker .'
+- make doc
 
 after_success:
-- make doc
 - git clean -x
 
 before_deploy:
