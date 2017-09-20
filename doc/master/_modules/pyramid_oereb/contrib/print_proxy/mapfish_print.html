@@ -326,9 +326,7 @@
 
         <span class="n">print_result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
             <span class="n">urlparse</span><span class="o">.</span><span class="n">urljoin</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;base_url&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s1">&#39;buildreport.pdf&#39;</span><span class="p">),</span>
-            <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
-                <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json; charset=UTF-8&quot;</span>
-            <span class="p">},</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;headers&#39;</span><span class="p">],</span>
             <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">=</span> <span class="n">print_result</span><span class="o">.</span><span class="n">status_code</span>
