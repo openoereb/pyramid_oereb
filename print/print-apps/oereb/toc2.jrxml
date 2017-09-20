@@ -56,7 +56,7 @@
 				<textElement verticalAlignment="Top">
 					<font size="8.5" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[String.join("\n", (List<String>)$P{TOC_Appendices}.get( $F{label}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[org.apache.commons.lang.StringUtils.join((List<String>)$P{TOC_Appendices}.get( $F{label}), "\n")]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
