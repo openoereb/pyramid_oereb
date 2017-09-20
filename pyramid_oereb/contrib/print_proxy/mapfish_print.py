@@ -66,14 +66,13 @@ class Renderer(JsonRenderer):
         self._flatten_object(extract_dict, 'RealEstate')
 
         url, params = parse_url(extract_dict['RealEstate_PlanForLandRegister']['ReferenceWMS'])
-        extract_dict['baseLayers'] = {
-            'layers': [{
-                'type': 'wms',
-                'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
-                'layers': params['LAYERS'][0].split(','),
-                'imageFormat': 'image/png',
-            }]
+        basemap = {
+            'type': 'wms',
+            'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
+            'layers': params['LAYERS'][0].split(','),
+            'imageFormat': 'image/png',
         }
+        extract_dict['baseLayers'] = {'layers': [basemap]}
         extract_dict['legend'] = extract_dict['RealEstate_PlanForLandRegister'].get('LegendAtWeb', '')
         del extract_dict['RealEstate_PlanForLandRegister']  # /definitions/Map
 
@@ -96,7 +95,7 @@ class Renderer(JsonRenderer):
 
             url, params = parse_url(restriction_on_landownership['Map']['ReferenceWMS'])
             restriction_on_landownership['baseLayers'] = {
-                'layers': [{
+                'layers': [basemap, {
                     'type': 'wms',
                     'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
                     'layers': params['LAYERS'][0].split(','),
