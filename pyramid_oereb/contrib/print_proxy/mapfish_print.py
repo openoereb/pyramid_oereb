@@ -165,9 +165,7 @@ class Renderer(JsonRenderer):
 
         print_result = requests.post(
             urlparse.urljoin(Config.get('print', {})['base_url'] + "/", 'buildreport.pdf'),
-            headers={
-                "Content-Type": "application/json; charset=UTF-8"
-            },
+            headers=Config.get('print', {})['headers'],
             data=json.dumps(spec)
         )
         response.status_code = print_result.status_code

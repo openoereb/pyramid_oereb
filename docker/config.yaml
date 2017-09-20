@@ -82,6 +82,9 @@ vars:
       base_url: http://{PRINT_SERVICE_HOST}:{PRINT_SERVICE_PORT}/print/oereb
       # Name of the print tempate to use
       template_name: A4 portrait
+      # The headers send to the print
+      headers:
+        Content-Type: application/json; charset=UTF-8
 
     # The "app_schema" property contains only one sub property "name". This is directly related to the database
     # creation process. Because this name is used as schema name in the target database. The app_schema holds
