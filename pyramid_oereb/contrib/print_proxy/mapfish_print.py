@@ -68,9 +68,12 @@ class Renderer(JsonRenderer):
         url, params = parse_url(extract_dict['RealEstate_PlanForLandRegister']['ReferenceWMS'])
         basemap = {
             'type': 'wms',
+            'styles': 'default',
+            'opacity': 1,
             'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
             'layers': params['LAYERS'][0].split(','),
             'imageFormat': 'image/png',
+            'customParams': {'TRANSPARENT': 'true'},
         }
         extract_dict['baseLayers'] = {'layers': [basemap]}
         extract_dict['legend'] = extract_dict['RealEstate_PlanForLandRegister'].get('LegendAtWeb', '')
@@ -95,12 +98,15 @@ class Renderer(JsonRenderer):
 
             url, params = parse_url(restriction_on_landownership['Map']['ReferenceWMS'])
             restriction_on_landownership['baseLayers'] = {
-                'layers': [basemap, {
+                'layers': [{
                     'type': 'wms',
+                    'opacity': 1,
+                    'styles': 'default',
                     'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
                     'layers': params['LAYERS'][0].split(','),
                     'imageFormat': 'image/png',
-                }]
+                    'customParams': {'TRANSPARENT': 'true'},
+                }, basemap]
             }
             restriction_on_landownership['legend'] = restriction_on_landownership['Map'].get(
                 'LegendAtWeb', '')
