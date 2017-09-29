@@ -70,27 +70,32 @@ templates:
             RealEstate_RestrictionOnLandownership: !datasource
                 default: []
                 attributes:
-                    Information: !string #/definitions/MultilingualMText
-                        default: ''
+                    Legend: !datasource
+                        attributes:
+                            TypeCode: !string #/definitions/RestrictiontypeCode
+                                default: ''
+                            TypeCodelist: !string
+                                default: ''
+                            Area: !string #/definitions/Area
+                                default: ''
+                            PartInPercent: !float
+                                default: -1
+                            Length: !float
+                                default: -1
+                            SymbolRef: !string
+                                default: ''
+                            Information: !string #/definitions/MultilingualMText
+                                default: ''
+                    Geom_Type: !string {}
                     Theme_Code: !string
                         default: ''
                     Theme_Text: !string #/definitions/LocalisedText
                         default: ''
                     SubTheme: !string
                         default: ''
-                    TypeCode: !string #/definitions/RestrictiontypeCode
-                        default: ''
-                    TypeCodelist: !string
-                        default: ''
                     Lawstatus_Code: *optStr
                     Lawstatus_Text: *optStr #/definitions/LocalisedText
-                    Area: !string #/definitions/Area
-                        default: ''
-                    PartInPercent: !float
-                        default: -1
                     Symbol: !string
-                        default: ''
-                    SymbolRef: !string
                         default: ''
                     Geometry: !datasource
                         default: []
@@ -301,6 +306,12 @@ templates:
         - !createDataSource
             copyAttributes: [overlayLayers, style, features]
             processors:
+            - !createDataSource
+                processors: []
+                inputMapper:
+                    Legend: datasource
+                outputMapper:
+                    jrDataSource: LegendDataSource
             - !createDataSource
                 processors: []
                 inputMapper:

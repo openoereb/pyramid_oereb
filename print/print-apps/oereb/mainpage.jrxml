@@ -349,7 +349,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cadastra" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($P{RealEstate_SubunitOfLandRegister}.equals( "" ) || $P{RealEstate_SubunitOfLandRegister} == "") ? "None given" : $P{RealEstate_SubunitOfLandRegister}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($P{RealEstate_SubunitOfLandRegister}.equals( "" ) || $P{RealEstate_SubunitOfLandRegister} == "") ? $R{NoneGiven} : $P{RealEstate_SubunitOfLandRegister}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement x="0" y="85" width="493" height="65" uuid="b988c468-a5ad-430c-89da-c7c949f88426">

@@ -4,6 +4,16 @@
 	<property name="net.sf.jasperreports.print.create.bookmarks" value="true"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<style name="Default" isDefault="true" fontName="Cadastra" fontSize="8.5"/>
+	<subDataset name="LegendDataSource" uuid="9a5d3c62-005a-4a40-baa8-4f42f0ef271a">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="Area" class="java.lang.String"/>
+		<field name="Length" class="java.lang.String"/>
+		<field name="SymbolRef" class="java.lang.String"/>
+		<field name="Information" class="java.lang.String"/>
+		<field name="PartInPercent" class="java.lang.Double"/>
+	</subDataset>
 	<subDataset name="LegalBasesDataSource" uuid="9a5d3c62-005a-4a40-baa8-4f42f0ef271a">
 		<queryString>
 			<![CDATA[]]>
@@ -60,14 +70,12 @@
 	<parameter name="TOC_Appendices" class="java.util.Map"/>
 	<field name="mapSubReport" class="java.lang.String"/>
 	<field name="Theme_Text" class="java.lang.String"/>
-	<field name="Area" class="java.lang.String"/>
-	<field name="SymbolRef" class="java.lang.String"/>
-	<field name="Information" class="java.lang.String"/>
-	<field name="PartInPercent" class="java.lang.Double"/>
+	<field name="Geom_Type" class="java.lang.String"/>
 	<field name="legend" class="java.lang.String"/>
 	<field name="ResponsibleOffice_Name" class="java.lang.String"/>
 	<field name="ResponsibleOffice_OfficeAtWeb" class="java.lang.String"/>
 	<field name="LegalProvisionsDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="LegendDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="ReferenceDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="ArticleDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<variable name="V_CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="Page" calculation="Sum">
@@ -165,7 +173,7 @@
 				<reportElement x="0" y="50" width="492" height="20" uuid="60969764-be9a-421d-bdd8-9b46e410d1f8"/>
 				<textFieldExpression><![CDATA[$P{TOC_Appendices}.put($F{Theme_Text}, new java.util.ArrayList()) instanceof String ? "" : ""]]></textFieldExpression>
 			</textField>
-			<staticText>
+			<textField>
 				<reportElement positionType="FixRelativeToBottom" x="220" y="375" width="58" height="10" uuid="c19cf5df-d1b3-4bee-8290-a175603a5eb7">
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
@@ -173,29 +181,42 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cadastra" size="6.5"/>
 				</textElement>
-				<text><![CDATA[Type]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression><![CDATA[$R{Type}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement positionType="FixRelativeToBottom" x="394" y="375" width="50" height="10" uuid="f31d1207-ead2-4e22-a928-5b06af28da74">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<printWhenExpression><![CDATA["Area".equals($F{Geom_Type})]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Cadastra" size="6.5"/>
 				</textElement>
-				<text><![CDATA[Surface]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression><![CDATA[$R{Area}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" positionType="FixRelativeToBottom" x="394" y="375" width="50" height="10" uuid="f31d1207-ead2-4e22-a928-5b06af28da74">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<printWhenExpression><![CDATA["Length".equals($F{Geom_Type})]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Cadastra" size="6.5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{Length}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement positionType="FixRelativeToBottom" x="445" y="375" width="48" height="10" uuid="c75cc18b-c481-4a35-877e-1c17e88901b1">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+					<printWhenExpression><![CDATA[!"Point".equals($F{Geom_Type}]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Cadastra" size="6.5"/>
 				</textElement>
-				<text><![CDATA[Part]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$R{Part}]]></textFieldExpression>
+			</textField>
 			<frame>
 				<reportElement x="0" y="78" width="493" height="280" uuid="01621fb3-8c3c-49de-a9a9-76f1f3bc2952">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
@@ -258,43 +279,14 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{LegendLabel}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="220" y="0" width="174" height="19" uuid="5f9a91b3-6ee9-4982-a8db-35245b462c2a">
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-				</reportElement>
-				<textElement verticalAlignment="Top">
-					<font fontName="Cadastra"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Information}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="394" y="0" width="50" height="19" uuid="0f8b4f0d-278c-4906-b608-181ff2add08e">
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-				</reportElement>
-				<textElement textAlignment="Right" verticalAlignment="Top" markup="html">
-					<font size="8.5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Area} + "m<sup>2</sup>"]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="450" y="0" width="43" height="19" uuid="80654d47-cb87-4690-a7ca-82730f9bb384">
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-				</reportElement>
-				<textElement textAlignment="Right" verticalAlignment="Top"/>
-				<textFieldExpression><![CDATA[$F{PartInPercent} + " %"]]></textFieldExpression>
-			</textField>
-			<image onErrorType="Blank">
-				<reportElement x="193" y="1" width="17" height="10" uuid="b9ef005c-0354-4c25-92dc-0121e89d814c">
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-				</reportElement>
-				<imageExpression><![CDATA[$F{SymbolRef}]]></imageExpression>
-			</image>
+			<subreport>
+				<reportElement x="193" y="0" width="299" height="19" uuid="887d710f-c4a0-4c31-b96d-65b98a6ce66b"/>
+				<subreportParameter name="Geom_Type">
+					<subreportParameterExpression><![CDATA[$F{Geom_Type}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$F{LegendDataSource}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["topiclegend.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 		<band height="19">
 			<textField isBlankWhenNull="false">
