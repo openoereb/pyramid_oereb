@@ -50,6 +50,7 @@ class DatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
                     number=result.number,
                     identdn=result.identdn,
                     egrid=result.egrid,
+                    subunit_of_land_register=result.subunit_of_land_register,
                 ))
 
         finally:
