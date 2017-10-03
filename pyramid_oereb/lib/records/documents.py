@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import warnings
-from datetime import datetime
+import datetime
 
 
 class DocumentBaseRecord(object):
@@ -21,6 +21,8 @@ class DocumentBaseRecord(object):
         """
         if text_at_web and not isinstance(text_at_web, dict):
             warnings.warn('Type of "text_at_web" should be "dict"')
+        if published_from and not isinstance(published_from, datetime.date):
+            warnings.warn('Type of "published_from" should be "datetime.date", not ' + type(published_from))
 
         self.text_at_web = text_at_web
         self.law_status = law_status
@@ -34,7 +36,10 @@ class DocumentBaseRecord(object):
         Returns:
             bool: True if document is published.
         """
-        return not self.published_from > datetime.now().date()
+        if isinstance(self.published_from, datetime.date):
+            return not self.published_from > datetime.date.today()
+        else:
+            return not self.published_from > datetime.datetime.now()
 
 
 class ArticleRecord(DocumentBaseRecord):
@@ -61,6 +66,8 @@ class ArticleRecord(DocumentBaseRecord):
 
         if text and not isinstance(text, dict):
             warnings.warn('Type of "text" should be "dict"')
+        if published_from and not isinstance(published_from, datetime.date):
+            warnings.warn('Type of "published_from" should be "datetime.date", not ' + type(published_from))
 
         self.number = number
         self.text = text
@@ -117,6 +124,8 @@ class DocumentRecord(DocumentBaseRecord):
             warnings.warn('Type of "official_title" should be "dict"')
         if abbreviation and not isinstance(abbreviation, dict):
             warnings.warn('Type of "abbreviation" should be "dict"')
+        if published_from and not isinstance(published_from, datetime.date):
+            warnings.warn('Type of "published_from" should be "datetime.date", not ' + type(published_from))
 
         self.title = title
         self.responsible_office = responsible_office
