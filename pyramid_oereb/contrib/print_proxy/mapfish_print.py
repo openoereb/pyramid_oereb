@@ -48,7 +48,7 @@ class Renderer(JsonRenderer):
         """
 
         if value[1].images:
-            raise HTTPBadRequest("With image is not allowed in the print")
+            raise HTTPBadRequest('With image is not allowed in the print')
 
         self._request = self.get_request(system)
 
@@ -142,25 +142,88 @@ class Renderer(JsonRenderer):
             restriction_on_landownership['Reference'] = reference
             restriction_on_landownership['Article'] = article
 
+        # One restriction entry per theme
+        theme_restriction = {}
+        text_element = [
+            'Information', 'Lawstatus_Code', 'Lawstatus_Text', 'ResponsibleOffice_Name',
+            'ResponsibleOffice_OfficeAtWeb', 'SymbolRef', 'TypeCode'
+        ]
+        legend_element = [
+            'TypeCode', 'TypeCodelist', 'Area', 'PartInPercent', 'Length', 'SymbolRef', 'Information'
+        ]
+        for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
+            theme = restriction_on_landownership['Theme_Code']
+            if theme not in theme_restriction:
+                theme_restriction[theme] = restriction_on_landownership
+
+                restriction_on_landownership['Geom_Type'] = \
+                    'Area' if 'Area' in restriction_on_landownership else \
+                    'Length' if 'Length' in restriction_on_landownership else 'Point'
+
+                # Legend
+                legend = {}
+                for element in legend_element:
+                    if element in restriction_on_landownership:
+                        legend[element] = restriction_on_landownership[element]
+                        del restriction_on_landownership[element]
+                restriction_on_landownership['Legend'] = [legend]
+
+                # Text
+                for element in text_element:
+                    if element in restriction_on_landownership:
+                        restriction_on_landownership[element] = set([restriction_on_landownership[element]])
+                    else:
+                        restriction_on_landownership[element] = set()
+                continue
+            current = theme_restriction[theme]
+
+            # Legend
+            legend = {}
+            for element in legend_element:
+                legend[element] = restriction_on_landownership.get(element)
+                if element in restriction_on_landownership:
+                    legend[element] = restriction_on_landownership[element]
+                    del restriction_on_landownership[element]
+            current['Legend'].append(legend)
+
+            # Number or array
+            for element in ['Article', 'LegalProvisions', 'Reference']:
+                if current.get(element) is not None and restriction_on_landownership.get(element) is not None:
+                    current[element] += restriction_on_landownership[element]
+                elif restriction_on_landownership.get(element) is not None:
+                    current[element] = restriction_on_landownership[element]
+
+            # Text
+            for element in text_element:
+                if element in restriction_on_landownership:
+                    current[element].add(restriction_on_landownership[element])
+
+        for restriction_on_landownership in theme_restriction.values():
+            for element in text_element:
+                restriction_on_landownership[element] = '\n'.join(restriction_on_landownership[element])
+
+        extract_dict['RealEstate_RestrictionOnLandownership'] = list(theme_restriction.values())
+        # End one restriction entry per theme
+
         for item in extract_dict.get('ExclusionOfLiability', []):
             self._multilingual_text(item, 'Title')
             self._multilingual_text(item, 'Content')
 
-        extract_dict["features"] = {
-            "features": {
-                "type": "FeatureCollection",
-                "features": [{
-                    "type": "Feature",
-                    "geometry": mapping(value[0].real_estate.limit),
-                    "properties": {}
+        extract_dict['features'] = {
+            'features': {
+                'type': 'FeatureCollection',
+                'features': [{
+                    'type': 'Feature',
+                    'geometry': mapping(value[0].real_estate.limit),
+                    'properties': {}
                 }]
             }
         }
         spec = {
-            "layout": Config.get('print', {})['template_name'],
-            "outputFormat": "pdf",
-            "lang": self.lang,
-            "attributes": extract_dict,
+            'layout': Config.get('print', {})['template_name'],
+            'outputFormat': 'pdf',
+            'lang': self.lang,
+            'attributes': extract_dict,
         }
 
         response = self.get_response(system)
@@ -170,7 +233,7 @@ class Renderer(JsonRenderer):
             return json.dumps(spec, sort_keys=True, indent=4)
 
         print_result = requests.post(
-            urlparse.urljoin(Config.get('print', {})['base_url'] + "/", 'buildreport.pdf'),
+            urlparse.urljoin(Config.get('print', {})['base_url'] + '/', 'buildreport.pdf'),
             headers=Config.get('print', {})['headers'],
             data=json.dumps(spec)
         )
