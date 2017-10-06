@@ -64,6 +64,7 @@ class Renderer(JsonRenderer):
                 self._localised_text(theme, 'Text')
         self._flatten_object(extract_dict, 'PLRCadastreAuthority')
         self._flatten_object(extract_dict, 'RealEstate')
+        del extract_dict['RealEstate_Highlight']['Image']
 
         url, params = parse_url(extract_dict['RealEstate_PlanForLandRegister']['ReferenceWMS'])
         basemap = {
@@ -123,6 +124,8 @@ class Renderer(JsonRenderer):
                 while not finish:
                     finish = True
                     for legal_provision in restriction_on_landownership['LegalProvisions']:
+                        if 'Base64TextAtWeb' in legal_provision:
+                            del legal_provision['Base64TextAtWeb']
                         if 'Reference' in legal_provision:
                             reference += legal_provision['Reference']
                             del legal_provision['Reference']
