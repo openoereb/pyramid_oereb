@@ -403,7 +403,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
                 if session.query(self._model_).count() == 0:
                     # We can stop here already because there are no items in the database
-                    self.records = [EmptyPlrRecord(self._theme_record, has_data=False)]
+                    self.records = [EmptyPlrRecord(self._theme_record, has_data=True)]
 
                 else:
 
