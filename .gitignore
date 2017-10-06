@@ -34,3 +34,6 @@ __pycache__/
 /test-db/12-create.sql
 /test-db/13-fill.sql
 /docker/logo_*.png
+
+# PyCharm IDE
+/.idea/
