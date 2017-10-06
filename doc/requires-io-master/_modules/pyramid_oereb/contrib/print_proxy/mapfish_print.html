@@ -209,7 +209,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">images</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">HTTPBadRequest</span><span class="p">(</span><span class="s2">&quot;With image is not allowed in the print&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">HTTPBadRequest</span><span class="p">(</span><span class="s1">&#39;With image is not allowed in the print&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_request</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
 
@@ -227,14 +227,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;RealEstate&#39;</span><span class="p">)</span>
 
         <span class="n">url</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">parse_url</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_PlanForLandRegister&#39;</span><span class="p">][</span><span class="s1">&#39;ReferenceWMS&#39;</span><span class="p">])</span>
-        <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;baseLayers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;layers&#39;</span><span class="p">:</span> <span class="p">[{</span>
-                <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;wms&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;baseURL&#39;</span><span class="p">:</span> <span class="n">urlparse</span><span class="o">.</span><span class="n">urlunsplit</span><span class="p">((</span><span class="n">url</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">netloc</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)),</span>
-                <span class="s1">&#39;layers&#39;</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;LAYERS&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">),</span>
-                <span class="s1">&#39;imageFormat&#39;</span><span class="p">:</span> <span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
-            <span class="p">}]</span>
+        <span class="n">basemap</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;wms&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;styles&#39;</span><span class="p">:</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;opacity&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;baseURL&#39;</span><span class="p">:</span> <span class="n">urlparse</span><span class="o">.</span><span class="n">urlunsplit</span><span class="p">((</span><span class="n">url</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">netloc</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)),</span>
+            <span class="s1">&#39;layers&#39;</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;LAYERS&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;imageFormat&#39;</span><span class="p">:</span> <span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;customParams&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;TRANSPARENT&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">},</span>
         <span class="p">}</span>
+        <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;baseLayers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;layers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">basemap</span><span class="p">]}</span>
         <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;legend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_PlanForLandRegister&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;LegendAtWeb&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="k">del</span> <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_PlanForLandRegister&#39;</span><span class="p">]</span>  <span class="c1"># /definitions/Map</span>
 
@@ -259,10 +261,13 @@
             <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;baseLayers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s1">&#39;layers&#39;</span><span class="p">:</span> <span class="p">[{</span>
                     <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;wms&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;opacity&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s1">&#39;styles&#39;</span><span class="p">:</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span>
                     <span class="s1">&#39;baseURL&#39;</span><span class="p">:</span> <span class="n">urlparse</span><span class="o">.</span><span class="n">urlunsplit</span><span class="p">((</span><span class="n">url</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">netloc</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)),</span>
                     <span class="s1">&#39;layers&#39;</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;LAYERS&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">),</span>
                     <span class="s1">&#39;imageFormat&#39;</span><span class="p">:</span> <span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
-                <span class="p">}]</span>
+                    <span class="s1">&#39;customParams&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;TRANSPARENT&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">},</span>
+                <span class="p">},</span> <span class="n">basemap</span><span class="p">]</span>
             <span class="p">}</span>
             <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;legend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Map&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
                 <span class="s1">&#39;LegendAtWeb&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -298,25 +303,88 @@
             <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Reference&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reference</span>
             <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Article&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">article</span>
 
+        <span class="c1"># One restriction entry per theme</span>
+        <span class="n">theme_restriction</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">text_element</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;Information&#39;</span><span class="p">,</span> <span class="s1">&#39;Lawstatus_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;Lawstatus_Text&#39;</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice_Name&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ResponsibleOffice_OfficeAtWeb&#39;</span><span class="p">,</span> <span class="s1">&#39;SymbolRef&#39;</span><span class="p">,</span> <span class="s1">&#39;TypeCode&#39;</span>
+        <span class="p">]</span>
+        <span class="n">legend_element</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;TypeCode&#39;</span><span class="p">,</span> <span class="s1">&#39;TypeCodelist&#39;</span><span class="p">,</span> <span class="s1">&#39;Area&#39;</span><span class="p">,</span> <span class="s1">&#39;PartInPercent&#39;</span><span class="p">,</span> <span class="s1">&#39;Length&#39;</span><span class="p">,</span> <span class="s1">&#39;SymbolRef&#39;</span><span class="p">,</span> <span class="s1">&#39;Information&#39;</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">restriction_on_landownership</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;RealEstate_RestrictionOnLandownership&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="n">theme</span> <span class="o">=</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Theme_Code&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">theme</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">theme_restriction</span><span class="p">:</span>
+                <span class="n">theme_restriction</span><span class="p">[</span><span class="n">theme</span><span class="p">]</span> <span class="o">=</span> <span class="n">restriction_on_landownership</span>
+
+                <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Geom_Type&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="s1">&#39;Area&#39;</span> <span class="k">if</span> <span class="s1">&#39;Area&#39;</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span> <span class="k">else</span> \
+                    <span class="s1">&#39;Length&#39;</span> <span class="k">if</span> <span class="s1">&#39;Length&#39;</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span> <span class="k">else</span> <span class="s1">&#39;Point&#39;</span>
+
+                <span class="c1"># Legend</span>
+                <span class="n">legend</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">legend_element</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span><span class="p">:</span>
+                        <span class="n">legend</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+                        <span class="k">del</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+                <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Legend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">legend</span><span class="p">]</span>
+
+                <span class="c1"># Text</span>
+                <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">text_element</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span><span class="p">:</span>
+                        <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+                <span class="k">continue</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">theme_restriction</span><span class="p">[</span><span class="n">theme</span><span class="p">]</span>
+
+            <span class="c1"># Legend</span>
+            <span class="n">legend</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">legend_element</span><span class="p">:</span>
+                <span class="n">legend</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">restriction_on_landownership</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span><span class="p">:</span>
+                    <span class="n">legend</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+                    <span class="k">del</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+            <span class="n">current</span><span class="p">[</span><span class="s1">&#39;Legend&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span>
+
+            <span class="c1"># Number or array</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Article&#39;</span><span class="p">,</span> <span class="s1">&#39;LegalProvisions&#39;</span><span class="p">,</span> <span class="s1">&#39;Reference&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">current</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">restriction_on_landownership</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">current</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">+=</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="n">restriction_on_landownership</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">current</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+
+            <span class="c1"># Text</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">text_element</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span><span class="p">:</span>
+                    <span class="n">current</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">restriction_on_landownership</span> <span class="ow">in</span> <span class="n">theme_restriction</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">text_element</span><span class="p">:</span>
+                <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">])</span>
+
+        <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_RestrictionOnLandownership&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">theme_restriction</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="c1"># End one restriction entry per theme</span>
+
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ExclusionOfLiability&#39;</span><span class="p">,</span> <span class="p">[]):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Title&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Content&#39;</span><span class="p">)</span>
 
-        <span class="n">extract_dict</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[{</span>
-                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="n">mapping</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">),</span>
-                    <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{}</span>
+        <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;features&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;FeatureCollection&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="p">[{</span>
+                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Feature&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">mapping</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">),</span>
+                    <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{}</span>
                 <span class="p">}]</span>
             <span class="p">}</span>
         <span class="p">}</span>
         <span class="n">spec</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;layout&quot;</span><span class="p">:</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;template_name&#39;</span><span class="p">],</span>
-            <span class="s2">&quot;outputFormat&quot;</span><span class="p">:</span> <span class="s2">&quot;pdf&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lang</span><span class="p">,</span>
-            <span class="s2">&quot;attributes&quot;</span><span class="p">:</span> <span class="n">extract_dict</span><span class="p">,</span>
+            <span class="s1">&#39;layout&#39;</span><span class="p">:</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;template_name&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;outputFormat&#39;</span><span class="p">:</span> <span class="s1">&#39;pdf&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;lang&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lang</span><span class="p">,</span>
+            <span class="s1">&#39;attributes&#39;</span><span class="p">:</span> <span class="n">extract_dict</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
@@ -326,10 +394,8 @@
             <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
         <span class="n">print_result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
-            <span class="n">urlparse</span><span class="o">.</span><span class="n">urljoin</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;base_url&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s1">&#39;buildreport.pdf&#39;</span><span class="p">),</span>
-            <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
-                <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json; charset=UTF-8&quot;</span>
-            <span class="p">},</span>
+            <span class="n">urlparse</span><span class="o">.</span><span class="n">urljoin</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;base_url&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;buildreport.pdf&#39;</span><span class="p">),</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;headers&#39;</span><span class="p">],</span>
             <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">=</span> <span class="n">print_result</span><span class="o">.</span><span class="n">status_code</span>
