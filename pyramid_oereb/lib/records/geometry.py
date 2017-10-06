@@ -2,7 +2,7 @@
 import logging
 from datetime import datetime
 from pyramid_oereb.lib.config import Config
-from shapely.geometry import Point, LineString, Polygon
+from shapely.geometry import Point, LineString, Polygon, MultiPolygon
 
 log = logging.getLogger('pyramid_oereb')
 
@@ -32,7 +32,7 @@ class GeometryRecord(object):
         self.law_status = law_status
         self.published_from = published_from
         self.geo_metadata = geo_metadata
-        if isinstance(geom, Point) or isinstance(geom, LineString) or isinstance(geom, Polygon):
+        if isinstance(geom, (Point, LineString, Polygon, MultiPolygon)):
             self.geom = geom
         else:
             raise AttributeError(u'The passed geometry is not supported: {type}'.format(type=geom.type))
