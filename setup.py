@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import re
 from setuptools import setup, find_packages
 
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -9,7 +10,8 @@ with open(os.path.join(HERE, 'README.rst')) as f:
 with open(os.path.join(HERE, 'CHANGES.rst')) as f:
     CHANGES = f.read()
 with open('requirements.txt') as f:
-    requires = f.read().splitlines()
+    re_ = a = re.compile(r'(.+)==')
+    requires = [re_.match(r).group(1) for r in f.read().splitlines()]
 
 setup(
     name='pyramid_oereb',
