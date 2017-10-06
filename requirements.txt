@@ -7,7 +7,7 @@ PyYAML==3.12
 shapely==1.6.1
 simplejson==3.11.1
 SQLAlchemy==1.1.14
-sqlalchemy-utils==0.32.17
+sqlalchemy-utils==0.32.18
 transaction==2.1.2
 waitress==1.0.2
 zope.sqlalchemy==0.7.7
@@ -17,4 +17,4 @@ lxml==4.0.0
 generateDS==2.28b0
 requests==2.18.4
 geolink_formatter==1.1.0
-pyconizer==0.1.2
+pyconizer==0.1.3
