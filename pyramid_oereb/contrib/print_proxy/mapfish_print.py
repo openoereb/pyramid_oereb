@@ -64,7 +64,8 @@ class Renderer(JsonRenderer):
                 self._localised_text(theme, 'Text')
         self._flatten_object(extract_dict, 'PLRCadastreAuthority')
         self._flatten_object(extract_dict, 'RealEstate')
-        del extract_dict['RealEstate_Highlight']['Image']
+        if 'Image' in extract_dict.get('RealEstate_Highlight', {}):
+            del extract_dict['RealEstate_Highlight']['Image']
 
         url, params = parse_url(extract_dict['RealEstate_PlanForLandRegister']['ReferenceWMS'])
         basemap = {
