@@ -566,7 +566,7 @@
 
                 <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># We can stop here already because there are no items in the database</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">EmptyPlrRecord</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme_record</span><span class="p">,</span> <span class="n">has_data</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">EmptyPlrRecord</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme_record</span><span class="p">,</span> <span class="n">has_data</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
 
                 <span class="k">else</span><span class="p">:</span>
 
