@@ -197,12 +197,15 @@ def test_return_json(topics):
     if topics == 'ALL':
         assert len(real_estate.get('RestrictionOnLandownership')) == 6
         assert len(extract.get('ConcernedTheme')) == 3
-        assert len(extract.get('ThemeWithoutData')) > 0
+        assert len(extract.get('NotConcernedTheme')) == 14
+        assert len(extract.get('ThemeWithoutData')) == 0
     if topics == 'ALL_FEDERAL':
         assert len(real_estate.get('RestrictionOnLandownership')) == 1
         assert len(extract.get('ConcernedTheme')) == 1
-        assert len(extract.get('ThemeWithoutData')) > 0
+        assert len(extract.get('NotConcernedTheme')) == 9
+        assert len(extract.get('ThemeWithoutData')) == 0
     if topics == 'ContaminatedSites,RailwaysProjectPlanningZones':
         assert len(real_estate.get('RestrictionOnLandownership')) == 1
         assert len(extract.get('ConcernedTheme')) == 1
-        assert len(extract.get('ThemeWithoutData')) > 0
+        assert len(extract.get('NotConcernedTheme')) == 1
+        assert len(extract.get('ThemeWithoutData')) == 0
