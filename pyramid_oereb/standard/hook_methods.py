@@ -102,30 +102,14 @@ def get_symbol(request):
         raise HTTPBadRequest('Missing parameter TEXT.')
 
     try:
-        print 'START'
         model = DottedNameResolver().resolve('{module_}.{class_}'.format(
             module_=source_params.get('models'),
             class_='LegendEntry'
         ))
-        results = session.query(model).filter(
-            model.type_code == type_code
-        ).first()
-        print '*****'
-        print json.dumps(results.legend_text).decode('unicode-escape')
-        print type(json.dumps(results.legend_text).decode('unicode-escape'))
-        print '*****'
-        print '#####'
-        print  json.dumps(json.loads(base64.b64decode(legend_text))).decode('unicode-escape')
-        print type( json.dumps(json.loads(base64.b64decode(legend_text))).decode('unicode-escape'))
-        print '#####'
         legend_entry = session.query(model).filter(
             cast(model.type_code, Text) == cast(type_code, Text),
             cast(model.legend_text, Text) == json.dumps(json.loads(base64.b64decode(legend_text).decode('unicode-escape'))).decode('unicode-escape')
         ).first()
-        print '++++++'
-        print legend_entry.legend_text
-        print '++++++'
-        print 'INBETWEEN'
         if legend_entry:
             symbol = getattr(legend_entry, 'symbol', None)
             if symbol:
@@ -154,9 +138,6 @@ def get_symbol_ref(request, record):
         uri: The link to the symbol for the specified public law restriction.
     """
     text = record.information if isinstance(record, PlrRecord) else record.legend_text
-    #~ print '====='
-    #~ print json.dumps(text).encode('utf-8')
-    #~ print '====='
     text_encoded = base64.b64encode(json.dumps(text).encode('utf-8')).decode('ascii')
     return request.route_url(
         '{0}/image/symbol'.format(route_prefix),
