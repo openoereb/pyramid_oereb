@@ -18,7 +18,7 @@
 	<parameter name="LogoPLRCadastreRef" class="java.lang.String"/>
 	<parameter name="RealEstate_Municipality" class="java.lang.String"/>
 	<parameter name="GlossaryDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
-	<pageHeader>
+	<detail>
 		<band height="134">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<textField>
@@ -105,8 +105,6 @@
 				<subreportExpression><![CDATA["table.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-	</pageHeader>
-	<pageFooter>
 		<band height="10">
 			<line>
 				<reportElement x="0" y="0" width="493" height="1" uuid="f8baaac4-0124-4f50-b8bb-fd8e8451dea7">
@@ -144,5 +142,5 @@
 				<textFieldExpression><![CDATA[String.format($R{PageLabel}, $V{MASTER_CURRENT_PAGE}, $V{MASTER_TOTAL_PAGES})]]></textFieldExpression>
 			</textField>
 		</band>
-	</pageFooter>
+	</detail>
 </jasperReport>

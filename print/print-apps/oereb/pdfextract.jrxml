@@ -263,6 +263,9 @@
 					<subreportParameter name="GlossaryDataSource">
 						<subreportParameterExpression><![CDATA[$P{GlossaryDataSource}]]></subreportParameterExpression>
 					</subreportParameter>
+					<subreportParameter name="REPORT_DATA_SOURCE">
+						<subreportParameterExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></subreportParameterExpression>
+					</subreportParameter>
 					<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 					</subreportParameter>
