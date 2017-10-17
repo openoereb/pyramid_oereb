@@ -24,7 +24,7 @@ log = logging.getLogger('pyramid_oereb')
 
 def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path='/tmp/pyconizer',
                                          language='de', section='pyramid_oereb', image_format='image/png',
-                                         image_height=36, image_width=72):
+                                         image_height=36, image_width=72, encoding=None):
     """
     Uses the pyconizer lib to create images out of the OEREB server configuration. It is creating symbols for
     a dedicated topic. This function will clean all previously created icons from database.
@@ -41,6 +41,9 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
             format your WMS is supporting here.
         image_height: The height of the produced image.
         image_width: The width of the produced image.
+        encoding (str or unicode): The encoding which is used to encode the XML. Standard is None. This means
+            the encoding is taken from the XML content itself. Only use this parameter if your XML content
+            has no encoding set.
     """
 
     # config object parsed from oereb configuration yml
@@ -119,7 +122,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
             })
 
     # create the icons with pyconizer package
-    create_icons_from_scratch(pyconizer_config, temp_creation_path, images=True)
+    create_icons_from_scratch(pyconizer_config, temp_creation_path, images=True, encoding=encoding)
 
     # reuse plr information to build legend entries and assign the symbol
     for unique_plr in unique_plrs:
@@ -221,6 +224,16 @@ def run():
         default=72,
         help='The width in pixels of the symbols to be created (default is: 72).'
     )
+    parser.add_option(
+        '-e', '--encoding',
+        dest='encoding',
+        metavar='ENCODING',
+        type='str',
+        default=None,
+        help='The encoding which is used to encode the XML. Standard is None. This means the encoding is '
+             'taken from the XML content itself. Only use this parameter if your XML content has no encoding '
+             'set.'
+    )
     options, args = parser.parse_args()
     if not options.config:
         parser.error('No configuration file set.')
@@ -235,7 +248,8 @@ def run():
             section=options.section,
             image_format=options.image_format,
             image_height=options.image_height,
-            image_width=options.image_width
+            image_width=options.image_width,
+            encoding=options.encoding
         )
     except Exception as e:
         log.error(e)
