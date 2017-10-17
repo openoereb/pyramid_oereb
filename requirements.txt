@@ -7,7 +7,7 @@ PyYAML==3.12
 shapely==1.6.1
 simplejson==3.11.1
 SQLAlchemy==1.1.14
-sqlalchemy-utils==0.32.18
+sqlalchemy-utils==0.32.19
 transaction==2.1.2
 waitress==1.1.0
 zope.sqlalchemy==0.7.7
