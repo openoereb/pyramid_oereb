@@ -278,7 +278,7 @@ configuration to run a oereb server out of the box.</p>
 
 <span class="target" id="module-pyramid_oereb.standard.load_legend_entries"><span id="api-pyramid-oereb-standard-load-legend-entries"></span></span><dl class="function">
 <dt id="pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db">
-<code class="descclassname">pyramid_oereb.standard.load_legend_entries.</code><code class="descname">create_legend_entries_in_standard_db</code><span class="sig-paren">(</span><em>config</em>, <em>topic_code</em>, <em>temp_creation_path='/tmp/pyconizer'</em>, <em>language='de'</em>, <em>section='pyramid_oereb'</em>, <em>image_format='image/png'</em>, <em>image_height=36</em>, <em>image_width=72</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/load_legend_entries.html#create_legend_entries_in_standard_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyramid_oereb.standard.load_legend_entries.</code><code class="descname">create_legend_entries_in_standard_db</code><span class="sig-paren">(</span><em>config</em>, <em>topic_code</em>, <em>temp_creation_path='/tmp/pyconizer'</em>, <em>language='de'</em>, <em>section='pyramid_oereb'</em>, <em>image_format='image/png'</em>, <em>image_height=36</em>, <em>image_width=72</em>, <em>encoding=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/load_legend_entries.html#create_legend_entries_in_standard_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uses the pyconizer lib to create images out of the OEREB server configuration. It is creating symbols for
 a dedicated topic. This function will clean all previously created icons from database.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -297,6 +297,9 @@ provide the language your WMS is using.</li>
 format your WMS is supporting here.</li>
 <li><strong>image_height</strong> &#8211; The height of the produced image.</li>
 <li><strong>image_width</strong> &#8211; The width of the produced image.</li>
+<li><strong>encoding</strong> (<em>str</em><em> or </em><em>unicode</em>) &#8211; The encoding which is used to encode the XML. Standard is None. This means
+the encoding is taken from the XML content itself. Only use this parameter if your XML content
+has no encoding set.</li>
 </ul>
 </td>
 </tr>
@@ -511,6 +514,7 @@ deliver a valid SLD wrapped in a pyramid response instance as output. It is in y
         <dl>
             <dt>Branches</dt>
             <dd><a href="../master/standard/index.html">master</a></dd>
+            <dd><a href="../requires-io-master/standard/index.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>

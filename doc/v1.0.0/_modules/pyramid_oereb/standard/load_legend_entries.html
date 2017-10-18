@@ -187,7 +187,7 @@
 
 <div class="viewcode-block" id="create_legend_entries_in_standard_db"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db">[docs]</a><span class="k">def</span> <span class="nf">create_legend_entries_in_standard_db</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">topic_code</span><span class="p">,</span> <span class="n">temp_creation_path</span><span class="o">=</span><span class="s1">&#39;/tmp/pyconizer&#39;</span><span class="p">,</span>
                                          <span class="n">language</span><span class="o">=</span><span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">image_format</span><span class="o">=</span><span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
-                                         <span class="n">image_height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">image_width</span><span class="o">=</span><span class="mi">72</span><span class="p">):</span>
+                                         <span class="n">image_height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">image_width</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Uses the pyconizer lib to create images out of the OEREB server configuration. It is creating symbols for</span>
 <span class="sd">    a dedicated topic. This function will clean all previously created icons from database.</span>
@@ -204,6 +204,9 @@
 <span class="sd">            format your WMS is supporting here.</span>
 <span class="sd">        image_height: The height of the produced image.</span>
 <span class="sd">        image_width: The width of the produced image.</span>
+<span class="sd">        encoding (str or unicode): The encoding which is used to encode the XML. Standard is None. This means</span>
+<span class="sd">            the encoding is taken from the XML content itself. Only use this parameter if your XML content</span>
+<span class="sd">            has no encoding set.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># config object parsed from oereb configuration yml</span>
@@ -282,7 +285,7 @@
             <span class="p">})</span>
 
     <span class="c1"># create the icons with pyconizer package</span>
-    <span class="n">create_icons_from_scratch</span><span class="p">(</span><span class="n">pyconizer_config</span><span class="p">,</span> <span class="n">temp_creation_path</span><span class="p">,</span> <span class="n">images</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">create_icons_from_scratch</span><span class="p">(</span><span class="n">pyconizer_config</span><span class="p">,</span> <span class="n">temp_creation_path</span><span class="p">,</span> <span class="n">images</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span>
 
     <span class="c1"># reuse plr information to build legend entries and assign the symbol</span>
     <span class="k">for</span> <span class="n">unique_plr</span> <span class="ow">in</span> <span class="n">unique_plrs</span><span class="p">:</span>
@@ -384,6 +387,16 @@
         <span class="n">default</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span>
         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The width in pixels of the symbols to be created (default is: 72).&#39;</span>
     <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="s1">&#39;--encoding&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;encoding&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;ENCODING&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The encoding which is used to encode the XML. Standard is None. This means the encoding is &#39;</span>
+             <span class="s1">&#39;taken from the XML content itself. Only use this parameter if your XML content has no encoding &#39;</span>
+             <span class="s1">&#39;set.&#39;</span>
+    <span class="p">)</span>
     <span class="n">options</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">config</span><span class="p">:</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No configuration file set.&#39;</span><span class="p">)</span>
@@ -398,7 +411,8 @@
             <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
             <span class="n">image_format</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">image_format</span><span class="p">,</span>
             <span class="n">image_height</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">image_height</span><span class="p">,</span>
-            <span class="n">image_width</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">image_width</span>
+            <span class="n">image_width</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">image_width</span><span class="p">,</span>
+            <span class="n">encoding</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">encoding</span>
         <span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
@@ -446,6 +460,7 @@
         <dl>
             <dt>Branches</dt>
             <dd><a href="../../../../master/index.html">master</a></dd>
+            <dd><a href="../../../../requires-io-master/index.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>
