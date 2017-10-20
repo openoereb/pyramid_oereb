@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
+import subprocess
 import sys
 import json
+import tempfile
+
 import requests
 import logging
 
+import time
 from shapely.geometry import mapping
 from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import Config
@@ -88,6 +92,7 @@ class Renderer(JsonRenderer):
             self._multilingual_text(item, 'Content')
         self._multilingual_text(extract_dict, 'PLRCadastreAuthority_Name')
 
+        pdf_to_join = set()
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
             self._flatten_object(restriction_on_landownership, 'Lawstatus')
             self._flatten_object(restriction_on_landownership, 'Theme')
@@ -146,6 +151,7 @@ class Renderer(JsonRenderer):
             self.lpra_flatten(legal_provisions)
             self.lpra_flatten(references)
             self.lpra_flatten(articles)
+            pdf_to_join.update([legal_provision['TextAtWeb'] for legal_provision in legal_provisions])
             restriction_on_landownership['LegalProvisions'] = legal_provisions
             restriction_on_landownership['Reference'] = references
             restriction_on_landownership['Article'] = articles
@@ -258,13 +264,35 @@ class Renderer(JsonRenderer):
             headers=Config.get('print', {})['headers'],
             data=json.dumps(spec)
         )
+
+        if not extract_dict['isReduced'] and print_result.status_code == 200:
+            main = tempfile.NamedTemporaryFile()
+            main.file.write(print_result.content)
+            cmd = ['pdftk', main.name]
+            temp_files = [main]
+            for url in pdf_to_join:
+                tmp_file = tempfile.NamedTemporaryFile()
+                result = requests.get(url)
+                tmp_file.write(result.content)
+                temp_files.append(tmp_file)
+                cmd.append(tmp_file.name)
+            out = tempfile.NamedTemporaryFile()
+            cmd += ['cat', 'output', out.name]
+            print(cmd)
+            sys.stdout.flush()
+            time.sleep(0.1)
+            subprocess.check_call(cmd)
+            content = out.file.read()
+        else:
+            content = print_result.content
+
         response.status_code = print_result.status_code
         response.headers = print_result.headers
         if 'Transfer-Encoding' in response.headers:
             del response.headers['Transfer-Encoding']
         if 'Connection' in response.headers:
             del response.headers['Connection']
-        return print_result.content
+        return content
 
     def _flatten_array_object(self, parent, array_name, object_name):
         if array_name in parent:
