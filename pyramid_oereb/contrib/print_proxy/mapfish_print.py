@@ -165,8 +165,8 @@ class Renderer(JsonRenderer):
                 theme_restriction[theme] = restriction_on_landownership
 
                 restriction_on_landownership['Geom_Type'] = \
-                    'Area' if 'Area' in restriction_on_landownership else \
-                    'Length' if 'Length' in restriction_on_landownership else 'Point'
+                    'Area' if restriction_on_landownership.get('Area') is not None else \
+                    'Length' if restriction_on_landownership.get('Length') is not None else 'Point'
 
                 # Legend
                 legend = {}
@@ -210,7 +210,20 @@ class Renderer(JsonRenderer):
             for element in text_element:
                 restriction_on_landownership[element] = '\n'.join(restriction_on_landownership[element])
 
-        extract_dict['RealEstate_RestrictionOnLandownership'] = list(theme_restriction.values())
+        restrictions = list(theme_restriction.values())
+        for restriction in restrictions:
+            legends = {}
+            for legend in restriction['Legend']:
+                type_ = legend['TypeCode']
+                if type_ in legends:
+                    for item in ['Area', 'Length', 'PartInPercent']:
+                        if legend.get(item) is not None:
+                            legends[type_][item] += legend[item]
+                else:
+                    legends[type_] = legend
+            restriction['Legend'] = list(legends.values())
+
+        extract_dict['RealEstate_RestrictionOnLandownership'] = restrictions
         # End one restriction entry per theme
 
         for item in extract_dict.get('ExclusionOfLiability', []):
@@ -265,7 +278,8 @@ class Renderer(JsonRenderer):
                 parent['{}_{}'.format(name, key)] = value
             del parent[name]
 
-    def _localised_text(self, parent, name):
+    @staticmethod
+    def _localised_text(parent, name):
         if name in parent:
             parent[name] = parent[name]['Text']
 
