@@ -31,9 +31,5 @@ class DatabaseSource(BaseDatabaseSource, MunicipalityBaseSource):
                     geom=to_shape(result.geom).wkt if isinstance(
                         result.geom, _SpatialElement) else None,
                 ))
-
-        except:
-            raise
-
         finally:
             session.close()

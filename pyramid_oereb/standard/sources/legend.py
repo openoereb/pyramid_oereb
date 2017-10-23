@@ -32,9 +32,5 @@ class DatabaseSource(BaseDatabaseSource, LegendBaseSource):
                     result.type_code_list,
                     result.theme
                 ))
-
-        except:
-            raise
-
         finally:
             session.close()

@@ -99,7 +99,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
         layer_existent = False
         for layer_config in pyconizer_config:
             if layer_config.get('url') == urlunsplit((url.scheme, url.netloc, '', '', '')) and \
-                            layer_config.get('layer') == params.get('LAYERS')[0]:
+                    layer_config.get('layer') == params.get('LAYERS')[0]:
                 layer_existent = True
         if not layer_existent:
             pyconizer_config.append({

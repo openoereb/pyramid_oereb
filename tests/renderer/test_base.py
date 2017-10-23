@@ -104,9 +104,9 @@ def test_get_multilingual_text_from_dict(config, language, result):
     assert ml_text[0].get('Text') == result
 
 
-@pytest.mark.parametrize('theme_code',  [
+@pytest.mark.parametrize('theme_code', [
     u'ContaminatedSites',
-    u'NotExistingTheme'
+    u'NotExistingTheme',
 ])
 def test_get_symbol_ref(config, theme_code):
     assert isinstance(config._config, dict)

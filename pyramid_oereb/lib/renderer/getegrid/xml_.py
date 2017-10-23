@@ -48,6 +48,6 @@ class Renderer(Base):
                 'data': value
             })
             return content
-        except:
+        except Exception:
             response.content_type = 'text/html'
             return exceptions.html_error_template().render()
