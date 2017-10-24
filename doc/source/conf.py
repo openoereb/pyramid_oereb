@@ -80,8 +80,8 @@ with open('contrib/print_proxy.rst', 'w') as sources:
 files = glob.glob('../../pyramid_oereb/standard/models/*.py')
 modules = [
     re.sub(r'\.__init__', '', f[6:-3].replace("/", ".")) for f in files
-    if not f.startswith("../../pyramid_oereb/standard/models/main.py")
-    and not f.startswith("../../pyramid_oereb/standard/models/__init__.py")
+    if not f.startswith("../../pyramid_oereb/standard/models/main.py") and
+    not f.startswith("../../pyramid_oereb/standard/models/__init__.py")
 ]
 modules.sort()
 for module in modules:

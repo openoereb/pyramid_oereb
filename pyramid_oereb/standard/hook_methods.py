@@ -62,8 +62,6 @@ def get_municipality(request):
                 response.body = base64.b64decode(logo.encode('ascii'))
                 return response
         raise HTTPNotFound()
-    except:
-        raise
     finally:
         session.close()
 
@@ -217,7 +215,7 @@ def produce_sld_content(request):
             response.content_type = 'application/xml'
         response.body = template.render(**template_params)
         return response
-    except:
+    except Exception:
         response.content_type = 'text/html'
         response.body = exceptions.html_error_template().render()
         return response

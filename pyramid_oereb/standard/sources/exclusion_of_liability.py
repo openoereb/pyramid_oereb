@@ -21,9 +21,5 @@ class DatabaseSource(BaseDatabaseSource, ExclusionOfLiabilityBaseSource):
                     result.title,
                     result.content
                 ))
-
-        except:
-            raise
-
         finally:
             session.close()

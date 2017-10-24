@@ -19,9 +19,5 @@ class DatabaseSource(BaseDatabaseSource, GlossaryBaseSource):
                     result.title,
                     result.content
                 ))
-
-        except:
-            raise
-
         finally:
             session.close()

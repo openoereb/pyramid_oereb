@@ -69,6 +69,6 @@ class Renderer(Base):
         except ValueError as e:
             # TODO: use error mapping to provide HTTP errors
             raise e
-        except:
+        except Exception:
             response.content_type = 'text/html'
             return exceptions.html_error_template().render()
