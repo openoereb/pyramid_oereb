@@ -225,8 +225,6 @@
                 <span class="n">response</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">logo</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">))</span>
                 <span class="k">return</span> <span class="n">response</span>
         <span class="k">raise</span> <span class="n">HTTPNotFound</span><span class="p">()</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="k">raise</span>
     <span class="k">finally</span><span class="p">:</span>
         <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
@@ -380,7 +378,7 @@
             <span class="n">response</span><span class="o">.</span><span class="n">content_type</span> <span class="o">=</span> <span class="s1">&#39;application/xml&#39;</span>
         <span class="n">response</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">**</span><span class="n">template_params</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">response</span>
-    <span class="k">except</span><span class="p">:</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="n">response</span><span class="o">.</span><span class="n">content_type</span> <span class="o">=</span> <span class="s1">&#39;text/html&#39;</span>
         <span class="n">response</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">html_error_template</span><span class="p">()</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">response</span></div>
