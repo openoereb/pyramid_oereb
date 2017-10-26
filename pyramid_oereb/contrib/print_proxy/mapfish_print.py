@@ -118,8 +118,8 @@ class Renderer(JsonRenderer):
                 self._multilingual_text(item, 'ResponsibleOffice_Name')
 
             legal_provisions = []
-            reference = []
-            article = []
+            references = {}
+            articles = {}
             if 'LegalProvisions' in restriction_on_landownership:
                 finish = False
                 while not finish:
@@ -128,23 +128,27 @@ class Renderer(JsonRenderer):
                         if 'Base64TextAtWeb' in legal_provision:
                             del legal_provision['Base64TextAtWeb']
                         if 'Reference' in legal_provision:
-                            reference += legal_provision['Reference']
+                            for reference in legal_provision['Reference']:
+                                references[reference['OfficialNumber']] = reference
                             del legal_provision['Reference']
                             finish = False
                         if 'Article' in legal_provision:
-                            article += legal_provision['Article']
+                            for article in legal_provision['Article']:
+                                articles[article['OfficialNumber']] = article
                             del legal_provision['Article']
                             finish = False
 
                 legal_provisions += restriction_on_landownership['LegalProvisions']
                 del restriction_on_landownership['LegalProvisions']
 
+            references = list(references.values())
+            articles = list(articles.values())
             self.lpra_flatten(legal_provisions)
-            self.lpra_flatten(reference)
-            self.lpra_flatten(article)
+            self.lpra_flatten(references)
+            self.lpra_flatten(articles)
             restriction_on_landownership['LegalProvisions'] = legal_provisions
-            restriction_on_landownership['Reference'] = reference
-            restriction_on_landownership['Article'] = article
+            restriction_on_landownership['Reference'] = references
+            restriction_on_landownership['Article'] = articles
 
         # One restriction entry per theme
         theme_restriction = {}
@@ -161,8 +165,8 @@ class Renderer(JsonRenderer):
                 theme_restriction[theme] = restriction_on_landownership
 
                 restriction_on_landownership['Geom_Type'] = \
-                    'Area' if 'Area' in restriction_on_landownership else \
-                    'Length' if 'Length' in restriction_on_landownership else 'Point'
+                    'Area' if restriction_on_landownership.get('Area') is not None else \
+                    'Length' if restriction_on_landownership.get('Length') is not None else 'Point'
 
                 # Legend
                 legend = {}
@@ -206,7 +210,20 @@ class Renderer(JsonRenderer):
             for element in text_element:
                 restriction_on_landownership[element] = '\n'.join(restriction_on_landownership[element])
 
-        extract_dict['RealEstate_RestrictionOnLandownership'] = list(theme_restriction.values())
+        restrictions = list(theme_restriction.values())
+        for restriction in restrictions:
+            legends = {}
+            for legend in restriction['Legend']:
+                type_ = legend['TypeCode']
+                if type_ in legends:
+                    for item in ['Area', 'Length', 'PartInPercent']:
+                        if legend.get(item) is not None:
+                            legends[type_][item] += legend[item]
+                else:
+                    legends[type_] = legend
+            restriction['Legend'] = list(legends.values())
+
+        extract_dict['RealEstate_RestrictionOnLandownership'] = restrictions
         # End one restriction entry per theme
 
         for item in extract_dict.get('ExclusionOfLiability', []):
@@ -261,7 +278,8 @@ class Renderer(JsonRenderer):
                 parent['{}_{}'.format(name, key)] = value
             del parent[name]
 
-    def _localised_text(self, parent, name):
+    @staticmethod
+    def _localised_text(parent, name):
         if name in parent:
             parent[name] = parent[name]['Text']
 
@@ -270,7 +288,5 @@ class Renderer(JsonRenderer):
 
     def _multilingual_text(self, parent, name):
         if name in parent:
-            # lang_obj = dict([(e['Language'], e['Text']) for e in parent[name]])
-            # lang = self.lang if self.lang in lang_obj else self.default_lang
-            # parent[name] = lang_obj[lang]
-            parent[name] = parent[name][0]['Text']
+            lang_obj = dict([(e['Language'], e['Text']) for e in parent[name]])
+            parent[name] = lang_obj[self.lang]

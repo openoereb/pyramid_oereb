@@ -76,7 +76,7 @@ class Renderer(Base):
                 self._params.__class__
             ))
 
-        if self._params.language:
+        if self._params.language is not None:
             self._language = str(self._params.language).lower()
 
         extract_dict = {
@@ -112,11 +112,11 @@ class Renderer(Base):
                 )
             })
 
-        if extract.electronic_signature:
+        if extract.electronic_signature is not None:
             extract_dict['ElectronicSignature'] = extract.electronic_signature
-        if extract.qr_code:
+        if extract.qr_code is not None:
             extract_dict['QRCode'] = extract.qr_code
-        if extract.general_information:
+        if extract.general_information is not None:
             extract_dict['GeneralInformation'] = self.get_multilingual_text(extract.general_information)
 
         if isinstance(extract.exclusions_of_liability, list) and len(extract.exclusions_of_liability) > 0:
@@ -162,18 +162,18 @@ class Renderer(Base):
             'PlanForLandRegister': self.format_map(real_estate.plan_for_land_register)
         }
 
-        if self._params.geometry:
+        if self._params.geometry is not None:
             real_estate_dict['Limit'] = self.from_shapely(real_estate.limit)
 
-        if real_estate.number:
+        if real_estate.number is not None:
             real_estate_dict['Number'] = real_estate.number
-        if real_estate.identdn:
+        if real_estate.identdn is not None:
             real_estate_dict['IdentDN'] = real_estate.identdn
-        if real_estate.egrid:
+        if real_estate.egrid is not None:
             real_estate_dict['EGRID'] = real_estate.egrid
-        if real_estate.subunit_of_land_register:
+        if real_estate.subunit_of_land_register is not None:
             real_estate_dict['SubunitOfLandRegister'] = real_estate.subunit_of_land_register
-        if real_estate.metadata_of_geographical_base_data:
+        if real_estate.metadata_of_geographical_base_data is not None:
             real_estate_dict['MetadataOfGeographicalBaseData'] = \
                 real_estate.metadata_of_geographical_base_data
 
@@ -239,19 +239,19 @@ class Renderer(Base):
                             'SymbolRef': self.get_symbol_ref(self._request, plr)
                         })
 
-                if plr.area:
+                if plr.area is not None:
                     plr_dict['Area'] = plr.area
-                if plr.length:
+                if plr.length is not None:
                     plr_dict['Length'] = plr.length
-                if plr.sub_theme:
+                if plr.sub_theme is not None:
                     plr_dict['SubTheme'] = plr.sub_theme
-                if plr.other_theme:
+                if plr.other_theme is not None:
                     plr_dict['OtherTheme'] = plr.other_theme
-                if plr.type_code:
+                if plr.type_code is not None:
                     plr_dict['TypeCode'] = plr.type_code
-                if plr.type_code_list:
+                if plr.type_code_list is not None:
                     plr_dict['TypeCodelist'] = plr.type_code_list
-                if plr.part_in_percent:
+                if plr.part_in_percent is not None:
                     plr_dict['PartInPercent'] = plr.part_in_percent
 
                 if self._params.geometry and isinstance(plr.geometries, list) and len(plr.geometries) > 0:
@@ -314,15 +314,15 @@ class Renderer(Base):
                 if base64_text_at_web is not None:
                     document_dict['Base64TextAtWeb'] = base64_text_at_web
 
-            if document.official_title:
+            if document.official_title is not None:
                 document_dict['OfficialTitle'] = self.get_multilingual_text(document.official_title)
-            if document.abbreviation:
+            if document.abbreviation is not None:
                 document_dict['Abbrevation'] = self.get_multilingual_text(document.abbreviation)
-            if document.official_number:
+            if document.official_number is not None:
                 document_dict['OfficialNumber'] = document.official_number
-            if document.canton:
+            if document.canton is not None:
                 document_dict['Canton'] = document.canton
-            if document.municipality:
+            if document.municipality is not None:
                 document_dict['Municipality'] = document.municipality
 
             if isinstance(document.article_numbers, list) and len(document.article_numbers) > 0:
@@ -348,9 +348,9 @@ class Renderer(Base):
                 'Number': document.number
             })
 
-            if document.text_at_web:
+            if document.text_at_web is not None:
                 document_dict['TextAtWeb'] = self.get_multilingual_text(document.text_at_web)
-            if document.text:
+            if document.text is not None:
                 document_dict['Text'] = self.get_multilingual_text(document.text)
 
         return document_dict
@@ -384,7 +384,7 @@ class Renderer(Base):
             'ResponsibleOffice': self.format_office(geometry.office)
         }
 
-        if geometry.geo_metadata:
+        if geometry.geo_metadata is not None:
             geometry_dict['MetadataOfGeographicalBaseData'] = geometry.geo_metadata
 
         return geometry_dict
@@ -403,21 +403,21 @@ class Renderer(Base):
         office_dict = {
             'Name': self.get_multilingual_text(office.name)
         }
-        if office.office_at_web:
+        if office.office_at_web is not None:
             office_dict['OfficeAtWeb'] = office.office_at_web
-        if office.uid:
+        if office.uid is not None:
             office_dict['UID'] = office.uid
-        if office.line1:
+        if office.line1 is not None:
             office_dict['Line1'] = office.line1
-        if office.line2:
+        if office.line2 is not None:
             office_dict['Line2'] = office.line2
-        if office.street:
+        if office.street is not None:
             office_dict['Street'] = office.street
-        if office.number:
+        if office.number is not None:
             office_dict['Number'] = office.number
-        if office.postal_code:
+        if office.postal_code is not None:
             office_dict['PostalCode'] = office.postal_code
-        if office.city:
+        if office.city is not None:
             office_dict['City'] = office.city
         return office_dict
 
@@ -450,11 +450,11 @@ class Renderer(Base):
             dict: The formatted dictionary for rendering.
         """
         map_dict = dict()
-        if map_.image:
+        if map_.image is not None:
             map_dict['Image'] = map_.image.encode()
-        if map_.reference_wms:
+        if map_.reference_wms is not None:
             map_dict['ReferenceWMS'] = map_.reference_wms
-        if map_.legend_at_web:
+        if map_.legend_at_web is not None:
             map_dict['LegendAtWeb'] = map_.legend_at_web
         if isinstance(map_.legends, list) and len(map_.legends) > 0:
             map_dict['OtherLegend'] = [
@@ -488,9 +488,9 @@ class Renderer(Base):
                 'SymbolRef': self.get_symbol_ref(self._request, legend_entry)
             })
 
-        if legend_entry.sub_theme:
+        if legend_entry.sub_theme is not None:
             legend_entry_dict['SubTheme'] = legend_entry.sub_theme
-        if legend_entry.other_theme:
+        if legend_entry.other_theme is not None:
             legend_entry_dict['OtherTheme'] = legend_entry.other_theme
         return legend_entry_dict
 
