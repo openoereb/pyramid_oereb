@@ -9,7 +9,6 @@ from pyramid.httpexceptions import HTTPNotFound, HTTPBadRequest
 from pyramid.path import AssetResolver, DottedNameResolver
 from pyramid.response import Response
 from sqlalchemy import cast, Text
-from sqlalchemy_utils import JSONType
 
 from pyramid_oereb import Config, database_adapter, route_prefix
 from pyramid_oereb.lib.records.office import OfficeRecord
@@ -105,9 +104,9 @@ def get_symbol(request):
             class_='LegendEntry'
         ))
         legend_entry = session.query(model).filter(
-            model.type_code == type_code,
-            cast(model.legend_text, Text) == cast(cast(
-                json.loads(base64.b64decode(legend_text).decode('utf-8')), JSONType), Text)
+            cast(model.type_code, Text) == cast(type_code, Text),
+            cast(model.legend_text, Text) == json.dumps(json.loads(
+                base64.b64decode(legend_text).decode('unicode-escape'))).decode('unicode-escape')
         ).first()
         if legend_entry:
             symbol = getattr(legend_entry, 'symbol', None)
