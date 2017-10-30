@@ -14,7 +14,7 @@ zope.sqlalchemy==0.7.7
 jsonschema==2.6.0
 pyreproj==1.0.0
 lxml==4.1.0
-generateDS==2.28rc0
+generateDS==2.28.2
 requests==2.18.4
 geolink_formatter==1.1.0
 pyconizer==0.1.4
