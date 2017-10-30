@@ -160,11 +160,15 @@
             
   <h1>Source code for pyramid_oereb.contrib.print_proxy.mapfish_print</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
+<span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">mapping</span>
 <span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="k">import</span> <span class="n">HTTPBadRequest</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">Config</span>
@@ -249,6 +253,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Content&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;PLRCadastreAuthority_Name&#39;</span><span class="p">)</span>
 
+        <span class="n">pdf_to_join</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">restriction_on_landownership</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;RealEstate_RestrictionOnLandownership&#39;</span><span class="p">,</span> <span class="p">[]):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;Lawstatus&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;Theme&#39;</span><span class="p">)</span>
@@ -307,6 +312,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">lpra_flatten</span><span class="p">(</span><span class="n">legal_provisions</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">lpra_flatten</span><span class="p">(</span><span class="n">references</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">lpra_flatten</span><span class="p">(</span><span class="n">articles</span><span class="p">)</span>
+            <span class="n">pdf_to_join</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">legal_provision</span> <span class="ow">in</span> <span class="n">legal_provisions</span><span class="p">])</span>
             <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">legal_provisions</span>
             <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Reference&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">references</span>
             <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Article&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">articles</span>
@@ -419,13 +425,35 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;headers&#39;</span><span class="p">],</span>
             <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
         <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;isReduced&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">print_result</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">main</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span>
+            <span class="n">main</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">print_result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pdftk&#39;</span><span class="p">,</span> <span class="n">main</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">temp_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">main</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">pdf_to_join</span><span class="p">:</span>
+                <span class="n">tmp_file</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+                <span class="n">tmp_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+                <span class="n">temp_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_file</span><span class="p">)</span>
+                <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span>
+            <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="n">out</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">print_result</span><span class="o">.</span><span class="n">content</span>
+
         <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">=</span> <span class="n">print_result</span><span class="o">.</span><span class="n">status_code</span>
         <span class="n">response</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="n">print_result</span><span class="o">.</span><span class="n">headers</span>
         <span class="k">if</span> <span class="s1">&#39;Transfer-Encoding&#39;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
             <span class="k">del</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Transfer-Encoding&#39;</span><span class="p">]</span>
         <span class="k">if</span> <span class="s1">&#39;Connection&#39;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
             <span class="k">del</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Connection&#39;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">print_result</span><span class="o">.</span><span class="n">content</span>
+        <span class="k">return</span> <span class="n">content</span>
 
     <span class="k">def</span> <span class="nf">_flatten_array_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">array_name</span><span class="p">,</span> <span class="n">object_name</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">array_name</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">:</span>
