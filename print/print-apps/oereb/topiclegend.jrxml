@@ -27,7 +27,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement verticalAlignment="Top">
-					<font fontName="Cadastra" size="8.5"/>
+					<font fontName="Cadastra"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Information}]]></textFieldExpression>
 			</textField>
@@ -56,10 +56,11 @@
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="257" y="0" width="43" height="17" uuid="80654d47-cb87-4690-a7ca-82730f9bb384">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<printWhenExpression><![CDATA[!"Point".equals($P{Geom_Type})]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Top">
-					<font size="8.5"/>
+					<font fontName="Cadastra" size="8.5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{PartInPercent} + " %"]]></textFieldExpression>
 			</textField>

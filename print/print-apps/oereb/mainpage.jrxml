@@ -387,18 +387,17 @@
 				</subreport>
 			</frame>
 			<subreport>
-				<reportElement x="20" y="420" width="93" height="7" uuid="97516c4b-cd5c-4d73-bb49-572fa9a0ae9f">
+				<reportElement x="20" y="420" width="100" height="15" uuid="97516c4b-cd5c-4d73-bb49-572fa9a0ae9f">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<subreportExpression><![CDATA[$P{scalebarSubReport}]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement key="" mode="Transparent" x="43" y="395" width="17" height="17" uuid="084c6066-1790-4393-ab18-2bf4c06e8efe">
+				<reportElement key="" mode="Transparent" x="62" y="395" width="17" height="17" uuid="084c6066-1790-4393-ab18-2bf4c06e8efe">
 					<property name="com.jaspersoft.studio.unit.width" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 				</reportElement>
 				<subreportExpression><![CDATA[$P{northArrowSubReport}]]></subreportExpression>
 			</subreport>
