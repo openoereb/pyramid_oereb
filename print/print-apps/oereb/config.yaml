@@ -243,7 +243,7 @@ templates:
             directory: '.'
         - !configureHttpRequests
             httpProcessors:
-            - !mapUri
+            - !mapUri    # NEEDED FOR DOCKER ENVIRONMENT
                 mapping:
                   (https?)://localhost:6543/(.*): "http://wsgi/$2"
             - !forwardHeaders
@@ -251,7 +251,7 @@ templates:
                 - Referer
             - !restrictUris
                 matchers:
-                - !dnsMatch
+                - !dnsMatch    # NEEDED FOR DOCKER ENVIRONMENT
                   host: wsgi
                   port: 80
                   reject: false

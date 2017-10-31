@@ -144,7 +144,7 @@
 				<textElement>
 					<font fontName="Cadastra" size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{TamponDateSignature}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{StampDateSignature}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement isPrintRepeatedValues="false" x="0" y="709" width="490" height="12" uuid="5090c0e3-b8c0-4df8-9447-d203a7d6a664">

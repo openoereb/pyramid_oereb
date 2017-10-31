@@ -263,12 +263,11 @@
 				<subreportExpression><![CDATA[$P{northArrowSubReport}]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="19">
+		<band height="17">
 			<textField>
-				<reportElement x="0" y="0" width="493" height="19" uuid="8ef5ca32-4156-4f98-ba33-972d48815976">
+				<reportElement x="0" y="0" width="493" height="17" uuid="8ef5ca32-4156-4f98-ba33-972d48815976">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<box>
@@ -280,7 +279,9 @@
 				<textFieldExpression><![CDATA[$R{LegendLabel}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="193" y="0" width="299" height="19" uuid="887d710f-c4a0-4c31-b96d-65b98a6ce66b"/>
+				<reportElement x="193" y="0" width="299" height="17" uuid="887d710f-c4a0-4c31-b96d-65b98a6ce66b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
 				<subreportParameter name="Geom_Type">
 					<subreportParameterExpression><![CDATA[$F{Geom_Type}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -288,12 +289,11 @@
 				<subreportExpression><![CDATA["topiclegend.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="19">
+		<band height="17">
 			<textField isBlankWhenNull="false">
-				<reportElement x="0" y="0" width="493" height="19" uuid="c7bafe02-64a5-407f-b511-dde165687582">
+				<reportElement x="0" y="0" width="493" height="17" uuid="c7bafe02-64a5-407f-b511-dde165687582">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<box>
@@ -309,13 +309,14 @@
 			</textField>
 		</band>
 		<band height="19">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<printWhenExpression><![CDATA[!($F{legend}.equals( "" ))]]></printWhenExpression>
-			<textField>
-				<reportElement x="0" y="0" width="493" height="19" uuid="fc59437f-651b-423a-9edc-0bd82cdc4811">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="493" height="19" uuid="fc59437f-651b-423a-9edc-0bd82cdc4811">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.2"/>
@@ -326,9 +327,10 @@
 				<textFieldExpression><![CDATA[$R{CompleteLegendLabel}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true" hyperlinkType="Reference" hyperlinkTarget="Blank">
-				<reportElement x="193" y="0" width="300" height="19" forecolor="#4C8FBA" uuid="a70d3e5c-bc32-4737-ba76-60f6cc56a8e2">
+				<reportElement stretchType="RelativeToTallestObject" x="193" y="0" width="300" height="17" forecolor="#4C8FBA" uuid="a70d3e5c-bc32-4737-ba76-60f6cc56a8e2">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement verticalAlignment="Top">
 					<font fontName="Cadastra" size="6"/>
@@ -338,7 +340,7 @@
 				<hyperlinkReferenceExpression><![CDATA[($F{legend}.equals("") || $F{legend} == null) ? null : $F{legend}]]></hyperlinkReferenceExpression>
 			</textField>
 		</band>
-		<band height="30">
+		<band height="19">
 			<textField>
 				<reportElement x="0" y="0" width="493" height="19" uuid="bc365be9-27bf-41cb-8f51-82a3b7af3eda">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
@@ -353,8 +355,9 @@
 				<textFieldExpression><![CDATA[$R{LegalProvisionLabel}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="193" y="0" width="300" height="30" uuid="aea2a6e2-1814-4099-b8e4-6e588177db99">
+				<reportElement x="193" y="0" width="300" height="17" uuid="aea2a6e2-1814-4099-b8e4-6e588177db99">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<subreportParameter name="TOC_Appendices">
 					<subreportParameterExpression><![CDATA[$P{TOC_Appendices}]]></subreportParameterExpression>
