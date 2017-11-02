@@ -266,19 +266,20 @@ class Renderer(JsonRenderer):
         )
 
         if not extract_dict['isReduced'] and print_result.status_code == 200:
-            main = tempfile.NamedTemporaryFile()
-            main.file.write(print_result.content)
+            main = tempfile.NamedTemporaryFile(suffix='.pdf')
+            main.write(print_result.content)
+            main.flush()
             cmd = ['pdftk', main.name]
             temp_files = [main]
             for url in pdf_to_join:
-                tmp_file = tempfile.NamedTemporaryFile()
+                tmp_file = tempfile.NamedTemporaryFile(suffix='.pdf')
                 result = requests.get(url)
                 tmp_file.write(result.content)
+                tmp_file.flush()
                 temp_files.append(tmp_file)
                 cmd.append(tmp_file.name)
-            out = tempfile.NamedTemporaryFile()
+            out = tempfile.NamedTemporaryFile(suffix='.pdf')
             cmd += ['cat', 'output', out.name]
-            print(cmd)
             sys.stdout.flush()
             time.sleep(0.1)
             subprocess.check_call(cmd)
