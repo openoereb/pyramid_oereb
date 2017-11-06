@@ -427,19 +427,20 @@
         <span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;isReduced&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">print_result</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
-            <span class="n">main</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span>
-            <span class="n">main</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">print_result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+            <span class="n">main</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.pdf&#39;</span><span class="p">)</span>
+            <span class="n">main</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">print_result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+            <span class="n">main</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
             <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pdftk&#39;</span><span class="p">,</span> <span class="n">main</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
             <span class="n">temp_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">main</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">pdf_to_join</span><span class="p">:</span>
-                <span class="n">tmp_file</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span>
+                <span class="n">tmp_file</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.pdf&#39;</span><span class="p">)</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
                 <span class="n">tmp_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+                <span class="n">tmp_file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
                 <span class="n">temp_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_file</span><span class="p">)</span>
                 <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.pdf&#39;</span><span class="p">)</span>
             <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="n">out</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
             <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
