@@ -122,9 +122,9 @@ class Renderer(JsonRenderer):
             for item in restriction_on_landownership.get('Geometry', []):
                 self._multilingual_text(item, 'ResponsibleOffice_Name')
 
-            legal_provisions = []
             references = {}
             articles = {}
+            legal_provisions = {}
             if 'LegalProvisions' in restriction_on_landownership:
                 finish = False
                 while not finish:
@@ -134,24 +134,18 @@ class Renderer(JsonRenderer):
                             del legal_provision['Base64TextAtWeb']
                         if 'Reference' in legal_provision:
                             for reference in legal_provision['Reference']:
-                                references[reference['OfficialNumber']] = reference
+                                references[reference['Title'][0]['Text']] = reference
                             del legal_provision['Reference']
                             finish = False
                         if 'Article' in legal_provision:
                             for article in legal_provision['Article']:
-                                articles[article['OfficialNumber']] = article
+                                articles[article['Title'][0]['Text']] = article
                             del legal_provision['Article']
                             finish = False
+                        legal_provisions[legal_provision['Title'][0]['Text']] = legal_provision
 
-                legal_provisions += restriction_on_landownership['LegalProvisions']
                 del restriction_on_landownership['LegalProvisions']
 
-            references = list(references.values())
-            articles = list(articles.values())
-            self.lpra_flatten(legal_provisions)
-            self.lpra_flatten(references)
-            self.lpra_flatten(articles)
-            pdf_to_join.update([legal_provision['TextAtWeb'] for legal_provision in legal_provisions])
             restriction_on_landownership['LegalProvisions'] = legal_provisions
             restriction_on_landownership['Reference'] = references
             restriction_on_landownership['Article'] = articles
@@ -203,7 +197,7 @@ class Renderer(JsonRenderer):
             # Number or array
             for element in ['Article', 'LegalProvisions', 'Reference']:
                 if current.get(element) is not None and restriction_on_landownership.get(element) is not None:
-                    current[element] += restriction_on_landownership[element]
+                    current[element].update(restriction_on_landownership[element])
                 elif restriction_on_landownership.get(element) is not None:
                     current[element] = restriction_on_landownership[element]
 
@@ -215,6 +209,12 @@ class Renderer(JsonRenderer):
         for restriction_on_landownership in theme_restriction.values():
             for element in text_element:
                 restriction_on_landownership[element] = '\n'.join(restriction_on_landownership[element])
+            for element in ['Article', 'LegalProvisions', 'Reference']:
+                values = restriction_on_landownership[element].values()
+                self.lpra_flatten(values)
+                restriction_on_landownership[element] = values
+                if element is 'LegalProvisions':
+                    pdf_to_join.update([legal_provision['TextAtWeb'] for legal_provision in values])
 
         restrictions = list(theme_restriction.values())
         for restriction in restrictions:
