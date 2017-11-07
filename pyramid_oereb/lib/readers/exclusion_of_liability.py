@@ -4,6 +4,7 @@ from pyramid.path import DottedNameResolver
 
 log = logging.getLogger(__name__)
 
+
 class ExclusionOfLiabilityReader(object):
     """
     The central reader for the exclusion of liability definitions. It is directly bound to a so called source

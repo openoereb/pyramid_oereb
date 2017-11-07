@@ -14,6 +14,7 @@ from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 
 log = logging.getLogger(__name__)
 
+
 class ExtractReader(object):
     """
     The class which generates *the extract* as a record
@@ -102,7 +103,8 @@ class ExtractReader(object):
             pyramid_oereb.lib.records.extract.ExtractRecord:
                 The extract record containing all gathered data.
         """
-        log.debug("read() real_estate=%s, municipality_logo=%s, params=%s", real_estate, municipality_logo, params)
+        log.debug("read() real_estate=%s, municipality_logo=%s, params=%s",
+                  real_estate, municipality_logo, params)
 
         assert isinstance(municipality_logo, ImageRecord)
 

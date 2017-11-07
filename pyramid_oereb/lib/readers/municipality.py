@@ -4,6 +4,7 @@ from pyramid.path import DottedNameResolver
 
 log = logging.getLogger(__name__)
 
+
 class MunicipalityReader(object):
     """
     The central reader for municipalities. It is directly bound to a so called source

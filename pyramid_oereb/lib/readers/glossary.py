@@ -4,6 +4,7 @@ from pyramid.path import DottedNameResolver
 
 log = logging.getLogger(__name__)
 
+
 class GlossaryReader(object):
     """
     The central reader for the glossary definitions. It is directly bound to a so called source

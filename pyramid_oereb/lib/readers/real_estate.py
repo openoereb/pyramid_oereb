@@ -9,6 +9,7 @@ from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 
 log = logging.getLogger(__name__)
 
+
 class RealEstateReader(object):
     """
     The central reader for real estates. It is directly bound to a so called source

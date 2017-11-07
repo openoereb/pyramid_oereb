@@ -4,6 +4,7 @@ from pyramid.path import DottedNameResolver
 
 log = logging.getLogger(__name__)
 
+
 class AddressReader(object):
     """
     The central reader accessor for addresses. It is directly bound to a so called source which is defined by
@@ -44,7 +45,8 @@ class AddressReader(object):
             list of pyramid_oereb.lib.records.address.AddressRecord:
                 The list of found records filtered by the passed criteria.
         """
-        log.debug("read() street_name=%s, zip_code=%s, street_number=%s", street_name, zip_code, street_number)
+        log.debug("read() street_name=%s, zip_code=%s, street_number=%s",
+                  street_name, zip_code, street_number)
 
         self._source_.read(street_name, zip_code, street_number)
         return self._source_.records
