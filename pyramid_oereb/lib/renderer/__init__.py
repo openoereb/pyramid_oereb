@@ -10,7 +10,7 @@ from pyramid.testing import DummyRequest
 from pyramid_oereb import Config
 
 
-log = logging.getLogger('pyramid_oereb')
+log = logging.getLogger(__name__)
 
 
 class Base(object):

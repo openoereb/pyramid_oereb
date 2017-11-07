@@ -11,7 +11,7 @@ from pyramid_oereb.lib.config import parse
 from pyramid_oereb.standard import create_tables_from_standard_configuration
 
 logging.basicConfig()
-log = logging.getLogger('pyramid_oereb')
+log = logging.getLogger(__name__)
 
 
 def _create_theme_tables(configuration_yaml_path, theme, section='pyramid_oereb', tables_only=False):

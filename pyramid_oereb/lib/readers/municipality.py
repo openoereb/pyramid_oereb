@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+import logging
 from pyramid.path import DottedNameResolver
 
+log = logging.getLogger(__name__)
 
 class MunicipalityReader(object):
     """
@@ -38,5 +40,7 @@ class MunicipalityReader(object):
             The list of all found records. Since these are not filtered by any criteria the list simply
             contains all records delivered by the source.
         """
+        log.debug("read()")
+
         self._source_.read()
         return self._source_.records

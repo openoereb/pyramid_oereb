@@ -12,7 +12,7 @@ from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.sources import Base
 
-log = logging.getLogger('pyramid_oereb')
+log = logging.getLogger(__name__)
 
 
 class PlrBaseSource(Base):

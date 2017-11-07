@@ -4,7 +4,7 @@ from datetime import datetime
 from pyramid_oereb.lib.config import Config
 from shapely.geometry import Point, LineString, Polygon
 
-log = logging.getLogger('pyramid_oereb')
+log = logging.getLogger(__name__)
 
 
 class GeometryRecord(object):

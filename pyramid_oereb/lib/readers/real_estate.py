@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
+import logging
 from pyramid.path import DottedNameResolver
 
 from pyramid_oereb import Config
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 
+log = logging.getLogger(__name__)
 
 class RealEstateReader(object):
     """
@@ -53,6 +55,8 @@ class RealEstateReader(object):
             list of pyramid_oereb.lib.records.real_estate.RealEstateRecord:
                 The list of all found records filtered by the passed criteria.
         """
+        log.debug("read() nb_ident=%s, number=%s, egrid=%s, geometry=%s", nb_ident, number, egrid, geometry)
+
         real_estate_view_service = ViewServiceRecord(
             reference_wms=Config.get_real_estate_config().get('view_service').get('reference_wms'),
             legend_at_web=Config.get_real_estate_config().get('view_service').get('legend_at_web')
