@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import base64
 
-from geoalchemy2.elements import _SpatialElement
 from geoalchemy2.shape import to_shape, from_shape
 from pyramid.path import DottedNameResolver
+from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, \
+    GeometryCollection
 from sqlalchemy import text, or_
 
 from pyramid_oereb import Config
@@ -85,29 +86,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         finally:
             session.close()
 
-    @staticmethod
-    def geometry_parsing(geometry_value):
-        geometry_types = Config.get('geometry_types')
-        collection_types = geometry_types.get('collection').get('types')
-        if isinstance(geometry_value, _SpatialElement):
-            shapely_representation = to_shape(geometry_value)
-            if shapely_representation.type in collection_types:
-                # We need to check if the collection is empty
-                if len(shapely_representation.geoms) > 0:
-                    if len(shapely_representation.geoms) == 1:
-                        # Its not empty, and due to specifications we are only interested in one (the first)
-                        # geometry
-                        shapely_representation = shapely_representation.geoms[0]
-                    else:
-                        raise AttributeError(u'There was more than one element in the GeometryCollection. '
-                                             u'This is not supported!')
-                else:
-                    # There was nothing in it. So we assume it was meant to be None.
-                    shapely_representation = None
-            return shapely_representation
-        else:
-            return None
-
     def from_db_to_legend_entry_record(self, theme, legend_entries_from_db):
         legend_entry_records = []
         for legend_entry_from_db in legend_entries_from_db:
@@ -130,9 +108,84 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         )
         return view_service_record
 
+    def unwrap_multi_geometry_(self, law_status, published_from, multi_geom, geo_metadata, office):
+        unwrapped = []
+        for geom in multi_geom.geoms:
+            unwrapped.append(
+                self._geometry_record_class(
+                    law_status,
+                    published_from,
+                    geom,
+                    geo_metadata,
+                    office=office
+                )
+            )
+        return unwrapped
+
+    def unwrap_geometry_collection_(self, law_status, published_from, collection, geo_metadata, office):
+        unwrapped = []
+        if len(collection.geoms) > 1:
+            raise AttributeError(u'There was more than one element in the GeometryCollection. '
+                                 u'This is not supported!')
+        for geom in collection.geoms:
+            unwrapped.extend(
+                self.create_geometry_records_(
+                    law_status,
+                    published_from,
+                    geom,
+                    geo_metadata,
+                    office=office
+                )
+            )
+        return unwrapped
+
+    def create_geometry_records_(self, law_status, published_from, geom, geo_metadata, office):
+        geometry_records = []
+
+        # Process single geometries
+        if isinstance(geom, (Point, LineString, Polygon)):
+            geometry_records.append(
+                self._geometry_record_class(
+                    law_status,
+                    published_from,
+                    geom,
+                    geo_metadata,
+                    office=office
+                )
+            )
+
+        # Process multi geometries
+        elif isinstance(geom, (MultiPoint, MultiLineString, MultiPolygon)):
+            geometry_records.extend(self.unwrap_multi_geometry_(
+                law_status,
+                published_from,
+                geom,
+                geo_metadata,
+                office
+            ))
+
+        # Process geometry collections
+        elif isinstance(geom, GeometryCollection):
+            geometry_records.extend(self.unwrap_geometry_collection_(
+                law_status,
+                published_from,
+                geom,
+                geo_metadata,
+                office
+            ))
+
+        else:
+            log.warning('Received geometry with unsupported type: {0}. Skipped geometry.'.format(
+                geom.type
+            ))
+
+        return geometry_records
+
     def from_db_to_geometry_records(self, geometries_from_db):
         geometry_records = []
         for geometry_from_db in geometries_from_db:
+
+            # Create law status record
             law_status = LawStatusRecord.from_config(
                 Config.get_law_status(
                     self._plr_info.get('code'),
@@ -140,13 +193,19 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     geometry_from_db.law_status
                 )
             )
-            geometry_records.append(self._geometry_record_class(
+
+            # Create office record
+            office = self.from_db_to_office_record(geometry_from_db.responsible_office)
+
+            # Create geometry records
+            geometry_records.extend(self.create_geometry_records_(
                 law_status,
                 geometry_from_db.published_from,
-                self.geometry_parsing(geometry_from_db.geom),
+                to_shape(geometry_from_db.geom),
                 geometry_from_db.geo_metadata,
-                office=self.from_db_to_office_record(geometry_from_db.responsible_office)
+                office
             ))
+
         return geometry_records
 
     def from_db_to_office_record(self, offices_from_db):
