@@ -162,7 +162,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{TableofContentLabel}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="0" y="98" width="493" height="17" uuid="fc1f09ca-765a-4b69-94c2-d92ffec662f7">
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
@@ -199,7 +199,10 @@
 				<textFieldExpression><![CDATA[$R{AppendicesLabel}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="0" y="126" width="492" height="14" uuid="3d372261-9a31-4ae8-85ee-86d3d19f166b"/>
+				<reportElement x="0" y="126" width="493" height="17" uuid="3d372261-9a31-4ae8-85ee-86d3d19f166b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<subreportParameter name="TOC_Appendices">
 					<subreportParameterExpression><![CDATA[$P{TOC_Appendices}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -285,7 +288,7 @@
 				<textElement verticalAlignment="Top" markup="none">
 					<font fontName="Cadastra" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{VoustrouverezdautresinformationssurlesRDPPFsous}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{FurtherInformation}]]></textFieldExpression>
 			</textField>
 			<textField hyperlinkType="Reference" hyperlinkTarget="Blank">
 				<reportElement x="260" y="105" width="232" height="11" forecolor="#4C8FBA" uuid="423aa9b7-82cf-47fe-8581-6ac646500ca7"/>

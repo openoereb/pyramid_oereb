@@ -105,9 +105,11 @@
 				<subreportExpression><![CDATA["table.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
+	</detail>
+	<pageFooter>
 		<band height="10">
 			<line>
-				<reportElement x="0" y="0" width="493" height="1" uuid="f8baaac4-0124-4f50-b8bb-fd8e8451dea7">
+				<reportElement x="0" y="0" width="493" height="1" uuid="f9d1ab80-dec8-4f73-b7a4-0963b47e31ee">
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
@@ -117,7 +119,7 @@
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="100" y="1" width="181" height="9" uuid="6259ac06-25a4-410d-9b98-39094d34bf6a">
+				<reportElement x="100" y="1" width="181" height="9" uuid="b2505ed5-abf4-4c0e-849d-a6bac5219eca">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<textElement>
@@ -126,14 +128,14 @@
 				<textFieldExpression><![CDATA[$P{ExtractIdentifier}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="1" width="90" height="8" uuid="b78ad76c-e391-4edd-a0ab-2ebed93889cd"/>
+				<reportElement x="0" y="1" width="90" height="8" uuid="bc04cfa8-e2e9-492d-91bb-d382b939e15c"/>
 				<textElement>
 					<font fontName="Cadastra" size="6.5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CreationDate}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Master" isBlankWhenNull="true">
-				<reportElement x="385" y="1" width="108" height="8" uuid="b4dfa216-323b-41b9-8811-ade5ada8995a">
+				<reportElement x="385" y="1" width="108" height="8" uuid="c140dae8-d290-4274-aa74-48a9c727e07a">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<textElement textAlignment="Right">
@@ -142,5 +144,5 @@
 				<textFieldExpression><![CDATA[String.format($R{PageLabel}, $V{MASTER_CURRENT_PAGE}, $V{MASTER_TOTAL_PAGES})]]></textFieldExpression>
 			</textField>
 		</band>
-	</detail>
+	</pageFooter>
 </jasperReport>
