@@ -134,15 +134,18 @@ class Renderer(JsonRenderer):
                             del legal_provision['Base64TextAtWeb']
                         if 'Reference' in legal_provision:
                             for reference in legal_provision['Reference']:
-                                references[reference['Title'][0]['Text']] = reference
+                                uid = self._get_element_of_legal_provision_maybe_uid(reference)
+                                references[uid] = reference
                             del legal_provision['Reference']
                             finish = False
                         if 'Article' in legal_provision:
                             for article in legal_provision['Article']:
-                                articles[article['Title'][0]['Text']] = article
+                                uid = self._get_element_of_legal_provision_maybe_uid(article)
+                                articles[uid] = article
                             del legal_provision['Article']
                             finish = False
-                        legal_provisions[legal_provision['Title'][0]['Text']] = legal_provision
+                        uid = self._get_element_of_legal_provision_maybe_uid(legal_provision)
+                        legal_provisions[uid] = legal_provision
 
                 del restriction_on_landownership['LegalProvisions']
 
@@ -306,6 +309,15 @@ class Renderer(JsonRenderer):
             for key, value in parent[name].items():
                 parent['{}_{}'.format(name, key)] = value
             del parent[name]
+
+    @staticmethod
+    def _get_element_of_legal_provision_maybe_uid(element):
+        if element['TextAtWeb'] is not None:
+            # If TextAtWeb exists, we want it once it the pdf report.
+            return element['TextAtWeb'][0]['Text']
+        else:
+            # Otherwise, take the Title. It exists for sure, but can be not unique.
+            return element['Title'][0]['Text']
 
     @staticmethod
     def _localised_text(parent, name):
