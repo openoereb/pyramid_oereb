@@ -76,17 +76,19 @@ templates:
                                 default: ''
                             TypeCodelist: !string
                                 default: ''
-                            Area: !string #/definitions/Area
-                                default: ''
+                            Geom_Type: !string {}
+                            Area: !integer #/definitions/Area
+                                default: -1
                             PartInPercent: !float
                                 default: -1
-                            Length: !float
+                            Length: !integer
                                 default: -1
                             SymbolRef: !string
                                 default: ''
                             Information: !string #/definitions/MultilingualMText
                                 default: ''
-                    Geom_Type: !string {}
+                    Geom_Type: !string
+                        default: ''
                     Theme_Code: !string
                         default: ''
                     Theme_Text: !string #/definitions/LocalisedText

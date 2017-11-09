@@ -164,29 +164,35 @@ class Renderer(JsonRenderer):
         ]
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
             theme = restriction_on_landownership['Theme_Code']
-            if theme not in theme_restriction:
-                theme_restriction[theme] = restriction_on_landownership
+            geom_type = \
+                'Area' if restriction_on_landownership.get('Area') is not None else \
+                'Length' if restriction_on_landownership.get('Length') is not None else 'Point'
 
-                restriction_on_landownership['Geom_Type'] = \
-                    'Area' if restriction_on_landownership.get('Area') is not None else \
-                    'Length' if restriction_on_landownership.get('Length') is not None else 'Point'
+            if theme not in theme_restriction:
+                current = dict(restriction_on_landownership)
+                current['Geom_Type'] = geom_type
+                theme_restriction[theme] = current
 
                 # Legend
                 legend = {}
                 for element in legend_element:
-                    if element in restriction_on_landownership:
-                        legend[element] = restriction_on_landownership[element]
-                        del restriction_on_landownership[element]
-                restriction_on_landownership['Legend'] = [legend]
+                    if element in current:
+                        legend[element] = current[element]
+                        del current[element]
+                    legend['Geom_Type'] = geom_type
+                current['Legend'] = [legend]
 
                 # Text
                 for element in text_element:
-                    if element in restriction_on_landownership:
-                        restriction_on_landownership[element] = set([restriction_on_landownership[element]])
+                    if element in current:
+                        current[element] = set([current[element]])
                     else:
-                        restriction_on_landownership[element] = set()
+                        current[element] = set()
                 continue
             current = theme_restriction[theme]
+
+            if 'Geom_Type' in current and current['Geom_Type'] != geom_type:
+                del current['Geom_Type']
 
             # Legend
             legend = {}
@@ -195,6 +201,7 @@ class Renderer(JsonRenderer):
                 if element in restriction_on_landownership:
                     legend[element] = restriction_on_landownership[element]
                     del restriction_on_landownership[element]
+                    legend['Geom_Type'] = geom_type
             current['Legend'].append(legend)
 
             # Number or array
