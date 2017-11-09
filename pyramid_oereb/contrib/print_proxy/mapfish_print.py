@@ -230,6 +230,10 @@ class Renderer(JsonRenderer):
                             legends[type_][item] += legend[item]
                 else:
                     legends[type_] = legend
+            for legend in legends.values():
+                for item in ['Area', 'Length']:
+                    if item in legend:
+                        legend[item] = int(legend[item])
             restriction['Legend'] = list(legends.values())
 
         extract_dict['RealEstate_RestrictionOnLandownership'] = restrictions
