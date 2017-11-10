@@ -40,6 +40,26 @@ customization.
    :scale: 20 %
    :align: center
 
+The server basically provides access to the 4 services:
+
+* GetExtractById
+* GetEGRID
+* GetCapabilities
+* GetVersions
+
+The server is able to use ÖEREBlex, GeoAdmin API for gathering data. This need to be configured and prepared
+by the integrator of this package. In addition a small tool for loading legend symbols for each used WMS layer
+is included.
+
+For the moment we can provide a adapter to get the PDF static extract from mapfishprint.
+
+.. image:: ../images/overview.png
+   :align: center
+
+As mentioned above we used a layer architecture for this project. See following graphic:
+
+.. image:: ../images/detail.png
+
 Indices and tables
 ==================
 
