@@ -63,6 +63,7 @@ class Renderer(JsonRenderer):
             self.lang = self.default_lang
 
         extract_dict = self._render(value[0], value[1])
+
         for attr_name in ['NotConcernedTheme', 'ThemeWithoutData', 'ConcernedTheme']:
             for theme in extract_dict[attr_name]:
                 self._localised_text(theme, 'Text')
@@ -117,6 +118,20 @@ class Renderer(JsonRenderer):
             }
             restriction_on_landownership['legend'] = restriction_on_landownership['Map'].get(
                 'LegendAtWeb', '')
+
+            # Legend of  other visible restriction objects in the topic map
+            restriction_on_landownership['OtherLegend'] = restriction_on_landownership['Map'].get('OtherLegend','')
+            if restriction_on_landownership['OtherLegend'] != '':
+                for legend_item in restriction_on_landownership['OtherLegend']:
+                    self._multilingual_text(legend_item, 'LegendText')
+
+            for legend_entry in restriction_on_landownership['OtherLegend']:
+                if legend_entry != '':
+                    other_legend = []
+                    for element in legend_entry.keys():
+                        if not element in ['LegendText', 'SymbolRef', 'TypeCode']:
+                            del legend_entry[element]
+
             del restriction_on_landownership['Map']  # /definitions/Map
 
             for item in restriction_on_landownership.get('Geometry', []):
@@ -234,7 +249,7 @@ class Renderer(JsonRenderer):
 
         extract_dict['RealEstate_RestrictionOnLandownership'] = restrictions
         # End one restriction entry per theme
-
+        
         for item in extract_dict.get('ExclusionOfLiability', []):
             self._multilingual_text(item, 'Title')
             self._multilingual_text(item, 'Content')

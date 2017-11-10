@@ -87,12 +87,13 @@ templates:
                             Information: !string #/definitions/MultilingualMText
                                 default: ''
                     OtherLegend: !datasource
+                        default: []
                         attributes:
                             TypeCode: !string #/definitions/RestrictiontypeCode
                                 default: ''
                             SymbolRef: !string
                                 default: ''
-                            Information: !string #/definitions/MultilingualMText
+                            LegendText: !string #/definitions/MultilingualMText
                                 default: ''
                     Geom_Type: !string {}
                     Theme_Code: !string
