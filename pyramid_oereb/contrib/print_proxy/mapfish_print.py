@@ -63,7 +63,6 @@ class Renderer(JsonRenderer):
             self.lang = self.default_lang
 
         extract_dict = self._render(value[0], value[1])
-
         for attr_name in ['NotConcernedTheme', 'ThemeWithoutData', 'ConcernedTheme']:
             for theme in extract_dict[attr_name]:
                 self._localised_text(theme, 'Text')
@@ -249,7 +248,7 @@ class Renderer(JsonRenderer):
 
         extract_dict['RealEstate_RestrictionOnLandownership'] = restrictions
         # End one restriction entry per theme
-        
+
         for item in extract_dict.get('ExclusionOfLiability', []):
             self._multilingual_text(item, 'Title')
             self._multilingual_text(item, 'Content')
