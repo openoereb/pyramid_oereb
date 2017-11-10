@@ -126,7 +126,6 @@ class Renderer(JsonRenderer):
 
             for legend_entry in restriction_on_landownership['OtherLegend']:
                 if legend_entry != '':
-                    other_legend = []
                     for element in legend_entry.keys():
                         if not element in ['LegendText', 'SymbolRef', 'TypeCode']:
                             del legend_entry[element]
