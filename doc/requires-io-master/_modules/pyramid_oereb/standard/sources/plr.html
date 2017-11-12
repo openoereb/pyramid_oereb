@@ -164,9 +164,10 @@
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">base64</span>
 
-<span class="kn">from</span> <span class="nn">geoalchemy2.elements</span> <span class="k">import</span> <span class="n">_SpatialElement</span>
 <span class="kn">from</span> <span class="nn">geoalchemy2.shape</span> <span class="k">import</span> <span class="n">to_shape</span><span class="p">,</span> <span class="n">from_shape</span>
 <span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="k">import</span> <span class="n">DottedNameResolver</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">MultiPoint</span><span class="p">,</span> <span class="n">MultiLineString</span><span class="p">,</span> <span class="n">MultiPolygon</span><span class="p">,</span> \
+    <span class="n">GeometryCollection</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">text</span><span class="p">,</span> <span class="n">or_</span>
 
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">Config</span>
@@ -248,29 +249,6 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">geometry_parsing</span><span class="p">(</span><span class="n">geometry_value</span><span class="p">):</span>
-        <span class="n">geometry_types</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;geometry_types&#39;</span><span class="p">)</span>
-        <span class="n">collection_types</span> <span class="o">=</span> <span class="n">geometry_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;collection&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;types&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geometry_value</span><span class="p">,</span> <span class="n">_SpatialElement</span><span class="p">):</span>
-            <span class="n">shapely_representation</span> <span class="o">=</span> <span class="n">to_shape</span><span class="p">(</span><span class="n">geometry_value</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">shapely_representation</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">collection_types</span><span class="p">:</span>
-                <span class="c1"># We need to check if the collection is empty</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">shapely_representation</span><span class="o">.</span><span class="n">geoms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">shapely_representation</span><span class="o">.</span><span class="n">geoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                        <span class="c1"># Its not empty, and due to specifications we are only interested in one (the first)</span>
-                        <span class="c1"># geometry</span>
-                        <span class="n">shapely_representation</span> <span class="o">=</span> <span class="n">shapely_representation</span><span class="o">.</span><span class="n">geoms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;There was more than one element in the GeometryCollection. &#39;</span>
-                                             <span class="sa">u</span><span class="s1">&#39;This is not supported!&#39;</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="c1"># There was nothing in it. So we assume it was meant to be None.</span>
-                    <span class="n">shapely_representation</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">return</span> <span class="n">shapely_representation</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-
     <span class="k">def</span> <span class="nf">from_db_to_legend_entry_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">legend_entries_from_db</span><span class="p">):</span>
         <span class="n">legend_entry_records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">legend_entry_from_db</span> <span class="ow">in</span> <span class="n">legend_entries_from_db</span><span class="p">:</span>
@@ -293,9 +271,84 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">view_service_record</span>
 
+    <span class="k">def</span> <span class="nf">unwrap_multi_geometry_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">multi_geom</span><span class="p">,</span> <span class="n">geo_metadata</span><span class="p">,</span> <span class="n">office</span><span class="p">):</span>
+        <span class="n">unwrapped</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">multi_geom</span><span class="o">.</span><span class="n">geoms</span><span class="p">:</span>
+            <span class="n">unwrapped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_geometry_record_class</span><span class="p">(</span>
+                    <span class="n">law_status</span><span class="p">,</span>
+                    <span class="n">published_from</span><span class="p">,</span>
+                    <span class="n">geom</span><span class="p">,</span>
+                    <span class="n">geo_metadata</span><span class="p">,</span>
+                    <span class="n">office</span><span class="o">=</span><span class="n">office</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">unwrapped</span>
+
+    <span class="k">def</span> <span class="nf">unwrap_geometry_collection_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">geo_metadata</span><span class="p">,</span> <span class="n">office</span><span class="p">):</span>
+        <span class="n">unwrapped</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">collection</span><span class="o">.</span><span class="n">geoms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;There was more than one element in the GeometryCollection. &#39;</span>
+                                 <span class="sa">u</span><span class="s1">&#39;This is not supported!&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">collection</span><span class="o">.</span><span class="n">geoms</span><span class="p">:</span>
+            <span class="n">unwrapped</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_geometry_records_</span><span class="p">(</span>
+                    <span class="n">law_status</span><span class="p">,</span>
+                    <span class="n">published_from</span><span class="p">,</span>
+                    <span class="n">geom</span><span class="p">,</span>
+                    <span class="n">geo_metadata</span><span class="p">,</span>
+                    <span class="n">office</span><span class="o">=</span><span class="n">office</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">unwrapped</span>
+
+    <span class="k">def</span> <span class="nf">create_geometry_records_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">geom</span><span class="p">,</span> <span class="n">geo_metadata</span><span class="p">,</span> <span class="n">office</span><span class="p">):</span>
+        <span class="n">geometry_records</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Process single geometries</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">)):</span>
+            <span class="n">geometry_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_geometry_record_class</span><span class="p">(</span>
+                    <span class="n">law_status</span><span class="p">,</span>
+                    <span class="n">published_from</span><span class="p">,</span>
+                    <span class="n">geom</span><span class="p">,</span>
+                    <span class="n">geo_metadata</span><span class="p">,</span>
+                    <span class="n">office</span><span class="o">=</span><span class="n">office</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Process multi geometries</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="p">(</span><span class="n">MultiPoint</span><span class="p">,</span> <span class="n">MultiLineString</span><span class="p">,</span> <span class="n">MultiPolygon</span><span class="p">)):</span>
+            <span class="n">geometry_records</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unwrap_multi_geometry_</span><span class="p">(</span>
+                <span class="n">law_status</span><span class="p">,</span>
+                <span class="n">published_from</span><span class="p">,</span>
+                <span class="n">geom</span><span class="p">,</span>
+                <span class="n">geo_metadata</span><span class="p">,</span>
+                <span class="n">office</span>
+            <span class="p">))</span>
+
+        <span class="c1"># Process geometry collections</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">GeometryCollection</span><span class="p">):</span>
+            <span class="n">geometry_records</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unwrap_geometry_collection_</span><span class="p">(</span>
+                <span class="n">law_status</span><span class="p">,</span>
+                <span class="n">published_from</span><span class="p">,</span>
+                <span class="n">geom</span><span class="p">,</span>
+                <span class="n">geo_metadata</span><span class="p">,</span>
+                <span class="n">office</span>
+            <span class="p">))</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Received geometry with unsupported type: </span><span class="si">{0}</span><span class="s1">. Skipped geometry.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">geom</span><span class="o">.</span><span class="n">type</span>
+            <span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">geometry_records</span>
+
     <span class="k">def</span> <span class="nf">from_db_to_geometry_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geometries_from_db</span><span class="p">):</span>
         <span class="n">geometry_records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">geometry_from_db</span> <span class="ow">in</span> <span class="n">geometries_from_db</span><span class="p">:</span>
+
+            <span class="c1"># Create law status record</span>
             <span class="n">law_status</span> <span class="o">=</span> <span class="n">LawStatusRecord</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span>
                 <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
@@ -303,13 +356,19 @@
                     <span class="n">geometry_from_db</span><span class="o">.</span><span class="n">law_status</span>
                 <span class="p">)</span>
             <span class="p">)</span>
-            <span class="n">geometry_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_geometry_record_class</span><span class="p">(</span>
+
+            <span class="c1"># Create office record</span>
+            <span class="n">office</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_office_record</span><span class="p">(</span><span class="n">geometry_from_db</span><span class="o">.</span><span class="n">responsible_office</span><span class="p">)</span>
+
+            <span class="c1"># Create geometry records</span>
+            <span class="n">geometry_records</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_geometry_records_</span><span class="p">(</span>
                 <span class="n">law_status</span><span class="p">,</span>
                 <span class="n">geometry_from_db</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">geometry_parsing</span><span class="p">(</span><span class="n">geometry_from_db</span><span class="o">.</span><span class="n">geom</span><span class="p">),</span>
+                <span class="n">to_shape</span><span class="p">(</span><span class="n">geometry_from_db</span><span class="o">.</span><span class="n">geom</span><span class="p">),</span>
                 <span class="n">geometry_from_db</span><span class="o">.</span><span class="n">geo_metadata</span><span class="p">,</span>
-                <span class="n">office</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_office_record</span><span class="p">(</span><span class="n">geometry_from_db</span><span class="o">.</span><span class="n">responsible_office</span><span class="p">)</span>
+                <span class="n">office</span>
             <span class="p">))</span>
+
         <span class="k">return</span> <span class="n">geometry_records</span>
 
     <span class="k">def</span> <span class="nf">from_db_to_office_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offices_from_db</span><span class="p">):</span>
