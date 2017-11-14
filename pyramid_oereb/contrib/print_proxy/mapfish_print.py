@@ -121,7 +121,7 @@ class Renderer(JsonRenderer):
             # Legend of  other visible restriction objects in the topic map
             restriction_on_landownership['OtherLegend'] = restriction_on_landownership['Map'].get(
                 'OtherLegend', [])
-            if restriction_on_landownership['OtherLegend'] != '':
+            if restriction_on_landownership['OtherLegend']:
                 for legend_item in restriction_on_landownership['OtherLegend']:
                     self._multilingual_text(legend_item, 'LegendText')
 
