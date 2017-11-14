@@ -13,6 +13,7 @@
 		<field name="SymbolRef" class="java.lang.String"/>
 		<field name="Information" class="java.lang.String"/>
 		<field name="PartInPercent" class="java.lang.Double"/>
+		<field name="Geom_Type" class="java.lang.String"/>
 	</subDataset>
 	<subDataset name="OtherLegendDataSource" uuid="9a5d3c62-005a-4a40-baa8-4f42f0ef271a">
 		<queryString>
