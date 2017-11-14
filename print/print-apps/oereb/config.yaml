@@ -87,6 +87,15 @@ templates:
                                 default: ''
                             Information: !string #/definitions/MultilingualMText
                                 default: ''
+                    OtherLegend: !datasource
+                        default: []
+                        attributes:
+                            TypeCode: !string #/definitions/RestrictiontypeCode
+                                default: ''
+                            SymbolRef: !string
+                                default: ''
+                            LegendText: !string #/definitions/MultilingualMText
+                                default: ''
                     Geom_Type: !string
                         default: ''
                     Theme_Code: !string
@@ -314,6 +323,12 @@ templates:
                     Legend: datasource
                 outputMapper:
                     jrDataSource: LegendDataSource
+            - !createDataSource
+                processors: []
+                inputMapper:
+                    OtherLegend: datasource
+                outputMapper:
+                    jrDataSource: OtherLegendDataSource
             - !createDataSource
                 processors: []
                 inputMapper:

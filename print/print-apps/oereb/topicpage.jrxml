@@ -15,6 +15,13 @@
 		<field name="PartInPercent" class="java.lang.Double"/>
 		<field name="Geom_Type" class="java.lang.String"/>
 	</subDataset>
+	<subDataset name="OtherLegendDataSource" uuid="9a5d3c62-005a-4a40-baa8-4f42f0ef271a">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="SymbolRef" class="java.lang.String"/>
+		<field name="LegendText" class="java.lang.String"/>
+	</subDataset>
 	<subDataset name="LegalBasesDataSource" uuid="9a5d3c62-005a-4a40-baa8-4f42f0ef271a">
 		<queryString>
 			<![CDATA[]]>
@@ -77,6 +84,7 @@
 	<field name="ResponsibleOffice_OfficeAtWeb" class="java.lang.String"/>
 	<field name="LegalProvisionsDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="LegendDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="OtherLegendDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="ReferenceDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="ArticleDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<variable name="V_CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="Page" calculation="Sum">
@@ -308,6 +316,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{BBOXLegendLabel}]]></textFieldExpression>
 			</textField>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="193" y="0" width="299" height="17" uuid="f88a6ee0-42e5-4d2c-b1ab-9abb4f950664">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$F{OtherLegendDataSource}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["topicotherlegend.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 		<band height="19">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>

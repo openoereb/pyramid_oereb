@@ -117,6 +117,18 @@ class Renderer(JsonRenderer):
             }
             restriction_on_landownership['legend'] = restriction_on_landownership['Map'].get(
                 'LegendAtWeb', '')
+
+            # Legend of  other visible restriction objects in the topic map
+            restriction_on_landownership['OtherLegend'] = restriction_on_landownership['Map'].get(
+                'OtherLegend', [])
+            for legend_item in restriction_on_landownership['OtherLegend']:
+                self._multilingual_text(legend_item, 'LegendText')
+
+            for legend_entry in restriction_on_landownership['OtherLegend']:
+                for element in legend_entry.keys():
+                    if element not in ['LegendText', 'SymbolRef', 'TypeCode']:
+                        del legend_entry[element]
+
             del restriction_on_landownership['Map']  # /definitions/Map
 
             for item in restriction_on_landownership.get('Geometry', []):
