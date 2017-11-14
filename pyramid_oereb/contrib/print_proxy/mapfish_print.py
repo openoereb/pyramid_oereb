@@ -213,7 +213,7 @@ class Renderer(JsonRenderer):
             for element in text_element:
                 restriction_on_landownership[element] = '\n'.join(restriction_on_landownership[element])
             for element in ['Article', 'LegalProvisions', 'Reference']:
-                values = restriction_on_landownership[element].values()
+                values = list(restriction_on_landownership[element].values())
                 self.lpra_flatten(values)
                 restriction_on_landownership[element] = values
                 if element is 'LegalProvisions':
