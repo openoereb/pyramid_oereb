@@ -132,7 +132,13 @@ pyramid_oereb:
     canton: BL
     # Mapping for other optional attributes
     mapping:
-      municipality: subtype
+      official_number: number
+      abbreviation: abbreviation
+    # Handle related decree also as main document
+    # By default a related decree will be added as reference of the type "legal provision" to the main
+    # document. Set this flag to true, if you want the related decree to be added as additional legal
+    # provision directly to the public law restriction. This might have an impact on client side rendering.
+    related_decree_as_main: false
     # Proxy to be used for web requests
     # proxy:
     #   http:

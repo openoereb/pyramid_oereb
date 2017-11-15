@@ -46,7 +46,8 @@ def test_init(valid, cfg):
 ])
 def test_get_mapped_value(key, multilingual, result):
     file_ = File('Test', '/api/attachments/1', 'main')
-    document = Document('test', 'Test', 'main', 'decree', [file_], datetime.date.today(), subtype='Liestal')
+    document = Document(id='test', title='Test', category='main', doctype='decree', files=[file_],
+                        enactment_date=datetime.date.today(), subtype='Liestal', authority='Office')
     source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
                             mapping={'municipality': 'subtype'})
     assert source._get_mapped_value(document, key, multilingual) == result
@@ -58,6 +59,7 @@ def test_get_mapped_value(key, multilingual, result):
         title='Document 1',
         category='main',
         doctype='edict',
+        authority='Office',
         files=[File('File 1', '/api/attachments/1', 'main')],
         enactment_date=datetime.date.today()
     )),
@@ -66,6 +68,7 @@ def test_get_mapped_value(key, multilingual, result):
         title='Document 2',
         category='main',
         doctype='decree',
+        authority='Office',
         files=[
             File('File 2', '/api/attachments/2', 'main'),
             File('File 3', '/api/attachments/3', 'additional')
@@ -77,7 +80,17 @@ def test_get_mapped_value(key, multilingual, result):
         title='Document 1',
         category='main',
         doctype='invalid',
+        authority='Office',
         files=[File('File 1', '/api/attachments/1', 'main')],
+        enactment_date=datetime.date.today()
+    )),
+    (4, Document(
+        id='doc1',
+        title='Document 1',
+        category='main',
+        doctype='decree',
+        authority='Office',
+        files=[],
         enactment_date=datetime.date.today()
     ))
 ])
@@ -89,6 +102,7 @@ def test_get_document_records(i, document):
             title='Reference',
             category='related',
             doctype='edict',
+            authority='Office',
             files=[File('Reference file', '/api/attachments/4', 'main')],
             enactment_date=datetime.date.today()
         )
@@ -97,6 +111,8 @@ def test_get_document_records(i, document):
     if i == 3:
         with pytest.raises(TypeError):
             source._get_document_records(document, references)
+    elif i == 4:
+        assert source._get_document_records(document, references) == []
     else:
         records = source._get_document_records(document, references)
         assert len(records) == i
@@ -124,6 +140,25 @@ def test_read():
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL')
         source.read(100)
         assert len(source.records) == 2
+        document = source.records[0]
+        assert isinstance(document, DocumentRecord)
+        assert isinstance(document.responsible_office, OfficeRecord)
+        assert document.responsible_office.name == {'de': 'Landeskanzlei'}
+        assert document.canton == 'BL'
+        assert document.text_at_web == {
+            'de': 'http://oereblex.example.com/api/attachments/313'
+        }
+        assert len(document.references) == 5
+
+
+def test_read_related_decree_as_main():
+    with requests_mock.mock() as m:
+        with open('./tests/resources/geolink.xml', 'rb') as f:
+            m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
+        source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
+                                related_decree_as_main=True)
+        source.read(100)
+        assert len(source.records) == 3
         document = source.records[0]
         assert isinstance(document, DocumentRecord)
         assert isinstance(document.responsible_office, OfficeRecord)

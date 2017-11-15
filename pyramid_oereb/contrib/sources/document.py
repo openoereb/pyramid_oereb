@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
+import logging
+
 from geolink_formatter import XML
 
 from pyramid_oereb.lib.records.documents import LegalProvisionRecord, DocumentRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.sources import Base
+
+
+log = logging.getLogger('pyramid_oereb')
 
 
 class OEREBlexSource(Base):
@@ -21,6 +26,7 @@ class OEREBlexSource(Base):
             language (str): The language of the received data.
             canton (str): Canton code used for the documents.
             mapping (dict of str): Mapping for optional attributes.
+            related_decree_as_main (bool): Add related decrees directly to the public law restriction.
             proxy (dict of uri): Optional proxy configuration for HTTP and/or HTTPS.
         """
         super(OEREBlexSource, self).__init__()
@@ -35,6 +41,7 @@ class OEREBlexSource(Base):
         assert self._parser.host_url is not None
 
         self._mapping = kwargs.get('mapping')
+        self._related_decree_as_main = kwargs.get('related_decree_as_main')
         self._proxies = kwargs.get('proxy')
 
     def read(self, geolink_id):
@@ -55,7 +62,10 @@ class OEREBlexSource(Base):
         for document in documents:
             if document.category == 'main':
                 main_documents.append(document)
-            elif document.category == 'related':
+            elif document.category == 'related' and document.doctype == 'decree' \
+                    and self._related_decree_as_main:
+                main_documents.append(document)
+            else:
                 referenced_documents.append(document)
 
         # Convert to records
@@ -75,6 +85,16 @@ class OEREBlexSource(Base):
         Returns:
             list of pyramid_oereb.lib.records.documents.DocumentRecord: The converted record.
         """
+
+        # Cancel if document contains no files
+        if len(document.files) == 0:
+            log.warning('Document "{0}" has been skipped because of missing file.'.format(document.title))
+            return []
+
+        # Check mandatory attributes
+        assert document.title is not None
+        assert document.enactment_date is not None
+        assert document.authority is not None
 
         # Get document type
         if document.doctype == 'decree':
