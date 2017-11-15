@@ -88,7 +88,9 @@ class OEREBlexSource(Base):
 
         # Cancel if document contains no files
         if len(document.files) == 0:
-            log.warning('Document "{0}" has been skipped because of missing file.'.format(document.title))
+            log.warning('Document with OEREBlex ID {0} has been skipped because of missing file.'.format(
+                document.id
+            ))
             return []
 
         # Check mandatory attributes
