@@ -246,7 +246,10 @@ class Renderer(JsonRenderer):
                 if type_ in legends:
                     for item in ['Area', 'Length', 'PartInPercent']:
                         if item in legend:
-                            legends[type_][item] += legend[item]
+                            if item in legends[type_]:
+                                legends[type_][item] += legend[item]
+                            else:
+                                legends[type_][item] = legend[item]
                 else:
                     legends[type_] = legend
             for legend in legends.values():
