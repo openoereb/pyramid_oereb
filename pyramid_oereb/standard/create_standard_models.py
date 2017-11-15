@@ -6,7 +6,7 @@ from pyramid_oereb.standard import _create_standard_configuration_models_py_
 def create_standard_model():
     parser = optparse.OptionParser(
         usage='usage: %prog [options]',
-        description='Create a python file which contais all sqlalchemy models in to hold oereb '
+        description='Create a python file which contains all sqlalchemy models in to hold oereb '
                     'specification like data'
     )
     parser.add_option(
