@@ -95,7 +95,8 @@ pyramid_oereb:
   app_schema:
     name: pyramid_oereb_main
     models: pyramid_oereb.standard.models.main
-    db_connection: ${sqlalchemy_url}
+    db_connection: &main_db_connection
+      ${sqlalchemy_url}
 
   # Define the SRID which your server is representing. Note: Only one projection system is possible in the
   # application. It does not provide any reprojection nor data in different projection systems. Take care in
@@ -203,7 +204,7 @@ pyramid_oereb:
       # The configured class accepts params which are also necessary to define
       params:
         # The connection path where the database can be found
-        db_connection: ${sqlalchemy_url}
+        db_connection: *main_db_connection
         # The model which maps the real estate database table.
         model: pyramid_oereb.standard.models.main.RealEstate
 
@@ -220,7 +221,7 @@ pyramid_oereb:
       # The configured class accepts params which are also necessary to define
       params:
         # The connection path where the database can be found
-        db_connection: ${sqlalchemy_url}
+        db_connection: *main_db_connection
         # The model which maps the address database table.
         model: pyramid_oereb.standard.models.main.Address
       # Alternatively you can use the search service of the GeoAdmin API to look up the real estate by
@@ -246,7 +247,7 @@ pyramid_oereb:
       # The configured class accepts params which are also necessary to define
       params:
         # The connection path where the database can be found
-        db_connection: ${sqlalchemy_url}
+        db_connection: *main_db_connection
         # The model which maps the municipality database table.
         model: pyramid_oereb.standard.models.main.Municipality
 
@@ -263,7 +264,7 @@ pyramid_oereb:
       # The configured class accepts params which are also necessary to define
       params:
         # The connection path where the database can be found
-        db_connection: ${sqlalchemy_url}
+        db_connection: *main_db_connection
         # The model which maps the glossary database table.
         model: pyramid_oereb.standard.models.main.Glossary
 
@@ -281,7 +282,7 @@ pyramid_oereb:
       # The configured class accepts params which are also necessary to define
       params:
         # The connection path where the database can be found
-        db_connection: ${sqlalchemy_url}
+        db_connection: *main_db_connection
         # The model which maps the exclusion_of_liability database table.
         model: pyramid_oereb.standard.models.main.ExclusionOfLiability
 
@@ -331,7 +332,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.land_use_plans
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -364,7 +365,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.motorways_project_planing_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -397,7 +398,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.motorways_building_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -430,7 +431,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.railways_building_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -463,7 +464,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.railways_project_planning_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -496,7 +497,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.airports_project_planning_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -529,7 +530,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.airports_building_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -562,7 +563,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.airports_security_zone_plans
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -595,7 +596,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.contaminated_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -628,7 +629,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.contaminated_military_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -661,7 +662,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -694,7 +695,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.contaminated_public_transport_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -727,7 +728,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.groundwater_protection_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -760,7 +761,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.groundwater_protection_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -793,7 +794,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.noise_sensitivity_levels
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -826,7 +827,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.forest_perimeters
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -859,7 +860,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: ${sqlalchemy_url}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.forest_distance_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
