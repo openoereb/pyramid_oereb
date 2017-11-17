@@ -9,6 +9,15 @@ def create_standard_model():
         description='Create a python file which contais all sqlalchemy models in to hold oereb '
                     'specification like data'
     )
+
+    def str2bool(v):
+        if v.lower() in ('yes', 'true', 't', 'y', '1'):
+            return True
+        elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+            return False
+        else:
+            raise parser.error('Boolean value expected.')
+
     parser.add_option(
         '-c', '--code',
         dest='code',
@@ -39,6 +48,13 @@ def create_standard_model():
         type='string',
         help='The schema name. If not specified, it will be derived from the code.'
     )
+    parser.add_option(
+        '-s', '--primary_key_is_string',
+        dest='primary_key_is_string',
+        metavar='PRIMARY KEY IS STRING',
+        help='Switch to choose if primary keys in desired new models are STRING or INTEGER'
+    )
+    primary_key_is_string = False
     options, args = parser.parse_args()
     if not options.code:
         parser.error('No oereb code set.')
@@ -46,5 +62,7 @@ def create_standard_model():
         parser.error('No geometry_type set.')
     if not options.target_path:
         parser.error('No target_path set.')
+    if options.primary_key_is_string:
+        primary_key_is_string = True
     _create_standard_configuration_models_py_(options.code, options.geometry_type, options.target_path,
-                                              options.schema)
+                                              options.schema, primary_key_is_string)

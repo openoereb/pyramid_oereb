@@ -21,7 +21,8 @@ def convert_camel_case_to_text_form(name):
     return re.sub('([a-z0-9])([A-Z])', r'\1 \2', s1)
 
 
-def _create_standard_configuration_models_py_(code, geometry_type, absolute_path, schema=None):
+def _create_standard_configuration_models_py_(code, geometry_type, absolute_path, schema=None,
+                                              primary_key_is_string=False):
     """
     The simplest way to get a python file containing a database definition in sqlalchemy orm way. It will
      contain all necessary definitions to produce an extract as the specification defines for the new topic.
@@ -32,15 +33,27 @@ def _create_standard_configuration_models_py_(code, geometry_type, absolute_path
         absolute_path (str): The absolute Path where the genderated python file will be placed. It
             must bewriteable by the user running this command.
         schema (str): The schema name. If not specified, "name" will be used.
+        primary_key_is_string (str): The type of the primary key. You can use this to switch between STRING
+            type or INTEGER type. Standard is to INTEGER => False
     """
-    template = Template(
-        filename=AssetResolver('pyramid_oereb').resolve('standard/templates/plr.py.mako').abspath()
-    )
+    if primary_key_is_string:
+        template = Template(
+            filename=AssetResolver('pyramid_oereb').resolve(
+                'standard/templates/plr_string_primary_keys.py.mako'
+            ).abspath()
+        )
+    else:
+        template = Template(
+            filename=AssetResolver('pyramid_oereb').resolve(
+                'standard/templates/plr_integer_primary_keys.py.mako'
+            ).abspath()
+        )
     name = convert_camel_case_to_snake_case(code)
     content = template.render(**{
         'topic': convert_camel_case_to_text_form(code),
         'schema_name': schema or name,
-        'geometry_type': geometry_type
+        'geometry_type': geometry_type,
+        'primary_key_is_string': primary_key_is_string
     })
     models_path = '{path}/{name}.py'.format(
         path=absolute_path,
