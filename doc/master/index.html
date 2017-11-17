@@ -175,6 +175,20 @@ application.</p>
 <p>The application is separated into different layers to provide different points to hook into it for easier
 customization.</p>
 <a class="reference internal image-reference" href="_images/base_architecture.png"><img alt="_images/base_architecture.png" class="align-center" src="_images/base_architecture.png" style="width: 427.8px; height: 501.40000000000003px;" /></a>
+<p>The server provides access to the 4 services:</p>
+<ul class="simple">
+<li>GetExtractById</li>
+<li>GetEGRID</li>
+<li>GetCapabilities</li>
+<li>GetVersions</li>
+</ul>
+<p>The server is able to use ÖEREBlex, GeoAdmin API for gathering data. This needs to be configured and prepared
+by the integrator of this package. In addition a small tool for loading legend symbols for each used WMS layer
+is included.</p>
+<p>For the moment we provide an adapter to get the PDF static extract from mapfishprint.</p>
+<img alt="_images/overview.png" class="align-center" src="_images/overview.png" />
+<p>As mentioned above we used a layer architecture for this project. See following graphic:</p>
+<img alt="_images/detail.png" src="_images/detail.png" />
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -236,7 +250,6 @@ customization.</p>
         <dl>
             <dt>Branches</dt>
             <dd><a href="index.html">master</a></dd>
-            <dd><a href="../requires-io-master/index.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>
