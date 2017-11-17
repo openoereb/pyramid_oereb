@@ -10,14 +10,6 @@ def create_standard_model():
                     'specification like data'
     )
 
-    def str2bool(v):
-        if v.lower() in ('yes', 'true', 't', 'y', '1'):
-            return True
-        elif v.lower() in ('no', 'false', 'f', 'n', '0'):
-            return False
-        else:
-            raise parser.error('Boolean value expected.')
-
     parser.add_option(
         '-c', '--code',
         dest='code',
@@ -51,7 +43,7 @@ def create_standard_model():
     parser.add_option(
         '-s', '--primary_key_is_string',
         dest='primary_key_is_string',
-        metavar='PRIMARY KEY IS STRING',
+        metavar='PRIMARY_KEY_IS_STRING',
         help='Switch to choose if primary keys in desired new models are STRING or INTEGER'
     )
     primary_key_is_string = False

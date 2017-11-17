@@ -33,7 +33,7 @@ def _create_standard_configuration_models_py_(code, geometry_type, absolute_path
         absolute_path (str): The absolute Path where the genderated python file will be placed. It
             must bewriteable by the user running this command.
         schema (str): The schema name. If not specified, "name" will be used.
-        primary_key_is_string (str): The type of the primary key. You can use this to switch between STRING
+        primary_key_is_string (bool): The type of the primary key. You can use this to switch between STRING
             type or INTEGER type. Standard is to INTEGER => False
     """
     if primary_key_is_string:
@@ -52,8 +52,7 @@ def _create_standard_configuration_models_py_(code, geometry_type, absolute_path
     content = template.render(**{
         'topic': convert_camel_case_to_text_form(code),
         'schema_name': schema or name,
-        'geometry_type': geometry_type,
-        'primary_key_is_string': primary_key_is_string
+        'geometry_type': geometry_type
     })
     models_path = '{path}/{name}.py'.format(
         path=absolute_path,
