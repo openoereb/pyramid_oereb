@@ -41,7 +41,7 @@ def create_standard_model():
         help='The schema name. If not specified, it will be derived from the code.'
     )
     parser.add_option(
-        '-s', '--primary_key_is_string',
+        '-k', '--primary_key_is_string',
         dest='primary_key_is_string',
         metavar='PRIMARY_KEY_IS_STRING',
         help='Switch to choose if primary keys in desired new models are STRING or INTEGER'
