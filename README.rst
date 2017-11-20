@@ -14,8 +14,8 @@ any Pyramid web application.
 Please refer to the `documentation <https://camptocamp.github.io/pyramid_oereb/doc/>`__ for detailed
 information and instructions for installation and configuration.
 
-If you are interested in contributing or extending the project, take a look at the `contribution guidelines
-<CONTRIBUTING.rst>`__.
+If you are interested in contributing or extending the project, take a look at the
+`contribution page <https://github.com/camptocamp/pyramid_oereb/doc/contrib/>`__.
 
 .. |Build Status| image:: https://travis-ci.com/camptocamp/pyramid_oereb.svg?token=oTUZsPVUPe1BYV5bzANE&branch=master
    :target: https://travis-ci.com/camptocamp/pyramid_oereb
