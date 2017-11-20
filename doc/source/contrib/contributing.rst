@@ -15,8 +15,8 @@ Contributing to Documentation
 
 Changing the documentation
 --------------------------
-Check out the current master of *pyramid_oereb* locally and edit the documentation source files just like you 
-would edit the source code of the GitHub project. 
+Check out the current master of *pyramid_oereb* locally and edit the documentation source files just like you
+would edit the source code of the GitHub project.
 
 Generating the documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -37,7 +37,7 @@ Contributing to the Code
 Create a local development instance
 -----------------------------------
 
-You can checkout the current master and run *pyramid\_oereb* locally. 
+You can checkout the current master and run *pyramid\_oereb* locally.
 We recommend to use a linux system but the application is tested and
 may also be used in a windows environment.
 
@@ -63,16 +63,15 @@ its directory.
  git clone https://github.com/camptocamp/pyramid_oereb.git
  cd pyramid_oereb
 
-Build and start your local installation using ``make serve``. 
+Build and start your local installation using ``make serve``.
 To stop the server, press ``CTRL`` + ``C``.
 
 NOTE
    You can try your oereb server as follows.
-   In your browser, check the following URL:
+   In your browser, check the following URL (the latter two are based on sample data):
 
    -  http://localhost:6543/oereb/versions
    -  http://localhost:6543/oereb/capabilities
-   Now try the following requests; these are based on sample data:
    -  http://localhost:6543/oereb/getegrid?XY=2608883,1261844
    -  http://localhost:6543/oereb/extract/reduced/xml/CH113928077734
 
@@ -310,7 +309,7 @@ To run the test suite, do ``make tests``.
 
 NOTE
    The test suite will generate and start a test database, on port 5432. Please check whether you already have
-   a database server running on this port, if so, please stop it before starting the tests. 
+   a database server running on this port, if so, please stop it before starting the tests.
 
 Documentation style
 -------------------
