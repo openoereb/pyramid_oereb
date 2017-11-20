@@ -16,5 +16,5 @@ pyreproj==1.0.0
 lxml==4.1.1
 generateDS==2.28.2
 requests==2.18.4
-geolink-formatter==1.1.2
+geolink-formatter==1.2.0
 pyconizer==0.1.4
