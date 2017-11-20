@@ -2,17 +2,17 @@
 # need to get an up and running server.
 
 # The line below represents the "entry point" for the yaml configuration also called section. Keep this in
-# mind for later stuff. You can change it to your favorite name. For the moment this is enough to know.
+# mind for later stuff. You can change it to your favorite name.
 pyramid_oereb:
 
 
-  # Here you can set a central proxy which can be used somewhere in the application.
+  # Here you can set a central proxy which can be used in the application.
   # proxies:
     # http: http://"username":"password"@your_proxy.com:8088
     # https: https://"username":"password"@your_proxy.com:8088
 
   # The "language" property is a list of all languages provided by this application. In the moment this only
-  # affects the output of the capabilities webservice. Whatever in later versions it will be the configuration
+  # affects the output of the capabilities webservice. In later versions, it will be the configuration
   # also for the translation mechanism. TODO: Add more details When this feature is fully implemented!
   language:
     - de
@@ -40,15 +40,15 @@ pyramid_oereb:
   default_language: de
 
   # The "flavour" property is a list of all flavours of data extracts provided by this application.
-  # For the moment this only affects the output of the capabilities webservice. Whatever in later
-  # versions it is the place to directly influence the available output formats.
+  # For the moment this only affects the output of the capabilities webservice. In later
+  # versions, this will be the place to directly influence the available output formats.
   #
   # Possible flavours are: REDUCED, FULL, EMBEDDABLE, SIGNED
   # REDUCED:  Means that depending on the cantonal implementation you may be able to select
-  #	          a defined combination ot topics to extract (e.g. only 'federal' topics without
-  #	          cantonal extensions - and choosing this option legal provions are only output
+  #	          a defined combination of topics to extract (e.g. only 'federal' topics without
+  #	          cantonal extensions - and choosing this option, legal provisions are only output
   #           as link.
-  # FULL:			Means you get all topics wheter they are defined in the 17 base topics or if they
+  # FULL:			Means you get all topics, whether they are defined in the 17 base topics or if they
   #						are cantonal specificities.
   #						The extract will also have the legal provisions and referenced documents
   #						included as PDF.
@@ -79,19 +79,19 @@ pyramid_oereb:
     pdf_map_size_millimeters: [174, 99]
     # Base URL with application of the print server
     base_url: http://print:8080/print/oereb
-    # Name of the print tempate to use
+    # Name of the print template to use
     template_name: A4 portrait
-    # The headers send to the print
+    # The headers sent to the print
     headers:
       Content-Type: application/json; charset=UTF-8
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
-  # creation process. Because this name is used as schema name in the target database. The app_schema holds
+  # creation process, because this name is used as schema name in the target database. The app_schema holds
   # all application stuff like: addresses, municipalities, real estates, etc.
   # Please note that this is only necessary if you want to use the standard configuration. Normally you don't
   # need to adjust this. Only in the unlikely case of another schema in the same database with the same name
-  # you can change it here to avoid name collision. Of cause you can configure the application to load these
-  # data from else where.
+  # you can change it here to avoid name collision. Of course you can configure the application to load this
+  # data from elsewhere.
   app_schema:
     name: pyramid_oereb_main
     models: pyramid_oereb.standard.models.main
@@ -159,11 +159,11 @@ pyramid_oereb:
   # The extract provides logos. Therefor you need to provide a path to these logos. Note: This must be a
   # valid absolute system path available for reading by the user running this server.
   logo:
-    # The logo representing the swiss confederation (you can use it as is cause it is provided in this
-    # repository). But if you need to change it for any reason: Feel free...
+    # The logo representing the swiss confederation. You can use it as is because it is provided in this
+    # repository, but if you need to change it for any reason: Feel free...
     confederation: ${png_root_dir}logo_confederation.png
-    # The logo representing the oereb extract CI (you can use it as is cause it is provided in this
-    # repository). But if you need to change it for any reason: Feel free...
+    # The logo representing the oereb extract CI. You can use it as is because it is provided in this
+    # repository, but if you need to change it for any reason: Feel free...
     oereb: ${png_root_dir}logo_oereb.png
     # The logo representing your canton. Replace with your own logo!
     canton: ${png_root_dir}logo_canton.png
@@ -175,9 +175,9 @@ pyramid_oereb:
   get_municipality_method: pyramid_oereb.standard.hook_methods.get_municipality
 
   # The processor of the oereb project needs access to real estate data. In the standard configuration this
-  # is assumed to be read from a database. Hint: If you like to read the real estate out of an existing
-  # database table to avoid imports of this data every time it gets updates you only need to change the model
-  # bound to the source. The model must implement the same field names and information then the default model
+  # is assumed to be read from a database. Hint: If you want to read the real estate out of an existing
+  # database table to avoid imports of this data every time it gets updates, you only need to change the model
+  # bound to the source. The model must implement the same field names and information as the default model
   # does.
   real_estate:
     view_service:
@@ -187,7 +187,7 @@ pyramid_oereb:
       # legend_at_web:
     visualisation:
       method: pyramid_oereb.standard.hook_methods.produce_sld_content
-      # Note: This parameters must fit to the attributes provided by the RealEstateRecord!!!!
+      # Note: these parameters must fit to the attributes provided by the RealEstateRecord!!!!
       url_params:
         - egrid
       layer:
@@ -198,33 +198,33 @@ pyramid_oereb:
         stroke_width: 5
     # The real estate must have a property source.
     source:
-      # The source must have a class which represents the accessor to the source. In this case it is a source
-      # already implemented which reads data from a database.
+      # The source must have a class which represents the accessor to the source. In this example, it is a an
+      # already implemented source which reads data from a database.
       class: pyramid_oereb.standard.sources.real_estate.DatabaseSource
-      # The configured class accepts params which are also necessary to define
+      # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the real estate database table.
         model: pyramid_oereb.standard.models.main.RealEstate
 
-  # The processor of the oereb project needs access to address data. In the standard configuration this
-  # is assumed to be read from a database. Hint: If you like to read the addresses out of an existing database
-  # table to avoid imports of this data every time it gets updates you only need to change the model bound to
-  # the source. The model must implement the same field names and information then the default model does.
+  # The processor of the oereb project needs access to address data. In the standard configuration, this
+  # is assumed to be read from a database. Hint: If you want to read the addresses out of an existing database
+  # table to avoid imports of this data every time it gets updatesi, you only need to change the model bound to
+  # the source. The model must implement the same field names and information as the default model does.
   address:
     # The address must have a property source.
     source:
-      # The source must have a class which represents the accessor to the source. In this case it is a source
-      # already implemented which reads data from a database.
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source which reads data from a database.
       class: pyramid_oereb.standard.sources.address.DatabaseSource
-      # The configured class accepts params which are also necessary to define
+      # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the address database table.
         model: pyramid_oereb.standard.models.main.Address
-      # Alternatively you can use the search service of the GeoAdmin API to look up the real estate by
+      # Alternatively, you can use the search service of the GeoAdmin API to look up the real estate by
       # address. Replace the configuration above with the following lines:
       # class: pyramid_oereb.lib.sources.address.AddressGeoAdminSource
       # params:
@@ -234,17 +234,17 @@ pyramid_oereb:
         # origins: address
 
   # The processor of the oereb project needs access to municipality data. In the standard configuration this
-  # is assumed to be read from a database. Hint: If you like to read the municipality out of an existing
-  # database table to avoid imports of this data every time it gets updates you only need to change the model
-  # bound to the source. The model must implement the same field names and information then the default model
+  # is assumed to be read from a database. Hint: If you want to read the municipality out of an existing
+  # database table to avoid imports of this data every time it gets updates, you only need to change the model
+  # bound to the source. The model must implement the same field names and information as the default model
   # does.
   municipality:
     # The municipality must have a property source.
     source:
-      # The source must have a class which represents the accessor to the source. In this case it is a source
-      # already implemented which reads data from a database.
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source hich reads data from a database.
       class: pyramid_oereb.standard.sources.municipality.DatabaseSource
-      # The configured class accepts params which are also necessary to define
+      # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
@@ -252,16 +252,16 @@ pyramid_oereb:
         model: pyramid_oereb.standard.models.main.Municipality
 
   # The processor of the oereb project needs access to glossary data. In the standard configuration this
-  # is assumed to be read from a database. Hint: If you like to read the glossary out of an existing database
-  # table to avoid imports of this data every time it gets updates you only need to change the model bound to
-  # the source. The model must implement the same field names and information then the default model does.
+  # is assumed to be read from a database. Hint: If you want to read the glossary out of an existing database
+  # table to avoid imports of this data every time it gets updatesi, you only need to change the model bound to
+  # the source. The model must implement the same field names and information as the default model does.
   glossary:
     # The glossary must have a property source.
     source:
-      # The source must have a class which represents the accessor to the source. In this case it is a source
-      # already implemented which reads data from a database.
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source which reads data from a database.
       class: pyramid_oereb.standard.sources.glossary.DatabaseSource
-      # The configured class accepts params which are also necessary to define
+      # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
@@ -269,28 +269,28 @@ pyramid_oereb:
         model: pyramid_oereb.standard.models.main.Glossary
 
   # The processor of the oereb project needs access to exclusion of liability data. In the standard
-  # configuration this is assumed to be read from a database. Hint: If you like to read the exclusion of
-  # liability out of an existing database table to avoid imports of this data every time it gets updates you
+  # configuration this is assumed to be read from a database. Hint: If you wamt to read the exclusion of
+  # liability out of an existing database table to avoid imports of this data every time it gets updates, you
   # only need to change the model bound to the source. The model must implement the same field names and
-  # information then the default model does.
+  # information as the default model does.
   exclusion_of_liability:
     # The exclusion_of_liability must have a property source.
     source:
-      # The source must have a class which represents the accessor to the source. In this case it is a source
-      # already implemented which reads data from a database.
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source which reads data from a database.
       class: pyramid_oereb.standard.sources.exclusion_of_liability.DatabaseSource
-      # The configured class accepts params which are also necessary to define
+      # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the exclusion_of_liability database table.
         model: pyramid_oereb.standard.models.main.ExclusionOfLiability
 
-  # The extract is more an abstract implementation of a source. It is the entry point which binds everything
+  # The extract is the entry point which binds everything
   # related to data together.
   extract:
     # Information about the base data used for the extract, e.g. the used base map and its currentness.
-    # This is a multlingual value. At least the set default language has to be defined.
+    # This is a multilingual value. In the minimum, the value for the default language has to be defined.
     base_data:
         text:
           de: Daten der amtlichen Vermessung, Stand {0}.
@@ -302,7 +302,7 @@ pyramid_oereb:
           provider:  pyramid_oereb.standard.hook_methods.get_surveying_data_provider
 
 
-  # All PLR's which are provided by this application. This is related to all application behaviour. Especially
+  # All PLRs which are provided by this application. This is related to all application behaviour, especially
   # the extract creation process which loops over this list.
   plrs:
 
@@ -310,7 +310,7 @@ pyramid_oereb:
       code: LandUsePlans
       geometry_type: GEOMETRYCOLLECTION
       # Define the minmal area and length for public law restrictions that should be considered as 'true' restrictions
-      # and not as calculation errors (false true's) due to topological imperfections
+      # and not as calculation errors (false trues) due to topological imperfections
       thresholds:
         length:
           limit: 1.0
