@@ -1,18 +1,44 @@
+.. _contributing:
+
+==============================
 Contributing to pyramid\_oereb
 ==============================
 
-.. contents::
-
 Contributor License Agreement
------------------------------
+=============================
 Please follow the `instructions <https://github.com/camptocamp/pyramid_oereb/tree/master/cla>`__ and sign the CLA.
 
+Contributing to Documentation
+=============================
+
+.. _code_documentation_style:
+
+Changing the documentation
+--------------------------
+Check out the current master of *pyramid_oereb* locally and edit the documentation source files just like you 
+would edit the source code of the GitHub project. 
+
+Generating the documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run ``make doc`` to generate the documentation;
+check for any warnings or errors related to your changes.
+
+Code Documentation
+~~~~~~~~~~~~~~~~~~
+
+Some parts of the documentation are built directly from the code.
+The documentation is built using `Sphinx <http://sphinx-doc.org/>`__, so the code documentation uses
+`Google style docstrings
+<http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html>`__.
+
+Contributing to the Code
+========================
 
 Create a local development instance
 -----------------------------------
 
-You can checkout the current master and run *pyramid\_oereb* locally, but we cannot guarantee a working
-configuration as it is under development. We recommend to use a linux system but the application is tested and
+You can checkout the current master and run *pyramid\_oereb* locally. 
+We recommend to use a linux system but the application is tested and
 may also be used in a windows environment.
 
 NOTE
@@ -25,7 +51,7 @@ Requirements:
 
 -  `Git <https://git-scm.com/>`__
 -  `Python <https://www.python.org/>`__
--  `Virutalenv <https://virtualenv.pypa.io/en/stable/>`__
+-  `Virtualenv <https://virtualenv.pypa.io/en/stable/>`__
 -  `Docker <https://docker.com/>`__
 -  `make <https://www.gnu.org/software/make/>`__
 
@@ -37,45 +63,16 @@ its directory.
  git clone https://github.com/camptocamp/pyramid_oereb.git
  cd pyramid_oereb
 
-You can set up the virtual environment using ``make install`` and run the unit tests using ``make checks``.
-
-Quick way to have a working environment, commands to call on different consoles (notes that you shouldn't
-have a other postgres running on localhost):
-
-.. code-block:: shell
-
-   make serve-db-dev # Runs the example database
-   make serve-print-example # Runs a simple print server
-   make serve # Runs the application
-
-In details:
-
-Create an empty database using docker.
-
-.. code-block:: shell
-
- docker run --name postgis-oereb -e POSTGRES_PASSWORD=password -e POSTGRES_DB=pyramid_oereb \
- --net host -d mdillon/postgis:9.4-alpine
-
-Now you can use ``docker container start/stop/restart postgis-oereb`` to control your database. Ensure the
-database is running.
-
-Create your configuration file and load the sample data.
-
-.. code-block:: shell
-
- .venv/bin/create_standard_yaml
- .venv/bin/create_standard_tables -c pyramid_oereb_standard.yml
- .venv/bin/python pyramid_oereb/standard/load_sample_data.py -c pyramid_oereb_standard.yml
-
-To start a local server run ``make serve``. It should be available under http://localhost:6543/oereb/. To stop
-the server, press ``CTRL`` + ``C``.
+Build and start your local installation using ``make serve``. 
+To stop the server, press ``CTRL`` + ``C``.
 
 NOTE
-   These sample requests should work, if you have loaded the sample data:
+   You can try your oereb server as follows.
+   In your browser, check the following URL:
 
    -  http://localhost:6543/oereb/versions
    -  http://localhost:6543/oereb/capabilities
+   Now try the following requests; these are based on sample data:
    -  http://localhost:6543/oereb/getegrid?XY=2608883,1261844
    -  http://localhost:6543/oereb/extract/reduced/xml/CH113928077734
 
@@ -262,10 +259,6 @@ NOTE
 
        .build\venv\Scripts\pserve development.ini
 
-   Call a sample extract: http://localhost:6543/oereb/extract/embeddable/json/CH113928077734
-
-   Or at least http://localhost:6543/oereb/versions.json
-
 Update existing pyramid\_oereb package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -294,8 +287,31 @@ Update existing pyramid\_oereb package
 
     .build\venv\Scripts\python setup.py develop
 
+Testing the application
+-----------------------
+
+Browser requests
+~~~~~~~~~~~~~~~~
+
+Once your application has started as describe above,
+you can try your oereb server as follows.
+In your browser, check the following URL:
+   * http://localhost:6543/oereb/versions
+   * http://localhost:6543/oereb/capabilities
+
+Now try the following requests; these are based on sample data:
+   * http://localhost:6543/oereb/getegrid?XY=2608883,1261844
+   * http://localhost:6543/oereb/extract/reduced/xml/CH113928077734
+
+Test suite
+~~~~~~~~~~
+
+To run the test suite, do ``make tests``.
+
+NOTE
+   The test suite will generate and start a test database, on port 5432. Please check whether you already have
+   a database server running on this port, if so, please stop it before starting the tests. 
+
 Documentation style
 -------------------
-
-The documentation is built using `Sphinx <http://sphinx-doc.org/>`__. You have to use `Google style docstrings
-<http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html>`__ for documenting the code.
+Regarding code documentation style, see :ref:`code_documentation_style`.
