@@ -160,7 +160,9 @@ test-db/12-create.sql: pyramid_oereb_standard.yml .venv/install-timestamp
 
 test-db/13-fill.sql: pyramid_oereb_standard.yml .venv/install-timestamp \
 	$(shell ls -1 sample_data/*.json) \
-	$(shell ls -1 sample_data/plr119/*.json)
+	$(shell ls -1 sample_data/plr119/contaminated_public_transport_sites/*.json) \
+	$(shell ls -1 sample_data/plr119/groundwater_protection_zones/*.json) \
+	$(shell ls -1 sample_data/plr119/forest_perimeters/*.json)
 	$(VENV_BIN)python pyramid_oereb/standard/load_sample_data.py --configuration $< --sql-file $@
 	docker rm pyramidoereb_db_1 | true
 
