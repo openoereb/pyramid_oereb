@@ -156,9 +156,13 @@ pyramid_oereb_standard.yml: .venv/install-timestamp
 
 test-db/12-create.sql: pyramid_oereb_standard.yml .venv/install-timestamp
 	$(VENV_BIN)create_standard_tables$(PYTHON_BIN_POSTFIX) --configuration $< --sql-file $@
+	docker rm pyramidoereb_db_1 | true
 
-test-db/13-fill.sql: pyramid_oereb_standard.yml .venv/install-timestamp
+test-db/13-fill.sql: pyramid_oereb_standard.yml .venv/install-timestamp \
+	$(shell ls -1 sample_data/*.json) \
+	$(shell ls -1 sample_data/plr119/*.json)
 	$(VENV_BIN)python pyramid_oereb/standard/load_sample_data.py --configuration $< --sql-file $@
+	docker rm pyramidoereb_db_1 | true
 
 .PHONY: deploy
 deploy:
