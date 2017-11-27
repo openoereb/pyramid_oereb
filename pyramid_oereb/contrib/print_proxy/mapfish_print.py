@@ -125,8 +125,8 @@ class Renderer(JsonRenderer):
                 self._multilingual_text(legend_item, 'LegendText')
 
             for legend_entry in restriction_on_landownership['OtherLegend']:
-                for element in legend_entry.keys():
-                    if element not in ['LegendText', 'SymbolRef', 'TypeCode']:
+                for element in ['LegendText', 'SymbolRef', 'TypeCode']:
+                    if element in legend_entry:
                         del legend_entry[element]
 
             del restriction_on_landownership['Map']  # /definitions/Map
@@ -177,8 +177,8 @@ class Renderer(JsonRenderer):
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
             theme = restriction_on_landownership['Theme_Code']
             geom_type = \
-                'Area' if restriction_on_landownership.get('Area') is not None else \
-                'Length' if restriction_on_landownership.get('Length') is not None else 'Point'
+                'Area' if 'Area' in restriction_on_landownership else \
+                'Length' if 'Length' in restriction_on_landownership else 'Point'
 
             if theme not in theme_restriction:
                 current = dict(restriction_on_landownership)
@@ -245,8 +245,11 @@ class Renderer(JsonRenderer):
                 type_ = legend['TypeCode']
                 if type_ in legends:
                     for item in ['Area', 'Length', 'PartInPercent']:
-                        if legend.get(item) is not None:
-                            legends[type_][item] += legend[item]
+                        if item in legend:
+                            if item in legends[type_]:
+                                legends[type_][item] += legend[item]
+                            else:
+                                legends[type_][item] = legend[item]
                 else:
                     legends[type_] = legend
             for legend in legends.values():
