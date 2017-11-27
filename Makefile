@@ -54,7 +54,7 @@ install: $(PYTHON_VENV)
 	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --requirement $(REQUIREMENTS)
 	touch $@
 
-.venv/install-timestamp: .venv/timestamp setup.py $(REQUIREMENTS)
+.venv/install-timestamp: .venv/timestamp setup.py requirements.txt
 	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --requirement requirements.txt
 	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --editable .
 	touch $@
