@@ -126,6 +126,10 @@ pyramid_oereb:
   oereblex:
     # OEREBlex host
     host: https://oereblex.bl.ch
+    # geoLink schema version
+    # version: 1.1.0
+    # Pass schema version in URL
+    # pass_version: true
     # Language of returned values
     language: de
     # Value for canton attribute
@@ -143,6 +147,10 @@ pyramid_oereb:
     # proxy:
     #   http:
     #   https:
+    # Credentials for basic authentication
+    # auth:
+    #   username:
+    #   password:
 
   # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
   # will be directly used for producing the extract output.
