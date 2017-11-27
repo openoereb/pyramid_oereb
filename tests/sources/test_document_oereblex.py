@@ -5,6 +5,7 @@ import datetime
 import pytest
 import requests_mock
 from geolink_formatter.entity import Document, File
+from requests.auth import HTTPBasicAuth
 
 from pyramid_oereb.contrib.sources.document import OEREBlexSource
 from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord
@@ -135,7 +136,7 @@ def test_get_document_records(i, document):
 
 def test_read():
     with requests_mock.mock() as m:
-        with open('./tests/resources/geolink.xml', 'rb') as f:
+        with open('./tests/resources/geolink_v1.1.0.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL')
         source.read(100)
@@ -153,7 +154,7 @@ def test_read():
 
 def test_read_related_decree_as_main():
     with requests_mock.mock() as m:
-        with open('./tests/resources/geolink.xml', 'rb') as f:
+        with open('./tests/resources/geolink_v1.1.0.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
                                 related_decree_as_main=True)
@@ -168,3 +169,32 @@ def test_read_related_decree_as_main():
             'de': 'http://oereblex.example.com/api/attachments/313'
         }
         assert len(document.references) == 4
+
+
+def test_read_with_version_in_url():
+    with requests_mock.mock() as m:
+        with open('./tests/resources/geolink_v1.1.0.xml', 'rb') as f:
+            m.get('http://oereblex.example.com/api/1.1.0/geolinks/100.xml', content=f.read())
+        source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
+                                pass_version=True)
+        source.read(100)
+        assert len(source.records) == 2
+
+
+def test_read_with_specified_version():
+    with requests_mock.mock() as m:
+        with open('./tests/resources/geolink_v1.0.0.xml', 'rb') as f:
+            m.get('http://oereblex.example.com/api/1.0.0/geolinks/100.xml', content=f.read())
+        source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
+                                pass_version=True, version='1.0.0')
+        source.read(100)
+        assert len(source.records) == 2
+
+
+def test_authentication():
+    auth = {
+        'username': 'test',
+        'password': 'test'
+    }
+    source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL', auth=auth)
+    assert isinstance(source._auth, HTTPBasicAuth)

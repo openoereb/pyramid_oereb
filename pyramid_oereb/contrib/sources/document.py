@@ -53,6 +53,8 @@ class OEREBlexSource(Base):
         auth = kwargs.get('auth')
         if isinstance(auth, dict) and 'username' in auth and 'password' in auth:
             self._auth = HTTPBasicAuth(auth.get('username'), auth.get('password'))
+        else:
+            self._auth = None
 
         self._language = str(kwargs.get('language')).lower()
         assert self._language is not None and len(self._language) == 2
