@@ -27,6 +27,7 @@ __pycache__/
 
 # Standard configuration
 /pyramid_oereb_standard.yml
+/pyramid_oereb/standard/pyramid_oereb.yml
 /logo_*.png
 
 # Generated files

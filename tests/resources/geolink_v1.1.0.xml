@@ -4,9 +4,17 @@
               authority_url='https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei'
               category='main' doctype='decree' enactment_date='1974-08-27' federal_level='Kanton' id='100'
               subtype='Reigoldswil' title='GWSZ Weihermatt- und Habermattquellen'
-              type='Grundwasserschutzzonen'>
+              type='Grundwasserschutzzonen' abbreviation="GWSZ" number="1974_08_27_2858">
         <file category='main' href='/api/attachments/313' title='1974_08_27_2858.pdf'></file>
         <file category='additional' href='/api/attachments/145' title='BL_54_WZ_00_00.pdf'></file>
+
+    </document>
+    <document authority='Landeskanzlei'
+              authority_url='https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei'
+              category='related' doctype='decree' enactment_date='1974-08-27' federal_level='Kanton' id='101'
+              subtype='Reigoldswil' title='GWSZ Weihermatt- und Habermattquellen'
+              type='Grundwasserschutzzonen'>
+        <file category='main' href='/api/attachments/314' title='1974_08_27_2858_addition.pdf'></file>
 
     </document>
     <document authority='Landeskanzlei'

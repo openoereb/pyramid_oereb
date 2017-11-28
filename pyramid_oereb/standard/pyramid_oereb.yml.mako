@@ -126,17 +126,31 @@ pyramid_oereb:
   oereblex:
     # OEREBlex host
     host: https://oereblex.bl.ch
+    # geoLink schema version
+    # version: 1.1.0
+    # Pass schema version in URL
+    # pass_version: true
     # Language of returned values
     language: de
     # Value for canton attribute
     canton: BL
     # Mapping for other optional attributes
     mapping:
-      municipality: subtype
+      official_number: number
+      abbreviation: abbreviation
+    # Handle related decree also as main document
+    # By default a related decree will be added as reference of the type "legal provision" to the main
+    # document. Set this flag to true, if you want the related decree to be added as additional legal
+    # provision directly to the public law restriction. This might have an impact on client side rendering.
+    related_decree_as_main: false
     # Proxy to be used for web requests
     # proxy:
     #   http:
     #   https:
+    # Credentials for basic authentication
+    # auth:
+    #   username:
+    #   password:
 
   # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
   # will be directly used for producing the extract output.
