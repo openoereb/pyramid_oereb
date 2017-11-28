@@ -68,7 +68,6 @@
 	<parameter name="LogoPLRCadastreRef" class="java.lang.String"/>
 	<parameter name="PLRCadastreAuthority_Name" class="java.lang.String"/>
 	<parameter name="PLRCadastreAuthority_OfficeAtWeb" class="java.lang.String"/>
-	<parameter name="RealEstate_Limit" class="java.lang.String"/>
 	<parameter name="RealEstate_PlanForLandRegister" class="java.lang.String"/>
 	<parameter name="RealEstate_Municipality" class="java.lang.String"/>
 	<parameter name="RealEstate_LandRegistryArea" class="java.lang.String"/>
