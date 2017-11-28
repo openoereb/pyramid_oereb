@@ -12,15 +12,15 @@
         <%include file="geometry/line.xml" args="line=geometry"/>
     % endfor
 %elif 'Polygon' == geometry.type:
-    <xsd:Surface>
+    <Surface>
         <%include file="geometry/polygon.xml" args="polygon=geometry"/>
-    </xsd:Surface>
+    </Surface>
 %elif 'MultiPolygon' == geometry.type:
-    <xsd:Surface>
+    <Surface>
         %for polygon in geometry.geoms:
             <%include file="geometry/polygon.xml" args="polygon=geometry"/>
         %endfor
-    </xsd:Surface>
+    </Surface>
 % else:
     <% raise TypeError('Passed geometry type is not defined: {type}'.format(type=geometry.type))%>
 %endif

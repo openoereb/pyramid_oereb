@@ -1,15 +1,15 @@
 <%page args="geometry"/>
-<xsd:Geometry>
+<Geometry>
     %if params.geometry:
         <%include file="specific_geometry.xml" args="geometry=geometry.geom"/>
     %endif
-    <xsd:Lawstatus>
+    <Lawstatus>
         <%include file="law_status.xml" args="law_status=geometry.law_status"/>
-    </xsd:Lawstatus>
-    <xsd:MetadataOfGeographicalBaseData>
+    </Lawstatus>
+    <MetadataOfGeographicalBaseData>
         ${geometry.geo_metadata}
-    </xsd:MetadataOfGeographicalBaseData>
-    <xsd:ResponsibleOffice>
+    </MetadataOfGeographicalBaseData>
+    <ResponsibleOffice>
         <%include file="office.xml" args="office=geometry.office"/>
-    </xsd:ResponsibleOffice>
-</xsd:Geometry>
+    </ResponsibleOffice>
+</Geometry>

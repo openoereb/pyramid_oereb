@@ -1,8 +1,8 @@
 <%page args="datasource"/>
-<xsd:datasource>
-    <xsd:topic>
+<datasource>
+    <topic>
         <%include file="theme.xml" args="theme=datasource.theme"/>
-    </xsd:topic>
-    <xsd:dataownerName>${localized(datasource.owner.name).get('Text')}</xsd:dataownerName>
-    <xsd:transferFromSource>${datasource.date}</xsd:transferFromSource>
-</xsd:datasource>
+    </topic>
+    <dataownerName>${localized(datasource.owner.name).get('Text')}</dataownerName>
+    <transferFromSource>${datasource.date}</transferFromSource>
+</datasource>

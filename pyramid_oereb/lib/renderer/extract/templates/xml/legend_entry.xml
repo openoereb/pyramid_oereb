@@ -1,21 +1,21 @@
 <% from pyramid_oereb import route_prefix %>
 <%page args="legend_entry"/>
-<xsd:LegendEntry>
+<LegendEntry>
     %if params.images:
-    <xsd:Symbol>${legend_entry.symbol.encode()}</xsd:Symbol>
+    <Symbol>${legend_entry.symbol.encode()}</Symbol>
     %else:
-    <xsd:SymbolRef>${get_symbol_ref(request, legend_entry)|u}</xsd:SymbolRef>
+    <SymbolRef>${get_symbol_ref(request, legend_entry)|u}</SymbolRef>
     %endif
-    <xsd:LegendText>
+    <LegendText>
         <%include file="multilingual_text.xml" args="text=legend_entry.legend_text"/>
-    </xsd:LegendText>
-    <xsd:TypeCode>${legend_entry.type_code}</xsd:TypeCode>
-    <xsd:TypeCodelist>${legend_entry.type_code_list}</xsd:TypeCodelist>
+    </LegendText>
+    <TypeCode>${legend_entry.type_code}</TypeCode>
+    <TypeCodelist>${legend_entry.type_code_list}</TypeCodelist>
     <%include file="theme.xml" args="theme=legend_entry.theme"/>
     %if legend_entry.sub_theme:
-    <xsd:SubTheme>${legend_entry.sub_theme}</xsd:SubTheme>
+    <SubTheme>${legend_entry.sub_theme}</SubTheme>
     %endif
     %if legend_entry.other_theme:
-    <xsd:OtherTheme>${legend_entry.other_theme}</xsd:OtherTheme>
+    <OtherTheme>${legend_entry.other_theme}</OtherTheme>
     %endif
-</xsd:LegendEntry>
+</LegendEntry>

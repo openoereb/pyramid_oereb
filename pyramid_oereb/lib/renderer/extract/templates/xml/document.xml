@@ -1,40 +1,40 @@
 <%page args="document"/>
 <%include file="document_base.xml" args="document=document"/>
-<xsd:Title>
+<Title>
     <%include file="multilingual_text.xml" args="text=document.title"/>
-</xsd:Title>
+</Title>
 %if document.official_title:
-<xsd:OfficialTitle>
+<OfficialTitle>
     <%include file="multilingual_text.xml" args="text=document.official_title"/>
-</xsd:OfficialTitle>
+</OfficialTitle>
 %endif
 %if document.abbreviation:
-<xsd:Abbrevation>
+<Abbrevation>
     <%include file="multilingual_text.xml" args="text=document.abbreviation"/>
-</xsd:Abbrevation>
+</Abbrevation>
 %endif
 %if document.official_number:
-<xsd:OfficialNumber>
+<OfficialNumber>
     ${document.official_number}
-</xsd:OfficialNumber>
+</OfficialNumber>
 %endif
 %if document.canton:
-<xsd:Canton>
+<Canton>
     ${document.canton}
-</xsd:Canton>
+</Canton>
 %endif
 %if document.municipality:
-<xsd:Municipality>
+<Municipality>
     ${document.municipality}
-</xsd:Municipality>
+</Municipality>
 %endif
-<xsd:ResponsibleOffice>
+<ResponsibleOffice>
     <%include file="office.xml" args="office=document.responsible_office"/>
-</xsd:ResponsibleOffice>
+</ResponsibleOffice>
 %if document.article_numbers:
-<xsd:ArticleNumber>
+<ArticleNumber>
     ${document.article_numbers}
-</xsd:ArticleNumber>
+</ArticleNumber>
 %endif
 %for article in document.articles:
 <%include file="article.xml" args="article=article"/>

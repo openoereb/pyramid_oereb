@@ -1,28 +1,28 @@
 <%page args="office"/>
-<xsd:Name>
+<Name>
     <%include file="multilingual_text.xml" args="text=office.name"/>
-</xsd:Name>
+</Name>
 %if office.office_at_web:
-<xsd:OfficeAtWeb>${office.office_at_web|u}</xsd:OfficeAtWeb>
+<OfficeAtWeb>${office.office_at_web|u}</OfficeAtWeb>
 %endif
 %if office.uid:
-<xsd:UID>${office.uid}</xsd:UID>
+<UID>${office.uid}</UID>
 %endif
 %if office.line1:
-<xsd:Line1>${office.line1}</xsd:Line1>
+<Line1>${office.line1}</Line1>
 %endif
 %if office.line2:
-<xsd:Line2>${office.line2}</xsd:Line2>
+<Line2>${office.line2}</Line2>
 %endif
 %if office.street:
-<xsd:Street>${office.street}</xsd:Street>
+<Street>${office.street}</Street>
 %endif
 %if office.number:
-<xsd:Number>${office.number}</xsd:Number>
+<Number>${office.number}</Number>
 %endif
 %if office.postal_code:
-<xsd:PostalCode>${office.postal_code}</xsd:PostalCode>
+<PostalCode>${office.postal_code}</PostalCode>
 %endif
 %if office.city:
-<xsd:City>${office.city}</xsd:City>
+<City>${office.city}</City>
 %endif

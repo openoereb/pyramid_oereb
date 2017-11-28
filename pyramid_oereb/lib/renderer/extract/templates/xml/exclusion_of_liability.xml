@@ -1,9 +1,9 @@
 <%page args="exclusion_of_liability"/>
-<xsd:ExclusionOfLiability>
-    <xsd:Title>
+<ExclusionOfLiability>
+    <Title>
         <%include file="multilingual_text.xml" args="text=exclusion_of_liability.title"/>
-    </xsd:Title>
-    <xsd:Content>
+    </Title>
+    <Content>
         <%include file="multilingual_m_text.xml" args="text=exclusion_of_liability.content"/>
-    </xsd:Content>
-</xsd:ExclusionOfLiability>
+    </Content>
+</ExclusionOfLiability>

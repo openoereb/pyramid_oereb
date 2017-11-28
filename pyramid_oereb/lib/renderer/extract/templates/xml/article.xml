@@ -1,10 +1,10 @@
 <%page args="article"/>
-<xsd:Article>
+<Article>
     <%include file="document_base.xml" args="document=article"/>
-    <xsd:Number>${article.number}</xsd:Number>
+    <Number>${article.number}</Number>
     %if article.text:
-    <xsd:Text>
+    <Text>
         <%include file="multilingual_m_text.xml" args="text=article.text"/>
-    </xsd:Text>
+    </Text>
     %endif
-</xsd:Article>
+</Article>

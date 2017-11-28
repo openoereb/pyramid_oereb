@@ -1,5 +1,5 @@
 <%page args="glossary"/>
-<Glossary>
+<Glossary xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
     <Title>
         <%include file="multilingual_text.xml" args="text=glossary.title"/>
     </Title>

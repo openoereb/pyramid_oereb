@@ -2,11 +2,11 @@
 <%
     multilingual_text = multilingual(text)
 %>
-<xsd:MultilingualMText>
+<MultilingualMText>
 % for localized_text in multilingual_text:
-    <xsd:LocalisedMText>
-        <xsd:Language>${localized_text.get('Language')}</xsd:Language>
-        <xsd:Text>${localized_text.get('Text')}</xsd:Text>
-    </xsd:LocalisedMText>
+    <LocalisedMText>
+        <Language>${localized_text.get('Language')}</Language>
+        <Text>${localized_text.get('Text')}</Text>
+    </LocalisedMText>
 % endfor
-</xsd:MultilingualMText>
+</MultilingualMText>
