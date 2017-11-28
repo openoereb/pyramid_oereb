@@ -209,7 +209,6 @@ class Renderer(JsonRenderer):
             # Legend
             legend = {}
             for element in legend_element:
-                legend[element] = restriction_on_landownership.get(element)
                 if element in restriction_on_landownership:
                     legend[element] = restriction_on_landownership[element]
                     del restriction_on_landownership[element]
