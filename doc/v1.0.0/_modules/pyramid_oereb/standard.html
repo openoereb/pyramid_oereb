@@ -182,7 +182,8 @@
     <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;([a-z0-9])([A-Z])&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\1 \2&#39;</span><span class="p">,</span> <span class="n">s1</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_create_standard_configuration_models_py_</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">geometry_type</span><span class="p">,</span> <span class="n">absolute_path</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_create_standard_configuration_models_py_</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">geometry_type</span><span class="p">,</span> <span class="n">absolute_path</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                              <span class="n">primary_key_is_string</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The simplest way to get a python file containing a database definition in sqlalchemy orm way. It will</span>
 <span class="sd">     contain all necessary definitions to produce an extract as the specification defines for the new topic.</span>
@@ -193,10 +194,21 @@
 <span class="sd">        absolute_path (str): The absolute Path where the genderated python file will be placed. It</span>
 <span class="sd">            must bewriteable by the user running this command.</span>
 <span class="sd">        schema (str): The schema name. If not specified, &quot;name&quot; will be used.</span>
+<span class="sd">        primary_key_is_string (bool): The type of the primary key. You can use this to switch between STRING</span>
+<span class="sd">            type or INTEGER type. Standard is to INTEGER =&gt; False</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">template</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">AssetResolver</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="s1">&#39;standard/templates/plr.py.mako&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">abspath</span><span class="p">()</span>
-    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">primary_key_is_string</span><span class="p">:</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">AssetResolver</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span>
+                <span class="s1">&#39;standard/templates/plr_string_primary_keys.py.mako&#39;</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">abspath</span><span class="p">()</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">AssetResolver</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span>
+                <span class="s1">&#39;standard/templates/plr_integer_primary_keys.py.mako&#39;</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">abspath</span><span class="p">()</span>
+        <span class="p">)</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">convert_camel_case_to_snake_case</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
     <span class="n">content</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>
         <span class="s1">&#39;topic&#39;</span><span class="p">:</span> <span class="n">convert_camel_case_to_text_form</span><span class="p">(</span><span class="n">code</span><span class="p">),</span>
