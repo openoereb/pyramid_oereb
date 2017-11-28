@@ -30,14 +30,14 @@
     </Lawstatus>
     %endif
     %if public_law_restriction.area:
-    <AreaShare>${public_law_restriction.area}</AreaShare>
+    <Area>${public_law_restriction.area}</Area>
     <AreaUnit>${public_law_restriction.area_unit}</AreaUnit>
     %endif
     %if public_law_restriction.part_in_percent:
     <PartInPercent>${public_law_restriction.part_in_percent}</PartInPercent>
     %endif
     %if public_law_restriction.length:
-    <LengthShare>${public_law_restriction.length}</LengthShare>
+    <Length>${public_law_restriction.length}</Length>
     <LengthUnit>${public_law_restriction.length_unit}</LengthUnit>
     %endif
     %if params.images:

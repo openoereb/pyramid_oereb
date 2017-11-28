@@ -110,7 +110,7 @@
         %for exclusion_of_liability in extract.exclusions_of_liability:
         <%include file="exclusion_of_liability.xml" args="exclusion_of_liability=exclusion_of_liability"/>
         %endfor
-        <PLRCadastreAuthority>
+        <PLRCadastreAuthority xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
             <%include file="office.xml" args="office=extract.plr_cadastre_authority"/>
         </PLRCadastreAuthority>
     </data:Extract>
