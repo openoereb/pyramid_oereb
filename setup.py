@@ -11,7 +11,8 @@ with open(os.path.join(HERE, 'CHANGES.rst')) as f:
     CHANGES = f.read()
 with open('requirements.txt') as f:
     re_ = a = re.compile(r'(.+)==')
-    requires = [re_.match(r).group(1) for r in f.read().splitlines()]
+    recommand = f.read().splitlines()
+requires = [re_.match(r).group(1) for r in recommand]
 
 setup(
     name='pyramid_oereb',
@@ -37,6 +38,9 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=requires,
+    extras_require={
+        'recommand': recommand,
+    },
     entry_points={
         'paste.app_factory': [
             'main = pyramid_oereb:main'
