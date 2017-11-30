@@ -27,7 +27,7 @@
         % endfor
     </embeddable>
     %endif
-    <data:Extract>
+    <Extract>
         <CreationDate xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
             ${extract.creation_date}
         </CreationDate>
@@ -113,5 +113,5 @@
         <PLRCadastreAuthority xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
             <%include file="office.xml" args="office=extract.plr_cadastre_authority"/>
         </PLRCadastreAuthority>
-    </data:Extract>
+    </Extract>
 </GetExtractByIdResponse>
