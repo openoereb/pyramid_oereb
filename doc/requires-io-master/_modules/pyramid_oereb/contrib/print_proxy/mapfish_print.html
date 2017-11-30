@@ -229,6 +229,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_localised_text</span><span class="p">(</span><span class="n">theme</span><span class="p">,</span> <span class="s1">&#39;Text&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;PLRCadastreAuthority&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;RealEstate&#39;</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_Limit&#39;</span><span class="p">]</span>
         <span class="k">if</span> <span class="s1">&#39;Image&#39;</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;RealEstate_Highlight&#39;</span><span class="p">,</span> <span class="p">{}):</span>
             <span class="k">del</span> <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_Highlight&#39;</span><span class="p">][</span><span class="s1">&#39;Image&#39;</span><span class="p">]</span>
 
@@ -370,7 +371,6 @@
             <span class="c1"># Legend</span>
             <span class="n">legend</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">legend_element</span><span class="p">:</span>
-                <span class="n">legend</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">restriction_on_landownership</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span><span class="p">:</span>
                     <span class="n">legend</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
                     <span class="k">del</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
