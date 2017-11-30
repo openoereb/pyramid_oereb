@@ -181,32 +181,27 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         return geometry_records
 
-    def from_db_to_geometry_records(self, geometries_from_db):
-        geometry_records = []
-        for geometry_from_db in geometries_from_db:
-
-            # Create law status record
-            law_status = LawStatusRecord.from_config(
-                Config.get_law_status(
-                    self._plr_info.get('code'),
-                    self._plr_info.get('law_status'),
-                    geometry_from_db.law_status
-                )
+    def from_db_to_geometry_records(self, geometry_from_db):
+        # Create law status record
+        law_status = LawStatusRecord.from_config(
+            Config.get_law_status(
+                self._plr_info.get('code'),
+                self._plr_info.get('law_status'),
+                geometry_from_db.law_status
             )
+        )
 
-            # Create office record
-            office = self.from_db_to_office_record(geometry_from_db.responsible_office)
+        # Create office record
+        office = self.from_db_to_office_record(geometry_from_db.responsible_office)
 
-            # Create geometry records
-            geometry_records.extend(self.create_geometry_records_(
-                law_status,
-                geometry_from_db.published_from,
-                to_shape(geometry_from_db.geom),
-                geometry_from_db.geo_metadata,
-                office
-            ))
-
-        return geometry_records
+        # Create and return geometry records
+        return self.create_geometry_records_(
+            law_status,
+            geometry_from_db.published_from,
+            to_shape(geometry_from_db.geom),
+            geometry_from_db.geo_metadata,
+            office
+        )
 
     def from_db_to_office_record(self, offices_from_db):
         office_record = self._office_record_class(
@@ -282,7 +277,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             ))
         return document_records
 
-    def from_db_to_plr_record(self, public_law_restriction_from_db):
+    def from_db_to_plr_record(self, public_law_restriction_from_db, geometry):
         thresholds = self._plr_info.get('thresholds')
         min_length = thresholds.get('length').get('limit')
         length_unit = thresholds.get('length').get('unit')
@@ -321,8 +316,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 else None
             article_numbers.append(article_nrs)
         document_records = self.from_db_to_document_records(documents_from_db, article_numbers)
-        geometry_records = self.from_db_to_geometry_records(public_law_restriction_from_db.geometries)
-
+        # WIP remove bracket
+        geometry_records = [self.from_db_to_geometry_records(geometry)]
         basis_plr_records = []
         for join in public_law_restriction_from_db.basis:
             basis_plr_records.append(self.from_db_to_plr_record(join.base))
@@ -475,7 +470,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         self.records = []
                         for geometry_result in geometry_results:
                             self.records.append(
-                                self.from_db_to_plr_record(geometry_result.public_law_restriction)
+                                self.from_db_to_plr_record(
+                                    geometry_result.public_law_restriction,
+                                    geometry_result)
                             )
 
             finally:
