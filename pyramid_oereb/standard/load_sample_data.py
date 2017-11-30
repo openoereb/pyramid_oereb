@@ -11,9 +11,8 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.orm import sessionmaker, class_mapper
 
 from pyramid_oereb.lib.config import parse
-from pyramid_oereb.standard.models.contaminated_public_transport_sites import Office, Geometry, \
-    PublicLawRestriction, ViewService, PublicLawRestrictionDocument, DocumentBase, LegalProvision, \
-    Availability, LegendEntry, DocumentReference, Document, DataIntegration
+from pyramid_oereb.standard.models import contaminated_public_transport_sites, \
+    groundwater_protection_zones, forest_perimeters
 from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality, Glossary
 
 
@@ -105,7 +104,7 @@ class SampleData(object):
                 for r in json.loads(f.read()):
                     self._do_sql_insert(sql, r)
 
-    def _truncate_existing(self):
+    def _truncate_existing(self, schema):
         """
         Truncates existing tables.
         """
@@ -114,60 +113,60 @@ class SampleData(object):
 
             # Truncate tables
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=Glossary.__table__.schema,
-                table=Glossary.__table__.name
+                schema=schema.Glossary.__table__.schema,
+                table=schema.Glossary.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=Municipality.__table__.schema,
-                table=Municipality.__table__.name
+                schema=schema.Municipality.__table__.schema,
+                table=schema.Municipality.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=Address.__table__.schema,
-                table=Address.__table__.name
+                schema=schema.Address.__table__.schema,
+                table=schema.Address.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=RealEstate.__table__.schema,
-                table=RealEstate.__table__.name
+                schema=schema.RealEstate.__table__.schema,
+                table=schema.RealEstate.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=PublicLawRestrictionDocument.__table__.schema,
-                table=PublicLawRestrictionDocument.__table__.name
+                schema=schema.PublicLawRestrictionDocument.__table__.schema,
+                table=schema.PublicLawRestrictionDocument.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=DocumentReference.__table__.schema,
-                table=DocumentReference.__table__.name
+                schema=schema.DocumentReference.__table__.schema,
+                table=schema.DocumentReference.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=DocumentBase.__table__.schema,
-                table=DocumentBase.__table__.name
+                schema=schema.DocumentBase.__table__.schema,
+                table=schema.DocumentBase.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=Geometry.__table__.schema,
-                table=Geometry.__table__.name
+                schema=schema.Geometry.__table__.schema,
+                table=schema.Geometry.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=PublicLawRestriction.__table__.schema,
-                table=PublicLawRestriction.__table__.name
+                schema=schema.PublicLawRestriction.__table__.schema,
+                table=schema.PublicLawRestriction.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=ViewService.__table__.schema,
-                table=ViewService.__table__.name
+                schema=schema.ViewService.__table__.schema,
+                table=schema.ViewService.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=Office.__table__.schema,
-                table=Office.__table__.name
+                schema=schema.Office.__table__.schema,
+                table=schema.Office.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=Availability.__table__.schema,
-                table=Availability.__table__.name
+                schema=schema.Availability.__table__.schema,
+                table=schema.Availability.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=LegendEntry.__table__.schema,
-                table=LegendEntry.__table__.name
+                schema=schema.LegendEntry.__table__.schema,
+                table=schema.LegendEntry.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=DataIntegration.__table__.schema,
-                table=DataIntegration.__table__.name
+                schema=schema.DataIntegration.__table__.schema,
+                table=schema.DataIntegration.__table__.name
             ))
 
     def load(self):
@@ -180,66 +179,82 @@ class SampleData(object):
 
         try:
 
-            # Truncate exisiting tables
-            self._truncate_existing()
+            for schema, folder in [
+                (contaminated_public_transport_sites, "contaminated_public_transport_sites"),
+                (groundwater_protection_zones, "groundwater_protection_zones"),
+                (forest_perimeters, "forest_perimeters"),
+            ]:
+                print("Import theme {}.".format(folder))
+                # Truncate exisiting tables
+                self._truncate_existing(schema)
 
-            # Fill tables with sample data
-            self._load_sample(Availability, 'plr119/availabilities.json')
-            self._load_sample(Office, 'plr119/office.json')
-            self._load_sample(DataIntegration, 'plr119/data_integration.json')
-            self._load_sample(ViewService, 'plr119/view_service.json')
-            self._load_sample(LegendEntry, 'plr119/legend_entry.json')
-            self._load_sample(PublicLawRestriction, 'plr119/public_law_restriction.json')
-            self._load_sample(Geometry, 'plr119/geometry.json')
+                # Fill tables with sample data
+                for class_, file_name in [
+                    (schema.Availability, 'availabilities.json'),
+                    (schema.Office, 'office.json'),
+                    (schema.DataIntegration, 'data_integration.json'),
+                    (schema.ViewService, 'view_service.json'),
+                    (schema.LegendEntry, 'legend_entry.json'),
+                    (schema.PublicLawRestriction, 'public_law_restriction.json'),
+                    (schema.Geometry, 'geometry.json'),
+                ]:
+                    self._load_sample(class_, os.path.join('plr119', folder, file_name))
 
-            with open(os.path.join(self._directory, 'plr119/document.json')) as f:
-                lps = json.loads(f.read())
-                if self._sql_file is None:
-                    Session = sessionmaker(bind=self._engine)  # Use session because of table inheritance
-                    session = Session()
-                    for lp in lps:
-                        session.add(Document(**lp))
-                    session.commit()
-                    session.close()
-                else:
-                    for lp in lps:
-                        for table_name in ['document_base', 'document']:
-                            table = [
-                                t for t in class_mapper(Document).tables if t.name == table_name
-                            ][0]
-                            data = {
-                                'type': 'document'
-                            }
-                            data.update(lp)
-                            self._do_sql_insert(str(table.insert()), data)
+                with open(os.path.join(self._directory, 'plr119', folder, 'document.json')) as f:
+                    lps = json.loads(f.read())
+                    if self._sql_file is None:
+                        Session = sessionmaker(bind=self._engine)  # Use session because of table inheritance
+                        session = Session()
+                        for lp in lps:
+                            session.add(schema.Document(**lp))
+                        session.commit()
+                        session.close()
+                    else:
+                        for lp in lps:
+                            for table_name in ['document_base', 'document']:
+                                table = [
+                                    t for t in class_mapper(schema.Document).tables if t.name == table_name
+                                ][0]
+                                data = {
+                                    'type': 'document'
+                                }
+                                data.update(lp)
+                                self._do_sql_insert(str(table.insert()), data)
 
-            with open(os.path.join(self._directory, 'plr119/legal_provision.json')) as f:
-                lps = json.loads(f.read())
-                if self._sql_file is None:
-                    Session = sessionmaker(bind=self._engine)  # Use session because of table inheritance
-                    session = Session()
-                    for lp in lps:
-                        session.add(LegalProvision(**lp))
-                    session.commit()
-                    session.close()
-                else:
-                    for lp in lps:
-                        for table_name in ['document_base', 'document', 'legal_provision']:
-                            table = [
-                                t for t in class_mapper(LegalProvision).tables if t.name == table_name
-                            ][0]
-                            data = {
-                                'type': 'legal_provision'
-                            }
-                            data.update(lp)
-                            self._do_sql_insert(str(table.insert()), data)
+                with open(os.path.join(self._directory, 'plr119', folder, 'legal_provision.json')) as f:
+                    lps = json.loads(f.read())
+                    if self._sql_file is None:
+                        Session = sessionmaker(bind=self._engine)  # Use session because of table inheritance
+                        session = Session()
+                        for lp in lps:
+                            session.add(schema.LegalProvision(**lp))
+                        session.commit()
+                        session.close()
+                    else:
+                        for lp in lps:
+                            for table_name in ['document_base', 'document', 'legal_provision']:
+                                table = [
+                                    t for t in class_mapper(schema.LegalProvision).tables
+                                    if t.name == table_name
+                                ][0]
+                                data = {
+                                    'type': 'legal_provision'
+                                }
+                                data.update(lp)
+                                self._do_sql_insert(str(table.insert()), data)
 
-            self._load_sample(PublicLawRestrictionDocument, 'plr119/public_law_restriction_document.json')
-            self._load_sample(DocumentReference, 'plr119/document_reference.json')
-            self._load_sample(RealEstate, 'real_estates.json')
-            self._load_sample(Address, 'addresses.json')
-            self._load_sample(Municipality, 'municipalities_with_logo.json')
-            self._load_sample(Glossary, 'glossary.json')
+                for class_, file_name in [
+                    (schema.PublicLawRestrictionDocument, 'public_law_restriction_document.json'),
+                    (schema.DocumentReference, 'document_reference.json'),
+                ]:
+                    self._load_sample(class_, os.path.join('plr119', folder, file_name))
+            for class_, file_name in [
+                (RealEstate, 'real_estates.json'),
+                (Address, 'addresses.json'),
+                (Municipality, 'municipalities_with_logo.json'),
+                (Glossary, 'glossary.json'),
+            ]:
+                self._load_sample(class_, file_name)
 
         finally:
             if self._has_connection():

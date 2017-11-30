@@ -6,7 +6,7 @@ from pyramid_oereb.lib.url import add_url_params
 
 class RealEstateRecord(object):
     """
-    Basic caracteristics and geometry of the property to be analysed.
+    Basic characteristics and geometry of the property to be analysed.
 
     Attributes:
         plan_for_land_register (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service to
@@ -21,8 +21,7 @@ class RealEstateRecord(object):
 
     def __init__(self, type, canton, municipality, fosnr, land_registry_area, limit,
                  metadata_of_geographical_base_data=None, number=None, identdn=None, egrid=None,
-                 subunit_of_land_register=None, public_law_restrictions=None, references=None,
-                 plan_for_land_register=None):
+                 subunit_of_land_register=None, public_law_restrictions=None, references=None):
         """
 
         Args:

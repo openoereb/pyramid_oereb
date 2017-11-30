@@ -8,7 +8,6 @@ from pyramid.path import DottedNameResolver
 from shapely.geometry import Point
 from pyramid.renderers import render_to_response
 from pyramid.response import Response
-from sqlalchemy.orm.exc import NoResultFound
 
 from pyramid_oereb import route_prefix
 from pyramid_oereb import Config
@@ -191,22 +190,15 @@ class PlrWebservice(object):
                 number=params.number
             )
         else:
-            raise HTTPBadRequest()
+            raise HTTPBadRequest("Missing required argument")
 
         # check if result is strictly one (we queried with primary keys)
         if len(real_estate_records) == 1:
-            try:
-                extract = processor.process(
-                    real_estate_records[0],
-                    params,
-                    self._request.route_url('{0}/sld'.format(route_prefix))
-                )
-            except LookupError:
-                raise HTTPNoContent()
-            except NotImplementedError:
-                raise HTTPServerError()
-            except NoResultFound:
-                raise HTTPServerError()
+            extract = processor.process(
+                real_estate_records[0],
+                params,
+                self._request.route_url('{0}/sld'.format(route_prefix))
+            )
             if params.format == 'json':
                 return render_to_response(
                     'pyramid_oereb_extract_json',
@@ -226,9 +218,9 @@ class PlrWebservice(object):
                     request=self._request
                 )
             else:
-                raise HTTPBadRequest()
+                raise HTTPBadRequest("The format '{}' is wrong".format(params.format))
         else:
-            return HTTPNoContent()
+            return HTTPNoContent("No real estate found")
 
     def __validate_extract_params__(self):
         """

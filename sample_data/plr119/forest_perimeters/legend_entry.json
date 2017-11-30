@@ -1,0 +1,15 @@
+[
+  {
+    "legend_text": {
+      "fr": "Pollué, investigation nécessaire",
+      "de": "Belastet, untersuchungsbedürftig",
+      "it": "Inquinato, è necessario procedere a un?indagine"
+    },
+    "type_code": "StaoTyp2",
+    "id": 16,
+    "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_3.xml",
+    "view_service_id": 1,
+    "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkCAYAAAAq23xmAAAAZklEQVRoge3asQ2AMBRDwT9lJoiYjhGDEqAOLXJxxZNcX+2qPlr169Su2+Ydx5za9NgAAgQIEKDQAAECBAhQcIAAAQIEKDhAgAABAhQcIECAAAEKDhAgQIAABQcIEKAfgFzwvhttARMi7HL4l9NsAAAAAElFTkSuQmCC",
+    "topic": "ForestPerimeters"
+  }
+]
