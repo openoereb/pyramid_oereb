@@ -40,7 +40,6 @@
 	<parameter name="QRCode" class="java.lang.String"/>
 	<parameter name="QRCodeRef" class="java.lang.String"/>
 	<parameter name="RealEstate_IdentDN" class="java.lang.String"/>
-	<parameter name="RealEstate_Limit" class="java.lang.String"/>
 	<parameter name="RealEstate_Municipality" class="java.lang.String"/>
 	<parameter name="RealEstate_SubunitOfLandRegister" class="java.lang.String"/>
 	<parameter name="RealEstate_Type" class="java.lang.String"/>

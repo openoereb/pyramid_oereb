@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
+
+import logging
 import warnings
 from datetime import datetime
+
+
+LOG = logging.getLogger('pyramid_oereb')
 
 
 class EmptyPlrRecord(object):
@@ -164,8 +169,10 @@ class PlrRecord(EmptyPlrRecord):
         tested_geometries = []
         inside = False
         for geometry in self.geometries:
-            if geometry.calculate(real_estate, self.min_length, self.min_area, self.length_unit,
-                                  self.area_unit):
+            if geometry.calculate(
+                    real_estate,
+                    self.min_length, self.min_area,
+                    self.length_unit, self.area_unit):
                 tested_geometries.append(geometry)
                 inside = True
         self.geometries = tested_geometries

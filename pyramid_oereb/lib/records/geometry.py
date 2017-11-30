@@ -71,7 +71,7 @@ class GeometryRecord(object):
         polygon_types = geometry_types.get('polygon').get('types')
         if self.published:
             if self.geom.type in point_types:
-                pass
+                self._test_passed = real_estate.limit.intersects(self.geom)
             else:
                 result = self.geom.intersection(real_estate.limit)
                 if self.geom.type in line_types:

@@ -68,6 +68,7 @@ class Renderer(JsonRenderer):
                 self._localised_text(theme, 'Text')
         self._flatten_object(extract_dict, 'PLRCadastreAuthority')
         self._flatten_object(extract_dict, 'RealEstate')
+        del extract_dict['RealEstate_Limit']
         if 'Image' in extract_dict.get('RealEstate_Highlight', {}):
             del extract_dict['RealEstate_Highlight']['Image']
 
@@ -209,7 +210,6 @@ class Renderer(JsonRenderer):
             # Legend
             legend = {}
             for element in legend_element:
-                legend[element] = restriction_on_landownership.get(element)
                 if element in restriction_on_landownership:
                     legend[element] = restriction_on_landownership[element]
                     del restriction_on_landownership[element]

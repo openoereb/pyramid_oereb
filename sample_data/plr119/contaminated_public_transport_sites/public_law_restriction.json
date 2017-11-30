@@ -1,0 +1,73 @@
+[
+  {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "type_code": "StaoTyp2",
+    "id": 396,
+    "type_code_list": "",
+    "law_status": "inForce",
+    "view_service_id": 1,
+    "information": {
+      "it": "Inquinato, è necessario procedere a un?indagine",
+      "de": "Belastet, untersuchungsbedürftig",
+      "fr": "Pollué, investigation nécessaire"
+    },
+    "topic": "ContaminatedPublicTransportSites"
+  }, {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "type_code": "StaoTyp2",
+    "id": 397,
+    "type_code_list": "",
+    "law_status": "inForce",
+    "view_service_id": 1,
+    "information": {
+      "it": "Inquinato, è necessario procedere a un?indagine",
+      "de": "Belastet, untersuchungsbedürftig",
+      "fr": "Pollué, investigation nécessaire"
+    },
+    "topic": "ContaminatedPublicTransportSites"
+  }, {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "type_code": "StaoTyp3",
+    "id": 398,
+    "type_code_list": "",
+    "law_status": "inForce",
+    "view_service_id": 1,
+    "information": {
+      "de": "Belastet, überwachungsbedürftig",
+      "it": "Inquinato, deve essere sorvegliato",
+      "fr": "Pollué, nécessite une surveillance"
+    },
+    "topic": "ContaminatedPublicTransportSites"
+  }, {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "type_code": "StaoTyp3",
+    "id": 399,
+    "type_code_list": "",
+    "law_status": "inForce",
+    "view_service_id": 1,
+    "information": {
+      "de": "Belastet, überwachungsbedürftig",
+      "it": "Inquinato, deve essere sorvegliato",
+      "fr": "Pollué, nécessite une surveillance"
+    },
+    "topic": "ContaminatedPublicTransportSites"
+  }, {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "type_code": "StaoTyp1",
+    "id": 400,
+    "type_code_list": "",
+    "law_status": "inForce",
+    "view_service_id": 1,
+    "information": {
+      "it": "Inquinato, non sono prevedibili effetti dannosi o molesti",
+      "de": "Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten",
+      "fr": "Pollué, pas d?atteinte nuisible ou incommodante à attendre"
+    },
+    "topic": "ContaminatedPublicTransportSites"
+  }
+]

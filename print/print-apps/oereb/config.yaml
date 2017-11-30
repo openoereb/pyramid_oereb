@@ -65,8 +65,6 @@ templates:
             RealEstate_MetadataOfGeographicalBaseData: !string
                 default: ''
             RealEstate_LandRegistryArea: !string {}
-            RealEstate_Limit: !string #/definitions/MultiSurface"
-                default: '{}'
             RealEstate_RestrictionOnLandownership: !datasource
                 default: []
                 attributes:

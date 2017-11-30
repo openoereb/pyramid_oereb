@@ -58,7 +58,7 @@
 				<reportElement x="157" y="0" width="143" height="17" uuid="80654d47-cb87-4690-a7ca-82730f9bb384">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-					<printWhenExpression><![CDATA[!"Point".equals($F{Geom_Type})]]></printWhenExpression>
+					<printWhenExpression><![CDATA["Area".equals($F{Geom_Type})]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Top">
 					<font fontName="Cadastra" size="8.5"/>
