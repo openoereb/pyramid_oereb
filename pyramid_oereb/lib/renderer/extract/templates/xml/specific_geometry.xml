@@ -4,7 +4,7 @@
 %elif 'LineString' == geometry.type:
     <%include file="geometry/line.xml" args="line=geometry"/>
 %elif 'Polygon' == geometry.type:
-    <gml:Surface gml:id="${get_gml_id}">
+    <gml:Surface gml:id="${get_gml_id()}">
         <%include file="geometry/polygon.xml" args="polygon=geometry"/>
     </gml:Surface>
 % else:
