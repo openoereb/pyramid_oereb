@@ -1,12 +1,16 @@
 <%page args="geometry"/>
 %if 'Point' == geometry.type:
+<data:Point gml:id="${get_gml_id()}">
     <%include file="geometry/point.xml" args="point=geometry"/>
+</data:Point>
 %elif 'LineString' == geometry.type:
+<data:Line gml:id="${get_gml_id()}">
     <%include file="geometry/line.xml" args="line=geometry"/>
+</data:Line>
 %elif 'Polygon' == geometry.type:
-    <gml:Surface gml:id="${get_gml_id()}">
-        <%include file="geometry/polygon.xml" args="polygon=geometry"/>
-    </gml:Surface>
+<data:Surface gml:id="${get_gml_id()}">
+    <%include file="geometry/polygon.xml" args="polygon=geometry"/>
+</data:Surface>
 % else:
     <% raise TypeError('Passed geometry type is not defined: {type}'.format(type=geometry.type))%>
 %endif
