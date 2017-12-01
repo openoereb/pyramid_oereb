@@ -1,6 +1,7 @@
 <%page args="public_law_restriction"/>
 <%
     from pyramid_oereb import route_prefix
+    from pyramid_oereb.lib.records.documents import LegalProvisionRecord
     # PLR without legal provision is allowed in reduced extract only!
     if params.flavour != 'reduced' and isinstance(public_law_restriction.documents, list) and \
                     len(public_law_restriction.documents) == 0:
@@ -49,7 +50,7 @@
         <%include file="view_service.xml" args="map=public_law_restriction.view_service"/>
     </data:Map>
     %for document in public_law_restriction.documents:
-    <data:LegalProvisions>
+    <data:LegalProvisions xsi:type="${get_document_type(document)}">
         <%include file="document.xml" args="document=document"/>
     </data:LegalProvisions>
     %endfor
