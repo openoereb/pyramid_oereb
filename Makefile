@@ -12,15 +12,12 @@ PG_USER ?= postgres
 PG_PASSWORD ?= password
 PG_CREDENTIALS ?= $(PG_USER):$(PG_PASSWORD)
 
-VENV_FLAGS ?=
-
-REQUIREMENTS ?= dev-requirements.txt
+INSTALL_REQUIREMENTS ?= requirements.txt
 
 PYTHON_VENV=.venv/requirements-timestamp
 ifeq ($(OPERATING_SYSTEM), WINDOWS)
     export PGPASSWORD = $(PG_PASSWORD)
     VENV_BIN = .venv/Scripts/
-    VENV_FLAGS += --system-site-packages
     PYTHON_BIN_POSTFIX = .exe
     USE_DOCKER = FALSE
     TESTS_SETUP_DB = tests-win-setup-db
@@ -29,7 +26,7 @@ ifeq ($(OPERATING_SYSTEM), WINDOWS)
     PG_CREATE_DB = "CREATE DATABASE pyramid_oereb_test;"
     PG_CREATE_EXT = "CREATE EXTENSION postgis;"
     PG_CREATE_SCHEMA = "CREATE SCHEMA plr;"
-    REQUIREMENTS = dev-requirements-windows.txt
+    INSTALL_REQUIREMENTS = requirements-windows.txt
 else
     VENV_BIN ?= .venv/bin/
     PYTHON_BIN_POSTFIX =
@@ -47,15 +44,15 @@ BUILDDIR = doc/build
 install: $(PYTHON_VENV)
 
 .venv/timestamp:
-	virtualenv $(VENV_FLAGS) .venv
+	virtualenv .venv
 	touch $@
 
-.venv/requirements-timestamp: .venv/install-timestamp .venv/timestamp setup.py $(REQUIREMENTS)
-	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --requirement $(REQUIREMENTS)
+.venv/requirements-timestamp: .venv/install-timestamp .venv/timestamp setup.py dev-requirements.txt
+	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --requirement dev-requirements.txt
 	touch $@
 
-.venv/install-timestamp: .venv/timestamp setup.py requirements.txt
-	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --requirement requirements.txt
+.venv/install-timestamp: .venv/timestamp setup.py $(INSTALL_REQUIREMENTS)
+	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --requirement $(INSTALL_REQUIREMENTS)
 	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --editable .
 	touch $@
 

@@ -1,3 +1,0 @@
--r dev-requirements.txt
-wheels/Shapely-1.6.1-cp27-cp27m-win32.whl
--e .
