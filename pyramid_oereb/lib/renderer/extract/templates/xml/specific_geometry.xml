@@ -1,14 +1,14 @@
 <%page args="geometry"/>
 %if 'Point' == geometry.type:
-<data:Point gml:id="${get_gml_id()}">
+<data:Point>
     <%include file="geometry/point.xml" args="point=geometry"/>
 </data:Point>
 %elif 'LineString' == geometry.type:
-<data:Line gml:id="${get_gml_id()}">
+<data:Line>
     <%include file="geometry/line.xml" args="line=geometry"/>
 </data:Line>
 %elif 'Polygon' == geometry.type:
-<data:Surface gml:id="${get_gml_id()}">
+<data:Surface>
     <%include file="geometry/polygon.xml" args="polygon=geometry"/>
 </data:Surface>
 % else:
