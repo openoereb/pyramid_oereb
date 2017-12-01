@@ -10,6 +10,7 @@
     from pyramid_oereb import Config, route_prefix
 %>
 <%
+    date_format = '%Y-%m-%dT%H:%M:%S'
     def parse_bool(expression):
         if expression:
             return 'true'
@@ -18,17 +19,17 @@
 %>
     %if params.flavour == 'embeddable':
     <embeddable>
-        <cadasterState>${str(extract.embeddable.cadaster_state.isoformat())}</cadasterState>
+        <cadasterState>${str(extract.embeddable.cadaster_state.strftime(date_format))}</cadasterState>
         <cadasterOrganisationName>${localized(extract.embeddable.cadaster_organisation.name).get('Text')}</cadasterOrganisationName>
         <dataownerNameCadastralSurveying>${localized(extract.embeddable.data_owner_cadastral_surveying.name).get('Text')}</dataownerNameCadastralSurveying>
-        <transferFromSourceCadastralSurveying>${extract.embeddable.transfer_from_source_cadastral_surveying.isoformat()}</transferFromSourceCadastralSurveying>
+        <transferFromSourceCadastralSurveying>${extract.embeddable.transfer_from_source_cadastral_surveying.strftime(date_format)}</transferFromSourceCadastralSurveying>
         % for datasource in extract.embeddable.datasources:
         <%include file="data_source.xml" args="datasource=datasource"/>
         % endfor
     </embeddable>
     %endif
     <data:Extract>
-        <data:CreationDate>${extract.creation_date.isoformat()}</data:CreationDate>
+        <data:CreationDate>${extract.creation_date.strftime(date_format)}</data:CreationDate>
     %if extract.electronic_signature:
         <data:Signiture>${extract.electronic_signature}</data:Signiture>
     %endif
