@@ -33,14 +33,12 @@
     %endif
     %if public_law_restriction.area:
     <data:Area>${public_law_restriction.area}</data:Area>
-    <AreaUnit>${public_law_restriction.area_unit}</AreaUnit>
     %endif
     %if public_law_restriction.part_in_percent:
     <data:PartInPercent>${int(public_law_restriction.part_in_percent)}</data:PartInPercent>
     %endif
     %if public_law_restriction.length:
     <data:Length>${public_law_restriction.length}</data:Length>
-    <LengthUnit>${public_law_restriction.length_unit}</LengthUnit>
     %endif
     %if params.images:
     <data:Symbol>${public_law_restriction.symbol.encode()}</data:Symbol>
@@ -61,4 +59,8 @@
     <data:ResponsibleOffice>
         <%include file="office.xml" args="office=public_law_restriction.responsible_office"/>
     </data:ResponsibleOffice>
+    <data:extensions>
+        <AreaUnit>${public_law_restriction.area_unit}</AreaUnit>
+        <LengthUnit>${public_law_restriction.length_unit}</LengthUnit>
+    </data:extensions>
 </data:RestrictionOnLandownership>
