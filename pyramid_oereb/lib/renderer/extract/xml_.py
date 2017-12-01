@@ -84,4 +84,4 @@ class Renderer(Base):
 
         """
         self._gml_id += 1
-        return self._gml_id
+        return 'gml{0}'.format(self._gml_id)
