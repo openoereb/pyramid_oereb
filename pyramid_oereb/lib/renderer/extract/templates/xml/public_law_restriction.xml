@@ -49,7 +49,7 @@
         <%include file="view_service.xml" args="map=public_law_restriction.view_service"/>
     </data:Map>
     %for document in public_law_restriction.documents:
-    <data:LegalProvisions  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Document">
+    <data:LegalProvisions>
         <%include file="document.xml" args="document=document"/>
     </data:LegalProvisions>
     %endfor
