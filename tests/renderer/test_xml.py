@@ -1,8 +1,29 @@
 # -*- coding: utf-8 -*-
-
+import datetime
 from shapely.geometry import LineString, Point, Polygon
+
+from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord
+from pyramid_oereb.lib.records.law_status import LawStatusRecord
+from pyramid_oereb.lib.records.office import OfficeRecord
+from pyramid_oereb.lib.renderer.extract.xml_ import Renderer
 from tests.conftest import params
 import pytest
+
+
+def test_get_gml_id():
+    renderer = Renderer(None)
+    assert renderer._get_gml_id() == 'gml1'
+    assert renderer._get_gml_id() == 'gml2'
+    assert renderer._get_gml_id() == 'gml3'
+
+
+def test_get_document_type():
+    document = DocumentRecord(LawStatusRecord.from_config('inForce'), datetime.date.today(),
+                              {'de': 'Test'}, OfficeRecord({'de': 'Test'}))
+    legal_provision = LegalProvisionRecord(LawStatusRecord.from_config('inForce'), datetime.date.today(),
+                                           {'de': 'Test'}, OfficeRecord({'de': 'Test'}))
+    assert Renderer._get_document_type(document) == 'data:Document'
+    assert Renderer._get_document_type(legal_provision) == 'data:LegalProvisions'
 
 
 @pytest.mark.parametrize('parameters', params)
