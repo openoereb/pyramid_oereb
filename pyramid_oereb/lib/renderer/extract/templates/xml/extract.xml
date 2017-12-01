@@ -41,16 +41,16 @@
     %endif
     %if extract.not_concerned_theme:
         %for theme in extract.not_concerned_theme:
-        <data:ConcernedThemeNotConcernedTheme>
+        <data:NotConcernedTheme>
             <%include file="theme.xml" args="theme=theme"/>
-        </data:ConcernedThemeNotConcernedTheme>
+        </data:NotConcernedTheme>
         %endfor
     %endif
     %if extract.theme_without_data:
         %for theme in extract.theme_without_data:
-        <data:ConcernedThemeThemeWithoutData>
+        <data:ThemeWithoutData>
             <%include file="theme.xml" args="theme=theme"/>
-        </data:ConcernedThemeThemeWithoutData>
+        </data:ThemeWithoutData>
         %endfor
     %endif
         <data:isReduced>${parse_bool(params.flavour == 'reduced')}</data:isReduced>
