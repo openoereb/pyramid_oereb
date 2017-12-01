@@ -4,7 +4,5 @@
         <%include file="theme.xml" args="theme=datasource.theme"/>
     </topic>
     <dataownerName>${localized(datasource.owner.name).get('Text')}</dataownerName>
-% if datasource.date:
-    <transferFromSource>${datasource.date.isoformat()}</transferFromSource>
-% endif
+    <transferFromSource>${datasource.date.strftime(date_format)}</transferFromSource>
 </datasource>

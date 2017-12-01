@@ -10,7 +10,6 @@
     from pyramid_oereb import Config, route_prefix
 %>
 <%
-    date_format = '%Y-%m-%dT%H:%M:%S'
     def parse_bool(expression):
         if expression:
             return 'true'

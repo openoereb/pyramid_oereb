@@ -65,7 +65,8 @@ class Renderer(Base):
                 'multilingual': self.get_multilingual_text,
                 'request': self._request,
                 'get_symbol_ref': self.get_symbol_ref,
-                'get_gml_id': self._get_gml_id
+                'get_gml_id': self._get_gml_id,
+                'date_format': '%Y-%m-%dT%H:%M:%S'
             })
             return content
         except ValueError as e:
