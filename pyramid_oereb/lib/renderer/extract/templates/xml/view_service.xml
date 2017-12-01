@@ -1,17 +1,17 @@
 <%page args="map"/>
 %if map.image:
-<Image>${map.image.encode()}</Image>
+<data:Image>${map.image.encode()}</data:Image>
 %endif
 %if map.reference_wms:
-<ReferenceWMS>${map.reference_wms|u}</ReferenceWMS>
+<data:ReferenceWMS>${map.reference_wms|u}</data:ReferenceWMS>
 %endif
 %if map.legend_at_web:
-<LegendAtWeb>${map.legend_at_web|u}</LegendAtWeb>
+<data:LegendAtWeb>${map.legend_at_web|u}</data:LegendAtWeb>
 %endif
 %if map.legends:
-<OtherLegend>
 %for legend_entry in map.legends:
-<%include file="legend_entry.xml" args="legend_entry=legend_entry"/>
+<data:OtherLegend>
+    <%include file="legend_entry.xml" args="legend_entry=legend_entry"/>
+</data:OtherLegend>
 %endfor
-</OtherLegend>
 %endif

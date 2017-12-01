@@ -1,10 +1,10 @@
 <%page args="glossary"/>
-<Glossary xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
-    <Title>
+<data:Glossary xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
+    <data:Title>
         <%include file="multilingual_text.xml" args="text=glossary.title"/>
-    </Title>
-    <Content>
+    </data:Title>
+    <data:Content>
         <%include file="multilingual_m_text.xml" args="text=glossary.content"/>
-    </Content>
+    </data:Content>
     ## TODO: Check for the extensions stuff.
-</Glossary>
+</data:Glossary>

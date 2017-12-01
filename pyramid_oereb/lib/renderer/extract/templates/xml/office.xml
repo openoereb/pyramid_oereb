@@ -1,28 +1,28 @@
 <%page args="office"/>
-<Name>
+<data:Name>
     <%include file="multilingual_text.xml" args="text=office.name"/>
-</Name>
+</data:Name>
 %if office.office_at_web:
-<OfficeAtWeb>${office.office_at_web|u}</OfficeAtWeb>
+<data:OfficeAtWeb>${office.office_at_web|u}</data:OfficeAtWeb>
 %endif
 %if office.uid:
-<UID>${office.uid}</UID>
+<data:UID>${office.uid}</data:UID>
 %endif
 %if office.line1:
-<Line1>${office.line1}</Line1>
+<data:Line1>${office.line1}</data:Line1>
 %endif
 %if office.line2:
-<Line2>${office.line2}</Line2>
+<data:Line2>${office.line2}</data:Line2>
 %endif
 %if office.street:
-<Street>${office.street}</Street>
+<data:Street>${office.street}</data:Street>
 %endif
 %if office.number:
-<Number>${office.number}</Number>
+<data:Number>${office.number}</data:Number>
 %endif
 %if office.postal_code:
-<PostalCode>${office.postal_code}</PostalCode>
+<data:PostalCode>${office.postal_code}</data:PostalCode>
 %endif
 %if office.city:
-<City>${office.city}</City>
+<data:City>${office.city}</data:City>
 %endif

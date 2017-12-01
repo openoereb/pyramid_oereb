@@ -2,53 +2,54 @@
 <%
     from pyramid_oereb.lib.records.plr import PlrRecord
 %>
-<RealEstate xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
-    %if real_estate.number:
-        <Number>${real_estate.number}</Number>
+<data:RealEstate>
+%if real_estate.number:
+    <data:Number>${real_estate.number}</data:Number>
+%endif
+%if extract.real_estate.identdn:
+    <data:IdentDN>${real_estate.identdn}</data:IdentDN>
+%endif
+%if extract.real_estate.egrid:
+    <data:EGRID>${real_estate.egrid}</data:EGRID>
+%endif
+    <data:Type>${real_estate.type}</data:Type>
+    <data:Canton>${real_estate.canton}</data:Canton>
+    <data:Municipality>${real_estate.municipality}</data:Municipality>
+%if extract.real_estate.subunit_of_land_register:
+    <data:SubunitOfLandRegister>${real_estate.subunit_of_land_register}</data:SubunitOfLandRegister>
+%endif
+    <data:FosNr>${real_estate.fosnr}</data:FosNr>
+%if extract.real_estate.metadata_of_geographical_base_data:
+    <data:MetadataOfGeographicalBaseData>${real_estate.metadata_of_geographical_base_data}</data:MetadataOfGeographicalBaseData>
+%endif
+    <data:LandRegistryArea>${int(real_estate.land_registry_area)}</data:LandRegistryArea>
+%if extract.real_estate.limit and params.geometry:
+    <data:Limit>
+        <gml:MultiSurface gml:id="${get_gml_id()}">
+            %for polygon in real_estate.limit.geoms:
+            <gml:surfaceMember>
+                <%include file="geometry/polygon.xml" args="polygon=polygon"/>
+            </gml:surfaceMember>
+            %endfor
+        </gml:MultiSurface>
+    </data:Limit>
+%endif
+%for public_law_restriction in real_estate.public_law_restrictions:
+    %if isinstance(public_law_restriction, PlrRecord):
+    <%include file="public_law_restriction.xml" args="public_law_restriction=public_law_restriction"/>
     %endif
-    %if extract.real_estate.identdn:
-        <IdentDN>${real_estate.identdn}</IdentDN>
-    %endif
-    %if extract.real_estate.egrid:
-        <EGRID>${real_estate.egrid}</EGRID>
-    %endif
-        <Type>${real_estate.type}</Type>
-        <Canton>${real_estate.canton}</Canton>
-        <Municipality>${real_estate.municipality}</Municipality>
-    %if extract.real_estate.subunit_of_land_register:
-        <SubunitOfLandRegister>
-            ${real_estate.subunit_of_land_register}
-        </SubunitOfLandRegister>
-    %endif
-        <FosNr>${real_estate.fosnr}</FosNr>
-    %if extract.real_estate.metadata_of_geographical_base_data:
-        <MetadataOfGeographicalBaseData>
-            ${real_estate.metadata_of_geographical_base_data}
-        </MetadataOfGeographicalBaseData>
-    %endif
-        <LandRegistryArea>${real_estate.land_registry_area}</LandRegistryArea>
-    %if extract.real_estate.limit and params.geometry:
-        <Limit>
-            <gml:MultiSurface>
-                %for polygon in real_estate.limit.geoms:
-                <gml:surfaceMember>
-                    <%include file="geometry/polygon.xml" args="polygon=polygon"/>
-                </gml:surfaceMember>
-                %endfor
-            </gml:MultiSurface>
-        </Limit>
-    %endif
-    %for public_law_restriction in real_estate.public_law_restrictions:
-        %if isinstance(public_law_restriction, PlrRecord):
-        <%include file="public_law_restriction.xml" args="public_law_restriction=public_law_restriction"/>
-        %endif
-    %endfor
-    <PlanForLandRegister>
+%endfor
+    <data:PlanForLandRegister>
         <%include file="view_service.xml" args="map=real_estate.plan_for_land_register"/>
-    </PlanForLandRegister>
-    % if params.flavour == 'full':
+    </data:PlanForLandRegister>
+%for reference in real_estate.references:
+    <data:Reference>
+        <%include file="document.xml" args="document=reference"/>
+    </data:Reference>
+%endfor
+% if params.flavour == 'full':
     <Highlight>
         <%include file="view_service.xml" args="map=real_estate.highlight"/>
     </Highlight>
-    % endif
-</RealEstate>
+% endif
+</data:RealEstate>

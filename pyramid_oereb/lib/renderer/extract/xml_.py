@@ -22,6 +22,7 @@ class Renderer(Base):
         a = AssetResolver('pyramid_oereb')
         resolver = a.resolve('lib/renderer/extract/templates/xml')
         self.template_dir = resolver.abspath()
+        self._gml_id = 0
         super(Renderer, self).__init__(info)
 
     def __call__(self, value, system):
@@ -63,7 +64,8 @@ class Renderer(Base):
                 'localized': self.get_localized_text,
                 'multilingual': self.get_multilingual_text,
                 'request': self._request,
-                'get_symbol_ref': self.get_symbol_ref
+                'get_symbol_ref': self.get_symbol_ref,
+                'get_gml_id': self._get_gml_id
             })
             return content
         except ValueError as e:
@@ -72,3 +74,14 @@ class Renderer(Base):
         except Exception:
             response.content_type = 'text/html'
             return exceptions.html_error_template().render()
+
+    def _get_gml_id(self):
+        """
+        Returns the next GML ID.
+
+        Returns:
+             int: The next GML ID.
+
+        """
+        self._gml_id += 1
+        return self._gml_id

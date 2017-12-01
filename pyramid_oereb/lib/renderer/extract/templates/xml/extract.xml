@@ -2,8 +2,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <GetExtractByIdResponse xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                        xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/Extract"
-                        xmlns:data="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData"
+                        xmlns="http://schemas.geo.admin.ch/swisstopo/OeREBK/15/Extract"
+                        xmlns:data="http://schemas.geo.admin.ch/swisstopo/OeREBK/15/ExtractData"
                         xmlns:gml="http://www.opengis.net/gml/3.2">
 <%
     from pyramid_oereb.lib.records.plr import PlrRecord
@@ -27,82 +27,56 @@
         % endfor
     </embeddable>
     %endif
-    <Extract>
-        <CreationDate xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
-            ${extract.creation_date}
-        </CreationDate>
+    <data:Extract>
+        <data:CreationDate>${extract.creation_date.isoformat()}</data:CreationDate>
     %if extract.electronic_signature:
-        <Signiture xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
-            ${extract.electronic_signature}
-        </Signiture>
+        <data:Signiture>${extract.electronic_signature}</data:Signiture>
     %endif
     %if extract.concerned_theme:
         %for theme in extract.concerned_theme:
-        <ConcernedTheme xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
+        <data:ConcernedTheme>
             <%include file="theme.xml" args="theme=theme"/>
-        </ConcernedTheme>
+        </data:ConcernedTheme>
         %endfor
     %endif
     %if extract.not_concerned_theme:
         %for theme in extract.not_concerned_theme:
-        <NotConcernedTheme xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
+        <data:ConcernedThemeNotConcernedTheme>
             <%include file="theme.xml" args="theme=theme"/>
-        </NotConcernedTheme>
+        </data:ConcernedThemeNotConcernedTheme>
         %endfor
     %endif
     %if extract.theme_without_data:
         %for theme in extract.theme_without_data:
-        <ThemeWithoutData xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
+        <data:ConcernedThemeThemeWithoutData>
             <%include file="theme.xml" args="theme=theme"/>
-        </ThemeWithoutData>
+        </data:ConcernedThemeThemeWithoutData>
         %endfor
     %endif
-        <isReduced xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
-            ${parse_bool(params.flavour == 'reduced')}
-        </isReduced>
+        <data:isReduced>${parse_bool(params.flavour == 'reduced')}</data:isReduced>
     %if params.images:
-        <LogoPLRCadastre xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
-            ${extract.logo_plr_cadastre.encode()}
-        </LogoPLRCadastre>
-        <FederalLogo xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
-            ${extract.federal_logo.encode()}
-        </FederalLogo>
-        <CantonalLogo xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
-            ${extract.cantonal_logo.encode()}
-        </CantonalLogo>
-        <MunicipalityLogo xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
-            ${extract.municipality_logo.encode()}
-        </MunicipalityLogo>
+        <data:LogoPLRCadastre>${extract.logo_plr_cadastre.encode()}</data:LogoPLRCadastre>
+        <data:FederalLogo>${extract.federal_logo.encode()}</data:FederalLogo>
+        <data:CantonalLogo>${extract.cantonal_logo.encode()}</data:CantonalLogo>
+        <data:MunicipalityLogo>${extract.municipality_logo.encode()}</data:MunicipalityLogo>
     %else:
-        <LogoPLRCadastreRef xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
-            ${request.route_url('{0}/image/logo'.format(route_prefix), logo='oereb')}
-        </LogoPLRCadastreRef>
-        <FederalLogoRef xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
-            ${request.route_url('{0}/image/logo'.format(route_prefix), logo='confederation')}
-        </FederalLogoRef>
-        <CantonalLogoRef xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
-            ${request.route_url('{0}/image/logo'.format(route_prefix), logo='canton')}
-        </CantonalLogoRef>
-        <MunicipalityLogoRef xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
-            ${request.route_url('{0}/image/municipality'.format(route_prefix), fosnr=extract.real_estate.fosnr)}
-        </MunicipalityLogoRef>
+        <data:LogoPLRCadastreRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='oereb')}</data:LogoPLRCadastreRef>
+        <data:FederalLogoRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='confederation')}</data:FederalLogoRef>
+        <data:CantonalLogoRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='canton')}</data:CantonalLogoRef>
+        <data:MunicipalityLogoRef>${request.route_url('{0}/image/municipality'.format(route_prefix), fosnr=extract.real_estate.fosnr)}</data:MunicipalityLogoRef>
     %endif
-        <ExtractIdentifier xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
-            ${extract.extract_identifier}
-        </ExtractIdentifier>
+        <data:ExtractIdentifier>${extract.extract_identifier}</data:ExtractIdentifier>
     %if extract.qr_code:
-        <QRCode xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
-            ${extract.qr_code}
-        </QRCode>
+        <data:QRCode>${extract.qr_code}</data:QRCode>
     %endif
     % if extract.general_information:
-        <GeneralInformation>
+        <data:GeneralInformation>
             <%include file="multilingual_m_text.xml" args="text=extract.general_information"/>
-        </GeneralInformation>
+        </data:GeneralInformation>
     %endif
-        <BaseData xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
+        <data:BaseData>
             <%include file="multilingual_m_text.xml" args="text=extract.base_data"/>
-        </BaseData>
+        </data:BaseData>
         %for glossary in extract.glossaries:
         <%include file="glossary.xml" args="glossary=glossary"/>
         %endfor
@@ -110,8 +84,8 @@
         %for exclusion_of_liability in extract.exclusions_of_liability:
         <%include file="exclusion_of_liability.xml" args="exclusion_of_liability=exclusion_of_liability"/>
         %endfor
-        <PLRCadastreAuthority xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData">
+        <data:PLRCadastreAuthority>
             <%include file="office.xml" args="office=extract.plr_cadastre_authority"/>
-        </PLRCadastreAuthority>
-    </Extract>
+        </data:PLRCadastreAuthority>
+    </data:Extract>
 </GetExtractByIdResponse>

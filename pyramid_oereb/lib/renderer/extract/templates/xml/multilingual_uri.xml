@@ -7,7 +7,6 @@
         from urllib import parse as urlparse
     multilingual_text = multilingual(text)
 %>
-<MultilingualUri>
 % for localized_text in multilingual_text:
     <LocalisedText>
         <Language>${localized_text.get('Language')}</Language>
@@ -18,4 +17,3 @@
         % endif
     </LocalisedText>
 % endfor
-</MultilingualUri>
