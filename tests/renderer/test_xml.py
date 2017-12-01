@@ -15,10 +15,9 @@ def test_line(parameters, xml_templates):
         'line': line
     }).decode('utf-8').split('\n')
     expected_content = """
-    <gml:LineString>
-        <gml:pos>0.0 0.0</gml:pos>
-        <gml:pos>1.0 1.0</gml:pos>
-    </gml:LineString>""".split('\n')
+    <gml:pos>0.0 0.0</gml:pos>
+    <gml:pos>1.0 1.0</gml:pos>
+    """.split('\n')
     expected_lines = []
     for line in expected_content:
         expected_lines.append(line.strip())
@@ -38,9 +37,7 @@ def test_point(parameters, xml_templates):
         'point': point
     }).decode('utf-8').split('\n')
     expected_content = """
-    <gml:Point>
-        <gml:pos>0.0 0.0</gml:pos>
-    </gml:Point>""".split('\n')
+    <gml:pos>0.0 0.0</gml:pos>""".split('\n')
     expected_lines = []
     for line in expected_content:
         expected_lines.append(line.strip())
@@ -54,13 +51,18 @@ def test_point(parameters, xml_templates):
 def test_polygon(parameters, xml_templates):
     polygon = Polygon(((0, 0), (0, 1), (1, 1), (1, 0), (0, 0)))
     template = xml_templates.get_template('geometry/polygon.xml')
+
+    def get_gml_id():
+        return 'gml1'
+
     content = template.render(**{
         'params': parameters,
         'default_language': 'de',
-        'polygon': polygon
+        'polygon': polygon,
+        'get_gml_id': get_gml_id
     }).decode('utf-8').split('\n')
     expected_content = """
-    <gml:Polygon>
+    <gml:Polygon gml:id="gml1">
         <gml:exterior>
             <gml:LinearRing>
                 <gml:pos>0.0 0.0</gml:pos>
