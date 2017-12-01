@@ -18,10 +18,10 @@
 %>
     %if params.flavour == 'embeddable':
     <embeddable>
-        <cadasterState>${str(extract.embeddable.cadaster_state)}</cadasterState>
+        <cadasterState>${str(extract.embeddable.cadaster_state.isoformat())}</cadasterState>
         <cadasterOrganisationName>${localized(extract.embeddable.cadaster_organisation.name).get('Text')}</cadasterOrganisationName>
-        <dataOwnerNameCadastralSurveying>${localized(extract.embeddable.data_owner_cadastral_surveying.name).get('Text')}</dataOwnerNameCadastralSurveying>
-        <transferFromSourceCadastralSurveying>${extract.embeddable.transfer_from_source_cadastral_surveying.strftime('%d-%m-%YT%H:%M:%S')}</transferFromSourceCadastralSurveying>
+        <dataownerNameCadastralSurveying>${localized(extract.embeddable.data_owner_cadastral_surveying.name).get('Text')}</dataownerNameCadastralSurveying>
+        <transferFromSourceCadastralSurveying>${extract.embeddable.transfer_from_source_cadastral_surveying.isoformat()}</transferFromSourceCadastralSurveying>
         % for datasource in extract.embeddable.datasources:
         <%include file="data_source.xml" args="datasource=datasource"/>
         % endfor
