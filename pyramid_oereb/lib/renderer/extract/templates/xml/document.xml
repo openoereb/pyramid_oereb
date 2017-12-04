@@ -1,44 +1,38 @@
 <%page args="document"/>
 <%include file="document_base.xml" args="document=document"/>
-<xsd:Title>
+<data:Title>
     <%include file="multilingual_text.xml" args="text=document.title"/>
-</xsd:Title>
+</data:Title>
 %if document.official_title:
-<xsd:OfficialTitle>
+<data:OfficialTitle>
     <%include file="multilingual_text.xml" args="text=document.official_title"/>
-</xsd:OfficialTitle>
+</data:OfficialTitle>
 %endif
 %if document.abbreviation:
-<xsd:Abbrevation>
+<data:Abbrevation>
     <%include file="multilingual_text.xml" args="text=document.abbreviation"/>
-</xsd:Abbrevation>
+</data:Abbrevation>
 %endif
 %if document.official_number:
-<xsd:OfficialNumber>
-    ${document.official_number}
-</xsd:OfficialNumber>
+<data:OfficialNumber>${document.official_number}</data:OfficialNumber>
 %endif
 %if document.canton:
-<xsd:Canton>
-    ${document.canton}
-</xsd:Canton>
+<data:Canton>${document.canton}</data:Canton>
 %endif
 %if document.municipality:
-<xsd:Municipality>
-    ${document.municipality}
-</xsd:Municipality>
+<data:Municipality>${document.municipality}</data:Municipality>
 %endif
-<xsd:ResponsibleOffice>
+<data:ResponsibleOffice>
     <%include file="office.xml" args="office=document.responsible_office"/>
-</xsd:ResponsibleOffice>
+</data:ResponsibleOffice>
 %if document.article_numbers:
-<xsd:ArticleNumber>
-    ${document.article_numbers}
-</xsd:ArticleNumber>
+<data:ArticleNumber>${document.article_numbers}</data:ArticleNumber>
 %endif
 %for article in document.articles:
 <%include file="article.xml" args="article=article"/>
 %endfor
 %for reference in document.references:
-<%include file="document.xml" args="document=reference"/>
+<data:Reference xsi:type="${get_document_type(reference)}">
+    <%include file="document.xml" args="document=reference"/>
+</data:Reference>
 %endfor

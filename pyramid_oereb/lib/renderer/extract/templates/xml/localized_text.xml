@@ -7,11 +7,9 @@
         from urllib import parse as urlparse
     localized_text = localized(text)
 %>
-<xsd:LocalisedText>
-    <xsd:Language>${localized_text.get('Language')}</xsd:Language>
-    % if urlparse.urlparse(localized_text.get('Text')).scheme:
-        <xsd:Text>${localized_text.get('Text')|u}</xsd:Text>
-    %else:
-        <xsd:Text>${localized_text.get('Text')}</xsd:Text>
-    % endif
-</xsd:LocalisedText>
+<data:Language>${localized_text.get('Language')}</data:Language>
+% if urlparse.urlparse(localized_text.get('Text')).scheme:
+<data:Text>${localized_text.get('Text')|u}</data:Text>
+%else:
+<data:Text>${localized_text.get('Text')}</data:Text>
+% endif

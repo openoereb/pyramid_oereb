@@ -2,51 +2,56 @@
 <%
     from pyramid_oereb.lib.records.plr import PlrRecord
 %>
-<xsd:RealEstate>
-    <xsd:RealEstate_DPR>
-        %if real_estate.number:
-            <xsd:Number>${real_estate.number}</xsd:Number>
-        %endif
-        %if extract.real_estate.identdn:
-            <xsd:IdentDN>${real_estate.identdn}</xsd:IdentDN>
-        %endif
-        %if extract.real_estate.egrid:
-            <xsd:EGRID>${real_estate.egrid}</xsd:EGRID>
-        %endif
-            <xsd:Type>${real_estate.type}</xsd:Type>
-            <xsd:Canton>${real_estate.canton}</xsd:Canton>
-            <xsd:Municipality>${real_estate.municipality}</xsd:Municipality>
-        %if extract.real_estate.subunit_of_land_register:
-            <xsd:SubunitOfLandRegister>${real_estate.subunit_of_land_register}</xsd:SubunitOfLandRegister>
-        %endif
-            <xsd:FosNr>${real_estate.fosnr}</xsd:FosNr>
-        %if extract.real_estate.metadata_of_geographical_base_data:
-            <xsd:MetadataOfGeographicalBaseData>${real_estate.metadata_of_geographical_base_data}</xsd:MetadataOfGeographicalBaseData>
-        %endif
-            <xsd:LandRegistryArea>${real_estate.land_registry_area}</xsd:LandRegistryArea>
-        %if extract.real_estate.limit and params.geometry:
-            <xsd:Limit>
-                <gml:MultiSurface>
-                    %for polygon in real_estate.limit.geoms:
-                    <gml:surfaceMember>
-                        <%include file="geometry/polygon.xml" args="polygon=polygon"/>
-                    </gml:surfaceMember>
-                    %endfor
-                </gml:MultiSurface>
-            </xsd:Limit>
-        %endif
-        %for public_law_restriction in real_estate.public_law_restrictions:
-            %if isinstance(public_law_restriction, PlrRecord):
-            <%include file="public_law_restriction.xml" args="public_law_restriction=public_law_restriction"/>
-            %endif
-        %endfor
-        <xsd:PlanForLandRegister>
-            <%include file="view_service.xml" args="map=real_estate.plan_for_land_register"/>
-        </xsd:PlanForLandRegister>
-        % if params.flavour == 'full':
-        <xsd:Highlight>
+<data:RealEstate>
+%if real_estate.number:
+    <data:Number>${real_estate.number}</data:Number>
+%endif
+%if extract.real_estate.identdn:
+    <data:IdentDN>${real_estate.identdn}</data:IdentDN>
+%endif
+%if extract.real_estate.egrid:
+    <data:EGRID>${real_estate.egrid}</data:EGRID>
+%endif
+    <data:Type>${real_estate.type}</data:Type>
+    <data:Canton>${real_estate.canton}</data:Canton>
+    <data:Municipality>${real_estate.municipality}</data:Municipality>
+%if extract.real_estate.subunit_of_land_register:
+    <data:SubunitOfLandRegister>${real_estate.subunit_of_land_register}</data:SubunitOfLandRegister>
+%endif
+    <data:FosNr>${real_estate.fosnr}</data:FosNr>
+%if extract.real_estate.metadata_of_geographical_base_data:
+    <data:MetadataOfGeographicalBaseData>${real_estate.metadata_of_geographical_base_data}</data:MetadataOfGeographicalBaseData>
+%endif
+    <data:LandRegistryArea>${int(real_estate.land_registry_area)}</data:LandRegistryArea>
+%if extract.real_estate.limit and params.geometry:
+    <data:Limit>
+        <gml:MultiSurface gml:id="${get_gml_id()}">
+            %for polygon in real_estate.limit.geoms:
+            <gml:surfaceMember>
+                <%include file="geometry/polygon.xml" args="polygon=polygon"/>
+            </gml:surfaceMember>
+            %endfor
+        </gml:MultiSurface>
+    </data:Limit>
+%endif
+%for public_law_restriction in real_estate.public_law_restrictions:
+    %if isinstance(public_law_restriction, PlrRecord):
+    <%include file="public_law_restriction.xml" args="public_law_restriction=public_law_restriction"/>
+    %endif
+%endfor
+    <data:PlanForLandRegister>
+        <%include file="view_service.xml" args="map=real_estate.plan_for_land_register"/>
+    </data:PlanForLandRegister>
+%for reference in real_estate.references:
+    <data:Reference xsi:type="${get_document_type(reference)}">
+        <%include file="document.xml" args="document=reference"/>
+    </data:Reference>
+%endfor
+% if params.flavour == 'full':
+    <data:extensions>
+        <Highlight>
             <%include file="view_service.xml" args="map=real_estate.highlight"/>
-        </xsd:Highlight>
-        % endif
-    </xsd:RealEstate_DPR>
-</xsd:RealEstate>
+        </Highlight>
+    </data:extensions>
+% endif
+</data:RealEstate>

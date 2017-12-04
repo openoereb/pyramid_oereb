@@ -4,21 +4,21 @@
     from pyramid_oereb.lib.records.documents import LegalProvisionRecord
 %>
 %if document.text_at_web:
-<xsd:TextAtWeb>
+<data:TextAtWeb>
     <%include file="multilingual_uri.xml" args="text=document.text_at_web"/>
-</xsd:TextAtWeb>
+</data:TextAtWeb>
 %if params.flavour == 'full' and isinstance(document, LegalProvisionRecord):
 <%
     localized_text_at_web = localized(document.text_at_web)
     base64_text_at_web = url_to_base64(localized_text_at_web.get('Text'))
 %>
 %if base64_text_at_web is not None:
-<xsd:Base64TextAtWeb>
-    <xsd:base64Binary>${base64_text_at_web}</xsd:base64Binary>
-</xsd:Base64TextAtWeb>
+<data:Base64TextAtWeb>
+    <base64Binary>${base64_text_at_web}</base64Binary>
+</data:Base64TextAtWeb>
 %endif
 %endif
 %endif
-<xsd:Lawstatus>
+<data:Lawstatus>
     <%include file="law_status.xml" args="law_status=document.law_status"/>
-</xsd:Lawstatus>
+</data:Lawstatus>

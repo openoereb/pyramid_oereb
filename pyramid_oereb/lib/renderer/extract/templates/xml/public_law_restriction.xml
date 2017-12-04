@@ -1,64 +1,69 @@
 <%page args="public_law_restriction"/>
 <%
     from pyramid_oereb import route_prefix
+    from pyramid_oereb.lib.records.documents import LegalProvisionRecord
     # PLR without legal provision is allowed in reduced extract only!
     if params.flavour != 'reduced' and isinstance(public_law_restriction.documents, list) and \
                     len(public_law_restriction.documents) == 0:
         raise ValueError('Restrictions on landownership without legal provision are only allowed '
                          'in reduced extracts!')
 %>
-<xsd:RestrictionOnLandownership>
-    <xsd:Information>
+<data:RestrictionOnLandownership>
+    <data:Information>
         <%include file="multilingual_m_text.xml" args="text=public_law_restriction.information"/>
-    </xsd:Information>
-    <%include file="theme.xml" args="theme=public_law_restriction.theme"/>
+    </data:Information>
+    <data:Theme>
+        <%include file="theme.xml" args="theme=public_law_restriction.theme"/>
+    </data:Theme>
     %if public_law_restriction.sub_theme:
-    <xsd:SubTheme>${public_law_restriction.sub_theme}</xsd:SubTheme>
+    <data:SubTheme>${public_law_restriction.sub_theme}</data:SubTheme>
     %endif
     %if public_law_restriction.other_theme:
-    <xsd:OtherTheme>${public_law_restriction.other_theme}</xsd:OtherTheme>
+    <data:OtherTheme>${public_law_restriction.other_theme}</data:OtherTheme>
     %endif
     %if public_law_restriction.type_code:
-    <xsd:TypeCode>${public_law_restriction.type_code}</xsd:TypeCode>
+    <data:TypeCode>${public_law_restriction.type_code}</data:TypeCode>
     %endif
     %if public_law_restriction.type_code_list:
-    <xsd:TypeCodelist>${public_law_restriction.type_code_list}</xsd:TypeCodelist>
+    <data:TypeCodelist>${public_law_restriction.type_code_list}</data:TypeCodelist>
     %endif
     %if public_law_restriction.law_status:
-    <xsd:Lawstatus>
+    <data:Lawstatus>
         <%include file="law_status.xml" args="law_status=public_law_restriction.law_status"/>
-    </xsd:Lawstatus>
+    </data:Lawstatus>
     %endif
     %if public_law_restriction.area:
-    <xsd:Area>${public_law_restriction.area}</xsd:Area>
-    <xsd:AreaUnit>${public_law_restriction.area_unit}</xsd:AreaUnit>
+    <data:Area>${int(round(public_law_restriction.area))}</data:Area>
     %endif
     %if public_law_restriction.part_in_percent:
-    <xsd:PartInPercent>${public_law_restriction.part_in_percent}</xsd:PartInPercent>
-    %endif
-    %if public_law_restriction.length:
-    <xsd:Length>${public_law_restriction.length}</xsd:Length>
-    <xsd:LengthUnit>${public_law_restriction.length_unit}</xsd:LengthUnit>
+    <data:PartInPercent>${int(round(public_law_restriction.part_in_percent))}</data:PartInPercent>
     %endif
     %if params.images:
-    <xsd:Symbol>${public_law_restriction.symbol.encode()}</xsd:Symbol>
+    <data:Symbol>${public_law_restriction.symbol.encode()}</data:Symbol>
     %else:
-    <xsd:SymbolRef>
-        ${get_symbol_ref(request, public_law_restriction)|u}
-    </xsd:SymbolRef>
+    <data:SymbolRef>${get_symbol_ref(request, public_law_restriction)|u}</data:SymbolRef>
     %endif
     %for geometry in public_law_restriction.geometries:
     <%include file="geometry.xml" args="geometry=geometry"/>
     %endfor
-    <xsd:Map>
+    <data:Map>
         <%include file="view_service.xml" args="map=public_law_restriction.view_service"/>
-    </xsd:Map>
+    </data:Map>
     %for document in public_law_restriction.documents:
-    <xsd:LegalProvisions>
+    <data:LegalProvisions xsi:type="${get_document_type(document)}">
         <%include file="document.xml" args="document=document"/>
-    </xsd:LegalProvisions>
+    </data:LegalProvisions>
     %endfor
-    <xsd:ResponsibleOffice>
+    <data:ResponsibleOffice>
         <%include file="office.xml" args="office=public_law_restriction.responsible_office"/>
-    </xsd:ResponsibleOffice>
-</xsd:RestrictionOnLandownership>
+    </data:ResponsibleOffice>
+    <data:extensions>
+%if public_law_restriction.area:
+        <AreaUnit>${public_law_restriction.area_unit}</AreaUnit>
+%endif
+%if public_law_restriction.length:
+        <Length>${int(round(public_law_restriction.length))}</Length>
+        <LengthUnit>${public_law_restriction.length_unit}</LengthUnit>
+%endif
+    </data:extensions>
+</data:RestrictionOnLandownership>
