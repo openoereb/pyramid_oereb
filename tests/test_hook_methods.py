@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-import base64
-import json
 
 import pytest
 
-from pyramid.httpexceptions import HTTPNotFound, HTTPBadRequest
+from pyramid.httpexceptions import HTTPNotFound
 from pyramid.testing import DummyRequest
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
@@ -13,9 +11,9 @@ from pyramid_oereb.standard.hook_methods import get_symbol, get_symbol_ref
 from tests.conftest import pyramid_oereb_test_config
 
 try:
-    from urllib.parse import urlparse, parse_qs
+    from urllib.parse import urlparse
 except ImportError:
-    from urlparse import urlparse, parse_qs
+    from urlparse import urlparse
 
 
 def test_get_symbol_invalid_theme_code(config):

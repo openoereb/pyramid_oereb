@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
 import base64
 import datetime
-import json
 
 from mako import exceptions
 from mako.template import Template
-from pyramid.httpexceptions import HTTPNotFound, HTTPBadRequest
+from pyramid.httpexceptions import HTTPNotFound
 from pyramid.path import AssetResolver, DottedNameResolver
 from pyramid.response import Response
 from sqlalchemy import cast, Text
 
 from pyramid_oereb import Config, database_adapter, route_prefix
 from pyramid_oereb.lib.records.office import OfficeRecord
-from pyramid_oereb.lib.records.plr import PlrRecord
 
 
 def get_logo(request):

@@ -3,7 +3,6 @@
 import base64
 
 import datetime
-import json
 
 import pytest
 from shapely.geometry import MultiPolygon, Polygon, Point, LineString
