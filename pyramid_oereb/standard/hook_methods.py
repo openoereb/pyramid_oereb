@@ -102,7 +102,7 @@ def get_symbol(request):
             if symbol:
                 response = request.response
                 response.status_int = 200
-                response.content_type = 'image/png'
+                response.content_type = 'image/*'
                 response.body = base64.b64decode(symbol.encode('ascii'))
                 return response
         raise HTTPNotFound()

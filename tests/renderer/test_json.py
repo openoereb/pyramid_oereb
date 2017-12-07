@@ -130,10 +130,10 @@ def test_render(config, parameter):
                 })
             else:
                 expected.update({
-                    'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb.png',
-                    'FederalLogoRef': u'http://example.com/image/logo/confederation.png',
-                    'CantonalLogoRef': u'http://example.com/image/logo/canton.png',
-                    'MunicipalityLogoRef': u'http://example.com/image/municipality/2829.png'
+                    'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb',
+                    'FederalLogoRef': u'http://example.com/image/logo/confederation',
+                    'CantonalLogoRef': u'http://example.com/image/logo/canton',
+                    'MunicipalityLogoRef': u'http://example.com/image/municipality/2829'
                 })
             assert result == expected
 
@@ -267,7 +267,7 @@ def test_format_plr(config, parameter):
                 })
             else:
                 expected.update({
-                    'SymbolRef': 'http://example.com/image/symbol/{theme}/{code}.png'.format(
+                    'SymbolRef': 'http://example.com/image/symbol/{theme}/{code}'.format(
                         theme='ContaminatedSites',
                         code='test'
                     )
@@ -494,7 +494,7 @@ def test_format_legend_entry(parameter, config):
             })
         else:
             expected.update({
-                'SymbolRef': 'http://example.com/image/symbol/{theme_code}/{code}.png'.format(
+                'SymbolRef': 'http://example.com/image/symbol/{theme_code}/{code}'.format(
                     theme_code='ContaminatedSites',
                     code='type1'
                 )

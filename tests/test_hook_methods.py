@@ -61,4 +61,4 @@ def test_get_symbol_ref(config):
     with pyramid_oereb_test_config():
         request = DummyRequest()
         url = urlparse(get_symbol_ref(request, record))
-        assert url.path == '/image/symbol/ContaminatedSites/test.png'
+        assert url.path == '/image/symbol/ContaminatedSites/test'
