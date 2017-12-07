@@ -131,10 +131,10 @@ def test_render(config, parameter):
                 })
             else:
                 expected.update({
-                    'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb',
-                    'FederalLogoRef': u'http://example.com/image/logo/confederation',
-                    'CantonalLogoRef': u'http://example.com/image/logo/canton',
-                    'MunicipalityLogoRef': u'http://example.com/image/municipality/2829'
+                    'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb.png',
+                    'FederalLogoRef': u'http://example.com/image/logo/confederation.png',
+                    'CantonalLogoRef': u'http://example.com/image/logo/canton.png',
+                    'MunicipalityLogoRef': u'http://example.com/image/municipality/2829.png'
                 })
             assert result == expected
 
@@ -268,11 +268,8 @@ def test_format_plr(config, parameter):
                 })
             else:
                 expected.update({
-                    'SymbolRef': 'http://example.com/image/symbol/{theme}?TEXT={text}&CODE={code}'.format(
+                    'SymbolRef': 'http://example.com/image/symbol/{theme}/{code}.png'.format(
                         theme='ContaminatedSites',
-                        text=base64.b64encode(
-                            json.dumps(legend_entry.legend_text).encode('utf-8')
-                        ).decode('ascii').replace('=', '%3D'),
                         code='test'
                     )
                 })
@@ -498,11 +495,8 @@ def test_format_legend_entry(parameter, config):
             })
         else:
             expected.update({
-                'SymbolRef': 'http://example.com/image/symbol/{theme_code}?TEXT={text}&CODE={code}'.format(
+                'SymbolRef': 'http://example.com/image/symbol/{theme_code}/{code}.png'.format(
                     theme_code='ContaminatedSites',
-                    text=base64.b64encode(
-                        json.dumps(legend_entry.legend_text).encode('utf-8')
-                    ).decode('ascii').replace('=', '%3D'),
                     code='type1'
                 )
             })

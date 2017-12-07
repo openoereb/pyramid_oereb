@@ -297,8 +297,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         )
         symbol = None
         for legend_entry_record in legend_entry_records:
-            if public_law_restriction_from_db.type_code == legend_entry_record.type_code \
-                    and public_law_restriction_from_db.information == legend_entry_record.legend_text:
+            if public_law_restriction_from_db.type_code == legend_entry_record.type_code:
                 symbol = legend_entry_record.symbol
         if symbol is None:
             # TODO: raise real error here when data is correct, emit warning for now
