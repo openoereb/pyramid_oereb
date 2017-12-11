@@ -7,7 +7,7 @@ import logging
 from pyconizer import create_icons_from_scratch, get_icon
 from pyconizer.lib.url import parse_url
 from pyramid.path import DottedNameResolver
-from sqlalchemy import create_engine, orm, Text
+from sqlalchemy import cast, create_engine, orm, Text
 
 from pyramid_oereb import parse
 
@@ -84,7 +84,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
 
     # select all plrs from distinct on information, view_service_id and type_code
     unique_plrs = session.query(Plr).distinct(
-        Plr.information.cast(Text),
+        cast(Plr.information, Text),
         Plr.view_service_id,
         Plr.type_code
     ).all()
@@ -252,4 +252,4 @@ def run():
             encoding=options.encoding
         )
     except Exception as e:
-        log.error(e)
+        log.exception(e)
