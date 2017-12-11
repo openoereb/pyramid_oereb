@@ -3,7 +3,6 @@
 import base64
 
 import datetime
-import json
 
 import pytest
 from shapely.geometry import MultiPolygon, Polygon, Point, LineString
@@ -268,11 +267,8 @@ def test_format_plr(config, parameter):
                 })
             else:
                 expected.update({
-                    'SymbolRef': 'http://example.com/image/symbol/{theme}?TEXT={text}&CODE={code}'.format(
+                    'SymbolRef': 'http://example.com/image/symbol/{theme}/{code}'.format(
                         theme='ContaminatedSites',
-                        text=base64.b64encode(
-                            json.dumps(legend_entry.legend_text).encode('utf-8')
-                        ).decode('ascii').replace('=', '%3D'),
                         code='test'
                     )
                 })
@@ -498,11 +494,8 @@ def test_format_legend_entry(parameter, config):
             })
         else:
             expected.update({
-                'SymbolRef': 'http://example.com/image/symbol/{theme_code}?TEXT={text}&CODE={code}'.format(
+                'SymbolRef': 'http://example.com/image/symbol/{theme_code}/{code}'.format(
                     theme_code='ContaminatedSites',
-                    text=base64.b64encode(
-                        json.dumps(legend_entry.legend_text).encode('utf-8')
-                    ).decode('ascii').replace('=', '%3D'),
                     code='type1'
                 )
             })

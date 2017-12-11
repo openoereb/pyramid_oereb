@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
 import base64
 import datetime
-import json
 
 from mako import exceptions
 from mako.template import Template
-from pyramid.httpexceptions import HTTPNotFound, HTTPBadRequest
+from pyramid.httpexceptions import HTTPNotFound
 from pyramid.path import AssetResolver, DottedNameResolver
 from pyramid.response import Response
 from sqlalchemy import cast, Text
 
 from pyramid_oereb import Config, database_adapter, route_prefix
 from pyramid_oereb.lib.records.office import OfficeRecord
-from pyramid_oereb.lib.records.plr import PlrRecord
 
 
 def get_logo(request):
@@ -77,6 +75,7 @@ def get_symbol(request):
     """
 
     theme_code = request.matchdict.get('theme_code')
+    type_code = request.matchdict.get('type_code')
 
     plr = None
     for p in Config.get('plrs'):
@@ -90,23 +89,13 @@ def get_symbol(request):
     source_params = plr.get('source').get('params')
     session = database_adapter.get_session(source_params.get('db_connection'))
 
-    type_code = request.params.get('CODE')
-    legend_text = request.params.get('TEXT')
-
-    if type_code is None:
-        raise HTTPBadRequest('Missing parameter CODE.')
-    if legend_text is None:
-        raise HTTPBadRequest('Missing parameter TEXT.')
-
     try:
         model = DottedNameResolver().resolve('{module_}.{class_}'.format(
             module_=source_params.get('models'),
             class_='LegendEntry'
         ))
         legend_entry = session.query(model).filter(
-            cast(model.type_code, Text) == cast(type_code, Text),
-            cast(model.legend_text, Text) == json.dumps(json.loads(
-                base64.b64decode(legend_text).decode('unicode-escape'))).decode('unicode-escape')
+            cast(model.type_code, Text) == cast(type_code, Text)
         ).first()
         if legend_entry:
             symbol = getattr(legend_entry, 'symbol', None)
@@ -135,15 +124,10 @@ def get_symbol_ref(request, record):
     Returns:
         uri: The link to the symbol for the specified public law restriction.
     """
-    text = record.information if isinstance(record, PlrRecord) else record.legend_text
-    text_encoded = base64.b64encode(json.dumps(text).encode('utf-8')).decode('ascii')
     return request.route_url(
         '{0}/image/symbol'.format(route_prefix),
         theme_code=record.theme.code,
-        _query={
-            'TEXT': text_encoded,
-            'CODE': record.type_code
-        }
+        type_code=record.type_code
     )
 
 

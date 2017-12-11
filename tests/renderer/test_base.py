@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import base64
-import json
 
 import pytest
 import datetime
@@ -124,10 +122,7 @@ def test_get_symbol_ref(config, theme_code):
                 Base.get_symbol_ref(request, record)
         else:
             ref = Base.get_symbol_ref(request, record)
-            assert ref == 'http://example.com/image/symbol/{}?TEXT={}&CODE={}'.format(
+            assert ref == 'http://example.com/image/symbol/{}/{}'.format(
                 theme_code,
-                base64.b64encode(
-                    json.dumps(record.legend_text).encode('utf-8')
-                ).decode('ascii').replace('=', '%3D'),
                 record.type_code
             )

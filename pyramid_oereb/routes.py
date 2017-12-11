@@ -23,7 +23,7 @@ def includeme(config):  # pragma: no cover
 
     # Service for symbol images
     config.add_route('{0}/image/symbol'.format(route_prefix),
-                     '/image/symbol/{theme_code}')
+                     '/image/symbol/{theme_code}/{type_code}')
     config.add_view(Symbol, attr='get_image', route_name='{0}/image/symbol'.format(route_prefix),
                     request_method='GET')
 
