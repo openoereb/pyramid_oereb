@@ -7,7 +7,7 @@ from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 
 
-log = logging.getLogger('pyramid_oereb')
+log = logging.getLogger(__name__)
 
 
 class Processor(object):

@@ -5,7 +5,7 @@ import os
 from sqlalchemy import create_engine, orm
 
 
-log = logging.getLogger('pyramid_oereb')
+log = logging.getLogger(__name__)
 
 
 class DatabaseAdapter(object):

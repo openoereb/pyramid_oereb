@@ -18,7 +18,7 @@ from pyramid_oereb.lib.processor import Processor
 __version__ = '1.0.1'
 
 
-log = logging.getLogger('pyramid_oereb')
+log = logging.getLogger(__name__)
 route_prefix = None
 # initially instantiate database adapter for global session handling
 database_adapter = DatabaseAdapter()

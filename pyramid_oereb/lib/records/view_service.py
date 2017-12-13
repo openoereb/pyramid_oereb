@@ -10,7 +10,7 @@ from pyramid_oereb.lib.url import uri_validator
 from pyramid_oereb.lib.config import Config
 
 
-log = logging.getLogger('pyramid_oereb')
+log = logging.getLogger(__name__)
 
 
 class LegendEntryRecord(object):

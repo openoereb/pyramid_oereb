@@ -16,7 +16,7 @@ from pyreproj import Reprojector
 
 from pyramid_oereb.lib.readers.address import AddressReader
 
-log = logging.getLogger('pyramid_oereb')
+log = logging.getLogger(__name__)
 
 
 class PlrWebservice(object):
