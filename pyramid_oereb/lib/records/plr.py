@@ -5,7 +5,7 @@ import warnings
 from datetime import datetime
 
 
-LOG = logging.getLogger('pyramid_oereb')
+LOG = logging.getLogger(__name__)
 
 
 class EmptyPlrRecord(object):

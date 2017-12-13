@@ -10,7 +10,7 @@ from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 
-log = logging.getLogger('pyramid_oereb')
+log = logging.getLogger(__name__)
 
 
 def parse(cfg_file, cfg_section, c2ctemplate_style=False):

@@ -10,7 +10,7 @@ from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.sources import Base
 
 
-log = logging.getLogger('pyramid_oereb')
+log = logging.getLogger(__name__)
 
 
 class OEREBlexSource(Base):

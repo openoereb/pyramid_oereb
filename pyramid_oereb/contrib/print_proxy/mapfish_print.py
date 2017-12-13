@@ -19,7 +19,7 @@ else:
     from urllib import parse as urlparse
 
 
-log = logging.getLogger('pyramid_oereb')
+log = logging.getLogger(__name__)
 
 
 class Renderer(JsonRenderer):
