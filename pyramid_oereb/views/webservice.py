@@ -178,6 +178,7 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `extract` response.
         """
+        log.debug("get_extract_by_id")
         params = self.__validate_extract_params__()
         processor = self._request.pyramid_oereb_processor
         # read the real estate from configured source by the passed parameters
@@ -191,6 +192,8 @@ class PlrWebservice(object):
             )
         else:
             raise HTTPBadRequest("Missing required argument")
+
+        log.debug("get_extract_by_id, real_estate_records=%s", real_estate_records)
 
         # check if result is strictly one (we queried with primary keys)
         if len(real_estate_records) == 1:
