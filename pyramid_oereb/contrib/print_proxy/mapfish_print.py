@@ -216,6 +216,11 @@ class Renderer(JsonRenderer):
                     legend['Geom_Type'] = geom_type
             current['Legend'].append(legend)
 
+            # Remove in OtherLegend elements that are already in the legend
+            current['OtherLegend'] = [other_legend_element
+                                      for other_legend_element in current['OtherLegend']
+                                      if other_legend_element['SymbolRef'] != legend['SymbolRef']]
+
             # Number or array
             for element in ['Article', 'LegalProvisions', 'Reference']:
                 if current.get(element) is not None and restriction_on_landownership.get(element) is not None:
