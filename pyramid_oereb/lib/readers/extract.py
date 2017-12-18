@@ -79,7 +79,7 @@ class ExtractReader(object):
         """
         return self._logos_.get('canton')
 
-    def read(self, real_estate, municipality_logo, params):
+    def read(self, real_estate, municipality, params):
         """
         This method finally creates the extract.
 
@@ -91,8 +91,8 @@ class ExtractReader(object):
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate for which the report should be generated
-            municipality_logo (pyramid_oereb.lib.records.image.ImageRecord): The municipality
-                logo.
+            municipality (pyramid_oereb.lib.records.municipiality.MunicipalityRecord): The municipality
+                record.
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract
                 request.
 
@@ -100,7 +100,7 @@ class ExtractReader(object):
             pyramid_oereb.lib.records.extract.ExtractRecord:
                 The extract record containing all gathered data.
         """
-        assert isinstance(municipality_logo, ImageRecord)
+        assert isinstance(municipality.logo, ImageRecord)
 
         print_conf = Config.get_object_path('print', required=['buffer'])
         map_size = ViewServiceRecord.get_map_size(params.format)
@@ -108,33 +108,40 @@ class ExtractReader(object):
         bbox = box(bbox[0], bbox[1], bbox[2], bbox[3])
 
         datasource = list()
-        for plr_source in self._plr_sources_:
-            if not params.skip_topic(plr_source.info.get('code')):
-                plr_source.read(real_estate, bbox)
-                for ds in plr_source.datasource:
-                    if not params.skip_topic(ds.theme.code):
-                        datasource.append(ds)
-                real_estate.public_law_restrictions.extend(plr_source.records)
-
         concerned_themes = list()
         not_concerned_themes = list()
         themes_without_data = list()
-        for plr in real_estate.public_law_restrictions:
 
-            # Filter topics due to topics parameter
-            if not params.skip_topic(plr.theme.code):
-                if isinstance(plr, PlrRecord):
-                    contained = False
-                    for theme in concerned_themes:
-                        if theme.code == plr.theme.code:
-                            contained = True
-                    if not contained:
-                        concerned_themes.append(plr.theme)
-                elif isinstance(plr, EmptyPlrRecord):
-                    if plr.has_data:
-                        not_concerned_themes.append(plr.theme)
-                    else:
-                        themes_without_data.append(plr.theme)
+        if municipality.published:
+
+            for plr_source in self._plr_sources_:
+                if not params.skip_topic(plr_source.info.get('code')):
+                    plr_source.read(real_estate, bbox)
+                    for ds in plr_source.datasource:
+                        if not params.skip_topic(ds.theme.code):
+                            datasource.append(ds)
+                    real_estate.public_law_restrictions.extend(plr_source.records)
+
+            for plr in real_estate.public_law_restrictions:
+
+                # Filter topics due to topics parameter
+                if not params.skip_topic(plr.theme.code):
+                    if isinstance(plr, PlrRecord):
+                        contained = False
+                        for theme in concerned_themes:
+                            if theme.code == plr.theme.code:
+                                contained = True
+                        if not contained:
+                            concerned_themes.append(plr.theme)
+                    elif isinstance(plr, EmptyPlrRecord):
+                        if plr.has_data:
+                            not_concerned_themes.append(plr.theme)
+                        else:
+                            themes_without_data.append(plr.theme)
+
+        else:
+            for plr_source in self._plr_sources_:
+                themes_without_data.append(Config.get_theme(plr_source.info.get('code')))
 
         # Load base data form configuration
         resolver = DottedNameResolver()
@@ -159,7 +166,7 @@ class ExtractReader(object):
             self.logo_plr_cadastre,
             self.federal_logo,
             self.cantonal_logo,
-            municipality_logo,
+            municipality.logo,
             self.plr_cadastre_authority,
             base_data,
             embeddable,
