@@ -176,8 +176,7 @@
 				<textFieldExpression><![CDATA[String.format($R{Topicsaffectingtherealestate_ofthemunicipalityof_}, $P{RealEstate_Number}, $P{RealEstate_Municipality})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="115" width="100" height="10" uuid="f56738fd-6928-4ef5-86fc-05361f12ad5b">
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				<reportElement x="0" y="115" width="100" height="11" uuid="f56738fd-6928-4ef5-86fc-05361f12ad5b">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
@@ -185,18 +184,6 @@
 					<font fontName="Cadastra" size="7" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{TOCPageLabel}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="232" y="115" width="261" height="10" uuid="2500cf02-5b6c-4a61-9f33-25dcb4459b8d">
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-				</reportElement>
-				<textElement verticalAlignment="Top">
-					<font fontName="Cadastra" size="7" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{AppendicesLabel}]]></textFieldExpression>
 			</textField>
 			<subreport>
 				<reportElement x="0" y="126" width="493" height="17" uuid="3d372261-9a31-4ae8-85ee-86d3d19f166b">
@@ -209,6 +196,18 @@
 				<dataSourceExpression><![CDATA[$P{BookmarkDataSource}]]></dataSourceExpression>
 				<subreportExpression><![CDATA["toc2.jasper"]]></subreportExpression>
 			</subreport>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="232" y="115" width="261" height="11" uuid="ef15855f-abda-437a-8170-969d275ae155">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<printWhenExpression><![CDATA[!($P{isReduced})]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Cadastra" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{AppendicesLabel}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="64">
 			<property name="local_mesure_unitheight" value="pixel"/>
@@ -322,15 +321,10 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{BaseDataLabel}]]></textFieldExpression>
 			</textField>
-			<subreport>
-				<reportElement x="260" y="26" width="233" height="64" uuid="9fd65c2b-a447-43f1-88f6-9a41a9ca02be"/>
-				<dataSourceExpression><![CDATA[$P{ExclusionOfLiabilityDataSource}]]></dataSourceExpression>
-				<subreportExpression><![CDATA["exclusion_of_liability.jasper"]]></subreportExpression>
-			</subreport>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="10">
+		<band height="231">
 			<line>
 				<reportElement x="0" y="0" width="493" height="1" uuid="f8baaac4-0124-4f50-b8bb-fd8e8451dea7">
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
@@ -365,6 +359,11 @@
 				</textElement>
 				<textFieldExpression><![CDATA[String.format($R{PageLabel}, $V{MASTER_CURRENT_PAGE}, $V{MASTER_TOTAL_PAGES})]]></textFieldExpression>
 			</textField>
+			<subreport>
+				<reportElement x="200" y="167" width="233" height="64" uuid="9fd65c2b-a447-43f1-88f6-9a41a9ca02be"/>
+				<dataSourceExpression><![CDATA[$P{ExclusionOfLiabilityDataSource}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["exclusion_of_liability.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</pageFooter>
 </jasperReport>

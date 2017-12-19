@@ -268,7 +268,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cadastra" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{CreationDate}.toString().substring(0,10)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{CreationDate}.toString().substring(8,10)+'.'+$P{CreationDate}.toString().substring(5,7)+'.'+$P{CreationDate}.toString().substring(0,4)]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="586" width="493" height="17" uuid="0f93a209-d84d-40fb-bf93-7e32ab58897f">
@@ -396,8 +396,7 @@
 				<textFieldExpression><![CDATA[$R{ResponsibleAuthorityLabel}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="620" width="493" height="17" uuid="665204be-fbc2-4efd-9280-8c24a0498dbb">
-					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
+				<reportElement x="0" y="620" width="493" height="38" uuid="665204be-fbc2-4efd-9280-8c24a0498dbb">
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 				</reportElement>
 				<box>
