@@ -63,7 +63,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Top">
 					<font fontName="Cadastra" size="8.5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[java.text.MessageFormat.format("{0} %", java.text.NumberFormat.getInstance($P{REPORT_LOCALE}).format($F{PartInPercent}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{PartInPercent} == -1.0) ? null : java.text.MessageFormat.format("{0} %", java.text.NumberFormat.getInstance($P{REPORT_LOCALE}).format($F{PartInPercent}))]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

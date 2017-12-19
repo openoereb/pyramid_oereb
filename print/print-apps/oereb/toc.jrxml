@@ -171,7 +171,7 @@
 					<bottomPen lineWidth="0.2"/>
 				</box>
 				<textElement verticalAlignment="Top">
-					<font fontName="Cadastra" size="8.5" isBold="true"/>
+					<font fontName="Cadastra" size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format($R{Topicsaffectingtherealestate_ofthemunicipalityof_}, $P{RealEstate_Number}, $P{RealEstate_Municipality})]]></textFieldExpression>
 			</textField>
@@ -221,7 +221,7 @@
 					<bottomPen lineWidth="0.2"/>
 				</box>
 				<textElement verticalAlignment="Top">
-					<font fontName="Cadastra" size="8.5" isBold="true"/>
+					<font fontName="Cadastra" size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{Topicsnotaffectingtherealestate}]]></textFieldExpression>
 			</textField>
@@ -245,7 +245,7 @@
 					<bottomPen lineWidth="0.2"/>
 				</box>
 				<textElement verticalAlignment="Top">
-					<font fontName="Cadastra" size="8.5" isBold="true"/>
+					<font fontName="Cadastra" size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{Topicswithoutdata}]]></textFieldExpression>
 			</textField>
