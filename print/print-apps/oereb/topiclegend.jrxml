@@ -28,7 +28,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement verticalAlignment="Top">
-					<font fontName="Cadastra"/>
+					<font fontName="Cadastra" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Information}]]></textFieldExpression>
 			</textField>
@@ -39,7 +39,7 @@
 					<printWhenExpression><![CDATA["Area".equals($F{Geom_Type})]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Top" markup="html">
-					<font size="8.5"/>
+					<font fontName="Cadastra" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[java.text.MessageFormat.format("{0} m<sup>2</sup>", java.text.NumberFormat.getInstance($P{REPORT_LOCALE}).format($F{Area}))]]></textFieldExpression>
 			</textField>
@@ -50,7 +50,7 @@
 					<printWhenExpression><![CDATA["Length".equals($F{Geom_Type})]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Top" markup="html">
-					<font size="8.5"/>
+					<font fontName="Cadastra" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[java.text.MessageFormat.format("{0} m", java.text.NumberFormat.getInstance($P{REPORT_LOCALE}).format($F{Length}))]]></textFieldExpression>
 			</textField>
@@ -61,9 +61,9 @@
 					<printWhenExpression><![CDATA["Area".equals($F{Geom_Type})]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Top">
-					<font fontName="Cadastra" size="8.5"/>
+					<font fontName="Cadastra" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[java.text.MessageFormat.format("{0} %", java.text.NumberFormat.getInstance($P{REPORT_LOCALE}).format($F{PartInPercent}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{PartInPercent} == -1.0) ? null : java.text.MessageFormat.format("{0} %", java.text.NumberFormat.getInstance($P{REPORT_LOCALE}).format($F{PartInPercent}))]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

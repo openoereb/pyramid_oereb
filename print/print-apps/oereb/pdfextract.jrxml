@@ -93,6 +93,18 @@
 					<subreportParameter name="PLRCadastreAuthority_Name">
 						<subreportParameterExpression><![CDATA[$P{PLRCadastreAuthority_Name}]]></subreportParameterExpression>
 					</subreportParameter>
+					<subreportParameter name="PLRCadastreAuthority_Street">
+						<subreportParameterExpression><![CDATA[$P{PLRCadastreAuthority_Street}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PLRCadastreAuthority_Number">
+						<subreportParameterExpression><![CDATA[$P{PLRCadastreAuthority_Number}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PLRCadastreAuthority_PostalCode">
+						<subreportParameterExpression><![CDATA[$P{PLRCadastreAuthority_PostalCode}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PLRCadastreAuthority_City">
+						<subreportParameterExpression><![CDATA[$P{PLRCadastreAuthority_City}]]></subreportParameterExpression>
+					</subreportParameter>
 					<subreportParameter name="CreationDate">
 						<subreportParameterExpression><![CDATA[$P{CreationDate}]]></subreportParameterExpression>
 					</subreportParameter>

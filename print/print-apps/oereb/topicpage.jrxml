@@ -297,12 +297,13 @@
 				<subreportExpression><![CDATA["topiclegend.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="17">
+		<band height="24">
 			<textField isBlankWhenNull="false">
-				<reportElement x="0" y="0" width="493" height="17" uuid="c7bafe02-64a5-407f-b511-dde165687582">
+				<reportElement x="0" y="0" width="493" height="24" uuid="c7bafe02-64a5-407f-b511-dde165687582">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
@@ -414,11 +415,10 @@
 		</band>
 		<band height="30">
 			<textField>
-				<reportElement x="0" y="0" width="493" height="19" uuid="94ac5c43-32f0-4769-ba84-96a56cb660b6">
+				<reportElement x="0" y="0" width="493" height="24" uuid="94ac5c43-32f0-4769-ba84-96a56cb660b6">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.2"/>
