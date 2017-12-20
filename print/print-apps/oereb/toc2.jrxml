@@ -14,6 +14,7 @@
 	<property name="net.sf.jasperreports.print.create.bookmarks" value="true"/>
 	<style name="Default" isDefault="true" fontName="Cadastra" fontSize="8.5"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<parameter name="isReduced" class="java.lang.Boolean"/>
 	<parameter name="TOC_Appendices" class="java.util.Map"/>
 	<field name="level" class="java.lang.Integer"/>
 	<field name="label" class="java.lang.String"/>
@@ -28,6 +29,7 @@
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<printWhenExpression><![CDATA[!($P{isReduced})]]></printWhenExpression>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -35,8 +37,8 @@
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement verticalAlignment="Top">
-					<font size="8.5" isBold="false"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
 					<paragraph leftIndent="0"/>
 				</textElement>
 				<textFieldExpression><![CDATA[org.apache.commons.lang.StringUtils.join((List<String>)$P{TOC_Appendices}.get( $F{label}), "\n")]]></textFieldExpression>
@@ -49,8 +51,8 @@
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<textElement verticalAlignment="Top">
-					<font fontName="Cadastra" size="8.5" isBold="false"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Cadastra" size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} + $F{pageIndex} + 2]]></textFieldExpression>
 			</textField>
@@ -63,8 +65,8 @@
 				<box>
 					<bottomPen lineWidth="0.2"/>
 				</box>
-				<textElement verticalAlignment="Top">
-					<font fontName="Cadastra" size="8.5" isBold="false"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Cadastra" size="9" isBold="false"/>
 					<paragraph lineSpacing="Single" leftIndent="19" rightIndent="262"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{label}]]></textFieldExpression>

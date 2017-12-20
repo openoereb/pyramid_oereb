@@ -23,6 +23,9 @@
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[($F{Text}.equals("") || $F{Text} == "") ? "No theme listed" : $F{Text}]]></textFieldExpression>
 			</textField>
 		</band>

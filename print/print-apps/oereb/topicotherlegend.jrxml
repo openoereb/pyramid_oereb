@@ -8,7 +8,7 @@
 		<band height="17" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<image onErrorType="Blank">
-				<reportElement x="0" y="1" width="17" height="10" uuid="b9ef005c-0354-4c25-92dc-0121e89d814c">
+				<reportElement x="0" y="2" width="17" height="10" uuid="b9ef005c-0354-4c25-92dc-0121e89d814c">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
@@ -23,7 +23,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement verticalAlignment="Top">
-					<font fontName="Cadastra"/>
+					<font fontName="Cadastra" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LegendText}]]></textFieldExpression>
 			</textField>

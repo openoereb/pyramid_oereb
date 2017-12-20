@@ -406,7 +406,7 @@
 					<font fontName="Cadastra" size="9" isBold="false"/>
 					<paragraph leftIndent="243"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{PLRCadastreAuthority_Name}+'\n'+$P{PLRCadastreAuthority_Street} +' '+$P{PLRCadastreAuthority_Number}+'\n'+$P{PLRCadastreAuthority_City}+' '+$P{PLRCadastreAuthority_PostalCode}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{PLRCadastreAuthority_Name}+'\n'+$P{PLRCadastreAuthority_Street} +' '+$P{PLRCadastreAuthority_Number}+'\n'+$P{PLRCadastreAuthority_PostalCode}+' '+$P{PLRCadastreAuthority_City}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
