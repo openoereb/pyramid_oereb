@@ -6,7 +6,7 @@ pyramid_debugtoolbar==4.3
 PyYAML==3.12
 shapely==1.6.2  # rq.filter: ==1.6.2
 simplejson==3.13.2
-SQLAlchemy==1.1.15
+SQLAlchemy==1.2.0
 sqlalchemy-utils==0.32.21
 transaction==2.1.2
 waitress==1.1.0
