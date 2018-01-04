@@ -37,6 +37,7 @@ class Renderer(JsonRenderer):
             self._multilingual_text(item, 'OfficialTitle')
             self._multilingual_text(item, 'Abbrevation')
 
+
     def __call__(self, value, system):
         """
         Implements a subclass of pyramid_oereb.lib.renderer.extract.json_.Renderer to create a print result
@@ -50,6 +51,7 @@ class Renderer(JsonRenderer):
         Returns:
             buffer: The pdf content as received from configured mapfish print instance url.
         """
+        log.debug("webservice parameter is {}".format(value[1]))
 
         if value[1].images:
             raise HTTPBadRequest('With image is not allowed in the print')
@@ -62,7 +64,70 @@ class Renderer(JsonRenderer):
         else:
             self.lang = self.default_lang
 
-        extract_dict = self._render(value[0], value[1])
+        # Based on extract record and webservice parameter, render the extract data as JSON
+        extract_record = value[0]
+        extract_as_dict = self._render(extract_record, value[1])
+        feature_geometry = mapping(extract_record.real_estate.limit)
+
+        printable_extract = self.get_printable_extract(extract_as_dict, feature_geometry)
+
+        spec = {
+            'layout': Config.get('print', {})['template_name'],
+            'outputFormat': 'pdf',
+            'lang': self.lang,
+            'attributes': printable_extract,
+        }
+
+        response = self.get_response(system)
+
+        if self._request.GET.get('getspec', 'no') != 'no':
+            response.headers['Content-Type'] = 'application/json; charset=UTF-8'
+            return json.dumps(spec, sort_keys=True, indent=4)
+
+        print_result = requests.post(
+            urlparse.urljoin(Config.get('print', {})['base_url'] + '/', 'buildreport.pdf'),
+            headers=Config.get('print', {})['headers'],
+            data=json.dumps(spec)
+        )
+
+        if not printable_extract['isReduced'] and print_result.status_code == 200:
+            main = tempfile.NamedTemporaryFile(suffix='.pdf')
+            main.write(print_result.content)
+            main.flush()
+            cmd = ['pdftk', main.name]
+            temp_files = [main]
+            for url in pdf_to_join:
+                tmp_file = tempfile.NamedTemporaryFile(suffix='.pdf')
+                result = requests.get(url)
+                tmp_file.write(result.content)
+                tmp_file.flush()
+                temp_files.append(tmp_file)
+                cmd.append(tmp_file.name)
+            out = tempfile.NamedTemporaryFile(suffix='.pdf')
+            cmd += ['cat', 'output', out.name]
+            sys.stdout.flush()
+            time.sleep(0.1)
+            subprocess.check_call(cmd)
+            content = out.file.read()
+        else:
+            content = print_result.content
+
+        response.status_code = print_result.status_code
+        response.headers = print_result.headers
+        if 'Transfer-Encoding' in response.headers:
+            del response.headers['Transfer-Encoding']
+        if 'Connection' in response.headers:
+            del response.headers['Connection']
+        return content
+
+    def get_printable_extract(self, extract_dict, feature_geometry):
+        """
+        Converts an oereb extract into a form suitable for printing by mapfish print.
+        """
+
+        log.debug("starting transformation, extract_dict is {}".format(extract_dict))
+        log.debug("feature_geometry is {}".format(feature_geometry))
+
         for attr_name in ['NotConcernedTheme', 'ThemeWithoutData', 'ConcernedTheme']:
             for theme in extract_dict[attr_name]:
                 self._localised_text(theme, 'Text')
@@ -275,59 +340,13 @@ class Renderer(JsonRenderer):
                 'type': 'FeatureCollection',
                 'features': [{
                     'type': 'Feature',
-                    'geometry': mapping(value[0].real_estate.limit),
+                    'geometry': feature_geometry,
                     'properties': {}
                 }]
             }
         }
-        spec = {
-            'layout': Config.get('print', {})['template_name'],
-            'outputFormat': 'pdf',
-            'lang': self.lang,
-            'attributes': extract_dict,
-        }
-
-        response = self.get_response(system)
-
-        if self._request.GET.get('getspec', 'no') != 'no':
-            response.headers['Content-Type'] = 'application/json; charset=UTF-8'
-            return json.dumps(spec, sort_keys=True, indent=4)
-
-        print_result = requests.post(
-            urlparse.urljoin(Config.get('print', {})['base_url'] + '/', 'buildreport.pdf'),
-            headers=Config.get('print', {})['headers'],
-            data=json.dumps(spec)
-        )
-
-        if not extract_dict['isReduced'] and print_result.status_code == 200:
-            main = tempfile.NamedTemporaryFile(suffix='.pdf')
-            main.write(print_result.content)
-            main.flush()
-            cmd = ['pdftk', main.name]
-            temp_files = [main]
-            for url in pdf_to_join:
-                tmp_file = tempfile.NamedTemporaryFile(suffix='.pdf')
-                result = requests.get(url)
-                tmp_file.write(result.content)
-                tmp_file.flush()
-                temp_files.append(tmp_file)
-                cmd.append(tmp_file.name)
-            out = tempfile.NamedTemporaryFile(suffix='.pdf')
-            cmd += ['cat', 'output', out.name]
-            sys.stdout.flush()
-            time.sleep(0.1)
-            subprocess.check_call(cmd)
-            content = out.file.read()
-        else:
-            content = print_result.content
-
-        response.status_code = print_result.status_code
-        response.headers = print_result.headers
-        if 'Transfer-Encoding' in response.headers:
-            del response.headers['Transfer-Encoding']
-        if 'Connection' in response.headers:
-            del response.headers['Connection']
-        return content
+        log.debug("after transformation, extract_dict is {}".format(extract_dict))
+        return extract_dict
 
     def _flatten_array_object(self, parent, array_name, object_name):
         if array_name in parent:
@@ -361,4 +380,4 @@ class Renderer(JsonRenderer):
     def _multilingual_text(self, parent, name):
         if name in parent:
             lang_obj = dict([(e['Language'], e['Text']) for e in parent[name]])
-            parent[name] = lang_obj[self.lang]
+            parent[name] = lang_obj[self._language]
