@@ -556,6 +556,23 @@ class Parameter(object):
             return False
         return True
 
+        self.__flavour__ = flavour
+        self.__format__ = format
+        self.__geometry__ = geometry
+        self.__images__ = images
+        self.__identdn__ = identdn
+        self.__number__ = number
+        self.__egrid__ = egrid
+        self.__language__ = language
+        self.__topics__ = topics
+
+    def __str__(self):
+        return '<%s -- flavour: %s format: %s geometry: %s images: %s identdn: %s' \
+               ' number: %s egrid: %s language: %s topics: %s>' % (
+            self.__class__.__name__,
+            self.flavour, self.format, self.geometry, self.images, self.identdn,
+            self.number, self.egrid, self.language, self.topics )
+
 
 class Logo(object):
     """
