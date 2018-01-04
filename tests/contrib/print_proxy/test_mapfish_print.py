@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import pytest
-from pyramid_oereb import Config
 from pyramid_oereb.contrib.print_proxy.mapfish_print import Renderer
 from tests.conftest import pyramid_oereb_test_config
 from tests.renderer import DummyRenderInfo
