@@ -556,6 +556,13 @@ class Parameter(object):
             return False
         return True
 
+    def __str__(self):
+        return '<%s -- flavour: %s format: %s geometry: %s images: %s identdn: %s' \
+                    ' number: %s egrid: %s language: %s topics: %s>' % (
+                        self.__class__.__name__,
+                        self.flavour, self.format, self.geometry, self.images, self.identdn,
+                        self.number, self.egrid, self.language, self.topics)
+
 
 class Logo(object):
     """
