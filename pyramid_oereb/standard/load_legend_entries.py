@@ -7,7 +7,7 @@ import logging
 from pyconizer import create_icons_from_scratch, get_icon
 from pyconizer.lib.url import parse_url
 from pyramid.path import DottedNameResolver
-from sqlalchemy import create_engine, orm, Text
+from sqlalchemy import create_engine, orm
 
 from pyramid_oereb import parse
 
@@ -24,7 +24,7 @@ log = logging.getLogger(__name__)
 
 def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path='/tmp/pyconizer',
                                          language='de', section='pyramid_oereb', image_format='image/png',
-                                         image_height=36, image_width=72, encoding=None):
+                                         image_height=36, image_width=72, encoding=None, replace_host=None):
     """
     Uses the pyconizer lib to create images out of the OEREB server configuration. It is creating symbols for
     a dedicated topic. This function will clean all previously created icons from database.
@@ -44,6 +44,10 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
         encoding (str or unicode): The encoding which is used to encode the XML. Standard is None. This means
             the encoding is taken from the XML content itself. Only use this parameter if your XML content
             has no encoding set.
+        replace_host (str or None): The host which should be used instead of the one which is in the data.
+            This is only recommended on deploy process when your WMS might be already available on a DEV
+            instance but not on the production system which is linked in the data. Then you can create legend
+            entries by obtaining them from this DEV instance.
     """
 
     # config object parsed from oereb configuration yml
@@ -84,7 +88,6 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
 
     # select all plrs from distinct on information, view_service_id and type_code
     unique_plrs = session.query(Plr).distinct(
-        Plr.information.cast(Text),
         Plr.view_service_id,
         Plr.type_code
     ).all()
@@ -97,13 +100,15 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
             type_code_list.append(unique_plr.type_code)
         url, params = parse_url(unique_plr.view_service.reference_wms)
         layer_existent = False
+        service_url = urlunsplit((url.scheme, url.netloc, '', '', '')) \
+            if replace_host is None else replace_host
         for layer_config in pyconizer_config:
-            if layer_config.get('url') == urlunsplit((url.scheme, url.netloc, '', '', '')) and \
+            if layer_config.get('url') == service_url and \
                     layer_config.get('layer') == params.get('LAYERS')[0]:
                 layer_existent = True
         if not layer_existent:
             pyconizer_config.append({
-                'url': urlunsplit((url.scheme, url.netloc, '', '', '')),
+                'url': service_url,
                 'layer': params.get('LAYERS')[0],
                 'get_styles': {
                     'request': 'GetStyles',
@@ -234,6 +239,17 @@ def run():
              'taken from the XML content itself. Only use this parameter if your XML content has no encoding '
              'set.'
     )
+    parser.add_option(
+        '-r', '--replacehost',
+        dest='replace_host',
+        metavar='REPLACEHOST',
+        type='str',
+        default=None,
+        help='The host which should be used instead of the one which is in the data. This is only '
+             'recommended on deploy process when your WMS might be already available on a DEV instance but '
+             'not on the production system which is linked in the data. Then you can create legend entries '
+             'by obtaining them from this DEV instance.'
+    )
     options, args = parser.parse_args()
     if not options.config:
         parser.error('No configuration file set.')
@@ -249,7 +265,8 @@ def run():
             image_format=options.image_format,
             image_height=options.image_height,
             image_width=options.image_width,
-            encoding=options.encoding
+            encoding=options.encoding,
+            replace_host=options.replace_host
         )
     except Exception as e:
-        log.error(e)
+        log.exception(e)

@@ -252,9 +252,7 @@ class Processor(object):
         glossaries = self._glossary_reader_.read()
         for municipality in municipalities:
             if municipality.fosnr == real_estate.fosnr:
-                if not municipality.published:
-                    raise NotImplementedError  # TODO: improve message
-                extract_raw = self._extract_reader_.read(real_estate, municipality.logo, params)
+                extract_raw = self._extract_reader_.read(real_estate, municipality, params)
                 # the selection of view services will be done whilst tolerance check. This enables us to take
                 # care about the circumstance that after tolerance check plrs will be dismissed which were
                 # recognized as intersecting before. To avoid this the tolerance check is gathering all plrs
