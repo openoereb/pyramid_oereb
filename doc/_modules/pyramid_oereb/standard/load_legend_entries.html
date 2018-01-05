@@ -170,7 +170,7 @@
 <span class="kn">from</span> <span class="nn">pyconizer</span> <span class="k">import</span> <span class="n">create_icons_from_scratch</span><span class="p">,</span> <span class="n">get_icon</span>
 <span class="kn">from</span> <span class="nn">pyconizer.lib.url</span> <span class="k">import</span> <span class="n">parse_url</span>
 <span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="k">import</span> <span class="n">DottedNameResolver</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">orm</span><span class="p">,</span> <span class="n">Text</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">orm</span>
 
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">parse</span>
 
@@ -187,7 +187,7 @@
 
 <div class="viewcode-block" id="create_legend_entries_in_standard_db"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db">[docs]</a><span class="k">def</span> <span class="nf">create_legend_entries_in_standard_db</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">topic_code</span><span class="p">,</span> <span class="n">temp_creation_path</span><span class="o">=</span><span class="s1">&#39;/tmp/pyconizer&#39;</span><span class="p">,</span>
                                          <span class="n">language</span><span class="o">=</span><span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">image_format</span><span class="o">=</span><span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
-                                         <span class="n">image_height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">image_width</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                                         <span class="n">image_height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">image_width</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">replace_host</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Uses the pyconizer lib to create images out of the OEREB server configuration. It is creating symbols for</span>
 <span class="sd">    a dedicated topic. This function will clean all previously created icons from database.</span>
@@ -207,6 +207,10 @@
 <span class="sd">        encoding (str or unicode): The encoding which is used to encode the XML. Standard is None. This means</span>
 <span class="sd">            the encoding is taken from the XML content itself. Only use this parameter if your XML content</span>
 <span class="sd">            has no encoding set.</span>
+<span class="sd">        replace_host (str or None): The host which should be used instead of the one which is in the data.</span>
+<span class="sd">            This is only recommended on deploy process when your WMS might be already available on a DEV</span>
+<span class="sd">            instance but not on the production system which is linked in the data. Then you can create legend</span>
+<span class="sd">            entries by obtaining them from this DEV instance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># config object parsed from oereb configuration yml</span>
@@ -247,7 +251,6 @@
 
     <span class="c1"># select all plrs from distinct on information, view_service_id and type_code</span>
     <span class="n">unique_plrs</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Plr</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">(</span>
-        <span class="n">Plr</span><span class="o">.</span><span class="n">information</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">Text</span><span class="p">),</span>
         <span class="n">Plr</span><span class="o">.</span><span class="n">view_service_id</span><span class="p">,</span>
         <span class="n">Plr</span><span class="o">.</span><span class="n">type_code</span>
     <span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
@@ -260,13 +263,15 @@
             <span class="n">type_code_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unique_plr</span><span class="o">.</span><span class="n">type_code</span><span class="p">)</span>
         <span class="n">url</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">parse_url</span><span class="p">(</span><span class="n">unique_plr</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">)</span>
         <span class="n">layer_existent</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">service_url</span> <span class="o">=</span> <span class="n">urlunsplit</span><span class="p">((</span><span class="n">url</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">netloc</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span> \
+            <span class="k">if</span> <span class="n">replace_host</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">replace_host</span>
         <span class="k">for</span> <span class="n">layer_config</span> <span class="ow">in</span> <span class="n">pyconizer_config</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">layer_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">urlunsplit</span><span class="p">((</span><span class="n">url</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">netloc</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="ow">and</span> \
+            <span class="k">if</span> <span class="n">layer_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">service_url</span> <span class="ow">and</span> \
                     <span class="n">layer_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;layer&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;LAYERS&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]:</span>
                 <span class="n">layer_existent</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">layer_existent</span><span class="p">:</span>
             <span class="n">pyconizer_config</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="n">urlunsplit</span><span class="p">((</span><span class="n">url</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">netloc</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)),</span>
+                <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="n">service_url</span><span class="p">,</span>
                 <span class="s1">&#39;layer&#39;</span><span class="p">:</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;LAYERS&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
                 <span class="s1">&#39;get_styles&#39;</span><span class="p">:</span> <span class="p">{</span>
                     <span class="s1">&#39;request&#39;</span><span class="p">:</span> <span class="s1">&#39;GetStyles&#39;</span><span class="p">,</span>
@@ -397,6 +402,17 @@
              <span class="s1">&#39;taken from the XML content itself. Only use this parameter if your XML content has no encoding &#39;</span>
              <span class="s1">&#39;set.&#39;</span>
     <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s1">&#39;--replacehost&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;replace_host&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;REPLACEHOST&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The host which should be used instead of the one which is in the data. This is only &#39;</span>
+             <span class="s1">&#39;recommended on deploy process when your WMS might be already available on a DEV instance but &#39;</span>
+             <span class="s1">&#39;not on the production system which is linked in the data. Then you can create legend entries &#39;</span>
+             <span class="s1">&#39;by obtaining them from this DEV instance.&#39;</span>
+    <span class="p">)</span>
     <span class="n">options</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">config</span><span class="p">:</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No configuration file set.&#39;</span><span class="p">)</span>
@@ -412,10 +428,11 @@
             <span class="n">image_format</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">image_format</span><span class="p">,</span>
             <span class="n">image_height</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">image_height</span><span class="p">,</span>
             <span class="n">image_width</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">image_width</span><span class="p">,</span>
-            <span class="n">encoding</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">encoding</span>
+            <span class="n">encoding</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
+            <span class="n">replace_host</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">replace_host</span>
         <span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 </pre></div>
 
            </div>

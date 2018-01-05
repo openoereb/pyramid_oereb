@@ -409,7 +409,7 @@ cadastre.</td>
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.readers.extract.ExtractReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>real_estate</em>, <em>municipality_logo</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/readers/extract.html#ExtractReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.readers.extract.ExtractReader.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>real_estate</em>, <em>municipality</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/readers/extract.html#ExtractReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.readers.extract.ExtractReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method finally creates the extract.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -425,8 +425,8 @@ works would be broken.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>real_estate</strong> (<a class="reference internal" href="records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real
 estate for which the report should be generated</li>
-<li><strong>municipality_logo</strong> (<a class="reference internal" href="records.html#pyramid_oereb.lib.records.image.ImageRecord" title="pyramid_oereb.lib.records.image.ImageRecord"><em>pyramid_oereb.lib.records.image.ImageRecord</em></a>) &#8211; The municipality
-logo.</li>
+<li><strong>municipality</strong> (<em>pyramid_oereb.lib.records.municipiality.MunicipalityRecord</em>) &#8211; The municipality
+record.</li>
 <li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract
 request.</li>
 </ul>
