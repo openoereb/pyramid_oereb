@@ -55,12 +55,9 @@ class Renderer(JsonRenderer):
             raise HTTPBadRequest('With image is not allowed in the print')
 
         self._request = self.get_request(system)
-
-        self.default_lang = Config.get('default_language')
+        # If language present in request, use that. Otherwise, keep language from base class
         if 'lang' in self._request.GET:
-            self.lang = self._request.GET.get('lang')
-        else:
-            self.lang = self.default_lang
+            self._language = self._request.GET.get('lang')
 
         extract_dict = self._render(value[0], value[1])
         for attr_name in ['NotConcernedTheme', 'ThemeWithoutData', 'ConcernedTheme']:
@@ -283,7 +280,7 @@ class Renderer(JsonRenderer):
         spec = {
             'layout': Config.get('print', {})['template_name'],
             'outputFormat': 'pdf',
-            'lang': self.lang,
+            'lang': self._language,
             'attributes': extract_dict,
         }
 
@@ -361,4 +358,4 @@ class Renderer(JsonRenderer):
     def _multilingual_text(self, parent, name):
         if name in parent:
             lang_obj = dict([(e['Language'], e['Text']) for e in parent[name]])
-            parent[name] = lang_obj[self.lang]
+            parent[name] = lang_obj[self._language]
