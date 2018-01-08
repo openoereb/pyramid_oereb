@@ -54,8 +54,8 @@ class Renderer(JsonRenderer):
         if value[1].images:
             raise HTTPBadRequest('With image is not allowed in the print')
 
-        # If language present in request, use that. Otherwise, keep language from base class
         self._request = self.get_request(system)
+        # If language present in request, use that. Otherwise, keep language from base class
         if 'lang' in self._request.GET:
             self._language = self._request.GET.get('lang')
 
