@@ -259,8 +259,8 @@ class Renderer(JsonRenderer):
                     if item in legend:
                         legend[item] = int(legend[item])
             # After transformation, get the new legend entries, sorted by TypeCode
-            transformed_legend = list([value for (key, value) in sorted(legends.items())])
-            log.debug("transformed legend: {}".format(transformed_legend))
+            transformed_legend = \
+                list([transformed_entry for (key, transformed_entry) in sorted(legends.items())])
             restriction['Legend'] = transformed_legend
 
         extract_dict['RealEstate_RestrictionOnLandownership'] = restrictions
