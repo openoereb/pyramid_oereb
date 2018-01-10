@@ -258,7 +258,10 @@ class Renderer(JsonRenderer):
                 for item in ['Area', 'Length']:
                     if item in legend:
                         legend[item] = int(legend[item])
-            restriction['Legend'] = list(legends.values())
+            # After transformation, get the new legend entries, sorted by TypeCode
+            transformed_legend = \
+                list([transformed_entry for (key, transformed_entry) in sorted(legends.items())])
+            restriction['Legend'] = transformed_legend
 
         extract_dict['RealEstate_RestrictionOnLandownership'] = restrictions
         # End one restriction entry per theme
