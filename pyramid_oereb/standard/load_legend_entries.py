@@ -141,6 +141,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
     i = 1
     for unique_plr in unique_plrs:
         url, params = parse_url(unique_plr.view_service.reference_wms)
+        layer = params.get('LAYERS')[0] if replace_layer is None else replace_layer
 
         # obtain symbol from pyconizer structure.
         if isinstance(unique_plr.information, dict):
@@ -149,7 +150,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
             class_name = unique_plr.information
         symbol = get_icon(
             temp_creation_path,
-            params.get('LAYERS')[0],
+            layer,
             class_name
         )
         if symbol:
