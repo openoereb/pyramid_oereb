@@ -211,6 +211,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            buffer: The pdf content as received from configured mapfish print instance url.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Parameter webservice is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 
         <span class="k">if</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">images</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">HTTPBadRequest</span><span class="p">(</span><span class="s1">&#39;With image is not allowed in the print&#39;</span><span class="p">)</span>
@@ -220,7 +221,77 @@
         <span class="k">if</span> <span class="s1">&#39;lang&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lang&#39;</span><span class="p">)</span>
 
-        <span class="n">extract_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_render</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c1"># Based on extract record and webservice parameter, render the extract data as JSON</span>
+        <span class="n">extract_record</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">extract_as_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_render</span><span class="p">(</span><span class="n">extract_record</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">feature_geometry</span> <span class="o">=</span> <span class="n">mapping</span><span class="p">(</span><span class="n">extract_record</span><span class="o">.</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span>
+        <span class="n">pdf_to_join</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_printable_extract</span><span class="p">(</span><span class="n">extract_as_dict</span><span class="p">,</span> <span class="n">feature_geometry</span><span class="p">,</span> <span class="n">pdf_to_join</span><span class="p">)</span>
+
+        <span class="n">spec</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;layout&#39;</span><span class="p">:</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;template_name&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;outputFormat&#39;</span><span class="p">:</span> <span class="s1">&#39;pdf&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;lang&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span>
+            <span class="s1">&#39;attributes&#39;</span><span class="p">:</span> <span class="n">extract_as_dict</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;getspec&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;no&#39;</span><span class="p">:</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;application/json; charset=UTF-8&#39;</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="n">print_result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">urlparse</span><span class="o">.</span><span class="n">urljoin</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;base_url&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;buildreport.pdf&#39;</span><span class="p">),</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;headers&#39;</span><span class="p">],</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">extract_as_dict</span><span class="p">[</span><span class="s1">&#39;isReduced&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">print_result</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">main</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.pdf&#39;</span><span class="p">)</span>
+            <span class="n">main</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">print_result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+            <span class="n">main</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pdftk&#39;</span><span class="p">,</span> <span class="n">main</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">temp_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">main</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">pdf_to_join</span><span class="p">:</span>
+                <span class="n">tmp_file</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.pdf&#39;</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+                <span class="n">tmp_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+                <span class="n">tmp_file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                <span class="n">temp_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_file</span><span class="p">)</span>
+                <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.pdf&#39;</span><span class="p">)</span>
+            <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="n">out</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">print_result</span><span class="o">.</span><span class="n">content</span>
+
+        <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">=</span> <span class="n">print_result</span><span class="o">.</span><span class="n">status_code</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="n">print_result</span><span class="o">.</span><span class="n">headers</span>
+        <span class="k">if</span> <span class="s1">&#39;Transfer-Encoding&#39;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Transfer-Encoding&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;Connection&#39;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Connection&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">content</span>
+
+<div class="viewcode-block" id="Renderer.convert_to_printable_extract"><a class="viewcode-back" href="../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.convert_to_printable_extract">[docs]</a>    <span class="k">def</span> <span class="nf">convert_to_printable_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extract_dict</span><span class="p">,</span> <span class="n">feature_geometry</span><span class="p">,</span> <span class="n">pdf_to_join</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts an oereb extract into a form suitable for printing by mapfish print.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            extract_dict: the oereb extract, will get converted by this function into a form</span>
+<span class="sd">                            convenient for mapfish-print</span>
+<span class="sd">            feature_geometry: the geometry for this extract, will get added to the extract information</span>
+<span class="sd">            pdf_to_join: a set of additional information for the pdf, will get filled by this function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Starting transformation, extract_dict is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">))</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Parameter feature_geometry is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature_geometry</span><span class="p">))</span>
+
         <span class="k">for</span> <span class="n">attr_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;NotConcernedTheme&#39;</span><span class="p">,</span> <span class="s1">&#39;ThemeWithoutData&#39;</span><span class="p">,</span> <span class="s1">&#39;ConcernedTheme&#39;</span><span class="p">]:</span>
             <span class="k">for</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="p">[</span><span class="n">attr_name</span><span class="p">]:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_localised_text</span><span class="p">(</span><span class="n">theme</span><span class="p">,</span> <span class="s1">&#39;Text&#39;</span><span class="p">)</span>
@@ -251,7 +322,6 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Content&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;PLRCadastreAuthority_Name&#39;</span><span class="p">)</span>
 
-        <span class="n">pdf_to_join</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">restriction_on_landownership</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;RealEstate_RestrictionOnLandownership&#39;</span><span class="p">,</span> <span class="p">[]):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;Lawstatus&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;Theme&#39;</span><span class="p">)</span>
@@ -436,59 +506,13 @@
                 <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;FeatureCollection&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="p">[{</span>
                     <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Feature&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">mapping</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">),</span>
+                    <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">feature_geometry</span><span class="p">,</span>
                     <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{}</span>
                 <span class="p">}]</span>
             <span class="p">}</span>
         <span class="p">}</span>
-        <span class="n">spec</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;layout&#39;</span><span class="p">:</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;template_name&#39;</span><span class="p">],</span>
-            <span class="s1">&#39;outputFormat&#39;</span><span class="p">:</span> <span class="s1">&#39;pdf&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;lang&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span>
-            <span class="s1">&#39;attributes&#39;</span><span class="p">:</span> <span class="n">extract_dict</span><span class="p">,</span>
-        <span class="p">}</span>
-
-        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;getspec&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;no&#39;</span><span class="p">:</span>
-            <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;application/json; charset=UTF-8&#39;</span>
-            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-
-        <span class="n">print_result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
-            <span class="n">urlparse</span><span class="o">.</span><span class="n">urljoin</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;base_url&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;buildreport.pdf&#39;</span><span class="p">),</span>
-            <span class="n">headers</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;headers&#39;</span><span class="p">],</span>
-            <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
-        <span class="p">)</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;isReduced&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">print_result</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
-            <span class="n">main</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.pdf&#39;</span><span class="p">)</span>
-            <span class="n">main</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">print_result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
-            <span class="n">main</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-            <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pdftk&#39;</span><span class="p">,</span> <span class="n">main</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
-            <span class="n">temp_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">main</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">pdf_to_join</span><span class="p">:</span>
-                <span class="n">tmp_file</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.pdf&#39;</span><span class="p">)</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-                <span class="n">tmp_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
-                <span class="n">tmp_file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-                <span class="n">temp_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_file</span><span class="p">)</span>
-                <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.pdf&#39;</span><span class="p">)</span>
-            <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="n">out</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-            <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-            <span class="n">content</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">content</span> <span class="o">=</span> <span class="n">print_result</span><span class="o">.</span><span class="n">content</span>
-
-        <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">=</span> <span class="n">print_result</span><span class="o">.</span><span class="n">status_code</span>
-        <span class="n">response</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="n">print_result</span><span class="o">.</span><span class="n">headers</span>
-        <span class="k">if</span> <span class="s1">&#39;Transfer-Encoding&#39;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
-            <span class="k">del</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Transfer-Encoding&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="s1">&#39;Connection&#39;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
-            <span class="k">del</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Connection&#39;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">content</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;After transformation, extract_dict is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">extract_dict</span></div>
 
     <span class="k">def</span> <span class="nf">_flatten_array_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">array_name</span><span class="p">,</span> <span class="n">object_name</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">array_name</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">:</span>

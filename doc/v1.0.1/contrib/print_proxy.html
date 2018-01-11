@@ -193,6 +193,26 @@ instance and the created pdf is received and returned to the client. This is a p
 </dd></dl>
 
 <dl class="method">
+<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.convert_to_printable_extract">
+<code class="descname">convert_to_printable_extract</code><span class="sig-paren">(</span><em>extract_dict</em>, <em>feature_geometry</em>, <em>pdf_to_join</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print.html#Renderer.convert_to_printable_extract"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.convert_to_printable_extract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts an oereb extract into a form suitable for printing by mapfish print.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>extract_dict</strong> &#8211; the oereb extract, will get converted by this function into a form
+convenient for mapfish-print</li>
+<li><strong>feature_geometry</strong> &#8211; the geometry for this extract, will get added to the extract information</li>
+<li><strong>pdf_to_join</strong> &#8211; a set of additional information for the pdf, will get filled by this function</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.date_time">
 <code class="descname">date_time</code><span class="sig-paren">(</span><em>dt</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.date_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formats the date/time according to the specification.</p>
