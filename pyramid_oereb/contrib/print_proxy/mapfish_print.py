@@ -50,6 +50,7 @@ class Renderer(JsonRenderer):
         Returns:
             buffer: The pdf content as received from configured mapfish print instance url.
         """
+        log.debug("Parameter webservice is {}".format(value[1]))
 
         if value[1].images:
             raise HTTPBadRequest('With image is not allowed in the print')
@@ -59,7 +60,77 @@ class Renderer(JsonRenderer):
         if 'lang' in self._request.GET:
             self._language = self._request.GET.get('lang')
 
-        extract_dict = self._render(value[0], value[1])
+        # Based on extract record and webservice parameter, render the extract data as JSON
+        extract_record = value[0]
+        extract_as_dict = self._render(extract_record, value[1])
+        feature_geometry = mapping(extract_record.real_estate.limit)
+        pdf_to_join = set()
+
+        self.convert_to_printable_extract(extract_as_dict, feature_geometry, pdf_to_join)
+
+        spec = {
+            'layout': Config.get('print', {})['template_name'],
+            'outputFormat': 'pdf',
+            'lang': self._language,
+            'attributes': extract_as_dict,
+        }
+
+        response = self.get_response(system)
+
+        if self._request.GET.get('getspec', 'no') != 'no':
+            response.headers['Content-Type'] = 'application/json; charset=UTF-8'
+            return json.dumps(spec, sort_keys=True, indent=4)
+
+        print_result = requests.post(
+            urlparse.urljoin(Config.get('print', {})['base_url'] + '/', 'buildreport.pdf'),
+            headers=Config.get('print', {})['headers'],
+            data=json.dumps(spec)
+        )
+
+        if not extract_as_dict['isReduced'] and print_result.status_code == 200:
+            main = tempfile.NamedTemporaryFile(suffix='.pdf')
+            main.write(print_result.content)
+            main.flush()
+            cmd = ['pdftk', main.name]
+            temp_files = [main]
+            for url in pdf_to_join:
+                tmp_file = tempfile.NamedTemporaryFile(suffix='.pdf')
+                result = requests.get(url)
+                tmp_file.write(result.content)
+                tmp_file.flush()
+                temp_files.append(tmp_file)
+                cmd.append(tmp_file.name)
+            out = tempfile.NamedTemporaryFile(suffix='.pdf')
+            cmd += ['cat', 'output', out.name]
+            sys.stdout.flush()
+            time.sleep(0.1)
+            subprocess.check_call(cmd)
+            content = out.file.read()
+        else:
+            content = print_result.content
+
+        response.status_code = print_result.status_code
+        response.headers = print_result.headers
+        if 'Transfer-Encoding' in response.headers:
+            del response.headers['Transfer-Encoding']
+        if 'Connection' in response.headers:
+            del response.headers['Connection']
+        return content
+
+    def convert_to_printable_extract(self, extract_dict, feature_geometry, pdf_to_join):
+        """
+        Converts an oereb extract into a form suitable for printing by mapfish print.
+
+        Args:
+            extract_dict: the oereb extract, will get converted by this function into a form
+                            convenient for mapfish-print
+            feature_geometry: the geometry for this extract, will get added to the extract information
+            pdf_to_join: a set of additional information for the pdf, will get filled by this function
+        """
+
+        log.debug("Starting transformation, extract_dict is {}".format(extract_dict))
+        log.debug("Parameter feature_geometry is {}".format(feature_geometry))
+
         for attr_name in ['NotConcernedTheme', 'ThemeWithoutData', 'ConcernedTheme']:
             for theme in extract_dict[attr_name]:
                 self._localised_text(theme, 'Text')
@@ -90,7 +161,6 @@ class Renderer(JsonRenderer):
             self._multilingual_text(item, 'Content')
         self._multilingual_text(extract_dict, 'PLRCadastreAuthority_Name')
 
-        pdf_to_join = set()
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
             self._flatten_object(restriction_on_landownership, 'Lawstatus')
             self._flatten_object(restriction_on_landownership, 'Theme')
@@ -275,59 +345,13 @@ class Renderer(JsonRenderer):
                 'type': 'FeatureCollection',
                 'features': [{
                     'type': 'Feature',
-                    'geometry': mapping(value[0].real_estate.limit),
+                    'geometry': feature_geometry,
                     'properties': {}
                 }]
             }
         }
-        spec = {
-            'layout': Config.get('print', {})['template_name'],
-            'outputFormat': 'pdf',
-            'lang': self._language,
-            'attributes': extract_dict,
-        }
-
-        response = self.get_response(system)
-
-        if self._request.GET.get('getspec', 'no') != 'no':
-            response.headers['Content-Type'] = 'application/json; charset=UTF-8'
-            return json.dumps(spec, sort_keys=True, indent=4)
-
-        print_result = requests.post(
-            urlparse.urljoin(Config.get('print', {})['base_url'] + '/', 'buildreport.pdf'),
-            headers=Config.get('print', {})['headers'],
-            data=json.dumps(spec)
-        )
-
-        if not extract_dict['isReduced'] and print_result.status_code == 200:
-            main = tempfile.NamedTemporaryFile(suffix='.pdf')
-            main.write(print_result.content)
-            main.flush()
-            cmd = ['pdftk', main.name]
-            temp_files = [main]
-            for url in pdf_to_join:
-                tmp_file = tempfile.NamedTemporaryFile(suffix='.pdf')
-                result = requests.get(url)
-                tmp_file.write(result.content)
-                tmp_file.flush()
-                temp_files.append(tmp_file)
-                cmd.append(tmp_file.name)
-            out = tempfile.NamedTemporaryFile(suffix='.pdf')
-            cmd += ['cat', 'output', out.name]
-            sys.stdout.flush()
-            time.sleep(0.1)
-            subprocess.check_call(cmd)
-            content = out.file.read()
-        else:
-            content = print_result.content
-
-        response.status_code = print_result.status_code
-        response.headers = print_result.headers
-        if 'Transfer-Encoding' in response.headers:
-            del response.headers['Transfer-Encoding']
-        if 'Connection' in response.headers:
-            del response.headers['Connection']
-        return content
+        log.debug("After transformation, extract_dict is {}".format(extract_dict))
+        return extract_dict
 
     def _flatten_array_object(self, parent, array_name, object_name):
         if array_name in parent:
