@@ -247,6 +247,7 @@ class Processor(object):
         Returns:
             pyramid_oereb.lib.records.extract.ExtractRecord: The generated extract record.
         """
+        log.debug("process() start")
         municipalities = self._municipality_reader_.read()
         exclusions_of_liability = self._exclusion_of_liability_reader_.read()
         glossaries = self._glossary_reader_.read()
@@ -265,5 +266,6 @@ class Processor(object):
                 # obtain the highlight wms url and its content only if the parameter full was requested (PDF)
                 if params.flavour == 'full':
                     extract.real_estate.set_highlight_url(sld_url)
+                log.debug("process() done, returning extract.")
                 return extract
         raise NoResultFound()

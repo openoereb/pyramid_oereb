@@ -86,3 +86,16 @@ class RealEstateRecord(object):
             ''
         )
         self.highlight.download_wms_content()
+
+    def __str__(self):
+        return '<%s -- number: %s identdn: %s egrid: %s type: %s' \
+                    ' canton: %s municipality: %s subunit_of_land_register: %s fosnr: %s' \
+                    ' metadata_of_geographical_base_data: %s land_registry_area: %s' \
+                    ' limit: %s public_law_restrictions: %s references: %s' \
+                    ' areas_ratio: %s>' % (
+                        self.__class__.__name__,
+                        self.number, self.identdn, self.egrid, self.type,
+                        self.canton, self.municipality, self.subunit_of_land_register, self.fosnr,
+                        self.metadata_of_geographical_base_data, self.land_registry_area,
+                        self.limit, self.public_law_restrictions, self.references,
+                        self.areas_ratio)

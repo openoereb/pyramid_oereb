@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import base64
+import logging
 
 from geoalchemy2.shape import to_shape, from_shape
 from pyramid.path import DottedNameResolver
@@ -16,7 +17,9 @@ from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import EmptyPlrRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource
-from pyramid_oereb.lib.sources.plr import PlrBaseSource, log
+from pyramid_oereb.lib.sources.plr import PlrBaseSource
+
+log = logging.getLogger(__name__)
 
 
 class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
@@ -449,6 +452,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 estate in its record representation.
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
         """
+        log.debug("read() start")
         geometry_types = Config.get('geometry_types')
         collection_types = geometry_types.get('collection').get('types')
 
@@ -483,6 +487,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         # Add empty record if topic is not available
         else:
             self.records = [EmptyPlrRecord(self._theme_record, has_data=False)]
+
+        log.debug("read() done.")
 
     def _is_available(self, real_estate):
         """

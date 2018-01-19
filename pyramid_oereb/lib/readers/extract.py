@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+import logging
 from pyramid.path import DottedNameResolver
 
 from shapely.geometry import box
@@ -10,6 +11,8 @@ from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.plr import PlrRecord, EmptyPlrRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
+
+log = logging.getLogger(__name__)
 
 
 class ExtractReader(object):
@@ -100,6 +103,7 @@ class ExtractReader(object):
             pyramid_oereb.lib.records.extract.ExtractRecord:
                 The extract record containing all gathered data.
         """
+        log.debug("read() start")
         assert isinstance(municipality.logo, ImageRecord)
 
         print_conf = Config.get_object_path('print', required=['buffer'])
@@ -116,7 +120,9 @@ class ExtractReader(object):
 
             for plr_source in self._plr_sources_:
                 if not params.skip_topic(plr_source.info.get('code')):
+                    log.debug("read() going to read from plr_source {}".format(plr_source))
                     plr_source.read(real_estate, bbox)
+                    log.debug("read() done reading from plr_source {}".format(plr_source))
                     for ds in plr_source.datasource:
                         if not params.skip_topic(ds.theme.code):
                             datasource.append(ds)
@@ -175,4 +181,5 @@ class ExtractReader(object):
             theme_without_data=themes_without_data
         )
 
+        log.debug("read() done")
         return self.extract
