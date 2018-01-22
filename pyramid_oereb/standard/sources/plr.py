@@ -476,10 +476,15 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         self.records = [EmptyPlrRecord(self._theme_record)]
                     else:
                         self.records = []
+                        distinct_on_plr = []
                         for geometry_result in geometry_results:
-                            self.records.append(
-                                self.from_db_to_plr_record(geometry_result.public_law_restriction)
-                            )
+                            if geometry_result.public_law_restriction_id not in distinct_on_plr:
+                                self.records.append(
+                                    self.from_db_to_plr_record(geometry_result.public_law_restriction)
+                                )
+                                distinct_on_plr.append(geometry_result.public_law_restriction_id)
+                        log.info("read() processed {} geometry_results into {} plr".
+                                 format(len(geometry_results), len(self.records)))
 
             finally:
                 session.close()
