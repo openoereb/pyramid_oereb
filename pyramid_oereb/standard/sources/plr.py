@@ -475,11 +475,14 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     if len(geometry_results) == 0:
                         self.records = [EmptyPlrRecord(self._theme_record)]
                     else:
+                        relevant_plrs = {}
                         self.records = []
                         for geometry_result in geometry_results:
-                            self.records.append(
-                                self.from_db_to_plr_record(geometry_result.public_law_restriction)
-                            )
+                            plr = geometry_result.public_law_restriction
+                            plr_key = '{}_{}'.format(self._theme_record.code, plr.type_code)
+                            if plr_key not in relevant_plrs:
+                                relevant_plrs[plr_key] = plr
+                                self.records.append(self.from_db_to_plr_record(plr))
 
             finally:
                 session.close()
