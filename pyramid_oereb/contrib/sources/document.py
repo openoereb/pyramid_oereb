@@ -72,6 +72,7 @@ class OEREBlexSource(Base):
         Args:
             geolink_id (int): The geoLink ID.
         """
+        log.debug("read() start")
 
         # Request documents
         url = '{host}/api/{version}geolinks/{id}.xml'.format(
@@ -79,7 +80,9 @@ class OEREBlexSource(Base):
             version=self._version + '/' if self._pass_version else '',
             id=geolink_id
         )
+        log.debug("read() getting documents, url: {}, parser: {}".format(url, self._parser))
         documents = self._parser.from_url(url, {}, proxies=self._proxies, auth=self._auth)
+        log.debug("read() got documents")
 
         # Get main documents
         main_documents = list()
@@ -97,6 +100,7 @@ class OEREBlexSource(Base):
         self.records = []
         for document in main_documents:
             self.records.extend(self._get_document_records(document, referenced_documents))
+        log.debug("read() done.")
 
     def _get_document_records(self, document, references=list()):
         """

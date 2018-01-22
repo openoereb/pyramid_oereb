@@ -178,6 +178,7 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `extract` response.
         """
+        log.debug("get_extract_by_id() start")
         params = self.__validate_extract_params__()
         processor = self._request.pyramid_oereb_processor
         # read the real estate from configured source by the passed parameters
@@ -200,18 +201,21 @@ class PlrWebservice(object):
                 self._request.route_url('{0}/sld'.format(route_prefix))
             )
             if params.format == 'json':
+                log.debug("get_extract_by_id() calling json")
                 return render_to_response(
                     'pyramid_oereb_extract_json',
                     (extract, params),
                     request=self._request
                 )
             elif params.format == 'xml':
+                log.debug("get_extract_by_id() calling xml")
                 return render_to_response(
                     'pyramid_oereb_extract_xml',
                     (extract, params),
                     request=self._request
                 )
             elif params.format == 'pdf':
+                log.debug("get_extract_by_id() calling pdf")
                 return render_to_response(
                     'pyramid_oereb_extract_print',
                     (extract, params),

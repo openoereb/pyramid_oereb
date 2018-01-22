@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import logging
+
 from json import dumps
 
 from pyramid.request import Request
@@ -13,6 +15,8 @@ from shapely.geometry import mapping
 
 from pyramid_oereb.lib.renderer import Base
 from pyramid_oereb.views.webservice import Parameter
+
+log = logging.getLogger(__name__)
 
 
 class Renderer(Base):
@@ -37,7 +41,7 @@ class Renderer(Base):
         Returns:
             str: The JSON encoded extract.
         """
-
+        log.debug("__call__() start")
         self._request = self.get_request(system)
         assert isinstance(self._request, (Request, DummyRequest))
 
@@ -53,6 +57,7 @@ class Renderer(Base):
         }
         if self._params.flavour == 'embeddable':
             result[u'GetExtractByIdResponse'][u'embeddable'] = self.format_embeddable(value[0].embeddable)
+        log.debug("__call__() done.")
         return dumps(result)
 
     def _render(self, extract, param):
@@ -67,7 +72,7 @@ class Renderer(Base):
         Returns:
             str: The JSON encoded extract.
         """
-
+        log.debug("_render() start")
         self._params = param
 
         if not isinstance(self._params, Parameter):
@@ -137,6 +142,7 @@ class Renderer(Base):
                 })
             extract_dict['Glossary'] = glossaries
 
+        log.debug("_render() done.")
         return extract_dict
 
     def format_real_estate(self, real_estate):
