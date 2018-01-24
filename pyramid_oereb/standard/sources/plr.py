@@ -410,38 +410,45 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         ]
         return or_(*clause_blocks)
 
-    def handle_collection(self, geometry_results, session, collection_types, bbox):
-
+    def handle_collection(self, session, geometry_to_check):
+        geometry_types = Config.get('geometry_types')
+        collection_types = geometry_types.get('collection').get('types')
         # Check for Geometry type, cause we can't handle geometry collections the same as specific geometries
         if self._plr_info.get('geometry_type') in [x.upper() for x in collection_types]:
 
             # The PLR is defined as a collection type. We need to do a special handling
-            db_bbox_intersection_results = session.query(self._model_).filter(
+            query = session.query(self._model_).filter(
                 self.extract_geometry_collection_db(
                     '{schema}.{table}.geom'.format(
                         schema=self._model_.__table__.schema,
                         table=self._model_.__table__.name
                     ),
-                    bbox
+                    geometry_to_check
                 )
             )
 
-            def handle_result(result):
-                real_geometry_intersection_result = bbox.intersects(to_shape(result.geom))
-                if real_geometry_intersection_result:
-                    geometry_results.append(
-                        result
-                    )
-
-            for result in db_bbox_intersection_results:
-                handle_result(result)
-
         else:
-
             # The PLR is not problematic at all cause we do not have a collection type here
-            geometry_results.extend(session.query(self._model_).filter(self._model_.geom.ST_Intersects(
-                from_shape(bbox, srid=Config.get('srid'))
-            )).all())
+            query = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
+                from_shape(geometry_to_check, srid=Config.get('srid'))
+            ))
+        return query
+
+    def collect_related_geometries_by_real_estate(self, session, real_estate):
+        """
+        Extracts all geometries in the topic which have spatial relation with the passed real estate
+
+        Args:
+            session (sqlalchemy.orm.Session): The requested clean session instance ready for use
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
+                estate in its record representation.
+
+        Returns:
+            list: The result of the related geometries unique by the public law restriction id
+        """
+        return self.handle_collection(session, real_estate.limit).distinct(
+            self._model_.public_law_restriction_id
+        ).all()
 
     def read(self, real_estate, bbox):
         """
@@ -453,28 +460,28 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
         """
         log.debug("read() start")
-        geometry_types = Config.get('geometry_types')
-        collection_types = geometry_types.get('collection').get('types')
 
         # Check if the plr is marked as available
         if self._is_available(real_estate):
-
             session = self._adapter_.get_session(self._key_)
-
             try:
-
                 if session.query(self._model_).count() == 0:
                     # We can stop here already because there are no items in the database
-                    self.records = [EmptyPlrRecord(self._theme_record, has_data=True)]
-
+                    self.records = [EmptyPlrRecord(self._theme_record)]
                 else:
+                    # We need to investigate more in detail
 
-                    geometry_results = []
-                    self.handle_collection(geometry_results, session, collection_types, bbox)
-
+                    # Try to find geometries which have spatial relation with real estate
+                    geometry_results = self.collect_related_geometries_by_real_estate(
+                        session, real_estate
+                    )
                     if len(geometry_results) == 0:
+                        # We checked if there are spatially related elements in database. But there is none.
+                        # So we can stop here.
                         self.records = [EmptyPlrRecord(self._theme_record)]
                     else:
+                        # We found spatially related elements. This means we need to extract the actual plr
+                        # information related to the found geometries.
                         self.records = []
                         for geometry_result in geometry_results:
                             self.records.append(
