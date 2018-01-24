@@ -487,6 +487,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                             self.records.append(
                                 self.from_db_to_plr_record(geometry_result.public_law_restriction)
                             )
+                        log.debug("read() processed {} geometry_results into {} plr".format(
+                            len(geometry_results), len(self.records))
+                        )
 
             finally:
                 session.close()
@@ -494,8 +497,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         # Add empty record if topic is not available
         else:
             self.records = [EmptyPlrRecord(self._theme_record, has_data=False)]
-
-        log.debug("read() done.")
 
     def _is_available(self, real_estate):
         """
