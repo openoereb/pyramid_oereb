@@ -416,32 +416,26 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         if self._plr_info.get('geometry_type') in [x.upper() for x in collection_types]:
 
             # The PLR is defined as a collection type. We need to do a special handling
-            db_bbox_intersection_results = session.query(self._model_).filter(
-                self.extract_geometry_collection_db(
-                    '{schema}.{table}.geom'.format(
-                        schema=self._model_.__table__.schema,
-                        table=self._model_.__table__.name
-                    ),
-                    bbox
-                )
+            sqlalchemy_filter_clauses = self.extract_geometry_collection_db(
+                '{schema}.{table}.geom'.format(
+                    schema=self._model_.__table__.schema,
+                    table=self._model_.__table__.name
+                ),
+                bbox
             )
-
-            def handle_result(result):
-                real_geometry_intersection_result = bbox.intersects(to_shape(result.geom))
-                if real_geometry_intersection_result:
-                    geometry_results.append(
-                        result
-                    )
+            db_bbox_intersection_results = session.query(self._model_).filter(
+                sqlalchemy_filter_clauses
+            ).distinct(self._model_.public_law_restriction_id)
 
             for result in db_bbox_intersection_results:
-                handle_result(result)
-
+                geometry_results.append(
+                    result
+                )
         else:
-
             # The PLR is not problematic at all cause we do not have a collection type here
             geometry_results.extend(session.query(self._model_).filter(self._model_.geom.ST_Intersects(
                 from_shape(bbox, srid=Config.get('srid'))
-            )).all())
+            )).distinct(self._model_.public_law_restriction_id).all())
 
     def read(self, real_estate, bbox):
         """
@@ -452,7 +446,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 estate in its record representation.
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
         """
-        log.debug("read() start")
         geometry_types = Config.get('geometry_types')
         collection_types = geometry_types.get('collection').get('types')
 
@@ -480,6 +473,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                             self.records.append(
                                 self.from_db_to_plr_record(geometry_result.public_law_restriction)
                             )
+                        log.debug("read() processed {} geometry_results into {} plr".format(
+                            len(geometry_results), len(self.records))
+                        )
 
             finally:
                 session.close()
@@ -487,8 +483,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         # Add empty record if topic is not available
         else:
             self.records = [EmptyPlrRecord(self._theme_record, has_data=False)]
-
-        log.debug("read() done.")
 
     def _is_available(self, real_estate):
         """

@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 import json
-
+import logging
 import pytest
 from jsonschema import Draft4Validator
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
 
 from tests.conftest import MockRequest, pyramid_oereb_test_config, schema_json_extract
 from pyramid_oereb.views.webservice import PlrWebservice
+
+log = logging.getLogger('pyramid_oereb')
 
 
 @pytest.mark.parametrize('params', [
@@ -195,17 +197,25 @@ def test_return_json(topics):
 
     assert isinstance(real_estate, dict)
     if topics == 'ALL':
-        assert len(real_estate.get('RestrictionOnLandownership')) == 6
+        assert len(real_estate.get('RestrictionOnLandownership')) == 3
         assert len(extract.get('ConcernedTheme')) == 3
         assert len(extract.get('NotConcernedTheme')) == 14
         assert len(extract.get('ThemeWithoutData')) == 0
+        restrictions = real_estate.get('RestrictionOnLandownership')
+        assert restrictions[0]['Theme']['Code'] == 'LandUsePlans'
+        assert restrictions[1]['Theme']['Code'] == 'MotorwaysBuildingLines'
+        assert restrictions[2]['Theme']['Code'] == 'ContaminatedSites'
     if topics == 'ALL_FEDERAL':
         assert len(real_estate.get('RestrictionOnLandownership')) == 1
         assert len(extract.get('ConcernedTheme')) == 1
         assert len(extract.get('NotConcernedTheme')) == 9
         assert len(extract.get('ThemeWithoutData')) == 0
+        restrictions = real_estate.get('RestrictionOnLandownership')
+        assert restrictions[0]['Theme']['Code'] == 'MotorwaysBuildingLines'
     if topics == 'ContaminatedSites,RailwaysProjectPlanningZones':
         assert len(real_estate.get('RestrictionOnLandownership')) == 1
         assert len(extract.get('ConcernedTheme')) == 1
         assert len(extract.get('NotConcernedTheme')) == 1
         assert len(extract.get('ThemeWithoutData')) == 0
+        restrictions = real_estate.get('RestrictionOnLandownership')
+        assert restrictions[0]['Theme']['Code'] == 'ContaminatedSites'
