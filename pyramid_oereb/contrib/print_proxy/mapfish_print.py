@@ -98,6 +98,7 @@ class Renderer(JsonRenderer):
                 content_type = result.headers.get('content-type')
                 log.debug("document url: " + url + " => content_type: " + content_type)
                 if content_type != 'application/pdf':
+                    log.warn("skipped document inclusion (url: " + url + " ) because content_type: " + content_type)
                     continue
                 tmp_file = tempfile.NamedTemporaryFile(suffix='.pdf')
                 tmp_file.write(result.content)
