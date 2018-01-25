@@ -314,6 +314,12 @@ pyramid_oereb:
         methods:
           date: pyramid_oereb.standard.hook_methods.get_surveying_data_update_date
           provider:  pyramid_oereb.standard.hook_methods.get_surveying_data_provider
+    general_information:
+      text:
+        de: Der Inhalt des Katasters wird als bekannt vorausgesetzt. Der Kanton <HIER MUSS DER KANTONSNAME STEHEN> ist für die Genauigkeit und Verlässlichkeit der gesetzgebenden Dokumenten in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begründet insbesondere keine Rechten und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskräftig verabschiedet oder veröffentlicht worden sind. Mit der Beglaubigung des Auszuges wird die Übereinstimmung des Auszuges mit dem Kataster zum Zeitpunkt des Auszuges bestätigt.
+        fr: ...
+        it: ...
+        rm: ...
 
 
   # All PLRs which are provided by this application. This is related to all application behaviour, especially
