@@ -463,7 +463,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             list: The result of the related geometries unique by the public law restriction id
         """
         distinct_type_codes = []
-        geometries = self.handle_collection(session, bbox).join(self._model_.public_law_restriction).distinct(
+        geometries = self.handle_collection(session, bbox).distinct(
             self._model_.public_law_restriction_id
         ).all()
         for geometry in geometries:
