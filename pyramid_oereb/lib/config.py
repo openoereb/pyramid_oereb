@@ -367,7 +367,7 @@ class Config(object):
         """
         assert Config._config is not None
         assert isinstance(base_data_date, datetime.datetime)
-        base_data = Config.get_extract_config().get('base_data').get('text')
+        base_data = dict(Config.get_extract_config().get('base_data').get('text'))
         assert isinstance(base_data, dict)
         for k in base_data.keys():
             base_data.update({k: base_data.get(k).format(base_data_date.strftime('%d.%m.%Y'))})
