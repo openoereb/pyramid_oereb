@@ -285,7 +285,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             ))
         return document_records
 
-    def from_db_to_plr_record(self, public_law_restriction_from_db):
+    def from_db_to_plr_record(self, public_law_restriction_from_db, legend_entries_from_db):
         thresholds = self._plr_info.get('thresholds')
         min_length = thresholds.get('length').get('limit')
         length_unit = thresholds.get('length').get('unit')
@@ -296,7 +296,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         percentage_precision = thresholds.get('percentage').get('precision')
         legend_entry_records = self.from_db_to_legend_entry_record(
             self._theme_record,
-            public_law_restriction_from_db.view_service.legends
+            legend_entries_from_db
         )
         symbol = None
         for legend_entry_record in legend_entry_records:
@@ -450,6 +450,30 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             self._model_.public_law_restriction_id
         ).all()
 
+    def collect_legend_entries_by_bbox(self, session, bbox):
+        """
+        Extracts all legend entries in the topic which have spatial relation with the passed bounding box of
+        visible extent.
+
+        Args:
+            session (sqlalchemy.orm.Session): The requested clean session instance ready for use
+            bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
+
+        Returns:
+            list: The result of the related geometries unique by the public law restriction id
+        """
+        distinct_type_codes = []
+        geometries = self.handle_collection(session, bbox).join(self._model_.public_law_restriction).distinct(
+            self._model_.public_law_restriction_id
+        ).all()
+        for geometry in geometries:
+            if geometry.public_law_restriction.type_code not in distinct_type_codes:
+                distinct_type_codes.append(geometry.public_law_restriction.type_code)
+
+        return session.query(self.legend_entry_model).filter(
+            self.legend_entry_model.type_code.in_(distinct_type_codes)
+        ).all()
+
     def read(self, real_estate, bbox):
         """
         The read point which creates a extract, depending on a passed real estate.
@@ -485,7 +509,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         self.records = []
                         for geometry_result in geometry_results:
                             self.records.append(
-                                self.from_db_to_plr_record(geometry_result.public_law_restriction)
+                                self.from_db_to_plr_record(
+                                    geometry_result.public_law_restriction,
+                                    self.collect_legend_entries_by_bbox(session, bbox)
+                                )
                             )
                         log.debug("read() processed {} geometry_results into {} plr".format(
                             len(geometry_results), len(self.records))

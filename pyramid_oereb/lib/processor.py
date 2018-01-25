@@ -142,10 +142,10 @@ class Processor(object):
     def get_legend_entries(inside_plrs, outside_plrs):
         """
         We need to apply the right legend entries to each plr record which is intersecting the real estate.
-        This means to make a topic wise grouping and find every legend entry which is on one hand not the same
-        type code as the intersecting plr itself and on the other hand the same type code as the non
-        intersecting one. We finally need to attach all this criteria matching legend entries to *the*
-        intersecting one.
+        The result will be the "other legend".
+        Since we already have a list of legend entries which are in the view bbox from calculated in the
+        plr source, its only necessary to omit the legend entries which are on the real estate from the list
+        of "other legend".
 
         Args:
             inside_plrs (list of pyramid_oereb.lib.records.plr.PlrRecord): The PLR's which are intersecting
@@ -156,26 +156,30 @@ class Processor(object):
             list of pyramid_oereb.lib.records.plr.PlrRecord: The updated records with the hopefully correct
                 legend entries assigned.
         """
-
-        # for each plr which has intersection with the real estate
+        # first we create a dict of theme codes which holds all the type_codes we will remove later from
+        # the legend entries.
+        type_codes_to_remove = {}
         for inside_plr in inside_plrs:
-            # we clean its related legend entries, because it has its own entry stored via its symbol
-            #  attribute
-            inside_plr.view_service.legends = []
-            # for every plr outside of the real estate
-            for outside_plr in outside_plrs:
-                # we check if it is belonging to the same theme
-                if inside_plr.theme.code == outside_plr.theme.code:
-                    # if it is we look up every legend related to this outside plr
-                    for legend in outside_plr.view_service.legends:
-                        # we check if the legend type code is not the same as the intersected plr ones and
-                        # the legend type code is the same as the outside plr ones
-                        if inside_plr.type_code != legend.type_code and \
-                                outside_plr.type_code == legend.type_code:
-                            # at this point we have a legend entry which has different type code then the
-                            # intersecting plr, but before we can append this we need to check if a item is
-                            # already in the list. Therefor we use a self made method.
-                            inside_plr.view_service.unique_update_legends(legend)
+            theme_code = inside_plr.theme.code
+            type_code = inside_plr.type_code
+            if not type_codes_to_remove.get(theme_code):
+                type_codes_to_remove[theme_code] = {
+                    'codes_to_remove': [],
+                    'legend_entries': None
+                }
+            if type_code not in type_codes_to_remove[theme_code]['codes_to_remove']:
+                type_codes_to_remove[theme_code]['codes_to_remove'].append(type_code)
+            if not type_codes_to_remove[theme_code]['legend_entries']:
+                type_codes_to_remove[theme_code]['legend_entries'] = inside_plr.view_service.legends
+
+        for key in type_codes_to_remove.keys():
+            for legend_entry in list(type_codes_to_remove[key]['legend_entries']):
+                if legend_entry.type_code in type_codes_to_remove[key]['codes_to_remove']:
+                    type_codes_to_remove[key]['legend_entries'].remove(legend_entry)
+
+        for inside_plr in inside_plrs:
+            theme_code = inside_plr.theme.code
+            inside_plr.view_service.legends = type_codes_to_remove[theme_code]['legend_entries']
 
         return inside_plrs
 
