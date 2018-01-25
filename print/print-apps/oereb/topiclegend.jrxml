@@ -19,6 +19,9 @@
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
+				<box>
+					<pen lineWidth="0.2"/>
+				</box>
 				<imageExpression><![CDATA[$F{SymbolRef}]]></imageExpression>
 			</image>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
