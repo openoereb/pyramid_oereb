@@ -68,8 +68,8 @@ vars:
       # extract. Here you can define the path to the logic which prepares the output as payload for print
       # service and returns the result to the user.
       renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer
-      # The buffer on the map around the parcel in percent
-      buffer: 10
+      # The minimum buffer in pixel between the real estate and the map's border.
+      buffer: 30
       # The map size in pixel at 72 DPI (width, height), This is the defined size of a map image
       # (requested in wms urls) inside the static extract. On a pdf report, tha map size will
       # be calculated with the pdf_dpi and the pdf_map_size_millimeters below.

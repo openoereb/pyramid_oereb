@@ -85,28 +85,60 @@ class ViewServiceRecord(object):
 
     @staticmethod
     def get_bbox(geometry, map_size, print_buffer):
-        width_buffer = (geometry.bounds[2] - geometry.bounds[0]) * print_buffer / 100
-        height_buffer = (geometry.bounds[3] - geometry.bounds[1]) * print_buffer / 100
+        """
+        Return a bbox adapted for the map size specified in the print configuration
+         and based on the geometry and a buffer (margin to add between the geometry
+         and the border of the map).
+
+        Args:
+            geometry (): The geometry of the feature to center the map on.
+            map_size (list): Size of the map (width, height) in pixel.
+            print_buffer (number): The buffer in pixel.
+
+        Returns:
+            list: The bbox for the print.
+        """
+        map_size = [493, 280] # FIXME static size
+        map_width = float(map_size[0])
+        map_height = float(map_size[1])
+
+        geom_bounds = geometry.bounds
+        geom_width = float(geom_bounds[2] - geom_bounds[0])
+        geom_height = float(geom_bounds[3] - geom_bounds[1])
+
+        geom_ration = geom_width / geom_height
+        map_ration = map_width / map_height
+
+        must_adapt_width = geom_ration < map_ration
+
+        if must_adapt_width:
+            # Height is correct, so calculate a buffer on the height of the geometry.
+            buffer_in_percent = float(print_buffer) / float(map_height)
+        else:
+            # Width is correct, so calculate a buffer on the width of the geometry.
+            buffer_in_percent = float(print_buffer) / float(map_width)
+
+        # Create the print bounds with the geom and the buffer.
+        width_buffer = geom_width * buffer_in_percent
+        height_buffer = geom_height * buffer_in_percent
         print_bounds = [
-            geometry.bounds[0] - width_buffer,
-            geometry.bounds[1] - height_buffer,
-            geometry.bounds[2] + width_buffer,
-            geometry.bounds[3] + height_buffer,
+            geom_bounds[0] - width_buffer,
+            geom_bounds[1] - height_buffer,
+            geom_bounds[2] + width_buffer,
+            geom_bounds[3] + height_buffer,
         ]
-        width = float(print_bounds[2] - print_bounds[0])
-        height = float(print_bounds[3] - print_bounds[1])
-        map_width = map_size[0]
-        map_height = map_size[1]
 
-        obj_ration = width / height
-        print_ration = float(map_size[0]) / float(map_size[1])
+        print_width = float(print_bounds[2] - print_bounds[0])
+        print_height = float(print_bounds[3] - print_bounds[1])
 
-        if obj_ration < print_ration:
-            to_add = (map_width / (map_height / height) - width) / 2
+        if must_adapt_width:
+            # Will adapt the print bounds on the top and the bottom of the geometry.
+            to_add = (map_width / (map_height / print_height) - print_width) / 2
             print_bounds[0] -= to_add
             print_bounds[2] += to_add
         else:
-            to_add = (map_height / (map_width / width) - height) / 2
+            # Will adapt the print bounds on the right and the left of the geometry.
+            to_add = (map_height / (map_width / print_width) - print_height) / 2
             print_bounds[1] -= to_add
             print_bounds[3] += to_add
 
