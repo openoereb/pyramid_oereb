@@ -95,16 +95,18 @@ class ViewServiceRecord(object):
         ]
         width = float(print_bounds[2] - print_bounds[0])
         height = float(print_bounds[3] - print_bounds[1])
+        map_width = map_size[0]
+        map_height = map_size[1]
 
         obj_ration = width / height
         print_ration = float(map_size[0]) / float(map_size[1])
 
         if obj_ration < print_ration:
-            to_add = ((width / obj_ration * print_ration) - width) / 2
+            to_add = (map_width / (map_height / height) - width) / 2
             print_bounds[0] -= to_add
             print_bounds[2] += to_add
         else:
-            to_add = (height - (height / obj_ration * print_ration)) / 2
+            to_add = (map_height / (map_width / width) - height) / 2
             print_bounds[1] -= to_add
             print_bounds[3] += to_add
 
