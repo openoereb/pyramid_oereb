@@ -155,6 +155,7 @@ class ExtractReader(object):
         date_method = resolver.resolve(date_method_string)
         av_update_date = date_method(real_estate)
         base_data = Config.get_base_data(av_update_date)
+        general_information = Config.get('extract').get('general_information')
 
         av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
         av_provider_method = resolver.resolve(av_provider_method_string)
@@ -178,7 +179,8 @@ class ExtractReader(object):
             embeddable,
             concerned_theme=concerned_themes,
             not_concerned_theme=not_concerned_themes,
-            theme_without_data=themes_without_data
+            theme_without_data=themes_without_data,
+            general_information=general_information
         )
 
         log.debug("read() done")
