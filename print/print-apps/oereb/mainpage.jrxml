@@ -445,7 +445,7 @@
 				<textElement>
 					<font fontName="Cadastra" size="6.5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{CreationDate}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{CreationDate}.toString().substring(8,10)+'.'+$P{CreationDate}.toString().substring(5,7)+'.'+$P{CreationDate}.toString().substring(0,4)+' '+$P{CreationDate}.toString().substring(11,13)+':'+$P{CreationDate}.toString().substring(14,16)+':'+$P{CreationDate}.toString().substring(17,19)]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
