@@ -301,13 +301,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{FurtherInformation}]]></textFieldExpression>
 			</textField>
-			<textField hyperlinkType="Reference" hyperlinkTarget="Blank">
-				<reportElement x="260" y="105" width="232" height="11" forecolor="#4C8FBA" uuid="423aa9b7-82cf-47fe-8581-6ac646500ca7"/>
-				<textElement verticalAlignment="Top" markup="none">
-					<font fontName="Cadastra" size="6" isBold="true"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="260" y="105" width="232" height="11" uuid="423aa9b7-82cf-47fe-8581-6ac646500ca7"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Cadastra" size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA["www.ne.ch/sgrf"]]></textFieldExpression>
-				<hyperlinkReferenceExpression><![CDATA["www.ne.ch/sgrf"]]></hyperlinkReferenceExpression>
+				<textFieldExpression><![CDATA["Weitere Informationen zum ÖREB-Kataster finden Sie auf unserer <a href=\"https://www.baselland.ch/politik-und-behorden/direktionen/volkswirtschafts-und-gesundheitsdirektion/amt-fur-geoinformation/oereb-kataster\"><font color=\"blue\">Webseite</font></a>"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="26" width="230" height="11" uuid="e8e72f34-6553-41ad-a3cd-75273b060f24">
