@@ -50,6 +50,7 @@
 	<parameter name="RealEstate_FosNr" class="java.lang.String"/>
 	<parameter name="RealEstate_RestrictionOnLandownershipDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="GlossaryDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="copyright" class="java.lang.String"/>
 	<variable name="TOC_Appendices" class="java.util.Map">
 		<variableExpression><![CDATA[new java.util.HashMap()]]></variableExpression>
 	</variable>
@@ -218,6 +219,9 @@
 					</subreportParameter>
 					<subreportParameter name="BaseData">
 						<subreportParameterExpression><![CDATA[$P{BaseData}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="copyright">
+						<subreportParameterExpression><![CDATA[$P{copyright}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter name="REPORT_DATA_SOURCE">
 						<subreportParameterExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></subreportParameterExpression>

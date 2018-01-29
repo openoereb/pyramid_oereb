@@ -68,6 +68,8 @@ class Renderer(JsonRenderer):
 
         self.convert_to_printable_extract(extract_as_dict, feature_geometry, pdf_to_join)
 
+        extract_as_dict['copyright'] = Config.get('print', {}).get('copyright_notice', 'Copyright')
+
         spec = {
             'layout': Config.get('print', {})['template_name'],
             'outputFormat': 'pdf',

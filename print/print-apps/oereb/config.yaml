@@ -249,6 +249,7 @@ templates:
                                 strokeOpacity: 1
                                 strokeWidth: 2
                                 strokeLinecap: "round"
+            copyright: !string {}
 
         processors:
         - !reportBuilder # compile all reports in current directory
