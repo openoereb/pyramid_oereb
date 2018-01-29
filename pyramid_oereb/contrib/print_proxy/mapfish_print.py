@@ -68,6 +68,14 @@ class Renderer(JsonRenderer):
 
         self.convert_to_printable_extract(extract_as_dict, feature_geometry, pdf_to_join)
 
+        extract_as_dict['Further_Infromation_Text'] = Config.get(
+            'print', {}
+        ).get(
+            'furtherInfromationText', {}
+        ).get(
+            self._language, '-'
+        )
+
         spec = {
             'layout': Config.get('print', {})['template_name'],
             'outputFormat': 'pdf',

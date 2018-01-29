@@ -75,6 +75,7 @@
 	<parameter name="RealEstate_FosNr" class="java.lang.String"/>
 	<parameter name="RealEstate_LandRegistryArea" class="java.lang.String"/>
 	<parameter name="RealEstate_SubunitOfLandRegister" class="java.lang.String"/>
+    <parameter name="Further_Information_Text" class="java.lang.String"/>
 	<parameter name="TOC_Appendices" class="java.util.Map"/>
 	<field name="Text" class="java.lang.String"/>
 	<pageHeader>
@@ -306,7 +307,7 @@
 				<textElement verticalAlignment="Top" markup="html">
 					<font fontName="Cadastra" size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{FurtherInformationContent}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{Further_Information_Text}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="26" width="230" height="11" uuid="e8e72f34-6553-41ad-a3cd-75273b060f24">
