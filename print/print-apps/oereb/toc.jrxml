@@ -306,7 +306,7 @@
 				<textElement verticalAlignment="Top" markup="html">
 					<font fontName="Cadastra" size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Weitere Informationen zum ÖREB-Kataster finden Sie auf unserer <a href=\"https://www.baselland.ch/politik-und-behorden/direktionen/volkswirtschafts-und-gesundheitsdirektion/amt-fur-geoinformation/oereb-kataster\"><font color=\"blue\">Webseite</font></a>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{FurtherInformationContent}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="26" width="230" height="11" uuid="e8e72f34-6553-41ad-a3cd-75273b060f24">
