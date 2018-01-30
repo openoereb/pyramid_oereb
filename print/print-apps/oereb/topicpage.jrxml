@@ -499,9 +499,9 @@
 				</graphicElement>
 			</line>
 			<textField>
-                <reportElement x="0" y="1" width="281" height="8" uuid="b78ad76c-e391-4edd-a0ab-2ebed93889cd">
-                    <property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-                </reportElement>
+				<reportElement x="0" y="1" width="281" height="8" uuid="b78ad76c-e391-4edd-a0ab-2ebed93889cd">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<textElement>
 					<font fontName="Cadastra" size="6.5"/>
 				</textElement>

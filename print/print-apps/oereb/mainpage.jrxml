@@ -433,9 +433,9 @@
 				<textFieldExpression><![CDATA[String.format($R{PageLabel}, $V{MASTER_CURRENT_PAGE}, $V{MASTER_TOTAL_PAGES})]]></textFieldExpression>
 			</textField>
 			<textField>
-                <reportElement x="0" y="1" width="280" height="8" uuid="da7412c1-4c91-468a-b794-ecdeffd44184">
-                    <property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-                </reportElement>
+				<reportElement x="0" y="1" width="280" height="8" uuid="da7412c1-4c91-468a-b794-ecdeffd44184">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<textElement>
 					<font fontName="Cadastra" size="6.5"/>
 				</textElement>
