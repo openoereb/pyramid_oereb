@@ -43,6 +43,7 @@
 	<parameter name="isReduced" class="java.lang.Boolean"/>
 	<parameter name="ExtractIdentifier" class="java.lang.String"/>
 	<parameter name="CreationDate" class="java.lang.String"/>
+	<parameter name="Footer" class="java.lang.String"/>
 	<parameter name="FederalLogo" class="java.lang.String"/>
 	<parameter name="FederalLogoRef" class="java.lang.String"/>
 	<parameter name="CantonalLogo" class="java.lang.String"/>
@@ -352,23 +353,13 @@
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="100" y="1" width="75" height="9" uuid="6259ac06-25a4-410d-9b98-39094d34bf6a">
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				<reportElement x="0" y="1" width="281" height="8" uuid="b78ad76c-e391-4edd-a0ab-2ebed93889cd">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<textElement>
 					<font fontName="Cadastra" size="6.5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ExtractIdentifier}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="1" width="75" height="8" uuid="b78ad76c-e391-4edd-a0ab-2ebed93889cd">
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-				</reportElement>
-				<textElement>
-					<font fontName="Cadastra" size="6.5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy   HH:mm:ss").format(java.time.LocalDateTime.parse($P{CreationDate}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{Footer}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Master" isBlankWhenNull="true">
 				<reportElement x="385" y="1" width="108" height="8" uuid="b4dfa216-323b-41b9-8811-ade5ada8995a">

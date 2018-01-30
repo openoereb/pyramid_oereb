@@ -8,6 +8,8 @@ import requests
 import logging
 
 import time
+
+from datetime import datetime
 from shapely.geometry import mapping
 from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import Config
@@ -130,6 +132,14 @@ class Renderer(JsonRenderer):
 
         log.debug("Starting transformation, extract_dict is {}".format(extract_dict))
         log.debug("Parameter feature_geometry is {}".format(feature_geometry))
+
+        creation_date = datetime.strptime(extract_dict['CreationDate'], '%Y-%m-%dT%H:%M:%S')
+        extract_dict['Footer'] = '   '.join([
+            creation_date.strftime('%d.%m.%Y'),
+            creation_date.strftime('%H:%M:%S'),
+            extract_dict['ExtractIdentifier']
+        ])
+        extract_dict['CreationDate'] = creation_date.strftime('%d.%m.%Y')
 
         for attr_name in ['NotConcernedTheme', 'ThemeWithoutData', 'ConcernedTheme']:
             for theme in extract_dict[attr_name]:
