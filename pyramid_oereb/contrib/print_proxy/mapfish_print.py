@@ -139,6 +139,7 @@ class Renderer(JsonRenderer):
             creation_date.strftime('%H:%M:%S'),
             extract_dict['ExtractIdentifier']
         ])
+        extract_dict['CreationDate'] = creation_date.strftime('%d.%m.%Y')
 
         for attr_name in ['NotConcernedTheme', 'ThemeWithoutData', 'ConcernedTheme']:
             for theme in extract_dict[attr_name]:

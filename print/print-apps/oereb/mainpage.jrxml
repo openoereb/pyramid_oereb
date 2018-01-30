@@ -269,7 +269,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cadastra" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy").format(java.time.LocalDateTime.parse($P{CreationDate}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{CreationDate}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="586" width="493" height="17" uuid="0f93a209-d84d-40fb-bf93-7e32ab58897f">
