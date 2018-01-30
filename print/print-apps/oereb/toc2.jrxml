@@ -65,9 +65,9 @@
 				<box>
 					<bottomPen lineWidth="0.2"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Top">
 					<font fontName="Cadastra" size="9" isBold="false"/>
-					<paragraph lineSpacing="Single" leftIndent="19" rightIndent="262"/>
+					<paragraph lineSpacing="Single" leftIndent="19" rightIndent="262" spacingBefore="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{label}]]></textFieldExpression>
 			</textField>
