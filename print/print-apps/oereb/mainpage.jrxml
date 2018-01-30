@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2018-01-30T09:29:50 -->
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="titlepage" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="493" leftMargin="51" rightMargin="51" topMargin="28" bottomMargin="20" uuid="8ffd7940-5d69-45af-b3ac-fa15a5db24b6">
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -270,7 +269,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cadastra" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{CreationDate}.toString().substring(8,10)+'.'+$P{CreationDate}.toString().substring(5,7)+'.'+$P{CreationDate}.toString().substring(0,4)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy").format(java.time.LocalDateTime.parse($P{CreationDate}))]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="586" width="493" height="17" uuid="0f93a209-d84d-40fb-bf93-7e32ab58897f">
@@ -434,7 +433,9 @@
 				<textFieldExpression><![CDATA[String.format($R{PageLabel}, $V{MASTER_CURRENT_PAGE}, $V{MASTER_TOTAL_PAGES})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="1" width="280" height="8" uuid="da7412c1-4c91-468a-b794-ecdeffd44184"/>
+                <reportElement x="0" y="1" width="280" height="8" uuid="da7412c1-4c91-468a-b794-ecdeffd44184">
+                    <property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+                </reportElement>
 				<textElement>
 					<font fontName="Cadastra" size="6.5"/>
 				</textElement>
