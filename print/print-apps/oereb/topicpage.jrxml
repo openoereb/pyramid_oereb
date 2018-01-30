@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2018-01-30T10:37:59 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Topicpage" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="493" leftMargin="51" rightMargin="51" topMargin="28" bottomMargin="20" uuid="3664412a-b6c6-4e1c-8c14-6c4af7e6efc2">
 	<property name="net.sf.jasperreports.print.create.bookmarks" value="true"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -58,6 +59,7 @@
 	<parameter name="isReduced" class="java.lang.Boolean"/>
 	<parameter name="ExtractIdentifier" class="java.lang.String"/>
 	<parameter name="CreationDate" class="java.lang.String"/>
+	<parameter name="Footer" class="java.lang.String"/>
 	<parameter name="FederalLogo" class="java.lang.String"/>
 	<parameter name="FederalLogoRef" class="java.lang.String"/>
 	<parameter name="CantonalLogo" class="java.lang.String"/>
@@ -500,20 +502,11 @@
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="100" y="1" width="181" height="9" uuid="6259ac06-25a4-410d-9b98-39094d34bf6a">
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-				</reportElement>
+				<reportElement x="0" y="1" width="281" height="8" uuid="b78ad76c-e391-4edd-a0ab-2ebed93889cd"/>
 				<textElement>
 					<font fontName="Cadastra" size="6.5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ExtractIdentifier}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="1" width="90" height="8" uuid="b78ad76c-e391-4edd-a0ab-2ebed93889cd"/>
-				<textElement>
-					<font fontName="Cadastra" size="6.5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{CreationDate}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{Footer}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Master" isBlankWhenNull="true">
 				<reportElement x="385" y="1" width="108" height="8" uuid="b4dfa216-323b-41b9-8811-ade5ada8995a">

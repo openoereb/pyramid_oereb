@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2018-01-30T10:40:05 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pdfextract" pageWidth="595" pageHeight="842" sectionType="Part" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30" whenResourceMissingType="Error" uuid="d2716064-8ae4-40cf-a575-33afba400e3a">
 	<property name="net.sf.jasperreports.print.create.bookmarks" value="true"/>
 	<property name="net.sf.jasperreports.export.pdfa.icc.profile.path" value="sRGB_IEC61966-2-1_black_scaled.icc"/>
@@ -112,7 +113,7 @@
 					<subreportParameter name="ExtractIdentifier">
 						<subreportParameterExpression><![CDATA[$P{ExtractIdentifier}]]></subreportParameterExpression>
 					</subreportParameter>
-                    <subreportParameter name="Footer">
+					<subreportParameter name="Footer">
 						<subreportParameterExpression><![CDATA[$P{Footer}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter name="RealEstate_EGRID">
@@ -168,6 +169,9 @@
 					</subreportParameter>
 					<subreportParameter name="CreationDate">
 						<subreportParameterExpression><![CDATA[$P{CreationDate}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="Footer">
+						<subreportParameterExpression><![CDATA[$P{Footer}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter name="FederalLogo">
 						<subreportParameterExpression><![CDATA[$P{FederalLogo}]]></subreportParameterExpression>
@@ -272,6 +276,9 @@
 					<subreportParameter name="CreationDate">
 						<subreportParameterExpression><![CDATA[$P{CreationDate}]]></subreportParameterExpression>
 					</subreportParameter>
+					<subreportParameter name="Footer">
+						<subreportParameterExpression><![CDATA[$P{Footer}]]></subreportParameterExpression>
+					</subreportParameter>
 					<subreportParameter name="RealEstate_Municipality">
 						<subreportParameterExpression><![CDATA[$P{RealEstate_Municipality}]]></subreportParameterExpression>
 					</subreportParameter>
@@ -327,6 +334,9 @@
 				</subreportParameter>
 				<subreportParameter name="CreationDate">
 					<subreportParameterExpression><![CDATA[$P{CreationDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Footer">
+					<subreportParameterExpression><![CDATA[$P{Footer}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="RealEstate_Municipality">
 					<subreportParameterExpression><![CDATA[$P{RealEstate_Municipality}]]></subreportParameterExpression>
