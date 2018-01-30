@@ -109,38 +109,31 @@ class ViewServiceRecord(object):
         geom_ration = geom_width / geom_height
         map_ration = map_width / map_height
 
-        must_adapt_width = geom_ration < map_ration
+        # If the format of the map is naturally adapted to the format of the geometry
+        is_format_adapted = geom_ration < map_ration
 
-        if must_adapt_width:
-            # Height is correct, so calculate a buffer on the height of the geometry.
-            buffer = geom_height * (float(print_buffer) / float(map_height))
+        if is_format_adapted:
+            map_height_without_buffer = map_height - 2 * print_buffer
+            # Calculate the new height of the geom with the buffer.
+            geom_height_with_buffer = map_height / map_height_without_buffer * geom_height
+            # Calculate the new geom width with the map ratio and the new geom height.
+            geom_width_with_buffer = geom_height_with_buffer * map_ration
         else:
-            # Width is correct, so calculate a buffer on the width of the geometry.
-            buffer = geom_width * (float(print_buffer) / float(map_width))
+            map_width_without_buffer = map_width - 2 * print_buffer
+            # Calculate the new width of the geom with the buffer.
+            geom_width_with_buffer = map_width / map_width_without_buffer * geom_width
+            # Calculate the new geom height with the map ratio and the new geom width.
+            geom_height_with_buffer = geom_width_with_buffer * map_ration
 
-        # Create the print bounds with the geom and the buffer.
-        print_bounds = [
-            geom_bounds[0] - buffer,
-            geom_bounds[1] - buffer,
-            geom_bounds[2] + buffer,
-            geom_bounds[3] + buffer,
+        height_to_add = (geom_height_with_buffer - geom_height) / 2
+        width_to_add = (geom_width_with_buffer - geom_width) / 2
+
+        return [
+            geom_bounds[0] - width_to_add,
+            geom_bounds[1] - height_to_add,
+            geom_bounds[2] + width_to_add,
+            geom_bounds[3] + height_to_add,
         ]
-
-        print_width = float(print_bounds[2] - print_bounds[0])
-        print_height = float(print_bounds[3] - print_bounds[1])
-
-        if must_adapt_width:
-            # Will adapt the print bounds on the top and the bottom of the geometry.
-            to_add = (map_width / (map_height / print_height) - print_width) / 2
-            print_bounds[0] -= to_add
-            print_bounds[2] += to_add
-        else:
-            # Will adapt the print bounds on the right and the left of the geometry.
-            to_add = (map_height / (map_width / print_width) - print_height) / 2
-            print_bounds[1] -= to_add
-            print_bounds[3] += to_add
-
-        return print_bounds
 
     def get_full_wms_url(self, real_estate, format):
         """
