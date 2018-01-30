@@ -24,7 +24,8 @@ log = logging.getLogger(__name__)
 
 def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path='/tmp/pyconizer',
                                          language='de', section='pyramid_oereb', image_format='image/png',
-                                         image_height=36, image_width=72, encoding=None, replace_host=None):
+                                         image_height=36, image_width=72, encoding=None, replace_host=None,
+                                         replace_layer=None, string_keys=False):
     """
     Uses the pyconizer lib to create images out of the OEREB server configuration. It is creating symbols for
     a dedicated topic. This function will clean all previously created icons from database.
@@ -48,6 +49,12 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
             This is only recommended on deploy process when your WMS might be already available on a DEV
             instance but not on the production system which is linked in the data. Then you can create legend
             entries by obtaining them from this DEV instance.
+        replace_layer (str or None): The layer which should be used instead of the one which is in the data.
+            This is only recommended on deploy process when your WMS might be already available on a DEV
+            instance serving a special legend layer but not on the production system which is linked in
+            the data. Then you can create legend entries by obtaining them from this DEV instances special
+            legend layer.
+        string_keys (bool): Switch for setting primary key for legend entries whether to string or integer
     """
 
     # config object parsed from oereb configuration yml
@@ -81,7 +88,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
     session = Session()
 
     # clean up table first
-    session.execute('''TRUNCATE TABLE {schema}.{table}'''.format(
+    session.execute('''TRUNCATE TABLE {schema}.{table} RESTART IDENTITY'''.format(
         schema=LegendEntry.__table__.schema,
         table=LegendEntry.__table__.name
     ))
@@ -102,14 +109,15 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
         layer_existent = False
         service_url = urlunsplit((url.scheme, url.netloc, '', '', '')) \
             if replace_host is None else replace_host
+        layer = params.get('LAYERS')[0] if replace_layer is None else replace_layer
         for layer_config in pyconizer_config:
             if layer_config.get('url') == service_url and \
-                    layer_config.get('layer') == params.get('LAYERS')[0]:
+                    layer_config.get('layer') == layer:
                 layer_existent = True
         if not layer_existent:
             pyconizer_config.append({
                 'url': service_url,
-                'layer': params.get('LAYERS')[0],
+                'layer': layer,
                 'get_styles': {
                     'request': 'GetStyles',
                     'service': 'WMS',
@@ -130,8 +138,10 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
     create_icons_from_scratch(pyconizer_config, temp_creation_path, images=True, encoding=encoding)
 
     # reuse plr information to build legend entries and assign the symbol
+    i = 1
     for unique_plr in unique_plrs:
         url, params = parse_url(unique_plr.view_service.reference_wms)
+        layer = params.get('LAYERS')[0] if replace_layer is None else replace_layer
 
         # obtain symbol from pyconizer structure.
         if isinstance(unique_plr.information, dict):
@@ -140,11 +150,12 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
             class_name = unique_plr.information
         symbol = get_icon(
             temp_creation_path,
-            params.get('LAYERS')[0],
+            layer,
             class_name
         )
         if symbol:
             session.add(LegendEntry(
+                id=str(i) if string_keys else i,
                 symbol=symbol,
                 legend_text=unique_plr.information,
                 type_code=unique_plr.type_code,
@@ -153,6 +164,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
                 view_service_id=unique_plr.view_service_id
             ))
             session.flush()
+            i += 1
         else:
             print(
                 'WARNING: It was not possible to find a symbol for the class:',
@@ -250,6 +262,25 @@ def run():
              'not on the production system which is linked in the data. Then you can create legend entries '
              'by obtaining them from this DEV instance.'
     )
+    parser.add_option(
+        '-L', '--replacelayer',
+        dest='replace_layer',
+        metavar='REPLACELAYER',
+        type='str',
+        default=None,
+        help='''The layer which should be used instead of the one which is in the data.
+            This is only recommended on deploy process when your WMS might be already available on a DEV
+            instance serving a special legend layer but not on the production system which is linked in
+            the data. Then you can create legend entries by obtaining them from this DEV instances special
+            legend layer.'''
+    )
+    parser.add_option(
+        '-S', '--stringkeys',
+        dest='string_keys',
+        action='store_true',
+        default=False,
+        help='''Switch for setting primary key for legend entries whether to string or integer.'''
+    )
     options, args = parser.parse_args()
     if not options.config:
         parser.error('No configuration file set.')
@@ -266,7 +297,9 @@ def run():
             image_height=options.image_height,
             image_width=options.image_width,
             encoding=options.encoding,
-            replace_host=options.replace_host
+            replace_host=options.replace_host,
+            replace_layer=options.replace_layer,
+            string_keys=options.string_keys
         )
     except Exception as e:
         log.exception(e)

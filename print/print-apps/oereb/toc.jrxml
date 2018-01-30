@@ -43,6 +43,7 @@
 	<parameter name="isReduced" class="java.lang.Boolean"/>
 	<parameter name="ExtractIdentifier" class="java.lang.String"/>
 	<parameter name="CreationDate" class="java.lang.String"/>
+	<parameter name="Footer" class="java.lang.String"/>
 	<parameter name="FederalLogo" class="java.lang.String"/>
 	<parameter name="FederalLogoRef" class="java.lang.String"/>
 	<parameter name="CantonalLogo" class="java.lang.String"/>
@@ -75,6 +76,7 @@
 	<parameter name="RealEstate_FosNr" class="java.lang.String"/>
 	<parameter name="RealEstate_LandRegistryArea" class="java.lang.String"/>
 	<parameter name="RealEstate_SubunitOfLandRegister" class="java.lang.String"/>
+    <parameter name="furtherInformationText" class="java.lang.String"/>
 	<parameter name="TOC_Appendices" class="java.util.Map"/>
 	<field name="Text" class="java.lang.String"/>
 	<pageHeader>
@@ -301,13 +303,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{FurtherInformation}]]></textFieldExpression>
 			</textField>
-			<textField hyperlinkType="Reference" hyperlinkTarget="Blank">
-				<reportElement x="260" y="105" width="232" height="11" forecolor="#4C8FBA" uuid="423aa9b7-82cf-47fe-8581-6ac646500ca7"/>
-				<textElement verticalAlignment="Top" markup="none">
-					<font fontName="Cadastra" size="6" isBold="true"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="260" y="105" width="232" height="11" uuid="423aa9b7-82cf-47fe-8581-6ac646500ca7"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Cadastra" size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA["www.ne.ch/sgrf"]]></textFieldExpression>
-				<hyperlinkReferenceExpression><![CDATA["www.ne.ch/sgrf"]]></hyperlinkReferenceExpression>
+				<textFieldExpression><![CDATA[$P{furtherInformationText}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="26" width="230" height="11" uuid="e8e72f34-6553-41ad-a3cd-75273b060f24">
@@ -352,20 +353,13 @@
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="100" y="1" width="181" height="9" uuid="6259ac06-25a4-410d-9b98-39094d34bf6a">
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				<reportElement x="0" y="1" width="281" height="8" uuid="b78ad76c-e391-4edd-a0ab-2ebed93889cd">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<textElement>
 					<font fontName="Cadastra" size="6.5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ExtractIdentifier}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="1" width="90" height="8" uuid="b78ad76c-e391-4edd-a0ab-2ebed93889cd"/>
-				<textElement>
-					<font fontName="Cadastra" size="6.5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{CreationDate}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{Footer}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Master" isBlankWhenNull="true">
 				<reportElement x="385" y="1" width="108" height="8" uuid="b4dfa216-323b-41b9-8811-ade5ada8995a">

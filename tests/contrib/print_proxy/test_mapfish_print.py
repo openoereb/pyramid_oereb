@@ -1093,9 +1093,10 @@ def geometry():
 @pytest.fixture()
 def expected_printable_extract():
     return {
-        'CreationDate': '2018-01-09T13:54:59',
+        'CreationDate': '09.01.2018',
         'isReduced': True,
         'ExtractIdentifier': 'c0c62a19-1cfb-4c69-864e-1e5e77f0e494',
+        'Footer': '09.01.2018   13:54:59   c0c62a19-1cfb-4c69-864e-1e5e77f0e494',
         'BaseData': 'Daten der amtlichen Vermessung, Stand 09.01.2018.',
         'ConcernedTheme': [{
             'Code': 'ContaminatedPublicTransportSites',

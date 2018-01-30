@@ -17,7 +17,7 @@
 	<detail>
 		<band height="20" splitType="Immediate">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="493" height="10" uuid="bbc8f3dd-19b0-4440-aa6c-c04468e54bc2">
+				<reportElement x="0" y="0" width="233" height="10" uuid="bbc8f3dd-19b0-4440-aa6c-c04468e54bc2">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
@@ -33,7 +33,7 @@
 				<textFieldExpression><![CDATA[$F{Title}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="10" width="493" height="10" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="ed1963ea-5903-4816-87e0-b7b4f474e961">
+				<reportElement x="0" y="10" width="233" height="10" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="ed1963ea-5903-4816-87e0-b7b4f474e961">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
