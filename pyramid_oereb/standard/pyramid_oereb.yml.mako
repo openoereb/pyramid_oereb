@@ -84,6 +84,11 @@ pyramid_oereb:
     # The headers sent to the print
     headers:
       Content-Type: application/json; charset=UTF-8
+    furtherInformationText:
+      de: Hier sollten die weiteren Informationen erfasst werden.
+      fr: Veuillez saisir les informations complémentaires ici.
+      it: ...
+      rm: ...
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
   # creation process, because this name is used as schema name in the target database. The app_schema holds
