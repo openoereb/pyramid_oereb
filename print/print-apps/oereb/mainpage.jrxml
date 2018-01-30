@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2018-01-30T09:29:50 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="titlepage" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="493" leftMargin="51" rightMargin="51" topMargin="28" bottomMargin="20" uuid="8ffd7940-5d69-45af-b3ac-fa15a5db24b6">
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -24,6 +25,7 @@
 	<parameter name="LogoPLRCadastreRef" class="java.lang.String"/>
 	<parameter name="CreationDate" class="java.lang.String"/>
 	<parameter name="ExtractIdentifier" class="java.lang.String"/>
+	<parameter name="Footer" class="java.lang.String"/>
 	<parameter name="Signature" class="java.lang.String"/>
 	<parameter name="RealEstate_Number" class="java.lang.String"/>
 	<parameter name="RealEstate_EGRID" class="java.lang.String"/>
@@ -422,15 +424,6 @@
 					<pen lineWidth="0.8"/>
 				</graphicElement>
 			</line>
-			<textField>
-				<reportElement x="100" y="1" width="181" height="9" uuid="674784cd-b3d7-401f-b9cd-668600b4a91a">
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-				</reportElement>
-				<textElement>
-					<font fontName="Cadastra" size="6.5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{ExtractIdentifier}]]></textFieldExpression>
-			</textField>
 			<textField evaluationTime="Master" isBlankWhenNull="true">
 				<reportElement x="385" y="1" width="108" height="8" uuid="eb3d34fb-8441-4b46-8130-7ff4f6060e9c">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
@@ -441,11 +434,11 @@
 				<textFieldExpression><![CDATA[String.format($R{PageLabel}, $V{MASTER_CURRENT_PAGE}, $V{MASTER_TOTAL_PAGES})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="1" width="90" height="8" uuid="da7412c1-4c91-468a-b794-ecdeffd44184"/>
+				<reportElement x="0" y="1" width="280" height="8" uuid="da7412c1-4c91-468a-b794-ecdeffd44184"/>
 				<textElement>
 					<font fontName="Cadastra" size="6.5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{CreationDate}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{Footer}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

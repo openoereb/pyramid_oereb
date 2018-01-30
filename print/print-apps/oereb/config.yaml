@@ -41,6 +41,7 @@ templates:
             MunicipalityLogo: *optStr
             MunicipalityLogoRef: *optStr
             ExtractIdentifier: !string {}
+            Footer: !string {}
             QRCode: *optStr
             QRCodeRef: *optStr
             GeneralInformation: !string #/definitions/MultilingualMText

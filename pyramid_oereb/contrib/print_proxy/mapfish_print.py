@@ -134,9 +134,10 @@ class Renderer(JsonRenderer):
         log.debug("Parameter feature_geometry is {}".format(feature_geometry))
 
         creation_date = datetime.strptime(extract_dict['CreationDate'], '%Y-%m-%dT%H:%M:%S')
-        extract_dict['CreationDate'] = '    '.join([
+        extract_dict['Footer'] = '   '.join([
             creation_date.strftime('%d.%m.%Y'),
-            creation_date.strftime('%H:%M:%S')
+            creation_date.strftime('%H:%M:%S'),
+            extract_dict['ExtractIdentifier']
         ])
 
         for attr_name in ['NotConcernedTheme', 'ThemeWithoutData', 'ConcernedTheme']:

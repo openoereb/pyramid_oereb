@@ -10,6 +10,7 @@
 	<parameter name="isReduced" class="java.lang.Boolean"/>
 	<parameter name="ExtractIdentifier" class="java.lang.String"/>
 	<parameter name="CreationDate" class="java.lang.String"/>
+	<parameter name="Footer" class="java.lang.String"/>
 	<parameter name="FederalLogo" class="java.lang.String"/>
 	<parameter name="FederalLogoRef" class="java.lang.String"/>
 	<parameter name="CantonalLogo" class="java.lang.String"/>
@@ -110,6 +111,9 @@
 					</subreportParameter>
 					<subreportParameter name="ExtractIdentifier">
 						<subreportParameterExpression><![CDATA[$P{ExtractIdentifier}]]></subreportParameterExpression>
+					</subreportParameter>
+                    <subreportParameter name="Footer">
+						<subreportParameterExpression><![CDATA[$P{Footer}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter name="RealEstate_EGRID">
 						<subreportParameterExpression><![CDATA[$P{RealEstate_EGRID}]]></subreportParameterExpression>
