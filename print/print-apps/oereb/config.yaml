@@ -128,14 +128,14 @@ templates:
                     legend: !string {}
                     map: !map
                         maxDpi: 254
-                        dpiSuggestions: [254]
+                        dpiSuggestions: [144, 254]
                         zoomLevels: !zoomLevels
                             scales: [100, 250, 500, 2500, 5000, 10000, 25000, 50000, 100000, 500000]
                         width: 493
                         height: 280
                         default:
                             projection: "EPSG:2056"
-                            dpi: 72
+                            dpi: 144
                             zoomToFeatures:
                                 minScale: 500
                     baseLayers: !staticLayers {}
@@ -222,14 +222,14 @@ templates:
             features: !features {}
             map: !map
                 maxDpi: 254
-                dpiSuggestions: [254]
+                dpiSuggestions: [144, 254]
                 zoomLevels: !zoomLevels
                     scales: [100, 250, 500, 2500, 5000, 10000, 25000, 50000, 100000, 500000]
                 width: 493
                 height: 280
                 default:
                     projection: "EPSG:2056"
-                    dpi: 72
+                    dpi: 144
                     zoomToFeatures:
                         minScale: 500
             baseLayers: !staticLayers {}
