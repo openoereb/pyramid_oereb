@@ -120,7 +120,9 @@
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="0" y="1" width="280" height="8" uuid="bc04cfa8-e2e9-492d-91bb-d382b939e15c"/>
+                <reportElement x="0" y="1" width="280" height="8" uuid="bc04cfa8-e2e9-492d-91bb-d382b939e15c">
+                    <property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+                </reportElement>
 				<textElement>
 					<font fontName="Cadastra" size="6.5"/>
 				</textElement>
