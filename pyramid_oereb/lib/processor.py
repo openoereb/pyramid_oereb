@@ -108,8 +108,8 @@ class Processor(object):
         for idx in themes_to_move:
             new_not_concerned_theme = extract.concerned_theme.pop(idx)
             log.debug("plr_tolerance_check() adding to not_concerned_theme theme: {}"
-                        .format(new_not_concerned_theme)
-                        )
+                      .format(new_not_concerned_theme)
+                      )
             extract.not_concerned_theme.append(new_not_concerned_theme)
 
         real_estate.public_law_restrictions = self.get_legend_entries(inside_plrs, outside_plrs)
@@ -143,7 +143,6 @@ class Processor(object):
         extract.not_concerned_theme = sorted_not_concerned_theme
         log.debug("order_extract_toc() done.")
         return extract
-
 
     @staticmethod
     def view_service_handling(real_estate, images, format):
