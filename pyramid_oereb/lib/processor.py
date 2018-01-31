@@ -106,10 +106,44 @@ class Processor(object):
                 themes_to_move.append(i)
         themes_to_move.reverse()
         for idx in themes_to_move:
-            extract.not_concerned_theme.append(extract.concerned_theme.pop(idx))
+            new_not_concerned_theme = extract.concerned_theme.pop(idx)
+            log.debug("plr_tolerance_check() adding to not_concerned_theme theme: {}"
+                        .format(new_not_concerned_theme)
+                        )
+            extract.not_concerned_theme.append(new_not_concerned_theme)
 
         real_estate.public_law_restrictions = self.get_legend_entries(inside_plrs, outside_plrs)
         return extract
+
+    def get_not_concerned_theme(self, extract, theme_code):
+        for theme in extract.not_concerned_theme:
+            if theme.code == theme_code:
+                return theme
+        return None
+
+    def order_extract_toc(self, extract):
+        """
+        The function ensuring that the toc entries of the extract correspond to the configuration.
+
+        Args:
+            extract (pyramid_oereb.lib.records.extract.ExtractRecord): The extract, containing the
+            definitive toc entries, but unsorted
+
+        Returns:
+            pyramid_oereb.lib.records.extract.ExtractRecord: Returns the updated extract
+        """
+        log.debug("order_extract_toc() start")
+        theme_codes = self._extract_reader_.list_of_theme_codes()
+        sorted_not_concerned_theme = []
+        for theme_code in theme_codes:
+            theme = self.get_not_concerned_theme(extract, theme_code)
+            if (theme is not None):
+                sorted_not_concerned_theme.append(theme)
+
+        extract.not_concerned_theme = sorted_not_concerned_theme
+        log.debug("order_extract_toc() done.")
+        return extract
+
 
     @staticmethod
     def view_service_handling(real_estate, images, format):
@@ -254,11 +288,14 @@ class Processor(object):
         for municipality in municipalities:
             if municipality.fosnr == real_estate.fosnr:
                 extract_raw = self._extract_reader_.read(real_estate, municipality, params)
-                # the selection of view services will be done whilst tolerance check. This enables us to take
+                extract = self.plr_tolerance_check(extract_raw)
+
+                self.order_extract_toc(extract)
+
+                # the selection of view services is done after the tolerance check. This enables us to take
                 # care about the circumstance that after tolerance check plrs will be dismissed which were
                 # recognized as intersecting before. To avoid this the tolerance check is gathering all plrs
                 # intersecting and not intersecting and starts the legend entry sorting after.
-                extract = self.plr_tolerance_check(extract_raw)
                 self.view_service_handling(extract.real_estate, params.images, params.format)
 
                 extract.exclusions_of_liability = exclusions_of_liability

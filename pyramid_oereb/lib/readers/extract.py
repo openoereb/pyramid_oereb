@@ -185,3 +185,10 @@ class ExtractReader(object):
 
         log.debug("read() done")
         return self.extract
+
+    def list_of_theme_codes(self):
+        plrs = Config.get('plrs')
+        theme_codes = []
+        for plr in plrs:
+            theme_codes.append(plr.get('code'))
+        return theme_codes
