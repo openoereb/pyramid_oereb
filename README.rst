@@ -17,5 +17,5 @@ information and instructions for installation and configuration.
 If you are interested in contributing or extending the project, take a look at the
 `contribution page <https://camptocamp.github.io/pyramid_oereb/doc/master/contrib/>`__.
 
-.. |Build Status| image:: https://travis-ci.com/camptocamp/pyramid_oereb.svg?token=oTUZsPVUPe1BYV5bzANE&branch=master
-   :target: https://travis-ci.com/camptocamp/pyramid_oereb
+.. |Build Status| image:: https://travis-ci.org/camptocamp/pyramid_oereb.svg?token=oTUZsPVUPe1BYV5bzANE&branch=master
+   :target: https://travis-ci.org/camptocamp/pyramid_oereb
