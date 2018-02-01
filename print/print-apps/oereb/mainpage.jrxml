@@ -108,9 +108,9 @@
 			<textField>
 				<reportElement x="0" y="472" width="493" height="17" uuid="e6e5ab1e-49d6-4b4b-b852-d5c8e78ff672">
 					<property name="com.jaspersoft.studio.unit.x" value="cm"/>
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<box bottomPadding="2">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -124,9 +124,8 @@
 				<textFieldExpression><![CDATA[$R{RealEstateLabel}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="243" y="472" width="250" height="17" uuid="1efcde4f-be46-49d8-8223-297d81bb148b">
+				<reportElement x="193" y="472" width="300" height="17" uuid="1efcde4f-be46-49d8-8223-297d81bb148b">
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
-					<property name="com.jaspersoft.studio.unit.x" value="mm"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cadastra" size="9" isBold="true"/>
@@ -213,7 +212,7 @@
 				<textFieldExpression><![CDATA[$R{PropertyAreaLabel}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="243" y="540" width="250" height="17" uuid="c4b72298-a4f3-4641-8a67-e39b309c492c">
+				<reportElement x="193" y="540" width="300" height="17" uuid="c4b72298-a4f3-4641-8a67-e39b309c492c">
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 				</reportElement>
@@ -223,7 +222,7 @@
 				<textFieldExpression><![CDATA[$P{RealEstate_LandRegistryArea} + " m<sup>2</sup>"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="243" y="506" width="250" height="17" uuid="3dcd1a9c-a8a9-427c-bc92-76df18584c3c">
+				<reportElement x="193" y="506" width="300" height="17" uuid="3dcd1a9c-a8a9-427c-bc92-76df18584c3c">
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.x" value="mm"/>
@@ -252,7 +251,7 @@
 				<textFieldExpression><![CDATA[$R{CreationDateLabel}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="243" y="489" width="250" height="17" uuid="cf0c5b01-a2a9-4c4f-84f5-c677600e053c">
+				<reportElement x="193" y="489" width="300" height="17" uuid="cf0c5b01-a2a9-4c4f-84f5-c677600e053c">
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 				</reportElement>
@@ -262,7 +261,7 @@
 				<textFieldExpression><![CDATA[$P{RealEstate_EGRID}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="243" y="603" width="250" height="17" uuid="80f1e41d-de38-4d0b-a5d3-bb27e4c0945e">
+				<reportElement x="193" y="603" width="300" height="17" uuid="80f1e41d-de38-4d0b-a5d3-bb27e4c0945e">
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 				</reportElement>
@@ -289,7 +288,7 @@
 				<textFieldExpression><![CDATA[$R{PDFExtractIdLabel}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="243" y="586" width="250" height="17" uuid="d885e18b-7990-42da-b16f-065d96799b95">
+				<reportElement x="193" y="586" width="300" height="17" uuid="d885e18b-7990-42da-b16f-065d96799b95">
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.x" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
@@ -318,7 +317,7 @@
 				<textFieldExpression><![CDATA[$R{CadastreLabel}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="243" y="523" width="250" height="17" uuid="21952a7d-f2e7-4421-b1ad-dad328683e6b">
+				<reportElement x="193" y="523" width="300" height="17" uuid="21952a7d-f2e7-4421-b1ad-dad328683e6b">
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.x" value="mm"/>
@@ -405,7 +404,7 @@
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cadastra" size="9" isBold="false"/>
-					<paragraph leftIndent="243"/>
+					<paragraph leftIndent="192"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PLRCadastreAuthority_Name}+'\n'+$P{PLRCadastreAuthority_Street} +' '+$P{PLRCadastreAuthority_Number}+'\n'+$P{PLRCadastreAuthority_PostalCode}+' '+$P{PLRCadastreAuthority_City}]]></textFieldExpression>
 			</textField>

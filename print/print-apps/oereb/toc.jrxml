@@ -177,7 +177,7 @@
 				</box>
 				<textElement verticalAlignment="Top">
 					<font fontName="Cadastra" size="9" isBold="true"/>
-					<paragraph spacingAfter="2"/>
+					<paragraph spacingAfter="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format($R{Topicsaffectingtherealestate_ofthemunicipalityof_}, $P{RealEstate_Number}, $P{RealEstate_Municipality})]]></textFieldExpression>
 			</textField>
@@ -223,7 +223,7 @@
 				<textFieldExpression><![CDATA[$R{AppendicesLabel}]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="64">
+		<band height="61">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
@@ -239,15 +239,16 @@
 				<textFieldExpression><![CDATA[$R{Topicsnotaffectingtherealestate}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="0" y="46" width="493" height="18" isPrintWhenDetailOverflows="true" uuid="285be929-4832-42d1-907e-8ad64f1ff057">
+				<reportElement x="0" y="46" width="493" height="15" isPrintWhenDetailOverflows="true" uuid="285be929-4832-42d1-907e-8ad64f1ff057">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<dataSourceExpression><![CDATA[$P{NotConcernedThemeDataSource}]]></dataSourceExpression>
 				<subreportExpression><![CDATA["themelist.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="50">
+		<band height="46">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
@@ -263,18 +264,18 @@
 				<textFieldExpression><![CDATA[$R{Topicswithoutdata}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="0" y="31" width="493" height="18" isPrintWhenDetailOverflows="true" uuid="ec7e076f-0e37-4f8a-ba49-aee32f5b1b78">
+				<reportElement x="0" y="31" width="493" height="15" isPrintWhenDetailOverflows="true" uuid="ec7e076f-0e37-4f8a-ba49-aee32f5b1b78">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<dataSourceExpression><![CDATA[$P{ThemeWithoutDataDataSource}]]></dataSourceExpression>
 				<subreportExpression><![CDATA["themelist.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="90">
-			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="37" width="230" height="53" uuid="9463b6fb-b28a-4793-9bc1-1c24749e48c4"/>
+				<reportElement x="0" y="37" width="230" height="53" isPrintWhenDetailOverflows="true" uuid="9463b6fb-b28a-4793-9bc1-1c24749e48c4"/>
 				<textElement>
 					<font fontName="Cadastra" size="6"/>
 				</textElement>
@@ -302,25 +303,28 @@
 				<textFieldExpression><![CDATA[$R{GeneralInformationLabel}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="260" y="26" width="233" height="64" uuid="9fd65c2b-a447-43f1-88f6-9a41a9ca02be"/>
+				<reportElement x="260" y="26" width="233" height="64" isPrintWhenDetailOverflows="true" uuid="9fd65c2b-a447-43f1-88f6-9a41a9ca02be"/>
 				<dataSourceExpression><![CDATA[$P{ExclusionOfLiabilityDataSource}]]></dataSourceExpression>
 				<subreportExpression><![CDATA["exclusion_of_liability.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="30">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="12" width="230" height="18" uuid="a362c07e-fbe0-4a89-917b-bb72fa58f73c"/>
+				<reportElement x="0" y="15" width="230" height="10" isPrintWhenDetailOverflows="true" uuid="a362c07e-fbe0-4a89-917b-bb72fa58f73c">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
 				<textElement>
 					<font fontName="Cadastra" size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{BaseData}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="1" width="230" height="11" uuid="d8ae8e69-0dd9-4161-8df2-f2e91b0211e5">
+				<reportElement x="0" y="5" width="230" height="10" uuid="d8ae8e69-0dd9-4161-8df2-f2e91b0211e5">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement>
 					<font fontName="Cadastra" size="6" isBold="true"/>
@@ -328,14 +332,19 @@
 				<textFieldExpression><![CDATA[$R{BaseDataLabel}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="260" y="1" width="232" height="11" uuid="114902e0-f840-4afe-b6b4-64d3d55fc6df"/>
+				<reportElement x="260" y="5" width="232" height="10" uuid="114902e0-f840-4afe-b6b4-64d3d55fc6df">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
 				<textElement verticalAlignment="Top" markup="none">
 					<font fontName="Cadastra" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{FurtherInformation}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="260" y="12" width="232" height="11" uuid="ff06b554-3667-40a0-b261-cac4305a4867"/>
+				<reportElement x="260" y="15" width="232" height="11" isPrintWhenDetailOverflows="true" uuid="ff06b554-3667-40a0-b261-cac4305a4867">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
 				<textElement verticalAlignment="Top" markup="html">
 					<font fontName="Cadastra" size="6"/>
 				</textElement>
