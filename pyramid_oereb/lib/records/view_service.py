@@ -132,8 +132,8 @@ class ViewServiceRecord(object):
         self.reference_wms = add_url_params(self.reference_wms, {
             "BBOX": ",".join([str(e) for e in bbox]),
             "SRS": 'EPSG:{0}'.format(Config.get('srid')),
-            "WIDTH": map_size[0],
-            "HEIGHT": map_size[1],
+            "WIDTH": int(map_size[0]),
+            "HEIGHT": int(map_size[1])
         })
         return self.reference_wms
 
