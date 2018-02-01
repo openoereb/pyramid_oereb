@@ -76,7 +76,7 @@
 	<parameter name="RealEstate_FosNr" class="java.lang.String"/>
 	<parameter name="RealEstate_LandRegistryArea" class="java.lang.String"/>
 	<parameter name="RealEstate_SubunitOfLandRegister" class="java.lang.String"/>
-    <parameter name="furtherInformationText" class="java.lang.String"/>
+	<parameter name="furtherInformationText" class="java.lang.String"/>
 	<parameter name="TOC_Appendices" class="java.util.Map"/>
 	<field name="Text" class="java.lang.String"/>
 	<pageHeader>
@@ -210,7 +210,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{TOCPageLabel}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="232" y="0" width="261" height="10" uuid="0bae6376-40d3-4a91-ada1-04236d63c54c">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
@@ -271,10 +271,10 @@
 				<subreportExpression><![CDATA["themelist.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="123">
+		<band height="90">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="37" width="230" height="57" uuid="9463b6fb-b28a-4793-9bc1-1c24749e48c4"/>
+				<reportElement x="0" y="37" width="230" height="53" uuid="9463b6fb-b28a-4793-9bc1-1c24749e48c4"/>
 				<textElement>
 					<font fontName="Cadastra" size="6"/>
 				</textElement>
@@ -290,27 +290,6 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="105" width="230" height="18" uuid="9566b603-8d58-4b07-af92-ff3236440849"/>
-				<textElement>
-					<font fontName="Cadastra" size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{BaseData}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="260" y="94" width="232" height="11" uuid="28e9af56-04ab-47d6-b9f0-7589e23fffa9"/>
-				<textElement verticalAlignment="Top" markup="none">
-					<font fontName="Cadastra" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{FurtherInformation}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="260" y="105" width="232" height="11" uuid="423aa9b7-82cf-47fe-8581-6ac646500ca7"/>
-				<textElement verticalAlignment="Top" markup="html">
-					<font fontName="Cadastra" size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{furtherInformationText}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="26" width="230" height="11" uuid="e8e72f34-6553-41ad-a3cd-75273b060f24">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
@@ -322,8 +301,22 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{GeneralInformationLabel}]]></textFieldExpression>
 			</textField>
+			<subreport>
+				<reportElement x="260" y="26" width="233" height="64" uuid="9fd65c2b-a447-43f1-88f6-9a41a9ca02be"/>
+				<dataSourceExpression><![CDATA[$P{ExclusionOfLiabilityDataSource}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["exclusion_of_liability.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="30">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="12" width="230" height="18" uuid="a362c07e-fbe0-4a89-917b-bb72fa58f73c"/>
+				<textElement>
+					<font fontName="Cadastra" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{BaseData}]]></textFieldExpression>
+			</textField>
 			<textField>
-				<reportElement x="0" y="94" width="230" height="11" uuid="1b6e1c03-762a-4541-b8af-44f454c30353">
+				<reportElement x="0" y="1" width="230" height="11" uuid="d8ae8e69-0dd9-4161-8df2-f2e91b0211e5">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
@@ -334,11 +327,20 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{BaseDataLabel}]]></textFieldExpression>
 			</textField>
-			<subreport>
-				<reportElement x="260" y="26" width="233" height="64" uuid="9fd65c2b-a447-43f1-88f6-9a41a9ca02be"/>
-				<dataSourceExpression><![CDATA[$P{ExclusionOfLiabilityDataSource}]]></dataSourceExpression>
-				<subreportExpression><![CDATA["exclusion_of_liability.jasper"]]></subreportExpression>
-			</subreport>
+			<textField isBlankWhenNull="true">
+				<reportElement x="260" y="1" width="232" height="11" uuid="114902e0-f840-4afe-b6b4-64d3d55fc6df"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Cadastra" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{FurtherInformation}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="260" y="12" width="232" height="11" uuid="ff06b554-3667-40a0-b261-cac4305a4867"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Cadastra" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{furtherInformationText}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<pageFooter>
