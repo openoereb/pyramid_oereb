@@ -289,6 +289,17 @@ def run():
         default=False,
         help='''Switch for setting primary key for legend entries whether to string or integer.'''
     )
+    parser.add_option(
+        '-T', '--bytypecode',
+        dest='by_type_code',
+        action='store_true',
+        default=False,
+        help='''If set the process will use the type_code instead of name for obtaining the
+            legend icons. This needs a WMS layer to be configured with the type_code in its name property. It
+            prevents the legend entry creation process to be broken for case sensitive class names in
+            MAPSERVER. Because the "RULE" parameter of the GetLegendGraphics request on MAPSERVER seems to be
+            case insensitive.'''
+    )
     options, args = parser.parse_args()
     if not options.config:
         parser.error('No configuration file set.')
@@ -307,7 +318,8 @@ def run():
             encoding=options.encoding,
             replace_host=options.replace_host,
             replace_layer=options.replace_layer,
-            string_keys=options.string_keys
+            string_keys=options.string_keys,
+            by_type_code=options.by_type_code
         )
     except Exception as e:
         log.exception(e)
