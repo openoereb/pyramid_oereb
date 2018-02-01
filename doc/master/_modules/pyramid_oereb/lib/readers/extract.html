@@ -161,6 +161,7 @@
   <h1>Source code for pyramid_oereb.lib.readers.extract</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="k">import</span> <span class="n">DottedNameResolver</span>
 
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">box</span>
@@ -171,6 +172,8 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.image</span> <span class="k">import</span> <span class="n">ImageRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.plr</span> <span class="k">import</span> <span class="n">PlrRecord</span><span class="p">,</span> <span class="n">EmptyPlrRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.view_service</span> <span class="k">import</span> <span class="n">ViewServiceRecord</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="ExtractReader"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.extract.ExtractReader">[docs]</a><span class="k">class</span> <span class="nc">ExtractReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -261,6 +264,7 @@
 <span class="sd">            pyramid_oereb.lib.records.extract.ExtractRecord:</span>
 <span class="sd">                The extract record containing all gathered data.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() start&quot;</span><span class="p">)</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">municipality</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span> <span class="n">ImageRecord</span><span class="p">)</span>
 
         <span class="n">print_conf</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_object_path</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;buffer&#39;</span><span class="p">])</span>
@@ -277,7 +281,9 @@
 
             <span class="k">for</span> <span class="n">plr_source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">params</span><span class="o">.</span><span class="n">skip_topic</span><span class="p">(</span><span class="n">plr_source</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)):</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() going to read from plr_source </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plr_source</span><span class="p">))</span>
                     <span class="n">plr_source</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() done reading from plr_source </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plr_source</span><span class="p">))</span>
                     <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">plr_source</span><span class="o">.</span><span class="n">datasource</span><span class="p">:</span>
                         <span class="k">if</span> <span class="ow">not</span> <span class="n">params</span><span class="o">.</span><span class="n">skip_topic</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">):</span>
                             <span class="n">datasource</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
@@ -310,6 +316,7 @@
         <span class="n">date_method</span> <span class="o">=</span> <span class="n">resolver</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">date_method_string</span><span class="p">)</span>
         <span class="n">av_update_date</span> <span class="o">=</span> <span class="n">date_method</span><span class="p">(</span><span class="n">real_estate</span><span class="p">)</span>
         <span class="n">base_data</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_base_data</span><span class="p">(</span><span class="n">av_update_date</span><span class="p">)</span>
+        <span class="n">general_information</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;extract&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;general_information&#39;</span><span class="p">)</span>
 
         <span class="n">av_provider_method_string</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;extract&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;base_data&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;methods&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;provider&#39;</span><span class="p">)</span>
         <span class="n">av_provider_method</span> <span class="o">=</span> <span class="n">resolver</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">av_provider_method_string</span><span class="p">)</span>
@@ -333,9 +340,11 @@
             <span class="n">embeddable</span><span class="p">,</span>
             <span class="n">concerned_theme</span><span class="o">=</span><span class="n">concerned_themes</span><span class="p">,</span>
             <span class="n">not_concerned_theme</span><span class="o">=</span><span class="n">not_concerned_themes</span><span class="p">,</span>
-            <span class="n">theme_without_data</span><span class="o">=</span><span class="n">themes_without_data</span>
+            <span class="n">theme_without_data</span><span class="o">=</span><span class="n">themes_without_data</span><span class="p">,</span>
+            <span class="n">general_information</span><span class="o">=</span><span class="n">general_information</span>
         <span class="p">)</span>
 
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() done&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract</span></div></div>
 </pre></div>
 

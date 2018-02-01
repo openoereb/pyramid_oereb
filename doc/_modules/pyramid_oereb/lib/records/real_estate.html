@@ -246,7 +246,20 @@
             <span class="n">add_url_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;sld&#39;</span><span class="p">:</span> <span class="n">updated_sld_url</span><span class="p">}),</span>
             <span class="s1">&#39;&#39;</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">highlight</span><span class="o">.</span><span class="n">download_wms_content</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">highlight</span><span class="o">.</span><span class="n">download_wms_content</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">%s</span><span class="s1"> -- number: </span><span class="si">%s</span><span class="s1"> identdn: </span><span class="si">%s</span><span class="s1"> egrid: </span><span class="si">%s</span><span class="s1"> type: </span><span class="si">%s</span><span class="s1">&#39;</span> \
+                    <span class="s1">&#39; canton: </span><span class="si">%s</span><span class="s1"> municipality: </span><span class="si">%s</span><span class="s1"> subunit_of_land_register: </span><span class="si">%s</span><span class="s1"> fosnr: </span><span class="si">%s</span><span class="s1">&#39;</span> \
+                    <span class="s1">&#39; metadata_of_geographical_base_data: </span><span class="si">%s</span><span class="s1"> land_registry_area: </span><span class="si">%s</span><span class="s1">&#39;</span> \
+                    <span class="s1">&#39; limit: </span><span class="si">%s</span><span class="s1"> public_law_restrictions: </span><span class="si">%s</span><span class="s1"> references: </span><span class="si">%s</span><span class="s1">&#39;</span> \
+                    <span class="s1">&#39; areas_ratio: </span><span class="si">%s</span><span class="s1">&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">identdn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">egrid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">canton</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">municipality</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">subunit_of_land_register</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fosnr</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">metadata_of_geographical_base_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">land_registry_area</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">references</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">areas_ratio</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

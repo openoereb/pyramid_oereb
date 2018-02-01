@@ -233,6 +233,7 @@
 <span class="sd">        Args:</span>
 <span class="sd">            geolink_id (int): The geoLink ID.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() start&quot;</span><span class="p">)</span>
 
         <span class="c1"># Request documents</span>
         <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{host}</span><span class="s1">/api/</span><span class="si">{version}</span><span class="s1">geolinks/</span><span class="si">{id}</span><span class="s1">.xml&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -240,7 +241,9 @@
             <span class="n">version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pass_version</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
             <span class="nb">id</span><span class="o">=</span><span class="n">geolink_id</span>
         <span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() getting documents, url: </span><span class="si">{}</span><span class="s2">, parser: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">))</span>
         <span class="n">documents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="p">{},</span> <span class="n">proxies</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_proxies</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_auth</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() got documents&quot;</span><span class="p">)</span>
 
         <span class="c1"># Get main documents</span>
         <span class="n">main_documents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
@@ -257,7 +260,8 @@
         <span class="c1"># Convert to records</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">main_documents</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_document_records</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">referenced_documents</span><span class="p">))</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_document_records</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">referenced_documents</span><span class="p">))</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() done.&quot;</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_get_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">,</span> <span class="n">references</span><span class="o">=</span><span class="nb">list</span><span class="p">()):</span>
         <span class="sd">&quot;&quot;&quot;</span>

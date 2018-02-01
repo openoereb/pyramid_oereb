@@ -419,6 +419,56 @@ federal specified classifiers &#8216;inForce&#8217; and &#8216;runningModificati
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="pyramid_oereb.standard.sources.plr.DatabaseSource.collect_legend_entries_by_bbox">
+<code class="descname">collect_legend_entries_by_bbox</code><span class="sig-paren">(</span><em>session</em>, <em>bbox</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/sources/plr.html#DatabaseSource.collect_legend_entries_by_bbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.sources.plr.DatabaseSource.collect_legend_entries_by_bbox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts all legend entries in the topic which have spatial relation with the passed bounding box of
+visible extent.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>session</strong> (<em>sqlalchemy.orm.Session</em>) &#8211; The requested clean session instance ready for use</li>
+<li><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The bbox to search the records.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The result of the related geometries unique by the public law restriction id</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.standard.sources.plr.DatabaseSource.collect_related_geometries_by_real_estate">
+<code class="descname">collect_related_geometries_by_real_estate</code><span class="sig-paren">(</span><em>session</em>, <em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/sources/plr.html#DatabaseSource.collect_related_geometries_by_real_estate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.sources.plr.DatabaseSource.collect_related_geometries_by_real_estate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts all geometries in the topic which have spatial relation with the passed real estate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>session</strong> (<em>sqlalchemy.orm.Session</em>) &#8211; The requested clean session instance ready for use</li>
+<li><strong>real_estate</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real
+estate in its record representation.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The result of the related geometries unique by the public law restriction id</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="staticmethod">
 <dt id="pyramid_oereb.standard.sources.plr.DatabaseSource.extract_geometry_collection_db">
 <em class="property">static </em><code class="descname">extract_geometry_collection_db</code><span class="sig-paren">(</span><em>db_path</em>, <em>real_estate_geometry</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/sources/plr.html#DatabaseSource.extract_geometry_collection_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.sources.plr.DatabaseSource.extract_geometry_collection_db" title="Permalink to this definition">¶</a></dt>
