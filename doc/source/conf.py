@@ -247,6 +247,6 @@ epub_exclude_files = ['search.html']
 
 # sphinxcontrib-versioning
 # https://robpol86.github.io/sphinxcontrib-versioning/settings.html
-scv_greatest_tag = True
+scv_greatest_tag = False
 scv_whitelist_branches = ('master', )
 scv_whitelist_tags = (re.compile(r'^v\d+\.\d+\.\d+$'),)
