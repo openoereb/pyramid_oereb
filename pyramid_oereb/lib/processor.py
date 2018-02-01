@@ -115,12 +115,6 @@ class Processor(object):
         real_estate.public_law_restrictions = self.get_legend_entries(inside_plrs, outside_plrs)
         return extract
 
-    def get_not_concerned_theme(self, extract, theme_code):
-        for theme in extract.not_concerned_theme:
-            if theme.code == theme_code:
-                return theme
-        return None
-
     def order_extract_toc(self, extract):
         """
         The function ensuring that the toc entries of the extract correspond to the configuration.
@@ -135,8 +129,15 @@ class Processor(object):
         log.debug("order_extract_toc() start")
         theme_codes = self._extract_reader_.list_of_theme_codes()
         sorted_not_concerned_theme = []
+
+        def get_not_concerned_theme(extract, theme_code):
+            for theme in extract.not_concerned_theme:
+                if theme.code == theme_code:
+                    return theme
+            return None
+
         for theme_code in theme_codes:
-            theme = self.get_not_concerned_theme(extract, theme_code)
+            theme = get_not_concerned_theme(extract, theme_code)
             if (theme is not None):
                 sorted_not_concerned_theme.append(theme)
 
