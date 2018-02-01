@@ -104,8 +104,14 @@ class Renderer(JsonRenderer):
             cmd = ['pdftk', main.name]
             temp_files = [main]
             for url in pdf_to_join:
-                tmp_file = tempfile.NamedTemporaryFile(suffix='.pdf')
                 result = requests.get(url)
+                content_type = result.headers.get('content-type')
+                log.debug("document url: " + url + " => content_type: " + content_type)
+                if content_type != 'application/pdf':
+                    msg = "Skipped document inclusion (url: '{}') because content_type: '{}'"
+                    log.warn(msg.format(url, content_type))
+                    continue
+                tmp_file = tempfile.NamedTemporaryFile(suffix='.pdf')
                 tmp_file.write(result.content)
                 tmp_file.flush()
                 temp_files.append(tmp_file)
