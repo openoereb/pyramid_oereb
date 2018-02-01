@@ -169,6 +169,8 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">mapping</span>
 <span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="k">import</span> <span class="n">HTTPBadRequest</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">Config</span>
@@ -229,6 +231,14 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_printable_extract</span><span class="p">(</span><span class="n">extract_as_dict</span><span class="p">,</span> <span class="n">feature_geometry</span><span class="p">,</span> <span class="n">pdf_to_join</span><span class="p">)</span>
 
+        <span class="n">extract_as_dict</span><span class="p">[</span><span class="s1">&#39;furtherInformationText&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{}</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s1">&#39;furtherInformationText&#39;</span><span class="p">,</span> <span class="p">{}</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span>
+        <span class="p">)</span>
+
         <span class="n">spec</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;layout&#39;</span><span class="p">:</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;template_name&#39;</span><span class="p">],</span>
             <span class="s1">&#39;outputFormat&#39;</span><span class="p">:</span> <span class="s1">&#39;pdf&#39;</span><span class="p">,</span>
@@ -255,8 +265,14 @@
             <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pdftk&#39;</span><span class="p">,</span> <span class="n">main</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
             <span class="n">temp_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">main</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">pdf_to_join</span><span class="p">:</span>
-                <span class="n">tmp_file</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.pdf&#39;</span><span class="p">)</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+                <span class="n">content_type</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;content-type&#39;</span><span class="p">)</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;document url: &quot;</span> <span class="o">+</span> <span class="n">url</span> <span class="o">+</span> <span class="s2">&quot; =&gt; content_type: &quot;</span> <span class="o">+</span> <span class="n">content_type</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">content_type</span> <span class="o">!=</span> <span class="s1">&#39;application/pdf&#39;</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Skipped document inclusion (url: &#39;</span><span class="si">{}</span><span class="s2">&#39;) because content_type: &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">content_type</span><span class="p">))</span>
+                    <span class="k">continue</span>
+                <span class="n">tmp_file</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.pdf&#39;</span><span class="p">)</span>
                 <span class="n">tmp_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
                 <span class="n">tmp_file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
                 <span class="n">temp_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_file</span><span class="p">)</span>
@@ -291,6 +307,14 @@
 
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Starting transformation, extract_dict is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">))</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Parameter feature_geometry is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature_geometry</span><span class="p">))</span>
+
+        <span class="n">creation_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;CreationDate&#39;</span><span class="p">],</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S&#39;</span><span class="p">)</span>
+        <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;Footer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;   &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+            <span class="n">creation_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y&#39;</span><span class="p">),</span>
+            <span class="n">creation_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">),</span>
+            <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;ExtractIdentifier&#39;</span><span class="p">]</span>
+        <span class="p">])</span>
+        <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;CreationDate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">creation_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y&#39;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">attr_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;NotConcernedTheme&#39;</span><span class="p">,</span> <span class="s1">&#39;ThemeWithoutData&#39;</span><span class="p">,</span> <span class="s1">&#39;ConcernedTheme&#39;</span><span class="p">]:</span>
             <span class="k">for</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="p">[</span><span class="n">attr_name</span><span class="p">]:</span>

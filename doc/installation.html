@@ -263,8 +263,13 @@ matching release.</p>
 </div>
 <div class="section" id="include-in-application">
 <span id="installation-step-application"></span><h3>6. Include in application<a class="headerlink" href="#include-in-application" title="Permalink to this headline">¶</a></h3>
-<p>To include <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> into your existing Pyramid application, you first have to include the plugin in
-your application&#8217;s main method. Open the <code class="docutils literal"><span class="pre">__init__.py</span></code> of your main module and add the following statement
+<p>In your <code class="docutils literal"><span class="pre">setup.py</span></code> you should depends on <code class="docutils literal"><span class="pre">pyramid_oereb[recommend]</span></code> to get the recommended versions of
+the dependencies, or <code class="docutils literal"><span class="pre">pyramid_oereb[no-version]</span></code> to get the dependencies without specifying which versions
+of these dependencies shall be used. You shouldn&#8217;t just depends on <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> because it will not
+depends on any other package.</p>
+<p>To include <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> into your existing Pyramid application, you have to include the plugin in
+your application&#8217;s main method.</p>
+<p>Open the <code class="docutils literal"><span class="pre">__init__.py</span></code> of your main module and add the following statement
 in the main method somewhere before <code class="docutils literal"><span class="pre">config.scan()</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">route_prefix</span><span class="o">=</span><span class="s1">&#39;oereb&#39;</span><span class="p">)</span>
 </pre></div>
@@ -343,7 +348,7 @@ section <a class="reference internal" href="configuration.html#configuration"><s
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: v1.0.1
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -355,6 +360,7 @@ section <a class="reference internal" href="configuration.html#configuration"><s
         <dl>
             <dt>Branches</dt>
             <dd><a href="master/installation.html">master</a></dd>
+            <dd><a href="requires-io-master/installation.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>

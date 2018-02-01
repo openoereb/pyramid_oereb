@@ -126,10 +126,13 @@ the ``-d`` or ``--dir=`` argument.
 6. Include in application
 .........................
 
-To include ``pyramid_oereb`` into your existing Pyramid application, you first have to include the plugin in
-your application's main method.
+In your ``setup.py`` you should depends on ``pyramid_oereb[recommend]`` to get the recommended versions of
+the dependencies, or ``pyramid_oereb[no-version]`` to get the dependencies without specifying which versions
+of these dependencies shall be used. You shouldn't just depends on ``pyramid_oereb`` because it will not
+depends on any other package.
 
-.. note:: Use the name pyramid_oereb[recommand] to gets the recommanded versions of the dependencies.
+To include ``pyramid_oereb`` into your existing Pyramid application, you have to include the plugin in
+your application's main method.
 
 Open the ``__init__.py`` of your main module and add the following statement
 in the main method somewhere before ``config.scan()``:
