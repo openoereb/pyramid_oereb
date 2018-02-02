@@ -1,5 +1,7 @@
 <%page args="text"/>
 <%
+    ## TODO:this code gives an error when no Text attribute is available i.e when there is no translation
+
     import sys
     if sys.version_info.major == 2:
         import urlparse

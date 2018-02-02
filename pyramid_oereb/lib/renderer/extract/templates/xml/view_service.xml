@@ -9,7 +9,13 @@
 <data:LegendAtWeb>${map.legend_at_web|u}</data:LegendAtWeb>
 %endif
 %if map.legends:
-%for legend_entry in map.legends:
+<%
+    def sorting_function(legend_entry):
+        return replace_de_umlaut(multilingual(legend_entry.legend_text)[0]['Text'])
+
+    sorted_legends = sorted(map.legends, key = sorting_function)
+%>
+%for legend_entry in sorted_legends:
 <data:OtherLegend>
     <%include file="legend_entry.xml" args="legend_entry=legend_entry"/>
 </data:OtherLegend>

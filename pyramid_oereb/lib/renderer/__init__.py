@@ -143,3 +143,25 @@ class Base(object):
             list of dict: List of dictionaries containing the multilingual representation.
         """
         return [self.get_localized_text(values)]
+
+    @staticmethod
+    def replace_de_umlaut(text):
+        """
+        Replaces all German special characters with the base character:
+        ä -> a
+        ö -> o
+        ü -> u
+        so that a proper sorting can be done according to the DIN 5007 norm
+
+        Args:
+            text (string): the string value
+
+        Returns:
+            new_text (string): with out umlaut
+        """
+        new_text=text.lower()
+        new_text=new_text.replace(u'ä', u'a')
+        new_text=new_text.replace(u'ö', u'o')
+        new_text=new_text.replace(u'ü', u'u')
+
+        return new_text

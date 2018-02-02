@@ -469,8 +469,19 @@ class Renderer(Base):
         if map_.legend_at_web is not None:
             map_dict['LegendAtWeb'] = map_.legend_at_web
         if isinstance(map_.legends, list) and len(map_.legends) > 0:
-            map_dict['OtherLegend'] = [
+            other_legend = [
                 self.format_legend_entry(legend_entry) for legend_entry in map_.legends]
+
+            try:
+                map_dict['OtherLegend'] = sorted(
+                    other_legend,
+                    key = lambda legend: self.replace_de_umlaut(legend['LegendText'][0]['Text'])
+                )
+
+            except AttributeError as ex :
+                log.warn('Other legend can not be sorted: {0}'.format(ex))
+                map_dict['OtherLegend'] = other_legend
+
         return map_dict
 
     def format_legend_entry(self, legend_entry):
