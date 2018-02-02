@@ -159,9 +159,9 @@ class Base(object):
         Returns:
             new_text (string): with out umlaut
         """
-        new_text=text.lower()
-        new_text=new_text.replace(u'ä', u'a')
-        new_text=new_text.replace(u'ö', u'o')
-        new_text=new_text.replace(u'ü', u'u')
+        new_text = text.lower()
+        new_text = new_text.replace(u'ä', u'a')
+        new_text = new_text.replace(u'ö', u'o')
+        new_text = new_text.replace(u'ü', u'u')
 
         return new_text

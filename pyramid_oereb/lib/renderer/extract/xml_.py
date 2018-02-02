@@ -62,7 +62,7 @@ class Renderer(Base):
             content = template.render(**{
                 'extract': value[0],
                 'params': value[1],
-                'replace_de_umlaut' : self.replace_de_umlaut,
+                'replace_de_umlaut': self.replace_de_umlaut,
                 'localized': self.get_localized_text,
                 'multilingual': self.get_multilingual_text,
                 'request': self._request,
