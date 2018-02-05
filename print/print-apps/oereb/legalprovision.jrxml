@@ -50,7 +50,7 @@
 					<font fontName="Cadastra" size="8.5"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{Title}.equals("") ? $F{OfficialTitle} : $F{Title})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{Title}.equals("") ? ($F{OfficialTitle}.equals("") ? "-" :   $F{OfficialTitle}): $F{Title})]]></textFieldExpression>
 				<hyperlinkReferenceExpression><![CDATA["http://crdppf.ne.ch"]]></hyperlinkReferenceExpression>
 			</textField>
 		</band>
