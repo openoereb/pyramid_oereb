@@ -475,7 +475,7 @@ class Renderer(Base):
             try:
                 map_dict['OtherLegend'] = sorted(
                     other_legend,
-                    key=lambda legend: self.replace_de_umlaut(legend['LegendText'][0]['Text'])
+                    key=lambda legend: self.unaccent_lower(legend['LegendText'][0]['Text'])
                 )
 
             except AttributeError as ex:

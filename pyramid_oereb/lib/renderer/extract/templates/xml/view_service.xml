@@ -10,10 +10,10 @@
 %endif
 %if map.legends:
 <%
-    def sorting_function(legend_entry):
-        return replace_de_umlaut(multilingual(legend_entry.legend_text)[0]['Text'])
-
-    sorted_legends = sorted(map.legends, key = sorting_function)
+    sorted_legends = sorted(
+        map.legends,
+        key=lambda legend: unaccent_lower(multilingual(legend.legend_text)[0]['Text'])
+    )
 %>
 %for legend_entry in sorted_legends:
 <data:OtherLegend>

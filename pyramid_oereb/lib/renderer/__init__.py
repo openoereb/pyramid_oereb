@@ -2,6 +2,8 @@
 import datetime
 
 import logging
+import unicodedata
+
 from pyramid.httpexceptions import HTTPServerError
 from pyramid.path import DottedNameResolver
 from pyramid.request import Request
@@ -145,23 +147,15 @@ class Base(object):
         return [self.get_localized_text(values)]
 
     @staticmethod
-    def replace_de_umlaut(text):
+    def unaccent_lower(text):
         """
-        Replaces all German special characters with the base character:
-        ä -> a
-        ö -> o
-        ü -> u
-        so that a proper sorting can be done according to the DIN 5007 norm
+        Replaces all special characters so that an alphabetical sorting can be done
 
         Args:
-            text (string): the string value
+            text (str): The text value
 
         Returns:
-            new_text (string): with out umlaut
+            new_text (str): The text value converted to lower case and striped of special characters
         """
-        new_text = text.lower()
-        new_text = new_text.replace(u'ä', u'a')
-        new_text = new_text.replace(u'ö', u'o')
-        new_text = new_text.replace(u'ü', u'u')
-
-        return new_text
+        new_text = unicode(text.lower())
+        return unicodedata.normalize('NFD', new_text)
