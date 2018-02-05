@@ -15,10 +15,10 @@
 	<field name="Text" class="java.lang.String"/>
 	<field name="Code" class="java.lang.String"/>
 	<detail>
-		<band height="15">
+		<band height="12">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="493" height="15" uuid="14892746-25a7-4599-b324-9183228d5eb2">
+				<reportElement x="0" y="0" width="493" height="12" uuid="14892746-25a7-4599-b324-9183228d5eb2">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
