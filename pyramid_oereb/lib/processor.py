@@ -104,29 +104,21 @@ class Processor(object):
         for i, theme in enumerate(extract.concerned_theme):
             if not is_inside_plr(theme.code):
                 themes_to_move.append(i)
-        themes_to_move.reverse()
-        for idx in themes_to_move:
-            new_not_concerned_theme = extract.concerned_theme.pop(idx)
-            log.debug("plr_tolerance_check() adding to not_concerned_theme theme: {}"
-                      .format(new_not_concerned_theme)
-                      )
-            extract.not_concerned_theme.append(new_not_concerned_theme)
+
+        if len(themes_to_move) > 0:
+            themes_to_move.reverse()
+            for idx in themes_to_move:
+                new_not_concerned_theme = extract.concerned_theme.pop(idx)
+                log.debug("plr_tolerance_check() moving from concerned_theme to not_concerned_theme: {}"
+                          .format(new_not_concerned_theme)
+                          )
+                extract.not_concerned_theme.append(new_not_concerned_theme)
+            self.reorder_not_concerned_theme(extract)
 
         real_estate.public_law_restrictions = self.get_legend_entries(inside_plrs, outside_plrs)
         return extract
 
-    def order_extract_toc(self, extract):
-        """
-        The function ensuring that the toc entries of the extract correspond to the configuration.
-
-        Args:
-            extract (pyramid_oereb.lib.records.extract.ExtractRecord): The extract, containing the
-            definitive toc entries, but unsorted
-
-        Returns:
-            pyramid_oereb.lib.records.extract.ExtractRecord: Returns the updated extract
-        """
-        log.debug("order_extract_toc() start")
+    def reorder_not_concerned_theme(self, extract):
         theme_codes = self._extract_reader_.list_of_theme_codes()
         sorted_not_concerned_theme = []
 
@@ -138,11 +130,10 @@ class Processor(object):
 
         for theme_code in theme_codes:
             theme = get_not_concerned_theme(extract, theme_code)
-            if (theme is not None):
+            if theme is not None:
                 sorted_not_concerned_theme.append(theme)
 
         extract.not_concerned_theme = sorted_not_concerned_theme
-        log.debug("order_extract_toc() done.")
         return extract
 
     @staticmethod
@@ -289,8 +280,6 @@ class Processor(object):
             if municipality.fosnr == real_estate.fosnr:
                 extract_raw = self._extract_reader_.read(real_estate, municipality, params)
                 extract = self.plr_tolerance_check(extract_raw)
-
-                self.order_extract_toc(extract)
 
                 # the selection of view services is done after the tolerance check. This enables us to take
                 # care about the circumstance that after tolerance check plrs will be dismissed which were
