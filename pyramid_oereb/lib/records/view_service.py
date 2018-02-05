@@ -84,31 +84,56 @@ class ViewServiceRecord(object):
             return [pixel_size * map_size_mm[0], pixel_size * map_size_mm[1]]
 
     @staticmethod
-    def get_bbox(geometry, map_size, print_buffer):
-        width_buffer = (geometry.bounds[2] - geometry.bounds[0]) * print_buffer / 100
-        height_buffer = (geometry.bounds[3] - geometry.bounds[1]) * print_buffer / 100
-        print_bounds = [
-            geometry.bounds[0] - width_buffer,
-            geometry.bounds[1] - height_buffer,
-            geometry.bounds[2] + width_buffer,
-            geometry.bounds[3] + height_buffer,
-        ]
-        width = float(print_bounds[2] - print_bounds[0])
-        height = float(print_bounds[3] - print_bounds[1])
+    def get_bbox(geometry):
+        """
+        Return a bbox adapted for the map size specified in the print configuration
+         and based on the geometry and a buffer (margin to add between the geometry
+         and the border of the map).
 
-        obj_ration = width / height
-        print_ration = float(map_size[0]) / float(map_size[1])
+        Args:
+            geometry (list): The geometry (bbox) of the feature to center the map on.
 
-        if obj_ration < print_ration:
-            to_add = ((width / obj_ration * print_ration) - width) / 2
-            print_bounds[0] -= to_add
-            print_bounds[2] += to_add
+        Returns:
+            list: The bbox (meters) for the print.
+        """
+        print_conf = Config.get_object_path('print', required=['basic_map_size', 'buffer'])
+        print_buffer = print_conf['buffer']
+        map_size = print_conf['basic_map_size']
+        map_width = float(map_size[0])
+        map_height = float(map_size[1])
+
+        geom_bounds = geometry.bounds
+        geom_width = float(geom_bounds[2] - geom_bounds[0])
+        geom_height = float(geom_bounds[3] - geom_bounds[1])
+
+        geom_ration = geom_width / geom_height
+        map_ration = map_width / map_height
+
+        # If the format of the map is naturally adapted to the format of the geometry
+        is_format_adapted = geom_ration < map_ration
+
+        if is_format_adapted:
+            map_height_without_buffer = map_height - 2 * print_buffer
+            # Calculate the new height of the geom with the buffer.
+            geom_height_with_buffer = map_height / map_height_without_buffer * geom_height
+            # Calculate the new geom width with the map ratio and the new geom height.
+            geom_width_with_buffer = geom_height_with_buffer * map_ration
         else:
-            to_add = (height - (height / obj_ration * print_ration)) / 2
-            print_bounds[1] -= to_add
-            print_bounds[3] += to_add
+            map_width_without_buffer = map_width - 2 * print_buffer
+            # Calculate the new width of the geom with the buffer.
+            geom_width_with_buffer = map_width / map_width_without_buffer * geom_width
+            # Calculate the new geom height with the map ratio and the new geom width.
+            geom_height_with_buffer = geom_width_with_buffer * map_ration
 
-        return print_bounds
+        height_to_add = (geom_height_with_buffer - geom_height) / 2
+        width_to_add = (geom_width_with_buffer - geom_width) / 2
+
+        return [
+            geom_bounds[0] - width_to_add,
+            geom_bounds[1] - height_to_add,
+            geom_bounds[2] + width_to_add,
+            geom_bounds[3] + height_to_add,
+        ]
 
     def get_full_wms_url(self, real_estate, format):
         """
@@ -126,9 +151,8 @@ class ViewServiceRecord(object):
 
         assert real_estate.limit is not None
 
-        print_conf = Config.get_object_path('print', required=['buffer'])
         map_size = self.get_map_size(format)
-        bbox = self.get_bbox(real_estate.limit, map_size, print_conf['buffer'])
+        bbox = self.get_bbox(real_estate.limit)
         self.reference_wms = add_url_params(self.reference_wms, {
             "BBOX": ",".join([str(e) for e in bbox]),
             "SRS": 'EPSG:{0}'.format(Config.get('srid')),
