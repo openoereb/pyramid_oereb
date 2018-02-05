@@ -1369,6 +1369,28 @@ link.</p>
 </table>
 </dd></dl>
 
+<dl class="staticmethod">
+<dt id="pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_bbox">
+<em class="property">static </em><code class="descname">get_bbox</code><span class="sig-paren">(</span><em>geometry</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord.get_bbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_bbox" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Return a bbox adapted for the map size specified in the print configuration</dt>
+<dd>and based on the geometry and a buffer (margin to add between the geometry
+and the border of the map).</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>geometry</strong> (<em>list</em>) &#8211; The geometry (bbox) of the feature to center the map on.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The bbox (meters) for the print.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_full_wms_url">
 <code class="descname">get_full_wms_url</code><span class="sig-paren">(</span><em>real_estate</em>, <em>format</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord.get_full_wms_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_full_wms_url" title="Permalink to this definition">¶</a></dt>
