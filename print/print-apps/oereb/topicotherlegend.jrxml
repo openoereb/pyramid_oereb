@@ -17,7 +17,7 @@
 				<box>
 					<pen lineWidth="0.2"/>
 				</box>
-				<imageExpression><![CDATA[$F{SymbolRef}]]></imageExpression>
+				<imageExpression><![CDATA[$F{LegendText}.equals("") ? null : $F{SymbolRef}]]></imageExpression>
 			</image>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="27" y="0" width="272" height="17" uuid="5f9a91b3-6ee9-4982-a8db-35245b462c2a">

@@ -29,7 +29,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement markup="html"/>
-				<textFieldExpression><![CDATA[($F{Title}.equals("") || $F{Title}.equals("null") || $F{Title} == null) ? null : "<b>"+$F{Title}+":</b> " + $F{Content}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{Title}.equals("") || $F{Title}.equals("null") || $F{Title} == null) ? "-" : "<b>"+$F{Title}+":</b> " + $F{Content}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

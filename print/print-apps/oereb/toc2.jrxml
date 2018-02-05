@@ -51,7 +51,7 @@
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Top">
 					<font fontName="Cadastra" size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} + $F{pageIndex} + 2]]></textFieldExpression>
@@ -67,7 +67,7 @@
 				</box>
 				<textElement verticalAlignment="Top">
 					<font fontName="Cadastra" size="9" isBold="false"/>
-					<paragraph lineSpacing="Single" leftIndent="19" rightIndent="262" spacingBefore="3"/>
+					<paragraph lineSpacing="Single" leftIndent="19" rightIndent="262"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{label}]]></textFieldExpression>
 			</textField>
