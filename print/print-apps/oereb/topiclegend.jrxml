@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="topiclegend" pageWidth="299" pageHeight="20" columnWidth="273" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6477891d-f5c5-456f-a115-e91b2a2768c6">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="Geom_Type" class="java.lang.String"/>
@@ -44,7 +44,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Top" markup="html">
 					<font fontName="Cadastra" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[java.text.MessageFormat.format("{0} m<sup>2</sup>", java.text.NumberFormat.getInstance($P{REPORT_LOCALE}).format($F{Area}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[java.text.MessageFormat.format("{0} m<sup>2</sup>", String.valueOf($F{Area}))]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="101" y="0" width="150" height="17" uuid="0f8b4f0d-278c-4906-b608-181ff2add08e">
@@ -55,7 +55,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Top" markup="html">
 					<font fontName="Cadastra" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[java.text.MessageFormat.format("{0} m", java.text.NumberFormat.getInstance($P{REPORT_LOCALE}).format($F{Length}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[java.text.MessageFormat.format("{0} m", String.valueOf($F{Length}))]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="157" y="0" width="143" height="17" uuid="80654d47-cb87-4690-a7ca-82730f9bb384">
@@ -66,7 +66,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Top">
 					<font fontName="Cadastra" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{PartInPercent} == -1.0) ? null : java.text.MessageFormat.format("{0} %", java.text.NumberFormat.getInstance($P{REPORT_LOCALE}).format($F{PartInPercent}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{PartInPercent} == -1.0) ? null : java.text.MessageFormat.format("{0} %", String.valueOf($F{PartInPercent}))]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
