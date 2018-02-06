@@ -18,3 +18,6 @@ class ThemeRecord(object):
 
         self.code = code
         self.text = text
+
+    def __str__(self):
+        return '<{} -- code: {} text: {}>'.format(self.__class__.__name__, self.code, self.text)
