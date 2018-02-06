@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="titlepage" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="493" leftMargin="51" rightMargin="51" topMargin="28" bottomMargin="20" uuid="8ffd7940-5d69-45af-b3ac-fa15a5db24b6">
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -219,7 +219,7 @@
 				<textElement verticalAlignment="Middle" markup="html">
 					<font fontName="Cadastra" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{RealEstate_LandRegistryArea} + " m<sup>2</sup>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[Integer.toString(Math.round(Float.parseFloat($P{RealEstate_LandRegistryArea}))) + " m<sup>2</sup>"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="193" y="506" width="300" height="17" uuid="3dcd1a9c-a8a9-427c-bc92-76df18584c3c">
