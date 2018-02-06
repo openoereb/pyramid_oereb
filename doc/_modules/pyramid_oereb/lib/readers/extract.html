@@ -343,7 +343,15 @@
         <span class="p">)</span>
 
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() done&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">list_of_theme_codes</span><span class="p">():</span>
+        <span class="n">plrs</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">)</span>
+        <span class="n">theme_codes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">plr</span> <span class="ow">in</span> <span class="n">plrs</span><span class="p">:</span>
+            <span class="n">theme_codes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">theme_codes</span></div>
 </pre></div>
 
            </div>
