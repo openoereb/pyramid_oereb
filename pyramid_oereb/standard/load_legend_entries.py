@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path='/tmp/pyconizer',
                                          language='de', section='pyramid_oereb', image_format='image/png',
                                          image_height=36, image_width=72, encoding=None, replace_host=None,
-                                         replace_layer=None, string_keys=False):
+                                         replace_layer=None, string_keys=False, by_type_code=False):
     """
     Uses the pyconizer lib to create images out of the OEREB server configuration. It is creating symbols for
     a dedicated topic. This function will clean all previously created icons from database.
@@ -55,6 +55,11 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
             the data. Then you can create legend entries by obtaining them from this DEV instances special
             legend layer.
         string_keys (bool): Switch for setting primary key for legend entries whether to string or integer
+        by_type_code (bool): If set the process will use the type_code instead of name for obtaining the
+            legend icons. This needs a WMS layer to be configured with the type_code in its name property. It
+            prevents the legend entry creation process to be broken for case sensitive class names in
+            MAPSERVER. Because the "RULE" parameter of the GetLegendGraphics request on MAPSERVER seems to be
+            case insensitive.
     """
 
     # config object parsed from oereb configuration yml
@@ -144,10 +149,13 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
         layer = params.get('LAYERS')[0] if replace_layer is None else replace_layer
 
         # obtain symbol from pyconizer structure.
-        if isinstance(unique_plr.information, dict):
-            class_name = unique_plr.information.get(language)
+        if by_type_code:
+            class_name = unique_plr.type_code
         else:
-            class_name = unique_plr.information
+            if isinstance(unique_plr.information, dict):
+                class_name = unique_plr.information.get(language)
+            else:
+                class_name = unique_plr.information
         symbol = get_icon(
             temp_creation_path,
             layer,
@@ -281,6 +289,17 @@ def run():
         default=False,
         help='''Switch for setting primary key for legend entries whether to string or integer.'''
     )
+    parser.add_option(
+        '-T', '--bytypecode',
+        dest='by_type_code',
+        action='store_true',
+        default=False,
+        help='''If set the process will use the type_code instead of name for obtaining the
+            legend icons. This needs a WMS layer to be configured with the type_code in its name property. It
+            prevents the legend entry creation process to be broken for case sensitive class names in
+            MAPSERVER. Because the "RULE" parameter of the GetLegendGraphics request on MAPSERVER seems to be
+            case insensitive.'''
+    )
     options, args = parser.parse_args()
     if not options.config:
         parser.error('No configuration file set.')
@@ -299,7 +318,8 @@ def run():
             encoding=options.encoding,
             replace_host=options.replace_host,
             replace_layer=options.replace_layer,
-            string_keys=options.string_keys
+            string_keys=options.string_keys,
+            by_type_code=options.by_type_code
         )
     except Exception as e:
         log.exception(e)
