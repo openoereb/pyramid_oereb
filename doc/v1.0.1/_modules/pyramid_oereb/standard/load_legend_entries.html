@@ -188,7 +188,7 @@
 <div class="viewcode-block" id="create_legend_entries_in_standard_db"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db">[docs]</a><span class="k">def</span> <span class="nf">create_legend_entries_in_standard_db</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">topic_code</span><span class="p">,</span> <span class="n">temp_creation_path</span><span class="o">=</span><span class="s1">&#39;/tmp/pyconizer&#39;</span><span class="p">,</span>
                                          <span class="n">language</span><span class="o">=</span><span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">image_format</span><span class="o">=</span><span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
                                          <span class="n">image_height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">image_width</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">replace_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                                         <span class="n">replace_layer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">string_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                                         <span class="n">replace_layer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">string_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">by_type_code</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Uses the pyconizer lib to create images out of the OEREB server configuration. It is creating symbols for</span>
 <span class="sd">    a dedicated topic. This function will clean all previously created icons from database.</span>
@@ -218,6 +218,11 @@
 <span class="sd">            the data. Then you can create legend entries by obtaining them from this DEV instances special</span>
 <span class="sd">            legend layer.</span>
 <span class="sd">        string_keys (bool): Switch for setting primary key for legend entries whether to string or integer</span>
+<span class="sd">        by_type_code (bool): If set the process will use the type_code instead of name for obtaining the</span>
+<span class="sd">            legend icons. This needs a WMS layer to be configured with the type_code in its name property. It</span>
+<span class="sd">            prevents the legend entry creation process to be broken for case sensitive class names in</span>
+<span class="sd">            MAPSERVER. Because the &quot;RULE&quot; parameter of the GetLegendGraphics request on MAPSERVER seems to be</span>
+<span class="sd">            case insensitive.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># config object parsed from oereb configuration yml</span>
@@ -307,10 +312,13 @@
         <span class="n">layer</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;LAYERS&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">replace_layer</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">replace_layer</span>
 
         <span class="c1"># obtain symbol from pyconizer structure.</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">unique_plr</span><span class="o">.</span><span class="n">information</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">class_name</span> <span class="o">=</span> <span class="n">unique_plr</span><span class="o">.</span><span class="n">information</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">language</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">by_type_code</span><span class="p">:</span>
+            <span class="n">class_name</span> <span class="o">=</span> <span class="n">unique_plr</span><span class="o">.</span><span class="n">type_code</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">class_name</span> <span class="o">=</span> <span class="n">unique_plr</span><span class="o">.</span><span class="n">information</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">unique_plr</span><span class="o">.</span><span class="n">information</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">class_name</span> <span class="o">=</span> <span class="n">unique_plr</span><span class="o">.</span><span class="n">information</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">language</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">class_name</span> <span class="o">=</span> <span class="n">unique_plr</span><span class="o">.</span><span class="n">information</span>
         <span class="n">symbol</span> <span class="o">=</span> <span class="n">get_icon</span><span class="p">(</span>
             <span class="n">temp_creation_path</span><span class="p">,</span>
             <span class="n">layer</span><span class="p">,</span>
@@ -444,6 +452,17 @@
         <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;Switch for setting primary key for legend entries whether to string or integer.&#39;&#39;&#39;</span>
     <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-T&#39;</span><span class="p">,</span> <span class="s1">&#39;--bytypecode&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;by_type_code&#39;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;If set the process will use the type_code instead of name for obtaining the</span>
+<span class="s1">            legend icons. This needs a WMS layer to be configured with the type_code in its name property. It</span>
+<span class="s1">            prevents the legend entry creation process to be broken for case sensitive class names in</span>
+<span class="s1">            MAPSERVER. Because the &quot;RULE&quot; parameter of the GetLegendGraphics request on MAPSERVER seems to be</span>
+<span class="s1">            case insensitive.&#39;&#39;&#39;</span>
+    <span class="p">)</span>
     <span class="n">options</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">config</span><span class="p">:</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No configuration file set.&#39;</span><span class="p">)</span>
@@ -462,7 +481,8 @@
             <span class="n">encoding</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
             <span class="n">replace_host</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">replace_host</span><span class="p">,</span>
             <span class="n">replace_layer</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">replace_layer</span><span class="p">,</span>
-            <span class="n">string_keys</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">string_keys</span>
+            <span class="n">string_keys</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">string_keys</span><span class="p">,</span>
+            <span class="n">by_type_code</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">by_type_code</span>
         <span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
