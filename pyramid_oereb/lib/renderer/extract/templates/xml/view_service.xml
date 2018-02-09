@@ -10,7 +10,7 @@
 %endif
 %if map.legends:
 <%
-    sorted_legends = sort_elements_by_language(map.legends) if sort_elements_by_language(map.legends) else map.legends
+    sorted_legends = sort_by_localized_text(map.legends)
 %>
 %for legend_entry in sorted_legends:
 <data:OtherLegend>

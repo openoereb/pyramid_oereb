@@ -160,7 +160,7 @@ class Base(object):
         new_text = unicode(text.lower())
         return unicodedata.normalize('NFD', new_text)
 
-    def sort_elements_by_language(self, element_list):
+    def sort_by_localized_text(self, element_list):
         """
         Sort a list of translated text elements alphabeticaly.
 
@@ -173,10 +173,8 @@ class Base(object):
             (null): nothing is returned if the sort failed
 
         """
-        sorted_list = None
-
         try:
-            sorted_list = sorted(
+            return sorted(
                 element_list,
                 key=lambda text_element: self.unaccent_lower(
                     self.get_localized_text(text_element.legend_text)['Text']
@@ -185,5 +183,4 @@ class Base(object):
 
         except AttributeError as ex:
             log.warn('Other legend can not be sorted: {0}'.format(ex))
-
-        return sorted_list
+            return element_list
