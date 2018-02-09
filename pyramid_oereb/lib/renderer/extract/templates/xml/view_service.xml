@@ -10,10 +10,7 @@
 %endif
 %if map.legends:
 <%
-    sorted_legends = sorted(
-        map.legends,
-        key=lambda legend: unaccent_lower(multilingual(legend.legend_text)[0]['Text'])
-    )
+    sorted_legends = sort_elements_by_language(map.legends) if sort_elements_by_language(map.legends) else map.legends
 %>
 %for legend_entry in sorted_legends:
 <data:OtherLegend>

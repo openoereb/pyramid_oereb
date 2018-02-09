@@ -149,13 +149,41 @@ class Base(object):
     @staticmethod
     def unaccent_lower(text):
         """
-        Replaces all special characters so that an alphabetical sorting can be done
+        Replaces all special characters so that an alphabetical sorting can be done.
 
         Args:
-            text (str): The text value
+            text (str): The text value.
 
         Returns:
-            new_text (str): The text value converted to lower case and striped of special characters
+            new_text (str): The text value converted to lower case and striped of special characters.
         """
         new_text = unicode(text.lower())
         return unicodedata.normalize('NFD', new_text)
+
+    def sort_elements_by_language(self, element_list):
+        """
+        Sort a list of translated text elements alphabeticaly.
+
+        Args:
+            element_list (pyramid_oereb.lib.records.view_service): The list of map.legends to sort accodring.
+
+        Returns:
+            slegend_entry (pyramid_oereb.lib.records.view_service): Alphapetically and language
+                speciffic sorted elements.
+            (null): nothing is returned if the sort failed
+
+        """
+        sorted_list = None
+
+        try:
+            sorted_list = sorted(
+                element_list,
+                key=lambda text_element: self.unaccent_lower(
+                    self.get_localized_text(text_element.legend_text)['Text']
+                )
+            )
+
+        except AttributeError as ex:
+            log.warn('Other legend can not be sorted: {0}'.format(ex))
+
+        return sorted_list

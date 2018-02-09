@@ -62,7 +62,7 @@ class Renderer(Base):
             content = template.render(**{
                 'extract': value[0],
                 'params': value[1],
-                'unaccent_lower': self.unaccent_lower,
+                'sort_elements_by_language': self.sort_elements_by_language,
                 'localized': self.get_localized_text,
                 'multilingual': self.get_multilingual_text,
                 'request': self._request,
