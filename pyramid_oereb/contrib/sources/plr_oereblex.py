@@ -33,7 +33,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
             law_status (dict of str): The multiple match configuration to provide more flexible use of the
                 federal specified classifiers 'inForce' and 'runningModifications'.
         """
-        super(DatabaseOEREBlexSource, self).__init__()
+        super(DatabaseOEREBlexSource, self).__init__(**kwargs)
         self._oereblex_source = OEREBlexSource(**Config.get_oereblex_config())
 
     def get_document_records(self, public_law_restriction_from_db):
