@@ -162,18 +162,20 @@ class Base(object):
 
     def sort_by_localized_text(self, element_list):
         """
-        Sort a list of translated text elements alphabeticaly.
+        Sort a list of translated text elements alphabetically.
 
         Args:
-            element_list (pyramid_oereb.lib.records.view_service): The list of map.legends to sort accodring.
+            element_list (pyramid_oereb.lib.records.view_service): The list of map.legends to sort.
 
         Returns:
-            slegend_entry (pyramid_oereb.lib.records.view_service): Alphapetically and language
-                speciffic sorted elements.
-            (null): nothing is returned if the sort failed
+            element_list (pyramid_oereb.lib.records.view_service): Alphabetically and language
+                specific sorted elements if translations exist.
+            element_list (pyramid_oereb.lib.records.view_service): The list of unsorted map.legends
+                if sorting was not possible.
 
         """
         try:
+            # Sort the list only if translations exist.
             return sorted(
                 element_list,
                 key=lambda text_element: self.unaccent_lower(
