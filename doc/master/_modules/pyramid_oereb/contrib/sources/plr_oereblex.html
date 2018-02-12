@@ -194,7 +194,7 @@
 <span class="sd">            law_status (dict of str): The multiple match configuration to provide more flexible use of the</span>
 <span class="sd">                federal specified classifiers &#39;inForce&#39; and &#39;runningModifications&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">DatabaseOEREBlexSource</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DatabaseOEREBlexSource</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oereblex_source</span> <span class="o">=</span> <span class="n">OEREBlexSource</span><span class="p">(</span><span class="o">**</span><span class="n">Config</span><span class="o">.</span><span class="n">get_oereblex_config</span><span class="p">())</span></div>
 
 <div class="viewcode-block" id="DatabaseOEREBlexSource.get_document_records"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.get_document_records">[docs]</a>    <span class="k">def</span> <span class="nf">get_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="p">):</span>
