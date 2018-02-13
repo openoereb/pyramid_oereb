@@ -86,7 +86,10 @@ class GeometryRecord(object):
                     compensated_area = area * real_estate.areas_ratio
                     if compensated_area >= min_area:
                         self._area = compensated_area
-                        self._part_in_percent = round(((compensated_area / real_estate.limit.area) * 100), 1)
+                        self._part_in_percent = round(
+                            ((compensated_area / real_estate.land_registry_area) * 100),
+                            1
+                        )
                         self._test_passed = True
                 else:
                     # TODO: configure a proper error message
