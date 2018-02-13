@@ -168,10 +168,8 @@ class Base(object):
             element_list (pyramid_oereb.lib.records.view_service): The list of map.legends to sort.
 
         Returns:
-            element_list (pyramid_oereb.lib.records.view_service): Alphabetically and language
-                specific sorted elements if translations exist.
-            element_list (pyramid_oereb.lib.records.view_service): The list of unsorted map.legends
-                if sorting was not possible.
+            list of pyramid_oereb.lib.records.view_service: Alphabetically and language specific sorted
+                elements if translations exist or the list of unsorted map.elements if soring failed.
 
         """
         try:
