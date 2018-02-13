@@ -469,8 +469,11 @@ class Renderer(Base):
         if map_.legend_at_web is not None:
             map_dict['LegendAtWeb'] = map_.legend_at_web
         if isinstance(map_.legends, list) and len(map_.legends) > 0:
+            other_legend = self.sort_by_localized_text(map_.legends)
+
             map_dict['OtherLegend'] = [
-                self.format_legend_entry(legend_entry) for legend_entry in map_.legends]
+                self.format_legend_entry(legend_entry) for legend_entry in other_legend]
+
         return map_dict
 
     def format_legend_entry(self, legend_entry):
