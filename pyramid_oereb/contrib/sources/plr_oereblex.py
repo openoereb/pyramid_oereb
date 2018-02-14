@@ -54,7 +54,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
             list of pyramid_oereb.lib.records.documents.DocumentRecord:
                 The documents created from the parsed OEREBlex response.
         """
-        log.warn("document_records_from_oereblex() start")
+        log.debug("document_records_from_oereblex() start")
         self._oereblex_source.read(lexlink)
-        log.warn("document_records_from_oereblex() returning records")
+        log.debug("document_records_from_oereblex() returning records")
         return self._oereblex_source.records
