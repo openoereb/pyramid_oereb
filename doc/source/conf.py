@@ -117,7 +117,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'pyramid_oereb'
-copyright = u'2017, pyramid_oereb devs'
+copyright = u'2017-2018, pyramid_oereb devs'
 author = u'pyramid_oereb devs'
 
 # The version info for the project you're documenting, acts as replacement for
