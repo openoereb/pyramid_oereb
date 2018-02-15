@@ -30,7 +30,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             code (str): The official code. Regarding to the federal specifications.
             geometry_type (str): The geometry type. Possible are: POINT, POLYGON, LINESTRING,
                 GEOMETRYCOLLECTION
-            thresholds (dict): The configuration of limits, units and precision which is used for processing.
+            thresholds (dict): The configuration of limits and units used for processing.
             text (dict of str): The speaking title. It must be a dictionary containing language (as
                 configured) as key and text as value.
             language (str): The language this public law restriction is originally shipped whith.
