@@ -495,10 +495,14 @@
 					"type": "array",
 					"items": {
 						"type": "object",
-						"anyOf": [{
-							"$ref": "#/definitions/Article",
-							"$ref": "#/definitions/Document"
-						}]
+						"anyOf": [
+							{
+								"$ref": "#/definitions/Article"
+							},
+							{
+								"$ref": "#/definitions/Document"
+							}
+						]
 					}
 				},
 				"ResponsibleOffice": {
