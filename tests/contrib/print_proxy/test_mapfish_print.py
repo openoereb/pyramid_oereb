@@ -139,7 +139,7 @@ def extract():
                     'LegendAtWeb': legend_web()
                 },
                 'SymbolRef': symbol_ref_2(),
-                'Area': 7823.85,
+                'Area': 7824,
                 'TypeCode': 'StaoTyp2',
                 'TypeCodelist': '',
                 'PartInPercent': 22.3,
@@ -260,7 +260,7 @@ def extract():
                     'LegendAtWeb': legend_web()
                 },
                 'SymbolRef': symbol_ref_2(),
-                'Area': 3608.27,
+                'Area': 3608,
                 'TypeCode': 'StaoTyp2',
                 'TypeCodelist': '',
                 'PartInPercent': 10.3,
@@ -381,7 +381,7 @@ def extract():
                     'LegendAtWeb': legend_web()
                 },
                 'SymbolRef': symbol_ref_3(),
-                'Length': 101.33,
+                'Length': 101,
                 'TypeCode': 'StaoTyp3',
                 'TypeCodelist': '',
                 'LegalProvisions': [{
@@ -501,7 +501,7 @@ def extract():
                     'LegendAtWeb': legend_web()
                 },
                 'SymbolRef': symbol_ref_3(),
-                'Length': 62.62,
+                'Length': 63,
                 'TypeCode': 'StaoTyp3',
                 'TypeCodelist': '',
                 'LegalProvisions': [{
@@ -740,7 +740,7 @@ def extract():
                     'LegendAtWeb': legend_web()
                 },
                 'SymbolRef': 'http://localhost:6543/oereb/image/symbol/GroundwaterProtectionZones/StaoTyp2',
-                'Area': 7823.85,
+                'Area': 7824,
                 'TypeCode': 'StaoTyp2',
                 'TypeCodelist': '',
                 'PartInPercent': 22.3,
@@ -861,7 +861,7 @@ def extract():
                     'LegendAtWeb': legend_web()
                 },
                 'SymbolRef': 'http://localhost:6543/oereb/image/symbol/ForestPerimeters/StaoTyp3',
-                'Length': 101.33,
+                'Length': 101,
                 'TypeCode': 'StaoTyp3',
                 'TypeCodelist': '',
                 'LegalProvisions': [{
@@ -1314,7 +1314,7 @@ def expected_printable_extract():
                 'TypeCode': 'StaoTyp2',
                 'Geom_Type': 'Area',
                 'TypeCodelist': '',
-                'Area': 7823,
+                'Area': 7824,
                 'PartInPercent': 22.3,
                 'SymbolRef': 'http://localhost:6543/oereb/image/symbol/GroundwaterProtectionZones/StaoTyp2',
                 'Information': 'Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten'
@@ -1446,7 +1446,7 @@ def expected_legend_plr1():
         'TypeCode': 'StaoTyp3',
         'Geom_Type': 'Length',
         'TypeCodelist': '',
-        'Length': 163,
+        'Length': 164,
         'SymbolRef': 'http://localhost:6543/oereb/image/symbol/ContaminatedPublicTransportSites/StaoTyp3',
         'Information': 'Belastet, überwachungsbedürftig'
     }]
