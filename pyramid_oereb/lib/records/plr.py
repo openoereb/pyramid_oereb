@@ -177,5 +177,8 @@ class PlrRecord(EmptyPlrRecord):
             self.part_in_percent = None
         else:
             self._area = int(round(area, 0))
-            self.part_in_percent = round(((self._area / real_estate.land_registry_area) * 100), 1)
+            self.part_in_percent = round(
+                ((float(self._area) / float(real_estate.land_registry_area)) * 100),
+                1
+            )
         return inside
