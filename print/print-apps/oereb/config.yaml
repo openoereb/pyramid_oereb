@@ -65,7 +65,7 @@ templates:
             RealEstate_FosNr: !string {}
             RealEstate_MetadataOfGeographicalBaseData: !string
                 default: ''
-            RealEstate_LandRegistryArea: !string {}
+            RealEstate_LandRegistryArea: !integer {}
             RealEstate_RestrictionOnLandownership: !datasource
                 default: []
                 attributes:
