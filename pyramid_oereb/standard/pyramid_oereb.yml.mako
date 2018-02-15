@@ -340,14 +340,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Nutzungsplanung
       language: de
@@ -373,14 +369,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Projektierungszonen Nationalstrassen
       language: de
@@ -406,14 +398,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Baulinien Nationalstrassen
       language: de
@@ -439,14 +427,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Baulinien Eisenbahnanlagen
       language: de
@@ -472,14 +456,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Projektierungszonen Eisenbahnanlagen
       language: de
@@ -505,14 +485,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Projektierungszonen Flughafenanlagen
       language: de
@@ -538,14 +514,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Baulinien Flughafenanlagen
       language: de
@@ -571,14 +543,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Sicherheitszonenplan Flughafen
       language: de
@@ -604,14 +572,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Belastete Standorte
       language: de
@@ -637,14 +601,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Belastete Standorte Militär
       language: de
@@ -670,14 +630,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Belastete Standorte Zivile Flugplätze
       language: de
@@ -703,14 +659,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Belastete Standorte Öffentlicher Verkehr
       language: de
@@ -736,14 +688,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Grundwasserschutzzonen
       language: de
@@ -769,14 +717,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Grundwasserschutzareale
       language: de
@@ -802,14 +746,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Lärmemfindlichkeitsstufen
       language: de
@@ -835,14 +775,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Waldgrenzen
       language: de
@@ -868,14 +804,10 @@ pyramid_oereb:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm'
-          precision: 2
         area:
           limit: 1.0
           # Unit used internally only until now!
           unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       text:
         de: Waldabstandslinien
       language: de

@@ -289,11 +289,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         thresholds = self._plr_info.get('thresholds')
         min_length = thresholds.get('length').get('limit')
         length_unit = thresholds.get('length').get('unit')
-        length_precision = thresholds.get('length').get('precision')
         min_area = thresholds.get('area').get('limit')
         area_unit = thresholds.get('area').get('unit')
-        area_precision = thresholds.get('area').get('precision')
-        percentage_precision = thresholds.get('percentage').get('precision')
         legend_entry_records = self.from_db_to_legend_entry_record(
             self._theme_record,
             legend_entries_from_db
@@ -352,10 +349,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             min_area=min_area,
             min_length=min_length,
             area_unit=area_unit,
-            length_unit=length_unit,
-            area_precision=area_precision,
-            length_precision=length_precision,
-            percentage_precision=percentage_precision
+            length_unit=length_unit
         )
 
         return plr_record
