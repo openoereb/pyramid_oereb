@@ -53,7 +53,7 @@ class RealEstateRecord(object):
         self.subunit_of_land_register = subunit_of_land_register
         self.fosnr = fosnr
         self.metadata_of_geographical_base_data = metadata_of_geographical_base_data
-        self.land_registry_area = round(int(land_registry_area), 0)
+        self.land_registry_area = int(round(land_registry_area, 0))
         self.limit = limit
         if isinstance(public_law_restrictions, list):
             self.public_law_restrictions = public_law_restrictions
