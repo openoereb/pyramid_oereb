@@ -131,9 +131,7 @@ class PlrRecord(EmptyPlrRecord):
         lengths_to_sum = []
         for geometry in self.geometries:
             if geometry.length:
-                length = geometry.length
-                if length > self.min_length:
-                    lengths_to_sum.append(length)
+                lengths_to_sum.append(geometry.length)
         return sum(lengths_to_sum) if len(lengths_to_sum) > 0 else None
 
     def _sum_area(self):
@@ -144,9 +142,7 @@ class PlrRecord(EmptyPlrRecord):
         areas_to_sum = []
         for geometry in self.geometries:
             if geometry.area:
-                area = geometry.area
-                if area > self.min_area:
-                    areas_to_sum.append(area)
+                areas_to_sum.append(geometry.area)
         return sum(areas_to_sum) if len(areas_to_sum) > 0 else None
 
     @property
@@ -179,7 +175,10 @@ class PlrRecord(EmptyPlrRecord):
         length = self._sum_length()
         self._length = None if length is None else round(length, self.length_precision)
         area = self._sum_area()
-        self._area = None if area is None else round(area, self.area_precision)
-        self.part_in_percent = None if area is None else \
-            round(((area / real_estate.limit.area) * 100), self.percentage_precision)
+        if area is None:
+            self._area = None
+            self.part_in_percent = None
+        else:
+            self._area = int(round(area, 0))
+            self.part_in_percent = round(((area / real_estate.land_registry_area) * 100), 1)
         return inside
