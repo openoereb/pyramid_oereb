@@ -64,7 +64,7 @@
         <AreaUnit>${public_law_restriction.area_unit}</AreaUnit>
 %endif
 %if public_law_restriction.length:
-        <Length>public_law_restriction.length}</Length>
+        <Length>${public_law_restriction.length}</Length>
         <LengthUnit>${public_law_restriction.length_unit}</LengthUnit>
 %endif
     </data:extensions>
