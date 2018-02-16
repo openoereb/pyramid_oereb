@@ -351,7 +351,7 @@ class Renderer(JsonRenderer):
             for legend in legends.values():
                 for item in ['Area', 'Length']:
                     if item in legend:
-                        legend[item] = int(legend[item])
+                        legend[item] = legend[item]
             # After transformation, get the new legend entries, sorted by TypeCode
             transformed_legend = \
                 list([transformed_entry for (key, transformed_entry) in sorted(legends.items())])
@@ -374,6 +374,22 @@ class Renderer(JsonRenderer):
                 }]
             }
         }
+
+        # Reformat land registry area
+        extract_dict['RealEstate_LandRegistryArea'] = '{0} m²'.format(
+            extract_dict['RealEstate_LandRegistryArea']
+        )
+
+        # Reformat area, length and part in percent values
+        for restriction in extract_dict['RealEstate_RestrictionOnLandownership']:
+            for legend in restriction['Legend']:
+                if 'Length' in legend:
+                    legend['Length'] = '{0} m'.format(legend['Length'])
+                if 'Area' in legend:
+                    legend['Area'] = '{0} m²'.format(legend['Area'])
+                if 'PartInPercent' in legend:
+                    legend['PartInPercent'] = '{0}%'.format(legend['PartInPercent'])
+
         log.debug("After transformation, extract_dict is {}".format(extract_dict))
         return extract_dict
 

@@ -139,7 +139,7 @@ def extract():
                     'LegendAtWeb': legend_web()
                 },
                 'SymbolRef': symbol_ref_2(),
-                'Area': 7823.85,
+                'Area': 7824,
                 'TypeCode': 'StaoTyp2',
                 'TypeCodelist': '',
                 'PartInPercent': 22.3,
@@ -260,7 +260,7 @@ def extract():
                     'LegendAtWeb': legend_web()
                 },
                 'SymbolRef': symbol_ref_2(),
-                'Area': 3608.27,
+                'Area': 3608,
                 'TypeCode': 'StaoTyp2',
                 'TypeCodelist': '',
                 'PartInPercent': 10.3,
@@ -381,7 +381,7 @@ def extract():
                     'LegendAtWeb': legend_web()
                 },
                 'SymbolRef': symbol_ref_3(),
-                'Length': 101.33,
+                'Length': 101,
                 'TypeCode': 'StaoTyp3',
                 'TypeCodelist': '',
                 'LegalProvisions': [{
@@ -501,7 +501,7 @@ def extract():
                     'LegendAtWeb': legend_web()
                 },
                 'SymbolRef': symbol_ref_3(),
-                'Length': 62.62,
+                'Length': 63,
                 'TypeCode': 'StaoTyp3',
                 'TypeCodelist': '',
                 'LegalProvisions': [{
@@ -740,7 +740,7 @@ def extract():
                     'LegendAtWeb': legend_web()
                 },
                 'SymbolRef': 'http://localhost:6543/oereb/image/symbol/GroundwaterProtectionZones/StaoTyp2',
-                'Area': 7823.85,
+                'Area': 7824,
                 'TypeCode': 'StaoTyp2',
                 'TypeCodelist': '',
                 'PartInPercent': 22.3,
@@ -861,7 +861,7 @@ def extract():
                     'LegendAtWeb': legend_web()
                 },
                 'SymbolRef': 'http://localhost:6543/oereb/image/symbol/ForestPerimeters/StaoTyp3',
-                'Length': 101.33,
+                'Length': 101,
                 'TypeCode': 'StaoTyp3',
                 'TypeCodelist': '',
                 'LegalProvisions': [{
@@ -1173,7 +1173,7 @@ def expected_printable_extract():
         'RealEstate_Canton': 'BL',
         'RealEstate_Municipality': 'Oberwil (BL)',
         'RealEstate_FosNr': 2771,
-        'RealEstate_LandRegistryArea': 35121,
+        'RealEstate_LandRegistryArea': '35121 m²',
         'RealEstate_Number': '70',
         'RealEstate_IdentDN': 'BL0200002771',
         'RealEstate_EGRID': 'CH113928077734',
@@ -1314,8 +1314,8 @@ def expected_printable_extract():
                 'TypeCode': 'StaoTyp2',
                 'Geom_Type': 'Area',
                 'TypeCodelist': '',
-                'Area': 7823,
-                'PartInPercent': 22.3,
+                'Area': '7824 m²',
+                'PartInPercent': '22.3%',
                 'SymbolRef': 'http://localhost:6543/oereb/image/symbol/GroundwaterProtectionZones/StaoTyp2',
                 'Information': 'Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten'
             }],
@@ -1391,7 +1391,7 @@ def expected_printable_extract():
                 'TypeCode': 'StaoTyp3',
                 'Geom_Type': 'Length',
                 'TypeCodelist': '',
-                'Length': 101,
+                'Length': '101 m',
                 'SymbolRef': 'http://localhost:6543/oereb/image/symbol/ForestPerimeters/StaoTyp3',
                 'Information': 'Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten'
             }],
@@ -1438,15 +1438,15 @@ def expected_legend_plr1():
         'TypeCode': 'StaoTyp2',
         'Geom_Type': 'Area',
         'TypeCodelist': '',
-        'Area': 11432,
-        'PartInPercent': 32.6,
+        'Area': '11432 m²',
+        'PartInPercent': '32.6%',
         'SymbolRef': 'http://localhost:6543/oereb/image/symbol/ContaminatedPublicTransportSites/StaoTyp2',
         'Information': 'Belastet, untersuchungsbedürftig'
     }, {
         'TypeCode': 'StaoTyp3',
         'Geom_Type': 'Length',
         'TypeCodelist': '',
-        'Length': 163,
+        'Length': '164 m',
         'SymbolRef': 'http://localhost:6543/oereb/image/symbol/ContaminatedPublicTransportSites/StaoTyp3',
         'Information': 'Belastet, überwachungsbedürftig'
     }]

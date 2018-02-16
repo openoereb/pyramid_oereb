@@ -33,8 +33,10 @@
     </data:Lawstatus>
     %endif
     %if public_law_restriction.area:
-    <data:Area>${int(round(public_law_restriction.area))}</data:Area>
+    <data:Area>${public_law_restriction.area}</data:Area>
     %endif
+##     TODO: The following line must be cleaned from the int(round()) crazyness when the new specification is
+##         taking place.
     %if public_law_restriction.part_in_percent:
     <data:PartInPercent>${int(round(public_law_restriction.part_in_percent))}</data:PartInPercent>
     %endif
@@ -62,7 +64,7 @@
         <AreaUnit>${public_law_restriction.area_unit}</AreaUnit>
 %endif
 %if public_law_restriction.length:
-        <Length>${int(round(public_law_restriction.length))}</Length>
+        <Length>${public_law_restriction.length}</Length>
         <LengthUnit>${public_law_restriction.length_unit}</LengthUnit>
 %endif
     </data:extensions>
