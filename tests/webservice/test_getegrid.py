@@ -77,7 +77,7 @@ def test_getegrid_gnss(config):
             current_route_url='http://example.com/oereb/getegrid.json?GNSS=-19.917989937473,32.1244978460310'
         )
         request.params.update({
-            'GNSS': '-19.917989937473,32.1244978460310'
+            'GNSS': '32.1244978460310,-19.917989937473'
         })
         webservice = PlrWebservice(request)
         response = webservice.get_egrid_coord().json
@@ -175,7 +175,7 @@ def test_parse_xy(src, dst, buffer_dist, config):
 
 def test_parse_gnss(config):
     pyramid_oereb.config = config
-    geom = PlrWebservice(MockRequest()).__parse_gnss__('7.72866,47.48911')
+    geom = PlrWebservice(MockRequest()).__parse_gnss__('47.48911,7.72866')
     assert isinstance(geom, Polygon)
     assert round(geom.centroid.x, 3) == 2621858.036
     assert round(geom.centroid.y, 3) == 1259856.747
