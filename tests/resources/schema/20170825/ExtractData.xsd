@@ -6,7 +6,7 @@
   targetNamespace=
   "http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData" 
   elementFormDefault="qualified" attributeFormDefault="unqualified"
-  version="1.0.1"
+  version="1.0.3"
   >
   <xsd:import namespace="http://www.opengis.net/gml/3.2" 
   schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
@@ -325,10 +325,16 @@
       <xsd:element name="LegendAtWeb" type="WebReference" minOccurs="0"/>
       <xsd:element name="OtherLegend" type="LegendEntry" minOccurs="0" maxOccurs="unbounded">
       </xsd:element>
-      <xsd:element name="min_NS03" type="gml:PointPropertyType" />
-      <xsd:element name="max_NS03" type="gml:PointPropertyType" />
-      <xsd:element name="min_NS95" type="gml:PointPropertyType" />
-      <xsd:element name="max_NS95" type="gml:PointPropertyType" />
+      <xsd:choice minOccurs="0">
+        <xsd:sequence>
+          <xsd:element name="min_NS03" type="gml:PointPropertyType" />
+          <xsd:element name="max_NS03" type="gml:PointPropertyType" />
+        </xsd:sequence>
+        <xsd:sequence>
+          <xsd:element name="min_NS95" type="gml:PointPropertyType" />
+          <xsd:element name="max_NS95" type="gml:PointPropertyType" />
+        </xsd:sequence>
+      </xsd:choice>
       <xsd:element name="layerIndex">
         <xsd:simpleType>
           <xsd:restriction base="xsd:integer">
@@ -356,7 +362,7 @@
             </xsd:element>
             <xsd:element name="OfficialTitle" type="MultilingualText" minOccurs="0">
             </xsd:element>
-            <xsd:element name="Abbrevation" type="MultilingualText" minOccurs="0">
+            <xsd:element name="Abbreviation" type="MultilingualText" minOccurs="0">
             </xsd:element>
             <xsd:element name="OfficialNumber" minOccurs="0">
               <xsd:simpleType>
@@ -406,9 +412,9 @@
       </xsd:element>
       <xsd:element name="PartInPercent" minOccurs="0">
         <xsd:simpleType>
-          <xsd:restriction base="xsd:integer">
-            <xsd:minInclusive value="0"/>
-            <xsd:maxInclusive value="100"/>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:minInclusive value="0.0"/>
+            <xsd:maxInclusive value="100.0"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>

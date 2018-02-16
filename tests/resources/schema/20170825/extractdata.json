@@ -1,6 +1,7 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
-	"id": "http://schemas.geo.admin.ch/V_D/OeREB/1.0/extractdata.json",
+	"$id": "http://schemas.geo.admin.ch/V_D/OeREB/1.0/extractdata.json",
+	"fileVersion": "1.0.1",
 	"type": "object",
 	"anyOf": [{
 		"$ref": "#/definitions/Extract"
@@ -45,23 +46,35 @@
 				}
 			}
 		},
+		"LocalisedUri": {
+			"type": "object",
+			"properties": {
+				"Language": {
+					"$ref": "#/definitions/LanguageCode"
+				},
+				"Text": {
+					"$ref": "#/definitions/anyURI"
+				}
+			}
+		},
 		"MultilingualMText": {
 			"type": "array",
 			"items": {
-				"type": "object",
-				"anyOf": [{
-					"$ref": "#/definitions/LocalisedMText"
-				}]
+				"$ref": "#/definitions/LocalisedMText"
 			},
 			"minItems": 1
 		},
 		"MultilingualText": {
 			"type": "array",
 			"items": {
-				"type": "object",
-				"anyOf": [{
-					"$ref": "#/definitions/LocalisedText"
-				}]
+				"$ref": "#/definitions/LocalisedText"
+			},
+			"minItems": 1
+		},
+		"MultilingualUri": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/LocalisedUri"
 			},
 			"minItems": 1
 		},
@@ -134,16 +147,22 @@
 			"minimum": 0,
 			"maximum": 999999999
 		},
+		"position": {
+			"type": "array",
+			"items": {
+				"type": "number"
+			},
+			"minItems": 2
+		},
+		"positionArray": {
+			"type": "array",
+			"items": { "$ref": "#/definitions/position" }
+		},		
 		"PointPropertyType": {
 			"type": "object",
 			"properties": {
-				"coordinates": {
-					"type": "array",
-					"items": {
-						"type": "number"
-					},
-					"minItems": 2
-				},
+				"type": { "enum": [ "Point" ] },
+				"coordinates": { "$ref": "#/definitions/position" },
 				"crs": {
 					"type": "string"
 				}
@@ -152,38 +171,8 @@
 		"CurvePropertyType": {
 			"type": "object",
 			"properties": {
-				"coordinates": {
-					"type": "array",
-					"items": {
-						"type": "number"
-					},
-					"minItems": 2
-				},
-				"crs": {
-					"type": "string"
-				},
-				"isosqlmmwkb": {
-					"$ref": "#/definitions/base64Binary"
-				}
-			}
-		},
-		"EnvelopeType": {
-			"type": "object",
-			"properties": {
-				"lowerCorner": {
-					"type": "array",
-					"items": {
-						"type": "number"
-					},
-					"minItems": 2
-				},
-				"upperCorner": {
-					"type": "array",
-					"items": {
-						"type": "number"
-					},
-					"minItems": 2
-				},
+				"type": { "enum": [ "LineString","CompoundCurve" ] },
+				"coordinates": { "$ref": "#/definitions/positionArray" },
 				"crs": {
 					"type": "string"
 				},
@@ -195,12 +184,11 @@
 		"SurfacePropertyType": {
 			"type": "object",
 			"properties": {
+				"type": { "enum": [ "Polygon" ,"CurvePolygon"] },
 				"coordinates": {
 					"type": "array",
-					"items": {
-						"type": "number"
-					},
-					"minItems": 2
+					"items": { "$ref": "#/definitions/positionArray" },
+					"minItems": 1
 				},
 				"crs": {
 					"type": "string"
@@ -213,12 +201,15 @@
 		"MultiSurface": {
 			"type": "object",
 			"properties": {
+				"type": { "enum": [ "MultiPolygon","MultiCurvePolygon" ] },
 				"coordinates": {
 					"type": "array",
-					"items": {
-						"type": "number"
+					"items": {  
+						"type": "array",
+						"items": { "$ref": "#/definitions/positionArray" },
+						"minItems": 1
 					},
-					"minItems": 2
+					"minItems": 1
 				},
 				"crs": {
 					"type": "string"
@@ -287,10 +278,7 @@
 				"OtherLegend": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [{
-							"$ref": "#/definitions/LegendEntry"
-						}]
+						"$ref": "#/definitions/LegendEntry"
 					}
 				},
 				"min_NS03": {
@@ -346,7 +334,7 @@
 				"OfficialTitle": {
 					"$ref": "#/definitions/MultilingualText"
 				},
-				"Abbrevation": {
+				"Abbreviation": {
 					"$ref": "#/definitions/MultilingualText"
 				},
 				"OfficialNumber": {
@@ -365,28 +353,19 @@
 				"ArticleNumber": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [{
-							"$ref": "#/definitions/ArticleNumber"
-						}]
+						"$ref": "#/definitions/ArticleNumber"
 					}
 				},
 				"Article": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [{
-							"$ref": "#/definitions/Article"
-						}]
+						"$ref": "#/definitions/Article"
 					}
 				},
 				"Reference": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [{
-							"$ref": "#/definitions/Document"
-						}]
+						"$ref": "#/definitions/Document"
 					}
 				}
 			}
@@ -412,21 +391,11 @@
 			"type": "string",
 			"maxLength": 20
 		},
-		"Article": {
-			"type": "object",
-			"properties": {
-				"DocumentType": {
-					"$ref": "#/definitions/DocumentTypeCode"
-				},
-				"Number": {
-					"$ref": "#/definitions/ArticleNumber"
-				},
-				"Text": {
-					"$ref": "#/definitions/MultilingualMText"
-				}
-			}
+		"RestrictiontypeCode": {
+			"type": "string",
+			"maxLength": 40
 		},
-		"DocumentBase": {
+		"Article": {
 			"type": "object",
 			"properties": {
 				"DocumentType": {
@@ -437,6 +406,12 @@
 				},
 				"Lawstatus": {
 					"$ref": "#/definitions/Lawstatus"
+				},
+				"Number": {
+					"$ref": "#/definitions/ArticleNumber"
+				},
+				"Text": {
+					"$ref": "#/definitions/MultilingualMText"
 				}
 			}
 		},
@@ -494,12 +469,12 @@
 				"NrOfPoints": {
 					"type": "number",
 					"minimum": 0,
-					"maximum": 100
+					"maximum": 10000000
 				},
 				"PartInPercent": {
 					"type": "number",
-					"minimum": 0,
-					"maximum": 10000000
+					"minimum": 0.0,
+					"maximum": 100.0
 				},
 				"Symbol": {
 					"$ref": "#/definitions/base64Binary"
@@ -510,10 +485,7 @@
 				"Geometry": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [{
-							"$ref": "#/definitions/Geometry"
-						}]
+						"$ref": "#/definitions/Geometry"
 					}
 				},
 				"Map": {
@@ -523,9 +495,14 @@
 					"type": "array",
 					"items": {
 						"type": "object",
-						"anyOf": [{
-							"$ref": "#/definitions/DocumentBase"
-						}]
+						"anyOf": [
+							{
+								"$ref": "#/definitions/Article"
+							},
+							{
+								"$ref": "#/definitions/Document"
+							}
+						]
 					}
 				},
 				"ResponsibleOffice": {
@@ -577,10 +554,7 @@
 				"RestrictionOnLandownership": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [{
-							"$ref": "#/definitions/RestrictionOnLandownership"
-						}]
+						"$ref": "#/definitions/RestrictionOnLandownership"
 					},
 					"minItems": 0
 				},
@@ -593,10 +567,7 @@
 				"Reference": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [{
-							"$ref": "#/definitions/Document"
-						}]
+						"$ref": "#/definitions/Document"
 					},
 					"minItems": 0
 				}
@@ -663,30 +634,21 @@
 				"ConcernedTheme": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [{
-							"$ref": "#/definitions/Theme"
-						}]
+						"$ref": "#/definitions/Theme"
 					},
 					"minItems": 0
 				},
 				"NotConcernedTheme": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [{
-							"$ref": "#/definitions/Theme"
-						}]
+						"$ref": "#/definitions/Theme"
 					},
 					"minItems": 0
 				},
 				"ThemeWithoutData": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [{
-							"$ref": "#/definitions/Theme"
-						}]
+						"$ref": "#/definitions/Theme"
 					},
 					"minItems": 0
 				},
@@ -736,10 +698,7 @@
 				"Glossary": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [{
-							"$ref": "#/definitions/Glossary"
-						}]
+						"$ref": "#/definitions/Glossary"
 					},
 					"minItems": 0
 				},
@@ -749,10 +708,7 @@
 				"ExclusionOfLiability": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [{
-							"$ref": "#/definitions/ExclusionOfLiability"
-						}]
+						"$ref": "#/definitions/ExclusionOfLiability"
 					},
 					"minItems": 0
 				},

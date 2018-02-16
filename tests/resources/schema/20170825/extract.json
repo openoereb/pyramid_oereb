@@ -1,6 +1,7 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
-	"id": "http://schemas.geo.admin.ch/V_D/OeREB/1.0/extract.json",
+	"$id": "http://schemas.geo.admin.ch/V_D/OeREB/1.0/extract.json",
+	"fileVersion": "1.0.1",
 	"type": "object",
 	"anyOf": [{
 			"$ref": "#/definitions/GetExtractByIdResponse"
@@ -30,23 +31,26 @@
 						"cadasterOrganisationName": {
 							"type": "string"
 						},
+						"dataownerNameCadastralSurveying": {
+							"type": "string"
+						},
+						"transferFromSourceCadastralSurveying": {
+							"$ref": "extractdata.json/definitions/dateTime"
+						},
 						"datasource": {
-							"type": "object",
-							"properties": {
-								"topic": {
-									"$ref": "extractdata.json/definitions/Theme"
-								},
-								"dataownerName": {
-									"type": "string"
-								},
-								"transferFromSource": {
-									"$ref": "extract-data.json/definitions/dateTime"
-								},
-								"dataownerNameCadastralSurveying": {
-									"type": "string"
-								},
-								"transferFromSourceCadastralSurveying": {
-									"$ref": "extractdata.json/definitions/dateTime"
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"topic": {
+										"$ref": "extractdata.json/definitions/Theme"
+									},
+									"dataownerName": {
+										"type": "string"
+									},
+									"transferFromSource": {
+										"$ref": "extractdata.json/definitions/dateTime"
+									}
 								}
 							}
 						},
@@ -62,16 +66,19 @@
 			}
 		},
 		"GetEGRIDResponse": {
-			"type": "object",
-			"properties": {
-				"egrid": {
-					"type": "string"
-				},
-				"number": {
-					"type": "string"
-				},
-				"identDN": {
-					"type": "string"
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"egrid": {
+						"type": "string"
+					},
+					"number": {
+						"type": "string"
+					},
+					"identDN": {
+						"type": "string"
+					}
 				}
 			}
 		},
@@ -82,28 +89,19 @@
 				"topic": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [{
-							"$ref": "extractdata.json/definitions/Theme"
-						}]
+						"$ref": "extractdata.json/definitions/Theme"
 					}
 				},
 				"municipality": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [{
-							"$ref": "extract-data.json/definitions/MunicipalityCode"
-						}]
+						"$ref": "extractdata.json/definitions/MunicipalityCode"
 					}
 				},
 				"flavour": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [{
-							"$ref": "#/definitions/FlavourType"
-						}]
+						"$ref": "#/definitions/FlavourType"
 					}
 				},
 				"language": {
