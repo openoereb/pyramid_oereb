@@ -47,7 +47,7 @@
 	<parameter name="RealEstate_Type" class="java.lang.String"/>
 	<parameter name="RealEstate_Canton" class="java.lang.String"/>
 	<parameter name="RealEstate_EGRID" class="java.lang.String"/>
-	<parameter name="RealEstate_LandRegistryArea" class="java.lang.Integer"/>
+	<parameter name="RealEstate_LandRegistryArea" class="java.lang.String"/>
 	<parameter name="RealEstate_Number" class="java.lang.String"/>
 	<parameter name="RealEstate_FosNr" class="java.lang.String"/>
 	<parameter name="RealEstate_RestrictionOnLandownershipDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>

@@ -30,7 +30,7 @@
 	<parameter name="RealEstate_EGRID" class="java.lang.String"/>
 	<parameter name="RealEstate_Municipality" class="java.lang.String"/>
 	<parameter name="RealEstate_FosNr" class="java.lang.String"/>
-	<parameter name="RealEstate_LandRegistryArea" class="java.lang.Integer"/>
+	<parameter name="RealEstate_LandRegistryArea" class="java.lang.String"/>
 	<parameter name="RealEstate_SubunitOfLandRegister" class="java.lang.String"/>
 	<parameter name="mapSubReport" class="java.lang.String"/>
 	<parameter name="scalebarSubReport" class="java.lang.String"/>
@@ -219,7 +219,7 @@
 				<textElement verticalAlignment="Middle" markup="html">
 					<font fontName="Cadastra" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{RealEstate_LandRegistryArea} + " m<sup>2</sup>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{RealEstate_LandRegistryArea}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="193" y="506" width="300" height="17" uuid="3dcd1a9c-a8a9-427c-bc92-76df18584c3c">

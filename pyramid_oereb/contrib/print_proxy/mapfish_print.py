@@ -374,6 +374,22 @@ class Renderer(JsonRenderer):
                 }]
             }
         }
+
+        # Reformat land registry area
+        extract_dict['RealEstate_LandRegistryArea'] = '{0} m²'.format(
+            extract_dict['RealEstate_LandRegistryArea']
+        )
+
+        # Reformat area, length and part in percent values
+        for restriction in extract_dict['RealEstate_RestrictionOnLandownership']:
+            for legend in restriction['Legend']:
+                if 'Length' in legend:
+                    legend['Length'] = '{0} m'.format(legend['Length'])
+                if 'Area' in legend:
+                    legend['Area'] = '{0} m²'.format(legend['Area'])
+                if 'PartInPercent' in legend:
+                    legend['PartInPercent'] = '{0}%'.format(legend['PartInPercent'])
+
         log.debug("After transformation, extract_dict is {}".format(extract_dict))
         return extract_dict
 

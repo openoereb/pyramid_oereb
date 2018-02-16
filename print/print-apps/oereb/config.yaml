@@ -65,7 +65,7 @@ templates:
             RealEstate_FosNr: !string {}
             RealEstate_MetadataOfGeographicalBaseData: !string
                 default: ''
-            RealEstate_LandRegistryArea: !integer {}
+            RealEstate_LandRegistryArea: !string {}
             RealEstate_RestrictionOnLandownership: !datasource
                 default: []
                 attributes:
@@ -76,12 +76,12 @@ templates:
                             TypeCodelist: !string
                                 default: ''
                             Geom_Type: !string {}
-                            Area: !integer #/definitions/Area
-                                default: -1
-                            PartInPercent: !float
-                                default: -1
-                            Length: !integer
-                                default: -1
+                            Area: !string #/definitions/Area
+                                default: ''
+                            PartInPercent: !string
+                                default: ''
+                            Length: !string
+                                default: ''
                             SymbolRef: !string
                                 default: ''
                             Information: !string #/definitions/MultilingualMText
