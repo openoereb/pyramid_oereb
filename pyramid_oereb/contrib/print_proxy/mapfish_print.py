@@ -391,12 +391,22 @@ class Renderer(JsonRenderer):
 
     @staticmethod
     def _get_element_of_legal_provision_maybe_uid(element):
+        """
+        Make a unique key string out of title and TextAtWeb. This is necessary to satisfy the KBS's theme.
+        There it can happen, that we get different titles with the same URL. This way we keep even them.
+
+        Args:
+            element (dict): The document type as dictionary.
+
+        Returns:
+            str: The constructed unique key made of Title and TextAtWeb
+        """
+        unique_key = []
         if element['TextAtWeb'] is not None:
-            # If TextAtWeb exists, we want it once it the pdf report.
-            return element['TextAtWeb'][0]['Text']
-        else:
-            # Otherwise, take the Title. It exists for sure, but can be not unique.
-            return element['Title'][0]['Text']
+            # If TextAtWeb exists, we want it for uniqueness too.
+            unique_key.append(element['TextAtWeb'][0]['Text'])
+        unique_key.append(element['Title'][0]['Text'])
+        return '_'.join(unique_key)
 
     @staticmethod
     def _localised_text(parent, name):
