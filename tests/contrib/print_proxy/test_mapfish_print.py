@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+import codecs
 import pytest
 from pyramid_oereb.contrib.print_proxy.mapfish_print import Renderer
 from tests.renderer import DummyRenderInfo
@@ -17,13 +18,17 @@ def coordinates():
 
 @pytest.fixture()
 def extract():
-    with open('tests/contrib/print_proxy/resources/test_extract.json') as f:
+    with codecs.open(
+            'tests/contrib/print_proxy/resources/test_extract.json'
+    ) as f:
         return json.loads(f.read())
 
 
 @pytest.fixture()
 def expected_printable_extract():
-    with open('tests/contrib/print_proxy/resources/expected_getspec_extract.json') as f:
+    with codecs.open(
+            'tests/contrib/print_proxy/resources/expected_getspec_extract.json'
+    ) as f:
         return json.loads(f.read())
 
 
@@ -49,4 +54,7 @@ def test_mapfish_print_entire_extract():
     pdf_to_join = set()
     printable_extract = extract()
     renderer.convert_to_printable_extract(printable_extract, geometry(), pdf_to_join)
+    f = codecs.open('/tmp/test.json', 'w', encoding='utf-8')
+    f.write(json.dumps(printable_extract, encoding='utf-8'))
+    f.close()
     assert printable_extract == expected_printable_extract()

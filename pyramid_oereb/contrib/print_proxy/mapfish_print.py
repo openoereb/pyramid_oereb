@@ -376,7 +376,7 @@ class Renderer(JsonRenderer):
         }
 
         # Reformat land registry area
-        extract_dict['RealEstate_LandRegistryArea'] = '{0} m²'.format(
+        extract_dict['RealEstate_LandRegistryArea'] = u'{0} m²'.format(
             extract_dict['RealEstate_LandRegistryArea']
         )
 
@@ -386,7 +386,7 @@ class Renderer(JsonRenderer):
                 if 'Length' in legend:
                     legend['Length'] = '{0} m'.format(legend['Length'])
                 if 'Area' in legend:
-                    legend['Area'] = '{0} m²'.format(legend['Area'])
+                    legend['Area'] = u'{0} m²'.format(legend['Area'])
                 if 'PartInPercent' in legend:
                     legend['PartInPercent'] = '{0}%'.format(legend['PartInPercent'])
 

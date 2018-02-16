@@ -1,5 +1,5 @@
 {
-    "GeneralInformation": "Der Inhalt des \u00d6REB-Katasters wird als bekannt vorausgesetzt. Der Kanton Basel-Landschaft ist f\u00fcr die Genauigkeit und Verl\u00e4sslichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begr\u00fcndet insbesondere keine Rechte und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskr\u00e4ftig verabschiedet oder ver\u00f6ffentlicht worden sind. Mit der Beglaubigung des Auszugs wird die \u00dcbereinstimmung des Auszugs mit dem \u00d6REB-Kataster zum Zeitpunkt der Auszugserstellung best\u00e4tigt.",
+  "GeneralInformation": "Der Inhalt des \u00d6REB-Katasters wird als bekannt vorausgesetzt. Der Kanton Basel-Landschaft ist f\u00fcr die Genauigkeit und Verl\u00e4sslichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begr\u00fcndet insbesondere keine Rechte und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskr\u00e4ftig verabschiedet oder ver\u00f6ffentlicht worden sind. Mit der Beglaubigung des Auszugs wird die \u00dcbereinstimmung des Auszugs mit dem \u00d6REB-Kataster zum Zeitpunkt der Auszugserstellung best\u00e4tigt.",
   "RealEstate_RestrictionOnLandownership": [
     {
       "Information": "",
@@ -226,25 +226,25 @@
       "ResponsibleOffice_Name": "Amt f\u00fcr Raumplanung BL\nGemeinde Birsfelden",
       "Legend": [
         {
-          "PartInPercent": 73.0,
+          "PartInPercent": "73.0%",
           "Information": "Industrie- und Gewerbezone",
-          "Area": 87380,
+          "Area": "87380.21 m²",
           "TypeCode": "108000",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/108000",
           "Geom_Type": "Area"
         },
         {
-          "PartInPercent": 6.2,
+          "PartInPercent": "6.2%",
           "Information": "Rheinuferzone",
-          "Area": 7379,
+          "Area": "7379.93 m²",
           "TypeCode": "130004",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130004",
           "Geom_Type": "Area"
         },
         {
-          "PartInPercent": 5.1,
+          "PartInPercent": "5.1%",
           "Information": "Arch\u00e4ologische Schutzzone",
-          "Area": 6125,
+          "Area": "6125.68 m²",
           "TypeCode": "219106",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/219106",
           "Geom_Type": "Area"
@@ -382,33 +382,33 @@
       "ResponsibleOffice_Name": "Amt f\u00fcr Umweltschutz und Energie BL",
       "Legend": [
         {
-          "PartInPercent": 51.8,
+          "PartInPercent": "51.8%",
           "Information": "Betriebsstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
-          "Area": 61999,
+          "Area": "61999.23 m²",
           "TypeCode": "StaoTyp2_StatusAltlV1",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV1",
           "Geom_Type": "Area"
         },
         {
-          "PartInPercent": 12.1,
+          "PartInPercent": "12.1%",
           "Information": "Betriebsstandort. Belastet, weder \u00fcberwachungs- noch sanierungsbed\u00fcrftig",
-          "Area": 14503,
+          "Area": "14503.04 m²",
           "TypeCode": "StaoTyp2_StatusAltlV3",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV3",
           "Geom_Type": "Area"
         },
         {
-          "PartInPercent": 4.8,
+          "PartInPercent": "4.8%",
           "Information": "Betriebsstandort. Belastet,  \u00fcberwachungsbed\u00fcrftig",
-          "Area": 5764,
+          "Area": "5764.33 m²",
           "TypeCode": "StaoTyp2_StatusAltlV4",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV4",
           "Geom_Type": "Area"
         },
         {
-          "PartInPercent": 1.0,
+          "PartInPercent": "1.0%",
           "Information": "Unfallstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
-          "Area": 1210,
+          "Area": "1210.49 m²",
           "TypeCode": "StaoTyp3_StatusAltlV1",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp3_StatusAltlV1",
           "Geom_Type": "Area"
@@ -508,9 +508,9 @@
       "ResponsibleOffice_Name": "Gemeinde Birsfelden",
       "Legend": [
         {
-          "PartInPercent": 73.0,
+          "PartInPercent": "73.0%",
           "Information": "Empfindlichkeitsstufe ES IV",
-          "Area": 87381,
+          "Area": "87381.15 m²",
           "TypeCode": "ES_IV",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
           "Geom_Type": "Area"
@@ -674,7 +674,7 @@
     }
   ],
   "LogoPLRCadastreRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/logo/oereb",
-  "RealEstate_LandRegistryArea": 119681.0,
+  "RealEstate_LandRegistryArea": "119681.0 m²",
   "RealEstate_Type": "RealEstate",
   "Footer": "16.02.2018   11:54:24   e2ec795b-91f8-4827-8549-808ca7f25251",
   "Glossary": [
