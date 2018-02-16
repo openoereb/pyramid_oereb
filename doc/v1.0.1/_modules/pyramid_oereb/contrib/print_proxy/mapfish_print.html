@@ -537,7 +537,7 @@
         <span class="p">}</span>
 
         <span class="c1"># Reformat land registry area</span>
-        <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_LandRegistryArea&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> m²&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_LandRegistryArea&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> m²&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_LandRegistryArea&#39;</span><span class="p">]</span>
         <span class="p">)</span>
 
@@ -547,7 +547,7 @@
                 <span class="k">if</span> <span class="s1">&#39;Length&#39;</span> <span class="ow">in</span> <span class="n">legend</span><span class="p">:</span>
                     <span class="n">legend</span><span class="p">[</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> m&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">legend</span><span class="p">[</span><span class="s1">&#39;Length&#39;</span><span class="p">])</span>
                 <span class="k">if</span> <span class="s1">&#39;Area&#39;</span> <span class="ow">in</span> <span class="n">legend</span><span class="p">:</span>
-                    <span class="n">legend</span><span class="p">[</span><span class="s1">&#39;Area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> m²&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">legend</span><span class="p">[</span><span class="s1">&#39;Area&#39;</span><span class="p">])</span>
+                    <span class="n">legend</span><span class="p">[</span><span class="s1">&#39;Area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> m²&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">legend</span><span class="p">[</span><span class="s1">&#39;Area&#39;</span><span class="p">])</span>
                 <span class="k">if</span> <span class="s1">&#39;PartInPercent&#39;</span> <span class="ow">in</span> <span class="n">legend</span><span class="p">:</span>
                     <span class="n">legend</span><span class="p">[</span><span class="s1">&#39;PartInPercent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">legend</span><span class="p">[</span><span class="s1">&#39;PartInPercent&#39;</span><span class="p">])</span>
 
@@ -568,12 +568,22 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_get_element_of_legal_provision_maybe_uid</span><span class="p">(</span><span class="n">element</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make a unique key string out of title and TextAtWeb. This is necessary to satisfy the KBS&#39;s theme.</span>
+<span class="sd">        There it can happen, that we get different titles with the same URL. This way we keep even them.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            element (dict): The document type as dictionary.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The constructed unique key made of Title and TextAtWeb</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">unique_key</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="n">element</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="c1"># If TextAtWeb exists, we want it once it the pdf report.</span>
-            <span class="k">return</span> <span class="n">element</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Text&#39;</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Otherwise, take the Title. It exists for sure, but can be not unique.</span>
-            <span class="k">return</span> <span class="n">element</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Text&#39;</span><span class="p">]</span>
+            <span class="c1"># If TextAtWeb exists, we want it for uniqueness too.</span>
+            <span class="n">unique_key</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Text&#39;</span><span class="p">])</span>
+        <span class="n">unique_key</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Text&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unique_key</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_localised_text</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
