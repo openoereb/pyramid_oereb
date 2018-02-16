@@ -30,14 +30,21 @@ def test_get_document_type():
 def test_line(parameters, xml_templates):
     line = LineString(((0, 0), (1, 1)))
     template = xml_templates.get_template('geometry/line.xml')
+
+    def get_gml_id():
+        return 'gml1'
+
     content = template.render(**{
         'params': parameters,
         'default_language': 'de',
-        'line': line
+        'line': line,
+        'get_gml_id': get_gml_id
     }).decode('utf-8').split('\n')
     expected_content = """
-    <gml:pos>0.0 0.0</gml:pos>
-    <gml:pos>1.0 1.0</gml:pos>
+    <gml:LineString gml:id="gml1">
+        <gml:pos>0.0 0.0</gml:pos>
+        <gml:pos>1.0 1.0</gml:pos>
+    </gml:LineString>
     """.split('\n')
     expected_lines = []
     for line in expected_content:

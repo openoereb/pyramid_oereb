@@ -28,8 +28,8 @@ class RealEstateRecord(object):
             type (unicode): The property type
             canton (unicode): The abbreviation of the canton the property is located in
             municipality (unicode): The municipality the property is located in
-            fosnr (integer): The federal number of the municipality defined by the statistics office
-            land_registry_area (integer): Area of the property as defined in the land registry
+            fosnr (int): The federal number of the municipality defined by the statistics office
+            land_registry_area (int): Area of the property as defined in the land registry
             limit (shapely.geometry.MultiPolygon): The boundary of the property as geometry in as shapely
                 multi polygon
             metadata_of_geographical_base_data (uri): Link to the metadata of the geodata
@@ -53,7 +53,7 @@ class RealEstateRecord(object):
         self.subunit_of_land_register = subunit_of_land_register
         self.fosnr = fosnr
         self.metadata_of_geographical_base_data = metadata_of_geographical_base_data
-        self.land_registry_area = land_registry_area
+        self.land_registry_area = int(round(land_registry_area, 0))
         self.limit = limit
         if isinstance(public_law_restrictions, list):
             self.public_law_restrictions = public_law_restrictions

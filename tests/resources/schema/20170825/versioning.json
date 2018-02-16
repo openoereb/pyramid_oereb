@@ -1,6 +1,7 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
-	"id": "http://schemas.geo.admin.ch/V_D/OeREB/1.0/versioning.json",
+	"$id": "http://schemas.geo.admin.ch/V_D/OeREB/1.0/versioning.json",
+	"fileVersion": "1.0.1",
 	"type": "object",
 	"anyOf": [{
 		"$ref": "#/definitions/GetVersionsResponse"
