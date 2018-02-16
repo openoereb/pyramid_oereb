@@ -193,7 +193,7 @@
 <span class="sd">            code (str): The official code. Regarding to the federal specifications.</span>
 <span class="sd">            geometry_type (str): The geometry type. Possible are: POINT, POLYGON, LINESTRING,</span>
 <span class="sd">                GEOMETRYCOLLECTION</span>
-<span class="sd">            thresholds (dict): The configuration of limits, units and precision which is used for processing.</span>
+<span class="sd">            thresholds (dict): The configuration of limits and units used for processing.</span>
 <span class="sd">            text (dict of str): The speaking title. It must be a dictionary containing language (as</span>
 <span class="sd">                configured) as key and text as value.</span>
 <span class="sd">            language (str): The language this public law restriction is originally shipped whith.</span>
@@ -452,11 +452,8 @@
         <span class="n">thresholds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;thresholds&#39;</span><span class="p">)</span>
         <span class="n">min_length</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;length&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;limit&#39;</span><span class="p">)</span>
         <span class="n">length_unit</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;length&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;unit&#39;</span><span class="p">)</span>
-        <span class="n">length_precision</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;length&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">)</span>
         <span class="n">min_area</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;limit&#39;</span><span class="p">)</span>
         <span class="n">area_unit</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;unit&#39;</span><span class="p">)</span>
-        <span class="n">area_precision</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">)</span>
-        <span class="n">percentage_precision</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;percentage&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">)</span>
         <span class="n">legend_entry_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_legend_entry_record</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_theme_record</span><span class="p">,</span>
             <span class="n">legend_entries_from_db</span>
@@ -515,10 +512,7 @@
             <span class="n">min_area</span><span class="o">=</span><span class="n">min_area</span><span class="p">,</span>
             <span class="n">min_length</span><span class="o">=</span><span class="n">min_length</span><span class="p">,</span>
             <span class="n">area_unit</span><span class="o">=</span><span class="n">area_unit</span><span class="p">,</span>
-            <span class="n">length_unit</span><span class="o">=</span><span class="n">length_unit</span><span class="p">,</span>
-            <span class="n">area_precision</span><span class="o">=</span><span class="n">area_precision</span><span class="p">,</span>
-            <span class="n">length_precision</span><span class="o">=</span><span class="n">length_precision</span><span class="p">,</span>
-            <span class="n">percentage_precision</span><span class="o">=</span><span class="n">percentage_precision</span>
+            <span class="n">length_unit</span><span class="o">=</span><span class="n">length_unit</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">plr_record</span>

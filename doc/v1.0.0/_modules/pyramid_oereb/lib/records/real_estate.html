@@ -189,8 +189,8 @@
 <span class="sd">            type (unicode): The property type</span>
 <span class="sd">            canton (unicode): The abbreviation of the canton the property is located in</span>
 <span class="sd">            municipality (unicode): The municipality the property is located in</span>
-<span class="sd">            fosnr (integer): The federal number of the municipality defined by the statistics office</span>
-<span class="sd">            land_registry_area (integer): Area of the property as defined in the land registry</span>
+<span class="sd">            fosnr (int): The federal number of the municipality defined by the statistics office</span>
+<span class="sd">            land_registry_area (int): Area of the property as defined in the land registry</span>
 <span class="sd">            limit (shapely.geometry.MultiPolygon): The boundary of the property as geometry in as shapely</span>
 <span class="sd">                multi polygon</span>
 <span class="sd">            metadata_of_geographical_base_data (uri): Link to the metadata of the geodata</span>
@@ -214,7 +214,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">subunit_of_land_register</span> <span class="o">=</span> <span class="n">subunit_of_land_register</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fosnr</span> <span class="o">=</span> <span class="n">fosnr</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">metadata_of_geographical_base_data</span> <span class="o">=</span> <span class="n">metadata_of_geographical_base_data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">land_registry_area</span> <span class="o">=</span> <span class="n">land_registry_area</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">land_registry_area</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">land_registry_area</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">limit</span> <span class="o">=</span> <span class="n">limit</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">public_law_restrictions</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">public_law_restrictions</span> <span class="o">=</span> <span class="n">public_law_restrictions</span>
