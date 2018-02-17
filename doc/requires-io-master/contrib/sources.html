@@ -98,6 +98,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Sources</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#addressgeoadminsource"><em>AddressGeoAdminSource</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#oereblexsource"><em>OEREBlexSource</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#databaseoereblexsource"><em>DatabaseOEREBlexSource</em></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="print_proxy.html">Print Proxy</a></li>
@@ -272,6 +273,189 @@ and <cite>password</cite> to be defined.</li>
 
 </dd></dl>
 
+<span class="target" id="module-pyramid_oereb.contrib.sources.plr_oereblex"><span id="api-pyramid-oereb-contrib-sources-plr-oereblex"></span></span></div>
+<div class="section" id="databaseoereblexsource">
+<span id="api-pyramid-oereb-contrib-sources-plr-oereblex-databaseoereblexsource"></span><h2><em>DatabaseOEREBlexSource</em><a class="headerlink" href="#databaseoereblexsource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.sources.plr_oereblex.</code><code class="descname">DatabaseOEREBlexSource</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/sources/plr_oereblex.html#DatabaseOEREBlexSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>A source to get oereblex documents attached to public law restrictions in replacement
+of standards documents. Be sure to use a model with an OEREBlex &#8220;lexlink&#8221; integer
+column for plrs that use this source.</p>
+<dl class="method">
+<dt id="pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/sources/plr_oereblex.html#DatabaseOEREBlexSource.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<em>str</em>) &#8211; The name. You are free to choose one.</li>
+<li><strong>code</strong> (<em>str</em>) &#8211; The official code. Regarding to the federal specifications.</li>
+<li><strong>geometry_type</strong> (<em>str</em>) &#8211; The geometry type. Possible are: POINT, POLYGON, LINESTRING,
+GEOMETRYCOLLECTION</li>
+<li><strong>thresholds</strong> (<em>dict</em>) &#8211; The configuration of limits and units used for processing.</li>
+<li><strong>text</strong> (<em>dict of str</em>) &#8211; The speaking title. It must be a dictionary containing language (as
+configured) as key and text as value.</li>
+<li><strong>language</strong> (<em>str</em>) &#8211; The language this public law restriction is originally shipped whith.</li>
+<li><strong>federal</strong> (<em>bool</em>) &#8211; Switch if it is a federal topic. This will be taken into account in processing
+steps.</li>
+<li><strong>source</strong> (<em>dict</em>) &#8211; The configuration dictionary of the public law restriction</li>
+<li><strong>hooks</strong> (<em>dict of str</em>) &#8211; The hook methods: get_symbol, get_symbol_ref. They have to be provided as
+dotted string for further use with dotted name resolver of pyramid package.</li>
+<li><strong>law_status</strong> (<em>dict of str</em>) &#8211; The multiple match configuration to provide more flexible use of the
+federal specified classifiers &#8216;inForce&#8217; and &#8216;runningModifications&#8217;.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.collect_legend_entries_by_bbox">
+<code class="descname">collect_legend_entries_by_bbox</code><span class="sig-paren">(</span><em>session</em>, <em>bbox</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.collect_legend_entries_by_bbox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts all legend entries in the topic which have spatial relation with the passed bounding box of
+visible extent.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>session</strong> (<em>sqlalchemy.orm.Session</em>) &#8211; The requested clean session instance ready for use</li>
+<li><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The bbox to search the records.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The result of the related geometries unique by the public law restriction id</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.collect_related_geometries_by_real_estate">
+<code class="descname">collect_related_geometries_by_real_estate</code><span class="sig-paren">(</span><em>session</em>, <em>real_estate</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.collect_related_geometries_by_real_estate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts all geometries in the topic which have spatial relation with the passed real estate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>session</strong> (<em>sqlalchemy.orm.Session</em>) &#8211; The requested clean session instance ready for use</li>
+<li><strong>real_estate</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real
+estate in its record representation.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The result of the related geometries unique by the public law restriction id</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.document_records_from_oereblex">
+<code class="descname">document_records_from_oereblex</code><span class="sig-paren">(</span><em>lexlink</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/sources/plr_oereblex.html#DatabaseOEREBlexSource.document_records_from_oereblex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.document_records_from_oereblex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create document records parsed from the OEREBlex response with the specified geoLink ID and appends
+them to the current public law restriction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>lexlink</strong> (<em>int</em>) &#8211; The ID of the geoLink to request the documents for.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The documents created from the parsed OEREBlex response.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.lib.records.documents.DocumentRecord</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.extract_geometry_collection_db">
+<code class="descname">extract_geometry_collection_db</code><span class="sig-paren">(</span><em>db_path</em>, <em>real_estate_geometry</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.extract_geometry_collection_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decides the geometry collection cases of geometric filter operations when the database contains multi
+geometries but the passed geometry does not.
+The multi geometry will be extracted to it&#8217;s sub parts for operation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>db_path</strong> (<em>str</em>) &#8211; The point separated string of schema_name.table_name.column_name from
+which we can construct a correct SQL statement.</li>
+<li><strong>real_estate_geometry</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The shapely geometry
+representation which is used for comparison.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The clause element.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">sqlalchemy.sql.elements.BooleanClauseList</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">HTTPBadRequest</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.get_document_records">
+<code class="descname">get_document_records</code><span class="sig-paren">(</span><em>public_law_restriction_from_db</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/sources/plr_oereblex.html#DatabaseOEREBlexSource.get_document_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.get_document_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override the parent&#8217;s get_document_records method to obtain the oereblex document instead.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.info">
+<code class="descname">info</code><a class="headerlink" href="#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the info dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The info dictionary.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>real_estate</em>, <em>bbox</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>The read point which creates a extract, depending on a passed real estate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>real_estate</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real
+estate in its record representation.</li>
+<li><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The bbox to search the records.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 
@@ -297,7 +481,7 @@ and <cite>password</cite> to be defined.</li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, pyramid_oereb devs.
+        &copy; Copyright 2017-2018, pyramid_oereb devs.
 
     </p>
   </div>

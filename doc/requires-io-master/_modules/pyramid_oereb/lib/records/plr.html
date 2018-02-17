@@ -200,8 +200,7 @@
 <div class="viewcode-block" id="PlrRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.plr.PlrRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">information</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span>
                  <span class="n">view_service</span><span class="p">,</span> <span class="n">geometries</span><span class="p">,</span> <span class="n">sub_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">other_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">type_code_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refinements</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">documents</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-                 <span class="n">min_area</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">length_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">area_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m2&#39;</span><span class="p">,</span> <span class="n">length_precision</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">area_precision</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                 <span class="n">percentage_precision</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+                 <span class="n">min_area</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">length_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">area_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m2&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            information (dict of unicode): The PLR record&#39;s information (multilingual).</span>
@@ -229,9 +228,6 @@
 <span class="sd">            min_area (float): The threshold for area calculation.</span>
 <span class="sd">            length_unit (unicode): The threshold for area calculation.</span>
 <span class="sd">            area_unit (unicode): The threshold for area calculation.</span>
-<span class="sd">            length_precision (int): The precision how the length results will be rounded.</span>
-<span class="sd">            area_precision (int): The precision how the area results will be rounded.</span>
-<span class="sd">            percentage_precision (int): The precision how the percentage results will be rounded.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">PlrRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
 
@@ -272,9 +268,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">min_area</span> <span class="o">=</span> <span class="n">min_area</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">area_unit</span> <span class="o">=</span> <span class="n">area_unit</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">length_unit</span> <span class="o">=</span> <span class="n">length_unit</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">length_precision</span> <span class="o">=</span> <span class="n">length_precision</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">area_precision</span> <span class="o">=</span> <span class="n">area_precision</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">percentage_precision</span> <span class="o">=</span> <span class="n">percentage_precision</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span></div>
@@ -292,9 +285,7 @@
         <span class="n">lengths_to_sum</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometries</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">length</span><span class="p">:</span>
-                <span class="n">length</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">length</span>
-                <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_length</span><span class="p">:</span>
-                    <span class="n">lengths_to_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+                <span class="n">lengths_to_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">lengths_to_sum</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lengths_to_sum</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">_sum_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -305,9 +296,7 @@
         <span class="n">areas_to_sum</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometries</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">area</span><span class="p">:</span>
-                <span class="n">area</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">area</span>
-                <span class="k">if</span> <span class="n">area</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_area</span><span class="p">:</span>
-                    <span class="n">areas_to_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">area</span><span class="p">)</span>
+                <span class="n">areas_to_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">area</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">areas_to_sum</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">areas_to_sum</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
@@ -333,16 +322,26 @@
             <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span>
                     <span class="n">real_estate</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">min_length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_area</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">length_unit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">area_unit</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">length_unit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">area_unit</span>
+            <span class="p">):</span>
                 <span class="n">tested_geometries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="p">)</span>
                 <span class="n">inside</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">geometries</span> <span class="o">=</span> <span class="n">tested_geometries</span>
         <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum_length</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">length</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">round</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">length_precision</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">length</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
         <span class="n">area</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum_area</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">area</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">round</span><span class="p">(</span><span class="n">area</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">area_precision</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">part_in_percent</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">area</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> \
-            <span class="nb">round</span><span class="p">(((</span><span class="n">area</span> <span class="o">/</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">area</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">percentage_precision</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">area</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">part_in_percent</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">area</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">part_in_percent</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span>
+                <span class="p">((</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_area</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">land_registry_area</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span>
+                <span class="mi">1</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="n">inside</span></div>
 </pre></div>
 
@@ -358,7 +357,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, pyramid_oereb devs.
+        &copy; Copyright 2017-2018, pyramid_oereb devs.
 
     </p>
   </div>

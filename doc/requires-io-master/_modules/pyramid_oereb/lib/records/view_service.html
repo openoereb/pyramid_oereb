@@ -245,31 +245,56 @@
             <span class="k">return</span> <span class="p">[</span><span class="n">pixel_size</span> <span class="o">*</span> <span class="n">map_size_mm</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pixel_size</span> <span class="o">*</span> <span class="n">map_size_mm</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_bbox</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="n">map_size</span><span class="p">,</span> <span class="n">print_buffer</span><span class="p">):</span>
-        <span class="n">width_buffer</span> <span class="o">=</span> <span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">print_buffer</span> <span class="o">/</span> <span class="mi">100</span>
-        <span class="n">height_buffer</span> <span class="o">=</span> <span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">print_buffer</span> <span class="o">/</span> <span class="mi">100</span>
-        <span class="n">print_bounds</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">width_buffer</span><span class="p">,</span>
-            <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">height_buffer</span><span class="p">,</span>
-            <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">width_buffer</span><span class="p">,</span>
-            <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">height_buffer</span><span class="p">,</span>
-        <span class="p">]</span>
-        <span class="n">width</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">print_bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">print_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">height</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">print_bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">print_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<div class="viewcode-block" id="ViewServiceRecord.get_bbox"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_bbox">[docs]</a>    <span class="k">def</span> <span class="nf">get_bbox</span><span class="p">(</span><span class="n">geometry</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a bbox adapted for the map size specified in the print configuration</span>
+<span class="sd">         and based on the geometry and a buffer (margin to add between the geometry</span>
+<span class="sd">         and the border of the map).</span>
 
-        <span class="n">obj_ration</span> <span class="o">=</span> <span class="n">width</span> <span class="o">/</span> <span class="n">height</span>
-        <span class="n">print_ration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">map_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">map_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="sd">        Args:</span>
+<span class="sd">            geometry (list): The geometry (bbox) of the feature to center the map on.</span>
 
-        <span class="k">if</span> <span class="n">obj_ration</span> <span class="o">&lt;</span> <span class="n">print_ration</span><span class="p">:</span>
-            <span class="n">to_add</span> <span class="o">=</span> <span class="p">((</span><span class="n">width</span> <span class="o">/</span> <span class="n">obj_ration</span> <span class="o">*</span> <span class="n">print_ration</span><span class="p">)</span> <span class="o">-</span> <span class="n">width</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-            <span class="n">print_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">to_add</span>
-            <span class="n">print_bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">to_add</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list: The bbox (meters) for the print.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">print_conf</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_object_path</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;basic_map_size&#39;</span><span class="p">,</span> <span class="s1">&#39;buffer&#39;</span><span class="p">])</span>
+        <span class="n">print_buffer</span> <span class="o">=</span> <span class="n">print_conf</span><span class="p">[</span><span class="s1">&#39;buffer&#39;</span><span class="p">]</span>
+        <span class="n">map_size</span> <span class="o">=</span> <span class="n">print_conf</span><span class="p">[</span><span class="s1">&#39;basic_map_size&#39;</span><span class="p">]</span>
+        <span class="n">map_width</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">map_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">map_height</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">map_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">geom_bounds</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span>
+        <span class="n">geom_width</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">geom_bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">geom_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">geom_height</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">geom_bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">geom_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">geom_ration</span> <span class="o">=</span> <span class="n">geom_width</span> <span class="o">/</span> <span class="n">geom_height</span>
+        <span class="n">map_ration</span> <span class="o">=</span> <span class="n">map_width</span> <span class="o">/</span> <span class="n">map_height</span>
+
+        <span class="c1"># If the format of the map is naturally adapted to the format of the geometry</span>
+        <span class="n">is_format_adapted</span> <span class="o">=</span> <span class="n">geom_ration</span> <span class="o">&lt;</span> <span class="n">map_ration</span>
+
+        <span class="k">if</span> <span class="n">is_format_adapted</span><span class="p">:</span>
+            <span class="n">map_height_without_buffer</span> <span class="o">=</span> <span class="n">map_height</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">print_buffer</span>
+            <span class="c1"># Calculate the new height of the geom with the buffer.</span>
+            <span class="n">geom_height_with_buffer</span> <span class="o">=</span> <span class="n">map_height</span> <span class="o">/</span> <span class="n">map_height_without_buffer</span> <span class="o">*</span> <span class="n">geom_height</span>
+            <span class="c1"># Calculate the new geom width with the map ratio and the new geom height.</span>
+            <span class="n">geom_width_with_buffer</span> <span class="o">=</span> <span class="n">geom_height_with_buffer</span> <span class="o">*</span> <span class="n">map_ration</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">to_add</span> <span class="o">=</span> <span class="p">(</span><span class="n">height</span> <span class="o">-</span> <span class="p">(</span><span class="n">height</span> <span class="o">/</span> <span class="n">obj_ration</span> <span class="o">*</span> <span class="n">print_ration</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
-            <span class="n">print_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">to_add</span>
-            <span class="n">print_bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+=</span> <span class="n">to_add</span>
+            <span class="n">map_width_without_buffer</span> <span class="o">=</span> <span class="n">map_width</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">print_buffer</span>
+            <span class="c1"># Calculate the new width of the geom with the buffer.</span>
+            <span class="n">geom_width_with_buffer</span> <span class="o">=</span> <span class="n">map_width</span> <span class="o">/</span> <span class="n">map_width_without_buffer</span> <span class="o">*</span> <span class="n">geom_width</span>
+            <span class="c1"># Calculate the new geom height with the map ratio and the new geom width.</span>
+            <span class="n">geom_height_with_buffer</span> <span class="o">=</span> <span class="n">geom_width_with_buffer</span> <span class="o">*</span> <span class="n">map_ration</span>
 
-        <span class="k">return</span> <span class="n">print_bounds</span>
+        <span class="n">height_to_add</span> <span class="o">=</span> <span class="p">(</span><span class="n">geom_height_with_buffer</span> <span class="o">-</span> <span class="n">geom_height</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">width_to_add</span> <span class="o">=</span> <span class="p">(</span><span class="n">geom_width_with_buffer</span> <span class="o">-</span> <span class="n">geom_width</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">geom_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">width_to_add</span><span class="p">,</span>
+            <span class="n">geom_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">height_to_add</span><span class="p">,</span>
+            <span class="n">geom_bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">width_to_add</span><span class="p">,</span>
+            <span class="n">geom_bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">height_to_add</span><span class="p">,</span>
+        <span class="p">]</span></div>
 
 <div class="viewcode-block" id="ViewServiceRecord.get_full_wms_url"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_full_wms_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_full_wms_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -287,9 +312,8 @@
 
         <span class="k">assert</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
-        <span class="n">print_conf</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_object_path</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;buffer&#39;</span><span class="p">])</span>
         <span class="n">map_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_map_size</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
-        <span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_bbox</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">,</span> <span class="n">map_size</span><span class="p">,</span> <span class="n">print_conf</span><span class="p">[</span><span class="s1">&#39;buffer&#39;</span><span class="p">])</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_bbox</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span> <span class="o">=</span> <span class="n">add_url_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">,</span> <span class="p">{</span>
             <span class="s2">&quot;BBOX&quot;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">bbox</span><span class="p">]),</span>
             <span class="s2">&quot;SRS&quot;</span><span class="p">:</span> <span class="s1">&#39;EPSG:</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">)),</span>
@@ -357,7 +381,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, pyramid_oereb devs.
+        &copy; Copyright 2017-2018, pyramid_oereb devs.
 
     </p>
   </div>

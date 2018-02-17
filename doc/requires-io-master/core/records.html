@@ -1101,7 +1101,7 @@ every other value will raise an error.</td>
 <span id="api-pyramid-oereb-lib-records-plr-plrrecord"></span><h2><em>PlrRecord</em><a class="headerlink" href="#plrrecord" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.plr.PlrRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.plr.</code><code class="descname">PlrRecord</code><span class="sig-paren">(</span><em>theme</em>, <em>information</em>, <em>law_status</em>, <em>published_from</em>, <em>responsible_office</em>, <em>symbol</em>, <em>view_service</em>, <em>geometries</em>, <em>sub_theme=None</em>, <em>other_theme=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit='m'</em>, <em>area_unit='m2'</em>, <em>length_precision=2</em>, <em>area_precision=2</em>, <em>percentage_precision=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/plr.html#PlrRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.plr.</code><code class="descname">PlrRecord</code><span class="sig-paren">(</span><em>theme</em>, <em>information</em>, <em>law_status</em>, <em>published_from</em>, <em>responsible_office</em>, <em>symbol</em>, <em>view_service</em>, <em>geometries</em>, <em>sub_theme=None</em>, <em>other_theme=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit='m'</em>, <em>area_unit='m2'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/plr.html#PlrRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyramid_oereb.lib.records.plr.EmptyPlrRecord" title="pyramid_oereb.lib.records.plr.EmptyPlrRecord"><code class="xref py py-class docutils literal"><span class="pre">pyramid_oereb.lib.records.plr.EmptyPlrRecord</span></code></a></p>
 <p>Public law restriction record.</p>
 <dl class="attribute">
@@ -1118,7 +1118,7 @@ every other value will raise an error.</td>
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.records.plr.PlrRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>theme</em>, <em>information</em>, <em>law_status</em>, <em>published_from</em>, <em>responsible_office</em>, <em>symbol</em>, <em>view_service</em>, <em>geometries</em>, <em>sub_theme=None</em>, <em>other_theme=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit='m'</em>, <em>area_unit='m2'</em>, <em>length_precision=2</em>, <em>area_precision=2</em>, <em>percentage_precision=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/plr.html#PlrRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>theme</em>, <em>information</em>, <em>law_status</em>, <em>published_from</em>, <em>responsible_office</em>, <em>symbol</em>, <em>view_service</em>, <em>geometries</em>, <em>sub_theme=None</em>, <em>other_theme=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit='m'</em>, <em>area_unit='m2'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/plr.html#PlrRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1149,9 +1149,6 @@ associated with this record.</li>
 <li><strong>min_area</strong> (<em>float</em>) &#8211; The threshold for area calculation.</li>
 <li><strong>length_unit</strong> (<em>unicode</em>) &#8211; The threshold for area calculation.</li>
 <li><strong>area_unit</strong> (<em>unicode</em>) &#8211; The threshold for area calculation.</li>
-<li><strong>length_precision</strong> (<em>int</em>) &#8211; The precision how the length results will be rounded.</li>
-<li><strong>area_precision</strong> (<em>int</em>) &#8211; The precision how the area results will be rounded.</li>
-<li><strong>percentage_precision</strong> (<em>int</em>) &#8211; The precision how the percentage results will be rounded.</li>
 </ul>
 </td>
 </tr>
@@ -1217,8 +1214,8 @@ be used for the land registry map.</p>
 <li><strong>type</strong> (<em>unicode</em>) &#8211; The property type</li>
 <li><strong>canton</strong> (<em>unicode</em>) &#8211; The abbreviation of the canton the property is located in</li>
 <li><strong>municipality</strong> (<em>unicode</em>) &#8211; The municipality the property is located in</li>
-<li><strong>fosnr</strong> (<em>integer</em>) &#8211; The federal number of the municipality defined by the statistics office</li>
-<li><strong>land_registry_area</strong> (<em>integer</em>) &#8211; Area of the property as defined in the land registry</li>
+<li><strong>fosnr</strong> (<em>int</em>) &#8211; The federal number of the municipality defined by the statistics office</li>
+<li><strong>land_registry_area</strong> (<em>int</em>) &#8211; Area of the property as defined in the land registry</li>
 <li><strong>limit</strong> (<em>shapely.geometry.MultiPolygon</em>) &#8211; The boundary of the property as geometry in as shapely
 multi polygon</li>
 <li><strong>metadata_of_geographical_base_data</strong> (<em>uri</em>) &#8211; Link to the metadata of the geodata</li>
@@ -1369,6 +1366,28 @@ link.</p>
 </table>
 </dd></dl>
 
+<dl class="staticmethod">
+<dt id="pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_bbox">
+<em class="property">static </em><code class="descname">get_bbox</code><span class="sig-paren">(</span><em>geometry</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord.get_bbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_bbox" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Return a bbox adapted for the map size specified in the print configuration</dt>
+<dd>and based on the geometry and a buffer (margin to add between the geometry
+and the border of the map).</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>geometry</strong> (<em>list</em>) &#8211; The geometry (bbox) of the feature to center the map on.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The bbox (meters) for the print.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_full_wms_url">
 <code class="descname">get_full_wms_url</code><span class="sig-paren">(</span><em>real_estate</em>, <em>format</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord.get_full_wms_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord.get_full_wms_url" title="Permalink to this definition">¶</a></dt>
@@ -1440,7 +1459,7 @@ should be append to the list.</td>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, pyramid_oereb devs.
+        &copy; Copyright 2017-2018, pyramid_oereb devs.
 
     </p>
   </div>

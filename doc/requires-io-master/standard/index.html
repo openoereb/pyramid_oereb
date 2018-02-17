@@ -278,7 +278,7 @@ configuration to run a oereb server out of the box.</p>
 
 <span class="target" id="module-pyramid_oereb.standard.load_legend_entries"><span id="api-pyramid-oereb-standard-load-legend-entries"></span></span><dl class="function">
 <dt id="pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db">
-<code class="descclassname">pyramid_oereb.standard.load_legend_entries.</code><code class="descname">create_legend_entries_in_standard_db</code><span class="sig-paren">(</span><em>config</em>, <em>topic_code</em>, <em>temp_creation_path='/tmp/pyconizer'</em>, <em>language='de'</em>, <em>section='pyramid_oereb'</em>, <em>image_format='image/png'</em>, <em>image_height=36</em>, <em>image_width=72</em>, <em>encoding=None</em>, <em>replace_host=None</em>, <em>replace_layer=None</em>, <em>string_keys=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/load_legend_entries.html#create_legend_entries_in_standard_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyramid_oereb.standard.load_legend_entries.</code><code class="descname">create_legend_entries_in_standard_db</code><span class="sig-paren">(</span><em>config</em>, <em>topic_code</em>, <em>temp_creation_path='/tmp/pyconizer'</em>, <em>language='de'</em>, <em>section='pyramid_oereb'</em>, <em>image_format='image/png'</em>, <em>image_height=36</em>, <em>image_width=72</em>, <em>encoding=None</em>, <em>replace_host=None</em>, <em>replace_layer=None</em>, <em>string_keys=False</em>, <em>by_type_code=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/load_legend_entries.html#create_legend_entries_in_standard_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uses the pyconizer lib to create images out of the OEREB server configuration. It is creating symbols for
 a dedicated topic. This function will clean all previously created icons from database.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -310,6 +310,11 @@ instance serving a special legend layer but not on the production system which i
 the data. Then you can create legend entries by obtaining them from this DEV instances special
 legend layer.</li>
 <li><strong>string_keys</strong> (<em>bool</em>) &#8211; Switch for setting primary key for legend entries whether to string or integer</li>
+<li><strong>by_type_code</strong> (<em>bool</em>) &#8211; If set the process will use the type_code instead of name for obtaining the
+legend icons. This needs a WMS layer to be configured with the type_code in its name property. It
+prevents the legend entry creation process to be broken for case sensitive class names in
+MAPSERVER. Because the &#8220;RULE&#8221; parameter of the GetLegendGraphics request on MAPSERVER seems to be
+case insensitive.</li>
 </ul>
 </td>
 </tr>
@@ -494,7 +499,7 @@ deliver a valid SLD wrapped in a pyramid response instance as output. It is in y
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, pyramid_oereb devs.
+        &copy; Copyright 2017-2018, pyramid_oereb devs.
 
     </p>
   </div>
