@@ -1753,7 +1753,7 @@
     <span class="n">state</span><span class="o">.</span><span class="n">manager</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">impl</span><span class="o">.</span><span class="n">set_committed_value</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">set_attribute</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">set_attribute</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">initiator</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Set the value of an attribute, firing history events.</span>
 
 <span class="sd">    This function may be used regardless of instrumentation</span>
@@ -1762,9 +1762,24 @@
 <span class="sd">    of this method to establish attribute state as understood</span>
 <span class="sd">    by SQLAlchemy.</span>
 
+<span class="sd">    :param instance: the object that will be modified</span>
+
+<span class="sd">    :param key: string name of the attribute</span>
+
+<span class="sd">    :param value: value to assign</span>
+
+<span class="sd">    :param initiator: an instance of :class:`.Event` that would have</span>
+<span class="sd">     been propagated from a previous event listener.  This argument</span>
+<span class="sd">     is used when the :func:`.set_attribute` function is being used within</span>
+<span class="sd">     an existing event listening function where an :class:`.Event` object</span>
+<span class="sd">     is being supplied; the object may be used to track the origin of the</span>
+<span class="sd">     chain of events.</span>
+
+<span class="sd">     .. versionadded:: 1.2.3</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">state</span><span class="p">,</span> <span class="n">dict_</span> <span class="o">=</span> <span class="n">instance_state</span><span class="p">(</span><span class="n">instance</span><span class="p">),</span> <span class="n">instance_dict</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
-    <span class="n">state</span><span class="o">.</span><span class="n">manager</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">impl</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">state</span><span class="o">.</span><span class="n">manager</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">impl</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">initiator</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">get_attribute</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
@@ -1884,7 +1899,6 @@
         <dl>
             <dt>Branches</dt>
             <dd><a href="attributes.html">master</a></dd>
-            <dd><a href="../../../../requires-io-master/index.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>
