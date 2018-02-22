@@ -42,6 +42,13 @@ class LegendEntryRecord(object):
         self.sub_theme = sub_theme
         self.other_theme = other_theme
 
+    def __str__(self):
+        return '<{} -- symbol: {} legend_text: {} type_code: {} type_code_list: {}'\
+                    ' theme: {} sub_theme: {} other_theme: {}'\
+                    .format(self.__class__.__name__, self.symbol, self.legend_text,
+                            self.type_code, self.type_code_list, self.theme,
+                            self.sub_theme, self.other_theme)
+
 
 class ViewServiceRecord(object):
     """
