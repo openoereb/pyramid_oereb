@@ -201,7 +201,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">type_code_list</span> <span class="o">=</span> <span class="n">type_code_list</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">theme</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sub_theme</span> <span class="o">=</span> <span class="n">sub_theme</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">other_theme</span> <span class="o">=</span> <span class="n">other_theme</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">other_theme</span> <span class="o">=</span> <span class="n">other_theme</span></div>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1"> -- symbol: </span><span class="si">{}</span><span class="s1"> legend_text: </span><span class="si">{}</span><span class="s1"> type_code: </span><span class="si">{}</span><span class="s1"> type_code_list: </span><span class="si">{}</span><span class="s1">&#39;</span>\
+                    <span class="s1">&#39; theme: </span><span class="si">{}</span><span class="s1"> sub_theme: </span><span class="si">{}</span><span class="s1"> other_theme: </span><span class="si">{}</span><span class="s1">&#39;</span>\
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_text</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_code_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">sub_theme</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">other_theme</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ViewServiceRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.view_service.ViewServiceRecord">[docs]</a><span class="k">class</span> <span class="nc">ViewServiceRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
