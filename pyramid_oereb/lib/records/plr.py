@@ -182,3 +182,9 @@ class PlrRecord(EmptyPlrRecord):
                 1
             )
         return inside
+
+    def __str__(self):
+        return '<{} -- type_code: {} theme: {} information: {}'\
+                    ' (further attributes not shown)>'\
+                    .format(self.__class__.__name__, self.type_code, self.theme,
+                            self.information)
