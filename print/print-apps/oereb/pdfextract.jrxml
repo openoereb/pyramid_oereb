@@ -154,7 +154,7 @@
 					<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 					</subreportParameter>
-                    <subreportParameter name="certificationText">
+					<subreportParameter name="certificationText">
 						<subreportParameterExpression><![CDATA[$P{certificationText}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportExpression><![CDATA["mainpage.jasper"]]></subreportExpression>
