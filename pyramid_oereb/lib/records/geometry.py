@@ -82,7 +82,7 @@ class GeometryRecord(object):
                 elif self.geom.type in polygon_types:
                     self._units = area_unit
                     area = result.area
-                    compensated_area = area * real_estate.areas_ratio
+                    compensated_area = area / real_estate.areas_ratio
                     if compensated_area >= min_area:
                         self._area = compensated_area
                         self._test_passed = True
