@@ -276,9 +276,9 @@
 				<subreportExpression><![CDATA["themelist.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="90">
-			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="37" width="230" height="53" isPrintWhenDetailOverflows="true" uuid="9463b6fb-b28a-4793-9bc1-1c24749e48c4"/>
+		<band height="47">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="37" width="230" height="10" isPrintWhenDetailOverflows="true" uuid="9463b6fb-b28a-4793-9bc1-1c24749e48c4"/>
 				<textElement>
 					<font fontName="Cadastra" size="6"/>
 				</textElement>
@@ -306,7 +306,7 @@
 				<textFieldExpression><![CDATA[$R{GeneralInformationLabel}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="260" y="26" width="233" height="64" isPrintWhenDetailOverflows="true" uuid="9fd65c2b-a447-43f1-88f6-9a41a9ca02be"/>
+				<reportElement x="260" y="26" width="233" height="21" isPrintWhenDetailOverflows="true" uuid="9fd65c2b-a447-43f1-88f6-9a41a9ca02be"/>
 				<dataSourceExpression><![CDATA[$P{ExclusionOfLiabilityDataSource}]]></dataSourceExpression>
 				<subreportExpression><![CDATA["exclusion_of_liability.jasper"]]></subreportExpression>
 			</subreport>
