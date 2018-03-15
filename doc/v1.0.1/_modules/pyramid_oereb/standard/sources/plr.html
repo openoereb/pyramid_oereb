@@ -557,13 +557,12 @@
             <span class="n">real_estate_geometry</span><span class="o">.</span><span class="n">wkt</span><span class="p">,</span>
             <span class="n">srid</span>
         <span class="p">)</span>
-        <span class="n">sql_text_polygon</span> <span class="o">=</span> \
-            <span class="s1">&#39;ST_Intersects(ST_Envelope(</span><span class="si">{0}</span><span class="s1">), &#39;</span> \
-            <span class="s1">&#39;ST_GeomFromText(</span><span class="se">\&#39;</span><span class="si">{1}</span><span class="se">\&#39;</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">))&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">db_path</span><span class="p">,</span>
-                <span class="n">real_estate_geometry</span><span class="o">.</span><span class="n">wkt</span><span class="p">,</span>
-                <span class="n">srid</span>
-            <span class="p">)</span>
+        <span class="n">sql_text_polygon</span> <span class="o">=</span> <span class="s1">&#39;ST_Intersects(ST_CollectionExtract(</span><span class="si">{0}</span><span class="s1">, 3), &#39;</span> \
+                           <span class="s1">&#39;ST_GeomFromText(</span><span class="se">\&#39;</span><span class="si">{1}</span><span class="se">\&#39;</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">))&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                <span class="n">db_path</span><span class="p">,</span>
+                                <span class="n">real_estate_geometry</span><span class="o">.</span><span class="n">wkt</span><span class="p">,</span>
+                                <span class="n">srid</span>
+                            <span class="p">)</span>
         <span class="n">clause_blocks</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">text</span><span class="p">(</span><span class="n">sql_text_point</span><span class="p">),</span>
             <span class="n">text</span><span class="p">(</span><span class="n">sql_text_line</span><span class="p">),</span>
@@ -668,11 +667,12 @@
                         <span class="c1"># We found spatially related elements. This means we need to extract the actual plr</span>
                         <span class="c1"># information related to the found geometries.</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+                        <span class="n">legend_entries_from_db</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collect_legend_entries_by_bbox</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">geometry_result</span> <span class="ow">in</span> <span class="n">geometry_results</span><span class="p">:</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_plr_record</span><span class="p">(</span>
                                     <span class="n">geometry_result</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="p">,</span>
-                                    <span class="bp">self</span><span class="o">.</span><span class="n">collect_legend_entries_by_bbox</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span>
+                                    <span class="n">legend_entries_from_db</span>
                                 <span class="p">)</span>
                             <span class="p">)</span>
                         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() processed </span><span class="si">{}</span><span class="s2"> geometry_results into </span><span class="si">{}</span><span class="s2"> plr&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
