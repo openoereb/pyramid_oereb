@@ -78,6 +78,14 @@ class Renderer(JsonRenderer):
             self._language, '-'
         )
 
+        extract_as_dict['certificationText'] = Config.get(
+            'print', {}
+        ).get(
+            'certificationText', {}
+        ).get(
+            self._language, '-'
+        )
+
         spec = {
             'layout': Config.get('print', {})['template_name'],
             'outputFormat': 'pdf',

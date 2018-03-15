@@ -250,6 +250,7 @@ templates:
                                 strokeOpacity: 0.75
                                 strokeWidth: 5
             furtherInformationText: !string {}
+            certificationText: !string {}
 
         processors:
         - !reportBuilder # compile all reports in current directory

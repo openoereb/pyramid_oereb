@@ -89,6 +89,11 @@ pyramid_oereb:
       fr: Veuillez saisir les informations complémentaires ici.
       it: ...
       rm: ...
+    certificationText:
+      de: Referenz zur kantonsspezifischen Gesetzesgrundlage bezüglich Beglaubigungen.
+      fr: Référence vers les dispositions légales cantonales concernant la certification
+      it: Certificazione secondo OCRDPP art. 14
+      rm: ...
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
   # creation process, because this name is used as schema name in the target database. The app_schema holds
