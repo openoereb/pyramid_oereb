@@ -394,13 +394,12 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             real_estate_geometry.wkt,
             srid
         )
-        sql_text_polygon = \
-            'ST_Intersects(ST_Envelope({0}), ' \
-            'ST_GeomFromText(\'{1}\', {2}))'.format(
-                db_path,
-                real_estate_geometry.wkt,
-                srid
-            )
+        sql_text_polygon = 'ST_Intersects(ST_CollectionExtract({0}, 3), ' \
+                           'ST_GeomFromText(\'{1}\', {2}))'.format(
+                                db_path,
+                                real_estate_geometry.wkt,
+                                srid
+                            )
         clause_blocks = [
             text(sql_text_point),
             text(sql_text_line),
@@ -505,11 +504,12 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         # We found spatially related elements. This means we need to extract the actual plr
                         # information related to the found geometries.
                         self.records = []
+                        legend_entries_from_db = self.collect_legend_entries_by_bbox(session, bbox)
                         for geometry_result in geometry_results:
                             self.records.append(
                                 self.from_db_to_plr_record(
                                     geometry_result.public_law_restriction,
-                                    self.collect_legend_entries_by_bbox(session, bbox)
+                                    legend_entries_from_db
                                 )
                             )
                         log.debug("read() processed {} geometry_results into {} plr".format(
