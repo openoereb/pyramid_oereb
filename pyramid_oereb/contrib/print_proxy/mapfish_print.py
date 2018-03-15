@@ -364,8 +364,12 @@ class Renderer(JsonRenderer):
             transformed_legend = \
                 list([transformed_entry for (key, transformed_entry) in sorted(legends.items())])
             restriction['Legend'] = transformed_legend
-
-        extract_dict['RealEstate_RestrictionOnLandownership'] = restrictions
+        sorted_restrictions = []
+        for theme in Config.get_themes():
+            for restriction in restrictions:
+                if theme.code == restriction.get('Theme_Code'):
+                    sorted_restrictions.append(restriction)
+        extract_dict['RealEstate_RestrictionOnLandownership'] = sorted_restrictions
         # End one restriction entry per theme
 
         for item in extract_dict.get('ExclusionOfLiability', []):
