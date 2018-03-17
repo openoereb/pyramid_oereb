@@ -243,7 +243,7 @@
                 <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">polygon_types</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_units</span> <span class="o">=</span> <span class="n">area_unit</span>
                     <span class="n">area</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">area</span>
-                    <span class="n">compensated_area</span> <span class="o">=</span> <span class="n">area</span> <span class="o">*</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">areas_ratio</span>
+                    <span class="n">compensated_area</span> <span class="o">=</span> <span class="n">area</span> <span class="o">/</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">areas_ratio</span>
                     <span class="k">if</span> <span class="n">compensated_area</span> <span class="o">&gt;=</span> <span class="n">min_area</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">=</span> <span class="n">compensated_area</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_test_passed</span> <span class="o">=</span> <span class="kc">True</span>
