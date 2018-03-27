@@ -121,7 +121,7 @@ We assume you have put your downloaded sample data in a folder named `sample_dat
 directory, as found in the repository_. Otherwise you have to specify the location of your sample data using
 the ``-d`` or ``--dir=`` argument.
 
-.. warning:: Use the sample data corresponding to the installed version of ``pyramid_oereb`` by selection the
+.. warning:: Use the sample data corresponding to the installed version of ``pyramid_oereb`` by selecting the
    matching release.
 
 
