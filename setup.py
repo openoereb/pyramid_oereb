@@ -29,7 +29,7 @@ setup(
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application"
     ],
-    license='GNU General Public License',
+    license='BSD 2',
     author='Clemens Rudert',
     author_email='clemens.rudert@bl.ch',
     url='https://github.com/camptocamp/pyramid_oereb',
