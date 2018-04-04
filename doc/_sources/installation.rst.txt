@@ -21,7 +21,7 @@ In order to install and run an instance of ``pyramid_oereb``, the following requ
     documentation <http://docs.pylonsproject.org/projects/pyramid/en/latest/#getting-started>`__.
 
 2.  **A running Database:**
-    For the standard configuration you need a running database with a role, which is allow to create schemata
+    For the standard configuration you need a running database with a role which is allowed to create schemata
     and tables and to manipulate data. We recommend to use PostgreSQL with PostGIS, but theoretically you
     should be able to use any spatial database, that is supported by `SQLAlchemy
     <https://www.sqlalchemy.org/>`__ and `GeoAlchemy 2 <https://geoalchemy-2.readthedocs.io/en/latest/>`__.
@@ -45,6 +45,10 @@ Installation steps
 ..............
 
 Add ``pyramid_oereb`` to the list of requirements in your application's ``setup.py``.
+In your ``setup.py``, you should depend on ``pyramid_oereb[recommend]`` to get the recommended versions of
+the dependencies of ``pyramid_oereb``, or ``pyramid_oereb[no-version]`` to get the dependencies of
+``pyramid_oereb`` without specifying which versions of these dependencies shall be used. You shouldn't just
+depend on ``pyramid_oereb`` because this will not take into account the dependencies of ``pyramid_oereb``.
 
 
 .. _installation-step-dependencies:
@@ -113,11 +117,11 @@ can import the sample data into the configured database using the following scri
 
  python <PATH TO VENV SITE_PACKAGES>/pyramid_oereb/standard/load_sample_data.py -c pyramid_oereb_standard.yml
 
-We assume, you have put your downloaded sample data in a folder named `sample_data` in your projects root
+We assume you have put your downloaded sample data in a folder named `sample_data` in your project's root
 directory, as found in the repository_. Otherwise you have to specify the location of your sample data using
 the ``-d`` or ``--dir=`` argument.
 
-.. warning:: Use the sample data corresponding to the installed version of ``pyramid_oereb`` by selection the
+.. warning:: Use the sample data corresponding to the installed version of ``pyramid_oereb`` by selecting the
    matching release.
 
 
@@ -126,14 +130,8 @@ the ``-d`` or ``--dir=`` argument.
 6. Include in application
 .........................
 
-In your ``setup.py`` you should depends on ``pyramid_oereb[recommend]`` to get the recommended versions of
-the dependencies, or ``pyramid_oereb[no-version]`` to get the dependencies without specifying which versions
-of these dependencies shall be used. You shouldn't just depends on ``pyramid_oereb`` because it will not
-depends on any other package.
-
 To include ``pyramid_oereb`` into your existing Pyramid application, you have to include the plugin in
 your application's main method.
-
 Open the ``__init__.py`` of your main module and add the following statement
 in the main method somewhere before ``config.scan()``:
 
@@ -153,7 +151,7 @@ Additionally, you have to specify the created configuration in your application'
  pyramid_oereb.cfg.file = pyramid_oereb_standard.yml
  pyramid_oereb.cfg.section = pyramid_oereb
 
-After modifying these two files, you have start/restart your application's server, e.g. using `pserve`:
+After modifying these two files, you have to start/restart your application's server, e.g. using `pserve`:
 
 .. code-block:: none
 
