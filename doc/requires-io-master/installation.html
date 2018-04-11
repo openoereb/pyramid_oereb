@@ -25,28 +25,20 @@
   
 
   
-  
     <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="_static/banner.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="pyramid_oereb  documentation" href="index.html"/>
-        <link rel="next" title="Configuration" href="configuration.html"/>
-        <link rel="prev" title="pyramid_oereb (ÖREB-Server) documentation" href="index.html"/> 
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/banner.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="prev" title="pyramid_oereb (ÖREB-Server) documentation" href="index.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -120,7 +112,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">pyramid_oereb</a>
@@ -128,9 +120,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -184,7 +177,7 @@ You need a running Pyramid application, in which you can include <code class="do
 familiar with setting up such an application, please follow the instructions in the official <a class="reference external" href="http://docs.pylonsproject.org/projects/pyramid/en/latest/#getting-started">Pyramid
 documentation</a>.</li>
 <li><strong>A running Database:</strong>
-For the standard configuration you need a running database with a role, which is allow to create schemata
+For the standard configuration you need a running database with a role which is allowed to create schemata
 and tables and to manipulate data. We recommend to use PostgreSQL with PostGIS, but theoretically you
 should be able to use any spatial database, that is supported by <a class="reference external" href="https://www.sqlalchemy.org/">SQLAlchemy</a> and <a class="reference external" href="https://geoalchemy-2.readthedocs.io/en/latest/">GeoAlchemy 2</a>.</li>
 </ol>
@@ -200,7 +193,11 @@ should be able to use any spatial database, that is supported by <a class="refer
 </div>
 <div class="section" id="add-package">
 <span id="installation-step-add-package"></span><h3>1. Add package<a class="headerlink" href="#add-package" title="Permalink to this headline">¶</a></h3>
-<p>Add <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> to the list of requirements in your application&#8217;s <code class="docutils literal"><span class="pre">setup.py</span></code>.</p>
+<p>Add <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> to the list of requirements in your application&#8217;s <code class="docutils literal"><span class="pre">setup.py</span></code>.
+In your <code class="docutils literal"><span class="pre">setup.py</span></code>, you should depend on <code class="docutils literal"><span class="pre">pyramid_oereb[recommend]</span></code> to get the recommended versions of
+the dependencies of <code class="docutils literal"><span class="pre">pyramid_oereb</span></code>, or <code class="docutils literal"><span class="pre">pyramid_oereb[no-version]</span></code> to get the dependencies of
+<code class="docutils literal"><span class="pre">pyramid_oereb</span></code> without specifying which versions of these dependencies shall be used. You shouldn&#8217;t just
+depend on <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> because this will not take into account the dependencies of <code class="docutils literal"><span class="pre">pyramid_oereb</span></code>.</p>
 </div>
 <div class="section" id="install-dependencies">
 <span id="installation-step-dependencies"></span><h3>2. Install dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h3>
@@ -252,24 +249,20 @@ can import the sample data into the configured database using the following scri
 <div class="highlight-shell"><div class="highlight"><pre><span></span>python &lt;PATH TO VENV SITE_PACKAGES&gt;/pyramid_oereb/standard/load_sample_data.py -c pyramid_oereb_standard.yml
 </pre></div>
 </div>
-<p>We assume, you have put your downloaded sample data in a folder named <cite>sample_data</cite> in your projects root
+<p>We assume you have put your downloaded sample data in a folder named <cite>sample_data</cite> in your project&#8217;s root
 directory, as found in the <a class="reference external" href="https://github.com/camptocamp/pyramid_oereb/">repository</a>. Otherwise you have to specify the location of your sample data using
 the <code class="docutils literal"><span class="pre">-d</span></code> or <code class="docutils literal"><span class="pre">--dir=</span></code> argument.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Use the sample data corresponding to the installed version of <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> by selection the
+<p class="last">Use the sample data corresponding to the installed version of <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> by selecting the
 matching release.</p>
 </div>
 </div>
 <div class="section" id="include-in-application">
 <span id="installation-step-application"></span><h3>6. Include in application<a class="headerlink" href="#include-in-application" title="Permalink to this headline">¶</a></h3>
-<p>In your <code class="docutils literal"><span class="pre">setup.py</span></code> you should depends on <code class="docutils literal"><span class="pre">pyramid_oereb[recommend]</span></code> to get the recommended versions of
-the dependencies, or <code class="docutils literal"><span class="pre">pyramid_oereb[no-version]</span></code> to get the dependencies without specifying which versions
-of these dependencies shall be used. You shouldn&#8217;t just depends on <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> because it will not
-depends on any other package.</p>
 <p>To include <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> into your existing Pyramid application, you have to include the plugin in
-your application&#8217;s main method.</p>
-<p>Open the <code class="docutils literal"><span class="pre">__init__.py</span></code> of your main module and add the following statement
+your application&#8217;s main method.
+Open the <code class="docutils literal"><span class="pre">__init__.py</span></code> of your main module and add the following statement
 in the main method somewhere before <code class="docutils literal"><span class="pre">config.scan()</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">route_prefix</span><span class="o">=</span><span class="s1">&#39;oereb&#39;</span><span class="p">)</span>
 </pre></div>
@@ -282,7 +275,7 @@ server for <code class="docutils literal"><span class="pre">pyramid_oereb</span>
 pyramid_oereb.cfg.section = pyramid_oereb
 </pre></div>
 </div>
-<p>After modifying these two files, you have start/restart your application&#8217;s server, e.g. using <cite>pserve</cite>:</p>
+<p>After modifying these two files, you have to start/restart your application&#8217;s server, e.g. using <cite>pserve</cite>:</p>
 <div class="highlight-none"><div class="highlight"><pre><span></span>pserve development.ini
 </pre></div>
 </div>
@@ -310,9 +303,7 @@ section <a class="reference internal" href="configuration.html#configuration"><s
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -334,7 +325,7 @@ section <a class="reference internal" href="configuration.html#configuration"><s
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -356,6 +347,7 @@ section <a class="reference internal" href="configuration.html#configuration"><s
             <dt>Tags</dt>
             <dd><a href="../v1.0.0/installation.html">v1.0.0</a></dd>
             <dd><a href="../v1.0.1/installation.html">v1.0.1</a></dd>
+            <dd><a href="../v1.1.0/installation.html">v1.1.0</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
@@ -372,6 +364,7 @@ section <a class="reference internal" href="configuration.html#configuration"><s
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
             VERSION:'',
+            LANGUAGE:'en',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -389,14 +382,13 @@ section <a class="reference internal" href="configuration.html#configuration"><s
     <script type="text/javascript" src="_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
