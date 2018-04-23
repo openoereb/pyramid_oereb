@@ -545,7 +545,7 @@ Find an example configuration for land use plans below:
       source:
         class: pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource
         params:
-          db_connection: ${db_connection}
+          db_connection: <your db connection>
           models: <path_to_your_models>.land_use_plans
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
