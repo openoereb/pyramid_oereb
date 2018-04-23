@@ -17,8 +17,8 @@ production mode. When you are updating from previous version to 1.1.0 you will h
 Description below will try to classify new options whether they are *optional* or **mandatory** to use the
 new version.
 Of course you also could use the way described in the ``installation-step-configuration``. But then it will
-create a completely new yml but valid file. In order to that its up to your decision: Migrate new options to
-your existing configuration or migrate your custom configuration into a newly created file.
+create a completely new yml but valid file. In order to do that its up to your decision: Migrate new options
+to your existing configuration or migrate your custom configuration into a newly created file.
 
 Here is a list of features this version additionally implements compared to
 `1.0.1 <https://github.com/camptocamp/pyramid_oereb/releases/tag/v1.0.1>`__:
@@ -34,7 +34,7 @@ This should enable you to use OEREBlex with a minimum of configuration.
 See :ref:`changes-new-config-oereb-lex` for further details of configuration options.
 
 The idea of this oereb lex adapter is to access OEREBlex documents directly via API provided by OEREBlex.
-This you can configure this per theme. If you have a theme which has all documents stored in OEREBlex you
+You can configure this per theme. If you have a theme which has all documents stored in OEREBlex you
 will need a link to the dedicated set of documents for every public law restriction in this theme. You will
 end up with an attribute in the database table for your public law restriction which contains the link.
 
@@ -47,9 +47,9 @@ law restriction in your database table.
 The next step is to define the sqlalchemy mappings. This works like normal mapping definition described here:
 :ref:`configuration-adapt-models`. The difference to the standard database configuration is here:
 
-- all document related model classes are obsolete
-- the public law restriction class gets a attribute which is called geolink.
-- since all document related mapping can be ignored the mapping is slightly shorter than standard mapping.
+- All document related model classes are obsolete.
+- The public law restriction class gets an attribute which is called geolink.
+- Since all document related mapping can be ignored the mapping is slightly shorter than standard mapping.
 
 Below you can find an example mapping.
 
@@ -408,19 +408,19 @@ New configuration options in yml
 
 .. _changes-new-config-mapfish-print:
 
-Mapfish print
+MapFish Print
 """""""""""""
 
 See the `pyramid_oereb_standard.yml <https://github.com/camptocamp/pyramid_oereb/blob/v1.1.0/pyramid_oereb/standard/pyramid_oereb.yml.mako#L65>`__
 for the correct style of the configuration.
 
 - improved print templates to fit federal definitions as good as possible
-- improved configuration in the ``pyramid_oere.yml`` to better support requirements of different operators (multilingual)
+- improved configuration in the ``pyramid_oereb.yml`` to better support requirements of different operators (multilingual)
     - **template_name**:
         Defines the name of the mapfish print template which is used to provide static extract.
     - **headers**:
         Defines the content type which is sent to mapfish print service by mapfish print proxy.
-        This should be set to = `Content-Type: application/json; charset=UTF-8`
+        This must be set to `Content-Type: application/json; charset=UTF-8`
     - **furtherInformationText**:
         It must contain at least one of the following sub items which can contain a
         free text. It is used to point user to more cantonal information about the oereb. It can contain
