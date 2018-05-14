@@ -179,7 +179,18 @@ class ViewServiceRecord(object):
         # TODO: Check better for a image as response than only code 200...
         main_msg = "Image for WMS couldn't be retrieved."
         if uri_validator(self.reference_wms):
-            response = requests.get(self.reference_wms, proxies=Config.get('proxies'))
+            log.debug("Downloading image, url: {url}".format(url=self.reference_wms))
+            try:
+                response = requests.get(self.reference_wms, proxies=Config.get('proxies'))
+            except Exception as ex:
+                dedicated_msg = "An image could not be downloaded. URL was: {url}, error was " \
+                                "{response}".format(
+                                    url=self.reference_wms,
+                                    response=ex
+                                )
+                log.error(dedicated_msg)
+                raise LookupError(dedicated_msg)
+
             if response.status_code == 200:
                 self.image = ImageRecord(response.content)
             else:
