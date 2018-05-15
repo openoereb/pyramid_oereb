@@ -330,7 +330,18 @@
         <span class="c1"># TODO: Check better for a image as response than only code 200...</span>
         <span class="n">main_msg</span> <span class="o">=</span> <span class="s2">&quot;Image for WMS couldn&#39;t be retrieved.&quot;</span>
         <span class="k">if</span> <span class="n">uri_validator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">):</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;proxies&#39;</span><span class="p">))</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Downloading image, url: </span><span class="si">{url}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;proxies&#39;</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+                <span class="n">dedicated_msg</span> <span class="o">=</span> <span class="s2">&quot;An image could not be downloaded. URL was: </span><span class="si">{url}</span><span class="s2">, error was &quot;</span> \
+                                <span class="s2">&quot;</span><span class="si">{response}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                    <span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">,</span>
+                                    <span class="n">response</span><span class="o">=</span><span class="n">ex</span>
+                                <span class="p">)</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span>
+
             <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">ImageRecord</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -439,9 +450,7 @@
 
   <script type="text/javascript">
       jQuery(function () {
-          
-          SphinxRtdTheme.Navigation.enableSticky();
-          
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script> 
 
