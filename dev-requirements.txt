@@ -1,9 +1,9 @@
 pytest==3.5.1
 pytest-cov==2.5.1
 pytest-ordering==0.5
-pyflakes==1.6.0
+pyflakes==2.0.0
 flake8==3.5.0
-pycodestyle==2.3.1 # rq.filter < 2.4
+pycodestyle==2.4.0 # rq.filter < 2.4
 psycopg2==2.7.4
 McCabe==0.6.1
 c2c.template==2.0.5  # rq.filter: <= 2.0.5
