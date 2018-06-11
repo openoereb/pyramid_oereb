@@ -89,18 +89,20 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         finally:
             session.close()
 
-    def from_db_to_legend_entry_record(self, theme, legend_entries_from_db):
+    def from_db_to_legend_entry_record(self, theme, legend_entries_from_db, public_law_restriction_from_db):
         legend_entry_records = []
         for legend_entry_from_db in legend_entries_from_db:
-            legend_entry_records.append(self._legend_entry_record_class(
-                ImageRecord(base64.b64decode(legend_entry_from_db.symbol)),
-                legend_entry_from_db.legend_text,
-                legend_entry_from_db.type_code,
-                legend_entry_from_db.type_code_list,
-                theme,
-                sub_theme=legend_entry_from_db.sub_theme,
-                other_theme=legend_entry_from_db.other_theme
-            ))
+            # Filter legend by view service to deliver dedicated legend entries only
+            if public_law_restriction_from_db.view_service_id == legend_entries_from_db.view_service_id:
+                legend_entry_records.append(self._legend_entry_record_class(
+                    ImageRecord(base64.b64decode(legend_entry_from_db.symbol)),
+                    legend_entry_from_db.legend_text,
+                    legend_entry_from_db.type_code,
+                    legend_entry_from_db.type_code_list,
+                    theme,
+                    sub_theme=legend_entry_from_db.sub_theme,
+                    other_theme=legend_entry_from_db.other_theme
+                ))
         return legend_entry_records
 
     def from_db_to_view_service_record(self, view_service_from_db, legend_entry_records):
@@ -293,12 +295,14 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         area_unit = thresholds.get('area').get('unit')
         legend_entry_records = self.from_db_to_legend_entry_record(
             self._theme_record,
-            legend_entries_from_db
+            legend_entries_from_db,
+            public_law_restriction_from_db
         )
         symbol = None
         for legend_entry_record in legend_entry_records:
             if public_law_restriction_from_db.type_code == legend_entry_record.type_code:
                 symbol = legend_entry_record.symbol
+
         if symbol is None:
             # TODO: raise real error here when data is correct, emit warning for now
             msg = u'No symbol was found for plr in topic {topic} with id {id}'.format(
