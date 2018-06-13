@@ -121,10 +121,38 @@ def test_processor_get_legend_entries(law_status):
     theme2 = ThemeRecord(u'TEST', {'de': 'Theme 2'})
     office = OfficeRecord({'de': 'Test Office'})
     geometries = [GeometryRecord(law_status, datetime.date.today(), Point(1, 1))]
-    legend1 = LegendEntryRecord(ImageRecord('1'.encode('utf-8')), {'de': 'legend1'}, u'type1', u'bla', theme1)
-    legend2 = LegendEntryRecord(ImageRecord('1'.encode('utf-8')), {'de': 'legend2'}, u'type2', u'bla', theme1)
-    legend3 = LegendEntryRecord(ImageRecord('1'.encode('utf-8')), {'de': 'legend3'}, u'type3', u'bla', theme2)
-    legend4 = LegendEntryRecord(ImageRecord('1'.encode('utf-8')), {'de': 'legend4'}, u'type4', u'bla', theme2)
+    legend1 = LegendEntryRecord(
+        ImageRecord('1'.encode('utf-8')),
+        {'de': 'legend1'},
+        u'type1',
+        u'bla',
+        theme1,
+        view_service_id=1
+    )
+    legend2 = LegendEntryRecord(
+        ImageRecord('1'.encode('utf-8')),
+        {'de': 'legend2'},
+        u'type2',
+        u'bla',
+        theme1,
+        view_service_id=1
+    )
+    legend3 = LegendEntryRecord(
+        ImageRecord('1'.encode('utf-8')),
+        {'de': 'legend3'},
+        u'type3',
+        u'bla',
+        theme2,
+        view_service_id=1
+    )
+    legend4 = LegendEntryRecord(
+        ImageRecord('1'.encode('utf-8')),
+        {'de': 'legend4'},
+        u'type4',
+        u'bla',
+        theme2,
+        view_service_id=1
+    )
     view_service1 = ViewServiceRecord(
         'http://www.test1.url.ch',
         'http://www.test1.url.ch',
