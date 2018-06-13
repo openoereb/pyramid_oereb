@@ -355,7 +355,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             min_length=min_length,
             area_unit=area_unit,
             length_unit=length_unit,
-            view_service_id=public_law_restriction_from_db.view_service.id,
+            view_service_id=public_law_restriction_from_db.view_service.id
         )
 
         return plr_record
