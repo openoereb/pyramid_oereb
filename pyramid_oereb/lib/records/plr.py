@@ -39,7 +39,7 @@ class PlrRecord(EmptyPlrRecord):
     def __init__(self, theme, information, law_status, published_from, responsible_office, symbol,
                  view_service, geometries, sub_theme=None, other_theme=None, type_code=None,
                  type_code_list=None, basis=None, refinements=None, documents=None, info=None, min_length=0.0,
-                 min_area=0.0, length_unit=u'm', area_unit=u'm2'):
+                 min_area=0.0, length_unit=u'm', area_unit=u'm2', view_service_id=None):
         """
         Args:
             information (dict of unicode): The PLR record's information (multilingual).
@@ -67,6 +67,8 @@ class PlrRecord(EmptyPlrRecord):
             min_area (float): The threshold for area calculation.
             length_unit (unicode): The threshold for area calculation.
             area_unit (unicode): The threshold for area calculation.
+            view_service_id (int): The id to the connected view service. This is very important to be able to
+            solve bug https://github.com/camptocamp/pyramid_oereb/issues/521
         """
         super(PlrRecord, self).__init__(theme)
 
@@ -110,6 +112,7 @@ class PlrRecord(EmptyPlrRecord):
         self._area = None
         self._length = None
         self.symbol = symbol
+        self.view_service_id = view_service_id
 
     @property
     def published(self):

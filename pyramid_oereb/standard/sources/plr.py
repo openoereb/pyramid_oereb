@@ -100,7 +100,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     legend_entry_from_db.type_code,
                     legend_entry_from_db.type_code_list,
                     theme,
-                    legend_entry_from_db.view_service_id,
+                    view_service_id=legend_entry_from_db.view_service_id,
                     sub_theme=legend_entry_from_db.sub_theme,
                     other_theme=legend_entry_from_db.other_theme
                 ))
@@ -354,7 +354,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             min_area=min_area,
             min_length=min_length,
             area_unit=area_unit,
-            length_unit=length_unit
+            length_unit=length_unit,
+            view_service_id=public_law_restriction_from_db.view_service.id,
         )
 
         return plr_record
