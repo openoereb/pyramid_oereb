@@ -93,7 +93,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         legend_entry_records = []
         for legend_entry_from_db in legend_entries_from_db:
             # Filter legend by view service to deliver dedicated legend entries only
-            if public_law_restriction_from_db.view_service_id == legend_entries_from_db.view_service_id:
+            if public_law_restriction_from_db.view_service_id == legend_entry_from_db.view_service_id:
                 legend_entry_records.append(self._legend_entry_record_class(
                     ImageRecord(base64.b64decode(legend_entry_from_db.symbol)),
                     legend_entry_from_db.legend_text,
