@@ -185,26 +185,35 @@ class Processor(object):
         # the legend entries.
         type_codes_to_remove = {}
         for inside_plr in inside_plrs:
+            view_service_id = str(inside_plr.view_service_id)
             theme_code = inside_plr.theme.code
             type_code = inside_plr.type_code
             if not type_codes_to_remove.get(theme_code):
-                type_codes_to_remove[theme_code] = {
-                    'codes_to_remove': [],
+                type_codes_to_remove[theme_code] = {}
+            if not type_codes_to_remove[theme_code].get(view_service_id):
+                type_codes_to_remove[theme_code][view_service_id] = {
+                    'codes_to_rm': [],
                     'legend_entries': None
                 }
-            if type_code not in type_codes_to_remove[theme_code]['codes_to_remove']:
-                type_codes_to_remove[theme_code]['codes_to_remove'].append(type_code)
-            if not type_codes_to_remove[theme_code]['legend_entries']:
-                type_codes_to_remove[theme_code]['legend_entries'] = inside_plr.view_service.legends
+
+            if type_code not in type_codes_to_remove[theme_code][view_service_id]['codes_to_rm']:
+                type_codes_to_remove[theme_code][view_service_id]['codes_to_rm'].append(type_code)
+            if not type_codes_to_remove[theme_code][view_service_id]['legend_entries']:
+                type_codes_to_remove[theme_code][view_service_id]['legend_entries'] = inside_plr.\
+                    view_service.legends
 
         for key in type_codes_to_remove.keys():
-            for legend_entry in list(type_codes_to_remove[key]['legend_entries']):
-                if legend_entry.type_code in type_codes_to_remove[key]['codes_to_remove']:
-                    type_codes_to_remove[key]['legend_entries'].remove(legend_entry)
+            for view_service_key in type_codes_to_remove[key]:
+                for legend_entry in list(type_codes_to_remove[key][view_service_key]['legend_entries']):
+                    if legend_entry.type_code in type_codes_to_remove[key][view_service_key]['codes_to_rm']:
+                        type_codes_to_remove[key][view_service_key]['legend_entries'].remove(legend_entry)
 
         for inside_plr in inside_plrs:
             theme_code = inside_plr.theme.code
-            inside_plr.view_service.legends = type_codes_to_remove[theme_code]['legend_entries']
+            view_service_id = str(inside_plr.view_service_id)
+            inside_plr.view_service.legends = type_codes_to_remove[
+                theme_code
+            ][view_service_id]['legend_entries']
 
         return inside_plrs
 
