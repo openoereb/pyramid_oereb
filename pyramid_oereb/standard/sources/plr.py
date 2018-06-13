@@ -6,7 +6,7 @@ from geoalchemy2.shape import to_shape, from_shape
 from pyramid.path import DottedNameResolver
 from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, \
     GeometryCollection
-from sqlalchemy import text, or_
+from sqlalchemy import text, or_, and_
 
 from pyramid_oereb import Config
 from pyramid_oereb.lib.records.availability import AvailabilityRecord
@@ -463,16 +463,20 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         Returns:
             list: The result of the related geometries unique by the public law restriction id
         """
-        distinct_type_codes = []
+        distinct_type_code_view_service_tuples = []
         geometries = self.handle_collection(session, bbox).distinct(
             self._model_.public_law_restriction_id
         ).all()
         for geometry in geometries:
-            if geometry.public_law_restriction.type_code not in distinct_type_codes:
-                distinct_type_codes.append(geometry.public_law_restriction.type_code)
-
+            type_code = geometry.public_law_restriction.type_code
+            view_service_id = geometry.public_law_restriction.view_service_id
+            if (type_code, view_service_id) not in distinct_type_code_view_service_tuples:
+                distinct_type_code_view_service_tuples.append(and_(
+                    self.legend_entry_model.type_code == type_code,
+                    self.legend_entry_model.view_service_id == view_service_id
+                ))
         return session.query(self.legend_entry_model).filter(
-            self.legend_entry_model.type_code.in_(distinct_type_codes)
+            or_(*distinct_type_code_view_service_tuples)
         ).all()
 
     def read(self, real_estate, bbox):

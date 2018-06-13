@@ -75,6 +75,7 @@ def get_symbol(request):
     """
 
     theme_code = request.matchdict.get('theme_code')
+    view_service_id = request.matchdict.get('view_service_id')
     type_code = request.matchdict.get('type_code')
 
     plr = None
@@ -96,6 +97,8 @@ def get_symbol(request):
         ))
         legend_entry = session.query(model).filter(
             cast(model.type_code, Text) == cast(type_code, Text)
+        ).filter(
+            model.view_service_id == view_service_id
         ).first()
         if legend_entry:
             symbol = getattr(legend_entry, 'symbol', None)
@@ -127,6 +130,7 @@ def get_symbol_ref(request, record):
     return request.route_url(
         '{0}/image/symbol'.format(route_prefix),
         theme_code=record.theme.code,
+        view_service_id=record.view_service_id,
         type_code=record.type_code
     )
 
