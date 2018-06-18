@@ -140,9 +140,6 @@ class OEREBlexSource(Base):
         for reference in references:
             referenced_records.extend(self._get_document_records(reference))
 
-        # Assign multilingual values
-        title = {self._language: document.title}
-
         # Create related office record
         office = OfficeRecord({self._language: document.authority}, office_at_web=document.authority_url)
 
@@ -152,7 +149,7 @@ class OEREBlexSource(Base):
             records.append(document_class(
                 law_status=LawStatusRecord.from_config(u'inForce'),
                 published_from=document.enactment_date,
-                title=title,
+                title=self._get_document_title(document, f),
                 responsible_office=office,
                 text_at_web={self._language: f.href},
                 abbreviation=document.abbreviation,
@@ -184,3 +181,18 @@ class OEREBlexSource(Base):
                 if value:
                     return {self._language: value} if multilingual else value
         return None
+
+    def _get_document_title(self, document, current_file):
+        """
+        Returns the title of the document/file. Extracting this logic allows
+        easier customization of the file title.
+
+        Args:
+            document (geolink_formatter.entity.Document): The document entity.
+            current_file (geolink_formatter.entity.File): The file, which gets annotated with a title.
+
+        Returns:
+            str: Title of document.
+        """
+        # Assign multilingual values
+        return {self._language: document.title}
