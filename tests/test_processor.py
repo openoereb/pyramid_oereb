@@ -93,8 +93,7 @@ def test_processor_with_images():
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
     extract = processor.process(real_estate[0], params, 'http://test.ch')
-    # TODO: uncomment this when issue GSOREB-194 is solved.
-    # assert extract.real_estate.plan_for_land_register.image is not None
+    assert extract.real_estate.plan_for_land_register.image is not None
     for plr in extract.real_estate.public_law_restrictions:
         assert plr.view_service.image is not None
 
@@ -110,8 +109,7 @@ def test_processor_without_images():
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
     extract = processor.process(real_estate[0], params, 'http://test.ch')
-    # TODO: uncomment this when issue GSOREB-194 is solved.
-    # assert extract.real_estate.plan_for_land_register.image is None
+    assert extract.real_estate.plan_for_land_register.image is None
     for plr in extract.real_estate.public_law_restrictions:
         assert plr.view_service.image is None
 
