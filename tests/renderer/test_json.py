@@ -218,7 +218,8 @@ def test_format_plr(config, parameter):
         office = OfficeRecord({'de': 'Test Office'})
         legend_entry = LegendEntryRecord(
             ImageRecord(base64.b64encode('1'.encode('utf-8'))),
-            {'de': 'Test'}, 'test', 'TypeCodeList', theme)
+            {'de': 'Test'}, 'test', 'TypeCodeList', theme,
+            view_service_id=1)
         view_service = ViewServiceRecord('http://geowms.bl.ch', 'http://geowms.bl.ch', [legend_entry])
         geometry = GeometryRecord(law_status(), datetime.date.today(), Point(1, 1))
         plr = PlrRecord(
@@ -234,7 +235,8 @@ def test_format_plr(config, parameter):
             other_theme='Additional topic',
             type_code='test',
             type_code_list='TypeCodeList',
-            documents=documents
+            documents=documents,
+            view_service_id=1
         )
         plr.part_in_percent = 0.5
         if parameter.flavour == 'full':
@@ -267,8 +269,9 @@ def test_format_plr(config, parameter):
                 })
             else:
                 expected.update({
-                    'SymbolRef': 'http://example.com/image/symbol/{theme}/{code}'.format(
+                    'SymbolRef': 'http://example.com/image/symbol/{theme}/{view_service_id}/{code}'.format(
                         theme='ContaminatedSites',
+                        view_service_id=1,
                         code='test'
                     )
                 })
@@ -442,7 +445,8 @@ def test_format_map(config, params):
             {u'de': u'Legendeneintrag'},
             u'type1',
             u'type_code_list',
-            ThemeRecord(u'ContaminatedSites', {u'de': u'Test'})
+            ThemeRecord(u'ContaminatedSites', {u'de': u'Test'}),
+            view_service_id=1
         )
         view_service = ViewServiceRecord('http://my.wms.ch',
                                          'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
@@ -477,7 +481,8 @@ def test_format_legend_entry(parameter, config):
             u'type_code_list',
             theme,
             u'Subthema',
-            u'Weiteres Thema'
+            u'Weiteres Thema',
+            view_service_id=1
         )
         result = renderer.format_legend_entry(legend_entry)
         expected = {
@@ -494,8 +499,9 @@ def test_format_legend_entry(parameter, config):
             })
         else:
             expected.update({
-                'SymbolRef': 'http://example.com/image/symbol/{theme_code}/{code}'.format(
+                'SymbolRef': 'http://example.com/image/symbol/{theme_code}/{view_service_id}/{code}'.format(
                     theme_code='ContaminatedSites',
+                    view_service_id=1,
                     code='type1'
                 )
             })

@@ -13,6 +13,7 @@ def test_get_image():
     request = MockRequest()
     request.matchdict.update({
         'theme_code': 'ContaminatedSites',
+        'view_service_id': 1,
         'type_code': 'test'
     })
     webservice = Symbol(request)
@@ -28,6 +29,7 @@ def test_get_image_invalid():
     request = MockRequest()
     request.matchdict.update({
         'theme_code': 'ContaminatedSites',
+        'view_service_id': 1,
         'type_code': 'notExisting'
     })
     webservice = Symbol(request)

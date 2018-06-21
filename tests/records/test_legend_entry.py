@@ -12,8 +12,14 @@ def test_mandatory_fields():
 
 
 def test_init():
-    record = LegendEntryRecord(ImageRecord('100'.encode('utf-8')), {'de': 'test'}, 'test_code', 'test',
-                               ThemeRecord('test', {'de': 'Test'}))
+    record = LegendEntryRecord(
+        ImageRecord('100'.encode('utf-8')),
+        {'de': 'test'},
+        'test_code',
+        'test',
+        ThemeRecord('test', {'de': 'Test'}),
+        view_service_id=1
+    )
     assert isinstance(record.symbol, ImageRecord)
     assert isinstance(record.legend_text, dict)
     assert isinstance(record.type_code, str)

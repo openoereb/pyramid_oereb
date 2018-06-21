@@ -6,7 +6,7 @@ from geoalchemy2.shape import to_shape, from_shape
 from pyramid.path import DottedNameResolver
 from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, \
     GeometryCollection
-from sqlalchemy import text, or_
+from sqlalchemy import text, or_, and_
 
 from pyramid_oereb import Config
 from pyramid_oereb.lib.records.availability import AvailabilityRecord
@@ -89,18 +89,21 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         finally:
             session.close()
 
-    def from_db_to_legend_entry_record(self, theme, legend_entries_from_db):
+    def from_db_to_legend_entry_record(self, theme, legend_entries_from_db, public_law_restriction_from_db):
         legend_entry_records = []
         for legend_entry_from_db in legend_entries_from_db:
-            legend_entry_records.append(self._legend_entry_record_class(
-                ImageRecord(base64.b64decode(legend_entry_from_db.symbol)),
-                legend_entry_from_db.legend_text,
-                legend_entry_from_db.type_code,
-                legend_entry_from_db.type_code_list,
-                theme,
-                sub_theme=legend_entry_from_db.sub_theme,
-                other_theme=legend_entry_from_db.other_theme
-            ))
+            # Filter legend by view service to deliver dedicated legend entries only
+            if public_law_restriction_from_db.view_service_id == legend_entry_from_db.view_service_id:
+                legend_entry_records.append(self._legend_entry_record_class(
+                    ImageRecord(base64.b64decode(legend_entry_from_db.symbol)),
+                    legend_entry_from_db.legend_text,
+                    legend_entry_from_db.type_code,
+                    legend_entry_from_db.type_code_list,
+                    theme,
+                    view_service_id=legend_entry_from_db.view_service_id,
+                    sub_theme=legend_entry_from_db.sub_theme,
+                    other_theme=legend_entry_from_db.other_theme
+                ))
         return legend_entry_records
 
     def from_db_to_view_service_record(self, view_service_from_db, legend_entry_records):
@@ -293,12 +296,14 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         area_unit = thresholds.get('area').get('unit')
         legend_entry_records = self.from_db_to_legend_entry_record(
             self._theme_record,
-            legend_entries_from_db
+            legend_entries_from_db,
+            public_law_restriction_from_db
         )
         symbol = None
         for legend_entry_record in legend_entry_records:
             if public_law_restriction_from_db.type_code == legend_entry_record.type_code:
                 symbol = legend_entry_record.symbol
+
         if symbol is None:
             # TODO: raise real error here when data is correct, emit warning for now
             msg = u'No symbol was found for plr in topic {topic} with id {id}'.format(
@@ -349,7 +354,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             min_area=min_area,
             min_length=min_length,
             area_unit=area_unit,
-            length_unit=length_unit
+            length_unit=length_unit,
+            view_service_id=public_law_restriction_from_db.view_service.id
         )
 
         return plr_record
@@ -459,16 +465,20 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         Returns:
             list: The result of the related geometries unique by the public law restriction id
         """
-        distinct_type_codes = []
+        distinct_type_code_view_service_tuples = []
         geometries = self.handle_collection(session, bbox).distinct(
             self._model_.public_law_restriction_id
         ).all()
         for geometry in geometries:
-            if geometry.public_law_restriction.type_code not in distinct_type_codes:
-                distinct_type_codes.append(geometry.public_law_restriction.type_code)
-
+            type_code = geometry.public_law_restriction.type_code
+            view_service_id = geometry.public_law_restriction.view_service_id
+            if (type_code, view_service_id) not in distinct_type_code_view_service_tuples:
+                distinct_type_code_view_service_tuples.append(and_(
+                    self.legend_entry_model.type_code == type_code,
+                    self.legend_entry_model.view_service_id == view_service_id
+                ))
         return session.query(self.legend_entry_model).filter(
-            self.legend_entry_model.type_code.in_(distinct_type_codes)
+            or_(*distinct_type_code_view_service_tuples)
         ).all()
 
     def read(self, real_estate, bbox):
