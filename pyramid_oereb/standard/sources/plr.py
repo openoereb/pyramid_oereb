@@ -270,7 +270,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     legal_provision.law_status
                 )
             )
-            document_records.append(self._documents_reocord_class(
+            document_records.append(self._documents_record_class(
                 law_status,
                 legal_provision.published_from,
                 legal_provision.title,

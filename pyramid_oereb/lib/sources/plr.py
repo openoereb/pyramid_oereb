@@ -25,7 +25,7 @@ class PlrBaseSource(Base):
         datasource (list of pyramid_oereb.lib.records.embeddable.DatasourceRecord): List of data source
             records used for the additional data in flavour `embeddable`.
     """
-    _documents_reocord_class = DocumentRecord
+    _documents_record_class = DocumentRecord
     _article_record_class = ArticleRecord
     _exclusion_of_liability_record_class = ExclusionOfLiabilityRecord
     _geometry_record_class = GeometryRecord
