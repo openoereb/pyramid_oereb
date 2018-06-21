@@ -190,7 +190,7 @@
 <div class="viewcode-block" id="PlrRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.plr.PlrRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">information</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span>
                  <span class="n">view_service</span><span class="p">,</span> <span class="n">geometries</span><span class="p">,</span> <span class="n">sub_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">other_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">type_code_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refinements</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">documents</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-                 <span class="n">min_area</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">length_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">area_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m2&#39;</span><span class="p">):</span>
+                 <span class="n">min_area</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">length_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">area_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m2&#39;</span><span class="p">,</span> <span class="n">view_service_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            information (dict of unicode): The PLR record&#39;s information (multilingual).</span>
@@ -218,6 +218,8 @@
 <span class="sd">            min_area (float): The threshold for area calculation.</span>
 <span class="sd">            length_unit (unicode): The threshold for area calculation.</span>
 <span class="sd">            area_unit (unicode): The threshold for area calculation.</span>
+<span class="sd">            view_service_id (int): The id to the connected view service. This is very important to be able to</span>
+<span class="sd">            solve bug https://github.com/camptocamp/pyramid_oereb/issues/521</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">PlrRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
 
@@ -260,7 +262,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">length_unit</span> <span class="o">=</span> <span class="n">length_unit</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view_service_id</span> <span class="o">=</span> <span class="n">view_service_id</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">published</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

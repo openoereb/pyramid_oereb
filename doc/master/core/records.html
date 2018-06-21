@@ -1093,7 +1093,7 @@ every other value will raise an error.</td>
 <span id="api-pyramid-oereb-lib-records-plr-plrrecord"></span><h2><em>PlrRecord</em><a class="headerlink" href="#plrrecord" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.plr.PlrRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.plr.</code><code class="descname">PlrRecord</code><span class="sig-paren">(</span><em>theme</em>, <em>information</em>, <em>law_status</em>, <em>published_from</em>, <em>responsible_office</em>, <em>symbol</em>, <em>view_service</em>, <em>geometries</em>, <em>sub_theme=None</em>, <em>other_theme=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit='m'</em>, <em>area_unit='m2'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/plr.html#PlrRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.plr.</code><code class="descname">PlrRecord</code><span class="sig-paren">(</span><em>theme</em>, <em>information</em>, <em>law_status</em>, <em>published_from</em>, <em>responsible_office</em>, <em>symbol</em>, <em>view_service</em>, <em>geometries</em>, <em>sub_theme=None</em>, <em>other_theme=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit='m'</em>, <em>area_unit='m2'</em>, <em>view_service_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/plr.html#PlrRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyramid_oereb.lib.records.plr.EmptyPlrRecord" title="pyramid_oereb.lib.records.plr.EmptyPlrRecord"><code class="xref py py-class docutils literal"><span class="pre">pyramid_oereb.lib.records.plr.EmptyPlrRecord</span></code></a></p>
 <p>Public law restriction record.</p>
 <dl class="attribute">
@@ -1110,7 +1110,7 @@ every other value will raise an error.</td>
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.records.plr.PlrRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>theme</em>, <em>information</em>, <em>law_status</em>, <em>published_from</em>, <em>responsible_office</em>, <em>symbol</em>, <em>view_service</em>, <em>geometries</em>, <em>sub_theme=None</em>, <em>other_theme=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit='m'</em>, <em>area_unit='m2'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/plr.html#PlrRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>theme</em>, <em>information</em>, <em>law_status</em>, <em>published_from</em>, <em>responsible_office</em>, <em>symbol</em>, <em>view_service</em>, <em>geometries</em>, <em>sub_theme=None</em>, <em>other_theme=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit='m'</em>, <em>area_unit='m2'</em>, <em>view_service_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/plr.html#PlrRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1141,6 +1141,8 @@ associated with this record.</li>
 <li><strong>min_area</strong> (<em>float</em>) &#8211; The threshold for area calculation.</li>
 <li><strong>length_unit</strong> (<em>unicode</em>) &#8211; The threshold for area calculation.</li>
 <li><strong>area_unit</strong> (<em>unicode</em>) &#8211; The threshold for area calculation.</li>
+<li><strong>view_service_id</strong> (<em>int</em>) &#8211; The id to the connected view service. This is very important to be able to</li>
+<li><strong>bug https</strong> (<em>solve</em>) &#8211; //github.com/camptocamp/pyramid_oereb/issues/521</li>
 </ul>
 </td>
 </tr>
@@ -1279,7 +1281,7 @@ service to be used for the land registry map.</td>
 <span id="api-pyramid-oereb-lib-records-view-service-legendentryrecord"></span><h2><em>LegendEntryRecord</em><a class="headerlink" href="#legendentryrecord" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.view_service.LegendEntryRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.view_service.</code><code class="descname">LegendEntryRecord</code><span class="sig-paren">(</span><em>symbol</em>, <em>legend_text</em>, <em>type_code</em>, <em>type_code_list</em>, <em>theme</em>, <em>sub_theme=None</em>, <em>other_theme=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/view_service.html#LegendEntryRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.LegendEntryRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.view_service.</code><code class="descname">LegendEntryRecord</code><span class="sig-paren">(</span><em>symbol</em>, <em>legend_text</em>, <em>type_code</em>, <em>type_code_list</em>, <em>theme</em>, <em>sub_theme=None</em>, <em>other_theme=None</em>, <em>view_service_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/view_service.html#LegendEntryRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.LegendEntryRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Represents a legend entry with it&#8217;s text as well as it&#8217;s image.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1295,6 +1297,8 @@ service to be used for the land registry map.</td>
 to.</li>
 <li><strong>sub_theme</strong> (<em>unicode</em>) &#8211; Theme sub category.</li>
 <li><strong>other_theme</strong> (<em>unicode</em>) &#8211; Additional theme linked to this theme.</li>
+<li><strong>view_service_id</strong> (<em>int</em>) &#8211; The id to the connected view service. This is very important to be able to
+solve bug <a class="reference external" href="https://github.com/camptocamp/pyramid_oereb/issues/521">https://github.com/camptocamp/pyramid_oereb/issues/521</a></li>
 </ul>
 </td>
 </tr>
@@ -1302,7 +1306,7 @@ to.</li>
 </table>
 <dl class="method">
 <dt id="pyramid_oereb.lib.records.view_service.LegendEntryRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>symbol</em>, <em>legend_text</em>, <em>type_code</em>, <em>type_code_list</em>, <em>theme</em>, <em>sub_theme=None</em>, <em>other_theme=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/view_service.html#LegendEntryRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.LegendEntryRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>symbol</em>, <em>legend_text</em>, <em>type_code</em>, <em>type_code_list</em>, <em>theme</em>, <em>sub_theme=None</em>, <em>other_theme=None</em>, <em>view_service_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/view_service.html#LegendEntryRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.LegendEntryRecord.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
