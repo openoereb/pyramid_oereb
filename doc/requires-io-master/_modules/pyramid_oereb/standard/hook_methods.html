@@ -81,6 +81,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changes/Hints for migration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../standard/index.html">Standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../contrib/index.html">Contribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../core/index.html">Core</a></li>
@@ -227,6 +228,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">theme_code</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">matchdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;theme_code&#39;</span><span class="p">)</span>
+    <span class="n">view_service_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">matchdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;view_service_id&#39;</span><span class="p">)</span>
     <span class="n">type_code</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">matchdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type_code&#39;</span><span class="p">)</span>
 
     <span class="n">plr</span> <span class="o">=</span> <span class="kc">None</span>
@@ -248,6 +250,8 @@
         <span class="p">))</span>
         <span class="n">legend_entry</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
             <span class="n">cast</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span> <span class="n">Text</span><span class="p">)</span> <span class="o">==</span> <span class="n">cast</span><span class="p">(</span><span class="n">type_code</span><span class="p">,</span> <span class="n">Text</span><span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">view_service_id</span> <span class="o">==</span> <span class="n">view_service_id</span>
         <span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">legend_entry</span><span class="p">:</span>
             <span class="n">symbol</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">legend_entry</span><span class="p">,</span> <span class="s1">&#39;symbol&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -279,6 +283,7 @@
     <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">route_url</span><span class="p">(</span>
         <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/image/symbol&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">),</span>
         <span class="n">theme_code</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">,</span>
+        <span class="n">view_service_id</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">view_service_id</span><span class="p">,</span>
         <span class="n">type_code</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">type_code</span>
     <span class="p">)</span></div>
 

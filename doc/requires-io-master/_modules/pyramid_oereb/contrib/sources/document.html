@@ -81,6 +81,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html">Changes/Hints for migration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contrib/index.html">Contribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
@@ -290,9 +291,6 @@
         <span class="k">for</span> <span class="n">reference</span> <span class="ow">in</span> <span class="n">references</span><span class="p">:</span>
             <span class="n">referenced_records</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_document_records</span><span class="p">(</span><span class="n">reference</span><span class="p">))</span>
 
-        <span class="c1"># Assign multilingual values</span>
-        <span class="n">title</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">title</span><span class="p">}</span>
-
         <span class="c1"># Create related office record</span>
         <span class="n">office</span> <span class="o">=</span> <span class="n">OfficeRecord</span><span class="p">({</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">authority</span><span class="p">},</span> <span class="n">office_at_web</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">authority_url</span><span class="p">)</span>
 
@@ -302,7 +300,7 @@
             <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">document_class</span><span class="p">(</span>
                 <span class="n">law_status</span><span class="o">=</span><span class="n">LawStatusRecord</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;inForce&#39;</span><span class="p">),</span>
                 <span class="n">published_from</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">enactment_date</span><span class="p">,</span>
-                <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+                <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_document_title</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">f</span><span class="p">),</span>
                 <span class="n">responsible_office</span><span class="o">=</span><span class="n">office</span><span class="p">,</span>
                 <span class="n">text_at_web</span><span class="o">=</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">href</span><span class="p">},</span>
                 <span class="n">abbreviation</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">abbreviation</span><span class="p">,</span>
@@ -333,7 +331,22 @@
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
                     <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span> <span class="k">if</span> <span class="n">multilingual</span> <span class="k">else</span> <span class="n">value</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_get_document_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">,</span> <span class="n">current_file</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the title of the document/file. Extracting this logic allows</span>
+<span class="sd">        easier customization of the file title.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            document (geolink_formatter.entity.Document): The document entity.</span>
+<span class="sd">            current_file (geolink_formatter.entity.File): The file, which gets annotated with a title.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Title of document.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Assign multilingual values</span>
+        <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">title</span><span class="p">}</span></div>
 </pre></div>
 
            </div>
