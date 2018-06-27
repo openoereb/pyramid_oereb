@@ -8,7 +8,7 @@ class DocumentBaseRecord(object):
     The base document class.
 
     Attributes:
-        legal_state (unicode): Key string of the law status.
+        law_status (unicode): Key string of the law status.
         published_from (datetime.date): Date since this document was published.
         text_at_web (dict of uri): The multilingual URI to the documents content.
     """
@@ -47,7 +47,7 @@ class ArticleRecord(DocumentBaseRecord):
     More specific document class representing articles.
 
     Attributes:
-        legal_state (unicode): Key string of the law status.
+        law_status (unicode): Key string of the law status.
         published_from (datetime.date): Date since this document was published.
         number (unicode): The identifier of the article as a law.
         text_at_web (dict of uri): The URI to the documents content (multilingual).
@@ -78,7 +78,7 @@ class DocumentRecord(DocumentBaseRecord):
     More specific document class representing real documents.
 
     Attributes:
-        legal_state (unicode):  Key string of the law status.
+        law_status (unicode):  Key string of the law status.
         published_from (datetime.date): Date since this document was published.
         title (dict of unicode): The multilingual title of the document. It might be shortened one.
         responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
