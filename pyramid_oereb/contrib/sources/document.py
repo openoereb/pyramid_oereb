@@ -147,6 +147,8 @@ class OEREBlexSource(Base):
         records = []
         for f in document.files:
             records.append(document_class(
+                # FIXME figure out which value to use
+                document_type='LegalProvision',
                 law_status=LawStatusRecord.from_config(u'inForce'),
                 published_from=document.enactment_date,
                 title=self._get_document_title(document, f),

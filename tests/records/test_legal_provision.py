@@ -14,8 +14,9 @@ def test_mandatory_fields():
 
 def test_init(law_status):
     office_record = OfficeRecord({'en': 'name'})
-    record = LegalProvisionRecord(law_status, datetime.date(1985, 8, 29), {'en': 'title'},
+    record = LegalProvisionRecord('LegalProvision', law_status, datetime.date(1985, 8, 29), {'en': 'title'},
                                   office_record, {'en': 'http://my.legal-provision.com'})
+    assert isinstance(record.document_type, str)
     assert isinstance(record.law_status, LawStatusRecord)
     assert isinstance(record.published_from, datetime.date)
     assert isinstance(record.title, dict)

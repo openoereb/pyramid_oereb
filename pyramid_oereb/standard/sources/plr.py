@@ -271,6 +271,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 )
             )
             document_records.append(self._documents_record_class(
+                # FIXME figure out which value to use
+                'LegalProvision',
                 law_status,
                 legal_provision.published_from,
                 legal_provision.title,

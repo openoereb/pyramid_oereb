@@ -166,7 +166,7 @@ def test_format_real_estate(config):
         'reduced', 'json', True, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
     geometry = MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])])
     view_service = ViewServiceRecord(u'http://geowms.bl.ch', u'http://geowms.bl.ch')
-    document = DocumentRecord(law_status(), datetime.date.today(), {u'de': u'Test Dokument'},
+    document = DocumentRecord('Law', law_status(), datetime.date.today(), {u'de': u'Test Dokument'},
                               OfficeRecord({u'de': u'BUD'}), {'de': 'http://mein.dokument.ch'})
     real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
                                    geometry, u'http://www.geocat.ch', u'1000', u'BL0200002829',
@@ -204,6 +204,7 @@ def test_format_plr(config, parameter):
         renderer._params = parameter
         renderer._request = MockRequest()
         document = DocumentRecord(
+            'Law',
             law_status(),
             datetime.date.today(),
             {u'de': u'Test Dokument'},
@@ -280,6 +281,7 @@ def test_format_plr(config, parameter):
 
 @pytest.mark.parametrize('document,result_dict', [
     (LegalProvisionRecord(
+        'LegalProvision',
         law_status(),
         datetime.date.today(),
         {'de': 'Test Rechtsvorschrift'},
@@ -291,9 +293,9 @@ def test_format_plr(config, parameter):
         'BL', 'Liestal',
         ['Art.1', 'Art.2', 'Art.3'],
         '1'.encode('utf-8'), [
-            ArticleRecord(law_status(), datetime.date.today(), 'art.1')
+            ArticleRecord('Law', law_status(), datetime.date.today(), 'art.1')
         ], [
-            DocumentRecord(law_status(), datetime.date.today(), {'de': 'Test Dokument'},
+            DocumentRecord('Law', law_status(), datetime.date.today(), {'de': 'Test Dokument'},
                            OfficeRecord({'de': 'BUD'}), {'de': 'http://mein.dokument.ch'})
         ]), {
             'Lawstatus': {
@@ -331,6 +333,7 @@ def test_format_plr(config, parameter):
         }]
     }),
     (ArticleRecord(
+        'Law',
         law_status(),
         datetime.date.today(),
         u'art.2',
