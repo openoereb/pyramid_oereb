@@ -166,7 +166,7 @@ templates:
                             Text: *optStr #/definitions/MultilingualMText
                             Title: *optStr #/definitions/MultilingualText
                             OfficialTitle: *optStr #/definitions/MultilingualText
-                            Abbrevation: *optStr #/definitions/MultilingualText
+                            Abbreviation: *optStr #/definitions/MultilingualText
                             OfficialNumber: *optStr
                             Canton: *optStr #/definitions/CantonCode
                             Municipality: *optStr #/definitions/MunicipalityCode
