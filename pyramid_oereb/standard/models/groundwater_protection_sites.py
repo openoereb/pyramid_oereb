@@ -162,7 +162,7 @@ class Document(DocumentBase):
             you  don't like it - don't care about.
         title (dict): The multilingual title or if existing the short title ot his document.
         office_title (dict): The multilingual official title of this document.
-        abbrevation (dict): The multilingual shortened version of the documents title.
+        abbreviation (dict): The multilingual shortened version of the documents title.
         official_number (str): The official number which uniquely identifies this document.
         canton (str): The short version of the canton which this document is about. If this is None
             this is  assumed to be a federal document.

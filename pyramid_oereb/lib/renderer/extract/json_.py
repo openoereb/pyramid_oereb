@@ -328,7 +328,7 @@ class Renderer(Base):
             if document.official_title is not None:
                 document_dict['OfficialTitle'] = self.get_multilingual_text(document.official_title)
             if document.abbreviation is not None:
-                document_dict['Abbrevation'] = self.get_multilingual_text(document.abbreviation)
+                document_dict['Abbreviation'] = self.get_multilingual_text(document.abbreviation)
             if document.official_number is not None:
                 document_dict['OfficialNumber'] = document.official_number
             if document.canton is not None:
