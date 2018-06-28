@@ -251,9 +251,9 @@ class Renderer(Base):
                         })
 
                 if plr.area is not None:
-                    plr_dict['Area'] = plr.area
+                    plr_dict['AreaShare'] = plr.area
                 if plr.length is not None:
-                    plr_dict['Length'] = plr.length
+                    plr_dict['LengthShare'] = plr.length
                 if plr.sub_theme is not None:
                     plr_dict['SubTheme'] = plr.sub_theme
                 if plr.other_theme is not None:

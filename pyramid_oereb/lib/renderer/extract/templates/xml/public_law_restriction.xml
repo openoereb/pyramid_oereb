@@ -33,7 +33,7 @@
     </data:Lawstatus>
     %endif
     %if public_law_restriction.area:
-    <data:Area>${public_law_restriction.area}</data:Area>
+    <data:AreaShare>${public_law_restriction.area}</data:AreaShare>
     %endif
 ##     TODO: The following line must be cleaned from the int(round()) crazyness when the new specification is
 ##         taking place.
@@ -64,7 +64,7 @@
         <AreaUnit>${public_law_restriction.area_unit}</AreaUnit>
 %endif
 %if public_law_restriction.length:
-        <Length>${public_law_restriction.length}</Length>
+        <LengthShare>${public_law_restriction.length}</Length>
         <LengthUnit>${public_law_restriction.length_unit}</LengthUnit>
 %endif
     </data:extensions>
