@@ -28,11 +28,11 @@ class PlrRecord(EmptyPlrRecord):
 
     Attributes:
         part_in_percent (decimal): Part of the property area touched by the restriction in percent.
-        area (decimal): Area of the restriction touching the property calculated by the processor.
+        areaShare (decimal): Area of the restriction touching the property calculated by the processor.
     """
 
     # Attributes added or calculated by the processor
-    area = None
+    areaShare = None
 
     part_in_percent = None
 
@@ -109,8 +109,8 @@ class PlrRecord(EmptyPlrRecord):
         self.min_area = min_area
         self.area_unit = area_unit
         self.length_unit = length_unit
-        self._area = None
-        self._length = None
+        self._areaShare = None
+        self._lengthShare = None
         self.symbol = symbol
         self.view_service_id = view_service_id
 
@@ -126,8 +126,8 @@ class PlrRecord(EmptyPlrRecord):
         """
         lengths_to_sum = []
         for geometry in self.geometries:
-            if geometry.length:
-                lengths_to_sum.append(geometry.length)
+            if geometry.lengthShare:
+                lengths_to_sum.append(geometry.lengthShare)
         return sum(lengths_to_sum) if len(lengths_to_sum) > 0 else None
 
     def _sum_area(self):
@@ -137,25 +137,25 @@ class PlrRecord(EmptyPlrRecord):
         """
         areas_to_sum = []
         for geometry in self.geometries:
-            if geometry.area:
-                areas_to_sum.append(geometry.area)
+            if geometry.areaShare:
+                areas_to_sum.append(geometry.areaShare)
         return sum(areas_to_sum) if len(areas_to_sum) > 0 else None
 
     @property
-    def area(self):
+    def areaShare(self):
         """
         Returns:
             float or None: Returns the summed area of all related geometry records of this PLR.
         """
-        return self._area
+        return self._areaShare
 
     @property
-    def length(self):
+    def lengthShare(self):
         """
         Returns:
             float or None: Returns the summed length of all related geometry records of this PLR.
         """
-        return self._length
+        return self._lengthShare
 
     def calculate(self, real_estate):
         tested_geometries = []
@@ -169,19 +169,19 @@ class PlrRecord(EmptyPlrRecord):
                 tested_geometries.append(geometry)
                 inside = True
         self.geometries = tested_geometries
-        length = self._sum_length()
-        if length is None:
-            self._length = None
+        lengthShare = self._sum_length()
+        if lengthShare is None:
+            self._lengthShare = None
         else:
-            self._length = int(round(length, 0))
-        area = self._sum_area()
-        if area is None:
-            self._area = None
+            self._lengthShare = int(round(lengthShare, 0))
+        areaShare = self._sum_area()
+        if areaShare is None:
+            self._areaShare = None
             self.part_in_percent = None
         else:
-            self._area = int(round(area, 0))
+            self._areaShare = int(round(areaShare, 0))
             self.part_in_percent = round(
-                ((float(self._area) / float(real_estate.land_registry_area)) * 100),
+                ((float(self._areaShare) / float(real_estate.land_registry_area)) * 100),
                 1
             )
         return inside

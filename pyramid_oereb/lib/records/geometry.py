@@ -39,8 +39,8 @@ class GeometryRecord(object):
         self.public_law_restriction = public_law_restriction
         self.office = office
         self._units = None
-        self._area = None
-        self._length = None
+        self._areaShare = None
+        self._lengthShare = None
         self._test_passed = False
         self.calculated = False
 
@@ -75,16 +75,16 @@ class GeometryRecord(object):
                 result = self.geom.intersection(real_estate.limit)
                 if self.geom.type in line_types:
                     self._units = length_unit
-                    length = result.length
-                    if length >= min_length:
-                        self._length = length
+                    lengthShare = result.length
+                    if lengthShare >= min_length:
+                        self._lengthShare = lengthShare
                         self._test_passed = True
                 elif self.geom.type in polygon_types:
                     self._units = area_unit
-                    area = result.area
-                    compensated_area = area / real_estate.areas_ratio
+                    areaShare = result.area
+                    compensated_area = areaShare / real_estate.areas_ratio
                     if compensated_area >= min_area:
-                        self._area = compensated_area
+                        self._areaShare = compensated_area
                         self._test_passed = True
                 else:
                     # TODO: configure a proper error message
@@ -93,19 +93,19 @@ class GeometryRecord(object):
         return self._test_passed
 
     @property
-    def area(self):
+    def areaShare(self):
         """
         float or None: Returns the area of this geometry.
         """
         if not self.calculated:
             log.warning(u'There was an access on property "area" before calculation was done.')
-        return self._area
+        return self._areaShare
 
     @property
-    def length(self):
+    def lengthShare(self):
         """
         float or None: Returns the length of this geometry.
         """
         if not self.calculated:
             log.warning(u'There was an access on property "length" before calculation was done.')
-        return self._length
+        return self._lengthShare
