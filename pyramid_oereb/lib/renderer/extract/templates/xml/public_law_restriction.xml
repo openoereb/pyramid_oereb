@@ -32,8 +32,8 @@
         <%include file="law_status.xml" args="law_status=public_law_restriction.law_status"/>
     </data:Lawstatus>
     %endif
-    %if public_law_restriction.area:
-    <data:AreaShare>${public_law_restriction.area}</data:AreaShare>
+    %if public_law_restriction.areaShare:
+    <data:AreaShare>${public_law_restriction.areaShare}</data:AreaShare>
     %endif
 ##     TODO: The following line must be cleaned from the int(round()) crazyness when the new specification is
 ##         taking place.
@@ -60,11 +60,11 @@
         <%include file="office.xml" args="office=public_law_restriction.responsible_office"/>
     </data:ResponsibleOffice>
     <data:extensions>
-%if public_law_restriction.area:
+%if public_law_restriction.areaShare:
         <AreaUnit>${public_law_restriction.area_unit}</AreaUnit>
 %endif
-%if public_law_restriction.length:
-        <LengthShare>${public_law_restriction.length}</Length>
+%if public_law_restriction.lengthShare:
+        <LengthShare>${public_law_restriction.lengthShare}</LengthShare>
         <LengthUnit>${public_law_restriction.length_unit}</LengthUnit>
 %endif
     </data:extensions>
