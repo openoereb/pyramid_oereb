@@ -306,7 +306,7 @@ def test_format_plr(config, parameter):
                 'Name': [{'Language': 'de', 'Text': 'AGI'}]
             },
             'OfficialTitle': [{'Language': 'de', 'Text': 'Rechtsvorschrift Test'}],
-            'Abbrevation': [{'Language': 'de', 'Text': 'Test'}],
+            'Abbreviation': [{'Language': 'de', 'Text': 'Test'}],
             'OfficialNumber': 'rv.test.1',
             'Canton': 'BL',
             'Municipality': 'Liestal',

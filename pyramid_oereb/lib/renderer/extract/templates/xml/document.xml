@@ -9,9 +9,9 @@
 </data:OfficialTitle>
 %endif
 %if document.abbreviation:
-<data:Abbrevation>
+<data:Abbreviation>
     <%include file="multilingual_text.xml" args="text=document.abbreviation"/>
-</data:Abbrevation>
+</data:Abbreviation>
 %endif
 %if document.official_number:
 <data:OfficialNumber>${document.official_number}</data:OfficialNumber>
