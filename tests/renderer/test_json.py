@@ -281,7 +281,6 @@ def test_format_plr(config, parameter):
 
 @pytest.mark.parametrize('document,result_dict', [
     (LegalProvisionRecord(
-        'LegalProvision',
         law_status(),
         datetime.date.today(),
         {'de': 'Test Rechtsvorschrift'},

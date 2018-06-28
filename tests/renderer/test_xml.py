@@ -20,8 +20,7 @@ def test_get_gml_id():
 def test_get_document_type():
     document = DocumentRecord('Law', LawStatusRecord.from_config('inForce'), datetime.date.today(),
                               {'de': 'Test'}, OfficeRecord({'de': 'Test'}))
-    legal_provision = LegalProvisionRecord('LegalProvision',
-                                           LawStatusRecord.from_config('inForce'),
+    legal_provision = LegalProvisionRecord(LawStatusRecord.from_config('inForce'),
                                            datetime.date.today(),
                                            {'de': 'Test'},
                                            OfficeRecord({'de': 'Test'}))

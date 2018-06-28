@@ -166,5 +166,51 @@ class DocumentRecord(DocumentBaseRecord):
 
 
 class LegalProvisionRecord(DocumentRecord):
-    # FIXME check if it has to enforce 'LegalProvision'?
-    pass
+    """
+        More specific document record class representing legal provision records.
+
+        Attributes:
+            document_type (str or unicode): The document type. Always "LegalProvision" for legal
+                provision records.
+            law_status (unicode):  Key string of the law status.
+            published_from (datetime.date): Date since this document was published.
+            title (dict of unicode): The multilingual title of the document. It might be shortened one.
+            responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
+                responsible for this document.
+            text_at_web (dict of uri): The multilingual URI to the documents content.
+            official_title (dict of unicode): The official title of the document (multilingual).
+            abbreviation (dict of unicode): Short term for this document (multilingual).
+            official_number (unicode): The official number for identification of this document.
+            canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
+            municipality (unicode): The code for the municipality.
+            article_numbers (list of unicode): Pointers to specific articles.
+            file (bytes): The binary content of the document.
+            articles (list of ArticleRecord): The linked articles.
+            references (list of DocumentRecord): The references to other documents.
+        """
+    def __init__(self, law_status, published_from, title, responsible_office, text_at_web=None,
+                 abbreviation=None, official_number=None, official_title=None, canton=None,
+                 municipality=None, article_numbers=None, file=None, articles=None, references=None):
+        """
+
+        Args:
+            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
+            published_from (datetime.date): Date since this document was published.
+            title (dict of unicode): The multilingual title of the document. It might be shortened one.
+            responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
+                responsible for this document.
+            text_at_web (dict of uri): The multilingual URI to the documents content.
+            official_title (dict of unicode): The official title of the document (multilingual).
+            abbreviation (dict of unicode): Short term for this document (multilingual).
+            official_number (unicode): The official number for identification of this document.
+            canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
+            municipality (unicode): The code for the municipality.
+            article_numbers (list of unicode): Pointers to specific articles.
+            file (bytes): The binary content of the document.
+            articles (list of ArticleRecord): The linked articles.
+            references (list of DocumentRecord): The references to other documents.
+        """
+        super(LegalProvisionRecord, self).__init__('LegalProvision', law_status, published_from, title,
+                                                   responsible_office, text_at_web,
+                                                   abbreviation, official_number, official_title, canton,
+                                                   municipality, article_numbers, file, articles, references)

@@ -146,21 +146,21 @@ class OEREBlexSource(Base):
         # Get files
         records = []
         for f in document.files:
-            records.append(document_class(
-                # FIXME figure out which value to use
-                document_type='LegalProvision',
-                law_status=LawStatusRecord.from_config(u'inForce'),
-                published_from=document.enactment_date,
-                title=self._get_document_title(document, f),
-                responsible_office=office,
-                text_at_web={self._language: f.href},
-                abbreviation=document.abbreviation,
-                official_number=document.number,
-                official_title=self._get_mapped_value(document, 'official_title', True),
-                canton=self._canton,
-                municipality=self._get_mapped_value(document, 'municipality'),
-                references=referenced_records if len(referenced_records) > 0 else None
-            ))
+            arguments = {'law_status': LawStatusRecord.from_config(u'inForce'),
+                         'published_from': document.enactment_date,
+                         'title': self._get_document_title(document, f),
+                         'responsible_office': office,
+                         'text_at_web': {self._language: f.href},
+                         'abbreviation': document.abbreviation,
+                         'official_number': document.number,
+                         'official_title': self._get_mapped_value(document, 'official_title', True),
+                         'canton': self._canton,
+                         'municipality': self._get_mapped_value(document, 'municipality'),
+                         'references': referenced_records if len(referenced_records) > 0 else None}
+            if document.doctype == 'edict':
+                arguments['document_type'] = 'Law'
+            # the other case of (doctype == 'decree') is 'LegalProvision' by default
+            records.append(document_class(**arguments))
 
         return records
 
