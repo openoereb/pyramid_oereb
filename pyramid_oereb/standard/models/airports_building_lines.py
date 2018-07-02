@@ -275,6 +275,8 @@ class ViewService(Base):
     __table_args__ = {'schema': 'airports_building_lines'}
     __tablename__ = 'view_service'
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
+    layer_index = sa.Column(sa.Integer, nullable=False)
+    layer_opacity = sa.Column(sa.Float, nullable=False)
     reference_wms = sa.Column(sa.String, nullable=False)
     legend_at_web = sa.Column(sa.String, nullable=True)
     min_NS03 = sa.Column(GeoAlchemyGeometry('POINT', srid=21781), nullable=True)
