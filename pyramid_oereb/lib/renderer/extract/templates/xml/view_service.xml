@@ -18,3 +18,21 @@
 </data:OtherLegend>
 %endfor
 %endif
+% if map.min_NS03
+<data:min_NS03>${map.min_NS03.x} ${map.min_NS03.y}</data:min_NS03>
+%endif
+% if map.max_NS03
+<data:max_NS03>${map.max_NS03.x} ${map.max_NS03.y}</data:max_NS03>
+%endif
+% if map.min_NS95
+<data:min_NS95>${map.min_NS95.x} ${map.min_NS95.y}</data:min_NS95>
+%endif
+% if map.max_NS95
+<data:max_NS95>${map.max_NS95.x} ${map.max_NS95.y}</data:max_NS95>
+%endif
+%if map.layer_index
+<data:layerIndex>${map.layer_index}</data:layerIndex>
+%endif
+%if map.layer_opacity
+<data:layerOpacity>${map.layer_opacity}</data:layerOpacity>
+%endif

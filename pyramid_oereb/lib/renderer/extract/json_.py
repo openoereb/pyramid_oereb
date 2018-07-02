@@ -475,6 +475,19 @@ class Renderer(Base):
             map_dict['OtherLegend'] = [
                 self.format_legend_entry(legend_entry) for legend_entry in other_legend]
 
+        if map_.layer_index is not None:
+            map_dict['LayerIndex'] = map_.layer_index
+        if map_.layer_opacity is not None:
+            map_dict['LayerOpacity'] = map_.layer_opacity
+        if map_.min_NS03 is not None:
+            map_dict['min_NS03'] = self.from_shapely(map_.min_NS03)
+        if map_.max_NS03 is not None:
+            map_dict['max_NS03'] = self.from_shapely(map_.max_NS03)
+        if map_.min_NS95 is not None:
+            map_dict['min_NS95'] = self.from_shapely(map_.min_NS95)
+        if map_.max_NS95 is not None:
+            map_dict['max_NS95'] = self.from_shapely(map_.max_NS95)
+
         return map_dict
 
     def format_legend_entry(self, legend_entry):
