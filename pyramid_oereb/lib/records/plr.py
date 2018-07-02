@@ -105,12 +105,14 @@ class PlrRecord(EmptyPlrRecord):
             self.geometries = geometries
         self.info = info
         self.has_data = True
+        self.min_points = min_length
         self.min_length = min_length
         self.min_area = min_area
         self.area_unit = area_unit
         self.length_unit = length_unit
         self._areaShare = None
         self._lengthShare = None
+        self._nrOfPoins = None
         self.symbol = symbol
         self.view_service_id = view_service_id
 
@@ -141,6 +143,21 @@ class PlrRecord(EmptyPlrRecord):
                 areas_to_sum.append(geometry.areaShare)
         return sum(areas_to_sum) if len(areas_to_sum) > 0 else None
 
+    def _sum_points(self):
+        """
+        TODO: vreify if this the number of points is calculated in the way it is done below.
+        Returns:
+            int: The summed number of poits.
+        """
+        points_to_sum = []
+        # points_to_sum = 0
+        for geometry in self.geometries:
+            if geometry.nrOfPoints:
+                points_to_sum.append(geometry.nrOfPoints)
+                # points_to_sum += geometry.nrOfPoints
+        return sum(points_to_sum) if len(points_to_sum) > 0 else None
+        # return points_to_sum if points_to_sum > 0 else None
+
     @property
     def areaShare(self):
         """
@@ -157,6 +174,14 @@ class PlrRecord(EmptyPlrRecord):
         """
         return self._lengthShare
 
+    @property
+    def nrOfPoints(self):
+        """
+        Returns:
+            float or None: Returns the number of points of all related geometry records of this PLR.
+        """
+        return self._nrOfPoints
+
     def calculate(self, real_estate):
         tested_geometries = []
         inside = False
@@ -169,11 +194,20 @@ class PlrRecord(EmptyPlrRecord):
                 tested_geometries.append(geometry)
                 inside = True
         self.geometries = tested_geometries
+
+        # Points
+        ##nrOfPoints = self.sum_points()
+        ##if nrOfPoints is None:
+        ##    self._nrOfPoints = None
+        ##else:
+        ##    self._nrOfPoints = int(round(nrOfPoints)
+        # Lines
         lengthShare = self._sum_length()
         if lengthShare is None:
             self._lengthShare = None
         else:
             self._lengthShare = int(round(lengthShare, 0))
+        # Areas
         areaShare = self._sum_area()
         if areaShare is None:
             self._areaShare = None

@@ -41,6 +41,7 @@ class GeometryRecord(object):
         self._units = None
         self._areaShare = None
         self._lengthShare = None
+        self._nrOfPoints = None
         self._test_passed = False
         self.calculated = False
 
@@ -71,6 +72,13 @@ class GeometryRecord(object):
         if self.published:
             if self.geom.type in point_types:
                 self._test_passed = real_estate.limit.intersects(self.geom)
+                ### How is the result clculated for points?
+                ### result = self.geom.intersection(real_estate.limit)
+                ### nrOfPoints = result.nrOfPoints
+                ###
+                ### if nrOfPoints >= min_points:
+                ###     self._nrOfPoints = nrOfPoints
+                ###     self._test_passed = True
             else:
                 result = self.geom.intersection(real_estate.limit)
                 if self.geom.type in line_types:
@@ -98,7 +106,7 @@ class GeometryRecord(object):
         float or None: Returns the area of this geometry.
         """
         if not self.calculated:
-            log.warning(u'There was an access on property "area" before calculation was done.')
+            log.warning(u'There was an access on property "areaShare" before calculation was done.')
         return self._areaShare
 
     @property
@@ -107,5 +115,14 @@ class GeometryRecord(object):
         float or None: Returns the length of this geometry.
         """
         if not self.calculated:
-            log.warning(u'There was an access on property "length" before calculation was done.')
+            log.warning(u'There was an access on property "lengthShare" before calculation was done.')
         return self._lengthShare
+
+    @property
+    def nrOfPoints(self):
+        """
+        float or None: Returns the number of this geometry.
+        """
+        if not self.calculated:
+            log.warning(u'There was an access on property "nrOfPoints" before calculation was done.')
+        return self._nrOfPoints
