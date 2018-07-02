@@ -109,8 +109,14 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def from_db_to_view_service_record(self, view_service_from_db, legend_entry_records):
         view_service_record = self._view_service_record_class(
             view_service_from_db.reference_wms,
+            view_service_from_db.layer_index,
+            view_service_from_db.layer_opacity,
             view_service_from_db.legend_at_web,
-            legends=legend_entry_records
+            legends=legend_entry_records,
+            min_NS03=view_service_from_db.min_NS03,
+            max_NS03=view_service_from_db.max_NS03,
+            min_NS95=view_service_from_db.min_NS95,
+            max_NS95=view_service_from_db.max_NS95
         )
         return view_service_record
 
