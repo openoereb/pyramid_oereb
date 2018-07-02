@@ -66,13 +66,16 @@ class ViewServiceRecord(object):
     # Attributes defined while processing
     image = None    # map image resulting from calling the wms link - binary
 
-    def __init__(self, reference_wms, legend_at_web=None, legends=None,
+    def __init__(self, reference_wms, layer_index, layer_opacity,
+                 legend_at_web=None, legends=None,
                  min_NS03=None, max_NS03=None,
                  min_NS95=None, max_NS95=None):
         """
 
         Args:
             reference_wms (uri): The link URL to the actual service (WMS)
+            layer_index (int): Layer index. Value from -1000 to +1000.
+            layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.
             legend_at_web (uri): The link URL to the actual legend service (WMS get legend)
             legends (list of LegendEntry): A list of all relevant legend entries.
             min_NS03 (list): TODO doc.
@@ -82,6 +85,25 @@ class ViewServiceRecord(object):
         """
         self.reference_wms = reference_wms
         self.legend_at_web = legend_at_web
+
+        if layer_index and not isinstance(layer_index, int):
+            warnings.warn('Type of "layer_index" should be "int"')
+        if layer_index < -1000 or layer_index > 1000:
+            error_msg = "layer_index should be >= -1000 and <= 1000, " \
+                        "was: {layer_index}".format(layer_index=layer_index)
+            log.error(error_msg)
+            raise AttributeError(error_msg)
+        self.layer_index = layer_index
+
+        if layer_opacity and not isinstance(layer_opacity, float):
+            warnings.warn('Type of "layer_opacity" should be "float"')
+        if layer_opacity < 0.0 or layer_opacity > 1.0:
+            error_msg = "layer_opacity should be >= 0.0 and <= 1.0, " \
+                        "was: {layer_opacity}".format(layer_opacity=layer_opacity)
+            log.error(error_msg)
+            raise AttributeError(error_msg)
+        self.layer_opacity = layer_opacity
+
         self.min_NS03 = min_NS03
         self.max_NS03 = max_NS03
         self.min_NS95 = min_NS95
