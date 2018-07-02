@@ -269,8 +269,14 @@ class ViewService(Base):
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
+        layer_index (int): Layer index. Value from -1000 to +1000.
+        layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.
         reference_wms (str): The actual url which leads to the desired cartographic representation.
         legend_at_web (str): A link leading to a wms describing document (png).
+        min_NS03 (geoalchemy2.types.Geometry): TODO doc.
+        max_NS03 (geoalchemy2.types.Geometry): TODO doc.
+        min_NS95 (geoalchemy2.types.Geometry): TODO doc.
+        max_NS95 (geoalchemy2.types.Geometry): TODO doc.
     """
     __table_args__ = {'schema': 'forest_perimeters'}
     __tablename__ = 'view_service'
