@@ -66,16 +66,26 @@ class ViewServiceRecord(object):
     # Attributes defined while processing
     image = None    # map image resulting from calling the wms link - binary
 
-    def __init__(self, reference_wms, legend_at_web=None, legends=None):
+    def __init__(self, reference_wms, legend_at_web=None, legends=None,
+                 min_NS03=None, max_NS03=None,
+                 min_NS95=None, max_NS95=None):
         """
 
         Args:
             reference_wms (uri): The link URL to the actual service (WMS)
             legend_at_web (uri): The link URL to the actual legend service (WMS get legend)
             legends (list of LegendEntry): A list of all relevant legend entries.
+            min_NS03 (list): TODO doc.
+            max_NS03 (list): TODO doc.
+            min_NS95 (list): TODO doc.
+            max_NS95 (list): TODO doc.
         """
         self.reference_wms = reference_wms
         self.legend_at_web = legend_at_web
+        self.min_NS03 = min_NS03
+        self.max_NS03 = max_NS03
+        self.min_NS95 = min_NS95
+        self.max_NS95 = max_NS95
         if legends is None:
             self.legends = []
         else:
