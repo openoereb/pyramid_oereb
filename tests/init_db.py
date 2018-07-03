@@ -190,7 +190,9 @@ class DummyData(object):
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(motorways_building_lines.ViewService.__table__.insert(), {
             'id': 1,
-            'reference_wms': wms_url.format(self._config.get('srid'))
+            'reference_wms': wms_url.format(self._config.get('srid')),
+            'layer_index': 1,
+            'layer_opacity': 1.0
         })
         connection.execute(motorways_building_lines.Office.__table__.insert(), {
             'id': 1,
@@ -349,7 +351,9 @@ class DummyData(object):
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(contaminated_sites.ViewService.__table__.insert(), {
             'id': 1,
-            'reference_wms': wms_url.format(self._config.get('srid'))
+            'reference_wms': wms_url.format(self._config.get('srid')),
+            'layer_index': 1,
+            'layer_opacity': 1.0
         })
 
         connection.execute(contaminated_sites.LegendEntry.__table__.insert(), {
@@ -457,7 +461,9 @@ class DummyData(object):
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(land_use_plans.ViewService.__table__.insert(), {
             'id': 1,
-            'reference_wms': wms_url.format(self._config.get('srid'))
+            'reference_wms': wms_url.format(self._config.get('srid')),
+            'layer_index': 1,
+            'layer_opacity': 1.0
         })
 
         connection.execute(land_use_plans.Office.__table__.insert(), {

@@ -33,6 +33,8 @@ def test_init():
     date = datetime.datetime.now()
     real_estate = RealEstateRecord(u'test', u'BL', u'Laufen', 2770, 1000, MultiPolygon(), ViewServiceRecord(
         'test_link',
+        1,
+        1.0,
         'test_legend'
     ))
     plr_office = OfficeRecord({u'en': u'PLR Authority'})
