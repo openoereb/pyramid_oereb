@@ -55,6 +55,10 @@ def test_invalid_layer_index_arguments():
         ViewServiceRecord(reference_wms='http://example.com',
                           layer_index=1001,
                           layer_opacity=1)
+    with pytest.warns(UserWarning, match='Type of "layer_index" should be "int"'):
+        ViewServiceRecord(reference_wms='http://example.com',
+                          layer_index=1.0,
+                          layer_opacity=1)
 
 
 def test_invalid_layer_layer_opacity():
@@ -66,5 +70,9 @@ def test_invalid_layer_layer_opacity():
         ViewServiceRecord(reference_wms='http://example.com',
                           layer_index=1,
                           layer_opacity=-1.1)
+    with pytest.warns(UserWarning, match='Type of "layer_opacity" should be "float"'):
+        ViewServiceRecord(reference_wms='http://example.com',
+                          layer_index=1,
+                          layer_opacity=1)
 
 # todo add min/max_NS attributes tests
