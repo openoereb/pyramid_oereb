@@ -480,13 +480,13 @@ class Renderer(Base):
         if map_.layer_opacity is not None:
             map_dict['LayerOpacity'] = map_.layer_opacity
         if map_.min_NS03 is not None:
-            map_dict['min_NS03'] = self.from_shapely(map_.min_NS03)
+            map_dict['min_NS03'] = self.format_point(map_.min_NS03)
         if map_.max_NS03 is not None:
-            map_dict['max_NS03'] = self.from_shapely(map_.max_NS03)
+            map_dict['max_NS03'] = self.format_point(map_.max_NS03)
         if map_.min_NS95 is not None:
-            map_dict['min_NS95'] = self.from_shapely(map_.min_NS95)
+            map_dict['min_NS95'] = self.format_point(map_.min_NS95)
         if map_.max_NS95 is not None:
-            map_dict['max_NS95'] = self.from_shapely(map_.max_NS95)
+            map_dict['max_NS95'] = self.format_point(map_.max_NS95)
 
         return map_dict
 
@@ -575,3 +575,7 @@ class Renderer(Base):
         }
 
         return embeddable_dict
+
+    @staticmethod
+    def format_point(point):
+        return {'x': point.x, 'y': point.y}
