@@ -4,6 +4,10 @@
     "id": 1,
     "reference_wms": "https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:21781&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb",
     "layer_index": 1,
-    "layer_opacity": 1.0
+    "layer_opacity": 1.0,
+    "min_NS03": "SRID=21781;GEOMETRYCOLLECTION(POINT(2608000 1261000))",
+    "max_NS03": "SRID=21781;GEOMETRYCOLLECTION(POINT(2609000 1262000))",
+    "min_NS95": "SRID=2056;GEOMETRYCOLLECTION(POINT(2608000 1261000))",
+    "max_NS95": "SRID=2056;GEOMETRYCOLLECTION(POINT(2609000 1262000))"
   }
 ]
