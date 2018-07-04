@@ -16,6 +16,7 @@ class RealEstateRecord(object):
     """
 
     plan_for_land_register = None
+    plan_for_land_register_main_page = None
     highlight = None
     areas_ratio = 1.0
 
@@ -43,6 +44,8 @@ class RealEstateRecord(object):
                 associated with this real estate
             plan_for_land_register (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view
                 service to be used for the land registry map
+            plan_for_land_register_main_page (pyramid_oereb.lib.records.view_service.ViewServiceRecord):
+                The view service to be used for the land registry map used on the main page
         """
         self.number = number
         self.identdn = identdn
@@ -74,6 +77,16 @@ class RealEstateRecord(object):
                 service to be used for the land registry map.
         """
         self.plan_for_land_register = plan_for_land_register
+
+    def set_main_page_view_service(self, plan_for_land_register_main_page):
+        """
+        Sets the view service to generate the land registry map for the real estate.
+
+        Args:
+            plan_for_land_register_main_page (pyramid_oereb.lib.records.view_service.ViewServiceRecord):
+                The view service to be used for the land registry map used on the main page
+        """
+        self.plan_for_land_register_main_page = plan_for_land_register_main_page
 
     def set_highlight_url(self, sld_url):
         configured_params = Config.get_real_estate_config().get('visualisation').get('url_params')

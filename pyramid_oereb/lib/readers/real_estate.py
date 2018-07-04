@@ -74,10 +74,22 @@ class RealEstateReader(object):
             max_NS03=max_NS03
         )
 
+        real_estate_main_page_view_service = ViewServiceRecord(
+            reference_wms=reference_wms,
+            legend_at_web=Config.get_real_estate_main_page_config().get('view_service').get('legend_at_web'),
+            layer_index=Config.get_real_estate_main_page_config().get('view_service').get('layer_index'),
+            layer_opacity=Config.get_real_estate_main_page_config().get('view_service').get('layer_opacity'),
+            min_NS95=min_NS95,
+            max_NS95=max_NS95,
+            min_NS03=min_NS03,
+            max_NS03=max_NS03
+        )
+
         self._source_.read(nb_ident=nb_ident, number=number, egrid=egrid, geometry=geometry)
         for r in self._source_.records:
             if isinstance(r, RealEstateRecord):
                 r.set_view_service(real_estate_view_service)
+                r.set_main_page_view_service(real_estate_main_page_view_service)
         return self._source_.records
 
     @staticmethod

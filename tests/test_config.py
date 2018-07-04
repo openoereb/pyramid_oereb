@@ -3,7 +3,7 @@ import datetime
 import pytest
 from pyramid.config import ConfigurationError
 
-from pyramid_oereb.lib.config import parse, Config
+from pyramid_oereb.lib.config import parse, merge_dicts, Config
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
@@ -34,6 +34,53 @@ def test_parse_configuration():
     assert len(cfg.get('param2')) == 2
     assert cfg.get('param2')[0] == 'first'
     assert cfg.get('param2')[1] == 'second'
+
+
+def test_merge_dicts():
+    base = {
+        'a': 1,
+        'b': 'b value',
+        'c': {
+            'd': 2,
+            'keep': 'asdf',
+            'e': {
+                'f': [1, 2, 3]
+            }
+        },
+        'g': [],
+        'h': {
+            'i': 123,
+            'h': 'abcde'
+        }
+    }
+    overwrite = {
+        'b': 'new b value',
+        'c': {
+            'd': 3,
+            'e': {
+                'f': []
+            }
+        }
+
+    }
+    expected = {
+        'a': 1,
+        'b': 'new b value',
+        'c': {
+            'd': 3,
+            'keep': 'asdf',
+            'e': {
+                'f': []
+            }
+        },
+        'g': [],
+        'h': {
+            'i': 123,
+            'h': 'abcde'
+        }
+    }
+    merged = merge_dicts(base, overwrite)
+    assert merged == expected
 
 
 def test_get_plr_cadastre_authority():
@@ -92,3 +139,14 @@ def test_get_layer_config():
     layer_index, layer_opacity = Config.get_layer_config('MotorwaysProjectPlaningZones')
     assert layer_index is None
     assert layer_opacity is None
+
+
+def get_real_estate_main_page_config():
+    Config._config = None
+    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
+    main_page_config = Config.get_real_estate_config()
+    view_service = main_page_config.get('view_service')
+    assert view_service.get('reference_wms') == 'https://wms.ch/?BBOX=2475000,1065000,2850000,1300000'
+    assert view_service.get('layer_index') == 2
+    assert view_service.get('layer_opacity') == 0.5
+    assert view_service.get('not_in_config') is None

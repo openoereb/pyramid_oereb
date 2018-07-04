@@ -4,6 +4,8 @@ import os
 import logging
 import datetime
 import yaml
+import copy
+import collections
 from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
@@ -47,6 +49,27 @@ def parse(cfg_file, cfg_section, c2ctemplate_style=False):
     if cfg is None:
         raise ConfigurationError('YAML file contains no section "{0}"'.format(cfg_section))
     return cfg
+
+
+def merge_dicts(base_dict, overwrite_dict):
+    """
+    Merges two dictionaries recursively, i.e. also sub-dictionaries get merged.
+    Values from overwrite_dict overwrite those from base_dict. Values that only exist in overwrite_dict
+    will be thrown away.
+
+    Args:
+        base_dict (dict): First dictionary, whose values get overwritten if present in overwrite_dict.
+        overwrite_dict (dict): Second dictionary.
+
+    Returns:
+        dict: Merged dictionary.
+    """
+    for key, val in overwrite_dict.iteritems():
+        if isinstance(val, collections.Mapping):
+            base_dict[key] = merge_dicts(base_dict.get(key, {}), val)
+        else:
+            base_dict[key] = val
+    return base_dict
 
 
 class Config(object):
@@ -225,6 +248,17 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get('real_estate')
+
+    @staticmethod
+    def get_real_estate_main_page_config():
+        assert Config._config is not None
+        base = Config._config.get('real_estate', {})
+        base = copy.deepcopy(base)
+        if 'main_page' in base:
+            overwrite = base.get('main_page')
+            del base['main_page']
+            base = merge_dicts(base, overwrite)
+        return base
 
     @staticmethod
     def get_address_config():

@@ -40,3 +40,14 @@ pyramid_oereb:
         layer_opacity: 0.25
     - name: plr73
       code: MotorwaysProjectPlaningZones
+
+  real_estate:
+      view_service:
+        reference_wms: https://wms.ch/?BBOX=2475000,1065000,2850000,1300000
+        layer_index: 1
+        layer_opacity: 0.25
+      main_page:
+        view_service:
+          layer_index: 2
+          layer_opacity: 0.5
+          not_in_config: does not matter

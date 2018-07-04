@@ -187,6 +187,11 @@ vars:
         layer_opacity: 0.25
         # Legend is optional
         # legend_at_web:
+      # Overrides for main page of export.
+      # If a value cannot be found here, values from real_estate will be used instead.
+      main_page:
+        view_service:
+          layer_opacity: 0.5
       visualisation:
         method: pyramid_oereb.standard.hook_methods.produce_sld_content
         # Note: This parameters must fit to the attributes provided by the RealEstateRecord!!!!
