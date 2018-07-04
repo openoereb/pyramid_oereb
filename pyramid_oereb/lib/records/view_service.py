@@ -78,10 +78,14 @@ class ViewServiceRecord(object):
             layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.
             legend_at_web (uri): The link URL to the actual legend service (WMS get legend)
             legends (list of LegendEntry): A list of all relevant legend entries.
-            min_NS03 (list): TODO doc.
-            max_NS03 (list): TODO doc.
-            min_NS95 (list): TODO doc.
-            max_NS95 (list): TODO doc.
+            min_NS03 (shapely.geometry.point.Point): Minimal value of map extent (bounding box)
+                in EPSG:21781 (NS03).
+            max_NS03 (shapely.geometry.point.Point): Maximal value of map extent (bounding box)
+                in EPSG:21781 (NS03).
+            min_NS95 (shapely.geometry.point.Point): Minimal value of map extent (bounding box)
+                in EPSG:2056 (NS95).
+            max_NS95 (shapely.geometry.point.Point): Maximal value of map extent (bounding box)
+                in EPSG:2056 (NS95).
         """
         self.reference_wms = reference_wms
         self.legend_at_web = legend_at_web

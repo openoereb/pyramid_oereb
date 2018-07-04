@@ -273,10 +273,14 @@ class ViewService(Base):
         layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.
         reference_wms (str): The actual url which leads to the desired cartographic representation.
         legend_at_web (str): A link leading to a wms describing document (png).
-        min_NS03 (geoalchemy2.types.Geometry): TODO doc.
-        max_NS03 (geoalchemy2.types.Geometry): TODO doc.
-        min_NS95 (geoalchemy2.types.Geometry): TODO doc.
-        max_NS95 (geoalchemy2.types.Geometry): TODO doc.
+        min_NS03 (geoalchemy2.types.Geometry): Minimal value of map extent (bounding box)
+            in EPSG:21781 (NS03).
+        max_NS03 (geoalchemy2.types.Geometry): Maximal value of map extent (bounding box)
+            in EPSG:21781 (NS03).
+        min_NS95 (geoalchemy2.types.Geometry): Minimal value of map extent (bounding box)
+            in EPSG:2056 (NS95).
+        max_NS95 (geoalchemy2.types.Geometry): Maximal value of map extent (bounding box)
+            in EPSG:2056 (NS95).
     """
     __table_args__ = {'schema': 'noise_sensitivity_levels'}
     __tablename__ = 'view_service'
