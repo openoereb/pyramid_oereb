@@ -271,6 +271,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
             'id': 1,
+            'document_type': u'Law',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'type': u'document'
@@ -282,6 +283,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
             'id': 2,
+            'document_type': u'Law',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'type': u'document'
@@ -293,6 +295,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
             'id': 3,
+            'document_type': u'Law',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'type': u'document'
@@ -304,6 +307,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
             'id': 4,
+            'document_type': u'Law',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'type': u'document'

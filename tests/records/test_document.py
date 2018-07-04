@@ -3,7 +3,7 @@ import datetime
 import pytest
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 
-from pyramid_oereb.lib.records.documents import DocumentRecord, ArticleRecord
+from pyramid_oereb.lib.records.documents import DocumentRecord, ArticleRecord, LegalProvisionRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
@@ -14,8 +14,9 @@ def test_mandatory_fields():
 
 def test_init(law_status):
     office_record = OfficeRecord({'en': 'name'})
-    record = DocumentRecord(law_status, datetime.date(1985, 8, 29), {'en': 'title'},
+    record = DocumentRecord('Law', law_status, datetime.date(1985, 8, 29), {'en': 'title'},
                             office_record, {'en': 'http://my.document.com'})
+    assert isinstance(record.document_type, str)
     assert isinstance(record.law_status, LawStatusRecord)
     assert isinstance(record.published_from, datetime.date)
     assert isinstance(record.title, dict)
@@ -34,7 +35,7 @@ def test_init(law_status):
 
 def test_future_document(law_status):
     office_record = OfficeRecord({'en': 'name'})
-    record = DocumentRecord(law_status,
+    record = DocumentRecord('Hint', law_status,
                             (datetime.datetime.now().date() + datetime.timedelta(days=7)), {'en': 'title'},
                             office_record, {'en': 'http://my.document.com'})
     assert not record.published
@@ -42,14 +43,15 @@ def test_future_document(law_status):
 
 def test_init_with_relation(law_status):
     office_record = OfficeRecord({'en': 'name'})
-    articles = [ArticleRecord(law_status, datetime.date(1985, 8, 29), '123.4')]
+    articles = [ArticleRecord('Law', law_status, datetime.date(1985, 8, 29), '123.4')]
     references = [
-        DocumentRecord(law_status, datetime.date(1985, 8, 29), {'de': 'Titel 1'}, office_record,
+        DocumentRecord('Law', law_status, datetime.date(1985, 8, 29), {'de': 'Titel 1'}, office_record,
                        {'en': 'http://my.document.com'})
     ]
-    record = DocumentRecord(law_status, datetime.date(1985, 8, 29), {'de': 'title'},
+    record = DocumentRecord('Hint', law_status, datetime.date(1985, 8, 29), {'de': 'title'},
                             office_record, {'en': 'http://my.document.com'}, articles=articles,
                             references=references, article_numbers=['test'])
+    assert isinstance(record.document_type, str)
     assert isinstance(record.law_status, LawStatusRecord)
     assert isinstance(record.published_from, datetime.date)
     assert isinstance(record.title, dict)
@@ -63,3 +65,13 @@ def test_init_with_relation(law_status):
     assert record.article_numbers == ['test']
     assert isinstance(record.articles, list)
     assert isinstance(record.references, list)
+
+
+def test_legal_provision(law_status):
+    office_record = OfficeRecord({'en': 'name'})
+    legal_provision = LegalProvisionRecord(law_status,
+                                           datetime.date(1985, 8, 29),
+                                           {'de': 'title'},
+                                           office_record)
+    assert isinstance(legal_provision.document_type, str)
+    assert legal_provision.document_type == 'LegalProvision'

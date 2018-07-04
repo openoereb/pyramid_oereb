@@ -315,6 +315,7 @@ class Renderer(Base):
             multilingual_text_at_web = self.get_multilingual_text(document.text_at_web)
 
             document_dict.update({
+                'DocumentType': document.document_type,
                 'Lawstatus': self.format_law_status(document.law_status),
                 'TextAtWeb': multilingual_text_at_web,
                 'Title': self.get_multilingual_text(document.title),
@@ -355,6 +356,7 @@ class Renderer(Base):
 
         elif isinstance(document, ArticleRecord):
             document_dict.update({
+                'DocumentType': document.document_type,
                 'Lawstatus': self.format_law_status(document.law_status),
                 'Number': document.number
             })
