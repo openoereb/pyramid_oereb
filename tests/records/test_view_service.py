@@ -4,6 +4,7 @@ import pytest
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
+from shapely.geometry.point import Point
 
 
 def test_mandatory_fields():
@@ -12,20 +13,27 @@ def test_mandatory_fields():
 
 
 def test_init():
-    # todo add min/max_NS attributes
     record = ViewServiceRecord('http://www.test.url.ch',
                                1,
                                1.0,
-                               'http://www.test.url.ch')
+                               'http://www.test.url.ch',
+                               None,
+                               Point(2608000, 1261000),
+                               Point(2609000, 1262000),
+                               Point(2608000, 1261000),
+                               Point(2609000, 1262000))
     assert isinstance(record.reference_wms, str)
     assert isinstance(record.layer_index, int)
     assert isinstance(record.layer_opacity, float)
     assert isinstance(record.legend_at_web, str)
     assert isinstance(record.legends, list)
+    assert isinstance(record.min_NS03, Point)
+    assert isinstance(record.max_NS03, Point)
+    assert isinstance(record.min_NS95, Point)
+    assert isinstance(record.max_NS95, Point)
 
 
 def test_init_with_relation():
-    # todo add min/max_NS attributes
     legend_records = [LegendEntryRecord(
         ImageRecord('100'.encode('utf-8')),
         {'en': 'test'},
@@ -38,12 +46,20 @@ def test_init_with_relation():
                                1,
                                1.0,
                                'http://www.test.url.ch',
-                               legend_records)
+                               legend_records,
+                               Point(2608000, 1261000),
+                               Point(2609000, 1262000),
+                               Point(2608000, 1261000),
+                               Point(2609000, 1262000))
     assert isinstance(record.reference_wms, str)
     assert isinstance(record.layer_index, int)
     assert isinstance(record.layer_opacity, float)
     assert isinstance(record.legend_at_web, str)
     assert isinstance(record.legends, list)
+    assert isinstance(record.min_NS03, Point)
+    assert isinstance(record.max_NS03, Point)
+    assert isinstance(record.min_NS95, Point)
+    assert isinstance(record.max_NS95, Point)
 
 
 def test_invalid_layer_index_arguments():
@@ -75,4 +91,87 @@ def test_invalid_layer_layer_opacity():
                           layer_index=1,
                           layer_opacity=1)
 
-# todo add min/max_NS attributes tests
+
+def test_min_max_attributes():
+    min_val = Point(1, 1)
+    max_val = Point(2, 2)
+
+    # test None values, expect no error
+    ViewServiceRecord('http://www.test.url.ch',
+                      1,
+                      1.0,
+                      'http://www.test.url.ch',
+                      None,
+                      None,
+                      None,
+                      None,
+                      None)
+
+    # combinations of value + None
+    with pytest.raises(AttributeError):
+        ViewServiceRecord('http://www.test.url.ch',
+                          1,
+                          1.0,
+                          'http://www.test.url.ch',
+                          None,
+                          min_val,
+                          None,
+                          None,
+                          None)
+
+    with pytest.raises(AttributeError):
+        ViewServiceRecord('http://www.test.url.ch',
+                          1,
+                          1.0,
+                          'http://www.test.url.ch',
+                          None,
+                          None,
+                          min_val,
+                          None,
+                          None)
+
+    with pytest.raises(AttributeError):
+        ViewServiceRecord('http://www.test.url.ch',
+                          1,
+                          1.0,
+                          'http://www.test.url.ch',
+                          None,
+                          None,
+                          None,
+                          min_val,
+                          None)
+
+    with pytest.raises(AttributeError):
+        ViewServiceRecord('http://www.test.url.ch',
+                          1,
+                          1.0,
+                          'http://www.test.url.ch',
+                          None,
+                          None,
+                          None,
+                          None,
+                          min_val)
+
+    # type error
+    with pytest.raises(AssertionError):
+        ViewServiceRecord('http://www.test.url.ch',
+                          1,
+                          1.0,
+                          'http://www.test.url.ch',
+                          None,
+                          1,
+                          2,
+                          3,
+                          4)
+
+    # inverted values
+    with pytest.raises(AttributeError):
+        ViewServiceRecord('http://www.test.url.ch',
+                          1,
+                          1.0,
+                          'http://www.test.url.ch',
+                          None,
+                          max_val,
+                          min_val,
+                          max_val,
+                          min_val)
