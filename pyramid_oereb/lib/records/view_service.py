@@ -125,16 +125,20 @@ class ViewServiceRecord(object):
             self.legends = legends
 
     @staticmethod
-    def check_min_max_attributes(min, min_name, max, max_name):
-        if min is None and max is None:
+    def check_min_max_attributes(min_point, min_name, max_point, max_name):
+        if min_point is None and max_point is None:
             return
-        if min is None or max is None:
+        if min_point is None or max_point is None:
             error_msg = 'Both {min_name} and {max_name} have to be defined'.format(min_name=min_name,
                                                                                    max_name=max_name)
             raise AttributeError(error_msg)
-        assert isinstance(min, Point)
-        assert isinstance(max, Point)
-        if min.x > max.x or min.y > max.y:
+        if not isinstance(min_point, Point):
+            raise AttributeError('Type of "{min_name}" should be "shapely.geometry.point.Point"'
+                                 .format(min_name=min_name))
+        if not isinstance(max_point, Point):
+            raise AttributeError('Type of "{max_name}" should be "shapely.geometry.point.Point"'
+                                 .format(max_name=max_name))
+        if min_point.x > max_point.x or min_point.y > max_point.y:
             error_msg = 'Some value of {min_name} are larger than {max_name}'.format(min_name=min_name,
                                                                                      max_name=max_name)
             raise AttributeError(error_msg)

@@ -153,7 +153,7 @@ def test_min_max_attributes():
                           min_val)
 
     # type error
-    with pytest.raises(AssertionError):
+    with pytest.raises(AttributeError):
         ViewServiceRecord('http://www.test.url.ch',
                           1,
                           1.0,
