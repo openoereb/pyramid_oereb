@@ -15,3 +15,8 @@ def test_init():
     assert isinstance(record.law_status, str)
     assert record.text_at_web is None
     assert isinstance(record.published_from, datetime.date)
+
+
+def test_invalid_document_type():
+    with pytest.raises(AttributeError):
+        DocumentBaseRecord('invalid', 'runningModifications', datetime.date(1985, 8, 29))

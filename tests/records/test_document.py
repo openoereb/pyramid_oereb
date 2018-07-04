@@ -3,7 +3,7 @@ import datetime
 import pytest
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 
-from pyramid_oereb.lib.records.documents import DocumentRecord, ArticleRecord
+from pyramid_oereb.lib.records.documents import DocumentRecord, ArticleRecord, LegalProvisionRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
@@ -65,3 +65,13 @@ def test_init_with_relation(law_status):
     assert record.article_numbers == ['test']
     assert isinstance(record.articles, list)
     assert isinstance(record.references, list)
+
+
+def test_legal_provision(law_status):
+    office_record = OfficeRecord({'en': 'name'})
+    legal_provision = LegalProvisionRecord(law_status,
+                                           datetime.date(1985, 8, 29),
+                                           {'de': 'title'},
+                                           office_record)
+    assert isinstance(legal_provision.document_type, str)
+    assert legal_provision.document_type == 'LegalProvision'
