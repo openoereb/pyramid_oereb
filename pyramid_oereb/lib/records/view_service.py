@@ -8,6 +8,7 @@ from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.url import add_url_params
 from pyramid_oereb.lib.url import uri_validator
 from pyramid_oereb.lib.config import Config
+from shapely.geometry.point import Point
 
 
 log = logging.getLogger(__name__)
@@ -108,16 +109,35 @@ class ViewServiceRecord(object):
             raise AttributeError(error_msg)
         self.layer_opacity = layer_opacity
 
+        self.check_min_max_attributes(min_NS03, 'min_NS03', max_NS03, 'max_NS03')
         self.min_NS03 = min_NS03
         self.max_NS03 = max_NS03
+
+        self.check_min_max_attributes(min_NS95, 'min_NS95', max_NS95, 'max_NS95')
         self.min_NS95 = min_NS95
         self.max_NS95 = max_NS95
+
         if legends is None:
             self.legends = []
         else:
             for legend in legends:
                 assert isinstance(legend.symbol, ImageRecord)
             self.legends = legends
+
+    @staticmethod
+    def check_min_max_attributes(min, min_name, max, max_name):
+        if min is None and max is None:
+            return
+        if min is None or max is None:
+            error_msg = 'Both {min_name} and {max_name} have to be defined'.format(min_name=min_name,
+                                                                                   max_name=max_name)
+            raise AttributeError(error_msg)
+        assert isinstance(min, Point)
+        assert isinstance(max, Point)
+        if min.x > max.x or min.y > max.y:
+            error_msg = 'Some value of {min_name} are larger than {max_name}'.format(min_name=min_name,
+                                                                                     max_name=max_name)
+            raise AttributeError(error_msg)
 
     @staticmethod
     def get_map_size(format):
