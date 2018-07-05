@@ -269,7 +269,17 @@ class ViewService(Base):
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         reference_wms (str): The actual url which leads to the desired cartographic representation.
+        layer_index (int): Layer index. Value from -1000 to +1000.
+        layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.
         legend_at_web (str): A link leading to a wms describing document (png).
+        min_NS03 (geoalchemy2.types.Geometry): Minimal value of map extent (bounding box)
+            in EPSG:21781 (NS03).
+        max_NS03 (geoalchemy2.types.Geometry): Maximal value of map extent (bounding box)
+            in EPSG:21781 (NS03).
+        min_NS95 (geoalchemy2.types.Geometry): Minimal value of map extent (bounding box)
+            in EPSG:2056 (NS95).
+        max_NS95 (geoalchemy2.types.Geometry): Maximal value of map extent (bounding box)
+            in EPSG:2056 (NS95).
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'view_service'
