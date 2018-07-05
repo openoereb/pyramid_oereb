@@ -58,6 +58,7 @@ class RealEstateReader(object):
             legend_at_web=Config.get_real_estate_config().get('view_service').get('legend_at_web'),
             layer_index=Config.get_real_estate_config().get('view_service').get('layer_index'),
             layer_opacity=Config.get_real_estate_config().get('view_service').get('layer_opacity')
+            # TODO get bbox values from config as well?
         )
         self._source_.read(nb_ident=nb_ident, number=number, egrid=egrid, geometry=geometry)
         for r in self._source_.records:
