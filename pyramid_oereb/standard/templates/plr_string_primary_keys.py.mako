@@ -272,14 +272,6 @@ class ViewService(Base):
         layer_index (int): Layer index. Value from -1000 to +1000.
         layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.
         legend_at_web (str): A link leading to a wms describing document (png).
-        min_NS03 (geoalchemy2.types.Geometry): Minimal value of map extent (bounding box)
-            in EPSG:21781 (NS03).
-        max_NS03 (geoalchemy2.types.Geometry): Maximal value of map extent (bounding box)
-            in EPSG:21781 (NS03).
-        min_NS95 (geoalchemy2.types.Geometry): Minimal value of map extent (bounding box)
-            in EPSG:2056 (NS95).
-        max_NS95 (geoalchemy2.types.Geometry): Maximal value of map extent (bounding box)
-            in EPSG:2056 (NS95).
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'view_service'
@@ -288,10 +280,6 @@ class ViewService(Base):
     layer_index = sa.Column(sa.Integer, nullable=False)
     layer_opacity = sa.Column(sa.Float, nullable=False)
     legend_at_web = sa.Column(sa.String, nullable=True)
-    min_NS03 = sa.Column(GeoAlchemyGeometry('POINT', srid=21781), nullable=True)
-    max_NS03 = sa.Column(GeoAlchemyGeometry('POINT', srid=21781), nullable=True)
-    min_NS95 = sa.Column(GeoAlchemyGeometry('POINT', srid=2056), nullable=True)
-    max_NS95 = sa.Column(GeoAlchemyGeometry('POINT', srid=2056), nullable=True)
 
 
 class LegendEntry(Base):
