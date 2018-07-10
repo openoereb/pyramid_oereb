@@ -112,7 +112,7 @@ class PlrRecord(EmptyPlrRecord):
         self.length_unit = length_unit
         self._areaShare = None
         self._lengthShare = None
-        self._nrOfPoins = None
+        self._nrOfPoints = None
         self.symbol = symbol
         self.view_service_id = view_service_id
 
@@ -192,7 +192,7 @@ class PlrRecord(EmptyPlrRecord):
         self.geometries = tested_geometries
 
         # Points
-        nrOfPoints = self.sum_points()
+        nrOfPoints = self._sum_points()
         self._nrOfPoints = nrOfPoints if nrOfPoints else None
         # Lines
         lengthShare = self._sum_length()

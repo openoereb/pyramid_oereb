@@ -15,7 +15,7 @@ class GeometryRecord(object):
         law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
         published_from (datetime.date): Date from/since when the PLR record is published.
         geom (Point or LineString or Polygon):
-            The geometry which must be of type POINT, MULTIPOINT, LINESTRING or POLYGON, everything else
+            The geometry which must be of type POINT, LINESTRING or POLYGON, everything else
              will raise an error.
         geo_metadata (uri): The metadata.
         public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law
@@ -66,18 +66,18 @@ class GeometryRecord(object):
             bool: True if intersection fits the limits.
         """
         geometry_types = Config.get('geometry_types')
-        point_types = geometry_types.get('point').get('types')
-        multipoint_types = geometry_types.get('multiPoint').get('types')
         line_types = geometry_types.get('line').get('types')
         polygon_types = geometry_types.get('polygon').get('types')
+        point_types = geometry_types.get('point').get('types')
         if self.published:
             result = self.geom.intersection(real_estate.limit)
-            # If it is a multipoint make a list and count the number of elements in the list
-            if result.type in multipoint_types:
+            # differentiate between Points and MultiPoint
+            if result.type == point_types[1]:
+                # If it is a multipoint make a list and count the number of elements in the list
                 self._nrOfPoints = len(list(result.geoms))
                 self._test_passed = True
-            # If it is a single point the number of points is 1
-            elif result.type in point_types:
+            elif result.type == point_types[0]:
+                # If it is a single point the number of points is one
                 self._nrOfPoints = 1
                 self._test_passed = True
             elif self.geom.type in line_types:

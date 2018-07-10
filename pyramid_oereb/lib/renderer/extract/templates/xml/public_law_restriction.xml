@@ -65,5 +65,8 @@
         <LengthShare>${public_law_restriction.lengthShare}</LengthShare>
         <LengthUnit>${public_law_restriction.length_unit}</LengthUnit>
 %endif
+%if public_law_restriction.nrOfPoints:
+        <NrOfPoints>${public_law_restriction.nrOfPoints}</NrOfPoints>
+%endif
     </data:extensions>
 </data:RestrictionOnLandownership>
