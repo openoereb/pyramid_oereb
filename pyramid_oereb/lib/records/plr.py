@@ -105,7 +105,6 @@ class PlrRecord(EmptyPlrRecord):
             self.geometries = geometries
         self.info = info
         self.has_data = True
-        self.min_points = min_length
         self.min_length = min_length
         self.min_area = min_area
         self.area_unit = area_unit
