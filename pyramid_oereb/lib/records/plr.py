@@ -145,18 +145,14 @@ class PlrRecord(EmptyPlrRecord):
 
     def _sum_points(self):
         """
-        TODO: vreify if this the number of points is calculated in the way it is done below.
         Returns:
-            int: The summed number of poits.
+            int: The summed number of points of these geometry records.
         """
-        points_to_sum = []
-        # points_to_sum = 0
+        points_to_sum = 0
         for geometry in self.geometries:
             if geometry.nrOfPoints:
-                points_to_sum.append(geometry.nrOfPoints)
-                # points_to_sum += geometry.nrOfPoints
-        return sum(points_to_sum) if len(points_to_sum) > 0 else None
-        # return points_to_sum if points_to_sum > 0 else None
+                points_to_sum += geometry.nrOfPoints
+        return points_to_sum if points_to_sum > 0 else None
 
     @property
     def areaShare(self):
@@ -196,11 +192,8 @@ class PlrRecord(EmptyPlrRecord):
         self.geometries = tested_geometries
 
         # Points
-        ##nrOfPoints = self.sum_points()
-        ##if nrOfPoints is None:
-        ##    self._nrOfPoints = None
-        ##else:
-        ##    self._nrOfPoints = int(round(nrOfPoints)
+        nrOfPoints = self.sum_points()
+        self._nrOfPoints = nrOfPoints if nrOfPoints else None
         # Lines
         lengthShare = self._sum_length()
         if lengthShare is None:
