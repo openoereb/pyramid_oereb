@@ -264,21 +264,17 @@ class LegalProvision(Document):
 
 class ViewService(Base):
     """
-    A view service aka WM(T)S which can deliver a cartographic representation via web.
+    A   service aka WM(T)S which can deliver a cartographic representation via web.
 
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        layer_index (int): Layer index. Value from -1000 to +1000.
-        layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.
         reference_wms (str): The actual url which leads to the desired cartographic representation.
         legend_at_web (str): A link leading to a wms describing document (png).
     """
     __table_args__ = {'schema': 'airports_security_zone_plans'}
     __tablename__ = 'view_service'
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
-    layer_index = sa.Column(sa.Integer, nullable=False)
-    layer_opacity = sa.Column(sa.Float, nullable=False)
     reference_wms = sa.Column(sa.String, nullable=False)
     legend_at_web = sa.Column(sa.String, nullable=True)
 
