@@ -14,10 +14,10 @@ def test_mandatory_fields():
 
 def test_init():
     record = ViewServiceRecord('http://www.test.url.ch',
-                               1,
-                               1.0,
                                'http://www.test.url.ch',
                                None,
+                               1,
+                               1.0,
                                Point(2608000, 1261000),
                                Point(2609000, 1262000),
                                Point(2608000, 1261000),
@@ -43,10 +43,10 @@ def test_init_with_relation():
         view_service_id=1
     )]
     record = ViewServiceRecord('http://www.test.url.ch',
-                               1,
-                               1.0,
                                'http://www.test.url.ch',
                                legend_records,
+                               1,
+                               1.0,
                                Point(2608000, 1261000),
                                Point(2609000, 1262000),
                                Point(2608000, 1261000),
@@ -98,10 +98,10 @@ def test_min_max_attributes():
 
     # test None values, expect no error
     ViewServiceRecord('http://www.test.url.ch',
-                      1,
-                      1.0,
                       'http://www.test.url.ch',
                       None,
+                      1,
+                      1.0,
                       None,
                       None,
                       None,
@@ -110,10 +110,10 @@ def test_min_max_attributes():
     # combinations of value + None
     with pytest.raises(AttributeError):
         ViewServiceRecord('http://www.test.url.ch',
-                          1,
-                          1.0,
                           'http://www.test.url.ch',
                           None,
+                          1,
+                          1.0,
                           min_val,
                           None,
                           None,
@@ -121,10 +121,10 @@ def test_min_max_attributes():
 
     with pytest.raises(AttributeError):
         ViewServiceRecord('http://www.test.url.ch',
-                          1,
-                          1.0,
                           'http://www.test.url.ch',
                           None,
+                          1,
+                          1.0,
                           None,
                           min_val,
                           None,
@@ -132,10 +132,10 @@ def test_min_max_attributes():
 
     with pytest.raises(AttributeError):
         ViewServiceRecord('http://www.test.url.ch',
-                          1,
-                          1.0,
                           'http://www.test.url.ch',
                           None,
+                          1,
+                          1.0,
                           None,
                           None,
                           min_val,
@@ -143,10 +143,10 @@ def test_min_max_attributes():
 
     with pytest.raises(AttributeError):
         ViewServiceRecord('http://www.test.url.ch',
-                          1,
-                          1.0,
                           'http://www.test.url.ch',
                           None,
+                          1,
+                          1.0,
                           None,
                           None,
                           None,
@@ -155,10 +155,10 @@ def test_min_max_attributes():
     # type error
     with pytest.raises(AttributeError):
         ViewServiceRecord('http://www.test.url.ch',
-                          1,
-                          1.0,
                           'http://www.test.url.ch',
                           None,
+                          1,
+                          1.0,
                           1,
                           2,
                           3,
@@ -167,10 +167,10 @@ def test_min_max_attributes():
     # inverted values
     with pytest.raises(AttributeError):
         ViewServiceRecord('http://www.test.url.ch',
-                          1,
-                          1.0,
                           'http://www.test.url.ch',
                           None,
+                          1,
+                          1.0,
                           max_val,
                           min_val,
                           max_val,

@@ -49,9 +49,10 @@ def test_render(config, parameter):
     assert isinstance(config._config, dict)
     with pyramid_oereb_test_config():
         view_service = ViewServiceRecord(u'http://geowms.bl.ch',
+                                         u'http://geowms.bl.ch',
+                                         None,
                                          1,
-                                         1.0,
-                                         u'http://geowms.bl.ch')
+                                         1.0)
         real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
                                        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
                                        u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712')
@@ -169,9 +170,10 @@ def test_format_real_estate(config):
         'reduced', 'json', True, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
     geometry = MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])])
     view_service = ViewServiceRecord(u'http://geowms.bl.ch',
+                                     u'http://geowms.bl.ch',
+                                     None,
                                      1,
-                                     1.0,
-                                     u'http://geowms.bl.ch')
+                                     1.0)
     document = DocumentRecord('Law', law_status(), datetime.date.today(), {u'de': u'Test Dokument'},
                               OfficeRecord({u'de': u'BUD'}), {'de': 'http://mein.dokument.ch'})
     real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
@@ -228,10 +230,10 @@ def test_format_plr(config, parameter):
             {'de': 'Test'}, 'test', 'TypeCodeList', theme,
             view_service_id=1)
         view_service = ViewServiceRecord('http://geowms.bl.ch',
-                                         1,
-                                         1.0,
                                          'http://geowms.bl.ch',
-                                         [legend_entry])
+                                         [legend_entry],
+                                         1,
+                                         1.0)
         geometry = GeometryRecord(law_status(), datetime.date.today(), Point(1, 1))
         plr = PlrRecord(
             theme,
@@ -465,10 +467,10 @@ def test_format_map(config, params):
             view_service_id=1
         )
         view_service = ViewServiceRecord('http://my.wms.ch',
-                                         1,
-                                         1.0,
                                          'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
-                                         [legend_entry])
+                                         [legend_entry],
+                                         1,
+                                         1.0)
         view_service.image = ImageRecord('1'.encode('utf-8'))
         result = renderer.format_map(view_service)
         assert isinstance(result, dict)
@@ -535,9 +537,10 @@ def test_embeddable(params):
     renderer._params = params
     date = datetime.datetime.now()
     view_service = ViewServiceRecord(u'http://geowms.bl.ch',
+                                     u'http://geowms.bl.ch',
+                                     None,
                                      1,
-                                     1.0,
-                                     u'http://geowms.bl.ch')
+                                     1.0)
     real_estate = RealEstateRecord(
         u'RealEstate',
         u'BL',

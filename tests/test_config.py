@@ -81,3 +81,14 @@ def test_get_oereblex_config():
             'https': None
         }
     }
+
+
+def test_get_layer_config():
+    Config._config = None
+    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
+    layer_index, layer_opacity = Config.get_layer_config('LandUsePlans')
+    assert layer_index == 1
+    assert layer_opacity == 0.25
+    layer_index, layer_opacity = Config.get_layer_config('MotorwaysProjectPlaningZones')
+    assert layer_index is None
+    assert layer_opacity is None
