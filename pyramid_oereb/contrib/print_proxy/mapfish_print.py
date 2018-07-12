@@ -176,7 +176,7 @@ class Renderer(JsonRenderer):
         basemap = {
             'type': 'wms',
             'styles': 'default',
-            'opacity': 1,
+            'opacity': extract_dict['RealEstate_PlanForLandRegister'].get('LayerOpacity', 0.25),
             'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
             'layers': params['LAYERS'][0].split(','),
             'imageFormat': 'image/png',
@@ -207,7 +207,7 @@ class Renderer(JsonRenderer):
             restriction_on_landownership['baseLayers'] = {
                 'layers': [{
                     'type': 'wms',
-                    'opacity': 1,
+                    'opacity': restriction_on_landownership['Map'].get('LayerOpacity', 0.6),
                     'styles': 'default',
                     'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
                     'layers': params['LAYERS'][0].split(','),
