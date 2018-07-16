@@ -304,7 +304,7 @@ def test_format_plr(config, parameter):
         'BL', 'Liestal',
         ['Art.1', 'Art.2', 'Art.3'],
         '1'.encode('utf-8'), [
-            ArticleRecord('Law', law_status(), datetime.date.today(), 'art.1')
+            ArticleRecord(law_status(), datetime.date.today(), 'art.1')
         ], [
             DocumentRecord('Law', law_status(), datetime.date.today(), {'de': 'Test Dokument'},
                            OfficeRecord({'de': 'BUD'}), {'de': 'http://mein.dokument.ch'})
@@ -326,7 +326,6 @@ def test_format_plr(config, parameter):
             'Municipality': 'Liestal',
             'ArticleNumber': ['Art.1', 'Art.2', 'Art.3'],
             'Article': [{
-                'DocumentType': 'Law',
                 'Lawstatus': {
                     'Code': 'inForce',
                     'Text': {'Language': 'de', 'Text': 'In Kraft'}
@@ -347,14 +346,12 @@ def test_format_plr(config, parameter):
         }]
     }),
     (ArticleRecord(
-        'Law',
         law_status(),
         datetime.date.today(),
         u'art.2',
         {'de': 'http://mein.artikel.ch/2'},
         {u'de': u'Test-Artikel'}
     ), {
-        'DocumentType': 'Law',
         'Lawstatus': {
             'Code': 'inForce',
             'Text': {'Language': 'de', 'Text': 'In Kraft'}

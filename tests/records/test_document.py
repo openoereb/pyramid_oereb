@@ -33,6 +33,13 @@ def test_init(law_status):
     assert record.published
 
 
+def test_invalid_document_type():
+    office_record = OfficeRecord({'en': 'name'})
+    with pytest.raises(AttributeError):
+        DocumentRecord('invalid', 'runningModifications',
+                       datetime.date(1985, 8, 29), {'en': 'title'}, office_record)
+
+
 def test_future_document(law_status):
     office_record = OfficeRecord({'en': 'name'})
     record = DocumentRecord('Hint', law_status,
@@ -43,7 +50,7 @@ def test_future_document(law_status):
 
 def test_init_with_relation(law_status):
     office_record = OfficeRecord({'en': 'name'})
-    articles = [ArticleRecord('Law', law_status, datetime.date(1985, 8, 29), '123.4')]
+    articles = [ArticleRecord(law_status, datetime.date(1985, 8, 29), '123.4')]
     references = [
         DocumentRecord('Law', law_status, datetime.date(1985, 8, 29), {'de': 'Titel 1'}, office_record,
                        {'en': 'http://my.document.com'})
