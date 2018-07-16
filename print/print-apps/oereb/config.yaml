@@ -129,15 +129,13 @@ templates:
                     map: !map
                         maxDpi: 254
                         dpiSuggestions: [144, 254]
-                        zoomLevels: !zoomLevels
-                            scales: [100, 250, 500, 2500, 5000, 10000, 25000, 50000, 100000, 500000]
                         width: 493
                         height: 280
                         default:
                             projection: "EPSG:2056"
                             dpi: 144
                             zoomToFeatures:
-                                minScale: 500
+                                minScale: 0
                     baseLayers: !staticLayers {}
 
                     ResponsibleOffice_Name: !string #/definitions/MultilingualText
@@ -223,15 +221,13 @@ templates:
             map: !map
                 maxDpi: 254
                 dpiSuggestions: [144, 254]
-                zoomLevels: !zoomLevels
-                    scales: [100, 250, 500, 2500, 5000, 10000, 25000, 50000, 100000, 500000]
                 width: 493
                 height: 280
                 default:
                     projection: "EPSG:2056"
                     dpi: 144
                     zoomToFeatures:
-                        minScale: 500
+                        minScale: 0
             baseLayers: !staticLayers {}
             overlayLayers: !staticLayers
                 default:
