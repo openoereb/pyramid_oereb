@@ -64,11 +64,11 @@ def merge_dicts(base_dict, overwrite_dict):
     Returns:
         dict: Merged dictionary.
     """
-    for key, val in overwrite_dict.iteritems():
-        if isinstance(val, collections.Mapping):
-            base_dict[key] = merge_dicts(base_dict.get(key, {}), val)
+    for key in overwrite_dict:
+        if isinstance(overwrite_dict[key], collections.Mapping):
+            base_dict[key] = merge_dicts(base_dict.get(key, {}), overwrite_dict[key])
         else:
-            base_dict[key] = val
+            base_dict[key] = overwrite_dict[key]
     return base_dict
 
 
