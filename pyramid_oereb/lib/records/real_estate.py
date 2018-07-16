@@ -82,8 +82,10 @@ class RealEstateRecord(object):
             additional_url_params.update({param: getattr(self, param)})
         updated_sld_url = add_url_params(sld_url, additional_url_params)
         self.highlight = ViewServiceRecord(
-            add_url_params(self.plan_for_land_register.reference_wms, {'sld': updated_sld_url}),
-            ''
+            reference_wms=add_url_params(self.plan_for_land_register.reference_wms, {'sld': updated_sld_url}),
+            layer_index=self.plan_for_land_register.layer_index,
+            layer_opacity=self.plan_for_land_register.layer_opacity,
+            legend_at_web=''
         )
         self.highlight.download_wms_content()
 

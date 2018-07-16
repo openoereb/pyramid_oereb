@@ -31,3 +31,12 @@ pyramid_oereb:
     proxy:
       http: http://my.proxy.org
       https:
+
+  plrs:
+    - name: plr87
+      code: LandUsePlans
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.25
+    - name: plr73
+      code: MotorwaysProjectPlaningZones

@@ -8,6 +8,7 @@ from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.url import add_url_params
 from pyramid_oereb.lib.url import uri_validator
 from pyramid_oereb.lib.config import Config
+from shapely.geometry.point import Point
 
 
 log = logging.getLogger(__name__)
@@ -66,22 +67,92 @@ class ViewServiceRecord(object):
     # Attributes defined while processing
     image = None    # map image resulting from calling the wms link - binary
 
-    def __init__(self, reference_wms, legend_at_web=None, legends=None):
+    def __init__(self, reference_wms, legend_at_web=None, legends=None,
+                 layer_index=None, layer_opacity=None,
+                 min_NS03=None, max_NS03=None,
+                 min_NS95=None, max_NS95=None):
         """
 
         Args:
             reference_wms (uri): The link URL to the actual service (WMS)
             legend_at_web (uri): The link URL to the actual legend service (WMS get legend)
             legends (list of LegendEntry): A list of all relevant legend entries.
+            layer_index (int): Layer index. Value from -1000 to +1000.
+            layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.
+            min_NS03 (shapely.geometry.point.Point): Minimal value of map extent (bounding box)
+                in EPSG:21781 (NS03).
+            max_NS03 (shapely.geometry.point.Point): Maximal value of map extent (bounding box)
+                in EPSG:21781 (NS03).
+            min_NS95 (shapely.geometry.point.Point): Minimal value of map extent (bounding box)
+                in EPSG:2056 (NS95).
+            max_NS95 (shapely.geometry.point.Point): Maximal value of map extent (bounding box)
+                in EPSG:2056 (NS95).
         """
         self.reference_wms = reference_wms
         self.legend_at_web = legend_at_web
+
+        self.layer_index = self.sanitize_layer_index(layer_index)
+        self.layer_opacity = self.sanitize_layer_opacity(layer_opacity)
+
+        self.check_min_max_attributes(min_NS03, 'min_NS03', max_NS03, 'max_NS03')
+        self.min_NS03 = min_NS03
+        self.max_NS03 = max_NS03
+
+        self.check_min_max_attributes(min_NS95, 'min_NS95', max_NS95, 'max_NS95')
+        self.min_NS95 = min_NS95
+        self.max_NS95 = max_NS95
+
         if legends is None:
             self.legends = []
         else:
             for legend in legends:
                 assert isinstance(legend.symbol, ImageRecord)
             self.legends = legends
+
+    @staticmethod
+    def sanitize_layer_index(layer_index):
+        if layer_index is None:
+            return 1
+        if layer_index and not isinstance(layer_index, int):
+            warnings.warn('Type of "layer_index" should be "int"')
+        if layer_index < -1000 or layer_index > 1000:
+            error_msg = "layer_index should be >= -1000 and <= 1000, " \
+                        "was: {layer_index}".format(layer_index=layer_index)
+            log.error(error_msg)
+            raise AttributeError(error_msg)
+        return layer_index
+
+    @staticmethod
+    def sanitize_layer_opacity(layer_opacity):
+        if layer_opacity is None:
+            return 0.75
+        if layer_opacity and not isinstance(layer_opacity, float):
+            warnings.warn('Type of "layer_opacity" should be "float"')
+        if layer_opacity < 0.0 or layer_opacity > 1.0:
+            error_msg = "layer_opacity should be >= 0.0 and <= 1.0, " \
+                        "was: {layer_opacity}".format(layer_opacity=layer_opacity)
+            log.error(error_msg)
+            raise AttributeError(error_msg)
+        return layer_opacity
+
+    @staticmethod
+    def check_min_max_attributes(min_point, min_name, max_point, max_name):
+        if min_point is None and max_point is None:
+            return
+        if min_point is None or max_point is None:
+            error_msg = 'Both {min_name} and {max_name} have to be defined'.format(min_name=min_name,
+                                                                                   max_name=max_name)
+            raise AttributeError(error_msg)
+        if not isinstance(min_point, Point):
+            raise AttributeError('Type of "{min_name}" should be "shapely.geometry.point.Point"'
+                                 .format(min_name=min_name))
+        if not isinstance(max_point, Point):
+            raise AttributeError('Type of "{max_name}" should be "shapely.geometry.point.Point"'
+                                 .format(max_name=max_name))
+        if min_point.x > max_point.x or min_point.y > max_point.y:
+            error_msg = 'Some value of {min_name} are larger than {max_name}'.format(min_name=min_name,
+                                                                                     max_name=max_name)
+            raise AttributeError(error_msg)
 
     @staticmethod
     def get_map_size(format):
