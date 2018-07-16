@@ -97,6 +97,31 @@ def includeme(config):  # pragma: no cover
     )
 
     # Get egrid
+    config.add_route('{0}/getegrid_coord/'.format(route_prefix), '/getegrid/{format}/')
+    config.add_route('{0}/getegrid_ident/'.format(route_prefix), '/getegrid/{format}/{identdn}/{number}')
+    config.add_route('{0}/getegrid_address/'.format(route_prefix),
+                     '/getegrid/{format}/{postalcode}/{localisation}/{number}')
+    config.add_view(
+        PlrWebservice,
+        attr='get_egrid_coord',
+        route_name='{0}/getegrid_coord/'.format(route_prefix),
+        request_method='GET'
+    )
+    config.add_view(
+        PlrWebservice,
+        attr='get_egrid_ident',
+        route_name='{0}/getegrid_ident/'.format(route_prefix),
+        request_method='GET'
+    )
+    config.add_view(
+        PlrWebservice,
+        attr='get_egrid_address',
+        route_name='{0}/getegrid_address/'.format(route_prefix),
+        request_method='GET'
+    )
+
+
+    # TODO remove me later. Get egrid - backward compatibility routes
     config.add_route('{0}/getegrid_coord.json'.format(route_prefix), '/getegrid.json')
     config.add_route('{0}/getegrid_ident.json'.format(route_prefix), '/getegrid/{identdn}/{number}.json')
     config.add_route('{0}/getegrid_address.json'.format(route_prefix),
@@ -141,26 +166,12 @@ def includeme(config):  # pragma: no cover
         route_name='{0}/getegrid_address'.format(route_prefix),
         request_method='GET'
     )
-    config.add_route('{0}/getegrid_coord/'.format(route_prefix), '/getegrid/')
-    config.add_route('{0}/getegrid_ident/'.format(route_prefix), '/getegrid/{identdn}/{number}/')
-    config.add_route('{0}/getegrid_address/'.format(route_prefix),
-                     '/getegrid/{postalcode}/{localisation}/{number}/')
+
+    config.add_route('{0}/getegrid_coord_old/'.format(route_prefix), '/getegrid/')
     config.add_view(
         PlrWebservice,
         attr='get_egrid_coord',
-        route_name='{0}/getegrid_coord/'.format(route_prefix),
-        request_method='GET'
-    )
-    config.add_view(
-        PlrWebservice,
-        attr='get_egrid_ident',
-        route_name='{0}/getegrid_ident/'.format(route_prefix),
-        request_method='GET'
-    )
-    config.add_view(
-        PlrWebservice,
-        attr='get_egrid_address',
-        route_name='{0}/getegrid_address/'.format(route_prefix),
+        route_name='{0}/getegrid_coord_old/'.format(route_prefix),
         request_method='GET'
     )
 

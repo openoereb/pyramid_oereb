@@ -371,7 +371,15 @@ class PlrWebservice(object):
                 'identDN': getattr(r, 'identdn')
             })
         egrid = {'GetEGRIDResponse': real_estates}
-        renderer_name = 'json' if self._is_json() else 'pyramid_oereb_getegrid_xml'
+
+        # TODO remove me later. Try - catch for backward compatibility
+        try :
+            format = self.__validate_format_param__(['xml', 'json'])
+            renderer_name = 'json' if format == 'json' else 'pyramid_oereb_getegrid_xml'
+        except HTTPBadRequest:
+            renderer_name = 'json' if self._is_json() else 'pyramid_oereb_getegrid_xml'
+            log.warn('Deprecated way to specify the format. Use "/getegrid/{format}/..." instead')
+
         response = render_to_response(renderer_name, egrid, request=self._request)
         if self._is_json():
             response.content_type = 'application/json; charset=UTF-8'
