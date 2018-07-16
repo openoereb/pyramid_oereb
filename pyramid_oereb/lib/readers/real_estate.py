@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+import re
 
 from pyramid.path import DottedNameResolver
 
 from pyramid_oereb import Config
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
+from shapely.geometry.point import Point
 
 
 class RealEstateReader(object):
@@ -53,12 +55,43 @@ class RealEstateReader(object):
             list of pyramid_oereb.lib.records.real_estate.RealEstateRecord:
                 The list of all found records filtered by the passed criteria.
         """
+        reference_wms = Config.get_real_estate_config().get('view_service').get('reference_wms')
+        srid = Config.get_crs()
+        min_NS95 = max_NS95 = min_NS03 = max_NS03 = None
+        if srid == u'epsg:2056':
+            min_NS95, max_NS95 = self.get_bbox(reference_wms)
+        if srid == u'epsg:21781':
+            min_NS03, max_NS03 = self.get_bbox(reference_wms)
+
         real_estate_view_service = ViewServiceRecord(
-            reference_wms=Config.get_real_estate_config().get('view_service').get('reference_wms'),
-            legend_at_web=Config.get_real_estate_config().get('view_service').get('legend_at_web')
+            reference_wms=reference_wms,
+            legend_at_web=Config.get_real_estate_config().get('view_service').get('legend_at_web'),
+            layer_index=Config.get_real_estate_config().get('view_service').get('layer_index'),
+            layer_opacity=Config.get_real_estate_config().get('view_service').get('layer_opacity'),
+            min_NS95=min_NS95,
+            max_NS95=max_NS95,
+            min_NS03=min_NS03,
+            max_NS03=max_NS03
         )
+
         self._source_.read(nb_ident=nb_ident, number=number, egrid=egrid, geometry=geometry)
         for r in self._source_.records:
             if isinstance(r, RealEstateRecord):
                 r.set_view_service(real_estate_view_service)
         return self._source_.records
+
+    @staticmethod
+    def get_bbox(wms_url):
+        """
+        Parses wms url for BBOX parameter an returns these points as suitable values for ViewServiceRecord.
+        Args:
+            wms_url (str): wms url which includes a BBOX parameter to parse.
+
+        Returns:
+            set of two shapely.geometry.point.Point: min and max coordinates of bounding box.
+        """
+        match = re.search('BBOX=((\d+,?)+)', wms_url)
+        if match is None or len(match.groups()) != 2:
+            return None, None
+        points = map(float, match.group(1).split(','))
+        return Point(points[0], points[1]), Point(points[2], points[3])

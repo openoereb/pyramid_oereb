@@ -33,7 +33,10 @@ def test_init():
     date = datetime.datetime.now()
     real_estate = RealEstateRecord(u'test', u'BL', u'Laufen', 2770, 1000, MultiPolygon(), ViewServiceRecord(
         'test_link',
-        'test_legend'
+        'test_legend',
+        None,
+        1,
+        1.0
     ))
     plr_office = OfficeRecord({u'en': u'PLR Authority'})
     resolver = DottedNameResolver()

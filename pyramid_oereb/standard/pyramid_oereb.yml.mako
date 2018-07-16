@@ -207,6 +207,8 @@ pyramid_oereb:
     view_service:
       # WMS URL to query the plan for land register
       reference_wms: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
+      layer_index: 1
+      layer_opacity: 0.25
       # Legend is optional
       # legend_at_web:
     visualisation:
