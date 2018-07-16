@@ -22,7 +22,8 @@ class DocumentBaseRecord(object):
         if text_at_web and not isinstance(text_at_web, dict):
             warnings.warn('Type of "text_at_web" should be "dict"')
         if published_from and not isinstance(published_from, datetime.date):
-            warnings.warn('Type of "published_from" should be "datetime.date", not ' + type(published_from))
+            warnings.warn('Type of "published_from" should be "datetime.date", not '
+                          + str(type(published_from)))
 
         self.text_at_web = text_at_web
         self.law_status = law_status
@@ -67,7 +68,8 @@ class ArticleRecord(DocumentBaseRecord):
         if text and not isinstance(text, dict):
             warnings.warn('Type of "text" should be "dict"')
         if published_from and not isinstance(published_from, datetime.date):
-            warnings.warn('Type of "published_from" should be "datetime.date", not ' + type(published_from))
+            warnings.warn('Type of "published_from" should be "datetime.date", not '
+                          + str(type(published_from)))
 
         self.number = number
         self.text = text
@@ -132,7 +134,8 @@ class DocumentRecord(DocumentBaseRecord):
         if abbreviation and not isinstance(abbreviation, dict):
             warnings.warn('Type of "abbreviation" should be "dict"')
         if published_from and not isinstance(published_from, datetime.date):
-            warnings.warn('Type of "published_from" should be "datetime.date", not ' + type(published_from))
+            warnings.warn('Type of "published_from" should be "datetime.date", not '
+                          + str(type(published_from)))
 
         self.document_type = document_type
         self.title = title
