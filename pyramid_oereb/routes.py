@@ -33,6 +33,15 @@ def includeme(config):  # pragma: no cover
                     request_method='GET')
 
     # Get versions
+    config.add_route('{0}/versions/'.format(route_prefix), '/versions/{format}')
+    config.add_view(
+        PlrWebservice,
+        attr='get_versions',
+        route_name='{0}/versions/'.format(route_prefix),
+        request_method='GET'
+    )
+
+    # TODO remove me later. Get version - backward compatibility routes
     config.add_route('{0}/versions.json'.format(route_prefix), '/versions.json')
     config.add_view(
         PlrWebservice,
@@ -47,15 +56,24 @@ def includeme(config):  # pragma: no cover
         route_name='{0}/versions'.format(route_prefix),
         request_method='GET'
     )
-    config.add_route('{0}/versions/'.format(route_prefix), '/versions/')
+    config.add_route('{0}/versions_old/'.format(route_prefix), '/versions/')
     config.add_view(
         PlrWebservice,
         attr='get_versions',
-        route_name='{0}/versions/'.format(route_prefix),
+        route_name='{0}/versions_old/'.format(route_prefix),
         request_method='GET'
     )
 
     # Get capabilities
+    config.add_route('{0}/capabilities/'.format(route_prefix), '/capabilities/{format}')
+    config.add_view(
+        PlrWebservice,
+        attr='get_capabilities',
+        route_name='{0}/capabilities/'.format(route_prefix),
+        request_method='GET'
+    )
+
+    # TODO remove me later. Get capabilities - backward compatibility routes
     config.add_route('{0}/capabilities.json'.format(route_prefix), '/capabilities.json')
     config.add_view(
         PlrWebservice,
@@ -70,11 +88,11 @@ def includeme(config):  # pragma: no cover
         route_name='{0}/capabilities'.format(route_prefix),
         request_method='GET'
     )
-    config.add_route('{0}/capabilities/'.format(route_prefix), '/capabilities/')
+    config.add_route('{0}/capabilities_old'.format(route_prefix), '/capabilities/')
     config.add_view(
         PlrWebservice,
         attr='get_capabilities',
-        route_name='{0}/capabilities/'.format(route_prefix),
+        route_name='{0}/capabilities_old'.format(route_prefix),
         request_method='GET'
     )
 
