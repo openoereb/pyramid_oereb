@@ -131,7 +131,6 @@ class DocumentBase(Base):
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        document_type (str): The document type. It must be "LegalProvision", "Law" or "Hint".
         text_at_web (dict): A multilingual link which leads to the documents content in the web.
         law_status (str): The status switch if the document is legally approved or not.
         published_from (datetime.date): The date when the document should be available for
@@ -143,7 +142,6 @@ class DocumentBase(Base):
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'document_base'
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
-    document_type = sa.Column(sa.String, nullable=False)
     text_at_web = sa.Column(JSONType, nullable=True)
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
@@ -163,6 +161,7 @@ class Document(DocumentBase):
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
+        document_type (str): The document type. It must be "LegalProvision", "Law" or "Hint".
         title (dict): The multilingual title or if existing the short title ot his document.
         office_title (dict): The multilingual official title of this document.
         abbreviation (dict): The multilingual shortened version of the documents title.
@@ -182,6 +181,7 @@ class Document(DocumentBase):
     __mapper_args__ = {
         'polymorphic_identity': 'document'
     }
+    document_type = sa.Column(sa.String, nullable=False)
     title = sa.Column(JSONType, nullable=False)
     official_title = sa.Column(JSONType, nullable=True)
     abbreviation = sa.Column(JSONType, nullable=True)
@@ -239,27 +239,6 @@ class Article(DocumentBase):
         Document,
         backref='articles',
         foreign_keys=[document_id]
-    )
-
-
-class LegalProvision(Document):
-    """
-    A subclass of the document representing legal provisions. It is a specialized class of document.
-
-    Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
-            you  don't like it - don't care about.
-    """
-    __table_args__ = {'schema': '${schema_name}'}
-    __tablename__ = 'legal_provision'
-    __mapper_args__ = {
-        'polymorphic_identity': 'legal_provision'
-    }
-    id = sa.Column(
-        sa.Integer,
-        sa.ForeignKey(Document.id),
-        primary_key=True,
-        onupdate="cascade"
     )
 
 

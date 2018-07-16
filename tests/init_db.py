@@ -273,49 +273,49 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
             'id': 1,
-            'document_type': u'Law',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'type': u'document'
         })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
             'id': 1,
+            'document_type': u'Law',
             'title': {'de': u'First level document'},
             'office_id': 1
         })
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
             'id': 2,
-            'document_type': u'Law',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'type': u'document'
         })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
             'id': 2,
+            'document_type': u'Law',
             'title': {'de': u'First level future document'},
             'office_id': 1
         })
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
             'id': 3,
-            'document_type': u'Law',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'type': u'document'
         })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
             'id': 3,
+            'document_type': u'Law',
             'title': {'de': u'Second level document'},
             'office_id': 1
         })
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
             'id': 4,
-            'document_type': u'Law',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'type': u'document'
         })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
             'id': 4,
+            'document_type': u'Law',
             'title': {'de': u'Second level future document'},
             'office_id': 1
         })

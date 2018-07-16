@@ -8,7 +8,8 @@ from pyramid.response import Response
 from pyramid.testing import DummyRequest
 
 from pyramid_oereb import Config, route_prefix
-from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord, ArticleRecord
+from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord,\
+    ArticleRecord, LawRecord, HintRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
 from pyramid_oereb.lib.url import url_to_base64
 from shapely.geometry import mapping
@@ -310,7 +311,8 @@ class Renderer(Base):
 
         document_dict = dict()
 
-        if isinstance(document, DocumentRecord) or isinstance(document, LegalProvisionRecord):
+        if isinstance(document, DocumentRecord) or isinstance(document, LegalProvisionRecord) \
+                or isinstance(document, LawRecord) or isinstance(document, HintRecord):
 
             multilingual_text_at_web = self.get_multilingual_text(document.text_at_web)
 
@@ -356,7 +358,6 @@ class Renderer(Base):
 
         elif isinstance(document, ArticleRecord):
             document_dict.update({
-                'DocumentType': document.document_type,
                 'Lawstatus': self.format_law_status(document.law_status),
                 'Number': document.number
             })

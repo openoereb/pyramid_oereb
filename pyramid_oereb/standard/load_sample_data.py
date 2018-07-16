@@ -221,28 +221,6 @@ class SampleData(object):
                                 data.update(lp)
                                 self._do_sql_insert(str(table.insert()), data)
 
-                with open(os.path.join(self._directory, 'plr119', folder, 'legal_provision.json')) as f:
-                    lps = json.loads(f.read())
-                    if self._sql_file is None:
-                        Session = sessionmaker(bind=self._engine)  # Use session because of table inheritance
-                        session = Session()
-                        for lp in lps:
-                            session.add(schema.LegalProvision(**lp))
-                        session.commit()
-                        session.close()
-                    else:
-                        for lp in lps:
-                            for table_name in ['document_base', 'document', 'legal_provision']:
-                                table = [
-                                    t for t in class_mapper(schema.LegalProvision).tables
-                                    if t.name == table_name
-                                ][0]
-                                data = {
-                                    'type': 'legal_provision'
-                                }
-                                data.update(lp)
-                                self._do_sql_insert(str(table.insert()), data)
-
                 for class_, file_name in [
                     (schema.PublicLawRestrictionDocument, 'public_law_restriction_document.json'),
                     (schema.DocumentReference, 'document_reference.json'),
