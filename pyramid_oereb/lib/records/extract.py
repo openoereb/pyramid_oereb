@@ -29,8 +29,8 @@ class ExtractRecord(object):
     """binary or None: QR code for the extract as binary string."""
 
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
-                 plr_cadastre_authority, base_data, embeddable, exclusions_of_liability=None, glossaries=None,
-                 concerned_theme=None, not_concerned_theme=None, theme_without_data=None,
+                 plr_cadastre_authority, certification, base_data, embeddable, exclusions_of_liability=None,
+                 glossaries=None, concerned_theme=None, not_concerned_theme=None, theme_without_data=None,
                  general_information=None):
         """
         Args:
@@ -43,6 +43,7 @@ class ExtractRecord(object):
                 logo.
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority which is
                 responsible for the PLR cadastre.
+            certification (dict): certification information
             base_data (dict of unicode): A multilingual list of basic data layers used by the extract. For
                 instance the base map from swisstopo.
             embeddable (pyramid_oereb.lib.records.embeddable.EmbeddableRecord):
@@ -87,6 +88,7 @@ class ExtractRecord(object):
         self.cantonal_logo = cantonal_logo
         self.municipality_logo = municipality_logo
         self.plr_cadastre_authority = plr_cadastre_authority
+        self.certification = certification
         if exclusions_of_liability:
             self.exclusions_of_liability = exclusions_of_liability
         else:

@@ -85,7 +85,16 @@ vars:
       # The headers send to the print
       headers:
         Content-Type: application/json; charset=UTF-8
-
+      furtherInformationText:
+        de: Hier sollten die weiteren Informationen erfasst werden.
+        fr: Veuillez saisir les informations complémentaires ici.
+        it: ...
+        rm: ...
+      certificationText:
+        de: Referenz zur kantonsspezifischen Gesetzesgrundlage bezüglich Beglaubigungen.
+        fr: Référence vers les dispositions légales cantonales concernant la certification
+        it: Certificazione secondo OCRDPP art. 14
+        rm: ...
     # The "app_schema" property contains only one sub property "name". This is directly related to the database
     # creation process. Because this name is used as schema name in the target database. The app_schema holds
     # all application stuff like: addresses, municipalities, real estates, etc.
@@ -155,6 +164,12 @@ vars:
       postal_code: 3084
       # The city name of the address of your office. For instance: Liestal
       city: Wabern
+
+    certification:
+      de: Referenz zur kantonsspezifischen Gesetzesgrundlage bezüglich Beglaubigungen.
+      fr: Référence vers les dispositions légales cantonales concernant la certification
+      it: Certificazione secondo OCRDPP art. 14
+      rm: ...
 
     # The extract provides logos. Therefor you need to provide a path to these logos. Note: This must be a
     # valid absolute system path available for reading by the user running this server.

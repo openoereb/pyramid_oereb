@@ -27,18 +27,20 @@ class ExtractReader(object):
             instance.
     """
 
-    def __init__(self, plr_sources, plr_cadastre_authority, logos):
+    def __init__(self, plr_sources, plr_cadastre_authority, certification, logos):
         """
         Args:
             plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of PLR source
                 instances which the achieved extract should be about.
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OffcieRecord): The authority responsible
                 for the PLR cadastre.
+            certification (dict): Certification information
             logos (dict): The logos of confederation, canton and oereb wrapped in a ImageRecord.
         """
         self.extract = None
         self._plr_sources_ = plr_sources
         self._plr_cadastre_authority_ = plr_cadastre_authority
+        self._certification = certification
         self._logos_ = logos
 
     @property
@@ -51,6 +53,16 @@ class ExtractReader(object):
             cadastre.
         """
         return self._plr_cadastre_authority_
+
+    @property
+    def certification(self):
+        """
+        Returnes the certificatoin dict
+
+        Returnes:
+            dict: the certification information in different languages
+        """
+        return self._certification
 
     @property
     def logo_plr_cadastre(self):
@@ -173,6 +185,7 @@ class ExtractReader(object):
             self.cantonal_logo,
             municipality.logo,
             self.plr_cadastre_authority,
+            self.certification,
             base_data,
             embeddable,
             concerned_theme=concerned_themes,

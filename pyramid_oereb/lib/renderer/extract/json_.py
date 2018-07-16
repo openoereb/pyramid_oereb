@@ -91,6 +91,7 @@ class Renderer(Base):
             'ExtractIdentifier': extract.extract_identifier,
             'BaseData': self.get_multilingual_text(extract.base_data),
             'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority),
+            'Certification': self.get_multilingual_text(extract.certification),
             'RealEstate': self.format_real_estate(extract.real_estate),
             'ConcernedTheme': [self.format_theme(theme) for theme in extract.concerned_theme],
             'NotConcernedTheme': [self.format_theme(theme) for theme in extract.not_concerned_theme],

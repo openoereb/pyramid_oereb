@@ -87,5 +87,8 @@
         <data:PLRCadastreAuthority>
             <%include file="office.xml" args="office=extract.plr_cadastre_authority"/>
         </data:PLRCadastreAuthority>
+        <data:Certification>
+            <%include file="multilingual_m_text.xml" args="text=extract.certification"/>
+        </data:Certification>
     </data:Extract>
 </GetExtractByIdResponse>

@@ -73,6 +73,8 @@ def includeme(config):
 
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
 
+    certification = Config.get_certification()
+
     real_estate_reader = RealEstateReader(
         real_estate_config.get('source').get('class'),
         **real_estate_config.get('source').get('params')
@@ -101,6 +103,7 @@ def includeme(config):
     extract_reader = ExtractReader(
         plr_sources,
         plr_cadastre_authority,
+        certification,
         logos
     )
 

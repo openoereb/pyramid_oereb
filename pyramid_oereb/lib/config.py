@@ -345,6 +345,17 @@ class Config(object):
         )
 
     @staticmethod
+    def get_certification():
+        """
+        Read certification data from Return a dict containing certification info
+        Returns:
+            dict: The configured text for the certiffication
+        """
+        assert Config._config is not None
+
+        return Config._config.get('certification')
+
+    @staticmethod
     def get_logo_config():
         """
         Returns a dictionary of the configured file path's to the logos.
