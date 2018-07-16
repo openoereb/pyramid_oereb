@@ -33,7 +33,7 @@ class PlrWebservice(object):
         self._real_estate_reader = request.pyramid_oereb_processor.real_estate_reader
         self._municipality_reader = request.pyramid_oereb_processor.municipality_reader
 
-    # TODO remove me later. For backward capability.
+    # For backward compatibility with old specification.
     def _is_json(self):
         """
         Returns True if the requests format is JSON.
@@ -68,10 +68,10 @@ class PlrWebservice(object):
                 ]
             }
         }
-        # TODO remove me later. Try - catch for backward compatibility
-        try :
-            format = self.__validate_format_param__(['xml', 'json'])
-            renderer_name = 'json' if format == 'json' else 'pyramid_oereb_versions_xml'
+        # Try - catch for backward compatibility with old specification.
+        try:
+            output_format = self.__validate_format_param__(['xml', 'json'])
+            renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_versions_xml'
         except HTTPBadRequest:
             renderer_name = 'json' if self._is_json() else 'pyramid_oereb_versions_xml'
             log.warn('Deprecated way to specify the format. Use "/versions/{format}" instead')
@@ -110,10 +110,10 @@ class PlrWebservice(object):
             }
         }
 
-        # TODO remove me later. Try - catch for backward compatibility
-        try :
-            format = self.__validate_format_param__(['xml', 'json'])
-            renderer_name = 'json' if format == 'json' else 'pyramid_oereb_capabilities_xml'
+        # Try - catch for backward compatibility with old specification.
+        try:
+            output_format = self.__validate_format_param__(['xml', 'json'])
+            renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_capabilities_xml'
         except HTTPBadRequest:
             renderer_name = 'json' if self._is_json() else 'pyramid_oereb_capabilities_xml'
             log.warn('Deprecated way to specify the format. Use "/capabilities/{format}" instead')
@@ -311,7 +311,6 @@ class PlrWebservice(object):
 
         return params
 
-
     def __validate_format_param__(self, accepted_formats):
         """
         Get format in the url and validate that it's one accepted.
@@ -322,12 +321,10 @@ class PlrWebservice(object):
         Returns:
             str: The validated format parameter.
         """
-        extract_format = self._request.matchdict.get('format', '').lower()
-        if extract_format not in accepted_formats:
-            raise HTTPBadRequest('Invalid format: {0}'.format(extract_format))
-        return extract_format
-
-
+        output_format = self._request.matchdict.get('format', '').lower()
+        if output_format not in accepted_formats:
+            raise HTTPBadRequest('Invalid format: {0}'.format(output_format))
+        return output_format
 
     def __coord_transform__(self, coord, source_crs):
         """
@@ -372,10 +369,10 @@ class PlrWebservice(object):
             })
         egrid = {'GetEGRIDResponse': real_estates}
 
-        # TODO remove me later. Try - catch for backward compatibility
-        try :
-            format = self.__validate_format_param__(['xml', 'json'])
-            renderer_name = 'json' if format == 'json' else 'pyramid_oereb_getegrid_xml'
+        # Try - catch for backward compatibility with old specification.
+        try:
+            output_format = self.__validate_format_param__(['xml', 'json'])
+            renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_getegrid_xml'
         except HTTPBadRequest:
             renderer_name = 'json' if self._is_json() else 'pyramid_oereb_getegrid_xml'
             log.warn('Deprecated way to specify the format. Use "/getegrid/{format}/..." instead')
