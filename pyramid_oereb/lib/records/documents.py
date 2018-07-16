@@ -156,6 +156,7 @@ class DocumentRecord(DocumentBaseRecord):
         else:
             self.references = references
 
+
 class LegalProvisionRecord(DocumentRecord):
     """
         More specific document record class representing legal provision records.
@@ -303,7 +304,7 @@ class HintRecord(DocumentRecord):
             articles (list of ArticleRecord): The linked articles.
             references (list of DocumentRecord): The references to other documents.
         """
-        super(HintnRecord, self).__init__('Hint', law_status, published_from, title,
-                                          responsible_office, text_at_web,
-                                          abbreviation, official_number, official_title, canton,
-                                          municipality, article_numbers, file, articles, references)
+        super(HintRecord, self).__init__('Hint', law_status, published_from, title,
+                                         responsible_office, text_at_web,
+                                         abbreviation, official_number, official_title, canton,
+                                         municipality, article_numbers, file, articles, references)
