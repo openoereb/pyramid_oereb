@@ -91,27 +91,8 @@ class ViewServiceRecord(object):
         self.reference_wms = reference_wms
         self.legend_at_web = legend_at_web
 
-        if layer_index is None:
-            layer_index = 1
-        if layer_index and not isinstance(layer_index, int):
-            warnings.warn('Type of "layer_index" should be "int"')
-        if layer_index < -1000 or layer_index > 1000:
-            error_msg = "layer_index should be >= -1000 and <= 1000, " \
-                        "was: {layer_index}".format(layer_index=layer_index)
-            log.error(error_msg)
-            raise AttributeError(error_msg)
-        self.layer_index = layer_index
-
-        if layer_opacity is None:
-            layer_opacity = 0.75
-        if layer_opacity and not isinstance(layer_opacity, float):
-            warnings.warn('Type of "layer_opacity" should be "float"')
-        if layer_opacity < 0.0 or layer_opacity > 1.0:
-            error_msg = "layer_opacity should be >= 0.0 and <= 1.0, " \
-                        "was: {layer_opacity}".format(layer_opacity=layer_opacity)
-            log.error(error_msg)
-            raise AttributeError(error_msg)
-        self.layer_opacity = layer_opacity
+        self.layer_index = self.sanitize_layer_index(layer_index)
+        self.layer_opacity = self.sanitize_layer_opacity(layer_opacity)
 
         self.check_min_max_attributes(min_NS03, 'min_NS03', max_NS03, 'max_NS03')
         self.min_NS03 = min_NS03
@@ -127,6 +108,32 @@ class ViewServiceRecord(object):
             for legend in legends:
                 assert isinstance(legend.symbol, ImageRecord)
             self.legends = legends
+
+    @staticmethod
+    def sanitize_layer_index(layer_index):
+        if layer_index is None:
+            return 1
+        if layer_index and not isinstance(layer_index, int):
+            warnings.warn('Type of "layer_index" should be "int"')
+        if layer_index < -1000 or layer_index > 1000:
+            error_msg = "layer_index should be >= -1000 and <= 1000, " \
+                        "was: {layer_index}".format(layer_index=layer_index)
+            log.error(error_msg)
+            raise AttributeError(error_msg)
+        return layer_index
+
+    @staticmethod
+    def sanitize_layer_opacity(layer_opacity):
+        if layer_opacity is None:
+            return 0.75
+        if layer_opacity and not isinstance(layer_opacity, float):
+            warnings.warn('Type of "layer_opacity" should be "float"')
+        if layer_opacity < 0.0 or layer_opacity > 1.0:
+            error_msg = "layer_opacity should be >= 0.0 and <= 1.0, " \
+                        "was: {layer_opacity}".format(layer_opacity=layer_opacity)
+            log.error(error_msg)
+            raise AttributeError(error_msg)
+        return layer_opacity
 
     @staticmethod
     def check_min_max_attributes(min_point, min_name, max_point, max_name):

@@ -90,8 +90,8 @@ class RealEstateReader(object):
         Returns:
             set of two shapely.geometry.point.Point: min and max coordinates of bounding box.
         """
-        m = re.search('BBOX=((\d+,?)+)', wms_url)
-        if m is None or len(m.groups()) != 2:
+        match = re.search('BBOX=((\d+,?)+)', wms_url)
+        if match is None or len(match.groups()) != 2:
             return None, None
-        points = map(float, m.group(1).split(','))
+        points = map(float, match.group(1).split(','))
         return Point(points[0], points[1]), Point(points[2], points[3])
