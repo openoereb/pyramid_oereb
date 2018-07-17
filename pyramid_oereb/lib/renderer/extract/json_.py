@@ -172,7 +172,8 @@ class Renderer(Base):
             'Municipality': real_estate.municipality,
             'FosNr': real_estate.fosnr,
             'LandRegistryArea': real_estate.land_registry_area,
-            'PlanForLandRegister': self.format_map(real_estate.plan_for_land_register)
+            'PlanForLandRegister': self.format_map(real_estate.plan_for_land_register),
+            'PlanForLandRegisterMainPage': self.format_map(real_estate.plan_for_land_register_main_page)
         }
 
         if self._params.geometry is not None:

@@ -55,7 +55,8 @@ class RealEstateReader(object):
             list of pyramid_oereb.lib.records.real_estate.RealEstateRecord:
                 The list of all found records filtered by the passed criteria.
         """
-        reference_wms = Config.get_real_estate_config().get('view_service').get('reference_wms')
+        real_estate_config = Config.get_real_estate_config()
+        reference_wms = real_estate_config.get('view_service').get('reference_wms')
         srid = Config.get_crs()
         min_NS95 = max_NS95 = min_NS03 = max_NS03 = None
         if srid == u'epsg:2056':
@@ -65,9 +66,21 @@ class RealEstateReader(object):
 
         real_estate_view_service = ViewServiceRecord(
             reference_wms=reference_wms,
-            legend_at_web=Config.get_real_estate_config().get('view_service').get('legend_at_web'),
-            layer_index=Config.get_real_estate_config().get('view_service').get('layer_index'),
-            layer_opacity=Config.get_real_estate_config().get('view_service').get('layer_opacity'),
+            legend_at_web=real_estate_config.get('view_service').get('legend_at_web'),
+            layer_index=real_estate_config.get('view_service').get('layer_index'),
+            layer_opacity=real_estate_config.get('view_service').get('layer_opacity'),
+            min_NS95=min_NS95,
+            max_NS95=max_NS95,
+            min_NS03=min_NS03,
+            max_NS03=max_NS03
+        )
+
+        real_estate_main_page_config = Config.get_real_estate_main_page_config()
+        real_estate_main_page_view_service = ViewServiceRecord(
+            reference_wms=reference_wms,
+            legend_at_web=real_estate_main_page_config.get('view_service').get('legend_at_web'),
+            layer_index=real_estate_main_page_config.get('view_service').get('layer_index'),
+            layer_opacity=real_estate_main_page_config.get('view_service').get('layer_opacity'),
             min_NS95=min_NS95,
             max_NS95=max_NS95,
             min_NS03=min_NS03,
@@ -78,6 +91,7 @@ class RealEstateReader(object):
         for r in self._source_.records:
             if isinstance(r, RealEstateRecord):
                 r.set_view_service(real_estate_view_service)
+                r.set_main_page_view_service(real_estate_main_page_view_service)
         return self._source_.records
 
     @staticmethod

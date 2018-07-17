@@ -56,7 +56,8 @@ def test_render(config, parameter):
         real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
                                        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
                                        u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712')
-        real_estate.plan_for_land_register = view_service
+        real_estate.set_view_service(view_service)
+        real_estate.set_main_page_view_service(view_service)
         office_record = OfficeRecord({'de': u'AGI'})
         resolver = DottedNameResolver()
         date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
@@ -179,7 +180,8 @@ def test_format_real_estate(config):
     real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
                                    geometry, u'http://www.geocat.ch', u'1000', u'BL0200002829',
                                    u'CH775979211712', u'Subunit', [], references=[document])
-    real_estate.plan_for_land_register = view_service
+    real_estate.set_view_service(view_service)
+    real_estate.set_main_page_view_service(view_service)
     result = renderer.format_real_estate(real_estate)
     assert isinstance(result, dict)
     assert result == {
@@ -189,6 +191,7 @@ def test_format_real_estate(config):
         'FosNr': 2829,
         'LandRegistryArea': 11395,
         'PlanForLandRegister': renderer.format_map(view_service),
+        'PlanForLandRegisterMainPage': renderer.format_map(view_service),
         'Limit': renderer.from_shapely(geometry),
         'Number': u'1000',
         'IdentDN': u'BL0200002829',

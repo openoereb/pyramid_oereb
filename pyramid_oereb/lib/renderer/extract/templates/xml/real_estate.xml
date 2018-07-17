@@ -42,6 +42,9 @@
     <data:PlanForLandRegister>
         <%include file="view_service.xml" args="map=real_estate.plan_for_land_register"/>
     </data:PlanForLandRegister>
+    <data:PlanForLandRegisterMainPage>
+        <%include file="view_service.xml" args="map=real_estate.plan_for_land_register_main_page"/>
+    </data:PlanForLandRegisterMainPage>
 %for reference in real_estate.references:
     <data:Reference xsi:type="${get_document_type(reference)}">
         <%include file="document.xml" args="document=reference"/>
