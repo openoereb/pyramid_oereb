@@ -35,10 +35,8 @@
     %if public_law_restriction.areaShare:
     <data:AreaShare>${public_law_restriction.areaShare}</data:AreaShare>
     %endif
-##     TODO: The following line must be cleaned from the int(round()) crazyness when the new specification is
-##         taking place.
     %if public_law_restriction.part_in_percent:
-    <data:PartInPercent>${int(round(public_law_restriction.part_in_percent))}</data:PartInPercent>
+    <data:PartInPercent>${public_law_restriction.part_in_percent}</data:PartInPercent>
     %endif
     %if params.images:
     <data:Symbol>${public_law_restriction.symbol.encode()}</data:Symbol>
@@ -66,6 +64,9 @@
 %if public_law_restriction.lengthShare:
         <LengthShare>${public_law_restriction.lengthShare}</LengthShare>
         <LengthUnit>${public_law_restriction.length_unit}</LengthUnit>
+%endif
+%if public_law_restriction.nrOfPoints:
+        <NrOfPoints>${public_law_restriction.nrOfPoints}</NrOfPoints>
 %endif
     </data:extensions>
 </data:RestrictionOnLandownership>
