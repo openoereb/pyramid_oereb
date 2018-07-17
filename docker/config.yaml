@@ -188,7 +188,7 @@ vars:
         # Legend is optional
         # legend_at_web:
       # Overrides for main page of export.
-      # If a value cannot be found here, values from real_estate will be used instead.
+      # If a value cannot be found here, values from real_estate (parent of this attribute) will be used instead.
       main_page:
         view_service:
           layer_opacity: 0.5
