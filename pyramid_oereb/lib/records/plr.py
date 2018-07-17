@@ -151,7 +151,7 @@ class PlrRecord(EmptyPlrRecord):
         for geometry in self.geometries:
             if geometry.nrOfPoints:
                 points_to_sum += geometry.nrOfPoints
-        return points_to_sum if points_to_sum > 0 else None
+        return points_to_sum
 
     @property
     def areaShare(self):
