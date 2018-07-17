@@ -33,7 +33,7 @@ class PlrWebservice(object):
         self._real_estate_reader = request.pyramid_oereb_processor.real_estate_reader
         self._municipality_reader = request.pyramid_oereb_processor.municipality_reader
 
-    # TODO: Remove this method when format parameter is available in URL (new specification).
+    # For backward compatibility with old specification.
     def _is_json(self):
         """
         Returns True if the requests format is JSON.
@@ -68,7 +68,14 @@ class PlrWebservice(object):
                 ]
             }
         }
-        renderer_name = 'json' if self._is_json() else 'pyramid_oereb_versions_xml'
+        # Try - catch for backward compatibility with old specification.
+        try:
+            output_format = self.__validate_format_param__(['xml', 'json'])
+            renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_versions_xml'
+        except HTTPBadRequest:
+            renderer_name = 'json' if self._is_json() else 'pyramid_oereb_versions_xml'
+            log.warn('Deprecated way to specify the format. Use "/versions/{format}" instead')
+
         response = render_to_response(renderer_name, versions, request=self._request)
         if self._is_json():
             response.content_type = 'application/json; charset=UTF-8'
@@ -102,7 +109,15 @@ class PlrWebservice(object):
                 u'crs': Config.get_crs()
             }
         }
-        renderer_name = 'json' if self._is_json() else 'pyramid_oereb_capabilities_xml'
+
+        # Try - catch for backward compatibility with old specification.
+        try:
+            output_format = self.__validate_format_param__(['xml', 'json'])
+            renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_capabilities_xml'
+        except HTTPBadRequest:
+            renderer_name = 'json' if self._is_json() else 'pyramid_oereb_capabilities_xml'
+            log.warn('Deprecated way to specify the format. Use "/capabilities/{format}" instead')
+
         response = render_to_response(renderer_name, capabilities, request=self._request)
         if self._is_json():
             response.content_type = 'application/json; charset=UTF-8'
@@ -239,10 +254,8 @@ class PlrWebservice(object):
         if extract_flavour not in ['reduced', 'full', 'signed', 'embeddable']:
             raise HTTPBadRequest('Invalid flavour: {0}'.format(extract_flavour))
 
-        # Check format
-        extract_format = self._request.matchdict.get('format').lower()
-        if extract_format not in ['pdf', 'xml', 'json']:
-            raise HTTPBadRequest('Invalid format: {0}'.format(extract_format))
+        # Get and check format
+        extract_format = self.__validate_format_param__(['pdf', 'xml', 'json'])
 
         # With geometry?
         with_geometry = False
@@ -298,6 +311,21 @@ class PlrWebservice(object):
 
         return params
 
+    def __validate_format_param__(self, accepted_formats):
+        """
+        Get format in the url and validate that it's one accepted.
+
+        Args:
+            accepted_formats (list): A list of accepted format (str).
+
+        Returns:
+            str: The validated format parameter.
+        """
+        output_format = self._request.matchdict.get('format', '').lower()
+        if output_format not in accepted_formats:
+            raise HTTPBadRequest('Invalid format: {0}'.format(output_format))
+        return output_format
+
     def __coord_transform__(self, coord, source_crs):
         """
         Transforms the specified coordinates from the specified CRS to the configured target CRS and creates a
@@ -340,7 +368,15 @@ class PlrWebservice(object):
                 'identDN': getattr(r, 'identdn')
             })
         egrid = {'GetEGRIDResponse': real_estates}
-        renderer_name = 'json' if self._is_json() else 'pyramid_oereb_getegrid_xml'
+
+        # Try - catch for backward compatibility with old specification.
+        try:
+            output_format = self.__validate_format_param__(['xml', 'json'])
+            renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_getegrid_xml'
+        except HTTPBadRequest:
+            renderer_name = 'json' if self._is_json() else 'pyramid_oereb_getegrid_xml'
+            log.warn('Deprecated way to specify the format. Use "/getegrid/{format}/..." instead')
+
         response = render_to_response(renderer_name, egrid, request=self._request)
         if self._is_json():
             response.content_type = 'application/json; charset=UTF-8'
