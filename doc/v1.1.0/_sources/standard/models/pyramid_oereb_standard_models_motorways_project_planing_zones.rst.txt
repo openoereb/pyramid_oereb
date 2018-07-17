@@ -104,18 +104,6 @@ Geometry
    .. automethod:: __init__
 
 
-.. _api-pyramid_oereb-standard-models-motorways_project_planing_zones-legalprovision:
-
-LegalProvision
-~~~~~~~~~~~~~~
-
-.. autoclass:: pyramid_oereb.standard.models.motorways_project_planing_zones.LegalProvision
-   :members:
-   :inherited-members:
-
-   .. automethod:: __init__
-
-
 .. _api-pyramid_oereb-standard-models-motorways_project_planing_zones-legendentry:
 
 LegendEntry

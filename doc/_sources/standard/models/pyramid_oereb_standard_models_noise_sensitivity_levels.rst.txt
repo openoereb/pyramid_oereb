@@ -104,18 +104,6 @@ Geometry
    .. automethod:: __init__
 
 
-.. _api-pyramid_oereb-standard-models-noise_sensitivity_levels-legalprovision:
-
-LegalProvision
-~~~~~~~~~~~~~~
-
-.. autoclass:: pyramid_oereb.standard.models.noise_sensitivity_levels.LegalProvision
-   :members:
-   :inherited-members:
-
-   .. automethod:: __init__
-
-
 .. _api-pyramid_oereb-standard-models-noise_sensitivity_levels-legendentry:
 
 LegendEntry

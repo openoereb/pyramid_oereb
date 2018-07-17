@@ -82,6 +82,30 @@ Records
 
    .. automethod:: __init__
 
+.. _api-pyramid_oereb-lib-records-documents-hintrecord:
+
+*HintRecord*
+^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.lib.records.documents.HintRecord
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-lib-records-documents-lawrecord:
+
+*LawRecord*
+^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.lib.records.documents.LawRecord
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
 .. _api-pyramid_oereb-lib-records-documents-legalprovisionrecord:
 
 *LegalProvisionRecord*

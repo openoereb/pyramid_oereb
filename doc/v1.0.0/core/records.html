@@ -93,6 +93,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#articlerecord"><em>ArticleRecord</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#documentbaserecord"><em>DocumentBaseRecord</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#documentrecord"><em>DocumentRecord</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hintrecord"><em>HintRecord</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lawrecord"><em>LawRecord</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#legalprovisionrecord"><em>LegalProvisionRecord</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#datasourcerecord"><em>DatasourceRecord</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#embeddablerecord"><em>EmbeddableRecord</em></a></li>
@@ -280,8 +282,8 @@ the shapely library (<a class="reference external" href="https://pypi.python.org
 <dd><p>Bases: <a class="reference internal" href="#pyramid_oereb.lib.records.documents.DocumentBaseRecord" title="pyramid_oereb.lib.records.documents.DocumentBaseRecord"><code class="xref py py-class docutils literal"><span class="pre">pyramid_oereb.lib.records.documents.DocumentBaseRecord</span></code></a></p>
 <p>More specific document class representing articles.</p>
 <dl class="attribute">
-<dt id="pyramid_oereb.lib.records.documents.ArticleRecord.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.ArticleRecord.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.lib.records.documents.ArticleRecord.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.ArticleRecord.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>unicode</em> &#8211; Key string of the law status.</p>
 </dd></dl>
 
@@ -356,8 +358,8 @@ the shapely library (<a class="reference external" href="https://pypi.python.org
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>The base document class.</p>
 <dl class="attribute">
-<dt id="pyramid_oereb.lib.records.documents.DocumentBaseRecord.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentBaseRecord.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.lib.records.documents.DocumentBaseRecord.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentBaseRecord.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>unicode</em> &#8211; Key string of the law status.</p>
 </dd></dl>
 
@@ -414,12 +416,19 @@ the shapely library (<a class="reference external" href="https://pypi.python.org
 <span id="api-pyramid-oereb-lib-records-documents-documentrecord"></span><h2><em>DocumentRecord</em><a class="headerlink" href="#documentrecord" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.documents.DocumentRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">DocumentRecord</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/documents.html#DocumentRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">DocumentRecord</code><span class="sig-paren">(</span><em>document_type</em>, <em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/documents.html#DocumentRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyramid_oereb.lib.records.documents.DocumentBaseRecord" title="pyramid_oereb.lib.records.documents.DocumentBaseRecord"><code class="xref py py-class docutils literal"><span class="pre">pyramid_oereb.lib.records.documents.DocumentBaseRecord</span></code></a></p>
 <p>More specific document class representing real documents.</p>
 <dl class="attribute">
-<dt id="pyramid_oereb.lib.records.documents.DocumentRecord.legal_state">
-<code class="descname">legal_state</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentRecord.legal_state" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.lib.records.documents.DocumentRecord.document_type">
+<code class="descname">document_type</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentRecord.document_type" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str or unicode</em> &#8211; The document type. It must be &#8220;LegalProvision&#8221;, &#8220;Law&#8221; or &#8220;Hint&#8221;
+every other value will raise an error.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.DocumentRecord.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentRecord.law_status" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>unicode</em> &#8211; Key string of the law status.</p>
 </dd></dl>
 
@@ -504,12 +513,14 @@ responsible for this document.</p>
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.records.documents.DocumentRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/documents.html#DocumentRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>document_type</em>, <em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/documents.html#DocumentRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.DocumentRecord.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>document_type</strong> (<em>str</em><em> or </em><em>unicode</em>) &#8211; The document type. It must be &#8220;LegalProvision&#8221;, &#8220;Law&#8221; or &#8220;Hint&#8221;
+every other value will raise an error.</li>
 <li><strong>law_status</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.law_status.LawStatusRecord" title="pyramid_oereb.lib.records.law_status.LawStatusRecord"><em>pyramid_oereb.lib.records.law_status.LawStatusRecord</em></a>) &#8211; The law status of this record.</li>
 <li><strong>published_from</strong> (<em>datetime.date</em>) &#8211; Date since this document was published.</li>
 <li><strong>title</strong> (<em>dict of unicode</em>) &#8211; The multilingual title of the document. It might be shortened one.</li>
@@ -551,15 +562,404 @@ responsible for this document.</li>
 </dd></dl>
 
 </div>
+<div class="section" id="hintrecord">
+<span id="api-pyramid-oereb-lib-records-documents-hintrecord"></span><h2><em>HintRecord</em><a class="headerlink" href="#hintrecord" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">HintRecord</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/documents.html#HintRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyramid_oereb.lib.records.documents.DocumentRecord" title="pyramid_oereb.lib.records.documents.DocumentRecord"><code class="xref py py-class docutils literal"><span class="pre">pyramid_oereb.lib.records.documents.DocumentRecord</span></code></a></p>
+<p>More specific document record class representing hint records.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.document_type">
+<code class="descname">document_type</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.document_type" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str or unicode</em> &#8211; The document type. Always &#8220;Hint&#8221; for legal
+provision records.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.law_status" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; Key string of the law status.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.published_from">
+<code class="descname">published_from</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.published_from" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; Date since this document was published.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.title">
+<code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; The multilingual title of the document. It might be shortened one.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.responsible_office">
+<code class="descname">responsible_office</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.responsible_office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.office.OfficeRecord</em> &#8211; Office which is
+responsible for this document.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.text_at_web" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of uri</em> &#8211; The multilingual URI to the documents content.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.official_title">
+<code class="descname">official_title</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.official_title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; The official title of the document (multilingual).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.abbreviation">
+<code class="descname">abbreviation</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.abbreviation" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; Short term for this document (multilingual).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.official_number">
+<code class="descname">official_number</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.official_number" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The official number for identification of this document.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.canton">
+<code class="descname">canton</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.canton" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The cantonal short term (length of two, like &#8216;NE&#8217; or &#8216;BL&#8217;)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.municipality">
+<code class="descname">municipality</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.municipality" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The code for the municipality.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.article_numbers">
+<code class="descname">article_numbers</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.article_numbers" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of unicode</em> &#8211; Pointers to specific articles.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.file">
+<code class="descname">file</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.file" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bytes</em> &#8211; The binary content of the document.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.articles">
+<code class="descname">articles</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.articles" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of ArticleRecord</em> &#8211; The linked articles.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.references">
+<code class="descname">references</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.references" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of DocumentRecord</em> &#8211; The references to other documents.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/documents.html#HintRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>law_status</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.law_status.LawStatusRecord" title="pyramid_oereb.lib.records.law_status.LawStatusRecord"><em>pyramid_oereb.lib.records.law_status.LawStatusRecord</em></a>) &#8211; The law status of this record.</li>
+<li><strong>published_from</strong> (<em>datetime.date</em>) &#8211; Date since this document was published.</li>
+<li><strong>title</strong> (<em>dict of unicode</em>) &#8211; The multilingual title of the document. It might be shortened one.</li>
+<li><strong>responsible_office</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.office.OfficeRecord" title="pyramid_oereb.lib.records.office.OfficeRecord"><em>pyramid_oereb.lib.records.office.OfficeRecord</em></a>) &#8211; Office which is
+responsible for this document.</li>
+<li><strong>text_at_web</strong> (<em>dict of uri</em>) &#8211; The multilingual URI to the documents content.</li>
+<li><strong>official_title</strong> (<em>dict of unicode</em>) &#8211; The official title of the document (multilingual).</li>
+<li><strong>abbreviation</strong> (<em>dict of unicode</em>) &#8211; Short term for this document (multilingual).</li>
+<li><strong>official_number</strong> (<em>unicode</em>) &#8211; The official number for identification of this document.</li>
+<li><strong>canton</strong> (<em>unicode</em>) &#8211; The cantonal short term (length of two, like &#8216;NE&#8217; or &#8216;BL&#8217;)</li>
+<li><strong>municipality</strong> (<em>unicode</em>) &#8211; The code for the municipality.</li>
+<li><strong>article_numbers</strong> (<em>list of unicode</em>) &#8211; Pointers to specific articles.</li>
+<li><strong>file</strong> (<em>bytes</em>) &#8211; The binary content of the document.</li>
+<li><strong>articles</strong> (<em>list of ArticleRecord</em>) &#8211; The linked articles.</li>
+<li><strong>references</strong> (<em>list of DocumentRecord</em>) &#8211; The references to other documents.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.HintRecord.published">
+<code class="descname">published</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.HintRecord.published" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if its not a future document.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if document is published.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="lawrecord">
+<span id="api-pyramid-oereb-lib-records-documents-lawrecord"></span><h2><em>LawRecord</em><a class="headerlink" href="#lawrecord" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">LawRecord</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/documents.html#LawRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyramid_oereb.lib.records.documents.DocumentRecord" title="pyramid_oereb.lib.records.documents.DocumentRecord"><code class="xref py py-class docutils literal"><span class="pre">pyramid_oereb.lib.records.documents.DocumentRecord</span></code></a></p>
+<p>More specific document record class representing law records.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.document_type">
+<code class="descname">document_type</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.document_type" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str or unicode</em> &#8211; The document type. Always &#8220;Law&#8221; for legal
+provision records.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.law_status" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; Key string of the law status.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.published_from">
+<code class="descname">published_from</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.published_from" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; Date since this document was published.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.title">
+<code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; The multilingual title of the document. It might be shortened one.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.responsible_office">
+<code class="descname">responsible_office</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.responsible_office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.office.OfficeRecord</em> &#8211; Office which is
+responsible for this document.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.text_at_web" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of uri</em> &#8211; The multilingual URI to the documents content.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.official_title">
+<code class="descname">official_title</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.official_title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; The official title of the document (multilingual).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.abbreviation">
+<code class="descname">abbreviation</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.abbreviation" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; Short term for this document (multilingual).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.official_number">
+<code class="descname">official_number</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.official_number" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The official number for identification of this document.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.canton">
+<code class="descname">canton</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.canton" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The cantonal short term (length of two, like &#8216;NE&#8217; or &#8216;BL&#8217;)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.municipality">
+<code class="descname">municipality</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.municipality" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The code for the municipality.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.article_numbers">
+<code class="descname">article_numbers</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.article_numbers" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of unicode</em> &#8211; Pointers to specific articles.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.file">
+<code class="descname">file</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.file" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bytes</em> &#8211; The binary content of the document.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.articles">
+<code class="descname">articles</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.articles" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of ArticleRecord</em> &#8211; The linked articles.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.references">
+<code class="descname">references</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.references" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of DocumentRecord</em> &#8211; The references to other documents.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/documents.html#LawRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>law_status</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.law_status.LawStatusRecord" title="pyramid_oereb.lib.records.law_status.LawStatusRecord"><em>pyramid_oereb.lib.records.law_status.LawStatusRecord</em></a>) &#8211; The law status of this record.</li>
+<li><strong>published_from</strong> (<em>datetime.date</em>) &#8211; Date since this document was published.</li>
+<li><strong>title</strong> (<em>dict of unicode</em>) &#8211; The multilingual title of the document. It might be shortened one.</li>
+<li><strong>responsible_office</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.office.OfficeRecord" title="pyramid_oereb.lib.records.office.OfficeRecord"><em>pyramid_oereb.lib.records.office.OfficeRecord</em></a>) &#8211; Office which is
+responsible for this document.</li>
+<li><strong>text_at_web</strong> (<em>dict of uri</em>) &#8211; The multilingual URI to the documents content.</li>
+<li><strong>official_title</strong> (<em>dict of unicode</em>) &#8211; The official title of the document (multilingual).</li>
+<li><strong>abbreviation</strong> (<em>dict of unicode</em>) &#8211; Short term for this document (multilingual).</li>
+<li><strong>official_number</strong> (<em>unicode</em>) &#8211; The official number for identification of this document.</li>
+<li><strong>canton</strong> (<em>unicode</em>) &#8211; The cantonal short term (length of two, like &#8216;NE&#8217; or &#8216;BL&#8217;)</li>
+<li><strong>municipality</strong> (<em>unicode</em>) &#8211; The code for the municipality.</li>
+<li><strong>article_numbers</strong> (<em>list of unicode</em>) &#8211; Pointers to specific articles.</li>
+<li><strong>file</strong> (<em>bytes</em>) &#8211; The binary content of the document.</li>
+<li><strong>articles</strong> (<em>list of ArticleRecord</em>) &#8211; The linked articles.</li>
+<li><strong>references</strong> (<em>list of DocumentRecord</em>) &#8211; The references to other documents.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LawRecord.published">
+<code class="descname">published</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LawRecord.published" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if its not a future document.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if document is published.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="legalprovisionrecord">
 <span id="api-pyramid-oereb-lib-records-documents-legalprovisionrecord"></span><h2><em>LegalProvisionRecord</em><a class="headerlink" href="#legalprovisionrecord" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.documents.</code><code class="descname">LegalProvisionRecord</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/documents.html#LegalProvisionRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyramid_oereb.lib.records.documents.DocumentRecord" title="pyramid_oereb.lib.records.documents.DocumentRecord"><code class="xref py py-class docutils literal"><span class="pre">pyramid_oereb.lib.records.documents.DocumentRecord</span></code></a></p>
+<p>More specific document record class representing legal provision records.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.document_type">
+<code class="descname">document_type</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.document_type" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str or unicode</em> &#8211; The document type. Always &#8220;LegalProvision&#8221; for legal
+provision records.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.law_status" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; Key string of the law status.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.published_from">
+<code class="descname">published_from</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.published_from" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; Date since this document was published.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.title">
+<code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; The multilingual title of the document. It might be shortened one.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.responsible_office">
+<code class="descname">responsible_office</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.responsible_office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.office.OfficeRecord</em> &#8211; Office which is
+responsible for this document.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.text_at_web" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of uri</em> &#8211; The multilingual URI to the documents content.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.official_title">
+<code class="descname">official_title</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.official_title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; The official title of the document (multilingual).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.abbreviation">
+<code class="descname">abbreviation</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.abbreviation" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; Short term for this document (multilingual).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.official_number">
+<code class="descname">official_number</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.official_number" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The official number for identification of this document.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.canton">
+<code class="descname">canton</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.canton" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The cantonal short term (length of two, like &#8216;NE&#8217; or &#8216;BL&#8217;)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.municipality">
+<code class="descname">municipality</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.municipality" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The code for the municipality.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.article_numbers">
+<code class="descname">article_numbers</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.article_numbers" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of unicode</em> &#8211; Pointers to specific articles.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.file">
+<code class="descname">file</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.file" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bytes</em> &#8211; The binary content of the document.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.articles">
+<code class="descname">articles</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.articles" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of ArticleRecord</em> &#8211; The linked articles.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.references">
+<code class="descname">references</code><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.references" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of DocumentRecord</em> &#8211; The references to other documents.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.lib.records.documents.LegalProvisionRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>title</em>, <em>responsible_office</em>, <em>text_at_web=None</em>, <em>abbreviation=None</em>, <em>official_number=None</em>, <em>official_title=None</em>, <em>canton=None</em>, <em>municipality=None</em>, <em>article_numbers=None</em>, <em>file=None</em>, <em>articles=None</em>, <em>references=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/documents.html#LegalProvisionRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.documents.LegalProvisionRecord.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -835,8 +1235,8 @@ restriction</li>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.lib.records.geometry.GeometryRecord.area">
-<code class="descname">area</code><a class="headerlink" href="#pyramid_oereb.lib.records.geometry.GeometryRecord.area" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.lib.records.geometry.GeometryRecord.areaShare">
+<code class="descname">areaShare</code><a class="headerlink" href="#pyramid_oereb.lib.records.geometry.GeometryRecord.areaShare" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>float or None</em> &#8211; Returns the area of this geometry.</p>
 </dd></dl>
 
@@ -869,9 +1269,15 @@ collection which has to be unpacked first in case of collection.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.lib.records.geometry.GeometryRecord.length">
-<code class="descname">length</code><a class="headerlink" href="#pyramid_oereb.lib.records.geometry.GeometryRecord.length" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.lib.records.geometry.GeometryRecord.lengthShare">
+<code class="descname">lengthShare</code><a class="headerlink" href="#pyramid_oereb.lib.records.geometry.GeometryRecord.lengthShare" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>float or None</em> &#8211; Returns the length of this geometry.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.geometry.GeometryRecord.nrOfPoints">
+<code class="descname">nrOfPoints</code><a class="headerlink" href="#pyramid_oereb.lib.records.geometry.GeometryRecord.nrOfPoints" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float or None</em> &#8211; Returns the number of this geometry.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1102,8 +1508,8 @@ every other value will raise an error.</td>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.lib.records.plr.PlrRecord.area">
-<code class="descname">area</code><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.area" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.lib.records.plr.PlrRecord.areaShare">
+<code class="descname">areaShare</code><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.areaShare" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>decimal</em> &#8211; Area of the restriction touching the property calculated by the processor.</p>
 </dd></dl>
 
@@ -1151,14 +1557,20 @@ associated with this record.</li>
 
 <dl class="attribute">
 <dt>
-<code class="descname">area</code></dt>
+<code class="descname">areaShare</code></dt>
 <dd><p><a href="#id2"><span class="problematic" id="id3">**</span></a>Returns* &#8211; float or None* &#8211; Returns the summed area of all related geometry records of this PLR.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.lib.records.plr.PlrRecord.length">
-<code class="descname">length</code><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.length" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.lib.records.plr.PlrRecord.lengthShare">
+<code class="descname">lengthShare</code><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.lengthShare" title="Permalink to this definition">¶</a></dt>
 <dd><p><a href="#id4"><span class="problematic" id="id5">**</span></a>Returns* &#8211; float or None* &#8211; Returns the summed length of all related geometry records of this PLR.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.plr.PlrRecord.nrOfPoints">
+<code class="descname">nrOfPoints</code><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.nrOfPoints" title="Permalink to this definition">¶</a></dt>
+<dd><p><a href="#id6"><span class="problematic" id="id7">**</span></a>Returns* &#8211; float or None* &#8211; Returns the number of points of all related geometry records of this PLR.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1222,8 +1634,23 @@ law restrictions for this real estate</li>
 associated with this real estate</li>
 <li><strong>plan_for_land_register</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord" title="pyramid_oereb.lib.records.view_service.ViewServiceRecord"><em>pyramid_oereb.lib.records.view_service.ViewServiceRecord</em></a>) &#8211; The view
 service to be used for the land registry map</li>
+<li><strong>plan_for_land_register_main_page</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord" title="pyramid_oereb.lib.records.view_service.ViewServiceRecord"><em>pyramid_oereb.lib.records.view_service.ViewServiceRecord</em></a>) &#8211; The view service to be used for the land registry map used on the main page</li>
 </ul>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord.set_main_page_view_service">
+<code class="descname">set_main_page_view_service</code><span class="sig-paren">(</span><em>plan_for_land_register_main_page</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/real_estate.html#RealEstateRecord.set_main_page_view_service"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord.set_main_page_view_service" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the view service to generate the land registry map for the real estate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plan_for_land_register_main_page</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord" title="pyramid_oereb.lib.records.view_service.ViewServiceRecord"><em>pyramid_oereb.lib.records.view_service.ViewServiceRecord</em></a>) &#8211; The view service to be used for the land registry map used on the main page</td>
 </tr>
 </tbody>
 </table>
@@ -1315,7 +1742,7 @@ solve bug <a class="reference external" href="https://github.com/camptocamp/pyra
 <span id="api-pyramid-oereb-lib-records-view-service-viewservicerecord"></span><h2><em>ViewServiceRecord</em><a class="headerlink" href="#viewservicerecord" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.view_service.ViewServiceRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.view_service.</code><code class="descname">ViewServiceRecord</code><span class="sig-paren">(</span><em>reference_wms</em>, <em>legend_at_web=None</em>, <em>legends=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.view_service.</code><code class="descname">ViewServiceRecord</code><span class="sig-paren">(</span><em>reference_wms</em>, <em>legend_at_web=None</em>, <em>legends=None</em>, <em>layer_index=None</em>, <em>layer_opacity=None</em>, <em>min_NS03=None</em>, <em>max_NS03=None</em>, <em>min_NS95=None</em>, <em>max_NS95=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>A view service contains a valid WMS URL with a defined set of layers.</p>
 <dl class="attribute">
@@ -1327,7 +1754,7 @@ link.</p>
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.records.view_service.ViewServiceRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>reference_wms</em>, <em>legend_at_web=None</em>, <em>legends=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>reference_wms</em>, <em>legend_at_web=None</em>, <em>legends=None</em>, <em>layer_index=None</em>, <em>layer_opacity=None</em>, <em>min_NS03=None</em>, <em>max_NS03=None</em>, <em>min_NS95=None</em>, <em>max_NS95=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/view_service.html#ViewServiceRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1336,6 +1763,16 @@ link.</p>
 <li><strong>reference_wms</strong> (<em>uri</em>) &#8211; The link URL to the actual service (WMS)</li>
 <li><strong>legend_at_web</strong> (<em>uri</em>) &#8211; The link URL to the actual legend service (WMS get legend)</li>
 <li><strong>legends</strong> (<em>list of LegendEntry</em>) &#8211; A list of all relevant legend entries.</li>
+<li><strong>layer_index</strong> (<em>int</em>) &#8211; Layer index. Value from -1000 to +1000.</li>
+<li><strong>layer_opacity</strong> (<em>float</em>) &#8211; Opacity of layer. Value from 0.0 to 1.0.</li>
+<li><strong>min_NS03</strong> (<em>shapely.geometry.point.Point</em>) &#8211; Minimal value of map extent (bounding box)
+in EPSG:21781 (NS03).</li>
+<li><strong>max_NS03</strong> (<em>shapely.geometry.point.Point</em>) &#8211; Maximal value of map extent (bounding box)
+in EPSG:21781 (NS03).</li>
+<li><strong>min_NS95</strong> (<em>shapely.geometry.point.Point</em>) &#8211; Minimal value of map extent (bounding box)
+in EPSG:2056 (NS95).</li>
+<li><strong>max_NS95</strong> (<em>shapely.geometry.point.Point</em>) &#8211; Maximal value of map extent (bounding box)
+in EPSG:2056 (NS95).</li>
 </ul>
 </td>
 </tr>

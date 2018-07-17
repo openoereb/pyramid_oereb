@@ -104,18 +104,6 @@ Geometry
    .. automethod:: __init__
 
 
-.. _api-pyramid_oereb-standard-models-forest_distance_lines-legalprovision:
-
-LegalProvision
-~~~~~~~~~~~~~~
-
-.. autoclass:: pyramid_oereb.standard.models.forest_distance_lines.LegalProvision
-   :members:
-   :inherited-members:
-
-   .. automethod:: __init__
-
-
 .. _api-pyramid_oereb-standard-models-forest_distance_lines-legendentry:
 
 LegendEntry

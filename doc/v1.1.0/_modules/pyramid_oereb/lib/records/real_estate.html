@@ -166,6 +166,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">plan_for_land_register</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">plan_for_land_register_main_page</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">highlight</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">areas_ratio</span> <span class="o">=</span> <span class="mf">1.0</span>
 
@@ -193,6 +194,8 @@
 <span class="sd">                associated with this real estate</span>
 <span class="sd">            plan_for_land_register (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view</span>
 <span class="sd">                service to be used for the land registry map</span>
+<span class="sd">            plan_for_land_register_main_page (pyramid_oereb.lib.records.view_service.ViewServiceRecord):</span>
+<span class="sd">                The view service to be used for the land registry map used on the main page</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">number</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">identdn</span> <span class="o">=</span> <span class="n">identdn</span>
@@ -225,6 +228,16 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register</span> <span class="o">=</span> <span class="n">plan_for_land_register</span></div>
 
+<div class="viewcode-block" id="RealEstateRecord.set_main_page_view_service"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord.set_main_page_view_service">[docs]</a>    <span class="k">def</span> <span class="nf">set_main_page_view_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plan_for_land_register_main_page</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the view service to generate the land registry map for the real estate.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            plan_for_land_register_main_page (pyramid_oereb.lib.records.view_service.ViewServiceRecord):</span>
+<span class="sd">                The view service to be used for the land registry map used on the main page</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register_main_page</span> <span class="o">=</span> <span class="n">plan_for_land_register_main_page</span></div>
+
     <span class="k">def</span> <span class="nf">set_highlight_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sld_url</span><span class="p">):</span>
         <span class="n">configured_params</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_real_estate_config</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;visualisation&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;url_params&#39;</span><span class="p">)</span>
         <span class="n">additional_url_params</span> <span class="o">=</span> <span class="p">{}</span>
@@ -232,8 +245,10 @@
             <span class="n">additional_url_params</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">param</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">)})</span>
         <span class="n">updated_sld_url</span> <span class="o">=</span> <span class="n">add_url_params</span><span class="p">(</span><span class="n">sld_url</span><span class="p">,</span> <span class="n">additional_url_params</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">highlight</span> <span class="o">=</span> <span class="n">ViewServiceRecord</span><span class="p">(</span>
-            <span class="n">add_url_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;sld&#39;</span><span class="p">:</span> <span class="n">updated_sld_url</span><span class="p">}),</span>
-            <span class="s1">&#39;&#39;</span>
+            <span class="n">reference_wms</span><span class="o">=</span><span class="n">add_url_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;sld&#39;</span><span class="p">:</span> <span class="n">updated_sld_url</span><span class="p">}),</span>
+            <span class="n">layer_index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register</span><span class="o">.</span><span class="n">layer_index</span><span class="p">,</span>
+            <span class="n">layer_opacity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register</span><span class="o">.</span><span class="n">layer_opacity</span><span class="p">,</span>
+            <span class="n">legend_at_web</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">highlight</span><span class="o">.</span><span class="n">download_wms_content</span><span class="p">()</span>
 

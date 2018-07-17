@@ -259,11 +259,14 @@
                 <span class="p">))</span>
         <span class="k">return</span> <span class="n">legend_entry_records</span>
 
-    <span class="k">def</span> <span class="nf">from_db_to_view_service_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view_service_from_db</span><span class="p">,</span> <span class="n">legend_entry_records</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">from_db_to_view_service_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view_service_from_db</span><span class="p">,</span> <span class="n">legend_entry_records</span><span class="p">,</span> <span class="n">theme</span><span class="p">):</span>
+        <span class="n">layer_index</span><span class="p">,</span> <span class="n">layer_opacity</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_layer_config</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
         <span class="n">view_service_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_service_record_class</span><span class="p">(</span>
             <span class="n">view_service_from_db</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">,</span>
             <span class="n">view_service_from_db</span><span class="o">.</span><span class="n">legend_at_web</span><span class="p">,</span>
-            <span class="n">legends</span><span class="o">=</span><span class="n">legend_entry_records</span>
+            <span class="n">legends</span><span class="o">=</span><span class="n">legend_entry_records</span><span class="p">,</span>
+            <span class="n">layer_index</span><span class="o">=</span><span class="n">layer_index</span><span class="p">,</span>
+            <span class="n">layer_opacity</span><span class="o">=</span><span class="n">layer_opacity</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">view_service_record</span>
 
@@ -423,7 +426,8 @@
                     <span class="n">legal_provision</span><span class="o">.</span><span class="n">law_status</span>
                 <span class="p">)</span>
             <span class="p">)</span>
-            <span class="n">document_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_documents_reocord_class</span><span class="p">(</span>
+            <span class="n">document_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_documents_record_class</span><span class="p">(</span>
+                <span class="n">legal_provision</span><span class="o">.</span><span class="n">document_type</span><span class="p">,</span>
                 <span class="n">law_status</span><span class="p">,</span>
                 <span class="n">legal_provision</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>
                 <span class="n">legal_provision</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
@@ -468,7 +472,8 @@
             <span class="c1"># raise AttributeError(msg)</span>
         <span class="n">view_service_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_view_service_record</span><span class="p">(</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">view_service</span><span class="p">,</span>
-            <span class="n">legend_entry_records</span>
+            <span class="n">legend_entry_records</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)</span>
         <span class="p">)</span>
 
         <span class="n">document_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_document_records</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="p">)</span>

@@ -104,18 +104,6 @@ Geometry
    .. automethod:: __init__
 
 
-.. _api-pyramid_oereb-standard-models-land_use_plans-legalprovision:
-
-LegalProvision
-~~~~~~~~~~~~~~
-
-.. autoclass:: pyramid_oereb.standard.models.land_use_plans.LegalProvision
-   :members:
-   :inherited-members:
-
-   .. automethod:: __init__
-
-
 .. _api-pyramid_oereb-standard-models-land_use_plans-legendentry:
 
 LegendEntry

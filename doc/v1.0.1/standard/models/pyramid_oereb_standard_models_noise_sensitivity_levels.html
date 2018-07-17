@@ -109,7 +109,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#documentreference">DocumentReference</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#documentreferencedefinition">DocumentReferenceDefinition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#geometry">Geometry</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#legalprovision">LegalProvision</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#legendentry">LegendEntry</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#office">Office</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#publiclawrestriction">PublicLawRestriction</a></li>
@@ -355,6 +354,12 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.Document.document_type">
+<code class="descname">document_type</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.Document.document_type" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The document type. It must be &#8220;LegalProvision&#8221;, &#8220;Law&#8221; or &#8220;Hint&#8221;.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.Document.title">
 <code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.Document.title" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual title or if existing the short title ot his document.</p>
@@ -367,8 +372,8 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.Document.abbrevation">
-<code class="descname">abbrevation</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.Document.abbrevation" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.Document.abbreviation">
+<code class="descname">abbreviation</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.Document.abbreviation" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The multilingual shortened version of the documents title.</p>
 </dd></dl>
 
@@ -652,33 +657,6 @@ configured type.  This concrete one is POLYGON</p>
 <dl class="method">
 <dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.Geometry.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.Geometry.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>A simple constructor that allows initialization from kwargs.</p>
-<p>Sets attributes on the constructed instance using the names and
-values in <code class="docutils literal"><span class="pre">kwargs</span></code>.</p>
-<p>Only keys that are present as
-attributes of the instance&#8217;s class are allowed. These could be,
-for example, any mapped columns or relationships.</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="legalprovision">
-<span id="api-pyramid-oereb-standard-models-noise-sensitivity-levels-legalprovision"></span><h2>LegalProvision<a class="headerlink" href="#legalprovision" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.LegalProvision">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.models.noise_sensitivity_levels.</code><code class="descname">LegalProvision</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/standard/models/noise_sensitivity_levels.html#LegalProvision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.LegalProvision" title="Permalink to this definition">¶</a></dt>
-<dd><p>A subclass of the document representing legal provisions. It is a specialized class of document.</p>
-<dl class="attribute">
-<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.LegalProvision.id">
-<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.LegalProvision.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
-you  don&#8217;t like it - don&#8217;t care about.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyramid_oereb.standard.models.noise_sensitivity_levels.LegalProvision.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.standard.models.noise_sensitivity_levels.LegalProvision.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>A simple constructor that allows initialization from kwargs.</p>
 <p>Sets attributes on the constructed instance using the names and
 values in <code class="docutils literal"><span class="pre">kwargs</span></code>.</p>

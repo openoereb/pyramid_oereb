@@ -104,18 +104,6 @@ Geometry
    .. automethod:: __init__
 
 
-.. _api-pyramid_oereb-standard-models-contaminated_civil_aviation_sites-legalprovision:
-
-LegalProvision
-~~~~~~~~~~~~~~
-
-.. autoclass:: pyramid_oereb.standard.models.contaminated_civil_aviation_sites.LegalProvision
-   :members:
-   :inherited-members:
-
-   .. automethod:: __init__
-
-
 .. _api-pyramid_oereb-standard-models-contaminated_civil_aviation_sites-legendentry:
 
 LegendEntry
