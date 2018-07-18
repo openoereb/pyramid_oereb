@@ -172,18 +172,34 @@ class Renderer(JsonRenderer):
         if 'Image' in extract_dict.get('RealEstate_Highlight', {}):
             del extract_dict['RealEstate_Highlight']['Image']
 
+        main_page_url, main_page_params = \
+            parse_url(extract_dict['RealEstate_PlanForLandRegisterMainPage']['ReferenceWMS'])
+        base_url = urlparse.urlunsplit((main_page_url.scheme,
+                                        main_page_url.netloc,
+                                        main_page_url.path,
+                                        None,
+                                        None))
+        main_page_basemap = {
+            'type': 'wms',
+            'styles': 'default',
+            'opacity': extract_dict['RealEstate_PlanForLandRegisterMainPage'].get('LayerOpacity', 0.6),
+            'baseURL': base_url,
+            'layers': main_page_params['LAYERS'][0].split(','),
+            'imageFormat': 'image/png',
+            'customParams': {'TRANSPARENT': 'true'},
+        }
+        extract_dict['baseLayers'] = {'layers': [main_page_basemap]}
+        extract_dict['legend'] = extract_dict['RealEstate_PlanForLandRegister'].get('LegendAtWeb', '')
         url, params = parse_url(extract_dict['RealEstate_PlanForLandRegister']['ReferenceWMS'])
         basemap = {
             'type': 'wms',
             'styles': 'default',
-            'opacity': extract_dict['RealEstate_PlanForLandRegister'].get('LayerOpacity', 0.25),
+            'opacity': extract_dict['RealEstate_PlanForLandRegister'].get('LayerOpacity', 0.6),
             'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
             'layers': params['LAYERS'][0].split(','),
             'imageFormat': 'image/png',
             'customParams': {'TRANSPARENT': 'true'},
         }
-        extract_dict['baseLayers'] = {'layers': [basemap]}
-        extract_dict['legend'] = extract_dict['RealEstate_PlanForLandRegister'].get('LegendAtWeb', '')
         del extract_dict['RealEstate_PlanForLandRegister']  # /definitions/Map
 
         self._multilingual_m_text(extract_dict, 'GeneralInformation')
