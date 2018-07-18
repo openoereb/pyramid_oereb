@@ -3,4 +3,5 @@ recursive-include pyramid_oereb/standard *.mako
 recursive-include pyramid_oereb/standard *.png
 recursive-include pyramid_oereb/standard *.xml
 recursive-include pyramid_oereb/lib/renderer *.xml
+recursive-include pyramid_oereb/contrib/templates *.mako
 recursive-exclude tests *.*
