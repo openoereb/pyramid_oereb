@@ -4,7 +4,7 @@ import logging
 from geolink_formatter import XML
 from requests.auth import HTTPBasicAuth
 
-from pyramid_oereb.lib.records.documents import LegalProvisionRecord, DocumentRecord
+from pyramid_oereb.lib.records.documents import LegalProvisionRecord, LawRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.sources import Base
@@ -131,7 +131,7 @@ class OEREBlexSource(Base):
         if document.doctype == 'decree':
             document_class = LegalProvisionRecord
         elif document.doctype == 'edict':
-            document_class = DocumentRecord
+            document_class = LawRecord
         else:
             raise TypeError('Wrong doctype: expected decree or edict, got {0}'.format(document.doctype))
 
@@ -157,9 +157,6 @@ class OEREBlexSource(Base):
                          'canton': self._canton,
                          'municipality': self._get_mapped_value(document, 'municipality'),
                          'references': referenced_records if len(referenced_records) > 0 else None}
-            if document.doctype == 'edict':
-                arguments['document_type'] = 'Law'
-            # the other case of (doctype == 'decree') is 'LegalProvision' by default
             records.append(document_class(**arguments))
 
         return records
