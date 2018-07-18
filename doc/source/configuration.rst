@@ -28,7 +28,7 @@ for these too, you can run a provided script to generate the required models.
 
 .. code-block:: shell
 
-   create_standard_model -c <YOUR_NEW_TOPIC_CODE> -g <GEOMETRY_TYPE> -p <TARGET_PATH>
+   create_standard_model -c <YOUR_NEW_TOPIC_CODE> -g <GEOMETRY_TYPE> -p <TARGET_PATH> -k TRUE
 
 The first parameter is the code of your new topic and has to be defined in camelcase. The geometry type for
 the theme can be one of the following:
@@ -45,6 +45,9 @@ The geometry collection is only meant for topics that can consist of different g
 recommend to use it **only if a simple geometry cannot be used** and to put **only one geometry** in each
 record. Do not use it as a bucket for everything! The third parameter defines the output directory in which
 the new file will be created, e.g. a module directory of your application.
+
+To use strings as primary key type, add the '-k TRUE' parameter. If not supplied, the default primary key type
+of integer will be used instead.
 
 After creating the models you have to create its configuration. Open the configuration file
 (pyramid_oereb_standard.yml) and copy the section from one of the existing topics which usually looks like
