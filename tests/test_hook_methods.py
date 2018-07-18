@@ -21,7 +21,7 @@ def test_get_symbol_invalid_theme_code(config):
     request = DummyRequest()
     request.matchdict.update({
         'theme_code': 'InvalidThemeCode',
-        'view_service_id': 1,
+        'view_service_id': '1',
         'type_code': 'test'
     })
     with pytest.raises(HTTPNotFound):
@@ -33,7 +33,7 @@ def test_get_symbol_not_found(config):
     request = DummyRequest()
     request.matchdict.update({
         'theme_code': 'ContaminatedSites',
-        'view_service_id': 1,
+        'view_service_id': '1',
         'type_code': 'missing'
     })
     with pytest.raises(HTTPNotFound):
@@ -45,7 +45,7 @@ def test_get_symbol(config):
     request = DummyRequest()
     request.matchdict.update({
         'theme_code': 'ContaminatedSites',
-        'view_service_id': 1,
+        'view_service_id': '1',
         'type_code': 'test'
     })
     response = get_symbol(request)
@@ -60,7 +60,7 @@ def test_get_symbol_ref(config):
         'test',
         'http://my.codelist.com/test.xml',
         ThemeRecord('ContaminatedSites', {'de': 'Belastete Standorte'}),
-        view_service_id=1
+        view_service_id='1'
     )
     with pyramid_oereb_test_config():
         request = DummyRequest()
