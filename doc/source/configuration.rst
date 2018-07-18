@@ -35,7 +35,10 @@ the theme can be one of the following:
 
    - `POINT`,
    - `LINESTRING`,
-   - `POLYGON` or
+   - `POLYGON`
+   - `MULTIPOINT`
+   - `MULTILINESTRING`
+   - `MULTIPOLYGON` or
    - `GEOMETRYCOLLECTION`.
 
 The geometry collection is only meant for topics that can consist of different geometry types. We **strongly**
