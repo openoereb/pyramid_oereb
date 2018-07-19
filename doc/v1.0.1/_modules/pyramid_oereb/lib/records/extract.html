@@ -179,9 +179,9 @@
     <span class="sd">&quot;&quot;&quot;binary or None: QR code for the extract as binary string.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="ExtractRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.extract.ExtractRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">logo_plr_cadastre</span><span class="p">,</span> <span class="n">federal_logo</span><span class="p">,</span> <span class="n">cantonal_logo</span><span class="p">,</span> <span class="n">municipality_logo</span><span class="p">,</span>
-                 <span class="n">plr_cadastre_authority</span><span class="p">,</span> <span class="n">base_data</span><span class="p">,</span> <span class="n">embeddable</span><span class="p">,</span> <span class="n">exclusions_of_liability</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">glossaries</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">concerned_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">not_concerned_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">theme_without_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">general_information</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">plr_cadastre_authority</span><span class="p">,</span> <span class="n">base_data</span><span class="p">,</span> <span class="n">embeddable</span><span class="p">,</span> <span class="n">certification</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">certification_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">exclusions_of_liability</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">glossaries</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">concerned_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">not_concerned_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">theme_without_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">general_information</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate in its</span>
@@ -196,6 +196,8 @@
 <span class="sd">            base_data (dict of unicode): A multilingual list of basic data layers used by the extract. For</span>
 <span class="sd">                instance the base map from swisstopo.</span>
 <span class="sd">            embeddable (pyramid_oereb.lib.records.embeddable.EmbeddableRecord):</span>
+<span class="sd">            certification (dict of unicode or None): Multilingual list of certification.</span>
+<span class="sd">            certification_at_web (dict of unicode or None): Multilingual list of certification uri.</span>
 <span class="sd">            exclusions_of_liability (list of</span>
 <span class="sd">                pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord): Exclusions of</span>
 <span class="sd">                liability for the extract.</span>
@@ -237,6 +239,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">cantonal_logo</span> <span class="o">=</span> <span class="n">cantonal_logo</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">municipality_logo</span> <span class="o">=</span> <span class="n">municipality_logo</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plr_cadastre_authority</span> <span class="o">=</span> <span class="n">plr_cadastre_authority</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">certification</span> <span class="o">=</span> <span class="n">certification</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">certification_at_web</span> <span class="o">=</span> <span class="n">certification_at_web</span>
         <span class="k">if</span> <span class="n">exclusions_of_liability</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">exclusions_of_liability</span> <span class="o">=</span> <span class="n">exclusions_of_liability</span>
         <span class="k">else</span><span class="p">:</span>

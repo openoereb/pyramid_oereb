@@ -271,6 +271,16 @@
                 <span class="p">)</span>
             <span class="p">})</span>
 
+        <span class="k">if</span> <span class="n">extract</span><span class="o">.</span><span class="n">certification</span><span class="p">:</span>
+            <span class="n">extract_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+              <span class="s1">&#39;Certification&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_multilingual_text</span><span class="p">(</span><span class="n">extract</span><span class="o">.</span><span class="n">certification</span><span class="p">),</span>
+            <span class="p">})</span>
+
+        <span class="k">if</span> <span class="n">extract</span><span class="o">.</span><span class="n">certification_at_web</span><span class="p">:</span>
+            <span class="n">extract_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+              <span class="s1">&#39;CertificationAtWeb&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_multilingual_text</span><span class="p">(</span><span class="n">extract</span><span class="o">.</span><span class="n">certification_at_web</span><span class="p">),</span>
+            <span class="p">})</span>
+
         <span class="k">if</span> <span class="n">extract</span><span class="o">.</span><span class="n">electronic_signature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;ElectronicSignature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract</span><span class="o">.</span><span class="n">electronic_signature</span>
         <span class="k">if</span> <span class="n">extract</span><span class="o">.</span><span class="n">qr_code</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

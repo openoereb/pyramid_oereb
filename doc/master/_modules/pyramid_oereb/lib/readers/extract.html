@@ -178,7 +178,8 @@
 <span class="sd">            instance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ExtractReader.__init__"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.extract.ExtractReader.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_sources</span><span class="p">,</span> <span class="n">plr_cadastre_authority</span><span class="p">,</span> <span class="n">logos</span><span class="p">):</span>
+<div class="viewcode-block" id="ExtractReader.__init__"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.extract.ExtractReader.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_sources</span><span class="p">,</span> <span class="n">plr_cadastre_authority</span><span class="p">,</span> <span class="n">logos</span><span class="p">,</span> <span class="n">certification</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">certification_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of PLR source</span>
@@ -186,10 +187,14 @@
 <span class="sd">            plr_cadastre_authority (pyramid_oereb.lib.records.office.OffcieRecord): The authority responsible</span>
 <span class="sd">                for the PLR cadastre.</span>
 <span class="sd">            logos (dict): The logos of confederation, canton and oereb wrapped in a ImageRecord.</span>
+<span class="sd">            certification (dict of unicode or None): A mutlilingual dictionary of certification information.</span>
+<span class="sd">            certification_at_web (dict of unicode or None): Multilingual list of certification uri.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extract</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span> <span class="o">=</span> <span class="n">plr_sources</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plr_cadastre_authority_</span> <span class="o">=</span> <span class="n">plr_cadastre_authority</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_certification</span> <span class="o">=</span> <span class="n">certification</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_certification_at_web</span> <span class="o">=</span> <span class="n">certification_at_web</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span> <span class="o">=</span> <span class="n">logos</span></div>
 
     <span class="nd">@property</span>
@@ -232,6 +237,26 @@
 <span class="sd">            pyramid_oereb.lib.records.image.ImageRecord: The cantonal logos as a ImageRecord.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;canton&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">certification</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the certification if it exists.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: (dict of unicode or None) The multilingual list of certification or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_certification</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">certification_at_web</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the web certification if it exists.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: (dict of unicode or None) The multilingual list of certification uri None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_certification_at_web</span>
 
 <div class="viewcode-block" id="ExtractReader.read"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.extract.ExtractReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">municipality</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -326,6 +351,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">plr_cadastre_authority</span><span class="p">,</span>
             <span class="n">base_data</span><span class="p">,</span>
             <span class="n">embeddable</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">certification</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">certification_at_web</span><span class="p">,</span>
             <span class="n">concerned_theme</span><span class="o">=</span><span class="n">concerned_themes</span><span class="p">,</span>
             <span class="n">not_concerned_theme</span><span class="o">=</span><span class="n">not_concerned_themes</span><span class="p">,</span>
             <span class="n">theme_without_data</span><span class="o">=</span><span class="n">themes_without_data</span><span class="p">,</span>
