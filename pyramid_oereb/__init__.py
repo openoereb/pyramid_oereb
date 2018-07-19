@@ -67,13 +67,14 @@ def includeme(config):
     municipality_config = Config.get_municipality_config()
     exclusion_of_liability_config = Config.get_exclusion_of_liability_config()
     glossary_config = Config.get_glossary_config()
+    extract = Config.get_extract_config()
+    certification = extract.get('certification')
+    certification_at_web = extract.get('certification_at_web')
     logos = Config.get_logo_config()
     app_schema_name = Config.get('app_schema').get('name')
     srid = Config.get('srid')
 
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
-
-    certification = Config.get_certification()
 
     real_estate_reader = RealEstateReader(
         real_estate_config.get('source').get('class'),
@@ -103,8 +104,9 @@ def includeme(config):
     extract_reader = ExtractReader(
         plr_sources,
         plr_cadastre_authority,
+        logos,
         certification,
-        logos
+        certification_at_web,
     )
 
     settings.update({

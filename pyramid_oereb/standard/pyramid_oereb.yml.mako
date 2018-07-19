@@ -84,16 +84,6 @@ pyramid_oereb:
     # The headers sent to the print
     headers:
       Content-Type: application/json; charset=UTF-8
-    furtherInformationText:
-      de: Hier sollten die weiteren Informationen erfasst werden.
-      fr: Veuillez saisir les informations complémentaires ici.
-      it: ...
-      rm: ...
-    certificationText:
-      de: Referenz zur kantonsspezifischen Gesetzesgrundlage bezüglich Beglaubigungen.
-      fr: Référence vers les dispositions légales cantonales concernant la certification
-      it: Certificazione secondo OCRDPP art. 14
-      rm: ...
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
   # creation process, because this name is used as schema name in the target database. The app_schema holds
@@ -331,6 +321,17 @@ pyramid_oereb:
         methods:
           date: pyramid_oereb.standard.hook_methods.get_surveying_data_update_date
           provider:  pyramid_oereb.standard.hook_methods.get_surveying_data_provider
+      # Certification and certification_at_web must be set with your own certification information.
+    certification:
+        de: Referenz zur kantonsspezifischen Gesetzesgrundlage bezüglich Beglaubigungen.
+        fr: Référence vers les dispositions légales cantonales concernant la certification
+        it: Certificazione secondo OCRDPP art. 14
+        rm: ...
+    certification_at_web:
+        de: https://oereb.bl.ch/certification/de
+        fr: https://oereb.bl.ch/certification/fr
+        it: https://oereb.bl.ch/certification/it
+        rm: https://oereb.bl.ch/certification/rm
     general_information:
         de: Der Inhalt des Katasters wird als bekannt vorausgesetzt. Der Kanton --HIER MUSS DER KANTONSNAME STEHEN--- ist für die Genauigkeit und Verlässlichkeit der gesetzgebenden Dokumenten in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begründet insbesondere keine Rechten und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskräftig verabschiedet oder veröffentlicht worden sind. Mit der Beglaubigung des Auszuges wird die Übereinstimmung des Auszuges mit dem Kataster zum Zeitpunkt des Auszuges bestätigt.
         fr: Le contenu du cadastre RDPPF est supposé connu. Le canton de ---NOM DU CANTON--- n'engage pas sa responsabilité sur l'exactitude ou la fiabilité des documents législatifs dans leur version électronique. L'extrait a un caractère informatif et ne crée aucun droit ou obligation. Les documents juridiquement contraignants sont ceux qui ont été légalement adoptés ou publiés. La certification d'un extrait confirme la concordance de cet extrait avec le cadastre RDPPF à la date d'établissement dudit extrait.
