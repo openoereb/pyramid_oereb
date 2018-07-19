@@ -91,7 +91,9 @@ def test_render(config, parameter):
                 ExclusionOfLiabilityRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})
             ],
             glossaries=[GlossaryRecord({'de': u'Glossar'}, {'de': u'Test'})],
-            general_information={'de': u'Allgemeine Informationen'}
+            general_information={'de': u'Allgemeine Informationen'},
+            certification={'de': u'certification'},
+            certification_at_web={'de': u'certification_at_web'},
         )
         extract.qr_code = '1'.encode('utf-8')
         extract.electronic_signature = 'Signature'
@@ -114,6 +116,8 @@ def test_render(config, parameter):
                 'PLRCadastreAuthority': renderer.format_office(office_record),
                 'BaseData': renderer.get_multilingual_text(Config.get_base_data(av_update_date)),
                 'RealEstate': renderer.format_real_estate(real_estate),
+                'Certification': [{'Language': 'de', 'Text': 'certification'}],
+                'CertificationAtWeb': [{'Language': 'de', 'Text': 'certification_at_web'}],
                 'GeneralInformation': [{'Language': 'de', 'Text': 'Allgemeine Informationen'}],
                 'QRCode': '1'.encode('utf-8'),
                 'ExclusionOfLiability': [{

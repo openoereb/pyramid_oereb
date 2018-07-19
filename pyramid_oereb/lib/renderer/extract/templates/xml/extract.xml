@@ -69,7 +69,17 @@
     %if extract.qr_code:
         <data:QRCode>${extract.qr_code}</data:QRCode>
     %endif
-    % if extract.general_information:
+    %if extract.certification:
+        <data:Certification>
+            <%include file="multilingual_m_text.xml" args="text=extract.certification"/>
+        </data:Certification>
+    %endif
+    %if extract.certification:
+        <data:CertificationAtWeb>
+            <%include file="multilingual_uri.xml" args="text=extract.certification_at_web"/>
+        </data:CertificationAtWeb>
+    %endif
+    %if extract.general_information:
         <data:GeneralInformation>
             <%include file="multilingual_m_text.xml" args="text=extract.general_information"/>
         </data:GeneralInformation>

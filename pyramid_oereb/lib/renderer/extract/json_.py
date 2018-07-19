@@ -118,6 +118,16 @@ class Renderer(Base):
                 )
             })
 
+        if extract.certification:
+            extract_dict.update({
+              'Certification': self.get_multilingual_text(extract.certification),
+            })
+
+        if extract.certification_at_web:
+            extract_dict.update({
+              'CertificationAtWeb': self.get_multilingual_text(extract.certification_at_web),
+            })
+
         if extract.electronic_signature is not None:
             extract_dict['ElectronicSignature'] = extract.electronic_signature
         if extract.qr_code is not None:
