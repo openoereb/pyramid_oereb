@@ -12,6 +12,18 @@
     "Street": "M\u00fchlemattstrasse",
     "PostalCode": 4410
   },
+  "Certification": [
+    {
+      "Text": "Referenz zur kantonsspezifischen Gesetzesgrundlage bez\u00fcglich Beglaubigungen.",
+      "Language": "de"
+    }
+  ],
+  "CertificationAtWeb": [
+    {
+      "Text": "https://oereb.bl.ch/certification/de",
+      "Language": "de"
+    }
+  ],
   "GeneralInformation": [
     {
       "Text": "Der Inhalt des \u00d6REB-Katasters wird als bekannt vorausgesetzt. Der Kanton Basel-Landschaft ist f\u00fcr die Genauigkeit und Verl\u00e4sslichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begr\u00fcndet insbesondere keine Rechte und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskr\u00e4ftig verabschiedet oder ver\u00f6ffentlicht worden sind. Mit der Beglaubigung des Auszugs wird die \u00dcbereinstimmung des Auszugs mit dem \u00d6REB-Kataster zum Zeitpunkt der Auszugserstellung best\u00e4tigt.",

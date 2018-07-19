@@ -115,6 +115,9 @@ class MockRequest(DummyRequest):
         municipality_config = Config.get_municipality_config()
         exclusion_of_liability_config = Config.get_exclusion_of_liability_config()
         glossary_config = Config.get_glossary_config()
+        extract = Config.get_extract_config()
+        certification = extract.get('certification')
+        certification_at_web = extract.get('certification_at_web')
         logos = Config.get_logo_config()
         plr_cadastre_authority = Config.get_plr_cadastre_authority()
 
@@ -146,7 +149,9 @@ class MockRequest(DummyRequest):
         extract_reader = ExtractReader(
             plr_sources,
             plr_cadastre_authority,
-            logos
+            logos,
+            certification,
+            certification_at_web
         )
         self.processor = Processor(
             real_estate_reader=real_estate_reader,
