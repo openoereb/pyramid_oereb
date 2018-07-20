@@ -147,7 +147,7 @@ class DummyData(object):
 
         # Add dummy glossary
         connection.execute(main.Glossary.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'title': {u'fr': u'SGRF', u'de': u'AGI'},
             'content': {'fr': u'Service de la géomatique et du registre foncier',
                         'de': u'Amt für Geoinformation'}
@@ -155,7 +155,7 @@ class DummyData(object):
 
         # Add dummy real estate
         connection.execute(main.RealEstate.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'egrid': u'TEST',
             'number': u'1000',
             'identdn': u'BLTEST',
@@ -167,7 +167,7 @@ class DummyData(object):
             'limit': 'SRID=2056;MULTIPOLYGON(((0 0, 0 2, 2 2, 2 0, 0 0)))'
         })
         connection.execute(main.RealEstate.__table__.insert(), {
-            'id': 2,
+            'id': '2',
             'egrid': u'TEST2',
             'number': u'9999',
             'identdn': u'BLTEST',
@@ -189,155 +189,155 @@ class DummyData(object):
                   u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(motorways_building_lines.ViewService.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'reference_wms': wms_url.format(self._config.get('srid')),
             'layer_index': 1,
             'layer_opacity': 1.0
         })
         connection.execute(motorways_building_lines.Office.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'name': {'de': u'Test Office'}
         })
         connection.execute(motorways_building_lines.DataIntegration.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'date': u'2017-07-01T00:00:00',
-            'office_id': 1
+            'office_id': '1'
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'information': {'de': u'Long line PLR'},
             'topic': u'MotorwaysBuildingLines',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'view_service_id': 1,
-            'office_id': 1
+            'view_service_id': '1',
+            'office_id': '1'
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
-            'id': 2,
+            'id': '2',
             'information': {'de': u'Short line PLR'},
             'topic': u'MotorwaysBuildingLines',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'view_service_id': 1,
-            'office_id': 1
+            'view_service_id': '1',
+            'office_id': '1'
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
-            'id': 3,
+            'id': '3',
             'information': {'de': u'Double intersection line PLR'},
             'topic': u'MotorwaysBuildingLines',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'view_service_id': 1,
-            'office_id': 1
+            'view_service_id': '1',
+            'office_id': '1'
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
-            'id': 4,
+            'id': '4',
             'information': {'de': u'Future geometry'},
             'topic': u'MotorwaysBuildingLines',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'view_service_id': 1,
-            'office_id': 1
+            'view_service_id': '1',
+            'office_id': '1'
         })
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'public_law_restriction_id': 1,
-            'office_id': 1,
+            'public_law_restriction_id': '1',
+            'office_id': '1',
             'geom': u'SRID=2056;LINESTRING (0 0, 2 2)'
         })
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
-            'id': 2,
+            'id': '2',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'public_law_restriction_id': 2,
-            'office_id': 1,
+            'public_law_restriction_id': '2',
+            'office_id': '1',
             'geom': u'SRID=2056;LINESTRING (1.5 1.5, 1.5 2.5)'
         })
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
-            'id': 3,
+            'id': '3',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'public_law_restriction_id': 3,
-            'office_id': 1,
+            'public_law_restriction_id': '3',
+            'office_id': '1',
             'geom': u'SRID=2056;LINESTRING (3 1, 3 4, 6 4, 6 1, 4.5 1)'
         })
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
-            'id': 4,
+            'id': '4',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
-            'public_law_restriction_id': 4,
-            'office_id': 1,
+            'public_law_restriction_id': '4',
+            'office_id': '1',
             'geom': u'SRID=2056;LINESTRING (0 0, 4 4)'
         })
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'type': u'document'
         })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'document_type': u'Law',
             'title': {'de': u'First level document'},
-            'office_id': 1
+            'office_id': '1'
         })
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
-            'id': 2,
+            'id': '2',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'type': u'document'
         })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
-            'id': 2,
+            'id': '2',
             'document_type': u'Law',
             'title': {'de': u'First level future document'},
-            'office_id': 1
+            'office_id': '1'
         })
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
-            'id': 3,
+            'id': '3',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'type': u'document'
         })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
-            'id': 3,
+            'id': '3',
             'document_type': u'Law',
             'title': {'de': u'Second level document'},
-            'office_id': 1
+            'office_id': '1'
         })
         connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
-            'id': 4,
+            'id': '4',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'type': u'document'
         })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
-            'id': 4,
+            'id': '4',
             'document_type': u'Law',
             'title': {'de': u'Second level future document'},
-            'office_id': 1
+            'office_id': '1'
         })
         connection.execute(motorways_building_lines.PublicLawRestrictionDocument.__table__.insert(), {
-            'id': 1,
-            'public_law_restriction_id': 1,
-            'document_id': 1
+            'id': '1',
+            'public_law_restriction_id': '1',
+            'document_id': '1'
         })
         connection.execute(motorways_building_lines.PublicLawRestrictionDocument.__table__.insert(), {
-            'id': 2,
-            'public_law_restriction_id': 1,
-            'document_id': 2
+            'id': '2',
+            'public_law_restriction_id': '1',
+            'document_id': '2'
         })
         connection.execute(motorways_building_lines.DocumentReference.__table__.insert(), {
-            'id': 1,
-            'document_id': 1,
-            'reference_document_id': 3
+            'id': '1',
+            'document_id': '1',
+            'reference_document_id': '3'
         })
         connection.execute(motorways_building_lines.DocumentReference.__table__.insert(), {
-            'id': 2,
-            'document_id': 1,
-            'reference_document_id': 4
+            'id': '2',
+            'document_id': '1',
+            'reference_document_id': '4'
         })
 
         connection.close()
@@ -350,14 +350,14 @@ class DummyData(object):
                   u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(contaminated_sites.ViewService.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'reference_wms': wms_url.format(self._config.get('srid')),
             'layer_index': 1,
             'layer_opacity': 1.0
         })
 
         connection.execute(contaminated_sites.LegendEntry.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
             'legend_text': {
                 'de': u'Test'
@@ -365,88 +365,88 @@ class DummyData(object):
             'type_code': u'test',
             'type_code_list': u'type_code_list',
             'topic': u'ContaminatedSites',
-            'view_service_id': 1
+            'view_service_id': '1'
         })
 
         connection.execute(contaminated_sites.Office.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'name': {'de': u'Test Office'}
         })
 
         connection.execute(contaminated_sites.DataIntegration.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'date': u'2017-07-01T00:00:00',
-            'office_id': 1
+            'office_id': '1'
         })
 
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'information': {'de': u'Large polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'view_service_id': 1,
-            'office_id': 1
+            'view_service_id': '1',
+            'office_id': '1'
         })
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
-            'id': 2,
+            'id': '2',
             'information': {'de': u'Small polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'view_service_id': 1,
-            'office_id': 1
+            'view_service_id': '1',
+            'office_id': '1'
         })
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
-            'id': 3,
+            'id': '3',
             'information': {'de': u'Double intersection polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'view_service_id': 1,
-            'office_id': 1
+            'view_service_id': '1',
+            'office_id': '1'
         })
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
-            'id': 4,
+            'id': '4',
             'information': {'de': u'Future PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
-            'view_service_id': 1,
-            'office_id': 1
+            'view_service_id': '1',
+            'office_id': '1'
         })
 
         connection.execute(contaminated_sites.Geometry.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'public_law_restriction_id': 1,
-            'office_id': 1,
+            'public_law_restriction_id': '1',
+            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((0 0, 0 1.5, 1.5 1.5, 1.5 0, 0 0)))'
         })
         connection.execute(contaminated_sites.Geometry.__table__.insert(), {
-            'id': 2,
+            'id': '2',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'public_law_restriction_id': 2,
-            'office_id': 1,
+            'public_law_restriction_id': '2',
+            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5)))'
         })
         connection.execute(contaminated_sites.Geometry.__table__.insert(), {
-            'id': 3,
+            'id': '3',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'public_law_restriction_id': 3,
-            'office_id': 1,
+            'public_law_restriction_id': '3',
+            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION('
                     u'POLYGON((3 2.5, 3 5, 7 5, 7 0, 3 0, 3 1, 6 1, 6 4, 4 2.5, 3 2.5)))'
         })
         connection.execute(contaminated_sites.Geometry.__table__.insert(), {
-            'id': 4,
+            'id': '4',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'public_law_restriction_id': 4,
-            'office_id': 1,
+            'public_law_restriction_id': '4',
+            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((0 0, 0 2, 2 2, 2 0, 0 0)))'
         })
 
@@ -460,100 +460,100 @@ class DummyData(object):
                   u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(land_use_plans.ViewService.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'reference_wms': wms_url.format(self._config.get('srid')),
             'layer_index': 1,
             'layer_opacity': 1.0
         })
 
         connection.execute(land_use_plans.Office.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'name': {'de': u'Test Office'}
         })
 
         connection.execute(land_use_plans.DataIntegration.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'date': u'2017-07-01T00:00:00',
-            'office_id': 1
+            'office_id': '1'
         })
 
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'information': {'de': u'Large polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'view_service_id': 1,
-            'office_id': 1
+            'view_service_id': '1',
+            'office_id': '1'
         })
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
-            'id': 2,
+            'id': '2',
             'information': {'de': u'Small polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'view_service_id': 1,
-            'office_id': 1
+            'view_service_id': '1',
+            'office_id': '1'
         })
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
-            'id': 3,
+            'id': '3',
             'information': {'de': u'Double intersection polygon PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'view_service_id': 1,
-            'office_id': 1
+            'view_service_id': '1',
+            'office_id': '1'
         })
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
-            'id': 4,
+            'id': '4',
             'information': {'de': u'Future PLR'},
             'topic': u'ContaminatedSites',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
-            'view_service_id': 1,
-            'office_id': 1
+            'view_service_id': '1',
+            'office_id': '1'
         })
 
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
-            'id': 1,
+            'id': '1',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'public_law_restriction_id': 1,
-            'office_id': 1,
+            'public_law_restriction_id': '1',
+            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION('
                     u'POLYGON((1 -1, 9 -1, 9 7, 1 7, 1 8, 10 8, 10 -2, 1 -2, 1 -1)))'
         })
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
-            'id': 2,
+            'id': '2',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'public_law_restriction_id': 1,
-            'office_id': 1,
+            'public_law_restriction_id': '1',
+            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((0 0, 0 1.5, 1.5 1.5, 1.5 0, 0 0)))'
         })
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
-            'id': 3,
+            'id': '3',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'public_law_restriction_id': 1,
-            'office_id': 1,
+            'public_law_restriction_id': '1',
+            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION('
                     u'POLYGON((3 2.5, 3 5, 7 5, 7 0, 3 0, 3 1, 6 1, 6 4, 4 2.5, 3 2.5)))'
         })
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
-            'id': 4,
+            'id': '4',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'public_law_restriction_id': 1,
-            'office_id': 1,
+            'public_law_restriction_id': '1',
+            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5)))'
         })
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
-            'id': 5,
+            'id': '5',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'public_law_restriction_id': 1,
-            'office_id': 1,
+            'public_law_restriction_id': '1',
+            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POINT(1 2))'
         })
 
