@@ -161,7 +161,8 @@
 <span class="kn">from</span> <span class="nn">pyramid.testing</span> <span class="k">import</span> <span class="n">DummyRequest</span>
 
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">route_prefix</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.documents</span> <span class="k">import</span> <span class="n">DocumentRecord</span><span class="p">,</span> <span class="n">LegalProvisionRecord</span><span class="p">,</span> <span class="n">ArticleRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.documents</span> <span class="k">import</span> <span class="n">DocumentRecord</span><span class="p">,</span> <span class="n">LegalProvisionRecord</span><span class="p">,</span>\
+    <span class="n">ArticleRecord</span><span class="p">,</span> <span class="n">LawRecord</span><span class="p">,</span> <span class="n">HintRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources.plr</span> <span class="k">import</span> <span class="n">PlrRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.url</span> <span class="k">import</span> <span class="n">url_to_base64</span>
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">mapping</span>
@@ -270,6 +271,16 @@
                 <span class="p">)</span>
             <span class="p">})</span>
 
+        <span class="k">if</span> <span class="n">extract</span><span class="o">.</span><span class="n">certification</span><span class="p">:</span>
+            <span class="n">extract_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+              <span class="s1">&#39;Certification&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_multilingual_text</span><span class="p">(</span><span class="n">extract</span><span class="o">.</span><span class="n">certification</span><span class="p">),</span>
+            <span class="p">})</span>
+
+        <span class="k">if</span> <span class="n">extract</span><span class="o">.</span><span class="n">certification_at_web</span><span class="p">:</span>
+            <span class="n">extract_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+              <span class="s1">&#39;CertificationAtWeb&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_multilingual_text</span><span class="p">(</span><span class="n">extract</span><span class="o">.</span><span class="n">certification_at_web</span><span class="p">),</span>
+            <span class="p">})</span>
+
         <span class="k">if</span> <span class="n">extract</span><span class="o">.</span><span class="n">electronic_signature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;ElectronicSignature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract</span><span class="o">.</span><span class="n">electronic_signature</span>
         <span class="k">if</span> <span class="n">extract</span><span class="o">.</span><span class="n">qr_code</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -324,7 +335,8 @@
             <span class="s1">&#39;Municipality&#39;</span><span class="p">:</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">municipality</span><span class="p">,</span>
             <span class="s1">&#39;FosNr&#39;</span><span class="p">:</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">fosnr</span><span class="p">,</span>
             <span class="s1">&#39;LandRegistryArea&#39;</span><span class="p">:</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">land_registry_area</span><span class="p">,</span>
-            <span class="s1">&#39;PlanForLandRegister&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">plan_for_land_register</span><span class="p">)</span>
+            <span class="s1">&#39;PlanForLandRegister&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">plan_for_land_register</span><span class="p">),</span>
+            <span class="s1">&#39;PlanForLandRegisterMainPage&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">plan_for_land_register_main_page</span><span class="p">)</span>
         <span class="p">}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="o">.</span><span class="n">geometry</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -403,10 +415,12 @@
                             <span class="s1">&#39;SymbolRef&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_symbol_ref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">,</span> <span class="n">plr</span><span class="p">)</span>
                         <span class="p">})</span>
 
-                <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">area</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">plr_dict</span><span class="p">[</span><span class="s1">&#39;Area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">area</span>
-                <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">length</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">plr_dict</span><span class="p">[</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">length</span>
+                <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">areaShare</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">plr_dict</span><span class="p">[</span><span class="s1">&#39;AreaShare&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">areaShare</span>
+                <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">lengthShare</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">plr_dict</span><span class="p">[</span><span class="s1">&#39;LengthShare&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">lengthShare</span>
+                <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">nrOfPoints</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">plr_dict</span><span class="p">[</span><span class="s1">&#39;NrOfPoints&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">nrOfPoints</span>
                 <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">sub_theme</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">plr_dict</span><span class="p">[</span><span class="s1">&#39;SubTheme&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plr</span><span class="o">.</span><span class="n">sub_theme</span>
                 <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">other_theme</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -463,11 +477,13 @@
 
         <span class="n">document_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">DocumentRecord</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">LegalProvisionRecord</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">DocumentRecord</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">LegalProvisionRecord</span><span class="p">)</span> \
+                <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">LawRecord</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">HintRecord</span><span class="p">):</span>
 
             <span class="n">multilingual_text_at_web</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_multilingual_text</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">text_at_web</span><span class="p">)</span>
 
             <span class="n">document_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                <span class="s1">&#39;DocumentType&#39;</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">document_type</span><span class="p">,</span>
                 <span class="s1">&#39;Lawstatus&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_law_status</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">law_status</span><span class="p">),</span>
                 <span class="s1">&#39;TextAtWeb&#39;</span><span class="p">:</span> <span class="n">multilingual_text_at_web</span><span class="p">,</span>
                 <span class="s1">&#39;Title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_multilingual_text</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">title</span><span class="p">),</span>
@@ -481,7 +497,7 @@
             <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">official_title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">document_dict</span><span class="p">[</span><span class="s1">&#39;OfficialTitle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_multilingual_text</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">official_title</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">abbreviation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">document_dict</span><span class="p">[</span><span class="s1">&#39;Abbrevation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_multilingual_text</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">abbreviation</span><span class="p">)</span>
+                <span class="n">document_dict</span><span class="p">[</span><span class="s1">&#39;Abbreviation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_multilingual_text</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">abbreviation</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">official_number</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">document_dict</span><span class="p">[</span><span class="s1">&#39;OfficialNumber&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">official_number</span>
             <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">canton</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -626,6 +642,19 @@
             <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;OtherLegend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">format_legend_entry</span><span class="p">(</span><span class="n">legend_entry</span><span class="p">)</span> <span class="k">for</span> <span class="n">legend_entry</span> <span class="ow">in</span> <span class="n">other_legend</span><span class="p">]</span>
 
+        <span class="k">if</span> <span class="n">map_</span><span class="o">.</span><span class="n">layer_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;LayerIndex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">map_</span><span class="o">.</span><span class="n">layer_index</span>
+        <span class="k">if</span> <span class="n">map_</span><span class="o">.</span><span class="n">layer_opacity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;LayerOpacity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">map_</span><span class="o">.</span><span class="n">layer_opacity</span>
+        <span class="k">if</span> <span class="n">map_</span><span class="o">.</span><span class="n">min_NS03</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;min_NS03&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_point</span><span class="p">(</span><span class="n">map_</span><span class="o">.</span><span class="n">min_NS03</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">map_</span><span class="o">.</span><span class="n">max_NS03</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;max_NS03&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_point</span><span class="p">(</span><span class="n">map_</span><span class="o">.</span><span class="n">max_NS03</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">map_</span><span class="o">.</span><span class="n">min_NS95</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;min_NS95&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_point</span><span class="p">(</span><span class="n">map_</span><span class="o">.</span><span class="n">min_NS95</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">map_</span><span class="o">.</span><span class="n">max_NS95</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;max_NS95&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_point</span><span class="p">(</span><span class="n">map_</span><span class="o">.</span><span class="n">max_NS95</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">map_dict</span></div>
 
 <div class="viewcode-block" id="Renderer.format_legend_entry"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.format_legend_entry">[docs]</a>    <span class="k">def</span> <span class="nf">format_legend_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legend_entry</span><span class="p">):</span>
@@ -713,6 +742,10 @@
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="n">embeddable_dict</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">format_point</span><span class="p">(</span><span class="n">point</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">point</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">point</span><span class="o">.</span><span class="n">y</span><span class="p">}</span>
 </pre></div>
 
            </div>

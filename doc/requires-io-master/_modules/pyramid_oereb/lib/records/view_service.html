@@ -159,6 +159,7 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.url</span> <span class="k">import</span> <span class="n">add_url_params</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.url</span> <span class="k">import</span> <span class="n">uri_validator</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="k">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry.point</span> <span class="k">import</span> <span class="n">Point</span>
 
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -217,22 +218,92 @@
     <span class="c1"># Attributes defined while processing</span>
     <span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>    <span class="c1"># map image resulting from calling the wms link - binary</span>
 
-<div class="viewcode-block" id="ViewServiceRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.view_service.ViewServiceRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_wms</span><span class="p">,</span> <span class="n">legend_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legends</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ViewServiceRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.view_service.ViewServiceRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_wms</span><span class="p">,</span> <span class="n">legend_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legends</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">layer_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">layer_opacity</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">min_NS03</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_NS03</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">min_NS95</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_NS95</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            reference_wms (uri): The link URL to the actual service (WMS)</span>
 <span class="sd">            legend_at_web (uri): The link URL to the actual legend service (WMS get legend)</span>
 <span class="sd">            legends (list of LegendEntry): A list of all relevant legend entries.</span>
+<span class="sd">            layer_index (int): Layer index. Value from -1000 to +1000.</span>
+<span class="sd">            layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.</span>
+<span class="sd">            min_NS03 (shapely.geometry.point.Point): Minimal value of map extent (bounding box)</span>
+<span class="sd">                in EPSG:21781 (NS03).</span>
+<span class="sd">            max_NS03 (shapely.geometry.point.Point): Maximal value of map extent (bounding box)</span>
+<span class="sd">                in EPSG:21781 (NS03).</span>
+<span class="sd">            min_NS95 (shapely.geometry.point.Point): Minimal value of map extent (bounding box)</span>
+<span class="sd">                in EPSG:2056 (NS95).</span>
+<span class="sd">            max_NS95 (shapely.geometry.point.Point): Maximal value of map extent (bounding box)</span>
+<span class="sd">                in EPSG:2056 (NS95).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span> <span class="o">=</span> <span class="n">reference_wms</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">legend_at_web</span> <span class="o">=</span> <span class="n">legend_at_web</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sanitize_layer_index</span><span class="p">(</span><span class="n">layer_index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer_opacity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sanitize_layer_opacity</span><span class="p">(</span><span class="n">layer_opacity</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_min_max_attributes</span><span class="p">(</span><span class="n">min_NS03</span><span class="p">,</span> <span class="s1">&#39;min_NS03&#39;</span><span class="p">,</span> <span class="n">max_NS03</span><span class="p">,</span> <span class="s1">&#39;max_NS03&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_NS03</span> <span class="o">=</span> <span class="n">min_NS03</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_NS03</span> <span class="o">=</span> <span class="n">max_NS03</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_min_max_attributes</span><span class="p">(</span><span class="n">min_NS95</span><span class="p">,</span> <span class="s1">&#39;min_NS95&#39;</span><span class="p">,</span> <span class="n">max_NS95</span><span class="p">,</span> <span class="s1">&#39;max_NS95&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_NS95</span> <span class="o">=</span> <span class="n">min_NS95</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_NS95</span> <span class="o">=</span> <span class="n">max_NS95</span>
+
         <span class="k">if</span> <span class="n">legends</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">legends</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">legend</span> <span class="ow">in</span> <span class="n">legends</span><span class="p">:</span>
                 <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">legend</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span> <span class="n">ImageRecord</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">legends</span> <span class="o">=</span> <span class="n">legends</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">sanitize_layer_index</span><span class="p">(</span><span class="n">layer_index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">layer_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">layer_index</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer_index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;layer_index&quot; should be &quot;int&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">layer_index</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1000</span> <span class="ow">or</span> <span class="n">layer_index</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">:</span>
+            <span class="n">error_msg</span> <span class="o">=</span> <span class="s2">&quot;layer_index should be &gt;= -1000 and &lt;= 1000, &quot;</span> \
+                        <span class="s2">&quot;was: </span><span class="si">{layer_index}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">layer_index</span><span class="o">=</span><span class="n">layer_index</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">layer_index</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">sanitize_layer_opacity</span><span class="p">(</span><span class="n">layer_opacity</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">layer_opacity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.75</span>
+        <span class="k">if</span> <span class="n">layer_opacity</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer_opacity</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;layer_opacity&quot; should be &quot;float&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">layer_opacity</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="n">layer_opacity</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="n">error_msg</span> <span class="o">=</span> <span class="s2">&quot;layer_opacity should be &gt;= 0.0 and &lt;= 1.0, &quot;</span> \
+                        <span class="s2">&quot;was: </span><span class="si">{layer_opacity}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">layer_opacity</span><span class="o">=</span><span class="n">layer_opacity</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">layer_opacity</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">check_min_max_attributes</span><span class="p">(</span><span class="n">min_point</span><span class="p">,</span> <span class="n">min_name</span><span class="p">,</span> <span class="n">max_point</span><span class="p">,</span> <span class="n">max_name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">min_point</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">max_point</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">min_point</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">max_point</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;Both </span><span class="si">{min_name}</span><span class="s1"> and </span><span class="si">{max_name}</span><span class="s1"> have to be defined&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">min_name</span><span class="o">=</span><span class="n">min_name</span><span class="p">,</span>
+                                                                                   <span class="n">max_name</span><span class="o">=</span><span class="n">max_name</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">min_point</span><span class="p">,</span> <span class="n">Point</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Type of &quot;</span><span class="si">{min_name}</span><span class="s1">&quot; should be &quot;shapely.geometry.point.Point&quot;&#39;</span>
+                                 <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">min_name</span><span class="o">=</span><span class="n">min_name</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">max_point</span><span class="p">,</span> <span class="n">Point</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Type of &quot;</span><span class="si">{max_name}</span><span class="s1">&quot; should be &quot;shapely.geometry.point.Point&quot;&#39;</span>
+                                 <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">max_name</span><span class="o">=</span><span class="n">max_name</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">min_point</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">max_point</span><span class="o">.</span><span class="n">x</span> <span class="ow">or</span> <span class="n">min_point</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">max_point</span><span class="o">.</span><span class="n">y</span><span class="p">:</span>
+            <span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;Some value of </span><span class="si">{min_name}</span><span class="s1"> are larger than </span><span class="si">{max_name}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">min_name</span><span class="o">=</span><span class="n">min_name</span><span class="p">,</span>
+                                                                                     <span class="n">max_name</span><span class="o">=</span><span class="n">max_name</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_map_size</span><span class="p">(</span><span class="nb">format</span><span class="p">):</span>
