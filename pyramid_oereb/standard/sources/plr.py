@@ -110,10 +110,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         layer_index, layer_opacity = Config.get_layer_config(theme)
         view_service_record = self._view_service_record_class(
             view_service_from_db.reference_wms,
+            layer_index,
+            layer_opacity,
             view_service_from_db.legend_at_web,
-            legends=legend_entry_records,
-            layer_index=layer_index,
-            layer_opacity=layer_opacity
+            legends=legend_entry_records
         )
         return view_service_record
 
