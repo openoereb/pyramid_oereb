@@ -10,7 +10,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<style name="Default" isDefault="true" fontName="Cadastra" fontSize="8.5"/>
+	<style name="Default" isDefault="true" fontName="Cadastra" fontSize="8"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
 	<field name="Title" class="java.lang.String"/>
 	<field name="Content" class="java.lang.String"/>

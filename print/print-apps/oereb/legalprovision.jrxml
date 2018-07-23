@@ -13,7 +13,7 @@
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<property name="net.sf.jasperreports.print.create.bookmarks" value="true"/>
-	<style name="Default" isDefault="true" fontName="Cadastra" fontSize="8.5"/>
+	<style name="Default" isDefault="true" fontName="Cadastra" fontSize="8"/>
 	<subDataset name="references" uuid="7c45ffd9-c32a-45ff-b1ca-91b7e5a0a680">
 		<queryString>
 			<![CDATA[]]>
@@ -52,7 +52,7 @@
 					<property name="local_mesure_unity" value="pixel"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Cadastra" size="8.5"/>
+					<font fontName="Cadastra" size="8"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($F{Title}.equals("") ? ($F{OfficialTitle}.equals("") ? "-" :   $F{OfficialTitle}): $F{Title})]]></textFieldExpression>

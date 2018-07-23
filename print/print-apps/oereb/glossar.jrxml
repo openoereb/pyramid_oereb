@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="493" leftMargin="51" rightMargin="51" topMargin="28" bottomMargin="20" uuid="9a3e59f5-6675-48cf-ad74-9c42b5a5b290">
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
-	<style name="Default" isDefault="true" fontName="Cadastra" fontSize="8.5"/>
+	<style name="Default" isDefault="true" fontName="Cadastra" fontSize="8"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
 	<parameter name="isReduced" class="java.lang.Boolean"/>
 	<parameter name="ExtractIdentifier" class="java.lang.String"/>
@@ -124,7 +124,7 @@
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Cadastra" size="6.5"/>
+					<font fontName="Cadastra" size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Footer}]]></textFieldExpression>
 			</textField>
@@ -133,7 +133,7 @@
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<textElement textAlignment="Right">
-					<font fontName="Cadastra" size="6.5"/>
+					<font fontName="Cadastra" size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format($R{PageLabel}, $V{MASTER_CURRENT_PAGE}, $V{MASTER_TOTAL_PAGES})]]></textFieldExpression>
 			</textField>

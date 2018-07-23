@@ -11,7 +11,7 @@
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<property name="net.sf.jasperreports.print.create.bookmarks" value="true"/>
-	<style name="Default" isDefault="true" fontName="Cadastra" fontSize="8.5"/>
+	<style name="Default" isDefault="true" fontName="Cadastra" fontSize="8"/>
 	<style name="Title" hTextAlign="Right" hImageAlign="Right" fontSize="32">
 		<box>
 			<topPen lineWidth="1.0"/>
@@ -371,7 +371,7 @@
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Cadastra" size="6.5"/>
+					<font fontName="Cadastra" size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Footer}]]></textFieldExpression>
 			</textField>
@@ -380,7 +380,7 @@
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<textElement textAlignment="Right">
-					<font fontName="Cadastra" size="6.5"/>
+					<font fontName="Cadastra" size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format($R{PageLabel}, $V{MASTER_CURRENT_PAGE}, $V{MASTER_TOTAL_PAGES})]]></textFieldExpression>
 			</textField>
