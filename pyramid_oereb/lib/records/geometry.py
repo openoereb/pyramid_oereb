@@ -39,9 +39,9 @@ class GeometryRecord(object):
         self.public_law_restriction = public_law_restriction
         self.office = office
         self._units = None
-        self._areaShare = None
-        self._lengthShare = None
-        self._nrOfPoints = None
+        self._area_share = None
+        self._length_share = None
+        self._nr_of_points = None
         self._test_passed = False
         self.calculated = False
 
@@ -74,24 +74,24 @@ class GeometryRecord(object):
             # differentiate between Points and MultiPoint
             if result.type == point_types[1]:
                 # If it is a multipoint make a list and count the number of elements in the list
-                self._nrOfPoints = len(list(result.geoms))
+                self._nr_of_points = len(list(result.geoms))
                 self._test_passed = True
             elif result.type == point_types[0]:
                 # If it is a single point the number of points is one
-                self._nrOfPoints = 1
+                self._nr_of_points = 1
                 self._test_passed = True
             elif self.geom.type in line_types:
                 self._units = length_unit
-                lengthShare = result.length
-                if lengthShare >= min_length:
-                    self._lengthShare = lengthShare
+                length_share = result.length
+                if length_share >= min_length:
+                    self._length_share = length_share
                     self._test_passed = True
             elif self.geom.type in polygon_types:
                 self._units = area_unit
-                areaShare = result.area
-                compensated_area = areaShare / real_estate.areas_ratio
+                area_share = result.area
+                compensated_area = area_share / real_estate.areas_ratio
                 if compensated_area >= min_area:
-                    self._areaShare = compensated_area
+                    self._area_share = compensated_area
                     self._test_passed = True
             else:
                     # TODO: configure a proper error message
@@ -100,28 +100,28 @@ class GeometryRecord(object):
         return self._test_passed
 
     @property
-    def areaShare(self):
+    def area_share(self):
         """
         float or None: Returns the area of this geometry.
         """
         if not self.calculated:
-            log.warning(u'There was an access on property "areaShare" before calculation was done.')
-        return self._areaShare
+            log.warning(u'There was an access on property "area_share" before calculation was done.')
+        return self._area_share
 
     @property
-    def lengthShare(self):
+    def length_share(self):
         """
         float or None: Returns the length of this geometry.
         """
         if not self.calculated:
-            log.warning(u'There was an access on property "lengthShare" before calculation was done.')
-        return self._lengthShare
+            log.warning(u'There was an access on property "length_share" before calculation was done.')
+        return self._length_share
 
     @property
-    def nrOfPoints(self):
+    def nr_of_points(self):
         """
         float or None: Returns the number of this geometry.
         """
         if not self.calculated:
-            log.warning(u'There was an access on property "nrOfPoints" before calculation was done.')
-        return self._nrOfPoints
+            log.warning(u'There was an access on property "nr_of_points" before calculation was done.')
+        return self._nr_of_points

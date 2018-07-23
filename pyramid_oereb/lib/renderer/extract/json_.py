@@ -262,12 +262,12 @@ class Renderer(Base):
                             'SymbolRef': self.get_symbol_ref(self._request, plr)
                         })
 
-                if plr.areaShare is not None:
-                    plr_dict['AreaShare'] = plr.areaShare
-                if plr.lengthShare is not None:
-                    plr_dict['LengthShare'] = plr.lengthShare
-                if plr.nrOfPoints is not None:
-                    plr_dict['NrOfPoints'] = plr.nrOfPoints
+                if plr.area_share is not None:
+                    plr_dict['AreaShare'] = plr.area_share
+                if plr.length_share is not None:
+                    plr_dict['LengthShare'] = plr.length_share
+                if plr.nr_of_points is not None:
+                    plr_dict['NrOfPoints'] = plr.nr_of_points
                 if plr.sub_theme is not None:
                     plr_dict['SubTheme'] = plr.sub_theme
                 if plr.other_theme is not None:

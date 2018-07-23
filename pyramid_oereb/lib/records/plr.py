@@ -28,11 +28,11 @@ class PlrRecord(EmptyPlrRecord):
 
     Attributes:
         part_in_percent (decimal): Part of the property area touched by the restriction in percent.
-        areaShare (decimal): Area of the restriction touching the property calculated by the processor.
+        area_share (decimal): Area of the restriction touching the property calculated by the processor.
     """
 
     # Attributes added or calculated by the processor
-    areaShare = None
+    area_share = None
 
     part_in_percent = None
 
@@ -109,9 +109,9 @@ class PlrRecord(EmptyPlrRecord):
         self.min_area = min_area
         self.area_unit = area_unit
         self.length_unit = length_unit
-        self._areaShare = None
-        self._lengthShare = None
-        self._nrOfPoints = None
+        self._area_share = None
+        self._length_share = None
+        self._nr_of_points = None
         self.symbol = symbol
         self.view_service_id = view_service_id
 
@@ -127,8 +127,8 @@ class PlrRecord(EmptyPlrRecord):
         """
         lengths_to_sum = []
         for geometry in self.geometries:
-            if geometry.lengthShare:
-                lengths_to_sum.append(geometry.lengthShare)
+            if geometry.length_share:
+                lengths_to_sum.append(geometry.length_share)
         return sum(lengths_to_sum) if len(lengths_to_sum) > 0 else None
 
     def _sum_area(self):
@@ -138,8 +138,8 @@ class PlrRecord(EmptyPlrRecord):
         """
         areas_to_sum = []
         for geometry in self.geometries:
-            if geometry.areaShare:
-                areas_to_sum.append(geometry.areaShare)
+            if geometry.area_share:
+                areas_to_sum.append(geometry.area_share)
         return sum(areas_to_sum) if len(areas_to_sum) > 0 else None
 
     def _sum_points(self):
@@ -149,33 +149,33 @@ class PlrRecord(EmptyPlrRecord):
         """
         points_to_sum = 0
         for geometry in self.geometries:
-            if geometry.nrOfPoints:
-                points_to_sum += geometry.nrOfPoints
+            if geometry.nr_of_points:
+                points_to_sum += geometry.nr_of_points
         return points_to_sum
 
     @property
-    def areaShare(self):
+    def area_share(self):
         """
         Returns:
             float or None: Returns the summed area of all related geometry records of this PLR.
         """
-        return self._areaShare
+        return self._area_share
 
     @property
-    def lengthShare(self):
+    def length_share(self):
         """
         Returns:
             float or None: Returns the summed length of all related geometry records of this PLR.
         """
-        return self._lengthShare
+        return self._length_share
 
     @property
-    def nrOfPoints(self):
+    def nr_of_points(self):
         """
         Returns:
             float or None: Returns the number of points of all related geometry records of this PLR.
         """
-        return self._nrOfPoints
+        return self._nr_of_points
 
     def calculate(self, real_estate):
         tested_geometries = []
@@ -191,23 +191,23 @@ class PlrRecord(EmptyPlrRecord):
         self.geometries = tested_geometries
 
         # Points
-        nrOfPoints = self._sum_points()
-        self._nrOfPoints = nrOfPoints if nrOfPoints else None
+        nr_of_points = self._sum_points()
+        self._nr_of_points = nr_of_points if nr_of_points else None
         # Lines
-        lengthShare = self._sum_length()
-        if lengthShare is None:
-            self._lengthShare = None
+        length_share = self._sum_length()
+        if length_share is None:
+            self._length_share = None
         else:
-            self._lengthShare = int(round(lengthShare, 0))
+            self._length_share = int(round(length_share, 0))
         # Areas
-        areaShare = self._sum_area()
-        if areaShare is None:
-            self._areaShare = None
+        area_share = self._sum_area()
+        if area_share is None:
+            self._area_share = None
             self.part_in_percent = None
         else:
-            self._areaShare = int(round(areaShare, 0))
+            self._area_share = int(round(area_share, 0))
             self.part_in_percent = round(
-                ((float(self._areaShare) / float(real_estate.land_registry_area)) * 100),
+                ((float(self._area_share) / float(real_estate.land_registry_area)) * 100),
                 1
             )
         return inside
