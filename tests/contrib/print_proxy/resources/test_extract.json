@@ -1086,7 +1086,7 @@
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
           "LayerOpacity": 1
         },
-        "Area": 78456.21,
+        "AreaShare": 78456.21,
         "ResponsibleOffice": {
           "OfficeAtWeb": "http://www.arp.bl.ch",
           "Name": [
@@ -1787,7 +1787,7 @@
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
           "LayerOpacity": 1
         },
-        "Area": 2681.31,
+        "AreaShare": 2681.31,
         "ResponsibleOffice": {
           "OfficeAtWeb": "http://www.arp.bl.ch",
           "Name": [
@@ -2488,7 +2488,7 @@
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
           "LayerOpacity": 1
         },
-        "Area": 6242.69,
+        "AreaShare": 6242.69,
         "ResponsibleOffice": {
           "OfficeAtWeb": "http://www.arp.bl.ch",
           "Name": [
@@ -3189,7 +3189,7 @@
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
           "LayerOpacity": 1
         },
-        "Area": 7379.93,
+        "AreaShare": 7379.93,
         "ResponsibleOffice": {
           "OfficeAtWeb": "http://www.arp.bl.ch",
           "Name": [
@@ -3890,7 +3890,7 @@
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
           "LayerOpacity": 1
         },
-        "Area": 6125.68,
+        "AreaShare": 6125.68,
         "ResponsibleOffice": {
           "OfficeAtWeb": "http://www.birsfelden.ch",
           "Name": [
@@ -4197,7 +4197,7 @@
           },
           "Code": "inForce"
         },
-        "Area": 14503.04,
+        "AreaShare": 14503.04,
         "ResponsibleOffice": {
           "OfficeAtWeb": "http://www.aue.bl.ch",
           "Name": [
@@ -4497,7 +4497,7 @@
           },
           "Code": "inForce"
         },
-        "Area": 5764.33,
+        "AreaShare": 5764.33,
         "ResponsibleOffice": {
           "OfficeAtWeb": "http://www.aue.bl.ch",
           "Name": [
@@ -4797,7 +4797,7 @@
           },
           "Code": "inForce"
         },
-        "Area": 1210.49,
+        "AreaShare": 1210.49,
         "ResponsibleOffice": {
           "OfficeAtWeb": "http://www.aue.bl.ch",
           "Name": [
@@ -5097,7 +5097,7 @@
           },
           "Code": "inForce"
         },
-        "Area": 42819.05,
+        "AreaShare": 42819.05,
         "ResponsibleOffice": {
           "OfficeAtWeb": "http://www.aue.bl.ch",
           "Name": [
@@ -5397,7 +5397,7 @@
           },
           "Code": "inForce"
         },
-        "Area": 19180.18,
+        "AreaShare": 19180.18,
         "ResponsibleOffice": {
           "OfficeAtWeb": "http://www.aue.bl.ch",
           "Name": [
@@ -5587,7 +5587,7 @@
           },
           "Code": "inForce"
         },
-        "Area": 78457.23,
+        "AreaShare": 78457.23,
         "ResponsibleOffice": {
           "OfficeAtWeb": "http://www.birsfelden.ch",
           "Name": [
@@ -5777,7 +5777,7 @@
           },
           "Code": "inForce"
         },
-        "Area": 2681.22,
+        "AreaShare": 2681.22,
         "ResponsibleOffice": {
           "OfficeAtWeb": "http://www.birsfelden.ch",
           "Name": [
@@ -5967,7 +5967,7 @@
           },
           "Code": "inForce"
         },
-        "Area": 6242.7,
+        "AreaShare": 6242.7,
         "ResponsibleOffice": {
           "OfficeAtWeb": "http://www.birsfelden.ch",
           "Name": [

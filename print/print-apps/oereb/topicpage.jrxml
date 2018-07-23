@@ -7,8 +7,8 @@
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
-		<field name="Area" class="java.lang.String"/>
-		<field name="Length" class="java.lang.String"/>
+		<field name="AreaShare" class="java.lang.String"/>
+		<field name="LengthShare" class="java.lang.String"/>
 		<field name="SymbolRef" class="java.lang.String"/>
 		<field name="Information" class="java.lang.String"/>
 		<field name="PartInPercent" class="java.lang.Double"/>
@@ -195,30 +195,30 @@
 				<reportElement positionType="FixRelativeToBottom" x="394" y="375" width="50" height="10" uuid="f31d1207-ead2-4e22-a928-5b06af28da74">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<printWhenExpression><![CDATA["Area".equals($F{Geom_Type})]]></printWhenExpression>
+					<printWhenExpression><![CDATA["AreaShare".equals($F{Geom_Type})]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Cadastra" size="6.5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{Area}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{AreaShare}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement key="" positionType="FixRelativeToBottom" x="394" y="375" width="50" height="10" uuid="f31d1207-ead2-4e22-a928-5b06af28da74">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<printWhenExpression><![CDATA["Length".equals($F{Geom_Type})]]></printWhenExpression>
+					<printWhenExpression><![CDATA["LengthShare".equals($F{Geom_Type})]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Cadastra" size="6.5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{Length}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{LengthShare}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="FixRelativeToBottom" x="445" y="375" width="48" height="10" uuid="c75cc18b-c481-4a35-877e-1c17e88901b1">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="mm"/>
-					<printWhenExpression><![CDATA[!"Point".equals($F{Geom_Type}) && !"Length".equals($F{Geom_Type})]]></printWhenExpression>
+					<printWhenExpression><![CDATA[!"NrOfPoints".equals($F{Geom_Type}) && !"LengthShare".equals($F{Geom_Type})]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Cadastra" size="6.5"/>

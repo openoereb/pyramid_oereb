@@ -89,7 +89,7 @@
       "SymbolRef": "",
       "Theme_Code": "LandUsePlans",
       "legend": "http://dev2.geoview.bl.ch/vvmruder/oereb/custom_legend_at_web/LandUsePlans.png",
-      "Geom_Type": "Area",
+      "Geom_Type": "AreaShare",
       "Reference": [
         {
           "OfficialNumber": "400.11",
@@ -234,26 +234,26 @@
         {
           "PartInPercent": "73.0%",
           "Information": "Industrie- und Gewerbezone",
-          "Area": "87380.21 m²",
+          "AreaShare": "87380.21 m²",
           "TypeCode": "108000",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/108000",
-          "Geom_Type": "Area"
+          "Geom_Type": "AreaShare"
         },
         {
           "PartInPercent": "6.2%",
           "Information": "Rheinuferzone",
-          "Area": "7379.93 m²",
+          "AreaShare": "7379.93 m²",
           "TypeCode": "130004",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130004",
-          "Geom_Type": "Area"
+          "Geom_Type": "AreaShare"
         },
         {
           "PartInPercent": "5.1%",
           "Information": "Arch\u00e4ologische Schutzzone",
-          "Area": "6125.68 m²",
+          "AreaShare": "6125.68 m²",
           "TypeCode": "219106",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/219106",
-          "Geom_Type": "Area"
+          "Geom_Type": "AreaShare"
         }
       ]
     },
@@ -314,7 +314,7 @@
       "SymbolRef": "",
       "Theme_Code": "ContaminatedSites",
       "legend": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
-      "Geom_Type": "Area",
+      "Geom_Type": "AreaShare",
       "Reference": [
         {
           "OfficialNumber": "814.01",
@@ -390,34 +390,34 @@
         {
           "PartInPercent": "51.8%",
           "Information": "Betriebsstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
-          "Area": "61999.23 m²",
+          "AreaShare": "61999.23 m²",
           "TypeCode": "StaoTyp2_StatusAltlV1",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV1",
-          "Geom_Type": "Area"
+          "Geom_Type": "AreaShare"
         },
         {
           "PartInPercent": "12.1%",
           "Information": "Betriebsstandort. Belastet, weder \u00fcberwachungs- noch sanierungsbed\u00fcrftig",
-          "Area": "14503.04 m²",
+          "AreaShare": "14503.04 m²",
           "TypeCode": "StaoTyp2_StatusAltlV3",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV3",
-          "Geom_Type": "Area"
+          "Geom_Type": "AreaShare"
         },
         {
           "PartInPercent": "4.8%",
           "Information": "Betriebsstandort. Belastet,  \u00fcberwachungsbed\u00fcrftig",
-          "Area": "5764.33 m²",
+          "AreaShare": "5764.33 m²",
           "TypeCode": "StaoTyp2_StatusAltlV4",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV4",
-          "Geom_Type": "Area"
+          "Geom_Type": "AreaShare"
         },
         {
           "PartInPercent": "1.0%",
           "Information": "Unfallstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
-          "Area": "1210.49 m²",
+          "AreaShare": "1210.49 m²",
           "TypeCode": "StaoTyp3_StatusAltlV1",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp3_StatusAltlV1",
-          "Geom_Type": "Area"
+          "Geom_Type": "AreaShare"
         }
       ]
     },
@@ -472,7 +472,7 @@
       "SymbolRef": "",
       "Theme_Code": "NoiseSensitivityLevels",
       "legend": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_laermempfindlichkeitsstufen&FORMAT=image/png",
-      "Geom_Type": "Area",
+      "Geom_Type": "AreaShare",
       "Reference": [
         {
           "OfficialNumber": "780",
@@ -516,10 +516,10 @@
         {
           "PartInPercent": "73.0%",
           "Information": "Empfindlichkeitsstufe ES IV",
-          "Area": "87381.15 m²",
+          "AreaShare": "87381.15 m²",
           "TypeCode": "ES_IV",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
-          "Geom_Type": "Area"
+          "Geom_Type": "AreaShare"
         }
       ]
     }
