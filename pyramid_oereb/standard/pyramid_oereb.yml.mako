@@ -214,8 +214,8 @@ pyramid_oereb:
       layer:
         name: ch.swisstopo-vd.amtliche-vermessung
       style:
-        stroke_opacity: 1
-        stroke_color: '#ff0000'
+        stroke_opacity: 0.6
+        stroke_color: '#e60000'
         stroke_width: 5
     # The real estate must have a property source.
     source:
