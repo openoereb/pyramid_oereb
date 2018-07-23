@@ -152,18 +152,18 @@ def test_processor_get_legend_entries(law_status):
         view_service_id=1
     )
     view_service1 = ViewServiceRecord(
-        reference_wms='http://www.test1.url.ch',
+        'http://www.test1.url.ch',
+        1,
+        1.0,
         legend_at_web='http://www.test1.url.ch',
-        legends=[legend1, legend2],
-        layer_index=1,
-        layer_opacity=1.0
+        legends=[legend1, legend2]
     )
     view_service2 = ViewServiceRecord(
-        reference_wms='http://www.test2.url.ch',
+        'http://www.test2.url.ch',
+        1,
+        1.0,
         legend_at_web='http://www.test2.url.ch',
-        legends=[legend3, legend4],
-        layer_index=1,
-        layer_opacity=1.0
+        legends=[legend3, legend4]
     )
     image = ImageRecord('1'.encode('utf-8'))
     plr1 = PlrRecord(

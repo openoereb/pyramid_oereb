@@ -135,10 +135,10 @@ def test_get_egrid_response():
     with pyramid_oereb_test_config():
         request = MockRequest(current_route_url='http://example.com/oereb/getegrid.json')
         view_service = ViewServiceRecord('test',
-                                         'test',
-                                         None,
                                          1,
-                                         1.0)
+                                         1.0,
+                                         'test',
+                                         None)
         record = RealEstateRecord('test', 'BL', 'test', 1, 100,
                                   MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]), view_service,
                                   number='number', identdn='identdn', egrid='egrid')

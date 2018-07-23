@@ -18,7 +18,7 @@ def test_mandatory_fields():
 
 def test_init(law_status):
     office = OfficeRecord({'en': 'Office'})
-    view_service = ViewServiceRecord('http://my.wms.com')
+    view_service = ViewServiceRecord('http://my.wms.com', 1, 1.0)
     geometry = GeometryRecord(law_status, datetime.date.today(), Point(1, 1))
     record = PlrRecord(
         ThemeRecord('code', dict()), {'en': 'Content'}, law_status, datetime.date(1985, 8, 29), office,
