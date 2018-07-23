@@ -10,7 +10,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<style name="Default" isDefault="true" fontName="Cadastra" fontSize="8.5"/>
+	<style name="Default" isDefault="true" fontName="Cadastra" fontSize="8"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
 	<parameter name="isReduced" class="java.lang.Boolean"/>
 	<parameter name="FederalLogoRef" class="java.lang.String"/>
@@ -428,7 +428,7 @@
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<textElement textAlignment="Right">
-					<font fontName="Cadastra" size="6.5"/>
+					<font fontName="Cadastra" size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format($R{PageLabel}, $V{MASTER_CURRENT_PAGE}, $V{MASTER_TOTAL_PAGES})]]></textFieldExpression>
 			</textField>
@@ -437,7 +437,7 @@
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Cadastra" size="6.5"/>
+					<font fontName="Cadastra" size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Footer}]]></textFieldExpression>
 			</textField>
