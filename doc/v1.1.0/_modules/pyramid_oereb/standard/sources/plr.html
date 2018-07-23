@@ -262,10 +262,10 @@
         <span class="n">layer_index</span><span class="p">,</span> <span class="n">layer_opacity</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_layer_config</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
         <span class="n">view_service_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_service_record_class</span><span class="p">(</span>
             <span class="n">view_service_from_db</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">,</span>
+            <span class="n">layer_index</span><span class="p">,</span>
+            <span class="n">layer_opacity</span><span class="p">,</span>
             <span class="n">view_service_from_db</span><span class="o">.</span><span class="n">legend_at_web</span><span class="p">,</span>
-            <span class="n">legends</span><span class="o">=</span><span class="n">legend_entry_records</span><span class="p">,</span>
-            <span class="n">layer_index</span><span class="o">=</span><span class="n">layer_index</span><span class="p">,</span>
-            <span class="n">layer_opacity</span><span class="o">=</span><span class="n">layer_opacity</span>
+            <span class="n">legends</span><span class="o">=</span><span class="n">legend_entry_records</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">view_service_record</span>
 

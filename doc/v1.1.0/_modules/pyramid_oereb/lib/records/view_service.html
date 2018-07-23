@@ -217,18 +217,17 @@
     <span class="c1"># Attributes defined while processing</span>
     <span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>    <span class="c1"># map image resulting from calling the wms link - binary</span>
 
-<div class="viewcode-block" id="ViewServiceRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.view_service.ViewServiceRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_wms</span><span class="p">,</span> <span class="n">legend_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legends</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">layer_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">layer_opacity</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="ViewServiceRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.view_service.ViewServiceRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_wms</span><span class="p">,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="n">layer_opacity</span><span class="p">,</span> <span class="n">legend_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legends</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">min_NS03</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_NS03</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">min_NS95</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_NS95</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            reference_wms (uri): The link URL to the actual service (WMS)</span>
-<span class="sd">            legend_at_web (uri): The link URL to the actual legend service (WMS get legend)</span>
-<span class="sd">            legends (list of LegendEntry): A list of all relevant legend entries.</span>
 <span class="sd">            layer_index (int): Layer index. Value from -1000 to +1000.</span>
 <span class="sd">            layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.</span>
+<span class="sd">            legend_at_web (uri): The link URL to the actual legend service (WMS get legend)</span>
+<span class="sd">            legends (list of LegendEntry): A list of all relevant legend entries.</span>
 <span class="sd">            min_NS03 (shapely.geometry.point.Point): Minimal value of map extent (bounding box)</span>
 <span class="sd">                in EPSG:21781 (NS03).</span>
 <span class="sd">            max_NS03 (shapely.geometry.point.Point): Maximal value of map extent (bounding box)</span>
