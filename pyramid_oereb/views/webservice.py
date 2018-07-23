@@ -62,7 +62,7 @@ class PlrWebservice(object):
             u'GetVersionsResponse': {
                 u'supportedVersion': [
                     {
-                        u'version': u'0.8',
+                        u'version': u'1.0',
                         u'serviceEndpointBase': endpoint
                     }
                 ]
