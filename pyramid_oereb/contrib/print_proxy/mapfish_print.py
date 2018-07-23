@@ -295,7 +295,7 @@ class Renderer(JsonRenderer):
             theme = restriction_on_landownership['Theme_Code']
             geom_type = \
                 'AreaShare' if 'AreaShare' in restriction_on_landownership else \
-                'LengthShare' if 'LengthShare' in restriction_on_landownership else 'Point'
+                'LengthShare' if 'LengthShare' in restriction_on_landownership else 'NrOfPoints'
 
             if theme not in theme_restriction:
                 current = dict(restriction_on_landownership)
