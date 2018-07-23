@@ -439,13 +439,14 @@
             <span class="s1">&#39;ResponsibleOffice_OfficeAtWeb&#39;</span><span class="p">,</span> <span class="s1">&#39;SymbolRef&#39;</span><span class="p">,</span> <span class="s1">&#39;TypeCode&#39;</span>
         <span class="p">]</span>
         <span class="n">legend_element</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;TypeCode&#39;</span><span class="p">,</span> <span class="s1">&#39;TypeCodelist&#39;</span><span class="p">,</span> <span class="s1">&#39;Area&#39;</span><span class="p">,</span> <span class="s1">&#39;PartInPercent&#39;</span><span class="p">,</span> <span class="s1">&#39;Length&#39;</span><span class="p">,</span> <span class="s1">&#39;SymbolRef&#39;</span><span class="p">,</span> <span class="s1">&#39;Information&#39;</span>
+            <span class="s1">&#39;TypeCode&#39;</span><span class="p">,</span> <span class="s1">&#39;TypeCodelist&#39;</span><span class="p">,</span> <span class="s1">&#39;AreaShare&#39;</span><span class="p">,</span> <span class="s1">&#39;PartInPercent&#39;</span><span class="p">,</span> <span class="s1">&#39;LengthShare&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;SymbolRef&#39;</span><span class="p">,</span> <span class="s1">&#39;Information&#39;</span>
         <span class="p">]</span>
         <span class="k">for</span> <span class="n">restriction_on_landownership</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;RealEstate_RestrictionOnLandownership&#39;</span><span class="p">,</span> <span class="p">[]):</span>
             <span class="n">theme</span> <span class="o">=</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Theme_Code&#39;</span><span class="p">]</span>
             <span class="n">geom_type</span> <span class="o">=</span> \
-                <span class="s1">&#39;Area&#39;</span> <span class="k">if</span> <span class="s1">&#39;Area&#39;</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span> <span class="k">else</span> \
-                <span class="s1">&#39;Length&#39;</span> <span class="k">if</span> <span class="s1">&#39;Length&#39;</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span> <span class="k">else</span> <span class="s1">&#39;Point&#39;</span>
+                <span class="s1">&#39;AreaShare&#39;</span> <span class="k">if</span> <span class="s1">&#39;AreaShare&#39;</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span> <span class="k">else</span> \
+                <span class="s1">&#39;LengthShare&#39;</span> <span class="k">if</span> <span class="s1">&#39;LengthShare&#39;</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span> <span class="k">else</span> <span class="s1">&#39;NrOfPoints&#39;</span>
 
             <span class="k">if</span> <span class="n">theme</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">theme_restriction</span><span class="p">:</span>
                 <span class="n">current</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">)</span>
@@ -515,7 +516,7 @@
             <span class="k">for</span> <span class="n">legend</span> <span class="ow">in</span> <span class="n">restriction</span><span class="p">[</span><span class="s1">&#39;Legend&#39;</span><span class="p">]:</span>
                 <span class="n">type_</span> <span class="o">=</span> <span class="n">legend</span><span class="p">[</span><span class="s1">&#39;TypeCode&#39;</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">type_</span> <span class="ow">in</span> <span class="n">legends</span><span class="p">:</span>
-                    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Area&#39;</span><span class="p">,</span> <span class="s1">&#39;Length&#39;</span><span class="p">,</span> <span class="s1">&#39;PartInPercent&#39;</span><span class="p">]:</span>
+                    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;AreaShare&#39;</span><span class="p">,</span> <span class="s1">&#39;LengthShare&#39;</span><span class="p">,</span> <span class="s1">&#39;PartInPercent&#39;</span><span class="p">]:</span>
                         <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">legend</span><span class="p">:</span>
                             <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">legends</span><span class="p">[</span><span class="n">type_</span><span class="p">]:</span>
                                 <span class="n">legends</span><span class="p">[</span><span class="n">type_</span><span class="p">][</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="n">legend</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
@@ -524,7 +525,7 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">legends</span><span class="p">[</span><span class="n">type_</span><span class="p">]</span> <span class="o">=</span> <span class="n">legend</span>
             <span class="k">for</span> <span class="n">legend</span> <span class="ow">in</span> <span class="n">legends</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Area&#39;</span><span class="p">,</span> <span class="s1">&#39;Length&#39;</span><span class="p">]:</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;AreaShare&#39;</span><span class="p">,</span> <span class="s1">&#39;LengthShare&#39;</span><span class="p">]:</span>
                     <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">legend</span><span class="p">:</span>
                         <span class="n">legend</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">legend</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
             <span class="c1"># After transformation, get the new legend entries, sorted by TypeCode</span>
@@ -559,13 +560,13 @@
             <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_LandRegistryArea&#39;</span><span class="p">]</span>
         <span class="p">)</span>
 
-        <span class="c1"># Reformat area, length and part in percent values</span>
+        <span class="c1"># Reformat AreaShare, LengthShare and part in percent values</span>
         <span class="k">for</span> <span class="n">restriction</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_RestrictionOnLandownership&#39;</span><span class="p">]:</span>
             <span class="k">for</span> <span class="n">legend</span> <span class="ow">in</span> <span class="n">restriction</span><span class="p">[</span><span class="s1">&#39;Legend&#39;</span><span class="p">]:</span>
-                <span class="k">if</span> <span class="s1">&#39;Length&#39;</span> <span class="ow">in</span> <span class="n">legend</span><span class="p">:</span>
-                    <span class="n">legend</span><span class="p">[</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> m&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">legend</span><span class="p">[</span><span class="s1">&#39;Length&#39;</span><span class="p">])</span>
-                <span class="k">if</span> <span class="s1">&#39;Area&#39;</span> <span class="ow">in</span> <span class="n">legend</span><span class="p">:</span>
-                    <span class="n">legend</span><span class="p">[</span><span class="s1">&#39;Area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> m²&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">legend</span><span class="p">[</span><span class="s1">&#39;Area&#39;</span><span class="p">])</span>
+                <span class="k">if</span> <span class="s1">&#39;LengthShare&#39;</span> <span class="ow">in</span> <span class="n">legend</span><span class="p">:</span>
+                    <span class="n">legend</span><span class="p">[</span><span class="s1">&#39;LengthShare&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> m&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">legend</span><span class="p">[</span><span class="s1">&#39;LengthShare&#39;</span><span class="p">])</span>
+                <span class="k">if</span> <span class="s1">&#39;AreaShare&#39;</span> <span class="ow">in</span> <span class="n">legend</span><span class="p">:</span>
+                    <span class="n">legend</span><span class="p">[</span><span class="s1">&#39;AreaShare&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> m²&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">legend</span><span class="p">[</span><span class="s1">&#39;AreaShare&#39;</span><span class="p">])</span>
                 <span class="k">if</span> <span class="s1">&#39;PartInPercent&#39;</span> <span class="ow">in</span> <span class="n">legend</span><span class="p">:</span>
                     <span class="n">legend</span><span class="p">[</span><span class="s1">&#39;PartInPercent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">legend</span><span class="p">[</span><span class="s1">&#39;PartInPercent&#39;</span><span class="p">])</span>
 
