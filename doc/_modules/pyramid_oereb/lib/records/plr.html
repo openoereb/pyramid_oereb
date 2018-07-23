@@ -179,11 +179,11 @@
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        part_in_percent (decimal): Part of the property area touched by the restriction in percent.</span>
-<span class="sd">        areaShare (decimal): Area of the restriction touching the property calculated by the processor.</span>
+<span class="sd">        area_share (decimal): Area of the restriction touching the property calculated by the processor.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Attributes added or calculated by the processor</span>
-    <span class="n">areaShare</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">area_share</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="n">part_in_percent</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -260,9 +260,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">min_area</span> <span class="o">=</span> <span class="n">min_area</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">area_unit</span> <span class="o">=</span> <span class="n">area_unit</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">length_unit</span> <span class="o">=</span> <span class="n">length_unit</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_areaShare</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_lengthShare</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_nrOfPoints</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length_share</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nr_of_points</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view_service_id</span> <span class="o">=</span> <span class="n">view_service_id</span></div>
 
@@ -278,8 +278,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">lengths_to_sum</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometries</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">lengthShare</span><span class="p">:</span>
-                <span class="n">lengths_to_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">lengthShare</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">length_share</span><span class="p">:</span>
+                <span class="n">lengths_to_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">length_share</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">lengths_to_sum</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lengths_to_sum</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">_sum_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -289,8 +289,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">areas_to_sum</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometries</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">areaShare</span><span class="p">:</span>
-                <span class="n">areas_to_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">areaShare</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">area_share</span><span class="p">:</span>
+                <span class="n">areas_to_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">area_share</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">areas_to_sum</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">areas_to_sum</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">_sum_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -300,33 +300,33 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">points_to_sum</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometries</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">nrOfPoints</span><span class="p">:</span>
-                <span class="n">points_to_sum</span> <span class="o">+=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">nrOfPoints</span>
+            <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">nr_of_points</span><span class="p">:</span>
+                <span class="n">points_to_sum</span> <span class="o">+=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">nr_of_points</span>
         <span class="k">return</span> <span class="n">points_to_sum</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">areaShare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">area_share</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            float or None: Returns the summed area of all related geometry records of this PLR.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_areaShare</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">lengthShare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">length_share</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            float or None: Returns the summed length of all related geometry records of this PLR.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lengthShare</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length_share</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">nrOfPoints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">nr_of_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            float or None: Returns the number of points of all related geometry records of this PLR.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nrOfPoints</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nr_of_points</span>
 
     <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">):</span>
         <span class="n">tested_geometries</span> <span class="o">=</span> <span class="p">[]</span>
@@ -342,23 +342,23 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">geometries</span> <span class="o">=</span> <span class="n">tested_geometries</span>
 
         <span class="c1"># Points</span>
-        <span class="n">nrOfPoints</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum_points</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_nrOfPoints</span> <span class="o">=</span> <span class="n">nrOfPoints</span> <span class="k">if</span> <span class="n">nrOfPoints</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">nr_of_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum_points</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nr_of_points</span> <span class="o">=</span> <span class="n">nr_of_points</span> <span class="k">if</span> <span class="n">nr_of_points</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="c1"># Lines</span>
-        <span class="n">lengthShare</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum_length</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">lengthShare</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_lengthShare</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">length_share</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum_length</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">length_share</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_length_share</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_lengthShare</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">lengthShare</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_length_share</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">length_share</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
         <span class="c1"># Areas</span>
-        <span class="n">areaShare</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum_area</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">areaShare</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_areaShare</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">area_share</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum_area</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">area_share</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">part_in_percent</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_areaShare</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">areaShare</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">area_share</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">part_in_percent</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span>
-                <span class="p">((</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_areaShare</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">land_registry_area</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span>
+                <span class="p">((</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">land_registry_area</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span>
                 <span class="mi">1</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">inside</span>
