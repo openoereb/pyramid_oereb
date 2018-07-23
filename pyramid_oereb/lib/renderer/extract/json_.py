@@ -489,10 +489,8 @@ class Renderer(Base):
             map_dict['OtherLegend'] = [
                 self.format_legend_entry(legend_entry) for legend_entry in other_legend]
 
-        if map_.layer_index is not None:
-            map_dict['LayerIndex'] = map_.layer_index
-        if map_.layer_opacity is not None:
-            map_dict['LayerOpacity'] = map_.layer_opacity
+        map_dict['LayerIndex'] = map_.layer_index
+        map_dict['LayerOpacity'] = map_.layer_opacity
         if map_.min_NS03 is not None:
             map_dict['min_NS03'] = self.format_point(map_.min_NS03)
         if map_.max_NS03 is not None:
