@@ -288,13 +288,14 @@ class Renderer(JsonRenderer):
             'ResponsibleOffice_OfficeAtWeb', 'SymbolRef', 'TypeCode'
         ]
         legend_element = [
-            'TypeCode', 'TypeCodelist', 'Area', 'PartInPercent', 'Length', 'SymbolRef', 'Information'
+            'TypeCode', 'TypeCodelist', 'AreaShare', 'PartInPercent', 'LengthShare',
+            'SymbolRef', 'Information'
         ]
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
             theme = restriction_on_landownership['Theme_Code']
             geom_type = \
-                'Area' if 'Area' in restriction_on_landownership else \
-                'Length' if 'Length' in restriction_on_landownership else 'Point'
+                'AreaShare' if 'AreaShare' in restriction_on_landownership else \
+                'LengthShare' if 'LengthShare' in restriction_on_landownership else 'Point'
 
             if theme not in theme_restriction:
                 current = dict(restriction_on_landownership)
@@ -364,7 +365,7 @@ class Renderer(JsonRenderer):
             for legend in restriction['Legend']:
                 type_ = legend['TypeCode']
                 if type_ in legends:
-                    for item in ['Area', 'Length', 'PartInPercent']:
+                    for item in ['AreaShare', 'LengthShare', 'PartInPercent']:
                         if item in legend:
                             if item in legends[type_]:
                                 legends[type_][item] += legend[item]
@@ -373,7 +374,7 @@ class Renderer(JsonRenderer):
                 else:
                     legends[type_] = legend
             for legend in legends.values():
-                for item in ['Area', 'Length']:
+                for item in ['AreaShare', 'LengthShare']:
                     if item in legend:
                         legend[item] = legend[item]
             # After transformation, get the new legend entries, sorted by TypeCode
@@ -408,13 +409,13 @@ class Renderer(JsonRenderer):
             extract_dict['RealEstate_LandRegistryArea']
         )
 
-        # Reformat area, length and part in percent values
+        # Reformat AreaShare, LengthShare and part in percent values
         for restriction in extract_dict['RealEstate_RestrictionOnLandownership']:
             for legend in restriction['Legend']:
-                if 'Length' in legend:
-                    legend['Length'] = '{0} m'.format(legend['Length'])
-                if 'Area' in legend:
-                    legend['Area'] = u'{0} m²'.format(legend['Area'])
+                if 'LengthShare' in legend:
+                    legend['LengthShare'] = '{0} m'.format(legend['LengthShare'])
+                if 'AreaShare' in legend:
+                    legend['AreaShare'] = u'{0} m²'.format(legend['AreaShare'])
                 if 'PartInPercent' in legend:
                     legend['PartInPercent'] = '{0}%'.format(legend['PartInPercent'])
 

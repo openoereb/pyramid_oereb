@@ -76,11 +76,11 @@ templates:
                             TypeCodelist: !string
                                 default: ''
                             Geom_Type: !string {}
-                            Area: !string #/definitions/Area
+                            AreaShare: !string #/definitions/AreaShare
                                 default: ''
                             PartInPercent: !string
                                 default: ''
-                            Length: !string
+                            LengthShare: !string
                                 default: ''
                             SymbolRef: !string
                                 default: ''
