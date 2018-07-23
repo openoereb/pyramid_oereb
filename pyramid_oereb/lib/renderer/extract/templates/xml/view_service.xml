@@ -18,12 +18,8 @@
 </data:OtherLegend>
 %endfor
 %endif
-%if map.layer_index:
 <data:layerIndex>${map.layer_index}</data:layerIndex>
-%endif
-%if map.layer_opacity:
 <data:layerOpacity>${map.layer_opacity}</data:layerOpacity>
-%endif
 %if map.min_NS03 is not None:
 <data:min_NS03>${map.min_NS03.x} ${map.min_NS03.y}</data:min_NS03>
 %endif

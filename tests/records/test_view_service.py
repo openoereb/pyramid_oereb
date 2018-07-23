@@ -14,10 +14,10 @@ def test_mandatory_fields():
 
 def test_init():
     record = ViewServiceRecord('http://www.test.url.ch',
-                               'http://www.test.url.ch',
-                               None,
                                1,
                                1.0,
+                               'http://www.test.url.ch',
+                               None,
                                Point(2608000, 1261000),
                                Point(2609000, 1262000),
                                Point(2608000, 1261000),
@@ -43,10 +43,10 @@ def test_init_with_relation():
         view_service_id=1
     )]
     record = ViewServiceRecord('http://www.test.url.ch',
-                               'http://www.test.url.ch',
-                               legend_records,
                                1,
                                1.0,
+                               'http://www.test.url.ch',
+                               legend_records,
                                Point(2608000, 1261000),
                                Point(2609000, 1262000),
                                Point(2608000, 1261000),
@@ -64,32 +64,20 @@ def test_init_with_relation():
 
 def test_invalid_layer_index_arguments():
     with pytest.raises(AttributeError):
-        ViewServiceRecord(reference_wms='http://example.com',
-                          layer_index=-1001,
-                          layer_opacity=1)
+        ViewServiceRecord('http://example.com', -1001, 1)
     with pytest.raises(AttributeError):
-        ViewServiceRecord(reference_wms='http://example.com',
-                          layer_index=1001,
-                          layer_opacity=1)
+        ViewServiceRecord('http://example.com', 1001, 1)
     with pytest.warns(UserWarning, match='Type of "layer_index" should be "int"'):
-        ViewServiceRecord(reference_wms='http://example.com',
-                          layer_index=1.0,
-                          layer_opacity=1)
+        ViewServiceRecord('http://example.com', 1.0, 1)
 
 
 def test_invalid_layer_layer_opacity():
     with pytest.raises(AttributeError):
-        ViewServiceRecord(reference_wms='http://example.com',
-                          layer_index=1,
-                          layer_opacity=2.0)
+        ViewServiceRecord('http://example.com', 1, 2.0)
     with pytest.raises(AttributeError):
-        ViewServiceRecord(reference_wms='http://example.com',
-                          layer_index=1,
-                          layer_opacity=-1.1)
+        ViewServiceRecord('http://example.com', 1, -1.1)
     with pytest.warns(UserWarning, match='Type of "layer_opacity" should be "float"'):
-        ViewServiceRecord(reference_wms='http://example.com',
-                          layer_index=1,
-                          layer_opacity=1)
+        ViewServiceRecord('http://example.com', 1, 1)
 
 
 def test_min_max_attributes():
@@ -98,10 +86,10 @@ def test_min_max_attributes():
 
     # test None values, expect no error
     ViewServiceRecord('http://www.test.url.ch',
-                      'http://www.test.url.ch',
-                      None,
                       1,
                       1.0,
+                      'http://www.test.url.ch',
+                      None,
                       None,
                       None,
                       None,
@@ -110,10 +98,10 @@ def test_min_max_attributes():
     # combinations of value + None
     with pytest.raises(AttributeError):
         ViewServiceRecord('http://www.test.url.ch',
-                          'http://www.test.url.ch',
-                          None,
                           1,
                           1.0,
+                          'http://www.test.url.ch',
+                          None,
                           min_val,
                           None,
                           None,
@@ -121,10 +109,10 @@ def test_min_max_attributes():
 
     with pytest.raises(AttributeError):
         ViewServiceRecord('http://www.test.url.ch',
-                          'http://www.test.url.ch',
-                          None,
                           1,
                           1.0,
+                          'http://www.test.url.ch',
+                          None,
                           None,
                           min_val,
                           None,
@@ -132,10 +120,10 @@ def test_min_max_attributes():
 
     with pytest.raises(AttributeError):
         ViewServiceRecord('http://www.test.url.ch',
-                          'http://www.test.url.ch',
-                          None,
                           1,
                           1.0,
+                          'http://www.test.url.ch',
+                          None,
                           None,
                           None,
                           min_val,
@@ -143,10 +131,10 @@ def test_min_max_attributes():
 
     with pytest.raises(AttributeError):
         ViewServiceRecord('http://www.test.url.ch',
-                          'http://www.test.url.ch',
-                          None,
                           1,
                           1.0,
+                          'http://www.test.url.ch',
+                          None,
                           None,
                           None,
                           None,
@@ -155,10 +143,10 @@ def test_min_max_attributes():
     # type error
     with pytest.raises(AttributeError):
         ViewServiceRecord('http://www.test.url.ch',
-                          'http://www.test.url.ch',
-                          None,
                           1,
                           1.0,
+                          'http://www.test.url.ch',
+                          None,
                           1,
                           2,
                           3,
@@ -167,10 +155,10 @@ def test_min_max_attributes():
     # inverted values
     with pytest.raises(AttributeError):
         ViewServiceRecord('http://www.test.url.ch',
-                          'http://www.test.url.ch',
-                          None,
                           1,
                           1.0,
+                          'http://www.test.url.ch',
+                          None,
                           max_val,
                           min_val,
                           max_val,

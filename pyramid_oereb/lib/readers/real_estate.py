@@ -65,10 +65,10 @@ class RealEstateReader(object):
             min_NS03, max_NS03 = self.get_bbox(reference_wms)
 
         real_estate_view_service = ViewServiceRecord(
-            reference_wms=reference_wms,
+            reference_wms,
+            real_estate_config.get('view_service').get('layer_index'),
+            real_estate_config.get('view_service').get('layer_opacity'),
             legend_at_web=real_estate_config.get('view_service').get('legend_at_web'),
-            layer_index=real_estate_config.get('view_service').get('layer_index'),
-            layer_opacity=real_estate_config.get('view_service').get('layer_opacity'),
             min_NS95=min_NS95,
             max_NS95=max_NS95,
             min_NS03=min_NS03,
@@ -77,10 +77,10 @@ class RealEstateReader(object):
 
         real_estate_main_page_config = Config.get_real_estate_main_page_config()
         real_estate_main_page_view_service = ViewServiceRecord(
-            reference_wms=reference_wms,
+            reference_wms,
+            real_estate_main_page_config.get('view_service').get('layer_index'),
+            real_estate_main_page_config.get('view_service').get('layer_opacity'),
             legend_at_web=real_estate_main_page_config.get('view_service').get('legend_at_web'),
-            layer_index=real_estate_main_page_config.get('view_service').get('layer_index'),
-            layer_opacity=real_estate_main_page_config.get('view_service').get('layer_opacity'),
             min_NS95=min_NS95,
             max_NS95=max_NS95,
             min_NS03=min_NS03,

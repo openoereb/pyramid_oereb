@@ -67,18 +67,17 @@ class ViewServiceRecord(object):
     # Attributes defined while processing
     image = None    # map image resulting from calling the wms link - binary
 
-    def __init__(self, reference_wms, legend_at_web=None, legends=None,
-                 layer_index=None, layer_opacity=None,
+    def __init__(self, reference_wms, layer_index, layer_opacity, legend_at_web=None, legends=None,
                  min_NS03=None, max_NS03=None,
                  min_NS95=None, max_NS95=None):
         """
 
         Args:
             reference_wms (uri): The link URL to the actual service (WMS)
-            legend_at_web (uri): The link URL to the actual legend service (WMS get legend)
-            legends (list of LegendEntry): A list of all relevant legend entries.
             layer_index (int): Layer index. Value from -1000 to +1000.
             layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.
+            legend_at_web (uri): The link URL to the actual legend service (WMS get legend)
+            legends (list of LegendEntry): A list of all relevant legend entries.
             min_NS03 (shapely.geometry.point.Point): Minimal value of map extent (bounding box)
                 in EPSG:21781 (NS03).
             max_NS03 (shapely.geometry.point.Point): Maximal value of map extent (bounding box)
