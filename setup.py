@@ -16,7 +16,7 @@ requires = [re_.match(r).group(1) for r in recommend]
 
 setup(
     name='pyramid_oereb',
-    version='1.2.0',
+    version='1.2.0-rc.2',
     description='pyramid_oereb, extension for pyramid web frame work to provide '
             'a basic server part for the oereb project',
     long_description='{readme}\n\n{changes}'.format(readme=README, changes=CHANGES),
