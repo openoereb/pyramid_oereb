@@ -226,6 +226,7 @@ class ViewServiceRecord(object):
             "WIDTH": int(map_size[0]),
             "HEIGHT": int(map_size[1])
         })
+        self.calculate_ns()
         return self.reference_wms
 
     def download_wms_content(self):

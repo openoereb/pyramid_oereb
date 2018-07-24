@@ -185,7 +185,6 @@ class Renderer(JsonRenderer):
             'customParams': {'TRANSPARENT': 'true'},
         }
         extract_dict['baseLayers'] = {'layers': [main_page_basemap]}
-        extract_dict['legend'] = extract_dict['RealEstate_PlanForLandRegister'].get('LegendAtWeb', '')
         url, params = parse_url(extract_dict['RealEstate_PlanForLandRegister']['ReferenceWMS'])
         basemap = {
             'type': 'wms',
