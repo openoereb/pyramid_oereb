@@ -41,6 +41,7 @@ templates:
             MunicipalityLogo: *optStr
             MunicipalityLogoRef: *optStr
             ExtractIdentifier: !string {}
+            Certification: !string {} #/definitions/MultilingualMText
             Footer: !string {}
             QRCode: *optStr
             QRCodeRef: *optStr
@@ -249,7 +250,6 @@ templates:
                                 strokeOpacity: 0.60
                                 strokeWidth: 5
             furtherInformationText: !string {}
-            certificationText: !string {}
 
         processors:
         - !reportBuilder # compile all reports in current directory

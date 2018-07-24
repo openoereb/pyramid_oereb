@@ -78,12 +78,6 @@ class Renderer(JsonRenderer):
             self._language, '-'
         )
 
-        extract_as_dict['certificationText'] = print_config.get(
-            'certificationText', {}
-        ).get(
-            self._language, '-'
-        )
-
         extract_as_dict['Display_RealEstate_SubunitOfLandRegister'] = print_config.get(
             'display_real_estate_subunit_of_land_register', True
         )
@@ -206,6 +200,8 @@ class Renderer(JsonRenderer):
 
         self._multilingual_m_text(extract_dict, 'GeneralInformation')
         self._multilingual_m_text(extract_dict, 'BaseData')
+        self._multilingual_m_text(extract_dict, 'Certification')
+
         for item in extract_dict.get('Glossary', []):
             self._multilingual_text(item, 'Title')
             self._multilingual_text(item, 'Content')
