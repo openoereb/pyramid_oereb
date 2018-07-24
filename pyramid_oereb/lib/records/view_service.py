@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
-import re
 import warnings
 import logging
 import requests
 
 from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.url import add_url_params
+from pyramid_oereb.lib.url import add_url_params, parse_url
 from pyramid_oereb.lib.url import uri_validator
 from pyramid_oereb.lib.config import Config
 from shapely.geometry.point import Point
@@ -303,8 +302,9 @@ class ViewServiceRecord(object):
         Returns:
             set of two shapely.geometry.point.Point: min and max coordinates of bounding box.
         """
-        match = re.search('BBOX=((\d+,?)+)', wms_url)
-        if match is None or len(match.groups()) != 2:
+        url, params = parse_url(wms_url)
+        bbox = params.get('BBOX')
+        if bbox is None or len(bbox[0].split(',')) != 4:
             return None, None
-        points = map(float, match.group(1).split(','))
-        return Point(points[0], points[1]), Point(points[2], points[3])
+        points = bbox[0].split(',')
+        return Point(float(points[0]), float(points[1])), Point(float(points[2]), float(points[3]))

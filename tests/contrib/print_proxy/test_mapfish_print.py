@@ -54,4 +54,7 @@ def test_mapfish_print_entire_extract():
     pdf_to_join = set()
     printable_extract = extract()
     renderer.convert_to_printable_extract(printable_extract, geometry(), pdf_to_join)
+    f = open('/tmp/printable_extract.json', 'w')
+    f.write(json.dumps(printable_extract))
+    f.close()
     assert printable_extract == expected_printable_extract()
