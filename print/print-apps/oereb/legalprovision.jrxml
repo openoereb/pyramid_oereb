@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.0.4.final using JasperReports Library version 6.0.4  -->
-<!-- 2018-07-05T15:38:55 -->
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
+<!-- 2018-07-24T08:06:55 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TocReport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="493" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="6e74177b-d551-4a75-ae51-6cdde3f284ce">
 	<property name="net.sf.jasperreports.bookmarks.data.source.parameter" value="REPORT_DATA_SOURCE"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -24,10 +24,11 @@
 	<parameter name="Theme_Text" class="java.lang.String"/>
 	<field name="TextAtWeb" class="java.lang.String"/>
 	<field name="Title" class="java.lang.String"/>
+	<field name="OfficialNumber" class="java.lang.String"/>
 	<field name="OfficialTitle" class="java.lang.String"/>
 	<field name="Field_1" class="java.lang.String"/>
 	<detail>
-		<band height="30">
+		<band height="40">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true" hyperlinkType="Reference" hyperlinkTarget="Blank">
 				<reportElement positionType="Float" x="0" y="15" width="300" height="15" forecolor="#4C8FBA" uuid="010fa648-c53e-4fa5-82ab-ce9a63ed9bd5">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
@@ -57,6 +58,18 @@
 				</textElement>
 				<textFieldExpression><![CDATA[($F{Title}.equals("") ? ($F{OfficialTitle}.equals("") ? "-" :   $F{OfficialTitle}): $F{Title})]]></textFieldExpression>
 				<hyperlinkReferenceExpression><![CDATA["http://crdppf.ne.ch"]]></hyperlinkReferenceExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="30" width="300" height="10" uuid="eacc84c8-ed34-42dd-8938-0c6d1686eaf0">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Cadastra" size="6"/>
+					<paragraph lineSpacing="Single" leftIndent="8" spacingBefore="0" spacingAfter="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{OfficialNumber}.equals("") || $F{OfficialNumber} == null) ? null : $F{OfficialNumber}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
