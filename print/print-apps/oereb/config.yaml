@@ -62,6 +62,8 @@ templates:
             RealEstate_Municipality: !string {}
             RealEstate_SubunitOfLandRegister: !string
                 default: ''
+            Display_RealEstate_SubunitOfLandRegister: !boolean
+                default: true
             RealEstate_FosNr: !string {}
             RealEstate_MetadataOfGeographicalBaseData: !string
                 default: ''
