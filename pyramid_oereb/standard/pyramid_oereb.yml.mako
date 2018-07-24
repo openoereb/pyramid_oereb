@@ -84,6 +84,9 @@ pyramid_oereb:
     # The headers sent to the print
     headers:
       Content-Type: application/json; charset=UTF-8
+    # Whether to display the RealEstate_SubunitOfLandRegister (Grundbuchkreis) in the pdf extract or not.
+    # Default to true.
+    display_real_estate_subunit_of_land_register: true
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
   # creation process, because this name is used as schema name in the target database. The app_schema holds

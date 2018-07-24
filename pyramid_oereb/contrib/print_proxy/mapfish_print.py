@@ -70,20 +70,22 @@ class Renderer(JsonRenderer):
 
         self.convert_to_printable_extract(extract_as_dict, feature_geometry, pdf_to_join)
 
-        extract_as_dict['furtherInformationText'] = Config.get(
-            'print', {}
-        ).get(
+        print_config = Config.get('print', {})
+
+        extract_as_dict['furtherInformationText'] = print_config.get(
             'furtherInformationText', {}
         ).get(
             self._language, '-'
         )
 
-        extract_as_dict['certificationText'] = Config.get(
-            'print', {}
-        ).get(
+        extract_as_dict['certificationText'] = print_config.get(
             'certificationText', {}
         ).get(
             self._language, '-'
+        )
+
+        extract_as_dict['Display_RealEstate_SubunitOfLandRegister'] = print_config.get(
+            'display_real_estate_subunit_of_land_register', True
         )
 
         spec = {
