@@ -4,7 +4,6 @@ import os
 import logging
 import datetime
 import yaml
-import copy
 import collections
 from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.adapter import FileAdapter
@@ -176,18 +175,14 @@ class Config(object):
     @staticmethod
     def get_crs():
         """
-        Returns a list of available crs.
+        Returns a unicode string of configured crs.
 
         Returns:
-            list: The available crs.
+            unicode: The available crs.
         """
         assert Config._config is not None
-
-        crs = []
         srid = Config._config.get('srid')
-        if srid:
-            crs.append(u'epsg:{}'.format(srid))
-        return crs
+        return u'epsg:{}'.format(srid)
 
     @staticmethod
     def get_language():
@@ -250,15 +245,14 @@ class Config(object):
         return Config._config.get('real_estate')
 
     @staticmethod
-    def get_real_estate_main_page_config():
+    def get_plan_for_land_register_main_page_config():
         assert Config._config is not None
-        base = Config._config.get('real_estate', {})
-        base = copy.deepcopy(base)
-        if 'main_page' in base:
-            overwrite = base.get('main_page')
-            del base['main_page']
-            base = merge_dicts(base, overwrite)
-        return base
+        return Config._config.get('real_estate', {}).get('plan_for_land_register_main_page')
+
+    @staticmethod
+    def get_plan_for_land_register_config():
+        assert Config._config is not None
+        return Config._config.get('real_estate', {}).get('plan_for_land_register')
 
     @staticmethod
     def get_address_config():
@@ -552,5 +546,13 @@ class Config(object):
                     if view_service and isinstance(view_service, dict):
                         layer_index = view_service.get('layer_index')
                         layer_opacity = view_service.get('layer_opacity')
+                        if layer_opacity is None:
+                            raise ConfigurationError(
+                                'For {} the "layer_opacity" was not found!'.format(theme_code)
+                            )
+                        if layer_index is None:
+                            raise ConfigurationError(
+                                'For {} the "layer_index" was not found!'.format(theme_code)
+                            )
                         return layer_index, layer_opacity
         return None, None

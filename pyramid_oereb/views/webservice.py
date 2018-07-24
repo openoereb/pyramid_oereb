@@ -106,7 +106,7 @@ class PlrWebservice(object):
                 u'municipality': [record.fosnr for record in self._municipality_reader.read()],
                 u'flavour': Config.get_flavour(),
                 u'language': Config.get_language(),
-                u'crs': Config.get_crs()
+                u'crs': [Config.get_crs()]
             }
         }
 
