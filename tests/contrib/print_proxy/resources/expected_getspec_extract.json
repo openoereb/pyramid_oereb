@@ -764,12 +764,7 @@
     "ReferenceWMS": "http://dev2.geowms.bl.ch/?STYLES=default&LAYERS=grundbuchplan_gebaeude_nicht_gefuellt_group&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
   },
   "CantonalLogoRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/logo/canton",
-  "Certification": [
-    {
-      "Text": "Referenz zur kantonsspezifischen Gesetzesgrundlage bez\u00fcglich Beglaubigungen.",
-      "Language": "de"
-    }
-  ],
+  "Certification": "Referenz zur kantonsspezifischen Gesetzesgrundlage bez\u00fcglich Beglaubigungen.",
   "RealEstate_Canton": "BL",
   "PLRCadastreAuthority_Name": "Amt f\u00fcr Geoinformation",
   "RealEstate_IdentDN": "BL0200002766",
