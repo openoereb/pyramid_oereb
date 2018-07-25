@@ -302,7 +302,7 @@ class ViewServiceRecord(object):
         Returns:
             set of two shapely.geometry.point.Point: min and max coordinates of bounding box.
         """
-        url, params = parse_url(wms_url)
+        _, params = parse_url(wms_url)
         bbox = params.get('BBOX')
         if bbox is None or len(bbox[0].split(',')) != 4:
             return None, None
