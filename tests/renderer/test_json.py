@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import base64
-
+import json
 import datetime
 
 import pytest
 from shapely.geometry import MultiPolygon, Polygon, Point, LineString
+from jsonschema import Draft4Validator
 
 from pyramid.path import DottedNameResolver
 
@@ -25,9 +26,17 @@ from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.renderer import Base
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
-from tests.conftest import MockRequest, pyramid_oereb_test_config
+from tests.conftest import MockRequest, pyramid_oereb_test_config, schema_json_extract_data
 from tests.renderer import DummyRenderInfo
 from pyramid_oereb.views.webservice import Parameter
+
+
+def validate_against_schema(extract):
+    with open(schema_json_extract_data) as f:
+        schema = json.loads(f.read())
+    Draft4Validator.check_schema(schema)
+    validator = Draft4Validator(schema)
+    validator.validate(extract)
 
 
 def law_status():
@@ -145,6 +154,7 @@ def test_render(config, parameter):
                     'MunicipalityLogoRef': u'http://example.com/image/municipality/2829'
                 })
             assert result == expected
+            validate_against_schema({'extract': result})
 
 
 def test_format_office(config):
