@@ -197,18 +197,16 @@ pyramid_oereb:
   # bound to the source. The model must implement the same field names and information as the default model
   # does.
   real_estate:
-    view_service:
-      # WMS URL to query the plan for land register
+    plan_for_land_register:
+      # WMS URL to query the plan for land register used for all themes pages
       reference_wms: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
-      layer_index: 1
-      layer_opacity: 0.25
-      # Legend is optional
-      # legend_at_web:
-    # Overrides for main page of export.
-    # If a value cannot be found here, values from real_estate (parent of this attribute) will be used instead.
-    main_page:
-      view_service:
-        layer_opacity: 0.5
+      layer_index: 0
+      layer_opacity: 1.0
+    plan_for_land_register_main_page:
+      # WMS URL to query the plan for land register specially for static extracts overview page
+      reference_wms: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
+      layer_index: 0
+      layer_opacity: 1.0
     visualisation:
       method: pyramid_oereb.standard.hook_methods.produce_sld_content
       # Note: these parameters must fit to the attributes provided by the RealEstateRecord!!!!
@@ -361,6 +359,9 @@ pyramid_oereb:
       language: de
       federal: false
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 1.0
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -386,6 +387,9 @@ pyramid_oereb:
       language: de
       federal: true
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -411,6 +415,9 @@ pyramid_oereb:
       language: de
       federal: true
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -436,6 +443,9 @@ pyramid_oereb:
       language: de
       federal: true
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -461,6 +471,9 @@ pyramid_oereb:
       language: de
       federal: true
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -486,6 +499,9 @@ pyramid_oereb:
       language: de
       federal: true
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -511,6 +527,9 @@ pyramid_oereb:
       language: de
       federal: true
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -536,6 +555,9 @@ pyramid_oereb:
       language: de
       federal: true
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -561,6 +583,9 @@ pyramid_oereb:
       language: de
       federal: false
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 1.0
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -586,6 +611,9 @@ pyramid_oereb:
       language: de
       federal: true
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -611,6 +639,9 @@ pyramid_oereb:
       language: de
       federal: true
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -636,6 +667,9 @@ pyramid_oereb:
       language: de
       federal: true
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -661,6 +695,9 @@ pyramid_oereb:
       language: de
       federal: false
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 1.0
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -686,6 +723,9 @@ pyramid_oereb:
       language: de
       federal: false
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 1.0
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -711,6 +751,9 @@ pyramid_oereb:
       language: de
       federal: false
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 1.0
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -736,6 +779,9 @@ pyramid_oereb:
       language: de
       federal: false
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 1.0
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
@@ -761,6 +807,9 @@ pyramid_oereb:
       language: de
       federal: false
       standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 1.0
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:

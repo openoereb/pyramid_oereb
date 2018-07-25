@@ -154,8 +154,10 @@ class Processor(object):
             pyramid_oereb.lib.records.real_estate.RealEstateRecord: The updated extract.
         """
         real_estate.plan_for_land_register.get_full_wms_url(real_estate, format)
+        real_estate.plan_for_land_register_main_page.get_full_wms_url(real_estate, format)
         if images:
             real_estate.plan_for_land_register.download_wms_content()
+            real_estate.plan_for_land_register_main_page.download_wms_content()
 
         for public_law_restriction in real_estate.public_law_restrictions:
             public_law_restriction.view_service.get_full_wms_url(real_estate, format)

@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
-import re
 
 from pyramid.path import DottedNameResolver
 
 from pyramid_oereb import Config
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
-from shapely.geometry.point import Point
 
 
 class RealEstateReader(object):
@@ -55,36 +53,19 @@ class RealEstateReader(object):
             list of pyramid_oereb.lib.records.real_estate.RealEstateRecord:
                 The list of all found records filtered by the passed criteria.
         """
-        real_estate_config = Config.get_real_estate_config()
-        reference_wms = real_estate_config.get('view_service').get('reference_wms')
-        srid = Config.get_crs()
-        min_NS95 = max_NS95 = min_NS03 = max_NS03 = None
-        if srid == u'epsg:2056':
-            min_NS95, max_NS95 = self.get_bbox(reference_wms)
-        if srid == u'epsg:21781':
-            min_NS03, max_NS03 = self.get_bbox(reference_wms)
+        plan_for_land_register_config = Config.get_plan_for_land_register_config()
 
         real_estate_view_service = ViewServiceRecord(
-            reference_wms,
-            real_estate_config.get('view_service').get('layer_index'),
-            real_estate_config.get('view_service').get('layer_opacity'),
-            legend_at_web=real_estate_config.get('view_service').get('legend_at_web'),
-            min_NS95=min_NS95,
-            max_NS95=max_NS95,
-            min_NS03=min_NS03,
-            max_NS03=max_NS03
+            plan_for_land_register_config.get('reference_wms'),
+            plan_for_land_register_config.get('layer_index'),
+            plan_for_land_register_config.get('layer_opacity')
         )
 
-        real_estate_main_page_config = Config.get_real_estate_main_page_config()
+        plan_for_land_register_main_page_config = Config.get_plan_for_land_register_main_page_config()
         real_estate_main_page_view_service = ViewServiceRecord(
-            reference_wms,
-            real_estate_main_page_config.get('view_service').get('layer_index'),
-            real_estate_main_page_config.get('view_service').get('layer_opacity'),
-            legend_at_web=real_estate_main_page_config.get('view_service').get('legend_at_web'),
-            min_NS95=min_NS95,
-            max_NS95=max_NS95,
-            min_NS03=min_NS03,
-            max_NS03=max_NS03
+            plan_for_land_register_main_page_config.get('reference_wms'),
+            plan_for_land_register_main_page_config.get('layer_index'),
+            plan_for_land_register_main_page_config.get('layer_opacity')
         )
 
         self._source_.read(nb_ident=nb_ident, number=number, egrid=egrid, geometry=geometry)
@@ -93,19 +74,3 @@ class RealEstateReader(object):
                 r.set_view_service(real_estate_view_service)
                 r.set_main_page_view_service(real_estate_main_page_view_service)
         return self._source_.records
-
-    @staticmethod
-    def get_bbox(wms_url):
-        """
-        Parses wms url for BBOX parameter an returns these points as suitable values for ViewServiceRecord.
-        Args:
-            wms_url (str): wms url which includes a BBOX parameter to parse.
-
-        Returns:
-            set of two shapely.geometry.point.Point: min and max coordinates of bounding box.
-        """
-        match = re.search('BBOX=((\d+,?)+)', wms_url)
-        if match is None or len(match.groups()) != 2:
-            return None, None
-        points = map(float, match.group(1).split(','))
-        return Point(points[0], points[1]), Point(points[2], points[3])

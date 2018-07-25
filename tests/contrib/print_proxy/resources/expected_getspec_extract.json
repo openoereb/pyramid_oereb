@@ -1,11 +1,5 @@
 {
-  "Certification": "Referenz zur kantonsspezifischen Gesetzesgrundlage bez\u00fcglich Beglaubigungen.",
-  "CertificationAtWeb": [{"Language": "de", "Text": "https://oereb.bl.ch/certification/de"}],
   "GeneralInformation": "Der Inhalt des \u00d6REB-Katasters wird als bekannt vorausgesetzt. Der Kanton Basel-Landschaft ist f\u00fcr die Genauigkeit und Verl\u00e4sslichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begr\u00fcndet insbesondere keine Rechte und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskr\u00e4ftig verabschiedet oder ver\u00f6ffentlicht worden sind. Mit der Beglaubigung des Auszugs wird die \u00dcbereinstimmung des Auszugs mit dem \u00d6REB-Kataster zum Zeitpunkt der Auszugserstellung best\u00e4tigt.",
-  "RealEstate_PlanForLandRegisterMainPage": {
-      "ReferenceWMS": "http://dev2.geowms.bl.ch/?STYLES=default&LAYERS=grundbuchplan_gebaeude_nicht_gefuellt_group&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-      "LayerOpacity": 0.5
-  },
   "RealEstate_RestrictionOnLandownership": [
     {
       "Information": "",
@@ -95,9 +89,9 @@
           "OfficialNumber": "400.11",
           "Lawstatus_Code": "inForce",
           "Title": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
-          "Abbreviation": "RBV",
           "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
           "Canton": "BL",
+          "Abbreviation": "RBV",
           "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/2032?locale=de",
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Landeskanzlei"
@@ -106,9 +100,9 @@
           "OfficialNumber": "700",
           "Lawstatus_Code": "inForce",
           "Title": "Bundesgesetz \u00fcber die Raumplanung (Raumplanungsgesetz, RPG)",
-          "Abbreviation": "Raumplanungsgesetz, RPG",
           "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
           "Canton": "BL",
+          "Abbreviation": "Raumplanungsgesetz, RPG",
           "TextAtWeb": "http://www.lexfind.ch/dtah/155346/2",
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Bundeskanzlei"
@@ -117,9 +111,9 @@
           "OfficialNumber": "400",
           "Lawstatus_Code": "inForce",
           "Title": "Raumplanungs- und Baugesetz (RBG)",
-          "Abbreviation": "RBG",
           "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
           "Canton": "BL",
+          "Abbreviation": "RBG",
           "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1964?locale=de",
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Landeskanzlei"
@@ -234,24 +228,24 @@
         {
           "PartInPercent": "73.0%",
           "Information": "Industrie- und Gewerbezone",
-          "AreaShare": "87380.21 m²",
           "TypeCode": "108000",
+          "AreaShare": "87380.21 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/108000",
           "Geom_Type": "AreaShare"
         },
         {
           "PartInPercent": "6.2%",
           "Information": "Rheinuferzone",
-          "AreaShare": "7379.93 m²",
           "TypeCode": "130004",
+          "AreaShare": "7379.93 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130004",
           "Geom_Type": "AreaShare"
         },
         {
           "PartInPercent": "5.1%",
           "Information": "Arch\u00e4ologische Schutzzone",
-          "AreaShare": "6125.68 m²",
           "TypeCode": "219106",
+          "AreaShare": "6125.68 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/219106",
           "Geom_Type": "AreaShare"
         }
@@ -320,9 +314,9 @@
           "OfficialNumber": "814.01",
           "Lawstatus_Code": "inForce",
           "Title": "Bundesgesetz \u00fcber den Umweltschutz (Umweltschutzgesetz, USG)",
-          "Abbreviation": "Umweltschutzgesetz, USG",
           "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
           "Canton": "BL",
+          "Abbreviation": "Umweltschutzgesetz, USG",
           "TextAtWeb": "http://www.lexfind.ch/dtah/155395/2",
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Bundeskanzlei"
@@ -331,9 +325,9 @@
           "OfficialNumber": "814.680",
           "Lawstatus_Code": "inForce",
           "Title": "Verordnung \u00fcber die Sanierung von belasteten Standorten (Altlasten-Verordnung, AltlV)",
-          "Abbreviation": "Altlasten-Verordnung, AltlV",
           "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
           "Canton": "BL",
+          "Abbreviation": "Altlasten-Verordnung, AltlV",
           "TextAtWeb": "http://www.lexfind.ch/dtah/147568/2",
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Bundeskanzlei"
@@ -342,9 +336,9 @@
           "OfficialNumber": "780",
           "Lawstatus_Code": "inForce",
           "Title": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
-          "Abbreviation": "USG BL",
           "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
           "Canton": "BL",
+          "Abbreviation": "USG BL",
           "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de",
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Landeskanzlei"
@@ -353,9 +347,9 @@
           "OfficialNumber": "780.11",
           "Lawstatus_Code": "inForce",
           "Title": "Verordnung \u00fcber den Umweltschutz (USV)",
-          "Abbreviation": "USV",
           "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
           "Canton": "BL",
+          "Abbreviation": "USV",
           "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/273?locale=de",
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Landeskanzlei"
@@ -390,32 +384,32 @@
         {
           "PartInPercent": "51.8%",
           "Information": "Betriebsstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
-          "AreaShare": "61999.23 m²",
           "TypeCode": "StaoTyp2_StatusAltlV1",
+          "AreaShare": "61999.23 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV1",
           "Geom_Type": "AreaShare"
         },
         {
           "PartInPercent": "12.1%",
           "Information": "Betriebsstandort. Belastet, weder \u00fcberwachungs- noch sanierungsbed\u00fcrftig",
-          "AreaShare": "14503.04 m²",
           "TypeCode": "StaoTyp2_StatusAltlV3",
+          "AreaShare": "14503.04 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV3",
           "Geom_Type": "AreaShare"
         },
         {
           "PartInPercent": "4.8%",
           "Information": "Betriebsstandort. Belastet,  \u00fcberwachungsbed\u00fcrftig",
-          "AreaShare": "5764.33 m²",
           "TypeCode": "StaoTyp2_StatusAltlV4",
+          "AreaShare": "5764.33 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV4",
           "Geom_Type": "AreaShare"
         },
         {
           "PartInPercent": "1.0%",
           "Information": "Unfallstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
-          "AreaShare": "1210.49 m²",
           "TypeCode": "StaoTyp3_StatusAltlV1",
+          "AreaShare": "1210.49 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp3_StatusAltlV1",
           "Geom_Type": "AreaShare"
         }
@@ -478,9 +472,9 @@
           "OfficialNumber": "780",
           "Lawstatus_Code": "inForce",
           "Title": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
-          "Abbreviation": "USG BL",
           "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
           "Canton": "BL",
+          "Abbreviation": "USG BL",
           "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de",
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Landeskanzlei"
@@ -489,9 +483,9 @@
           "OfficialNumber": "814.41",
           "Lawstatus_Code": "inForce",
           "Title": "L\u00e4rmschutz-Verordnung (LSV)",
-          "Abbreviation": "LSV",
           "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
           "Canton": "BL",
+          "Abbreviation": "LSV",
           "TextAtWeb": "http://www.lexfind.ch/dtah/147569/2",
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Bundeskanzlei"
@@ -516,8 +510,8 @@
         {
           "PartInPercent": "73.0%",
           "Information": "Empfindlichkeitsstufe ES IV",
-          "AreaShare": "87381.15 m²",
           "TypeCode": "ES_IV",
+          "AreaShare": "87381.15 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
           "Geom_Type": "AreaShare"
         }
@@ -673,6 +667,12 @@
   "RealEstate_Municipality": "Birsfelden",
   "FederalLogoRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/logo/confederation",
   "ExtractIdentifier": "e2ec795b-91f8-4827-8549-808ca7f25251",
+  "CertificationAtWeb": [
+    {
+      "Text": "https://oereb.bl.ch/certification/de",
+      "Language": "de"
+    }
+  ],
   "ExclusionOfLiability": [
     {
       "Content": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt f\u00fcr Umwelt BAFU festgelegten Kriterien erstellt und wird fortw\u00e4hrend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Fl\u00e4chen k\u00f6nnen vom tats\u00e4chlichen Ausmass der Belastung abweichen. Erscheint ein Grundst\u00fcck nicht im KbS, besteht keine absolute Gew\u00e4hr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, milit\u00e4risch und f\u00fcr die Luftfahrt genutzte Standorte liegen im Zust\u00e4ndigkeitsbereich des Bundes. F\u00fcr weitere Informationen wenden Sie sich an die kantonale Altlastenfachstelle, Amt f\u00fcr Umweltschutz und Energie (www.aue.bl.ch).",
@@ -680,7 +680,7 @@
     }
   ],
   "LogoPLRCadastreRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/logo/oereb",
-  "RealEstate_LandRegistryArea": "119681.0 m²",
+  "RealEstate_LandRegistryArea": "119681.0 m\u00b2",
   "RealEstate_Type": "RealEstate",
   "Footer": "16.02.2018   11:54:24   e2ec795b-91f8-4827-8549-808ca7f25251",
   "Glossary": [
@@ -759,8 +759,12 @@
   "PLRCadastreAuthority_City": "Liestal",
   "PLRCadastreAuthority_PostalCode": 4410,
   "PLRCadastreAuthority_OfficeAtWeb": "http://www.agi.bl.ch",
-  "legend": "",
+  "RealEstate_PlanForLandRegisterMainPage": {
+    "LayerOpacity": 0.5,
+    "ReferenceWMS": "http://dev2.geowms.bl.ch/?STYLES=default&LAYERS=grundbuchplan_gebaeude_nicht_gefuellt_group&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+  },
   "CantonalLogoRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/logo/canton",
+  "Certification": "Referenz zur kantonsspezifischen Gesetzesgrundlage bez\u00fcglich Beglaubigungen.",
   "RealEstate_Canton": "BL",
   "PLRCadastreAuthority_Name": "Amt f\u00fcr Geoinformation",
   "RealEstate_IdentDN": "BL0200002766",

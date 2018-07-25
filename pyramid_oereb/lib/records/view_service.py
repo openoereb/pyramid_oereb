@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
-
 import warnings
 import logging
 import requests
 
 from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.url import add_url_params
+from pyramid_oereb.lib.url import add_url_params, parse_url
 from pyramid_oereb.lib.url import uri_validator
 from pyramid_oereb.lib.config import Config
 from shapely.geometry.point import Point
@@ -67,9 +66,7 @@ class ViewServiceRecord(object):
     # Attributes defined while processing
     image = None    # map image resulting from calling the wms link - binary
 
-    def __init__(self, reference_wms, layer_index, layer_opacity, legend_at_web=None, legends=None,
-                 min_NS03=None, max_NS03=None,
-                 min_NS95=None, max_NS95=None):
+    def __init__(self, reference_wms, layer_index, layer_opacity, legend_at_web=None, legends=None):
         """
 
         Args:
@@ -78,14 +75,6 @@ class ViewServiceRecord(object):
             layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.
             legend_at_web (uri): The link URL to the actual legend service (WMS get legend)
             legends (list of LegendEntry): A list of all relevant legend entries.
-            min_NS03 (shapely.geometry.point.Point): Minimal value of map extent (bounding box)
-                in EPSG:21781 (NS03).
-            max_NS03 (shapely.geometry.point.Point): Maximal value of map extent (bounding box)
-                in EPSG:21781 (NS03).
-            min_NS95 (shapely.geometry.point.Point): Minimal value of map extent (bounding box)
-                in EPSG:2056 (NS95).
-            max_NS95 (shapely.geometry.point.Point): Maximal value of map extent (bounding box)
-                in EPSG:2056 (NS95).
         """
         self.reference_wms = reference_wms
         self.legend_at_web = legend_at_web
@@ -93,13 +82,13 @@ class ViewServiceRecord(object):
         self.layer_index = self.sanitize_layer_index(layer_index)
         self.layer_opacity = self.sanitize_layer_opacity(layer_opacity)
 
-        self.check_min_max_attributes(min_NS03, 'min_NS03', max_NS03, 'max_NS03')
-        self.min_NS03 = min_NS03
-        self.max_NS03 = max_NS03
-
-        self.check_min_max_attributes(min_NS95, 'min_NS95', max_NS95, 'max_NS95')
-        self.min_NS95 = min_NS95
-        self.max_NS95 = max_NS95
+        self.min_NS03 = None
+        self.max_NS03 = None
+        self.min_NS95 = None
+        self.max_NS95 = None
+        self.calculate_ns()
+        self.check_min_max_attributes(self.min_NS03, 'min_NS03', self.max_NS03, 'max_NS03')
+        self.check_min_max_attributes(self.min_NS95, 'min_NS95', self.max_NS95, 'max_NS95')
 
         if legends is None:
             self.legends = []
@@ -110,8 +99,6 @@ class ViewServiceRecord(object):
 
     @staticmethod
     def sanitize_layer_index(layer_index):
-        if layer_index is None:
-            return 1
         if layer_index and not isinstance(layer_index, int):
             warnings.warn('Type of "layer_index" should be "int"')
         if layer_index < -1000 or layer_index > 1000:
@@ -123,8 +110,6 @@ class ViewServiceRecord(object):
 
     @staticmethod
     def sanitize_layer_opacity(layer_opacity):
-        if layer_opacity is None:
-            return 0.75
         if layer_opacity and not isinstance(layer_opacity, float):
             warnings.warn('Type of "layer_opacity" should be "float"')
         if layer_opacity < 0.0 or layer_opacity > 1.0:
@@ -240,6 +225,7 @@ class ViewServiceRecord(object):
             "WIDTH": int(map_size[0]),
             "HEIGHT": int(map_size[1])
         })
+        self.calculate_ns()
         return self.reference_wms
 
     def download_wms_content(self):
@@ -298,3 +284,27 @@ class ViewServiceRecord(object):
                 break
         if not already_exist:
             self.legends.append(legend)
+
+    def calculate_ns(self):
+        srid = Config.get_crs()
+        if srid == u'epsg:2056':
+            self.min_NS95, self.max_NS95 = self.get_bbox_from_url(self.reference_wms)
+        if srid == u'epsg:21781':
+            self.min_NS03, self.max_NS03 = self.get_bbox_from_url(self.reference_wms)
+
+    @staticmethod
+    def get_bbox_from_url(wms_url):
+        """
+        Parses wms url for BBOX parameter an returns these points as suitable values for ViewServiceRecord.
+        Args:
+            wms_url (str): wms url which includes a BBOX parameter to parse.
+
+        Returns:
+            set of two shapely.geometry.point.Point: min and max coordinates of bounding box.
+        """
+        _, params = parse_url(wms_url)
+        bbox = params.get('BBOX')
+        if bbox is None or len(bbox[0].split(',')) != 4:
+            return None, None
+        points = bbox[0].split(',')
+        return Point(float(points[0]), float(points[1])), Point(float(points[2]), float(points[3]))
