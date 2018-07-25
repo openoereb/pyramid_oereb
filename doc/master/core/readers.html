@@ -618,24 +618,6 @@ dotted name defined class.</li>
 </table>
 </dd></dl>
 
-<dl class="staticmethod">
-<dt id="pyramid_oereb.lib.readers.real_estate.RealEstateReader.get_bbox">
-<em class="property">static </em><code class="descname">get_bbox</code><span class="sig-paren">(</span><em>wms_url</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/readers/real_estate.html#RealEstateReader.get_bbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.readers.real_estate.RealEstateReader.get_bbox" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parses wms url for BBOX parameter an returns these points as suitable values for ViewServiceRecord.
-:param wms_url: wms url which includes a BBOX parameter to parse.
-:type wms_url: str</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">min and max coordinates of bounding box.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">set of two shapely.geometry.point.Point</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 <dl class="method">
 <dt id="pyramid_oereb.lib.readers.real_estate.RealEstateReader.read">
 <code class="descname">read</code><span class="sig-paren">(</span><em>nb_ident=None</em>, <em>number=None</em>, <em>egrid=None</em>, <em>geometry=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/readers/real_estate.html#RealEstateReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.readers.real_estate.RealEstateReader.read" title="Permalink to this definition">¶</a></dt>
