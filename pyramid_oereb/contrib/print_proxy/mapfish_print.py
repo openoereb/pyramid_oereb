@@ -442,7 +442,13 @@ class Renderer(JsonRenderer):
             hints (dict): The Hints dictionary to fill.
         """
         uid = Renderer._get_element_of_legal_provision_maybe_uid(document)
-        documentType = document['DocumentType']
+        documentType = document.get('DocumentType')
+        if documentType is None:
+            error_msg = "mandatory attribute document_type is missing in document " \
+                        ": {}".format(document)
+            log.error(error_msg)
+            raise AttributeError(error_msg)
+
         if documentType == 'LegalProvision':
             legal_provisions[uid] = document
         elif documentType == 'Law':
