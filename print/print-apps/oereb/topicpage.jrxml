@@ -39,7 +39,7 @@
 		<field name="Title" class="java.lang.String"/>
 		<field name="TextAtWeb" class="java.lang.String"/>
 	</subDataset>
-	<subDataset name="ReferenceDataSource" uuid="15455023-00f1-4b7d-9e91-d37b6e6ad77c">
+	<subDataset name="HintsDataSource" uuid="15455023-00f1-4b7d-9e91-d37b6e6ad77c">
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
@@ -47,7 +47,7 @@
 		<field name="Title" class="java.lang.String"/>
 		<field name="TextAtWeb" class="java.lang.String"/>
 	</subDataset>
-	<subDataset name="ArticleDataSource" uuid="9afae2eb-c0ac-49d8-b3c8-b03abc22c889">
+	<subDataset name="LawsDataSource" uuid="9afae2eb-c0ac-49d8-b3c8-b03abc22c889">
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
@@ -86,8 +86,8 @@
 	<field name="LegalProvisionsDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="LegendDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="OtherLegendDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
-	<field name="ReferenceDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
-	<field name="ArticleDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="HintsDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="LawsDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<variable name="V_CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="Page" calculation="Sum">
 		<variableExpression><![CDATA[1]]></variableExpression>
 		<initialValueExpression><![CDATA[$V{PAGE_NUMBER}]]></initialValueExpression>
@@ -398,7 +398,7 @@
 				<subreportParameter name="Theme_Text">
 					<subreportParameterExpression><![CDATA[$F{Theme_Text}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[$F{ReferenceDataSource}]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[$F{LawsDataSource}]]></dataSourceExpression>
 				<subreportExpression><![CDATA["legalprovision.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
@@ -416,6 +416,19 @@
 			</textField>
 		</band>
 		<band height="30">
+			<subreport>
+				<reportElement mode="Transparent" x="193" y="0" width="300" height="30" isRemoveLineWhenBlank="true" uuid="1d3ac1d8-7b5e-4caa-bcc0-cf857dddc651">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="TOC_Appendices">
+					<subreportParameterExpression><![CDATA[$P{TOC_Appendices}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Theme_Text">
+					<subreportParameterExpression><![CDATA[$F{Theme_Text}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$F{HintsDataSource}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["legalprovision.jasper"]]></subreportExpression>
+			</subreport>
 			<textField>
 				<reportElement x="0" y="0" width="493" height="24" uuid="94ac5c43-32f0-4769-ba84-96a56cb660b6">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
@@ -428,12 +441,8 @@
 				<textElement>
 					<font fontName="Cadastra" size="8.5" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{ReferencesLabel}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{HintsLabel}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="193" y="0" width="100" height="30" uuid="ffabe51a-a4db-4864-a5c2-d1fe49eaf993"/>
-				<text><![CDATA[-]]></text>
-			</staticText>
 		</band>
 		<band height="34">
 			<break>

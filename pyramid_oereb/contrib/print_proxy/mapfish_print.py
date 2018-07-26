@@ -247,9 +247,10 @@ class Renderer(JsonRenderer):
             for item in restriction_on_landownership.get('Geometry', []):
                 self._multilingual_text(item, 'ResponsibleOffice_Name')
 
-            references = {}
-            articles = {}
             legal_provisions = {}
+            laws = {}
+            hints = {}
+
             if 'LegalProvisions' in restriction_on_landownership:
                 finish = False
                 while not finish:
@@ -259,24 +260,22 @@ class Renderer(JsonRenderer):
                             del legal_provision['Base64TextAtWeb']
                         if 'Reference' in legal_provision:
                             for reference in legal_provision['Reference']:
-                                uid = self._get_element_of_legal_provision_maybe_uid(reference)
-                                references[uid] = reference
+                                self._categorize_documents(reference, legal_provisions, laws, hints)
                             del legal_provision['Reference']
                             finish = False
                         if 'Article' in legal_provision:
                             for article in legal_provision['Article']:
-                                uid = self._get_element_of_legal_provision_maybe_uid(article)
-                                articles[uid] = article
+                                self._categorize_documents(article, legal_provisions, laws, hints)
                             del legal_provision['Article']
                             finish = False
-                        uid = self._get_element_of_legal_provision_maybe_uid(legal_provision)
-                        legal_provisions[uid] = legal_provision
+
+                        self._categorize_documents(legal_provision, legal_provisions, laws, hints)
 
                 del restriction_on_landownership['LegalProvisions']
 
             restriction_on_landownership['LegalProvisions'] = legal_provisions
-            restriction_on_landownership['Reference'] = references
-            restriction_on_landownership['Article'] = articles
+            restriction_on_landownership['Laws'] = laws
+            restriction_on_landownership['Hints'] = hints
 
         # One restriction entry per theme
         theme_restriction = {}
@@ -335,7 +334,7 @@ class Renderer(JsonRenderer):
                                       if other_legend_element['SymbolRef'] != legend['SymbolRef']]
 
             # Number or array
-            for element in ['Article', 'LegalProvisions', 'Reference']:
+            for element in ['Laws', 'LegalProvisions', 'Hints']:
                 if current.get(element) is not None and restriction_on_landownership.get(element) is not None:
                     current[element].update(restriction_on_landownership[element])
                 elif restriction_on_landownership.get(element) is not None:
@@ -349,7 +348,7 @@ class Renderer(JsonRenderer):
         for restriction_on_landownership in theme_restriction.values():
             for element in text_element:
                 restriction_on_landownership[element] = '\n'.join(restriction_on_landownership[element])
-            for element in ['Article', 'LegalProvisions', 'Reference']:
+            for element in ['Laws', 'LegalProvisions', 'Hints']:
                 values = list(restriction_on_landownership[element].values())
                 self.lpra_flatten(values)
                 restriction_on_landownership[element] = values
@@ -430,6 +429,26 @@ class Renderer(JsonRenderer):
             for key, value in parent[name].items():
                 parent['{}_{}'.format(name, key)] = value
             del parent[name]
+
+    @staticmethod
+    def _categorize_documents(document, legal_provisions, laws, hints):
+        """
+        Categorize document by their documentType (LegalProvision, Law or Hint)
+
+        Args:
+            dcoument (dict): The document type as dictionary.
+            legal_provisions (dict): The legal_provisions dictionary to fill.
+            laws (dict): The laws dictionary to fill.
+            hints (dict): The Hints dictionary to fill.
+        """
+        uid = Renderer._get_element_of_legal_provision_maybe_uid(document)
+        documentType = document['DocumentType']
+        if documentType == 'LegalProvision':
+            legal_provisions[uid] = document
+        elif documentType == 'Law':
+            laws[uid] = document
+        else:
+            hints[uid] = document
 
     @staticmethod
     def _get_element_of_legal_provision_maybe_uid(element):
