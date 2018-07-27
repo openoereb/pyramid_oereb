@@ -452,7 +452,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "400.11",
@@ -490,7 +491,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "700",
@@ -528,7 +530,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -559,7 +562,8 @@
                 "Language": "de"
               },
               "Code": "inForce"
-            }
+            },
+            "DocumentType": "LegalProvision"
           },
           {
             "OfficialNumber": "1484",
@@ -600,7 +604,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "400.11",
@@ -638,7 +643,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "700",
@@ -676,7 +682,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -707,7 +714,8 @@
                 "Language": "de"
               },
               "Code": "inForce"
-            }
+            },
+            "DocumentType": "LegalProvision"
           }
         ],
         "SubTheme": "02.73A.Grundnutzung",
@@ -1153,7 +1161,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "400.11",
@@ -1191,7 +1200,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "700",
@@ -1229,7 +1239,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -1260,7 +1271,8 @@
                 "Language": "de"
               },
               "Code": "inForce"
-            }
+            },
+            "DocumentType": "LegalProvision"
           },
           {
             "OfficialNumber": "1484",
@@ -1301,7 +1313,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "400.11",
@@ -1339,7 +1352,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "700",
@@ -1377,7 +1391,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -1408,7 +1423,8 @@
                 "Language": "de"
               },
               "Code": "inForce"
-            }
+            },
+            "DocumentType": "LegalProvision"
           }
         ],
         "SubTheme": "02.73A.Grundnutzung",
@@ -1854,7 +1870,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "400.11",
@@ -1892,7 +1909,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "700",
@@ -1930,7 +1948,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -1961,7 +1980,8 @@
                 "Language": "de"
               },
               "Code": "inForce"
-            }
+            },
+            "DocumentType": "LegalProvision"
           },
           {
             "OfficialNumber": "1484",
@@ -2002,7 +2022,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "400.11",
@@ -2040,7 +2061,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "700",
@@ -2078,7 +2100,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -2109,7 +2132,8 @@
                 "Language": "de"
               },
               "Code": "inForce"
-            }
+            },
+            "DocumentType": "LegalProvision"
           }
         ],
         "SubTheme": "02.73A.Grundnutzung",
@@ -2555,7 +2579,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "400.11",
@@ -2593,7 +2618,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "700",
@@ -2631,7 +2657,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -2662,7 +2689,8 @@
                 "Language": "de"
               },
               "Code": "inForce"
-            }
+            },
+            "DocumentType": "LegalProvision"
           },
           {
             "OfficialNumber": "1484",
@@ -2703,7 +2731,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "400.11",
@@ -2741,7 +2770,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "700",
@@ -2779,7 +2809,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -2810,7 +2841,8 @@
                 "Language": "de"
               },
               "Code": "inForce"
-            }
+            },
+            "DocumentType": "LegalProvision"
           }
         ],
         "SubTheme": "02.73A.Grundnutzung",
@@ -3256,7 +3288,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "400.11",
@@ -3294,7 +3327,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "700",
@@ -3332,7 +3366,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -3363,7 +3398,8 @@
                 "Language": "de"
               },
               "Code": "inForce"
-            }
+            },
+            "DocumentType": "LegalProvision"
           },
           {
             "OfficialNumber": "12/ZRS/2/1",
@@ -3404,7 +3440,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "400.11",
@@ -3442,7 +3479,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "700",
@@ -3480,7 +3518,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -3511,7 +3550,8 @@
                 "Language": "de"
               },
               "Code": "inForce"
-            }
+            },
+            "DocumentType": "LegalProvision"
           }
         ],
         "SubTheme": "08.73B.Ueberlagerung_Flaeche",
@@ -4021,6 +4061,7 @@
               },
               "Code": "inForce"
             },
+            "DocumentType": "LegalProvision",
             "TextAtWeb": [
               {
                 "Text": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster",
@@ -4064,7 +4105,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "780.11",
@@ -4102,7 +4144,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "814.01",
@@ -4140,7 +4183,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "814.680",
@@ -4178,7 +4222,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -4321,6 +4366,7 @@
               },
               "Code": "inForce"
             },
+            "DocumentType": "LegalProvision",
             "TextAtWeb": [
               {
                 "Text": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster",
@@ -4364,7 +4410,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "780.11",
@@ -4402,7 +4449,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "814.01",
@@ -4440,7 +4488,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "814.680",
@@ -4478,7 +4527,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -4621,6 +4671,7 @@
               },
               "Code": "inForce"
             },
+            "DocumentType": "LegalProvision",
             "TextAtWeb": [
               {
                 "Text": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster",
@@ -4664,7 +4715,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "780.11",
@@ -4702,7 +4754,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "814.01",
@@ -4740,7 +4793,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "814.680",
@@ -4778,7 +4832,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -4921,6 +4976,7 @@
               },
               "Code": "inForce"
             },
+            "DocumentType": "LegalProvision",
             "TextAtWeb": [
               {
                 "Text": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster",
@@ -4964,7 +5020,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "780.11",
@@ -5002,7 +5059,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "814.01",
@@ -5040,7 +5098,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "814.680",
@@ -5078,7 +5137,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -5221,6 +5281,7 @@
               },
               "Code": "inForce"
             },
+            "DocumentType": "LegalProvision",
             "TextAtWeb": [
               {
                 "Text": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster",
@@ -5264,7 +5325,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "780.11",
@@ -5302,7 +5364,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "814.01",
@@ -5340,7 +5403,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "814.680",
@@ -5378,7 +5442,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -5507,7 +5572,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "814.41",
@@ -5545,7 +5611,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -5576,7 +5643,8 @@
                 "Language": "de"
               },
               "Code": "inForce"
-            }
+            },
+            "DocumentType": "LegalProvision"
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
@@ -5697,7 +5765,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "814.41",
@@ -5735,7 +5804,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -5766,7 +5836,8 @@
                 "Language": "de"
               },
               "Code": "inForce"
-            }
+            },
+            "DocumentType": "LegalProvision"
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
@@ -5887,7 +5958,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               },
               {
                 "OfficialNumber": "814.41",
@@ -5925,7 +5997,8 @@
                     "Language": "de"
                   },
                   "Code": "inForce"
-                }
+                },
+                "DocumentType": "LegalProvision"
               }
             ],
             "Title": [
@@ -5956,7 +6029,8 @@
                 "Language": "de"
               },
               "Code": "inForce"
-            }
+            },
+            "DocumentType": "LegalProvision"
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
