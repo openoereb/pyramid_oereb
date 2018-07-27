@@ -2,9 +2,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <GetExtractByIdResponse xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                        xmlns="https://schemas.geo.admin.ch/V_D/OeREB/Extract.xsd"
-                        xmlns:data="https://schemas.geo.admin.ch/V_D/OeREB/ExtractData.xsd"
-                        xmlns:gml="http://www.opengis.net/gml/3.2">
+                        xmlns="https://schemas.geo.admin.ch/V_D/OeREB/1.0/Extract"
+                        xmlns:data="https://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData"
+                        xmlns:gml="http://www.opengis.net/gml/3.2"
+                        xsi:schemaLocation="https://schemas.geo.admin.ch/V_D/OeREB/1.0/Extract https://schemas.geo.admin.ch/V_D/OeREB/1.0/Extract.xsd https://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData https://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData.xsd">
 <%
     from pyramid_oereb.lib.records.plr import PlrRecord
     from pyramid_oereb import Config, route_prefix
