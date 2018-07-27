@@ -398,9 +398,10 @@
             <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Geometry&#39;</span><span class="p">,</span> <span class="p">[]):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice_Name&#39;</span><span class="p">)</span>
 
-            <span class="n">references</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="n">articles</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="n">legal_provisions</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">laws</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">hints</span> <span class="o">=</span> <span class="p">{}</span>
+
             <span class="k">if</span> <span class="s1">&#39;LegalProvisions&#39;</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span><span class="p">:</span>
                 <span class="n">finish</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="k">while</span> <span class="ow">not</span> <span class="n">finish</span><span class="p">:</span>
@@ -410,24 +411,22 @@
                             <span class="k">del</span> <span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;Base64TextAtWeb&#39;</span><span class="p">]</span>
                         <span class="k">if</span> <span class="s1">&#39;Reference&#39;</span> <span class="ow">in</span> <span class="n">legal_provision</span><span class="p">:</span>
                             <span class="k">for</span> <span class="n">reference</span> <span class="ow">in</span> <span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;Reference&#39;</span><span class="p">]:</span>
-                                <span class="n">uid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_element_of_legal_provision_maybe_uid</span><span class="p">(</span><span class="n">reference</span><span class="p">)</span>
-                                <span class="n">references</span><span class="p">[</span><span class="n">uid</span><span class="p">]</span> <span class="o">=</span> <span class="n">reference</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_categorize_documents</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">legal_provisions</span><span class="p">,</span> <span class="n">laws</span><span class="p">,</span> <span class="n">hints</span><span class="p">)</span>
                             <span class="k">del</span> <span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;Reference&#39;</span><span class="p">]</span>
                             <span class="n">finish</span> <span class="o">=</span> <span class="kc">False</span>
                         <span class="k">if</span> <span class="s1">&#39;Article&#39;</span> <span class="ow">in</span> <span class="n">legal_provision</span><span class="p">:</span>
                             <span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;Article&#39;</span><span class="p">]:</span>
-                                <span class="n">uid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_element_of_legal_provision_maybe_uid</span><span class="p">(</span><span class="n">article</span><span class="p">)</span>
-                                <span class="n">articles</span><span class="p">[</span><span class="n">uid</span><span class="p">]</span> <span class="o">=</span> <span class="n">article</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_categorize_documents</span><span class="p">(</span><span class="n">article</span><span class="p">,</span> <span class="n">legal_provisions</span><span class="p">,</span> <span class="n">laws</span><span class="p">,</span> <span class="n">hints</span><span class="p">)</span>
                             <span class="k">del</span> <span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;Article&#39;</span><span class="p">]</span>
                             <span class="n">finish</span> <span class="o">=</span> <span class="kc">False</span>
-                        <span class="n">uid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_element_of_legal_provision_maybe_uid</span><span class="p">(</span><span class="n">legal_provision</span><span class="p">)</span>
-                        <span class="n">legal_provisions</span><span class="p">[</span><span class="n">uid</span><span class="p">]</span> <span class="o">=</span> <span class="n">legal_provision</span>
+
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_categorize_documents</span><span class="p">(</span><span class="n">legal_provision</span><span class="p">,</span> <span class="n">legal_provisions</span><span class="p">,</span> <span class="n">laws</span><span class="p">,</span> <span class="n">hints</span><span class="p">)</span>
 
                 <span class="k">del</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">]</span>
 
             <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">legal_provisions</span>
-            <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Reference&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">references</span>
-            <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Article&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">articles</span>
+            <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Laws&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">laws</span>
+            <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Hints&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hints</span>
 
         <span class="c1"># One restriction entry per theme</span>
         <span class="n">theme_restriction</span> <span class="o">=</span> <span class="p">{}</span>
@@ -486,7 +485,7 @@
                                       <span class="k">if</span> <span class="n">other_legend_element</span><span class="p">[</span><span class="s1">&#39;SymbolRef&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">legend</span><span class="p">[</span><span class="s1">&#39;SymbolRef&#39;</span><span class="p">]]</span>
 
             <span class="c1"># Number or array</span>
-            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Article&#39;</span><span class="p">,</span> <span class="s1">&#39;LegalProvisions&#39;</span><span class="p">,</span> <span class="s1">&#39;Reference&#39;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Laws&#39;</span><span class="p">,</span> <span class="s1">&#39;LegalProvisions&#39;</span><span class="p">,</span> <span class="s1">&#39;Hints&#39;</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="n">current</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">restriction_on_landownership</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">current</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">])</span>
                 <span class="k">elif</span> <span class="n">restriction_on_landownership</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -500,7 +499,7 @@
         <span class="k">for</span> <span class="n">restriction_on_landownership</span> <span class="ow">in</span> <span class="n">theme_restriction</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">text_element</span><span class="p">:</span>
                 <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">])</span>
-            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Article&#39;</span><span class="p">,</span> <span class="s1">&#39;LegalProvisions&#39;</span><span class="p">,</span> <span class="s1">&#39;Reference&#39;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Laws&#39;</span><span class="p">,</span> <span class="s1">&#39;LegalProvisions&#39;</span><span class="p">,</span> <span class="s1">&#39;Hints&#39;</span><span class="p">]:</span>
                 <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">lpra_flatten</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
                 <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
@@ -583,6 +582,32 @@
             <span class="k">del</span> <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
 
     <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_categorize_documents</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">legal_provisions</span><span class="p">,</span> <span class="n">laws</span><span class="p">,</span> <span class="n">hints</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Categorize document by their documentType (LegalProvision, Law or Hint)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dcoument (dict): The document type as dictionary.</span>
+<span class="sd">            legal_provisions (dict): The legal_provisions dictionary to fill.</span>
+<span class="sd">            laws (dict): The laws dictionary to fill.</span>
+<span class="sd">            hints (dict): The Hints dictionary to fill.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">uid</span> <span class="o">=</span> <span class="n">Renderer</span><span class="o">.</span><span class="n">_get_element_of_legal_provision_maybe_uid</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
+        <span class="n">documentType</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;DocumentType&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">documentType</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">error_msg</span> <span class="o">=</span> <span class="s2">&quot;mandatory attribute document_type is missing in document &quot;</span> \
+                        <span class="s2">&quot;: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">documentType</span> <span class="o">==</span> <span class="s1">&#39;LegalProvision&#39;</span><span class="p">:</span>
+            <span class="n">legal_provisions</span><span class="p">[</span><span class="n">uid</span><span class="p">]</span> <span class="o">=</span> <span class="n">document</span>
+        <span class="k">elif</span> <span class="n">documentType</span> <span class="o">==</span> <span class="s1">&#39;Law&#39;</span><span class="p">:</span>
+            <span class="n">laws</span><span class="p">[</span><span class="n">uid</span><span class="p">]</span> <span class="o">=</span> <span class="n">document</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">hints</span><span class="p">[</span><span class="n">uid</span><span class="p">]</span> <span class="o">=</span> <span class="n">document</span>
+
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_get_element_of_legal_provision_maybe_uid</span><span class="p">(</span><span class="n">element</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make a unique key string out of title and TextAtWeb. This is necessary to satisfy the KBS&#39;s theme.</span>
@@ -652,6 +677,7 @@
             <dd><a href="../../../../../v1.0.0/index.html">v1.0.0</a></dd>
             <dd><a href="../../../../../v1.0.1/index.html">v1.0.1</a></dd>
             <dd><a href="../../../../../v1.1.0/index.html">v1.1.0</a></dd>
+            <dd><a href="../../../../../v1.2.1/index.html">v1.2.1</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
