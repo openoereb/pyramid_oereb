@@ -8,19 +8,10 @@
       "LegalProvisions": [
         {
           "OfficialNumber": "1484",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
           "Lawstatus_Code": "inForce",
           "Title": "RRB Nr. 1484 vom 23.09.2003",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
-          "Canton": "BL",
-          "TextAtWeb": "https://oereblex.bl.ch/api/attachments/2916",
-          "Lawstatus_Text": "in Kraft",
-          "ResponsibleOffice_Name": "Landeskanzlei"
-        },
-        {
-          "OfficialNumber": "1484",
-          "Lawstatus_Code": "inForce",
-          "Title": "RRB Nr. 1484 vom 23.09.2003",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "DocumentType": "LegalProvision",
           "Canton": "BL",
           "TextAtWeb": "https://oereblex.bl.ch/api/attachments/403",
           "Lawstatus_Text": "in Kraft",
@@ -28,23 +19,72 @@
         },
         {
           "OfficialNumber": "12/ZRS/2/1",
+          "ResponsibleOffice_OfficeAtWeb": "www.birsfelden.ch",
           "Lawstatus_Code": "inForce",
           "Title": "Zonenreglement Siedlung (Stand 30.03.2010)",
-          "ResponsibleOffice_OfficeAtWeb": "www.birsfelden.ch",
+          "DocumentType": "LegalProvision",
           "Canton": "BL",
           "TextAtWeb": "https://oereblex.bl.ch/api/attachments/1471",
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Gemeindeverwaltung"
         },
         {
+          "OfficialNumber": "400",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "Lawstatus_Code": "inForce",
+          "Title": "Raumplanungs- und Baugesetz (RBG)",
+          "DocumentType": "LegalProvision",
+          "Canton": "BL",
+          "Abbreviation": "RBG",
+          "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1964?locale=de",
+          "Lawstatus_Text": "in Kraft",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        },
+        {
           "OfficialNumber": "429",
+          "ResponsibleOffice_OfficeAtWeb": "www.birsfelden.ch",
           "Lawstatus_Code": "inForce",
           "Title": "RRB Nr. 429 vom 01.04.2008",
-          "ResponsibleOffice_OfficeAtWeb": "www.birsfelden.ch",
+          "DocumentType": "LegalProvision",
           "Canton": "BL",
           "TextAtWeb": "https://oereblex.bl.ch/api/attachments/2537",
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Gemeindeverwaltung"
+        },
+        {
+          "OfficialNumber": "1484",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "Lawstatus_Code": "inForce",
+          "Title": "RRB Nr. 1484 vom 23.09.2003",
+          "DocumentType": "LegalProvision",
+          "Canton": "BL",
+          "TextAtWeb": "https://oereblex.bl.ch/api/attachments/2916",
+          "Lawstatus_Text": "in Kraft",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        },
+        {
+          "OfficialNumber": "400.11",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "Lawstatus_Code": "inForce",
+          "Title": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
+          "DocumentType": "LegalProvision",
+          "Canton": "BL",
+          "Abbreviation": "RBV",
+          "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/2032?locale=de",
+          "Lawstatus_Text": "in Kraft",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        },
+        {
+          "OfficialNumber": "700",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+          "Lawstatus_Code": "inForce",
+          "Title": "Bundesgesetz über die Raumplanung (Raumplanungsgesetz, RPG)",
+          "DocumentType": "LegalProvision",
+          "Canton": "BL",
+          "Abbreviation": "Raumplanungsgesetz, RPG",
+          "TextAtWeb": "http://www.lexfind.ch/dtah/155346/2",
+          "Lawstatus_Text": "in Kraft",
+          "ResponsibleOffice_Name": "Bundeskanzlei"
         }
       ],
       "SubTheme": "02.73A.Grundnutzung",
@@ -84,41 +124,7 @@
       "Theme_Code": "LandUsePlans",
       "legend": "http://dev2.geoview.bl.ch/vvmruder/oereb/custom_legend_at_web/LandUsePlans.png",
       "Geom_Type": "AreaShare",
-      "Reference": [
-        {
-          "OfficialNumber": "400.11",
-          "Lawstatus_Code": "inForce",
-          "Title": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
-          "Canton": "BL",
-          "Abbreviation": "RBV",
-          "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/2032?locale=de",
-          "Lawstatus_Text": "in Kraft",
-          "ResponsibleOffice_Name": "Landeskanzlei"
-        },
-        {
-          "OfficialNumber": "700",
-          "Lawstatus_Code": "inForce",
-          "Title": "Bundesgesetz \u00fcber die Raumplanung (Raumplanungsgesetz, RPG)",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
-          "Canton": "BL",
-          "Abbreviation": "Raumplanungsgesetz, RPG",
-          "TextAtWeb": "http://www.lexfind.ch/dtah/155346/2",
-          "Lawstatus_Text": "in Kraft",
-          "ResponsibleOffice_Name": "Bundeskanzlei"
-        },
-        {
-          "OfficialNumber": "400",
-          "Lawstatus_Code": "inForce",
-          "Title": "Raumplanungs- und Baugesetz (RBG)",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
-          "Canton": "BL",
-          "Abbreviation": "RBG",
-          "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1964?locale=de",
-          "Lawstatus_Text": "in Kraft",
-          "ResponsibleOffice_Name": "Landeskanzlei"
-        }
-      ],
+      "Laws": [],
       "OtherLegend": [
         {
           "TypeCode": "354000",
@@ -222,7 +228,6 @@
         }
       ],
       "Lawstatus_Text": "in Kraft",
-      "Article": [],
       "ResponsibleOffice_Name": "Amt f\u00fcr Raumplanung BL\nGemeinde Birsfelden",
       "Legend": [
         {
@@ -249,7 +254,8 @@
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/219106",
           "Geom_Type": "AreaShare"
         }
-      ]
+      ],
+      "Hints": []
     },
     {
       "Information": "",
@@ -262,7 +268,32 @@
           "ResponsibleOffice_OfficeAtWeb": "http://www.aue.bl.ch",
           "TextAtWeb": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster",
           "Lawstatus_Text": "in Kraft",
+          "DocumentType": "LegalProvision",
           "ResponsibleOffice_Name": "Amt f\u00fcr Umweltschutz und Energie BL"
+        },
+        {
+          "OfficialNumber": "814.01",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+          "Lawstatus_Code": "inForce",
+          "Title": "Bundesgesetz \u00fcber den Umweltschutz (Umweltschutzgesetz, USG)",
+          "DocumentType": "LegalProvision",
+          "Canton": "BL",
+          "Abbreviation": "Umweltschutzgesetz, USG",
+          "TextAtWeb": "http://www.lexfind.ch/dtah/155395/2",
+          "Lawstatus_Text": "in Kraft",
+          "ResponsibleOffice_Name": "Bundeskanzlei"
+        },
+        {
+          "OfficialNumber": "814.680",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+          "Lawstatus_Code": "inForce",
+          "Title": "Verordnung \u00fcber die Sanierung von belasteten Standorten (Altlasten-Verordnung, AltlV)",
+          "DocumentType": "LegalProvision",
+          "Canton": "BL",
+          "Abbreviation": "Altlasten-Verordnung, AltlV",
+          "TextAtWeb": "http://www.lexfind.ch/dtah/147568/2",
+          "Lawstatus_Text": "in Kraft",
+          "ResponsibleOffice_Name": "Bundeskanzlei"
         },
         {
           "Lawstatus_Code": "inForce",
@@ -270,7 +301,32 @@
           "ResponsibleOffice_OfficeAtWeb": "http://www.aue.bl.ch",
           "TextAtWeb": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster",
           "Lawstatus_Text": "in Kraft",
+          "DocumentType": "LegalProvision",
           "ResponsibleOffice_Name": "Amt f\u00fcr Umweltschutz und Energie BL"
+        },
+        {
+          "OfficialNumber": "780",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "Lawstatus_Code": "inForce",
+          "Title": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
+          "DocumentType": "LegalProvision",
+          "Canton": "BL",
+          "Abbreviation": "USG BL",
+          "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de",
+          "Lawstatus_Text": "in Kraft",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        },
+        {
+          "OfficialNumber": "780.11",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "Lawstatus_Code": "inForce",
+          "Title": "Verordnung \u00fcber den Umweltschutz (USV)",
+          "DocumentType": "LegalProvision",
+          "Canton": "BL",
+          "Abbreviation": "USV",
+          "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/273?locale=de",
+          "Lawstatus_Text": "in Kraft",
+          "ResponsibleOffice_Name": "Landeskanzlei"
         }
       ],
       "ResponsibleOffice_OfficeAtWeb": "http://www.aue.bl.ch",
@@ -309,52 +365,7 @@
       "Theme_Code": "ContaminatedSites",
       "legend": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
       "Geom_Type": "AreaShare",
-      "Reference": [
-        {
-          "OfficialNumber": "814.01",
-          "Lawstatus_Code": "inForce",
-          "Title": "Bundesgesetz \u00fcber den Umweltschutz (Umweltschutzgesetz, USG)",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
-          "Canton": "BL",
-          "Abbreviation": "Umweltschutzgesetz, USG",
-          "TextAtWeb": "http://www.lexfind.ch/dtah/155395/2",
-          "Lawstatus_Text": "in Kraft",
-          "ResponsibleOffice_Name": "Bundeskanzlei"
-        },
-        {
-          "OfficialNumber": "814.680",
-          "Lawstatus_Code": "inForce",
-          "Title": "Verordnung \u00fcber die Sanierung von belasteten Standorten (Altlasten-Verordnung, AltlV)",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
-          "Canton": "BL",
-          "Abbreviation": "Altlasten-Verordnung, AltlV",
-          "TextAtWeb": "http://www.lexfind.ch/dtah/147568/2",
-          "Lawstatus_Text": "in Kraft",
-          "ResponsibleOffice_Name": "Bundeskanzlei"
-        },
-        {
-          "OfficialNumber": "780",
-          "Lawstatus_Code": "inForce",
-          "Title": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
-          "Canton": "BL",
-          "Abbreviation": "USG BL",
-          "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de",
-          "Lawstatus_Text": "in Kraft",
-          "ResponsibleOffice_Name": "Landeskanzlei"
-        },
-        {
-          "OfficialNumber": "780.11",
-          "Lawstatus_Code": "inForce",
-          "Title": "Verordnung \u00fcber den Umweltschutz (USV)",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
-          "Canton": "BL",
-          "Abbreviation": "USV",
-          "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/273?locale=de",
-          "Lawstatus_Text": "in Kraft",
-          "ResponsibleOffice_Name": "Landeskanzlei"
-        }
-      ],
+      "Laws": [],
       "OtherLegend": [
         {
           "TypeCode": "StaoTyp1_StatusAltlV1",
@@ -378,7 +389,6 @@
         }
       ],
       "Lawstatus_Text": "in Kraft",
-      "Article": [],
       "ResponsibleOffice_Name": "Amt f\u00fcr Umweltschutz und Energie BL",
       "Legend": [
         {
@@ -413,7 +423,8 @@
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp3_StatusAltlV1",
           "Geom_Type": "AreaShare"
         }
-      ]
+      ],
+      "Hints": []
     },
     {
       "Information": "",
@@ -422,13 +433,38 @@
       "LegalProvisions": [
         {
           "OfficialNumber": "429",
+          "ResponsibleOffice_OfficeAtWeb": "www.birsfelden.ch",
           "Lawstatus_Code": "inForce",
           "Title": "RRB Nr. 429 vom 01.04.2008",
-          "ResponsibleOffice_OfficeAtWeb": "www.birsfelden.ch",
+          "DocumentType": "LegalProvision",
           "Canton": "BL",
           "TextAtWeb": "https://oereblex.bl.ch/api/attachments/2798",
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Gemeindeverwaltung"
+        },
+        {
+          "OfficialNumber": "780",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "Lawstatus_Code": "inForce",
+          "Title": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
+          "DocumentType": "LegalProvision",
+          "Canton": "BL",
+          "Abbreviation": "USG BL",
+          "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de",
+          "Lawstatus_Text": "in Kraft",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        },
+        {
+          "OfficialNumber": "814.41",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+          "Lawstatus_Code": "inForce",
+          "Title": "Lärmschutz-Verordnung (LSV)",
+          "DocumentType": "LegalProvision",
+          "Canton": "BL",
+          "Abbreviation": "LSV",
+          "TextAtWeb": "http://www.lexfind.ch/dtah/147569/2",
+          "Lawstatus_Text": "in Kraft",
+          "ResponsibleOffice_Name": "Bundeskanzlei"
         }
       ],
       "ResponsibleOffice_OfficeAtWeb": "http://www.birsfelden.ch",
@@ -467,30 +503,7 @@
       "Theme_Code": "NoiseSensitivityLevels",
       "legend": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_laermempfindlichkeitsstufen&FORMAT=image/png",
       "Geom_Type": "AreaShare",
-      "Reference": [
-        {
-          "OfficialNumber": "780",
-          "Lawstatus_Code": "inForce",
-          "Title": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
-          "Canton": "BL",
-          "Abbreviation": "USG BL",
-          "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de",
-          "Lawstatus_Text": "in Kraft",
-          "ResponsibleOffice_Name": "Landeskanzlei"
-        },
-        {
-          "OfficialNumber": "814.41",
-          "Lawstatus_Code": "inForce",
-          "Title": "L\u00e4rmschutz-Verordnung (LSV)",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
-          "Canton": "BL",
-          "Abbreviation": "LSV",
-          "TextAtWeb": "http://www.lexfind.ch/dtah/147569/2",
-          "Lawstatus_Text": "in Kraft",
-          "ResponsibleOffice_Name": "Bundeskanzlei"
-        }
-      ],
+      "Laws": [],
       "OtherLegend": [
         {
           "TypeCode": "ES_II",
@@ -504,7 +517,6 @@
         }
       ],
       "Lawstatus_Text": "in Kraft",
-      "Article": [],
       "ResponsibleOffice_Name": "Gemeinde Birsfelden",
       "Legend": [
         {
@@ -515,7 +527,8 @@
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
           "Geom_Type": "AreaShare"
         }
-      ]
+      ],
+      "Hints": []
     }
   ],
   "ConcernedTheme": [

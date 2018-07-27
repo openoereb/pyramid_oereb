@@ -184,10 +184,10 @@ templates:
                             ResponsibleOffice_City: *optStr
                             OfficialNumber: *optStr #/definitions/CantonCode
                             ArticleNumber: *optStr #array of /definitions/ArticleNumber
-                    Reference: !datasource
+                    Hints: !datasource
                         default: []
                         attributes: *lpra
-                    Article: !datasource
+                    Laws: !datasource
                         default: []
                         attributes: *lpra
             ExclusionOfLiability: !datasource
@@ -346,15 +346,15 @@ templates:
             - !createDataSource
                 processors: []
                 inputMapper:
-                    Reference: datasource
+                    Hints: datasource
                 outputMapper:
-                    jrDataSource: ReferenceDataSource
+                    jrDataSource: HintsDataSource
             - !createDataSource
                 processors: []
                 inputMapper:
-                    Article: datasource
+                    Laws: datasource
                 outputMapper:
-                    jrDataSource: ArticleDataSource
+                    jrDataSource: LawsDataSource
             - !addOverlayLayers
                 inputMapper:
                     overlayLayers: staticLayers
