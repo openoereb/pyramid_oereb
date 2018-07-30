@@ -385,8 +385,7 @@ class Geometry(Base):
         responsible_office (pyramid_oereb.standard.models.airports_project_planning_zones.Office):
             The dedicated relation to the office instance from database.
         geom (geoalchemy2.types.Geometry): The geometry it's self. For type information see
-            geoalchemy2_.  .. _geoalchemy2:
-            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
+            geoalchemy docs (https://geoalchemy-2.readthedocs.io/en/0.4.2/types.html) dependent on the
             configured type.  This concrete one is POLYGON
     """
     __table_args__ = {'schema': 'airports_project_planning_zones'}
