@@ -10,6 +10,7 @@ Changelog
 *****
 - First implementation of federal extract requirements as per november 2017
   (service in version 1.0, extract in version 1.0.1, data model in version 1.0.1).
+- Update of automated tests to correspond to new requirements.
 - Static extract implementation update according to Weisung july 1st, 2018.
 - Oereb lex model creation support and documentation.
 - Bug fixes (legend entries, multiple view services, scaleing in print).
