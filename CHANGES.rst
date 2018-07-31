@@ -4,20 +4,20 @@ Changelog
 
 1.2.1
 *****
-- Bug-fixes for service version 1.0, after pilot integration of new service at BL
+- Bug-fixes for service version 1.0, after pilot integration of new service at BL.
 
 1.2.0
 *****
-- first implementation of federal extract requirements as per november 2017
-  (service in version 1.0, extract in version 1.0.1, data model in version 1.0.1)
-- static extract implementation update according to Weisung july 1st, 2018
-- oereb lex model creation support and documentation
-- bug fixes (legend entries, multiple view services, scaleing in print)
+- First implementation of federal extract requirements as per november 2017
+  (service in version 1.0, extract in version 1.0.1, data model in version 1.0.1).
+- Static extract implementation update according to Weisung july 1st, 2018.
+- Oereb lex model creation support and documentation.
+- Bug fixes (legend entries, multiple view services, scaleing in print).
 
 1.1.0
 *****
-- final implementation of federal extract requirements as per november 2016
-  (extract in version 0.8, data model in version 0.4)
+- Final implementation of federal extract requirements as per november 2016
+  (extract in version 0.8, data model in version 0.4).
 
 1.0.1
 *****
