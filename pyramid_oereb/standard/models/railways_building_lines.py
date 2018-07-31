@@ -261,7 +261,7 @@ class ViewService(Base):
 class LegendEntry(Base):
     """
     A class based legend system which is directly related to
-    :ref:`pyramid_oereb.standard.models.railways_building_lines.ViewService`.
+    :class:`pyramid_oereb.standard.models.railways_building_lines.ViewService`.
 
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
