@@ -155,26 +155,17 @@ class PlrRecord(EmptyPlrRecord):
 
     @property
     def area_share(self):
-        """
-        Returns:
-            float or None: Returns the summed area of all related geometry records of this PLR.
-        """
+        """float or None: Returns the summed area of all related geometry records of this PLR."""
         return self._area_share
 
     @property
     def length_share(self):
-        """
-        Returns:
-            float or None: Returns the summed length of all related geometry records of this PLR.
-        """
+        """float or None: Returns the summed length of all related geometry records of this PLR."""
         return self._length_share
 
     @property
     def nr_of_points(self):
-        """
-        Returns:
-            float or None: Returns the number of points of all related geometry records of this PLR.
-        """
+        """float or None: Returns the number of points of all related geometry records of this PLR."""
         return self._nr_of_points
 
     def calculate(self, real_estate):

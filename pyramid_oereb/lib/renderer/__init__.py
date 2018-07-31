@@ -99,11 +99,7 @@ class Base(object):
 
     @property
     def info(self):
-        """
-
-        Returns:
-            pyramid.interfaces.IRendererInfo: The passed renderer info object.
-        """
+        """ pyramid.interfaces.IRendererInfo: The passed renderer info object."""
         return self._info_
 
     def get_localized_text(self, values):
