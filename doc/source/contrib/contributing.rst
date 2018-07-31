@@ -70,9 +70,9 @@ NOTE
    You can try your oereb server as follows.
    In your browser, check the following URL (the latter two are based on sample data):
 
-   -  http://localhost:6543/oereb/versions
-   -  http://localhost:6543/oereb/capabilities
-   -  http://localhost:6543/oereb/getegrid?XY=2608883,1261844
+   -  http://localhost:6543/oereb/versions/json
+   -  http://localhost:6543/oereb/capabilities/json
+   -  http://localhost:6543/oereb/getegrid/json?XY=2608883,1261844
    -  http://localhost:6543/oereb/extract/reduced/xml/CH113928077734
 
 ...on Windows
