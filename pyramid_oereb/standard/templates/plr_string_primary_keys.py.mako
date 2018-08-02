@@ -262,7 +262,7 @@ class ViewService(Base):
 class LegendEntry(Base):
     """
     A class based legend system which is directly related to
-    :ref:`pyramid_oereb.standard.models.${schema_name}.ViewService`.
+    :class:`pyramid_oereb.standard.models.${schema_name}.ViewService`.
 
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
@@ -386,8 +386,7 @@ class Geometry(Base):
         responsible_office (pyramid_oereb.standard.models.${schema_name}.Office):
             The dedicated relation to the office instance from database.
         geom (geoalchemy2.types.Geometry): The geometry it's self. For type information see
-            geoalchemy2_.  .. _geoalchemy2:
-            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
+            geoalchemy docs (https://geoalchemy-2.readthedocs.io/en/0.4.2/types.html) dependent on the
             configured type.  This concrete one is ${geometry_type}
     """
     __table_args__ = {'schema': '${schema_name}'}

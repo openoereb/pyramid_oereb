@@ -42,7 +42,7 @@ underline = ['^', '`', '\'', '.', '~', '*']
 .. _api-${module.replace('.', '-').lower()}-${cls.lower()}:
 
 *${module.split('.')[-1].title().replace('_', ' ')} ${cls}*
-${re.sub('.', underline[0], module.split('.')[-1].title().replace('_', ' ') + cls)}
+${re.sub('.', underline[0], module.split('.')[-1] + '   ' + cls)}
 
 .. autoclass:: ${module}.${cls}
    :members:
