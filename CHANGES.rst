@@ -4,7 +4,8 @@ Changelog
 
 1.2.1
 *****
-- Bug-fixes for service version 1.0, after pilot integration of new service at BL.
+- Bug-fixes for service version 1.0 (pyramid_oereb 1.2.0),
+  using results from pilot integration of new version at BL.
 
 1.2.0
 *****
@@ -13,7 +14,8 @@ Changelog
 - Update of automated tests to correspond to new requirements.
 - Static extract implementation update according to Weisung july 1st, 2018.
 - Oereb lex model creation support and documentation.
-- Bug fixes (legend entries, multiple view services, scaleing in print).
+- Bug fixes (legend entries, multiple view services, scaling in print, document titles in print).
+- Facilitate customization of document title generation.
 
 1.1.0
 *****
