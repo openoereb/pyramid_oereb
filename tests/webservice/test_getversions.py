@@ -6,9 +6,15 @@ from tests.conftest import MockRequest, schema_json_versions, pyramid_oereb_test
 from pyramid_oereb.views.webservice import PlrWebservice
 
 
-def test_getversions():
+def test_getversions_json():
     with pyramid_oereb_test_config():
-        request = MockRequest(current_route_url='http://example.com/oereb/versions.json')
+        request = MockRequest(current_route_url='http://example.com/oereb/versions/json')
+
+        # Add params to matchdict as the view will do it for /versions/{format}
+        request.matchdict.update({
+          'format': u'json'
+        })
+
         webservice = PlrWebservice(request)
         versions = webservice.get_versions().json
         with open(schema_json_versions) as f:
