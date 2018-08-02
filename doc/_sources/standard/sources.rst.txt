@@ -1,4 +1,4 @@
-.. _standard-sources
+.. _standard-sources:
 
 Sources
 -------

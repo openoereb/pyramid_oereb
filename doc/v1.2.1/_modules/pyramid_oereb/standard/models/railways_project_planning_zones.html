@@ -414,7 +414,7 @@
 <div class="viewcode-block" id="LegendEntry"><a class="viewcode-back" href="../../../../standard/models/pyramid_oereb_standard_models_railways_project_planning_zones.html#pyramid_oereb.standard.models.railways_project_planning_zones.LegendEntry">[docs]</a><span class="k">class</span> <span class="nc">LegendEntry</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class based legend system which is directly related to</span>
-<span class="sd">    :ref:`pyramid_oereb.standard.models.railways_project_planning_zones.ViewService`.</span>
+<span class="sd">    :class:`pyramid_oereb.standard.models.railways_project_planning_zones.ViewService`.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
@@ -538,8 +538,7 @@
 <span class="sd">        responsible_office (pyramid_oereb.standard.models.railways_project_planning_zones.Office):</span>
 <span class="sd">            The dedicated relation to the office instance from database.</span>
 <span class="sd">        geom (geoalchemy2.types.Geometry): The geometry it&#39;s self. For type information see</span>
-<span class="sd">            geoalchemy2_.  .. _geoalchemy2:</span>
-<span class="sd">            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the</span>
+<span class="sd">            geoalchemy docs (https://geoalchemy-2.readthedocs.io/en/0.4.2/types.html) dependent on the</span>
 <span class="sd">            configured type.  This concrete one is POLYGON</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;railways_project_planning_zones&#39;</span><span class="p">}</span>
