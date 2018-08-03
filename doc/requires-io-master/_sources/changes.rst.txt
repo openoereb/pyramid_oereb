@@ -4,8 +4,60 @@ Changes/Hints for migration
 ===========================
 
 This section will give you hints how to handle version migration. Since the project moves forward it will
-introduce differences in the yml configuration file. So it would not be enough to simply install newest
-version. Often a version upgrade changes or add parameters which are used.
+introduce differences in the yml configuration file. So it would not be enough to simply install the newest
+version. Often a version upgrade changes or adds parameters which are used.
+
+.. _changes-version-1.2.1:
+
+Version 1.2.1
+-------------
+
+The version 1.2.1 is the first stable version that implements the new federal specification (published november 2017).
+Because this specification contains some new attributes (including mandatory attributes), and some renaming
+of attributes as compared to the previous version of the specification (implemented by pyramid_oereb
+in :ref:`changes-version-1.1.0`), you need to adapt your configuration and your models if you have used the previous version.
+
+.. _changes-new-config-options-1.2.1:
+
+New configuration options in yml
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+These are the new configuration options for your project (yml file):
+
+* within the ``plan_for_land_register`` section:
+
+  * ``layer_index``
+  * ``layer_opacity``
+
+* ``plan_for_land_register_main_page``: new section, content like ``plan_for_land_register``
+
+* within the ``extract`` section:
+
+  * ``certification`` (replaces certificationText)
+  * ``certification_at_web``
+
+* within each theme, in the ``view_service`` section:
+
+  * ``layer_index``
+  * ``layer_opacity``
+
+See the `pyramid_oereb_standard yml template <https://github.com/camptocamp/pyramid_oereb/blob/v1.2.1/pyramid_oereb/standard/pyramid_oereb.yml.mako>`__
+for the correct style of the configuration and an explanation of the new attributes.
+
+.. _changes-new-config-mapfish-print-1.2.1:
+
+MapFish Print
+"""""""""""""
+
+These are the new configuration options for the printing of your extracts:
+
+* ``display_real_estate_subunit_of_land_register``: flag whether to display the RealEstate_SubunitOfLandRegister (Grundbuchkreis)
+  in the pdf extract or not
+
+See the ``print`` section at this place in the
+`pyramid_oereb_standard yml template <https://github.com/camptocamp/pyramid_oereb/blob/v1.2.1/pyramid_oereb/standard/pyramid_oereb.yml.mako#L65>`__
+for the correct style of the configuration.
+
 
 .. _changes-version-1.1.0:
 

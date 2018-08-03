@@ -19,7 +19,7 @@ Print Proxy
 .. _api-pyramid_oereb-contrib-print_proxy-mapfish_print-renderer:
 
 *Mapfish Print Renderer*
-^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. autoclass:: pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer
    :members:
