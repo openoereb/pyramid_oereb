@@ -18,8 +18,6 @@
 </data:OtherLegend>
 %endfor
 %endif
-<data:layerIndex>${map.layer_index}</data:layerIndex>
-<data:layerOpacity>${map.layer_opacity}</data:layerOpacity>
 %if map.min_NS03 is not None:
 <data:min_NS03>${map.min_NS03.x} ${map.min_NS03.y}</data:min_NS03>
 %endif
@@ -32,3 +30,5 @@
 %if map.max_NS95 is not None:
 <data:max_NS95>${map.max_NS95.x} ${map.max_NS95.y}</data:max_NS95>
 %endif
+<data:layerIndex>${map.layer_index}</data:layerIndex>
+<data:layerOpacity>${map.layer_opacity}</data:layerOpacity>
