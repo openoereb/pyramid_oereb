@@ -17,15 +17,6 @@ def test_get_gml_id():
     assert renderer._get_gml_id() == 'gml3'
 
 
-def test_get_document_type():
-    document = DocumentRecord('Law', LawStatusRecord.from_config('inForce'), datetime.date.today(),
-                              {'de': 'Test'}, OfficeRecord({'de': 'Test'}))
-    legal_provision = LegalProvisionRecord(LawStatusRecord.from_config('inForce'), datetime.date.today(),
-                                           {'de': 'Test'}, OfficeRecord({'de': 'Test'}))
-    assert Renderer._get_document_type(document) == 'data:Document'
-    assert Renderer._get_document_type(legal_provision) == 'data:LegalProvisions'
-
-
 @pytest.mark.parametrize('parameters', params)
 def test_line(parameters, xml_templates):
     line = LineString(((0, 0), (1, 1)))
