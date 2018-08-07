@@ -4,7 +4,6 @@ from pyramid.path import AssetResolver
 
 from pyramid.response import Response
 
-from pyramid_oereb.lib.records.documents import LegalProvisionRecord
 from pyramid_oereb.lib.renderer import Base
 from mako import exceptions
 

@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
-import datetime
 from shapely.geometry import LineString, Point, Polygon
 
-from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord
-from pyramid_oereb.lib.records.law_status import LawStatusRecord
-from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.renderer.extract.xml_ import Renderer
 from tests.conftest import params
 import pytest
