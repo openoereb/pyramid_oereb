@@ -89,19 +89,3 @@ class Renderer(Base):
         """
         self._gml_id += 1
         return 'gml{0}'.format(self._gml_id)
-
-    @classmethod
-    def _get_document_type(cls, document):
-        """
-        Returns the documents xsi type.
-
-        Args:
-            document (pyramid_oereb.lib.records.documents.DocumentRecord): The document record.
-
-        Returns:
-            str: The documents xsi type
-
-        """
-        if isinstance(document, LegalProvisionRecord):
-            return 'data:LegalProvisions'
-        return 'data:Document'
