@@ -5,7 +5,7 @@ from pyramid.path import AssetResolver
 from pyramid.response import Response
 
 from pyramid_oereb.lib.renderer import Base
-# from mako import exceptions
+from mako import exceptions
 
 from pyramid_oereb.views.webservice import Parameter
 
