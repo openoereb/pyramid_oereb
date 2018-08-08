@@ -36,18 +36,29 @@ class Renderer(Base):
         response = self.get_response(system)
         if isinstance(response, Response) and response.content_type == response.default_content_type:
             response.content_type = 'application/xml'
+        try:
+            self._render(value)
+        except Exception:
+            response.content_type = 'text/html'
+            return exceptions.html_error_template().render()
 
+    def _render(self, value):
+        """
+        Serializes the versions data.
+
+        Args:
+            value (dict): A dictionary containing the versions data.
+
+        Returns:
+            str: The XML encoded versions data.
+        """
         templates = TemplateLookup(
             directories=[self.template_dir],
             output_encoding='utf-8',
             input_encoding='utf-8'
         )
         template = templates.get_template('versions.xml')
-        try:
-            content = template.render(**{
-                'data': value
-            })
-            return content
-        except Exception:
-            response.content_type = 'text/html'
-            return exceptions.html_error_template().render()
+        content = template.render(**{
+            'data': value
+        })
+        return content
