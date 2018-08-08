@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
+import StringIO
 from shapely.geometry import LineString, Point, Polygon
+from lxml import etree
 
 from pyramid_oereb.lib.renderer.extract.xml_ import Renderer
-from tests.conftest import params
+from pyramid_oereb.lib.renderer.versions.xml_ import Renderer as VersionsRenderer
+from tests.conftest import params, schema_xml_versions
+from tests.renderer import DummyRenderInfo
 import pytest
 
 
@@ -104,3 +108,24 @@ def test_polygon(parameters, xml_templates):
     for line in content:
         content_lines.append(line.strip())
     assert expected_lines == content_lines
+
+
+def test_version_against_schema():
+    versions = {
+        u'GetVersionsResponse': {
+            u'supportedVersion': [
+                {
+                    u'version': u'1.0',
+                    u'serviceEndpointBase': u'https://example.com'
+                }
+            ]
+        }
+    }
+    renderer = VersionsRenderer(DummyRenderInfo())
+    rendered = renderer._render(versions)
+
+    xmlschema_doc = etree.parse(schema_xml_versions)
+    xmlschema = etree.XMLSchema(xmlschema_doc)
+    buffer = StringIO.StringIO(rendered)
+    doc = etree.parse(buffer)
+    assert xmlschema.validate(doc)
