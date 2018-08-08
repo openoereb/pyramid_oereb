@@ -37,7 +37,8 @@ class Renderer(Base):
         if isinstance(response, Response) and response.content_type == response.default_content_type:
             response.content_type = 'application/xml'
         try:
-            self._render(value)
+            content = self._render(value)
+            return content
         except Exception:
             response.content_type = 'text/html'
             return exceptions.html_error_template().render()
