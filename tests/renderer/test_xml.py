@@ -142,7 +142,6 @@ def test_extract_against_schema(parameter):
     renderer._request = MockRequest()
     renderer._request.route_url = lambda url, **kwargs: "http://example.com/current/view"
     rendered = renderer._render(extract, parameter)
-    # rendered = renderer([extract, parameter], {'request': MockRequest()})
 
     xmlschema_doc = etree.parse(schema_xml_extract)
     xmlschema = etree.XMLSchema(xmlschema_doc)
