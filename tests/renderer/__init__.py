@@ -69,6 +69,6 @@ def get_test_extract():
             certification={'de': u'certification'},
             certification_at_web={'de': u'certification_at_web'},
         )
-        extract.qr_code = '1'.encode('utf-8')
-        extract.electronic_signature = 'Signature'
+        extract.qr_code = 'VGhpcyBpcyBub3QgYSBRUiBjb2Rl'.encode('utf-8')
+        # extract.electronic_signature = 'Signature'  # TODO: fix signature rendering first
         return extract
