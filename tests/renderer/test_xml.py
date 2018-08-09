@@ -148,4 +148,4 @@ def test_extract_against_schema(parameter):
     xmlschema = etree.XMLSchema(xmlschema_doc)
     buffer = StringIO.StringIO(rendered)
     doc = etree.parse(buffer)
-    assert xmlschema.validate(doc)
+    xmlschema.assertValid(doc)
