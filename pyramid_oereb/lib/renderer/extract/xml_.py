@@ -78,7 +78,6 @@ class Renderer(Base):
             'request': self._request,
             'get_symbol_ref': self.get_symbol_ref,
             'get_gml_id': self._get_gml_id,
-            'get_document_type': self._get_document_type,
             'date_format': '%Y-%m-%dT%H:%M:%S'
         })
         return content
