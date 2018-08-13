@@ -94,7 +94,7 @@ class DataIntegration(Base):
     office = relationship(Office)
 
 
-class ReferenceDefinition(Base):  # TODO: Check translation
+class ReferenceDefinition(Base):
     """
     The meta bucket for definitions which are directly related to a public law restriction in a common way or
     to the whole canton or a  whole municipality. It is used to have a place to store general documents
@@ -302,7 +302,6 @@ class LegendEntry(Base):
     view_service = relationship(ViewService, backref='legends')
 
 
-# TODO: check how the definition in base model from confederation can be realized
 class PublicLawRestriction(Base):
     """
     The container where you can fill in all your public law restrictions to the topic.
@@ -393,7 +392,7 @@ class Geometry(Base):
     id = sa.Column(sa.String, primary_key=True, autoincrement=False)
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    geo_metadata = sa.Column(sa.String, nullable=True)  # TODO: Check translation
+    geo_metadata = sa.Column(sa.String, nullable=True)
     geom = sa.Column(GeoAlchemyGeometry('POLYGON', srid=srid), nullable=False)
     public_law_restriction_id = sa.Column(
         sa.String,
@@ -533,7 +532,6 @@ class PublicLawRestrictionDocument(Base):
     article_numbers = sa.Column(sa.String, nullable=True)
 
 
-# TODO: check translation
 class DocumentReference(Base):
     """
     Meta bucket (join table) for the relationship between documents.
