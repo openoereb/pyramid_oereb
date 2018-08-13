@@ -46,7 +46,7 @@
         <%include file="view_service.xml" args="map=real_estate.plan_for_land_register_main_page"/>
     </data:PlanForLandRegisterMainPage>
 %for reference in real_estate.references:
-    <data:Reference xsi:type="${get_document_type(reference)}">
+    <data:Reference xsi:type="data:Document">
         <%include file="document.xml" args="document=reference"/>
     </data:Reference>
 %endfor
