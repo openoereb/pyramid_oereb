@@ -200,7 +200,6 @@ class LegendEntry(Base):
     view_service = relationship(ViewService, backref='legends')
 
 
-# TODO: check how the definition in base model from confederation can be realized
 class PublicLawRestriction(Base):
     """
     The container where you can fill in all your public law restrictions to the topic.
@@ -310,7 +309,7 @@ class Geometry(Base):
 % endif
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    geo_metadata = sa.Column(sa.String, nullable=True)  # TODO: Check translation
+    geo_metadata = sa.Column(sa.String, nullable=True)
     geom = sa.Column(GeoAlchemyGeometry('${geometry_type}', srid=srid), nullable=False)
     public_law_restriction_id = sa.Column(
         sa.Integer,

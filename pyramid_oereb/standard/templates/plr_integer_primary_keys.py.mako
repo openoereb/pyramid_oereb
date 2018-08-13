@@ -303,7 +303,6 @@ class LegendEntry(Base):
     view_service = relationship(ViewService, backref='legends')
 
 
-# TODO: check how the definition in base model from confederation can be realized
 class PublicLawRestriction(Base):
     """
     The container where you can fill in all your public law restrictions to the topic.
