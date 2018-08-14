@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
+import StringIO
 from shapely.geometry import LineString, Point, Polygon
+from lxml import etree
 
 from pyramid_oereb.lib.renderer.extract.xml_ import Renderer
-from tests.conftest import params
+from pyramid_oereb.lib.renderer.versions.xml_ import Renderer as VersionsRenderer
+from pyramid_oereb.views.webservice import Parameter
+from tests.conftest import params, schema_xml_versions, schema_xml_extract, MockRequest
+from tests.renderer import DummyRenderInfo, get_test_extract
 import pytest
 
 
@@ -104,3 +109,42 @@ def test_polygon(parameters, xml_templates):
     for line in content:
         content_lines.append(line.strip())
     assert expected_lines == content_lines
+
+
+def test_version_against_schema():
+    versions = {
+        u'GetVersionsResponse': {
+            u'supportedVersion': [
+                {
+                    u'version': u'1.0',
+                    u'serviceEndpointBase': u'https://example.com'
+                }
+            ]
+        }
+    }
+    renderer = VersionsRenderer(DummyRenderInfo())
+    rendered = renderer._render(versions)
+
+    xmlschema_doc = etree.parse(schema_xml_versions)
+    xmlschema = etree.XMLSchema(xmlschema_doc)
+    buffer = StringIO.StringIO(rendered)
+    doc = etree.parse(buffer)
+    assert xmlschema.validate(doc)
+
+
+@pytest.mark.parametrize('parameter', [
+    Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
+])
+def test_extract_against_schema(parameter):
+    extract = get_test_extract()
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language = u'de'
+    renderer._request = MockRequest()
+    renderer._request.route_url = lambda url, **kwargs: "http://example.com/current/view"
+    rendered = renderer._render(extract, parameter)
+
+    xmlschema_doc = etree.parse(schema_xml_extract)
+    xmlschema = etree.XMLSchema(xmlschema_doc)
+    buffer = StringIO.StringIO(rendered)
+    doc = etree.parse(buffer)
+    xmlschema.assertValid(doc)

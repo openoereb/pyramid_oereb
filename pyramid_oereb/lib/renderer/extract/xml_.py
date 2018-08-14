@@ -51,24 +51,9 @@ class Renderer(Base):
         if self._params_.language:
             self._language = str(self._params_.language).lower()
 
-        templates = TemplateLookup(
-            directories=[self.template_dir],
-            output_encoding='utf-8',
-            input_encoding='utf-8'
-        )
-        template = templates.get_template('extract.xml')
+        extract = value[0]
         try:
-            content = template.render(**{
-                'extract': value[0],
-                'params': value[1],
-                'sort_by_localized_text': self.sort_by_localized_text,
-                'localized': self.get_localized_text,
-                'multilingual': self.get_multilingual_text,
-                'request': self._request,
-                'get_symbol_ref': self.get_symbol_ref,
-                'get_gml_id': self._get_gml_id,
-                'date_format': '%Y-%m-%dT%H:%M:%S'
-            })
+            content = self._render(extract, self._params_)
             return content
         except ValueError as e:
             # TODO: use error mapping to provide HTTP errors
@@ -76,6 +61,26 @@ class Renderer(Base):
         except Exception:
             response.content_type = 'text/html'
             return exceptions.html_error_template().render()
+
+    def _render(self, extract, params):
+        templates = TemplateLookup(
+            directories=[self.template_dir],
+            output_encoding='utf-8',
+            input_encoding='utf-8'
+        )
+        template = templates.get_template('extract.xml')
+        content = template.render(**{
+            'extract': extract,
+            'params': params,
+            'sort_by_localized_text': self.sort_by_localized_text,
+            'localized': self.get_localized_text,
+            'multilingual': self.get_multilingual_text,
+            'request': self._request,
+            'get_symbol_ref': self.get_symbol_ref,
+            'get_gml_id': self._get_gml_id,
+            'date_format': '%Y-%m-%dT%H:%M:%S'
+        })
+        return content
 
     def _get_gml_id(self):
         """
