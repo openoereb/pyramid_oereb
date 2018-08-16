@@ -20,8 +20,8 @@ class EmbeddableRecord(object):
                 information on the extract.
         """
 
-        # TODO: there is a element called pdf inside the OREB-XML-Aufruf specification in the embeddable
-        # section which is realy mystic, it is documented nowhere!!!
+        # Filling out the 'pdf' attribute with pdf content is currently not supported by pyramid_oereb
+        # More details in PR https://github.com/camptocamp/pyramid_oereb/pull/601
         self.cadaster_state = cadaster_state
         self.cadaster_organisation = cadaster_organisation
         self.data_owner_cadastral_surveying = data_owner_cadastral_surveying
