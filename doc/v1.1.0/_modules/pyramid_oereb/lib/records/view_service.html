@@ -383,10 +383,10 @@
 <span class="sd">        Simply downloads the image found behind the URL stored in the instance attribute &quot;reference_wms&quot;.</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            LookupError: Raised if the response is not code 200</span>
+<span class="sd">            LookupError: Raised if the response is not code 200 or content-type</span>
+<span class="sd">                doesn&#39;t contains type &quot;image&quot;.</span>
 <span class="sd">            AttributeError: Raised if the URL itself isn&#39;t valid at all.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># TODO: Check better for a image as response than only code 200...</span>
         <span class="n">main_msg</span> <span class="o">=</span> <span class="s2">&quot;Image for WMS couldn&#39;t be retrieved.&quot;</span>
         <span class="k">if</span> <span class="n">uri_validator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">):</span>
             <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Downloading image, url: </span><span class="si">{url}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">))</span>
@@ -401,7 +401,8 @@
                 <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">content_type</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span> <span class="ow">and</span> <span class="n">content_type</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">ImageRecord</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">dedicated_msg</span> <span class="o">=</span> <span class="s2">&quot;The image could not be downloaded. URL was: </span><span class="si">{url}</span><span class="s2">, Response was &quot;</span> \

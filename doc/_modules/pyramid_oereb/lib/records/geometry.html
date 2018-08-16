@@ -245,8 +245,10 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span> <span class="o">=</span> <span class="n">compensated_area</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_test_passed</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">else</span><span class="p">:</span>
-                    <span class="c1"># TODO: configure a proper error message</span>
-                    <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Unknown geometry type&#39;</span><span class="p">)</span>
+                <span class="n">supported_types</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">point_types</span> <span class="o">+</span> <span class="n">line_types</span> <span class="o">+</span> <span class="n">polygon_types</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                    <span class="sa">u</span><span class="s1">&#39;The passed geometry is not supported: </span><span class="si">{type}</span><span class="s1">. It should be one of: </span><span class="si">{types}</span><span class="s1">&#39;</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="n">supported_types</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">calculated</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_test_passed</span></div>
 
