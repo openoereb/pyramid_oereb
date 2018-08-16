@@ -233,10 +233,10 @@ class ViewServiceRecord(object):
         Simply downloads the image found behind the URL stored in the instance attribute "reference_wms".
 
         Raises:
-            LookupError: Raised if the response is not code 200
+            LookupError: Raised if the response is not code 200 or content-type
+                doesn't contains type "image".
             AttributeError: Raised if the URL itself isn't valid at all.
         """
-        # TODO: Check better for a image as response than only code 200...
         main_msg = "Image for WMS couldn't be retrieved."
         if uri_validator(self.reference_wms):
             log.debug("Downloading image, url: {url}".format(url=self.reference_wms))
@@ -251,7 +251,8 @@ class ViewServiceRecord(object):
                 log.error(dedicated_msg)
                 raise LookupError(dedicated_msg)
 
-            if response.status_code == 200:
+            content_type = response.headers.get('content-type', '')
+            if response.status_code == 200 and content_type.find('image') > -1:
                 self.image = ImageRecord(response.content)
             else:
                 dedicated_msg = "The image could not be downloaded. URL was: {url}, Response was " \
