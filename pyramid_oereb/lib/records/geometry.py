@@ -94,8 +94,10 @@ class GeometryRecord(object):
                     self._area_share = compensated_area
                     self._test_passed = True
             else:
-                    # TODO: configure a proper error message
-                    log.error('Unknown geometry type')
+                supported_types = ', '.join(point_types + line_types + polygon_types)
+                raise AttributeError(
+                    u'The passed geometry is not supported: {type}. It should be one of: {types}'
+                    .format(type=self.geom.type, types=supported_types))
         self.calculated = True
         return self._test_passed
 
