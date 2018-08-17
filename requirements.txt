@@ -1,4 +1,3 @@
-cryptography==1.9 # for urllib in Debian 8 compatible version, rq.filter: < 2.0
 dicttoxml==1.7.4
 geoalchemy2==0.4.2
 psycopg2==2.7.5
