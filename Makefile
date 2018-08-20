@@ -34,7 +34,7 @@ else
     TESTS_DROP_DB = tests-docker-drop-db
 endif
 PIP_UPDATE = $(VENV_BIN)pip install --upgrade pip setuptools
- 
+
 SPHINXOPTS =
 SPHINXBUILD = $(VENV_BIN)sphinx-build$(PYTHON_BIN_POSTFIX)
 SPHINXPROJ = OEREB
