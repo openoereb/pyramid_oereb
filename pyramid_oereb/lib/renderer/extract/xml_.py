@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import logging
+
+from pyramid.httpexceptions import HTTPInternalServerError
 from mako.lookup import TemplateLookup
 from pyramid.path import AssetResolver
 
@@ -8,6 +11,8 @@ from pyramid_oereb.lib.renderer import Base
 from mako import exceptions
 
 from pyramid_oereb.views.webservice import Parameter
+
+log = logging.getLogger(__name__)
 
 
 class Renderer(Base):
@@ -56,8 +61,8 @@ class Renderer(Base):
             content = self._render(extract, self._params_)
             return content
         except ValueError as e:
-            # TODO: use error mapping to provide HTTP errors
-            raise e
+            log.error('The extract can not be rendered. ValueError is {0}'.format(e))
+            raise HTTPInternalServerError()
         except Exception:
             response.content_type = 'text/html'
             return exceptions.html_error_template().render()
