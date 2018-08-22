@@ -256,7 +256,6 @@ class Renderer(Base):
                     })
                 else:
                     # Link to symbol is only available if type code is set!
-                    # TODO: How to handle restrictions without type code? Is this possible?
                     if plr.type_code:
                         plr_dict.update({
                             'SymbolRef': self.get_symbol_ref(self._request, plr)
