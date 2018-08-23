@@ -256,7 +256,6 @@ class Renderer(Base):
                     })
                 else:
                     # Link to symbol is only available if type code is set!
-                    # TODO: How to handle restrictions without type code? Is this possible?
                     if plr.type_code:
                         plr_dict.update({
                             'SymbolRef': self.get_symbol_ref(self._request, plr)
@@ -367,7 +366,9 @@ class Renderer(Base):
                     reference_list.append(self.format_document(reference))
                 document_dict['Reference'] = reference_list
 
-            # TODO: Add output for binary file.
+            # Note: No output for File (binary) because speccifications are
+            # currently unclear on this point. See Issue:
+            # https://github.com/camptocamp/pyramid_oereb/issues/611
 
         elif isinstance(document, ArticleRecord):
             document_dict.update({

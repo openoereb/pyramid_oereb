@@ -6,5 +6,4 @@
     <data:Content>
         <%include file="multilingual_m_text.xml" args="text=glossary.content"/>
     </data:Content>
-    ## TODO: Check for the extensions stuff.
 </data:Glossary>
