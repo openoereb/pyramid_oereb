@@ -366,7 +366,9 @@ class Renderer(Base):
                     reference_list.append(self.format_document(reference))
                 document_dict['Reference'] = reference_list
 
-            # TODO: Add output for binary file.
+            # Note: No output for File (binary) because speccifications are
+            # currently unclear on this point. See Issue:
+            # https://github.com/camptocamp/pyramid_oereb/issues/611
 
         elif isinstance(document, ArticleRecord):
             document_dict.update({
