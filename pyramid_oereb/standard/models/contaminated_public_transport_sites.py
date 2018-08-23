@@ -135,7 +135,7 @@ class DocumentBase(Base):
         published_from (datetime.date): The date when the document should be available for
             publishing on extracts. This  directly affects the behaviour of extract
             generation.
-        type (unicode): This is a sqlalchemy related attribute to provide database table
+        type (str): This is a sqlalchemy related attribute to provide database table
             inheritance.
     """
     __table_args__ = {'schema': 'contaminated_public_transport_sites'}
@@ -144,7 +144,7 @@ class DocumentBase(Base):
     text_at_web = sa.Column(JSONType, nullable=True)
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=False)
+    type = sa.Column(sa.String, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
