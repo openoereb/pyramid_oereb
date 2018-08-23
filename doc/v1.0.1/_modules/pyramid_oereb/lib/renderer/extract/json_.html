@@ -408,7 +408,6 @@
                     <span class="p">})</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="c1"># Link to symbol is only available if type code is set!</span>
-                    <span class="c1"># TODO: How to handle restrictions without type code? Is this possible?</span>
                     <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">type_code</span><span class="p">:</span>
                         <span class="n">plr_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
                             <span class="s1">&#39;SymbolRef&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_symbol_ref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">,</span> <span class="n">plr</span><span class="p">)</span>
@@ -519,7 +518,9 @@
                     <span class="n">reference_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">format_document</span><span class="p">(</span><span class="n">reference</span><span class="p">))</span>
                 <span class="n">document_dict</span><span class="p">[</span><span class="s1">&#39;Reference&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reference_list</span>
 
-            <span class="c1"># TODO: Add output for binary file.</span>
+            <span class="c1"># Note: No output for File (binary) because speccifications are</span>
+            <span class="c1"># currently unclear on this point. See Issue:</span>
+            <span class="c1"># https://github.com/camptocamp/pyramid_oereb/issues/611</span>
 
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">ArticleRecord</span><span class="p">):</span>
             <span class="n">document_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
