@@ -194,6 +194,17 @@ class DummyData(object):
             'layer_index': 1,
             'layer_opacity': 1.0
         })
+        connection.execute(motorways_building_lines.LegendEntry.__table__.insert(), {
+            'id': '1',
+            'symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
+            'legend_text': {
+                'de': u'Test'
+            },
+            'type_code': 'CodeA',
+            'type_code_list': u'type_code_list',
+            'topic': u'MotorwaysBuildingLines',
+            'view_service_id': '1'
+        })
         connection.execute(motorways_building_lines.Office.__table__.insert(), {
             'id': '1',
             'name': {'de': u'Test Office'}
@@ -207,6 +218,8 @@ class DummyData(object):
             'id': '1',
             'information': {'de': u'Long line PLR'},
             'topic': u'MotorwaysBuildingLines',
+            'type_code': 'CodeA',
+            "type_code_list": '',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -216,6 +229,8 @@ class DummyData(object):
             'id': '2',
             'information': {'de': u'Short line PLR'},
             'topic': u'MotorwaysBuildingLines',
+            'type_code': 'CodeA',
+            "type_code_list": '',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -225,6 +240,8 @@ class DummyData(object):
             'id': '3',
             'information': {'de': u'Double intersection line PLR'},
             'topic': u'MotorwaysBuildingLines',
+            'type_code': 'CodeA',
+            "type_code_list": '',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -234,6 +251,8 @@ class DummyData(object):
             'id': '4',
             'information': {'de': u'Future geometry'},
             'topic': u'MotorwaysBuildingLines',
+            'type_code': 'CodeA',
+            "type_code_list": '',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -362,7 +381,7 @@ class DummyData(object):
             'legend_text': {
                 'de': u'Test'
             },
-            'type_code': u'test',
+            'type_code': 'CodeA',
             'type_code_list': u'type_code_list',
             'topic': u'ContaminatedSites',
             'view_service_id': '1'
@@ -383,6 +402,8 @@ class DummyData(object):
             'id': '1',
             'information': {'de': u'Large polygon PLR'},
             'topic': u'ContaminatedSites',
+            'type_code': 'CodeA',
+            "type_code_list": '',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -392,6 +413,8 @@ class DummyData(object):
             'id': '2',
             'information': {'de': u'Small polygon PLR'},
             'topic': u'ContaminatedSites',
+            'type_code': 'CodeA',
+            "type_code_list": '',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -401,6 +424,8 @@ class DummyData(object):
             'id': '3',
             'information': {'de': u'Double intersection polygon PLR'},
             'topic': u'ContaminatedSites',
+            'type_code': 'CodeA',
+            "type_code_list": '',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -410,6 +435,8 @@ class DummyData(object):
             'id': '4',
             'information': {'de': u'Future PLR'},
             'topic': u'ContaminatedSites',
+            'type_code': 'CodeA',
+            "type_code_list": '',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'view_service_id': '1',
@@ -466,6 +493,18 @@ class DummyData(object):
             'layer_opacity': 1.0
         })
 
+        connection.execute(land_use_plans.LegendEntry.__table__.insert(), {
+            'id': '1',
+            'symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
+            'legend_text': {
+                'de': u'Test'
+            },
+            'type_code': 'CodeA',
+            'type_code_list': u'type_code_list',
+            'topic': u'LandUsePlans',
+            'view_service_id': '1'
+        })
+
         connection.execute(land_use_plans.Office.__table__.insert(), {
             'id': '1',
             'name': {'de': u'Test Office'}
@@ -480,7 +519,9 @@ class DummyData(object):
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '1',
             'information': {'de': u'Large polygon PLR'},
-            'topic': u'ContaminatedSites',
+            'topic': u'LandUsePlans',
+            'type_code': 'CodeA',
+            "type_code_list": '',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -489,7 +530,9 @@ class DummyData(object):
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '2',
             'information': {'de': u'Small polygon PLR'},
-            'topic': u'ContaminatedSites',
+            'topic': u'LandUsePlans',
+            'type_code': 'CodeA',
+            "type_code_list": '',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -498,7 +541,9 @@ class DummyData(object):
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '3',
             'information': {'de': u'Double intersection polygon PLR'},
-            'topic': u'ContaminatedSites',
+            'topic': u'LandUsePlans',
+            'type_code': 'CodeA',
+            "type_code_list": '',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -507,7 +552,9 @@ class DummyData(object):
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '4',
             'information': {'de': u'Future PLR'},
-            'topic': u'ContaminatedSites',
+            'topic': u'LandUsePlans',
+            'type_code': 'CodeA',
+            "type_code_list": '',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'view_service_id': '1',

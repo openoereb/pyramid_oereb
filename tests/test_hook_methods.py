@@ -22,7 +22,7 @@ def test_get_symbol_invalid_theme_code(config):
     request.matchdict.update({
         'theme_code': 'InvalidThemeCode',
         'view_service_id': '1',
-        'type_code': 'test'
+        'type_code': 'CodeA'
     })
     with pytest.raises(HTTPNotFound):
         get_symbol(request)
@@ -46,7 +46,7 @@ def test_get_symbol(config):
     request.matchdict.update({
         'theme_code': 'ContaminatedSites',
         'view_service_id': '1',
-        'type_code': 'test'
+        'type_code': 'CodeA'
     })
     response = get_symbol(request)
     assert response.body.decode('utf-8') == '1'
@@ -57,7 +57,7 @@ def test_get_symbol_ref(config):
     record = LegendEntryRecord(
         ImageRecord('1'.encode('utf-8')),
         {'de': 'Test'},
-        'test',
+        'CodeA',
         'http://my.codelist.com/test.xml',
         ThemeRecord('ContaminatedSites', {'de': 'Belastete Standorte'}),
         view_service_id='1'
@@ -65,4 +65,4 @@ def test_get_symbol_ref(config):
     with pyramid_oereb_test_config():
         request = DummyRequest()
         url = urlparse(get_symbol_ref(request, record))
-        assert url.path == '/image/symbol/ContaminatedSites/1/test'
+        assert url.path == '/image/symbol/ContaminatedSites/1/CodeA'

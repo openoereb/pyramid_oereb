@@ -14,7 +14,7 @@ def test_get_image():
     request.matchdict.update({
         'theme_code': 'ContaminatedSites',
         'view_service_id': '1',
-        'type_code': 'test'
+        'type_code': 'CodeA'
     })
     webservice = Symbol(request)
     result = webservice.get_image()
