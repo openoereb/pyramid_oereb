@@ -33,6 +33,7 @@ else
     TESTS_SETUP_DB = tests-docker-setup-db
     TESTS_DROP_DB = tests-docker-drop-db
 endif
+PIP_UPDATE = $(VENV_BIN)pip install --upgrade pip setuptools
 
 SPHINXOPTS =
 SPHINXBUILD = $(VENV_BIN)sphinx-build$(PYTHON_BIN_POSTFIX)
@@ -44,7 +45,7 @@ BUILDDIR = doc/build
 install: $(PYTHON_VENV)
 
 .venv/timestamp:
-	$(VIRTUALENV) .venv
+	$(VIRTUALENV) --no-site-packages .venv
 	touch $@
 
 .venv/requirements-timestamp: .venv/install-timestamp .venv/timestamp setup.py dev-requirements.txt
@@ -52,6 +53,7 @@ install: $(PYTHON_VENV)
 	touch $@
 
 .venv/install-timestamp: .venv/timestamp setup.py $(INSTALL_REQUIREMENTS)
+	$(PIP_UPDATE)
 	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --requirement $(INSTALL_REQUIREMENTS)
 	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --editable .
 	touch $@
