@@ -2,6 +2,7 @@
 import datetime
 
 import logging
+import sys
 import unicodedata
 
 from pyramid.httpexceptions import HTTPServerError
@@ -153,7 +154,7 @@ class Base(object):
         Returns:
             new_text (str): The text value converted to lower case and striped of special characters.
         """
-        new_text = unicode(text.lower())
+        new_text = text.lower() if sys.version_info.major > 2 else unicode(text.lower())
         return unicodedata.normalize('NFD', new_text)
 
     def sort_by_localized_text(self, element_list):

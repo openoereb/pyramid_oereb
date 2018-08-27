@@ -1,5 +1,5 @@
 OPERATING_SYSTEM ?= LINUX
-
+VIRTUALENV = virtualenv --python=python2 # set to python3 if desired
 USE_DOCKER ?= TRUE
 DOCKER_BASE = camptocamp/oereb
 DOCKER_CONTAINER_BASE = camptocamp-oereb
@@ -45,7 +45,7 @@ BUILDDIR = doc/build
 install: $(PYTHON_VENV)
 
 .venv/timestamp:
-	virtualenv --no-site-packages .venv
+	$(VIRTUALENV) --no-site-packages .venv
 	touch $@
 
 .venv/requirements-timestamp: .venv/install-timestamp .venv/timestamp setup.py dev-requirements.txt
