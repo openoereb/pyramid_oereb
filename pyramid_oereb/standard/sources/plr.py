@@ -309,14 +309,12 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 symbol = legend_entry_record.symbol
 
         if symbol is None:
-            # TODO: raise real error here when data is correct, emit warning for now
-            msg = u'No symbol was found for plr in topic {topic} with id {id}'.format(
+            error_msg = u'No symbol was found for plr in topic {topic} with id {id}'.format(
                 topic=self._plr_info.get('code'),
                 id=public_law_restriction_from_db.id
             )
-            log.warning(msg)
-            symbol = ImageRecord('1'.encode('utf-8'))
-            # raise AttributeError(msg)
+            log.error(error_msg)
+            raise AttributeError(error_msg)
         view_service_record = self.from_db_to_view_service_record(
             public_law_restriction_from_db.view_service,
             legend_entry_records,

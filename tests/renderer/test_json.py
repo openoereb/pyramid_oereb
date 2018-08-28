@@ -234,7 +234,7 @@ def test_format_plr(config, parameter):
         office = OfficeRecord({'de': 'Test Office'})
         legend_entry = LegendEntryRecord(
             ImageRecord(base64.b64encode('1'.encode('utf-8'))),
-            {'de': 'Test'}, 'test', 'TypeCodeList', theme,
+            {'de': 'Test'}, 'CodeA', 'TypeCodeList', theme,
             view_service_id=1)
         view_service = ViewServiceRecord('http://geowms.bl.ch',
                                          1,
@@ -253,7 +253,7 @@ def test_format_plr(config, parameter):
             [geometry],
             sub_theme='Subtopic',
             other_theme='Additional topic',
-            type_code='test',
+            type_code='CodeA',
             type_code_list='TypeCodeList',
             documents=documents,
             view_service_id=1
@@ -278,7 +278,7 @@ def test_format_plr(config, parameter):
                 'Map': renderer.format_map(plr.view_service),
                 'SubTheme': 'Subtopic',
                 'OtherTheme': 'Additional topic',
-                'TypeCode': 'test',
+                'TypeCode': 'CodeA',
                 'TypeCodelist': 'TypeCodeList',
                 'LegalProvisions': [renderer.format_document(document)],
                 'PartInPercent': 0.5
@@ -292,7 +292,7 @@ def test_format_plr(config, parameter):
                     'SymbolRef': 'http://example.com/image/symbol/{theme}/{view_service_id}/{code}'.format(
                         theme='ContaminatedSites',
                         view_service_id=1,
-                        code='test'
+                        code='CodeA'
                     )
                 })
             assert result[0] == expected
@@ -465,7 +465,7 @@ def test_format_map(config, params):
         legend_entry = LegendEntryRecord(
             ImageRecord('1'.encode('utf-8')),
             {u'de': u'Legendeneintrag'},
-            u'type1',
+            u'CodeA',
             u'type_code_list',
             ThemeRecord(u'ContaminatedSites', {u'de': u'Test'}),
             view_service_id=1
@@ -503,7 +503,7 @@ def test_format_legend_entry(parameter, config):
         legend_entry = LegendEntryRecord(
             ImageRecord('1'.encode('utf-8')),
             {u'de': u'Legendeneintrag'},
-            u'type1',
+            u'CodeA',
             u'type_code_list',
             theme,
             u'Subthema',
@@ -513,7 +513,7 @@ def test_format_legend_entry(parameter, config):
         result = renderer.format_legend_entry(legend_entry)
         expected = {
             'LegendText': renderer.get_multilingual_text({'de': 'Legendeneintrag'}),
-            'TypeCode': 'type1',
+            'TypeCode': 'CodeA',
             'TypeCodelist': 'type_code_list',
             'Theme': renderer.format_theme(theme),
             'SubTheme': 'Subthema',
@@ -528,7 +528,7 @@ def test_format_legend_entry(parameter, config):
                 'SymbolRef': 'http://example.com/image/symbol/{theme_code}/{view_service_id}/{code}'.format(
                     theme_code='ContaminatedSites',
                     view_service_id=1,
-                    code='type1'
+                    code='CodeA'
                 )
             })
         assert isinstance(result, dict)
