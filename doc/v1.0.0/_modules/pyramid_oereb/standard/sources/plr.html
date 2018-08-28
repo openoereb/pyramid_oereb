@@ -461,14 +461,12 @@
                 <span class="n">symbol</span> <span class="o">=</span> <span class="n">legend_entry_record</span><span class="o">.</span><span class="n">symbol</span>
 
         <span class="k">if</span> <span class="n">symbol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="c1"># TODO: raise real error here when data is correct, emit warning for now</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;No symbol was found for plr in topic </span><span class="si">{topic}</span><span class="s1"> with id </span><span class="si">{id}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">error_msg</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;No symbol was found for plr in topic </span><span class="si">{topic}</span><span class="s1"> with id </span><span class="si">{id}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">topic</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
                 <span class="nb">id</span><span class="o">=</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">id</span>
             <span class="p">)</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-            <span class="n">symbol</span> <span class="o">=</span> <span class="n">ImageRecord</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
-            <span class="c1"># raise AttributeError(msg)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
         <span class="n">view_service_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_view_service_record</span><span class="p">(</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">view_service</span><span class="p">,</span>
             <span class="n">legend_entry_records</span><span class="p">,</span>
