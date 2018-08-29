@@ -94,7 +94,7 @@ class DataIntegration(Base):
     office = relationship(Office)
 
 
-class ReferenceDefinition(Base):  # TODO: Check translation
+class ReferenceDefinition(Base):
     """
     The meta bucket for definitions which are directly related to a public law restriction in a common way or
     to the whole canton or a  whole municipality. It is used to have a place to store general documents
@@ -135,7 +135,7 @@ class DocumentBase(Base):
         published_from (datetime.date): The date when the document should be available for
             publishing on extracts. This  directly affects the behaviour of extract
             generation.
-        type (unicode): This is a sqlalchemy related attribute to provide database table
+        type (str): This is a sqlalchemy related attribute to provide database table
             inheritance.
     """
     __table_args__ = {'schema': 'groundwater_protection_zones'}
@@ -144,7 +144,7 @@ class DocumentBase(Base):
     text_at_web = sa.Column(JSONType, nullable=True)
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.Unicode, nullable=False)
+    type = sa.Column(sa.String, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'document_base',
         'polymorphic_on': type,
@@ -261,7 +261,7 @@ class ViewService(Base):
 class LegendEntry(Base):
     """
     A class based legend system which is directly related to
-    :ref:`pyramid_oereb.standard.models.groundwater_protection_zones.ViewService`.
+    :class:`pyramid_oereb.standard.models.groundwater_protection_zones.ViewService`.
 
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
@@ -302,7 +302,6 @@ class LegendEntry(Base):
     view_service = relationship(ViewService, backref='legends')
 
 
-# TODO: check how the definition in base model from confederation can be realized
 class PublicLawRestriction(Base):
     """
     The container where you can fill in all your public law restrictions to the topic.
@@ -385,8 +384,7 @@ class Geometry(Base):
         responsible_office (pyramid_oereb.standard.models.groundwater_protection_zones.Office):
             The dedicated relation to the office instance from database.
         geom (geoalchemy2.types.Geometry): The geometry it's self. For type information see
-            geoalchemy2_.  .. _geoalchemy2:
-            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
+            geoalchemy docs (https://geoalchemy-2.readthedocs.io/en/0.4.2/types.html) dependent on the
             configured type.  This concrete one is POLYGON
     """
     __table_args__ = {'schema': 'groundwater_protection_zones'}
@@ -394,7 +392,7 @@ class Geometry(Base):
     id = sa.Column(sa.String, primary_key=True, autoincrement=False)
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    geo_metadata = sa.Column(sa.String, nullable=True)  # TODO: Check translation
+    geo_metadata = sa.Column(sa.String, nullable=True)
     geom = sa.Column(GeoAlchemyGeometry('POLYGON', srid=srid), nullable=False)
     public_law_restriction_id = sa.Column(
         sa.String,
@@ -534,7 +532,6 @@ class PublicLawRestrictionDocument(Base):
     article_numbers = sa.Column(sa.String, nullable=True)
 
 
-# TODO: check translation
 class DocumentReference(Base):
     """
     Meta bucket (join table) for the relationship between documents.

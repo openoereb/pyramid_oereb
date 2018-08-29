@@ -11,14 +11,18 @@ pyramid_oereb:
     # http: http://"username":"password"@your_proxy.com:8088
     # https: https://"username":"password"@your_proxy.com:8088
 
-  # The "language" property is a list of all languages provided by this application. In the moment this only
-  # affects the output of the capabilities webservice. In later versions, it will be the configuration
-  # also for the translation mechanism. TODO: Add more details When this feature is fully implemented!
+  # The "language" property is a list of all languages supported by this application. It only affects the
+  # output of the extract webservice. The default langage below and any language specified by a "LANG"
+  # parameter in a request of an extract must be in this list to be accepted.
   language:
     - de
     - fr
     - it
     - rm
+
+  # The language that should be used by default, if no other language is specified in the request.
+  # This has to be one of the languages defined above.
+  default_language: de
 
   # The law status translations based on the two possible codes 'inForce' and 'runningModifications'
   law_status_translations:
@@ -35,28 +39,22 @@ pyramid_oereb:
       rm: midada current
       en: ongoing modification
 
-  # The language that should be used by default, if no other language is specified in the request.
-  # This has to be one of the languages defined above.
-  default_language: de
-
   # The "flavour" property is a list of all flavours of data extracts provided by this application.
   # For the moment this only affects the output of the capabilities webservice. In later
   # versions, this will be the place to directly influence the available output formats.
   #
   # Possible flavours are: REDUCED, FULL, EMBEDDABLE, SIGNED
-  # REDUCED:  Means that depending on the cantonal implementation you may be able to select
-  #	          a defined combination of topics to extract (e.g. only 'federal' topics without
-  #	          cantonal extensions - and choosing this option, legal provisions are only output
-  #           as link.
-  # FULL:			Means you get all topics, whether they are defined in the 17 base topics or if they
-  #						are cantonal specificities.
-  #						The extract will also have the legal provisions and referenced documents
-  #						included as PDF.
-  # SIGNED: 		Is essentially the same as FULL, but the extract is certified by the competent
-  # 					authority
+  # REDUCED:    Means that depending on the cantonal implementation you may be able to select
+  #             a defined combination of topics to extract (e.g. only 'federal' topics without
+  #             cantonal extensions - and choosing this option, legal provisions are only output
+  #             as link.
+  # FULL:       Means you get all topics, whether they are defined in the 17 base topics or if they
+  #             are cantonal specificities.
+  #             The extract will also have the legal provisions and referenced documents
+  #             included as PDF.
+  # SIGNED:     Is essentially the same as FULL, but the extract is certified by the competent
+  #             authority
   # EMBEDDABLE: With this flavour all images and documents are included as base64 binary
-  #
-  # TODO: Add more details When this feature is fully implemented!
   flavour:
     - REDUCED
     - FULL
@@ -246,14 +244,16 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the address database table.
         model: pyramid_oereb.standard.models.main.Address
-      # Alternatively, you can use the search service of the GeoAdmin API to look up the real estate by
-      # address. Replace the configuration above with the following lines:
-      # class: pyramid_oereb.lib.sources.address.AddressGeoAdminSource
-      # params:
-        # URL of the GeoAdmin API SearchServer
-        # geoadmin_search_api: https://api3.geo.admin.ch/rest/services/api/SearchServer
-        # Origins to use (should be "address" only)
-        # origins: address
+        # Alternatively, you can use the search service of the GeoAdmin API to look up the real estate by
+        # address. Replace the configuration above with the following lines:
+        # class: pyramid_oereb.lib.sources.address.AddressGeoAdminSource
+        # # The referer to use.
+        # referer: http://canton.ch
+        # params:
+          # # URL of the GeoAdmin API SearchServer
+          # geoadmin_search_api: https://api3.geo.admin.ch/rest/services/api/SearchServer
+          # # Origins to use (should be "address" only)
+          # origins: address
 
   # The processor of the oereb project needs access to municipality data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the municipality out of an existing

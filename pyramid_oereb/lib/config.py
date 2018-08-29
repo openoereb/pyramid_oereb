@@ -522,8 +522,7 @@ class Config(object):
                 'de': u'Keine Übersetzung gefunden',
                 'fr': u'Pas de traduction',
                 'it': u'Nessuna traduzione trovato',
-                # TODO: Add romanian translation here
-                'rm': u'...'
+                'rm': u'Nagin translaziun chattà'
             }
 
     @staticmethod

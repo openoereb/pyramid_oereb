@@ -13,21 +13,25 @@ else:
     from urllib.parse import urlencode
 
 
-@pytest.mark.parametrize('i,cfg', [
-    (1, {}),
-    (2, {'geoadmin_search_api': 'http://my.api.com', 'origins': 'test'}),
-    (3, {'geoadmin_search_api': 'http://my.api.com', 'origins': ['test1', 'test2']})
+@pytest.mark.parametrize('i, cfg', [
+    (1, {'referer': 'http://bl.ch'}),
+    (2, {'referer': 'http://bl.ch', 'geoadmin_search_api': 'http://my.api.com', 'origins': 'test'}),
+    (3, {'referer': 'http://bl.ch', 'geoadmin_search_api': 'http://my.api.com',
+         'origins': ['test1', 'test2']})
 ])
 def test_init(i, cfg):
     source = AddressGeoAdminSource(**cfg)
     assert isinstance(source, AddressGeoAdminSource)
     if i == 1:
+        assert source._referer == 'http://bl.ch'
         assert source._geoadmin_url == 'https://api3.geo.admin.ch/rest/services/api/SearchServer'
         assert source._origins == 'address'
     elif i == 2:
+        assert source._referer == 'http://bl.ch'
         assert source._geoadmin_url == 'http://my.api.com'
         assert source._origins == 'test'
     elif i == 3:
+        assert source._referer == 'http://bl.ch'
         assert source._geoadmin_url == 'http://my.api.com'
         assert source._origins == 'test1,test2'
 
@@ -59,7 +63,9 @@ def test_read(status_code, config):
             }
         ]
     }
-    source = AddressGeoAdminSource(geoadmin_search_api=u'http://my.api.com/addresses')
+    source = AddressGeoAdminSource(
+            geoadmin_search_api=u'http://my.api.com/addresses',
+            referer='http://bl.ch')
     zip_code = 4410
     street_name = u'Muehlemattstrasse'
     street_number = u'36'

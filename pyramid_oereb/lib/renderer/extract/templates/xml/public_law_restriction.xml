@@ -50,7 +50,7 @@
         <%include file="view_service.xml" args="map=public_law_restriction.view_service"/>
     </data:Map>
     %for document in public_law_restriction.documents:
-    <data:LegalProvisions xsi:type="${get_document_type(document)}">
+    <data:LegalProvisions xsi:type="data:Document">
         <%include file="document.xml" args="document=document"/>
     </data:LegalProvisions>
     %endfor

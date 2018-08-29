@@ -10,7 +10,13 @@ from pyramid_oereb.views.webservice import PlrWebservice
 
 def test_getcapabilities():
     with pyramid_oereb_test_config():
-        request = MockRequest(current_route_url='http://example.com/oereb/capabilities.json')
+        request = MockRequest(current_route_url='http://example.com/oereb/capabilities/json')
+
+        # Add params to matchdict as the view will do it for /capabilities/{format}
+        request.matchdict.update({
+            'format': u'json'
+        })
+
         service = PlrWebservice(request)
         with open(schema_json_extract) as f:
             schema = json.loads(f.read())

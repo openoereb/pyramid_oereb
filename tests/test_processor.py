@@ -122,32 +122,32 @@ def test_processor_get_legend_entries(law_status):
     legend1 = LegendEntryRecord(
         ImageRecord('1'.encode('utf-8')),
         {'de': 'legend1'},
-        u'type1',
-        u'bla',
+        'CodeA',
+        'bla',
         theme1,
         view_service_id=1
     )
     legend2 = LegendEntryRecord(
         ImageRecord('1'.encode('utf-8')),
         {'de': 'legend2'},
-        u'type2',
-        u'bla',
+        'CodeB',
+        'bla',
         theme1,
         view_service_id=1
     )
     legend3 = LegendEntryRecord(
         ImageRecord('1'.encode('utf-8')),
         {'de': 'legend3'},
-        u'type3',
-        u'bla',
+        'CodeC',
+        'bla',
         theme2,
         view_service_id=1
     )
     legend4 = LegendEntryRecord(
         ImageRecord('1'.encode('utf-8')),
         {'de': 'legend4'},
-        u'type4',
-        u'bla',
+        'CodeD',
+        'bla',
         theme2,
         view_service_id=1
     )
@@ -175,7 +175,7 @@ def test_processor_get_legend_entries(law_status):
         image,
         view_service1,
         geometries,
-        type_code=u'type1',
+        type_code='CodeA',
     )
     plr2 = PlrRecord(
         theme1,
@@ -186,7 +186,7 @@ def test_processor_get_legend_entries(law_status):
         image,
         view_service1,
         geometries,
-        type_code=u'type2'
+        type_code='CodeB'
     )
     plr3 = PlrRecord(
         theme1,
@@ -197,7 +197,7 @@ def test_processor_get_legend_entries(law_status):
         image,
         view_service2,
         geometries,
-        type_code=u'type2'
+        type_code='CodeB'
     )
     plr4 = PlrRecord(
         theme1,
@@ -208,7 +208,7 @@ def test_processor_get_legend_entries(law_status):
         image,
         view_service2,
         geometries,
-        type_code=u'type2'
+        type_code='CodeB'
     )
 
     inside_plrs = [plr1]

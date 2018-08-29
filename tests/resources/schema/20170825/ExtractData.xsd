@@ -11,7 +11,7 @@
   <xsd:import namespace="http://www.opengis.net/gml/3.2" 
   schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
   <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" 
-  schemaLocation="http://www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd"/>
+  schemaLocation="xmldsig-core-schema.xsd"/>
   
   <xsd:element name="extensions">
     <xsd:complexType>

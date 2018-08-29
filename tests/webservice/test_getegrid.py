@@ -24,11 +24,15 @@ def test_getegrid_coord_missing_parameter():
 def test_getegrid_ident(config):
     pyramid_oereb.config = config
     with pyramid_oereb_test_config():
-        request = MockRequest(current_route_url='http://example.com/oereb/getegrid/BLTEST/1000.json')
+        request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/BLTEST/1000')
+
+        # Add params to matchdict as the view will do it for /getegrid/{format}/{identdn}/{number}
         request.matchdict.update({
+            'format': u'json',
             'identdn': u'BLTEST',
             'number': u'1000'
         })
+
         webservice = PlrWebservice(request)
         response = webservice.get_egrid_ident().json
         with open(schema_json_extract) as f:
@@ -49,8 +53,14 @@ def test_getegrid_xy(config):
     pyramid_oereb.config = config
     with pyramid_oereb_test_config():
         request = MockRequest(
-            current_route_url='http://example.com/oereb/getegrid.json?XY-1999999.032739449,-999998.940457533'
+            current_route_url='http://example.com/oereb/getegrid/json/?XY-1999999.032739449,-999998.940457533'
         )
+
+        # Add params to matchdict as the view will do it for /getegrid/{format}/
+        request.matchdict.update({
+          'format': u'json'
+        })
+
         request.params.update({
             'XY': '-1999999.032739449,-999998.940457533'
         })
@@ -74,8 +84,14 @@ def test_getegrid_gnss(config):
     pyramid_oereb.config = config
     with pyramid_oereb_test_config():
         request = MockRequest(
-            current_route_url='http://example.com/oereb/getegrid.json?GNSS=-19.917989937473,32.1244978460310'
+            current_route_url='http://example.com/oereb/getegrid/json/?GNSS=-19.917989937473,32.1244978460310'
         )
+
+        # Add params to matchdict as the view will do it for /getegrid/{format}/
+        request.matchdict.update({
+          'format': u'json'
+        })
+
         request.params.update({
             'GNSS': '32.1244978460310,-19.917989937473'
         })
@@ -104,9 +120,13 @@ def test_getegrid_ident_missing_parameter():
 def test_getegrid_address():
     with pyramid_oereb_test_config():
         request = MockRequest(
-            current_route_url='http://example.com/oereb/getegrid/4410/test/10.json'
+            current_route_url='http://example.com/oereb/getegrid/json/4410/test/10'
         )
+
+        # Add params to matchdict as the view will do it for
+        # /getegrid/{format}/{postalcode}/{localisation}/{number}
         request.matchdict.update({
+            'format': u'json',
             'postalcode': '4410',
             'localisation': 'test',
             'number': '10'
@@ -133,7 +153,12 @@ def test_getegrid_address_missing_parameter():
 
 def test_get_egrid_response():
     with pyramid_oereb_test_config():
-        request = MockRequest(current_route_url='http://example.com/oereb/getegrid.json')
+        request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/')
+        # Add params to matchdict as the view will do it for /getegrid/{format}/
+        request.matchdict.update({
+          'format': u'json'
+        })
+
         view_service = ViewServiceRecord('test',
                                          1,
                                          1.0,
@@ -154,7 +179,13 @@ def test_get_egrid_response():
 
 def test_get_egrid_response_no_content():
     with pyramid_oereb_test_config():
-        request = MockRequest(current_route_url='http://example.com/oereb/getegrid.json')
+        request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/')
+
+        # Add params to matchdict as the view will do it for /getegrid/{format}/
+        request.matchdict.update({
+          'format': u'json'
+        })
+
         response = PlrWebservice(request).__get_egrid_response__([])
         assert isinstance(response, HTTPNoContent)
 

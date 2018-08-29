@@ -32,7 +32,7 @@
 <%include file="article.xml" args="article=article"/>
 %endfor
 %for reference in document.references:
-<data:Reference xsi:type="${get_document_type(reference)}">
+<data:Reference xsi:type="data:Document">
     <%include file="document.xml" args="document=reference"/>
 </data:Reference>
 %endfor

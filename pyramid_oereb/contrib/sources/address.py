@@ -3,6 +3,7 @@ import requests
 from pyreproj import Reprojector
 
 from pyramid_oereb import Config
+from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.records.address import AddressRecord
 from pyramid_oereb.lib.sources.address import AddressBaseSource
 
@@ -18,6 +19,7 @@ class AddressGeoAdminSource(AddressBaseSource):
         Keyword Args:
             geoadmin_search_api (uri): Url of the GeoAdmin API's search service. (**required**)
             origins (str or list of str): Filter results by origin. Defaults to *address*. (**optional**)
+            referer (str): Referer to use.
             proxies (dict): Proxy definition according to
                 http://docs.python-requests.org/en/master/user/advanced/#proxies. (**optional**)
         """
@@ -26,6 +28,9 @@ class AddressGeoAdminSource(AddressBaseSource):
                                         'https://api3.geo.admin.ch/rest/services/api/SearchServer')
         self._type = 'locations'
         self._proxies = kwargs.get('proxies')
+        self._referer = kwargs.get('referer', None)
+        if self._referer is None:
+            raise ConfigurationError('A referer must be set to use GeoAdmin service as source for address.')
         if 'origins' in kwargs:
             origins = kwargs.get('origins')
             if isinstance(origins, list):
@@ -44,7 +49,7 @@ class AddressGeoAdminSource(AddressBaseSource):
             street_number (unicode): The house or so called street number of the desired address.
         """
         headers = {
-            'Referer': 'http://bl.ch'  # TODO: Remove this header when referer is not needed anymore!
+            'Referer': self._referer
         }
         params = {
             'type': self._type,
