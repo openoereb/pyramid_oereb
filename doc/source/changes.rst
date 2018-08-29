@@ -58,6 +58,14 @@ See the ``print`` section at this place in the
 `pyramid_oereb_standard yml template <https://github.com/camptocamp/pyramid_oereb/blob/v1.2.1/pyramid_oereb/standard/pyramid_oereb.yml.mako#L65>`__
 for the correct style of the configuration.
 
+Database
+^^^^^^^^
+
+In the standard database schema, the following has changed:
+
+* Primary keys in the standard tables are now of type ``VARCHAR`` (not ``INTEGER``). Foreign key types need to be adapted accordingly as well.
+* In the ``document`` table of each theme (i.e. ``land_use_plans`` scheme etc.), new attribute ``document_type``.
+* The ``document_type`` replaces the table ``legal_provision`` for each theme (i.e. ``land_use_plans`` scheme etc.), which no longer exists.
 
 .. _changes-version-1.1.0:
 
