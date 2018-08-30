@@ -480,8 +480,8 @@ def test_format_map(config, params):
         assert isinstance(result, dict)
         assert result == {
             'Image': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
-            'LayerIndex': 1,
-            'LayerOpacity': 1.0,
+            'layerIndex': 1,
+            'layerOpacity': 1.0,
             'ReferenceWMS': 'http://my.wms.ch',
             'LegendAtWeb': 'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
             'OtherLegend': [renderer.format_legend_entry(legend_entry)]
