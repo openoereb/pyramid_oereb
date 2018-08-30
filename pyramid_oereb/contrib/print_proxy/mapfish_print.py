@@ -178,7 +178,7 @@ class Renderer(JsonRenderer):
         main_page_basemap = {
             'type': 'wms',
             'styles': 'default',
-            'opacity': extract_dict['RealEstate_PlanForLandRegisterMainPage'].get('LayerOpacity', 0.6),
+            'opacity': extract_dict['RealEstate_PlanForLandRegisterMainPage'].get('layerOpacity', 0.6),
             'baseURL': base_url,
             'layers': main_page_params['LAYERS'][0].split(','),
             'imageFormat': 'image/png',
@@ -189,7 +189,7 @@ class Renderer(JsonRenderer):
         basemap = {
             'type': 'wms',
             'styles': 'default',
-            'opacity': extract_dict['RealEstate_PlanForLandRegister'].get('LayerOpacity', 0.6),
+            'opacity': extract_dict['RealEstate_PlanForLandRegister'].get('layerOpacity', 0.6),
             'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
             'layers': params['LAYERS'][0].split(','),
             'imageFormat': 'image/png',
@@ -220,7 +220,7 @@ class Renderer(JsonRenderer):
             restriction_on_landownership['baseLayers'] = {
                 'layers': [{
                     'type': 'wms',
-                    'opacity': restriction_on_landownership['Map'].get('LayerOpacity', 0.6),
+                    'opacity': restriction_on_landownership['Map'].get('layerOpacity', 0.6),
                     'styles': 'default',
                     'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
                     'layers': params['LAYERS'][0].split(','),

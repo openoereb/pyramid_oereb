@@ -382,11 +382,11 @@
     "Municipality": "Birsfelden",
     "PlanForLandRegister": {
       "ReferenceWMS": "http://dev2.geowms.bl.ch/?STYLES=default&LAYERS=grundbuchplan_gebaeude_nicht_gefuellt_group&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-      "LayerOpacity": 1
+      "layerOpacity": 1
     },
     "PlanForLandRegisterMainPage":  {
       "ReferenceWMS": "http://dev2.geowms.bl.ch/?STYLES=default&LAYERS=grundbuchplan_gebaeude_nicht_gefuellt_group&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-      "LayerOpacity": 0.5
+      "layerOpacity": 0.5
     },
     "Canton": "BL",
     "FosNr": 2766,
@@ -1092,7 +1092,7 @@
           ],
           "LegendAtWeb": "http://dev2.geoview.bl.ch/vvmruder/oereb/custom_legend_at_web/LandUsePlans.png",
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-          "LayerOpacity": 1
+          "layerOpacity": 1
         },
         "AreaShare": 78456.21,
         "ResponsibleOffice": {
@@ -1801,7 +1801,7 @@
           ],
           "LegendAtWeb": "http://dev2.geoview.bl.ch/vvmruder/oereb/custom_legend_at_web/LandUsePlans.png",
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-          "LayerOpacity": 1
+          "layerOpacity": 1
         },
         "AreaShare": 2681.31,
         "ResponsibleOffice": {
@@ -2510,7 +2510,7 @@
           ],
           "LegendAtWeb": "http://dev2.geoview.bl.ch/vvmruder/oereb/custom_legend_at_web/LandUsePlans.png",
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-          "LayerOpacity": 1
+          "layerOpacity": 1
         },
         "AreaShare": 6242.69,
         "ResponsibleOffice": {
@@ -3219,7 +3219,7 @@
           ],
           "LegendAtWeb": "http://dev2.geoview.bl.ch/vvmruder/oereb/custom_legend_at_web/LandUsePlans.png",
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-          "LayerOpacity": 1
+          "layerOpacity": 1
         },
         "AreaShare": 7379.93,
         "ResponsibleOffice": {
@@ -3928,7 +3928,7 @@
           ],
           "LegendAtWeb": "http://dev2.geoview.bl.ch/vvmruder/oereb/custom_legend_at_web/LandUsePlans.png",
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-          "LayerOpacity": 1
+          "layerOpacity": 1
         },
         "AreaShare": 6125.68,
         "ResponsibleOffice": {
@@ -4041,7 +4041,7 @@
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_kataster_der_belasteten_standorte&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-          "LayerOpacity": 1
+          "layerOpacity": 1
         },
         "LegalProvisions": [
           {
@@ -4346,7 +4346,7 @@
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_kataster_der_belasteten_standorte&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-          "LayerOpacity": 1
+          "layerOpacity": 1
         },
         "LegalProvisions": [
           {
@@ -4651,7 +4651,7 @@
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_kataster_der_belasteten_standorte&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-          "LayerOpacity": 1
+          "layerOpacity": 1
         },
         "LegalProvisions": [
           {
@@ -4956,7 +4956,7 @@
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_kataster_der_belasteten_standorte&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-          "LayerOpacity": 1
+          "layerOpacity": 1
         },
         "LegalProvisions": [
           {
@@ -5261,7 +5261,7 @@
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_kataster_der_belasteten_standorte&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-          "LayerOpacity": 1
+          "layerOpacity": 1
         },
         "LegalProvisions": [
           {
@@ -5530,7 +5530,7 @@
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_laermempfindlichkeitsstufen&FORMAT=image/png",
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_laermempfindlichkeitsstufen&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-          "LayerOpacity": 1
+          "layerOpacity": 1
         },
         "LegalProvisions": [
           {
@@ -5723,7 +5723,7 @@
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_laermempfindlichkeitsstufen&FORMAT=image/png",
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_laermempfindlichkeitsstufen&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-          "LayerOpacity": 1
+          "layerOpacity": 1
         },
         "LegalProvisions": [
           {
@@ -5916,7 +5916,7 @@
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_laermempfindlichkeitsstufen&FORMAT=image/png",
           "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_laermempfindlichkeitsstufen&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
-          "LayerOpacity": 1
+          "layerOpacity": 1
         },
         "LegalProvisions": [
           {
