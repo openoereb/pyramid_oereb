@@ -72,7 +72,7 @@ NOTE
 
    -  http://localhost:6543/oereb/versions/json
    -  http://localhost:6543/oereb/capabilities/json
-   -  http://localhost:6543/oereb/getegrid/json?XY=2608883,1261844
+   -  http://localhost:6543/oereb/getegrid/json/?XY=2608883,1261844
    -  http://localhost:6543/oereb/extract/reduced/xml/CH113928077734
 
 ...on Windows

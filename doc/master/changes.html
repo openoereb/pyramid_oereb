@@ -89,6 +89,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#mapfish-print">MapFish Print</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#database">Database</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-1-0">Version 1.1.0</a><ul>
@@ -214,6 +215,15 @@ in the pdf extract or not</li>
 <a class="reference external" href="https://github.com/camptocamp/pyramid_oereb/blob/v1.2.1/pyramid_oereb/standard/pyramid_oereb.yml.mako#L65">pyramid_oereb_standard yml template</a>
 for the correct style of the configuration.</p>
 </div>
+</div>
+<div class="section" id="database">
+<h3>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
+<p>In the standard database schema, the following has changed:</p>
+<ul class="simple">
+<li>Primary keys in the standard tables are now of type <code class="docutils literal"><span class="pre">VARCHAR</span></code> (not <code class="docutils literal"><span class="pre">INTEGER</span></code>). Foreign key types need to be adapted accordingly as well.</li>
+<li>In the <code class="docutils literal"><span class="pre">document</span></code> table of each theme (i.e. <code class="docutils literal"><span class="pre">land_use_plans</span></code> scheme etc.), new attribute <code class="docutils literal"><span class="pre">document_type</span></code>.</li>
+<li>The <code class="docutils literal"><span class="pre">document_type</span></code> replaces the table <code class="docutils literal"><span class="pre">legal_provision</span></code> for each theme (i.e. <code class="docutils literal"><span class="pre">land_use_plans</span></code> scheme etc.), which no longer exists.</li>
+</ul>
 </div>
 </div>
 <div class="section" id="version-1-1-0">
