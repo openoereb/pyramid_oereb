@@ -646,13 +646,13 @@
         <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;LayerIndex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">map_</span><span class="o">.</span><span class="n">layer_index</span>
         <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;LayerOpacity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">map_</span><span class="o">.</span><span class="n">layer_opacity</span>
         <span class="k">if</span> <span class="n">map_</span><span class="o">.</span><span class="n">min_NS03</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;min_NS03&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_point</span><span class="p">(</span><span class="n">map_</span><span class="o">.</span><span class="n">min_NS03</span><span class="p">)</span>
+            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;min_NS03&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_point</span><span class="p">(</span><span class="n">map_</span><span class="o">.</span><span class="n">min_NS03</span><span class="p">,</span> <span class="s1">&#39;EPSG:21781&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">map_</span><span class="o">.</span><span class="n">max_NS03</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;max_NS03&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_point</span><span class="p">(</span><span class="n">map_</span><span class="o">.</span><span class="n">max_NS03</span><span class="p">)</span>
+            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;max_NS03&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_point</span><span class="p">(</span><span class="n">map_</span><span class="o">.</span><span class="n">max_NS03</span><span class="p">,</span> <span class="s1">&#39;EPSG:21781&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">map_</span><span class="o">.</span><span class="n">min_NS95</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;min_NS95&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_point</span><span class="p">(</span><span class="n">map_</span><span class="o">.</span><span class="n">min_NS95</span><span class="p">)</span>
+            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;min_NS95&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_point</span><span class="p">(</span><span class="n">map_</span><span class="o">.</span><span class="n">min_NS95</span><span class="p">,</span> <span class="s1">&#39;EPSG:2056&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">map_</span><span class="o">.</span><span class="n">max_NS95</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;max_NS95&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_point</span><span class="p">(</span><span class="n">map_</span><span class="o">.</span><span class="n">max_NS95</span><span class="p">)</span>
+            <span class="n">map_dict</span><span class="p">[</span><span class="s1">&#39;max_NS95&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_point</span><span class="p">(</span><span class="n">map_</span><span class="o">.</span><span class="n">max_NS95</span><span class="p">,</span> <span class="s1">&#39;EPSG:2056&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">map_dict</span></div>
 
@@ -743,8 +743,11 @@
         <span class="k">return</span> <span class="n">embeddable_dict</span></div>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">format_point</span><span class="p">(</span><span class="n">point</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">point</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">point</span><span class="o">.</span><span class="n">y</span><span class="p">}</span>
+    <span class="k">def</span> <span class="nf">format_point</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">crs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">point</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">y</span><span class="p">],</span>
+            <span class="s1">&#39;crs&#39;</span><span class="p">:</span> <span class="n">crs</span>
+        <span class="p">}</span>
 </pre></div>
 
            </div>
