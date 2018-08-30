@@ -186,7 +186,7 @@ class Renderer(Base):
             'PlanForLandRegisterMainPage': self.format_map(real_estate.plan_for_land_register_main_page)
         }
 
-        if self._params.geometry is not None:
+        if self._params.geometry:
             real_estate_dict['Limit'] = self.from_shapely(real_estate.limit)
 
         if real_estate.number is not None:
