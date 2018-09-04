@@ -174,10 +174,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
             session.flush()
             i += 1
         else:
-            log.warn(
-                'It was not possible to find a symbol for the class:',
-                class_name.encode('utf-8')
-            )
+            log.warn('It was not possible to find a symbol for the class: {0}'.format(class_name))
     session.commit()
     session.close()
 
