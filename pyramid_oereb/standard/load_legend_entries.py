@@ -19,7 +19,7 @@ else:
 
 
 logging.basicConfig()
-log = logging.getLogger(__name__.split('.')[0])
+log = logging.getLogger(__name__)
 
 
 def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path='/tmp/pyconizer',
