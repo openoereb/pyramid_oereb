@@ -338,7 +338,7 @@
             <span class="s1">&#39;PlanForLandRegisterMainPage&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">plan_for_land_register_main_page</span><span class="p">)</span>
         <span class="p">}</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="o">.</span><span class="n">geometry</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="o">.</span><span class="n">geometry</span><span class="p">:</span>
             <span class="n">real_estate_dict</span><span class="p">[</span><span class="s1">&#39;Limit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_shapely</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">number</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
