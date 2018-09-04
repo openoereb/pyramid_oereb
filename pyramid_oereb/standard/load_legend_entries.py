@@ -19,7 +19,7 @@ else:
 
 
 logging.basicConfig()
-log = logging.getLogger(__name__)
+log = logging.getLogger(__name__.split('.')[0])
 
 
 def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path='/tmp/pyconizer',
@@ -84,7 +84,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
             break
     if not found:
         # at this point it was not possible to find the topic in configuration
-        print('The topic with code "{0}" was not found in passed configuration!'.format(topic_code))
+        log.error('The topic with code "{0}" was not found in passed configuration!'.format(topic_code))
         return
 
     # we can start process now...
@@ -174,7 +174,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
             session.flush()
             i += 1
         else:
-            print(
+            log.warn(
                 'WARNING: It was not possible to find a symbol for the class:',
                 class_name.encode('utf-8')
             )
