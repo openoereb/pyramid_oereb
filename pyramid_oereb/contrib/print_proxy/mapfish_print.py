@@ -164,7 +164,6 @@ class Renderer(JsonRenderer):
                 self._localised_text(theme, 'Text')
         self._flatten_object(extract_dict, 'PLRCadastreAuthority')
         self._flatten_object(extract_dict, 'RealEstate')
-        del extract_dict['RealEstate_Limit']
         if 'Image' in extract_dict.get('RealEstate_Highlight', {}):
             del extract_dict['RealEstate_Highlight']['Image']
 
