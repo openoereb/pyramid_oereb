@@ -571,7 +571,7 @@ class Config(object):
 
         """
         real_estate_config = cls.get_real_estate_config()
-        type_mapping = real_estate_config.get('type_mapping', {})
+        type_mapping = real_estate_config.get('type_mapping', [])
         for mapping in type_mapping:
             if mapping['type'] == real_estate_type:
                 return mapping['mapping']
