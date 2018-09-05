@@ -9,7 +9,7 @@ services:
     image: camptocamp/oereb-db-dev
 
   print:
-    build: print
+    build: pyramid_oereb/contrib/print_templates
     image: camptocamp/oereb-print-dev
 
   wsgi:
