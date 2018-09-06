@@ -103,8 +103,8 @@ class GeometryRecord(object):
                     self._test_passed = True
             else:
                 log.debug(
-                    'Intersection result changed geometry type. '
-                    'Original geometry was {0} and result is {1}'.format(
+                    u'Intersection result changed geometry type. '
+                    u'Original geometry was {0} and result is {1}'.format(
                         self.geom.type,
                         result.type
                     )
