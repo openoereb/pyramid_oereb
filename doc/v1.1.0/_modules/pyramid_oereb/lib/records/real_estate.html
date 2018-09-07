@@ -176,7 +176,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            type (unicode): The property type</span>
+<span class="sd">            type (unicode): The property type. This attribute will be translated with the configured</span>
+<span class="sd">                corresponding value.</span>
 <span class="sd">            canton (unicode): The abbreviation of the canton the property is located in</span>
 <span class="sd">            municipality (unicode): The municipality the property is located in</span>
 <span class="sd">            fosnr (int): The federal number of the municipality defined by the statistics office</span>
@@ -200,7 +201,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">number</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">identdn</span> <span class="o">=</span> <span class="n">identdn</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">egrid</span> <span class="o">=</span> <span class="n">egrid</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_real_estate_type_by_mapping</span><span class="p">(</span><span class="nb">type</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canton</span> <span class="o">=</span> <span class="n">canton</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">municipality</span> <span class="o">=</span> <span class="n">municipality</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subunit_of_land_register</span> <span class="o">=</span> <span class="n">subunit_of_land_register</span>
