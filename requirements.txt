@@ -2,7 +2,7 @@ dicttoxml==1.7.4
 geoalchemy2==0.5.0
 psycopg2==2.7.5
 pyramid==1.9.2
-pyramid-debugtoolbar==4.4
+pyramid-debugtoolbar==4.5
 PyYAML==3.13
 shapely==1.6.4.post1  # rq.filter: ==1.6.4.post1
 simplejson==3.16.1
