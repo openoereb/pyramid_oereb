@@ -142,7 +142,7 @@ class OEREBlexSource(Base):
 
         # Create related office record
         office = OfficeRecord({self._language: document.authority}, office_at_web=document.authority_url)
-        
+
         # Check for available abbreviation
         abbreviation = {self._language: document.abbreviation} if document.abbreviation else None
 
