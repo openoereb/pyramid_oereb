@@ -328,7 +328,7 @@ pyramid_oereb:
     # This is a multilingual value. In the minimum, the value for the default language has to be defined.
     base_data:
         text:
-          de: Daten der amtlichen Vermessung, Stand {0}.
+          de: Daten der amtlichen Vermessung. Stand der amtlichen Vermessung: {0}.
           fr: Données de la mensuration officielle, état actuel {0}
           it: Dati della misurazione ufficiale, stato attuale {0}
           rm: Datas da la mesiraziun uffiziala, versiun dal {0}
