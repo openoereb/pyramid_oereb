@@ -334,25 +334,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{BaseDataLabel}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="260" y="5" width="232" height="10" uuid="114902e0-f840-4afe-b6b4-64d3d55fc6df">
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-				</reportElement>
-				<textElement verticalAlignment="Top" markup="none">
-					<font fontName="Cadastra" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{FurtherInformation}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="260" y="15" width="232" height="11" isPrintWhenDetailOverflows="true" uuid="ff06b554-3667-40a0-b261-cac4305a4867">
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-				</reportElement>
-				<textElement verticalAlignment="Top" markup="html">
-					<font fontName="Cadastra" size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{furtherInformationText}]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 	<pageFooter>
