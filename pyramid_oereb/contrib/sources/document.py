@@ -142,6 +142,9 @@ class OEREBlexSource(Base):
 
         # Create related office record
         office = OfficeRecord({self._language: document.authority}, office_at_web=document.authority_url)
+        
+        # Check for available abbreviation
+        abbreviation = {self._language: document.abbreviation} if document.abbreviation else None
 
         # Get files
         records = []
@@ -151,7 +154,7 @@ class OEREBlexSource(Base):
                          'title': self._get_document_title(document, f),
                          'responsible_office': office,
                          'text_at_web': {self._language: f.href},
-                         'abbreviation': document.abbreviation,
+                         'abbreviation': abbreviation,
                          'official_number': document.number,
                          'official_title': self._get_mapped_value(document, 'official_title', True),
                          'canton': self._canton,
