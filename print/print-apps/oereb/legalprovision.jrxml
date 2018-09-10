@@ -57,7 +57,6 @@
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($F{Title}.equals("") ? ($F{OfficialTitle}.equals("") ? "-" :   $F{OfficialTitle}): $F{Title})]]></textFieldExpression>
-				<hyperlinkReferenceExpression><![CDATA["http://crdppf.ne.ch"]]></hyperlinkReferenceExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="0" y="30" width="300" height="10" uuid="eacc84c8-ed34-42dd-8938-0c6d1686eaf0">
