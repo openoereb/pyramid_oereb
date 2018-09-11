@@ -329,7 +329,7 @@ pyramid_oereb:
     base_data:
         text:
           de: Daten der amtlichen Vermessung. Stand der amtlichen Vermessung: {0}.
-          fr: Données de la mensuration officielle, état actuel {0}
+          fr: Données de la mensuration officielle, état de la mensuration officielle: {0}
           it: Dati della misurazione ufficiale, stato al {0}
           rm: Datas da la mesiraziun uffiziala, versiun dal {0}
         methods:
