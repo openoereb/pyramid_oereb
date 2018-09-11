@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
-import StringIO
+
+import sys
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import BytesIO
+
 from shapely.geometry import LineString, Point, Polygon
 from lxml import etree
 
@@ -127,7 +133,7 @@ def test_version_against_schema():
 
     xmlschema_doc = etree.parse(schema_xml_versions)
     xmlschema = etree.XMLSchema(xmlschema_doc)
-    buffer = StringIO.StringIO(rendered)
+    buffer = StringIO(rendered) if sys.version_info.major == 2 else BytesIO(rendered)
     doc = etree.parse(buffer)
     assert xmlschema.validate(doc)
 
@@ -145,6 +151,6 @@ def test_extract_against_schema(parameter):
 
     xmlschema_doc = etree.parse(schema_xml_extract)
     xmlschema = etree.XMLSchema(xmlschema_doc)
-    buffer = StringIO.StringIO(rendered)
+    buffer = StringIO(rendered) if sys.version_info.major == 2 else BytesIO(rendered)
     doc = etree.parse(buffer)
     xmlschema.assertValid(doc)
