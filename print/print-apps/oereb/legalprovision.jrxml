@@ -26,7 +26,7 @@
 	<field name="Title" class="java.lang.String"/>
 	<field name="OfficialNumber" class="java.lang.String"/>
 	<field name="OfficialTitle" class="java.lang.String"/>
-	<field name="Field_1" class="java.lang.String"/>
+	<field name="Abbreviation" class="java.lang.String"/>
 	<detail>
 		<band height="40">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true" hyperlinkType="Reference" hyperlinkTarget="Blank">
@@ -56,19 +56,7 @@
 					<font fontName="Cadastra" size="8"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{Title}.equals("") ? ($F{OfficialTitle}.equals("") ? "-" :   $F{OfficialTitle}): $F{Title})]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="30" width="300" height="10" uuid="eacc84c8-ed34-42dd-8938-0c6d1686eaf0">
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-				</reportElement>
-				<textElement>
-					<font fontName="Cadastra" size="6"/>
-					<paragraph lineSpacing="Single" leftIndent="8" spacingBefore="0" spacingAfter="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($F{OfficialNumber}.equals("") || $F{OfficialNumber} == null) ? null : $F{OfficialNumber}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{Title}.equals("") ? ($F{OfficialTitle}.equals("") ? "-" :   $F{OfficialTitle}): $F{Title}) + (($F{Abbreviation}.equals("") || $F{Abbreviation} == null) ? "" : " (" + $F{Abbreviation} + ")") + (($F{OfficialNumber}.equals("") || $F{OfficialNumber} == null) ? "" : ", " + $F{OfficialNumber})]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
