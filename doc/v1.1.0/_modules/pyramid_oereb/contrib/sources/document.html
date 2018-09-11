@@ -293,6 +293,9 @@
         <span class="c1"># Create related office record</span>
         <span class="n">office</span> <span class="o">=</span> <span class="n">OfficeRecord</span><span class="p">({</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">authority</span><span class="p">},</span> <span class="n">office_at_web</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">authority_url</span><span class="p">)</span>
 
+        <span class="c1"># Check for available abbreviation</span>
+        <span class="n">abbreviation</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">abbreviation</span><span class="p">}</span> <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">abbreviation</span> <span class="k">else</span> <span class="kc">None</span>
+
         <span class="c1"># Get files</span>
         <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">document</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
@@ -301,7 +304,7 @@
                          <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_document_title</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">f</span><span class="p">),</span>
                          <span class="s1">&#39;responsible_office&#39;</span><span class="p">:</span> <span class="n">office</span><span class="p">,</span>
                          <span class="s1">&#39;text_at_web&#39;</span><span class="p">:</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">href</span><span class="p">},</span>
-                         <span class="s1">&#39;abbreviation&#39;</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">abbreviation</span><span class="p">,</span>
+                         <span class="s1">&#39;abbreviation&#39;</span><span class="p">:</span> <span class="n">abbreviation</span><span class="p">,</span>
                          <span class="s1">&#39;official_number&#39;</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">number</span><span class="p">,</span>
                          <span class="s1">&#39;official_title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_mapped_value</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="s1">&#39;official_title&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
                          <span class="s1">&#39;canton&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_canton</span><span class="p">,</span>
