@@ -41,6 +41,11 @@ These are the new configuration options for your project (yml file):
   * ``layer_index``
   * ``layer_opacity``
 
+* within the ``print`` section:
+
+  * ``furtherInformationText`` was removed. This information is not existing any longer regarding to changed
+    federal specification for the static extract.
+
 See the `pyramid_oereb_standard yml template <https://github.com/camptocamp/pyramid_oereb/blob/v1.2.1/pyramid_oereb/standard/pyramid_oereb.yml.mako>`__
 for the correct style of the configuration and an explanation of the new attributes.
 

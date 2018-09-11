@@ -72,12 +72,6 @@ class Renderer(JsonRenderer):
 
         print_config = Config.get('print', {})
 
-        extract_as_dict['furtherInformationText'] = print_config.get(
-            'furtherInformationText', {}
-        ).get(
-            self._language, '-'
-        )
-
         extract_as_dict['Display_RealEstate_SubunitOfLandRegister'] = print_config.get(
             'display_real_estate_subunit_of_land_register', True
         )
