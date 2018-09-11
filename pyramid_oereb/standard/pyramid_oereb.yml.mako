@@ -328,10 +328,10 @@ pyramid_oereb:
     # This is a multilingual value. In the minimum, the value for the default language has to be defined.
     base_data:
         text:
-          de: Daten der amtlichen Vermessung. Stand der amtlichen Vermessung: {0}.
-          fr: Données de la mensuration officielle, état de la mensuration officielle: {0}.
-          it: Dati della misurazione ufficiale. Stato della misurazione ufficiale: {0}.
-          rm: Datas da la mesiraziun uffiziala. Versiun dal mesiraziun uffiziala {0}.
+          de: "Daten der amtlichen Vermessung. Stand der amtlichen Vermessung: {0}."
+          fr: "Données de la mensuration officielle, état de la mensuration officielle: {0}."
+          it: "Dati della misurazione ufficiale. Stato della misurazione ufficiale: {0}."
+          rm: "Datas da la mesiraziun uffiziala. Versiun dal mesiraziun uffiziala: {0}."
         methods:
           date: pyramid_oereb.standard.hook_methods.get_surveying_data_update_date
           provider:  pyramid_oereb.standard.hook_methods.get_surveying_data_provider
