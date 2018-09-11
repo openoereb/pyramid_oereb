@@ -112,7 +112,8 @@ def test_get_base_data():
     date = datetime.datetime(2017, 2, 1)
     base_data = Config.get_base_data(date)
     assert isinstance(base_data, dict)
-    assert base_data.get('de') == 'Daten der amtlichen Vermessung, Stand 01.02.2017.'
+    assert base_data.get('de') == 'Daten der amtlichen Vermessung. Stand der amtlichen ' \
+                                  'Vermessung: 01.02.2017.'
 
 
 def test_get_oereblex_config():
