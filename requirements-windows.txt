@@ -1,2 +1,2 @@
-# wheels/Shapely-1.6.4.post1-cp27-cp27m-win32.whl
+wheels/Shapely-1.6.4.post1-cp27-cp27m-win32.whl
 -r requirements.txt
