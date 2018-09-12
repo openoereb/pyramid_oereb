@@ -548,6 +548,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
              bool: True if the topic is available, false otherwise.
         """
         for availability in self.availabilities:
-            if real_estate.fosnr == availability.fosnr and not availability.available:
+            if int(real_estate.fosnr) == int(availability.fosnr) and not availability.available:
                 return False
         return True
