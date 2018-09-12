@@ -72,12 +72,6 @@ class Renderer(JsonRenderer):
 
         print_config = Config.get('print', {})
 
-        extract_as_dict['furtherInformationText'] = print_config.get(
-            'furtherInformationText', {}
-        ).get(
-            self._language, '-'
-        )
-
         extract_as_dict['Display_RealEstate_SubunitOfLandRegister'] = print_config.get(
             'display_real_estate_subunit_of_land_register', True
         )
@@ -164,7 +158,6 @@ class Renderer(JsonRenderer):
                 self._localised_text(theme, 'Text')
         self._flatten_object(extract_dict, 'PLRCadastreAuthority')
         self._flatten_object(extract_dict, 'RealEstate')
-        del extract_dict['RealEstate_Limit']
         if 'Image' in extract_dict.get('RealEstate_Highlight', {}):
             del extract_dict['RealEstate_Highlight']['Image']
 
@@ -178,7 +171,7 @@ class Renderer(JsonRenderer):
         main_page_basemap = {
             'type': 'wms',
             'styles': 'default',
-            'opacity': extract_dict['RealEstate_PlanForLandRegisterMainPage'].get('LayerOpacity', 0.6),
+            'opacity': extract_dict['RealEstate_PlanForLandRegisterMainPage'].get('layerOpacity', 0.6),
             'baseURL': base_url,
             'layers': main_page_params['LAYERS'][0].split(','),
             'imageFormat': 'image/png',
@@ -189,7 +182,7 @@ class Renderer(JsonRenderer):
         basemap = {
             'type': 'wms',
             'styles': 'default',
-            'opacity': extract_dict['RealEstate_PlanForLandRegister'].get('LayerOpacity', 0.6),
+            'opacity': extract_dict['RealEstate_PlanForLandRegister'].get('layerOpacity', 0.6),
             'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
             'layers': params['LAYERS'][0].split(','),
             'imageFormat': 'image/png',
@@ -220,7 +213,7 @@ class Renderer(JsonRenderer):
             restriction_on_landownership['baseLayers'] = {
                 'layers': [{
                     'type': 'wms',
-                    'opacity': restriction_on_landownership['Map'].get('LayerOpacity', 0.6),
+                    'opacity': restriction_on_landownership['Map'].get('layerOpacity', 0.6),
                     'styles': 'default',
                     'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
                     'layers': params['LAYERS'][0].split(','),

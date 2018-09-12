@@ -112,7 +112,8 @@ def test_get_base_data():
     date = datetime.datetime(2017, 2, 1)
     base_data = Config.get_base_data(date)
     assert isinstance(base_data, dict)
-    assert base_data.get('de') == 'Daten der amtlichen Vermessung, Stand 01.02.2017.'
+    assert base_data.get('de') == 'Daten der amtlichen Vermessung. Stand der amtlichen ' \
+                                  'Vermessung: 01.02.2017.'
 
 
 def test_get_oereblex_config():
@@ -149,3 +150,26 @@ def test_get_real_estate_main_page_config():
                                                                            '1065000,2850000,1300000'
     assert plan_for_land_register_main_page_config.get('layer_index') == 2
     assert plan_for_land_register_main_page_config.get('layer_opacity') == 0.5
+
+
+def test_get_real_estate_type_by_mapping():
+    Config._config = None
+    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
+
+    mapping = Config.get_real_estate_type_by_mapping('Liegenschaft')
+    assert mapping == 'RealEstate'
+
+    mapping = Config.get_real_estate_type_by_mapping('Baurecht')
+    assert mapping == 'Distinct_and_permanent_rights.BuildingRight'
+
+    mapping = Config.get_real_estate_type_by_mapping('Quellenrecht')
+    assert mapping == 'Distinct_and_permanent_rights.right_to_spring_water'
+
+    mapping = Config.get_real_estate_type_by_mapping('Konzessionsrecht')
+    assert mapping == 'Distinct_and_permanent_rights.concession'
+
+    mapping = Config.get_real_estate_type_by_mapping('weitere')
+    assert mapping == 'Distinct_and_permanent_rights.other'
+
+    mapping = Config.get_real_estate_type_by_mapping('Bergwerk')
+    assert mapping == 'Mineral_rights'

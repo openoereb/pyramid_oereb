@@ -186,7 +186,7 @@ class Renderer(Base):
             'PlanForLandRegisterMainPage': self.format_map(real_estate.plan_for_land_register_main_page)
         }
 
-        if self._params.geometry is not None:
+        if self._params.geometry:
             real_estate_dict['Limit'] = self.from_shapely(real_estate.limit)
 
         if real_estate.number is not None:
@@ -490,8 +490,8 @@ class Renderer(Base):
             map_dict['OtherLegend'] = [
                 self.format_legend_entry(legend_entry) for legend_entry in other_legend]
 
-        map_dict['LayerIndex'] = map_.layer_index
-        map_dict['LayerOpacity'] = map_.layer_opacity
+        map_dict['layerIndex'] = map_.layer_index
+        map_dict['layerOpacity'] = map_.layer_opacity
         if map_.min_NS03 is not None:
             map_dict['min_NS03'] = self.format_point(map_.min_NS03, 'EPSG:21781')
         if map_.max_NS03 is not None:

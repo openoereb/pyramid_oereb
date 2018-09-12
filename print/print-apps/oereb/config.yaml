@@ -249,7 +249,6 @@ templates:
                                 strokeColor: "#e60000"
                                 strokeOpacity: 0.60
                                 strokeWidth: 5
-            furtherInformationText: !string {}
 
         processors:
         - !reportBuilder # compile all reports in current directory
