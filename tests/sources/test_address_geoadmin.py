@@ -4,6 +4,7 @@ import sys
 import pytest
 import requests_mock
 from requests import HTTPError
+from shapely.geometry import Point
 
 from pyramid_oereb.lib.records.address import AddressRecord
 from pyramid_oereb.contrib.sources.address import AddressGeoAdminSource
@@ -86,7 +87,6 @@ def test_read(status_code, config):
             assert address.street_number == u'36'
             assert address.zip_code == 4410
             assert address.street_name == u'Muehlemattstrasse'
-            if sys.version_info.major == 2:
-                assert address.geom == 'POINT(2621857.987 1259852.8231)'
-            else:
-                assert address.geom == 'POINT(2621857.9869956686 1259852.8231037352)'
+            assert isinstance(address.geom, Point)
+            assert address.geom.x == 2621857.9869956686
+            assert address.geom.y == 1259852.8231037352
