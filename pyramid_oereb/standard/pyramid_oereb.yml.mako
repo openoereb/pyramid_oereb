@@ -260,8 +260,8 @@ pyramid_oereb:
         # Alternatively, you can use the search service of the GeoAdmin API to look up the real estate by
         # address. Replace the configuration above with the following lines:
         # class: pyramid_oereb.lib.sources.address.AddressGeoAdminSource
-        # # The referer to use.
-        # referer: http://canton.ch
+        # # Optional referer to use.
+        # referer: http://my.referer.ch
         # params:
           # # URL of the GeoAdmin API SearchServer
           # geoadmin_search_api: https://api3.geo.admin.ch/rest/services/api/SearchServer

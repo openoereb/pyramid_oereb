@@ -180,7 +180,7 @@ class PlrWebservice(object):
             addresses = reader.read(localisation, int(postalcode), number)
             if len(addresses) == 0:
                 return HTTPNoContent()
-            geometry = 'SRID={srid};{wkt}'.format(srid=Config.get('srid'), wkt=addresses[0].geom)
+            geometry = 'SRID={srid};{wkt}'.format(srid=Config.get('srid'), wkt=addresses[0].geom.wkt)
             records = self._real_estate_reader.read(**{'geometry': geometry})
             return self.__get_egrid_response__(records)
         else:
