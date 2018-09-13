@@ -19,7 +19,7 @@ class AddressGeoAdminSource(AddressBaseSource):
         Keyword Args:
             geoadmin_search_api (uri): Url of the GeoAdmin API's search service. (**required**)
             origins (str or list of str): Filter results by origin. Defaults to *address*. (**optional**)
-            referer (str): Referer to use.
+            referer (str): Referer to use. (**optional**)
             proxies (dict): Proxy definition according to
                 http://docs.python-requests.org/en/master/user/advanced/#proxies. (**optional**)
         """
