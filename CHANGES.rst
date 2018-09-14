@@ -2,6 +2,13 @@
 Changelog
 ---------
 
+1.2.2
+*****
+- Further bug-fixes for oereb service versoin 1.0, notably regarding schema conformity
+  and better support for other OS versions.
+- New configuration parameter type_mapping in real_estate, which allows to configuratively
+  define the texts to be used for realestate types (optional parameter).
+
 1.2.1
 *****
 - Bug-fixes for service version 1.0 (pyramid_oereb 1.2.0),
