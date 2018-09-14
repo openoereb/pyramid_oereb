@@ -59,7 +59,7 @@ install: $(PYTHON_VENV)
 	touch $@
 
 $(SPHINXBUILD): .venv/requirements-timestamp
-	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install Sphinx sphinxcontrib-napoleon sphinx_rtd_theme
+	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install "Sphinx<1.8" sphinxcontrib-napoleon sphinx_rtd_theme
 
 .PHONY: doc
 doc: $(SPHINXBUILD)
