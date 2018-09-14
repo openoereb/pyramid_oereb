@@ -84,6 +84,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-2-2">Version 1.2.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-2-1">Version 1.2.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#new-configuration-options-in-yml">New configuration options in yml</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mapfish-print">MapFish Print</a></li>
@@ -175,6 +176,13 @@
 <p>This section will give you hints how to handle version migration. Since the project moves forward it will
 introduce differences in the yml configuration file. So it would not be enough to simply install the newest
 version. Often a version upgrade changes or adds parameters which are used.</p>
+<div class="section" id="version-1-2-2">
+<h2>Version 1.2.2<a class="headerlink" href="#version-1-2-2" title="Permalink to this headline">¶</a></h2>
+<p>The version 1.2.2 is a bug-fix release for <a class="reference internal" href="#changes-version-1-2-1"><span class="std std-ref">Version 1.2.1</span></a>. You do not need to change your configuration
+or schema. However, you may wish to use the new optional configuration parameter <code class="docutils literal"><span class="pre">type_mapping</span></code> within
+<code class="docutils literal"><span class="pre">real_estate</span></code>, as this allows you to define the texts to be used for the types in the configuration, instead of
+needing to have them in the data.</p>
+</div>
 <div class="section" id="version-1-2-1">
 <span id="changes-version-1-2-1"></span><h2>Version 1.2.1<a class="headerlink" href="#version-1-2-1" title="Permalink to this headline">¶</a></h2>
 <p>The version 1.2.1 is the first stable version that implements the new federal specification (published november 2017).
@@ -819,6 +827,7 @@ and why please have a detailed look at the documentation of the used package
             <dd><a href="v1.0.1/index.html">v1.0.1</a></dd>
             <dd><a href="v1.1.0/index.html">v1.1.0</a></dd>
             <dd><a href="v1.2.1/changes.html">v1.2.1</a></dd>
+            <dd><a href="v1.2.2/changes.html">v1.2.2</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
