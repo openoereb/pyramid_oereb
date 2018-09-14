@@ -7,6 +7,14 @@ This section will give you hints how to handle version migration. Since the proj
 introduce differences in the yml configuration file. So it would not be enough to simply install the newest
 version. Often a version upgrade changes or adds parameters which are used.
 
+Version 1.2.2
+-------------
+
+The version 1.2.2 is a bug-fix release for :ref:`changes-version-1.2.1`. You do not need to change your configuration
+or schema. However, you may wish to use the new optional configuration parameter ``type_mapping`` within
+``real_estate``, as this allows you to define the texts to be used for the types in the configuration, instead of
+needing to have them in the data.
+
 .. _changes-version-1.2.1:
 
 Version 1.2.1
