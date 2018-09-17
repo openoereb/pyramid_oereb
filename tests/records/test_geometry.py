@@ -3,7 +3,8 @@
 import datetime
 import math
 
-from shapely.geometry import Polygon, MultiPolygon, LineString, Point, MultiPoint
+from shapely.geometry import Polygon, MultiPolygon, LineString, Point, MultiPoint, MultiLineString, \
+    GeometryCollection
 
 import pytest
 
@@ -25,6 +26,70 @@ def test_init():
     assert isinstance(record.geom, Polygon)
     assert record.public_law_restriction is None
     assert record.office is None
+
+
+@pytest.mark.parametrize('geom,dim', [
+    (Point(0, 0), 0),
+    (MultiPoint([Point(0, 0)]), 0),
+    (LineString([(0, 0), (1, 1)]), 1),
+    (MultiLineString([LineString([(0, 0), (1, 1)])]), 1),
+    (Polygon([(0, 0), (1, 1), (1, 0)]), 2),
+    (MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]), 2),
+    (GeometryCollection([Polygon([(0, 0), (1, 1), (1, 0)])]), 3),
+    ('nogeom', -1)
+])
+def test_geom_dim(geom, dim):
+    assert GeometryRecord.geom_dim(geom) == dim
+
+
+@pytest.mark.parametrize('input_geom,result,extracted', [
+    (
+        Point(0, 0),
+        Point(0, 0),
+        Point(0, 0)
+    ),
+    (
+        Point(0, 0),
+        GeometryCollection([
+            Point(0, 0),
+            LineString([(0, 0), (1, 1)]),
+            Polygon([(0, 0), (1, 1), (1, 0)])
+        ]),
+        MultiPoint([Point(0, 0)])
+    ),
+    (
+        Point(0, 0),
+        GeometryCollection([MultiPoint([Point(0, 0)])]),
+        MultiPoint([Point(0, 0)])
+    ),
+    (
+        LineString([(0, 0), (1, 1)]),
+        GeometryCollection([
+            Point(0, 0),
+            LineString([(0, 0), (1, 1)]),
+            Polygon([(0, 0), (1, 1), (1, 0)])
+        ]),
+        LineString([(0, 0), (1, 1)])
+    ),
+    (
+        Polygon([(0, 0), (1, 1), (1, 0)]),
+        GeometryCollection([
+            Point(0, 0),
+            LineString([(0, 0), (1, 1)]),
+            Polygon([(0, 0), (1, 1), (1, 0)])
+        ]),
+        Polygon([(0, 0), (1, 1), (1, 0)])
+    )
+])
+def test_extract_collection(input_geom, result, extracted):
+    law_status_record = LawStatusRecord("runningModifications", {u'de': u'BlaBla'})
+    geometry_record = GeometryRecord(
+        law_status_record,
+        datetime.date(1985, 8, 29),
+        input_geom,
+        'test'
+    )
+    assert geometry_record._extract_collection(result) == extracted
 
 
 @pytest.mark.parametrize(
