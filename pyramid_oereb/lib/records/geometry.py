@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 import logging
 from datetime import datetime
+
+from shapely.ops import linemerge, cascaded_union
+
 from pyramid_oereb.lib.config import Config
-from shapely.geometry import Point, MultiPoint, LineString, Polygon
+from shapely.geometry import Point, MultiPoint, LineString, Polygon, GeometryCollection, MultiLineString, \
+    MultiPolygon
 
 log = logging.getLogger(__name__)
 
@@ -50,6 +54,63 @@ class GeometryRecord(object):
         """bool: True if geometry is published."""
         return not self.published_from > datetime.now().date()
 
+    @staticmethod
+    def geom_dim(geom):
+        """
+        Returns the topological dimension of the specified geometry.
+
+        Args:
+            geom (shapely.geometry.base.BaseGeometry): The geometry to be evaluated.
+
+        Returns:
+            int: The geometry's topological dimension.
+        """
+        if isinstance(geom, Point) or isinstance(geom, MultiPoint):
+            return 0
+        if isinstance(geom, LineString) or isinstance(geom, MultiLineString):
+            return 1
+        if isinstance(geom, Polygon) or isinstance(geom, MultiPolygon):
+            return 2
+        if isinstance(geom, GeometryCollection):
+            return 3
+        else:
+            return -1
+
+    @property
+    def dim(self):
+        """int: The topological dimension."""
+        return self.geom_dim(self.geom)
+
+    def _extract_collection(self, result):
+        """
+        Extracts all geometries with the same topological dimension as the input geometry from a collection.
+
+        Args:
+            result (shapely.geometry.base.BaseGeometry): The intersection result.
+
+        Returns:
+            shapely.geometry.base.BaseGeometry: The extracted geometries with matching topological dimension.
+        """
+        if isinstance(result, GeometryCollection):
+            matching_geometries = list()
+            for part in result:
+                if self.geom_dim(part) == self.dim:
+                    matching_geometries.append(part)
+            if self.dim == 0:
+                points = list()
+                for geom in matching_geometries:
+                    if isinstance(geom, Point):
+                        points.append(geom)
+                    elif isinstance(geom, MultiPoint):
+                        points.extend(geom.geoms)
+                return MultiPoint(points)
+            elif self.dim == 1:
+                return linemerge(matching_geometries)
+            elif self.dim == 2:
+                return cascaded_union(matching_geometries)
+        else:
+            return result
+
     def calculate(self, real_estate, min_length, min_area, length_unit, area_unit):
         """
         Entry method for calculation. It checks if the geometry type of this instance is a geometry
@@ -70,7 +131,7 @@ class GeometryRecord(object):
         polygon_types = geometry_types.get('polygon').get('types')
         point_types = geometry_types.get('point').get('types')
         if self.published:
-            result = self.geom.intersection(real_estate.limit)
+            result = self._extract_collection(self.geom.intersection(real_estate.limit))
             # differentiate between Points and MultiPoint
             if self.geom.type not in point_types + line_types + polygon_types:
                 supported_types = ', '.join(point_types + line_types + polygon_types)
@@ -79,7 +140,7 @@ class GeometryRecord(object):
                         type=self.geom.type, types=supported_types
                     )
                 )
-            if self.geom.type in point_types:
+            elif self.geom.type in point_types:
                 if result.type == point_types[1]:
                     # If it is a multipoint make a list and count the number of elements in the list
                     self._nr_of_points = len(list(result.geoms))
