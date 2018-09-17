@@ -1272,6 +1272,30 @@ collection which has to be unpacked first in case of collection.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="pyramid_oereb.lib.records.geometry.GeometryRecord.dim">
+<code class="descname">dim</code><a class="headerlink" href="#pyramid_oereb.lib.records.geometry.GeometryRecord.dim" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The topological dimension.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.lib.records.geometry.GeometryRecord.geom_dim">
+<em class="property">static </em><code class="descname">geom_dim</code><span class="sig-paren">(</span><em>geom</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/geometry.html#GeometryRecord.geom_dim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.geometry.GeometryRecord.geom_dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the topological dimension of the specified geometry.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>geom</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The geometry to be evaluated.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The geometry&#8217;s topological dimension.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="pyramid_oereb.lib.records.geometry.GeometryRecord.length_share">
 <code class="descname">length_share</code><a class="headerlink" href="#pyramid_oereb.lib.records.geometry.GeometryRecord.length_share" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>float or None</em> &#8211; Returns the length of this geometry.</p>
@@ -1933,6 +1957,7 @@ should be append to the list.</td>
             <dd><a href="../v1.1.0/core/records.html">v1.1.0</a></dd>
             <dd><a href="../v1.2.1/core/records.html">v1.2.1</a></dd>
             <dd><a href="../v1.2.2/core/records.html">v1.2.2</a></dd>
+            <dd><a href="../v1.2.3/core/records.html">v1.2.3</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
