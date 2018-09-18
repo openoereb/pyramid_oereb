@@ -5,7 +5,7 @@ import logging
 import datetime
 import yaml
 import collections
-from io import open
+from io import open as ioopen
 from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
@@ -39,7 +39,7 @@ def parse(cfg_file, cfg_section, c2ctemplate_style=False):
             import c2c.template
             content = c2c.template.get_config(cfg_file)
         else:
-            with open(cfg_file, encoding='utf-8') as f:
+            with ioopen(cfg_file, encoding='utf-8') as f:
                 content = yaml.safe_load(f.read())
     except IOError as e:
         e.strerror = '{0}{1} \'{2}\', Current working directory is {3}'.format(
