@@ -40,6 +40,72 @@ def geometry():
     }
 
 
+@pytest.fixture()
+def getSameEntryInList(reference, objects):
+    sameObject = None
+
+    # List are not supported
+    if isinstance(reference, list):
+        for obj in objects:
+            if reference == obj:
+                return obj
+
+    # Dict reference
+    elif isinstance(reference, dict):
+        for obj in objects:
+            if isinstance(obj, dict):
+                sameObject = obj
+                for key in reference:
+                    if key not in obj or not deepCompare(reference[key], obj[key], False):
+                        sameObject = None
+                        break
+            if sameObject is not None:
+                return sameObject
+
+    # Naked value reference
+    else:
+        for obj in objects:
+            if obj == reference:
+                return obj
+
+    return None
+
+
+@pytest.fixture()
+def deepCompare(value, valueToCompare, verbose=True):
+    match = True
+    # Go inside dict to compare values inside
+    if isinstance(value, dict):
+        if not isinstance(valueToCompare, dict):
+            match = False
+        else:
+            for key in value:
+                if not deepCompare(value[key], valueToCompare[key]):
+                    match = False
+                    break
+
+    # Go inside list to compare values inside
+    elif isinstance(value, list):
+        if not isinstance(valueToCompare, list):
+            match = False
+        else:
+            for index, element in enumerate(value):
+                entry = value[index]
+                # Index can change try to find the same entry
+                matchEntry = getSameEntryInList(entry, valueToCompare)
+                if not deepCompare(entry, matchEntry):
+                    match = False
+                    break
+
+    # Compare values
+    elif value != valueToCompare:
+        match = False
+
+    if not match and verbose and valueToCompare is not None:
+        print(u"Error with value {} expected {}".format(value, valueToCompare))
+    return match
+
+
 def test_legend():
     renderer = Renderer(DummyRenderInfo())
     pdf_to_join = set()
@@ -54,7 +120,10 @@ def test_mapfish_print_entire_extract():
     pdf_to_join = set()
     printable_extract = extract()
     renderer.convert_to_printable_extract(printable_extract, geometry(), pdf_to_join)
-    f = open('/tmp/printable_extract.json', 'w')
-    f.write(json.dumps(printable_extract))
-    f.close()
-    assert printable_extract == expected_printable_extract()
+    # Uncomment to print the result
+    # f = open('/tmp/printable_extract.json', 'w')
+    # f.write(json.dumps(printable_extract))
+    # f.close()
+    assert deepCompare(printable_extract, expected_printable_extract())
+    # Do it twice, to test all keys in each reports
+    assert deepCompare(expected_printable_extract(), printable_extract)
