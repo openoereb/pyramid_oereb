@@ -312,7 +312,7 @@
 		</band>
 		<band height="30">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="0" y="15" width="230" height="10" isPrintWhenDetailOverflows="true" uuid="a362c07e-fbe0-4a89-917b-bb72fa58f73c">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>

@@ -207,8 +207,6 @@
 				<reportElement positionType="FixRelativeToBottom" x="445" y="375" width="48" height="10" uuid="c75cc18b-c481-4a35-877e-1c17e88901b1">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.width" value="mm"/>
-					<printWhenExpression><![CDATA[!"NrOfPoints".equals($F{Geom_Type}) && !"LengthShare".equals($F{Geom_Type})]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Cadastra" size="6.5"/>
@@ -261,14 +259,18 @@
 				<subreportExpression><![CDATA[$P{northArrowSubReport}]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="17">
+		<band height="19">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="493" height="17" isPrintWhenDetailOverflows="true" uuid="8ef5ca32-4156-4f98-ba33-972d48815976">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="493" height="19" isPrintWhenDetailOverflows="true" uuid="8ef5ca32-4156-4f98-ba33-972d48815976">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<box>
+				<box topPadding="3">
 					<topPen lineWidth="0.2"/>
 				</box>
 				<textElement>
@@ -277,8 +279,11 @@
 				<textFieldExpression><![CDATA[$R{LegendLabel}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" x="193" y="0" width="299" height="17" isRemoveLineWhenBlank="true" uuid="887d710f-c4a0-4c31-b96d-65b98a6ce66b">
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				<reportElement stretchType="RelativeToTallestObject" x="193" y="3" width="299" height="16" isRemoveLineWhenBlank="true" uuid="887d710f-c4a0-4c31-b96d-65b98a6ce66b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<subreportParameter name="Geom_Type">
 					<subreportParameterExpression><![CDATA[$F{Geom_Type}]]></subreportParameterExpression>
@@ -287,22 +292,18 @@
 				<subreportExpression><![CDATA["topiclegend.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="24">
-			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="193" y="0" width="299" height="17" isRemoveLineWhenBlank="true" uuid="f88a6ee0-42e5-4d2c-b1ab-9abb4f950664">
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-				</reportElement>
-				<dataSourceExpression><![CDATA[$F{OtherLegendDataSource}]]></dataSourceExpression>
-				<subreportExpression><![CDATA["topicotherlegend.jasper"]]></subreportExpression>
-			</subreport>
+		<band height="19">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField isBlankWhenNull="false">
-				<reportElement x="0" y="0" width="493" height="24" uuid="c7bafe02-64a5-407f-b511-dde165687582">
+				<reportElement x="0" y="0" width="493" height="19" uuid="c7bafe02-64a5-407f-b511-dde165687582">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
 				</reportElement>
-				<box>
+				<box topPadding="3">
 					<topPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -313,6 +314,16 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{BBOXLegendLabel}]]></textFieldExpression>
 			</textField>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="193" y="3" width="299" height="16" isRemoveLineWhenBlank="true" uuid="f88a6ee0-42e5-4d2c-b1ab-9abb4f950664">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$F{OtherLegendDataSource}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["topicotherlegend.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 		<band height="19">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
@@ -324,7 +335,7 @@
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<box>
+				<box topPadding="3">
 					<topPen lineWidth="0.2"/>
 				</box>
 				<textElement>
@@ -333,11 +344,13 @@
 				<textFieldExpression><![CDATA[$R{CompleteLegendLabel}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true" hyperlinkType="Reference" hyperlinkTarget="Blank">
-				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="193" y="0" width="300" height="17" forecolor="#4C8FBA" uuid="a70d3e5c-bc32-4737-ba76-60f6cc56a8e2">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="193" y="0" width="300" height="19" forecolor="#4C8FBA" uuid="a70d3e5c-bc32-4737-ba76-60f6cc56a8e2">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
 				</reportElement>
+				<box topPadding="3" bottomPadding="3"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Cadastra" size="6"/>
 					<paragraph leftIndent="8" spacingBefore="0" spacingAfter="2"/>
@@ -348,9 +361,12 @@
 		</band>
 		<band height="19">
 			<subreport>
-				<reportElement mode="Transparent" x="193" y="0" width="300" height="17" isRemoveLineWhenBlank="true" uuid="aea2a6e2-1814-4099-b8e4-6e588177db99">
+				<reportElement mode="Transparent" x="193" y="3" width="300" height="16" isRemoveLineWhenBlank="true" uuid="aea2a6e2-1814-4099-b8e4-6e588177db99">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<subreportParameter name="TOC_Appendices">
 					<subreportParameterExpression><![CDATA[$P{TOC_Appendices}]]></subreportParameterExpression>
@@ -364,9 +380,12 @@
 			<textField>
 				<reportElement x="0" y="0" width="493" height="19" uuid="bc365be9-27bf-41cb-8f51-82a3b7af3eda">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
 				</reportElement>
-				<box>
+				<box topPadding="3">
 					<topPen lineWidth="0.2"/>
 				</box>
 				<textElement>
@@ -375,10 +394,16 @@
 				<textFieldExpression><![CDATA[$R{LegalProvisionLabel}]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="30">
+		<band height="19">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<subreport>
-				<reportElement mode="Transparent" x="193" y="0" width="300" height="30" isRemoveLineWhenBlank="true" uuid="1d3ac1d8-7b5e-4caa-bcc0-cf857dddc651">
+				<reportElement mode="Transparent" x="193" y="3" width="300" height="16" isRemoveLineWhenBlank="true" uuid="1d3ac1d8-7b5e-4caa-bcc0-cf857dddc651">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<subreportParameter name="TOC_Appendices">
 					<subreportParameterExpression><![CDATA[$P{TOC_Appendices}]]></subreportParameterExpression>
@@ -393,8 +418,12 @@
 				<reportElement x="0" y="0" width="493" height="19" uuid="8f553e43-b8da-410e-b472-0116a8793b6d">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<box>
+				<box topPadding="3">
 					<topPen lineWidth="0.2"/>
 				</box>
 				<textElement>
@@ -403,10 +432,16 @@
 				<textFieldExpression><![CDATA[$R{LegalBasesLabel}]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="30">
+		<band height="19">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<subreport>
-				<reportElement mode="Transparent" x="193" y="0" width="300" height="30" isRemoveLineWhenBlank="true" uuid="1d3ac1d8-7b5e-4caa-bcc0-cf857dddc651">
+				<reportElement mode="Transparent" x="193" y="3" width="300" height="16" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="1d3ac1d8-7b5e-4caa-bcc0-cf857dddc651">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<subreportParameter name="TOC_Appendices">
 					<subreportParameterExpression><![CDATA[$P{TOC_Appendices}]]></subreportParameterExpression>
@@ -418,12 +453,15 @@
 				<subreportExpression><![CDATA["legalprovision.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
-				<reportElement x="0" y="0" width="493" height="24" uuid="94ac5c43-32f0-4769-ba84-96a56cb660b6">
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				<reportElement x="0" y="0" width="493" height="19" uuid="94ac5c43-32f0-4769-ba84-96a56cb660b6">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
 				</reportElement>
-				<box>
+				<box topPadding="3">
 					<topPen lineWidth="0.2"/>
 				</box>
 				<textElement>
