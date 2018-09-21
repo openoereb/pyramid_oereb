@@ -582,6 +582,7 @@ pyramid_oereb:
       law_status:
         in_force: inForce
         running_modifications: runningModifications
+      download: https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip
 
     - name: plr116
       code: ContaminatedSites
