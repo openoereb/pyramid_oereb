@@ -45,10 +45,10 @@ class LegendEntry(object):
                         self._session.add(instance)
                         count += 1
 
-    def _parse_symbol(self, element, property):
-        for prop in element:
-            if get_tag(prop) == property:
-                for binblbox in prop:
+    def _parse_symbol(self, element, prop):
+        for p in element:
+            if get_tag(p) == prop:
+                for binblbox in p:
                     if get_tag(binblbox) == self.TAG_SYMBOL_BIN:
                         return binblbox.text
         return None

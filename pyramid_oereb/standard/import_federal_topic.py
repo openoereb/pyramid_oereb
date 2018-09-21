@@ -83,6 +83,14 @@ def run():
         default=3,
         help='The decimal precision of generated arc coordinates (default is: 3).'
     )
+    parser.add_option(
+        '-d', '--temp-dir',
+        dest='tmp_dir',
+        metavar='TEMP_DIR',
+        type='string',
+        default='/tmp',
+        help='The temporary working directory. (default is /tmp)'
+    )
 
     options, args = parser.parse_args()
     if not options.config:
@@ -97,7 +105,8 @@ def run():
         options.topic_code,
         section=options.section,
         arc_max_diff=options.arc_max_diff,
-        arc_precision=options.arc_precision
+        arc_precision=options.arc_precision,
+        tmp_dir=options.tmp_dir
     )
 
     if download:

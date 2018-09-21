@@ -54,7 +54,7 @@ class FederalTopic(object):
     TAG_BASE_REFINEMENT = 'OeREBKRMtrsfr_V1_1.Transferstruktur.GrundlageVerfeinerung'
 
     def __init__(self, configuration_file, topic_code, section='pyramid_oereb', arc_max_diff=0.001,
-                 arc_precision=3):
+                 arc_precision=3, tmp_dir='/tmp'):
         """
 
         Args:
@@ -64,10 +64,11 @@ class FederalTopic(object):
             arc_max_diff (float): Maximum difference between arc and line segment for stroking.
                 (default: 0.001)
             arc_precision (int): Coordinate precision for generated arc points. (default: 3)
+            tmp_dir (str): Directory used as temporary working directory. (default: '/tmp')
         """
         self._log = logging.getLogger('import_federal_topic')
         with codecs.open(configuration_file, 'r', encoding='utf-8') as f:
-            self._settings = yaml.load(f.read()).get(section)
+            self._settings = yaml.safe_load(f.read()).get(section)
         topic_settings = None
         for topic in self._settings.get('plrs'):
             if topic.get('code') == topic_code:
@@ -75,6 +76,7 @@ class FederalTopic(object):
         if topic_settings is None:
             self._log.error('Cannot find topic {0} in {1}'.format(topic_code, configuration_file))
             exit(1)
+        self._tmp_dir = tmp_dir
         self._arc_max_diff = arc_max_diff
         self._arc_precision = arc_precision
         self._topic_settings = topic_settings
@@ -307,7 +309,7 @@ class FederalTopic(object):
         """
         Downloads the federal data for the specified topic.
         """
-        file_path = '/tmp/{0}.zip'.format(self._file_id)
+        file_path = os.path.join(self._tmp_dir, '{0}.zip'.format(self._file_id))
         url = self._topic_settings.get('download')
         if url is None:
             self._log.error('Missing download URL in configuration')
@@ -335,8 +337,8 @@ class FederalTopic(object):
         """
         Extracts the downloaded data into a temporary directory.
         """
-        file_path = '/tmp/{0}.zip'.format(self._file_id)
-        zip_path = '/tmp/{0}'.format(self._file_id)
+        file_path = os.path.join(self._tmp_dir, '{0}.zip'.format(self._file_id))
+        zip_path = os.path.join(self._tmp_dir, '{0}'.format(self._file_id))
         self._log.info('Extracting {0} to {1}'.format(file_path, zip_path))
         with open(file_path, 'rb') as f:
             zip_file = zipfile.ZipFile(f)
@@ -352,7 +354,7 @@ class FederalTopic(object):
         """
         Collects the extracted files for the data import.
         """
-        path = '/tmp/{0}'.format(self._file_id)
+        path = os.path.join(self._tmp_dir, '{0}'.format(self._file_id))
         law_source = topic_source = None
         for item in os.listdir(path):
             candidate = os.path.join(path, item)
@@ -374,11 +376,11 @@ class FederalTopic(object):
         """
         Removes the temporary files and directory.
         """
-        path = '/tmp/{0}'.format(self._file_id)
-        zip = '/tmp/{0}.zip'.format(self._file_id)
-        if os.path.isfile(zip):
-            self._log.info('Deleting file {0}'.format(zip))
-            os.remove(zip)
+        path = os.path.join(self._tmp_dir, '{0}'.format(self._file_id))
+        zip_file = os.path.join(self._tmp_dir, '{0}.zip'.format(self._file_id))
+        if os.path.isfile(zip_file):
+            self._log.info('Deleting file {0}'.format(zip_file))
+            os.remove(zip_file)
         if os.path.isdir(path):
             self._log.info('Deleting folder {0}'.format(path))
             shutil.rmtree(path)
@@ -387,7 +389,7 @@ class FederalTopic(object):
         """
         Reads the data's checksum from the extracted files.
         """
-        path = '/tmp/{0}'.format(self._file_id)
+        path = os.path.join(self._tmp_dir, '{0}'.format(self._file_id))
         for item in os.listdir(path):
             candidate = os.path.join(path, item)
             if os.path.isfile(candidate):

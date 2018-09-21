@@ -7,18 +7,18 @@ def get_tag(element):
     return element.tag.split('}')[-1]
 
 
-def parse_string(element, property):
-    for prop in element:
-        if get_tag(prop) == property:
-            return prop.text
+def parse_string(element, prop):
+    for p in element:
+        if get_tag(p) == prop:
+            return p.text
     return None
 
 
-def parse_multilingual_text(element, property):
-    for prop in element:
-        if get_tag(prop) == property:
+def parse_multilingual_text(element, prop):
+    for p in element:
+        if get_tag(p) == prop:
             result = dict()
-            for multilingual_text in prop:
+            for multilingual_text in p:
                 for localization in multilingual_text:
                     for localized_text in localization:
                         language = text = None
@@ -33,10 +33,10 @@ def parse_multilingual_text(element, property):
     return None
 
 
-def parse_ref(element, property):
-    for prop in element:
-        if get_tag(prop) == property:
-            return prop.attrib['REF']
+def parse_ref(element, prop):
+    for p in element:
+        if get_tag(p) == prop:
+            return p.attrib['REF']
     return None
 
 
