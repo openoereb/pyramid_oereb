@@ -33,6 +33,9 @@ from pyramid_oereb.standard.xtf_import.view_service import ViewService
 
 
 class FederalTopic(object):
+    """
+    Download and import data for a specified federal topic.
+    """
 
     TAG_DATASECTION = 'DATASECTION'
     TAG_TRANSFER_STRUCTURE = 'OeREBKRMtrsfr_V1_1.Transferstruktur'
@@ -52,6 +55,16 @@ class FederalTopic(object):
 
     def __init__(self, configuration_file, topic_code, section='pyramid_oereb', arc_max_diff=0.001,
                  arc_precision=3):
+        """
+
+        Args:
+            configuration_file (str): Path to the configuration file to be used.
+            topic_code (str): The code of the federal topic to be updated.
+            section (str): The section within the configuration file. (default: 'pyramid_oereb')
+            arc_max_diff (float): Maximum difference between arc and line segment for stroking.
+                (default: 0.001)
+            arc_precision (int): Coordinate precision for generated arc points. (default: 3)
+        """
         self._log = logging.getLogger('import_federal_topic')
         with codecs.open(configuration_file, 'r', encoding='utf-8') as f:
             self._settings = yaml.load(f.read()).get(section)
@@ -73,6 +86,15 @@ class FederalTopic(object):
         self._data_integration_office_id = None
 
     def load(self, xtf_files, force=False):
+        """
+        Updates the data for a certain federal topic.
+
+        Args:
+            xtf_files (list of str): Files to be parsed. The first one should be the XML file containing the
+                federal laws, the second one the XTF file with the PLR data.
+            force (bool): Set to `True` to ignore the result of the checksum comparison and update the data
+                anyway.
+        """
 
         parser = etree.XMLParser(remove_comments=True)
         engine = create_engine(self._connection)
@@ -113,6 +135,17 @@ class FederalTopic(object):
             session.close()
 
     def _compare_checksum(self, session):
+        """
+        Compares the checksums within the downloaded data and the database. Returns `False` if the checksums
+        match or no checksum is available within the downloaded data. If the checksums are different or no
+        checksum is available in the database, `True` is returned.
+
+        Args:
+            session (sqlalchemy.orm.session.Session): The SQLAlchemy session for database interaction.
+
+        Returns:
+            bool: `True` if the data should be updated, `False` otherwise.
+        """
         if self._checksum is None:
             self._log.info('No checksum available for comparison. Skipping import of data. Use "--force" to '
                            'import data anyway.')
@@ -131,6 +164,12 @@ class FederalTopic(object):
             return True
 
     def _truncate_schema(self, session):
+        """
+        Truncates the tables for the specified topic.
+
+        Args:
+            session (sqlalchemy.orm.session.Session): The SQLAlchemy session for database interaction.
+        """
         models = [
             self._models.Office,
             self._models.DataIntegration,
@@ -157,6 +196,13 @@ class FederalTopic(object):
             ))
 
     def _update_data_integration(self, session, topic_source):
+        """
+        Update the table `data_integration` with the data of the current import.
+
+        Args:
+            session (sqlalchemy.orm.session.Session): The SQLAlchemy session for database interaction.
+            topic_source (str): Name of the parsed XTF file.
+        """
         instance = self._models.DataIntegration(
             id=topic_source,
             date=datetime.now().isoformat(),
@@ -166,6 +212,13 @@ class FederalTopic(object):
         session.add(instance)
 
     def _parse_datasection(self, session, datasection):
+        """
+        Parses the data section
+
+        Args:
+            session (sqlalchemy.orm.session.Session): The SQLAlchemy session for database interaction.
+            datasection (lxml.etree.Element): The data section element.
+        """
         for element in datasection:
             tag = get_tag(element)
             if tag in [self.TAG_TRANSFER_STRUCTURE, self.TAG_REFERENCED_LAWS]:
@@ -173,6 +226,14 @@ class FederalTopic(object):
                 self._parse_transfer_structure(session, element, laws=laws)
 
     def _parse_transfer_structure(self, session, transfer_structure, laws=False):
+        """
+        Parses the transfer structure content.
+
+        Args:
+            session (sqlalchemy.orm.session.Session): The SQLAlchemy session for database interaction.
+            transfer_structure (lxml.etree.Element): The transfer structure element.
+            laws (bool): True if the parsed file is the XML containing the federal laws.
+        """
 
         office = Office(session, self._models.Office)
         document = Document(session, self._models.Document)
@@ -243,6 +304,9 @@ class FederalTopic(object):
                 self._log.error('NOT IMPLEMENTED: {0}'.format(get_tag(element)))
 
     def download_data(self):  # pragma: no cover
+        """
+        Downloads the federal data for the specified topic.
+        """
         file_path = '/tmp/{0}.zip'.format(self._file_id)
         url = self._topic_settings.get('download')
         if url is None:
@@ -268,6 +332,9 @@ class FederalTopic(object):
             self._log.error('HTTP {0} - {1}'.format(response.status_code, response.content))
 
     def unzip_data(self):
+        """
+        Extracts the downloaded data into a temporary directory.
+        """
         file_path = '/tmp/{0}.zip'.format(self._file_id)
         zip_path = '/tmp/{0}'.format(self._file_id)
         self._log.info('Extracting {0} to {1}'.format(file_path, zip_path))
@@ -282,6 +349,9 @@ class FederalTopic(object):
         os.remove(file_path)
 
     def collect_files(self):
+        """
+        Collects the extracted files for the data import.
+        """
         path = '/tmp/{0}'.format(self._file_id)
         law_source = topic_source = None
         for item in os.listdir(path):
@@ -301,6 +371,9 @@ class FederalTopic(object):
         return files
 
     def cleanup_files(self):
+        """
+        Removes the temporary files and directory.
+        """
         path = '/tmp/{0}'.format(self._file_id)
         zip = '/tmp/{0}.zip'.format(self._file_id)
         if os.path.isfile(zip):
@@ -311,6 +384,9 @@ class FederalTopic(object):
             shutil.rmtree(path)
 
     def read_checksum(self):
+        """
+        Reads the data's checksum from the extracted files.
+        """
         path = '/tmp/{0}'.format(self._file_id)
         for item in os.listdir(path):
             candidate = os.path.join(path, item)
