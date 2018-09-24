@@ -11,7 +11,7 @@ import requests
 import yaml
 import logging
 
-from lxml import etree
+from defusedxml.ElementTree import parse
 from pyramid.path import DottedNameResolver
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -98,7 +98,6 @@ class FederalTopic(object):
                 anyway.
         """
 
-        parser = etree.XMLParser(remove_comments=True)
         engine = create_engine(self._connection)
         Session = sessionmaker(bind=engine)
         session = Session()
@@ -115,7 +114,7 @@ class FederalTopic(object):
                     if xtf_file.endswith('.xtf'):
                         topic_source = os.path.basename(xtf_file)
                     self._log.info('Parsing {0}'.format(xtf_file))
-                    content = etree.parse(xtf_file, parser)
+                    content = parse(xtf_file)
                     for element in content.getroot():
                         if get_tag(element) == self.TAG_DATASECTION:
                             self._parse_datasection(session, element)
@@ -277,8 +276,8 @@ class FederalTopic(object):
         for element in transfer_structure:
             tag = get_tag(element)
             if tag == self.TAG_OFFICE:
-                if element.base.endswith('.xtf'):
-                    self._data_integration_office_id = element.attrib['TID']
+                # Use the last office ID for data integration
+                self._data_integration_office_id = element.attrib['TID']
                 office.parse(element)
             elif tag == self.TAG_DOCUMENT:
                 document.parse(element, 'Law' if laws else 'Hint')
