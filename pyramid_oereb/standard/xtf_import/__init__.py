@@ -54,7 +54,7 @@ class FederalTopic(object):
     TAG_BASE_REFINEMENT = 'OeREBKRMtrsfr_V1_1.Transferstruktur.GrundlageVerfeinerung'
 
     def __init__(self, configuration_file, topic_code, section='pyramid_oereb', arc_max_diff=0.001,
-                 arc_precision=3, tmp_dir='.'):
+                 arc_precision=3, tmp_dir='.', srid=None):
         """
 
         Args:
@@ -75,6 +75,10 @@ class FederalTopic(object):
                 topic_settings = topic
         if topic_settings is None:
             self._log.error('Cannot find topic {0} in {1}'.format(topic_code, configuration_file))
+            exit(1)
+        self._srid = srid or self._settings.get('srid')
+        if self._srid is None:
+            self._log.error('No SRID defined in configuration or passed as argument')
             exit(1)
         self._tmp_dir = tmp_dir
         self._arc_max_diff = arc_max_diff
@@ -105,6 +109,7 @@ class FederalTopic(object):
         try:
             if force or self._compare_checksum(session):
                 self._log.info('Starting import of topic {0}'.format(self._topic_settings.get('code')))
+                self._log.info('Using SRID: {0}'.format(self._srid))
                 self._log.info('Maximum difference for arc points: {0}'.format(self._arc_max_diff))
                 self._log.info('Arc point coordinate precision: {0}'.format(self._arc_precision))
 
@@ -250,6 +255,7 @@ class FederalTopic(object):
             session,
             self._models.Geometry,
             self._topic_settings.get('geometry_type'),
+            self._srid,
             arc_max_diff=self._arc_max_diff,
             arc_precision=self._arc_precision
         )

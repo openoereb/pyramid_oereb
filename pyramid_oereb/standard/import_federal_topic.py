@@ -68,6 +68,13 @@ def run():
         help='Skip comparing the checksums and force import.'
     )
     parser.add_option(
+        '-S', '--srid',
+        dest='srid',
+        metavar='SRID',
+        type='int',
+        help='Overwrite SRID set in configuration file.'
+    )
+    parser.add_option(
         '-a', '--arc-max-diff',
         dest='arc_max_diff',
         metavar='MAX_DIFF',
@@ -106,7 +113,8 @@ def run():
         section=options.section,
         arc_max_diff=options.arc_max_diff,
         arc_precision=options.arc_precision,
-        tmp_dir=options.tmp_dir
+        tmp_dir=options.tmp_dir,
+        srid=options.srid
     )
 
     if download:

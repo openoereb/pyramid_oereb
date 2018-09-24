@@ -25,14 +25,15 @@ class Geometry(object):
     TAG_COORD = 'COORD'
     TAG_ARC = 'ARC'
 
-    def __init__(self, session, model, geometry_type, arc_max_diff=0.001, arc_precision=3):
+    def __init__(self, session, model, geometry_type, srid, arc_max_diff=0.001, arc_precision=3):
         self._session = session
         self._model = model
         self._geometry_type = geometry_type
+        self._to_srs = srid
         self._arc_max_diff = arc_max_diff
         self._arc_precision = arc_precision
-        self._reproject = Reprojector().get_transformation_function(from_srs=21781, to_srs=2056)
         self._log = logging.getLogger('import_federal_topic')
+        self._reprojector = Reprojector()
 
     def parse(self, geometry):  # pragma: no cover
         instance = self._model(
@@ -52,17 +53,17 @@ class Geometry(object):
             tag = get_tag(element)
             geom = None
             if tag == self.TAG_POINT_LV03:
-                geom = self._parse_point(element, transform=True)
+                geom = self._parse_point(element, 21781)
             elif tag == self.TAG_POINT_LV95:
-                geom = self._parse_point(element, transform=False)
+                geom = self._parse_point(element, 2056)
             elif tag == self.TAG_LINE_LV03:
-                geom = self._parse_line(element, transform=True)
+                geom = self._parse_line(element, 21781)
             elif tag == self.TAG_LINE_LV95:
-                geom = self._parse_line(element, transform=False)
+                geom = self._parse_line(element, 2056)
             elif tag == self.TAG_AREA_LV03:
-                geom = self._parse_area(element, transform=True)
+                geom = self._parse_area(element, 21781)
             elif tag == self.TAG_AREA_LV95:
-                geom = self._parse_area(element, transform=False)
+                geom = self._parse_area(element, 2056)
             if geom is not None:
                 if geom_type == 'MULTIPOINT':
                     geom = MultiPoint([geom])
@@ -75,43 +76,40 @@ class Geometry(object):
                 return from_shape(geom, srid=2056)
         return None
 
-    def _parse_coord(self, coord, transform=False):
+    def _parse_coord(self, coord, srs):
         p = dict()
         for c in coord:
             if get_tag(c) == 'C1':
                 p['x'] = float(c.text)
             elif get_tag(c) == 'C2':
                 p['y'] = float(c.text)
-        if transform:
-            return self._reproject(p['x'], p['y'])
-        else:
-            return p['x'], p['y']
+        return self._reprojector.transform((p['x'], p['y']), from_srs=srs, to_srs=self._to_srs)
 
-    def _parse_point(self, point, transform=False):
+    def _parse_point(self, point, srs):
         for coord in point:
-            return Point(self._parse_coord(coord, transform=transform))
+            return Point(self._parse_coord(coord, srs))
         return None
 
-    def _parse_line(self, line, transform=False):
+    def _parse_line(self, line, srs):
         for polyline in line:
             coords = list()
             for coord in polyline:
                 tag = get_tag(coord)
                 if tag == self.TAG_COORD:
-                    coords.append(self._parse_coord(coord, transform=transform))
+                    coords.append(self._parse_coord(coord, srs))
                 elif tag == self.TAG_ARC:
-                    coords.extend(self._parse_arc(coord, coords[-1], transform=transform))
+                    coords.extend(self._parse_arc(coord, coords[-1], srs))
                 else:
                     self._log.warning('Found unsupported geometry element: {0}'.format(tag))
 
             return LineString(coords)
         return None
 
-    def _parse_area(self, area, transform=False):
+    def _parse_area(self, area, srs):
         for surface in area:
             boundaries = list()
             for boundary in surface:
-                boundaries.append(self._parse_line(boundary, transform=transform))
+                boundaries.append(self._parse_line(boundary, srs))
             exterior = boundaries[0].coords
             if len(boundaries) > 1:
                 interiors = [interior.coords for interior in boundaries[1:]]
@@ -120,7 +118,7 @@ class Geometry(object):
             return Polygon(shell=exterior, holes=interiors)
         return None
 
-    def _parse_arc(self, arc, start_point, transform=False):
+    def _parse_arc(self, arc, start_point, srs):
         e = dict()
         a = dict()
         for element in arc:
@@ -133,10 +131,6 @@ class Geometry(object):
                 a['x'] = float(element.text)
             elif tag == 'A2':
                 a['y'] = float(element.text)
-        if transform:
-            arc_point = self._reproject(a['x'], a['y'])
-            end_point = self._reproject(e['x'], e['y'])
-        else:
-            arc_point = (a['x'], a['y'])
-            end_point = (e['x'], e['y'])
+        arc_point = self._reprojector.transform((a['x'], a['y']), from_srs=srs, to_srs=self._to_srs)
+        end_point = self._reprojector.transform((e['x'], e['y']), from_srs=srs, to_srs=self._to_srs)
         return stroke_arc(start_point, arc_point, end_point, self._arc_max_diff, self._arc_precision)
