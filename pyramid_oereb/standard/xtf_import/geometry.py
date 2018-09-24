@@ -83,7 +83,10 @@ class Geometry(object):
                 p['x'] = float(c.text)
             elif get_tag(c) == 'C2':
                 p['y'] = float(c.text)
-        return self._reprojector.transform((p['x'], p['y']), from_srs=srs, to_srs=self._to_srs)
+        if srs == self._to_srs:
+            return p['x'], p['y']
+        else:
+            return self._reprojector.transform((p['x'], p['y']), from_srs=srs, to_srs=self._to_srs)
 
     def _parse_point(self, point, srs):
         for coord in point:
@@ -131,6 +134,10 @@ class Geometry(object):
                 a['x'] = float(element.text)
             elif tag == 'A2':
                 a['y'] = float(element.text)
-        arc_point = self._reprojector.transform((a['x'], a['y']), from_srs=srs, to_srs=self._to_srs)
-        end_point = self._reprojector.transform((e['x'], e['y']), from_srs=srs, to_srs=self._to_srs)
+        if srs == self._to_srs:
+            arc_point = (a['x'], a['y'])
+            end_point = (e['x'], e['y'])
+        else:
+            arc_point = self._reprojector.transform((a['x'], a['y']), from_srs=srs, to_srs=self._to_srs)
+            end_point = self._reprojector.transform((e['x'], e['y']), from_srs=srs, to_srs=self._to_srs)
         return stroke_arc(start_point, arc_point, end_point, self._arc_max_diff, self._arc_precision)
