@@ -29,8 +29,9 @@ def test_init():
 
 def test_unzip_cleanup():
     loader = FederalTopic(yaml_file, 'AirportsSecurityZonePlans')
-    zip_file = '/tmp/{0}.zip'.format(loader._file_id)
-    zip_path = '/tmp/{0}'.format(loader._file_id)
+
+    zip_file = os.path.join(loader._tmp_dir, '{0}.zip'.format(loader._file_id))
+    zip_path = os.path.join(loader._tmp_dir, '{0}'.format(loader._file_id))
     shutil.copyfile('tests/resources/data.zip', zip_file)
     assert os.path.isfile(zip_file)
     loader.unzip_data()
@@ -42,8 +43,8 @@ def test_unzip_cleanup():
 
 def test_collect_files():
     loader = FederalTopic(yaml_file, 'AirportsSecurityZonePlans')
-    zip_file = '/tmp/{0}.zip'.format(loader._file_id)
-    zip_path = '/tmp/{0}'.format(loader._file_id)
+    zip_file = os.path.join(loader._tmp_dir, '{0}.zip'.format(loader._file_id))
+    zip_path = os.path.join(loader._tmp_dir, '{0}'.format(loader._file_id))
     shutil.copy('tests/resources/data.zip', zip_file)
     loader.unzip_data()
     files = loader.collect_files()
@@ -54,7 +55,7 @@ def test_collect_files():
 
 def test_read_checksum():
     loader = FederalTopic(yaml_file, 'AirportsSecurityZonePlans')
-    zip_file = '/tmp/{0}.zip'.format(loader._file_id)
+    zip_file = os.path.join(loader._tmp_dir, '{0}.zip'.format(loader._file_id))
     shutil.copy('tests/resources/data.zip', zip_file)
     loader.unzip_data()
     loader.read_checksum()
@@ -91,7 +92,7 @@ def test_load():
         assert checksum == loader._checksum
     schema = 'airports_security_zone_plans'
     loader = FederalTopic(yaml_file, 'AirportsSecurityZonePlans')
-    zip_file = '/tmp/{0}.zip'.format(loader._file_id)
+    zip_file = os.path.join(loader._tmp_dir, '{0}.zip'.format(loader._file_id))
     shutil.copy('tests/resources/data.zip', zip_file)
     loader.unzip_data()
     loader.read_checksum()

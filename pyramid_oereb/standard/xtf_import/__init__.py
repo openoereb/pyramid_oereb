@@ -54,7 +54,7 @@ class FederalTopic(object):
     TAG_BASE_REFINEMENT = 'OeREBKRMtrsfr_V1_1.Transferstruktur.GrundlageVerfeinerung'
 
     def __init__(self, configuration_file, topic_code, section='pyramid_oereb', arc_max_diff=0.001,
-                 arc_precision=3, tmp_dir='/tmp'):
+                 arc_precision=3, tmp_dir='.'):
         """
 
         Args:
@@ -64,7 +64,7 @@ class FederalTopic(object):
             arc_max_diff (float): Maximum difference between arc and line segment for stroking.
                 (default: 0.001)
             arc_precision (int): Coordinate precision for generated arc points. (default: 3)
-            tmp_dir (str): Directory used as temporary working directory. (default: '/tmp')
+            tmp_dir (str): Directory used as temporary working directory. (default: '.')
         """
         self._log = logging.getLogger('import_federal_topic')
         with codecs.open(configuration_file, 'r', encoding='utf-8') as f:

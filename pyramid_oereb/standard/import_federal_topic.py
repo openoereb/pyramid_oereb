@@ -88,8 +88,8 @@ def run():
         dest='tmp_dir',
         metavar='TEMP_DIR',
         type='string',
-        default='/tmp',
-        help='The temporary working directory. (default is /tmp)'
+        default='.',
+        help='The temporary working directory. (default is ".")'
     )
 
     options, args = parser.parse_args()
