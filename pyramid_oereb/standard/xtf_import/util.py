@@ -47,7 +47,7 @@ def parse_article_numbers(document_reference, tag):
             for number in element:
                 numbers.append(number.text)
             if len(numbers) > 0:
-                return ', '.join(numbers)
+                return '|'.join(numbers)
     return None
 
 
