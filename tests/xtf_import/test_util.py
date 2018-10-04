@@ -64,7 +64,7 @@ def test_parse_article_numbers():
     </Document>
     """)
     assert parse_article_numbers(doc, 'foo') is None
-    assert parse_article_numbers(doc, 'Artikel') == 'nr1, nr2'
+    assert parse_article_numbers(doc, 'Artikel') == 'nr1|nr2'
 
 
 @pytest.mark.parametrize('start,arc,end,max_diff,precision,count,expected', [
