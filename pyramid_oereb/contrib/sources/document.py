@@ -46,7 +46,7 @@ class OEREBlexSource(Base):
 
         # Set default values for missing parameters
         if self._version is None:
-            self._version = '1.1.0'
+            self._version = '1.1.1'
         if self._pass_version is None:
             self._pass_version = False
 

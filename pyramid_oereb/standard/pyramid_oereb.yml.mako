@@ -128,7 +128,7 @@ pyramid_oereb:
     # OEREBlex host
     host: https://oereblex.bl.ch
     # geoLink schema version
-    # version: 1.1.0
+    # version: 1.1.1
     # Pass schema version in URL
     # pass_version: true
     # Language of returned values
