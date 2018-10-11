@@ -24,7 +24,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
             thresholds (dict): The configuration of limits and units used for processing.
             text (dict of str): The speaking title. It must be a dictionary containing language (as
                 configured) as key and text as value.
-            language (str): The language this public law restriction is originally shipped whith.
+            language (str): The language this public law restriction is originally shipped with.
             federal (bool): Switch if it is a federal topic. This will be taken into account in processing
                 steps.
             source (dict): The configuration dictionary of the public law restriction

@@ -1,4 +1,4 @@
-# Signed Contributer Licence Agreements
+# Signed Contributor Licence Agreements
 
 See the [README.md](README.md) page for information on submitting a CLA.
 
