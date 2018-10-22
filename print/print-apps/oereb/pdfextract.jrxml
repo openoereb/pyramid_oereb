@@ -6,6 +6,8 @@
 	<property name="net.sf.jasperreports.export.pdfa.icc.profile.path" value="sRGB_IEC61966-2-1_black_scaled.icc"/>
 	<property name="net.sf.jasperreports.export.pdf.exclude.key.TransparentImage" value=""/>
 	<property name="net.sf.jasperreports.styles.inherit.from.default" value="false"/>
+	<property name="net.sf.jasperreports.export.pdfa.conformance" value="pdfa1a"/>
+	<property name="net.sf.jasperreports.export.pdf.tagged" value="true"/>
 	<style name="Default" isDefault="true" fontName="Cadastra" fontSize="8"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
 	<parameter name="isReduced" class="java.lang.Boolean"/>
