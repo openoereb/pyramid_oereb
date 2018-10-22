@@ -6,6 +6,14 @@ Models
 .. automodule:: pyramid_oereb.standard.models
 
 
+Exemplary schema of a standard database
+---------------------------------------
+
+.. image:: ../images/standard_database_schema_example.png
+   :scale: 20 %
+   :align: center
+
+
 .. toctree::
    :hidden:
 
