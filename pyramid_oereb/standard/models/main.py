@@ -6,7 +6,7 @@ The buckets are:
 
 * Municipality
 * Real Estate
-* Adress
+* Address
 * Glossary
 * Exclusion of liability
 
