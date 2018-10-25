@@ -9,7 +9,7 @@ Models
 Exemplary schema of a standard database
 ---------------------------------------
 
-.. image:: ../images/standard_database_schema_example.png
+.. image:: ../../../images/standard_database_schema_example.png
    :scale: 20 %
    :align: center
 
