@@ -29,7 +29,7 @@ Code Documentation
 Some parts of the documentation are built directly from the code.
 The documentation is built using `Sphinx <http://sphinx-doc.org/>`__, so the code documentation uses
 `Google style docstrings
-<http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html>`__.
+<http://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html>`__.
 
 Contributing to the Code
 ========================
