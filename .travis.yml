@@ -31,7 +31,7 @@ after_success:
 - git clean -x
 
 before_deploy:
-- pip install sphinxcontrib-versioning 'Sphinx<1.8' Mako sphinx_rtd_theme sphinxcontrib.napoleon --editable .[recommend]
+- pip install sphinxcontrib-versioning 'Sphinx<1.6' Mako sphinx_rtd_theme --editable .[recommend]
 - openssl aes-256-cbc -K $encrypted_43de73a10f25_key -iv $encrypted_43de73a10f25_iv -in deploy_rsa.enc -out ~/.ssh/id_rsa -d
 - eval "$(ssh-agent -s)"
 - chmod 0600 ~/.ssh/id_rsa
