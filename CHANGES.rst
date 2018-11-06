@@ -2,6 +2,10 @@
 Changelog
 ---------
 
+1.NEXTVERSION
+*************
+- Import script for federal data
+
 1.2.3
 *****
 - Bug-fix release for 1.2.2 (fix intersection bug, fix pdfreport template)
