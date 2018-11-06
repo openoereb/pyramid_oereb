@@ -40,6 +40,12 @@ Functions for filling standard environment with data
    :members:
       SampleData
 
+.. _api-pyramid_oereb-standard-import_federal_topic:
+
+.. automodule:: pyramid_oereb.standard.import_federal_topic
+   :members:
+      FederalTopic
+
 .. _api-pyramid_oereb-standard-load_legend_entries:
 
 .. automodule:: pyramid_oereb.standard.load_legend_entries

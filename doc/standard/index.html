@@ -269,6 +269,62 @@ configuration to run a oereb server out of the box.</p>
 
 </dd></dl>
 
+<span class="target" id="module-pyramid_oereb.standard.import_federal_topic"><span id="api-pyramid-oereb-standard-import-federal-topic"></span></span><dl class="class">
+<dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.import_federal_topic.</code><code class="descname">FederalTopic</code><span class="sig-paren">(</span><em>configuration_file</em>, <em>topic_code</em>, <em>section='pyramid_oereb'</em>, <em>arc_max_diff=0.001</em>, <em>arc_precision=3</em>, <em>tmp_dir='.'</em>, <em>srid=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download and import data for a specified federal topic.</p>
+<dl class="method">
+<dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic.cleanup_files">
+<code class="descname">cleanup_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic.cleanup_files"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic.cleanup_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the temporary files and directory.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic.collect_files">
+<code class="descname">collect_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic.collect_files"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic.collect_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collects the extracted files for the data import.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic.download_data">
+<code class="descname">download_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic.download_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic.download_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads the federal data for the specified topic.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>xtf_files</em>, <em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the data for a certain federal topic.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>xtf_files</strong> (<em>list of str</em>) &#8211; Files to be parsed. The first one should be the XML file containing the
+federal laws, the second one the XTF file with the PLR data.</li>
+<li><strong>force</strong> (<em>bool</em>) &#8211; Set to <cite>True</cite> to ignore the result of the checksum comparison and update the data
+anyway.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic.read_checksum">
+<code class="descname">read_checksum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic.read_checksum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic.read_checksum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the data&#8217;s checksum from the extracted files.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic.unzip_data">
+<code class="descname">unzip_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic.unzip_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic.unzip_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the downloaded data into a temporary directory.</p>
+</dd></dl>
+
+</dd></dl>
+
 <span class="target" id="module-pyramid_oereb.standard.load_legend_entries"><span id="api-pyramid-oereb-standard-load-legend-entries"></span></span><dl class="function">
 <dt id="pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db">
 <code class="descclassname">pyramid_oereb.standard.load_legend_entries.</code><code class="descname">create_legend_entries_in_standard_db</code><span class="sig-paren">(</span><em>config</em>, <em>topic_code</em>, <em>temp_creation_path='/tmp/pyconizer'</em>, <em>language='de'</em>, <em>section='pyramid_oereb'</em>, <em>image_format='image/png'</em>, <em>image_height=36</em>, <em>image_width=72</em>, <em>encoding=None</em>, <em>replace_host=None</em>, <em>replace_layer=None</em>, <em>string_keys=False</em>, <em>by_type_code=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/load_legend_entries.html#create_legend_entries_in_standard_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db" title="Permalink to this definition">¶</a></dt>

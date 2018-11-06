@@ -88,7 +88,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#install-dependencies">2. Install dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#create-standard-configuration">3. Create standard configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#set-up-database">4. Set up database</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#load-sample-data-optional">5. Load sample data (optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#load-data-optional">5. Load data (optional)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#include-in-application">6. Include in application</a></li>
 </ul>
 </li>
@@ -242,10 +242,41 @@ following steps.</p>
 <p class="last">Run <code class="docutils literal"><span class="pre">create_standard_tables</span> <span class="pre">--help</span></code> for further information.</p>
 </div>
 </div>
-<div class="section" id="load-sample-data-optional">
-<span id="installation-step-sample-data"></span><h3>5. Load sample data (optional)<a class="headerlink" href="#load-sample-data-optional" title="Permalink to this headline">¶</a></h3>
-<p>A set of sample data is available in the <a class="reference external" href="https://github.com/camptocamp/pyramid_oereb/">repository</a> in the directory <cite>sample_data</cite>. After downloading it, you
-can import the sample data into the configured database using the following script:</p>
+<div class="section" id="load-data-optional">
+<span id="installation-step-sample-data"></span><h3>5. Load data (optional)<a class="headerlink" href="#load-data-optional" title="Permalink to this headline">¶</a></h3>
+<p>The easiest way to add some data, is to import the data of an available federal topic using the provided
+script.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This exmple shows the import for the topic <cite>AirportsSecurityZonePlans</cite>, but you can use any federal
+topic you like to. You should ensure, that the topic contains some data within the perimeter (canton) you
+want to show.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The import script only works for topics using the standard database. Any modifications to the
+database structure may cause the import to fail.</p>
+</div>
+<p>First you have to ensure, that the correct download URL is defined for the topic in
+<cite>pyramid_oereb_standard.yml</cite>. The configuration for the topic should contain the following download property:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">plrs</span><span class="p p-Indicator">:</span>
+
+<span class="nn">...</span>
+
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">plr108</span>
+  <span class="l l-Scalar l-Scalar-Plain">code</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">AirportsSecurityZonePlans</span>
+  <span class="l l-Scalar l-Scalar-Plain">...</span>
+  <span class="l l-Scalar l-Scalar-Plain">download</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip</span>
+</pre></div>
+</div>
+<p>If this is the case, you can run the import script for this topic:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>import_federal_topic -c pyramid_oereb_standard.yml -t AirportsSecurityZonePlans
+</pre></div>
+</div>
+<p>The data for this federal topic should now be available in your standard database. For an overview of the
+available import options, please run <code class="docutils literal"><span class="pre">import_federal_topic</span> <span class="pre">--help</span></code>.</p>
+<p>Alternatively, a set of sample data is available in the <a class="reference external" href="https://github.com/camptocamp/pyramid_oereb/">repository</a> in the directory <cite>sample_data</cite>. After
+downloading it, you can import the sample data into the configured database using the following script:</p>
 <div class="highlight-shell"><div class="highlight"><pre><span></span>python &lt;PATH TO VENV SITE_PACKAGES&gt;/pyramid_oereb/standard/load_sample_data.py -c pyramid_oereb_standard.yml
 </pre></div>
 </div>
