@@ -92,6 +92,7 @@ class DataIntegration(Base):
     date = sa.Column(sa.DateTime, nullable=False)
     office_id = sa.Column(sa.String, sa.ForeignKey(Office.id), nullable=False)
     office = relationship(Office)
+    checksum = sa.Column(sa.String, nullable=True)
 
 
 class ReferenceDefinition(Base):
