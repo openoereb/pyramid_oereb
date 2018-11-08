@@ -89,6 +89,17 @@ with the generated models of the former step.
 Now you have set up an empty additional topic and you can continued with deploying your data into it.
 
 
+Add an oereblex topic
+---------------------
+
+If you want to use oereblex for a topic, you can proceed as described in the previous section,
+but using a different script to generate the required models.
+
+.. code-block:: shell
+
+   create_oereblex_model -c <YOUR_NEW_TOPIC_CODE> -g <GEOMETRY_TYPE> -p <TARGET_PATH> -k TRUE
+
+
 .. _configuration-adapt-models:
 
 Adapt existing models
