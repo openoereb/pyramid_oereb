@@ -382,7 +382,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">legend_item</span><span class="p">,</span> <span class="s1">&#39;LegendText&#39;</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">legend_entry</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;OtherLegend&#39;</span><span class="p">]:</span>
-                <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">legend_entry</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">legend_entry</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
                     <span class="k">if</span> <span class="n">element</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;LegendText&#39;</span><span class="p">,</span> <span class="s1">&#39;SymbolRef&#39;</span><span class="p">,</span> <span class="s1">&#39;TypeCode&#39;</span><span class="p">]:</span>
                         <span class="k">del</span> <span class="n">legend_entry</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
 
