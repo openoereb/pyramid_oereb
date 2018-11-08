@@ -231,7 +231,7 @@ class Renderer(JsonRenderer):
                 self._multilingual_text(legend_item, 'LegendText')
 
             for legend_entry in restriction_on_landownership['OtherLegend']:
-                for element in legend_entry.keys():
+                for element in list(legend_entry.keys()):
                     if element not in ['LegendText', 'SymbolRef', 'TypeCode']:
                         del legend_entry[element]
 
