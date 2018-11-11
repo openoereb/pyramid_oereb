@@ -4,7 +4,7 @@ pytest-ordering==0.5 # rq.filter: <= 0.5
 pyflakes==2.0.0
 flake8==3.6.0
 pycodestyle==2.4.0
-psycopg2==2.7.6
+psycopg2==2.7.6.1
 McCabe==0.6.1
 c2c.template==2.0.5  # rq.filter: <= 2.0.5
 requests-mock==1.5.2
