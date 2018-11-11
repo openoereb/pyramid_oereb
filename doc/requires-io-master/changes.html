@@ -84,13 +84,19 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-nextversion">Version 1.NEXTVERSION</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#models">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#database">Database</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-2-2">Version 1.2.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-2-1">Version 1.2.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#new-configuration-options-in-yml">New configuration options in yml</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mapfish-print">MapFish Print</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#database">Database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Database</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-1-0">Version 1.1.0</a><ul>
@@ -176,6 +182,25 @@
 <p>This section will give you hints how to handle version migration. Since the project moves forward it will
 introduce differences in the yml configuration file. So it would not be enough to simply install the newest
 version. Often a version upgrade changes or adds parameters which are used.</p>
+<div class="section" id="version-1-nextversion">
+<h2>Version 1.NEXTVERSION<a class="headerlink" href="#version-1-nextversion" title="Permalink to this headline">¶</a></h2>
+<p>This version introduces an import facility for federal data. To support this, a new database attribute
+was needed, you therefore need to apply some changes to your project.</p>
+<div class="section" id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<p>Add a download link in each oereb theme where you want to use the download script.
+See the pyramid_oereb standard configuration file for an example.</p>
+</div>
+<div class="section" id="models">
+<h3>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
+<p>If you have custom models (for example, for oereblex), you need to add an attribute <code class="docutils literal"><span class="pre">checksum</span></code> of type String to these.
+Alternatively, you can recreate your models using the standard scripts.</p>
+</div>
+<div class="section" id="database">
+<h3>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
+<p>New column <code class="docutils literal"><span class="pre">checksum</span></code> in all oereb theme tables.</p>
+</div>
+</div>
 <div class="section" id="version-1-2-2">
 <h2>Version 1.2.2<a class="headerlink" href="#version-1-2-2" title="Permalink to this headline">¶</a></h2>
 <p>The version 1.2.2 is a bug-fix release for <a class="reference internal" href="#changes-version-1-2-1"><span class="std std-ref">Version 1.2.1</span></a>. You do not need to change your configuration
@@ -229,8 +254,8 @@ in the pdf extract or not</li>
 for the correct style of the configuration.</p>
 </div>
 </div>
-<div class="section" id="database">
-<h3>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h3>Database<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>In the standard database schema, the following has changed:</p>
 <ul class="simple">
 <li>Primary keys in the standard tables are now of type <code class="docutils literal"><span class="pre">VARCHAR</span></code> (not <code class="docutils literal"><span class="pre">INTEGER</span></code>). Foreign key types need to be adapted accordingly as well.</li>
@@ -623,9 +648,9 @@ your database you can map it the known way:</p>
 oereb lex source. See chapter <a class="reference internal" href="#changes-new-config-oereb-lex"><span class="std std-ref">OEREBlex</span></a> to know how.</p>
 </div>
 <div class="section" id="changes-new-config-options">
-<span id="id1"></span><h3>New configuration options in yml<a class="headerlink" href="#changes-new-config-options" title="Permalink to this headline">¶</a></h3>
+<span id="id2"></span><h3>New configuration options in yml<a class="headerlink" href="#changes-new-config-options" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="changes-new-config-mapfish-print">
-<span id="id2"></span><h4>MapFish Print<a class="headerlink" href="#changes-new-config-mapfish-print" title="Permalink to this headline">¶</a></h4>
+<span id="id3"></span><h4>MapFish Print<a class="headerlink" href="#changes-new-config-mapfish-print" title="Permalink to this headline">¶</a></h4>
 <p>See the <a class="reference external" href="https://github.com/camptocamp/pyramid_oereb/blob/v1.1.0/pyramid_oereb/standard/pyramid_oereb.yml.mako#L65">pyramid_oereb_standard.yml</a>
 for the correct style of the configuration.</p>
 <ul class="simple">
@@ -699,7 +724,7 @@ block looks ways simpler as follows:</p>
 </div>
 </div>
 <div class="section" id="changes-new-config-oereb-lex">
-<span id="id3"></span><h4>OEREBlex<a class="headerlink" href="#changes-new-config-oereb-lex" title="Permalink to this headline">¶</a></h4>
+<span id="id4"></span><h4>OEREBlex<a class="headerlink" href="#changes-new-config-oereb-lex" title="Permalink to this headline">¶</a></h4>
 <p>We assume you already defined your model mapping definition and your data is organized like described in
 chapter <a class="reference internal" href="#changes-oereb-lex"><span class="std std-ref">OEREBlex</span></a>. Then you only need to add/adjust your config in little details.</p>
 <p>The OEREBlex configuration is done in two places:</p>

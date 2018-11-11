@@ -84,6 +84,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#add-additional-topics">Add additional topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-an-oereblex-topic">Add an oereblex topic</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#adapt-existing-models">Adapt existing models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#create-custom-sources">Create custom sources</a></li>
 </ul>
@@ -226,6 +227,14 @@ this:</p>
 definitions and of course the models property within the source parameters. It should point to the module
 with the generated models of the former step.</p>
 <p>Now you have set up an empty additional topic and you can continued with deploying your data into it.</p>
+</div>
+<div class="section" id="add-an-oereblex-topic">
+<h2>Add an oereblex topic<a class="headerlink" href="#add-an-oereblex-topic" title="Permalink to this headline">¶</a></h2>
+<p>If you want to use oereblex for a topic, you can proceed as described in the previous section,
+but using a different script to generate the required models.</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>create_oereblex_model -c &lt;YOUR_NEW_TOPIC_CODE&gt; -g &lt;GEOMETRY_TYPE&gt; -p &lt;TARGET_PATH&gt; -k TRUE
+</pre></div>
+</div>
 </div>
 <div class="section" id="adapt-existing-models">
 <span id="configuration-adapt-models"></span><h2>Adapt existing models<a class="headerlink" href="#adapt-existing-models" title="Permalink to this headline">¶</a></h2>
