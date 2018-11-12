@@ -1,12 +1,12 @@
 dicttoxml==1.7.4
 geoalchemy2==0.5.0
-psycopg2==2.7.5
+psycopg2==2.7.6.1
 pyramid==1.10.1
 pyramid-debugtoolbar==4.5
 PyYAML==3.13
 shapely==1.6.4.post1  # rq.filter: ==1.6.4.post1
 simplejson==3.16.0
-SQLAlchemy==1.2.13
+SQLAlchemy==1.2.14
 sqlalchemy-utils==0.33.6
 transaction==2.4.0
 urllib3[secure]==1.24.1
