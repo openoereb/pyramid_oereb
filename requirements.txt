@@ -7,7 +7,7 @@ PyYAML==3.13
 shapely==1.6.4.post1  # rq.filter: ==1.6.4.post1
 simplejson==3.16.0
 SQLAlchemy==1.2.14
-sqlalchemy-utils==0.33.6
+sqlalchemy-utils==0.33.8
 transaction==2.4.0
 urllib3[secure]==1.24.1
 waitress==1.1.0
