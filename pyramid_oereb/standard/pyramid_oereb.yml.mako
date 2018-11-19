@@ -642,7 +642,7 @@ pyramid_oereb:
 
     - name: plr118
       code: ContaminatedCivilAviationSites
-      geometry_type: POLYGON
+      geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
           limit: 1.0
