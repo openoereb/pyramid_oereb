@@ -158,7 +158,9 @@ class Renderer(Base):
                     log.warning("glossary entry in requested language missing for title {}".format(gls.title))
 
             extract_dict['Glossary'] = glossaries
-
+        
+        # Sort glossary by requested language alphabetically
+        extract_dict['Glossary'].sort(key=lambda k: locale.strxfrm(k['Title'][0]['Text'].encode('utf-8')))
         log.debug("_render() done.")
         return extract_dict
 
