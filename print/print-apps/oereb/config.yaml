@@ -106,6 +106,8 @@ templates:
                         default: ''
                     SubTheme: !string
                         default: ''
+                    SubTheme_Text: !string
+                        default: ''
                     Lawstatus_Code: *optStr
                     Lawstatus_Text: *optStr #/definitions/LocalisedText
                     Symbol: !string
