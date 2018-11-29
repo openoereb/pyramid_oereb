@@ -106,8 +106,8 @@ templates:
                         default: ''
                     SubTheme: !string
                         default: ''
-                    SubTheme_Text: !string
-                        default: ''
+                    Split_SubTheme: !boolean
+                        default: false
                     Lawstatus_Code: *optStr
                     Lawstatus_Text: *optStr #/definitions/LocalisedText
                     Symbol: !string

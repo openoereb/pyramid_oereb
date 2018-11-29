@@ -79,7 +79,8 @@
 	<parameter name="TOC_Appendices" class="java.util.Map"/>
 	<field name="mapSubReport" class="java.lang.String"/>
 	<field name="Theme_Text" class="java.lang.String"/>
-	<field name="SubTheme_Text" class="java.lang.String"/>
+	<field name="SubTheme" class="java.lang.String"/>
+	<field name="Split_SubTheme" class="java.lang.Boolean"/>
 	<field name="Geom_Type" class="java.lang.String"/>
 	<field name="legend" class="java.lang.String"/>
 	<field name="ResponsibleOffice_Name" class="java.lang.String"/>
@@ -178,7 +179,7 @@
 					<font size="16" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Theme_Text}]]></textFieldExpression>
-				<anchorNameExpression><![CDATA[($F{SubTheme_Text}.equals("") || $F{SubTheme_Text} == null) ? $F{Theme_Text} : ($F{Theme_Text} + ": " + $F{SubTheme_Text})]]></anchorNameExpression>
+				<anchorNameExpression><![CDATA[$F{Split_SubTheme} ? ($F{Theme_Text} + ": " + $F{SubTheme}) : $F{Theme_Text}]]></anchorNameExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="0" y="50" width="493" height="18" isRemoveLineWhenBlank="true" uuid="22c80cf5-78d8-4791-9eb9-ac621df1a041">
@@ -189,7 +190,7 @@
 				<textElement>
 					<font size="14" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{SubTheme_Text}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Split_SubTheme} ? $F{SubTheme} : null]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="50" width="492" height="20" uuid="60969764-be9a-421d-bdd8-9b46e410d1f8"/>
