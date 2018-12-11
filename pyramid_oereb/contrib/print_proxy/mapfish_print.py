@@ -280,8 +280,15 @@ class Renderer(JsonRenderer):
             'TypeCode', 'TypeCodelist', 'AreaShare', 'PartInPercent', 'LengthShare',
             'SymbolRef', 'Information'
         ]
+        split_sub_themes = Config.get('print', {}).get('split_sub_themes', False)
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
             theme = restriction_on_landownership['Theme_Code']
+
+            if split_sub_themes:
+                if 'SubTheme' in restriction_on_landownership:
+                    theme = theme + '_' + restriction_on_landownership['SubTheme']
+                    restriction_on_landownership['Split_SubTheme'] = True
+
             geom_type = \
                 'AreaShare' if 'AreaShare' in restriction_on_landownership else \
                 'LengthShare' if 'LengthShare' in restriction_on_landownership else 'NrOfPoints'
