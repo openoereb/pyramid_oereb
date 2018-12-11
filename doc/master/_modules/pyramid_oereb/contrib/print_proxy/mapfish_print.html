@@ -431,8 +431,15 @@
             <span class="s1">&#39;TypeCode&#39;</span><span class="p">,</span> <span class="s1">&#39;TypeCodelist&#39;</span><span class="p">,</span> <span class="s1">&#39;AreaShare&#39;</span><span class="p">,</span> <span class="s1">&#39;PartInPercent&#39;</span><span class="p">,</span> <span class="s1">&#39;LengthShare&#39;</span><span class="p">,</span>
             <span class="s1">&#39;SymbolRef&#39;</span><span class="p">,</span> <span class="s1">&#39;Information&#39;</span>
         <span class="p">]</span>
+        <span class="n">split_sub_themes</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;split_sub_themes&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">restriction_on_landownership</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;RealEstate_RestrictionOnLandownership&#39;</span><span class="p">,</span> <span class="p">[]):</span>
             <span class="n">theme</span> <span class="o">=</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Theme_Code&#39;</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">split_sub_themes</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;SubTheme&#39;</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span><span class="p">:</span>
+                    <span class="n">theme</span> <span class="o">=</span> <span class="n">theme</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;SubTheme&#39;</span><span class="p">]</span>
+                    <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Split_SubTheme&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
             <span class="n">geom_type</span> <span class="o">=</span> \
                 <span class="s1">&#39;AreaShare&#39;</span> <span class="k">if</span> <span class="s1">&#39;AreaShare&#39;</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span> <span class="k">else</span> \
                 <span class="s1">&#39;LengthShare&#39;</span> <span class="k">if</span> <span class="s1">&#39;LengthShare&#39;</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span> <span class="k">else</span> <span class="s1">&#39;NrOfPoints&#39;</span>
