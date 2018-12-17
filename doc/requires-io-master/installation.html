@@ -259,14 +259,14 @@ database structure may cause the import to fail.</p>
 </div>
 <p>First you have to ensure, that the correct download URL is defined for the topic in
 <cite>pyramid_oereb_standard.yml</cite>. The configuration for the topic should contain the following download property:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">plrs</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="nt">plrs</span><span class="p">:</span>
 
 <span class="nn">...</span>
 
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">plr108</span>
-  <span class="l l-Scalar l-Scalar-Plain">code</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">AirportsSecurityZonePlans</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">plr108</span>
+  <span class="nt">code</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AirportsSecurityZonePlans</span>
   <span class="l l-Scalar l-Scalar-Plain">...</span>
-  <span class="l l-Scalar l-Scalar-Plain">download</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip</span>
+  <span class="nt">download</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip</span>
 </pre></div>
 </div>
 <p>If this is the case, you can run the import script for this topic:</p>
