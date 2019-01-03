@@ -34,13 +34,17 @@ def law_status():
     return LawStatusRecord(u'inForce', {'de': u'In Kraft'})
 
 
-@pytest.fixture()
-def params():
+def default_param():
     return Parameter('reduced', 'json', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 
 
+@pytest.fixture()
+def params():
+    return default_param()
+
+
 @pytest.mark.parametrize('parameter', [
-    params(),
+    default_param(),
     Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
     None
 ])
@@ -207,7 +211,7 @@ def test_format_real_estate(config):
 
 
 @pytest.mark.parametrize('parameter', [
-    params(),
+    default_param(),
     Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
     Parameter('full', 'json', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 ])
@@ -489,7 +493,7 @@ def test_format_map(config, params):
 
 
 @pytest.mark.parametrize('parameter', [
-    params(),
+    default_param(),
     Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de')
 ])
 def test_format_legend_entry(parameter, config):

@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 import json
 import codecs
-import pytest
 from pyramid_oereb.contrib.print_proxy.mapfish_print import Renderer
 from tests.renderer import DummyRenderInfo
 
 
-@pytest.fixture()
 def coordinates():
     return [[[
         [2615122.772, 1266688.951], [2615119.443, 1266687.783], [2615116.098, 1266686.662],
@@ -16,7 +14,6 @@ def coordinates():
     ]]]
 
 
-@pytest.fixture()
 def extract():
     with codecs.open(
             'tests/contrib/print_proxy/resources/test_extract.json'
@@ -24,7 +21,6 @@ def extract():
         return json.loads(f.read())
 
 
-@pytest.fixture()
 def expected_printable_extract():
     with codecs.open(
             'tests/contrib/print_proxy/resources/expected_getspec_extract.json'
@@ -32,7 +28,6 @@ def expected_printable_extract():
         return json.loads(f.read())
 
 
-@pytest.fixture()
 def geometry():
     return {
         'type': 'MultiPolygon',
@@ -40,7 +35,6 @@ def geometry():
     }
 
 
-@pytest.fixture()
 def getSameEntryInList(reference, objects):
     sameObject = None
 
@@ -71,7 +65,6 @@ def getSameEntryInList(reference, objects):
     return None
 
 
-@pytest.fixture()
 def deepCompare(value, valueToCompare, verbose=True):
     match = True
     # Go inside dict to compare values inside
