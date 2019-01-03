@@ -84,12 +84,13 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-nextversion">Version 1.NEXTVERSION</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-3-0">Version 1.3.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#models">Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#database">Database</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-2-3">Version 1.2.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-2-2">Version 1.2.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-2-1">Version 1.2.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#new-configuration-options-in-yml">New configuration options in yml</a><ul>
@@ -182,10 +183,11 @@
 <p>This section will give you hints how to handle version migration. Since the project moves forward it will
 introduce differences in the yml configuration file. So it would not be enough to simply install the newest
 version. Often a version upgrade changes or adds parameters which are used.</p>
-<div class="section" id="version-1-nextversion">
-<h2>Version 1.NEXTVERSION<a class="headerlink" href="#version-1-nextversion" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="version-1-3-0">
+<h2>Version 1.3.0<a class="headerlink" href="#version-1-3-0" title="Permalink to this headline">¶</a></h2>
 <p>This version introduces an import facility for federal data. To support this, a new database attribute
-was needed, you therefore need to apply some changes to your project.</p>
+was needed, you therefore need to apply some changes to your project if you have been using
+<a class="reference internal" href="#changes-version-1-2-3"><span class="std std-ref">Version 1.2.3</span></a> or earlier.</p>
 <div class="section" id="configuration">
 <h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
 <p>Add a download link in each oereb theme where you want to use the download script.
@@ -201,8 +203,13 @@ Alternatively, you can recreate your models using the standard scripts.</p>
 <p>New column <code class="docutils literal"><span class="pre">checksum</span></code> in all oereb theme tables.</p>
 </div>
 </div>
+<div class="section" id="version-1-2-3">
+<span id="changes-version-1-2-3"></span><h2>Version 1.2.3<a class="headerlink" href="#version-1-2-3" title="Permalink to this headline">¶</a></h2>
+<p>The version 1.2.3 fixes a print template bug present in <a class="reference internal" href="#changes-version-1-2-2"><span class="std std-ref">Version 1.2.2</span></a>. You do not need to change your configuration
+or schema.</p>
+</div>
 <div class="section" id="version-1-2-2">
-<h2>Version 1.2.2<a class="headerlink" href="#version-1-2-2" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-2-2"></span><h2>Version 1.2.2<a class="headerlink" href="#version-1-2-2" title="Permalink to this headline">¶</a></h2>
 <p>The version 1.2.2 is a bug-fix release for <a class="reference internal" href="#changes-version-1-2-1"><span class="std std-ref">Version 1.2.1</span></a>. You do not need to change your configuration
 or schema. However, you may wish to use the new optional configuration parameter <code class="docutils literal"><span class="pre">type_mapping</span></code> within
 <code class="docutils literal"><span class="pre">real_estate</span></code>, as this allows you to define the texts to be used for the types in the configuration, instead of
@@ -846,6 +853,10 @@ and why please have a detailed look at the documentation of the used package
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="../v1.3.0/changes.html">v1.3.0</a></dd>
+        </dl>
         <dl>
             <dt>Branches</dt>
             <dd><a href="changes.html">master</a></dd>
