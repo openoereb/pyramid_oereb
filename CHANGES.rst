@@ -2,8 +2,8 @@
 Changelog
 ---------
 
-1.NEXTVERSION
-*************
+1.3.0
+*****
 - Import script for federal data
 
 1.2.3
