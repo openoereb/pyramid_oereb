@@ -71,7 +71,7 @@ def test_render(parameter, glossaries_input, glossaries_expected):
         view_service = ViewServiceRecord(u'http://geowms.bl.ch',
                                          1,
                                          1.0,
-                                         u'http://geowms.bl.ch',
+                                         {'de': u'http://geowms.bl.ch'},
                                          None)
         real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
                                        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
@@ -193,7 +193,7 @@ def test_format_real_estate():
     view_service = ViewServiceRecord(u'http://geowms.bl.ch',
                                      1,
                                      1.0,
-                                     u'http://geowms.bl.ch',
+                                     {'de': u'http://geowms.bl.ch'},
                                      None)
     document = DocumentRecord('Law', law_status(), datetime.date.today(), {u'de': u'Test Dokument'},
                               OfficeRecord({u'de': u'BUD'}), {'de': 'http://mein.dokument.ch'})
@@ -254,7 +254,7 @@ def test_format_plr(parameter):
         view_service = ViewServiceRecord('http://geowms.bl.ch',
                                          1,
                                          1.0,
-                                         'http://geowms.bl.ch',
+                                         {'de': u'http://geowms.bl.ch'},
                                          [legend_entry])
         geometry = GeometryRecord(law_status(), datetime.date.today(), Point(1, 1))
         plr = PlrRecord(
@@ -484,7 +484,7 @@ def test_format_map(params):
         view_service = ViewServiceRecord('http://my.wms.ch',
                                          1,
                                          1.0,
-                                         'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
+                                         {'de': u'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic'},
                                          [legend_entry])
         view_service.image = ImageRecord('1'.encode('utf-8'))
         result = renderer.format_map(view_service)
@@ -494,7 +494,7 @@ def test_format_map(params):
             'layerIndex': 1,
             'layerOpacity': 1.0,
             'ReferenceWMS': 'http://my.wms.ch',
-            'LegendAtWeb': 'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
+            'LegendAtWeb': u'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
             'OtherLegend': [renderer.format_legend_entry(legend_entry)]
         }
 
@@ -553,7 +553,7 @@ def test_embeddable(params):
     view_service = ViewServiceRecord(u'http://geowms.bl.ch',
                                      1,
                                      1.0,
-                                     u'http://geowms.bl.ch',
+                                     {'de': u'http://geowms.bl.ch'},
                                      None)
     real_estate = RealEstateRecord(
         u'RealEstate',

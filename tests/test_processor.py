@@ -157,14 +157,14 @@ def test_processor_get_legend_entries():
         'http://www.test1.url.ch',
         1,
         1.0,
-        legend_at_web='http://www.test1.url.ch',
+        legend_at_web={'de': 'http://www.test1.url.ch'},
         legends=[legend1, legend2]
     )
     view_service2 = ViewServiceRecord(
         'http://www.test2.url.ch',
         1,
         1.0,
-        legend_at_web='http://www.test2.url.ch',
+        legend_at_web={'de': 'http://www.test2.url.ch'},
         legends=[legend3, legend4]
     )
     image = ImageRecord('1'.encode('utf-8'))

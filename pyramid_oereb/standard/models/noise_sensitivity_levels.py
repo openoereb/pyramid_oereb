@@ -248,13 +248,14 @@ class ViewService(Base):
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         reference_wms (str): The actual url which leads to the desired cartographic representation.
-        legend_at_web (str): A link leading to a wms describing document (png).
+        legend_at_web (dict of str): A multilingual dictionary of links. Keys are the language, values
+            are links leading to a wms describing document (png).
     """
     __table_args__ = {'schema': 'noise_sensitivity_levels'}
     __tablename__ = 'view_service'
     id = sa.Column(sa.String, primary_key=True, autoincrement=False)
     reference_wms = sa.Column(sa.String, nullable=False)
-    legend_at_web = sa.Column(sa.String, nullable=True)
+    legend_at_web = sa.Column(JSONType, nullable=True)
 
 
 class LegendEntry(Base):
