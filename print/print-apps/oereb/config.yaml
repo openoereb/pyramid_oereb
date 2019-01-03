@@ -1,4 +1,4 @@
-throwErrorOnExtraParameters: true
+throwErrorOnExtraParameters: false
 
 resourceBundle: Report
 
