@@ -1,6 +1,6 @@
-pytest==3.10.1 # rq.filter: < 4
+pytest==4.0.2
 pytest-cov==2.6.0
-pytest-ordering==0.5 # rq.filter: <= 0.5
+pytest-ordering==0.6
 pyflakes==2.0.0
 flake8==3.6.0
 pycodestyle==2.4.0
