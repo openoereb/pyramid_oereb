@@ -3,33 +3,33 @@ import datetime
 import pytest
 from pyramid.config import ConfigurationError
 
-from pyramid_oereb.lib.config import parse, merge_dicts, Config
+from pyramid_oereb.lib.config import merge_dicts, Config
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
 def test_missing_configuration_file():
     with pytest.raises(ConfigurationError):
-        parse(None, None)
+        Config.init(None, None)
 
 
 def test_missing_configuration_section():
     with pytest.raises(ConfigurationError):
-        parse('myconfig.yml', None)
+        Config.init('myconfig.yml', None)
 
 
 def test_wrong_configuration_section():
     with pytest.raises(ConfigurationError):
-        parse('./tests/resources/test_config.yml', 'invalidsection')
+        Config.init('./tests/resources/test_config.yml', 'invalidsection')
 
 
 def test_configuration_file_not_found():
     with pytest.raises(IOError) as excinfo:
-        parse('not_existing_config.yml', 'invalidsection')
+        Config.init('not_existing_config.yml', 'invalidsection')
     assert ', Current working directory is ' in str(excinfo.value)
 
 
 def test_parse_configuration():
-    cfg = parse('./tests/resources/test_config.yml', 'section2')
+    cfg = Config.init('./tests/resources/test_config.yml', 'section2')
     assert cfg.get('param1') == 1
     assert len(cfg.get('param2')) == 2
     assert cfg.get('param2')[0] == 'first'

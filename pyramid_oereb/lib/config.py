@@ -15,7 +15,7 @@ from pyramid_oereb.lib.records.theme import ThemeRecord
 log = logging.getLogger(__name__)
 
 
-def parse(cfg_file, cfg_section, c2ctemplate_style=False):
+def _parse(cfg_file, cfg_section, c2ctemplate_style=False):
     """
     Parses the defined YAML file and returns the defined section as dictionary.
 
@@ -87,7 +87,18 @@ class Config(object):
         """
         assert Config._config is None
 
-        Config._config = parse(configfile, configsection, c2ctemplate_style)
+        Config._config = _parse(configfile, configsection, c2ctemplate_style)
+
+    @staticmethod
+    def get_config():
+        """
+        Returns the current configuration
+
+        Returns:
+            Dict: The current config.
+        """
+        assert Config._config is not None
+        return Config._config
 
     @staticmethod
     def update_settings(settings):

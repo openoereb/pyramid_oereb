@@ -10,10 +10,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.engine import Connection
 from sqlalchemy.orm import sessionmaker, class_mapper
 
-from pyramid_oereb.lib.config import parse
-from pyramid_oereb.standard.models import contaminated_public_transport_sites, \
-    groundwater_protection_zones, forest_perimeters
-from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality, Glossary
+from pyramid_oereb.lib.config import Config
 
 
 class SampleData(object):
@@ -35,8 +32,8 @@ class SampleData(object):
         self._directory = directory
         self._sql_file = sql_file
 
-        config = parse(self._configuration, self._section)
-        self._engine = create_engine(config.get('app_schema').get('db_connection'), echo=True)
+        Config.init(self._configuration, self._section)
+        self._engine = create_engine(Config.get('app_schema').get('db_connection'), echo=True)
         self._connection = None
 
     @classmethod
@@ -173,6 +170,9 @@ class SampleData(object):
         """
         Performs the database operations to load the sample data.
         """
+        from pyramid_oereb.standard.models import contaminated_public_transport_sites, \
+            groundwater_protection_zones, forest_perimeters
+        from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality, Glossary
 
         if self._sql_file is None:
             self._connection = self._engine.connect()

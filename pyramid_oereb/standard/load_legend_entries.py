@@ -9,7 +9,7 @@ from pyconizer.lib.url import parse_url
 from pyramid.path import DottedNameResolver
 from sqlalchemy import create_engine, orm
 
-from pyramid_oereb import parse
+from pyramid_oereb.lib.config import Config
 
 if sys.version_info.major == 2:
     from urlparse import urlunsplit
@@ -63,12 +63,12 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
     """
 
     # config object parsed from oereb configuration yml
-    config = parse(config, section)
+    Config.init(config, section)
     db_connection = None
     found = False
 
     # try to find the topic in config and create the orm models for further processing
-    for topic in config.get('plrs'):
+    for topic in Config.get('plrs'):
         if topic.get('code') == topic_code:
             db_connection = topic.get('source').get('params').get('db_connection')
             Plr = DottedNameResolver().maybe_resolve(
