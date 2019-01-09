@@ -3,7 +3,7 @@ import datetime
 import pytest
 from pyramid.config import ConfigurationError
 
-from pyramid_oereb.lib.config import merge_dicts, Config
+from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
@@ -34,53 +34,6 @@ def test_parse_configuration():
     assert len(cfg.get('param2')) == 2
     assert cfg.get('param2')[0] == 'first'
     assert cfg.get('param2')[1] == 'second'
-
-
-def test_merge_dicts():
-    base = {
-        'a': 1,
-        'b': 'b value',
-        'c': {
-            'd': 2,
-            'keep': 'asdf',
-            'e': {
-                'f': [1, 2, 3]
-            }
-        },
-        'g': [],
-        'h': {
-            'i': 123,
-            'h': 'abcde'
-        }
-    }
-    overwrite = {
-        'b': 'new b value',
-        'c': {
-            'd': 3,
-            'e': {
-                'f': []
-            }
-        }
-
-    }
-    expected = {
-        'a': 1,
-        'b': 'new b value',
-        'c': {
-            'd': 3,
-            'keep': 'asdf',
-            'e': {
-                'f': []
-            }
-        },
-        'g': [],
-        'h': {
-            'i': 123,
-            'h': 'abcde'
-        }
-    }
-    merged = merge_dicts(base, overwrite)
-    assert merged == expected
 
 
 def test_get_plr_cadastre_authority():
