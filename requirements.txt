@@ -3,7 +3,7 @@ geoalchemy2==0.5.0
 psycopg2==2.7.6.1
 pyramid==1.10.1
 pyramid-debugtoolbar==4.5
-PyYAML==3.13
+PyYAML==4.2b4
 shapely==1.6.4.post1  # rq.filter: ==1.6.4.post1
 simplejson==3.16.0
 SQLAlchemy==1.2.15
