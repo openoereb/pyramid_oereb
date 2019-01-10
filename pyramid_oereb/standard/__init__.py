@@ -81,7 +81,8 @@ def create_tables_from_standard_configuration(
         tables_only (bool): True to skip creation of schema. Default is False.
         sql_file (file): the file to generate. Default is None (in the database).
     """
-    Config.init(configuration_yaml_path, section)
+    if Config.get_config() is None:
+        Config.init(configuration_yaml_path, section)
 
     main_schema_engine = create_engine(Config.get('app_schema').get('db_connection'), echo=True)
     if sql_file is None:
@@ -152,7 +153,8 @@ def drop_tables_from_standard_configuration(configuration_yaml_path, section='py
             definitions.
         section (str): The section in yaml file where the plrs are configured in. Default is 'pyramid_oereb'.
     """
-    Config.init(configuration_yaml_path, section)
+    if Config.get_config() is None:
+      Config.init(configuration_yaml_path, section)
     main_schema_engine = create_engine(Config.get('app_schema').get('db_connection'), echo=True)
     main_schema_connection = main_schema_engine.connect()
     main_schema_connection.execute('DROP SCHEMA IF EXISTS {name} CASCADE;'.format(

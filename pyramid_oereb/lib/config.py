@@ -42,9 +42,8 @@ class Config(object):
         Returns the current configuration
 
         Returns:
-            Dict: The current config.
+            Dict: The current config or None.
         """
-        assert Config._config is not None
         return Config._config
 
     @staticmethod
