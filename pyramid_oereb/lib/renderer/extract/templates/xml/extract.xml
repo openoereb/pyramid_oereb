@@ -31,7 +31,7 @@
     <data:Extract>
         <data:CreationDate>${extract.creation_date.strftime(date_format)}</data:CreationDate>
     %if extract.electronic_signature:
-        <data:Signiture>${extract.electronic_signature}</data:Signiture>
+        <data:Signature>${extract.electronic_signature}</data:Signature>
     %endif
     %if extract.concerned_theme:
         %for theme in extract.concerned_theme:
