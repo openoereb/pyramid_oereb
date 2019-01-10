@@ -12,7 +12,7 @@ from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 from shapely.geometry import MultiPolygon, Polygon
-from tests.conftest import pyramid_oereb_test_config
+from tests import pyramid_oereb_test_config
 
 
 class DummyRenderInfo(object):

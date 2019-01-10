@@ -12,7 +12,8 @@ from lxml import etree
 from pyramid_oereb.lib.renderer.extract.xml_ import Renderer
 from pyramid_oereb.lib.renderer.versions.xml_ import Renderer as VersionsRenderer
 from pyramid_oereb.views.webservice import Parameter
-from tests.conftest import params, schema_xml_versions, schema_xml_extract, MockRequest
+from tests import params, schema_xml_versions, schema_xml_extract, xml_templates
+from tests.mockrequest import MockRequest
 from tests.renderer import DummyRenderInfo, get_test_extract
 import pytest
 

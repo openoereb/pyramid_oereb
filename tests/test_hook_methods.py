@@ -8,7 +8,7 @@ from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import LegendEntryRecord
 from pyramid_oereb.standard.hook_methods import get_symbol, get_symbol_ref
-from tests.conftest import pyramid_oereb_test_config
+from tests import pyramid_oereb_test_config
 
 try:
     from urllib.parse import urlparse

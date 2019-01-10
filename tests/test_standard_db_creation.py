@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from tests.conftest import pyramid_oereb_test_yml
+from tests import pyramid_oereb_test_yml
 
 
 @pytest.mark.run(order=-1)

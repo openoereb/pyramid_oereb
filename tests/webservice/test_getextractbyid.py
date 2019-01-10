@@ -5,7 +5,8 @@ import pytest
 from jsonschema import Draft4Validator
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
 
-from tests.conftest import MockRequest, pyramid_oereb_test_config, schema_json_extract
+from tests import pyramid_oereb_test_config, schema_json_extract
+from tests.mockrequest import MockRequest
 from pyramid_oereb.views.webservice import PlrWebservice
 
 log = logging.getLogger('pyramid_oereb')

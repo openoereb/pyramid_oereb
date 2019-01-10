@@ -17,7 +17,7 @@ from pyramid_oereb import ExclusionOfLiabilityReader
 from pyramid_oereb import GlossaryReader
 from pyramid_oereb import RealEstateReader
 from pyramid_oereb.views.webservice import PlrWebservice
-from tests.conftest import MockRequest
+from tests.mockrequest import MockRequest
 
 request_matchdict = {
     'flavour': 'reduced',

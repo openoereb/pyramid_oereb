@@ -25,7 +25,8 @@ from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.renderer import Base
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
-from tests.conftest import MockRequest, pyramid_oereb_test_config
+from tests import pyramid_oereb_test_config
+from tests.mockrequest import MockRequest
 from tests.renderer import DummyRenderInfo
 from pyramid_oereb.views.webservice import Parameter
 

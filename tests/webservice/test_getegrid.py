@@ -11,7 +11,8 @@ import pytest
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
-from tests.conftest import MockRequest, schema_json_extract, pyramid_oereb_test_config
+from tests import schema_json_extract, pyramid_oereb_test_config
+from tests.mockrequest import MockRequest
 from pyramid_oereb.views.webservice import PlrWebservice
 
 
