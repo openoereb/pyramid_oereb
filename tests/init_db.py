@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 
 from pyramid_oereb.lib.config import Config
 
+
 class DummyData(object):
     def __init__(self):
         self._engine = create_engine(Config.get('app_schema').get('db_connection'))
@@ -18,7 +19,8 @@ class DummyData(object):
         self._import_land_use_plans()
 
     def _truncate(self):
-        from pyramid_oereb.standard.models import main, contaminated_sites, land_use_plans, motorways_building_lines
+        from pyramid_oereb.standard.models import main, contaminated_sites, \
+             land_use_plans, motorways_building_lines
         connection = self._engine.connect()
         trans = connection.begin()
 
@@ -124,7 +126,7 @@ class DummyData(object):
         connection.close()
 
     def _import_main(self):
-        from pyramid_oereb.standard.models import main, contaminated_sites, land_use_plans, motorways_building_lines
+        from pyramid_oereb.standard.models import main
         connection = self._engine.connect()
 
         # Add dummy address
@@ -181,7 +183,7 @@ class DummyData(object):
         connection.close()
 
     def _import_motorways_building_lines(self):
-        from pyramid_oereb.standard.models import main, contaminated_sites, land_use_plans, motorways_building_lines
+        from pyramid_oereb.standard.models import motorways_building_lines
         connection = self._engine.connect()
 
         # Add dummy PLR data for line geometry
@@ -362,7 +364,7 @@ class DummyData(object):
         connection.close()
 
     def _import_contaminated_sites(self):
-        from pyramid_oereb.standard.models import main, contaminated_sites, land_use_plans, motorways_building_lines
+        from pyramid_oereb.standard.models import contaminated_sites
         connection = self._engine.connect()
 
         # Add dummy PLR data for polygon geometry
@@ -481,7 +483,7 @@ class DummyData(object):
         connection.close()
 
     def _import_land_use_plans(self):
-        from pyramid_oereb.standard.models import main, contaminated_sites, land_use_plans, motorways_building_lines
+        from pyramid_oereb.standard.models import land_use_plans
         connection = self._engine.connect()
 
         # Add dummy PLR data for collection geometry test

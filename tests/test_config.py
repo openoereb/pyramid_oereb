@@ -6,6 +6,7 @@ from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.office import OfficeRecord
 
+
 # order=-1 to run them after all and don't screw the configuration in Config
 @pytest.mark.run(order=-1)
 def test_missing_configuration_file():

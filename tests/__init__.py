@@ -8,7 +8,6 @@ from pyramid.path import AssetResolver
 from pyramid.testing import testConfig
 
 from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.standard import create_tables_from_standard_configuration
 
 from tests.init_db import DummyData
@@ -70,13 +69,6 @@ def xml_templates():
         input_encoding='utf-8'
     )
     return templates
-
-
-@pytest.fixture
-def xml_schema():
-    a = AssetResolver('tests')
-    resolver = a.resolve('resources/Extract.xsd')
-    return open(resolver.abspath())
 
 
 @contextmanager

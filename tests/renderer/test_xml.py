@@ -12,7 +12,7 @@ from lxml import etree
 from pyramid_oereb.lib.renderer.extract.xml_ import Renderer
 from pyramid_oereb.lib.renderer.versions.xml_ import Renderer as VersionsRenderer
 from pyramid_oereb.views.webservice import Parameter
-from tests import params, schema_xml_versions, schema_xml_extract, xml_templates
+from tests import params, schema_xml_versions, schema_xml_extract, xml_templates  # noqa
 from tests.mockrequest import MockRequest
 from tests.renderer import DummyRenderInfo, get_test_extract
 import pytest
@@ -25,7 +25,7 @@ def test_get_gml_id():
     assert renderer._get_gml_id() == 'gml3'
 
 
-@pytest.mark.parametrize('parameters', params)
+@pytest.mark.parametrize('parameters', params)  # noqa
 def test_line(parameters, xml_templates):
     line = LineString(((0, 0), (1, 1)))
     template = xml_templates.get_template('geometry/line.xml')
@@ -54,7 +54,7 @@ def test_line(parameters, xml_templates):
     assert expected_lines == content_lines
 
 
-@pytest.mark.parametrize('parameters', params)
+@pytest.mark.parametrize('parameters', params)  # noqa
 def test_point(parameters, xml_templates):
     point = Point((0, 0))
     template = xml_templates.get_template('geometry/point.xml')
@@ -74,7 +74,7 @@ def test_point(parameters, xml_templates):
     assert expected_lines == content_lines
 
 
-@pytest.mark.parametrize('parameters', params)
+@pytest.mark.parametrize('parameters', params)  # noqa
 def test_polygon(parameters, xml_templates):
     polygon = Polygon(((0, 0), (0, 1), (1, 1), (1, 0), (0, 0)))
     template = xml_templates.get_template('geometry/polygon.xml')
