@@ -86,11 +86,6 @@ def pyramid_oereb_test_config():
         yield pyramid_config
 
 
-@pytest.fixture(scope='module')
-def law_status():
-    return LawStatusRecord.from_config(u'inForce')
-
-
 # Set up test database and init the Config
 Config._config = None
 create_tables_from_standard_configuration(pyramid_oereb_test_yml)
