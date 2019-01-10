@@ -103,7 +103,7 @@ def test_get_bbox_from_url():
     assert p4 is None
 
 
-def test_view_service_correct_init_ns(config):
+def test_view_service_correct_init_ns():
     with_bbox = 'https://host/?&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&' \
                 'WIDTH=493&HEIGHT=280&FORMAT=image/png'
     test_view_service = ViewServiceRecord(with_bbox, 1, 1.0, 'http://www.test.url.ch', None)

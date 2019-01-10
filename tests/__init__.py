@@ -79,13 +79,6 @@ def xml_schema():
     return open(resolver.abspath())
 
 
-@pytest.fixture(scope='module')
-def config():
-    Config._config = None
-    Config.init(pyramid_oereb_test_yml, 'pyramid_oereb')
-    return Config
-
-
 @contextmanager
 def pyramid_oereb_test_config():
     with testConfig() as pyramid_config:
@@ -94,8 +87,7 @@ def pyramid_oereb_test_config():
 
 
 @pytest.fixture(scope='module')
-def law_status(config):
-    assert isinstance(config._config, dict)
+def law_status():
     return LawStatusRecord.from_config(u'inForce')
 
 

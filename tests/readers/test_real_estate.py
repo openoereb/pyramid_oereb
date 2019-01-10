@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 import pytest
 
+from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.sources import Base
 from pyramid_oereb.lib.readers.real_estate import RealEstateReader
 
 
 @pytest.mark.run(order=2)
-def test_init(config):
+def test_init():
     reader = RealEstateReader(
-        config.get_real_estate_config().get('source').get('class'),
-        **config.get_real_estate_config().get('source').get('params')
+        Config.get_real_estate_config().get('source').get('class'),
+        **Config.get_real_estate_config().get('source').get('params')
     )
     assert isinstance(reader._source_, Base)
 
@@ -21,10 +22,10 @@ def test_init(config):
     {'egrid': 'TEST'},
     {'geometry': 'SRID=2056;POINT(1 1)'}
 ])
-def test_read(param, config):
+def test_read(param):
     reader = RealEstateReader(
-        config.get_real_estate_config().get('source').get('class'),
-        **config.get_real_estate_config().get('source').get('params')
+        Config.get_real_estate_config().get('source').get('class'),
+        **Config.get_real_estate_config().get('source').get('params')
     )
     records = reader.read(**param)
     assert len(records) == 1

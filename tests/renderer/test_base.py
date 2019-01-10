@@ -7,6 +7,7 @@ from pyramid.httpexceptions import HTTPServerError
 from pyramid.response import Response
 from pyramid.testing import DummyRequest
 
+from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import LegendEntryRecord
@@ -55,13 +56,12 @@ def test_get_missing_response():
     assert response is None
 
 
-def test_get_localized_text_from_string(config):
-    assert isinstance(config._config, dict)
+def test_get_localized_text_from_string():
     renderer = Renderer(DummyRenderInfo())
     localized_text = renderer.get_localized_text('Test')
     assert isinstance(localized_text, dict)
     assert localized_text.get('Text') == 'Test'
-    assert localized_text.get('Language') == config.get('default_language')
+    assert localized_text.get('Language') == Config.get('default_language')
 
 
 @pytest.mark.parametrize('language,result', [
@@ -69,8 +69,7 @@ def test_get_localized_text_from_string(config):
     ('en', u'This is a test'),
     ('fr', u'Dies ist ein Test')  # fr not available; use default language (de)
 ])
-def test_get_localized_text_from_dict(config, language, result):
-    assert isinstance(config._config, dict)
+def test_get_localized_text_from_dict(language, result):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = language
     multilingual_text = {
@@ -88,8 +87,7 @@ def test_get_localized_text_from_dict(config, language, result):
     ('en', u'This is a test'),
     ('fr', u'Dies ist ein Test')  # fr not available; use default language (de)
 ])
-def test_get_multilingual_text_from_dict(config, language, result):
-    assert isinstance(config._config, dict)
+def test_get_multilingual_text_from_dict(language, result):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = language
     multilingual_text = {
@@ -107,8 +105,7 @@ def test_get_multilingual_text_from_dict(config, language, result):
     u'ContaminatedSites',
     u'NotExistingTheme',
 ])
-def test_get_symbol_ref(config, theme_code):
-    assert isinstance(config._config, dict)
+def test_get_symbol_ref(theme_code):
     with pyramid_oereb_test_config():
         request = MockRequest()
         record = LegendEntryRecord(

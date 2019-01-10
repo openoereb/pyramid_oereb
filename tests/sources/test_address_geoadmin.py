@@ -38,8 +38,7 @@ def test_init(i, cfg):
 
 
 @pytest.mark.parametrize('status_code', [200, 400])
-def test_read(status_code, config):
-    assert isinstance(config._config, dict)
+def test_read(status_code):
     response = {
         'results': [
             {

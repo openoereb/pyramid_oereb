@@ -1,24 +1,25 @@
 # -*- coding: utf-8 -*-
 import pytest
 
+from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.sources import Base
 from pyramid_oereb.lib.readers.glossary import GlossaryReader
 
 
 @pytest.mark.run(order=2)
-def test_init(config):
+def test_init():
     reader = GlossaryReader(
-        config.get_glossary_config().get('source').get('class'),
-        **config.get_glossary_config().get('source').get('params')
+        Config.get_glossary_config().get('source').get('class'),
+        **Config.get_glossary_config().get('source').get('params')
     )
     assert isinstance(reader._source_, Base)
 
 
 @pytest.mark.run(order=2)
-def test_read(config):
+def test_read():
     reader = GlossaryReader(
-        config.get_glossary_config().get('source').get('class'),
-        **config.get_glossary_config().get('source').get('params')
+        Config.get_glossary_config().get('source').get('class'),
+        **Config.get_glossary_config().get('source').get('params')
     )
     results = reader.read()
     assert isinstance(results, list)

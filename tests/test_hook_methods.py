@@ -16,8 +16,7 @@ except ImportError:
     from urlparse import urlparse
 
 
-def test_get_symbol_invalid_theme_code(config):
-    assert isinstance(config._config, dict)
+def test_get_symbol_invalid_theme_code():
     request = DummyRequest()
     request.matchdict.update({
         'theme_code': 'InvalidThemeCode',
@@ -28,8 +27,7 @@ def test_get_symbol_invalid_theme_code(config):
         get_symbol(request)
 
 
-def test_get_symbol_not_found(config):
-    assert isinstance(config._config, dict)
+def test_get_symbol_not_found():
     request = DummyRequest()
     request.matchdict.update({
         'theme_code': 'ContaminatedSites',
@@ -40,8 +38,7 @@ def test_get_symbol_not_found(config):
         get_symbol(request)
 
 
-def test_get_symbol(config):
-    assert isinstance(config._config, dict)
+def test_get_symbol():
     request = DummyRequest()
     request.matchdict.update({
         'theme_code': 'ContaminatedSites',
@@ -52,8 +49,7 @@ def test_get_symbol(config):
     assert response.body.decode('utf-8') == '1'
 
 
-def test_get_symbol_ref(config):
-    assert isinstance(config._config, dict)
+def test_get_symbol_ref():
     record = LegendEntryRecord(
         ImageRecord('1'.encode('utf-8')),
         {'de': 'Test'},
