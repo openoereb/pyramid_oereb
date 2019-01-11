@@ -3,6 +3,7 @@ import pytest
 from sqlalchemy.exc import ArgumentError
 from sqlalchemy.orm import Session
 
+from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.adapter import DatabaseAdapter
 
 
@@ -16,15 +17,15 @@ def test_get_connections():
     assert isinstance(adapter.get_connections(), dict)
 
 
-def test_add_connection(config):
-    db_url = config.get('app_schema').get('db_connection')
+def test_add_connection():
+    db_url = Config.get('app_schema').get('db_connection')
     adapter = DatabaseAdapter()
     adapter.add_connection(db_url)
     assert isinstance(adapter.get_session(db_url), Session)
 
 
-def test_add_existing_connection(config):
-    db_url = config.get('app_schema').get('db_connection')
+def test_add_existing_connection():
+    db_url = Config.get('app_schema').get('db_connection')
     adapter = DatabaseAdapter()
     adapter.add_connection(db_url)
     expected_length = len(adapter.get_connections())

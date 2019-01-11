@@ -5,7 +5,7 @@ import pytest
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.response import Response
 
-from tests.conftest import MockRequest
+from tests.mockrequest import MockRequest
 from pyramid_oereb.views.webservice import Symbol
 
 

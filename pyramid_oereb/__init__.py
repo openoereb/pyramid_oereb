@@ -5,7 +5,7 @@ import logging
 from pyramid.path import DottedNameResolver
 
 from pyramid_oereb.lib.adapter import DatabaseAdapter
-from pyramid_oereb.lib.config import Config, parse
+from pyramid_oereb.lib.config import Config
 from pyramid.config import Configurator
 
 from pyramid_oereb.lib.readers.exclusion_of_liability import ExclusionOfLiabilityReader
@@ -22,8 +22,6 @@ log = logging.getLogger(__name__)
 route_prefix = None
 # initially instantiate database adapter for global session handling
 database_adapter = DatabaseAdapter()
-app_schema_name = None
-srid = None
 
 
 def main(global_config, **settings):
@@ -48,7 +46,7 @@ def includeme(config):
         config (Configurator): The pyramid apps config object
     """
 
-    global route_prefix, app_schema_name, srid
+    global route_prefix
 
     # Set route prefix
     route_prefix = config.route_prefix
@@ -71,8 +69,6 @@ def includeme(config):
     certification = extract.get('certification')
     certification_at_web = extract.get('certification_at_web')
     logos = Config.get_logo_config()
-    app_schema_name = Config.get('app_schema').get('name')
-    srid = Config.get('srid')
 
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
 
@@ -110,7 +106,7 @@ def includeme(config):
     )
 
     settings.update({
-        'pyramid_oereb': parse(cfg_file or cfg_c2ctemplate_file, cfg_section, cfg_file is None)
+        'pyramid_oereb': Config.get_config()
     })
     processor = Processor(
         real_estate_reader=real_estate_reader,

@@ -25,7 +25,8 @@ from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.renderer import Base
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
-from tests.conftest import MockRequest, pyramid_oereb_test_config
+from tests import pyramid_oereb_test_config
+from tests.mockrequest import MockRequest
 from tests.renderer import DummyRenderInfo
 from pyramid_oereb.views.webservice import Parameter
 
@@ -48,9 +49,8 @@ def params():
     Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
     None
 ])
-def test_render(config, parameter):
+def test_render(parameter):
     date = datetime.datetime.now()
-    assert isinstance(config._config, dict)
     with pyramid_oereb_test_config():
         view_service = ViewServiceRecord(u'http://geowms.bl.ch',
                                          1,
@@ -151,8 +151,7 @@ def test_render(config, parameter):
             assert result == expected
 
 
-def test_format_office(config):
-    assert isinstance(config._config, dict)
+def test_format_office():
     renderer = Renderer(DummyRenderInfo())
     renderer._language = 'de'
     office = OfficeRecord({'de': u'Test'}, uid=u'test_uid', office_at_web=u'http://test.example.com',
@@ -171,8 +170,7 @@ def test_format_office(config):
     }
 
 
-def test_format_real_estate(config):
-    assert isinstance(config._config, dict)
+def test_format_real_estate():
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._params = Parameter(
@@ -215,8 +213,7 @@ def test_format_real_estate(config):
     Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
     Parameter('full', 'json', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 ])
-def test_format_plr(config, parameter):
-    assert isinstance(config._config, dict)
+def test_format_plr(parameter):
     with pyramid_oereb_test_config():
         renderer = Renderer(DummyRenderInfo())
         renderer._language = 'de'
@@ -372,8 +369,7 @@ def test_format_plr(config, parameter):
         'Text': [{'Language': 'de', 'Text': 'Test-Artikel'}]
     })
 ])
-def test_format_document(config, params, document, result_dict):
-    assert isinstance(config._config, dict)
+def test_format_document(params, document, result_dict):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._params = params
@@ -435,8 +431,7 @@ def test_format_document(config, params, document, result_dict):
         }
     })
 ])
-def test_format_geometry(config, params, geometry, result_dict):
-    assert isinstance(config._config, dict)
+def test_format_geometry(params, geometry, result_dict):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._params = params
@@ -445,8 +440,7 @@ def test_format_geometry(config, params, geometry, result_dict):
     assert result == result_dict
 
 
-def test_format_theme(config, params):
-    assert isinstance(config._config, dict)
+def test_format_theme(params):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._params = params
@@ -459,8 +453,7 @@ def test_format_theme(config, params):
     }
 
 
-def test_format_map(config, params):
-    assert isinstance(config._config, dict)
+def test_format_map(params):
     with pyramid_oereb_test_config():
         renderer = Renderer(DummyRenderInfo())
         renderer._language = u'de'
@@ -496,8 +489,7 @@ def test_format_map(config, params):
     default_param(),
     Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de')
 ])
-def test_format_legend_entry(parameter, config):
-    assert isinstance(config._config, dict)
+def test_format_legend_entry(parameter):
     with pyramid_oereb_test_config():
         renderer = Renderer(DummyRenderInfo())
         renderer._language = u'de'

@@ -5,13 +5,14 @@ import math
 from jsonschema import Draft4Validator
 from shapely.geometry import Point, Polygon, MultiPolygon
 
-import pyramid_oereb
 import pytest
 
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
+
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
-from tests.conftest import MockRequest, schema_json_extract, pyramid_oereb_test_config
+from tests import schema_json_extract, pyramid_oereb_test_config
+from tests.mockrequest import MockRequest
 from pyramid_oereb.views.webservice import PlrWebservice
 
 
@@ -21,8 +22,7 @@ def test_getegrid_coord_missing_parameter():
         webservice.get_egrid_coord()
 
 
-def test_getegrid_ident(config):
-    pyramid_oereb.config = config
+def test_getegrid_ident():
     with pyramid_oereb_test_config():
         request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/BLTEST/1000')
 
@@ -49,8 +49,7 @@ def test_getegrid_ident(config):
         assert real_estates[0]['identDN'] == u'BLTEST'
 
 
-def test_getegrid_xy(config):
-    pyramid_oereb.config = config
+def test_getegrid_xy():
     with pyramid_oereb_test_config():
         request = MockRequest(
             current_route_url='http://example.com/oereb/getegrid/json/?XY-1999999.032739449,-999998.940457533'
@@ -80,8 +79,7 @@ def test_getegrid_xy(config):
         assert real_estates[0]['identDN'] == u'BLTEST'
 
 
-def test_getegrid_gnss(config):
-    pyramid_oereb.config = config
+def test_getegrid_gnss():
     with pyramid_oereb_test_config():
         request = MockRequest(
             current_route_url='http://example.com/oereb/getegrid/json/?GNSS=-19.917989937473,32.1244978460310'
@@ -194,8 +192,7 @@ def test_get_egrid_response_no_content():
     ('2621857.856,1259856.578', (2621857.856, 1259856.578), None),
     ('621857.759,259856.554', (2621857.799, 1259856.500), 1.0)
 ])
-def test_parse_xy(src, dst, buffer_dist, config):
-    pyramid_oereb.config = config
+def test_parse_xy(src, dst, buffer_dist):
     geom = PlrWebservice(MockRequest()).__parse_xy__(src, buffer_dist=buffer_dist)
     if buffer_dist:
         assert isinstance(geom, Polygon)
@@ -208,8 +205,7 @@ def test_parse_xy(src, dst, buffer_dist, config):
         assert round(geom.y, 3) == round(dst[1], 3)
 
 
-def test_parse_gnss(config):
-    pyramid_oereb.config = config
+def test_parse_gnss():
     geom = PlrWebservice(MockRequest()).__parse_gnss__('47.48911,7.72866')
     assert isinstance(geom, Polygon)
     assert round(geom.centroid.x, 3) == 2621858.036
@@ -217,8 +213,7 @@ def test_parse_gnss(config):
     assert round(geom.area, 2) == round(math.pi, 2)
 
 
-def test_parse_invalid_coordinates(config):
-    pyramid_oereb.config = config
+def test_parse_invalid_coordinates():
     with pytest.raises(HTTPBadRequest):
         PlrWebservice(MockRequest()).__parse_gnss__('7.72866')
     with pytest.raises(HTTPBadRequest):

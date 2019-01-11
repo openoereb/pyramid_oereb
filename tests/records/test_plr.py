@@ -5,6 +5,7 @@ from shapely.geometry import Point
 
 from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.image import ImageRecord
+from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
@@ -16,9 +17,10 @@ def test_mandatory_fields():
         PlrRecord()
 
 
-def test_init(law_status):
+def test_init():
     office = OfficeRecord({'en': 'Office'})
     view_service = ViewServiceRecord('http://my.wms.com', 1, 1.0)
+    law_status = LawStatusRecord.from_config(u'inForce')
     geometry = GeometryRecord(law_status, datetime.date.today(), Point(1, 1))
     record = PlrRecord(
         ThemeRecord('code', dict()), {'en': 'Content'}, law_status, datetime.date(1985, 8, 29), office,

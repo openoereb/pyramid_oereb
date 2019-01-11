@@ -7,6 +7,7 @@ from pyramid_oereb.lib.processor import Processor
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.image import ImageRecord
+from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
@@ -17,7 +18,7 @@ from pyramid_oereb import ExclusionOfLiabilityReader
 from pyramid_oereb import GlossaryReader
 from pyramid_oereb import RealEstateReader
 from pyramid_oereb.views.webservice import PlrWebservice
-from tests.conftest import MockRequest
+from tests.mockrequest import MockRequest
 
 request_matchdict = {
     'flavour': 'reduced',
@@ -114,10 +115,11 @@ def test_processor_without_images():
         assert plr.view_service.image is None
 
 
-def test_processor_get_legend_entries(law_status):
+def test_processor_get_legend_entries():
     theme1 = ThemeRecord(u'TEST', {'de': 'Theme 1'})
     theme2 = ThemeRecord(u'TEST', {'de': 'Theme 2'})
     office = OfficeRecord({'de': 'Test Office'})
+    law_status = LawStatusRecord.from_config(u'inForce')
     geometries = [GeometryRecord(law_status, datetime.date.today(), Point(1, 1))]
     legend1 = LegendEntryRecord(
         ImageRecord('1'.encode('utf-8')),

@@ -7,7 +7,7 @@ from pyramid.config import ConfigurationError
 from pyramid.path import DottedNameResolver
 from sqlalchemy import create_engine
 
-from pyramid_oereb.lib.config import parse
+from pyramid_oereb.lib.config import Config
 from pyramid_oereb.standard import create_tables_from_standard_configuration
 
 logging.basicConfig()
@@ -27,8 +27,8 @@ def _create_theme_tables(configuration_yaml_path, theme, section='pyramid_oereb'
     """
 
     # Parse themes from configuration
-    config = parse(configuration_yaml_path, section)
-    themes = config.get('plrs')
+    Config.init(configuration_yaml_path, section)
+    themes = Config.get('plrs')
     if not isinstance(themes, list):
         raise ConfigurationError('No list of themes found.')
 

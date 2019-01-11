@@ -12,8 +12,9 @@ def test_mandatory_fields():
         LawRecord()
 
 
-def test_init(law_status):
+def test_init():
     office_record = OfficeRecord({'en': 'name'})
+    law_status = LawStatusRecord.from_config(u'inForce')
     record = LawRecord(law_status, datetime.date(1985, 8, 29), {'en': 'title'},
                        office_record, {'en': 'http://my.legal-provision.com'})
     assert isinstance(record.document_type, str)

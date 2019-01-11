@@ -4,7 +4,8 @@ import json
 
 from jsonschema import Draft4Validator
 
-from tests.conftest import MockRequest, schema_json_extract, pyramid_oereb_test_config
+from tests import schema_json_extract, pyramid_oereb_test_config
+from tests.mockrequest import MockRequest
 from pyramid_oereb.views.webservice import PlrWebservice
 
 

@@ -4,14 +4,12 @@ from datetime import date, timedelta
 
 from sqlalchemy import create_engine
 
-from pyramid_oereb.standard.models import main, contaminated_sites, land_use_plans, motorways_building_lines
+from pyramid_oereb.lib.config import Config
 
 
 class DummyData(object):
-    def __init__(self, config):
-        assert isinstance(config._config, dict)
-        self._config = config
-        self._engine = create_engine(self._config.get('app_schema').get('db_connection'))
+    def __init__(self):
+        self._engine = create_engine(Config.get('app_schema').get('db_connection'))
 
     def init(self):
         self._truncate()
@@ -21,6 +19,8 @@ class DummyData(object):
         self._import_land_use_plans()
 
     def _truncate(self):
+        from pyramid_oereb.standard.models import main, contaminated_sites, \
+             land_use_plans, motorways_building_lines
         connection = self._engine.connect()
         trans = connection.begin()
 
@@ -126,6 +126,7 @@ class DummyData(object):
         connection.close()
 
     def _import_main(self):
+        from pyramid_oereb.standard.models import main
         connection = self._engine.connect()
 
         # Add dummy address
@@ -182,6 +183,7 @@ class DummyData(object):
         connection.close()
 
     def _import_motorways_building_lines(self):
+        from pyramid_oereb.standard.models import motorways_building_lines
         connection = self._engine.connect()
 
         # Add dummy PLR data for line geometry
@@ -190,7 +192,7 @@ class DummyData(object):
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(motorways_building_lines.ViewService.__table__.insert(), {
             'id': '1',
-            'reference_wms': wms_url.format(self._config.get('srid')),
+            'reference_wms': wms_url.format(Config.get('srid')),
             'layer_index': 1,
             'layer_opacity': 1.0
         })
@@ -362,6 +364,7 @@ class DummyData(object):
         connection.close()
 
     def _import_contaminated_sites(self):
+        from pyramid_oereb.standard.models import contaminated_sites
         connection = self._engine.connect()
 
         # Add dummy PLR data for polygon geometry
@@ -370,7 +373,7 @@ class DummyData(object):
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(contaminated_sites.ViewService.__table__.insert(), {
             'id': '1',
-            'reference_wms': wms_url.format(self._config.get('srid')),
+            'reference_wms': wms_url.format(Config.get('srid')),
             'layer_index': 1,
             'layer_opacity': 1.0
         })
@@ -480,6 +483,7 @@ class DummyData(object):
         connection.close()
 
     def _import_land_use_plans(self):
+        from pyramid_oereb.standard.models import land_use_plans
         connection = self._engine.connect()
 
         # Add dummy PLR data for collection geometry test
@@ -488,7 +492,7 @@ class DummyData(object):
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(land_use_plans.ViewService.__table__.insert(), {
             'id': '1',
-            'reference_wms': wms_url.format(self._config.get('srid')),
+            'reference_wms': wms_url.format(Config.get('srid')),
             'layer_index': 1,
             'layer_opacity': 1.0
         })
