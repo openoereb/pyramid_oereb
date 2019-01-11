@@ -56,5 +56,6 @@ class DatabaseOEREBlexSource(DatabaseSource):
         """
         log.debug("document_records_from_oereblex() start")
         self._oereblex_source.read(lexlink)
-        log.debug("document_records_from_oereblex() returning records")
+        log.debug("document_records_from_oereblex() returning {} records"
+                  .format(len(self._oereblex_source.records)))
         return self._oereblex_source.records

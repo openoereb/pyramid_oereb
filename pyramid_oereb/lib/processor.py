@@ -57,12 +57,16 @@ class Processor(object):
                 if doc.published:
                     doc = self.filter_published_documents(doc)
                     published_docs.append(doc)
+                else:
+                    log.debug("filtering out non-published document {}".format(doc))
             record.documents = published_docs
         elif isinstance(record, DocumentRecord):
             for doc in record.references:
                 if doc.published:
                     doc = self.filter_published_documents(doc)
                     published_docs.append(doc)
+                else:
+                    log.debug("filtering out non-published document {}".format(doc))
             record.references = published_docs
         return record
 

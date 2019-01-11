@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+import logging
 import warnings
 import datetime
+
+LOG = logging.getLogger(__name__)
 
 
 class DocumentBaseRecord(object):
@@ -38,9 +41,12 @@ class DocumentBaseRecord(object):
             bool: True if document is published.
         """
         if isinstance(self.published_from, datetime.date):
-            return not self.published_from > datetime.date.today()
+            result = not self.published_from > datetime.date.today()
         else:
-            return not self.published_from > datetime.datetime.now()
+            result = not self.published_from > datetime.datetime.now()
+        LOG.debug("DocumentBaseRecord.published() returning {} for document {}"
+                  .format(result, self.text_at_web))
+        return result
 
 
 class ArticleRecord(DocumentBaseRecord):
@@ -209,6 +215,9 @@ class LegalProvisionRecord(DocumentRecord):
                                                    responsible_office, text_at_web,
                                                    abbreviation, official_number, official_title, canton,
                                                    municipality, article_numbers, file, articles, references)
+
+    def __str__(self):
+        return str(self.__class__) + ": " + str(self.__dict__)
 
 
 class LawRecord(DocumentRecord):
