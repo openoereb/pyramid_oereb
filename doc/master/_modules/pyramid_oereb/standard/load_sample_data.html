@@ -163,10 +163,7 @@
 <span class="kn">from</span> <span class="nn">sqlalchemy.engine</span> <span class="k">import</span> <span class="n">Connection</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="k">import</span> <span class="n">sessionmaker</span><span class="p">,</span> <span class="n">class_mapper</span>
 
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="k">import</span> <span class="n">parse</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models</span> <span class="k">import</span> <span class="n">contaminated_public_transport_sites</span><span class="p">,</span> \
-    <span class="n">groundwater_protection_zones</span><span class="p">,</span> <span class="n">forest_perimeters</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models.main</span> <span class="k">import</span> <span class="n">RealEstate</span><span class="p">,</span> <span class="n">Address</span><span class="p">,</span> <span class="n">Municipality</span><span class="p">,</span> <span class="n">Glossary</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="k">import</span> <span class="n">Config</span>
 
 
 <div class="viewcode-block" id="SampleData"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.load_sample_data.SampleData">[docs]</a><span class="k">class</span> <span class="nc">SampleData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -188,8 +185,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_directory</span> <span class="o">=</span> <span class="n">directory</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sql_file</span> <span class="o">=</span> <span class="n">sql_file</span>
 
-        <span class="n">config</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_section</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">),</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_section</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">),</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@classmethod</span>
@@ -326,6 +323,9 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Performs the database operations to load the sample data.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models</span> <span class="k">import</span> <span class="n">contaminated_public_transport_sites</span><span class="p">,</span> \
+            <span class="n">groundwater_protection_zones</span><span class="p">,</span> <span class="n">forest_perimeters</span>
+        <span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models.main</span> <span class="k">import</span> <span class="n">RealEstate</span><span class="p">,</span> <span class="n">Address</span><span class="p">,</span> <span class="n">Municipality</span><span class="p">,</span> <span class="n">Glossary</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
@@ -481,13 +481,8 @@
     </span>
     <div class="rst-other-versions">
         <dl>
-            <dt>Tags</dt>
-            <dd><a href="../../../../v1.3.0/index.html">v1.3.0</a></dd>
-        </dl>
-        <dl>
             <dt>Branches</dt>
             <dd><a href="load_sample_data.html">master</a></dd>
-            <dd><a href="../../../../requires-io-master/index.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>
