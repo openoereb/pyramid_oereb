@@ -82,11 +82,15 @@ def xml_schema():
     return open(resolver.abspath())
 
 
-@pytest.fixture(scope='module')
-def config():
+def __config():
     Config._config = None
     Config.init(pyramid_oereb_test_yml, 'pyramid_oereb')
     return Config
+
+
+@pytest.fixture(scope='module')
+def config():
+    return __config()
 
 
 @contextmanager
@@ -175,5 +179,5 @@ class MockRequest(DummyRequest):
 
 # Set up test database
 create_tables_from_standard_configuration(pyramid_oereb_test_yml)
-dummy_data = DummyData(config())
+dummy_data = DummyData(__config())
 dummy_data.init()
