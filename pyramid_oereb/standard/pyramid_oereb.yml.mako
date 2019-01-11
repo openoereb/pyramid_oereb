@@ -371,11 +371,11 @@ pyramid_oereb:
         area:
           limit: 1.0
       text:
-        de: Nutzungsplanung
-        fr: Plans d'affectation
-        it: Piani di utilizzazione
-        rm: Planisaziun d'utilisaziun
-        en: Land-use planning
+        de: Nutzungsplanung (kantonal/kommunal)
+        fr: Plans d'affectation (cantonaux/communaux)
+        it: Piani di utilizzazione (cantonali/comunali)
+        rm: Planisaziun d'utilisaziun (chantunal/communal)
+        en: Land-use planning (cantonal / municipal)
       language: de
       federal: false
       standard: true
