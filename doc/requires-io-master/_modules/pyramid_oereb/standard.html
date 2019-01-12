@@ -159,7 +159,7 @@
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">create_engine</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.schema</span> <span class="k">import</span> <span class="n">CreateTable</span>
 <span class="kn">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="n">copyfile</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="k">import</span> <span class="n">parse</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="k">import</span> <span class="n">Config</span>
 
 
 <span class="k">def</span> <span class="nf">convert_camel_case_to_snake_case</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
@@ -232,23 +232,24 @@
 <span class="sd">        tables_only (bool): True to skip creation of schema. Default is False.</span>
 <span class="sd">        sql_file (file): the file to generate. Default is None (in the database).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">config</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span>
 
-    <span class="n">main_schema_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">),</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">main_schema_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">),</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">tables_only</span><span class="p">:</span>
             <span class="n">main_schema_connection</span> <span class="o">=</span> <span class="n">main_schema_engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">main_schema_connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-                    <span class="s1">&#39;CREATE SCHEMA IF NOT EXISTS </span><span class="si">{name}</span><span class="s1">;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">))</span>
+                    <span class="s1">&#39;CREATE SCHEMA IF NOT EXISTS </span><span class="si">{name}</span><span class="s1">;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">))</span>
                 <span class="p">)</span>
             <span class="k">finally</span><span class="p">:</span>
                 <span class="n">main_schema_connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">sql_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;CREATE SCHEMA </span><span class="si">{name}</span><span class="s1">;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)))</span>
+        <span class="n">sql_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;CREATE SCHEMA </span><span class="si">{name}</span><span class="s1">;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)))</span>
 
     <span class="n">main_base_class</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{package}</span><span class="s1">.Base&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">package</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;models&#39;</span><span class="p">)</span>
+        <span class="n">package</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;models&#39;</span><span class="p">)</span>
     <span class="p">))</span>
     <span class="k">if</span> <span class="n">sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">main_base_class</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">main_schema_engine</span><span class="p">)</span>
@@ -258,7 +259,7 @@
                 <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;DATETIME&#39;</span><span class="p">,</span> <span class="s1">&#39;timestamp&#39;</span><span class="p">)</span>
             <span class="n">sql_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">create_table</span><span class="p">))</span>
 
-    <span class="k">for</span> <span class="n">schema</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">schema</span> <span class="ow">in</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">):</span>
 
         <span class="n">plr_schema_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">schema</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">),</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -303,14 +304,15 @@
 <span class="sd">            definitions.</span>
 <span class="sd">        section (str): The section in yaml file where the plrs are configured in. Default is &#39;pyramid_oereb&#39;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">config</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span>
-    <span class="n">main_schema_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">),</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span>
+    <span class="n">main_schema_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">),</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">main_schema_connection</span> <span class="o">=</span> <span class="n">main_schema_engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
     <span class="n">main_schema_connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;DROP SCHEMA IF EXISTS </span><span class="si">{name}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">))</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">))</span>
     <span class="p">)</span>
     <span class="n">main_schema_connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">schema</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">schema</span> <span class="ow">in</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">schema</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;standard&#39;</span><span class="p">):</span>
             <span class="n">plr_schema_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">schema</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">),</span>
                                               <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -405,10 +407,6 @@
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
-        <dl>
-            <dt>Tags</dt>
-            <dd><a href="../../../v1.3.0/index.html">v1.3.0</a></dd>
-        </dl>
         <dl>
             <dt>Branches</dt>
             <dd><a href="../../../master/index.html">master</a></dd>

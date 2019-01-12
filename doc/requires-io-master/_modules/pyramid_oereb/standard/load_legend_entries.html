@@ -162,7 +162,7 @@
 <span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="k">import</span> <span class="n">DottedNameResolver</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">orm</span>
 
-<span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">parse</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="k">import</span> <span class="n">Config</span>
 
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">urlparse</span> <span class="k">import</span> <span class="n">urlunsplit</span>
@@ -216,12 +216,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># config object parsed from oereb configuration yml</span>
-    <span class="n">config</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span>
+    <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span>
     <span class="n">db_connection</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="c1"># try to find the topic in config and create the orm models for further processing</span>
-    <span class="k">for</span> <span class="n">topic</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">topic</span> <span class="ow">in</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">topic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">topic_code</span><span class="p">:</span>
             <span class="n">db_connection</span> <span class="o">=</span> <span class="n">topic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">)</span>
             <span class="n">Plr</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">(</span>
@@ -507,10 +507,6 @@
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
-        <dl>
-            <dt>Tags</dt>
-            <dd><a href="../../../../v1.3.0/index.html">v1.3.0</a></dd>
-        </dl>
         <dl>
             <dt>Branches</dt>
             <dd><a href="../../../../master/index.html">master</a></dd>
