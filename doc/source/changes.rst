@@ -28,8 +28,7 @@ using the standard scripts. This will solve it for you.
 
 Database
 ^^^^^^^^
-New column ``checksum`` in all **federal** oereb theme *DataIntegration* tables you want to use the new
-import script feature for.
+New column ``checksum`` in all oereb theme *DataIntegration* tables.
 
 .. _changes-version-1.2.3:
 
