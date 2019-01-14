@@ -3,7 +3,7 @@ import logging
 import warnings
 import datetime
 
-LOG = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
 class DocumentBaseRecord(object):
@@ -44,7 +44,7 @@ class DocumentBaseRecord(object):
             result = not self.published_from > datetime.date.today()
         else:
             result = not self.published_from > datetime.datetime.now()
-        LOG.debug("DocumentBaseRecord.published() returning {} for document {}"
+        log.debug("DocumentBaseRecord.published() returning {} for document {}"
                   .format(result, self.text_at_web))
         return result
 
