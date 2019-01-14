@@ -886,8 +886,9 @@ pyramid_oereb:
       text:
         de: Waldabstandslinien
         fr: Distances par rapport à la forêt
-        it: Linee di distanza dalla foresta
-        en: Distance from woodland
+        it: Linee di distanza dalle foreste
+        rm: Lingias da distanza dal guaud
+        en: Forest distance lines
       language: de
       federal: false
       standard: true
