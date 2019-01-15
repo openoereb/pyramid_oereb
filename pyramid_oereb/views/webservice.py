@@ -88,14 +88,16 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `capabilities` response.
         """
+        supported_languages = Config.get_language()
         themes = list()
         for theme in Config.get_themes():
             text = list()
             for lang in theme.text:
-                text.append({
-                    'Language': lang,
-                    'Text': theme.text[lang]
-                })
+                if lang in supported_languages:
+                    text.append({
+                        'Language': lang,
+                        'Text': theme.text[lang]
+                    })
             themes.append({
                 'Code': theme.code,
                 'Text': text
@@ -105,7 +107,7 @@ class PlrWebservice(object):
                 u'topic': themes,
                 u'municipality': [record.fosnr for record in self._municipality_reader.read()],
                 u'flavour': Config.get_flavour(),
-                u'language': Config.get_language(),
+                u'language': supported_languages,
                 u'crs': [Config.get_crs()]
             }
         }
