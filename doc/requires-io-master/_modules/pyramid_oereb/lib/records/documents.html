@@ -150,8 +150,11 @@
             
   <h1>Source code for pyramid_oereb.lib.records.documents</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="DocumentBaseRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.documents.DocumentBaseRecord">[docs]</a><span class="k">class</span> <span class="nc">DocumentBaseRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -189,9 +192,12 @@
 <span class="sd">            bool: True if document is published.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">):</span>
-            <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span></div>
+            <span class="n">result</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;DocumentBaseRecord.published() returning </span><span class="si">{}</span><span class="s2"> for document </span><span class="si">{}</span><span class="s2">&quot;</span>
+                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_at_web</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
 
 <div class="viewcode-block" id="ArticleRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.documents.ArticleRecord">[docs]</a><span class="k">class</span> <span class="nc">ArticleRecord</span><span class="p">(</span><span class="n">DocumentBaseRecord</span><span class="p">):</span>
@@ -359,7 +365,10 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">LegalProvisionRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;LegalProvision&#39;</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span>
                                                    <span class="n">responsible_office</span><span class="p">,</span> <span class="n">text_at_web</span><span class="p">,</span>
                                                    <span class="n">abbreviation</span><span class="p">,</span> <span class="n">official_number</span><span class="p">,</span> <span class="n">official_title</span><span class="p">,</span> <span class="n">canton</span><span class="p">,</span>
-                                                   <span class="n">municipality</span><span class="p">,</span> <span class="n">article_numbers</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">articles</span><span class="p">,</span> <span class="n">references</span><span class="p">)</span></div></div>
+                                                   <span class="n">municipality</span><span class="p">,</span> <span class="n">article_numbers</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">articles</span><span class="p">,</span> <span class="n">references</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="LawRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.documents.LawRecord">[docs]</a><span class="k">class</span> <span class="nc">LawRecord</span><span class="p">(</span><span class="n">DocumentRecord</span><span class="p">):</span>

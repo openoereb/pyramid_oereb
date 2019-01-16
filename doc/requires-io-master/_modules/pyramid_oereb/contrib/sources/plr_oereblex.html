@@ -207,7 +207,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;document_records_from_oereblex() start&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oereblex_source</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">lexlink</span><span class="p">)</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;document_records_from_oereblex() returning records&quot;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;document_records_from_oereblex() returning </span><span class="si">{}</span><span class="s2"> records&quot;</span>
+                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oereblex_source</span><span class="o">.</span><span class="n">records</span><span class="p">)))</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oereblex_source</span><span class="o">.</span><span class="n">records</span></div></div>
 </pre></div>
 
