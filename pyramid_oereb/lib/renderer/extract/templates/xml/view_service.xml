@@ -5,7 +5,7 @@
 %if map.reference_wms:
 <data:ReferenceWMS>${map.reference_wms|u}</data:ReferenceWMS>
 %endif
-%if map.legend_at_web:
+%if map.legend_at_web and map.legend_at_web[params.language]:
 <data:LegendAtWeb>${map.legend_at_web[params.language]|u}</data:LegendAtWeb>
 %endif
 %if map.legends:
