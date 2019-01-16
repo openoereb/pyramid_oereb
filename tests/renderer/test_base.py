@@ -101,6 +101,60 @@ def test_get_multilingual_text_from_dict(language, result):
     assert ml_text[0].get('Text') == result
 
 
+def test_sort_by_localized_text():
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language = 'de'
+    # Elements like in the glossary
+    multilingual_elements = [{
+        'title': {
+            'fr': u'RDPPF',
+            'de': u'\xd6REB',
+        },
+        'content': {
+            'fr': u'Content-RDPPF',
+            'de': u'Content-\xd6REB',
+        },
+    }, {
+        'title': {
+            'fr': u'No OFS',
+            'de': u'BFS-Nr.',
+        },
+        'content': {
+            'fr': u'Content-No OFS',
+            'de': u'Content-BFS-Nr.',
+        },
+    }, {
+        'title': {
+            'fr': u'Ofo',
+            'de': u'WaV',
+        },
+        'content': {
+            'fr': u'Content-Ofo',
+            'de': u'Content-WaV',
+        },
+    }]
+    sorted_multilingual_elements = renderer.sort_by_localized_text(
+            multilingual_elements,
+            lambda element: element['title']
+    )
+    assert isinstance(sorted_multilingual_elements, list)
+    assert len(sorted_multilingual_elements) == 3
+    # Elements sorted by 'de' title:
+    assert sorted_multilingual_elements[0]['title']['de'] == u'BFS-Nr.'
+    assert sorted_multilingual_elements[1]['title']['de'] == u'\xd6REB'
+    assert sorted_multilingual_elements[2]['title']['de'] == u'WaV'
+    assert sorted_multilingual_elements[0]['content']['de'] == u'Content-BFS-Nr.'
+    assert sorted_multilingual_elements[1]['content']['de'] == u'Content-\xd6REB'
+    assert sorted_multilingual_elements[2]['content']['de'] == u'Content-WaV'
+    # Still sorted with 'de' language, effect on 'fr' elements:
+    assert sorted_multilingual_elements[0]['title']['fr'] == u'No OFS'
+    assert sorted_multilingual_elements[1]['title']['fr'] == u'RDPPF'
+    assert sorted_multilingual_elements[2]['title']['fr'] == u'Ofo'
+    assert sorted_multilingual_elements[0]['content']['fr'] == u'Content-No OFS'
+    assert sorted_multilingual_elements[1]['content']['fr'] == u'Content-RDPPF'
+    assert sorted_multilingual_elements[2]['content']['fr'] == u'Content-Ofo'
+
+
 @pytest.mark.parametrize('theme_code', [
     u'ContaminatedSites',
     u'NotExistingTheme',
