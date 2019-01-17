@@ -556,6 +556,7 @@ class Config(object):
         assert 'class_name' in sorter
         return sorter
 
+
 def _parse(cfg_file, cfg_section, c2ctemplate_style=False):
     """
     Parses the defined YAML file and returns the defined section as dictionary.
