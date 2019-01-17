@@ -1,5 +1,6 @@
 class BaseSort(object):
-    def sort(self, sub_themes, params):
+    @staticmethod
+    def sort(sub_themes, params):
         """
             Returns the sub themes unsorted (same as input).
 
@@ -14,7 +15,8 @@ class BaseSort(object):
 
 
 class AlphabeticSort(BaseSort):
-    def sort(self, sub_themes, params):
+    @staticmethod
+    def sort(sub_themes, params):
         """
             Returns the sub themes alphabetically sorted (by value of 'SubTheme').
 
@@ -29,7 +31,8 @@ class AlphabeticSort(BaseSort):
 
 
 class ListSort(BaseSort):
-    def sort(self, sub_themes, params):
+    @staticmethod
+    def sort(sub_themes, params):
         """
             Returns the sub themes sorted by an ordered list of sub theme titles.
 

@@ -528,10 +528,20 @@ class Renderer(JsonRenderer):
 
         return sorted_restrictions
 
-    def get_sorter(self, theme_code):
+    @staticmethod
+    def get_sorter(theme_code):
+        """
+        Returns the sub theme sorter for the given theme_code.
+
+        Args:
+            theme_code (str): theme_code
+
+        Returns:
+            sorter: Sub theme sorter object
+            params (dict): parameters for the sorter (from theme configuration)
+        """
         sorter_config = Config.get_sub_theme_sorter_config(theme_code)
         sorter_module = __import__(sorter_config['module'], fromlist=[sorter_config['class_name']])
-        sorter_class = getattr(sorter_module, sorter_config['class_name'])
-        sorter = sorter_class()
+        sorter = getattr(sorter_module, sorter_config['class_name'])
         params = sorter_config.get('params', {})
         return sorter, params
