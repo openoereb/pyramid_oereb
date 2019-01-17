@@ -1,6 +1,22 @@
 import logging
+import sys
+import unicodedata
 
 log = logging.getLogger(__name__)
+
+
+def unaccent_lower(text):
+    """
+    Replaces all special characters so that an alphabetical sorting can be done.
+
+    Args:
+        text (str): The text value.
+
+    Returns:
+        new_text (str): The text value converted to lower case and striped of special characters.
+    """
+    new_text = text.lower() if sys.version_info.major > 2 else unicode(text.lower())
+    return unicodedata.normalize('NFD', new_text)
 
 
 class BaseSort(object):
@@ -32,7 +48,7 @@ class AlphabeticSort(BaseSort):
             Returns:
                 list: Sorted array of sub themes
         """
-        return sorted(sub_themes, key=lambda sub_theme: sub_theme['SubTheme'])
+        return sorted(sub_themes, key=lambda sub_theme: unaccent_lower(sub_theme['SubTheme']))
 
 
 class ListSort(BaseSort):
