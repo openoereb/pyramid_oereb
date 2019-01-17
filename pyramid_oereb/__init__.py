@@ -22,6 +22,7 @@ log = logging.getLogger(__name__)
 route_prefix = None
 # initially instantiate database adapter for global session handling
 database_adapter = DatabaseAdapter()
+processor = None
 
 
 def main(global_config, **settings):
@@ -60,6 +61,33 @@ def includeme(config):
     cfg_section = settings.get('pyramid_oereb.cfg.section', None)
     Config.init(cfg_file or cfg_c2ctemplate_file, cfg_section, cfg_file is None)
     Config.update_settings(settings)
+
+    settings.update({
+        'pyramid_oereb': Config.get_config()
+    })
+
+    config.add_request_method(pyramid_oereb_processor, reify=True)
+
+    config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer.extract.json_.Renderer')
+    config.add_renderer('pyramid_oereb_extract_xml', 'pyramid_oereb.lib.renderer.extract.xml_.Renderer')
+    config.add_renderer('pyramid_oereb_extract_print', Config.get('print').get('renderer'))
+    config.add_renderer('pyramid_oereb_versions_xml', 'pyramid_oereb.lib.renderer.versions.xml_.Renderer')
+    config.add_renderer('pyramid_oereb_capabilities_xml',
+                        'pyramid_oereb.lib.renderer.capabilities.xml_.Renderer')
+    config.add_renderer('pyramid_oereb_getegrid_xml', 'pyramid_oereb.lib.renderer.getegrid.xml_.Renderer')
+
+    config.include('pyramid_oereb.routes')
+
+
+def pyramid_oereb_processor(request):
+    global processor
+    if processor is None:
+        init_processor()
+    return processor
+
+
+def init_processor():
+    global processor
 
     real_estate_config = Config.get_real_estate_config()
     municipality_config = Config.get_municipality_config()
@@ -105,9 +133,6 @@ def includeme(config):
         certification_at_web,
     )
 
-    settings.update({
-        'pyramid_oereb': Config.get_config()
-    })
     processor = Processor(
         real_estate_reader=real_estate_reader,
         municipality_reader=municipality_reader,
@@ -116,18 +141,3 @@ def includeme(config):
         plr_sources=plr_sources,
         extract_reader=extract_reader,
     )
-
-    def pyramid_oereb_processor(request):
-        return processor
-
-    config.add_request_method(pyramid_oereb_processor, reify=True)
-
-    config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer.extract.json_.Renderer')
-    config.add_renderer('pyramid_oereb_extract_xml', 'pyramid_oereb.lib.renderer.extract.xml_.Renderer')
-    config.add_renderer('pyramid_oereb_extract_print', Config.get('print').get('renderer'))
-    config.add_renderer('pyramid_oereb_versions_xml', 'pyramid_oereb.lib.renderer.versions.xml_.Renderer')
-    config.add_renderer('pyramid_oereb_capabilities_xml',
-                        'pyramid_oereb.lib.renderer.capabilities.xml_.Renderer')
-    config.add_renderer('pyramid_oereb_getegrid_xml', 'pyramid_oereb.lib.renderer.getegrid.xml_.Renderer')
-
-    config.include('pyramid_oereb.routes')
