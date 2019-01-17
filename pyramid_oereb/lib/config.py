@@ -552,8 +552,12 @@ class Config(object):
                         sorter = sub_themes.get('sorter')
                     break
         # Check if sorter is valid
-        assert 'module' in sorter
-        assert 'class_name' in sorter
+        if 'module' not in sorter:
+            log.error("Invalid configuration for sub theme sorter for theme {}, "
+                      "no module property".format(theme_code))
+        if 'class_name' not in sorter:
+            log.error("Invalid configuration for sub theme sorter for theme {}, "
+                      "no class_name property".format(theme_code))
         return sorter
 
 

@@ -1,3 +1,8 @@
+import logging
+
+log = logging.getLogger(__name__)
+
+
 class BaseSort(object):
     @staticmethod
     def sort(sub_themes, params):
@@ -43,8 +48,13 @@ class ListSort(BaseSort):
             Returns:
                 list: Sorted array of sub themes
         """
-        assert 'list' in params
-        assert type(params['list']) is list
+        if 'list' not in params:
+            log.error("Missing parameter 'list' for sub theme sorter ListSort")
+            return sub_themes
+
+        if not isinstance(params['list'], list):
+            log.error("Invalid parameter 'list' for sub theme sorter ListSort")
+            return sub_themes
 
         sorted_sub_themes = []
         for next_sub_theme_title in params['list']:
