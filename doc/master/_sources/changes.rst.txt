@@ -10,23 +10,25 @@ version. Often a version upgrade changes or adds parameters which are used.
 Version 1.3.0
 -------------
 
-This version introduces an import facility for federal data. To support this, a new database attribute
+This version introduces an import facility for **federal data**. To support this, a new database attribute
 was needed, you therefore need to apply some changes to your project if you have been using
 :ref:`changes-version-1.2.3` or earlier.
 
 Configuration
 ^^^^^^^^^^^^^
 Add a download link in each oereb theme where you want to use the download script.
-See the pyramid_oereb standard configuration file for an example.
+See the pyramid_oereb standard configuration file for an example. Or read optional installation hints chapter
+:ref:`installation-step-sample-data`.
 
 Models
 ^^^^^^
-If you have custom models (for example, for oereblex), you need to add an attribute ``checksum`` of type String to these.
-Alternatively, you can recreate your models using the standard scripts.
+If you have custom models (for example, for oereblex), you need to add an attribute ``checksum`` of type
+String to these (in class definition of *DataIntegration* model). Alternatively, you can recreate your models
+using the standard scripts. This will solve it for you.
 
 Database
 ^^^^^^^^
-New column ``checksum`` in all oereb theme tables.
+New column ``checksum`` in all oereb theme *DataIntegration* tables.
 
 .. _changes-version-1.2.3:
 
