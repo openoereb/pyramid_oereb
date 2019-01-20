@@ -2,6 +2,10 @@
 Changelog
 ---------
 
+1.X.X
+*****
+- Bug-fix for srid usage
+
 1.3.0
 *****
 - Import script for federal data

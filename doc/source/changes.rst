@@ -7,6 +7,23 @@ This section will give you hints how to handle version migration. Since the proj
 introduce differences in the yml configuration file. So it would not be enough to simply install the newest
 version. Often a version upgrade changes or adds parameters which are used.
 
+Version 1.X.X
+-------------
+
+This is a maintenance and bug-fix release. Amonst other changes, this version includes changes to the
+standard models and improvements to the standard configuration:
+
+* fix of srid usage: if you have custom models in your project, you need to update them in analogy
+  to the changes in the standard models in PR#736; alternatively, you can re-generate your custom models from
+  the script.
+
+* standard translations: the standard configuration now contains all official theme translations.
+  If your project configuration differs from these translations, we recommend you update your configuration
+  accordingly.
+
+
+.. _changes-version-1.3.0:
+
 Version 1.3.0
 -------------
 
