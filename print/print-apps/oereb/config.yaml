@@ -259,7 +259,7 @@ templates:
             httpProcessors:
             - !mapUri    # NEEDED FOR DOCKER ENVIRONMENT
                 mapping:
-                  (https?)://localhost:6543/(.*): "http://wsgi/$2"
+                  (https?)://localhost:6543/(.*): "http://wsgi:8080/$2"
             - !forwardHeaders
                 headers:
                 - Referer
@@ -267,7 +267,7 @@ templates:
                 matchers:
                 - !dnsMatch    # NEEDED FOR DOCKER ENVIRONMENT
                   host: wsgi
-                  port: 80
+                  port: 8080
                   reject: false
                 - !ipMatch
                   ip: 10.0.0.0
