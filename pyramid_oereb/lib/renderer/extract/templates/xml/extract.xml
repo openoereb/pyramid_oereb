@@ -17,6 +17,12 @@
         else:
             return 'false'
 %>
+<%
+    def accessor(element):
+        return element.title
+
+    sorted_glossaries = sort_by_localized_text(extract.glossaries, accessor)
+%>
     %if params.flavour == 'embeddable':
     <embeddable>
         <cadasterState>${str(extract.embeddable.cadaster_state.strftime(date_format))}</cadasterState>
@@ -78,7 +84,7 @@
         <data:BaseData>
             <%include file="multilingual_m_text.xml" args="text=extract.base_data"/>
         </data:BaseData>
-        %for glossary in extract.glossaries:
+        %for glossary in sorted_glossaries:
         <%include file="glossary.xml" args="glossary=glossary"/>
         %endfor
         <%include file="real_estate.xml" args="real_estate=extract.real_estate"/>

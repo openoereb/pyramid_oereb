@@ -154,30 +154,36 @@ class Base(object):
         Returns:
             new_text (str): The text value converted to lower case and striped of special characters.
         """
+        if text is None:
+            return ''
         new_text = text.lower() if sys.version_info.major > 2 else unicode(text.lower())
         return unicodedata.normalize('NFD', new_text)
 
-    def sort_by_localized_text(self, element_list):
+    def sort_by_localized_text(self, multilingual_elements, value_accessor):
         """
         Sort a list of translated text elements alphabetically.
 
         Args:
-            element_list (pyramid_oereb.lib.records.view_service): The list of map.legends to sort.
+            multilingual_elements (list of dict): A list of multilingual elements
+            or dict that contains multilingual elements.
+            value_accessor (function(dict)->string): A function to access the
+                text of a multilingual object to us to sort the list
 
         Returns:
-            list of pyramid_oereb.lib.records.view_service: Alphabetically and language specific sorted
-                elements if translations exist or the list of unsorted map.elements if soring failed.
+            list of dict: Alphabetically and language specific sorted elements
+                if translations exist or the list of unsorted element if
+                sorting failed.
 
         """
         try:
             # Sort the list only if translations exist.
             return sorted(
-                element_list,
-                key=lambda text_element: self.unaccent_lower(
-                    self.get_localized_text(text_element.legend_text)['Text']
+                multilingual_elements,
+                key=lambda element: self.unaccent_lower(
+                    self.get_localized_text(value_accessor(element))['Text']
                 )
             )
 
         except AttributeError as ex:
-            log.warn('Other legend can not be sorted: {0}'.format(ex))
-            return element_list
+            log.warn('Elements can not be sorted: {0}'.format(ex))
+            return multilingual_elements

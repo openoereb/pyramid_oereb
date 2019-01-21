@@ -159,6 +159,11 @@ class Renderer(Base):
 
             extract_dict['Glossary'] = glossaries
 
+        # Sort glossary by requested language alphabetically
+        extract_dict['Glossary'] = self.sort_by_localized_text(
+            extract_dict['Glossary'],
+            lambda element: element['Title'][0]['Text']
+        )
         log.debug("_render() done.")
         return extract_dict
 
@@ -485,7 +490,10 @@ class Renderer(Base):
         if map_.legend_at_web is not None:
             map_dict['LegendAtWeb'] = map_.legend_at_web
         if isinstance(map_.legends, list) and len(map_.legends) > 0:
-            other_legend = self.sort_by_localized_text(map_.legends)
+            other_legend = self.sort_by_localized_text(
+                map_.legends,
+                lambda element: element.legend_text
+            )
 
             map_dict['OtherLegend'] = [
                 self.format_legend_entry(legend_entry) for legend_entry in other_legend]

@@ -10,7 +10,8 @@
 %endif
 %if map.legends:
 <%
-    sorted_legends = sort_by_localized_text(map.legends)
+    accessor = lambda element: element.legend_text
+    sorted_legends = sort_by_localized_text(map.legends, accessor)
 %>
 %for legend_entry in sorted_legends:
 <data:OtherLegend>
