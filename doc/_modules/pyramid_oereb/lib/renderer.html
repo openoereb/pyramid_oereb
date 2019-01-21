@@ -305,33 +305,39 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            new_text (str): The text value converted to lower case and striped of special characters.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;&#39;</span>
         <span class="n">new_text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">unicode</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">&#39;NFD&#39;</span><span class="p">,</span> <span class="n">new_text</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">sort_by_localized_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element_list</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">sort_by_localized_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">multilingual_elements</span><span class="p">,</span> <span class="n">value_accessor</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sort a list of translated text elements alphabetically.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            element_list (pyramid_oereb.lib.records.view_service): The list of map.legends to sort.</span>
+<span class="sd">            multilingual_elements (list of dict): A list of multilingual elements</span>
+<span class="sd">            or dict that contains multilingual elements.</span>
+<span class="sd">            value_accessor (function(dict)-&gt;string): A function to access the</span>
+<span class="sd">                text of a multilingual object to us to sort the list</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            list of pyramid_oereb.lib.records.view_service: Alphabetically and language specific sorted</span>
-<span class="sd">                elements if translations exist or the list of unsorted map.elements if soring failed.</span>
+<span class="sd">            list of dict: Alphabetically and language specific sorted elements</span>
+<span class="sd">                if translations exist or the list of unsorted element if</span>
+<span class="sd">                sorting failed.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># Sort the list only if translations exist.</span>
             <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span>
-                <span class="n">element_list</span><span class="p">,</span>
-                <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">text_element</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">unaccent_lower</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">text_element</span><span class="o">.</span><span class="n">legend_text</span><span class="p">)[</span><span class="s1">&#39;Text&#39;</span><span class="p">]</span>
+                <span class="n">multilingual_elements</span><span class="p">,</span>
+                <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">element</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">unaccent_lower</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_text</span><span class="p">(</span><span class="n">value_accessor</span><span class="p">(</span><span class="n">element</span><span class="p">))[</span><span class="s1">&#39;Text&#39;</span><span class="p">]</span>
                 <span class="p">)</span>
             <span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Other legend can not be sorted: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span>
-            <span class="k">return</span> <span class="n">element_list</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Elements can not be sorted: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">multilingual_elements</span>
 </pre></div>
 
            </div>
