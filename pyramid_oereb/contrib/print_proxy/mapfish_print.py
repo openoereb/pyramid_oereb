@@ -497,13 +497,7 @@ class Renderer(JsonRenderer):
 
     def _sort_sub_themes(self, restrictions):
         # split restrictions by theme codes
-        split_by_theme_code = {}
-        for restriction in restrictions:
-            theme_code = restriction.get('Theme_Code')
-            if theme_code in split_by_theme_code:
-                split_by_theme_code[theme_code].append(restriction)
-            else:
-                split_by_theme_code[theme_code] = [restriction]
+        split_by_theme_code = self._split_restrictions_by_theme_code(restrictions)
 
         # sort sub themes of the same theme
         for theme_code in split_by_theme_code:
@@ -516,7 +510,7 @@ class Renderer(JsonRenderer):
                     non_sub_themes.append(restriction)
             # only sort if there are multiple sub themes
             if len(sub_themes) > 1:
-                sorter, params = self.get_sorter(theme_code)
+                sorter, params = self._get_sorter(theme_code)
                 sub_themes = sorter.sort(sub_themes, params)
             split_by_theme_code[theme_code] = non_sub_themes + sub_themes
 
@@ -529,7 +523,42 @@ class Renderer(JsonRenderer):
         return sorted_restrictions
 
     @staticmethod
-    def get_sorter(theme_code):
+    def _split_restrictions_by_theme_code(restrictions):
+        """
+        Args:
+            restrictions (list): array of restrictions
+
+        Returns:
+            (dict) restrictions split up by theme code
+        :return:
+        """
+        split_by_theme_code = {}
+        for restriction in restrictions:
+            theme_code = restriction.get('Theme_Code')
+            if theme_code in split_by_theme_code:
+                split_by_theme_code[theme_code].append(restriction)
+            else:
+                split_by_theme_code[theme_code] = [restriction]
+        return split_by_theme_code
+
+    @staticmethod
+    def _load_sorter(module, class_name):
+        """
+        Dynamically loads a (sorter) class from a module.
+
+        Args:
+            module (str): Module name to load
+            class_name (str): Class name to load
+
+        Returns:
+            (object) Requested (sorter) class
+        """
+        sorter_module = __import__(module, fromlist=[class_name])
+        sorter = getattr(sorter_module, class_name)
+        return sorter
+
+    @staticmethod
+    def _get_sorter(theme_code):
         """
         Returns the sub theme sorter for the given theme_code.
 
@@ -541,7 +570,6 @@ class Renderer(JsonRenderer):
             params (dict): parameters for the sorter (from theme configuration)
         """
         sorter_config = Config.get_sub_theme_sorter_config(theme_code)
-        sorter_module = __import__(sorter_config['module'], fromlist=[sorter_config['class_name']])
-        sorter = getattr(sorter_module, sorter_config['class_name'])
+        sorter = Renderer._load_sorter(sorter_config['module'], sorter_config['class_name'])
         params = sorter_config.get('params', {})
         return sorter, params
