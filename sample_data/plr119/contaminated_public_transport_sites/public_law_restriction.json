@@ -12,8 +12,7 @@
       "de": "Belastet, untersuchungsbedürftig",
       "fr": "Pollué, investigation nécessaire"
     },
-    "topic": "ContaminatedPublicTransportSites",
-    "sub_theme": "SubTheme1"
+    "topic": "ContaminatedPublicTransportSites"
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
@@ -27,8 +26,7 @@
       "de": "Belastet, untersuchungsbedürftig",
       "fr": "Pollué, investigation nécessaire"
     },
-    "topic": "ContaminatedPublicTransportSites",
-    "sub_theme": "SubTheme1"
+    "topic": "ContaminatedPublicTransportSites"
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
@@ -42,8 +40,7 @@
       "it": "Inquinato, deve essere sorvegliato",
       "fr": "Pollué, nécessite une surveillance"
     },
-    "topic": "ContaminatedPublicTransportSites",
-    "sub_theme": "SubTheme2"
+    "topic": "ContaminatedPublicTransportSites"
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
@@ -57,8 +54,7 @@
       "it": "Inquinato, deve essere sorvegliato",
       "fr": "Pollué, nécessite une surveillance"
     },
-    "topic": "ContaminatedPublicTransportSites",
-    "sub_theme": "SubTheme2"
+    "topic": "ContaminatedPublicTransportSites"
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
@@ -72,7 +68,6 @@
       "de": "Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten",
       "fr": "Pollué, pas d?atteinte nuisible ou incommodante à attendre"
     },
-    "topic": "ContaminatedPublicTransportSites",
-    "sub_theme": "Liniewwwwwgene Festlegungen Linienwwwwgene Festlegungen fff"
+    "topic": "ContaminatedPublicTransportSites"
   }
 ]
