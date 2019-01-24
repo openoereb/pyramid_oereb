@@ -15,7 +15,9 @@ def unaccent_lower(text):
     Returns:
         new_text (str): The text value converted to lower case and striped of special characters.
     """
-    new_text = text.lower() if sys.version_info.major > 2 else unicode(text.lower())
+    if text is None:
+        return ''
+    new_text = text.lower() if sys.version_info.major > 2 else unicode(text.lower())  # noqa
     return unicodedata.normalize('NFD', new_text)
 
 
