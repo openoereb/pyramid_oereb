@@ -176,23 +176,29 @@ class ViewServiceRecord(object):
         map_ration = map_width / map_height
 
         # If the format of the map is naturally adapted to the format of the geometry
-        is_format_adapted = geom_ration < map_ration
+        is_format_adapted = geom_ration > map_ration
 
         if is_format_adapted:
-            map_height_without_buffer = map_height - 2 * print_buffer
-            # Calculate the new height of the geom with the buffer.
-            geom_height_with_buffer = map_height / map_height_without_buffer * geom_height
-            # Calculate the new geom width with the map ratio and the new geom height.
-            geom_width_with_buffer = geom_height_with_buffer * map_ration
+            # Part (percent) of the margin compared to the map width.
+            margin_in_percent = 2 * print_buffer / map_width
+            # Size of the margin in geom units.
+            geom_margin = geom_width * margin_in_percent
+            # Geom width with the margins (right and left).
+            adapted_geom_width = geom_width + (2 * geom_margin)
+            # Adapted geom height to the map height
+            adapted_geom_height = (adapted_geom_width / map_width) * map_height
         else:
-            map_width_without_buffer = map_width - 2 * print_buffer
-            # Calculate the new width of the geom with the buffer.
-            geom_width_with_buffer = map_width / map_width_without_buffer * geom_width
-            # Calculate the new geom height with the map ratio and the new geom width.
-            geom_height_with_buffer = geom_width_with_buffer * map_ration
+            # Part (percent) of the margin compared to the map height.
+            margin_in_percent = 2 * print_buffer / map_height
+            # Size of the margin in geom units.
+            geom_margin = geom_height * margin_in_percent
+            # Geom height with the buffer (top and bottom).
+            adapted_geom_height = geom_height + (2 * geom_margin)
+            # Adapted geom width to the map width
+            adapted_geom_width = (adapted_geom_height / map_height) * map_width
 
-        height_to_add = (geom_height_with_buffer - geom_height) / 2
-        width_to_add = (geom_width_with_buffer - geom_width) / 2
+        height_to_add = (adapted_geom_height - geom_height) / 2
+        width_to_add = (adapted_geom_width - geom_width) / 2
 
         return [
             geom_bounds[0] - width_to_add,
