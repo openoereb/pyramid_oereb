@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
 from contextlib import contextmanager
-from mako.lookup import TemplateLookup
-
-import pytest
-
-from pyramid.path import AssetResolver
 from pyramid.testing import testConfig
 
 from pyramid_oereb.lib.config import Config
@@ -57,18 +52,6 @@ schema_xml_extract_data = './tests/resources/schema/20170825/ExtractData.xsd'
 
 
 pyramid_oereb_test_yml = 'pyramid_oereb/standard/pyramid_oereb.yml'
-
-
-@pytest.fixture
-def xml_templates():
-    a = AssetResolver('pyramid_oereb')
-    resolver = a.resolve('lib/renderer/extract/templates/xml')
-    templates = TemplateLookup(
-        directories=[resolver.abspath()],
-        output_encoding='utf-8',
-        input_encoding='utf-8'
-    )
-    return templates
 
 
 @contextmanager
