@@ -352,7 +352,7 @@ class Renderer(JsonRenderer):
                 values = list(restriction_on_landownership[element].values())
                 self.lpra_flatten(values)
                 restriction_on_landownership[element] = values
-                if element is 'LegalProvisions':
+                if element == 'LegalProvisions':
                     pdf_to_join.update([legal_provision['TextAtWeb'] for legal_provision in values])
 
         restrictions = list(theme_restriction.values())

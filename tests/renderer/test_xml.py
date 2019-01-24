@@ -8,14 +8,27 @@ except ImportError:
 
 from shapely.geometry import LineString, Point, Polygon
 from lxml import etree
-
+from pyramid.path import AssetResolver
 from pyramid_oereb.lib.renderer.extract.xml_ import Renderer
 from pyramid_oereb.lib.renderer.versions.xml_ import Renderer as VersionsRenderer
 from pyramid_oereb.views.webservice import Parameter
-from tests import params, schema_xml_versions, schema_xml_extract, xml_templates  # noqa
+from tests import params, schema_xml_versions, schema_xml_extract
 from tests.mockrequest import MockRequest
 from tests.renderer import DummyRenderInfo, get_test_extract
+from mako.lookup import TemplateLookup
 import pytest
+
+
+@pytest.fixture
+def xml_templates():
+    a = AssetResolver('pyramid_oereb')
+    resolver = a.resolve('lib/renderer/extract/templates/xml')
+    templates = TemplateLookup(
+        directories=[resolver.abspath()],
+        output_encoding='utf-8',
+        input_encoding='utf-8'
+    )
+    return templates
 
 
 def test_get_gml_id():
