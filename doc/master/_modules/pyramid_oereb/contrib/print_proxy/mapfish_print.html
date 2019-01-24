@@ -503,7 +503,7 @@
                 <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">lpra_flatten</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
                 <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
-                <span class="k">if</span> <span class="n">element</span> <span class="ow">is</span> <span class="s1">&#39;LegalProvisions&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">element</span> <span class="o">==</span> <span class="s1">&#39;LegalProvisions&#39;</span><span class="p">:</span>
                     <span class="n">pdf_to_join</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">legal_provision</span> <span class="ow">in</span> <span class="n">values</span><span class="p">])</span>
 
         <span class="n">restrictions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">theme_restriction</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
