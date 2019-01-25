@@ -140,6 +140,7 @@ clean-all:
 	rm -rf $(BUILDDIR)
 	rm -rf coverage_report
 	rm -f pyramid_oereb_standard.yml pyramid_oereb/standard/pyramid_oereb.yml
+	rm -f test-db/12-create.sql test-db/13-fill.sql
 
 .PHONY: create-standard-tables
 create-standard-tables: $(PYTHON_VENV)
