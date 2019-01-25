@@ -62,8 +62,8 @@ def glossary_expected():
      glossary_input(),
      glossary_expected()),
     (None, glossary_input(), glossary_expected()),
-    (None, [], []),
-    (None, None, [])
+    (None, [], None),
+    (None, None, None)
 ])
 def test_render(parameter, glossaries_input, glossaries_expected):
     date = datetime.datetime.now()
@@ -144,9 +144,10 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                     'Title': [{'Language': 'de', 'Text': 'Haftungsausschluss'}],
                     'Content': [{'Language': 'de', 'Text': 'Test'}]
                 }],
-                'Glossary': glossaries_expected,
                 'ElectronicSignature': 'Signature'
             }
+            if glossaries_expected:
+                expected['Glossary'] = glossaries_expected
             if parameter.images:
                 expected.update({
                     'LogoPLRCadastre': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
