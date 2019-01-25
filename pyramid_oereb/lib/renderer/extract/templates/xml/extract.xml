@@ -21,7 +21,9 @@
     def accessor(element):
         return element.title
 
-    sorted_glossaries = sort_by_localized_text(extract.glossaries, accessor)
+    sorted_glossaries = list()
+    if isinstance(extract.glossaries, list):
+        sorted_glossaries = sort_by_localized_text(extract.glossaries, accessor)
 %>
     %if params.flavour == 'embeddable':
     <embeddable>

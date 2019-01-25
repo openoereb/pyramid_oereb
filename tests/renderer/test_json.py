@@ -44,12 +44,28 @@ def params():
     return default_param()
 
 
-@pytest.mark.parametrize('parameter', [
-    default_param(),
-    Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
-    None
+def glossary_input():
+    return [GlossaryRecord({'de': u'Glossar'}, {'de': u'Test'})]
+
+
+def glossary_expected():
+    return [{
+        'Title': [{'Language': 'de', 'Text': 'Glossar'}],
+        'Content': [{'Language': 'de', 'Text': 'Test'}]
+    }]
+
+
+@pytest.mark.parametrize('parameter, glossaries_input, glossaries_expected', [
+    (default_param(), glossary_input(), glossary_expected()),
+    (default_param(), [], []),
+    (Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
+     glossary_input(),
+     glossary_expected()),
+    (None, glossary_input(), glossary_expected()),
+    (None, [], []),
+    (None, None, [])
 ])
-def test_render(parameter):
+def test_render(parameter, glossaries_input, glossaries_expected):
     date = datetime.datetime.now()
     with pyramid_oereb_test_config():
         view_service = ViewServiceRecord(u'http://geowms.bl.ch',
@@ -94,7 +110,7 @@ def test_render(parameter):
             exclusions_of_liability=[
                 ExclusionOfLiabilityRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})
             ],
-            glossaries=[GlossaryRecord({'de': u'Glossar'}, {'de': u'Test'})],
+            glossaries=glossaries_input,
             general_information={'de': u'Allgemeine Informationen'},
             certification={'de': u'certification'},
             certification_at_web={'de': u'certification_at_web'},
@@ -128,10 +144,7 @@ def test_render(parameter):
                     'Title': [{'Language': 'de', 'Text': 'Haftungsausschluss'}],
                     'Content': [{'Language': 'de', 'Text': 'Test'}]
                 }],
-                'Glossary': [{
-                    'Title': [{'Language': 'de', 'Text': 'Glossar'}],
-                    'Content': [{'Language': 'de', 'Text': 'Test'}]
-                }],
+                'Glossary': glossaries_expected,
                 'ElectronicSignature': 'Signature'
             }
             if parameter.images:

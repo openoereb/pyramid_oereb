@@ -19,7 +19,20 @@ class DummyRenderInfo(object):
     name = 'test'
 
 
-def get_test_extract():
+def get_default_extract():
+    glossary = [GlossaryRecord({'de': u'Glossar'}, {'de': u'Test'})]
+    return _get_test_extract(glossary)
+
+
+def get_empty_glossary_extract():
+    return _get_test_extract([])
+
+
+def get_none_glossary_extract():
+    return _get_test_extract(None)
+
+
+def _get_test_extract(glossary):
     date = datetime.datetime.now()
     with pyramid_oereb_test_config():
         view_service = ViewServiceRecord(u'http://geowms.bl.ch',
@@ -64,7 +77,7 @@ def get_test_extract():
             exclusions_of_liability=[
                 ExclusionOfLiabilityRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})
             ],
-            glossaries=[GlossaryRecord({'de': u'Glossar'}, {'de': u'Test'})],
+            glossaries=glossary,
             general_information={'de': u'Allgemeine Informationen'},
             certification={'de': u'certification'},
             certification_at_web={'de': u'certification_at_web'},

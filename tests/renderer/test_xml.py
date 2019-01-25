@@ -14,7 +14,8 @@ from pyramid_oereb.lib.renderer.versions.xml_ import Renderer as VersionsRendere
 from pyramid_oereb.views.webservice import Parameter
 from tests import params, schema_xml_versions, schema_xml_extract
 from tests.mockrequest import MockRequest
-from tests.renderer import DummyRenderInfo, get_test_extract
+from tests.renderer import DummyRenderInfo, get_default_extract,\
+    get_empty_glossary_extract, get_none_glossary_extract
 from mako.lookup import TemplateLookup
 import pytest
 
@@ -152,11 +153,22 @@ def test_version_against_schema():
     assert xmlschema.validate(doc)
 
 
-@pytest.mark.parametrize('parameter', [
-    Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
+@pytest.mark.parametrize('parameter, test_extract', [
+    (
+            Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
+            get_default_extract()
+    ),
+    (
+            Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
+            get_empty_glossary_extract()
+    ),
+    (
+            Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
+            get_none_glossary_extract()
+    )
 ])
-def test_extract_against_schema(parameter):
-    extract = get_test_extract()
+def test_extract_against_schema(parameter, test_extract):
+    extract = test_extract
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._request = MockRequest()
