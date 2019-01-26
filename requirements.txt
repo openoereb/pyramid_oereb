@@ -10,7 +10,7 @@ SQLAlchemy==1.2.17
 sqlalchemy-utils==0.33.11
 transaction==2.4.0
 urllib3[secure]==1.24.1
-waitress==1.2.0
+waitress==1.2.1
 zope.sqlalchemy==1.1
 jsonschema==2.6.0
 pyreproj==1.0.0
