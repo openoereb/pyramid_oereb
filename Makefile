@@ -158,7 +158,7 @@ create-oereblex-models:
 create-standard-tables: $(PYTHON_VENV)
 	$(VENV_BIN)create_tables$(PYTHON_BIN_POSTFIX) -c pyramid_oereb.yml
 
-.PHONY: drop-standard-table
+.PHONY: drop-standard-tables
 drop-standard-tables: $(PYTHON_VENV)
 	$(VENV_BIN)drop_tables$(PYTHON_BIN_POSTFIX) -c pyramid_oereb.yml
 
