@@ -42,6 +42,8 @@ SPHINXPROJ = OEREB
 SOURCEDIR = doc/source
 BUILDDIR = doc/build
 
+MODEL_PK_TYPE_IS_STRING ?= true
+
 .PHONY: install
 install: $(PYTHON_VENV)
 
@@ -142,11 +144,21 @@ clean-all:
 	rm -f pyramid_oereb_standard.yml pyramid_oereb/standard/pyramid_oereb.yml
 	rm -f test-db/12-create.sql test-db/13-fill.sql
 
+.PHONY: create-default-models
+create-default-models:
+	VENV_BIN=$(VENV_BIN) MODEL_SCRIPT=create_standard_model MODEL_PATH=pyramid_oereb/standard/models/ \
+	MODEL_PK_TYPE_IS_STRING=$(MODEL_PK_TYPE_IS_STRING) bash generate_models.sh
+
+.PHONY: create-oereblex-models
+create-oereblex-models:
+	VENV_BIN=$(VENV_BIN) MODEL_SCRIPT=create_oereblex_model MODEL_PATH=pyramid_oereb/contrib/models/oereblex/ \
+	MODEL_PK_TYPE_IS_STRING=$(MODEL_PK_TYPE_IS_STRING) bash generate_models.sh
+
 .PHONY: create-standard-tables
 create-standard-tables: $(PYTHON_VENV)
 	$(VENV_BIN)create_tables$(PYTHON_BIN_POSTFIX) -c pyramid_oereb.yml
 
-.PHONY: drop-standard-tables
+.PHONY: drop-standard-table
 drop-standard-tables: $(PYTHON_VENV)
 	$(VENV_BIN)drop_tables$(PYTHON_BIN_POSTFIX) -c pyramid_oereb.yml
 
