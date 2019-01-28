@@ -3,6 +3,7 @@ import warnings
 import logging
 import requests
 
+from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.url import add_url_params, parse_url
 from pyramid_oereb.lib.url import uri_validator
@@ -167,6 +168,12 @@ class ViewServiceRecord(object):
         map_size = print_conf['basic_map_size']
         map_width = float(map_size[0])
         map_height = float(map_size[1])
+
+        if print_buffer * 2 >= min(map_width, map_height):
+            error_msg_txt = 'Your print buffer ({}px)'.format(print_buffer)
+            error_msg_txt += ' applied on each side of the feature exceed the smaller'
+            error_msg_txt += ' side of your map {}px.'.format(min(map_width, map_height))
+            raise ConfigurationError(error_msg_txt)
 
         geom_bounds = geometry.bounds
         geom_width = float(geom_bounds[2] - geom_bounds[0])
