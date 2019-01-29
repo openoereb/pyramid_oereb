@@ -535,6 +535,31 @@ class Config(object):
                 return mapping['mapping']
         return real_estate_type
 
+    @staticmethod
+    def get_sub_theme_sorter_config(theme_code):
+        assert Config._config is not None
+        sorter = {
+            'module': 'pyramid_oereb.contrib.print_proxy.sub_themes.sorting',
+            'class_name': 'BaseSort',
+            'params': {}
+        }
+        themes = Config._config.get('plrs')
+        if themes and isinstance(themes, list):
+            for theme in themes:
+                if theme.get('code') == theme_code:
+                    sub_themes = theme.get('sub_themes', {})
+                    if 'sorter' in sub_themes:
+                        sorter = sub_themes.get('sorter')
+                    break
+        # Check if sorter is valid
+        if 'module' not in sorter:
+            log.error("Invalid configuration for sub theme sorter for theme {}, "
+                      "no module property".format(theme_code))
+        if 'class_name' not in sorter:
+            log.error("Invalid configuration for sub theme sorter for theme {}, "
+                      "no class_name property".format(theme_code))
+        return sorter
+
 
 def _parse(cfg_file, cfg_section, c2ctemplate_style=False):
     """

@@ -88,7 +88,7 @@ vars:
       display_real_estate_subunit_of_land_register: true
       # Split themes up, so that each sub theme gets its own page
       # Disabled by default.
-      split_sub_themes: false
+      split_sub_themes: true
 
     # The "app_schema" property contains only one sub property "name". This is directly related to the database
     # creation process. Because this name is used as schema name in the target database. The app_schema holds
@@ -826,6 +826,15 @@ vars:
       law_status:
         in_force: inForce
         running_modifications: runningModifications
+      sub_themes:
+        sorter:
+          module: pyramid_oereb.contrib.print_proxy.sub_themes.sorting
+          class_name: ListSort
+          params:
+            list:
+              - SubTheme3
+              - SubTheme2
+              - SubTheme1
 
     - name: plr131
       code: GroundwaterProtectionZones
