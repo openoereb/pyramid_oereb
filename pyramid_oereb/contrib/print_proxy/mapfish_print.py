@@ -530,7 +530,6 @@ class Renderer(JsonRenderer):
 
         Returns:
             (dict) restrictions split up by theme code
-        :return:
         """
         split_by_theme_code = {}
         for restriction in restrictions:
