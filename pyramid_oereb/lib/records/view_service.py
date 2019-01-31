@@ -28,7 +28,7 @@ class LegendEntryRecord(object):
         sub_theme (unicode): Theme sub category.
         other_theme (unicode): Additional theme linked to this theme.
         view_service_id (int): The id to the connected view service. This is very important to be able to
-            solve bug https://github.com/pyramidoereb/pyramid_oereb/issues/521
+            solve bug https://github.com/openoereb/pyramid_oereb/issues/521
     """
 
     def __init__(self, symbol, legend_text, type_code, type_code_list, theme, sub_theme=None,
