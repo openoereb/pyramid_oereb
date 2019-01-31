@@ -87,7 +87,7 @@ These are the new configuration options for your project (yml file):
   * ``furtherInformationText`` was removed. This information is not existing any longer regarding to changed
     federal specification for the static extract.
 
-See the `pyramid_oereb_standard yml template <https://github.com/camptocamp/pyramid_oereb/blob/v1.2.1/pyramid_oereb/standard/pyramid_oereb.yml.mako>`__
+See the `pyramid_oereb_standard yml template <https://github.com/openoereb/pyramid_oereb/blob/v1.2.1/pyramid_oereb/standard/pyramid_oereb.yml.mako>`__
 for the correct style of the configuration and an explanation of the new attributes.
 
 .. _changes-new-config-mapfish-print-1.2.1:
@@ -101,7 +101,7 @@ These are the new configuration options for the printing of your extracts:
   in the pdf extract or not
 
 See the ``print`` section at this place in the
-`pyramid_oereb_standard yml template <https://github.com/camptocamp/pyramid_oereb/blob/v1.2.1/pyramid_oereb/standard/pyramid_oereb.yml.mako#L65>`__
+`pyramid_oereb_standard yml template <https://github.com/openoereb/pyramid_oereb/blob/v1.2.1/pyramid_oereb/standard/pyramid_oereb.yml.mako#L65>`__
 for the correct style of the configuration.
 
 Database
@@ -127,7 +127,7 @@ create a completely new yml but valid file. In order to do that its up to your d
 to your existing configuration or migrate your custom configuration into a newly created file.
 
 Here is a list of features this version additionally implements compared to
-`1.0.1 <https://github.com/camptocamp/pyramid_oereb/releases/tag/v1.0.1>`__:
+`1.0.1 <https://github.com/openoereb/pyramid_oereb/releases/tag/v1.0.1>`__:
 
 .. _changes-oereb-lex:
 
@@ -135,7 +135,7 @@ OEREBlex
 ^^^^^^^^
 
 This version includes binding/adapter to oereb lex. The code can be found
-`here <https://github.com/camptocamp/pyramid_oereb/blob/v1.1.0/pyramid_oereb/contrib/sources/plr_oereblex.py>`__.
+`here <https://github.com/openoereb/pyramid_oereb/blob/v1.1.0/pyramid_oereb/contrib/sources/plr_oereblex.py>`__.
 This should enable you to use OEREBlex with a minimum of configuration.
 See :ref:`changes-new-config-oereb-lex` for further details of configuration options.
 
@@ -517,7 +517,7 @@ New configuration options in yml
 MapFish Print
 """""""""""""
 
-See the `pyramid_oereb_standard.yml <https://github.com/camptocamp/pyramid_oereb/blob/v1.1.0/pyramid_oereb/standard/pyramid_oereb.yml.mako#L65>`__
+See the `pyramid_oereb_standard.yml <https://github.com/openoereb/pyramid_oereb/blob/v1.1.0/pyramid_oereb/standard/pyramid_oereb.yml.mako#L65>`__
 for the correct style of the configuration.
 
 - improved print templates to fit federal definitions as good as possible
