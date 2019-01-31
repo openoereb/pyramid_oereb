@@ -213,4 +213,4 @@ custom data source, the possible ways to adapt the models or to extend the appli
 section :ref:`configuration`.
 
 
-.. _repository: https://github.com/camptocamp/pyramid_oereb/
+.. _repository: https://github.com/pyramidoereb/pyramid_oereb/

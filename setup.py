@@ -32,7 +32,7 @@ setup(
     license='BSD 2',
     author='Clemens Rudert',
     author_email='clemens.rudert@bl.ch',
-    url='https://github.com/camptocamp/pyramid_oereb',
+    url='https://github.com/pyramidoereb/pyramid_oereb',
     keywords='pyramid oereb',
     packages=find_packages(),
     include_package_data=True,

@@ -371,7 +371,7 @@ class Renderer(Base):
 
             # Note: No output for File (binary) because speccifications are
             # currently unclear on this point. See Issue:
-            # https://github.com/camptocamp/pyramid_oereb/issues/611
+            # https://github.com/pyramidoereb/pyramid_oereb/issues/611
 
         elif isinstance(document, ArticleRecord):
             document_dict.update({
