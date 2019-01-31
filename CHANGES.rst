@@ -56,7 +56,7 @@ Changelog
 ************
 
 - first approach of OEREB server
-- improved documentation on https://camptocamp.github.io/pyramid_oereb/doc/
+- improved documentation on https://pyramidoereb.github.io/pyramid_oereb/doc/
 - cleaned and reorganized code
 - binding to OEREB-LEX and GeoAdmin-Api-Address-Service
   (http://api.geo.admin.ch/services/sdiservices.html#search) as sources
@@ -75,7 +75,7 @@ Changelog
 -  images accessible via URL
 -  add configurable methods for processing
 -  improve geometry handling
--  add documentation on https://camptocamp.github.io/pyramid_oereb/doc/
+-  add documentation on https://pyramidoereb.github.io/pyramid_oereb/doc/
 -  several bugfixes
 
 1.0.0-alpha.1
