@@ -48,14 +48,14 @@ deploy:
   skip_cleanup: true
   on:
     branch: master
-    repo: pyramidoereb/pyramid_oereb
+    repo: openoereb/pyramid_oereb
     python: '3.6'
 - provider: script
   script: sphinx-versioning push doc/source/ gh-pages doc
   skip_cleanup: true
   on:
     tags: true
-    repo: pyramidoereb/pyramid_oereb
+    repo: openoereb/pyramid_oereb
     python: '3.6'
 - provider: pypi
   server: https://upload.pypi.org/legacy/
@@ -67,27 +67,27 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    repo: pyramidoereb/pyramid_oereb
+    repo: openoereb/pyramid_oereb
     python: '3.6'
 - provider: script
   script: travis/deploy-daily-pypi-build.sh
   on:
     condition: '"${TRAVIS_EVENT_TYPE}" = cron'
-    repo: pyramidoereb/pyramid_oereb
+    repo: openoereb/pyramid_oereb
     python: '3.6'
 - provider: script
   script: travis/deploy-docker.sh
   skip_cleanup: true
   on:
     branch: master
-    repo: pyramidoereb/pyramid_oereb
+    repo: openoereb/pyramid_oereb
     python: '3.6'
 - provider: script
   script: travis/deploy-docker.sh
   skip_cleanup: true
   on:
     tags: true
-    repo: pyramidoereb/pyramid_oereb
+    repo: openoereb/pyramid_oereb
     python: '3.6'
 
 notifications:
