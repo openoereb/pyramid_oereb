@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+1.3.1
+*****
+- Maintenance release (GitHub issues 447, 610, 590, 609, 757, 750, 681, 752, 753, 460, 736,
+  666, 596, 678, 461, 751)
+
 1.3.0
 *****
 - Import script for federal data
