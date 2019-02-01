@@ -2,9 +2,10 @@
 Changelog
 ---------
 
-1.X.X
+1.3.1
 *****
-- Bug-fix for srid usage
+- Maintenance release (GitHub issues 447, 610, 590, 609, 757, 750, 681, 752, 753, 460, 736,
+  666, 596, 678, 461)
 
 1.3.0
 *****
