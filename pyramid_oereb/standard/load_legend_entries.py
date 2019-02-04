@@ -112,7 +112,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
             type_code_list.append(unique_plr.type_code)
         url, params = parse_url(unique_plr.view_service.reference_wms)
         layer_existent = False
-        service_url = urlunsplit((url.scheme, url.netloc, '', '', '')) \
+        service_url = urlunsplit((url.scheme, url.netloc, url.path, '', '')) \
             if replace_host is None else replace_host
         layer = params.get('LAYERS')[0] if replace_layer is None else replace_layer
         for layer_config in pyconizer_config:
