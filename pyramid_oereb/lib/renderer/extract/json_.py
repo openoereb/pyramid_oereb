@@ -488,7 +488,7 @@ class Renderer(Base):
         if map_.reference_wms is not None:
             map_dict['ReferenceWMS'] = map_.reference_wms
         if map_.legend_at_web is not None:
-            if map_.legend_at_web[self._language] is not None:
+            if self._language in map_.legend_at_web:
                 map_dict['LegendAtWeb'] = map_.legend_at_web[self._language]
             else:
                 log.warn("map_.legend_at_web has no element {}".format(self._language))

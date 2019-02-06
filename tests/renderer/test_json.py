@@ -467,7 +467,15 @@ def test_format_theme(params):
     }
 
 
-def test_format_map(params):
+@pytest.mark.parametrize('legend_at_web,expected_legend_at_web', [
+    ({'de': u'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic'},
+     u'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic'),
+    ({'it': u'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic'},
+     None),
+    ({}, None),
+    (None, None)
+])
+def test_format_map(params, legend_at_web, expected_legend_at_web):
     with pyramid_oereb_test_config():
         renderer = Renderer(DummyRenderInfo())
         renderer._language = u'de'
@@ -484,19 +492,21 @@ def test_format_map(params):
         view_service = ViewServiceRecord('http://my.wms.ch',
                                          1,
                                          1.0,
-                                         {'de': u'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic'},
+                                         legend_at_web,
                                          [legend_entry])
         view_service.image = ImageRecord('1'.encode('utf-8'))
         result = renderer.format_map(view_service)
         assert isinstance(result, dict)
-        assert result == {
+        expected_result = {
             'Image': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
             'layerIndex': 1,
             'layerOpacity': 1.0,
             'ReferenceWMS': 'http://my.wms.ch',
-            'LegendAtWeb': u'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic',
             'OtherLegend': [renderer.format_legend_entry(legend_entry)]
         }
+        if expected_legend_at_web is not None:
+            expected_result['LegendAtWeb'] = expected_legend_at_web
+        assert result == expected_result
 
 
 @pytest.mark.parametrize('parameter', [
