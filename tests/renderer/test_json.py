@@ -25,7 +25,8 @@ from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.renderer import Base
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
-from tests.conftest import MockRequest, pyramid_oereb_test_config
+from tests import pyramid_oereb_test_config
+from tests.mockrequest import MockRequest
 from tests.renderer import DummyRenderInfo
 from pyramid_oereb.views.webservice import Parameter
 
@@ -34,19 +35,38 @@ def law_status():
     return LawStatusRecord(u'inForce', {'de': u'In Kraft'})
 
 
-@pytest.fixture()
-def params():
+def default_param():
     return Parameter('reduced', 'json', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 
 
-@pytest.mark.parametrize('parameter', [
-    params(),
-    Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
-    None
+@pytest.fixture()
+def params():
+    return default_param()
+
+
+def glossary_input():
+    return [GlossaryRecord({'de': u'Glossar'}, {'de': u'Test'})]
+
+
+def glossary_expected():
+    return [{
+        'Title': [{'Language': 'de', 'Text': 'Glossar'}],
+        'Content': [{'Language': 'de', 'Text': 'Test'}]
+    }]
+
+
+@pytest.mark.parametrize('parameter, glossaries_input, glossaries_expected', [
+    (default_param(), glossary_input(), glossary_expected()),
+    (default_param(), [], []),
+    (Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
+     glossary_input(),
+     glossary_expected()),
+    (None, glossary_input(), glossary_expected()),
+    (None, [], None),
+    (None, None, None)
 ])
-def test_render(config, parameter):
+def test_render(parameter, glossaries_input, glossaries_expected):
     date = datetime.datetime.now()
-    assert isinstance(config._config, dict)
     with pyramid_oereb_test_config():
         view_service = ViewServiceRecord(u'http://geowms.bl.ch',
                                          1,
@@ -90,7 +110,7 @@ def test_render(config, parameter):
             exclusions_of_liability=[
                 ExclusionOfLiabilityRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})
             ],
-            glossaries=[GlossaryRecord({'de': u'Glossar'}, {'de': u'Test'})],
+            glossaries=glossaries_input,
             general_information={'de': u'Allgemeine Informationen'},
             certification={'de': u'certification'},
             certification_at_web={'de': u'certification_at_web'},
@@ -124,12 +144,10 @@ def test_render(config, parameter):
                     'Title': [{'Language': 'de', 'Text': 'Haftungsausschluss'}],
                     'Content': [{'Language': 'de', 'Text': 'Test'}]
                 }],
-                'Glossary': [{
-                    'Title': [{'Language': 'de', 'Text': 'Glossar'}],
-                    'Content': [{'Language': 'de', 'Text': 'Test'}]
-                }],
                 'ElectronicSignature': 'Signature'
             }
+            if glossaries_expected:
+                expected['Glossary'] = glossaries_expected
             if parameter.images:
                 expected.update({
                     'LogoPLRCadastre': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
@@ -147,8 +165,7 @@ def test_render(config, parameter):
             assert result == expected
 
 
-def test_format_office(config):
-    assert isinstance(config._config, dict)
+def test_format_office():
     renderer = Renderer(DummyRenderInfo())
     renderer._language = 'de'
     office = OfficeRecord({'de': u'Test'}, uid=u'test_uid', office_at_web=u'http://test.example.com',
@@ -167,8 +184,7 @@ def test_format_office(config):
     }
 
 
-def test_format_real_estate(config):
-    assert isinstance(config._config, dict)
+def test_format_real_estate():
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._params = Parameter(
@@ -207,12 +223,11 @@ def test_format_real_estate(config):
 
 
 @pytest.mark.parametrize('parameter', [
-    params(),
+    default_param(),
     Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
     Parameter('full', 'json', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 ])
-def test_format_plr(config, parameter):
-    assert isinstance(config._config, dict)
+def test_format_plr(parameter):
     with pyramid_oereb_test_config():
         renderer = Renderer(DummyRenderInfo())
         renderer._language = 'de'
@@ -368,8 +383,7 @@ def test_format_plr(config, parameter):
         'Text': [{'Language': 'de', 'Text': 'Test-Artikel'}]
     })
 ])
-def test_format_document(config, params, document, result_dict):
-    assert isinstance(config._config, dict)
+def test_format_document(params, document, result_dict):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._params = params
@@ -431,8 +445,7 @@ def test_format_document(config, params, document, result_dict):
         }
     })
 ])
-def test_format_geometry(config, params, geometry, result_dict):
-    assert isinstance(config._config, dict)
+def test_format_geometry(params, geometry, result_dict):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._params = params
@@ -441,8 +454,7 @@ def test_format_geometry(config, params, geometry, result_dict):
     assert result == result_dict
 
 
-def test_format_theme(config, params):
-    assert isinstance(config._config, dict)
+def test_format_theme(params):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._params = params
@@ -455,8 +467,7 @@ def test_format_theme(config, params):
     }
 
 
-def test_format_map(config, params):
-    assert isinstance(config._config, dict)
+def test_format_map(params):
     with pyramid_oereb_test_config():
         renderer = Renderer(DummyRenderInfo())
         renderer._language = u'de'
@@ -489,11 +500,10 @@ def test_format_map(config, params):
 
 
 @pytest.mark.parametrize('parameter', [
-    params(),
+    default_param(),
     Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de')
 ])
-def test_format_legend_entry(parameter, config):
-    assert isinstance(config._config, dict)
+def test_format_legend_entry(parameter):
     with pyramid_oereb_test_config():
         renderer = Renderer(DummyRenderInfo())
         renderer._language = u'de'

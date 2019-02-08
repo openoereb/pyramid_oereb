@@ -11,7 +11,7 @@ is not easily made you need to make your own classes and adapt them to your data
 """
 import sqlalchemy as sa
 from pyramid_oereb.standard.models import NAMING_CONVENTION
-from pyramid_oereb import srid
+from pyramid_oereb.lib.config import Config
 from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
 from sqlalchemy.orm import relationship
@@ -19,9 +19,7 @@ from sqlalchemy_utils import JSONType
 
 metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = declarative_base()
-
-if not srid:
-    srid = 2056
+srid = Config.get('srid')
 
 
 class Availability(Base):
@@ -119,6 +117,7 @@ class DataIntegration(Base):
     date = sa.Column(sa.DateTime, nullable=False)
     office_id = sa.Column(sa.Integer, sa.ForeignKey(Office.id), nullable=False)
     office = relationship(Office)
+    checksum = sa.Column(sa.String, nullable=True)
 
 
 class ViewService(Base):

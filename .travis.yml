@@ -1,9 +1,13 @@
 sudo: required
 
 language: python
-python:
-- '2.7'
-- '3.6'
+
+matrix:
+  include:
+  - python: "2.7"
+    env: PYTHON_VERSION=python2
+  - python: "3.6"
+    env: PYTHON_VERSION=python3
 
 services:
 - docker
@@ -31,7 +35,7 @@ after_success:
 - git clean -x
 
 before_deploy:
-- pip install sphinxcontrib-versioning 'Sphinx<1.6' Mako sphinx_rtd_theme sphinxcontrib.napoleon --editable .[recommend]
+- pip install sphinxcontrib-versioning 'Sphinx<1.6' Mako sphinx_rtd_theme --editable .[recommend]
 - openssl aes-256-cbc -K $encrypted_43de73a10f25_key -iv $encrypted_43de73a10f25_iv -in deploy_rsa.enc -out ~/.ssh/id_rsa -d
 - eval "$(ssh-agent -s)"
 - chmod 0600 ~/.ssh/id_rsa
@@ -44,14 +48,14 @@ deploy:
   skip_cleanup: true
   on:
     branch: master
-    repo: camptocamp/pyramid_oereb
+    repo: openoereb/pyramid_oereb
     python: '3.6'
 - provider: script
   script: sphinx-versioning push doc/source/ gh-pages doc
   skip_cleanup: true
   on:
     tags: true
-    repo: camptocamp/pyramid_oereb
+    repo: openoereb/pyramid_oereb
     python: '3.6'
 - provider: pypi
   server: https://upload.pypi.org/legacy/
@@ -63,27 +67,27 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    repo: camptocamp/pyramid_oereb
+    repo: openoereb/pyramid_oereb
     python: '3.6'
 - provider: script
   script: travis/deploy-daily-pypi-build.sh
   on:
     condition: '"${TRAVIS_EVENT_TYPE}" = cron'
-    repo: camptocamp/pyramid_oereb
+    repo: openoereb/pyramid_oereb
     python: '3.6'
 - provider: script
   script: travis/deploy-docker.sh
   skip_cleanup: true
   on:
     branch: master
-    repo: camptocamp/pyramid_oereb
+    repo: openoereb/pyramid_oereb
     python: '3.6'
 - provider: script
   script: travis/deploy-docker.sh
   skip_cleanup: true
   on:
     tags: true
-    repo: camptocamp/pyramid_oereb
+    repo: openoereb/pyramid_oereb
     python: '3.6'
 
 notifications:

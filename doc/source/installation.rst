@@ -107,11 +107,44 @@ script:
 
 .. _installation-step-sample-data:
 
-5. Load sample data (optional)
-..............................
+5. Load data (optional)
+.......................
 
-A set of sample data is available in the repository_ in the directory `sample_data`. After downloading it, you
-can import the sample data into the configured database using the following script:
+The easiest way to add some data, is to import the data of an available federal topic using the provided
+script.
+
+.. note:: This exmple shows the import for the topic `AirportsSecurityZonePlans`, but you can use any federal
+   topic you like to. You should ensure, that the topic contains some data within the perimeter (canton) you
+   want to show.
+
+.. warning:: The import script only works for topics using the standard database. Any modifications to the
+   database structure may cause the import to fail.
+
+First you have to ensure, that the correct download URL is defined for the topic in
+`pyramid_oereb_standard.yml`. The configuration for the topic should contain the following download property:
+
+.. code-block:: yaml
+
+ plrs:
+
+ ...
+
+ - name: plr108
+   code: AirportsSecurityZonePlans
+   ...
+   download: https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip
+
+If this is the case, you can run the import script for this topic:
+
+.. code-block:: shell
+
+ import_federal_topic -c pyramid_oereb_standard.yml -t AirportsSecurityZonePlans
+
+The data for this federal topic should now be available in your standard database. For an overview of the
+available import options, please run ``import_federal_topic --help``.
+
+Alternatively, a set of sample data is available in the repository_ in the directory `sample_data`. After
+downloading it, you can import the sample data into the configured database using the following script:
 
 .. code-block:: shell
 
@@ -180,4 +213,4 @@ custom data source, the possible ways to adapt the models or to extend the appli
 section :ref:`configuration`.
 
 
-.. _repository: https://github.com/camptocamp/pyramid_oereb/
+.. _repository: https://github.com/openoereb/pyramid_oereb/

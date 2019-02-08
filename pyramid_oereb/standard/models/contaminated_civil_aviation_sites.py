@@ -10,7 +10,7 @@ is not easily made you need to make your own classes and adapt them to your data
 """
 import sqlalchemy as sa
 from pyramid_oereb.standard.models import NAMING_CONVENTION
-from pyramid_oereb import srid
+from pyramid_oereb.lib.config import Config
 from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
 from sqlalchemy.orm import relationship
@@ -18,9 +18,7 @@ from sqlalchemy_utils import JSONType
 
 metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = declarative_base()
-
-if not srid:
-    srid = 2056
+srid = Config.get('srid')
 
 
 class Availability(Base):
@@ -92,6 +90,7 @@ class DataIntegration(Base):
     date = sa.Column(sa.DateTime, nullable=False)
     office_id = sa.Column(sa.String, sa.ForeignKey(Office.id), nullable=False)
     office = relationship(Office)
+    checksum = sa.Column(sa.String, nullable=True)
 
 
 class ReferenceDefinition(Base):
@@ -385,7 +384,7 @@ class Geometry(Base):
             The dedicated relation to the office instance from database.
         geom (geoalchemy2.types.Geometry): The geometry it's self. For type information see
             geoalchemy docs (https://geoalchemy-2.readthedocs.io/en/0.4.2/types.html) dependent on the
-            configured type.  This concrete one is POLYGON
+            configured type.  This concrete one is GEOMETRYCOLLECTION
     """
     __table_args__ = {'schema': 'contaminated_civil_aviation_sites'}
     __tablename__ = 'geometry'
@@ -393,7 +392,7 @@ class Geometry(Base):
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     geo_metadata = sa.Column(sa.String, nullable=True)
-    geom = sa.Column(GeoAlchemyGeometry('POLYGON', srid=srid), nullable=False)
+    geom = sa.Column(GeoAlchemyGeometry('GEOMETRYCOLLECTION', srid=srid), nullable=False)
     public_law_restriction_id = sa.Column(
         sa.String,
         sa.ForeignKey(PublicLawRestriction.id),

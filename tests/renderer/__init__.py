@@ -12,14 +12,27 @@ from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 from shapely.geometry import MultiPolygon, Polygon
-from tests.conftest import pyramid_oereb_test_config
+from tests import pyramid_oereb_test_config
 
 
 class DummyRenderInfo(object):
     name = 'test'
 
 
-def get_test_extract():
+def get_default_extract():
+    glossary = [GlossaryRecord({'de': u'Glossar'}, {'de': u'Test'})]
+    return _get_test_extract(glossary)
+
+
+def get_empty_glossary_extract():
+    return _get_test_extract([])
+
+
+def get_none_glossary_extract():
+    return _get_test_extract(None)
+
+
+def _get_test_extract(glossary):
     date = datetime.datetime.now()
     with pyramid_oereb_test_config():
         view_service = ViewServiceRecord(u'http://geowms.bl.ch',
@@ -64,11 +77,13 @@ def get_test_extract():
             exclusions_of_liability=[
                 ExclusionOfLiabilityRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})
             ],
-            glossaries=[GlossaryRecord({'de': u'Glossar'}, {'de': u'Test'})],
+            glossaries=glossary,
             general_information={'de': u'Allgemeine Informationen'},
             certification={'de': u'certification'},
             certification_at_web={'de': u'certification_at_web'},
         )
-        extract.qr_code = 'VGhpcyBpcyBub3QgYSBRUiBjb2Rl'.encode('utf-8')
+        # extract.qr_code = 'VGhpcyBpcyBub3QgYSBRUiBjb2Rl'.encode('utf-8') TODO:
+        #    qr_code Must be an image ('base64Binary'), but even with images xml validation
+        #    fails on it.
         # extract.electronic_signature = 'Signature'  # TODO: fix signature rendering first
         return extract

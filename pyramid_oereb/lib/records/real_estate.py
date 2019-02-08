@@ -26,7 +26,8 @@ class RealEstateRecord(object):
         """
 
         Args:
-            type (unicode): The property type
+            type (unicode): The property type. This attribute will be translated with the configured
+                corresponding value.
             canton (unicode): The abbreviation of the canton the property is located in
             municipality (unicode): The municipality the property is located in
             fosnr (int): The federal number of the municipality defined by the statistics office
@@ -50,7 +51,7 @@ class RealEstateRecord(object):
         self.number = number
         self.identdn = identdn
         self.egrid = egrid
-        self.type = type
+        self.type = Config.get_real_estate_type_by_mapping(type)
         self.canton = canton
         self.municipality = municipality
         self.subunit_of_land_register = subunit_of_land_register

@@ -4,7 +4,8 @@ import json
 
 from jsonschema import Draft4Validator
 
-from tests.conftest import MockRequest, schema_json_extract, pyramid_oereb_test_config
+from tests import schema_json_extract, pyramid_oereb_test_config
+from tests.mockrequest import MockRequest
 from pyramid_oereb.views.webservice import PlrWebservice
 
 
@@ -31,15 +32,24 @@ def test_getcapabilities():
         assert isinstance(caps[u'topic'], list)
         assert len(caps[u'topic']) == 17
         assert caps[u'topic'][15][u'Code'] == u'ForestPerimeters'
-        assert caps[u'topic'][15][u'Text'][0][u'Language'] == u'de'
+        forest_perimeter_languages = list(map(lambda l: l[u'Language'], caps[u'topic'][15][u'Text']))
+        assert u'de' in forest_perimeter_languages
+        assert u'fr' in forest_perimeter_languages
+        assert u'it' in forest_perimeter_languages
+        assert u'rm' in forest_perimeter_languages
 
         assert isinstance(caps[u'flavour'], list)
         assert len(caps[u'flavour']) == 3
-        assert caps[u'flavour'][0] == u'REDUCED'
+        assert u'REDUCED' in caps[u'flavour']
+        assert u'FULL' in caps[u'flavour']
+        assert u'EMBEDDABLE' in caps[u'flavour']
 
         assert isinstance(caps[u'language'], list)
         assert len(caps[u'language']) == 4
-        assert caps[u'language'][0] == u'de'
+        assert u'de' in caps[u'language']
+        assert u'fr' in caps[u'language']
+        assert u'it' in caps[u'language']
+        assert u'rm' in caps[u'language']
 
         assert isinstance(caps[u'crs'], list)
         assert len(caps[u'crs']) == 1

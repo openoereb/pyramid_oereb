@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import requests
 from pyreproj import Reprojector
+from shapely.geometry import Point
 
 from pyramid_oereb import Config
-from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.records.address import AddressRecord
 from pyramid_oereb.lib.sources.address import AddressBaseSource
 
@@ -19,7 +19,7 @@ class AddressGeoAdminSource(AddressBaseSource):
         Keyword Args:
             geoadmin_search_api (uri): Url of the GeoAdmin API's search service. (**required**)
             origins (str or list of str): Filter results by origin. Defaults to *address*. (**optional**)
-            referer (str): Referer to use.
+            referer (str): Referer to use. (**optional**)
             proxies (dict): Proxy definition according to
                 http://docs.python-requests.org/en/master/user/advanced/#proxies. (**optional**)
         """
@@ -29,8 +29,6 @@ class AddressGeoAdminSource(AddressBaseSource):
         self._type = 'locations'
         self._proxies = kwargs.get('proxies')
         self._referer = kwargs.get('referer', None)
-        if self._referer is None:
-            raise ConfigurationError('A referer must be set to use GeoAdmin service as source for address.')
         if 'origins' in kwargs:
             origins = kwargs.get('origins')
             if isinstance(origins, list):
@@ -48,9 +46,11 @@ class AddressGeoAdminSource(AddressBaseSource):
             zip_code (int): The postal zipcode for the desired address.
             street_number (unicode): The house or so called street number of the desired address.
         """
-        headers = {
-            'Referer': self._referer
-        }
+        headers = {}
+        if self._referer is not None:
+            headers.update({
+                'Referer': self._referer
+            })
         params = {
             'type': self._type,
             'origins': self._origins,
@@ -71,7 +71,7 @@ class AddressGeoAdminSource(AddressBaseSource):
                             street_name=street_name,
                             zip_code=zip_code,
                             street_number=street_number,
-                            geom='POINT({x} {y})'.format(x=x, y=y)
+                            geom=Point(x, y)
                         ))
         else:
             response.raise_for_status()

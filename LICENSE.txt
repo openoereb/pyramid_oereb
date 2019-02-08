@@ -1,6 +1,6 @@
 BSD 2-Clause License
 
-Copyright (c) 2017-2018, Kanton Basel-Landschaft, République et Canton de Neuchâtel,
+Copyright (c) 2017-2019, Kanton Basel-Landschaft, République et Canton de Neuchâtel,
 Camptocamp SA
 All rights reserved.
 

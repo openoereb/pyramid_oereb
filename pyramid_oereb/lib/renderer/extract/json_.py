@@ -157,8 +157,11 @@ class Renderer(Base):
                 else:
                     log.warning("glossary entry in requested language missing for title {}".format(gls.title))
 
-            extract_dict['Glossary'] = glossaries
-
+            # Sort glossary by requested language alphabetically
+            extract_dict['Glossary'] = self.sort_by_localized_text(
+                glossaries,
+                lambda element: element['Title'][0]['Text']
+            )
         log.debug("_render() done.")
         return extract_dict
 
@@ -368,7 +371,7 @@ class Renderer(Base):
 
             # Note: No output for File (binary) because speccifications are
             # currently unclear on this point. See Issue:
-            # https://github.com/camptocamp/pyramid_oereb/issues/611
+            # https://github.com/openoereb/pyramid_oereb/issues/611
 
         elif isinstance(document, ArticleRecord):
             document_dict.update({
@@ -485,7 +488,10 @@ class Renderer(Base):
         if map_.legend_at_web is not None:
             map_dict['LegendAtWeb'] = map_.legend_at_web
         if isinstance(map_.legends, list) and len(map_.legends) > 0:
-            other_legend = self.sort_by_localized_text(map_.legends)
+            other_legend = self.sort_by_localized_text(
+                map_.legends,
+                lambda element: element.legend_text
+            )
 
             map_dict['OtherLegend'] = [
                 self.format_legend_entry(legend_entry) for legend_entry in other_legend]

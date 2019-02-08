@@ -21,8 +21,7 @@ def test_invalid_code():
         LawStatusRecord(u'inValid', {u'de': u'In Kraft'})
 
 
-def test_from_config(config):
-    assert isinstance(config._config, dict)
+def test_from_config():
     record = LawStatusRecord.from_config(u'inForce')
     assert record.code == u'inForce'
     assert isinstance(record.text, dict)

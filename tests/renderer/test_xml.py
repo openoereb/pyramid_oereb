@@ -1,14 +1,35 @@
 # -*- coding: utf-8 -*-
-import StringIO
+
+import sys
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import BytesIO
+
 from shapely.geometry import LineString, Point, Polygon
 from lxml import etree
-
+from pyramid.path import AssetResolver
 from pyramid_oereb.lib.renderer.extract.xml_ import Renderer
 from pyramid_oereb.lib.renderer.versions.xml_ import Renderer as VersionsRenderer
 from pyramid_oereb.views.webservice import Parameter
-from tests.conftest import params, schema_xml_versions, schema_xml_extract, MockRequest
-from tests.renderer import DummyRenderInfo, get_test_extract
+from tests import params, schema_xml_versions, schema_xml_extract
+from tests.mockrequest import MockRequest
+from tests.renderer import DummyRenderInfo, get_default_extract,\
+    get_empty_glossary_extract, get_none_glossary_extract
+from mako.lookup import TemplateLookup
 import pytest
+
+
+@pytest.fixture
+def xml_templates():
+    a = AssetResolver('pyramid_oereb')
+    resolver = a.resolve('lib/renderer/extract/templates/xml')
+    templates = TemplateLookup(
+        directories=[resolver.abspath()],
+        output_encoding='utf-8',
+        input_encoding='utf-8'
+    )
+    return templates
 
 
 def test_get_gml_id():
@@ -18,7 +39,7 @@ def test_get_gml_id():
     assert renderer._get_gml_id() == 'gml3'
 
 
-@pytest.mark.parametrize('parameters', params)
+@pytest.mark.parametrize('parameters', params)  # noqa
 def test_line(parameters, xml_templates):
     line = LineString(((0, 0), (1, 1)))
     template = xml_templates.get_template('geometry/line.xml')
@@ -47,7 +68,7 @@ def test_line(parameters, xml_templates):
     assert expected_lines == content_lines
 
 
-@pytest.mark.parametrize('parameters', params)
+@pytest.mark.parametrize('parameters', params)  # noqa
 def test_point(parameters, xml_templates):
     point = Point((0, 0))
     template = xml_templates.get_template('geometry/point.xml')
@@ -67,7 +88,7 @@ def test_point(parameters, xml_templates):
     assert expected_lines == content_lines
 
 
-@pytest.mark.parametrize('parameters', params)
+@pytest.mark.parametrize('parameters', params)  # noqa
 def test_polygon(parameters, xml_templates):
     polygon = Polygon(((0, 0), (0, 1), (1, 1), (1, 0), (0, 0)))
     template = xml_templates.get_template('geometry/polygon.xml')
@@ -127,16 +148,27 @@ def test_version_against_schema():
 
     xmlschema_doc = etree.parse(schema_xml_versions)
     xmlschema = etree.XMLSchema(xmlschema_doc)
-    buffer = StringIO.StringIO(rendered)
+    buffer = StringIO(rendered) if sys.version_info.major == 2 else BytesIO(rendered)
     doc = etree.parse(buffer)
     assert xmlschema.validate(doc)
 
 
-@pytest.mark.parametrize('parameter', [
-    Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
+@pytest.mark.parametrize('parameter, test_extract', [
+    (
+            Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
+            get_default_extract()
+    ),
+    (
+            Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
+            get_empty_glossary_extract()
+    ),
+    (
+            Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
+            get_none_glossary_extract()
+    )
 ])
-def test_extract_against_schema(parameter):
-    extract = get_test_extract()
+def test_extract_against_schema(parameter, test_extract):
+    extract = test_extract
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._request = MockRequest()
@@ -145,6 +177,6 @@ def test_extract_against_schema(parameter):
 
     xmlschema_doc = etree.parse(schema_xml_extract)
     xmlschema = etree.XMLSchema(xmlschema_doc)
-    buffer = StringIO.StringIO(rendered)
+    buffer = StringIO(rendered) if sys.version_info.major == 2 else BytesIO(rendered)
     doc = etree.parse(buffer)
     xmlschema.assertValid(doc)

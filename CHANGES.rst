@@ -2,6 +2,26 @@
 Changelog
 ---------
 
+1.3.1
+*****
+- Maintenance release (GitHub issues 447, 610, 590, 609, 757, 750, 681, 752, 753, 460, 736,
+  666, 596, 678, 461, 751)
+
+1.3.0
+*****
+- Import script for federal data
+
+1.2.3
+*****
+- Bug-fix release for 1.2.2 (fix intersection bug, fix pdfreport template)
+
+1.2.2
+*****
+- Further bug-fixes for oereb service versoin 1.0, notably regarding schema conformity
+  and better support for other OS versions.
+- New configuration parameter type_mapping in real_estate, which allows to configuratively
+  define the texts to be used for realestate types (optional parameter).
+
 1.2.1
 *****
 - Bug-fixes for service version 1.0 (pyramid_oereb 1.2.0),
@@ -41,7 +61,7 @@ Changelog
 ************
 
 - first approach of OEREB server
-- improved documentation on https://camptocamp.github.io/pyramid_oereb/doc/
+- improved documentation on https://openoereb.github.io/pyramid_oereb/doc/
 - cleaned and reorganized code
 - binding to OEREB-LEX and GeoAdmin-Api-Address-Service
   (http://api.geo.admin.ch/services/sdiservices.html#search) as sources
@@ -60,7 +80,7 @@ Changelog
 -  images accessible via URL
 -  add configurable methods for processing
 -  improve geometry handling
--  add documentation on https://camptocamp.github.io/pyramid_oereb/doc/
+-  add documentation on https://openoereb.github.io/pyramid_oereb/doc/
 -  several bugfixes
 
 1.0.0-alpha.1

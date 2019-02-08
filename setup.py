@@ -16,7 +16,7 @@ requires = [re_.match(r).group(1) for r in recommend]
 
 setup(
     name='pyramid_oereb',
-    version='1.2.2',
+    version='1.4.0',
     description='pyramid_oereb, extension for pyramid web frame work to provide '
             'a basic server part for the oereb project',
     long_description='{readme}\n\n{changes}'.format(readme=README, changes=CHANGES),
@@ -32,7 +32,7 @@ setup(
     license='BSD 2',
     author='Clemens Rudert',
     author_email='clemens.rudert@bl.ch',
-    url='https://github.com/camptocamp/pyramid_oereb',
+    url='https://github.com/openoereb/pyramid_oereb',
     keywords='pyramid oereb',
     packages=find_packages(),
     include_package_data=True,
@@ -52,7 +52,8 @@ setup(
             'create_theme_tables = pyramid_oereb.standard.create_tables:create_theme_tables',
             'create_standard_yaml = pyramid_oereb.standard.create_yaml:create_standard_yaml',
             'drop_standard_tables = pyramid_oereb.standard.drop_tables:drop_standard_tables',
-            'create_legend_entries = pyramid_oereb.standard.load_legend_entries:run'
+            'create_legend_entries = pyramid_oereb.standard.load_legend_entries:run',
+            'import_federal_topic = pyramid_oereb.standard.import_federal_topic:run'
         ]
     }
 )

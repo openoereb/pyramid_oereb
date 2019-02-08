@@ -8,7 +8,7 @@ from pyramid.path import AssetResolver, DottedNameResolver
 from sqlalchemy import create_engine
 from sqlalchemy.schema import CreateTable
 from shutil import copyfile
-from pyramid_oereb.lib.config import parse
+from pyramid_oereb.lib.config import Config
 
 
 def convert_camel_case_to_snake_case(name):
@@ -81,23 +81,24 @@ def create_tables_from_standard_configuration(
         tables_only (bool): True to skip creation of schema. Default is False.
         sql_file (file): the file to generate. Default is None (in the database).
     """
-    config = parse(configuration_yaml_path, section)
+    if Config.get_config() is None:
+        Config.init(configuration_yaml_path, section)
 
-    main_schema_engine = create_engine(config.get('app_schema').get('db_connection'), echo=True)
+    main_schema_engine = create_engine(Config.get('app_schema').get('db_connection'), echo=True)
     if sql_file is None:
         if not tables_only:
             main_schema_connection = main_schema_engine.connect()
             try:
                 main_schema_connection.execute(
-                    'CREATE SCHEMA IF NOT EXISTS {name};'.format(name=config.get('app_schema').get('name'))
+                    'CREATE SCHEMA IF NOT EXISTS {name};'.format(name=Config.get('app_schema').get('name'))
                 )
             finally:
                 main_schema_connection.close()
     else:
-        sql_file.write('CREATE SCHEMA {name};\n'.format(name=config.get('app_schema').get('name')))
+        sql_file.write('CREATE SCHEMA {name};\n'.format(name=Config.get('app_schema').get('name')))
 
     main_base_class = DottedNameResolver().maybe_resolve('{package}.Base'.format(
-        package=config.get('app_schema').get('models')
+        package=Config.get('app_schema').get('models')
     ))
     if sql_file is None:
         main_base_class.metadata.create_all(main_schema_engine)
@@ -107,7 +108,7 @@ def create_tables_from_standard_configuration(
                 .replace('DATETIME', 'timestamp')
             sql_file.write('{};\n'.format(create_table))
 
-    for schema in config.get('plrs'):
+    for schema in Config.get('plrs'):
 
         plr_schema_engine = create_engine(schema.get('source').get('params').get('db_connection'), echo=True)
 
@@ -152,14 +153,15 @@ def drop_tables_from_standard_configuration(configuration_yaml_path, section='py
             definitions.
         section (str): The section in yaml file where the plrs are configured in. Default is 'pyramid_oereb'.
     """
-    config = parse(configuration_yaml_path, section)
-    main_schema_engine = create_engine(config.get('app_schema').get('db_connection'), echo=True)
+    if Config.get_config() is None:
+        Config.init(configuration_yaml_path, section)
+    main_schema_engine = create_engine(Config.get('app_schema').get('db_connection'), echo=True)
     main_schema_connection = main_schema_engine.connect()
     main_schema_connection.execute('DROP SCHEMA IF EXISTS {name} CASCADE;'.format(
-        name=config.get('app_schema').get('name'))
+        name=Config.get('app_schema').get('name'))
     )
     main_schema_connection.close()
-    for schema in config.get('plrs'):
+    for schema in Config.get('plrs'):
         if schema.get('standard'):
             plr_schema_engine = create_engine(schema.get('source').get('params').get('db_connection'),
                                               echo=True)

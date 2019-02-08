@@ -6,7 +6,7 @@ The buckets are:
 
 * Municipality
 * Real Estate
-* Adress
+* Address
 * Glossary
 * Exclusion of liability
 
@@ -31,16 +31,12 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import JSONType
 
 from pyramid_oereb.standard.models import NAMING_CONVENTION
-from pyramid_oereb import app_schema_name, srid
+from pyramid_oereb.lib.config import Config
 
 metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = declarative_base()
-
-# use standard values if they are not provided via config
-if not app_schema_name:
-    app_schema_name = 'pyramid_oereb_main'
-if not srid:
-    srid = 2056
+app_schema_name = Config.get('app_schema').get('name')
+srid = Config.get('srid')
 
 
 class Municipality(Base):

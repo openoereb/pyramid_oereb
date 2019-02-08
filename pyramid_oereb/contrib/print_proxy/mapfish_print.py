@@ -72,12 +72,6 @@ class Renderer(JsonRenderer):
 
         print_config = Config.get('print', {})
 
-        extract_as_dict['furtherInformationText'] = print_config.get(
-            'furtherInformationText', {}
-        ).get(
-            self._language, '-'
-        )
-
         extract_as_dict['Display_RealEstate_SubunitOfLandRegister'] = print_config.get(
             'display_real_estate_subunit_of_land_register', True
         )
@@ -164,7 +158,6 @@ class Renderer(JsonRenderer):
                 self._localised_text(theme, 'Text')
         self._flatten_object(extract_dict, 'PLRCadastreAuthority')
         self._flatten_object(extract_dict, 'RealEstate')
-        del extract_dict['RealEstate_Limit']
         if 'Image' in extract_dict.get('RealEstate_Highlight', {}):
             del extract_dict['RealEstate_Highlight']['Image']
 
@@ -238,7 +231,7 @@ class Renderer(JsonRenderer):
                 self._multilingual_text(legend_item, 'LegendText')
 
             for legend_entry in restriction_on_landownership['OtherLegend']:
-                for element in legend_entry.keys():
+                for element in list(legend_entry.keys()):
                     if element not in ['LegendText', 'SymbolRef', 'TypeCode']:
                         del legend_entry[element]
 
@@ -287,8 +280,15 @@ class Renderer(JsonRenderer):
             'TypeCode', 'TypeCodelist', 'AreaShare', 'PartInPercent', 'LengthShare',
             'SymbolRef', 'Information'
         ]
+        split_sub_themes = Config.get('print', {}).get('split_sub_themes', False)
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
             theme = restriction_on_landownership['Theme_Code']
+
+            if split_sub_themes:
+                if 'SubTheme' in restriction_on_landownership:
+                    theme = theme + '_' + restriction_on_landownership['SubTheme']
+                    restriction_on_landownership['Split_SubTheme'] = True
+
             geom_type = \
                 'AreaShare' if 'AreaShare' in restriction_on_landownership else \
                 'LengthShare' if 'LengthShare' in restriction_on_landownership else 'NrOfPoints'
@@ -352,7 +352,7 @@ class Renderer(JsonRenderer):
                 values = list(restriction_on_landownership[element].values())
                 self.lpra_flatten(values)
                 restriction_on_landownership[element] = values
-                if element is 'LegalProvisions':
+                if element == 'LegalProvisions':
                     pdf_to_join.update([legal_provision['TextAtWeb'] for legal_provision in values])
 
         restrictions = list(theme_restriction.values())
@@ -377,11 +377,18 @@ class Renderer(JsonRenderer):
             transformed_legend = \
                 list([transformed_entry for (key, transformed_entry) in sorted(legends.items())])
             restriction['Legend'] = transformed_legend
+
         sorted_restrictions = []
-        for theme in Config.get_themes():
-            for restriction in restrictions:
-                if theme.code == restriction.get('Theme_Code'):
-                    sorted_restrictions.append(restriction)
+        if split_sub_themes:
+            # sort sub themes if sub theme splitting is enabled
+            sorted_restrictions = self._sort_sub_themes(restrictions)
+        else:
+            # default sorting
+            for theme in Config.get_themes():
+                for restriction in restrictions:
+                    if theme.code == restriction.get('Theme_Code'):
+                        sorted_restrictions.append(restriction)
+
         extract_dict['RealEstate_RestrictionOnLandownership'] = sorted_restrictions
         # End one restriction entry per theme
 
@@ -487,3 +494,81 @@ class Renderer(JsonRenderer):
         if name in parent:
             lang_obj = dict([(e['Language'], e['Text']) for e in parent[name]])
             parent[name] = lang_obj[self._language]
+
+    def _sort_sub_themes(self, restrictions):
+        # split restrictions by theme codes
+        split_by_theme_code = self._split_restrictions_by_theme_code(restrictions)
+
+        # sort sub themes of the same theme
+        for theme_code in split_by_theme_code:
+            sub_themes = []
+            non_sub_themes = []
+            for restriction in split_by_theme_code[theme_code]:
+                if restriction.get('Split_SubTheme', False):
+                    sub_themes.append(restriction)
+                else:
+                    non_sub_themes.append(restriction)
+            # only sort if there are multiple sub themes
+            if len(sub_themes) > 1:
+                sorter, params = self._get_sorter(theme_code)
+                sub_themes = sorter.sort(sub_themes, params)
+            split_by_theme_code[theme_code] = non_sub_themes + sub_themes
+
+        # sort + flatten the splitted themes again
+        sorted_restrictions = []
+        for theme in Config.get_themes():
+            if theme.code in split_by_theme_code:
+                sorted_restrictions += split_by_theme_code[theme.code]
+
+        return sorted_restrictions
+
+    @staticmethod
+    def _split_restrictions_by_theme_code(restrictions):
+        """
+        Args:
+            restrictions (list): array of restrictions
+
+        Returns:
+            (dict) restrictions split up by theme code
+        """
+        split_by_theme_code = {}
+        for restriction in restrictions:
+            theme_code = restriction.get('Theme_Code')
+            if theme_code in split_by_theme_code:
+                split_by_theme_code[theme_code].append(restriction)
+            else:
+                split_by_theme_code[theme_code] = [restriction]
+        return split_by_theme_code
+
+    @staticmethod
+    def _load_sorter(module, class_name):
+        """
+        Dynamically loads a (sorter) class from a module.
+
+        Args:
+            module (str): Module name to load
+            class_name (str): Class name to load
+
+        Returns:
+            (object) Requested (sorter) class
+        """
+        sorter_module = __import__(module, fromlist=[class_name])
+        sorter = getattr(sorter_module, class_name)
+        return sorter
+
+    @staticmethod
+    def _get_sorter(theme_code):
+        """
+        Returns the sub theme sorter for the given theme_code.
+
+        Args:
+            theme_code (str): theme_code
+
+        Returns:
+            sorter: Sub theme sorter object
+            params (dict): parameters for the sorter (from theme configuration)
+        """
+        sorter_config = Config.get_sub_theme_sorter_config(theme_code)
+        sorter = Renderer._load_sorter(sorter_config['module'], sorter_config['class_name'])
+        params = sorter_config.get('params', {})
+        return sorter, params

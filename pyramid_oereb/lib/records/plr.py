@@ -5,7 +5,7 @@ import warnings
 from datetime import datetime
 
 
-LOG = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
 class EmptyPlrRecord(object):
@@ -68,7 +68,7 @@ class PlrRecord(EmptyPlrRecord):
             length_unit (unicode): The threshold for area calculation.
             area_unit (unicode): The threshold for area calculation.
             view_service_id (int): The id to the connected view service. This is very important to be able to
-            solve bug https://github.com/camptocamp/pyramid_oereb/issues/521
+            solve bug https://github.com/openoereb/pyramid_oereb/issues/521
         """
         super(PlrRecord, self).__init__(theme)
 

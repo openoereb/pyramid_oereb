@@ -33,7 +33,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             thresholds (dict): The configuration of limits and units used for processing.
             text (dict of str): The speaking title. It must be a dictionary containing language (as
                 configured) as key and text as value.
-            language (str): The language this public law restriction is originally shipped whith.
+            language (str): The language this public law restriction is originally shipped with.
             federal (bool): Switch if it is a federal topic. This will be taken into account in processing
                 steps.
             source (dict): The configuration dictionary of the public law restriction
@@ -548,6 +548,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
              bool: True if the topic is available, false otherwise.
         """
         for availability in self.availabilities:
-            if real_estate.fosnr == availability.fosnr and not availability.available:
+            if int(real_estate.fosnr) == int(availability.fosnr) and not availability.available:
                 return False
         return True

@@ -6,7 +6,7 @@ Contributing to pyramid\_oereb
 
 Contributor License Agreement
 =============================
-Please follow the `instructions <https://github.com/camptocamp/pyramid_oereb/tree/master/cla>`__ and sign the CLA.
+Please follow the `instructions <https://github.com/openoereb/pyramid_oereb/tree/master/cla>`__ and sign the CLA.
 
 Contributing to Documentation
 =============================
@@ -29,7 +29,7 @@ Code Documentation
 Some parts of the documentation are built directly from the code.
 The documentation is built using `Sphinx <http://sphinx-doc.org/>`__, so the code documentation uses
 `Google style docstrings
-<http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html>`__.
+<http://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html>`__.
 
 Contributing to the Code
 ========================
@@ -60,7 +60,7 @@ its directory.
 
 .. code-block:: shell
 
- git clone https://github.com/camptocamp/pyramid_oereb.git
+ git clone https://github.com/openoereb/pyramid_oereb.git
  cd pyramid_oereb
 
 Build and start your local installation using ``make serve``.
@@ -278,7 +278,7 @@ Update existing pyramid\_oereb package
 
    .. code-block:: shell
 
-    .build\venv\Scripts\pip install git+https://github.com/camptocamp/pyramid_oereb.git@master#egg=pyramid_oereb
+    .build\venv\Scripts\pip install git+https://github.com/openoereb/pyramid_oereb.git@master#egg=pyramid_oereb
 
    then rebuild the app with
 

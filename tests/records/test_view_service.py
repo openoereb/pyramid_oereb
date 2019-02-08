@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import pytest
 
+from pyramid_oereb import Config
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
+from shapely.geometry import box
 from shapely.geometry.point import Point
 
 
@@ -103,7 +105,7 @@ def test_get_bbox_from_url():
     assert p4 is None
 
 
-def test_view_service_correct_init_ns(config):
+def test_view_service_correct_init_ns():
     with_bbox = 'https://host/?&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&' \
                 'WIDTH=493&HEIGHT=280&FORMAT=image/png'
     test_view_service = ViewServiceRecord(with_bbox, 1, 1.0, 'http://www.test.url.ch', None)
@@ -118,3 +120,72 @@ def test_view_service_correct_init_ns(config):
     test_view_service_no_bbox = ViewServiceRecord(no_bbox, 1, 1.0, 'http://www.test.url.ch', None)
     assert test_view_service_no_bbox.min_NS95 is None
     assert test_view_service_no_bbox.max_NS95 is None
+
+
+def get_width_from_bbox(bbox):
+    return bbox[2] - bbox[0]
+
+
+def get_height_from_bbox(bbox):
+    return bbox[3] - bbox[1]
+
+
+def test_get_bbox_without_buffer():
+    initial_buffer = Config._config.get('print').get('buffer')
+    initial_basic_map_size = Config._config.get('print').get('basic_map_size')
+
+    # No buffer, landscape feature in a landscape map.
+    Config._config['print']['buffer'] = 0
+    Config._config['print']['basic_map_size'] = [493, 280]
+    geometry = box(0, 1000, 493, 1100)  # 493m width, 100m height
+    # Should adapt height to fit the map size
+    print_bbox = ViewServiceRecord.get_bbox(geometry)
+    assert get_width_from_bbox(print_bbox) == 493
+    assert get_height_from_bbox(print_bbox) == 280
+
+    # No buffer, portrait feature in a landscape map.
+    geometry = box(0, 1000, 100, 1280)  # 100m width, 280m height
+    # Should adapt width to fit the map size
+    print_bbox = ViewServiceRecord.get_bbox(geometry)
+    assert get_width_from_bbox(print_bbox) == 493
+    assert get_height_from_bbox(print_bbox) == 280
+
+    # No buffer, portrait feature in a portrait map.
+    Config._config['print']['basic_map_size'] = [280, 493]
+    geometry = box(0, 1000, 100, 1493)  # 100m width, 493m height
+    # Should adapt width to fit the map size
+    print_bbox = ViewServiceRecord.get_bbox(geometry)
+    assert get_width_from_bbox(print_bbox) == 280
+    assert get_height_from_bbox(print_bbox) == 493
+
+    # Reset config for further tests.
+    Config._config['print']['buffer'] = initial_buffer
+    Config._config['print']['basic_map_size'] = initial_basic_map_size
+
+
+def test_get_bbox_with_buffer():
+    initial_buffer = Config._config.get('print').get('buffer')
+    initial_basic_map_size = Config._config.get('print').get('basic_map_size')
+
+    # Buffer 123.25, landscape feature in a landscape map.
+    # Buffer 123.25 is quarter of 493, so the final view is 50% margin, 50% feature.
+    Config._config['print']['basic_map_size'] = [493, 280]
+    Config._config['print']['buffer'] = 123.25
+    geometry = box(0, 1000, 493, 1100)  # 493m width, 100m height
+    # Should add buffer (right and left) then adapt height to fit the map size
+    print_bbox = ViewServiceRecord.get_bbox(geometry)
+    assert get_width_from_bbox(print_bbox) == 986
+    assert get_height_from_bbox(print_bbox) == 560
+
+    # Buffer 70, portrait feature in a landscape map.
+    # Buffer 70 is quarter of 280, so the final view is 50% margin, 50% feature.
+    Config._config['print']['buffer'] = 70
+    geometry = box(0, 1000, 100, 1280)  # 100m width, 280m height
+    # Should add buffer (top and bottom) then adapt width to fit the map size
+    print_bbox = ViewServiceRecord.get_bbox(geometry)
+    assert get_width_from_bbox(print_bbox) == 986
+    assert get_height_from_bbox(print_bbox) == 560
+
+    # Reset config for further tests.
+    Config._config['print']['buffer'] = initial_buffer
+    Config._config['print']['basic_map_size'] = initial_basic_map_size

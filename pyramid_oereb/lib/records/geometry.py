@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 import logging
 from datetime import datetime
+
+from shapely.ops import linemerge, cascaded_union
+
 from pyramid_oereb.lib.config import Config
-from shapely.geometry import Point, MultiPoint, LineString, Polygon
+from shapely.geometry import Point, MultiPoint, LineString, Polygon, GeometryCollection, MultiLineString, \
+    MultiPolygon
 
 log = logging.getLogger(__name__)
 
@@ -50,6 +54,63 @@ class GeometryRecord(object):
         """bool: True if geometry is published."""
         return not self.published_from > datetime.now().date()
 
+    @staticmethod
+    def geom_dim(geom):
+        """
+        Returns the topological dimension of the specified geometry.
+
+        Args:
+            geom (shapely.geometry.base.BaseGeometry): The geometry to be evaluated.
+
+        Returns:
+            int: The geometry's topological dimension.
+        """
+        if isinstance(geom, Point) or isinstance(geom, MultiPoint):
+            return 0
+        if isinstance(geom, LineString) or isinstance(geom, MultiLineString):
+            return 1
+        if isinstance(geom, Polygon) or isinstance(geom, MultiPolygon):
+            return 2
+        if isinstance(geom, GeometryCollection):
+            return 3
+        else:
+            return -1
+
+    @property
+    def dim(self):
+        """int: The topological dimension."""
+        return self.geom_dim(self.geom)
+
+    def _extract_collection(self, result):
+        """
+        Extracts all geometries with the same topological dimension as the input geometry from a collection.
+
+        Args:
+            result (shapely.geometry.base.BaseGeometry): The intersection result.
+
+        Returns:
+            shapely.geometry.base.BaseGeometry: The extracted geometries with matching topological dimension.
+        """
+        if isinstance(result, GeometryCollection):
+            matching_geometries = list()
+            for part in result:
+                if self.geom_dim(part) == self.dim:
+                    matching_geometries.append(part)
+            if self.dim == 0:
+                points = list()
+                for geom in matching_geometries:
+                    if isinstance(geom, Point):
+                        points.append(geom)
+                    elif isinstance(geom, MultiPoint):
+                        points.extend(geom.geoms)
+                return MultiPoint(points)
+            elif self.dim == 1:
+                return linemerge(matching_geometries)
+            elif self.dim == 2:
+                return cascaded_union(matching_geometries)
+        else:
+            return result
+
     def calculate(self, real_estate, min_length, min_area, length_unit, area_unit):
         """
         Entry method for calculation. It checks if the geometry type of this instance is a geometry
@@ -70,23 +131,31 @@ class GeometryRecord(object):
         polygon_types = geometry_types.get('polygon').get('types')
         point_types = geometry_types.get('point').get('types')
         if self.published:
-            result = self.geom.intersection(real_estate.limit)
+            result = self._extract_collection(self.geom.intersection(real_estate.limit))
             # differentiate between Points and MultiPoint
-            if result.type == point_types[1]:
-                # If it is a multipoint make a list and count the number of elements in the list
-                self._nr_of_points = len(list(result.geoms))
-                self._test_passed = True
-            elif result.type == point_types[0]:
-                # If it is a single point the number of points is one
-                self._nr_of_points = 1
-                self._test_passed = True
-            elif self.geom.type in line_types:
+            if self.geom.type not in point_types + line_types + polygon_types:
+                supported_types = ', '.join(point_types + line_types + polygon_types)
+                raise AttributeError(
+                    u'The passed geometry is not supported: {type}. It should be one of: {types}'.format(
+                        type=self.geom.type, types=supported_types
+                    )
+                )
+            elif self.geom.type in point_types:
+                if result.type == point_types[1]:
+                    # If it is a multipoint make a list and count the number of elements in the list
+                    self._nr_of_points = len(list(result.geoms))
+                    self._test_passed = True
+                elif result.type == point_types[0]:
+                    # If it is a single point the number of points is one
+                    self._nr_of_points = 1
+                    self._test_passed = True
+            elif self.geom.type in line_types and result.type in line_types:
                 self._units = length_unit
                 length_share = result.length
                 if length_share >= min_length:
                     self._length_share = length_share
                     self._test_passed = True
-            elif self.geom.type in polygon_types:
+            elif self.geom.type in polygon_types and result.type in polygon_types:
                 self._units = area_unit
                 area_share = result.area
                 compensated_area = area_share / real_estate.areas_ratio
@@ -94,10 +163,13 @@ class GeometryRecord(object):
                     self._area_share = compensated_area
                     self._test_passed = True
             else:
-                supported_types = ', '.join(point_types + line_types + polygon_types)
-                raise AttributeError(
-                    u'The passed geometry is not supported: {type}. It should be one of: {types}'
-                    .format(type=self.geom.type, types=supported_types))
+                log.debug(
+                    u'Intersection result changed geometry type. '
+                    u'Original geometry was {0} and result is {1}'.format(
+                        self.geom.type,
+                        result.type
+                    )
+                )
         self.calculated = True
         return self._test_passed
 

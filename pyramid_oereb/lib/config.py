@@ -4,7 +4,7 @@ import os
 import logging
 import datetime
 import yaml
-import collections
+from io import open as ioopen
 from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
@@ -14,64 +14,12 @@ from pyramid_oereb.lib.records.theme import ThemeRecord
 log = logging.getLogger(__name__)
 
 
-def parse(cfg_file, cfg_section, c2ctemplate_style=False):
-    """
-    Parses the defined YAML file and returns the defined section as dictionary.
-
-    Args:
-        cfg_file (str): The YAML file to be parsed.
-        cfg_section (str): The section to be returned.
-
-    Returns:
-        dict: The parsed section as dictionary.
-    """
-    if cfg_file is None:
-        raise ConfigurationError(
-            'Missing configuration parameter "pyramid_oereb.cfg.file" or '
-            '"pyramid_oereb.cfg.c2ctemplate.file".'
-        )
-    if cfg_section is None:
-        raise ConfigurationError('Missing configuration parameter "pyramid_oereb.cfg.section".')
-
-    try:
-        if c2ctemplate_style:
-            import c2c.template
-            content = c2c.template.get_config(cfg_file)
-        else:
-            with open(cfg_file) as f:
-                content = yaml.safe_load(f.read())
-    except IOError as e:
-        e.strerror = '{0}{1} \'{2}\', Current working directory is {3}'.format(
-            e.strerror, e.args[1], e.filename, os.getcwd())
-        raise
-    cfg = content.get(cfg_section)
-    if cfg is None:
-        raise ConfigurationError('YAML file contains no section "{0}"'.format(cfg_section))
-    return cfg
-
-
-def merge_dicts(base_dict, overwrite_dict):
-    """
-    Merges two dictionaries recursively, i.e. also sub-dictionaries get merged.
-    Values from overwrite_dict overwrite those from base_dict. Values that only exist in overwrite_dict
-    will be thrown away.
-
-    Args:
-        base_dict (dict): First dictionary, whose values get overwritten if present in overwrite_dict.
-        overwrite_dict (dict): Second dictionary.
-
-    Returns:
-        dict: Merged dictionary.
-    """
-    for key in overwrite_dict:
-        if isinstance(overwrite_dict[key], collections.Mapping):
-            base_dict[key] = merge_dicts(base_dict.get(key, {}), overwrite_dict[key])
-        else:
-            base_dict[key] = overwrite_dict[key]
-    return base_dict
-
-
 class Config(object):
+    """
+    A central point where we can access to the application configuration.
+    Init it with a config file (Config.init(configfile, configsection))
+    Then use it anywhere with Config.get('my_config_variable').
+    """
 
     _config = None
 
@@ -86,7 +34,17 @@ class Config(object):
         """
         assert Config._config is None
 
-        Config._config = parse(configfile, configsection, c2ctemplate_style)
+        Config._config = _parse(configfile, configsection, c2ctemplate_style)
+
+    @staticmethod
+    def get_config():
+        """
+        Returns the current configuration
+
+        Returns:
+            Dict: The current config or None.
+        """
+        return Config._config
 
     @staticmethod
     def update_settings(settings):
@@ -555,3 +513,85 @@ class Config(object):
                             )
                         return layer_index, layer_opacity
         return None, None
+
+    @classmethod
+    def get_real_estate_type_by_mapping(cls, real_estate_type):
+        """
+        Uses the configured mappings of the real estate type to translate it to the correct federal
+        representation.
+
+        Args:
+            real_estate_type (unicode): The type which is used inside the data to distinguish the different
+                kinds of real estates.
+
+        Returns:
+            unicode: The mapped type or the original one if no mapping fits.
+
+        """
+        real_estate_config = cls.get_real_estate_config()
+        type_mapping = real_estate_config.get('type_mapping', [])
+        for mapping in type_mapping:
+            if mapping['type'] == real_estate_type:
+                return mapping['mapping']
+        return real_estate_type
+
+    @staticmethod
+    def get_sub_theme_sorter_config(theme_code):
+        assert Config._config is not None
+        sorter = {
+            'module': 'pyramid_oereb.contrib.print_proxy.sub_themes.sorting',
+            'class_name': 'BaseSort',
+            'params': {}
+        }
+        themes = Config._config.get('plrs')
+        if themes and isinstance(themes, list):
+            for theme in themes:
+                if theme.get('code') == theme_code:
+                    sub_themes = theme.get('sub_themes', {})
+                    if 'sorter' in sub_themes:
+                        sorter = sub_themes.get('sorter')
+                    break
+        # Check if sorter is valid
+        if 'module' not in sorter:
+            log.error("Invalid configuration for sub theme sorter for theme {}, "
+                      "no module property".format(theme_code))
+        if 'class_name' not in sorter:
+            log.error("Invalid configuration for sub theme sorter for theme {}, "
+                      "no class_name property".format(theme_code))
+        return sorter
+
+
+def _parse(cfg_file, cfg_section, c2ctemplate_style=False):
+    """
+    Parses the defined YAML file and returns the defined section as dictionary.
+
+    Args:
+        cfg_file (str): The YAML file to be parsed.
+        cfg_section (str): The section to be returned.
+
+    Returns:
+        dict: The parsed section as dictionary.
+    """
+    if cfg_file is None:
+        raise ConfigurationError(
+            'Missing configuration parameter "pyramid_oereb.cfg.file" or '
+            '"pyramid_oereb.cfg.c2ctemplate.file".'
+        )
+    if cfg_section is None:
+        raise ConfigurationError('Missing configuration parameter "pyramid_oereb.cfg.section".')
+
+    try:
+        if c2ctemplate_style:
+            import c2c.template
+            content = c2c.template.get_config(cfg_file)
+        else:
+            with ioopen(cfg_file, encoding='utf-8') as f:
+                content = yaml.safe_load(f.read())
+    except IOError as e:
+        e.strerror = '{0}{1} \'{2}\', Current working directory is {3}'.format(
+            e.strerror, e.args[1], e.filename, os.getcwd())
+        raise
+    cfg = content.get(cfg_section)
+    if cfg is None:
+        raise ConfigurationError('YAML file contains no section "{0}"'.format(cfg_section))
+    return cfg

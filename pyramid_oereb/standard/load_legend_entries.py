@@ -9,7 +9,7 @@ from pyconizer.lib.url import parse_url
 from pyramid.path import DottedNameResolver
 from sqlalchemy import create_engine, orm
 
-from pyramid_oereb import parse
+from pyramid_oereb.lib.config import Config
 
 if sys.version_info.major == 2:
     from urlparse import urlunsplit
@@ -63,12 +63,12 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
     """
 
     # config object parsed from oereb configuration yml
-    config = parse(config, section)
+    Config.init(config, section)
     db_connection = None
     found = False
 
     # try to find the topic in config and create the orm models for further processing
-    for topic in config.get('plrs'):
+    for topic in Config.get('plrs'):
         if topic.get('code') == topic_code:
             db_connection = topic.get('source').get('params').get('db_connection')
             Plr = DottedNameResolver().maybe_resolve(
@@ -84,7 +84,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
             break
     if not found:
         # at this point it was not possible to find the topic in configuration
-        print('The topic with code "{0}" was not found in passed configuration!'.format(topic_code))
+        log.error('The topic with code "{0}" was not found in passed configuration!'.format(topic_code))
         return
 
     # we can start process now...
@@ -112,7 +112,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
             type_code_list.append(unique_plr.type_code)
         url, params = parse_url(unique_plr.view_service.reference_wms)
         layer_existent = False
-        service_url = urlunsplit((url.scheme, url.netloc, '', '', '')) \
+        service_url = urlunsplit((url.scheme, url.netloc, url.path, '', '')) \
             if replace_host is None else replace_host
         layer = params.get('LAYERS')[0] if replace_layer is None else replace_layer
         for layer_config in pyconizer_config:
@@ -174,10 +174,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
             session.flush()
             i += 1
         else:
-            print(
-                'WARNING: It was not possible to find a symbol for the class:',
-                class_name.encode('utf-8')
-            )
+            log.warn('It was not possible to find a symbol for the class: {0}'.format(class_name))
     session.commit()
     session.close()
 

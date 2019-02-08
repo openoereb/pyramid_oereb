@@ -37,7 +37,7 @@ class DatabaseSource(BaseDatabaseSource, AddressBaseSource):
                     result.street_name,
                     result.zip_code,
                     result.street_number,
-                    to_shape(result.geom).wkt if isinstance(result.geom, _SpatialElement) else None
+                    to_shape(result.geom) if isinstance(result.geom, _SpatialElement) else None
                 ))
 
         except NoResultFound:
