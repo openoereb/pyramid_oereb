@@ -2,7 +2,7 @@
 ``pyramid_oereb`` (ÖREB-Server)
 ===============================
 
-|Build Status|
+|Build Status| |Requirements Status|
 
 ``pyramid_oereb`` is an open-source implementation of the server side part for the swiss `"Cadastre of
 Public-law Restrictions on landownership" (PLR-cadastre) <https://www.cadastre.ch/en/oereb.html>`__.
@@ -19,3 +19,8 @@ If you are interested in contributing or extending the project, take a look at t
 
 .. |Build Status| image:: https://travis-ci.org/openoereb/pyramid_oereb.svg?branch=master
    :target: https://travis-ci.org/openoereb/pyramid_oereb
+   :alt: Build Status
+
+.. |Requirements Status| image:: https://requires.io/github/openoereb/pyramid_oereb/requirements.svg?branch=master
+   :target: https://requires.io/github/openoereb/pyramid_oereb/requirements/?branch=master
+   :alt: Requirements Status
