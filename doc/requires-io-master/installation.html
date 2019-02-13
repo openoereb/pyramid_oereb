@@ -17,13 +17,29 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'',
+              LANGUAGE:'en',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/banner.css" type="text/css" />
@@ -31,21 +47,16 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Configuration" href="configuration.html" />
     <link rel="prev" title="pyramid_oereb (ÖREB-Server) documentation" href="index.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -275,13 +286,13 @@ database structure may cause the import to fail.</p>
 </div>
 <p>The data for this federal topic should now be available in your standard database. For an overview of the
 available import options, please run <code class="docutils literal"><span class="pre">import_federal_topic</span> <span class="pre">--help</span></code>.</p>
-<p>Alternatively, a set of sample data is available in the <a class="reference external" href="https://github.com/camptocamp/pyramid_oereb/">repository</a> in the directory <cite>sample_data</cite>. After
+<p>Alternatively, a set of sample data is available in the <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/">repository</a> in the directory <cite>sample_data</cite>. After
 downloading it, you can import the sample data into the configured database using the following script:</p>
 <div class="highlight-shell"><div class="highlight"><pre><span></span>python &lt;PATH TO VENV SITE_PACKAGES&gt;/pyramid_oereb/standard/load_sample_data.py -c pyramid_oereb_standard.yml
 </pre></div>
 </div>
 <p>We assume you have put your downloaded sample data in a folder named <cite>sample_data</cite> in your project&#8217;s root
-directory, as found in the <a class="reference external" href="https://github.com/camptocamp/pyramid_oereb/">repository</a>. Otherwise you have to specify the location of your sample data using
+directory, as found in the <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/">repository</a>. Otherwise you have to specify the location of your sample data using
 the <code class="docutils literal"><span class="pre">-d</span></code> or <code class="docutils literal"><span class="pre">--dir=</span></code> argument.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -343,7 +354,7 @@ section <a class="reference internal" href="configuration.html#configuration"><s
         <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="pyramid_oereb (ÖREB-Server) documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="pyramid_oereb (ÖREB-Server) documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -375,6 +386,10 @@ section <a class="reference internal" href="configuration.html#configuration"><s
     </span>
     <div class="rst-other-versions">
         <dl>
+            <dt>Tags</dt>
+            <dd><a href="../v1.3.1/installation.html">v1.3.1</a></dd>
+        </dl>
+        <dl>
             <dt>Branches</dt>
             <dd><a href="../master/installation.html">master</a></dd>
             <dd><a href="installation.html">requires-io-master</a></dd>
@@ -383,35 +398,16 @@ section <a class="reference internal" href="configuration.html#configuration"><s
 </div>
 
 
-  
-
-    
-    
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'',
-              LANGUAGE:'en',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
