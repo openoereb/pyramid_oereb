@@ -5,8 +5,11 @@
 %if map.reference_wms:
 <data:ReferenceWMS>${map.reference_wms|u}</data:ReferenceWMS>
 %endif
-%if map.legend_at_web and params.language in map.legend_at_web:
-<data:LegendAtWeb>${map.legend_at_web[params.language]|u}</data:LegendAtWeb>
+%if map.legend_at_web:
+<%
+    localized_legend_at_web = localized(map.legend_at_web)
+%>
+<data:LegendAtWeb>${localized_legend_at_web.get('Text')|u}</data:LegendAtWeb>
 %endif
 %if map.legends:
 <%
