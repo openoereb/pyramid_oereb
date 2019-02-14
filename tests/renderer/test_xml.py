@@ -6,30 +6,15 @@ try:
 except ImportError:
     from io import BytesIO
 
-from shapely.geometry import LineString, Point, Polygon
 from lxml import etree
-from pyramid.path import AssetResolver
 from pyramid_oereb.lib.renderer.extract.xml_ import Renderer
 from pyramid_oereb.lib.renderer.versions.xml_ import Renderer as VersionsRenderer
 from pyramid_oereb.views.webservice import Parameter
-from tests import params, schema_xml_versions, schema_xml_extract
+from tests import schema_xml_versions, schema_xml_extract
 from tests.mockrequest import MockRequest
 from tests.renderer import DummyRenderInfo, get_default_extract,\
     get_empty_glossary_extract, get_none_glossary_extract
-from mako.lookup import TemplateLookup
 import pytest
-
-
-@pytest.fixture
-def xml_templates():
-    a = AssetResolver('pyramid_oereb')
-    resolver = a.resolve('lib/renderer/extract/templates/xml')
-    templates = TemplateLookup(
-        directories=[resolver.abspath()],
-        output_encoding='utf-8',
-        input_encoding='utf-8'
-    )
-    return templates
 
 
 def test_get_gml_id():
@@ -37,99 +22,6 @@ def test_get_gml_id():
     assert renderer._get_gml_id() == 'gml1'
     assert renderer._get_gml_id() == 'gml2'
     assert renderer._get_gml_id() == 'gml3'
-
-
-@pytest.mark.parametrize('parameters', params)  # noqa
-def test_line(parameters, xml_templates):
-    line = LineString(((0, 0), (1, 1)))
-    template = xml_templates.get_template('geometry/line.xml')
-
-    def get_gml_id():
-        return 'gml1'
-
-    content = template.render(**{
-        'params': parameters,
-        'default_language': 'de',
-        'line': line,
-        'get_gml_id': get_gml_id
-    }).decode('utf-8').split('\n')
-    expected_content = """
-    <gml:LineString gml:id="gml1">
-        <gml:pos>0.0 0.0</gml:pos>
-        <gml:pos>1.0 1.0</gml:pos>
-    </gml:LineString>
-    """.split('\n')
-    expected_lines = []
-    for line in expected_content:
-        expected_lines.append(line.strip())
-    content_lines = []
-    for line in content:
-        content_lines.append(line.strip())
-    assert expected_lines == content_lines
-
-
-@pytest.mark.parametrize('parameters', params)  # noqa
-def test_point(parameters, xml_templates):
-    point = Point((0, 0))
-    template = xml_templates.get_template('geometry/point.xml')
-    content = template.render(**{
-        'params': parameters,
-        'default_language': 'de',
-        'point': point
-    }).decode('utf-8').split('\n')
-    expected_content = """
-    <gml:pos>0.0 0.0</gml:pos>""".split('\n')
-    expected_lines = []
-    for line in expected_content:
-        expected_lines.append(line.strip())
-    content_lines = []
-    for line in content:
-        content_lines.append(line.strip())
-    assert expected_lines == content_lines
-
-
-@pytest.mark.parametrize('parameters', params)  # noqa
-def test_polygon(parameters, xml_templates):
-    polygon = Polygon(((0, 0), (0, 1), (1, 1), (1, 0), (0, 0)))
-    template = xml_templates.get_template('geometry/polygon.xml')
-
-    def get_gml_id():
-        return 'gml1'
-
-    content = template.render(**{
-        'params': parameters,
-        'default_language': 'de',
-        'polygon': polygon,
-        'get_gml_id': get_gml_id
-    }).decode('utf-8').split('\n')
-    expected_content = """
-    <gml:Polygon gml:id="gml1">
-        <gml:exterior>
-            <gml:LinearRing>
-                <gml:pos>0.0 0.0</gml:pos>
-                <gml:pos>0.0 1.0</gml:pos>
-                <gml:pos>1.0 1.0</gml:pos>
-                <gml:pos>1.0 0.0</gml:pos>
-                <gml:pos>0.0 0.0</gml:pos>
-            </gml:LinearRing>
-        </gml:exterior>
-        <gml:interior>
-            <gml:LinearRing>
-                <gml:pos>0.0 0.0</gml:pos>
-                <gml:pos>0.0 1.0</gml:pos>
-                <gml:pos>1.0 1.0</gml:pos>
-                <gml:pos>1.0 0.0</gml:pos>
-                <gml:pos>0.0 0.0</gml:pos>
-            </gml:LinearRing>
-        </gml:interior>
-    </gml:Polygon>""".split('\n')
-    expected_lines = []
-    for line in expected_content:
-        expected_lines.append(line.strip())
-    content_lines = []
-    for line in content:
-        content_lines.append(line.strip())
-    assert expected_lines == content_lines
 
 
 def test_version_against_schema():
