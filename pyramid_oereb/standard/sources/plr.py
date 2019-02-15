@@ -326,10 +326,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         basis_plr_records = []
         for join in public_law_restriction_from_db.basis:
-            basis_plr_records.append(self.from_db_to_plr_record(join.base))
+            basis_plr_records.append(self.from_db_to_plr_record(join.base, []))
         refinements_plr_records = []
         for join in public_law_restriction_from_db.refinements:
-            refinements_plr_records.append(self.from_db_to_plr_record(join.refinement))
+            refinements_plr_records.append(self.from_db_to_plr_record(join.refinement, []))
         law_status = LawStatusRecord.from_config(
             Config.get_law_status(
                 self._plr_info.get('code'),
