@@ -31,9 +31,6 @@ class PlrRecord(EmptyPlrRecord):
         area_share (decimal): Area of the restriction touching the property calculated by the processor.
     """
 
-    # Attributes added or calculated by the processor
-    area_share = None
-
     part_in_percent = None
 
     def __init__(self, theme, information, law_status, published_from, responsible_office, symbol,
