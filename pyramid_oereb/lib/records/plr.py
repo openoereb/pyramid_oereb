@@ -45,7 +45,7 @@ class PlrRecord(EmptyPlrRecord):
                 associated with this record.
             geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of geometry records
                 associated with this record.
-            sub_theme (unicode): Optional subtopic.
+            sub_theme (dict of unicode or None): Optional subtopic. TODO: does this need "or None"?
             other_theme (unicode): Optional additional topic.
             type_code (unicode): The PLR record's type code (also used by view service).
             type_code_list (unicode): URL to the PLR's list of type codes.

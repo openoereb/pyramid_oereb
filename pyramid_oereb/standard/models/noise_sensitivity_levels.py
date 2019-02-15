@@ -311,7 +311,7 @@ class PublicLawRestriction(Base):
             you  don't like it - don't care about.
         information (dict): The multilingual textual representation of the public law restriction.
         topic (str): Category for this public law restriction (name of the topic).
-        sub_theme (str): Textual explanation to subtype the topic attribute.
+        sub_theme (dict): Multilingual textual explanation to subtype the topic attribute.
         other_theme (str): A link to additional topics. It must be like the following patterns
             * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
             the official two letters short version (e.g.'BE') {topic} as the name of the
@@ -338,7 +338,7 @@ class PublicLawRestriction(Base):
     id = sa.Column(sa.String, primary_key=True, autoincrement=False)
     information = sa.Column(JSONType, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
-    sub_theme = sa.Column(sa.String, nullable=True)
+    sub_theme = sa.Column(JSONType, nullable=True)
     other_theme = sa.Column(sa.String, nullable=True)
     type_code = sa.Column(sa.String(40), nullable=True)
     type_code_list = sa.Column(sa.String, nullable=True)
