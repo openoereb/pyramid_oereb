@@ -92,7 +92,7 @@ class FileAdapter(object):
                 'is_file': os.path.isfile(path),
                 'is_dir': os.path.isdir(path),
                 'modified': os.path.getmtime(path)
-            })),
+            }))
         return result
 
     def read(self, filename, mode='rb'):
