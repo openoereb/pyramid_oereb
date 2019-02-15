@@ -276,7 +276,7 @@ class LegendEntry(Base):
             legend  entry.
         topic (str): Statement to describe to which public law restriction this legend entry
             belongs.
-        sub_theme (str): Description for sub topics this legend entry might belonging to.
+        sub_theme (dict): Multilingual description for sub topics this legend entry might belonging to.
         other_theme (str): A link to additional topics. It must be like the following patterns
             * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
             the official two letters short version (e.g.'BE') {topic} as the name of the
@@ -293,7 +293,7 @@ class LegendEntry(Base):
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
-    sub_theme = sa.Column(sa.String, nullable=True)
+    sub_theme = sa.Column(JSONType, nullable=True)
     other_theme = sa.Column(sa.String, nullable=True)
     view_service_id = sa.Column(
         sa.Integer,

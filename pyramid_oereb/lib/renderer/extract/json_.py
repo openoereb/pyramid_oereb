@@ -542,7 +542,7 @@ class Renderer(Base):
             })
 
         if legend_entry.sub_theme is not None:
-            legend_entry_dict['SubTheme'] = legend_entry.sub_theme
+            legend_entry_dict['SubTheme'] = self.get_localized_text(legend_entry.sub_theme).get('Text')
         if legend_entry.other_theme is not None:
             legend_entry_dict['OtherTheme'] = legend_entry.other_theme
         return legend_entry_dict
