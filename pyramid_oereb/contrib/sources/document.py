@@ -102,7 +102,7 @@ class OEREBlexSource(Base):
             self.records.extend(self._get_document_records(document, referenced_documents))
         log.debug("read() done.")
 
-    def _get_document_records(self, document, references=list()):
+    def _get_document_records(self, document, references=None):
         """
         Converts the received documents into records.
 
@@ -114,6 +114,8 @@ class OEREBlexSource(Base):
         Returns:
             list of pyramid_oereb.lib.records.documents.DocumentRecord: The converted record.
         """
+
+        references = references or list()
 
         # Cancel if document contains no files
         if len(document.files) == 0:
