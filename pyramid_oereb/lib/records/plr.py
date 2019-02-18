@@ -25,13 +25,7 @@ class EmptyPlrRecord(object):
 class PlrRecord(EmptyPlrRecord):
     """
     Public law restriction record.
-
-    Attributes:
-        part_in_percent (decimal): Part of the property area touched by the restriction in percent.
-        area_share (decimal): Area of the restriction touching the property calculated by the processor.
     """
-
-    part_in_percent = None
 
     def __init__(self, theme, information, law_status, published_from, responsible_office, symbol,
                  view_service, geometries, sub_theme=None, other_theme=None, type_code=None,
@@ -107,6 +101,7 @@ class PlrRecord(EmptyPlrRecord):
         self.area_unit = area_unit
         self.length_unit = length_unit
         self._area_share = None
+        self._part_in_percent = None
         self._length_share = None
         self._nr_of_points = None
         self.symbol = symbol
@@ -156,6 +151,19 @@ class PlrRecord(EmptyPlrRecord):
         return self._area_share
 
     @property
+    def part_in_percent(self):
+        """decimal or None: (decimal): Part of the property area touched by the restriction in percent."""
+        return self._part_in_percent
+
+    @part_in_percent.setter
+    def part_in_percent(self, value):
+        """
+        Args:
+            value (decimal): Part of the property area touched by the restriction in percent.
+        """
+        self._part_in_percent = value
+
+    @property
     def length_share(self):
         """float or None: Returns the summed length of all related geometry records of this PLR."""
         return self._length_share
@@ -191,10 +199,10 @@ class PlrRecord(EmptyPlrRecord):
         area_share = self._sum_area()
         if area_share is None:
             self._area_share = None
-            self.part_in_percent = None
+            self._part_in_percent = None
         else:
             self._area_share = int(round(area_share, 0))
-            self.part_in_percent = round(
+            self._part_in_percent = round(
                 ((float(self._area_share) / float(real_estate.land_registry_area)) * 100),
                 1
             )
