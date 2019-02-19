@@ -264,7 +264,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_document_records</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">referenced_documents</span><span class="p">))</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() done.&quot;</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_get_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">,</span> <span class="n">references</span><span class="o">=</span><span class="nb">list</span><span class="p">()):</span>
+    <span class="k">def</span> <span class="nf">_get_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">,</span> <span class="n">references</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts the received documents into records.</span>
 
@@ -276,6 +276,8 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            list of pyramid_oereb.lib.records.documents.DocumentRecord: The converted record.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">references</span> <span class="o">=</span> <span class="n">references</span> <span class="ow">or</span> <span class="nb">list</span><span class="p">()</span>
 
         <span class="c1"># Cancel if document contains no files</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">files</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -401,6 +403,7 @@
         <dl>
             <dt>Branches</dt>
             <dd><a href="document.html">master</a></dd>
+            <dd><a href="../../../../../requires-io-master/index.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>

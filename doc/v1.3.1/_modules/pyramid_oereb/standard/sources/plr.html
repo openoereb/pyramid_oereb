@@ -490,10 +490,10 @@
 
         <span class="n">basis_plr_records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">join</span> <span class="ow">in</span> <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">basis</span><span class="p">:</span>
-            <span class="n">basis_plr_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_plr_record</span><span class="p">(</span><span class="n">join</span><span class="o">.</span><span class="n">base</span><span class="p">))</span>
+            <span class="n">basis_plr_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_plr_record</span><span class="p">(</span><span class="n">join</span><span class="o">.</span><span class="n">base</span><span class="p">,</span> <span class="p">[]))</span>
         <span class="n">refinements_plr_records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">join</span> <span class="ow">in</span> <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">refinements</span><span class="p">:</span>
-            <span class="n">refinements_plr_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_plr_record</span><span class="p">(</span><span class="n">join</span><span class="o">.</span><span class="n">refinement</span><span class="p">))</span>
+            <span class="n">refinements_plr_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_plr_record</span><span class="p">(</span><span class="n">join</span><span class="o">.</span><span class="n">refinement</span><span class="p">,</span> <span class="p">[]))</span>
         <span class="n">law_status</span> <span class="o">=</span> <span class="n">LawStatusRecord</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span>
             <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
@@ -530,7 +530,7 @@
     <span class="k">def</span> <span class="nf">get_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="p">):</span>
         <span class="n">documents_from_db</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">article_numbers</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">legal_provision</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">legal_provisions</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">legal_provision</span> <span class="ow">in</span> <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">legal_provisions</span><span class="p">:</span>
             <span class="n">documents_from_db</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">legal_provision</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
             <span class="n">article_nrs</span> <span class="o">=</span> <span class="n">legal_provision</span><span class="o">.</span><span class="n">article_numbers</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">legal_provision</span><span class="o">.</span><span class="n">article_numbers</span> \
                 <span class="k">else</span> <span class="kc">None</span>
@@ -756,6 +756,7 @@
         <dl>
             <dt>Branches</dt>
             <dd><a href="../../../../../master/index.html">master</a></dd>
+            <dd><a href="../../../../../requires-io-master/index.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>

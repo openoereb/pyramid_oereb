@@ -1539,18 +1539,6 @@ every other value will raise an error.</td>
 <em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.plr.</code><code class="descname">PlrRecord</code><span class="sig-paren">(</span><em>theme</em>, <em>information</em>, <em>law_status</em>, <em>published_from</em>, <em>responsible_office</em>, <em>symbol</em>, <em>view_service</em>, <em>geometries</em>, <em>sub_theme=None</em>, <em>other_theme=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit='m'</em>, <em>area_unit='m2'</em>, <em>view_service_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/plr.html#PlrRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyramid_oereb.lib.records.plr.EmptyPlrRecord" title="pyramid_oereb.lib.records.plr.EmptyPlrRecord"><code class="xref py py-class docutils literal"><span class="pre">pyramid_oereb.lib.records.plr.EmptyPlrRecord</span></code></a></p>
 <p>Public law restriction record.</p>
-<dl class="attribute">
-<dt id="pyramid_oereb.lib.records.plr.PlrRecord.part_in_percent">
-<code class="descname">part_in_percent</code><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.part_in_percent" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>decimal</em> &#8211; Part of the property area touched by the restriction in percent.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyramid_oereb.lib.records.plr.PlrRecord.area_share">
-<code class="descname">area_share</code><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.area_share" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>decimal</em> &#8211; Area of the restriction touching the property calculated by the processor.</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="pyramid_oereb.lib.records.plr.PlrRecord.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>theme</em>, <em>information</em>, <em>law_status</em>, <em>published_from</em>, <em>responsible_office</em>, <em>symbol</em>, <em>view_service</em>, <em>geometries</em>, <em>sub_theme=None</em>, <em>other_theme=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>basis=None</em>, <em>refinements=None</em>, <em>documents=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit='m'</em>, <em>area_unit='m2'</em>, <em>view_service_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/plr.html#PlrRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.__init__" title="Permalink to this definition">¶</a></dt>
@@ -1594,8 +1582,8 @@ associated with this record.</li>
 </dd></dl>
 
 <dl class="attribute">
-<dt>
-<code class="descname">area_share</code></dt>
+<dt id="pyramid_oereb.lib.records.plr.PlrRecord.area_share">
+<code class="descname">area_share</code><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.area_share" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>float or None</em> &#8211; Returns the summed area of all related geometry records of this PLR.</p>
 </dd></dl>
 
@@ -1609,6 +1597,12 @@ associated with this record.</li>
 <dt id="pyramid_oereb.lib.records.plr.PlrRecord.nr_of_points">
 <code class="descname">nr_of_points</code><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.nr_of_points" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>float or None</em> &#8211; Returns the number of points of all related geometry records of this PLR.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.plr.PlrRecord.part_in_percent">
+<code class="descname">part_in_percent</code><a class="headerlink" href="#pyramid_oereb.lib.records.plr.PlrRecord.part_in_percent" title="Permalink to this definition">¶</a></dt>
+<dd><p><a href="#id2"><span class="problematic" id="id3">**</span></a>decimal or None* &#8211; (decimal)* &#8211; Part of the property area touched by the restriction in percent.</p>
 </dd></dl>
 
 <dl class="attribute">

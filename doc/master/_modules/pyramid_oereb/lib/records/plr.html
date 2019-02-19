@@ -187,16 +187,7 @@
 <div class="viewcode-block" id="PlrRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.plr.PlrRecord">[docs]</a><span class="k">class</span> <span class="nc">PlrRecord</span><span class="p">(</span><span class="n">EmptyPlrRecord</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Public law restriction record.</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        part_in_percent (decimal): Part of the property area touched by the restriction in percent.</span>
-<span class="sd">        area_share (decimal): Area of the restriction touching the property calculated by the processor.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># Attributes added or calculated by the processor</span>
-    <span class="n">area_share</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="n">part_in_percent</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="PlrRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.plr.PlrRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">information</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span>
                  <span class="n">view_service</span><span class="p">,</span> <span class="n">geometries</span><span class="p">,</span> <span class="n">sub_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">other_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -272,6 +263,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">area_unit</span> <span class="o">=</span> <span class="n">area_unit</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">length_unit</span> <span class="o">=</span> <span class="n">length_unit</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_part_in_percent</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_length_share</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nr_of_points</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
@@ -321,6 +313,19 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">part_in_percent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;decimal or None: (decimal): Part of the property area touched by the restriction in percent.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_part_in_percent</span>
+
+    <span class="nd">@part_in_percent</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">part_in_percent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            value (decimal): Part of the property area touched by the restriction in percent.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_part_in_percent</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">length_share</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;float or None: Returns the summed length of all related geometry records of this PLR.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length_share</span>
@@ -356,10 +361,10 @@
         <span class="n">area_share</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum_area</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">area_share</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">part_in_percent</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_part_in_percent</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">area_share</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">part_in_percent</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_part_in_percent</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span>
                 <span class="p">((</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">land_registry_area</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span>
                 <span class="mi">1</span>
             <span class="p">)</span>
@@ -411,6 +416,7 @@
         <dl>
             <dt>Branches</dt>
             <dd><a href="plr.html">master</a></dd>
+            <dd><a href="../../../../../requires-io-master/index.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>
