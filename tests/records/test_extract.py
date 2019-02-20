@@ -35,7 +35,7 @@ def test_init():
         'test_link',
         1,
         1.0,
-        {'lang': 'test_legend'}
+        {'de': 'test_legend'}
     ))
     plr_office = OfficeRecord({u'en': u'PLR Authority'})
     resolver = DottedNameResolver()
