@@ -74,7 +74,8 @@ class ViewServiceRecord(object):
             reference_wms (uri): The link URL to the actual service (WMS)
             layer_index (int): Layer index. Value from -1000 to +1000.
             layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.
-            legend_at_web (uri): The link URL to the actual legend service (WMS get legend)
+            legend_at_web (dict of str): )A multilingual dictionary of links. Keys are the language, values
+                are links leading to a WMS (get legend) describing document (png).
             legends (list of LegendEntry): A list of all relevant legend entries.
         """
         self.reference_wms = reference_wms

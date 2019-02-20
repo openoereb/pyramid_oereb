@@ -133,7 +133,8 @@ class ViewService(Base):
             you  don't like it - don't care about.
 % endif
         reference_wms (str): The actual url which leads to the desired cartographic representation.
-        legend_at_web (str): A link leading to a wms describing document (png).
+        legend_at_web (dict of str): A multilingual dictionary of links. Keys are the language, values
+            are links leading to a wms describing document (png).
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'view_service'
@@ -143,7 +144,7 @@ class ViewService(Base):
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
 % endif
     reference_wms = sa.Column(sa.String, nullable=False)
-    legend_at_web = sa.Column(sa.String, nullable=True)
+    legend_at_web = sa.Column(JSONType, nullable=True)
 
 
 class LegendEntry(Base):

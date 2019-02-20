@@ -84,6 +84,8 @@ class Renderer(Base):
 
         if self._params.language is not None:
             self._language = str(self._params.language).lower()
+        else:
+            self._language = Config.get('default_language')
 
         extract_dict = {
             'CreationDate': self.date_time(extract.creation_date),
@@ -486,7 +488,10 @@ class Renderer(Base):
         if map_.reference_wms is not None:
             map_dict['ReferenceWMS'] = map_.reference_wms
         if map_.legend_at_web is not None:
-            map_dict['LegendAtWeb'] = map_.legend_at_web
+            if self._language in map_.legend_at_web:
+                map_dict['LegendAtWeb'] = map_.legend_at_web[self._language]
+            else:
+                log.warn("map_.legend_at_web has no element {}".format(self._language))
         if isinstance(map_.legends, list) and len(map_.legends) > 0:
             other_legend = self.sort_by_localized_text(
                 map_.legends,

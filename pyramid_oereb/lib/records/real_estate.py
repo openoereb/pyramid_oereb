@@ -99,7 +99,7 @@ class RealEstateRecord(object):
             add_url_params(self.plan_for_land_register.reference_wms, {'sld': updated_sld_url}),
             self.plan_for_land_register.layer_index,
             self.plan_for_land_register.layer_opacity,
-            legend_at_web=''
+            legend_at_web={}
         )
         self.highlight.download_wms_content()
 
