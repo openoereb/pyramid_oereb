@@ -236,7 +236,8 @@
 <span class="sd">            reference_wms (uri): The link URL to the actual service (WMS)</span>
 <span class="sd">            layer_index (int): Layer index. Value from -1000 to +1000.</span>
 <span class="sd">            layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.</span>
-<span class="sd">            legend_at_web (uri): The link URL to the actual legend service (WMS get legend)</span>
+<span class="sd">            legend_at_web (dict of str): )A multilingual dictionary of links. Keys are the language, values</span>
+<span class="sd">                are links leading to a WMS (get legend) describing document (png).</span>
 <span class="sd">            legends (list of LegendEntry): A list of all relevant legend entries.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span> <span class="o">=</span> <span class="n">reference_wms</span>

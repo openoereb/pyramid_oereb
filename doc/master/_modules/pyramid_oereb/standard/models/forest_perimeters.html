@@ -412,13 +412,14 @@
 <span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
 <span class="sd">        reference_wms (str): The actual url which leads to the desired cartographic representation.</span>
-<span class="sd">        legend_at_web (str): A link leading to a wms describing document (png).</span>
+<span class="sd">        legend_at_web (dict of str): A multilingual dictionary of links. Keys are the language, values</span>
+<span class="sd">            are links leading to a wms describing document (png).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;forest_perimeters&#39;</span><span class="p">}</span>
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;view_service&#39;</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">reference_wms</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">legend_at_web</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+    <span class="n">legend_at_web</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">JSONType</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="LegendEntry"><a class="viewcode-back" href="../../../../standard/models/pyramid_oereb_standard_models_forest_perimeters.html#pyramid_oereb.standard.models.forest_perimeters.LegendEntry">[docs]</a><span class="k">class</span> <span class="nc">LegendEntry</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
