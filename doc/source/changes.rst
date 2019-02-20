@@ -13,17 +13,25 @@ version. Often a version upgrade changes or adds parameters which are used.
 Version 1.4.0
 -------------
 
-* multilingual map.legend_at_web (issue #704, PR #739): To support one link per language, ``legend_at_web`` was
-  changed from a simple text field to a multilingual field. In the database, the field type changed from
-  ``VARCHAR`` to ``JSON``. You need to adapt your data generation or existing data to change from ``http://your_link``
-  to ``{'language': 'http://your_link'}`` or ``{'languageA': 'http://link_A', 'languageB': 'http://link_B'}``
-  if you have multiple languages. Language may be 'de', 'fr', 'it', 'rm' or 'en'.
+* properties map.legend_at_web (issue #704) and sub_theme (issue #705) are now multilingual:
+  ``legend_at_web`` now supports one link per language. The ``sub_theme`` is shown in the requested (or default)
+  language.
 
-  All models (standard and oereblex) have been adjusted to use ``JSONType`` instead of ``sa.String`` for the
-  ``legend_at_web`` property in the ``ViewService`` class in each model. If you have custom models, adapt them
-  accordingly. See pyramid_oereb/contrib/templates/plr_oereb.py.mako as reference.
+  In the database the field types changed from ``VARCHAR`` to ``JSON``. You need to adapt your data
+  generation or existing data:
 
-  The extracts and mapfish print templates are not affected. They only include the legend_at_web of the
+  * ``legend_at_web`` changes from ``http://your_link`` to ``{'language': 'http://your_link'}`` or
+    ``{'languageA': 'http://link_A', 'languageB': 'http://link_B'}`` if you have multiple languages.
+
+  * ``sub_theme`` changes from ``Sub theme title`` to ``{'language': 'Sub theme title'}`` or
+    ``{'languageA': 'Sub theme title A', 'languageB': 'Sub theme title B'}`` if you have multiple languages.
+
+  Language may be 'de', 'fr', 'it', 'rm' or 'en'.
+
+  All models (standard and oereblex) have been adjusted to use ``JSONType`` instead of ``sa.String`` in each model.
+  If you have custom models, adapt them accordingly. See pyramid_oereb/contrib/templates/plr_oereb.py.mako as reference.
+
+  The extracts and mapfish print templates are not affected. They only include the legend_at_web or sub_theme of the
   currently requested language.
 
 
