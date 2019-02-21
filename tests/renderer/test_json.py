@@ -528,7 +528,7 @@ def test_format_legend_entry(parameter):
             u'CodeA',
             u'type_code_list',
             theme,
-            u'Subthema',
+            {'de': u'Subthema'},
             u'Weiteres Thema',
             view_service_id=1
         )
