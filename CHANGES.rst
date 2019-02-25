@@ -2,6 +2,10 @@
 Changelog
 ---------
 
+1.4.0
+*****
+- Additional multilingual functionality (GitHub issues 704, 705, 779)
+
 1.3.1
 *****
 - Maintenance release (GitHub issues 447, 610, 590, 609, 757, 750, 681, 752, 753, 460, 736,
