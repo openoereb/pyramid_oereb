@@ -125,9 +125,9 @@ def test_getegrid_address():
         # /getegrid/{format}/{postalcode}/{localisation}/{number}
         request.matchdict.update({
             'format': u'json',
-            'postalcode': '4410',
-            'localisation': 'test',
-            'number': '10'
+            'postalcode': u'4410',
+            'localisation': u'test',
+            'number': u'10'
         })
         webservice = PlrWebservice(request)
         response = webservice.get_egrid_address().json
