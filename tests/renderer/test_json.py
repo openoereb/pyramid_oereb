@@ -266,7 +266,9 @@ def test_format_plr(parameter):
             ImageRecord('1'.encode('utf-8')),
             view_service,
             [geometry],
-            sub_theme='Subtopic',
+            sub_theme={
+                'de': 'Subtopic'
+            },
             other_theme='Additional topic',
             type_code='CodeA',
             type_code_list='TypeCodeList',
@@ -526,7 +528,7 @@ def test_format_legend_entry(parameter):
             u'CodeA',
             u'type_code_list',
             theme,
-            u'Subthema',
+            {'de': u'Subthema'},
             u'Weiteres Thema',
             view_service_id=1
         )

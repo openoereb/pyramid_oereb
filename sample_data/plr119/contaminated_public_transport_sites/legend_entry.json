@@ -23,7 +23,12 @@
     "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_3.xml",
     "view_service_id": 1,
     "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkCAYAAAAq23xmAAAAZklEQVRoge3asQ2AMBRDwT9lJoiYjhGDEqAOLXJxxZNcX+2qPlr169Su2+Ydx5za9NgAAgQIEKDQAAECBAhQcIAAAQIEKDhAgAABAhQcIECAAAEKDhAgQIAABQcIEKAfgFzwvhttARMi7HL4l9NsAAAAAElFTkSuQmCC",
-    "topic": "ContaminatedPublicTransportSites"
+    "topic": "ContaminatedPublicTransportSites",
+    "sub_theme": {
+      "it": "SubTheme1 - it",
+      "de": "SubTheme1 - de",
+      "fr": "SubTheme1 - fr"
+    }
   },
   {
     "legend_text": {
@@ -36,7 +41,12 @@
     "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_3.xml",
     "view_service_id": 1,
     "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkCAYAAAAq23xmAAAAZklEQVRoge3asQ2AMBRDwT9lJoiYjhGDEqAOLXJxxZNcX+2qPlr169Su2+Ydx5za9NgAAgQIEKDQAAECBAhQcIAAAQIEKDhAgAABAhQcIECAAAEKDhAgQIAABQcIEKAfgFzwvhttARMi7HL4l9NsAAAAAElFTkSuQmCC",
-    "topic": "ContaminatedPublicTransportSites"
+    "topic": "ContaminatedPublicTransportSites",
+    "sub_theme": {
+      "it": "SubTheme3 - it",
+      "de": "SubTheme3 - de",
+      "fr": "SubTheme3 - fr"
+    }
   },
   {
     "legend_text": {
@@ -127,7 +137,12 @@
     "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_3.xml",
     "view_service_id": 1,
     "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkCAYAAAAq23xmAAAAaUlEQVRoge3aMQqAMBREwSB6RU8QPF2OqER+HbATtpjiwdZTb7v7dj59H1orm1ZjXsfUWtkAAgQIEKDQAAECBAhQcIAAAQIEKDhAgAABAhQcIECAAAEKDhAgQIAABQcIEKD/gVzwvi94L5/ZHkX3ZKJHAAAAAElFTkSuQmCC",
-    "topic": "ContaminatedPublicTransportSites"
+    "topic": "ContaminatedPublicTransportSites",
+    "sub_theme": {
+      "it": "SubTheme1 - it",
+      "de": "SubTheme1 - de",
+      "fr": "SubTheme1 - fr"
+    }
   },
   {
     "legend_text": {
@@ -140,7 +155,12 @@
     "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_3.xml",
     "view_service_id": 1,
     "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkCAYAAAAq23xmAAAAaUlEQVRoge3aMQqAMBREwSB6RU8QPF2OqER+HbATtpjiwdZTb7v7dj59H1orm1ZjXsfUWtkAAgQIEKDQAAECBAhQcIAAAQIEKDhAgAABAhQcIECAAAEKDhAgQIAABQcIEKD/gVzwvi94L5/ZHkX3ZKJHAAAAAElFTkSuQmCC",
-    "topic": "ContaminatedPublicTransportSites"
+    "topic": "ContaminatedPublicTransportSites",
+    "sub_theme": {
+      "it": "SubTheme3 - it",
+      "de": "SubTheme3 - de",
+      "fr": "SubTheme3 - fr"
+    }
   },
   {
     "legend_text": {
@@ -153,7 +173,12 @@
     "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_3.xml",
     "view_service_id": 1,
     "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkCAYAAAAq23xmAAAAZElEQVRoge3aMQrAMBADwXtlXpkn2ly42uAuoGKKBdVTq9aqZ+96dTY2NaO7WmdjAwgQIECAQgMECBAgQMEBAgQIEKDgAAECBAhQcIAAAQIEKDhAgAABAhQcIECA/gdywbtf8D7bPPnomqQDhwAAAABJRU5ErkJggg==",
-    "topic": "ContaminatedPublicTransportSites"
+    "topic": "ContaminatedPublicTransportSites",
+    "sub_theme": {
+      "it": "SubTheme2 - it",
+      "de": "SubTheme2 - de",
+      "fr": "SubTheme2 - fr"
+    }
   },
   {
     "legend_text": {
