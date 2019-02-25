@@ -187,7 +187,7 @@
 <span class="sd">        type_code_list (unicode): An URL to the type code list.</span>
 <span class="sd">        theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend entry belongs</span>
 <span class="sd">            to.</span>
-<span class="sd">        sub_theme (unicode): Theme sub category.</span>
+<span class="sd">        sub_theme (dict of unicode or None): Theme sub category.</span>
 <span class="sd">        other_theme (unicode): Additional theme linked to this theme.</span>
 <span class="sd">        view_service_id (int): The id to the connected view service. This is very important to be able to</span>
 <span class="sd">            solve bug https://github.com/openoereb/pyramid_oereb/issues/521</span>
@@ -198,6 +198,9 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">legend_text</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;legend_text&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">sub_theme</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub_theme</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;sub_theme&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">legend_text</span> <span class="o">=</span> <span class="n">legend_text</span>
