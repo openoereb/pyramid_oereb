@@ -18,8 +18,8 @@ def test_init():
 
 @pytest.mark.run(order=2)
 @pytest.mark.parametrize("param,length", [
-    ({'street_name': u'test', 'street_number': '10', 'zip_code': 4410}, 1),
-    ({'street_name': u'test', 'street_number': '11', 'zip_code': 4410}, 0)
+    ({'street_name': u'test', 'street_number': u'10', 'zip_code': 4410}, 1),
+    ({'street_name': u'test', 'street_number': u'11', 'zip_code': 4410}, 0)
 ])
 def test_read(param, length):
     reader = AddressReader(
