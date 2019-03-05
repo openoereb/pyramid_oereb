@@ -80,7 +80,7 @@ class DataIntegration(Base):
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         date (datetime.date): The date when this data set was delivered.
-        office_id (int): A foreign key which points to the actual office instance.
+        office_id (str): A foreign key which points to the actual office instance.
         office (pyramid_oereb.standard.models.groundwater_protection_zones.Office):
             The actual office instance which the id points to.
     """
@@ -88,7 +88,10 @@ class DataIntegration(Base):
     __tablename__ = 'data_integration'
     id = sa.Column(sa.String, primary_key=True, autoincrement=False)
     date = sa.Column(sa.DateTime, nullable=False)
-    office_id = sa.Column(sa.Integer, sa.ForeignKey(Office.id), nullable=False)
+    office_id = sa.Column(
+        sa.String,
+        sa.ForeignKey(Office.id),
+        nullable=False)
     office = relationship(Office)
     checksum = sa.Column(sa.String, nullable=True)
 
@@ -133,7 +136,7 @@ class LegendEntry(Base):
             * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
             the official two letters short version (e.g.'BE') {topic} as the name of the
             topic and {bfsnr} as the municipality id of the federal office of statistics.
-        view_service_id (int): The foreign key to the view service this legend entry is related to.
+        view_service_id (str): The foreign key to the view service this legend entry is related to.
         view_service (pyramid_oereb.standard.models.groundwater_protection_zones.ViewService):
             The dedicated relation to the view service instance from database.
     """
@@ -148,7 +151,7 @@ class LegendEntry(Base):
     sub_theme = sa.Column(JSONType, nullable=True)
     other_theme = sa.Column(sa.String, nullable=True)
     view_service_id = sa.Column(
-        sa.Integer,
+        sa.String,
         sa.ForeignKey(ViewService.id),
         nullable=False
     )
@@ -177,11 +180,11 @@ class PublicLawRestriction(Base):
         published_from (datetime.date): The date when the document should be available for
             publishing on extracts. This  directly affects the behaviour of extract
             generation.
-        view_service_id (int): The foreign key to the view service this public law restriction is
+        view_service_id (str): The foreign key to the view service this public law restriction is
             related to.
         view_service (pyramid_oereb.standard.models.groundwater_protection_zones.ViewService):
             The dedicated relation to the view service instance from database.
-        office_id (int): The foreign key to the office which is responsible to this public law
+        office_id (str): The foreign key to the office which is responsible to this public law
             restriction.
         responsible_office (pyramid_oereb.standard.models.groundwater_protection_zones.Office):
             The dedicated relation to the office instance from database.
@@ -199,7 +202,7 @@ class PublicLawRestriction(Base):
     published_from = sa.Column(sa.Date, nullable=False)
     geolink = sa.Column(sa.Integer, nullable=True)
     view_service_id = sa.Column(
-        sa.Integer,
+        sa.String,
         sa.ForeignKey(ViewService.id),
         nullable=False
     )
@@ -208,7 +211,7 @@ class PublicLawRestriction(Base):
         backref='public_law_restrictions'
     )
     office_id = sa.Column(
-        sa.Integer,
+        sa.String,
         sa.ForeignKey(Office.id),
         nullable=False
     )
@@ -228,12 +231,12 @@ class Geometry(Base):
             generation.
         geo_metadata (str): A link to the metadata which this geometry is based on which delivers
             machine  readable response format (XML).
-        public_law_restriction_id (int): The foreign key to the public law restriction this geometry
+        public_law_restriction_id (str): The foreign key to the public law restriction this geometry
             is  related to.
         public_law_restriction (pyramid_oereb.standard.models.groundwater_protection_zones
             .PublicLawRestriction): The dedicated relation to the public law restriction instance from
             database.
-        office_id (int): The foreign key to the office which is responsible to this public law
+        office_id (str): The foreign key to the office which is responsible to this public law
             restriction.
         responsible_office (pyramid_oereb.standard.models.groundwater_protection_zones.Office):
             The dedicated relation to the office instance from database.
@@ -249,7 +252,7 @@ class Geometry(Base):
     geo_metadata = sa.Column(sa.String, nullable=True)
     geom = sa.Column(GeoAlchemyGeometry('POLYGON', srid=srid), nullable=False)
     public_law_restriction_id = sa.Column(
-        sa.Integer,
+        sa.String,
         sa.ForeignKey(PublicLawRestriction.id),
         nullable=False
     )
@@ -258,7 +261,7 @@ class Geometry(Base):
         backref='geometries'
     )
     office_id = sa.Column(
-        sa.Integer,
+        sa.String,
         sa.ForeignKey(Office.id),
         nullable=False
     )
@@ -273,9 +276,9 @@ class PublicLawRestrictionBase(Base):
     Attributes:
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        public_law_restriction_id (int): The foreign key to the public law restriction which bases
+        public_law_restriction_id (str): The foreign key to the public law restriction which bases
             on another  public law restriction.
-        public_law_restriction_base_id (int): The foreign key to the public law restriction which is
+        public_law_restriction_base_id (str): The foreign key to the public law restriction which is
             the  base for the public law restriction.
         plr (pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction):
             The dedicated relation to the public law restriction (which bases on) instance from  database.
@@ -286,12 +289,12 @@ class PublicLawRestrictionBase(Base):
     __table_args__ = {'schema': 'groundwater_protection_zones'}
     id = sa.Column(sa.String, primary_key=True, autoincrement=False)
     public_law_restriction_id = sa.Column(
-        sa.Integer,
+        sa.String,
         sa.ForeignKey(PublicLawRestriction.id),
         nullable=False
     )
     public_law_restriction_base_id = sa.Column(
-        sa.Integer,
+        sa.String,
         sa.ForeignKey(PublicLawRestriction.id),
         nullable=False
     )
@@ -314,9 +317,9 @@ class PublicLawRestrictionRefinement(Base):
     Attributes:
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        public_law_restriction_id (int): The foreign key to the public law restriction which is
+        public_law_restriction_id (str): The foreign key to the public law restriction which is
             refined by  another public law restriction.
-        public_law_restriction_refinement_id (int): The foreign key to the public law restriction
+        public_law_restriction_refinement_id (str): The foreign key to the public law restriction
             which is  the refinement of the public law restriction.
         plr (pyramid_oereb.standard.models.groundwater_protection_zones.PublicLawRestriction):
             The dedicated relation to the public law restriction (which refines) instance from  database.
@@ -327,12 +330,12 @@ class PublicLawRestrictionRefinement(Base):
     __table_args__ = {'schema': 'groundwater_protection_zones'}
     id = sa.Column(sa.String, primary_key=True, autoincrement=False)
     public_law_restriction_id = sa.Column(
-        sa.Integer,
+        sa.String,
         sa.ForeignKey(PublicLawRestriction.id),
         nullable=False
     )
     public_law_restriction_refinement_id = sa.Column(
-        sa.Integer,
+        sa.String,
         sa.ForeignKey(PublicLawRestriction.id),
         nullable=False
     )
