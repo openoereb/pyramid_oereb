@@ -2,6 +2,13 @@
 Changelog
 ---------
 
+1.4.1
+*****
+- Fixed id types in oereblex models and model template, fixed documentation errors in standard models
+  and model template  (GitHub pull request 807)
+- Fixed warnings in tests (GitHub pull request 803)
+- Dependency updates (GitHub pull request 805)
+
 1.4.0
 *****
 - Additional multilingual functionality (GitHub issues 704, 705, 779)

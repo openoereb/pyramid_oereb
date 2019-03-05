@@ -8,6 +8,19 @@ introduce differences in the yml configuration file. So it would not be enough t
 version. Often a version upgrade changes or adds parameters which are used.
 
 
+.. _changes-version-1.4.1:
+
+Version 1.4.1
+-------------
+This is a maintenance and bug-fix release.
+
+* Fixed id types in oereblex models and model template, fixed documentation errors in standard models
+  and model template (PR#807).
+  We strongly recommend re-generating any custom oereblex models using the create_oereblex_model script.
+  Furthermore, we suggest that you re-generate any custom non-oereblex models using the create_standard_model
+  script in order to have an accurate model documentation.
+
+
 .. _changes-version-1.4.0:
 
 Version 1.4.0
