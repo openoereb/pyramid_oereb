@@ -46,7 +46,7 @@ class Office(Base):
     geometry.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         name (dict): The multilingual name of the office.
         office_at_web (str): A web accessible url to a presentation of this office.
@@ -78,10 +78,10 @@ class DataIntegration(Base):
     able to find out who was the delivering instance.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         date (datetime.date): The date when this data set was delivered.
-        office_id (int): A foreign key which points to the actual office instance.
+        office_id (str): A foreign key which points to the actual office instance.
         office (pyramid_oereb.standard.models.${schema_name}.Office):
             The actual office instance which the id points to.
     """
@@ -101,12 +101,12 @@ class ReferenceDefinition(Base):
     which are related to an extract but not directly on a special public law restriction situation.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         topic (str): The topic which this definition might be related to.
         canton (str): The canton this definition is related to.
         municipality (int): The municipality this definition is related to.
-        office_id (int): The foreign key constraint which the definition is related to.
+        office_id (str): The foreign key constraint which the definition is related to.
         responsible_office (pyramid_oereb.standard.models.${schema_name}.Office):
             The dedicated relation to the office instance from database.
     """
@@ -128,7 +128,7 @@ class DocumentBase(Base):
     produce the addressable primary key and to provide the common document attributes.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         text_at_web (dict): A multilingual link which leads to the documents content in the web.
         law_status (str): The status switch if the document is legally approved or not.
@@ -158,7 +158,7 @@ class Document(DocumentBase):
     This represents the main document in the whole system. It is specialized in some sub classes.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         document_type (str): The document type. It must be "LegalProvision", "Law" or "Hint".
         title (dict): The multilingual title or if existing the short title ot his document.
@@ -171,7 +171,7 @@ class Document(DocumentBase):
             the document is  related to the whole canton or even the confederation.
         file (str): The document itself as a binary representation (PDF). It is string but
             BaseCode64 encoded.
-        office_id (int): The foreign key to the office which is in charge for this document.
+        office_id (str): The foreign key to the office which is in charge for this document.
         responsible_office (pyramid_oereb.standard.models.${schema_name}.Office):
             The dedicated relation to the office instance from database.
     """
@@ -208,11 +208,11 @@ class Article(DocumentBase):
     described as a special part of the whole law document and reflects a dedicated content of this.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         number (str): The number which identifies this article in its parent document.
         text (dict): A simple multilingual string to describe the article or give some related info.
-        document_id (int): The foreign key to the document this article is taken from.
+        document_id (str): The foreign key to the document this article is taken from.
         document_id (pyramid_oereb.standard.models.${schema_name}.Document):
             The dedicated relation to the document instance from database.
     """
@@ -246,7 +246,7 @@ class ViewService(Base):
     A view service aka WM(T)S which can deliver a cartographic representation via web.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         reference_wms (str): The actual url which leads to the desired cartographic representation.
         legend_at_web (dict of str): A multilingual dictionary of links. Keys are the language, values
@@ -265,7 +265,7 @@ class LegendEntry(Base):
     :class:`pyramid_oereb.standard.models.${schema_name}.ViewService`.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         symbol (str): An image with represents the legend entry. This can be png or svg. It is string
             but BaseCode64  encoded.
@@ -281,7 +281,7 @@ class LegendEntry(Base):
             * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
             the official two letters short version (e.g.'BE') {topic} as the name of the
             topic and {bfsnr} as the municipality id of the federal office of statistics.
-        view_service_id (int): The foreign key to the view service this legend entry is related to.
+        view_service_id (str): The foreign key to the view service this legend entry is related to.
         view_service (pyramid_oereb.standard.models.${schema_name}.ViewService):
             The dedicated relation to the view service instance from database.
     """
@@ -308,7 +308,7 @@ class PublicLawRestriction(Base):
     The container where you can fill in all your public law restrictions to the topic.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         information (dict): The multilingual textual representation of the public law restriction.
         topic (str): Category for this public law restriction (name of the topic).
@@ -325,11 +325,11 @@ class PublicLawRestriction(Base):
         published_from (datetime.date): The date when the document should be available for
             publishing on extracts. This  directly affects the behaviour of extract
             generation.
-        view_service_id (int): The foreign key to the view service this public law restriction is
+        view_service_id (str): The foreign key to the view service this public law restriction is
             related to.
         view_service (pyramid_oereb.standard.models.${schema_name}.ViewService):
             The dedicated relation to the view service instance from database.
-        office_id (int): The foreign key to the office which is responsible to this public law
+        office_id (str): The foreign key to the office which is responsible to this public law
             restriction.
         responsible_office (pyramid_oereb.standard.models.${schema_name}.Office):
             The dedicated relation to the office instance from database.
@@ -367,7 +367,7 @@ class Geometry(Base):
     The dedicated model for all geometries in relation to their public law restriction.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         law_status (str): The status switch if the document is legally approved or not.
         published_from (datetime.date): The date when the document should be available for
@@ -375,12 +375,12 @@ class Geometry(Base):
             generation.
         geo_metadata (str): A link to the metadata which this geometry is based on which delivers
             machine  readable response format (XML).
-        public_law_restriction_id (int): The foreign key to the public law restriction this geometry
+        public_law_restriction_id (str): The foreign key to the public law restriction this geometry
             is  related to.
         public_law_restriction (pyramid_oereb.standard.models.${schema_name}
             .PublicLawRestriction): The dedicated relation to the public law restriction instance from
             database.
-        office_id (int): The foreign key to the office which is responsible to this public law
+        office_id (str): The foreign key to the office which is responsible to this public law
             restriction.
         responsible_office (pyramid_oereb.standard.models.${schema_name}.Office):
             The dedicated relation to the office instance from database.
@@ -418,11 +418,11 @@ class PublicLawRestrictionBase(Base):
     restrictions.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        public_law_restriction_id (int): The foreign key to the public law restriction which bases
+        public_law_restriction_id (str): The foreign key to the public law restriction which bases
             on another  public law restriction.
-        public_law_restriction_base_id (int): The foreign key to the public law restriction which is
+        public_law_restriction_base_id (str): The foreign key to the public law restriction which is
             the  base for the public law restriction.
         plr (pyramid_oereb.standard.models.${schema_name}.PublicLawRestriction):
             The dedicated relation to the public law restriction (which bases on) instance from  database.
@@ -459,11 +459,11 @@ class PublicLawRestrictionRefinement(Base):
     restrictions.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        public_law_restriction_id (int): The foreign key to the public law restriction which is
+        public_law_restriction_id (str): The foreign key to the public law restriction which is
             refined by  another public law restriction.
-        public_law_restriction_refinement_id (int): The foreign key to the public law restriction
+        public_law_restriction_refinement_id (str): The foreign key to the public law restriction
             which is  the refinement of the public law restriction.
         plr (pyramid_oereb.standard.models.${schema_name}.PublicLawRestriction):
             The dedicated relation to the public law restriction (which refines) instance from  database.
@@ -499,11 +499,11 @@ class PublicLawRestrictionDocument(Base):
     Meta bucket (join table) for the relationship between public law restrictions and documents.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        public_law_restriction_id (int): The foreign key to the public law restriction which has
+        public_law_restriction_id (str): The foreign key to the public law restriction which has
             relation to  a document.
-        document_id (int): The foreign key to the document which has relation to the public law
+        document_id (str): The foreign key to the document which has relation to the public law
             restriction.
         plr (pyramid_oereb.standard.models.${schema_name}.PublicLawRestriction):
             The dedicated relation to the public law restriction instance from database.
@@ -538,10 +538,10 @@ class DocumentReference(Base):
     Meta bucket (join table) for the relationship between documents.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        document_id (int): The foreign key to the document which references to another document.
-        reference_document_id (int): The foreign key to the document which is referenced.
+        document_id (str): The foreign key to the document which references to another document.
+        reference_document_id (str): The foreign key to the document which is referenced.
         document (pyramid_oereb.standard.models.${schema_name}.Document):
             The dedicated relation to the document (which references) instance from database.
         referenced_document (pyramid_oereb.standard.models.${schema_name}.Document):
@@ -579,11 +579,11 @@ class DocumentReferenceDefinition(Base):
     Meta bucket (join table) for the relationship between documents and the reference definition.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        document_id (int): The foreign key to the document which is related to a reference
+        document_id (str): The foreign key to the document which is related to a reference
             definition.
-        reference_definition_id (int): The foreign key to the document which is related to a
+        reference_definition_id (str): The foreign key to the document which is related to a
             reference  definition.
     """
     __tablename__ = 'document_reference_definition'
