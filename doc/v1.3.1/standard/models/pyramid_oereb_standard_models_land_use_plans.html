@@ -228,7 +228,7 @@ described as a special part of the whole law document and reflects a dedicated c
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.Article.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.Article.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
 you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
@@ -247,7 +247,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.Article.document_id">
 <code class="descname">document_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.Article.document_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the document this article is taken from.</p>
+<dd><p><em>str</em> &#8211; The foreign key to the document this article is taken from.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -316,7 +316,7 @@ able to find out who was the delivering instance.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.DataIntegration.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DataIntegration.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
 you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
@@ -329,7 +329,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.DataIntegration.office_id">
 <code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; A foreign key which points to the actual office instance.</p>
+<dd><p><em>str</em> &#8211; A foreign key which points to the actual office instance.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -362,7 +362,7 @@ This represents the main document in the whole system. It is specialized in some
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.Document.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.Document.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
 you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
@@ -420,7 +420,7 @@ BaseCode64 encoded.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.Document.office_id">
 <code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.Document.office_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the office which is in charge for this document.</p>
+<dd><p><em>str</em> &#8211; The foreign key to the office which is in charge for this document.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -453,7 +453,7 @@ produce the addressable primary key and to provide the common document attribute
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.DocumentBase.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DocumentBase.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
 you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
@@ -507,20 +507,20 @@ for example, any mapped columns or relationships.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.DocumentReference.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DocumentReference.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
 you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.DocumentReference.document_id">
 <code class="descname">document_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DocumentReference.document_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the document which references to another document.</p>
+<dd><p><em>str</em> &#8211; The foreign key to the document which references to another document.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.DocumentReference.reference_document_id">
 <code class="descname">reference_document_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DocumentReference.reference_document_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the document which is referenced.</p>
+<dd><p><em>str</em> &#8211; The foreign key to the document which is referenced.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -565,21 +565,21 @@ for example, any mapped columns or relationships.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.DocumentReferenceDefinition.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DocumentReferenceDefinition.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
 you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.DocumentReferenceDefinition.document_id">
 <code class="descname">document_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DocumentReferenceDefinition.document_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the document which is related to a reference
+<dd><p><em>str</em> &#8211; The foreign key to the document which is related to a reference
 definition.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.DocumentReferenceDefinition.reference_definition_id">
 <code class="descname">reference_definition_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.DocumentReferenceDefinition.reference_definition_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the document which is related to a
+<dd><p><em>str</em> &#8211; The foreign key to the document which is related to a
 reference  definition.</p>
 </dd></dl>
 
@@ -606,7 +606,7 @@ for example, any mapped columns or relationships.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.Geometry.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.Geometry.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
 you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
@@ -634,7 +634,7 @@ machine  readable response format (XML).</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.Geometry.public_law_restriction_id">
 <code class="descname">public_law_restriction_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.Geometry.public_law_restriction_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the public law restriction this geometry
+<dd><p><em>str</em> &#8211; The foreign key to the public law restriction this geometry
 is  related to.</p>
 </dd></dl>
 
@@ -648,7 +648,7 @@ database.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.Geometry.office_id">
 <code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.Geometry.office_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the office which is responsible to this public law
+<dd><p><em>str</em> &#8211; The foreign key to the office which is responsible to this public law
 restriction.</p>
 </dd></dl>
 
@@ -690,7 +690,7 @@ for example, any mapped columns or relationships.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.LegendEntry.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.LegendEntry.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
 you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
@@ -746,7 +746,7 @@ topic and {bfsnr} as the municipality id of the federal office of statistics.</p
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.LegendEntry.view_service_id">
 <code class="descname">view_service_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.LegendEntry.view_service_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the view service this legend entry is related to.</p>
+<dd><p><em>str</em> &#8211; The foreign key to the view service this legend entry is related to.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -779,7 +779,7 @@ geometry.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.Office.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.Office.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
 you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
@@ -860,7 +860,7 @@ for example, any mapped columns or relationships.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
 you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
@@ -922,7 +922,7 @@ generation.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.view_service_id">
 <code class="descname">view_service_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.view_service_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the view service this public law restriction is
+<dd><p><em>str</em> &#8211; The foreign key to the view service this public law restriction is
 related to.</p>
 </dd></dl>
 
@@ -935,7 +935,7 @@ related to.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.office_id">
 <code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction.office_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the office which is responsible to this public law
+<dd><p><em>str</em> &#8211; The foreign key to the office which is responsible to this public law
 restriction.</p>
 </dd></dl>
 
@@ -969,21 +969,21 @@ restrictions.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionBase.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionBase.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
 you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionBase.public_law_restriction_id">
 <code class="descname">public_law_restriction_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionBase.public_law_restriction_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the public law restriction which bases
+<dd><p><em>str</em> &#8211; The foreign key to the public law restriction which bases
 on another  public law restriction.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionBase.public_law_restriction_base_id">
 <code class="descname">public_law_restriction_base_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionBase.public_law_restriction_base_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the public law restriction which is
+<dd><p><em>str</em> &#8211; The foreign key to the public law restriction which is
 the  base for the public law restriction.</p>
 </dd></dl>
 
@@ -1022,21 +1022,21 @@ for example, any mapped columns or relationships.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionDocument.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionDocument.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
 you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionDocument.public_law_restriction_id">
 <code class="descname">public_law_restriction_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionDocument.public_law_restriction_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the public law restriction which has
+<dd><p><em>str</em> &#8211; The foreign key to the public law restriction which has
 relation to  a document.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionDocument.document_id">
 <code class="descname">document_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionDocument.document_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the document which has relation to the public law
+<dd><p><em>str</em> &#8211; The foreign key to the document which has relation to the public law
 restriction.</p>
 </dd></dl>
 
@@ -1076,21 +1076,21 @@ restrictions.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionRefinement.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionRefinement.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
 you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionRefinement.public_law_restriction_id">
 <code class="descname">public_law_restriction_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionRefinement.public_law_restriction_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the public law restriction which is
+<dd><p><em>str</em> &#8211; The foreign key to the public law restriction which is
 refined by  another public law restriction.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionRefinement.public_law_restriction_refinement_id">
 <code class="descname">public_law_restriction_refinement_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.PublicLawRestrictionRefinement.public_law_restriction_refinement_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key to the public law restriction
+<dd><p><em>str</em> &#8211; The foreign key to the public law restriction
 which is  the refinement of the public law restriction.</p>
 </dd></dl>
 
@@ -1131,7 +1131,7 @@ which are related to an extract but not directly on a special public law restric
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.ReferenceDefinition.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.ReferenceDefinition.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
 you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 
@@ -1156,7 +1156,7 @@ you  don&#8217;t like it - don&#8217;t care about.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.ReferenceDefinition.office_id">
 <code class="descname">office_id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.ReferenceDefinition.office_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The foreign key constraint which the definition is related to.</p>
+<dd><p><em>str</em> &#8211; The foreign key constraint which the definition is related to.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1188,7 +1188,7 @@ for example, any mapped columns or relationships.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.standard.models.land_use_plans.ViewService.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.standard.models.land_use_plans.ViewService.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
 you  don&#8217;t like it - don&#8217;t care about.</p>
 </dd></dl>
 

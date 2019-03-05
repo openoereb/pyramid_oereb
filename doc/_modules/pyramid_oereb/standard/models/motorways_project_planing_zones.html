@@ -209,7 +209,7 @@
 <span class="sd">    geometry.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
 <span class="sd">        name (dict): The multilingual name of the office.</span>
 <span class="sd">        office_at_web (str): A web accessible url to a presentation of this office.</span>
@@ -241,10 +241,10 @@
 <span class="sd">    able to find out who was the delivering instance.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
 <span class="sd">        date (datetime.date): The date when this data set was delivered.</span>
-<span class="sd">        office_id (int): A foreign key which points to the actual office instance.</span>
+<span class="sd">        office_id (str): A foreign key which points to the actual office instance.</span>
 <span class="sd">        office (pyramid_oereb.standard.models.motorways_project_planing_zones.Office):</span>
 <span class="sd">            The actual office instance which the id points to.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -264,12 +264,12 @@
 <span class="sd">    which are related to an extract but not directly on a special public law restriction situation.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
 <span class="sd">        topic (str): The topic which this definition might be related to.</span>
 <span class="sd">        canton (str): The canton this definition is related to.</span>
 <span class="sd">        municipality (int): The municipality this definition is related to.</span>
-<span class="sd">        office_id (int): The foreign key constraint which the definition is related to.</span>
+<span class="sd">        office_id (str): The foreign key constraint which the definition is related to.</span>
 <span class="sd">        responsible_office (pyramid_oereb.standard.models.motorways_project_planing_zones.Office):</span>
 <span class="sd">            The dedicated relation to the office instance from database.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -291,7 +291,7 @@
 <span class="sd">    produce the addressable primary key and to provide the common document attributes.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
 <span class="sd">        text_at_web (dict): A multilingual link which leads to the documents content in the web.</span>
 <span class="sd">        law_status (str): The status switch if the document is legally approved or not.</span>
@@ -321,7 +321,7 @@
 <span class="sd">    This represents the main document in the whole system. It is specialized in some sub classes.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
 <span class="sd">        document_type (str): The document type. It must be &quot;LegalProvision&quot;, &quot;Law&quot; or &quot;Hint&quot;.</span>
 <span class="sd">        title (dict): The multilingual title or if existing the short title ot his document.</span>
@@ -334,7 +334,7 @@
 <span class="sd">            the document is  related to the whole canton or even the confederation.</span>
 <span class="sd">        file (str): The document itself as a binary representation (PDF). It is string but</span>
 <span class="sd">            BaseCode64 encoded.</span>
-<span class="sd">        office_id (int): The foreign key to the office which is in charge for this document.</span>
+<span class="sd">        office_id (str): The foreign key to the office which is in charge for this document.</span>
 <span class="sd">        responsible_office (pyramid_oereb.standard.models.motorways_project_planing_zones.Office):</span>
 <span class="sd">            The dedicated relation to the office instance from database.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -371,11 +371,11 @@
 <span class="sd">    described as a special part of the whole law document and reflects a dedicated content of this.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
 <span class="sd">        number (str): The number which identifies this article in its parent document.</span>
 <span class="sd">        text (dict): A simple multilingual string to describe the article or give some related info.</span>
-<span class="sd">        document_id (int): The foreign key to the document this article is taken from.</span>
+<span class="sd">        document_id (str): The foreign key to the document this article is taken from.</span>
 <span class="sd">        document_id (pyramid_oereb.standard.models.motorways_project_planing_zones.Document):</span>
 <span class="sd">            The dedicated relation to the document instance from database.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -409,7 +409,7 @@
 <span class="sd">    A view service aka WM(T)S which can deliver a cartographic representation via web.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
 <span class="sd">        reference_wms (str): The actual url which leads to the desired cartographic representation.</span>
 <span class="sd">        legend_at_web (dict of str): A multilingual dictionary of links. Keys are the language, values</span>
@@ -428,7 +428,7 @@
 <span class="sd">    :class:`pyramid_oereb.standard.models.motorways_project_planing_zones.ViewService`.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
 <span class="sd">        symbol (str): An image with represents the legend entry. This can be png or svg. It is string</span>
 <span class="sd">            but BaseCode64  encoded.</span>
@@ -444,7 +444,7 @@
 <span class="sd">            * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as</span>
 <span class="sd">            the official two letters short version (e.g.&#39;BE&#39;) {topic} as the name of the</span>
 <span class="sd">            topic and {bfsnr} as the municipality id of the federal office of statistics.</span>
-<span class="sd">        view_service_id (int): The foreign key to the view service this legend entry is related to.</span>
+<span class="sd">        view_service_id (str): The foreign key to the view service this legend entry is related to.</span>
 <span class="sd">        view_service (pyramid_oereb.standard.models.motorways_project_planing_zones.ViewService):</span>
 <span class="sd">            The dedicated relation to the view service instance from database.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -471,7 +471,7 @@
 <span class="sd">    The container where you can fill in all your public law restrictions to the topic.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
 <span class="sd">        information (dict): The multilingual textual representation of the public law restriction.</span>
 <span class="sd">        topic (str): Category for this public law restriction (name of the topic).</span>
@@ -488,11 +488,11 @@
 <span class="sd">        published_from (datetime.date): The date when the document should be available for</span>
 <span class="sd">            publishing on extracts. This  directly affects the behaviour of extract</span>
 <span class="sd">            generation.</span>
-<span class="sd">        view_service_id (int): The foreign key to the view service this public law restriction is</span>
+<span class="sd">        view_service_id (str): The foreign key to the view service this public law restriction is</span>
 <span class="sd">            related to.</span>
 <span class="sd">        view_service (pyramid_oereb.standard.models.motorways_project_planing_zones.ViewService):</span>
 <span class="sd">            The dedicated relation to the view service instance from database.</span>
-<span class="sd">        office_id (int): The foreign key to the office which is responsible to this public law</span>
+<span class="sd">        office_id (str): The foreign key to the office which is responsible to this public law</span>
 <span class="sd">            restriction.</span>
 <span class="sd">        responsible_office (pyramid_oereb.standard.models.motorways_project_planing_zones.Office):</span>
 <span class="sd">            The dedicated relation to the office instance from database.</span>
@@ -530,7 +530,7 @@
 <span class="sd">    The dedicated model for all geometries in relation to their public law restriction.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
 <span class="sd">        law_status (str): The status switch if the document is legally approved or not.</span>
 <span class="sd">        published_from (datetime.date): The date when the document should be available for</span>
@@ -538,12 +538,12 @@
 <span class="sd">            generation.</span>
 <span class="sd">        geo_metadata (str): A link to the metadata which this geometry is based on which delivers</span>
 <span class="sd">            machine  readable response format (XML).</span>
-<span class="sd">        public_law_restriction_id (int): The foreign key to the public law restriction this geometry</span>
+<span class="sd">        public_law_restriction_id (str): The foreign key to the public law restriction this geometry</span>
 <span class="sd">            is  related to.</span>
 <span class="sd">        public_law_restriction (pyramid_oereb.standard.models.motorways_project_planing_zones</span>
 <span class="sd">            .PublicLawRestriction): The dedicated relation to the public law restriction instance from</span>
 <span class="sd">            database.</span>
-<span class="sd">        office_id (int): The foreign key to the office which is responsible to this public law</span>
+<span class="sd">        office_id (str): The foreign key to the office which is responsible to this public law</span>
 <span class="sd">            restriction.</span>
 <span class="sd">        responsible_office (pyramid_oereb.standard.models.motorways_project_planing_zones.Office):</span>
 <span class="sd">            The dedicated relation to the office instance from database.</span>
@@ -581,11 +581,11 @@
 <span class="sd">    restrictions.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
-<span class="sd">        public_law_restriction_id (int): The foreign key to the public law restriction which bases</span>
+<span class="sd">        public_law_restriction_id (str): The foreign key to the public law restriction which bases</span>
 <span class="sd">            on another  public law restriction.</span>
-<span class="sd">        public_law_restriction_base_id (int): The foreign key to the public law restriction which is</span>
+<span class="sd">        public_law_restriction_base_id (str): The foreign key to the public law restriction which is</span>
 <span class="sd">            the  base for the public law restriction.</span>
 <span class="sd">        plr (pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction):</span>
 <span class="sd">            The dedicated relation to the public law restriction (which bases on) instance from  database.</span>
@@ -622,11 +622,11 @@
 <span class="sd">    restrictions.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
-<span class="sd">        public_law_restriction_id (int): The foreign key to the public law restriction which is</span>
+<span class="sd">        public_law_restriction_id (str): The foreign key to the public law restriction which is</span>
 <span class="sd">            refined by  another public law restriction.</span>
-<span class="sd">        public_law_restriction_refinement_id (int): The foreign key to the public law restriction</span>
+<span class="sd">        public_law_restriction_refinement_id (str): The foreign key to the public law restriction</span>
 <span class="sd">            which is  the refinement of the public law restriction.</span>
 <span class="sd">        plr (pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction):</span>
 <span class="sd">            The dedicated relation to the public law restriction (which refines) instance from  database.</span>
@@ -662,11 +662,11 @@
 <span class="sd">    Meta bucket (join table) for the relationship between public law restrictions and documents.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
-<span class="sd">        public_law_restriction_id (int): The foreign key to the public law restriction which has</span>
+<span class="sd">        public_law_restriction_id (str): The foreign key to the public law restriction which has</span>
 <span class="sd">            relation to  a document.</span>
-<span class="sd">        document_id (int): The foreign key to the document which has relation to the public law</span>
+<span class="sd">        document_id (str): The foreign key to the document which has relation to the public law</span>
 <span class="sd">            restriction.</span>
 <span class="sd">        plr (pyramid_oereb.standard.models.motorways_project_planing_zones.PublicLawRestriction):</span>
 <span class="sd">            The dedicated relation to the public law restriction instance from database.</span>
@@ -701,10 +701,10 @@
 <span class="sd">    Meta bucket (join table) for the relationship between documents.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
-<span class="sd">        document_id (int): The foreign key to the document which references to another document.</span>
-<span class="sd">        reference_document_id (int): The foreign key to the document which is referenced.</span>
+<span class="sd">        document_id (str): The foreign key to the document which references to another document.</span>
+<span class="sd">        reference_document_id (str): The foreign key to the document which is referenced.</span>
 <span class="sd">        document (pyramid_oereb.standard.models.motorways_project_planing_zones.Document):</span>
 <span class="sd">            The dedicated relation to the document (which references) instance from database.</span>
 <span class="sd">        referenced_document (pyramid_oereb.standard.models.motorways_project_planing_zones.Document):</span>
@@ -742,11 +742,11 @@
 <span class="sd">    Meta bucket (join table) for the relationship between documents and the reference definition.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
 <span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
-<span class="sd">        document_id (int): The foreign key to the document which is related to a reference</span>
+<span class="sd">        document_id (str): The foreign key to the document which is related to a reference</span>
 <span class="sd">            definition.</span>
-<span class="sd">        reference_definition_id (int): The foreign key to the document which is related to a</span>
+<span class="sd">        reference_definition_id (str): The foreign key to the document which is related to a</span>
 <span class="sd">            reference  definition.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;document_reference_definition&#39;</span>
