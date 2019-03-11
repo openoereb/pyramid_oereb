@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+1.4.2
+*****
+- Downgrade version of pyproj to fix coordinate reprojections (GitHub pull request 810)
+- Dependency updates
+
 1.4.1
 *****
 - Fixed id types in oereblex models and model template, fixed documentation errors in standard models
