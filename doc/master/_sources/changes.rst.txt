@@ -8,6 +8,18 @@ introduce differences in the yml configuration file. So it would not be enough t
 version. Often a version upgrade changes or adds parameters which are used.
 
 
+.. _changes-version-1.4.2:
+
+Version 1.4.2
+-------------
+This is a maintenance and bug-fix release.
+
+* Fixed an issue by downgrading a dependency which produces wrong coordinate reprojections (PR#810). We
+  strongly recommend deleting your local dependencies and re-installing them to ensure a version lower than
+  2.0.0 of pyproj is installed. By the time of this release, version 1.9.6 of pyproj is the most recent
+  working version.
+
+
 .. _changes-version-1.4.1:
 
 Version 1.4.1

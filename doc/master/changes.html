@@ -95,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-4-2">Version 1.4.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-4-1">Version 1.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-4-0">Version 1.4.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-3-1">Version 1.3.1</a></li>
@@ -197,6 +198,16 @@
 <p>This section will give you hints how to handle version migration. Since the project moves forward it will
 introduce differences in the yml configuration file. So it would not be enough to simply install the newest
 version. Often a version upgrade changes or adds parameters which are used.</p>
+<div class="section" id="version-1-4-2">
+<span id="changes-version-1-4-2"></span><h2>Version 1.4.2<a class="headerlink" href="#version-1-4-2" title="Permalink to this headline">¶</a></h2>
+<p>This is a maintenance and bug-fix release.</p>
+<ul class="simple">
+<li>Fixed an issue by downgrading a dependency which produces wrong coordinate reprojections (PR#810). We
+strongly recommend deleting your local dependencies and re-installing them to ensure a version lower than
+2.0.0 of pyproj is installed. By the time of this release, version 1.9.6 of pyproj is the most recent
+working version.</li>
+</ul>
+</div>
 <div class="section" id="version-1-4-1">
 <span id="changes-version-1-4-1"></span><h2>Version 1.4.1<a class="headerlink" href="#version-1-4-1" title="Permalink to this headline">¶</a></h2>
 <p>This is a maintenance and bug-fix release.</p>
@@ -928,11 +939,11 @@ and why please have a detailed look at the documentation of the used package
             <dd><a href="../v1.3.1/changes.html">v1.3.1</a></dd>
             <dd><a href="../v1.4.0/changes.html">v1.4.0</a></dd>
             <dd><a href="../v1.4.1/changes.html">v1.4.1</a></dd>
+            <dd><a href="../v1.4.2/changes.html">v1.4.2</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
             <dd><a href="changes.html">master</a></dd>
-            <dd><a href="../requires-io-master/changes.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>
