@@ -17,6 +17,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from tqdm import tqdm
 
+from pyramid_oereb.lib.config import Config
 from pyramid_oereb.standard.xtf_import.article import Article
 from pyramid_oereb.standard.xtf_import.base_refinement import BaseRefinement
 from pyramid_oereb.standard.xtf_import.document import Document
@@ -67,8 +68,9 @@ class FederalTopic(object):
             tmp_dir (str): Directory used as temporary working directory. (default: '.')
         """
         self._log = logging.getLogger('import_federal_topic')
-        with codecs.open(configuration_file, 'r', encoding='utf-8') as f:
-            self._settings = yaml.safe_load(f.read()).get(section)
+        Config.init(configuration_file, section)
+        self._settings = Config.get_config()
+
         topic_settings = None
         for topic in self._settings.get('plrs'):
             if topic.get('code') == topic_code:
