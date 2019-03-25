@@ -17,10 +17,11 @@ class DummyData(object):
         self._import_motorways_building_lines()
         self._import_contaminated_sites()
         self._import_land_use_plans()
+        self._import_forest_perimeters()
 
     def _truncate(self):
         from pyramid_oereb.standard.models import main, contaminated_sites, \
-             land_use_plans, motorways_building_lines
+             land_use_plans, motorways_building_lines, forest_perimeters
         connection = self._engine.connect()
         trans = connection.begin()
 
@@ -120,6 +121,26 @@ class DummyData(object):
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
             schema=land_use_plans.DataIntegration.__table__.schema,
             table=land_use_plans.DataIntegration.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+            schema=forest_perimeters.ViewService.__table__.schema,
+            table=forest_perimeters.ViewService.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+            schema=forest_perimeters.Office.__table__.schema,
+            table=forest_perimeters.Office.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+            schema=forest_perimeters.PublicLawRestriction.__table__.schema,
+            table=forest_perimeters.PublicLawRestriction.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+            schema=forest_perimeters.Geometry.__table__.schema,
+            table=forest_perimeters.Geometry.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+            schema=forest_perimeters.DataIntegration.__table__.schema,
+            table=forest_perimeters.DataIntegration.__table__.name
         ))
 
         trans.commit()
@@ -606,6 +627,64 @@ class DummyData(object):
             'public_law_restriction_id': '1',
             'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POINT(1 2))'
+        })
+
+        connection.close()
+
+    def _import_forest_perimeters(self):
+        from pyramid_oereb.standard.models import forest_perimeters
+        connection = self._engine.connect()
+
+        # Add dummy PLR data for line geometry
+        wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default' \
+                  u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
+                  u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
+        connection.execute(forest_perimeters.ViewService.__table__.insert(), {
+            'id': '1',
+            'reference_wms': wms_url.format(Config.get('srid')),
+            'layer_index': 1,
+            'layer_opacity': 1.0
+        })
+        connection.execute(forest_perimeters.LegendEntry.__table__.insert(), {
+            'id': '1',
+            'symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
+            'legend_text': {
+                'de': u'Test'
+            },
+            'type_code': u'CodeA',
+            'type_code_list': u'type_code_list',
+            'topic': u'ForestPerimeters',
+            'view_service_id': '1'
+        })
+        connection.execute(forest_perimeters.Office.__table__.insert(), {
+            'id': '1',
+            'name': {'de': u'Test Office'}
+        })
+        connection.execute(forest_perimeters.DataIntegration.__table__.insert(), {
+            'id': '1',
+            'date': u'2017-07-01T00:00:00',
+            'office_id': '1'
+        })
+        connection.execute(forest_perimeters.PublicLawRestriction.__table__.insert(), {
+            'id': '1',
+            'information': {'de': u'Long line PLR'},
+            'topic': u'ForestPerimeters',
+            'type_code': u'CodeA',
+            "type_code_list": u'',
+            'law_status': u'inForce',
+            'published_from': date.today().isoformat(),
+            'view_service_id': '1',
+            'office_id': '1'
+        })
+        connection.execute(forest_perimeters.Geometry.__table__.insert(), {
+            'id': '1',
+            'law_status': u'inForce',
+            'published_from': date.today().isoformat(),
+            'public_law_restriction_id': '1',
+            'office_id': '1',
+            # example geometry which does not concern the real_estate (tolerance_check)
+            'geom': u'SRID=2056;LINESTRING (1.5 1.5, 1.5 2.5)'
+
         })
 
         connection.close()

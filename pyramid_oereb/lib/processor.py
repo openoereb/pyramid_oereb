@@ -89,11 +89,16 @@ class Processor(object):
         outside_plrs = []
 
         for public_law_restriction in real_estate.public_law_restrictions:
+
             if isinstance(public_law_restriction, PlrRecord) and public_law_restriction.published:
                 # Test if the geometries list is now empty - if so remove plr from plr list
                 if public_law_restriction.calculate(real_estate):
+                    log.debug("plr_tolerance_check: keeping as potentially concerned plr {}".
+                              format(public_law_restriction))
                     inside_plrs.append(self.filter_published_documents(public_law_restriction))
                 else:
+                    log.debug("plr_tolerance_check: removing from the concerned plrs {}".
+                              format(public_law_restriction))
                     outside_plrs.append(public_law_restriction)
 
         # Check if theme is concerned
