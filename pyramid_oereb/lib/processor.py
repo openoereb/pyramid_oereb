@@ -89,7 +89,6 @@ class Processor(object):
         outside_plrs = []
 
         for public_law_restriction in real_estate.public_law_restrictions:
-
             if isinstance(public_law_restriction, PlrRecord) and public_law_restriction.published:
                 # Test if the geometries list is now empty - if so remove plr from plr list
                 if public_law_restriction.calculate(real_estate):
