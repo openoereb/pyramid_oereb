@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from pyramid_oereb.lib.config import Config
 from pyramid_oereb.standard.xtf_import.util import parse_string, parse_multilingual_text, parse_ref
 
 
@@ -20,11 +21,15 @@ class PublicLawRestriction(object):
         self._topic_code = topic_code
 
     def parse(self, public_law_restriction):  # pragma: no cover
+        language = Config.get('default_language')
+        sub_theme = parse_string(public_law_restriction, self.TAG_SUB_THEME)
+        if sub_theme is not None:
+            sub_theme = {language: sub_theme}
         instance = self._model(
             id=public_law_restriction.attrib['TID'],
             information=parse_multilingual_text(public_law_restriction, self.TAG_INFORMATION),
             topic=self._topic_code,
-            sub_theme=parse_string(public_law_restriction, self.TAG_SUB_THEME),
+            sub_theme=sub_theme,
             other_theme=parse_string(public_law_restriction, self.TAG_OTHER_THEME),
             type_code=parse_string(public_law_restriction, self.TAG_TYPE_CODE),
             type_code_list=parse_string(public_law_restriction, self.TAG_TYPE_CODE_LIST),
