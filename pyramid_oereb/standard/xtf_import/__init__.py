@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import codecs
 import math
 import os
 import shutil
@@ -8,7 +7,6 @@ from datetime import datetime
 from uuid import uuid4
 
 import requests
-import yaml
 import logging
 
 from defusedxml.ElementTree import parse
