@@ -8,6 +8,19 @@ introduce differences in the yml configuration file. So it would not be enough t
 version. Often a version upgrade changes or adds parameters which are used.
 
 
+.. _changes-version-1.4.3-beta:
+
+Version 1.4.3-beta
+------------------
+This is a maintenance and bug-fix release.
+
+* Fixed import script for federal topics (PR#821)
+
+* Added test for ordering of non-concerned themes (PR#817)
+
+* Fixed footer with disappearing page numbers with MapFish print 3.18 (PR#814)
+
+
 .. _changes-version-1.4.2:
 
 Version 1.4.2
