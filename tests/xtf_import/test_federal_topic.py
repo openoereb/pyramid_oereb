@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 import os
 import shutil
+import pytest
 
 from logging import Logger
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+from pyramid_oereb.lib.config import Config
 from pyramid_oereb.standard.models import airports_security_zone_plans
 from pyramid_oereb.standard.xtf_import import FederalTopic
 
@@ -14,7 +16,9 @@ from pyramid_oereb.standard.xtf_import import FederalTopic
 yaml_file = 'pyramid_oereb/standard/pyramid_oereb.yml'
 
 
+@pytest.mark.run(order=-1)
 def test_init():
+    Config._config = None
     loader = FederalTopic(yaml_file, 'AirportsSecurityZonePlans')
     assert isinstance(loader._log, Logger)
     assert isinstance(loader._settings, dict)
@@ -27,7 +31,9 @@ def test_init():
     assert loader._data_integration_office_id is None
 
 
+@pytest.mark.run(order=-1)
 def test_unzip_cleanup():
+    Config._config = None
     loader = FederalTopic(yaml_file, 'AirportsSecurityZonePlans')
 
     zip_file = os.path.join(loader._tmp_dir, '{0}.zip'.format(loader._file_id))
@@ -41,7 +47,9 @@ def test_unzip_cleanup():
     assert not os.path.isdir(zip_path)
 
 
+@pytest.mark.run(order=-1)
 def test_collect_files():
+    Config._config = None
     loader = FederalTopic(yaml_file, 'AirportsSecurityZonePlans')
     zip_file = os.path.join(loader._tmp_dir, '{0}.zip'.format(loader._file_id))
     zip_path = os.path.join(loader._tmp_dir, '{0}'.format(loader._file_id))
@@ -53,7 +61,9 @@ def test_collect_files():
     loader.cleanup_files()
 
 
+@pytest.mark.run(order=-1)
 def test_read_checksum():
+    Config._config = None
     loader = FederalTopic(yaml_file, 'AirportsSecurityZonePlans')
     zip_file = os.path.join(loader._tmp_dir, '{0}.zip'.format(loader._file_id))
     shutil.copy('tests/resources/data.zip', zip_file)
@@ -63,6 +73,7 @@ def test_read_checksum():
     loader.cleanup_files()
 
 
+@pytest.mark.run(order=-1)
 def test_load():
     def check_counts(loader, schema):
         engine = create_engine(loader._connection)
@@ -91,6 +102,7 @@ def test_load():
         assert count_documents == 100
         assert checksum == loader._checksum
     schema = 'airports_security_zone_plans'
+    Config._config = None
     loader = FederalTopic(yaml_file, 'AirportsSecurityZonePlans')
     zip_file = os.path.join(loader._tmp_dir, '{0}.zip'.format(loader._file_id))
     shutil.copy('tests/resources/data.zip', zip_file)
