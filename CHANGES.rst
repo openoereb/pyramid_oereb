@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+1.4.3
+*****
+- Fixed import script for federal topics (GitHub pull request 821)
+- Added test for ordering of non-concerned themes (GitHub pull request 817)
+- Fixed footer with disappearing page numbers with MapFish print 3.18 (GitHub pull request 814)
+
 1.4.2
 *****
 - Downgrade version of pyproj to fix coordinate reprojections (GitHub pull request 810)
