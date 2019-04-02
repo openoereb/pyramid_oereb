@@ -420,7 +420,7 @@ class Renderer(JsonRenderer):
                 if 'AreaShare' in legend:
                     legend['AreaShare'] = u'{0} m²'.format(legend['AreaShare'])
                 if 'PartInPercent' in legend:
-                    legend['PartInPercent'] = '{0}%'.format(legend['PartInPercent'])
+                    legend['PartInPercent'] = '{0}%'.format(round(legend['PartInPercent'], 2))
 
         log.debug("After transformation, extract_dict is {}".format(extract_dict))
         return extract_dict
