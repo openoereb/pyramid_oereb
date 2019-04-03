@@ -206,6 +206,22 @@ def test_return_json(topics):
         assert restrictions[0]['Theme']['Code'] == 'LandUsePlans'
         assert restrictions[1]['Theme']['Code'] == 'MotorwaysBuildingLines'
         assert restrictions[2]['Theme']['Code'] == 'ContaminatedSites'
+        # Check consistency of ordering (according to config) for not concerned themes
+        assert extract.get('NotConcernedTheme')[0]['Code'] == 'MotorwaysProjectPlaningZones'
+        assert extract.get('NotConcernedTheme')[1]['Code'] == 'RailwaysBuildingLines'
+        assert extract.get('NotConcernedTheme')[2]['Code'] == 'RailwaysProjectPlanningZones'
+        assert extract.get('NotConcernedTheme')[3]['Code'] == 'AirportsProjectPlanningZones'
+        assert extract.get('NotConcernedTheme')[4]['Code'] == 'AirportsBuildingLines'
+        assert extract.get('NotConcernedTheme')[5]['Code'] == 'AirportsSecurityZonePlans'
+        assert extract.get('NotConcernedTheme')[6]['Code'] == 'ContaminatedMilitarySites'
+        assert extract.get('NotConcernedTheme')[7]['Code'] == 'ContaminatedCivilAviationSites'
+        assert extract.get('NotConcernedTheme')[8]['Code'] == 'ContaminatedPublicTransportSites'
+        assert extract.get('NotConcernedTheme')[9]['Code'] == 'GroundwaterProtectionZones'
+        assert extract.get('NotConcernedTheme')[10]['Code'] == 'GroundwaterProtectionSites'
+        assert extract.get('NotConcernedTheme')[11]['Code'] == 'NoiseSensitivityLevels'
+        assert extract.get('NotConcernedTheme')[12]['Code'] == 'ForestPerimeters'
+        assert extract.get('NotConcernedTheme')[13]['Code'] == 'ForestDistanceLines'
+
     if topics == 'ALL_FEDERAL':
         assert len(real_estate.get('RestrictionOnLandownership')) == 1
         assert len(extract.get('ConcernedTheme')) == 1

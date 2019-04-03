@@ -17,10 +17,11 @@ class DummyData(object):
         self._import_motorways_building_lines()
         self._import_contaminated_sites()
         self._import_land_use_plans()
+        self._import_forest_perimeters()
 
     def _truncate(self):
         from pyramid_oereb.standard.models import main, contaminated_sites, \
-             land_use_plans, motorways_building_lines
+             land_use_plans, motorways_building_lines, forest_perimeters
         connection = self._engine.connect()
         trans = connection.begin()
 
@@ -121,6 +122,26 @@ class DummyData(object):
             schema=land_use_plans.DataIntegration.__table__.schema,
             table=land_use_plans.DataIntegration.__table__.name
         ))
+        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+            schema=forest_perimeters.ViewService.__table__.schema,
+            table=forest_perimeters.ViewService.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+            schema=forest_perimeters.Office.__table__.schema,
+            table=forest_perimeters.Office.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+            schema=forest_perimeters.PublicLawRestriction.__table__.schema,
+            table=forest_perimeters.PublicLawRestriction.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+            schema=forest_perimeters.Geometry.__table__.schema,
+            table=forest_perimeters.Geometry.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+            schema=forest_perimeters.DataIntegration.__table__.schema,
+            table=forest_perimeters.DataIntegration.__table__.name
+        ))
 
         trans.commit()
         connection.close()
@@ -131,8 +152,8 @@ class DummyData(object):
 
         # Add dummy address
         connection.execute(main.Address.__table__.insert(), {
-            'street_name': 'test',
-            'street_number': '10',
+            'street_name': u'test',
+            'street_number': u'10',
             'zip_code': 4410,
             'geom': 'SRID=2056;POINT(1 1)'
         })
@@ -140,7 +161,7 @@ class DummyData(object):
         # Add dummy municipality
         connection.execute(main.Municipality.__table__.insert(), {
             'fosnr': 1234,
-            'name': 'Test',
+            'name': u'Test',
             'published': True,
             'logo': base64.b64encode('abcdefg'.encode('utf-8')).decode('ascii'),
             'geom': 'SRID=2056;MULTIPOLYGON(((0 0, 0 10, 10 10, 10 0, 0 0)))'
@@ -202,7 +223,7 @@ class DummyData(object):
             'legend_text': {
                 'de': u'Test'
             },
-            'type_code': 'CodeA',
+            'type_code': u'CodeA',
             'type_code_list': u'type_code_list',
             'topic': u'MotorwaysBuildingLines',
             'view_service_id': '1'
@@ -220,8 +241,8 @@ class DummyData(object):
             'id': '1',
             'information': {'de': u'Long line PLR'},
             'topic': u'MotorwaysBuildingLines',
-            'type_code': 'CodeA',
-            "type_code_list": '',
+            'type_code': u'CodeA',
+            "type_code_list": u'',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -231,8 +252,8 @@ class DummyData(object):
             'id': '2',
             'information': {'de': u'Short line PLR'},
             'topic': u'MotorwaysBuildingLines',
-            'type_code': 'CodeA',
-            "type_code_list": '',
+            'type_code': u'CodeA',
+            "type_code_list": u'',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -242,8 +263,8 @@ class DummyData(object):
             'id': '3',
             'information': {'de': u'Double intersection line PLR'},
             'topic': u'MotorwaysBuildingLines',
-            'type_code': 'CodeA',
-            "type_code_list": '',
+            'type_code': u'CodeA',
+            "type_code_list": u'',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -253,8 +274,8 @@ class DummyData(object):
             'id': '4',
             'information': {'de': u'Future geometry'},
             'topic': u'MotorwaysBuildingLines',
-            'type_code': 'CodeA',
-            "type_code_list": '',
+            'type_code': u'CodeA',
+            "type_code_list": u'',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -384,7 +405,7 @@ class DummyData(object):
             'legend_text': {
                 'de': u'Test'
             },
-            'type_code': 'CodeA',
+            'type_code': u'CodeA',
             'type_code_list': u'type_code_list',
             'topic': u'ContaminatedSites',
             'view_service_id': '1'
@@ -405,8 +426,8 @@ class DummyData(object):
             'id': '1',
             'information': {'de': u'Large polygon PLR'},
             'topic': u'ContaminatedSites',
-            'type_code': 'CodeA',
-            "type_code_list": '',
+            'type_code': u'CodeA',
+            "type_code_list": u'',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -416,8 +437,8 @@ class DummyData(object):
             'id': '2',
             'information': {'de': u'Small polygon PLR'},
             'topic': u'ContaminatedSites',
-            'type_code': 'CodeA',
-            "type_code_list": '',
+            'type_code': u'CodeA',
+            "type_code_list": u'',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -427,8 +448,8 @@ class DummyData(object):
             'id': '3',
             'information': {'de': u'Double intersection polygon PLR'},
             'topic': u'ContaminatedSites',
-            'type_code': 'CodeA',
-            "type_code_list": '',
+            'type_code': u'CodeA',
+            "type_code_list": u'',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -438,8 +459,8 @@ class DummyData(object):
             'id': '4',
             'information': {'de': u'Future PLR'},
             'topic': u'ContaminatedSites',
-            'type_code': 'CodeA',
-            "type_code_list": '',
+            'type_code': u'CodeA',
+            "type_code_list": u'',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'view_service_id': '1',
@@ -503,7 +524,7 @@ class DummyData(object):
             'legend_text': {
                 'de': u'Test'
             },
-            'type_code': 'CodeA',
+            'type_code': u'CodeA',
             'type_code_list': u'type_code_list',
             'topic': u'LandUsePlans',
             'view_service_id': '1'
@@ -524,8 +545,8 @@ class DummyData(object):
             'id': '1',
             'information': {'de': u'Large polygon PLR'},
             'topic': u'LandUsePlans',
-            'type_code': 'CodeA',
-            "type_code_list": '',
+            'type_code': u'CodeA',
+            "type_code_list": u'',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -535,8 +556,8 @@ class DummyData(object):
             'id': '2',
             'information': {'de': u'Small polygon PLR'},
             'topic': u'LandUsePlans',
-            'type_code': 'CodeA',
-            "type_code_list": '',
+            'type_code': u'CodeA',
+            "type_code_list": u'',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -546,8 +567,8 @@ class DummyData(object):
             'id': '3',
             'information': {'de': u'Double intersection polygon PLR'},
             'topic': u'LandUsePlans',
-            'type_code': 'CodeA',
-            "type_code_list": '',
+            'type_code': u'CodeA',
+            "type_code_list": u'',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -557,8 +578,8 @@ class DummyData(object):
             'id': '4',
             'information': {'de': u'Future PLR'},
             'topic': u'LandUsePlans',
-            'type_code': 'CodeA',
-            "type_code_list": '',
+            'type_code': u'CodeA',
+            "type_code_list": u'',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'view_service_id': '1',
@@ -606,6 +627,64 @@ class DummyData(object):
             'public_law_restriction_id': '1',
             'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POINT(1 2))'
+        })
+
+        connection.close()
+
+    def _import_forest_perimeters(self):
+        from pyramid_oereb.standard.models import forest_perimeters
+        connection = self._engine.connect()
+
+        # Add dummy PLR data for line geometry
+        wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default' \
+                  u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
+                  u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
+        connection.execute(forest_perimeters.ViewService.__table__.insert(), {
+            'id': '1',
+            'reference_wms': wms_url.format(Config.get('srid')),
+            'layer_index': 1,
+            'layer_opacity': 1.0
+        })
+        connection.execute(forest_perimeters.LegendEntry.__table__.insert(), {
+            'id': '1',
+            'symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
+            'legend_text': {
+                'de': u'Test'
+            },
+            'type_code': u'CodeA',
+            'type_code_list': u'type_code_list',
+            'topic': u'ForestPerimeters',
+            'view_service_id': '1'
+        })
+        connection.execute(forest_perimeters.Office.__table__.insert(), {
+            'id': '1',
+            'name': {'de': u'Test Office'}
+        })
+        connection.execute(forest_perimeters.DataIntegration.__table__.insert(), {
+            'id': '1',
+            'date': u'2017-07-01T00:00:00',
+            'office_id': '1'
+        })
+        connection.execute(forest_perimeters.PublicLawRestriction.__table__.insert(), {
+            'id': '1',
+            'information': {'de': u'Long line PLR'},
+            'topic': u'ForestPerimeters',
+            'type_code': u'CodeA',
+            "type_code_list": u'',
+            'law_status': u'inForce',
+            'published_from': date.today().isoformat(),
+            'view_service_id': '1',
+            'office_id': '1'
+        })
+        connection.execute(forest_perimeters.Geometry.__table__.insert(), {
+            'id': '1',
+            'law_status': u'inForce',
+            'published_from': date.today().isoformat(),
+            'public_law_restriction_id': '1',
+            'office_id': '1',
+            # example geometry which does not concern the real_estate (tolerance_check)
+            'geom': u'SRID=2056;LINESTRING (1.5 1.5, 1.5 2.5)'
+
         })
 
         connection.close()

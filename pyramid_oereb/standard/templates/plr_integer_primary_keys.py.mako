@@ -249,13 +249,14 @@ class ViewService(Base):
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         reference_wms (str): The actual url which leads to the desired cartographic representation.
-        legend_at_web (str): A link leading to a wms describing document (png).
+        legend_at_web (dict of str): A multilingual dictionary of links. Keys are the language, values
+            are links leading to a wms describing document (png).
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'view_service'
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     reference_wms = sa.Column(sa.String, nullable=False)
-    legend_at_web = sa.Column(sa.String, nullable=True)
+    legend_at_web = sa.Column(JSONType, nullable=True)
 
 
 class LegendEntry(Base):
@@ -275,7 +276,7 @@ class LegendEntry(Base):
             legend  entry.
         topic (str): Statement to describe to which public law restriction this legend entry
             belongs.
-        sub_theme (str): Description for sub topics this legend entry might belonging to.
+        sub_theme (dict): Multilingual description for sub topics this legend entry might belonging to.
         other_theme (str): A link to additional topics. It must be like the following patterns
             * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
             the official two letters short version (e.g.'BE') {topic} as the name of the
@@ -292,7 +293,7 @@ class LegendEntry(Base):
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
-    sub_theme = sa.Column(sa.String, nullable=True)
+    sub_theme = sa.Column(JSONType, nullable=True)
     other_theme = sa.Column(sa.String, nullable=True)
     view_service_id = sa.Column(
         sa.Integer,
@@ -311,7 +312,7 @@ class PublicLawRestriction(Base):
             you  don't like it - don't care about.
         information (dict): The multilingual textual representation of the public law restriction.
         topic (str): Category for this public law restriction (name of the topic).
-        sub_theme (str): Textual explanation to subtype the topic attribute.
+        sub_theme (dict): Multilingual textual explanation to subtype the topic attribute.
         other_theme (str): A link to additional topics. It must be like the following patterns
             * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
             the official two letters short version (e.g.'BE') {topic} as the name of the
@@ -338,7 +339,7 @@ class PublicLawRestriction(Base):
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     information = sa.Column(JSONType, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
-    sub_theme = sa.Column(sa.String, nullable=True)
+    sub_theme = sa.Column(JSONType, nullable=True)
     other_theme = sa.Column(sa.String, nullable=True)
     type_code = sa.Column(sa.String(40), nullable=True)
     type_code_list = sa.Column(sa.String, nullable=True)

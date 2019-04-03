@@ -16,7 +16,10 @@
         <%include file="theme.xml" args="theme=public_law_restriction.theme"/>
     </data:Theme>
     %if public_law_restriction.sub_theme:
-    <data:SubTheme>${public_law_restriction.sub_theme}</data:SubTheme>
+    <%
+        localized_sub_theme = localized(public_law_restriction.sub_theme)
+    %>
+    <data:SubTheme>${localized_sub_theme.get('Text')}</data:SubTheme>
     %endif
     %if public_law_restriction.other_theme:
     <data:OtherTheme>${public_law_restriction.other_theme}</data:OtherTheme>

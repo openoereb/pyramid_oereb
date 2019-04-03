@@ -2,6 +2,28 @@
 Changelog
 ---------
 
+1.4.3
+*****
+- Fixed import script for federal topics (GitHub pull request 821)
+- Added test for ordering of non-concerned themes (GitHub pull request 817)
+- Fixed footer with disappearing page numbers with MapFish print 3.18 (GitHub pull request 814)
+
+1.4.2
+*****
+- Downgrade version of pyproj to fix coordinate reprojections (GitHub pull request 810)
+- Dependency updates
+
+1.4.1
+*****
+- Fixed id types in oereblex models and model template, fixed documentation errors in standard models
+  and model template  (GitHub pull request 807)
+- Fixed warnings in tests (GitHub pull request 803)
+- Dependency updates (GitHub pull request 805)
+
+1.4.0
+*****
+- Additional multilingual functionality (GitHub issues 704, 705, 779)
+
 1.3.1
 *****
 - Maintenance release (GitHub issues 447, 610, 590, 609, 757, 750, 681, 752, 753, 460, 736,

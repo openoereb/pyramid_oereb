@@ -103,7 +103,11 @@ class DataIntegration(Base):
             you  don't like it - don't care about.
 % endif
         date (datetime.date): The date when this data set was delivered.
+% if primary_key_is_string:
+        office_id (str): A foreign key which points to the actual office instance.
+% else:
         office_id (int): A foreign key which points to the actual office instance.
+% endif
         office (pyramid_oereb.standard.models.${schema_name}.Office):
             The actual office instance which the id points to.
     """
@@ -115,7 +119,14 @@ class DataIntegration(Base):
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
 % endif
     date = sa.Column(sa.DateTime, nullable=False)
-    office_id = sa.Column(sa.Integer, sa.ForeignKey(Office.id), nullable=False)
+    office_id = sa.Column(
+% if primary_key_is_string:
+        sa.String,
+% else:
+        sa.Integer,
+% endif
+        sa.ForeignKey(Office.id),
+        nullable=False)
     office = relationship(Office)
     checksum = sa.Column(sa.String, nullable=True)
 
@@ -133,7 +144,8 @@ class ViewService(Base):
             you  don't like it - don't care about.
 % endif
         reference_wms (str): The actual url which leads to the desired cartographic representation.
-        legend_at_web (str): A link leading to a wms describing document (png).
+        legend_at_web (dict of str): A multilingual dictionary of links. Keys are the language, values
+            are links leading to a wms describing document (png).
     """
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'view_service'
@@ -143,7 +155,7 @@ class ViewService(Base):
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
 % endif
     reference_wms = sa.Column(sa.String, nullable=False)
-    legend_at_web = sa.Column(sa.String, nullable=True)
+    legend_at_web = sa.Column(JSONType, nullable=True)
 
 
 class LegendEntry(Base):
@@ -168,12 +180,16 @@ class LegendEntry(Base):
             legend  entry.
         topic (str): Statement to describe to which public law restriction this legend entry
             belongs.
-        sub_theme (str): Description for sub topics this legend entry might belonging to.
+        sub_theme (dict): Multilingual description for sub topics this legend entry might belonging to.
         other_theme (str): A link to additional topics. It must be like the following patterns
             * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
             the official two letters short version (e.g.'BE') {topic} as the name of the
             topic and {bfsnr} as the municipality id of the federal office of statistics.
+% if primary_key_is_string:
+        view_service_id (str): The foreign key to the view service this legend entry is related to.
+% else:
         view_service_id (int): The foreign key to the view service this legend entry is related to.
+% endif
         view_service (pyramid_oereb.standard.models.${schema_name}.ViewService):
             The dedicated relation to the view service instance from database.
     """
@@ -189,10 +205,14 @@ class LegendEntry(Base):
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
-    sub_theme = sa.Column(sa.String, nullable=True)
+    sub_theme = sa.Column(JSONType, nullable=True)
     other_theme = sa.Column(sa.String, nullable=True)
     view_service_id = sa.Column(
+% if primary_key_is_string:
+        sa.String,
+% else:
         sa.Integer,
+% endif
         sa.ForeignKey(ViewService.id),
         nullable=False
     )
@@ -213,7 +233,7 @@ class PublicLawRestriction(Base):
 % endif
         information (dict): The multilingual textual representation of the public law restriction.
         topic (str): Category for this public law restriction (name of the topic).
-        sub_theme (str): Textual explanation to subtype the topic attribute.
+        sub_theme (dict): Multilingual textual explanation to subtype the topic attribute.
         other_theme (str): A link to additional topics. It must be like the following patterns
             * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
             the official two letters short version (e.g.'BE') {topic} as the name of the
@@ -226,12 +246,21 @@ class PublicLawRestriction(Base):
         published_from (datetime.date): The date when the document should be available for
             publishing on extracts. This  directly affects the behaviour of extract
             generation.
+% if primary_key_is_string:
+        view_service_id (str): The foreign key to the view service this public law restriction is
+            related to.
+        view_service (pyramid_oereb.standard.models.${schema_name}.ViewService):
+            The dedicated relation to the view service instance from database.
+        office_id (str): The foreign key to the office which is responsible to this public law
+            restriction.
+%else:
         view_service_id (int): The foreign key to the view service this public law restriction is
             related to.
         view_service (pyramid_oereb.standard.models.${schema_name}.ViewService):
             The dedicated relation to the view service instance from database.
         office_id (int): The foreign key to the office which is responsible to this public law
             restriction.
+% endif
         responsible_office (pyramid_oereb.standard.models.${schema_name}.Office):
             The dedicated relation to the office instance from database.
     """
@@ -244,7 +273,7 @@ class PublicLawRestriction(Base):
 % endif
     information = sa.Column(JSONType, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
-    sub_theme = sa.Column(sa.String, nullable=True)
+    sub_theme = sa.Column(JSONType, nullable=True)
     other_theme = sa.Column(sa.String, nullable=True)
     type_code = sa.Column(sa.String(40), nullable=True)
     type_code_list = sa.Column(sa.String, nullable=True)
@@ -252,7 +281,11 @@ class PublicLawRestriction(Base):
     published_from = sa.Column(sa.Date, nullable=False)
     geolink = sa.Column(sa.Integer, nullable=True)
     view_service_id = sa.Column(
+% if primary_key_is_string:
+        sa.String,
+% else:
         sa.Integer,
+% endif
         sa.ForeignKey(ViewService.id),
         nullable=False
     )
@@ -261,7 +294,11 @@ class PublicLawRestriction(Base):
         backref='public_law_restrictions'
     )
     office_id = sa.Column(
+% if primary_key_is_string:
+        sa.String,
+% else:
         sa.Integer,
+% endif
         sa.ForeignKey(Office.id),
         nullable=False
     )
@@ -286,13 +323,23 @@ class Geometry(Base):
             generation.
         geo_metadata (str): A link to the metadata which this geometry is based on which delivers
             machine  readable response format (XML).
+% if primary_key_is_string:
+        public_law_restriction_id (str): The foreign key to the public law restriction this geometry
+            is  related to.
+% else:
         public_law_restriction_id (int): The foreign key to the public law restriction this geometry
             is  related to.
+% endif
         public_law_restriction (pyramid_oereb.standard.models.${schema_name}
             .PublicLawRestriction): The dedicated relation to the public law restriction instance from
             database.
+% if primary_key_is_string:
+        office_id (str): The foreign key to the office which is responsible to this public law
+            restriction.
+% else:
         office_id (int): The foreign key to the office which is responsible to this public law
             restriction.
+% endif
         responsible_office (pyramid_oereb.standard.models.${schema_name}.Office):
             The dedicated relation to the office instance from database.
         geom (geoalchemy2.types.Geometry): The geometry it's self. For type information see
@@ -311,7 +358,11 @@ class Geometry(Base):
     geo_metadata = sa.Column(sa.String, nullable=True)
     geom = sa.Column(GeoAlchemyGeometry('${geometry_type}', srid=srid), nullable=False)
     public_law_restriction_id = sa.Column(
+% if primary_key_is_string:
+        sa.String,
+% else:
         sa.Integer,
+% endif
         sa.ForeignKey(PublicLawRestriction.id),
         nullable=False
     )
@@ -320,7 +371,11 @@ class Geometry(Base):
         backref='geometries'
     )
     office_id = sa.Column(
+% if primary_key_is_string:
+        sa.String,
+% else:
         sa.Integer,
+% endif
         sa.ForeignKey(Office.id),
         nullable=False
     )
@@ -336,14 +391,18 @@ class PublicLawRestrictionBase(Base):
 % if primary_key_is_string:
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
+        public_law_restriction_id (str): The foreign key to the public law restriction which bases
+            on another  public law restriction.
+        public_law_restriction_base_id (str): The foreign key to the public law restriction which is
+            the  base for the public law restriction.
 %else:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-% endif
         public_law_restriction_id (int): The foreign key to the public law restriction which bases
             on another  public law restriction.
         public_law_restriction_base_id (int): The foreign key to the public law restriction which is
             the  base for the public law restriction.
+% endif
         plr (pyramid_oereb.standard.models.${schema_name}.PublicLawRestriction):
             The dedicated relation to the public law restriction (which bases on) instance from  database.
         base (pyramid_oereb.standard.models.${schema_name}.PublicLawRestriction):
@@ -357,12 +416,20 @@ class PublicLawRestrictionBase(Base):
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
 % endif
     public_law_restriction_id = sa.Column(
+% if primary_key_is_string:
+        sa.String,
+% else:
         sa.Integer,
+% endif
         sa.ForeignKey(PublicLawRestriction.id),
         nullable=False
     )
     public_law_restriction_base_id = sa.Column(
+% if primary_key_is_string:
+        sa.String,
+% else:
         sa.Integer,
+% endif
         sa.ForeignKey(PublicLawRestriction.id),
         nullable=False
     )
@@ -386,14 +453,18 @@ class PublicLawRestrictionRefinement(Base):
 % if primary_key_is_string:
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
+        public_law_restriction_id (str): The foreign key to the public law restriction which is
+            refined by  another public law restriction.
+        public_law_restriction_refinement_id (str): The foreign key to the public law restriction
+            which is  the refinement of the public law restriction.
 %else:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-% endif
         public_law_restriction_id (int): The foreign key to the public law restriction which is
             refined by  another public law restriction.
         public_law_restriction_refinement_id (int): The foreign key to the public law restriction
             which is  the refinement of the public law restriction.
+% endif
         plr (pyramid_oereb.standard.models.${schema_name}.PublicLawRestriction):
             The dedicated relation to the public law restriction (which refines) instance from  database.
         base (pyramid_oereb.standard.models.${schema_name}.PublicLawRestriction):
@@ -407,12 +478,20 @@ class PublicLawRestrictionRefinement(Base):
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
 % endif
     public_law_restriction_id = sa.Column(
+% if primary_key_is_string:
+        sa.String,
+% else:
         sa.Integer,
+% endif
         sa.ForeignKey(PublicLawRestriction.id),
         nullable=False
     )
     public_law_restriction_refinement_id = sa.Column(
+% if primary_key_is_string:
+        sa.String,
+% else:
         sa.Integer,
+% endif
         sa.ForeignKey(PublicLawRestriction.id),
         nullable=False
     )

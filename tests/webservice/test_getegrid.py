@@ -125,9 +125,9 @@ def test_getegrid_address():
         # /getegrid/{format}/{postalcode}/{localisation}/{number}
         request.matchdict.update({
             'format': u'json',
-            'postalcode': '4410',
-            'localisation': 'test',
-            'number': '10'
+            'postalcode': u'4410',
+            'localisation': u'test',
+            'number': u'10'
         })
         webservice = PlrWebservice(request)
         response = webservice.get_egrid_address().json
@@ -160,7 +160,7 @@ def test_get_egrid_response():
         view_service = ViewServiceRecord('test',
                                          1,
                                          1.0,
-                                         'test',
+                                         {'de': 'test'},
                                          None)
         record = RealEstateRecord('test', 'BL', 'test', 1, 100,
                                   MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]), view_service,

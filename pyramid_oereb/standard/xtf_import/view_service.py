@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from pyramid_oereb.lib.config import Config
 from pyramid_oereb.standard.xtf_import.util import parse_string
 
 try:
@@ -25,9 +26,16 @@ class ViewService(object):
 
     def parse(self, view_service):  # pragma: no cover
         reference_wms = parse_string(view_service, self.TAG_REFERENCE_WMS)
+        language = Config.get('default_language')
         legend_at_web = parse_string(view_service, self.TAG_LEGEND_AT_WEB)
+        if legend_at_web is not None:
+            legend_at_web = {
+                language: legend_at_web
+            }
         if legend_at_web is None and reference_wms is not None:
-            legend_at_web = self._copy_legend_at_web_from_reference_wms(reference_wms)
+            legend_at_web = {
+                language: self._copy_legend_at_web_from_reference_wms(reference_wms)
+            }
         instance = self._model(
             id=view_service.attrib['TID'],
             reference_wms=reference_wms,

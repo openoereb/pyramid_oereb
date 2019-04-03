@@ -14,7 +14,10 @@
     <%include file="theme.xml" args="theme=legend_entry.theme"/>
 </data:Theme>
 %if legend_entry.sub_theme:
-<data:SubTheme>${legend_entry.sub_theme}</data:SubTheme>
+<%
+    localized_sub_theme = localized(legend_entry.sub_theme)
+%>
+<data:SubTheme>${localized_sub_theme.get('Text')}</data:SubTheme>
 %endif
 %if legend_entry.other_theme:
 <data:OtherTheme>${legend_entry.other_theme}</data:OtherTheme>

@@ -38,7 +38,7 @@ def _get_test_extract(glossary):
         view_service = ViewServiceRecord(u'http://geowms.bl.ch',
                                          1,
                                          1.0,
-                                         u'http://geowms.bl.ch',
+                                         {'de': u'http://geowms.bl.ch'},
                                          None)
         real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
                                        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
