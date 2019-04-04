@@ -215,4 +215,4 @@ class PlrRecord(EmptyPlrRecord):
         return '<{} -- type_code: {} theme: {} information: {}'\
                     ' (further attributes not shown)>'\
                     .format(self.__class__.__name__, self.type_code, self.theme,
-                            self.information)
+                            self.information.encode('utf-8'))
