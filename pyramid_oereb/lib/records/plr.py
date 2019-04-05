@@ -215,7 +215,5 @@ class PlrRecord(EmptyPlrRecord):
         information = dict()
         for key in self.information:
             information[key] = self.information[key].encode('utf-8')
-        return '<{} -- type_code: {} theme: {} information: {}'\
-                    ' (further attributes not shown)>'\
-                    .format(self.__class__.__name__, self.type_code, self.theme,
-                            information)
+        tpl = '<{} -- type_code: {} theme: {} information: {} (further attributes not shown)>'
+        return tpl.format(self.__class__.__name__, self.type_code, self.theme, information)
