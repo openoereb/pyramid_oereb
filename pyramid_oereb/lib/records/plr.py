@@ -217,4 +217,5 @@ class PlrRecord(EmptyPlrRecord):
             information[key] = self.information[key].encode('utf-8')
         return '<{} -- type_code: {} theme: {} information: {}'\
                     ' (further attributes not shown)>'\
-                    .format(self.__class__.__name__, self.type_code, self.theme, information)
+                    .format(self.__class__.__name__, self.type_code, self.theme, 
+                            information)
