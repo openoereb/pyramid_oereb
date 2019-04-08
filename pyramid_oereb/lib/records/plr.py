@@ -212,7 +212,8 @@ class PlrRecord(EmptyPlrRecord):
         return inside
 
     def __str__(self):
-        return '<{} -- type_code: {} theme: {} information: {}'\
-                    ' (further attributes not shown)>'\
-                    .format(self.__class__.__name__, self.type_code, self.theme,
-                            self.information)
+        information = dict()
+        for key in self.information:
+            information[key] = self.information[key].encode('utf-8')
+        tpl = '<{} -- type_code: {} theme: {} information: {} (further attributes not shown)>'
+        return tpl.format(self.__class__.__name__, self.type_code, self.theme, information)
