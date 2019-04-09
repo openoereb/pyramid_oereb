@@ -7,6 +7,7 @@
             %endfor
         </gml:LinearRing>
     </gml:exterior>
+    %if len(polygon.interiors) > 0:
     <gml:interior>
         %for linear_ring in polygon.interiors:
         <gml:LinearRing>
@@ -16,4 +17,5 @@
         </gml:LinearRing>
         %endfor
     </gml:interior>
+    %endif
 </gml:Polygon>
