@@ -10,7 +10,10 @@ template = xml_templates().get_template('geometry/polygon.xml')
 
 @pytest.mark.parametrize('parameters', params)  # noqa
 def test_polygon(parameters):
-    polygon = Polygon(((0, 0), (0, 1), (1, 1), (1, 0), (0, 0)))
+    polygon = Polygon(
+        ((0, 0), (0, 1), (1, 1), (1, 0), (0, 0)),
+        [((0.25, 0.25), (0.25, 0.75), (0.75, 0.75), (0.75, 0.25), (0.25, 0.25))]
+    )
 
     def get_gml_id():
         return 'gml1'
@@ -34,11 +37,11 @@ def test_polygon(parameters):
         </gml:exterior>
         <gml:interior>
             <gml:LinearRing>
-                <gml:pos>0.0 0.0</gml:pos>
-                <gml:pos>0.0 1.0</gml:pos>
-                <gml:pos>1.0 1.0</gml:pos>
-                <gml:pos>1.0 0.0</gml:pos>
-                <gml:pos>0.0 0.0</gml:pos>
+                <gml:pos>0.25 0.25</gml:pos>
+                <gml:pos>0.25 0.75</gml:pos>
+                <gml:pos>0.75 0.75</gml:pos>
+                <gml:pos>0.75 0.25</gml:pos>
+                <gml:pos>0.25 0.25</gml:pos>
             </gml:LinearRing>
         </gml:interior>
     </gml:Polygon>""".split('\n')
