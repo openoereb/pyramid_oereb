@@ -44,7 +44,8 @@ def test_polygon(parameters):
                 <gml:pos>0.25 0.25</gml:pos>
             </gml:LinearRing>
         </gml:interior>
-    </gml:Polygon>""".split('\n')
+    </gml:Polygon>
+    """.split('\n')
     expected_lines = []
     for line in expected_content:
         expected_lines.append(line.strip())
