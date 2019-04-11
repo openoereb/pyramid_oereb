@@ -139,8 +139,6 @@ class Renderer(JsonRenderer):
         :return: The configured wms_url_params.
         :rtype: list
         """
-        assert Config._config is not None
-
         result = []
         wms_url_params = Config.get('print', {}).get('wms_url_params', False)
         if wms_url_params:
