@@ -491,7 +491,7 @@ class Renderer(Base):
             if self._language in map_.legend_at_web:
                 map_dict['LegendAtWeb'] = map_.legend_at_web[self._language]
             else:
-                log.warn("map_.legend_at_web has no element {}".format(self._language))
+                log.warning("map_.legend_at_web has no element {}".format(self._language))
         if isinstance(map_.legends, list) and len(map_.legends) > 0:
             other_legend = self.sort_by_localized_text(
                 map_.legends,
