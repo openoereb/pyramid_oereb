@@ -147,7 +147,7 @@ class Renderer(JsonRenderer):
                 result = wms_url_params
             else:
                 log.warning("get_wms_url_params() ignoring unaccepted configuration value {}"
-                         .format(wms_url_params))
+                            .format(wms_url_params))
         else:
             log.info("no wms_url_params configuration detected; using default value")
             result = {'TRANSPARENT': 'true'}
