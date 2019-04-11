@@ -139,14 +139,14 @@ class Renderer(JsonRenderer):
         :return: The configured wms_url_params.
         :rtype: list
         """
-        result = []
+        result = {}
         wms_url_params = Config.get('print', {}).get('wms_url_params', False)
         if wms_url_params:
             log.debug("get_wms_url_params() read configuration {}".format(wms_url_params))
             if isinstance(wms_url_params, dict):
                 result = wms_url_params
             else:
-                log.warn("get_wms_url_params() ignoring unaccepted configuration value {}"
+                log.warning("get_wms_url_params() ignoring unaccepted configuration value {}"
                          .format(wms_url_params))
         else:
             log.info("no wms_url_params configuration detected; using default value")
