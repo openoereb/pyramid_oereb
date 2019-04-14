@@ -1,6 +1,6 @@
 dicttoxml==1.7.4
 geoalchemy2==0.6.1
-psycopg2-binary==2.8.1
+psycopg2-binary==2.8.2
 pyramid==1.10.3
 pyramid-debugtoolbar==4.5
 PyYAML==5.1
