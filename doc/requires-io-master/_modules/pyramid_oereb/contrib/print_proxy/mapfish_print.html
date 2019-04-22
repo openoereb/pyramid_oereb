@@ -293,6 +293,29 @@
             <span class="k">del</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Connection&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">content</span>
 
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.get_wms_url_params"><a class="viewcode-back" href="../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.get_wms_url_params">[docs]</a>    <span class="k">def</span> <span class="nf">get_wms_url_params</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the list of additionally configured wms_url_params.</span>
+
+<span class="sd">        :return: The configured wms_url_params.</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">wms_url_params</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;wms_url_params&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">wms_url_params</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;get_wms_url_params() read configuration </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wms_url_params</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">wms_url_params</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">wms_url_params</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;get_wms_url_params() ignoring unaccepted configuration value </span><span class="si">{}</span><span class="s2">&quot;</span>
+                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wms_url_params</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;no wms_url_params configuration detected; using default value&quot;</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;TRANSPARENT&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+
 <div class="viewcode-block" id="Renderer.convert_to_printable_extract"><a class="viewcode-back" href="../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.convert_to_printable_extract">[docs]</a>    <span class="k">def</span> <span class="nf">convert_to_printable_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extract_dict</span><span class="p">,</span> <span class="n">feature_geometry</span><span class="p">,</span> <span class="n">pdf_to_join</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts an oereb extract into a form suitable for printing by mapfish print.</span>
@@ -330,6 +353,8 @@
                                         <span class="n">main_page_url</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
                                         <span class="kc">None</span><span class="p">,</span>
                                         <span class="kc">None</span><span class="p">))</span>
+        <span class="n">wms_url_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_wms_url_params</span><span class="p">()</span>
+
         <span class="n">main_page_basemap</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;wms&#39;</span><span class="p">,</span>
             <span class="s1">&#39;styles&#39;</span><span class="p">:</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span>
@@ -337,7 +362,7 @@
             <span class="s1">&#39;baseURL&#39;</span><span class="p">:</span> <span class="n">base_url</span><span class="p">,</span>
             <span class="s1">&#39;layers&#39;</span><span class="p">:</span> <span class="n">main_page_params</span><span class="p">[</span><span class="s1">&#39;LAYERS&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">),</span>
             <span class="s1">&#39;imageFormat&#39;</span><span class="p">:</span> <span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;customParams&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;TRANSPARENT&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">},</span>
+            <span class="s1">&#39;customParams&#39;</span><span class="p">:</span> <span class="n">wms_url_params</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;baseLayers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;layers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">main_page_basemap</span><span class="p">]}</span>
         <span class="n">url</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">parse_url</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_PlanForLandRegister&#39;</span><span class="p">][</span><span class="s1">&#39;ReferenceWMS&#39;</span><span class="p">])</span>
@@ -348,7 +373,7 @@
             <span class="s1">&#39;baseURL&#39;</span><span class="p">:</span> <span class="n">urlparse</span><span class="o">.</span><span class="n">urlunsplit</span><span class="p">((</span><span class="n">url</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">netloc</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)),</span>
             <span class="s1">&#39;layers&#39;</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;LAYERS&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">),</span>
             <span class="s1">&#39;imageFormat&#39;</span><span class="p">:</span> <span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;customParams&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;TRANSPARENT&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">},</span>
+            <span class="s1">&#39;customParams&#39;</span><span class="p">:</span> <span class="n">wms_url_params</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">del</span> <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_PlanForLandRegister&#39;</span><span class="p">]</span>  <span class="c1"># /definitions/Map</span>
 
@@ -380,7 +405,7 @@
                     <span class="s1">&#39;baseURL&#39;</span><span class="p">:</span> <span class="n">urlparse</span><span class="o">.</span><span class="n">urlunsplit</span><span class="p">((</span><span class="n">url</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">netloc</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)),</span>
                     <span class="s1">&#39;layers&#39;</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;LAYERS&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">),</span>
                     <span class="s1">&#39;imageFormat&#39;</span><span class="p">:</span> <span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;customParams&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;TRANSPARENT&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">},</span>
+                    <span class="s1">&#39;customParams&#39;</span><span class="p">:</span> <span class="n">wms_url_params</span><span class="p">,</span>
                 <span class="p">},</span> <span class="n">basemap</span><span class="p">]</span>
             <span class="p">}</span>
             <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;legend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Map&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
