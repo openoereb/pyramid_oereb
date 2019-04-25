@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
+<!-- 2019-04-25T15:36:38 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TocReport main" pageWidth="595" pageHeight="842" columnWidth="493" leftMargin="51" rightMargin="51" topMargin="28" bottomMargin="20" whenResourceMissingType="Empty" uuid="6e74177b-d551-4a75-ae51-6cdde3f284ce">
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -277,7 +278,7 @@
 		</band>
 		<band height="47">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="37" width="230" height="10" isPrintWhenDetailOverflows="true" uuid="9463b6fb-b28a-4793-9bc1-1c24749e48c4"/>
+				<reportElement x="0" y="37" width="230" height="10" uuid="9463b6fb-b28a-4793-9bc1-1c24749e48c4"/>
 				<textElement>
 					<font fontName="Cadastra" size="6"/>
 				</textElement>
@@ -313,7 +314,7 @@
 		<band height="30">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="15" width="230" height="10" isPrintWhenDetailOverflows="true" uuid="a362c07e-fbe0-4a89-917b-bb72fa58f73c">
+				<reportElement x="0" y="15" width="230" height="10" uuid="a362c07e-fbe0-4a89-917b-bb72fa58f73c">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
