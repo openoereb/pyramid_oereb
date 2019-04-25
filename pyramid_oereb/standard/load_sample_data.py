@@ -114,6 +114,10 @@ class SampleData(object):
                 table=schema.Glossary.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+                schema=schema.ExclusionOfLiability.__table__.schema,
+                table=schema.ExclusionOfLiability.__table__.name
+            ))
+            self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
                 schema=schema.Municipality.__table__.schema,
                 table=schema.Municipality.__table__.name
             ))
@@ -172,7 +176,7 @@ class SampleData(object):
         """
         from pyramid_oereb.standard.models import contaminated_public_transport_sites, \
             groundwater_protection_zones, forest_perimeters
-        from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality, Glossary
+        from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality, Glossary, ExclusionOfLiability
 
         if self._sql_file is None:
             self._connection = self._engine.connect()
@@ -231,6 +235,7 @@ class SampleData(object):
                 (Address, 'addresses.json'),
                 (Municipality, 'municipalities_with_logo.json'),
                 (Glossary, 'glossary.json'),
+                (ExclusionOfLiability, 'exclusion_of_liability.json')
             ]:
                 self._load_sample(class_, file_name)
 

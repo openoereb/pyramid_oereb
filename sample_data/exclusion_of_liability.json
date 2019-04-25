@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": {
+      "de": "DE Nulla tincidunt tellus at orci porta, in pharetra ante porta",
+      "fr": "FR clause de non-responsabilité ",
+      "it": "IT Nulla tincidunt tellus at orci porta, in pharetra ante porta",
+      "rm": ""
+    },
+    "content": {
+      "de": "Suspendisse potenti. Donec dapibus sapien vel mi blandit varius. Suspendisse condimentum tempor libero vitae molestie. Sed hendrerit magna at venenatis condimentum. Nam ullamcorper dui eget tristique consectetur. Nulla tincidunt tellus at orci porta, in pharetra ante porta. Nullam at quam in lectus blandit tincidunt. Curabitur sit amet lorem fringilla, mattis elit et, varius risus. Proin aliquam odio vel cursus aliquam. Quisque maximus ipsum eget neque bibendum bibendum.",
+      "fr": "Integer a felis risus. Nam maximus magna eget ligula tincidunt, hendrerit vehicula massa semper. In maximus scelerisque leo, quis aliquet augue luctus eu. Aliquam erat volutpat. Donec id maximus tellus. Suspendisse mauris orci, sagittis eget gravida in, pulvinar vitae neque. In nec nisl ipsum. Quisque sed libero at erat consequat molestie commodo posuere ipsum.",
+      "it": "Nullam eu nisl non massa tempus dictum vulputate ut neque. Aliquam in augue ultrices ipsum laoreet aliquam.",
+      "rm": ""
+    }
+  },
+    {
+    "id": 2,
+    "title": {
+      "de": "DE Morbi et ligula tempor, pulvinar sapien quis, mattis mi. Nam luctus fringilla nunc, vel tincidunt velit congue sed",
+      "fr": "FR Morbi et ligula tempor, pulvinar sapien quis, mattis mi. Nam luctus fringilla nunc, vel tincidunt velit congue sed",
+      "it": "IT Morbi et ligula tempor, pulvinar sapien quis, mattis mi. Nam luctus fringilla nunc, vel tincidunt velit congue sed",
+      "rm": ""
+    },
+    "content": {
+      "de": "Curabitur eros mauris, tincidunt et felis nec, sagittis imperdiet metus. Nulla ac massa sollicitudin, egestas erat eget, sodales mauris. Quisque nulla ante, laoreet ut massa in, auctor ullamcorper massa. Etiam tortor nisi, luctus eu nisi vel, elementum euismod sem. Cras convallis ut felis et tristique. Mauris erat eros, vehicula sit amet ipsum vitae, lobortis ultricies libero. Pellentesque euismod massa nec risus iaculis porta. Vivamus et sollicitudin quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut tempus justo",
+      "fr": "Integer a felis risus. Nam maximus magna eget ligula tincidunt, hendrerit vehicula massa semper. In maximus scelerisque leo, quis aliquet augue luctus eu. Aliquam erat volutpat. Donec id maximus tellus. Suspendisse mauris orci, sagittis eget gravida in, pulvinar vitae neque. In nec nisl ipsum. Quisque sed libero at erat consequat molestie commodo posuere ipsum.",
+      "it": "Nullam eu nisl non massa tempus dictum vulputate ut neque. Aliquam in augue ultrices ipsum laoreet aliquam.",
+      "rm": ""
+    }
+  }
+]
