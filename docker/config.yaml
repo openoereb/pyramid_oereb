@@ -86,7 +86,7 @@ vars:
       # Whether to display the RealEstate_SubunitOfLandRegister (Grundbuchkreis) in the pdf extract or not.
       # Default to true.
       display_real_estate_subunit_of_land_register: true
-      # Wheder to display the Certification section in the pdf extract or not.
+      # Whether to display the Certification section in the pdf extract or not.
       # Default to true
       display_certification: false
       # Split themes up, so that each sub theme gets its own page
