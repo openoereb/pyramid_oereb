@@ -65,6 +65,8 @@ templates:
                 default: ''
             Display_RealEstate_SubunitOfLandRegister: !boolean
                 default: true
+            Display_Certification: !boolean
+                default: true
             RealEstate_FosNr: !string {}
             RealEstate_MetadataOfGeographicalBaseData: !string
                 default: ''

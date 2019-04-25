@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2018-01-30T10:40:05 -->
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
+<!-- 2019-04-25T09:53:26 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pdfextract" pageWidth="595" pageHeight="842" sectionType="Part" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30" whenResourceMissingType="Error" uuid="d2716064-8ae4-40cf-a575-33afba400e3a">
 	<property name="net.sf.jasperreports.print.create.bookmarks" value="true"/>
 	<property name="net.sf.jasperreports.export.pdfa.icc.profile.path" value="sRGB_IEC61966-2-1_black_scaled.icc"/>
@@ -45,6 +45,7 @@
 	<parameter name="RealEstate_Municipality" class="java.lang.String"/>
 	<parameter name="RealEstate_SubunitOfLandRegister" class="java.lang.String"/>
 	<parameter name="Display_RealEstate_SubunitOfLandRegister" class="java.lang.Boolean"/>
+	<parameter name="Display_Certification" class="java.lang.Boolean"/>
 	<parameter name="RealEstate_Type" class="java.lang.String"/>
 	<parameter name="RealEstate_Canton" class="java.lang.String"/>
 	<parameter name="RealEstate_EGRID" class="java.lang.String"/>
@@ -138,6 +139,9 @@
 					</subreportParameter>
 					<subreportParameter name="Display_RealEstate_SubunitOfLandRegister">
 						<subreportParameterExpression><![CDATA[$P{Display_RealEstate_SubunitOfLandRegister}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="Display_Certification">
+						<subreportParameterExpression><![CDATA[$P{Display_Certification}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter name="RealEstate_LandRegistryArea">
 						<subreportParameterExpression><![CDATA[$P{RealEstate_LandRegistryArea}]]></subreportParameterExpression>
