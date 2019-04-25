@@ -176,7 +176,8 @@ class SampleData(object):
         """
         from pyramid_oereb.standard.models import contaminated_public_transport_sites, \
             groundwater_protection_zones, forest_perimeters
-        from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality, Glossary, ExclusionOfLiability
+        from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality, \
+            Glossary, ExclusionOfLiability
 
         if self._sql_file is None:
             self._connection = self._engine.connect()
