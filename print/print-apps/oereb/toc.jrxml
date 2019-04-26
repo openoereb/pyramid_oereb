@@ -305,7 +305,9 @@
 				<textFieldExpression><![CDATA[$R{GeneralInformationLabel}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="260" y="26" width="233" height="21" isPrintWhenDetailOverflows="true" uuid="9fd65c2b-a447-43f1-88f6-9a41a9ca02be"/>
+				<reportElement x="260" y="24" width="233" height="21" isPrintWhenDetailOverflows="true" uuid="9fd65c2b-a447-43f1-88f6-9a41a9ca02be">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
 				<dataSourceExpression><![CDATA[$P{ExclusionOfLiabilityDataSource}]]></dataSourceExpression>
 				<subreportExpression><![CDATA["exclusion_of_liability.jasper"]]></subreportExpression>
 			</subreport>

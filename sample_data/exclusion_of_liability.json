@@ -17,7 +17,7 @@
   {
     "id": 2,
     "title": {
-      "de": "DE Morbi et ligula tempor, pulvinar sapien quis, mattis mi. Nam luctus fringilla nunc, vel tincidunt velit congue sed",
+      "de": "DE Morbi et ligula tempor, pulvinar sapien quis, mattis mi. Nam luctus fringilla nunc, vel tincidunt velit congue sed Morbi et ligula tempor, pulvinar sapien quis, mattis mi",
       "fr": "FR Morbi et ligula tempor, pulvinar sapien quis, mattis mi. Nam luctus fringilla nunc, vel tincidunt velit congue sed",
       "it": "IT Morbi et ligula tempor, pulvinar sapien quis, mattis mi. Nam luctus fringilla nunc, vel tincidunt velit congue sed",
       "rm": ""
@@ -32,9 +32,9 @@
   {
     "id": 3,
     "title": {
-      "de": "2DE Morbi et ligula tempor, pulvinar sapien quis, mattis mi. Nam luctus fringilla nunc, vel tincidunt velit congue sed",
-      "fr": "2FR Morbi et ligula tempor, pulvinar sapien quis, mattis mi. Nam luctus fringilla nunc, vel tincidunt velit congue sed",
-      "it": "2IT Morbi et ligula tempor, pulvinar sapien quis, mattis mi. Nam luctus fringilla nunc, vel tincidunt velit congue sed",
+      "de": "2DE Morbi et ligula tempor",
+      "fr": "2FR Morbi et ligula tempor",
+      "it": "2IT Morbi et ligula tempor",
       "rm": ""
     },
     "content": {
