@@ -1,5 +1,5 @@
 dicttoxml==1.7.4
-geoalchemy2==0.6.1
+geoalchemy2==0.6.2
 psycopg2-binary==2.8.2
 pyramid==1.10.4
 pyramid-debugtoolbar==4.5
