@@ -199,7 +199,7 @@ class Renderer(JsonRenderer):
             'opacity': extract_dict['RealEstate_PlanForLandRegisterMainPage'].get('layerOpacity', 0.6),
             'baseURL': base_url,
             'layers': main_page_params['LAYERS'][0].split(','),
-            'imageFormat': 'image/png',
+            'imageFormat': 'image/jpeg',
             'customParams': wms_url_params,
         }
         extract_dict['baseLayers'] = {'layers': [main_page_basemap]}
@@ -210,7 +210,7 @@ class Renderer(JsonRenderer):
             'opacity': extract_dict['RealEstate_PlanForLandRegister'].get('layerOpacity', 0.6),
             'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
             'layers': params['LAYERS'][0].split(','),
-            'imageFormat': 'image/png',
+            'imageFormat': 'image/jpeg',
             'customParams': wms_url_params,
         }
         del extract_dict['RealEstate_PlanForLandRegister']  # /definitions/Map
@@ -242,7 +242,7 @@ class Renderer(JsonRenderer):
                     'styles': 'default',
                     'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
                     'layers': params['LAYERS'][0].split(','),
-                    'imageFormat': 'image/png',
+                    'imageFormat': 'image/jpeg',
                     'customParams': wms_url_params,
                 }, basemap]
             }
