@@ -85,6 +85,9 @@ pyramid_oereb:
     # Whether to display the RealEstate_SubunitOfLandRegister (Grundbuchkreis) in the pdf extract or not.
     # Default to true.
     display_real_estate_subunit_of_land_register: true
+    # whether to display the "Certification" section in the pdf extract or not.
+    # Default to true
+    display_certification: true
     # Split themes up, so that each sub theme gets its own page
     # Disabled by default.
     split_sub_themes: false

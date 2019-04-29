@@ -76,6 +76,10 @@ class Renderer(JsonRenderer):
             'display_real_estate_subunit_of_land_register', True
         )
 
+        extract_as_dict['Display_Certification'] = print_config.get(
+            'display_certification', True
+        )
+
         spec = {
             'layout': Config.get('print', {})['template_name'],
             'outputFormat': 'pdf',

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
+<!-- 2019-04-25T10:00:25 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="titlepage" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="493" leftMargin="51" rightMargin="51" topMargin="28" bottomMargin="20" uuid="8ffd7940-5d69-45af-b3ac-fa15a5db24b6">
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -32,11 +33,12 @@
 	<parameter name="RealEstate_FosNr" class="java.lang.String"/>
 	<parameter name="RealEstate_LandRegistryArea" class="java.lang.String"/>
 	<parameter name="RealEstate_SubunitOfLandRegister" class="java.lang.String"/>
+	<parameter name="Display_Certification" class="java.lang.Boolean"/>
 	<parameter name="Display_RealEstate_SubunitOfLandRegister" class="java.lang.Boolean"/>
 	<parameter name="mapSubReport" class="java.lang.String"/>
 	<parameter name="scalebarSubReport" class="java.lang.String"/>
 	<parameter name="northArrowSubReport" class="java.lang.String"/>
-    <parameter name="Certification" class="java.lang.String"/>
+	<parameter name="Certification" class="java.lang.String"/>
 	<title>
 		<band height="735">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
@@ -137,6 +139,7 @@
 			<textField>
 				<reportElement x="0" y="697" width="100" height="12" uuid="e0c1f775-61b3-41c4-a7ec-b8e68adeeb11">
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
+					<printWhenExpression><![CDATA[$P{Display_Certification}]]></printWhenExpression>
 				</reportElement>
 				<textElement>
 					<font fontName="Cadastra" size="7" isBold="true"/>
@@ -146,6 +149,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="725" width="493" height="10" uuid="f8b5d9a5-d842-43c8-b8d7-a8b68f697303">
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
+					<printWhenExpression><![CDATA[$P{Display_Certification}]]></printWhenExpression>
 				</reportElement>
 				<textElement>
 					<font fontName="Cadastra" size="7"/>
@@ -155,6 +159,7 @@
 			<textField>
 				<reportElement isPrintRepeatedValues="false" x="0" y="709" width="490" height="12" uuid="5090c0e3-b8c0-4df8-9447-d203a7d6a664">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<printWhenExpression><![CDATA[$P{Display_Certification}]]></printWhenExpression>
 				</reportElement>
 				<textElement>
 					<font fontName="Cadastra" size="7"/>
