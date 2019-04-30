@@ -91,7 +91,7 @@ vars:
       split_sub_themes: true
       # Specify any additional URL parameters that the print shall use for WMS calls
       wms_url_params:
-        TRANSPARENT: 'true'
+        TRANSPARENT: 'false'
 
     # The "app_schema" property contains only one sub property "name". This is directly related to the database
     # creation process. Because this name is used as schema name in the target database. The app_schema holds
@@ -168,12 +168,12 @@ vars:
     logo:
       # The logo representing the swiss confederation (you can use it as is cause it is provided in this
       # repository). But if you need to change it for any reason: Feel free...
-      confederation: logo_confederation.png
+      confederation: logo_confederation.jpeg
       # The logo representing the oereb extract CI (you can use it as is cause it is provided in this
       # repository). But if you need to change it for any reason: Feel free...
-      oereb: logo_oereb.png
+      oereb: logo_oereb.jpeg
       # The logo representing your canton. Replace with your own logo!
-      canton: '{LOGO_CANTON}'
+      canton: logo_canton.jpeg
 
     # The method used to return the logo images configured above.
     get_logo_method: pyramid_oereb.standard.hook_methods.get_logo
