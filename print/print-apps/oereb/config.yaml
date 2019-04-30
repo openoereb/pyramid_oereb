@@ -1,4 +1,5 @@
 throwErrorOnExtraParameters: false
+defaultToSvg: false
 
 resourceBundle: Report
 
