@@ -76,6 +76,10 @@ class Renderer(JsonRenderer):
             'display_real_estate_subunit_of_land_register', True
         )
 
+        extract_as_dict['Display_Certification'] = print_config.get(
+            'display_certification', True
+        )
+
         spec = {
             'layout': Config.get('print', {})['template_name'],
             'outputFormat': 'pdf',
@@ -131,6 +135,29 @@ class Renderer(JsonRenderer):
             del response.headers['Connection']
         return content
 
+    @staticmethod
+    def get_wms_url_params():
+        """
+        Returns the list of additionally configured wms_url_params.
+
+        :return: The configured wms_url_params.
+        :rtype: list
+        """
+        result = {}
+        wms_url_params = Config.get('print', {}).get('wms_url_params', False)
+        if wms_url_params:
+            log.debug("get_wms_url_params() read configuration {}".format(wms_url_params))
+            if isinstance(wms_url_params, dict):
+                result = wms_url_params
+            else:
+                log.warning("get_wms_url_params() ignoring unaccepted configuration value {}"
+                            .format(wms_url_params))
+        else:
+            log.info("no wms_url_params configuration detected; using default value")
+            result = {'TRANSPARENT': 'true'}
+
+        return result
+
     def convert_to_printable_extract(self, extract_dict, feature_geometry, pdf_to_join):
         """
         Converts an oereb extract into a form suitable for printing by mapfish print.
@@ -168,6 +195,8 @@ class Renderer(JsonRenderer):
                                         main_page_url.path,
                                         None,
                                         None))
+        wms_url_params = self.get_wms_url_params()
+
         main_page_basemap = {
             'type': 'wms',
             'styles': 'default',
@@ -175,7 +204,7 @@ class Renderer(JsonRenderer):
             'baseURL': base_url,
             'layers': main_page_params['LAYERS'][0].split(','),
             'imageFormat': 'image/png',
-            'customParams': {'TRANSPARENT': 'true'},
+            'customParams': wms_url_params,
         }
         extract_dict['baseLayers'] = {'layers': [main_page_basemap]}
         url, params = parse_url(extract_dict['RealEstate_PlanForLandRegister']['ReferenceWMS'])
@@ -186,7 +215,7 @@ class Renderer(JsonRenderer):
             'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
             'layers': params['LAYERS'][0].split(','),
             'imageFormat': 'image/png',
-            'customParams': {'TRANSPARENT': 'true'},
+            'customParams': wms_url_params,
         }
         del extract_dict['RealEstate_PlanForLandRegister']  # /definitions/Map
 
@@ -218,7 +247,7 @@ class Renderer(JsonRenderer):
                     'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
                     'layers': params['LAYERS'][0].split(','),
                     'imageFormat': 'image/png',
-                    'customParams': {'TRANSPARENT': 'true'},
+                    'customParams': wms_url_params,
                 }, basemap]
             }
             restriction_on_landownership['legend'] = restriction_on_landownership['Map'].get(
