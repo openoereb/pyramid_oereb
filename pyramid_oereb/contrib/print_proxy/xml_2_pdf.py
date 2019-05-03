@@ -3,6 +3,7 @@ import sys
 import requests
 import logging
 
+from pyramid.exceptions import ConfigurationError
 from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import Config
 from pyramid_oereb.lib.renderer.extract.xml_ import Renderer as XmlRenderer
@@ -16,6 +17,25 @@ log = logging.getLogger(__name__)
 
 
 class Renderer(XmlRenderer):
+
+    print_config = Config.get('print', {})
+    if not print_config:
+        raise ConfigurationError('No print config section in config file was found.')
+    print_service_url = print_config.get('base_url', '')
+    if not print_service_url:
+        raise ConfigurationError('No print service url ("base_url") was found in the config.')
+    print_service_token = print_config.get('token', '')
+    if not print_service_token:
+        raise ConfigurationError('No print service token ("token") was found in the config.')
+    headers = {
+        'token': print_service_token
+    }
+    parameters = {
+        'validate': print_config.get('validate', 'false'),
+        'usewms': print_config.get('use_wms', 'false'),
+        'flavour': 'reduced',
+        'language': Config.get('default_language'),
+    }
 
     def __call__(self, value, system):
         """
@@ -40,6 +60,9 @@ class Renderer(XmlRenderer):
         if 'lang' in self._request.GET:
             self._language = self._request.GET.get('lang')
 
+        self.parameters['language'] = self._language
+        self.parameters['flavour'] = self._request.matchdict['flavour']
+
         # Based on extract record and webservice parameter, render the extract data as JSON
         extract_record = value[0]
         extract_as_xml = self._render(extract_record, value[1])
@@ -50,10 +73,12 @@ class Renderer(XmlRenderer):
             response.headers['Content-Type'] = 'application/xml; charset=UTF-8'
             return extract_as_xml
 
-        print_result = requests.post(
-            urlparse.urljoin(Config.get('print', {})['base_url'] + '/', 'buildreport.pdf'),
-            headers=Config.get('print', {})['headers'],
-            data=extract_as_xml
+        prepared_extraxt_as_xml = self.prepare_xml(extract_as_xml)
+        print_result = self.request_pdf(
+            self.print_service_url,
+            prepared_extraxt_as_xml,
+            self.headers,
+            self.parameters
         )
 
         response.status_code = print_result.status_code
@@ -63,3 +88,17 @@ class Renderer(XmlRenderer):
         if 'Connection' in response.headers:
             del response.headers['Connection']
         return print_result
+
+    @staticmethod
+    def request_pdf(url, data_extract, headers, parameters):
+        return requests.post(
+            url,
+            verify=True,
+            headers=headers,
+            files={'file': ('xml', data_extract, 'text/xml')},
+            data=parameters
+        )
+
+    @staticmethod
+    def prepare_xml(extract_as_xml):
+        return extract_as_xml
