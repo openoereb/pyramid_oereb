@@ -3,13 +3,13 @@
 <data:Image>${map.image.encode()}</data:Image>
 %endif
 %if map.reference_wms:
-<data:ReferenceWMS>${map.reference_wms|u}</data:ReferenceWMS>
+<data:ReferenceWMS>${map.reference_wms}</data:ReferenceWMS>
 %endif
 %if map.legend_at_web:
 <%
     localized_legend_at_web = localized(map.legend_at_web)
 %>
-<data:LegendAtWeb>${localized_legend_at_web.get('Text')|u}</data:LegendAtWeb>
+<data:LegendAtWeb>${localized_legend_at_web.get('Text')}</data:LegendAtWeb>
 %endif
 %if map.legends:
 <%

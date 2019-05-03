@@ -3,7 +3,7 @@
     <%include file="multilingual_text.xml" args="text=office.name"/>
 </data:Name>
 %if office.office_at_web:
-<data:OfficeAtWeb>${office.office_at_web|u}</data:OfficeAtWeb>
+<data:OfficeAtWeb>${office.office_at_web}</data:OfficeAtWeb>
 %endif
 %if office.uid:
 <data:UID>${office.uid}</data:UID>
