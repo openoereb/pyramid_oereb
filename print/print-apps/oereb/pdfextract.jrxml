@@ -310,6 +310,12 @@
 	</group>
 	<detail>
 		<part uuid="dbf7b612-de21-4609-8537-6538c611480c">
+			<!--
+			IMPORTANT NOTE:
+			The RealEstate_RestrictionOnLandownershipDataSource is only of type JRMapCollectionDataSource
+			if there is at least one PLR for the real estate. If there is no PLR it's empty and of type JREmptyDataSource.
+			 -->
+			<printWhenExpression><![CDATA[$P{RealEstate_RestrictionOnLandownershipDataSource} instanceof net.sf.jasperreports.engine.data.JRMapCollectionDataSource]]></printWhenExpression>
 			<p:subreportPart xmlns:p="http://jasperreports.sourceforge.net/jasperreports/parts" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/parts http://jasperreports.sourceforge.net/xsd/parts.xsd">
 				<subreportParameter name="REPORT_CONNECTION">
 					<subreportParameterExpression><![CDATA[$P{REPORT_CONNECTION}]]></subreportParameterExpression>
