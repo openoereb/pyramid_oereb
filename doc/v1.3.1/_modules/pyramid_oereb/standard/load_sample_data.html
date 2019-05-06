@@ -278,6 +278,10 @@
                 <span class="n">table</span><span class="o">=</span><span class="n">schema</span><span class="o">.</span><span class="n">Glossary</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
             <span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="o">.</span><span class="n">ExclusionOfLiability</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
+                <span class="n">table</span><span class="o">=</span><span class="n">schema</span><span class="o">.</span><span class="n">ExclusionOfLiability</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
+            <span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;TRUNCATE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> CASCADE;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="o">.</span><span class="n">Municipality</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
                 <span class="n">table</span><span class="o">=</span><span class="n">schema</span><span class="o">.</span><span class="n">Municipality</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
             <span class="p">))</span>
@@ -336,7 +340,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models</span> <span class="k">import</span> <span class="n">contaminated_public_transport_sites</span><span class="p">,</span> \
             <span class="n">groundwater_protection_zones</span><span class="p">,</span> <span class="n">forest_perimeters</span>
-        <span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models.main</span> <span class="k">import</span> <span class="n">RealEstate</span><span class="p">,</span> <span class="n">Address</span><span class="p">,</span> <span class="n">Municipality</span><span class="p">,</span> <span class="n">Glossary</span>
+        <span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models.main</span> <span class="k">import</span> <span class="n">RealEstate</span><span class="p">,</span> <span class="n">Address</span><span class="p">,</span> <span class="n">Municipality</span><span class="p">,</span> \
+            <span class="n">Glossary</span><span class="p">,</span> <span class="n">ExclusionOfLiability</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
@@ -395,6 +400,7 @@
                 <span class="p">(</span><span class="n">Address</span><span class="p">,</span> <span class="s1">&#39;addresses.json&#39;</span><span class="p">),</span>
                 <span class="p">(</span><span class="n">Municipality</span><span class="p">,</span> <span class="s1">&#39;municipalities_with_logo.json&#39;</span><span class="p">),</span>
                 <span class="p">(</span><span class="n">Glossary</span><span class="p">,</span> <span class="s1">&#39;glossary.json&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">ExclusionOfLiability</span><span class="p">,</span> <span class="s1">&#39;exclusion_of_liability.json&#39;</span><span class="p">)</span>
             <span class="p">]:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_load_sample</span><span class="p">(</span><span class="n">class_</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
 
