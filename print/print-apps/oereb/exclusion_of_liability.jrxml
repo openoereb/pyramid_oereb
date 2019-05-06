@@ -15,11 +15,12 @@
 	<field name="Title" class="java.lang.String"/>
 	<field name="Content" class="java.lang.String"/>
 	<detail>
-		<band height="20" splitType="Immediate">
+		<band height="23" splitType="Immediate">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="233" height="10" uuid="bbc8f3dd-19b0-4440-aa6c-c04468e54bc2">
+				<reportElement positionType="Float" x="0" y="4" width="233" height="7" uuid="bbc8f3dd-19b0-4440-aa6c-c04468e54bc2">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -33,9 +34,9 @@
 				<textFieldExpression><![CDATA[$F{Title}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="10" width="233" height="10" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="ed1963ea-5903-4816-87e0-b7b4f474e961">
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				<reportElement positionType="Float" x="0" y="13" width="233" height="10" isRemoveLineWhenBlank="true" uuid="ed1963ea-5903-4816-87e0-b7b4f474e961">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -43,7 +44,7 @@
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement markup="html">
+				<textElement textAlignment="Left" markup="html">
 					<font size="6" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Content}]]></textFieldExpression>

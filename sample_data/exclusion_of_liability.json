@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "title": {
+      "de": "Haftungsausschluss Kataster der belasteten Standorte (KbS) vel tincidunt velit congue sed",
+      "fr": "Clause de non-responsabilité du cadastre des sites pollués (CSP) ",
+      "it": "Clausola di esclusione della responsabilità relativa al catasto dei siti inquinati (CSIN)",
+      "rm": ""
+    },
+    "content": {
+      "de": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt für Umwelt BAFU festgelegten Kriterien erstellt und wird fortwährend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Flächen können vom tatsächlichen Ausmass der Belastung abweichen. Erscheint ein Grundstück nicht im KbS, besteht keine absolute Gewähr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, militärisch und für die Luftfahrt genutzte Standorte liegen im Zuständigkeitsbereich des Bundes.Für weitere Informationen wenden Sie sich an die kantonale Altlastenfachstelle: E-Mail Adresse und/oder Webseite",
+      "fr": "Le cadastre des sites pollués (CSP) est établi d’après les critères émis par l’Office fédéral de l’environnement OFEV. Il est mis à jour continuellement sur la base des nouvelles connaissances (investigations). Les surfaces des sites indiqués dans le cadastre des sites pollués peuvent ne pas correspondre à la surface effectivement polluée. Cela ne signifie pas que tout terrain non inscrit au cadastre ne soit pas pollué et libre de tout déchet et pollution. Les zones utilisées à des fins de transports publics, militaire et aéronautique sont de la responsabilité de la Confédération. Pour de plus amples informations, veuillez vous adresser au service spécialisé cantonal des déchets: adresse mail et/ou site web.",
+      "it": "Il catasto dei siti inquinati (CSIN) è stato elaborato sulla base dei criteri definiti dall'Ufficio federale dell'ambiente (UFAM) e viene continuamente aggiornato sulla base delle nuove conoscenze ottenute (p.es. in seguito a indagini). Le superfici riportate nel CSIN possono discostarsi dalla portata dell'inquinamento effettivo. Se un fondo non figura nel CSIN, non esiste alcuna garanzia assoluta che l'area sia libera da inquinamento dovuto a rifiuti o sostanze nocive. I siti sfruttati per finalità ferroviarie, militari o relative all'aviazione civile rientrano nella sfera di competenze della Confederazione. Per ulteriori informazioni vi invitiamo a rivolgervi al servizio cantonale responsabile dei siti inquinati: indirizzo e-mail e/o sito Internet",
+      "rm": ""
+    }
+  },
+  {
+    "id": 2,
+    "title": {
+      "de": "DE Morbi et ligula tempor, pulvinar sapien quis, mattis mi. Nam luctus fringilla nunc, vel tincidunt velit congue sed Morbi et ligula tempor, pulvinar sapien quis, mattis mi",
+      "fr": "FR Morbi et ligula tempor, pulvinar sapien quis, mattis mi. Nam luctus fringilla nunc, vel tincidunt velit congue sed",
+      "it": "IT Morbi et ligula tempor, pulvinar sapien quis, mattis mi. Nam luctus fringilla nunc, vel tincidunt velit congue sed",
+      "rm": ""
+    },
+    "content": {
+      "de": "Curabitur eros mauris, tincidunt et felis nec, sagittis imperdiet metus. Nulla ac massa sollicitudin, egestas erat eget, sodales mauris. Quisque nulla ante, laoreet ut massa in, auctor ullamcorper massa. Etiam tortor nisi, luctus eu nisi vel, elementum euismod sem. Cras convallis ut felis et tristique. Mauris erat eros, vehicula sit amet ipsum vitae, lobortis ultricies libero. Pellentesque euismod massa nec risus iaculis porta. Vivamus et sollicitudin quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut tempus justo",
+      "fr": "Integer a felis risus. Nam maximus magna eget ligula tincidunt, hendrerit vehicula massa semper. In maximus scelerisque leo, quis aliquet augue luctus eu. Aliquam erat volutpat. Donec id maximus tellus. Suspendisse mauris orci, sagittis eget gravida in, pulvinar vitae neque. In nec nisl ipsum. Quisque sed libero at erat consequat molestie commodo posuere ipsum.",
+      "it": "Nullam eu nisl non massa tempus dictum vulputate ut neque. Aliquam in augue ultrices ipsum laoreet aliquam.",
+      "rm": ""
+    }
+  },
+  {
+    "id": 3,
+    "title": {
+      "de": "2DE Morbi et ligula tempor",
+      "fr": "2FR Morbi et ligula tempor",
+      "it": "2IT Morbi et ligula tempor",
+      "rm": ""
+    },
+    "content": {
+      "de": "2Curabitur eros mauris, tincidunt et felis nec, sagittis imperdiet metus. Nulla ac massa sollicitudin, egestas erat eget, sodales mauris. Quisque nulla ante, laoreet ut massa in, auctor ullamcorper massa. Etiam tortor nisi, luctus eu nisi vel, elementum euismod sem. Cras convallis ut felis et tristique. Mauris erat eros, vehicula sit amet ipsum vitae, lobortis ultricies libero. Pellentesque euismod massa nec risus iaculis porta. Vivamus et sollicitudin quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut tempus justo",
+      "fr": "2Integer a felis risus. Nam maximus magna eget ligula tincidunt, hendrerit vehicula massa semper. In maximus scelerisque leo, quis aliquet augue luctus eu. Aliquam erat volutpat. Donec id maximus tellus. Suspendisse mauris orci, sagittis eget gravida in, pulvinar vitae neque. In nec nisl ipsum. Quisque sed libero at erat consequat molestie commodo posuere ipsum.",
+      "it": "2Nullam eu nisl non massa tempus dictum vulputate ut neque. Aliquam in augue ultrices ipsum laoreet aliquam.",
+      "rm": ""
+    }
+  }
+]
