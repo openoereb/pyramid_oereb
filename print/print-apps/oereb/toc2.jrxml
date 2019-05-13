@@ -41,7 +41,7 @@
 					<font size="9" isBold="false"/>
 					<paragraph leftIndent="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA[org.apache.commons.lang.StringUtils.join((List<String>)$P{TOC_Appendices}.get( $F{label}), "\n")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[String.join("\n", (List<String>)$P{TOC_Appendices}.get( $F{label}))]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false" hyperlinkType="LocalAnchor">
 				<reportElement x="0" y="0" width="20" height="20" uuid="01c634be-add1-4588-8dd7-f03cab4d5de3">
