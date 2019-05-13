@@ -23,6 +23,6 @@ def test_read():
     )
     results = reader.read()
     assert isinstance(results, list)
-    assert len(results) == 0
+    assert len(results) == 3
 
 # TODO: Implement tests for return values, not possible now, cause there is no data in database
