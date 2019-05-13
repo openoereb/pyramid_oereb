@@ -404,8 +404,10 @@ class Renderer(JsonRenderer):
                         legend[item] = legend[item]
             # After transformation, get the new legend entries, sorted by TypeCode
             transformed_legend = \
-                list([transformed_entry for (key, transformed_entry) in sorted(legends.items())])
-            restriction['Legend'] = transformed_legend
+                list([transformed_entry for (key, transformed_entry) in legends.items()])
+
+            restriction['Legend'] = self._get_sorted_legend(transformed_legend)
+            # sorted(transformed_legend, key=self._sort_legend_list)
 
         sorted_restrictions = []
         if split_sub_themes:
@@ -601,3 +603,16 @@ class Renderer(JsonRenderer):
         sorter = Renderer._load_sorter(sorter_config['module'], sorter_config['class_name'])
         params = sorter_config.get('params', {})
         return sorter, params
+
+    def _get_sorted_legend(self, legend_list):
+        return sorted(legend_list, key=self._sort_legend_elem)
+
+    @staticmethod
+    def _sort_legend_elem(elem):
+        geom_type = elem['Geom_Type']
+        if geom_type is 'AreaShare':
+            return elem['AreaShare']
+        elif geom_type is 'LengthShare':
+            return elem['LengthShare']
+        else:
+            return 0
