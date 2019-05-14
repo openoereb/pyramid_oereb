@@ -4,6 +4,7 @@ import pytest
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.sources import Base
 from pyramid_oereb.lib.readers.glossary import GlossaryReader
+from pyramid_oereb.lib.records.glossary import GlossaryRecord
 
 
 @pytest.mark.run(order=2)
@@ -23,6 +24,9 @@ def test_read():
     )
     results = reader.read()
     assert isinstance(results, list)
+    assert isinstance(results[0], GlossaryRecord)
     assert len(results) == 1
+    assert results[0].title['de'] == 'AGI'
+    assert results[0].title['fr'] == 'SGRF'
+    assert 'Geoinformation' in results[0].content['de']
 
-# TODO: Implement tests for return values, not possible now, cause there is no data in database
