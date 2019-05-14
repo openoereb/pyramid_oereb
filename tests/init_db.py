@@ -39,6 +39,10 @@ class DummyData(object):
             table=main.Glossary.__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table};'.format(
+            schema=main.ExclusionOfLiability.__table__.schema,
+            table=main.ExclusionOfLiability.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table};'.format(
             schema=main.RealEstate.__table__.schema,
             table=main.RealEstate.__table__.name
         ))
@@ -165,6 +169,23 @@ class DummyData(object):
             'published': True,
             'logo': base64.b64encode('abcdefg'.encode('utf-8')).decode('ascii'),
             'geom': 'SRID=2056;MULTIPOLYGON(((0 0, 0 10, 10 10, 10 0, 0 0)))'
+        })
+
+        #Add dummy exclustion of liability
+        connection.execute(main.ExclusionOfLiability.__table__.insert(), {
+            'id': 1,
+            'title': {
+                'de': u'Haftungsausschluss Kataster der belasteten Standorte',
+                'fr': u'Clause de non-responsabilité du cadastre des sites pollués (CSP)',
+                'it': u'Clausola di esclusione della responsabilità ...',
+                'rm': u''
+            },
+            'content':{
+                "de": u'Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt für Umwelt BAFU fe ...',
+                "fr": u'Le cadastre des sites pollués (CSP) est établi d’après les critères émis par l’Office fédéral ...',
+                "it": u'Il catasto dei siti inquinati (CSIN) è stato elaborato sulla base dei criteri definiti dall ...',
+                "rm": u''
+            }
         })
 
         # Add dummy glossary
