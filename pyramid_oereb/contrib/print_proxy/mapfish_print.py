@@ -407,7 +407,6 @@ class Renderer(JsonRenderer):
                 list([transformed_entry for (key, transformed_entry) in legends.items()])
 
             restriction['Legend'] = self._get_sorted_legend(transformed_legend)
-            # sorted(transformed_legend, key=self._sort_legend_list)
 
         sorted_restrictions = []
         if split_sub_themes:
@@ -610,9 +609,7 @@ class Renderer(JsonRenderer):
     @staticmethod
     def _sort_legend_elem(elem):
         geom_type = elem['Geom_Type']
-        if geom_type is 'AreaShare':
-            return elem['AreaShare']
-        elif geom_type is 'LengthShare':
-            return elem['LengthShare']
+        if geom_type == 'NrOfPoints':
+            return (geom_type, 0)
         else:
-            return 0
+            return geom_type, elem[geom_type]
