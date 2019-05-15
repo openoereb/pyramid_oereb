@@ -29,4 +29,3 @@ def test_read():
     assert results[0].title['de'] == 'AGI'
     assert results[0].title['fr'] == 'SGRF'
     assert 'Geoinformation' in results[0].content['de']
-

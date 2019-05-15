@@ -171,7 +171,7 @@ class DummyData(object):
             'geom': 'SRID=2056;MULTIPOLYGON(((0 0, 0 10, 10 10, 10 0, 0 0)))'
         })
 
-        #Add dummy exclustion of liability
+        # Add dummy exclustion of liability
         connection.execute(main.ExclusionOfLiability.__table__.insert(), {
             'id': 1,
             'title': {
@@ -180,10 +180,13 @@ class DummyData(object):
                 'it': u'Clausola di esclusione della responsabilità ...',
                 'rm': u''
             },
-            'content':{
-                "de": u'Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt für Umwelt BAFU fe ...',
-                "fr": u'Le cadastre des sites pollués (CSP) est établi d’après les critères émis par l’Office fédéral ...',
-                "it": u'Il catasto dei siti inquinati (CSIN) è stato elaborato sulla base dei criteri definiti dall ...',
+            'content': {
+                "de": u'Der Kataster der belasteten Standorte (KbS) \
+                      wurde anhand der vom Bundesamt für Umwelt BAFU fe ...',
+                "fr": u'Le cadastre des sites pollués (CSP) est établi d’après \
+                      les critères émis par l’Office fédéral ...',
+                "it": u'Il catasto dei siti inquinati (CSIN) è stato elaborato sulla \
+                      base dei criteri definiti dall ...',
                 "rm": u''
             }
         })
