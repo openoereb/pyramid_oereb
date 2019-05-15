@@ -405,7 +405,6 @@ class Renderer(JsonRenderer):
             # After transformation, get the new legend entries, sorted by TypeCode
             transformed_legend = \
                 list([transformed_entry for (key, transformed_entry) in legends.items()])
-
             restriction['Legend'] = self._get_sorted_legend(transformed_legend)
 
         sorted_restrictions = []
@@ -604,10 +603,30 @@ class Renderer(JsonRenderer):
         return sorter, params
 
     def _get_sorted_legend(self, legend_list):
+        """
+        Takes an unsorted list of legend and returns it sorts, depending on the geometry type
+        and on the value of the geomety tye if this is available
+
+        Args:
+            legend_list: list of legends
+
+        Returns:
+             sorted list of legends
+        """
         return sorted(legend_list, key=self._sort_legend_elem)
 
     @staticmethod
     def _sort_legend_elem(elem):
+        """
+        Returns a tuple of the geometry type of the element and the value of the geometry
+        type if it is available. Else it returns the geometry type and 0 as value
+
+        Args:
+            elem: one legend entry
+
+        Returns:
+            geom_type, int value
+        """
         geom_type = elem['Geom_Type']
         if geom_type == 'NrOfPoints':
             return (geom_type, 0)
