@@ -145,7 +145,6 @@ def test_mapfish_print_entire_extract():
 
 
 def test_split_restrictions_by_theme_code():
-    renderer = Renderer(DummyRenderInfo())
     test_data = [
                {
                    "Theme_Code": "ContaminatedPublicTransportSites",
@@ -196,7 +195,7 @@ def test_split_restrictions_by_theme_code():
         ]
     }
 
-    splitted = renderer._split_restrictions_by_theme_code(test_data)
+    splitted = Renderer._split_restrictions_by_theme_code(test_data)
     for theme in splitted:
         for index in range(len(splitted[theme])):
             assert splitted[theme][index]["Theme_Code"] == expected_result[theme][index]["Theme_Code"]
