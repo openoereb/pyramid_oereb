@@ -23,6 +23,12 @@ else:
 
 log = logging.getLogger(__name__)
 
+LEGEND_ELEMENT_SORT_ORDER = [
+    'AreaShare',
+    'LengthShare',
+    'NrOfPoints'
+]
+
 
 class Renderer(JsonRenderer):
 
@@ -404,8 +410,8 @@ class Renderer(JsonRenderer):
                         legend[item] = legend[item]
             # After transformation, get the new legend entries, sorted by TypeCode
             transformed_legend = \
-                list([transformed_entry for (key, transformed_entry) in sorted(legends.items())])
-            restriction['Legend'] = transformed_legend
+                list([transformed_entry for (key, transformed_entry) in legends.items()])
+            restriction['Legend'] = self._get_sorted_legend(transformed_legend)
 
         sorted_restrictions = []
         if split_sub_themes:
@@ -601,3 +607,43 @@ class Renderer(JsonRenderer):
         sorter = Renderer._load_sorter(sorter_config['module'], sorter_config['class_name'])
         params = sorter_config.get('params', {})
         return sorter, params
+
+    def _get_sorted_legend(self, legend_list):
+        """
+        Sorts list of legends by type (as defined in LEGEND_ELEMENT_SORT_ORDER) and value (ascending order).
+
+        Args:
+            legend_list: list of legend dictionaries
+
+        Returns:
+            sorted list of legend dictionaries
+        """
+        return sorted(legend_list, key=self._sort_legend_elem)
+
+    @staticmethod
+    def _sort_legend_elem(elem):
+        """
+        Provides the sort key for the supplied legend element as a tuple consisting of:
+         * rank of the geometry type as defined in LEGEND_ELEMENT_SORT_ORDER
+         * value of the geometry if available (AreaShare and LengthShare)
+
+        Args:
+            elem (dict): legend entry
+
+        Returns:
+            sort key (tuple)
+        """
+        geom_type = elem['Geom_Type']
+
+        if geom_type in LEGEND_ELEMENT_SORT_ORDER:
+            # Get predefined order
+            category = LEGEND_ELEMENT_SORT_ORDER.index(geom_type)
+        else:
+            # Put elements not found predefined order last
+            category = len(LEGEND_ELEMENT_SORT_ORDER)
+
+        # Use value as secondary criteria if available (defaults to 0 if not available).
+        # Negative value for ascending sort order.
+        value = -elem.get(geom_type, 0)
+
+        return category, value

@@ -210,3 +210,97 @@ def test_load_sorter():
     assert alphabetic_sort == AlphabeticSort
     list_sort = Renderer._load_sorter(module_name, class_list_sort)
     assert list_sort == ListSort
+
+
+def test_get_sorted_legend():
+    renderer = Renderer(DummyRenderInfo())
+    test_legend_list = [
+        {
+            'TypeCode': u'StaoTyp2',
+            'Geom_Type': u'AreaShare',
+            'TypeCodelist': '',
+            'AreaShare': 11432,
+            'PartInPercent': 32.6,
+            'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
+                        ContaminatedPublicTransportSites/1/StaoTyp2',
+            'Information': u'Belastet, untersuchungsbedürftig'
+        }, {
+            'TypeCode': u'StaoTyp3',
+            'Geom_Type': u'LengthShare',
+            'TypeCodelist': '',
+            'LengthShare': 164,
+            'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
+                        ContaminatedPublicTransportSites/1/StaoTyp3',
+            'Information': u'Belastet, überwachungsbedürftig'
+        }, {
+            'TypeCode': u'StaoTyp1',
+            'Geom_Type': u'NrOfPoints',
+            'TypeCodelist': '',
+            'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
+                        ContaminatedPublicTransportSites/1/StaoTyp1',
+            'Information': u'Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten'
+        }, {
+            'TypeCode': u'StaoTyp3',
+            'Geom_Type': u'LengthShare',
+            'TypeCodelist': '',
+            'LengthShare': 2000,
+            'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
+                        ContaminatedPublicTransportSites/1/StaoTyp3',
+            'Information': u'Belastet, untersuchungsbedürftig'
+        }, {
+            'TypeCode': u'StaoTyp2',
+            'Geom_Type': u'AreaShare',
+            'TypeCodelist': '',
+            'AreaShare': 114,
+            'PartInPercent': 32.6,
+            'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
+                        ContaminatedPublicTransportSites/1/StaoTyp2',
+            'Information': u'Belastet, untersuchungsbedürftig'
+        }
+    ]
+    sorted_list = renderer._get_sorted_legend(test_legend_list)
+    expected_result = [
+        {
+            'TypeCode': u'StaoTyp2',
+            'Geom_Type': u'AreaShare',
+            'TypeCodelist': '',
+            'AreaShare': 11432,
+            'PartInPercent': 32.6,
+            'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
+                        ContaminatedPublicTransportSites/1/StaoTyp2',
+            'Information': u'Belastet, untersuchungsbedürftig'
+        }, {
+            'TypeCode': u'StaoTyp2',
+            'Geom_Type': u'AreaShare',
+            'TypeCodelist': '',
+            'AreaShare': 114,
+            'PartInPercent': 32.6,
+            'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
+                        ContaminatedPublicTransportSites/1/StaoTyp2',
+            'Information': u'Belastet, untersuchungsbedürftig'
+        }, {
+            'TypeCode': u'StaoTyp3',
+            'Geom_Type': u'LengthShare',
+            'TypeCodelist': '',
+            'LengthShare': 2000,
+            'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
+                        ContaminatedPublicTransportSites/1/StaoTyp3',
+            'Information': u'Belastet, untersuchungsbedürftig'
+        }, {
+            'TypeCode': u'StaoTyp3',
+            'Geom_Type': u'LengthShare',
+            'TypeCodelist': '',
+            'LengthShare': 164,
+            'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
+                        ContaminatedPublicTransportSites/1/StaoTyp3',
+            'Information': u'Belastet, überwachungsbedürftig'
+        }, {
+            'TypeCode': u'StaoTyp1',
+            'Geom_Type': u'NrOfPoints',
+            'TypeCodelist': '',
+            'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
+                        ContaminatedPublicTransportSites/1/StaoTyp1',
+            'Information': u'Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten'
+        }
+    ]
+    assert sorted_list == expected_result
