@@ -38,6 +38,12 @@
     %if public_law_restriction.area_share:
     <data:AreaShare>${public_law_restriction.area_share}</data:AreaShare>
     %endif
+    %if public_law_restriction.length_share:
+    <LengthShare>${public_law_restriction.length_share}</LengthShare>
+    %endif
+    %if public_law_restriction.nr_of_points:
+    <NrOfPoints>${public_law_restriction.nr_of_points}</NrOfPoints>
+    %endif
     %if public_law_restriction.part_in_percent:
     <data:PartInPercent>${public_law_restriction.part_in_percent}</data:PartInPercent>
     %endif
@@ -65,11 +71,7 @@
         <AreaUnit>${public_law_restriction.area_unit}</AreaUnit>
 %endif
 %if public_law_restriction.length_share:
-        <LengthShare>${public_law_restriction.length_share}</LengthShare>
         <LengthUnit>${public_law_restriction.length_unit}</LengthUnit>
-%endif
-%if public_law_restriction.nr_of_points:
-        <NrOfPoints>${public_law_restriction.nr_of_points}</NrOfPoints>
 %endif
     </data:extensions>
 </data:RestrictionOnLandownership>
