@@ -8,6 +8,18 @@ introduce differences in the yml configuration file. So it would not be enough t
 version. Often a version upgrade changes or adds parameters which are used.
 
 
+.. _changes-version-1.5.0:
+
+Version 1.5.0
+-------------
+The main focus of this release are improvements for the PDF generation with mapfish print, but it also other changes,
+bug-fixes and regular maintenance.
+
+.. TODO: https://github.com/openoereb/pyramid_oereb/pull/831
+.. TODO: https://github.com/openoereb/pyramid_oereb/pull/841
+.. TODO: https://github.com/openoereb/pyramid_oereb/pull/852
+
+
 .. _changes-version-1.4.3:
 
 Version 1.4.3
