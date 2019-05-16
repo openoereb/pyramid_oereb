@@ -264,7 +264,7 @@ def test_get_sorted_legend():
             'TypeCode': u'StaoTyp2',
             'Geom_Type': u'AreaShare',
             'TypeCodelist': '',
-            'AreaShare': 114,
+            'AreaShare': 11432,
             'PartInPercent': 32.6,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
                         ContaminatedPublicTransportSites/1/StaoTyp2',
@@ -273,10 +273,18 @@ def test_get_sorted_legend():
             'TypeCode': u'StaoTyp2',
             'Geom_Type': u'AreaShare',
             'TypeCodelist': '',
-            'AreaShare': 11432,
+            'AreaShare': 114,
             'PartInPercent': 32.6,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
                         ContaminatedPublicTransportSites/1/StaoTyp2',
+            'Information': u'Belastet, untersuchungsbedürftig'
+        }, {
+            'TypeCode': u'StaoTyp3',
+            'Geom_Type': u'LengthShare',
+            'TypeCodelist': '',
+            'LengthShare': 2000,
+            'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
+                        ContaminatedPublicTransportSites/1/StaoTyp3',
             'Information': u'Belastet, untersuchungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp3',
@@ -286,14 +294,6 @@ def test_get_sorted_legend():
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
                         ContaminatedPublicTransportSites/1/StaoTyp3',
             'Information': u'Belastet, überwachungsbedürftig'
-        }, {
-            'TypeCode': u'StaoTyp3',
-            'Geom_Type': u'LengthShare',
-            'TypeCodelist': '',
-            'LengthShare': 2000,
-            'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
-                        ContaminatedPublicTransportSites/1/StaoTyp3',
-            'Information': u'Belastet, untersuchungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp1',
             'Geom_Type': u'NrOfPoints',

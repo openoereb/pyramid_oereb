@@ -23,6 +23,8 @@ else:
 
 log = logging.getLogger(__name__)
 
+LEGEND_ELEMENT_SORT_ORDER = {'AreaShare': 1, 'LengthShare': 2, 'NrOfPoints': 3}
+
 
 class Renderer(JsonRenderer):
 
@@ -604,31 +606,42 @@ class Renderer(JsonRenderer):
 
     def _get_sorted_legend(self, legend_list):
         """
-        Takes an unsorted list of legend and returns it sorts, depending on the geometry type
-        and on the value of the geomety tye if this is available
+        Takes an unsorted list of legends and returns it sorts, depending on the geometry type and on the
+        value of the geometry type in reverse order (largest first) for AreaShare, LengthShare.
 
         Args:
-            legend_list: list of legends
+            legend_list: list of legend dictionaries
 
         Returns:
-             sorted list of legends
+             sorted list of legend dictionaries
         """
         return sorted(legend_list, key=self._sort_legend_elem)
 
     @staticmethod
     def _sort_legend_elem(elem):
         """
-        Returns a tuple of the geometry type of the element and the value of the geometry
-        type if it is available. Else it returns the geometry type and 0 as value
+        Used to map the elements of a list of dictionaries (the legend list) to a tuple of two values to
+        sort against. The first value is to sort after it the geometry type the second is the value of
+        the geometry type if this is available.
+
+        This function:
+            * first determines the category of the current geometry type according to what is defined in
+            LEGEND_ELEMENT_SORT_ORDER. This returned the order in which the geometry_types are sorted.
+
+            * determines the value of the geometry_type and returns it so these values will be sorted
+            in reverse order. This is done for the geometry types AreaShare and LengthShare. There is no
+            Information about this in NrOfPoints so they are not further sorted
 
         Args:
-            elem: one legend entry
+            elem: one legend entry in form of a dict
 
         Returns:
-            geom_type, int value
+            category: int between 1 and 4
+            value: int value of the geometry_type if available else 0
         """
         geom_type = elem['Geom_Type']
-        if geom_type == 'NrOfPoints':
-            return (geom_type, 0)
-        else:
-            return geom_type, elem[geom_type]
+
+        category = LEGEND_ELEMENT_SORT_ORDER.get(geom_type, 4)
+        value = elem.get(geom_type, 0)
+
+        return category, -value
