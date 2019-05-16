@@ -17,7 +17,24 @@ bug-fixes and regular maintenance.
 
 .. TODO: https://github.com/openoereb/pyramid_oereb/pull/831
 .. TODO: https://github.com/openoereb/pyramid_oereb/pull/841
-.. TODO: https://github.com/openoereb/pyramid_oereb/pull/852
+
+
+PDF/A conformance
+^^^^^^^^^^^^^^^^^
+
+For mapfish print PDFs, PDF/A conformance is now enabled by default (PR#852). This is likely to break PDF export on
+existing data. To fix your configuration and data look for the following issues:
+
+* All images (like logos for canton, confederation, municipality and OEREB) must not contain any transparency. If you
+  use PNG, make sure to remove the alpha channel.
+
+* Custom formatting may not include color values with transparency. For example, change all RGBA color values to RGB.
+
+* If you use other fonts than Cadastra, make sure they are added as a jasperreports font package in
+  ``print/WEB-INF/lib/``.
+
+You can disable PDF/A conformance by deleting the ``net.sf.jasperreports.export.pdfa.conformance`` property in
+``print/print-apps/oereb/pdfextract.jrxml``.
 
 
 .. _changes-version-1.4.3:
