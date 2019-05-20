@@ -67,10 +67,10 @@
         <%include file="office.xml" args="office=public_law_restriction.responsible_office"/>
     </data:ResponsibleOffice>
     <data:extensions>
-%if public_law_restriction.area_share:
+%if public_law_restriction.area_share and public_law_restriction.area_unit:
         <AreaUnit>${public_law_restriction.area_unit}</AreaUnit>
 %endif
-%if public_law_restriction.length_share:
+%if public_law_restriction.length_share and public_law_restriction.length_unit:
         <LengthUnit>${public_law_restriction.length_unit}</LengthUnit>
 %endif
     </data:extensions>
