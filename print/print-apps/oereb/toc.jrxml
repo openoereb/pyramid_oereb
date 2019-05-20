@@ -194,7 +194,7 @@
 					<subreportParameterExpression><![CDATA[$P{isReduced}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[$P{BookmarkDataSource}]]></dataSourceExpression>
-				<subreportExpression><![CDATA["toc2.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{isReduced}?"tocReduced.jasper":"tocFull.jasper"]]></subreportExpression>
 			</subreport>
 			<textField isStretchWithOverflow="true">
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="5" width="492" height="10" uuid="74048771-76de-4810-825e-77d4e5643dd3">
