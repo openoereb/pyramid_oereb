@@ -141,15 +141,17 @@ class ExtractReader(object):
 
         if municipality.published:
 
+            position = 1
             for plr_source in self._plr_sources_:
                 if not params.skip_topic(plr_source.info.get('code')):
                     log.debug("read() going to read from plr_source {}".format(plr_source))
-                    plr_source.read(real_estate, bbox)
+                    plr_source.read(real_estate, bbox, position)
                     log.debug("read() done reading from plr_source {}".format(plr_source))
                     for ds in plr_source.datasource:
                         if not params.skip_topic(ds.theme.code):
                             datasource.append(ds)
                     real_estate.public_law_restrictions.extend(plr_source.records)
+                position += 1
 
             for plr in real_estate.public_law_restrictions:
 
@@ -210,11 +212,3 @@ class ExtractReader(object):
 
         log.debug("read() done")
         return self.extract
-
-    @staticmethod
-    def list_of_theme_codes():
-        plrs = Config.get('plrs')
-        theme_codes = []
-        for plr in plrs:
-            theme_codes.append(plr.get('code'))
-        return theme_codes

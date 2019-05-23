@@ -62,7 +62,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         data_integration_model = DottedNameResolver().maybe_resolve(
             '{models_path}.DataIntegration'.format(models_path=models_path)
         )
-
         self._theme_record = ThemeRecord(self._plr_info.get('code'), self._plr_info.get('text'))
 
         self.availabilities = []
@@ -484,7 +483,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             or_(*distinct_type_code_view_service_tuples)
         ).all()
 
-    def read(self, real_estate, bbox):
+    def read(self, real_estate, bbox, position):
         """
         The read point which creates a extract, depending on a passed real estate.
 
@@ -493,7 +492,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 estate in its record representation.
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
         """
-        log.debug("read() start")
+        log.debug("read() start; position of theme in theme list: {}".format(position))
+        self._theme_record.position = position
 
         # Check if the plr is marked as available
         if self._is_available(real_estate):

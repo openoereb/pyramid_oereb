@@ -3,6 +3,7 @@ import logging
 
 from sqlalchemy.orm.exc import NoResultFound
 
+from operator import attrgetter
 from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 
@@ -121,28 +122,14 @@ class Processor(object):
                           .format(new_not_concerned_theme)
                           )
                 extract.not_concerned_theme.append(new_not_concerned_theme)
-            self.reorder_not_concerned_theme(extract)
+            # Need to reorder, because order must stay exactly as defined in configuration
+            extract.not_concerned_theme = sorted(extract.not_concerned_theme, key=attrgetter('position'))
 
         real_estate.public_law_restrictions = self.get_legend_entries(inside_plrs, outside_plrs)
         return extract
 
-    def reorder_not_concerned_theme(self, extract):
-        theme_codes = self._extract_reader_.list_of_theme_codes()
-        sorted_not_concerned_theme = []
-
-        def get_not_concerned_theme(extract, theme_code):
-            for theme in extract.not_concerned_theme:
-                if theme.code == theme_code:
-                    return theme
-            return None
-
-        for theme_code in theme_codes:
-            theme = get_not_concerned_theme(extract, theme_code)
-            if theme is not None:
-                sorted_not_concerned_theme.append(theme)
-
-        extract.not_concerned_theme = sorted_not_concerned_theme
-        return extract
+    def sortfunc(elem):
+        return elem[len(elem - 1)]
 
     @staticmethod
     def view_service_handling(real_estate, images, format):

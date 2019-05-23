@@ -5,11 +5,12 @@ import warnings
 class ThemeRecord(object):
     """Creates a new theme record."""
 
-    def __init__(self, code, text):
+    def __init__(self, code, text, position=None):
         """
         Args:
             code (unicode): The theme's code.
             text (dict of unicode): The multilingual description.
+            position: Position of the theme (within the list of themes)
             data_owner (pyramid_oereb.lib.records.office.OfficeRecord):
             transfer_from_source (datetime.date): The actuality of the themes data
         """
@@ -18,6 +19,8 @@ class ThemeRecord(object):
 
         self.code = code
         self.text = text
+        self.position = position
 
     def __str__(self):
-        return '<{} -- code: {} text: {}>'.format(self.__class__.__name__, self.code, self.text)
+        return '<{} -- code: {} text: {} position: {}>'.format(self.__class__.__name__,
+                                                               self.code, self.text, self.position)

@@ -63,11 +63,14 @@ class Config(object):
         result = []
         plrs = Config._config.get('plrs')
         if plrs and isinstance(plrs, list):
+            position = 0
             for theme in plrs:
                 result.append(ThemeRecord(
                     theme.get('code'),
-                    theme.get('text')
+                    theme.get('text'),
+                    position
                 ))
+                position += 1
         return result
 
     @staticmethod
@@ -86,12 +89,15 @@ class Config(object):
 
         plrs = Config._config.get('plrs')
         if plrs and isinstance(plrs, list):
+            position = 1
             for theme in plrs:
                 if theme.get('code') == code:
                     return ThemeRecord(
                         theme.get('code'),
-                        theme.get('text')
+                        theme.get('text'),
+                        position
                     )
+                position += 1
         return None
 
     @staticmethod
