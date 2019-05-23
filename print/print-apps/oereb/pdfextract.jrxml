@@ -57,6 +57,7 @@
 	<parameter name="RealEstate_RestrictionOnLandownershipDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="GlossaryDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="Certification" class="java.lang.String"/>
+	<parameter name="MultiPageTOC" class="java.lang.Boolean"/>
 	<variable name="TOC_Appendices" class="java.util.Map">
 		<variableExpression><![CDATA[new java.util.HashMap()]]></variableExpression>
 	</variable>
@@ -171,6 +172,7 @@
 			</part>
 			<part evaluationTime="Report" uuid="1e51d81b-2bac-4806-a6ab-2d666891cc25">
 				<property name="net.sf.jasperreports.bookmarks.data.source.parameter" value="BookmarkDataSource"/>
+				<printWhenExpression><![CDATA[!($P{MultiPageTOC})]]></printWhenExpression>
 				<p:subreportPart xmlns:p="http://jasperreports.sourceforge.net/jasperreports/parts" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/parts http://jasperreports.sourceforge.net/xsd/parts.xsd">
 					<subreportParameter name="REPORT_CONNECTION">
 						<subreportParameterExpression><![CDATA[$P{REPORT_CONNECTION}]]></subreportParameterExpression>
@@ -251,6 +253,176 @@
 						<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportExpression><![CDATA["toc.jasper"]]></subreportExpression>
+				</p:subreportPart>
+			</part>
+			<part evaluationTime="Report" uuid="1e51d81b-2bac-4806-a6ab-2d666891cc25">
+				<property name="net.sf.jasperreports.bookmarks.data.source.parameter" value="REPORT_DATA_SOURCE"/>
+				<printWhenExpression><![CDATA[$P{MultiPageTOC}]]></printWhenExpression>
+				<p:subreportPart xmlns:p="http://jasperreports.sourceforge.net/jasperreports/parts" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/parts http://jasperreports.sourceforge.net/xsd/parts.xsd">
+					<subreportParameter name="REPORT_CONNECTION">
+						<subreportParameterExpression><![CDATA[$P{REPORT_CONNECTION}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="isReduced">
+						<subreportParameterExpression><![CDATA[$P{isReduced}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="ExtractIdentifier">
+						<subreportParameterExpression><![CDATA[$P{ExtractIdentifier}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="CreationDate">
+						<subreportParameterExpression><![CDATA[$P{CreationDate}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="Footer">
+						<subreportParameterExpression><![CDATA[$P{Footer}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="FederalLogo">
+						<subreportParameterExpression><![CDATA[$P{FederalLogo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="CantonalLogo">
+						<subreportParameterExpression><![CDATA[$P{CantonalLogo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="LogoPLRCadastre">
+						<subreportParameterExpression><![CDATA[$P{LogoPLRCadastre}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="MunicipalityLogo">
+						<subreportParameterExpression><![CDATA[$P{MunicipalityLogo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="FederalLogoRef">
+						<subreportParameterExpression><![CDATA[$P{FederalLogoRef}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="CantonalLogoRef">
+						<subreportParameterExpression><![CDATA[$P{CantonalLogoRef}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="MunicipalityLogoRef">
+						<subreportParameterExpression><![CDATA[$P{MunicipalityLogoRef}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="LogoPLRCadastreRef">
+						<subreportParameterExpression><![CDATA[$P{LogoPLRCadastreRef}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="RealEstate_Municipality">
+						<subreportParameterExpression><![CDATA[$P{RealEstate_Municipality}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="RealEstate_EGRID">
+						<subreportParameterExpression><![CDATA[$P{RealEstate_EGRID}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="RealEstate_Number">
+						<subreportParameterExpression><![CDATA[$P{RealEstate_Number}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="RealEstate_IdentDN">
+						<subreportParameterExpression><![CDATA[$P{RealEstate_IdentDN}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="ConcernedThemeDataSource">
+						<subreportParameterExpression><![CDATA[$P{ConcernedThemeDataSource}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="NotConcernedThemeDataSource">
+						<subreportParameterExpression><![CDATA[$P{NotConcernedThemeDataSource}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="ThemeWithoutDataDataSource">
+						<subreportParameterExpression><![CDATA[$P{ThemeWithoutDataDataSource}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="ExclusionOfLiabilityDataSource">
+						<subreportParameterExpression><![CDATA[$P{ExclusionOfLiabilityDataSource}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="GeneralInformation">
+						<subreportParameterExpression><![CDATA[$P{GeneralInformation}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="BaseData">
+						<subreportParameterExpression><![CDATA[$P{BaseData}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="REPORT_DATA_SOURCE">
+						<subreportParameterExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="TOC_Appendices">
+						<subreportParameterExpression><![CDATA[$V{TOC_Appendices}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportExpression><![CDATA["multiPageTOC.jasper"]]></subreportExpression>
+				</p:subreportPart>
+			</part>
+			<part uuid="1e51d81b-2bac-4806-a6ab-2d666891cc25">
+				<property name="net.sf.jasperreports.bookmarks.data.source.parameter" value="BookmarkDataSource"/>
+				<printWhenExpression><![CDATA[$P{MultiPageTOC}]]></printWhenExpression>
+				<p:subreportPart xmlns:p="http://jasperreports.sourceforge.net/jasperreports/parts" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/parts http://jasperreports.sourceforge.net/xsd/parts.xsd">
+					<subreportParameter name="REPORT_CONNECTION">
+						<subreportParameterExpression><![CDATA[$P{REPORT_CONNECTION}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="isReduced">
+						<subreportParameterExpression><![CDATA[$P{isReduced}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="ExtractIdentifier">
+						<subreportParameterExpression><![CDATA[$P{ExtractIdentifier}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="CreationDate">
+						<subreportParameterExpression><![CDATA[$P{CreationDate}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="Footer">
+						<subreportParameterExpression><![CDATA[$P{Footer}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="FederalLogo">
+						<subreportParameterExpression><![CDATA[$P{FederalLogo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="CantonalLogo">
+						<subreportParameterExpression><![CDATA[$P{CantonalLogo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="LogoPLRCadastre">
+						<subreportParameterExpression><![CDATA[$P{LogoPLRCadastre}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="MunicipalityLogo">
+						<subreportParameterExpression><![CDATA[$P{MunicipalityLogo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="FederalLogoRef">
+						<subreportParameterExpression><![CDATA[$P{FederalLogoRef}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="CantonalLogoRef">
+						<subreportParameterExpression><![CDATA[$P{CantonalLogoRef}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="MunicipalityLogoRef">
+						<subreportParameterExpression><![CDATA[$P{MunicipalityLogoRef}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="LogoPLRCadastreRef">
+						<subreportParameterExpression><![CDATA[$P{LogoPLRCadastreRef}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="RealEstate_Municipality">
+						<subreportParameterExpression><![CDATA[$P{RealEstate_Municipality}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="RealEstate_EGRID">
+						<subreportParameterExpression><![CDATA[$P{RealEstate_EGRID}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="RealEstate_Number">
+						<subreportParameterExpression><![CDATA[$P{RealEstate_Number}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="RealEstate_IdentDN">
+						<subreportParameterExpression><![CDATA[$P{RealEstate_IdentDN}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="ConcernedThemeDataSource">
+						<subreportParameterExpression><![CDATA[$P{ConcernedThemeDataSource}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="NotConcernedThemeDataSource">
+						<subreportParameterExpression><![CDATA[$P{NotConcernedThemeDataSource}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="ThemeWithoutDataDataSource">
+						<subreportParameterExpression><![CDATA[$P{ThemeWithoutDataDataSource}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="ExclusionOfLiabilityDataSource">
+						<subreportParameterExpression><![CDATA[$P{ExclusionOfLiabilityDataSource}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="GeneralInformation">
+						<subreportParameterExpression><![CDATA[$P{GeneralInformation}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="BaseData">
+						<subreportParameterExpression><![CDATA[$P{BaseData}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="REPORT_DATA_SOURCE">
+						<subreportParameterExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="TOC_Appendices">
+						<subreportParameterExpression><![CDATA[$V{TOC_Appendices}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportExpression><![CDATA["additionalInfoMultipageTOC.jasper"]]></subreportExpression>
 				</p:subreportPart>
 			</part>
 		</groupHeader>

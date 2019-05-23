@@ -213,6 +213,8 @@ templates:
             PLRCadastreAuthority_Number: !string {}
             PLRCadastreAuthority_PostalCode: !string {}
             PLRCadastreAuthority_City: !string {}
+            MultiPageTOC: !boolean
+                default: true
 
             northArrow: !northArrow
                 size: 17
