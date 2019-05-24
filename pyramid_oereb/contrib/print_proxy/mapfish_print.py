@@ -36,7 +36,7 @@ class Renderer(JsonRenderer):
         for item in items:
             self._flatten_object(item, 'Lawstatus')
             self._localised_text(item, 'Lawstatus_Text')
-            self._flatten_object(item, 'ResponsibleOffice')
+            # self._flatten_object(item, 'ResponsibleOffice')
             self._multilingual_text(item, 'ResponsibleOffice_Name')
             self._multilingual_text(item, 'TextAtWeb')
 
@@ -237,7 +237,7 @@ class Renderer(JsonRenderer):
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
             self._flatten_object(restriction_on_landownership, 'Lawstatus')
             self._flatten_object(restriction_on_landownership, 'Theme')
-            self._flatten_object(restriction_on_landownership, 'ResponsibleOffice')
+            #self._flatten_object(restriction_on_landownership, 'ResponsibleOffice')
             self._flatten_array_object(restriction_on_landownership, 'Geometry', 'ResponsibleOffice')
             self._localised_text(restriction_on_landownership, 'Theme_Text')
             self._localised_text(restriction_on_landownership, 'Lawstatus_Text')
@@ -308,8 +308,7 @@ class Renderer(JsonRenderer):
         # One restriction entry per theme
         theme_restriction = {}
         text_element = [
-            'Information', 'Lawstatus_Code', 'Lawstatus_Text', 'ResponsibleOffice_Name',
-            'ResponsibleOffice_OfficeAtWeb', 'SymbolRef', 'TypeCode'
+            'Information', 'Lawstatus_Code', 'Lawstatus_Text', 'SymbolRef', 'TypeCode'
         ]
         legend_element = [
             'TypeCode', 'TypeCodelist', 'AreaShare', 'PartInPercent', 'LengthShare',
