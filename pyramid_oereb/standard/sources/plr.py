@@ -483,7 +483,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             or_(*distinct_type_code_view_service_tuples)
         ).all()
 
-    def read(self, real_estate, bbox, position):
+    def read(self, real_estate, bbox, position=None):
         """
         The read point which creates a extract, depending on a passed real estate.
 
