@@ -167,11 +167,12 @@
 <div class="viewcode-block" id="ThemeRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.theme.ThemeRecord">[docs]</a><span class="k">class</span> <span class="nc">ThemeRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Creates a new theme record.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ThemeRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.theme.ThemeRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+<div class="viewcode-block" id="ThemeRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.theme.ThemeRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            code (unicode): The theme&#39;s code.</span>
 <span class="sd">            text (dict of unicode): The multilingual description.</span>
+<span class="sd">            position (int or None): Position of the theme (within the list of themes)</span>
 <span class="sd">            data_owner (pyramid_oereb.lib.records.office.OfficeRecord):</span>
 <span class="sd">            transfer_from_source (datetime.date): The actuality of the themes data</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -179,10 +180,12 @@
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;text&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="n">code</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span></div>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1"> -- code: </span><span class="si">{}</span><span class="s1"> text: </span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1"> -- code: </span><span class="si">{}</span><span class="s1"> text: </span><span class="si">{}</span><span class="s1"> position: </span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                                                               <span class="bp">self</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

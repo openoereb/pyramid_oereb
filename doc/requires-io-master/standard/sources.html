@@ -521,7 +521,7 @@ representation which is used for comparison.</li>
 
 <dl class="method">
 <dt id="pyramid_oereb.standard.sources.plr.DatabaseSource.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>real_estate</em>, <em>bbox</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/sources/plr.html#DatabaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.sources.plr.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>real_estate</em>, <em>bbox</em>, <em>position=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/sources/plr.html#DatabaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.sources.plr.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The read point which creates a extract, depending on a passed real estate.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -531,6 +531,7 @@ representation which is used for comparison.</li>
 <li><strong>real_estate</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real
 estate in its record representation.</li>
 <li><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The bbox to search the records.</li>
+<li><strong>position</strong> (<em>int</em><em> or </em><em>None</em>) &#8211; relative position of the plr (within a list of plrs)</li>
 </ul>
 </td>
 </tr>

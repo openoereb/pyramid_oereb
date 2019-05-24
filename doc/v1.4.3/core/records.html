@@ -1711,12 +1711,12 @@ service to be used for the land registry map.</td>
 <span id="api-pyramid-oereb-lib-records-theme-themerecord"></span><h2><em>ThemeRecord</em><a class="headerlink" href="#themerecord" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyramid_oereb.lib.records.theme.ThemeRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.theme.</code><code class="descname">ThemeRecord</code><span class="sig-paren">(</span><em>code</em>, <em>text</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/theme.html#ThemeRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.theme.ThemeRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.theme.</code><code class="descname">ThemeRecord</code><span class="sig-paren">(</span><em>code</em>, <em>text</em>, <em>position=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/theme.html#ThemeRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.theme.ThemeRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Creates a new theme record.</p>
 <dl class="method">
 <dt id="pyramid_oereb.lib.records.theme.ThemeRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>code</em>, <em>text</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/theme.html#ThemeRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.theme.ThemeRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>code</em>, <em>text</em>, <em>position=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/theme.html#ThemeRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.theme.ThemeRecord.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1724,6 +1724,7 @@ service to be used for the land registry map.</td>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>code</strong> (<em>unicode</em>) &#8211; The theme&#8217;s code.</li>
 <li><strong>text</strong> (<em>dict of unicode</em>) &#8211; The multilingual description.</li>
+<li><strong>position</strong> (<em>int</em><em> or </em><em>None</em>) &#8211; Position of the theme (within the list of themes)</li>
 <li><strong>data_owner</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.office.OfficeRecord" title="pyramid_oereb.lib.records.office.OfficeRecord"><em>pyramid_oereb.lib.records.office.OfficeRecord</em></a>) &#8211; </li>
 <li><strong>transfer_from_source</strong> (<em>datetime.date</em>) &#8211; The actuality of the themes data</li>
 </ul>
@@ -1967,6 +1968,7 @@ should be append to the list.</td>
         <dl>
             <dt>Branches</dt>
             <dd><a href="../../master/core/records.html">master</a></dd>
+            <dd><a href="../../requires-io-master/core/records.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>
