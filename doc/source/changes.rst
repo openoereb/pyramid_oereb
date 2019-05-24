@@ -15,13 +15,14 @@ Version 1.5.0
 The main focus of this release are improvements for the PDF generation with mapfish print, but it also other changes,
 bug-fixes and regular maintenance.
 
-.. TODO: https://github.com/openoereb/pyramid_oereb/pull/831
-.. TODO: https://github.com/openoereb/pyramid_oereb/pull/841
+MapFish-Print related changes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* MapFish-Print templates have been moved to their `own repository <https://github.com/openoereb/pyramid_oereb_mfp>`__.
+* Additional URL parameters for WMS calls can now be configured (PR#831)
+* Certification section can now be disabled in the configuration (PR#841)
 
-
-PDF/A conformance
-^^^^^^^^^^^^^^^^^
-
+MapFish-Print PDF/A conformance
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 For mapfish print PDFs, PDF/A conformance is now enabled by default (PR#852). This is likely to break PDF export on
 existing data. To fix your configuration and data look for the following issues:
 
