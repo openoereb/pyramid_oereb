@@ -10,7 +10,7 @@ class ThemeRecord(object):
         Args:
             code (unicode): The theme's code.
             text (dict of unicode): The multilingual description.
-            position: Position of the theme (within the list of themes)
+            position (int or None): Position of the theme (within the list of themes)
             data_owner (pyramid_oereb.lib.records.office.OfficeRecord):
             transfer_from_source (datetime.date): The actuality of the themes data
         """
