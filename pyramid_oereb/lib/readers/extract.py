@@ -141,8 +141,7 @@ class ExtractReader(object):
 
         if municipality.published:
 
-            position = 1
-            for plr_source in self._plr_sources_:
+            for position, plr_source in enumerate(self._plr_sources_, start=1):
                 if not params.skip_topic(plr_source.info.get('code')):
                     log.debug("read() going to read from plr_source {}".format(plr_source))
                     plr_source.read(real_estate, bbox, position)
@@ -151,7 +150,6 @@ class ExtractReader(object):
                         if not params.skip_topic(ds.theme.code):
                             datasource.append(ds)
                     real_estate.public_law_restrictions.extend(plr_source.records)
-                position += 1
 
             for plr in real_estate.public_law_restrictions:
 
