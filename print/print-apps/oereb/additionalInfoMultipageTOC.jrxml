@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
+<!-- 2019-05-24T14:23:19 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TocReport main" pageWidth="595" pageHeight="842" columnWidth="493" leftMargin="51" rightMargin="51" topMargin="28" bottomMargin="20" whenResourceMissingType="Empty" uuid="6e74177b-d551-4a75-ae51-6cdde3f284ce">
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -152,7 +153,6 @@
 	</pageHeader>
 	<columnHeader>
 		<band height="113">
-			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<textField>
 				<reportElement x="0" y="60" width="493" height="22" uuid="fa52aeda-5e82-410d-9ef5-cc1a9443f5a5">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
@@ -163,15 +163,9 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{TableofContentLabel}]]></textFieldExpression>
 			</textField>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="63">
-			<property name="local_mesure_unitheight" value="pixel"/>
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="0" y="28" width="493" height="15" uuid="26bc8336-77bd-4624-92a9-58bb947c6098">
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				<reportElement x="0" y="97" width="493" height="15" uuid="26bc8336-77bd-4624-92a9-58bb947c6098">
+					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 				</reportElement>
 				<box>
 					<bottomPen lineWidth="0.2"/>
@@ -181,11 +175,17 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{Topicsnotaffectingtherealestate}]]></textFieldExpression>
 			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<property name="local_mesure_unitheight" value="pixel"/>
 			<subreport>
-				<reportElement x="0" y="48" width="493" height="15" isPrintWhenDetailOverflows="true" uuid="285be929-4832-42d1-907e-8ad64f1ff057">
+				<reportElement x="0" y="5" width="493" height="15" isPrintWhenDetailOverflows="true" uuid="285be929-4832-42d1-907e-8ad64f1ff057">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<dataSourceExpression><![CDATA[$P{NotConcernedThemeDataSource}]]></dataSourceExpression>
 				<subreportExpression><![CDATA["themelist.jasper"]]></subreportExpression>
