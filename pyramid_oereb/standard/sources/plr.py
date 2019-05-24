@@ -491,6 +491,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate in its record representation.
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
+            position: relative position of the plr (within a list of plrs)
         """
         log.debug("read() start; position of theme in theme list: {}".format(position))
         self._theme_record.position = position
