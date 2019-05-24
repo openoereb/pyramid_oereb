@@ -128,9 +128,6 @@ class Processor(object):
         real_estate.public_law_restrictions = self.get_legend_entries(inside_plrs, outside_plrs)
         return extract
 
-    def sortfunc(elem):
-        return elem[len(elem - 1)]
-
     @staticmethod
     def view_service_handling(real_estate, images, format):
         """

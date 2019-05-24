@@ -63,7 +63,7 @@ class Config(object):
         result = []
         plrs = Config._config.get('plrs')
         if plrs and isinstance(plrs, list):
-            position = 0
+            position = 1
             for theme in plrs:
                 result.append(ThemeRecord(
                     theme.get('code'),
