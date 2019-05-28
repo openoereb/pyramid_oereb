@@ -8,11 +8,10 @@ services:
     build: test-db
     image: camptocamp/oereb-db-dev
 
-  print:
-    build: print
-    image: camptocamp/oereb-print-dev
-
   wsgi:
+    networks:
+    - default
+    - print-network
     build: .
     image: camptocamp/oereb-wsgi
     ports:
@@ -25,3 +24,7 @@ services:
     - POSTGRES_SERVICE_HOST=db
     - POSTGRES_SERVICE_PORT=5432
     - POSTGRES_SERVICE_DATABASE=pyramid_oereb
+
+networks:
+  print-network:
+    external: true
