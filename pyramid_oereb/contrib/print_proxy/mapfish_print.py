@@ -382,8 +382,8 @@ class Renderer(JsonRenderer):
 
             # add additional ResponsibleOffice to theme if it not already exists there
             new_responsible_office = restriction_on_landownership['ResponsibleOffice'][0]
-            if len(list(filter(lambda office: office['Name'] == new_responsible_office['Name'],
-                               current['ResponsibleOffice']))) == 0:
+            existing_office_names = list(map(lambda o: o['Name'], current['ResponsibleOffice']))
+            if new_responsible_office['Name'] not in existing_office_names:
                 current['ResponsibleOffice'].append(new_responsible_office)
 
             # Text
