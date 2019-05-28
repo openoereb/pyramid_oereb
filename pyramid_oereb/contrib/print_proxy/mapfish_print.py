@@ -86,6 +86,10 @@ class Renderer(JsonRenderer):
             'display_certification', True
         )
 
+        extract_as_dict['MultiPageTOC'] = print_config.get(
+            'multi_page_TOC', False
+        )
+
         spec = {
             'layout': Config.get('print', {})['template_name'],
             'outputFormat': 'pdf',
