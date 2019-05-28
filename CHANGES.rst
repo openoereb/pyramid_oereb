@@ -4,17 +4,17 @@ Changelog
 
 1.5.0
 *****
-- Fixed a number formatting problem in the legend list (mapfish print, GitHub issue 824, pull request 826)
+- Fixed a number formatting problem in the legend list (Mapfish Print, GitHub issue 824, pull request 826)
 - Fixed an encoding issue for PLR records (GitHub pull request 828)
-- Allow configuration of custom parameters for WMS calls in mapfish print (GitHub pull request 831)
-- Section 'Certification' is now optional, can be configured in the mapfish print config (GitHub pull request 841)
-- Only prints the PLR section of the PDF if at least one PLR is available (mapfish print, GitHub pull request 846)
-- Various layout fixes in the table of contents of the mapfish print PDF (GitHub pull requests 842, 856, 859)
-- Legends are now sorted by geometry type and value (mapfish print, GitHub pull request 851)
-- PDF/A conformance enabled by default (mapfish print, GitHub pull request 852)
+- Allow configuration of custom parameters for WMS calls in Mapfish Print (GitHub pull request 831)
+- Section 'Certification' is now optional, can be configured in the Mapfish Print config (GitHub pull request 841)
+- Only prints the PLR section of the PDF if at least one PLR is available (Mapfish Print, GitHub pull request 846)
+- Various layout fixes in the table of contents of the Mapfish Print PDF (GitHub pull requests 842, 856, 859)
+- Legends are now sorted by geometry type and value (Mapfish Print, GitHub pull request 851)
+- PDF/A conformance enabled by default (Mapfish Print, GitHub pull request 852)
 - In the XML output, LengthShare and NrOfPoints elements were moved to their correct place (GitHub issue 834, GitHub pull request 854)
 - Optimized theme sorting (GitHub issue 443, GitHub pull request 858)
-- Updated mapfish print to 3.20.0
+- Updated Mapfish Print to 3.20.0
 - Dependency updates, better test coverage
 
 1.4.3
