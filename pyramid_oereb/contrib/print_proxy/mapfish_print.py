@@ -241,12 +241,14 @@ class Renderer(JsonRenderer):
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
             self._flatten_object(restriction_on_landownership, 'Lawstatus')
             self._flatten_object(restriction_on_landownership, 'Theme')
-            self._flatten_object(restriction_on_landownership, 'ResponsibleOffice')
             self._flatten_array_object(restriction_on_landownership, 'Geometry', 'ResponsibleOffice')
             self._localised_text(restriction_on_landownership, 'Theme_Text')
             self._localised_text(restriction_on_landownership, 'Lawstatus_Text')
             self._multilingual_m_text(restriction_on_landownership, 'Information')
-            self._multilingual_text(restriction_on_landownership, 'ResponsibleOffice_Name')
+
+            self._multilingual_text(restriction_on_landownership['ResponsibleOffice'], 'Name')
+            restriction_on_landownership['ResponsibleOffice'] = \
+                [restriction_on_landownership['ResponsibleOffice']]
 
             url, params = parse_url(restriction_on_landownership['Map']['ReferenceWMS'])
             restriction_on_landownership['baseLayers'] = {
@@ -312,8 +314,7 @@ class Renderer(JsonRenderer):
         # One restriction entry per theme
         theme_restriction = {}
         text_element = [
-            'Information', 'Lawstatus_Code', 'Lawstatus_Text', 'ResponsibleOffice_Name',
-            'ResponsibleOffice_OfficeAtWeb', 'SymbolRef', 'TypeCode'
+            'Information', 'Lawstatus_Code', 'Lawstatus_Text', 'SymbolRef', 'TypeCode'
         ]
         legend_element = [
             'TypeCode', 'TypeCodelist', 'AreaShare', 'PartInPercent', 'LengthShare',
@@ -378,6 +379,12 @@ class Renderer(JsonRenderer):
                     current[element].update(restriction_on_landownership[element])
                 elif restriction_on_landownership.get(element) is not None:
                     current[element] = restriction_on_landownership[element]
+
+            # add additional ResponsibleOffice to theme if it not already exists there
+            new_responsible_office = restriction_on_landownership['ResponsibleOffice'][0]
+            existing_office_names = list(map(lambda o: o['Name'], current['ResponsibleOffice']))
+            if new_responsible_office['Name'] not in existing_office_names:
+                current['ResponsibleOffice'].append(new_responsible_office)
 
             # Text
             for element in text_element:
