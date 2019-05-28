@@ -11,6 +11,7 @@ Changelog
 - Only prints the PLR section of the PDF if at least one PLR is available (Mapfish Print, GitHub pull request 846)
 - Various layout fixes in the table of contents of the Mapfish Print PDF (GitHub pull requests 842, 856, 859)
 - Legends are now sorted by geometry type and value (Mapfish Print, GitHub pull request 851)
+- Multiple ResponsibleOffices per theme are now rendered correctly (Mapfish Print, GitHub issue 651, pull request 865)
 - PDF/A conformance enabled by default (Mapfish Print, GitHub pull request 852)
 - In the XML output, LengthShare and NrOfPoints elements were moved to their correct place (GitHub issue 834, GitHub pull request 854)
 - Optimized theme sorting (GitHub issue 443, GitHub pull request 858)
