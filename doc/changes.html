@@ -95,6 +95,13 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-5-0">Version 1.5.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mapfish-print-related-changes">MapFish Print related changes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mapfish-print-pdf-a-conformance">MapFish Print PDF/A conformance</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-4-3">Version 1.4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-4-2">Version 1.4.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-4-1">Version 1.4.1</a></li>
@@ -196,9 +203,47 @@
             
   <div class="section" id="changes-hints-for-migration">
 <span id="changes"></span><h1>Changes/Hints for migration<a class="headerlink" href="#changes-hints-for-migration" title="Permalink to this headline">¶</a></h1>
-<p>This section will give you hints how to handle version migration. Since the project moves forward it will
-introduce differences in the yml configuration file. So it would not be enough to simply install the newest
-version. Often a version upgrade changes or adds parameters which are used.</p>
+<p>This chapter will give you hints on how to handle version migration, in particular regarding what you may need
+to adapt in your project configuration, database etc. when upgrading to a new version.</p>
+<div class="section" id="version-1-5-0">
+<span id="changes-version-1-5-0"></span><h2>Version 1.5.0<a class="headerlink" href="#version-1-5-0" title="Permalink to this headline">¶</a></h2>
+<p>The main focus of this release is improvements for the PDF generation with MapFish Print. In addition, there are
+some minor changes, bug-fixes and regular maintenance. If you are not using MapFish Print, you can upgrade to
+this version without changing your project setup as compared to version <a class="reference internal" href="#changes-version-1-4-3"><span class="std std-ref">Version 1.4.3</span></a>.
+If you are using MapFish Print, please read the following subsection carefully when upgrading your version.</p>
+<div class="section" id="mapfish-print-related-changes">
+<h3>MapFish Print related changes<a class="headerlink" href="#mapfish-print-related-changes" title="Permalink to this headline">¶</a></h3>
+<p>This section lists those improvements for the PDF generation (when using MapFish Print) for which a change in your
+project setup is necessary:</p>
+<ul class="simple">
+<li>MapFish Print configuration and templates have been moved to their
+<a class="reference external" href="https://github.com/openoereb/pyramid_oereb_mfp">own repository</a>.</li>
+<li>Additional URL parameters for WMS calls can now be configured (PR#831)</li>
+<li>Certification section can now be disabled in the configuration (PR#841)</li>
+<li>In some cases, the table of contents is longer than one page, however, the federal specification does not foresee
+this situation. In previous releases, this lead to wrong page numbers displayed in the table of contents.
+PR#859 provides a solution by introducing <code class="docutils literal"><span class="pre">multi_page_TOC</span></code> property in the <code class="docutils literal"><span class="pre">print</span></code> section of the
+configuration. If you set this property to <code class="docutils literal"><span class="pre">true</span></code> (see <code class="docutils literal"><span class="pre">pyramid_oereb/standard/pyramid_oereb.yml.mako</span></code> as
+an example), this will split the table of contents into separate pages: one for the available themes and another
+page for the remaining content of the table of content page. This feature is disabled by default.</li>
+<li>The Oereb PDF produced by MapFish Print is now PDF/A compliant; please see the following section for details.</li>
+</ul>
+<div class="section" id="mapfish-print-pdf-a-conformance">
+<h4>MapFish Print PDF/A conformance<a class="headerlink" href="#mapfish-print-pdf-a-conformance" title="Permalink to this headline">¶</a></h4>
+<p>For MapFish Print PDF files, PDF/A conformance is now enabled by default (PR#852). This is likely to break PDF printing
+in existing installations. To fix your configuration and data, make the following adaptations:</p>
+<ul class="simple">
+<li>All images (like logos for canton, confederation, municipality and OEREB) must not contain any transparency. If you
+use PNG, make sure to remove the alpha channel.</li>
+<li>Custom formatting may not include color values with transparency. For example, change all RGBA color values to RGB.</li>
+<li>If you use other fonts than Cadastra, make sure they are added as a jasperreports font package in
+<code class="docutils literal"><span class="pre">print/WEB-INF/lib/</span></code>.</li>
+</ul>
+<p>You can disable PDF/A conformance by deleting the <code class="docutils literal"><span class="pre">net.sf.jasperreports.export.pdfa.conformance</span></code> property in
+<code class="docutils literal"><span class="pre">print/print-apps/oereb/pdfextract.jrxml</span></code>.</p>
+</div>
+</div>
+</div>
 <div class="section" id="version-1-4-3">
 <span id="changes-version-1-4-3"></span><h2>Version 1.4.3<a class="headerlink" href="#version-1-4-3" title="Permalink to this headline">¶</a></h2>
 <p>This is a maintenance and bug-fix release.</p>
