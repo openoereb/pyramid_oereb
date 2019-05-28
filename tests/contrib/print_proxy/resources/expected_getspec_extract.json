@@ -88,7 +88,6 @@
         }
       ],
       "SubTheme": "02.73A.Grundnutzung",
-      "ResponsibleOffice_OfficeAtWeb": "http://www.birsfelden.ch\nhttp://www.arp.bl.ch",
       "baseLayers": {
         "layers": [
           {
@@ -125,6 +124,16 @@
       "legend": "http://dev2.geoview.bl.ch/vvmruder/oereb/custom_legend_at_web/LandUsePlans.png",
       "Geom_Type": "AreaShare",
       "Laws": [],
+      "ResponsibleOffice": [
+        {
+          "OfficeAtWeb": "http://www.arp.bl.ch",
+          "Name": "Amt für Raumplanung BL"
+        },
+        {
+          "OfficeAtWeb": "http://www.birsfelden.ch",
+          "Name": "Gemeinde Birsfelden"
+        }
+      ],
       "OtherLegend": [
         {
           "TypeCode": "354000",
@@ -228,7 +237,6 @@
         }
       ],
       "Lawstatus_Text": "in Kraft",
-      "ResponsibleOffice_Name": "Amt f\u00fcr Raumplanung BL\nGemeinde Birsfelden",
       "Legend": [
         {
           "PartInPercent": "73.0%",
@@ -329,7 +337,6 @@
           "ResponsibleOffice_Name": "Landeskanzlei"
         }
       ],
-      "ResponsibleOffice_OfficeAtWeb": "http://www.aue.bl.ch",
       "baseLayers": {
         "layers": [
           {
@@ -366,6 +373,12 @@
       "legend": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
       "Geom_Type": "AreaShare",
       "Laws": [],
+      "ResponsibleOffice": [
+        {
+          "OfficeAtWeb": "http://www.aue.bl.ch",
+          "Name": "Amt für Umweltschutz und Energie BL"
+        }
+      ],
       "OtherLegend": [
         {
           "TypeCode": "StaoTyp1_StatusAltlV1",
@@ -389,7 +402,6 @@
         }
       ],
       "Lawstatus_Text": "in Kraft",
-      "ResponsibleOffice_Name": "Amt f\u00fcr Umweltschutz und Energie BL",
       "Legend": [
         {
           "PartInPercent": "51.8%",
@@ -467,7 +479,6 @@
           "ResponsibleOffice_Name": "Bundeskanzlei"
         }
       ],
-      "ResponsibleOffice_OfficeAtWeb": "http://www.birsfelden.ch",
       "baseLayers": {
         "layers": [
           {
@@ -504,6 +515,12 @@
       "legend": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_laermempfindlichkeitsstufen&FORMAT=image/png",
       "Geom_Type": "AreaShare",
       "Laws": [],
+      "ResponsibleOffice": [
+        {
+          "OfficeAtWeb": "http://www.birsfelden.ch",
+          "Name": "Gemeinde Birsfelden"
+        }
+      ],
       "OtherLegend": [
         {
           "TypeCode": "ES_II",
@@ -517,7 +534,6 @@
         }
       ],
       "Lawstatus_Text": "in Kraft",
-      "ResponsibleOffice_Name": "Gemeinde Birsfelden",
       "Legend": [
         {
           "PartInPercent": "73.0%",
