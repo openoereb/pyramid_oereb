@@ -20,6 +20,11 @@ MapFish-Print related changes
 * MapFish-Print templates have been moved to their `own repository <https://github.com/openoereb/pyramid_oereb_mfp>`__.
 * Additional URL parameters for WMS calls can now be configured (PR#831)
 * Certification section can now be disabled in the configuration (PR#841)
+* In some cases, the table of content page is longer than one page. This leads to wrong page numbers displayed in the
+  table of contents. PR#859 provides a workaround until a better solution is found. To enable it, set the
+  ``multi_page_TOC`` property in your print config to ``true`` (see ``pyramid_oereb/standard/pyramid_oereb.yml.mako`` as
+  an example). This mode splits the table of contents into to separate pages. One for the available themes and another
+  page for the remaining content of the table of content page. This feature is disabled by default.
 
 MapFish-Print PDF/A conformance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

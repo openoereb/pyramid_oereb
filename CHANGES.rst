@@ -9,7 +9,7 @@ Changelog
 - Allow configuration of custom parameters for WMS calls in mapfish print (GitHub pull request 831)
 - Section 'Certification' is now optional, can be configured in the mapfish print config (GitHub pull request 841)
 - Only prints the PLR section of the PDF if at least one PLR is available (mapfish print, GitHub pull request 846)
-- Various layout fixes in the table of contents of the mapfish print PDF (GitHub pull requests 842, 856)
+- Various layout fixes in the table of contents of the mapfish print PDF (GitHub pull requests 842, 856, 859)
 - Legends are now sorted by geometry type and value (mapfish print, GitHub pull request 851)
 - PDF/A conformance enabled by default (mapfish print, GitHub pull request 852)
 - In the XML output, LengthShare and NrOfPoints elements were moved to their correct place (GitHub issue 834, GitHub pull request 854)
