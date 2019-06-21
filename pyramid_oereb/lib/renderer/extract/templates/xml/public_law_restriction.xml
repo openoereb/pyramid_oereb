@@ -39,10 +39,10 @@
     <data:AreaShare>${public_law_restriction.area_share}</data:AreaShare>
     %endif
     %if public_law_restriction.length_share:
-    <LengthShare>${public_law_restriction.length_share}</LengthShare>
+    <data:LengthShare>${public_law_restriction.length_share}</data:LengthShare>
     %endif
     %if public_law_restriction.nr_of_points:
-    <NrOfPoints>${public_law_restriction.nr_of_points}</NrOfPoints>
+    <data:NrOfPoints>${public_law_restriction.nr_of_points}</data:NrOfPoints>
     %endif
     %if public_law_restriction.part_in_percent:
     <data:PartInPercent>${public_law_restriction.part_in_percent}</data:PartInPercent>
