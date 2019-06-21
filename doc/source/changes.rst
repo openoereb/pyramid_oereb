@@ -42,8 +42,9 @@ in existing installations. To fix your configuration and data, make the followin
 
 * Custom formatting may not include color values with transparency. For example, change all RGBA color values to RGB.
 
-* If you use other fonts than Cadastra, make sure they are added as a jasperreports font package in
-  ``print/WEB-INF/lib/``.
+* All fonts have to be included as a font package, otherwise jasperreports will raise an exception. Place all your font
+  packages in ``print/WEB-INF/lib/``. You can find the required Cadastra font package (Cadastra.jar)
+  `here <https://github.com/mapfish/mapfish-print/tree/master/core/docker/usr/local/tomcat/webapps/ROOT/WEB-INF/lib>`__.
 
 You can disable PDF/A conformance by deleting the ``net.sf.jasperreports.export.pdfa.conformance`` property in
 ``print/print-apps/oereb/pdfextract.jrxml``.
