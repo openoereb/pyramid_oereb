@@ -22,6 +22,7 @@ project setup is necessary:
 
 * MapFish Print configuration and templates have been moved to their
   `own repository <https://github.com/openoereb/pyramid_oereb_mfp>`__.
+  Be sure to check the version requirements stated on that project page.
 * Additional URL parameters for WMS calls can now be configured (PR#831)
 * Certification section can now be disabled in the configuration (PR#841)
 * In some cases, the table of contents is longer than one page, however, the federal specification does not foresee
@@ -41,9 +42,6 @@ in existing installations. To fix your configuration and data, make the followin
   use PNG, make sure to remove the alpha channel.
 
 * Custom formatting may not include color values with transparency. For example, change all RGBA color values to RGB.
-
-* If you use other fonts than Cadastra, make sure they are added as a jasperreports font package in
-  ``print/WEB-INF/lib/``.
 
 You can disable PDF/A conformance by deleting the ``net.sf.jasperreports.export.pdfa.conformance`` property in
 ``print/print-apps/oereb/pdfextract.jrxml``.

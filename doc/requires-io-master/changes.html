@@ -217,7 +217,8 @@ If you are using MapFish Print, please read the following subsection carefully w
 project setup is necessary:</p>
 <ul class="simple">
 <li>MapFish Print configuration and templates have been moved to their
-<a class="reference external" href="https://github.com/openoereb/pyramid_oereb_mfp">own repository</a>.</li>
+<a class="reference external" href="https://github.com/openoereb/pyramid_oereb_mfp">own repository</a>.
+Be sure to check the version requirements stated on that project page.</li>
 <li>Additional URL parameters for WMS calls can now be configured (PR#831)</li>
 <li>Certification section can now be disabled in the configuration (PR#841)</li>
 <li>In some cases, the table of contents is longer than one page, however, the federal specification does not foresee
@@ -236,8 +237,6 @@ in existing installations. To fix your configuration and data, make the followin
 <li>All images (like logos for canton, confederation, municipality and OEREB) must not contain any transparency. If you
 use PNG, make sure to remove the alpha channel.</li>
 <li>Custom formatting may not include color values with transparency. For example, change all RGBA color values to RGB.</li>
-<li>If you use other fonts than Cadastra, make sure they are added as a jasperreports font package in
-<code class="docutils literal"><span class="pre">print/WEB-INF/lib/</span></code>.</li>
 </ul>
 <p>You can disable PDF/A conformance by deleting the <code class="docutils literal"><span class="pre">net.sf.jasperreports.export.pdfa.conformance</span></code> property in
 <code class="docutils literal"><span class="pre">print/print-apps/oereb/pdfextract.jrxml</span></code>.</p>
