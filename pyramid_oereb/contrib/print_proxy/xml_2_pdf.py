@@ -7,10 +7,6 @@ from pyramid.exceptions import ConfigurationError
 from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import Config
 from pyramid_oereb.lib.renderer.extract.xml_ import Renderer as XmlRenderer
-if sys.version_info.major == 2:
-    import urlparse
-else:
-    from urllib import parse as urlparse
 
 
 log = logging.getLogger(__name__)
