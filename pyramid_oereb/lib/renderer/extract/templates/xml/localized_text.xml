@@ -13,4 +13,3 @@
 %else:
 <data:Text>${localized_text.get('Text')}</data:Text>
 % endif
-
