@@ -13,25 +13,6 @@ log = logging.getLogger(__name__)
 
 class Renderer(XmlRenderer):
 
-    print_config = Config.get('print', {})
-    if not print_config:
-        raise ConfigurationError('No print config section in config file was found.')
-    print_service_url = print_config.get('base_url', '')
-    if not print_service_url:
-        raise ConfigurationError('No print service url ("base_url") was found in the config.')
-    print_service_token = print_config.get('token', '')
-    if not print_service_token:
-        raise ConfigurationError('No print service token ("token") was found in the config.')
-    headers = {
-        'token': print_service_token
-    }
-    parameters = {
-        'validate': print_config.get('validate', 'false'),
-        'usewms': print_config.get('use_wms', 'false'),
-        'flavour': 'reduced',
-        'language': Config.get('default_language'),
-    }
-
     def __call__(self, value, system):
         """
         Implements a subclass of pyramid_oereb.lib.renderer.extract.json_.Renderer to create a print result
@@ -45,6 +26,25 @@ class Renderer(XmlRenderer):
         Returns:
             buffer: The pdf content as received from configured mapfish print instance url.
         """
+        print_config = Config.get('print', {})
+        if not print_config:
+            raise ConfigurationError('No print config section in config file was found.')
+        print_service_url = print_config.get('base_url', '')
+        if not print_service_url:
+            raise ConfigurationError('No print service url ("base_url") was found in the config.')
+        print_service_token = print_config.get('token', '')
+        if not print_service_token:
+            raise ConfigurationError('No print service token ("token") was found in the config.')
+        headers = {
+            'token': print_service_token
+        }
+        parameters = {
+            'validate': print_config.get('validate', 'false'),
+            'usewms': print_config.get('use_wms', 'false'),
+            'flavour': 'reduced',
+            'language': Config.get('default_language'),
+        }
+
         log.debug("Parameter webservice is {}".format(value[1]))
 
         if value[1].images:
