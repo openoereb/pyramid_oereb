@@ -7,11 +7,15 @@
             %endfor
         </gml:LinearRing>
     </gml:exterior>
+    %if len(polygon.interiors) > 0:
     <gml:interior>
+        %for linear_ring in polygon.interiors:
         <gml:LinearRing>
-            %for position in polygon.exterior.coords:
+            %for position in linear_ring.coords:
             <gml:pos>${position[0]} ${position[1]}</gml:pos>
             %endfor
         </gml:LinearRing>
+        %endfor
     </gml:interior>
+    %endif
 </gml:Polygon>

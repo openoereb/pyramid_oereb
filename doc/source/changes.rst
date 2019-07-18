@@ -3,9 +3,48 @@
 Changes/Hints for migration
 ===========================
 
-This section will give you hints how to handle version migration. Since the project moves forward it will
-introduce differences in the yml configuration file. So it would not be enough to simply install the newest
-version. Often a version upgrade changes or adds parameters which are used.
+This chapter will give you hints on how to handle version migration, in particular regarding what you may need
+to adapt in your project configuration, database etc. when upgrading to a new version.
+
+.. _changes-version-1.5.0:
+
+Version 1.5.0
+-------------
+The main focus of this release is improvements for the PDF generation with MapFish Print. In addition, there are
+some minor changes, bug-fixes and regular maintenance. If you are not using MapFish Print, you can upgrade to
+this version without changing your project setup as compared to version :ref:`changes-version-1.4.3`.
+If you are using MapFish Print, please read the following subsection carefully when upgrading your version.
+
+MapFish Print related changes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+This section lists those improvements for the PDF generation (when using MapFish Print) for which a change in your
+project setup is necessary:
+
+* MapFish Print configuration and templates have been moved to their
+  `own repository <https://github.com/openoereb/pyramid_oereb_mfp>`__.
+  Be sure to check the version requirements stated on that project page.
+* Additional URL parameters for WMS calls can now be configured (PR#831)
+* Certification section can now be disabled in the configuration (PR#841)
+* In some cases, the table of contents is longer than one page, however, the federal specification does not foresee
+  this situation. In previous releases, this lead to wrong page numbers displayed in the table of contents.
+  PR#859 provides a solution by introducing ``multi_page_TOC`` property in the ``print`` section of the
+  configuration. If you set this property to ``true`` (see ``pyramid_oereb/standard/pyramid_oereb.yml.mako`` as
+  an example), this will split the table of contents into separate pages: one for the available themes and another
+  page for the remaining content of the table of content page. This feature is disabled by default.
+* The Oereb PDF produced by MapFish Print is now PDF/A compliant; please see the following section for details.
+
+MapFish Print PDF/A conformance
+"""""""""""""""""""""""""""""""
+For MapFish Print PDF files, PDF/A conformance is now enabled by default (PR#852). This is likely to break PDF printing
+in existing installations. To fix your configuration and data, make the following adaptations:
+
+* All images (like logos for canton, confederation, municipality and OEREB) must not contain any transparency. If you
+  use PNG, make sure to remove the alpha channel.
+
+* Custom formatting may not include color values with transparency. For example, change all RGBA color values to RGB.
+
+You can disable PDF/A conformance by deleting the ``net.sf.jasperreports.export.pdfa.conformance`` property in
+``print/print-apps/oereb/pdfextract.jrxml``.
 
 
 .. _changes-version-1.4.3:
