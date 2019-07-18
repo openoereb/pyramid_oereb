@@ -7,5 +7,9 @@
         from urllib import parse as urlparse
     localized_text = localized(text)
 %>
+% if urlparse.urlparse(localized_text.get('Text')).scheme:
+<data:Text>${localized_text.get('Text')|u}</data:Text>
+%else:
 <data:Language>${localized_text.get('Language')}</data:Language>
+%endif
 <data:Text>${localized_text.get('Text')}</data:Text>

@@ -3,13 +3,13 @@
 <data:Image>${map.image.encode()}</data:Image>
 %endif
 %if map.reference_wms:
-<data:ReferenceWMS>${map.reference_wms}</data:ReferenceWMS>
+<data:ReferenceWMS>${map.reference_wms|u}</data:ReferenceWMS>
 %endif
 %if map.legend_at_web:
 <%
     localized_legend_at_web = localized(map.legend_at_web)
 %>
-<data:LegendAtWeb>${localized_legend_at_web.get('Text')}</data:LegendAtWeb>
+<data:LegendAtWeb>${localized_legend_at_web.get('Text')|u}</data:LegendAtWeb>
 %endif
 %if map.legends:
 <%
@@ -23,28 +23,28 @@
 %endfor
 %endif
 %if map.min_NS03 is not None:
-<data:min_NS03 xlink:type="simple">
+<data:min_NS03>
     <gml:Point gml:id="${get_gml_id()}">
         <gml:pos>${map.min_NS03.x} ${map.min_NS03.y}</gml:pos>
     </gml:Point>
 </data:min_NS03>
 %endif
 %if map.max_NS03 is not None:
-<data:max_NS03 xlink:type="simple">
+<data:max_NS03>
     <gml:Point gml:id="${get_gml_id()}">
         <gml:pos>${map.max_NS03.x} ${map.max_NS03.y}</gml:pos>
     </gml:Point>
 </data:max_NS03>
 %endif
 %if map.min_NS95 is not None:
-<data:min_NS95 xlink:type="simple">
+<data:min_NS95>
     <gml:Point gml:id="${get_gml_id()}">
         <gml:pos>${map.min_NS95.x} ${map.min_NS95.y}</gml:pos>
     </gml:Point>
 </data:min_NS95>
 %endif
 %if map.max_NS95 is not None:
-<data:max_NS95 xlink:type="simple">
+<data:max_NS95>
     <gml:Point gml:id="${get_gml_id()}">
         <gml:pos>${map.max_NS95.x} ${map.max_NS95.y}</gml:pos>
     </gml:Point>
