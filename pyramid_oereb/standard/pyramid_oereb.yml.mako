@@ -64,10 +64,6 @@ pyramid_oereb:
     # The pyramid renderer which is used as proxy pass through to the desired service for printable static
     # extract. Here you can define the path to the logic which prepares the output as payload for print
     # service and returns the result to the user.
-<% 
-  # FIXME: how to use a variable from outside here?
-  print_backend = 'XML2PDF'
-%>
 % if print_backend == 'XML2PDF':
     # Configuration for XML2PDF print service
     renderer: pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer
