@@ -27,6 +27,22 @@ Print Proxy
 
    .. automethod:: __init__
 
+.. _api-pyramid_oereb-contrib-print_proxy-xml_2_pdf:
+
+.. automodule:: pyramid_oereb.contrib.print_proxy.xml_2_pdf
+
+
+.. _api-pyramid_oereb-contrib-print_proxy-xml_2_pdf-renderer:
+
+*Xml 2 Pdf Renderer*
+^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
 
 
 Sub themes
@@ -70,3 +86,31 @@ have to match exactly, otherwise they will be added at the end. Example configur
                     - First sub theme
                     - Another sub theme
                     - Last sub theme
+
+Print configuration
+-------------------
+
+**XML2PDF**
+
+To properly configure the print service of GISDATEN AG you need to add the following in your yaml file inside
+the print section:
+
+.. code-block:: yaml
+
+    print:
+        renderer: pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer
+        # Base URL with application of the print server
+        base_url: https://oereb-dev.gis-daten.ch/oereb/report/create
+        token: 24ba4328-a306-4832-905d-b979388d4cab
+        use_wms: "true"
+        validate: "false"
+        # The buffer on the map around the parcel in percent
+        buffer: 10
+        # The map size in pixel at 72 DPI (width, height), This is the defined size of a map image
+        # (requested in wms urls) inside the static extract. On a pdf report, tha map size will
+        # be calculated with the pdf_dpi and the pdf_map_size_millimeters below.
+        basic_map_size: [493, 280]
+        # The dpi used to calculate the size of the requested map (for pdf export only).
+        pdf_dpi: 300
+        # The map size (in millimeters) used to calculate the size of the requested map (for pdf export only).
+        pdf_map_size_millimeters: [174, 99]
