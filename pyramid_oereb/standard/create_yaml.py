@@ -31,8 +31,8 @@ def create_standard_yaml():
         dest='print_backend',
         metavar='PRINT_BACKEND',
         type='string',
-        default='MapFish-Print',
-        help='The print backend (for PDF generation) to use (default is: MapFish-Print)'
+        default='MapFishPrint',
+        help='The print backend (for PDF generation) to use (default is: MapFishPrint)'
     )
     options, args = parser.parse_args()
     _create_standard_yaml_config_(name=options.name, database=options.database, print_backend=options.print_backend)
