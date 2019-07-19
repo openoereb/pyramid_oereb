@@ -23,4 +23,4 @@ def test_read():
         **Config.get_exclusion_of_liability_config().get('source').get('params')
     )
     source.read()
-    assert len(source.records) == 0
+    assert len(source.records) == 1

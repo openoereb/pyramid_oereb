@@ -23,6 +23,12 @@ else:
 
 log = logging.getLogger(__name__)
 
+LEGEND_ELEMENT_SORT_ORDER = [
+    'AreaShare',
+    'LengthShare',
+    'NrOfPoints'
+]
+
 
 class Renderer(JsonRenderer):
 
@@ -78,6 +84,10 @@ class Renderer(JsonRenderer):
 
         extract_as_dict['Display_Certification'] = print_config.get(
             'display_certification', True
+        )
+
+        extract_as_dict['MultiPageTOC'] = print_config.get(
+            'multi_page_TOC', False
         )
 
         spec = {
@@ -231,12 +241,14 @@ class Renderer(JsonRenderer):
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
             self._flatten_object(restriction_on_landownership, 'Lawstatus')
             self._flatten_object(restriction_on_landownership, 'Theme')
-            self._flatten_object(restriction_on_landownership, 'ResponsibleOffice')
             self._flatten_array_object(restriction_on_landownership, 'Geometry', 'ResponsibleOffice')
             self._localised_text(restriction_on_landownership, 'Theme_Text')
             self._localised_text(restriction_on_landownership, 'Lawstatus_Text')
             self._multilingual_m_text(restriction_on_landownership, 'Information')
-            self._multilingual_text(restriction_on_landownership, 'ResponsibleOffice_Name')
+
+            self._multilingual_text(restriction_on_landownership['ResponsibleOffice'], 'Name')
+            restriction_on_landownership['ResponsibleOffice'] = \
+                [restriction_on_landownership['ResponsibleOffice']]
 
             url, params = parse_url(restriction_on_landownership['Map']['ReferenceWMS'])
             restriction_on_landownership['baseLayers'] = {
@@ -302,8 +314,7 @@ class Renderer(JsonRenderer):
         # One restriction entry per theme
         theme_restriction = {}
         text_element = [
-            'Information', 'Lawstatus_Code', 'Lawstatus_Text', 'ResponsibleOffice_Name',
-            'ResponsibleOffice_OfficeAtWeb', 'SymbolRef', 'TypeCode'
+            'Information', 'Lawstatus_Code', 'Lawstatus_Text', 'SymbolRef', 'TypeCode'
         ]
         legend_element = [
             'TypeCode', 'TypeCodelist', 'AreaShare', 'PartInPercent', 'LengthShare',
@@ -369,6 +380,12 @@ class Renderer(JsonRenderer):
                 elif restriction_on_landownership.get(element) is not None:
                     current[element] = restriction_on_landownership[element]
 
+            # add additional ResponsibleOffice to theme if it not already exists there
+            new_responsible_office = restriction_on_landownership['ResponsibleOffice'][0]
+            existing_office_names = list(map(lambda o: o['Name'], current['ResponsibleOffice']))
+            if new_responsible_office['Name'] not in existing_office_names:
+                current['ResponsibleOffice'].append(new_responsible_office)
+
             # Text
             for element in text_element:
                 if element in restriction_on_landownership:
@@ -404,8 +421,8 @@ class Renderer(JsonRenderer):
                         legend[item] = legend[item]
             # After transformation, get the new legend entries, sorted by TypeCode
             transformed_legend = \
-                list([transformed_entry for (key, transformed_entry) in sorted(legends.items())])
-            restriction['Legend'] = transformed_legend
+                list([transformed_entry for (key, transformed_entry) in legends.items()])
+            restriction['Legend'] = self._get_sorted_legend(transformed_legend)
 
         sorted_restrictions = []
         if split_sub_themes:
@@ -601,3 +618,43 @@ class Renderer(JsonRenderer):
         sorter = Renderer._load_sorter(sorter_config['module'], sorter_config['class_name'])
         params = sorter_config.get('params', {})
         return sorter, params
+
+    def _get_sorted_legend(self, legend_list):
+        """
+        Sorts list of legends by type (as defined in LEGEND_ELEMENT_SORT_ORDER) and value (ascending order).
+
+        Args:
+            legend_list: list of legend dictionaries
+
+        Returns:
+            sorted list of legend dictionaries
+        """
+        return sorted(legend_list, key=self._sort_legend_elem)
+
+    @staticmethod
+    def _sort_legend_elem(elem):
+        """
+        Provides the sort key for the supplied legend element as a tuple consisting of:
+         * rank of the geometry type as defined in LEGEND_ELEMENT_SORT_ORDER
+         * value of the geometry if available (AreaShare and LengthShare)
+
+        Args:
+            elem (dict): legend entry
+
+        Returns:
+            sort key (tuple)
+        """
+        geom_type = elem['Geom_Type']
+
+        if geom_type in LEGEND_ELEMENT_SORT_ORDER:
+            # Get predefined order
+            category = LEGEND_ELEMENT_SORT_ORDER.index(geom_type)
+        else:
+            # Put elements not found predefined order last
+            category = len(LEGEND_ELEMENT_SORT_ORDER)
+
+        # Use value as secondary criteria if available (defaults to 0 if not available).
+        # Negative value for ascending sort order.
+        value = -elem.get(geom_type, 0)
+
+        return category, value

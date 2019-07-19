@@ -38,6 +38,12 @@
     %if public_law_restriction.area_share:
     <data:AreaShare>${public_law_restriction.area_share}</data:AreaShare>
     %endif
+    %if public_law_restriction.length_share:
+    <data:LengthShare>${public_law_restriction.length_share}</data:LengthShare>
+    %endif
+    %if public_law_restriction.nr_of_points:
+    <data:NrOfPoints>${public_law_restriction.nr_of_points}</data:NrOfPoints>
+    %endif
     %if public_law_restriction.part_in_percent:
     <data:PartInPercent>${public_law_restriction.part_in_percent}</data:PartInPercent>
     %endif
@@ -61,15 +67,11 @@
         <%include file="office.xml" args="office=public_law_restriction.responsible_office"/>
     </data:ResponsibleOffice>
     <data:extensions>
-%if public_law_restriction.area_share:
+%if public_law_restriction.area_share and public_law_restriction.area_unit:
         <AreaUnit>${public_law_restriction.area_unit}</AreaUnit>
 %endif
-%if public_law_restriction.length_share:
-        <LengthShare>${public_law_restriction.length_share}</LengthShare>
+%if public_law_restriction.length_share and public_law_restriction.length_unit:
         <LengthUnit>${public_law_restriction.length_unit}</LengthUnit>
-%endif
-%if public_law_restriction.nr_of_points:
-        <NrOfPoints>${public_law_restriction.nr_of_points}</NrOfPoints>
 %endif
     </data:extensions>
 </data:RestrictionOnLandownership>

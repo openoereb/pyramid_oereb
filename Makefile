@@ -1,5 +1,5 @@
 OPERATING_SYSTEM ?= LINUX
-PYTHON_VERSION ?= python2 # set to python3 if desired
+PYTHON_VERSION ?= python3 # set to python2 if desired
 VIRTUALENV = virtualenv --python=$(PYTHON_VERSION)
 USE_DOCKER ?= TRUE
 DOCKER_BASE = camptocamp/oereb
