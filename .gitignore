@@ -37,3 +37,4 @@ __pycache__/
 /test-db/13-fill.sql
 /docker/logo_*.png
 .pytest_cache
+.idea
