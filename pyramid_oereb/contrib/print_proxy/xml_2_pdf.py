@@ -35,14 +35,12 @@ class Renderer(XmlRenderer):
         print_service_token = print_config.get('token', '')
         if not print_service_token:
             raise ConfigurationError('No print service token ("token") was found in the config.')
-        headers = {
+        self.headers = {
             'token': print_service_token
         }
-        parameters = {
+        self.parameters = {
             'validate': print_config.get('validate', 'false'),
             'usewms': print_config.get('use_wms', 'false'),
-            'flavour': 'reduced',
-            'language': Config.get('default_language'),
         }
 
         log.debug("Parameter webservice is {}".format(value[1]))
