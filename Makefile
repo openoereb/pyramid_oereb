@@ -168,7 +168,7 @@ serve: pyramid_oereb_standard.yml test-db/12-create.sql test-db/13-fill.sql
 	docker-compose up --build --remove-orphans
 
 pyramid_oereb_standard.yml: .venv/install-timestamp
-	$(VENV_BIN)create_standard_yaml$(PYTHON_BIN_POSTFIX)
+	$(VENV_BIN)create_standard_yaml$(PYTHON_BIN_POSTFIX) --database $(SQLALCHEMY_URL) --print_backend $(PRINT_BACKEND)
 
 test-db/12-create.sql: pyramid_oereb_standard.yml .venv/install-timestamp
 	$(VENV_BIN)create_standard_tables$(PYTHON_BIN_POSTFIX) --configuration $< --sql-file $@
