@@ -64,10 +64,24 @@ pyramid_oereb:
     # The pyramid renderer which is used as proxy pass through to the desired service for printable static
     # extract. Here you can define the path to the logic which prepares the output as payload for print
     # service and returns the result to the user.
-    # renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer
+% if print_backend == 'XML2PDF':
+    # Configuration for XML2PDF print service
     renderer: pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer
-    # The buffer on the map around the parcel in percent
-    buffer: 10
+    # Base URL with application of the print server
+    base_url: https://oereb-dev.gis-daten.ch/oereb/report/create
+    token: 24ba4328-a306-4832-905d-b979388d4cab
+    use_wms: "true"
+    validate: "false"
+    # The following parameters are currently not used by xml2pdf, but might be in the future (see issue #873)
+    buffer: 30
+    basic_map_size: [493, 280]
+    pdf_dpi: 300
+    pdf_map_size_millimeters: [174, 99]
+% else:
+    # Configuration for MapFish-Print print service
+    renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer
+    # The minimum buffer in pixel at 72 DPI between the real estate and the map's border.
+    buffer: 30
     # The map size in pixel at 72 DPI (width, height), This is the defined size of a map image
     # (requested in wms urls) inside the static extract. On a pdf report, tha map size will
     # be calculated with the pdf_dpi and the pdf_map_size_millimeters below.
@@ -77,11 +91,29 @@ pyramid_oereb:
     # The map size (in millimeters) used to calculate the size of the requested map (for pdf export only).
     pdf_map_size_millimeters: [174, 99]
     # Base URL with application of the print server
-    base_url: https://oereb-dev.gis-daten.ch/oereb/report/create
-    token: 24ba4328-a306-4832-905d-b979388d4cab
-    use_wms: "true"
-    validate: "false"
-    verify_certificate: true
+    base_url: http://{PRINT_SERVICE_HOST}:{PRINT_SERVICE_PORT}/print/oereb
+    # Name of the print tempate to use
+    template_name: A4 portrait
+    # The headers send to the print
+    headers:
+      Content-Type: application/json; charset=UTF-8
+    # Whether to display the RealEstate_SubunitOfLandRegister (Grundbuchkreis) in the pdf extract or not.
+    # Default to true.
+    display_real_estate_subunit_of_land_register: true
+    # Whether to display the Certification section in the pdf extract or not.
+    # Default to true
+    display_certification: true
+    # Split themes up, so that each sub theme gets its own page
+    # Disabled by default.
+    split_sub_themes: true
+    # Determine if a multiple page table of content (TOC) is used with a slightly different layout but
+    # better page numbering. If it is known that the TOC is very long and runs over more than one page it
+    # is preferred to set this to true.
+    multi_page_TOC: false
+    # Specify any additional URL parameters that the print shall use for WMS calls
+    wms_url_params:
+      TRANSPARENT: 'true'
+% endif
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
   # creation process, because this name is used as schema name in the target database. The app_schema holds

@@ -91,6 +91,7 @@ else
 endif
 export SQLALCHEMY_URL = "postgresql://$(PG_CREDENTIALS)@$(@_POSTGIS_IP):5432/pyramid_oereb_test"
 export PNG_ROOT_DIR = pyramid_oereb/standard/
+export PRINT_BACKEND = XML2PDF # MapFish-Print
 
 .coverage: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB) pyramid_oereb/standard/pyramid_oereb.yml .coveragerc $(shell find -name "*.py" -print | fgrep -v /.venv)
 	@echo Run tests using docker: $(USE_DOCKER)

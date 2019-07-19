@@ -2,7 +2,9 @@ vars:
 
   sqlalchemy_url: '{SQLALCHEMY_URL}'
   png_root_dir: '{PNG_ROOT_DIR}'
+  print_backend: '{PRINT_BACKEND}'
 
 environment:
   - SQLALCHEMY_URL
   - PNG_ROOT_DIR
+  - PRINT_BACKEND
