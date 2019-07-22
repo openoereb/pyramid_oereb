@@ -527,23 +527,34 @@
         <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;Delegate __getattr__ to the original descriptor and/or</span>
 <span class="sd">            comparator.&quot;&quot;&quot;</span>
-
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">descriptor</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">attribute</span> <span class="o">==</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;comparator&quot;</span><span class="p">)</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
+                    <span class="c1"># comparator itself might be unreachable</span>
+                    <span class="n">comparator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comparator</span>
                 <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
-                        <span class="s2">&quot;Neither </span><span class="si">%r</span><span class="s2"> object nor </span><span class="si">%r</span><span class="s2"> object associated with </span><span class="si">%s</span><span class="s2"> &quot;</span>
-                        <span class="s2">&quot;has an attribute </span><span class="si">%r</span><span class="s2">&quot;</span>
-                        <span class="o">%</span> <span class="p">(</span>
-                            <span class="nb">type</span><span class="p">(</span><span class="n">descriptor</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
-                            <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
-                            <span class="bp">self</span><span class="p">,</span>
-                            <span class="n">attribute</span><span class="p">,</span>
-                        <span class="p">)</span>
+                        <span class="s2">&quot;Neither </span><span class="si">%r</span><span class="s2"> object nor unconfigured comparator &quot;</span>
+                        <span class="s2">&quot;object associated with </span><span class="si">%s</span><span class="s2"> has an attribute </span><span class="si">%r</span><span class="s2">&quot;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">descriptor</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
                     <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">comparator</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                            <span class="s2">&quot;Neither </span><span class="si">%r</span><span class="s2"> object nor </span><span class="si">%r</span><span class="s2"> object &quot;</span>
+                            <span class="s2">&quot;associated with </span><span class="si">%s</span><span class="s2"> has an attribute </span><span class="si">%r</span><span class="s2">&quot;</span>
+                            <span class="o">%</span> <span class="p">(</span>
+                                <span class="nb">type</span><span class="p">(</span><span class="n">descriptor</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                                <span class="nb">type</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                                <span class="bp">self</span><span class="p">,</span>
+                                <span class="n">attribute</span><span class="p">,</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
 
     <span class="n">Proxy</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">descriptor</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;Proxy&quot;</span>
 
