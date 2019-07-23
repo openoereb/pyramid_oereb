@@ -68,7 +68,7 @@ class Renderer(XmlRenderer):
 
         prepared_extraxt_as_xml = self.prepare_xml(extract_as_xml)
         print_result = self.request_pdf(
-            self.print_service_url,
+            print_service_url,
             prepared_extraxt_as_xml,
             self.headers,
             self.parameters
