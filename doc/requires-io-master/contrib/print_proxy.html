@@ -100,9 +100,11 @@
 <li class="toctree-l2"><a class="reference internal" href="sources.html">Sources</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Print Proxy</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#mapfish-print-renderer"><em>Mapfish Print Renderer</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xml-2-pdf-renderer"><em>Xml 2 Pdf Renderer</em></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#sub-themes">Sub themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#print-configuration">Print configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contributing.html">Contributing to pyramid_oereb</a></li>
 </ul>
 </li>
@@ -614,6 +616,199 @@ sorting failed.</p>
 
 </dd></dl>
 
+<span class="target" id="module-pyramid_oereb.contrib.print_proxy.xml_2_pdf"><span id="api-pyramid-oereb-contrib-print-proxy-xml-2-pdf"></span></span></div>
+<div class="section" id="xml-2-pdf-renderer">
+<span id="api-pyramid-oereb-contrib-print-proxy-xml-2-pdf-renderer"></span><h2><em>Xml 2 Pdf Renderer</em><a class="headerlink" href="#xml-2-pdf-renderer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.print_proxy.xml_2_pdf.</code><code class="descname">Renderer</code><span class="sig-paren">(</span><em>info</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/xml_2_pdf.html#Renderer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>info</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/renderer/extract/xml_.html#Renderer.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new XML renderer instance for extract rendering.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>info</strong> (<em>pyramid.interfaces.IRendererInfo</em>) &#8211; Info object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.date_time">
+<code class="descname">date_time</code><span class="sig-paren">(</span><em>dt</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.date_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the date/time according to the specification.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dt</strong> (<em>datetime.dateordatetime.timeordatetime.datetime</em>) &#8211; The datetime object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted date/time.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.get_localized_text">
+<code class="descname">get_localized_text</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.get_localized_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the requested language of a multilingual text element.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>values</strong> (<em>str</em><em> or </em><em>dict</em>) &#8211; The multilingual values encoded as JSON.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Dictionary containing the localized representation.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict of str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.get_multilingual_text">
+<code class="descname">get_multilingual_text</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.get_multilingual_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the set language of a multilingual text element.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>values</strong> (<em>str</em><em> or </em><em>dict</em>) &#8211; The multilingual values encoded as JSON.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of dictionaries containing the multilingual representation.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.get_request">
+<code class="descname">get_request</code><span class="sig-paren">(</span><em>system</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.get_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the request object if available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>system</strong> (<em>dict</em>) &#8211; The available system properties.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The request object.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.request.Request or None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.get_response">
+<code class="descname">get_response</code><span class="sig-paren">(</span><em>system</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.get_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the response object if available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>system</strong> (<em>dict</em>) &#8211; The available system properties.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The response object.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response or None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.get_symbol_ref">
+<code class="descname">get_symbol_ref</code><span class="sig-paren">(</span><em>request</em>, <em>record</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.get_symbol_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the link to the symbol of the specified public law restriction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The current request instance.</li>
+<li><strong>(</strong><strong>pyramid_oereb.lib.records.plr.PlrRecord or</strong> (<em>record</em>) &#8211; pyramid_oereb.lib.records.view_service.LegendEntryRecord): The record of the public law
+restriction to get the symbol reference for.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The link to the symbol for the specified public law restriction.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">uri</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.info">
+<code class="descname">info</code><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.info" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid.interfaces.IRendererInfo</em> &#8211; The passed renderer info object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.sort_by_localized_text">
+<code class="descname">sort_by_localized_text</code><span class="sig-paren">(</span><em>multilingual_elements</em>, <em>value_accessor</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.sort_by_localized_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort a list of translated text elements alphabetically.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>multilingual_elements</strong> (<em>list of dict</em>) &#8211; A list of multilingual elements</li>
+<li><strong>dict that contains multilingual elements.</strong> (<em>or</em>) &#8211; </li>
+<li><strong>value_accessor</strong> (<em>function</em><em>(</em><em>dict</em><em>)</em><em>-&gt;string</em>) &#8211; A function to access the
+text of a multilingual object to us to sort the list</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>Alphabetically and language specific sorted elements</dt>
+<dd><p class="first last">if translations exist or the list of unsorted element if
+sorting failed.</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.unaccent_lower">
+<code class="descname">unaccent_lower</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.unaccent_lower" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces all special characters so that an alphabetical sorting can be done.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<em>str</em>) &#8211; The text value.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The text value converted to lower case and striped of special characters.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">new_text (str)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 <div class="section" id="sub-themes">
@@ -645,6 +840,31 @@ have to match exactly, otherwise they will be added at the end. Example configur
                 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">First sub theme</span>
                 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">Another sub theme</span>
                 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">Last sub theme</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="print-configuration">
+<h1>Print configuration<a class="headerlink" href="#print-configuration" title="Permalink to this headline">¶</a></h1>
+<p><strong>XML2PDF</strong></p>
+<p>To properly configure the print service of GISDATEN AG you need to add the following in your yaml file inside
+the print section:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="nt">print</span><span class="p">:</span>
+    <span class="nt">renderer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer</span>
+    <span class="c1"># Base URL with application of the print server</span>
+    <span class="nt">base_url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://oereb-dev.gis-daten.ch/oereb/report/create</span>
+    <span class="nt">token</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">24ba4328-a306-4832-905d-b979388d4cab</span>
+    <span class="nt">use_wms</span><span class="p">:</span> <span class="s">&quot;true&quot;</span>
+    <span class="nt">validate</span><span class="p">:</span> <span class="s">&quot;false&quot;</span>
+    <span class="c1"># The buffer on the map around the parcel in percent</span>
+    <span class="nt">buffer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+    <span class="c1"># The map size in pixel at 72 DPI (width, height), This is the defined size of a map image</span>
+    <span class="c1"># (requested in wms urls) inside the static extract. On a pdf report, tha map size will</span>
+    <span class="c1"># be calculated with the pdf_dpi and the pdf_map_size_millimeters below.</span>
+    <span class="nt">basic_map_size</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">493</span><span class="p p-Indicator">,</span> <span class="nv">280</span><span class="p p-Indicator">]</span>
+    <span class="c1"># The dpi used to calculate the size of the requested map (for pdf export only).</span>
+    <span class="nt">pdf_dpi</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">300</span>
+    <span class="c1"># The map size (in millimeters) used to calculate the size of the requested map (for pdf export only).</span>
+    <span class="nt">pdf_map_size_millimeters</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">174</span><span class="p p-Indicator">,</span> <span class="nv">99</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
 </div>
