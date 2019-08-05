@@ -164,8 +164,7 @@ drop-standard-tables: $(PYTHON_VENV)
 	$(VENV_BIN)drop_tables$(PYTHON_BIN_POSTFIX) -c pyramid_oereb.yml
 
 .PHONY: serve
-serve: install pyramid_oereb_standard.yml test-db/12-create.sql test-db/13-fill.sql
-	$(VENV_BIN)c2c-template$(PYTHON_BIN_POSTFIX) --vars CONST_vars.yml --engine mako --files docker/config.yaml.mako
+serve: install pyramid_oereb_standard.yml docker/config.yaml test-db/12-create.sql test-db/13-fill.sql
 	docker-compose up --build --remove-orphans
 
 pyramid_oereb_standard.yml: .venv/install-timestamp
@@ -191,5 +190,5 @@ logo_%.png: pyramid_oereb_standard.yml
 	touch --no-create $@
 
 .PHONY: build-docker
-build-docker: logo_oereb.png logo_confederation.png logo_canton.png
+build-docker: logo_oereb.png logo_confederation.png logo_canton.png docker/config.yaml
 	docker build --tag camptocamp/pyramid-oereb:latest .
