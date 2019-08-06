@@ -95,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-5-1">Version 1.5.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-5-0">Version 1.5.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#mapfish-print-related-changes">MapFish Print related changes</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mapfish-print-pdf-a-conformance">MapFish Print PDF/A conformance</a></li>
@@ -205,6 +206,17 @@
 <span id="changes"></span><h1>Changes/Hints for migration<a class="headerlink" href="#changes-hints-for-migration" title="Permalink to this headline">¶</a></h1>
 <p>This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.</p>
+<div class="section" id="version-1-5-1">
+<span id="changes-version-1-5-1"></span><h2>Version 1.5.1<a class="headerlink" href="#version-1-5-1" title="Permalink to this headline">¶</a></h2>
+<p>This version contains bug-fixes and provides additional functionality: the integration of the XML2PDF
+service. The usage of this service is optional, if you do not use it, you do not need to change anything in your setup
+(as compared to version <a class="reference internal" href="#changes-version-1-5-0"><span class="std std-ref">Version 1.5.0</span></a>). Significant changes:</p>
+<ul class="simple">
+<li>Ensure XML Schema compliance (#872, #891)</li>
+<li>Fix polygon GML rendering (#830)</li>
+<li>Integration of XML2PDF service (#631, #883, #887)</li>
+</ul>
+</div>
 <div class="section" id="version-1-5-0">
 <span id="changes-version-1-5-0"></span><h2>Version 1.5.0<a class="headerlink" href="#version-1-5-0" title="Permalink to this headline">¶</a></h2>
 <p>The main focus of this release is improvements for the PDF generation with MapFish Print. In addition, there are
@@ -996,6 +1008,7 @@ and why please have a detailed look at the documentation of the used package
             <dd><a href="../v1.4.2/changes.html">v1.4.2</a></dd>
             <dd><a href="../v1.4.3/changes.html">v1.4.3</a></dd>
             <dd><a href="../v1.5.0/changes.html">v1.5.0</a></dd>
+            <dd><a href="../v1.5.1/changes.html">v1.5.1</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
