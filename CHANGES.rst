@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+1.5.1
+*****
+- Ensure XML Schema compliance (#872, #891)
+- Fix polygon GML rendering (#830)
+- Integration of ``XML2PDF`` service (#631, #883, #887)
+
 1.5.0
 *****
 - Fixed a number formatting problem in the legend list (Mapfish Print, GitHub issue 824, pull request 826)

@@ -6,6 +6,22 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+
+.. _changes-version-1.5.1:
+
+Version 1.5.1
+-------------
+This version contains bug-fixes and provides additional functionality: the integration of the XML2PDF
+service. The usage of this service is optional, if you do not use it, you do not need to change anything in your setup
+(as compared to version :ref:`changes-version-1.5.0`). Significant changes:
+
+* Ensure XML Schema compliance (#872, #891)
+
+* Fix polygon GML rendering (#830)
+
+* Integration of XML2PDF service (#631, #883, #887)
+
+
 .. _changes-version-1.5.0:
 
 Version 1.5.0
