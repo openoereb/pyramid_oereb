@@ -21,6 +21,11 @@ service. The usage of this service is optional, if you do not use it, you do not
 
 * Integration of XML2PDF service (#631, #883, #887)
 
+MapFish Print related changes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+If you are using MapFish Print, you need to also update your print configuration when updating to pyramid_oereb version 1.5.1.
+`Check the files here <https://github.com/openoereb/pyramid_oereb_mfp/releases/tag/v1.5.1>`__.
+
 
 .. _changes-version-1.5.0:
 
