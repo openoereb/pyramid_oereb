@@ -35,6 +35,8 @@ class Renderer(XmlRenderer):
         print_service_token = print_config.get('token', '')
         if not print_service_token:
             raise ConfigurationError('No print service token ("token") was found in the config.')
+        verify_certificate = print_config.get('verify_certificate', True)
+
         self.headers = {
             'token': print_service_token
         }
@@ -71,7 +73,8 @@ class Renderer(XmlRenderer):
             print_service_url,
             prepared_extraxt_as_xml,
             self.headers,
-            self.parameters
+            self.parameters,
+            verify_certificate
         )
 
         response.status_code = print_result.status_code
@@ -83,14 +86,22 @@ class Renderer(XmlRenderer):
         return print_result
 
     @staticmethod
-    def request_pdf(url, data_extract, headers, parameters):
-        return requests.post(
-            url,
-            verify=True,
-            headers=headers,
-            files={'file': ('xml', data_extract, 'text/xml')},
-            data=parameters
-        )
+    def request_pdf(url, data_extract, headers, parameters, verify_certificate):
+        try:
+            backend_answer = requests.post(
+                url,
+                verify=verify_certificate,
+                headers=headers,
+                files={'file': ('xml', data_extract, 'text/xml')},
+                data=parameters
+            )
+            if backend_answer.status_code != requests.codes.ok:
+                log.warning("request_pdf failed for url {}, data_extract was {}".format(url, data_extract))
+            return backend_answer
+        except Exception as e:
+            log.exception(e)
+            log.warning("request_pdf failed for url {}, data_extract was {}".format(url, data_extract))
+            raise e
 
     @staticmethod
     def prepare_xml(extract_as_xml):
