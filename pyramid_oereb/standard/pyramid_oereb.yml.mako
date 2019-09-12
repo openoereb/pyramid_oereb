@@ -81,6 +81,7 @@ pyramid_oereb:
     token: 24ba4328-a306-4832-905d-b979388d4cab
     use_wms: "true"
     validate: "false"
+    verify_certificate: true
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
   # creation process, because this name is used as schema name in the target database. The app_schema holds
