@@ -113,6 +113,7 @@ the print section:
         token: 24ba4328-a306-4832-905d-b979388d4cab
         use_wms: "true"
         validate: "false"
+        # Do not stop on errors of https connection. WARNING: This leads to potential insecure connections
         verify_certificate: false
         # The buffer on the map around the parcel in percent
         buffer: 10
