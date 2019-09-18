@@ -15,6 +15,7 @@ from pyramid_oereb.lib.processor import Processor
 from pyreproj import Reprojector
 
 from pyramid_oereb.lib.readers.address import AddressReader
+from timeit import default_timer as timer
 
 log = logging.getLogger(__name__)
 
@@ -195,6 +196,7 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `extract` response.
         """
+        start_time = timer()
         log.debug("get_extract_by_id() start")
         params = self.__validate_extract_params__()
         processor = self._request.pyramid_oereb_processor
@@ -219,27 +221,30 @@ class PlrWebservice(object):
             )
             if params.format == 'json':
                 log.debug("get_extract_by_id() calling json")
-                return render_to_response(
+                response = render_to_response(
                     'pyramid_oereb_extract_json',
                     (extract, params),
                     request=self._request
                 )
             elif params.format == 'xml':
                 log.debug("get_extract_by_id() calling xml")
-                return render_to_response(
+                response = render_to_response(
                     'pyramid_oereb_extract_xml',
                     (extract, params),
                     request=self._request
                 )
             elif params.format == 'pdf':
                 log.debug("get_extract_by_id() calling pdf")
-                return render_to_response(
+                response = render_to_response(
                     'pyramid_oereb_extract_print',
                     (extract, params),
                     request=self._request
                 )
             else:
                 raise HTTPBadRequest("The format '{}' is wrong".format(params.format))
+            end_time = timer()
+            log.debug("DONE with extract, time spent: {} seconds".format(end_time - start_time))
+            return response
         else:
             return HTTPNoContent("No real estate found")
 
