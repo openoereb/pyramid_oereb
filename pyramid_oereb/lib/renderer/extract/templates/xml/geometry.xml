@@ -1,6 +1,6 @@
 <%page args="geometry"/>
 <data:Geometry>
-    %if params.geometry:
+    %if params.with_geometry:
         <%include file="specific_geometry.xml" args="geometry=geometry.geom"/>
     %endif
     <data:Lawstatus>
