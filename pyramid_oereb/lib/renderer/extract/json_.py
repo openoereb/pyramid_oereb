@@ -191,7 +191,7 @@ class Renderer(Base):
             'PlanForLandRegisterMainPage': self.format_map(real_estate.plan_for_land_register_main_page)
         }
 
-        if self._params.geometry:
+        if self._params.with_geometry:
             real_estate_dict['Limit'] = self.from_shapely(real_estate.limit)
 
         if real_estate.number is not None:
@@ -283,7 +283,8 @@ class Renderer(Base):
                 if plr.part_in_percent is not None:
                     plr_dict['PartInPercent'] = plr.part_in_percent
 
-                if self._params.geometry and isinstance(plr.geometries, list) and len(plr.geometries) > 0:
+                if self._params.with_geometry and isinstance(plr.geometries, list) and \
+                   len(plr.geometries) > 0:
                     geometry_list = list()
                     for geometry in plr.geometries:
                         geometry_list.append(self.format_geometry(geometry))

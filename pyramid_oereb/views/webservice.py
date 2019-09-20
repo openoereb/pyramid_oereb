@@ -450,15 +450,15 @@ class PlrWebservice(object):
 
 
 class Parameter(object):
-    def __init__(self, flavour, format, geometry, images, identdn=None, number=None, egrid=None,
-                 language=None, topics=None):
+    def __init__(self, flavour, format, with_geometry, images, identdn=None, number=None,
+                 egrid=None, language=None, topics=None):
         """
         Creates a new parameter instance.
 
         Args:
             flavour (str): The extract flavour.
             format (str): The extract format.
-            geometry (bool): Extract with/without geometry.
+            with_geometry (bool): Extract with/without geometry.
             images (bool): Extract with/without images.
             identdn (str): The IdentDN as real estate identifier.
             number (str): The parcel number as real estate identifier.
@@ -468,7 +468,7 @@ class Parameter(object):
         """
         self.__flavour__ = flavour
         self.__format__ = format
-        self.__geometry__ = geometry
+        self.__with_geometry__ = with_geometry
         self.__images__ = images
         self.__identdn__ = identdn
         self.__number__ = number
@@ -538,12 +538,12 @@ class Parameter(object):
         return self.__format__
 
     @property
-    def geometry(self):
+    def with_geometry(self):
         """
         Returns:
             bool: Extract requested with geometries.
         """
-        return self.__geometry__
+        return self.__with_geometry__
 
     @property
     def images(self):
@@ -615,7 +615,7 @@ class Parameter(object):
         return '<%s -- flavour: %s format: %s geometry: %s images: %s identdn: %s' \
                     ' number: %s egrid: %s language: %s topics: %s>' % (
                         self.__class__.__name__,
-                        self.flavour, self.format, self.geometry, self.images, self.identdn,
+                        self.flavour, self.format, self.with_geometry, self.images, self.identdn,
                         self.number, self.egrid, self.language, self.topics)
 
 

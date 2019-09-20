@@ -12,7 +12,7 @@ def test_parameter():
     params.set_topics(['topic1', 'topic2'])
     assert params.flavour == 'reduced'
     assert params.format == 'json'
-    assert params.geometry
+    assert params.with_geometry
     assert not params.images
     assert params.identdn == 'identdn'
     assert params.number == '1000'

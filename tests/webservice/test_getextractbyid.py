@@ -62,7 +62,7 @@ def test_invalid_flavour(params):
         }, {
             'flavour': 'signed',
             'format': 'pdf',
-            'geometry': True,
+            'with_geometry': True,
             'images': False,
             'egrid': 'SomeEGRID'
         }
@@ -76,7 +76,7 @@ def test_invalid_flavour(params):
         }, {
             'flavour': 'full',
             'format': 'pdf',
-            'geometry': True,
+            'with_geometry': True,
             'images': False,
             'identdn': 'SomeIdent',
             'number': 'SomeNumber'
@@ -91,7 +91,7 @@ def test_invalid_flavour(params):
         }, {
             'flavour': 'reduced',
             'format': 'xml',
-            'geometry': True,
+            'with_geometry': True,
             'images': False,
             'egrid': 'SomeEGRID'
         }
@@ -106,7 +106,7 @@ def test_invalid_flavour(params):
         }, {
             'flavour': 'embeddable',
             'format': 'json',
-            'geometry': True,
+            'with_geometry': True,
             'images': False,
             'identdn': 'SomeIdent',
             'number': 'SomeNumber'
@@ -139,7 +139,7 @@ def test_params():
     expected = {
         'flavour': 'reduced',
         'format': 'xml',
-        'geometry': False,
+        'with_geometry': False,
         'images': True,
         'egrid': 'SomeEGRID',
         'language': 'de',

@@ -14,7 +14,7 @@ def test_sub_theme():
     parameters = Parameter(
         flavour='reduced',
         format='xml',
-        geometry=False,
+        with_geometry=False,
         images=True,
         identdn='BL0200002829',
         number='1000',
