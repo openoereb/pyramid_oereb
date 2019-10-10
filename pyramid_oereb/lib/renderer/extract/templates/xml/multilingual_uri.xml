@@ -13,7 +13,7 @@
 % if urlparse.urlparse(localized_text.get('Text')).scheme:
     <data:Text>${localized_text.get('Text')|u}</data:Text>
 %else:
-    <data:Text>${localized_text.get('Text')}</data:Text>
+    <data:Text>${localized_text.get('Text') | x}</data:Text>
 %endif
 </data:LocalisedText>
 % endfor
