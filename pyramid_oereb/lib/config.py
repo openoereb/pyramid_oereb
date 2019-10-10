@@ -299,7 +299,7 @@ class Config(object):
         )
 
     @staticmethod
-    def get_logo_config():
+    def get_logo_config(language=None):
         """
         Returns a dictionary of the configured file path's to the logos.
 
@@ -313,16 +313,27 @@ class Config(object):
         canton_key = 'canton'
         msg = 'The definition for "{key}" must be set. Got: {found_config}'
         logo_dict = Config._config.get('logo')
+
         if not logo_dict.get(confederation_key):
             raise ConfigurationError(msg.format(key=confederation_key, found_config=logo_dict))
         if not logo_dict.get(oereb_key):
             raise ConfigurationError(msg.format(key=oereb_key, found_config=logo_dict))
         if not logo_dict.get(canton_key):
             raise ConfigurationError(msg.format(key=canton_key, found_config=logo_dict))
+
         file_adapter = FileAdapter()
+
         confederation_logo = ImageRecord(file_adapter.read(logo_dict.get(confederation_key)))
-        oereb_logo = ImageRecord(file_adapter.read(logo_dict.get(oereb_key)))
         canton_logo = ImageRecord(file_adapter.read(logo_dict.get(canton_key)))
+
+        if isinstance(logo_dict.get(oereb_key), dict):
+            if language is None or language not in logo_dict.get(oereb_key):
+                logo_language = Config.get('default_language')
+            else:
+                logo_language = language
+            oereb_logo = ImageRecord(file_adapter.read(logo_dict.get(oereb_key).get(logo_language)))
+        else:
+            oereb_logo = ImageRecord(file_adapter.read(logo_dict.get(oereb_key)))
 
         return {
             confederation_key: confederation_logo,

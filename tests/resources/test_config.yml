@@ -10,9 +10,16 @@ section2:
 
 pyramid_oereb:
 
+  language:
+    - de
+    - fr
+    - it
+
+  default_language: de
+
   logo:
     confederation: pyramid_oereb/standard/logo_confederation.png
-    oereb: pyramid_oereb/standard/logo_oereb.png
+    oereb: pyramid_oereb/standard/logo_oereb_de.jpg
     canton: pyramid_oereb/standard/logo_canton.png
 
   plr_cadastre_authority:
