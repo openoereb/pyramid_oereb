@@ -25,7 +25,6 @@ class MockRequest(DummyRequest):
         extract = Config.get_extract_config()
         certification = extract.get('certification')
         certification_at_web = extract.get('certification_at_web')
-        logos = Config.get_logo_config()
         plr_cadastre_authority = Config.get_plr_cadastre_authority()
 
         real_estate_reader = RealEstateReader(

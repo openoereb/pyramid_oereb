@@ -111,17 +111,17 @@ class Renderer(Base):
                 'LogoPLRCadastreRef': self._request.route_url(
                     '{0}/image/logo'.format(route_prefix),
                     logo='oereb',
-                    language=self._params.language
+                    language=self._language
                 ),
                 'FederalLogoRef': self._request.route_url(
                     '{0}/image/logo'.format(route_prefix),
                     logo='confederation',
-                    language=self._params.language
+                    language=self._language
                 ),
                 'CantonalLogoRef': self._request.route_url(
                     '{0}/image/logo'.format(route_prefix),
                     logo='canton',
-                    language=self._params.language
+                    language=self._language
                 ),
                 'MunicipalityLogoRef': self._request.route_url(
                     '{0}/image/municipality'.format(route_prefix),

@@ -185,7 +185,9 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
     """
 
     # File names
-    logo_oereb_name = 'logo_oereb.png'
+    logo_oereb_name_de = 'logo_oereb_de.jpg'
+    logo_oereb_name_fr = 'logo_oereb_fr.jpg'
+    logo_oereb_name_it = 'logo_oereb_it.jpg'
     logo_confederation_name = 'logo_confederation.png'
     logo_canton_name = 'logo_canton.png'
 
@@ -201,8 +203,14 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
     pyramid_oereb_yml.close()
 
     # Copy static files
-    logo_oereb_path = AssetResolver('pyramid_oereb').resolve(
-        'standard/{name}'.format(name=logo_oereb_name)
+    logo_oereb_path_de = AssetResolver('pyramid_oereb').resolve(
+        'standard/{name}'.format(name=logo_oereb_name_de)
+    ).abspath()
+    logo_oereb_path_fr = AssetResolver('pyramid_oereb').resolve(
+        'standard/{name}'.format(name=logo_oereb_name_fr)
+    ).abspath()
+    logo_oereb_path_it = AssetResolver('pyramid_oereb').resolve(
+        'standard/{name}'.format(name=logo_oereb_name_it)
     ).abspath()
     logo_confederation_path = AssetResolver('pyramid_oereb').resolve(
         'standard/{name}'.format(name=logo_confederation_name)
@@ -211,9 +219,17 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
         'standard/{name}'.format(name=logo_canton_name)
     ).abspath()
     target_path = os.path.abspath('{path}{sep}{name}'.format(
-        path=os.getcwd(), name=logo_oereb_name, sep=os.sep)
+        path=os.getcwd(), name=logo_oereb_name_de, sep=os.sep)
     )
-    copyfile(logo_oereb_path, target_path)
+    copyfile(logo_oereb_path_de, target_path)
+    target_path = os.path.abspath('{path}{sep}{name}'.format(
+        path=os.getcwd(), name=logo_oereb_name_fr, sep=os.sep)
+    )
+    copyfile(logo_oereb_path_fr, target_path)
+    target_path = os.path.abspath('{path}{sep}{name}'.format(
+        path=os.getcwd(), name=logo_oereb_name_it, sep=os.sep)
+    )
+    copyfile(logo_oereb_path_it, target_path)
     target_path = os.path.abspath('{path}{sep}{name}'.format(
         path=os.getcwd(), name=logo_confederation_name, sep=os.sep)
     )
