@@ -26,14 +26,14 @@ def test_empty():
 
 def test_reference_wms():
     map = ViewServiceRecord(
-        reference_wms='http://example.com',
+        reference_wms='http://example.com?SERVICE=WMS&REQUEST=GetMap&FORMAT=image/png&SRS=epsg:2056',
         layer_index=0,
         layer_opacity=1.0
     )
     content = template.render(**{
         'map': map
     }).decode('utf-8').split('\n')
-    assert content[1] == '<data:ReferenceWMS>http%3A%2F%2Fexample.com</data:ReferenceWMS>'
+    assert content[1] == '<data:ReferenceWMS>http%3A%2F%2Fexample.com%3FSERVICE%3DWMS%26REQUEST%3DGetMap%26FORMAT%3Dimage%2Fpng%26SRS%3Depsg%3A2056</data:ReferenceWMS>'
     assert len(content) == 5
 
 
@@ -42,7 +42,7 @@ def test_legend_at_web():
     renderer = Renderer(None)
     map = ViewServiceRecord(
         reference_wms='',
-        legend_at_web={'de': 'http://example-legend.com'},
+        legend_at_web={'de': 'http://example.com?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&SRS=epsg:2056'},
         layer_index=0,
         layer_opacity=1.0
     )
@@ -52,7 +52,7 @@ def test_legend_at_web():
         'map': map
     }).decode('utf-8').split('\n')
     assert len(content) == 6
-    assert content[2] == '<data:LegendAtWeb>http%3A%2F%2Fexample-legend.com</data:LegendAtWeb>'
+    assert content[2] == '<data:LegendAtWeb>http%3A%2F%2Fexample.com%3FSERVICE%3DWMS%26REQUEST%3DGetLegendGraphic%26FORMAT%3Dimage%2Fpng%26SRS%3Depsg%3A2056</data:LegendAtWeb>'
 
 
 def test_legend_at_web_no_language():
@@ -61,7 +61,7 @@ def test_legend_at_web_no_language():
     renderer = Renderer(None)
     map = ViewServiceRecord(
         reference_wms='',
-        legend_at_web={'de': 'http://example-legend.com'},
+        legend_at_web={'de': 'http://example.com?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&SRS=epsg:2056'},
         layer_index=0,
         layer_opacity=1.0
     )
@@ -71,4 +71,4 @@ def test_legend_at_web_no_language():
         'map': map
     }).decode('utf-8').split('\n')
     assert len(content) == 6
-    assert content[2] == '<data:LegendAtWeb>http%3A%2F%2Fexample-legend.com</data:LegendAtWeb>'
+    assert content[2] == '<data:LegendAtWeb>http%3A%2F%2Fexample.com%3FSERVICE%3DWMS%26REQUEST%3DGetLegendGraphic%26FORMAT%3Dimage%2Fpng%26SRS%3Depsg%3A2056</data:LegendAtWeb>'
