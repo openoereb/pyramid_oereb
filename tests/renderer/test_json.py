@@ -157,9 +157,9 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                 })
             else:
                 expected.update({
-                    'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb',
-                    'FederalLogoRef': u'http://example.com/image/logo/confederation',
-                    'CantonalLogoRef': u'http://example.com/image/logo/canton',
+                    'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb/de',
+                    'FederalLogoRef': u'http://example.com/image/logo/confederation/de',
+                    'CantonalLogoRef': u'http://example.com/image/logo/canton/de',
                     'MunicipalityLogoRef': u'http://example.com/image/municipality/2829'
                 })
             assert result == expected

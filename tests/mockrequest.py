@@ -56,7 +56,6 @@ class MockRequest(DummyRequest):
         extract_reader = ExtractReader(
             plr_sources,
             plr_cadastre_authority,
-            logos,
             certification,
             certification_at_web
         )
