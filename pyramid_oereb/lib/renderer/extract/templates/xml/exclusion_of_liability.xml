@@ -1,5 +1,5 @@
 <%page args="exclusion_of_liability"/>
-<data:ExclusionOfLiability xmlns="https://schemas.geo.admin.ch/V_D/OeREB/ExtractData.xsd">
+<data:ExclusionOfLiability>
     <data:Title>
         <%include file="multilingual_text.xml" args="text=exclusion_of_liability.title"/>
     </data:Title>
