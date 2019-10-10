@@ -22,9 +22,11 @@ def test_line(parameters):
         'get_gml_id': get_gml_id
     }).decode('utf-8').split('\n')
     expected_content = """
+    
     <gml:LineString gml:id="gml1">
-        <gml:pos>0.0 0.0</gml:pos>
-        <gml:pos>1.0 1.0</gml:pos>
+        <gml:posList>
+            0.0 0.0 1.0 1.0
+        </gml:posList>
     </gml:LineString>
     """.split('\n')
     expected_lines = []
