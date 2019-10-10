@@ -22,7 +22,7 @@ def test_line(parameters):
         'get_gml_id': get_gml_id
     }).decode('utf-8').split('\n')
     expected_content = """
-    
+
     <gml:LineString gml:id="gml1">
         <gml:posList>
             0.0 0.0 1.0 1.0

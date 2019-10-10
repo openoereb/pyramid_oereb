@@ -25,7 +25,7 @@ def test_polygon(parameters):
         'get_gml_id': get_gml_id
     }).decode('utf-8').split('\n')
     expected_content = """
-    
+
     <gml:Polygon gml:id="gml1">
         <gml:exterior>
             <gml:LinearRing>
