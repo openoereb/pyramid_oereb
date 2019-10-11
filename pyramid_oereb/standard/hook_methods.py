@@ -2,6 +2,7 @@
 import base64
 import datetime
 
+from filetype import filetype
 from mako import exceptions
 from mako.template import Template
 from pyramid.httpexceptions import HTTPNotFound
@@ -10,6 +11,7 @@ from pyramid.response import Response
 from sqlalchemy import cast, Text
 
 from pyramid_oereb import Config, database_adapter, route_prefix
+from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
@@ -29,8 +31,8 @@ def get_logo(request):
         logo = Config.get_logo_config(language=logo_language).get(logo_key)
         response = request.response
         response.status_int = 200
-        response.content_type = 'image/*'
         response.body = logo.content
+        response.content_type = filetype.guess_mime(bytearray(response.body)) or 'image/png'
         return response
     raise HTTPNotFound('This logo does not exist.')
 
@@ -56,8 +58,8 @@ def get_municipality(request):
             if logo:
                 response = request.response
                 response.status_int = 200
-                response.content_type = 'image/*'
                 response.body = base64.b64decode(logo.encode('ascii'))
+                response.content_type = filetype.guess_mime(bytearray(response.body)) or 'image/png'
                 return response
         raise HTTPNotFound()
     finally:
@@ -106,8 +108,8 @@ def get_symbol(request):
             if symbol:
                 response = request.response
                 response.status_int = 200
-                response.content_type = 'image/*'
                 response.body = base64.b64decode(symbol.encode('ascii'))
+                response.content_type = filetype.guess_mime(bytearray(response.body)) or 'image/png'
                 return response
         raise HTTPNotFound()
 
@@ -128,11 +130,14 @@ def get_symbol_ref(request, record):
     Returns:
         uri: The link to the symbol for the specified public law restriction.
     """
+    if isinstance(record.symbol, ImageRecord):
+        extension = filetype.guess_extension(bytearray(record.symbol.content))
     return request.route_url(
         '{0}/image/symbol'.format(route_prefix),
         theme_code=record.theme.code,
         view_service_id=record.view_service_id,
-        type_code=record.type_code
+        type_code=record.type_code,
+        extension=extension or 'png'
     )
 
 

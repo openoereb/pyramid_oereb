@@ -9,8 +9,14 @@
 <%
     from pyramid_oereb.lib.records.plr import PlrRecord
     from pyramid_oereb import Config, route_prefix
+    from filetype import filetype
 
     language = params.language or Config.get('default_language')
+
+    ext_oereb_logo = filetype.guess_extension(bytearray(extract.logo_plr_cadastre.content)) or 'png'
+    ext_federal_logo = filetype.guess_extension(bytearray(extract.federal_logo.content)) or 'png'
+    ext_cantonal_logo = filetype.guess_extension(bytearray(extract.cantonal_logo.content)) or 'png'
+    ext_municipality_logo = filetype.guess_extension(bytearray(extract.municipality_logo.content)) or 'png'
 %>
 <%
     def parse_bool(expression):
@@ -71,10 +77,10 @@
         <data:CantonalLogo>${extract.cantonal_logo.encode()}</data:CantonalLogo>
         <data:MunicipalityLogo>${extract.municipality_logo.encode()}</data:MunicipalityLogo>
     %else:
-        <data:LogoPLRCadastreRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='oereb', language=language)}</data:LogoPLRCadastreRef>
-        <data:FederalLogoRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='confederation', language=language)}</data:FederalLogoRef>
-        <data:CantonalLogoRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='canton', language=language)}</data:CantonalLogoRef>
-        <data:MunicipalityLogoRef>${request.route_url('{0}/image/municipality'.format(route_prefix), fosnr=extract.real_estate.fosnr)}</data:MunicipalityLogoRef>
+        <data:LogoPLRCadastreRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='oereb', language=language, extension=ext_oereb_logo)}</data:LogoPLRCadastreRef>
+        <data:FederalLogoRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='confederation', language=language, extension=ext_federal_logo)}</data:FederalLogoRef>
+        <data:CantonalLogoRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='canton', language=language, extension=ext_cantonal_logo)}</data:CantonalLogoRef>
+        <data:MunicipalityLogoRef>${request.route_url('{0}/image/municipality'.format(route_prefix), fosnr=extract.real_estate.fosnr, extension=ext_municipality_logo)}</data:MunicipalityLogoRef>
     %endif
         <data:ExtractIdentifier>${extract.extract_identifier}</data:ExtractIdentifier>
     %if extract.qr_code:
