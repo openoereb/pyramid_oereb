@@ -96,7 +96,6 @@ def init_processor():
     extract = Config.get_extract_config()
     certification = extract.get('certification')
     certification_at_web = extract.get('certification_at_web')
-    logos = Config.get_logo_config()
 
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
 
@@ -128,7 +127,6 @@ def init_processor():
     extract_reader = ExtractReader(
         plr_sources,
         plr_cadastre_authority,
-        logos,
         certification,
         certification_at_web,
     )

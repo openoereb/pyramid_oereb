@@ -27,7 +27,7 @@ class ExtractReader(object):
             instance.
     """
 
-    def __init__(self, plr_sources, plr_cadastre_authority, logos, certification=None,
+    def __init__(self, plr_sources, plr_cadastre_authority, certification=None,
                  certification_at_web=None):
         """
         Args:
@@ -44,7 +44,6 @@ class ExtractReader(object):
         self._plr_cadastre_authority_ = plr_cadastre_authority
         self._certification = certification
         self._certification_at_web = certification_at_web
-        self._logos_ = logos
 
     @property
     def plr_cadastre_authority(self):
@@ -56,36 +55,6 @@ class ExtractReader(object):
             cadastre.
         """
         return self._plr_cadastre_authority_
-
-    @property
-    def logo_plr_cadastre(self):
-        """
-        The logo of the PLR-Cadastre.
-
-        Returns:
-            pyramid_oereb.lib.records.image.ImageRecord: The logo for oereb as a ImageRecord.
-        """
-        return self._logos_.get('oereb')
-
-    @property
-    def federal_logo(self):
-        """
-        The logo of the confederation.
-
-        Returns:
-            pyramid_oereb.lib.records.image.ImageRecord: The federal logo as a ImageRecord.
-        """
-        return self._logos_.get('confederation')
-
-    @property
-    def cantonal_logo(self):
-        """
-        The cantonal logo.
-
-        Returns:
-            pyramid_oereb.lib.records.image.ImageRecord: The cantonal logos as a ImageRecord.
-        """
-        return self._logos_.get('canton')
 
     @property
     def certification(self):
@@ -179,6 +148,7 @@ class ExtractReader(object):
         av_update_date = date_method(real_estate)
         base_data = Config.get_base_data(av_update_date)
         general_information = Config.get('extract').get('general_information')
+        logos = Config.get_logo_config(language=params.language)
 
         av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
         av_provider_method = resolver.resolve(av_provider_method_string)
@@ -193,9 +163,9 @@ class ExtractReader(object):
 
         self.extract = ExtractRecord(
             real_estate,
-            self.logo_plr_cadastre,
-            self.federal_logo,
-            self.cantonal_logo,
+            logos.get('oereb'),
+            logos.get('confederation'),
+            logos.get('canton'),
             municipality.logo,
             self.plr_cadastre_authority,
             base_data,

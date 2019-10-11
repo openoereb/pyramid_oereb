@@ -24,8 +24,9 @@ def get_logo(request):
         pyramid.response.Response: The generated response object.
     """
     logo_key = request.matchdict.get('logo')
+    logo_language = request.matchdict.get('language')
     if logo_key in Config.get('logo').keys():
-        logo = Config.get_logo_config().get(logo_key)
+        logo = Config.get_logo_config(language=logo_language).get(logo_key)
         response = request.response
         response.status_int = 200
         response.content_type = 'image/*'
