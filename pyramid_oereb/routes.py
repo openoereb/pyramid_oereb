@@ -12,7 +12,7 @@ def includeme(config):  # pragma: no cover
     """
 
     # Service for logo images
-    config.add_route('{0}/image/logo'.format(route_prefix), '/image/logo/{logo}')
+    config.add_route('{0}/image/logo'.format(route_prefix), '/image/logo/{logo}/{language}')
     config.add_view(Logo, attr='get_image', route_name='{0}/image/logo'.format(route_prefix),
                     request_method='GET')
 

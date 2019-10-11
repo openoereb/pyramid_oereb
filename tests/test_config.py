@@ -3,7 +3,9 @@ import datetime
 import pytest
 from pyramid.config import ConfigurationError
 
+from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.config import Config
+from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
@@ -56,11 +58,38 @@ def test_get_plr_cadastre_authority():
 
 
 @pytest.mark.run(order=-1)
-def test_get_logos_config():
+def test_get_logo_config():
     Config._config = None
     Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
     logos = Config.get_logo_config()
     assert isinstance(logos, dict)
+    logo_oereb = logos.get('oereb')
+    assert isinstance(logo_oereb, ImageRecord)
+    assert logo_oereb.content == FileAdapter().read(Config.get('logo').get('oereb'))
+
+
+@pytest.mark.run(order=-1)
+@pytest.mark.parametrize('language', [
+    None,
+    'de',
+    'fr',
+    'it'
+])
+def test_get_logo_multilingual(language):
+    Config._config = None
+    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
+    Config.get('logo')['oereb'] = {
+        'de': 'pyramid_oereb/standard/logo_oereb_de.jpg',
+        'fr': 'pyramid_oereb/standard/logo_oereb_fr.jpg',
+        'it': 'pyramid_oereb/standard/logo_oereb_it.jpg'
+    }
+    logos = Config.get_logo_config(language=language)
+    assert isinstance(logos, dict)
+    logo_oereb = logos.get('oereb')
+    if language is None:
+        assert logo_oereb.content == FileAdapter().read(Config.get('logo').get('oereb').get('de'))
+    else:
+        assert logo_oereb.content == FileAdapter().read(Config.get('logo').get('oereb').get(language))
 
 
 @pytest.mark.run(order=-1)

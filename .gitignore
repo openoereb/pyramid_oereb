@@ -30,6 +30,7 @@ __pycache__/
 /pyramid_oereb_standard.yml
 /pyramid_oereb/standard/pyramid_oereb.yml
 /logo_*.png
+/logo_*.jpg
 
 # Generated files
 /pyramid_oereb.yml
