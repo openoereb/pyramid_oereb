@@ -51,8 +51,9 @@ def test_getegrid_ident():
 
 def test_getegrid_xy():
     with pyramid_oereb_test_config():
+        url = 'http://example.com/oereb/getegrid/json/?XY=-1999999.032739449,-999998.940457533'
         request = MockRequest(
-            current_route_url='http://example.com/oereb/getegrid/json/?XY-1999999.032739449,-999998.940457533'
+            current_route_url=url
         )
 
         # Add params to matchdict as the view will do it for /getegrid/{format}/
