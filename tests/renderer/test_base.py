@@ -175,7 +175,7 @@ def test_get_symbol_ref(theme_code):
                 Base.get_symbol_ref(request, record)
         else:
             ref = Base.get_symbol_ref(request, record)
-            assert ref == 'http://example.com/image/symbol/{}/{}/{}'.format(
+            assert ref == 'http://example.com/image/symbol/{}/{}/{}.png'.format(
                 theme_code,
                 record.view_service_id,
                 record.type_code

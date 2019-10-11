@@ -157,10 +157,10 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                 })
             else:
                 expected.update({
-                    'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb/de',
-                    'FederalLogoRef': u'http://example.com/image/logo/confederation/de',
-                    'CantonalLogoRef': u'http://example.com/image/logo/canton/de',
-                    'MunicipalityLogoRef': u'http://example.com/image/municipality/2829'
+                    'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb/de.png',
+                    'FederalLogoRef': u'http://example.com/image/logo/confederation/de.png',
+                    'CantonalLogoRef': u'http://example.com/image/logo/canton/de.png',
+                    'MunicipalityLogoRef': u'http://example.com/image/municipality/2829.png'
                 })
             assert result == expected
 
@@ -306,11 +306,12 @@ def test_format_plr(parameter):
                 })
             else:
                 expected.update({
-                    'SymbolRef': 'http://example.com/image/symbol/{theme}/{view_service_id}/{code}'.format(
-                        theme='ContaminatedSites',
-                        view_service_id=1,
-                        code='CodeA'
-                    )
+                    'SymbolRef': 'http://example.com/image/symbol/{theme}/{view_service_id}/{code}.png'
+                        .format(
+                            theme='ContaminatedSites',
+                            view_service_id=1,
+                            code='CodeA'
+                        )
                 })
             assert result[0] == expected
 
@@ -547,11 +548,12 @@ def test_format_legend_entry(parameter):
             })
         else:
             expected.update({
-                'SymbolRef': 'http://example.com/image/symbol/{theme_code}/{view_service_id}/{code}'.format(
-                    theme_code='ContaminatedSites',
-                    view_service_id=1,
-                    code='CodeA'
-                )
+                'SymbolRef': 'http://example.com/image/symbol/{theme_code}/{view_service_id}/{code}.png'
+                    .format(
+                        theme_code='ContaminatedSites',
+                        view_service_id=1,
+                        code='CodeA'
+                    )
             })
         assert isinstance(result, dict)
         assert result == expected

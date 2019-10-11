@@ -4,7 +4,10 @@ from datetime import date, timedelta
 
 from sqlalchemy import create_engine
 
+from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.config import Config
+
+file_adapter = FileAdapter()
 
 
 class DummyData(object):
@@ -243,7 +246,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.LegendEntry.__table__.insert(), {
             'id': '1',
-            'symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
+            'symbol': base64.b64encode(file_adapter.read('tests/resources/symbol.png')),
             'legend_text': {
                 'de': u'Test'
             },
@@ -425,7 +428,7 @@ class DummyData(object):
 
         connection.execute(contaminated_sites.LegendEntry.__table__.insert(), {
             'id': '1',
-            'symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
+            'symbol': base64.b64encode(file_adapter.read('tests/resources/symbol.png')),
             'legend_text': {
                 'de': u'Test'
             },
@@ -544,7 +547,7 @@ class DummyData(object):
 
         connection.execute(land_use_plans.LegendEntry.__table__.insert(), {
             'id': '1',
-            'symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
+            'symbol': base64.b64encode(file_adapter.read('tests/resources/symbol.png')),
             'legend_text': {
                 'de': u'Test'
             },
@@ -671,7 +674,7 @@ class DummyData(object):
         })
         connection.execute(forest_perimeters.LegendEntry.__table__.insert(), {
             'id': '1',
-            'symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
+            'symbol': base64.b64encode(file_adapter.read('tests/resources/symbol.png')),
             'legend_text': {
                 'de': u'Test'
             },
