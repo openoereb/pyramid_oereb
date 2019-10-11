@@ -347,7 +347,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># File names</span>
-    <span class="n">logo_oereb_name</span> <span class="o">=</span> <span class="s1">&#39;logo_oereb.png&#39;</span>
+    <span class="n">logo_oereb_name_de</span> <span class="o">=</span> <span class="s1">&#39;logo_oereb_de.jpg&#39;</span>
+    <span class="n">logo_oereb_name_fr</span> <span class="o">=</span> <span class="s1">&#39;logo_oereb_fr.jpg&#39;</span>
+    <span class="n">logo_oereb_name_it</span> <span class="o">=</span> <span class="s1">&#39;logo_oereb_it.jpg&#39;</span>
     <span class="n">logo_confederation_name</span> <span class="o">=</span> <span class="s1">&#39;logo_confederation.png&#39;</span>
     <span class="n">logo_canton_name</span> <span class="o">=</span> <span class="s1">&#39;logo_canton.png&#39;</span>
 
@@ -363,8 +365,14 @@
     <span class="n">pyramid_oereb_yml</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="c1"># Copy static files</span>
-    <span class="n">logo_oereb_path</span> <span class="o">=</span> <span class="n">AssetResolver</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span>
-        <span class="s1">&#39;standard/</span><span class="si">{name}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">logo_oereb_name</span><span class="p">)</span>
+    <span class="n">logo_oereb_path_de</span> <span class="o">=</span> <span class="n">AssetResolver</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span>
+        <span class="s1">&#39;standard/</span><span class="si">{name}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">logo_oereb_name_de</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">abspath</span><span class="p">()</span>
+    <span class="n">logo_oereb_path_fr</span> <span class="o">=</span> <span class="n">AssetResolver</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span>
+        <span class="s1">&#39;standard/</span><span class="si">{name}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">logo_oereb_name_fr</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">abspath</span><span class="p">()</span>
+    <span class="n">logo_oereb_path_it</span> <span class="o">=</span> <span class="n">AssetResolver</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span>
+        <span class="s1">&#39;standard/</span><span class="si">{name}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">logo_oereb_name_it</span><span class="p">)</span>
     <span class="p">)</span><span class="o">.</span><span class="n">abspath</span><span class="p">()</span>
     <span class="n">logo_confederation_path</span> <span class="o">=</span> <span class="n">AssetResolver</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span>
         <span class="s1">&#39;standard/</span><span class="si">{name}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">logo_confederation_name</span><span class="p">)</span>
@@ -373,9 +381,17 @@
         <span class="s1">&#39;standard/</span><span class="si">{name}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">logo_canton_name</span><span class="p">)</span>
     <span class="p">)</span><span class="o">.</span><span class="n">abspath</span><span class="p">()</span>
     <span class="n">target_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{path}{sep}{name}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="n">logo_oereb_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
+        <span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="n">logo_oereb_name_de</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
     <span class="p">)</span>
-    <span class="n">copyfile</span><span class="p">(</span><span class="n">logo_oereb_path</span><span class="p">,</span> <span class="n">target_path</span><span class="p">)</span>
+    <span class="n">copyfile</span><span class="p">(</span><span class="n">logo_oereb_path_de</span><span class="p">,</span> <span class="n">target_path</span><span class="p">)</span>
+    <span class="n">target_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{path}{sep}{name}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="n">logo_oereb_name_fr</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">copyfile</span><span class="p">(</span><span class="n">logo_oereb_path_fr</span><span class="p">,</span> <span class="n">target_path</span><span class="p">)</span>
+    <span class="n">target_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{path}{sep}{name}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="n">logo_oereb_name_it</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">copyfile</span><span class="p">(</span><span class="n">logo_oereb_path_it</span><span class="p">,</span> <span class="n">target_path</span><span class="p">)</span>
     <span class="n">target_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{path}{sep}{name}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
         <span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="n">logo_confederation_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
     <span class="p">)</span>

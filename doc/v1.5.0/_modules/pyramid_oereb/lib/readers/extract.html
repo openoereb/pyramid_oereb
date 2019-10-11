@@ -189,7 +189,7 @@
 <span class="sd">            instance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ExtractReader.__init__"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.extract.ExtractReader.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_sources</span><span class="p">,</span> <span class="n">plr_cadastre_authority</span><span class="p">,</span> <span class="n">logos</span><span class="p">,</span> <span class="n">certification</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="ExtractReader.__init__"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.extract.ExtractReader.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_sources</span><span class="p">,</span> <span class="n">plr_cadastre_authority</span><span class="p">,</span> <span class="n">certification</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">certification_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -205,8 +205,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span> <span class="o">=</span> <span class="n">plr_sources</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plr_cadastre_authority_</span> <span class="o">=</span> <span class="n">plr_cadastre_authority</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_certification</span> <span class="o">=</span> <span class="n">certification</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_certification_at_web</span> <span class="o">=</span> <span class="n">certification_at_web</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span> <span class="o">=</span> <span class="n">logos</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_certification_at_web</span> <span class="o">=</span> <span class="n">certification_at_web</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">plr_cadastre_authority</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -218,36 +217,6 @@
 <span class="sd">            cadastre.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_cadastre_authority_</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">logo_plr_cadastre</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        The logo of the PLR-Cadastre.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            pyramid_oereb.lib.records.image.ImageRecord: The logo for oereb as a ImageRecord.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;oereb&#39;</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">federal_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        The logo of the confederation.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            pyramid_oereb.lib.records.image.ImageRecord: The federal logo as a ImageRecord.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;confederation&#39;</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">cantonal_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        The cantonal logo.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            pyramid_oereb.lib.records.image.ImageRecord: The cantonal logos as a ImageRecord.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logos_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;canton&#39;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">certification</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -341,6 +310,7 @@
         <span class="n">av_update_date</span> <span class="o">=</span> <span class="n">date_method</span><span class="p">(</span><span class="n">real_estate</span><span class="p">)</span>
         <span class="n">base_data</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_base_data</span><span class="p">(</span><span class="n">av_update_date</span><span class="p">)</span>
         <span class="n">general_information</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;extract&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;general_information&#39;</span><span class="p">)</span>
+        <span class="n">logos</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_logo_config</span><span class="p">(</span><span class="n">language</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">language</span><span class="p">)</span>
 
         <span class="n">av_provider_method_string</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;extract&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;base_data&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;methods&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;provider&#39;</span><span class="p">)</span>
         <span class="n">av_provider_method</span> <span class="o">=</span> <span class="n">resolver</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">av_provider_method_string</span><span class="p">)</span>
@@ -355,9 +325,9 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">extract</span> <span class="o">=</span> <span class="n">ExtractRecord</span><span class="p">(</span>
             <span class="n">real_estate</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logo_plr_cadastre</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">federal_logo</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cantonal_logo</span><span class="p">,</span>
+            <span class="n">logos</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;oereb&#39;</span><span class="p">),</span>
+            <span class="n">logos</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;confederation&#39;</span><span class="p">),</span>
+            <span class="n">logos</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;canton&#39;</span><span class="p">),</span>
             <span class="n">municipality</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plr_cadastre_authority</span><span class="p">,</span>
             <span class="n">base_data</span><span class="p">,</span>
