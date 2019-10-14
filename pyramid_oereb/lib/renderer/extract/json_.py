@@ -576,7 +576,7 @@ class Renderer(Base):
             'coordinates': mapping(geom)['coordinates'],
             'crs': 'EPSG:{srid}'.format(srid=Config.get('srid'))
             # isosqlmmwkb only used for curved geometries (not supported by shapely)
-            # 'isosqlmmwkb': base64.b64encode(geom.wkb)
+            # 'isosqlmmwkb': b64.encode(geom.wkb)
         }
         return geom_dict
 

@@ -150,13 +150,13 @@ def test_render(parameter, glossaries_input, glossaries_expected):
             if parameter.images:
                 expected.update({
                     'LogoPLRCadastre': ImageRecord(FileAdapter().read('tests/resources/logo_canton.png'))
-                        .encode().decode('ascii'),
+                        .encode(),
                     'FederalLogo': ImageRecord(FileAdapter().read('tests/resources/logo_canton.png'))
-                        .encode().decode('ascii'),
+                        .encode(),
                     'CantonalLogo': ImageRecord(FileAdapter().read('tests/resources/logo_canton.png'))
-                        .encode().decode('ascii'),
+                        .encode(),
                     'MunicipalityLogo': ImageRecord(FileAdapter().read('tests/resources/python.svg'))
-                        .encode().decode('ascii'),
+                        .encode(),
                 })
             else:
                 expected.update({
@@ -306,7 +306,6 @@ def test_format_plr(parameter):
             if parameter.images:
                 expected.update({
                     'Symbol': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode()
-                        .decode('ascii')
                 })
             else:
                 expected.update({
@@ -505,7 +504,7 @@ def test_format_map(params, legend_at_web, expected_legend_at_web):
         result = renderer.format_map(view_service)
         assert isinstance(result, dict)
         expected_result = {
-            'Image': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode().decode('ascii'),
+            'Image': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode(),
             'layerIndex': 1,
             'layerOpacity': 1.0,
             'ReferenceWMS': 'http://my.wms.ch',

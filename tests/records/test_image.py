@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import base64
 
 import pytest
 
+from pyramid_oereb.lib import b64
+from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.image import ImageRecord
 
 
@@ -18,7 +19,7 @@ def test_init():
 
 def test_encode():
     image_record = ImageRecord('1'.encode('utf-8'))
-    assert image_record.encode() == base64.b64encode('1'.encode('utf-8')).decode('ascii')
+    assert image_record.encode() == b64.encode('1'.encode('utf-8'))
 
 
 def test_validate_filetype_png_file():
@@ -26,8 +27,9 @@ def test_validate_filetype_png_file():
 
 
 def test_validate_filetype_png_content():
-    with open('tests/resources/logo_canton.png') as f:
-        content = bytearray(f.read())
+    content = FileAdapter().read('tests/resources/logo_canton.png')
+    if sys.version_info.major == 2:
+        content = bytearray(content)
     assert ImageRecord._validate_filetype(content) == ('png', 'image/png')
 
 
@@ -36,8 +38,7 @@ def test_validate_filetype_svg_file():
 
 
 def test_validate_filetype_svg_content():
-    with open('tests/resources/python.svg') as f:
-        content = f.read()
+    content = FileAdapter().read('tests/resources/python.svg')
     assert ImageRecord._validate_filetype(content) == ('svg', 'image/svg+xml')
 
 

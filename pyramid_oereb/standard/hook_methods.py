@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import base64
 import datetime
 
 from mako import exceptions
@@ -10,6 +9,7 @@ from pyramid.response import Response
 from sqlalchemy import cast, Text
 
 from pyramid_oereb import Config, database_adapter, route_prefix
+from pyramid_oereb.lib import b64
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 
@@ -57,7 +57,7 @@ def get_municipality(request):
             if logo:
                 response = request.response
                 response.status_int = 200
-                response.body = base64.b64decode(logo.encode('ascii'))
+                response.body = b64.decode(logo)
                 response.content_type = ImageRecord.get_mimetype(bytearray(response.body))
                 return response
         raise HTTPNotFound()
@@ -107,7 +107,7 @@ def get_symbol(request):
             if symbol:
                 response = request.response
                 response.status_int = 200
-                response.body = base64.b64decode(symbol.encode('ascii'))
+                response.body = b64.decode(symbol)
                 response.content_type = ImageRecord.get_mimetype(bytearray(response.body))
                 return response
         raise HTTPNotFound()

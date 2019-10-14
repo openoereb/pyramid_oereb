@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import base64
 import logging
 
 from geoalchemy2.shape import to_shape, from_shape
@@ -9,6 +8,7 @@ from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineSt
 from sqlalchemy import text, or_, and_
 
 from pyramid_oereb import Config
+from pyramid_oereb.lib import b64
 from pyramid_oereb.lib.records.availability import AvailabilityRecord
 from pyramid_oereb.lib.records.embeddable import DatasourceRecord
 from pyramid_oereb.lib.records.image import ImageRecord
@@ -94,7 +94,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             # Filter legend by view service to deliver dedicated legend entries only
             if public_law_restriction_from_db.view_service_id == legend_entry_from_db.view_service_id:
                 legend_entry_records.append(self._legend_entry_record_class(
-                    ImageRecord(base64.b64decode(legend_entry_from_db.symbol)),
+                    ImageRecord(b64.decode(legend_entry_from_db.symbol)),
                     legend_entry_from_db.legend_text,
                     legend_entry_from_db.type_code,
                     legend_entry_from_db.type_code_list,

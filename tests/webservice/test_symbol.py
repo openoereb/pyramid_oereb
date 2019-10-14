@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import sys
 import pytest
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.response import Response
@@ -20,10 +19,7 @@ def test_get_image():
     webservice = Symbol(request)
     result = webservice.get_image()
     assert isinstance(result, Response)
-    if sys.version_info.major == 2:
-        assert result.body == '{0}'.format(FileAdapter().read('tests/resources/symbol.png'))
-    else:
-        assert result.body == b'{0}'.format(FileAdapter().read('tests/resources/symbol.png'))
+    assert result.body == FileAdapter().read('tests/resources/symbol.png')
 
 
 def test_get_image_invalid():
