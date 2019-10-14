@@ -9,14 +9,13 @@
 <%
     from pyramid_oereb.lib.records.plr import PlrRecord
     from pyramid_oereb import Config, route_prefix
-    from filetype import filetype
 
     language = params.language or Config.get('default_language')
 
-    ext_oereb_logo = filetype.guess_extension(bytearray(extract.logo_plr_cadastre.content)) or 'png'
-    ext_federal_logo = filetype.guess_extension(bytearray(extract.federal_logo.content)) or 'png'
-    ext_cantonal_logo = filetype.guess_extension(bytearray(extract.cantonal_logo.content)) or 'png'
-    ext_municipality_logo = filetype.guess_extension(bytearray(extract.municipality_logo.content)) or 'png'
+    ext_oereb_logo = extract.logo_plr_cadastre.extension
+    ext_federal_logo = extract.federal_logo.extension
+    ext_cantonal_logo = extract.cantonal_logo.extension
+    ext_municipality_logo = extract.municipality_logo.extension
 %>
 <%
     def parse_bool(expression):

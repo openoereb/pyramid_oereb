@@ -53,7 +53,7 @@ def test_get_symbol():
 
 def test_get_symbol_ref():
     record = LegendEntryRecord(
-        ImageRecord(FileAdapter().read('tests/resources/logo_oereb_de.jpg')),
+        ImageRecord(FileAdapter().read('tests/resources/logo_canton.png')),
         {'de': 'Test'},
         'CodeA',
         'http://my.codelist.com/test.xml',
@@ -63,4 +63,4 @@ def test_get_symbol_ref():
     with pyramid_oereb_test_config():
         request = DummyRequest()
         url = urlparse(get_symbol_ref(request, record))
-        assert url.path == '/image/symbol/ContaminatedSites/1/CodeA.jpg'
+        assert url.path == '/image/symbol/ContaminatedSites/1/CodeA.png'

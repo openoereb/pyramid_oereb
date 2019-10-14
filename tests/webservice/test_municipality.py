@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import sys
 import pytest
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.response import Response
 
+from pyramid_oereb.lib.adapter import FileAdapter
 from tests.mockrequest import MockRequest
 from pyramid_oereb.views.webservice import Municipality
 
@@ -17,10 +17,7 @@ def test_get_image():
     webservice = Municipality(request)
     result = webservice.get_image()
     assert isinstance(result, Response)
-    if sys.version_info.major == 2:
-        assert result.body == 'abcdefg'
-    else:
-        assert result.body == b'abcdefg'
+    assert result.body == FileAdapter().read('tests/resources/python.svg')
 
 
 def test_get_image_invalid():

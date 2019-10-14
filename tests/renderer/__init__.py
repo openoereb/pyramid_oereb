@@ -2,6 +2,8 @@
 import datetime
 from pyramid_oereb import Config
 from pyramid.path import DottedNameResolver
+
+from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.embeddable import EmbeddableRecord, DatasourceRecord
 from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
@@ -34,6 +36,7 @@ def get_none_glossary_extract():
 
 def _get_test_extract(glossary):
     date = datetime.datetime.now()
+    file_adapter = FileAdapter()
     with pyramid_oereb_test_config():
         view_service = ViewServiceRecord(u'http://geowms.bl.ch',
                                          1,
@@ -67,10 +70,10 @@ def _get_test_extract(glossary):
         )
         extract = ExtractRecord(
             real_estate,
-            ImageRecord('1'.encode('utf-8')),
-            ImageRecord('2'.encode('utf-8')),
-            ImageRecord('3'.encode('utf-8')),
-            ImageRecord('4'.encode('utf-8')),
+            ImageRecord(file_adapter.read('tests/resources/python.svg')),
+            ImageRecord(file_adapter.read('tests/resources/python.svg')),
+            ImageRecord(file_adapter.read('tests/resources/python.svg')),
+            ImageRecord(file_adapter.read('tests/resources/python.svg')),
             office_record,
             base_data,
             embeddable,

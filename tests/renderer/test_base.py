@@ -7,6 +7,7 @@ from pyramid.httpexceptions import HTTPServerError
 from pyramid.response import Response
 from pyramid.testing import DummyRequest
 
+from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
@@ -163,7 +164,7 @@ def test_get_symbol_ref(theme_code):
     with pyramid_oereb_test_config():
         request = MockRequest()
         record = LegendEntryRecord(
-            ImageRecord('1'.encode('utf-8')),
+            ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             {'de': 'Test'},
             u'test',
             u'test',
@@ -175,7 +176,7 @@ def test_get_symbol_ref(theme_code):
                 Base.get_symbol_ref(request, record)
         else:
             ref = Base.get_symbol_ref(request, record)
-            assert ref == 'http://example.com/image/symbol/{}/{}/{}.png'.format(
+            assert ref == 'http://example.com/image/symbol/{}/{}/{}.svg'.format(
                 theme_code,
                 record.view_service_id,
                 record.type_code

@@ -185,9 +185,9 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
     """
 
     # File names
-    logo_oereb_name_de = 'logo_oereb_de.jpg'
-    logo_oereb_name_fr = 'logo_oereb_fr.jpg'
-    logo_oereb_name_it = 'logo_oereb_it.jpg'
+    logo_oereb_name_de = 'logo_oereb_de.png'
+    logo_oereb_name_fr = 'logo_oereb_fr.png'
+    logo_oereb_name_it = 'logo_oereb_it.png'
     logo_confederation_name = 'logo_confederation.png'
     logo_canton_name = 'logo_canton.png'
 
