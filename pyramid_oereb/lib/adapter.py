@@ -2,6 +2,7 @@
 import logging
 import os
 
+from io import open
 from sqlalchemy import create_engine, orm
 
 

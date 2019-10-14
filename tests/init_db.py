@@ -170,7 +170,7 @@ class DummyData(object):
             'fosnr': 1234,
             'name': u'Test',
             'published': True,
-            'logo': base64.b64encode(file_adapter.read('tests/resources/python.svg')),
+            'logo': base64.b64encode(file_adapter.read('tests/resources/python.svg').decode('utf-8')),
             'geom': 'SRID=2056;MULTIPOLYGON(((0 0, 0 10, 10 10, 10 0, 0 0)))'
         })
 
