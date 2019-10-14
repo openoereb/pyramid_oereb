@@ -31,6 +31,7 @@ class PlrWebservice(object):
         if not isinstance(request.pyramid_oereb_processor, Processor):
             raise HTTPServerError('Missing processor instance')
         self._request = request
+        self._params = {k.upper(): v for k, v in request.params.items()}
         self._real_estate_reader = request.pyramid_oereb_processor.real_estate_reader
         self._municipality_reader = request.pyramid_oereb_processor.municipality_reader
 
@@ -133,8 +134,8 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `getegrid` response.
         """
-        xy = self._request.params.get('XY')
-        gnss = self._request.params.get('GNSS')
+        xy = self._params.get('XY')
+        gnss = self._params.get('GNSS')
         if xy or gnss:
             geom_wkt = 'SRID={0};{1}'
             if xy:
@@ -285,7 +286,8 @@ class PlrWebservice(object):
             with_geometry = True
 
         # With images?
-        with_images = self._request.params.get('WITHIMAGES') is not None
+
+        with_images = self._params.get('WITHIMAGES') is not None
 
         params = Parameter(extract_flavour, extract_format, with_geometry, with_images)
 
@@ -305,8 +307,8 @@ class PlrWebservice(object):
             params.set_egrid(id_part_1)
 
         # Language
-        language = str(self._request.params.get('LANG')).lower()
-        if language not in Config.get_language() and self._request.params.get('LANG') is not \
+        language = str(self._params.get('LANG')).lower()
+        if language not in Config.get_language() and self._params.get('LANG') is not \
                 None:
             raise HTTPBadRequest(
                 'Requested language is not available. Following languages are configured: {languages} The '
@@ -315,11 +317,11 @@ class PlrWebservice(object):
                     language=language
                 )
             )
-        if self._request.params.get('LANG'):
+        if self._params.get('LANG'):
             params.set_language(language)
 
         # Topics
-        topics = self._request.params.get('TOPICS')
+        topics = self._params.get('TOPICS')
         if topics:
             params.set_topics(topics.split(','))
 
