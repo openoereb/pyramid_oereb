@@ -12,6 +12,12 @@ WORKDIR /app
 #    apt-get clean && \
 #    rm --recursive --force /var/lib/apt/lists/*
 
+RUN \
+    apt-get update && \
+    apt-get install --assume-yes --no-install-recommends libffi-dev && \
+    apt-get clean && \
+    rm --recursive --force /var/lib/apt/lists/*
+
 COPY docker/requirements.txt /app/docker/
 COPY requirements.txt /app/
 
