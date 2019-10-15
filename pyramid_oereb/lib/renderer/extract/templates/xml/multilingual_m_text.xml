@@ -5,6 +5,6 @@
 % for localized_text in multilingual_text:
 <data:LocalisedText>
     <data:Language>${localized_text.get('Language')}</data:Language>
-    <data:Text>${localized_text.get('Text')}</data:Text>
+    <data:Text>${localized_text.get('Text') | x}</data:Text>
 </data:LocalisedText>
 % endfor
