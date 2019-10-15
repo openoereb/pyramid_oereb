@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import sys
 import json
 import codecs
 from pyramid_oereb.contrib.print_proxy.mapfish_print import Renderer
@@ -135,13 +134,9 @@ def test_mapfish_print_entire_extract():
     # f.close()
 
     expected = expected_printable_extract()
-    # FIXME Do the test only in python 2 because order of item are different
-    # in some cases with python 3. The Error will not be possible anymore with
-    # https://github.com/openoereb/pyramid_oereb/issues/651
-    if sys.version_info.major == 2:
-        assert deepCompare(printable_extract, expected)
-        # Do it twice, to test all keys in each reports
-        assert deepCompare(expected, printable_extract)
+    assert deepCompare(printable_extract, expected)
+    # Do it twice, to test all keys in each reports
+    assert deepCompare(expected, printable_extract)
 
 
 def test_split_restrictions_by_theme_code():
