@@ -2,7 +2,6 @@
 import re
 
 from filetype import filetype
-from typing import List
 
 from pyramid_oereb.lib import b64
 
@@ -12,7 +11,7 @@ class ImageRecord(object):
     VALID_FILE_TYPES = [
         'png',
         'svg'
-    ]  # type: List[str]
+    ]  # type: list
 
     SVG_PATTERN = re.compile(r'<svg(.|\n)+<\/svg>')  # type: re
 
