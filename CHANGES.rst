@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+1.5.2
+*****
+- Provide multilingual OEREB logo (#915)
+- Add file extension in logo and symbol URLs (#917)
+
 1.5.1
 *****
 - Ensure XML Schema compliance (#872, #891)
