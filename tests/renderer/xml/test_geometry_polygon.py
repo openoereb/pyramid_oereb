@@ -25,23 +25,20 @@ def test_polygon(parameters):
         'get_gml_id': get_gml_id
     }).decode('utf-8').split('\n')
     expected_content = """
+
     <gml:Polygon gml:id="gml1">
         <gml:exterior>
             <gml:LinearRing>
-                <gml:pos>0.0 0.0</gml:pos>
-                <gml:pos>0.0 1.0</gml:pos>
-                <gml:pos>1.0 1.0</gml:pos>
-                <gml:pos>1.0 0.0</gml:pos>
-                <gml:pos>0.0 0.0</gml:pos>
+                <gml:posList>
+                    0.0 0.0 0.0 1.0 1.0 1.0 1.0 0.0 0.0 0.0
+                </gml:posList>
             </gml:LinearRing>
         </gml:exterior>
         <gml:interior>
             <gml:LinearRing>
-                <gml:pos>0.25 0.25</gml:pos>
-                <gml:pos>0.25 0.75</gml:pos>
-                <gml:pos>0.75 0.75</gml:pos>
-                <gml:pos>0.75 0.25</gml:pos>
-                <gml:pos>0.25 0.25</gml:pos>
+                <gml:posList>
+                    0.25 0.25 0.25 0.75 0.75 0.75 0.75 0.25 0.25 0.25
+                </gml:posList>
             </gml:LinearRing>
         </gml:interior>
     </gml:Polygon>

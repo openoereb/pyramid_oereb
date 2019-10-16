@@ -7,19 +7,19 @@ pyramid-debugtoolbar==4.5
 PyYAML==5.1.2
 shapely==1.6.4.post1  # rq.filter: ==1.6.4.post1
 simplejson==3.16.0
-SQLAlchemy==1.3.8
+SQLAlchemy==1.3.10
 sqlalchemy-utils==0.34.2
 transaction==2.4.0
-urllib3[secure]==1.25.3
+urllib3[secure]==1.25.6
 waitress==1.3.1
 zope.sqlalchemy==1.1
-jsonschema==3.0.2
+jsonschema==3.1.1
 pyproj==1.9.6  # rq.filter: <2.0.0
 pyreproj==1.0.1
 lxml==4.4.1
 requests==2.22.0
 geolink-formatter==1.3.1
 pyconizer==0.1.4
-tqdm==4.35.0
+tqdm==4.36.1
 numpy==1.16.5  # rq.filter: <1.17.0
 defusedxml==0.6.0
