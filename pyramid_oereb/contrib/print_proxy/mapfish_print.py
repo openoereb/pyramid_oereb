@@ -232,6 +232,7 @@ class Renderer(JsonRenderer):
         self._multilingual_m_text(extract_dict, 'GeneralInformation')
         self._multilingual_m_text(extract_dict, 'BaseData')
         self._multilingual_m_text(extract_dict, 'Certification')
+        self._multilingual_m_text(extract_dict, 'CertificationAtWeb')
 
         for item in extract_dict.get('Glossary', []):
             self._multilingual_text(item, 'Title')
