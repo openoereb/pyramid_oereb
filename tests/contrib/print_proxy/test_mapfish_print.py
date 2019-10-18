@@ -253,7 +253,7 @@ def test_get_sorted_legend():
             'Information': u'Belastet, untersuchungsbedürftig'
         }
     ]
-    sorted_list = renderer._get_sorted_legend(test_legend_list)
+    sorted_list = renderer.sort_dict_list(test_legend_list, renderer.sort_legend_elem)
     expected_result = [
         {
             'TypeCode': u'StaoTyp2',
@@ -299,3 +299,291 @@ def test_get_sorted_legend():
         }
     ]
     assert sorted_list == expected_result
+
+
+def test_get_sorted_legal_provisions():
+    renderer = Renderer(DummyRenderInfo())
+    expected_result = [
+        {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inForce",
+            "Lawstatus_Text": "in Kraft",
+            "OfficialNumber": "3891.100",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/197",
+            "Title": "Baugesetz"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inForce",
+            "Lawstatus_Text": "in Kraft",
+            "OfficialNumber": "3891.100",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198",
+            "Title": "Baugesetz"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inForce",
+            "Lawstatus_Text": "in Kraft",
+            "OfficialNumber": "07.447",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/213",
+            "Title": "Revision Ortsplanung"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inForce",
+            "Lawstatus_Text": "in Kraft",
+            "OfficialNumber": "07.447",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/214",
+            "Title": "Revision Ortsplanung"
+        }
+    ]
+    test_legal_provisions = [
+        {
+           "Canton": "BL",
+           "DocumentType": "LegalProvision",
+           "Lawstatus_Code": "inForce",
+           "Lawstatus_Text": "in Kraft",
+           "OfficialNumber": "07.447",
+           "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+           "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+           "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/214",
+           "Title": "Revision Ortsplanung"
+        },{
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inForce",
+            "Lawstatus_Text": "in Kraft",
+            "OfficialNumber": "3891.100",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/197",
+            "Title": "Baugesetz"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inForce",
+            "Lawstatus_Text": "in Kraft",
+            "OfficialNumber": "07.447",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/213",
+            "Title": "Revision Ortsplanung"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inForce",
+            "Lawstatus_Text": "in Kraft",
+            "OfficialNumber": "3891.100",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198",
+            "Title": "Baugesetz"
+        }
+    ]
+    assert expected_result == renderer.sort_dict_list(test_legal_provisions, renderer.sort_legal_provisioning)
+
+
+def test_get_sorted_hints():
+    renderer = Renderer(DummyRenderInfo())
+    test_hints = [{
+        "Canton": "BL",
+        "DocumentType": "LegalProvision",
+        "Lawstatus_Code": "inForce",
+        "Lawstatus_Text": "in Kraft",
+        "OfficialNumber": "3891.100",
+        "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+        "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+        "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/197",
+        "Title": "Revision Ortsplanung"
+    }, {
+        "Canton": "BL",
+        "DocumentType": "LegalProvision",
+        "Lawstatus_Code": "inForce",
+        "Lawstatus_Text": "in Kraft",
+        "OfficialNumber": "3891.100",
+        "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+        "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+        "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198"
+    }, {
+        "Canton": "BL",
+        "DocumentType": "LegalProvision",
+        "Lawstatus_Code": "inForce",
+        "Lawstatus_Text": "in Kraft",
+        "OfficialNumber": "3891.100",
+        "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+        "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+        "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198",
+        "Title": "Baugesetz"
+
+    }]
+
+    expected_result = [{
+        "Canton": "BL",
+        "DocumentType": "LegalProvision",
+        "Lawstatus_Code": "inForce",
+        "Lawstatus_Text": "in Kraft",
+        "OfficialNumber": "3891.100",
+        "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+        "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+        "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198"
+    }, {
+        "Canton": "BL",
+        "DocumentType": "LegalProvision",
+        "Lawstatus_Code": "inForce",
+        "Lawstatus_Text": "in Kraft",
+        "OfficialNumber": "3891.100",
+        "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+        "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+        "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198",
+        "Title": "Baugesetz"
+    }, {
+        "Canton": "BL",
+        "DocumentType": "LegalProvision",
+        "Lawstatus_Code": "inForce",
+        "Lawstatus_Text": "in Kraft",
+        "OfficialNumber": "3891.100",
+        "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+        "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+        "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/197",
+        "Title": "Revision Ortsplanung"
+    }]
+
+    assert expected_result == renderer.sort_dict_list(test_hints, renderer.sort_hints)
+
+
+def test_get_sorted_law():
+    renderer = Renderer(DummyRenderInfo())
+    test_law = [
+        {
+            'DocumentType': 'Law',
+            'TextAtWeb': 'http://www.admin.ch/ch/d/sr/c814_01.html',
+            'Title': 'Raumplanungsverordnung für den Kanton Graubünden',
+            'Abbreviation': 'KRVO',
+            'OfficialNumber': 'BR 801.110',
+            'Canton': 'GR',
+            'Lawstatus_Code': 'inForce',
+            'Lawstatus_Text': 'in Kraft',
+            'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
+            'ResponsibleOffice_OfficeAtWeb':
+                'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2934?locale=de'
+        }, {
+            'DocumentType': u'Law',
+            'TextAtWeb': u'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
+            'Abbreviation': u'KRG',
+            'Canton': u'GR',
+            'Lawstatus_Code': u'inForce',
+            'Lawstatus_Text': u'in Kraft',
+            'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
+            'ResponsibleOffice_OfficeAtWeb':
+                u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
+        }, {
+            'DocumentType': u'Law',
+            'TextAtWeb': u'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'Title': u'Raumplanungsgesetz für den Kanton Graubünden2',
+            'Abbreviation': u'KRG',
+            'OfficialNumber': u'BR 801.100',
+            'Canton': u'GR',
+            'Lawstatus_Code': u'inForce',
+            'Lawstatus_Text': u'in Kraft',
+            'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
+            'ResponsibleOffice_OfficeAtWeb':
+                u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
+        }, {
+            'DocumentType': 'Law',
+            'TextAtWeb': 'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'Title': 'Bundesgesetz über die Raumplanung',
+            'Abbreviation': 'RPG',
+            'OfficialNumber': 'SR 700',
+            'Canton': 'GR',
+            'Lawstatus_Code': 'inForce',
+            'Lawstatus_Text': 'in Kraft',
+            'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
+            'ResponsibleOffice_OfficeAtWeb': 'http://www.lexfind.ch/dtah/167348/2'
+        }, {
+            'DocumentType': u'Law',
+            'TextAtWeb': u'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
+            'Abbreviation': u'KRG',
+            'OfficialNumber': u'BR 801.100',
+            'Canton': u'GR',
+            'Lawstatus_Code': u'inForce',
+            'Lawstatus_Text': u'in Kraft',
+            'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
+            'ResponsibleOffice_OfficeAtWeb':
+                u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
+        }
+    ]
+
+    expected_result = [
+        {
+            'DocumentType': u'Law',
+            'TextAtWeb': u'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
+            'Abbreviation': u'KRG',
+            'OfficialNumber': u'BR 801.100',
+            'Canton': u'GR',
+            'Lawstatus_Code': u'inForce',
+            'Lawstatus_Text': u'in Kraft',
+            'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
+            'ResponsibleOffice_OfficeAtWeb':
+                u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
+        }, {
+            'DocumentType': u'Law',
+            'TextAtWeb': u'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'Title': u'Raumplanungsgesetz für den Kanton Graubünden2',
+            'Abbreviation': u'KRG',
+            'OfficialNumber': u'BR 801.100',
+            'Canton': u'GR',
+            'Lawstatus_Code': u'inForce',
+            'Lawstatus_Text': u'in Kraft',
+            'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
+            'ResponsibleOffice_OfficeAtWeb':
+                u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
+        }, {
+            'DocumentType': 'Law',
+            'TextAtWeb': 'http://www.admin.ch/ch/d/sr/c814_01.html',
+            'Title': 'Raumplanungsverordnung für den Kanton Graubünden',
+            'Abbreviation': 'KRVO',
+            'OfficialNumber': 'BR 801.110',
+            'Canton': 'GR',
+            'Lawstatus_Code': 'inForce',
+            'Lawstatus_Text': 'in Kraft',
+            'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
+            'ResponsibleOffice_OfficeAtWeb':
+                'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2934?locale=de'
+        }, {
+            'DocumentType': 'Law',
+            'TextAtWeb': 'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'Title': 'Bundesgesetz über die Raumplanung',
+            'Abbreviation': 'RPG',
+            'OfficialNumber': 'SR 700',
+            'Canton': 'GR',
+            'Lawstatus_Code': 'inForce',
+            'Lawstatus_Text': 'in Kraft',
+            'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
+            'ResponsibleOffice_OfficeAtWeb': 'http://www.lexfind.ch/dtah/167348/2'
+        }, {
+            'DocumentType': u'Law',
+            'TextAtWeb': u'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
+            'Abbreviation': u'KRG',
+            'Canton': u'GR',
+            'Lawstatus_Code': u'inForce',
+            'Lawstatus_Text': u'in Kraft',
+            'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
+            'ResponsibleOffice_OfficeAtWeb':
+                u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
+
+        }
+    ]
+    assert expected_result == renderer.sort_dict_list(test_law, renderer.sort_laws)

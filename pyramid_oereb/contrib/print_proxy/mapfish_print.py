@@ -401,6 +401,20 @@ class Renderer(JsonRenderer):
                 if element == 'LegalProvisions':
                     pdf_to_join.update([legal_provision['TextAtWeb'] for legal_provision in values])
 
+        # sort legal provisioning, hints and laws
+        restriction_on_landownership['LegalProvisions'] = self.sort_dict_list(
+            restriction_on_landownership['LegalProvisions'],
+            self.sort_legal_provisioning
+        )
+        restriction_on_landownership['Laws'] = self.sort_dict_list(
+            restriction_on_landownership['Laws'],
+            self.sort_laws
+        )
+        restriction_on_landownership['Hints'] = self.sort_dict_list(
+            restriction_on_landownership['Hints'],
+            self.sort_hints
+        )
+
         restrictions = list(theme_restriction.values())
         for restriction in restrictions:
             legends = {}
@@ -422,7 +436,7 @@ class Renderer(JsonRenderer):
             # After transformation, get the new legend entries, sorted by TypeCode
             transformed_legend = \
                 list([transformed_entry for (key, transformed_entry) in legends.items()])
-            restriction['Legend'] = self._get_sorted_legend(transformed_legend)
+            restriction['Legend'] = self.sort_dict_list(transformed_legend, self.sort_legend_elem)
 
         sorted_restrictions = []
         if split_sub_themes:
@@ -619,20 +633,72 @@ class Renderer(JsonRenderer):
         params = sorter_config.get('params', {})
         return sorter, params
 
-    def _get_sorted_legend(self, legend_list):
+    @staticmethod
+    def sort_dict_list(legend_list, sort_keys):
         """
-        Sorts list of legends by type (as defined in LEGEND_ELEMENT_SORT_ORDER) and value (ascending order).
+        Sorts list of dictionaries by one or more sort keys.
+        This function makes it possible to run test on the sorted list and assure the correctness of the soring.
 
         Args:
-            legend_list: list of legend dictionaries
-
+            legend_list (list(dict): list of legend dictionaries
+            sort_keys (tuple/any): tuple of keys according to which the list of dictionaries will be sorted (at least one is needed)
         Returns:
             sorted list of legend dictionaries
         """
-        return sorted(legend_list, key=self._sort_legend_elem)
+        return sorted(legend_list, key=sort_keys)
 
     @staticmethod
-    def _sort_legend_elem(elem):
+    def sort_legal_provisioning(elem):
+        """
+        Provides the sort key for the supplied legal provisioning element as a tuple consisting of:
+            * title
+            * Office number
+            * Text at web
+        Args:
+            elem (dict): one element of the legal provisioning list
+
+        Returns:
+             sort key (tuple)
+        """
+        if type(elem) is dict:
+            sort_title = elem['Title'] if 'Title' in elem else ''
+            sort_Number = elem['OfficialNumber'] if 'OfficialNumber' in elem else None
+            sort_Web = elem['TextAtWeb'] if 'TextAtWeb' in elem else None
+            return sort_title, sort_Number, sort_Web
+        return elem
+
+    @staticmethod
+    def sort_hints(elem):
+        """
+        Provides the sort key for the supplied hint element as a tuple consisting of:
+         * Title
+        Args:
+            elem (dict): one element of the legal provisioning list
+
+        Returns:
+             sort key (tuple)
+        """
+        return elem['Title'] if 'Title' in elem else ''
+
+    @staticmethod
+    def sort_laws(elem):
+        """
+        Provides the sort key for the supplied law element as a tuple consisting of:
+         * OfficialNumber (if this attribute is empty the element will be placed at the end of the list)
+         * Title
+        Args:
+            elem (dict): one element of the legal provisioning list
+
+        Returns:
+             sort key (tuple)
+        """
+        sort_empty_number_last = 0 if 'OfficialNumber' in elem else 1
+        sort_number = elem['OfficialNumber'] if 'OfficialNumber' in elem else ""
+        sort_title = elem['Title'] if 'Title' in elem else ""
+        return sort_empty_number_last, sort_number, sort_title
+
+    @staticmethod
+    def sort_legend_elem(elem):
         """
         Provides the sort key for the supplied legend element as a tuple consisting of:
          * rank of the geometry type as defined in LEGEND_ELEMENT_SORT_ORDER
