@@ -311,7 +311,8 @@ def test_get_sorted_legal_provisions():
             "Lawstatus_Text": "in Kraft",
             "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
-            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
             "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/197",
             "Title": "Baugesetz"
         }, {
@@ -321,7 +322,8 @@ def test_get_sorted_legal_provisions():
             "Lawstatus_Text": "in Kraft",
             "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
-            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
             "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198",
             "Title": "Baugesetz"
         }, {
@@ -331,7 +333,8 @@ def test_get_sorted_legal_provisions():
             "Lawstatus_Text": "in Kraft",
             "OfficialNumber": "07.447",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
-            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
             "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/213",
             "Title": "Revision Ortsplanung"
         }, {
@@ -341,7 +344,8 @@ def test_get_sorted_legal_provisions():
             "Lawstatus_Text": "in Kraft",
             "OfficialNumber": "07.447",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
-            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
             "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/214",
             "Title": "Revision Ortsplanung"
         }
@@ -357,14 +361,15 @@ def test_get_sorted_legal_provisions():
            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/214",
            "Title": "Revision Ortsplanung"
-        },{
+        }, {
             "Canton": "BL",
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inForce",
             "Lawstatus_Text": "in Kraft",
             "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
-            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
             "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/197",
             "Title": "Baugesetz"
         }, {
@@ -374,7 +379,8 @@ def test_get_sorted_legal_provisions():
             "Lawstatus_Text": "in Kraft",
             "OfficialNumber": "07.447",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
-            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
             "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/213",
             "Title": "Revision Ortsplanung"
         }, {
@@ -384,7 +390,8 @@ def test_get_sorted_legal_provisions():
             "Lawstatus_Text": "in Kraft",
             "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
-            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
             "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198",
             "Title": "Baugesetz"
         }

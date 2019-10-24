@@ -637,11 +637,13 @@ class Renderer(JsonRenderer):
     def sort_dict_list(legend_list, sort_keys):
         """
         Sorts list of dictionaries by one or more sort keys.
-        This function makes it possible to run test on the sorted list and assure the correctness of the soring.
+        This function makes it possible to run test on the sorted list and assure the
+        correctness of the soring.
 
         Args:
             legend_list (list(dict): list of legend dictionaries
-            sort_keys (tuple/any): tuple of keys according to which the list of dictionaries will be sorted (at least one is needed)
+            sort_keys (tuple/any): tuple of keys according to which the list of dictionaries will be
+            sorted (at least one is needed)
         Returns:
             sorted list of legend dictionaries
         """
@@ -660,12 +662,11 @@ class Renderer(JsonRenderer):
         Returns:
              sort key (tuple)
         """
-        if type(elem) is dict:
-            sort_title = elem['Title'] if 'Title' in elem else ''
-            sort_Number = elem['OfficialNumber'] if 'OfficialNumber' in elem else None
-            sort_Web = elem['TextAtWeb'] if 'TextAtWeb' in elem else None
-            return sort_title, sort_Number, sort_Web
-        return elem
+
+        sort_title = elem['Title'] if 'Title' in elem else ''
+        sort_Number = elem['OfficialNumber'] if 'OfficialNumber' in elem else None
+        sort_Web = elem['TextAtWeb'] if 'TextAtWeb' in elem else None
+        return sort_title, sort_Number, sort_Web
 
     @staticmethod
     def sort_hints(elem):
