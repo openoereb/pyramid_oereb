@@ -396,7 +396,7 @@ def test_get_sorted_legal_provisions():
             "Title": "Baugesetz"
         }
     ]
-    assert expected_result == renderer.sort_dict_list(test_legal_provisions, renderer.sort_legal_provisioning)
+    assert expected_result == renderer.sort_dict_list(test_legal_provisions, renderer.sort_legal_provision)
 
 
 def test_get_sorted_hints():

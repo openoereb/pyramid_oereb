@@ -404,7 +404,7 @@ class Renderer(JsonRenderer):
         # sort legal provisioning, hints and laws
         restriction_on_landownership['LegalProvisions'] = self.sort_dict_list(
             restriction_on_landownership['LegalProvisions'],
-            self.sort_legal_provisioning
+            self.sort_legal_provision
         )
         restriction_on_landownership['Laws'] = self.sort_dict_list(
             restriction_on_landownership['Laws'],
@@ -650,14 +650,14 @@ class Renderer(JsonRenderer):
         return sorted(legend_list, key=sort_keys)
 
     @staticmethod
-    def sort_legal_provisioning(elem):
+    def sort_legal_provision(elem):
         """
-        Provides the sort key for the supplied legal provisioning element as a tuple consisting of:
+        Provides the sort key for the supplied legal provision element as a tuple consisting of:
             * title
             * Office number
             * Text at web
         Args:
-            elem (dict): one element of the legal provisioning list
+            elem (dict): one element of the legal provision list
 
         Returns:
              sort key (tuple)
@@ -674,7 +674,7 @@ class Renderer(JsonRenderer):
         Provides the sort key for the supplied hint element as a tuple consisting of:
          * Title
         Args:
-            elem (dict): one element of the legal provisioning list
+            elem (dict): one element of the hints list
 
         Returns:
              sort key (tuple)
@@ -688,7 +688,7 @@ class Renderer(JsonRenderer):
          * OfficialNumber (if this attribute is empty the element will be placed at the end of the list)
          * Title
         Args:
-            elem (dict): one element of the legal provisioning list
+            elem (dict): one element of the legal laws list
 
         Returns:
              sort key (tuple)
