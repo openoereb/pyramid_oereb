@@ -79,9 +79,9 @@ def test_get_logo_multilingual(language):
     Config._config = None
     Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
     Config.get('logo')['oereb'] = {
-        'de': 'pyramid_oereb/standard/logo_oereb_de.jpg',
-        'fr': 'pyramid_oereb/standard/logo_oereb_fr.jpg',
-        'it': 'pyramid_oereb/standard/logo_oereb_it.jpg'
+        'de': 'pyramid_oereb/standard/logo_oereb_de.png',
+        'fr': 'pyramid_oereb/standard/logo_oereb_fr.png',
+        'it': 'pyramid_oereb/standard/logo_oereb_it.png'
     }
     logos = Config.get_logo_config(language=language)
     assert isinstance(logos, dict)

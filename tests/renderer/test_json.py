@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import base64
-
 import datetime
 
 import pytest
@@ -10,6 +8,7 @@ from shapely.geometry import MultiPolygon, Polygon, Point, LineString
 from pyramid.path import DottedNameResolver
 
 from pyramid_oereb import Config
+from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.documents import LegalProvisionRecord, ArticleRecord, DocumentRecord
 from pyramid_oereb.lib.records.embeddable import EmbeddableRecord, DatasourceRecord
 from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
@@ -100,10 +99,10 @@ def test_render(parameter, glossaries_input, glossaries_expected):
         )
         extract = ExtractRecord(
             real_estate,
-            ImageRecord('1'.encode('utf-8')),
-            ImageRecord('2'.encode('utf-8')),
-            ImageRecord('3'.encode('utf-8')),
-            ImageRecord('4'.encode('utf-8')),
+            ImageRecord(FileAdapter().read('tests/resources/logo_canton.png')),
+            ImageRecord(FileAdapter().read('tests/resources/logo_canton.png')),
+            ImageRecord(FileAdapter().read('tests/resources/logo_canton.png')),
+            ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             office_record,
             base_data,
             embeddable,
@@ -150,17 +149,21 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                 expected['Glossary'] = glossaries_expected
             if parameter.images:
                 expected.update({
-                    'LogoPLRCadastre': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
-                    'FederalLogo': base64.b64encode('2'.encode('utf-8')).decode('ascii'),
-                    'CantonalLogo': base64.b64encode('3'.encode('utf-8')).decode('ascii'),
-                    'MunicipalityLogo': base64.b64encode('4'.encode('utf-8')).decode('ascii'),
+                    'LogoPLRCadastre': ImageRecord(FileAdapter().read('tests/resources/logo_canton.png'))
+                        .encode(),
+                    'FederalLogo': ImageRecord(FileAdapter().read('tests/resources/logo_canton.png'))
+                        .encode(),
+                    'CantonalLogo': ImageRecord(FileAdapter().read('tests/resources/logo_canton.png'))
+                        .encode(),
+                    'MunicipalityLogo': ImageRecord(FileAdapter().read('tests/resources/python.svg'))
+                        .encode(),
                 })
             else:
                 expected.update({
-                    'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb/de',
-                    'FederalLogoRef': u'http://example.com/image/logo/confederation/de',
-                    'CantonalLogoRef': u'http://example.com/image/logo/canton/de',
-                    'MunicipalityLogoRef': u'http://example.com/image/municipality/2829'
+                    'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb/de.png',
+                    'FederalLogoRef': u'http://example.com/image/logo/confederation/de.png',
+                    'CantonalLogoRef': u'http://example.com/image/logo/canton/de.png',
+                    'MunicipalityLogoRef': u'http://example.com/image/municipality/2829.svg'
                 })
             assert result == expected
 
@@ -248,7 +251,7 @@ def test_format_plr(parameter):
         theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test theme'})
         office = OfficeRecord({'de': 'Test Office'})
         legend_entry = LegendEntryRecord(
-            ImageRecord(base64.b64encode('1'.encode('utf-8'))),
+            ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             {'de': 'Test'}, 'CodeA', 'TypeCodeList', theme,
             view_service_id=1)
         view_service = ViewServiceRecord('http://geowms.bl.ch',
@@ -263,7 +266,7 @@ def test_format_plr(parameter):
             law_status(),
             datetime.date.today(),
             office,
-            ImageRecord('1'.encode('utf-8')),
+            ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             view_service,
             [geometry],
             sub_theme={
@@ -302,15 +305,16 @@ def test_format_plr(parameter):
             }
             if parameter.images:
                 expected.update({
-                    'Symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii')
+                    'Symbol': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode()
                 })
             else:
                 expected.update({
-                    'SymbolRef': 'http://example.com/image/symbol/{theme}/{view_service_id}/{code}'.format(
-                        theme='ContaminatedSites',
-                        view_service_id=1,
-                        code='CodeA'
-                    )
+                    'SymbolRef': 'http://example.com/image/symbol/{theme}/{view_service_id}/{code}.svg'
+                        .format(
+                            theme='ContaminatedSites',
+                            view_service_id=1,
+                            code='CodeA'
+                        )
                 })
             assert result[0] == expected
 
@@ -484,7 +488,7 @@ def test_format_map(params, legend_at_web, expected_legend_at_web):
         renderer._params = params
         renderer._request = MockRequest()
         legend_entry = LegendEntryRecord(
-            ImageRecord('1'.encode('utf-8')),
+            ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             {u'de': u'Legendeneintrag'},
             u'CodeA',
             u'type_code_list',
@@ -496,11 +500,11 @@ def test_format_map(params, legend_at_web, expected_legend_at_web):
                                          1.0,
                                          legend_at_web,
                                          [legend_entry])
-        view_service.image = ImageRecord('1'.encode('utf-8'))
+        view_service.image = ImageRecord(FileAdapter().read('tests/resources/python.svg'))
         result = renderer.format_map(view_service)
         assert isinstance(result, dict)
         expected_result = {
-            'Image': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
+            'Image': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode(),
             'layerIndex': 1,
             'layerOpacity': 1.0,
             'ReferenceWMS': 'http://my.wms.ch',
@@ -523,7 +527,7 @@ def test_format_legend_entry(parameter):
         renderer._request = MockRequest()
         theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test'})
         legend_entry = LegendEntryRecord(
-            ImageRecord('1'.encode('utf-8')),
+            ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             {u'de': u'Legendeneintrag'},
             u'CodeA',
             u'type_code_list',
@@ -543,15 +547,16 @@ def test_format_legend_entry(parameter):
         }
         if parameter.images:
             expected.update({
-                'Symbol': ImageRecord('1'.encode('utf-8')).encode()
+                'Symbol': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode()
             })
         else:
             expected.update({
-                'SymbolRef': 'http://example.com/image/symbol/{theme_code}/{view_service_id}/{code}'.format(
-                    theme_code='ContaminatedSites',
-                    view_service_id=1,
-                    code='CodeA'
-                )
+                'SymbolRef': 'http://example.com/image/symbol/{theme_code}/{view_service_id}/{code}.svg'
+                    .format(
+                        theme_code='ContaminatedSites',
+                        view_service_id=1,
+                        code='CodeA'
+                    )
             })
         assert isinstance(result, dict)
         assert result == expected

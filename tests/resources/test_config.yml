@@ -19,7 +19,7 @@ pyramid_oereb:
 
   logo:
     confederation: pyramid_oereb/standard/logo_confederation.png
-    oereb: pyramid_oereb/standard/logo_oereb_de.jpg
+    oereb: pyramid_oereb/standard/logo_oereb_de.png
     canton: pyramid_oereb/standard/logo_canton.png
 
   plr_cadastre_authority:

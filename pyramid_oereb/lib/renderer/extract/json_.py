@@ -111,21 +111,25 @@ class Renderer(Base):
                 'LogoPLRCadastreRef': self._request.route_url(
                     '{0}/image/logo'.format(route_prefix),
                     logo='oereb',
-                    language=self._language
+                    language=self._language,
+                    extension=extract.logo_plr_cadastre.extension
                 ),
                 'FederalLogoRef': self._request.route_url(
                     '{0}/image/logo'.format(route_prefix),
                     logo='confederation',
-                    language=self._language
+                    language=self._language,
+                    extension=extract.federal_logo.extension
                 ),
                 'CantonalLogoRef': self._request.route_url(
                     '{0}/image/logo'.format(route_prefix),
                     logo='canton',
-                    language=self._language
+                    language=self._language,
+                    extension=extract.cantonal_logo.extension
                 ),
                 'MunicipalityLogoRef': self._request.route_url(
                     '{0}/image/municipality'.format(route_prefix),
-                    fosnr=extract.real_estate.fosnr
+                    fosnr=extract.real_estate.fosnr,
+                    extension=extract.municipality_logo.extension
                 )
             })
 
@@ -572,7 +576,7 @@ class Renderer(Base):
             'coordinates': mapping(geom)['coordinates'],
             'crs': 'EPSG:{srid}'.format(srid=Config.get('srid'))
             # isosqlmmwkb only used for curved geometries (not supported by shapely)
-            # 'isosqlmmwkb': base64.b64encode(geom.wkb)
+            # 'isosqlmmwkb': b64.encode(geom.wkb)
         }
         return geom_dict
 

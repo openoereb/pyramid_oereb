@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-import base64
 
 from geoalchemy2.elements import _SpatialElement
 
+from pyramid_oereb.lib import b64
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from geoalchemy2.shape import to_shape
@@ -22,7 +22,7 @@ class DatabaseSource(BaseDatabaseSource, MunicipalityBaseSource):
 
             self.records = list()
             for result in results:
-                logo = ImageRecord(base64.b64decode(result.logo))
+                logo = ImageRecord(b64.decode(result.logo))
                 self.records.append(self._record_class_(
                     result.fosnr,
                     result.name,

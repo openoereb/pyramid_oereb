@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
-import base64
 from datetime import date, timedelta
 
 from sqlalchemy import create_engine
 
+from pyramid_oereb.lib import b64
+from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.config import Config
+
+file_adapter = FileAdapter()
 
 
 class DummyData(object):
@@ -167,7 +170,7 @@ class DummyData(object):
             'fosnr': 1234,
             'name': u'Test',
             'published': True,
-            'logo': base64.b64encode('abcdefg'.encode('utf-8')).decode('ascii'),
+            'logo': b64.encode(file_adapter.read('tests/resources/python.svg')),
             'geom': 'SRID=2056;MULTIPOLYGON(((0 0, 0 10, 10 10, 10 0, 0 0)))'
         })
 
@@ -243,7 +246,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.LegendEntry.__table__.insert(), {
             'id': '1',
-            'symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
+            'symbol': b64.encode(file_adapter.read('tests/resources/symbol.png')),
             'legend_text': {
                 'de': u'Test'
             },
@@ -425,7 +428,7 @@ class DummyData(object):
 
         connection.execute(contaminated_sites.LegendEntry.__table__.insert(), {
             'id': '1',
-            'symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
+            'symbol': b64.encode(file_adapter.read('tests/resources/symbol.png')),
             'legend_text': {
                 'de': u'Test'
             },
@@ -544,7 +547,7 @@ class DummyData(object):
 
         connection.execute(land_use_plans.LegendEntry.__table__.insert(), {
             'id': '1',
-            'symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
+            'symbol': b64.encode(file_adapter.read('tests/resources/symbol.png')),
             'legend_text': {
                 'de': u'Test'
             },
@@ -671,7 +674,7 @@ class DummyData(object):
         })
         connection.execute(forest_perimeters.LegendEntry.__table__.insert(), {
             'id': '1',
-            'symbol': base64.b64encode('1'.encode('utf-8')).decode('ascii'),
+            'symbol': b64.encode(file_adapter.read('tests/resources/symbol.png')),
             'legend_text': {
                 'de': u'Test'
             },

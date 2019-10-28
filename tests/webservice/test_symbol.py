@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import sys
 import pytest
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.response import Response
 
+from pyramid_oereb.lib.adapter import FileAdapter
 from tests.mockrequest import MockRequest
 from pyramid_oereb.views.webservice import Symbol
 
@@ -19,10 +19,7 @@ def test_get_image():
     webservice = Symbol(request)
     result = webservice.get_image()
     assert isinstance(result, Response)
-    if sys.version_info.major == 2:
-        assert result.body == '1'
-    else:
-        assert result.body == b'1'
+    assert result.body == FileAdapter().read('tests/resources/symbol.png')
 
 
 def test_get_image_invalid():

@@ -177,9 +177,9 @@ pyramid_oereb:
     # The logo representing the oereb extract CI. You can use it as is because it is provided in this
     # repository, but if you need to change it for any reason: Feel free...
     oereb:
-        de: ${png_root_dir}logo_oereb_de.jpg
-        fr: ${png_root_dir}logo_oereb_fr.jpg
-        it: ${png_root_dir}logo_oereb_it.jpg
+        de: ${png_root_dir}logo_oereb_de.png
+        fr: ${png_root_dir}logo_oereb_fr.png
+        it: ${png_root_dir}logo_oereb_it.png
     # The logo representing your canton. Replace with your own logo!
     canton: ${png_root_dir}logo_canton.png
 

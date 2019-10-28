@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import base64
 import datetime
 
 from mako import exceptions
@@ -10,6 +9,8 @@ from pyramid.response import Response
 from sqlalchemy import cast, Text
 
 from pyramid_oereb import Config, database_adapter, route_prefix
+from pyramid_oereb.lib import b64
+from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
@@ -29,8 +30,8 @@ def get_logo(request):
         logo = Config.get_logo_config(language=logo_language).get(logo_key)
         response = request.response
         response.status_int = 200
-        response.content_type = 'image/*'
         response.body = logo.content
+        response.content_type = logo.mimetype
         return response
     raise HTTPNotFound('This logo does not exist.')
 
@@ -56,8 +57,8 @@ def get_municipality(request):
             if logo:
                 response = request.response
                 response.status_int = 200
-                response.content_type = 'image/*'
-                response.body = base64.b64decode(logo.encode('ascii'))
+                response.body = b64.decode(logo)
+                response.content_type = ImageRecord.get_mimetype(bytearray(response.body))
                 return response
         raise HTTPNotFound()
     finally:
@@ -106,8 +107,8 @@ def get_symbol(request):
             if symbol:
                 response = request.response
                 response.status_int = 200
-                response.content_type = 'image/*'
-                response.body = base64.b64decode(symbol.encode('ascii'))
+                response.body = b64.decode(symbol)
+                response.content_type = ImageRecord.get_mimetype(bytearray(response.body))
                 return response
         raise HTTPNotFound()
 
@@ -132,7 +133,8 @@ def get_symbol_ref(request, record):
         '{0}/image/symbol'.format(route_prefix),
         theme_code=record.theme.code,
         view_service_id=record.view_service_id,
-        type_code=record.type_code
+        type_code=record.type_code,
+        extension=record.symbol.extension
     )
 
 

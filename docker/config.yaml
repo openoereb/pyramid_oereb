@@ -179,9 +179,9 @@ vars:
       # The logo representing the oereb extract CI (you can use it as is cause it is provided in this
       # repository). But if you need to change it for any reason: Feel free...
       oereb:
-        de: logo_oereb_de.jpg
-        fr: logo_oereb_fr.jpg
-        it: logo_oereb_it.jpg
+        de: logo_oereb_de.png
+        fr: logo_oereb_fr.png
+        it: logo_oereb_it.png
       # The logo representing your canton. Replace with your own logo!
       canton: '{LOGO_CANTON}'
 
