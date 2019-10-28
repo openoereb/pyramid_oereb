@@ -1360,7 +1360,15 @@ collection which has to be unpacked first in case of collection.</p>
 <dt id="pyramid_oereb.lib.records.image.ImageRecord">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.lib.records.image.</code><code class="descname">ImageRecord</code><span class="sig-paren">(</span><em>content</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/image.html#ImageRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.image.ImageRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>The record to hold the binary information of a image.</p>
+<dl class="method">
+<dt id="pyramid_oereb.lib.records.image.ImageRecord.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>content</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/image.html#ImageRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.image.ImageRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.image.ImageRecord.SVG_PATTERN">
+<code class="descname">SVG_PATTERN</code><em class="property"> = re.compile('&lt;svg(.|\\n)+&lt;\\/svg&gt;')</em><a class="headerlink" href="#pyramid_oereb.lib.records.image.ImageRecord.SVG_PATTERN" title="Permalink to this definition">¶</a></dt>
+<dd><p>The record to hold the binary information of a image.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1369,10 +1377,7 @@ collection which has to be unpacked first in case of collection.</p>
 </tr>
 </tbody>
 </table>
-<dl class="method">
-<dt id="pyramid_oereb.lib.records.image.ImageRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>content</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/image.html#ImageRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.image.ImageRecord.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.records.image.ImageRecord.encode">
@@ -1383,6 +1388,78 @@ collection which has to be unpacked first in case of collection.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The encoded image.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.image.ImageRecord.extension">
+<code class="descname">extension</code><a class="headerlink" href="#pyramid_oereb.lib.records.image.ImageRecord.extension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks for valid file type and returns its mime type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The file&#8217;s mime type.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.lib.records.image.ImageRecord.get_extension">
+<em class="property">static </em><code class="descname">get_extension</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/image.html#ImageRecord.get_extension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.image.ImageRecord.get_extension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks for valid file type and returns its extension.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> (<em>str</em><em>, </em><em>bytes</em><em>, </em><em>bytearray</em><em> or </em><em>readable</em>) &#8211; Path to the file, a readable object or the file&#8217;s content
+as str, bytes or bytearray. See filetype documentation:
+<a class="reference external" href="https://h2non.github.io/filetype.py/v1.0.0/filetype.m.html">https://h2non.github.io/filetype.py/v1.0.0/filetype.m.html</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The file&#8217;s extension.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.lib.records.image.ImageRecord.get_mimetype">
+<em class="property">static </em><code class="descname">get_mimetype</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/image.html#ImageRecord.get_mimetype"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.image.ImageRecord.get_mimetype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks for valid file type and returns its mime type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> (<em>str</em><em>, </em><em>bytes</em><em>, </em><em>bytearray</em><em> or </em><em>readable</em>) &#8211; Path to the file, a readable object or the file&#8217;s content
+as str, bytes or bytearray. See filetype documentation:
+<a class="reference external" href="https://h2non.github.io/filetype.py/v1.0.0/filetype.m.html">https://h2non.github.io/filetype.py/v1.0.0/filetype.m.html</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The file&#8217;s mime type.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.records.image.ImageRecord.mimetype">
+<code class="descname">mimetype</code><a class="headerlink" href="#pyramid_oereb.lib.records.image.ImageRecord.mimetype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks for valid file type and returns its extension.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The file&#8217;s extension.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
 </tr>

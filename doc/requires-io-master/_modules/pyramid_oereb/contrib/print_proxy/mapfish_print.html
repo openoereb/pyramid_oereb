@@ -564,6 +564,20 @@
                 <span class="k">if</span> <span class="n">element</span> <span class="o">==</span> <span class="s1">&#39;LegalProvisions&#39;</span><span class="p">:</span>
                     <span class="n">pdf_to_join</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">legal_provision</span> <span class="ow">in</span> <span class="n">values</span><span class="p">])</span>
 
+        <span class="c1"># sort legal provisioning, hints and laws</span>
+        <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort_dict_list</span><span class="p">(</span>
+            <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sort_legal_provision</span>
+        <span class="p">)</span>
+        <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Laws&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort_dict_list</span><span class="p">(</span>
+            <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Laws&#39;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sort_laws</span>
+        <span class="p">)</span>
+        <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Hints&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort_dict_list</span><span class="p">(</span>
+            <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Hints&#39;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sort_hints</span>
+        <span class="p">)</span>
+
         <span class="n">restrictions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">theme_restriction</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
         <span class="k">for</span> <span class="n">restriction</span> <span class="ow">in</span> <span class="n">restrictions</span><span class="p">:</span>
             <span class="n">legends</span> <span class="o">=</span> <span class="p">{}</span>
@@ -585,7 +599,7 @@
             <span class="c1"># After transformation, get the new legend entries, sorted by TypeCode</span>
             <span class="n">transformed_legend</span> <span class="o">=</span> \
                 <span class="nb">list</span><span class="p">([</span><span class="n">transformed_entry</span> <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">transformed_entry</span><span class="p">)</span> <span class="ow">in</span> <span class="n">legends</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
-            <span class="n">restriction</span><span class="p">[</span><span class="s1">&#39;Legend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_sorted_legend</span><span class="p">(</span><span class="n">transformed_legend</span><span class="p">)</span>
+            <span class="n">restriction</span><span class="p">[</span><span class="s1">&#39;Legend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort_dict_list</span><span class="p">(</span><span class="n">transformed_legend</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort_legend_elem</span><span class="p">)</span>
 
         <span class="n">sorted_restrictions</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="n">split_sub_themes</span><span class="p">:</span>
@@ -782,20 +796,73 @@
         <span class="n">params</span> <span class="o">=</span> <span class="n">sorter_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">,</span> <span class="p">{})</span>
         <span class="k">return</span> <span class="n">sorter</span><span class="p">,</span> <span class="n">params</span>
 
-    <span class="k">def</span> <span class="nf">_get_sorted_legend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legend_list</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.sort_dict_list"><a class="viewcode-back" href="../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_dict_list">[docs]</a>    <span class="k">def</span> <span class="nf">sort_dict_list</span><span class="p">(</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">sort_keys</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sorts list of legends by type (as defined in LEGEND_ELEMENT_SORT_ORDER) and value (ascending order).</span>
+<span class="sd">        Sorts list of dictionaries by one or more sort keys.</span>
+<span class="sd">        This function makes it possible to run test on the sorted list and assure the</span>
+<span class="sd">        correctness of the soring.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            legend_list: list of legend dictionaries</span>
-
+<span class="sd">            legend_list (list(dict): list of legend dictionaries</span>
+<span class="sd">            sort_keys (tuple/any): tuple of keys according to which the list of dictionaries will be</span>
+<span class="sd">            sorted (at least one is needed)</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            sorted list of legend dictionaries</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_sort_legend_elem</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">sort_keys</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_sort_legend_elem</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.sort_legal_provision"><a class="viewcode-back" href="../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_legal_provision">[docs]</a>    <span class="k">def</span> <span class="nf">sort_legal_provision</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provides the sort key for the supplied legal provision element as a tuple consisting of:</span>
+<span class="sd">            * title</span>
+<span class="sd">            * Office number</span>
+<span class="sd">            * Text at web</span>
+<span class="sd">        Args:</span>
+<span class="sd">            elem (dict): one element of the legal provision list</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             sort key (tuple)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">sort_title</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;Title&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">sort_Number</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">&#39;OfficialNumber&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;OfficialNumber&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">sort_Web</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;TextAtWeb&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">sort_title</span><span class="p">,</span> <span class="n">sort_Number</span><span class="p">,</span> <span class="n">sort_Web</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.sort_hints"><a class="viewcode-back" href="../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_hints">[docs]</a>    <span class="k">def</span> <span class="nf">sort_hints</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provides the sort key for the supplied hint element as a tuple consisting of:</span>
+<span class="sd">         * Title</span>
+<span class="sd">        Args:</span>
+<span class="sd">            elem (dict): one element of the hints list</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             sort key (tuple)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">elem</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;Title&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.sort_laws"><a class="viewcode-back" href="../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_laws">[docs]</a>    <span class="k">def</span> <span class="nf">sort_laws</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provides the sort key for the supplied law element as a tuple consisting of:</span>
+<span class="sd">         * OfficialNumber (if this attribute is empty the element will be placed at the end of the list)</span>
+<span class="sd">         * Title</span>
+<span class="sd">        Args:</span>
+<span class="sd">            elem (dict): one element of the legal laws list</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             sort key (tuple)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sort_empty_number_last</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="s1">&#39;OfficialNumber&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="n">sort_number</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">&#39;OfficialNumber&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;OfficialNumber&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">sort_title</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;Title&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">sort_empty_number_last</span><span class="p">,</span> <span class="n">sort_number</span><span class="p">,</span> <span class="n">sort_title</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.sort_legend_elem"><a class="viewcode-back" href="../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_legend_elem">[docs]</a>    <span class="k">def</span> <span class="nf">sort_legend_elem</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provides the sort key for the supplied legend element as a tuple consisting of:</span>
 <span class="sd">         * rank of the geometry type as defined in LEGEND_ELEMENT_SORT_ORDER</span>
@@ -820,7 +887,7 @@
         <span class="c1"># Negative value for ascending sort order.</span>
         <span class="n">value</span> <span class="o">=</span> <span class="o">-</span><span class="n">elem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geom_type</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">category</span><span class="p">,</span> <span class="n">value</span></div>
+        <span class="k">return</span> <span class="n">category</span><span class="p">,</span> <span class="n">value</span></div></div>
 </pre></div>
 
            </div>
