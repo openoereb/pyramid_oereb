@@ -95,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-5-2-work-in-progress">Version 1.5.2 <em>(work in progress)</em></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-5-1">Version 1.5.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#mapfish-print-related-changes">MapFish Print related changes</a></li>
 </ul>
@@ -209,6 +210,21 @@
 <span id="changes"></span><h1>Changes/Hints for migration<a class="headerlink" href="#changes-hints-for-migration" title="Permalink to this headline">¶</a></h1>
 <p>This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.</p>
+<div class="section" id="version-1-5-2-work-in-progress">
+<span id="changes-version-1-5-2"></span><h2>Version 1.5.2 <em>(work in progress)</em><a class="headerlink" href="#version-1-5-2-work-in-progress" title="Permalink to this headline">¶</a></h2>
+<p>This release includes some features requested by the user group, as well as bug-fixes. Significant changes:</p>
+<ul>
+<li><p class="first">OEREB logo can be configured multilingual (#915)</p>
+</li>
+<li><p class="first">Add file extensions to logo and symbol URLs (#917)</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Image types are now restricted to <em>PNG</em> and <em>SVG</em>, according to the federal specification.
+If you are using other image formats, please convert them to one of the allowed types before migrating.</p>
+</div>
+</li>
+</ul>
+</div>
 <div class="section" id="version-1-5-1">
 <span id="changes-version-1-5-1"></span><h2>Version 1.5.1<a class="headerlink" href="#version-1-5-1" title="Permalink to this headline">¶</a></h2>
 <p>This version contains bug-fixes and provides additional functionality: the integration of the XML2PDF

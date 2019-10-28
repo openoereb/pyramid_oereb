@@ -163,7 +163,6 @@
             
   <h1>Source code for pyramid_oereb.standard.sources.plr</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">base64</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">geoalchemy2.shape</span> <span class="k">import</span> <span class="n">to_shape</span><span class="p">,</span> <span class="n">from_shape</span>
@@ -173,6 +172,7 @@
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">text</span><span class="p">,</span> <span class="n">or_</span><span class="p">,</span> <span class="n">and_</span>
 
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib</span> <span class="k">import</span> <span class="n">b64</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.availability</span> <span class="k">import</span> <span class="n">AvailabilityRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.embeddable</span> <span class="k">import</span> <span class="n">DatasourceRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.image</span> <span class="k">import</span> <span class="n">ImageRecord</span>
@@ -258,7 +258,7 @@
             <span class="c1"># Filter legend by view service to deliver dedicated legend entries only</span>
             <span class="k">if</span> <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">view_service_id</span> <span class="o">==</span> <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">view_service_id</span><span class="p">:</span>
                 <span class="n">legend_entry_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_legend_entry_record_class</span><span class="p">(</span>
-                    <span class="n">ImageRecord</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">symbol</span><span class="p">)),</span>
+                    <span class="n">ImageRecord</span><span class="p">(</span><span class="n">b64</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">symbol</span><span class="p">)),</span>
                     <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">legend_text</span><span class="p">,</span>
                     <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span>
                     <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">type_code_list</span><span class="p">,</span>

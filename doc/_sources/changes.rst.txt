@@ -7,6 +7,20 @@ This chapter will give you hints on how to handle version migration, in particul
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
 
+.. _changes-version-1.5.2:
+
+Version 1.5.2 *(work in progress)*
+----------------------------------
+This release includes some features requested by the user group, as well as bug-fixes. Significant changes:
+
+* OEREB logo can be configured multilingual (#915)
+
+* Add file extensions to logo and symbol URLs (#917)
+
+  .. warning:: Image types are now restricted to *PNG* and *SVG*, according to the federal specification.
+        If you are using other image formats, please convert them to one of the allowed types before migrating.
+
+
 .. _changes-version-1.5.1:
 
 Version 1.5.1

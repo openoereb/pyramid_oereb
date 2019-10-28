@@ -275,21 +275,25 @@
                 <span class="s1">&#39;LogoPLRCadastreRef&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">route_url</span><span class="p">(</span>
                     <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/image/logo&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">),</span>
                     <span class="n">logo</span><span class="o">=</span><span class="s1">&#39;oereb&#39;</span><span class="p">,</span>
-                    <span class="n">language</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span>
+                    <span class="n">language</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span>
+                    <span class="n">extension</span><span class="o">=</span><span class="n">extract</span><span class="o">.</span><span class="n">logo_plr_cadastre</span><span class="o">.</span><span class="n">extension</span>
                 <span class="p">),</span>
                 <span class="s1">&#39;FederalLogoRef&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">route_url</span><span class="p">(</span>
                     <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/image/logo&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">),</span>
                     <span class="n">logo</span><span class="o">=</span><span class="s1">&#39;confederation&#39;</span><span class="p">,</span>
-                    <span class="n">language</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span>
+                    <span class="n">language</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span>
+                    <span class="n">extension</span><span class="o">=</span><span class="n">extract</span><span class="o">.</span><span class="n">federal_logo</span><span class="o">.</span><span class="n">extension</span>
                 <span class="p">),</span>
                 <span class="s1">&#39;CantonalLogoRef&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">route_url</span><span class="p">(</span>
                     <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/image/logo&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">),</span>
                     <span class="n">logo</span><span class="o">=</span><span class="s1">&#39;canton&#39;</span><span class="p">,</span>
-                    <span class="n">language</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span>
+                    <span class="n">language</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span>
+                    <span class="n">extension</span><span class="o">=</span><span class="n">extract</span><span class="o">.</span><span class="n">cantonal_logo</span><span class="o">.</span><span class="n">extension</span>
                 <span class="p">),</span>
                 <span class="s1">&#39;MunicipalityLogoRef&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">route_url</span><span class="p">(</span>
                     <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/image/municipality&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">),</span>
-                    <span class="n">fosnr</span><span class="o">=</span><span class="n">extract</span><span class="o">.</span><span class="n">real_estate</span><span class="o">.</span><span class="n">fosnr</span>
+                    <span class="n">fosnr</span><span class="o">=</span><span class="n">extract</span><span class="o">.</span><span class="n">real_estate</span><span class="o">.</span><span class="n">fosnr</span><span class="p">,</span>
+                    <span class="n">extension</span><span class="o">=</span><span class="n">extract</span><span class="o">.</span><span class="n">municipality_logo</span><span class="o">.</span><span class="n">extension</span>
                 <span class="p">)</span>
             <span class="p">})</span>
 
@@ -736,7 +740,7 @@
             <span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="n">mapping</span><span class="p">(</span><span class="n">geom</span><span class="p">)[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">],</span>
             <span class="s1">&#39;crs&#39;</span><span class="p">:</span> <span class="s1">&#39;EPSG:</span><span class="si">{srid}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">srid</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">))</span>
             <span class="c1"># isosqlmmwkb only used for curved geometries (not supported by shapely)</span>
-            <span class="c1"># &#39;isosqlmmwkb&#39;: base64.b64encode(geom.wkb)</span>
+            <span class="c1"># &#39;isosqlmmwkb&#39;: b64.encode(geom.wkb)</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">geom_dict</span></div>
 
