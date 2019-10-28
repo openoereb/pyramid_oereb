@@ -596,6 +596,122 @@ sorting failed.</p>
 </table>
 </dd></dl>
 
+<dl class="staticmethod">
+<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_dict_list">
+<em class="property">static </em><code class="descname">sort_dict_list</code><span class="sig-paren">(</span><em>legend_list</em>, <em>sort_keys</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print.html#Renderer.sort_dict_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_dict_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sorts list of dictionaries by one or more sort keys.
+This function makes it possible to run test on the sorted list and assure the
+correctness of the soring.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>legend_list</strong> (<em>list</em><em>(</em><em>dict</em>) &#8211; list of legend dictionaries</li>
+<li><strong>sort_keys</strong> (<em>tuple/any</em>) &#8211; tuple of keys according to which the list of dictionaries will be</li>
+<li><strong>sorted</strong> (<em>at least one is needed</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">sorted list of legend dictionaries</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_hints">
+<em class="property">static </em><code class="descname">sort_hints</code><span class="sig-paren">(</span><em>elem</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print.html#Renderer.sort_hints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_hints" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Provides the sort key for the supplied hint element as a tuple consisting of:</dt>
+<dd><ul class="first last simple">
+<li>Title</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>elem</strong> (<em>dict</em>) &#8211; one element of the hints list</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sort key (tuple)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_laws">
+<em class="property">static </em><code class="descname">sort_laws</code><span class="sig-paren">(</span><em>elem</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print.html#Renderer.sort_laws"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_laws" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Provides the sort key for the supplied law element as a tuple consisting of:</dt>
+<dd><ul class="first last simple">
+<li>OfficialNumber (if this attribute is empty the element will be placed at the end of the list)</li>
+<li>Title</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>elem</strong> (<em>dict</em>) &#8211; one element of the legal laws list</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sort key (tuple)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_legal_provision">
+<em class="property">static </em><code class="descname">sort_legal_provision</code><span class="sig-paren">(</span><em>elem</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print.html#Renderer.sort_legal_provision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_legal_provision" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Provides the sort key for the supplied legal provision element as a tuple consisting of:</dt>
+<dd><ul class="first last simple">
+<li>title</li>
+<li>Office number</li>
+<li>Text at web</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>elem</strong> (<em>dict</em>) &#8211; one element of the legal provision list</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sort key (tuple)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_legend_elem">
+<em class="property">static </em><code class="descname">sort_legend_elem</code><span class="sig-paren">(</span><em>elem</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print.html#Renderer.sort_legend_elem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_legend_elem" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Provides the sort key for the supplied legend element as a tuple consisting of:</dt>
+<dd><ul class="first last simple">
+<li>rank of the geometry type as defined in LEGEND_ELEMENT_SORT_ORDER</li>
+<li>value of the geometry if available (AreaShare and LengthShare)</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>elem</strong> (<em>dict</em>) &#8211; legend entry</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sort key (tuple)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.unaccent_lower">
 <code class="descname">unaccent_lower</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.unaccent_lower" title="Permalink to this definition">¶</a></dt>
