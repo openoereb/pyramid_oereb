@@ -101,6 +101,8 @@ Print configuration
 
 **XML2PDF**
 
-To properly configure the XML2PDF print service of GISDATEN AG, you need specific configuration in your ``yaml`` file.
-Please see the standard configuration file provided as an example, 
-or use the ``create_standard_yaml`` script to regenerate your configuration file with the desired options.
+To properly configure the XML2PDF print service of GISDATEN AG, you need specific configuration in the section
+``print`` of your ``yaml`` file.
+Please see the `standard configuration file
+<https://github.com/openoereb/pyramid_oereb/blob/master/pyramid_oereb/standard/pyramid_oereb.yml.mako>`__
+as an example, or use the ``create_standard_yaml`` script to regenerate your configuration file with the desired options.
