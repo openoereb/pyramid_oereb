@@ -26,5 +26,14 @@ def create_standard_yaml():
         help='The database connection string (default is: '
              'postgresql://postgres:password@db:5432/pyramid_oereb).'
     )
+    parser.add_option(
+        '-p', '--print_backend',
+        dest='print_backend',
+        metavar='PRINT_BACKEND',
+        type='string',
+        default='MapFishPrint',
+        help='The print backend (for PDF generation) to use (default is: MapFishPrint)'
+    )
     options, args = parser.parse_args()
-    _create_standard_yaml_config_(name=options.name, database=options.database)
+    _create_standard_yaml_config_(name=options.name, database=options.database,
+                                  print_backend=options.print_backend)

@@ -3,11 +3,11 @@ vars:
   # need to get an up and running server.
 
   # The line below represents the "entry point" for the yaml configuration also called section. Keep this in
-  # mind for later stuff. You can change it to your favorite name. For the moment this is enough to know.
+  # mind for later stuff. You can change it to your favorite name.
   pyramid_oereb:
 
 
-    # Here you can set a central proxy which can be used somewhere in the application.
+    # Here you can set a central proxy which can be used in the application.
     # proxies:
       # http: http://"username":"password"@your_proxy.com:8088
       # https: https://"username":"password"@your_proxy.com:8088
@@ -36,20 +36,20 @@ vars:
       running_modifications:
         de: laufende Änderungen
         fr: modification en cours
-        it: modificazione in corso
+        it: modifica in corso
         rm: midada current
         en: ongoing modification
 
     # The "flavour" property is a list of all flavours of data extracts provided by this application.
-    # For the moment this only affects the output of the capabilities webservice. Whatever in later
-    # versions it is the place to directly influence the available output formats.
+    # For the moment this only affects the output of the capabilities webservice. In later
+    # versions, this will be the place to directly influence the available output formats.
     #
     # Possible flavours are: REDUCED, FULL, EMBEDDABLE, SIGNED
     # REDUCED:    Means that depending on the cantonal implementation you may be able to select
-    #             a defined combination ot topics to extract (e.g. only 'federal' topics without
-    #             cantonal extensions - and choosing this option legal provions are only output
+    #             a defined combination of topics to extract (e.g. only 'federal' topics without
+    #             cantonal extensions - and choosing this option legal provisions are only output
     #             as link.
-    # FULL:       Means you get all topics wheter they are defined in the 17 base topics or if they
+    # FULL:       Means you get all topics whether they are defined in the 17 base topics or if they
     #             are cantonal specificities.
     #             The extract will also have the legal provisions and referenced documents
     #             included as PDF.
@@ -65,6 +65,21 @@ vars:
       # The pyramid renderer which is used as proxy pass through to the desired service for printable static
       # extract. Here you can define the path to the logic which prepares the output as payload for print
       # service and returns the result to the user.
+  % if print_backend == 'XML2PDF':
+      # Configuration for XML2PDF print service
+      renderer: pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer
+      # Base URL with application of the print server
+      base_url: https://oereb-dev.gis-daten.ch/oereb/report/create
+      token: 24ba4328-a306-4832-905d-b979388d4cab
+      use_wms: "true"
+      validate: "false"
+      # The following parameters are not used by xml2pdf, but we need to keep them until issue #873 is solved
+      buffer: 30
+      basic_map_size: [493, 280]
+      pdf_dpi: 300
+      pdf_map_size_millimeters: [174, 99]
+  % else:
+      # Configuration for MapFish-Print print service
       renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer
       # The minimum buffer in pixel at 72 DPI between the real estate and the map's border.
       buffer: 30
@@ -99,18 +114,20 @@ vars:
       # Specify any additional URL parameters that the print shall use for WMS calls
       wms_url_params:
         TRANSPARENT: 'true'
+  % endif
 
-    # The "app_schema" property contains only one sub property "name". This is directly related to the database
-    # creation process. Because this name is used as schema name in the target database. The app_schema holds
+  # The "app_schema" property contains only one sub property "name". This is directly related to the database
+    # creation process, because this name is used as schema name in the target database. The app_schema holds
     # all application stuff like: addresses, municipalities, real estates, etc.
     # Please note that this is only necessary if you want to use the standard configuration. Normally you don't
     # need to adjust this. Only in the unlikely case of another schema in the same database with the same name
-    # you can change it here to avoid name collision. Of cause you can configure the application to load these
-    # data from else where.
+    # you can change it here to avoid name collision. Of course you can configure the application to load this
+    # data from elsewhere.
     app_schema:
       name: pyramid_oereb_main
       models: pyramid_oereb.standard.models.main
-      db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+      db_connection: &main_db_connection
+        postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
 
     # Define the SRID which your server is representing. Note: Only one projection system is possible in the
     # application. It does not provide any reprojection nor data in different projection systems. Take care in
@@ -147,10 +164,21 @@ vars:
       # Mapping for other optional attributes
       mapping:
         municipality: subtype
-      # Proxy to be used for web requests
+        official_number: number
+        abbreviation: abbreviation
+      # Handle related decree also as main document
+      # By default a related decree will be added as reference of the type "legal provision" to the main
+      # document. Set this flag to true, if you want the related decree to be added as additional legal
+      # provision directly to the public law restriction. This might have an impact on client side rendering.
+      related_decree_as_main: false
+    # Proxy to be used for web requests
       # proxy:
       #   http:
       #   https:
+      # Credentials for basic authentication
+      # auth:
+      #   username:
+      #   password:
 
     # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
     # will be directly used for producing the extract output.
@@ -173,8 +201,8 @@ vars:
     # The extract provides logos. Therefor you need to provide a path to these logos. Note: This must be a
     # valid absolute system path available for reading by the user running this server.
     logo:
-      # The logo representing the swiss confederation (you can use it as is cause it is provided in this
-      # repository). But if you need to change it for any reason: Feel free...
+      # The logo representing the swiss confederation. You can use it as is because it is provided in this
+      # repository, but if you need to change it for any reason: Feel free...
       confederation: logo_confederation.png
       # The logo representing the oereb extract CI (you can use it as is cause it is provided in this
       # repository). But if you need to change it for any reason: Feel free...
@@ -192,9 +220,9 @@ vars:
     get_municipality_method: pyramid_oereb.standard.hook_methods.get_municipality
 
     # The processor of the oereb project needs access to real estate data. In the standard configuration this
-    # is assumed to be read from a database. Hint: If you like to read the real estate out of an existing
+    # is assumed to be read from a database. Hint: If you want to read the real estate out of an existing
     # database table to avoid imports of this data every time it gets updates you only need to change the model
-    # bound to the source. The model must implement the same field names and information then the default model
+    # bound to the source. The model must implement the same field names and information as the default model
     # does.
     real_estate:
       plan_for_land_register:
@@ -209,7 +237,7 @@ vars:
         layer_opacity: 1.0
       visualisation:
         method: pyramid_oereb.standard.hook_methods.produce_sld_content
-        # Note: This parameters must fit to the attributes provided by the RealEstateRecord!!!!
+        # Note: these parameters must fit to the attributes provided by the RealEstateRecord!!!!
         url_params:
         - egrid
         layer:
@@ -233,37 +261,37 @@ vars:
         type: Bergwerk
       # The real estate must have a property source.
       source:
-        # The source must have a class which represents the accessor to the source. In this case it is a source
-        # already implemented which reads data from a database.
+        # The source must have a class which represents the accessor to the source. In this example, it is an
+        # already implemented source which reads data from a database.
         class: pyramid_oereb.standard.sources.real_estate.DatabaseSource
-        # The configured class accepts params which are also necessary to define
+        # The necessary parameters to use this class
         params:
           # The connection path where the database can be found
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           # The model which maps the real estate database table.
           model: pyramid_oereb.standard.models.main.RealEstate
 
-    # The processor of the oereb project needs access to address data. In the standard configuration this
-    # is assumed to be read from a database. Hint: If you like to read the addresses out of an existing database
-    # table to avoid imports of this data every time it gets updates you only need to change the model bound to
-    # the source. The model must implement the same field names and information then the default model does.
+    # The processor of the oereb project needs access to address data. In the standard configuration, this
+    # is assumed to be read from a database. Hint: If you want to read the addresses out of an existing database
+    # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
+    # the source. The model must implement the same field names and information as the default model does.
     address:
       # The address must have a property source.
       source:
-        # The source must have a class which represents the accessor to the source. In this case it is a source
-        # already implemented which reads data from a database.
+        # The source must have a class which represents the accessor to the source. In this example, it is an
+        # already implemented source which reads data from a database.
         class: pyramid_oereb.standard.sources.address.DatabaseSource
-        # The configured class accepts params which are also necessary to define
+        # The necessary parameters to use this class
         params:
           # The connection path where the database can be found
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           # The model which maps the address database table.
           model: pyramid_oereb.standard.models.main.Address
           # Alternatively you can use the search service of the GeoAdmin API to look up the real estate by
           # address. Replace the configuration above with the following lines:
           # class: pyramid_oereb.lib.sources.address.AddressGeoAdminSource
-          # # The referer to use.
-          # referer: http://canton.ch
+          # # Optional referer to use.
+          # referer: http://my.referer.ch
           # params:
             # # URL of the GeoAdmin API SearchServer
             # geoadmin_search_api: https://api3.geo.admin.ch/rest/services/api/SearchServer
@@ -271,69 +299,69 @@ vars:
             # origins: address
 
     # The processor of the oereb project needs access to municipality data. In the standard configuration this
-    # is assumed to be read from a database. Hint: If you like to read the municipality out of an existing
+    # is assumed to be read from a database. Hint: If you want to read the municipality out of an existing
     # database table to avoid imports of this data every time it gets updates you only need to change the model
-    # bound to the source. The model must implement the same field names and information then the default model
+    # bound to the source. The model must implement the same field names and information as default model
     # does.
     municipality:
       # The municipality must have a property source.
       source:
-        # The source must have a class which represents the accessor to the source. In this case it is a source
-        # already implemented which reads data from a database.
+        # The source must have a class which represents the accessor to the source. In this example, it is an
+        # already implemented source which reads data from a database.
         class: pyramid_oereb.standard.sources.municipality.DatabaseSource
-        # The configured class accepts params which are also necessary to define
+        # The necessary parameters to use this class
         params:
           # The connection path where the database can be found
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           # The model which maps the municipality database table.
           model: pyramid_oereb.standard.models.main.Municipality
 
     # The processor of the oereb project needs access to glossary data. In the standard configuration this
-    # is assumed to be read from a database. Hint: If you like to read the glossary out of an existing database
-    # table to avoid imports of this data every time it gets updates you only need to change the model bound to
-    # the source. The model must implement the same field names and information then the default model does.
+    # is assumed to be read from a database. Hint: If you want to read the glossary out of an existing database
+    # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
+    # the source. The model must implement the same field names and information as the default model does.
     glossary:
       # The glossary must have a property source.
       source:
-        # The source must have a class which represents the accessor to the source. In this case it is a source
-        # already implemented which reads data from a database.
+        # The source must have a class which represents the accessor to the source. In this example, it is an
+        # already implemented source which reads data from a database.
         class: pyramid_oereb.standard.sources.glossary.DatabaseSource
-        # The configured class accepts params which are also necessary to define
+        # The necessary parameters to use this class
         params:
           # The connection path where the database can be found
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           # The model which maps the glossary database table.
           model: pyramid_oereb.standard.models.main.Glossary
 
     # The processor of the oereb project needs access to exclusion of liability data. In the standard
-    # configuration this is assumed to be read from a database. Hint: If you like to read the exclusion of
+    # configuration this is assumed to be read from a database. Hint: If you want to read the exclusion of
     # liability out of an existing database table to avoid imports of this data every time it gets updates you
     # only need to change the model bound to the source. The model must implement the same field names and
-    # information then the default model does.
+    # information as the default model does.
     exclusion_of_liability:
       # The exclusion_of_liability must have a property source.
       source:
-        # The source must have a class which represents the accessor to the source. In this case it is a source
-        # already implemented which reads data from a database.
+        # The source must have a class which represents the accessor to the source. In this example, it is an
+        # already implemented source which reads data from a database.
         class: pyramid_oereb.standard.sources.exclusion_of_liability.DatabaseSource
-        # The configured class accepts params which are also necessary to define
+        # The necessary parameters to use this class
         params:
           # The connection path where the database can be found
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           # The model which maps the exclusion_of_liability database table.
           model: pyramid_oereb.standard.models.main.ExclusionOfLiability
 
-    # The extract is more an abstract implementation of a source. It is the entry point which binds everything
+    # The extract is the entry point which binds everything
     # related to data together.
     extract:
       # Information about the base data used for the extract, e.g. the used base map and its currentness.
-      # This is a multlingual value. At least the set default language has to be defined.
+      # This is a multilingual value. In the minimum, the value for the default language has to be defined.
       base_data:
           text:
-            de: Daten der amtlichen Vermessung, Stand {0}.
-            fr: Données de la mensuration officielle, état actuel {0}
-            it: Dati della misurazione ufficiale, stato attuale {0}
-            rm: Datas da la mesiraziun uffiziala, versiun dal {0}
+            de: "Daten der amtlichen Vermessung. Stand der amtlichen Vermessung: {0}."
+            fr: "Données de la mensuration officielle, état de la mensuration officielle: {0}."
+            it: "Dati della misurazione ufficiale. Stato della misurazione ufficiale: {0}."
+            rm: "Datas da la mesiraziun uffiziala. Versiun dal mesiraziun uffiziala: {0}."
           methods:
             date: pyramid_oereb.standard.hook_methods.get_surveying_data_update_date
             provider:  pyramid_oereb.standard.hook_methods.get_surveying_data_provider
@@ -354,7 +382,7 @@ vars:
           it: Il contenuto del Catasto RDPP si considera noto. Il Canton ---NOME DEL CANTON--- non può essere ritenuto responsabile per la precisione e l'affidabilità dei documenti legislativi in formato elettronico. L'estratto ha carattere puramente informativo e non è in particolare costituti-vo di diritti e obblighi. Sono considerati giuridicamente vincolanti i documenti approvati o pubblicati passati in giudicato. Con l'autenticazione dell'estratto viene confermata la conformità dell'estratto rispetto al Catasto RDPP al momento della sua redazione.
           rm: ...
 
-    # All PLR's which are provided by this application. This is related to all application behaviour. Especially
+    # All PLRs which are provided by this application. This is related to all application behaviour, especially
     # the extract creation process which loops over this list.
     plrs:
 
@@ -362,7 +390,7 @@ vars:
       code: LandUsePlans
       geometry_type: GEOMETRYCOLLECTION
       # Define the minmal area and length for public law restrictions that should be considered as 'true' restrictions
-      # and not as calculation errors (false true's) due to topological imperfections
+      # and not as calculation errors (false trues) due to topological imperfections
       thresholds:
         length:
           limit: 1.0
@@ -391,7 +419,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.land_use_plans
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -431,7 +459,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.motorways_project_planing_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -471,7 +499,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.motorways_building_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -511,7 +539,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.railways_building_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -551,7 +579,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.railways_project_planning_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -591,7 +619,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.airports_project_planning_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -631,7 +659,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.airports_building_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -671,7 +699,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.airports_security_zone_plans
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -679,6 +707,7 @@ vars:
       law_status:
         in_force: inForce
         running_modifications: runningModifications
+      download: https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip
 
     - name: plr116
       code: ContaminatedSites
@@ -711,7 +740,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.contaminated_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -751,7 +780,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.contaminated_military_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -791,7 +820,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.contaminated_civil_aviation_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -831,7 +860,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.contaminated_public_transport_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -880,7 +909,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.groundwater_protection_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -920,7 +949,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.groundwater_protection_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -960,7 +989,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.noise_sensitivity_levels
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -1000,7 +1029,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.forest_perimeters
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -1040,7 +1069,7 @@ vars:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+          db_connection: *main_db_connection
           models: pyramid_oereb.standard.models.forest_distance_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol

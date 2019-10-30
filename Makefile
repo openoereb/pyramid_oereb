@@ -91,6 +91,7 @@ else
 endif
 export SQLALCHEMY_URL = "postgresql://$(PG_CREDENTIALS)@$(@_POSTGIS_IP):5432/pyramid_oereb_test"
 export PNG_ROOT_DIR = pyramid_oereb/standard/
+export PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
 
 .coverage: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB) pyramid_oereb/standard/pyramid_oereb.yml .coveragerc $(shell find -name "*.py" -print | fgrep -v /.venv)
 	@echo Run tests using docker: $(USE_DOCKER)
@@ -141,7 +142,7 @@ clean-all:
 	rm -rf .venv
 	rm -rf $(BUILDDIR)
 	rm -rf coverage_report
-	rm -f pyramid_oereb_standard.yml pyramid_oereb/standard/pyramid_oereb.yml
+	rm -f pyramid_oereb_standard.yml pyramid_oereb/standard/pyramid_oereb.yml docker/config.yaml
 	rm -f test-db/12-create.sql test-db/13-fill.sql
 
 .PHONY: create-default-models
@@ -163,11 +164,11 @@ drop-standard-tables: $(PYTHON_VENV)
 	$(VENV_BIN)drop_tables$(PYTHON_BIN_POSTFIX) -c pyramid_oereb.yml
 
 .PHONY: serve
-serve: pyramid_oereb_standard.yml test-db/12-create.sql test-db/13-fill.sql
+serve: install pyramid_oereb_standard.yml docker/config.yaml test-db/12-create.sql test-db/13-fill.sql
 	docker-compose up --build --remove-orphans
 
 pyramid_oereb_standard.yml: .venv/install-timestamp
-	$(VENV_BIN)create_standard_yaml$(PYTHON_BIN_POSTFIX)
+	$(VENV_BIN)create_standard_yaml$(PYTHON_BIN_POSTFIX) --database $(SQLALCHEMY_URL) --print_backend $(PRINT_BACKEND)
 
 test-db/12-create.sql: pyramid_oereb_standard.yml .venv/install-timestamp
 	$(VENV_BIN)create_standard_tables$(PYTHON_BIN_POSTFIX) --configuration $< --sql-file $@
@@ -189,5 +190,5 @@ logo_%.png: pyramid_oereb_standard.yml
 	touch --no-create $@
 
 .PHONY: build-docker
-build-docker: logo_oereb.png logo_confederation.png logo_canton.png
+build-docker: logo_oereb.png logo_confederation.png logo_canton.png docker/config.yaml
 	docker build --tag camptocamp/pyramid-oereb:latest .

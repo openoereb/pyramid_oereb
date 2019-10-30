@@ -173,7 +173,8 @@ def drop_tables_from_standard_configuration(configuration_yaml_path, section='py
 
 
 def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
-                                  database='postgresql://postgres:password@localhost/pyramid_oereb'):
+                                  database='postgresql://postgres:password@localhost/pyramid_oereb',
+                                  print_backend='MapFishPrint'):
     """
     Creates the specified YAML file using a template. This YAML file contains the standard
     configuration to run a oereb server out of the box.
@@ -197,7 +198,7 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
         input_encoding='utf-8',
         output_encoding='utf-8'
     )
-    config = template.render(sqlalchemy_url=database, png_root_dir='')
+    config = template.render(sqlalchemy_url=database, png_root_dir='', print_backend=print_backend)
     pyramid_oereb_yml = open(name, 'wb+')
     pyramid_oereb_yml.write(config)
     pyramid_oereb_yml.close()
