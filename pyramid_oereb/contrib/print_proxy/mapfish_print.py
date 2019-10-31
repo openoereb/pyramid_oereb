@@ -401,20 +401,19 @@ class Renderer(JsonRenderer):
                 restriction_on_landownership[element] = values
                 if element == 'LegalProvisions':
                     pdf_to_join.update([legal_provision['TextAtWeb'] for legal_provision in values])
-
-        # sort legal provisioning, hints and laws
-        restriction_on_landownership['LegalProvisions'] = self.sort_dict_list(
-            restriction_on_landownership['LegalProvisions'],
-            self.sort_legal_provision
-        )
-        restriction_on_landownership['Laws'] = self.sort_dict_list(
-            restriction_on_landownership['Laws'],
-            self.sort_laws
-        )
-        restriction_on_landownership['Hints'] = self.sort_dict_list(
-            restriction_on_landownership['Hints'],
-            self.sort_hints
-        )
+            # sort legal provisioning, hints and laws
+            restriction_on_landownership['LegalProvisions'] = self.sort_dict_list(
+                restriction_on_landownership['LegalProvisions'],
+                self.sort_legal_provision
+            )
+            restriction_on_landownership['Laws'] = self.sort_dict_list(
+                restriction_on_landownership['Laws'],
+                self.sort_laws
+            )
+            restriction_on_landownership['Hints'] = self.sort_dict_list(
+                restriction_on_landownership['Hints'],
+                self.sort_hints
+            )
 
         restrictions = list(theme_restriction.values())
         for restriction in restrictions:
