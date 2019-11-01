@@ -962,29 +962,10 @@ have to match exactly, otherwise they will be added at the end. Example configur
 <div class="section" id="print-configuration">
 <h1>Print configuration<a class="headerlink" href="#print-configuration" title="Permalink to this headline">¶</a></h1>
 <p><strong>XML2PDF</strong></p>
-<p>To properly configure the print service of GISDATEN AG you need to add the following in your yaml file inside
-the print section:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="nt">print</span><span class="p">:</span>
-    <span class="nt">renderer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer</span>
-    <span class="c1"># Base URL with application of the print server</span>
-    <span class="nt">base_url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://oereb-dev.gis-daten.ch/oereb/report/create</span>
-    <span class="nt">token</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">24ba4328-a306-4832-905d-b979388d4cab</span>
-    <span class="nt">use_wms</span><span class="p">:</span> <span class="s">&quot;true&quot;</span>
-    <span class="nt">validate</span><span class="p">:</span> <span class="s">&quot;false&quot;</span>
-    <span class="c1"># Do not stop on errors of https connection. WARNING: This leads to potential insecure connections</span>
-    <span class="nt">verify_certificate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-    <span class="c1"># The buffer on the map around the parcel in percent</span>
-    <span class="nt">buffer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
-    <span class="c1"># The map size in pixel at 72 DPI (width, height), This is the defined size of a map image</span>
-    <span class="c1"># (requested in wms urls) inside the static extract. On a pdf report, tha map size will</span>
-    <span class="c1"># be calculated with the pdf_dpi and the pdf_map_size_millimeters below.</span>
-    <span class="nt">basic_map_size</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">493</span><span class="p p-Indicator">,</span> <span class="nv">280</span><span class="p p-Indicator">]</span>
-    <span class="c1"># The dpi used to calculate the size of the requested map (for pdf export only).</span>
-    <span class="nt">pdf_dpi</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">300</span>
-    <span class="c1"># The map size (in millimeters) used to calculate the size of the requested map (for pdf export only).</span>
-    <span class="nt">pdf_map_size_millimeters</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">174</span><span class="p p-Indicator">,</span> <span class="nv">99</span><span class="p p-Indicator">]</span>
-</pre></div>
-</div>
+<p>To properly configure the XML2PDF print service of GISDATEN AG, you need specific configuration in the section
+<code class="docutils literal"><span class="pre">print</span></code> of your <code class="docutils literal"><span class="pre">yaml</span></code> file.
+Please see the <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/blob/master/pyramid_oereb/standard/pyramid_oereb.yml.mako">standard configuration file</a>
+as an example, or use the <code class="docutils literal"><span class="pre">create_standard_yaml</span></code> script to regenerate your configuration file with the desired options.</p>
 </div>
 
 
