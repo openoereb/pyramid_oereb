@@ -1,5 +1,9 @@
 [
   {
+    "id": 390,
+    "document_id": 8001,
+    "public_law_restriction_id": 396
+  }, {
     "id": 396,
     "document_id": 1292,
     "public_law_restriction_id": 396
@@ -19,5 +23,13 @@
     "id": 400,
     "document_id": 1296,
     "public_law_restriction_id": 400
+  }, {
+    "id": 401,
+    "document_id": 8000,
+    "public_law_restriction_id": 396
+  }, {
+    "id": 402,
+    "document_id": 8002,
+    "public_law_restriction_id": 396
   }
 ]

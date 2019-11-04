@@ -49,6 +49,51 @@
   },
   {
     "office_id": 1,
+    "published_from": "2019-10-30",
+    "canton": "",
+    "id": 8002,
+    "document_type": "Law",
+    "text_at_web": {
+      "de": "http://www.lexfind.ch/dtah/167348/2"
+    },
+    "law_status": "inForce",
+    "abbreviation": {
+      "de": "AltlV"
+    },
+    "title": {
+      "de": "Bundesgesetz über die Raumplanung (Raumplanungsgesetz, RPG)"
+    },
+    "official_number": "SR 700"
+  }, {
+    "office_id": 1,
+    "published_from": "2019-10-30",
+    "canton": "GR",
+    "id": 8000,
+    "document_type": "LegalProvision",
+    "text_at_web": {
+      "de": "https://oereb-gr-preview.000.ch/api/attachments/213"
+    },
+    "law_status": "inForce",
+    "title": {
+      "de": "Revision Ortsplanung"
+    },
+    "official_number": "07.447"
+  }, {
+    "office_id": 1,
+    "published_from": "2019-10-30",
+    "canton": "GR",
+    "id": 8001,
+    "document_type": "LegalProvision",
+    "text_at_web": {
+      "de": "https://oereb-gr-preview.000.ch/api/attachments/214"
+    },
+    "law_status": "inForce",
+    "title": {
+      "de": "Revision Ortsplanung"
+    },
+    "official_number": "07.447"
+  }, {
+    "office_id": 1,
     "published_from": "2016-02-25",
     "canton": "BL",
     "id": 1292,
