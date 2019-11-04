@@ -73,7 +73,7 @@ vars:
       token: 24ba4328-a306-4832-905d-b979388d4cab
       use_wms: "true"
       validate: "false"
-      # The following parameters are not used by xml2pdf, but we need to keep them until issue #873 is solved
+      # The following parameters are not used by xml2pdf, but might be in the fure (see issue #873)
       buffer: 30
       basic_map_size: [493, 280]
       pdf_dpi: 300
@@ -204,8 +204,8 @@ vars:
       # The logo representing the swiss confederation. You can use it as is because it is provided in this
       # repository, but if you need to change it for any reason: Feel free...
       confederation: logo_confederation.png
-      # The logo representing the oereb extract CI (you can use it as is cause it is provided in this
-      # repository). But if you need to change it for any reason: Feel free...
+      # The logo representing the oereb extract CI. You can use it as is because it is provided in this
+      # repository, but if you need to change it for any reason: Feel free...
       oereb:
         de: logo_oereb_de.png
         fr: logo_oereb_fr.png
@@ -394,12 +394,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -434,12 +432,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -474,12 +470,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -514,12 +508,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -554,12 +546,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -594,12 +584,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -634,12 +622,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -674,12 +660,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -715,12 +699,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -755,12 +737,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -795,12 +775,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -835,12 +813,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -868,15 +844,16 @@ vars:
       law_status:
         in_force: inForce
         running_modifications: runningModifications
-      sub_themes:
-        sorter:
-          module: pyramid_oereb.contrib.print_proxy.sub_themes.sorting
-          class_name: ListSort
-          params:
-            list:
-              - SubTheme3
-              - SubTheme2
-              - SubTheme1
+      # Example of how sub_themes sorting can be activated (uncomment to enable):
+      #sub_themes:
+      #  sorter:
+      #    module: pyramid_oereb.contrib.print_proxy.sub_themes.sorting
+      #    class_name: ListSort
+      #    params:
+      #      list:
+      #        - SubTheme3
+      #        - SubTheme2
+      #        - SubTheme1
 
     - name: plr131
       code: GroundwaterProtectionZones
@@ -884,12 +861,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -924,12 +899,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -964,12 +937,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -1004,12 +975,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:
@@ -1044,12 +1013,10 @@ vars:
       thresholds:
         length:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm'
           precision: 2
         area:
           limit: 1.0
-          # Unit used internally only until now!
           unit: 'm²'
           precision: 2
         percentage:

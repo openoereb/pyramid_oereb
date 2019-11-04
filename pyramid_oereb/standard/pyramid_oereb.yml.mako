@@ -162,6 +162,7 @@ pyramid_oereb:
     canton: BL
     # Mapping for other optional attributes
     mapping:
+      municipality: subtype
       official_number: number
       abbreviation: abbreviation
     # Handle related decree also as main document
@@ -392,8 +393,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Nutzungsplanung (kantonal/kommunal)
         fr: Plans d'affectation (cantonaux/communaux)
@@ -424,8 +431,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Projektierungszonen Nationalstrassen
         fr: Zones réservées des routes nationales
@@ -456,8 +469,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Baulinien Nationalstrassen
         fr: Alignements des routes nationales
@@ -488,8 +507,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Baulinien Eisenbahnanlagen
         fr: Alignements des installations ferroviaires
@@ -520,8 +545,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Projektierungszonen Eisenbahnanlagen
         fr: Zones réservées des installations ferroviaires
@@ -552,8 +583,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Projektierungszonen Flughafenanlagen
         fr: Zones réservées des installations aéroportuaires
@@ -584,8 +621,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Baulinien Flughafenanlagen
         fr: Alignements des installations aéroportuaires
@@ -616,8 +659,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Sicherheitszonenplan
         fr: Plan de la zone de sécurité
@@ -649,8 +698,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Kataster der belasteten Standorte
         fr: Cadastre des sites pollués
@@ -681,8 +736,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Kataster der belasteten Standorte im Bereich des Militärs
         fr: Cadastre des sites pollués - domaine militaire
@@ -713,8 +774,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Kataster der belasteten Standorte im Bereich der zivilen Flugplätze
         fr: Cadastre des sites pollués - domaine des aérodromes civils
@@ -745,8 +812,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs
         fr: Cadastre des sites pollués - domaine des transports publics
@@ -770,6 +843,16 @@ pyramid_oereb:
       law_status:
         in_force: inForce
         running_modifications: runningModifications
+      # Example of how sub_themes sorting can be activated (uncomment to enable):
+      #sub_themes:
+      #  sorter:
+      #    module: pyramid_oereb.contrib.print_proxy.sub_themes.sorting
+      #    class_name: ListSort
+      #    params:
+      #      list:
+      #        - SubTheme3
+      #        - SubTheme2
+      #        - SubTheme1
 
     - name: plr131
       code: GroundwaterProtectionZones
@@ -777,8 +860,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Grundwasserschutzzonen
         fr: Zones de protection des eaux souterraines
@@ -809,8 +898,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Grundwasserschutzareale
         fr: Périmètres de protection des eaux souterraines
@@ -841,8 +936,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Lärmempfindlichkeitsstufen (in Nutzungszonen)
         fr: Degré de sensibilité au bruit (dans les zones d'affectation)
@@ -873,8 +974,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Statische Waldgrenzen
         fr: Limites forestières statiques
@@ -905,8 +1012,14 @@ pyramid_oereb:
       thresholds:
         length:
           limit: 1.0
+          unit: 'm'
+          precision: 2
         area:
           limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
       text:
         de: Waldabstandslinien
         fr: Distances par rapport à la forêt
