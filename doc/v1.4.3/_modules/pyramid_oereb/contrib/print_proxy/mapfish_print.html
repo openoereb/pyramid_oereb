@@ -563,20 +563,19 @@
                 <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
                 <span class="k">if</span> <span class="n">element</span> <span class="o">==</span> <span class="s1">&#39;LegalProvisions&#39;</span><span class="p">:</span>
                     <span class="n">pdf_to_join</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">legal_provision</span> <span class="ow">in</span> <span class="n">values</span><span class="p">])</span>
-
-        <span class="c1"># sort legal provisioning, hints and laws</span>
-        <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort_dict_list</span><span class="p">(</span>
-            <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">],</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">sort_legal_provision</span>
-        <span class="p">)</span>
-        <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Laws&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort_dict_list</span><span class="p">(</span>
-            <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Laws&#39;</span><span class="p">],</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">sort_laws</span>
-        <span class="p">)</span>
-        <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Hints&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort_dict_list</span><span class="p">(</span>
-            <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Hints&#39;</span><span class="p">],</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">sort_hints</span>
-        <span class="p">)</span>
+            <span class="c1"># sort legal provisioning, hints and laws</span>
+            <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort_dict_list</span><span class="p">(</span>
+                <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sort_legal_provision</span>
+            <span class="p">)</span>
+            <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Laws&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort_dict_list</span><span class="p">(</span>
+                <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Laws&#39;</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sort_laws</span>
+            <span class="p">)</span>
+            <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Hints&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort_dict_list</span><span class="p">(</span>
+                <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Hints&#39;</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sort_hints</span>
+            <span class="p">)</span>
 
         <span class="n">restrictions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">theme_restriction</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
         <span class="k">for</span> <span class="n">restriction</span> <span class="ow">in</span> <span class="n">restrictions</span><span class="p">:</span>
