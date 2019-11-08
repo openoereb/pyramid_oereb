@@ -3,7 +3,7 @@ filetype==1.0.5
 geoalchemy2==0.6.3
 psycopg2-binary==2.8.4
 pyramid==1.10.4
-pyramid-debugtoolbar==4.5
+pyramid-debugtoolbar==4.5.1
 PyYAML==5.1.2
 shapely==1.6.4.post1  # rq.filter: ==1.6.4.post1
 simplejson==3.16.0
