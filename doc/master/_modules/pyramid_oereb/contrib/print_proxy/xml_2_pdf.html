@@ -255,7 +255,8 @@
                 <span class="n">verify</span><span class="o">=</span><span class="n">verify_certificate</span><span class="p">,</span>
                 <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
                 <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;xml&#39;</span><span class="p">,</span> <span class="n">data_extract</span><span class="p">,</span> <span class="s1">&#39;text/xml&#39;</span><span class="p">)},</span>
-                <span class="n">data</span><span class="o">=</span><span class="n">parameters</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>
+                <span class="n">proxies</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;proxies&#39;</span><span class="p">)</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="n">backend_answer</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="n">requests</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
                 <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;request_pdf failed for url </span><span class="si">{}</span><span class="s2">, data_extract was </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data_extract</span><span class="p">))</span>
