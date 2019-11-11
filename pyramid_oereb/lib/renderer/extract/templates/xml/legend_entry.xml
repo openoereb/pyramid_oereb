@@ -8,8 +8,8 @@
 <data:LegendText>
     <%include file="multilingual_text.xml" args="text=legend_entry.legend_text"/>
 </data:LegendText>
-<data:TypeCode>${legend_entry.type_code}</data:TypeCode>
-<data:TypeCodelist>${legend_entry.type_code_list}</data:TypeCodelist>
+<data:TypeCode>${legend_entry.type_code | x}</data:TypeCode>
+<data:TypeCodelist>${legend_entry.type_code_list | x}</data:TypeCodelist>
 <data:Theme>
     <%include file="theme.xml" args="theme=legend_entry.theme"/>
 </data:Theme>
@@ -17,8 +17,8 @@
 <%
     localized_sub_theme = localized(legend_entry.sub_theme)
 %>
-<data:SubTheme>${localized_sub_theme.get('Text')}</data:SubTheme>
+<data:SubTheme>${localized_sub_theme.get('Text') | x}</data:SubTheme>
 %endif
 %if legend_entry.other_theme:
-<data:OtherTheme>${legend_entry.other_theme}</data:OtherTheme>
+<data:OtherTheme>${legend_entry.other_theme | x}</data:OtherTheme>
 %endif

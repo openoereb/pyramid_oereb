@@ -14,19 +14,19 @@
 </data:Abbreviation>
 %endif
 %if document.official_number:
-<data:OfficialNumber>${document.official_number}</data:OfficialNumber>
+<data:OfficialNumber>${document.official_number | x}</data:OfficialNumber>
 %endif
 %if document.canton:
-<data:Canton>${document.canton}</data:Canton>
+<data:Canton>${document.canton | x}</data:Canton>
 %endif
 %if document.municipality:
-<data:Municipality>${document.municipality}</data:Municipality>
+<data:Municipality>${document.municipality | x}</data:Municipality>
 %endif
 <data:ResponsibleOffice>
     <%include file="office.xml" args="office=document.responsible_office"/>
 </data:ResponsibleOffice>
 %if document.article_numbers:
-<data:ArticleNumber>${document.article_numbers}</data:ArticleNumber>
+<data:ArticleNumber>${document.article_numbers | x}</data:ArticleNumber>
 %endif
 %for article in document.articles:
 <%include file="article.xml" args="article=article"/>

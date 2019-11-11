@@ -12,17 +12,17 @@
 <data:Line1>${office.line1}</data:Line1>
 %endif
 %if office.line2:
-<data:Line2>${office.line2}</data:Line2>
+<data:Line2>${office.line2 | x}</data:Line2>
 %endif
 %if office.street:
-<data:Street>${office.street}</data:Street>
+<data:Street>${office.street | x}</data:Street>
 %endif
 %if office.number:
-<data:Number>${office.number}</data:Number>
+<data:Number>${office.number | x}</data:Number>
 %endif
 %if office.postal_code:
-<data:PostalCode>${office.postal_code}</data:PostalCode>
+<data:PostalCode>${office.postal_code | x}</data:PostalCode>
 %endif
 %if office.city:
-<data:City>${office.city}</data:City>
+<data:City>${office.city | x}</data:City>
 %endif
