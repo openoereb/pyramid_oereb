@@ -24,7 +24,7 @@ class AddressReader(object):
         source_class = DottedNameResolver().maybe_resolve(dotted_source_class_path)
         self._source_ = source_class(**params)
 
-    def read(self, street_name, zip_code, street_number):
+    def read(self, params, street_name, zip_code, street_number):
         """
         The read method of this reader. There we invoke the read method of the bound source.
 
@@ -34,6 +34,7 @@ class AddressReader(object):
             works would be broken.
 
         Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             street_name (unicode): The name of the street for the desired address.
             zip_code (int): The postal zipcode for the desired address.
             street_number (str): The house or so called street number of the desired address.
@@ -42,5 +43,5 @@ class AddressReader(object):
             list of pyramid_oereb.lib.records.address.AddressRecord:
                 The list of found records filtered by the passed criteria.
         """
-        self._source_.read(street_name, zip_code, street_number)
+        self._source_.read(params, street_name, zip_code, street_number)
         return self._source_.records

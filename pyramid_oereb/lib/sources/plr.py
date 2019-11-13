@@ -70,13 +70,14 @@ class PlrBaseSource(Base):
         """
         return self._plr_info
 
-    def read(self, real_estate, bbox, position=None):
+    def read(self, params, real_estate, bbox, position=None):
         """
         Every public law restriction source has to implement a read method. This method must accept the two
         key word parameters. If you want adapt to your own source for real estates, this is the point where
         to hook in.
 
         Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate which is
                 used as filter to find all related public law restrictions.
             bbox (shapely.geometry.base.BaseGeometry): The bounding box which is used as a pre-filter to find

@@ -9,11 +9,12 @@ from pyramid_oereb.lib.sources.real_estate import RealEstateBaseSource
 
 class DatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
 
-    def read(self, nb_ident=None, number=None, egrid=None, geometry=None):
+    def read(self, params, nb_ident=None, number=None, egrid=None, geometry=None):
         """
         Central method to read all plrs (geometry input) or explicitly one plr (nb_ident+number/egrid input).
 
         Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             nb_ident (int or None): The identification number of the desired real estate. This
                 parameter is directly related to the number parameter and both must be set!
                 Combination will deliver only one result or crashes.

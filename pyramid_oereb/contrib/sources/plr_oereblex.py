@@ -36,18 +36,19 @@ class DatabaseOEREBlexSource(DatabaseSource):
         super(DatabaseOEREBlexSource, self).__init__(**kwargs)
         self._oereblex_source = OEREBlexSource(**Config.get_oereblex_config())
 
-    def get_document_records(self, public_law_restriction_from_db):
+    def get_document_records(self, params, public_law_restriction_from_db):
         """
         Override the parent's get_document_records method to obtain the oereblex document instead.
         """
-        return self.document_records_from_oereblex(public_law_restriction_from_db.geolink)
+        return self.document_records_from_oereblex(params, public_law_restriction_from_db.geolink)
 
-    def document_records_from_oereblex(self, lexlink):
+    def document_records_from_oereblex(self, params, lexlink):
         """
         Create document records parsed from the OEREBlex response with the specified geoLink ID and appends
         them to the current public law restriction.
 
         Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             lexlink (int): The ID of the geoLink to request the documents for.
 
         Returns:
@@ -55,7 +56,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
                 The documents created from the parsed OEREBlex response.
         """
         log.debug("document_records_from_oereblex() start")
-        self._oereblex_source.read(lexlink)
+        self._oereblex_source.read(params, lexlink)
         log.debug("document_records_from_oereblex() returning {} records"
                   .format(len(self._oereblex_source.records)))
         return self._oereblex_source.records

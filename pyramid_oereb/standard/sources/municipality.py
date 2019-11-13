@@ -12,9 +12,12 @@ from pyramid_oereb.lib.sources.municipality import MunicipalityBaseSource
 
 class DatabaseSource(BaseDatabaseSource, MunicipalityBaseSource):
 
-    def read(self):
+    def read(self, params):
         """
         Central method to read a municipality by it's id_bfs identifier.
+
+        Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
         """
         session = self._adapter_.get_session(self._key_)
         try:

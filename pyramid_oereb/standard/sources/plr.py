@@ -291,7 +291,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             ))
         return document_records
 
-    def from_db_to_plr_record(self, public_law_restriction_from_db, legend_entries_from_db):
+    def from_db_to_plr_record(self, params, public_law_restriction_from_db, legend_entries_from_db):
         thresholds = self._plr_info.get('thresholds')
         min_length = thresholds.get('length').get('limit')
         length_unit = thresholds.get('length').get('unit')
@@ -320,15 +320,15 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             self._plr_info.get('code')
         )
 
-        document_records = self.get_document_records(public_law_restriction_from_db)
+        document_records = self.get_document_records(params, public_law_restriction_from_db)
         geometry_records = self.from_db_to_geometry_records(public_law_restriction_from_db.geometries)
 
         basis_plr_records = []
         for join in public_law_restriction_from_db.basis:
-            basis_plr_records.append(self.from_db_to_plr_record(join.base, []))
+            basis_plr_records.append(self.from_db_to_plr_record(params, join.base, []))
         refinements_plr_records = []
         for join in public_law_restriction_from_db.refinements:
-            refinements_plr_records.append(self.from_db_to_plr_record(join.refinement, []))
+            refinements_plr_records.append(self.from_db_to_plr_record(params, join.refinement, []))
         law_status = LawStatusRecord.from_config(
             Config.get_law_status(
                 self._plr_info.get('code'),
@@ -362,7 +362,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         return plr_record
 
-    def get_document_records(self, public_law_restriction_from_db):
+    def get_document_records(self, params, public_law_restriction_from_db):
         documents_from_db = []
         article_numbers = []
         for legal_provision in public_law_restriction_from_db.legal_provisions:
@@ -483,11 +483,12 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             or_(*distinct_type_code_view_service_tuples)
         ).all()
 
-    def read(self, real_estate, bbox, position=None):
+    def read(self, params, real_estate, bbox, position=None):
         """
         The read point which creates a extract, depending on a passed real estate.
 
         Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate in its record representation.
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
@@ -522,6 +523,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         for geometry_result in geometry_results:
                             self.records.append(
                                 self.from_db_to_plr_record(
+                                    params,
                                     geometry_result.public_law_restriction,
                                     legend_entries_from_db
                                 )

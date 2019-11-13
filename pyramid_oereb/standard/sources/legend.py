@@ -6,11 +6,12 @@ from pyramid_oereb.lib.sources.legend import LegendBaseSource
 
 class DatabaseSource(BaseDatabaseSource, LegendBaseSource):
 
-    def read(self, **kwargs):
+    def read(self, params, **kwargs):
         """
         Central method to read one legend entry.
 
         Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             (kwargs): Arbitrary keyword arguments. It must contain the key 'type_code'.
         """
         session = self._adapter_.get_session(self._key_)
