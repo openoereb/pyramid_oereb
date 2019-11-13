@@ -13,12 +13,13 @@ class LegendBaseSource(Base):
     """
     _record_class_ = LegendEntryRecord
 
-    def read(self, params):
+    def read(self, params, **kwargs):
         """
         Every legend entry source has to implement a read method. If you want adapt to your own source for
         legend entries, this is the point where to hook in.
 
         Args:
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
+            (kwargs): Arbitrary keyword arguments.
         """
         pass  # pragma: no cover

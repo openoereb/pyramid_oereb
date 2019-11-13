@@ -57,13 +57,16 @@ class OEREBlexSource(Base):
             self._auth = None
 
         self._language = str(kwargs.get('language')).lower()
-        assert self._language is not None and len(self._language) == 2
+        if not (isinstance(self._language, str) and len(self._language) == 2):
+            raise AssertionError('language has to be string of two characters, e.g. "de" or "fr"')
 
         self._canton = kwargs.get('canton')
-        assert self._canton is not None and len(self._canton) == 2
+        if not (isinstance(self._canton, str) and len(self._canton) == 2):
+            raise AssertionError('canton has to be string of two characters, e.g. "BL" or "NE"')
 
         self._parser = XML(host_url=kwargs.get('host'), version=self._version)
-        assert self._parser.host_url is not None
+        if self._parser.host_url is None:
+            raise AssertionError('host_url has to be defined')
 
     def read(self, params, geolink_id):
         """
@@ -131,9 +134,12 @@ class OEREBlexSource(Base):
             return []
 
         # Check mandatory attributes
-        assert document.title is not None
-        assert document.enactment_date is not None
-        assert document.authority is not None
+        if document.title is None:
+            raise AssertionError('Missing title for document #{0}'.format(document.id))
+        if document.enactment_date is None:
+            raise AssertionError('Missing enactment_date for document #{0}'.format(document.id))
+        if document.authority is None:
+            raise AssertionError('Missing authority for document #{0}'.format(document.id))
 
         # Get document type
         if document.doctype == 'decree':
@@ -196,7 +202,8 @@ class OEREBlexSource(Base):
                     return {language: value} if language else value
         return None
 
-    def _get_document_title(self, document, current_file, language):
+    @staticmethod
+    def _get_document_title(document, current_file, language):
         """
         Returns the title of the document/file. Extracting this logic allows
         easier customization of the file title.

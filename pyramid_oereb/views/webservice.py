@@ -466,13 +466,13 @@ class PlrWebservice(object):
 
 
 class Parameter(object):
-    def __init__(self, format, flavour=None, with_geometry=False, images=False, identdn=None, number=None,
-                 egrid=None, language=None, topics=None):
+    def __init__(self, response_format, flavour=None, with_geometry=False, images=False, identdn=None,
+                 number=None, egrid=None, language=None, topics=None):
         """
         Creates a new parameter instance.
 
         Args:
-            format (str): The extract format.
+            response_format (str): The extract format.
             flavour (str): The extract flavour.
             with_geometry (bool): Extract with/without geometry.
             images (bool): Extract with/without images.
@@ -483,7 +483,7 @@ class Parameter(object):
             topics (list of str): The list of requested topics.
         """
         self.__flavour__ = flavour
-        self.__format__ = format
+        self.__format__ = response_format
         self.__with_geometry__ = with_geometry
         self.__images__ = images
         self.__identdn__ = identdn
