@@ -193,6 +193,22 @@ def test_read_with_specified_version():
         assert len(source.records) == 2
 
 
+def test_read_with_specified_language():
+    with requests_mock.mock() as m:
+        with open('./tests/resources/geolink_v1.1.1.xml', 'rb') as f:
+            m.get('http://oereblex.example.com/api/geolinks/100.xml?locale=fr', content=f.read())
+        source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL')
+        params = MockParameter()
+        params.set_language('fr')
+        source.read(params, 100)
+        assert len(source.records) == 2
+        document = source.records[0]
+        assert document.responsible_office.name == {'fr': 'Landeskanzlei'}
+        assert document.text_at_web == {
+            'fr': 'http://oereblex.example.com/api/attachments/313'
+        }
+
+
 def test_authentication():
     auth = {
         'username': 'test',
@@ -200,3 +216,9 @@ def test_authentication():
     }
     source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL', auth=auth)
     assert isinstance(source._auth, HTTPBasicAuth)
+
+
+def test_get_document_title():
+    document = Document([], id='1', title='Test')
+    result = {'de': 'Test'}
+    assert OEREBlexSource._get_document_title(document, File(), 'de') == result
