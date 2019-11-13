@@ -48,9 +48,9 @@ def test_process():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     processor = request.pyramid_oereb_processor
-    real_estate = processor.real_estate_reader.read(egrid=u'TEST')
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
+    real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
     extract = processor.process(real_estate[0], params, 'http://test.ch')
     assert isinstance(extract, ExtractRecord)
 
@@ -59,9 +59,9 @@ def test_process_geometry_testing():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     processor = request.pyramid_oereb_processor
-    real_estate = processor.real_estate_reader.read(egrid=u'TEST')
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
+    real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
     extract = processor.process(real_estate[0], params, 'http://test.ch')
     for plr in extract.real_estate.public_law_restrictions:
         for g in plr.geometries:
@@ -72,9 +72,9 @@ def test_filter_published_documents():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     processor = request.pyramid_oereb_processor
-    real_estate = processor.real_estate_reader.read(egrid=u'TEST')
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
+    real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
     extract = processor.process(real_estate[0], params, 'http://test.ch')
     for plr in extract.real_estate.public_law_restrictions:
         if plr.theme.code == u'MotorwaysBuildingLines':
@@ -90,9 +90,9 @@ def test_processor_with_images():
         'LANG': 'de'
     })
     processor = request.pyramid_oereb_processor
-    real_estate = processor.real_estate_reader.read(egrid=u'TEST')
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
+    real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
     extract = processor.process(real_estate[0], params, 'http://test.ch')
     assert extract.real_estate.plan_for_land_register.image is not None
     for plr in extract.real_estate.public_law_restrictions:
@@ -106,9 +106,9 @@ def test_processor_without_images():
         'LANG': 'de'
     })
     processor = request.pyramid_oereb_processor
-    real_estate = processor.real_estate_reader.read(egrid=u'TEST')
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
+    real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
     extract = processor.process(real_estate[0], params, 'http://test.ch')
     assert extract.real_estate.plan_for_land_register.image is None
     for plr in extract.real_estate.public_law_restrictions:

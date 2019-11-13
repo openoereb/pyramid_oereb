@@ -10,6 +10,12 @@ from pyramid_oereb import Processor
 from pyramid_oereb import RealEstateReader
 
 from pyramid_oereb.lib.config import Config
+from pyramid_oereb.views.webservice import Parameter
+
+
+class MockParameter(Parameter):
+    def __init__(self):
+        super(MockParameter, self).__init__('JSON', flavour='REDUCED', with_geometry=False, images=False)
 
 
 class MockRequest(DummyRequest):

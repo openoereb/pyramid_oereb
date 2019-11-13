@@ -6,6 +6,7 @@ from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.standard.sources.exclusion_of_liability import DatabaseSource
 from pyramid_oereb.standard.models.main import ExclusionOfLiability
+from tests.mockrequest import MockParameter
 
 
 @pytest.mark.run(order=2)
@@ -22,5 +23,5 @@ def test_read():
     source = DatabaseSource(
         **Config.get_exclusion_of_liability_config().get('source').get('params')
     )
-    source.read()
+    source.read(MockParameter())
     assert len(source.records) == 1

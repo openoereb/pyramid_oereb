@@ -5,6 +5,7 @@ from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.sources import Base
 from pyramid_oereb.lib.readers.real_estate import RealEstateReader
+from tests.mockrequest import MockParameter
 
 
 @pytest.mark.run(order=2)
@@ -27,7 +28,7 @@ def test_read(param):
         Config.get_real_estate_config().get('source').get('class'),
         **Config.get_real_estate_config().get('source').get('params')
     )
-    records = reader.read(**param)
+    records = reader.read(MockParameter(), **param)
     assert len(records) == 1
     record = records[0]
     assert isinstance(record, RealEstateRecord)

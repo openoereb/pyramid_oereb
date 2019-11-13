@@ -5,6 +5,7 @@ from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.sources import Base
 from pyramid_oereb.lib.readers.exclusion_of_liability import ExclusionOfLiabilityReader
 from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
+from tests.mockrequest import MockParameter
 
 
 @pytest.mark.run(order=2)
@@ -22,7 +23,7 @@ def test_read():
         Config.get_exclusion_of_liability_config().get('source').get('class'),
         **Config.get_exclusion_of_liability_config().get('source').get('params')
     )
-    results = reader.read()
+    results = reader.read(MockParameter())
     assert isinstance(results, list)
     assert len(results) == 1
     assert isinstance(results[0], ExclusionOfLiabilityRecord)

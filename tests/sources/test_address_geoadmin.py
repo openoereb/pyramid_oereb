@@ -8,6 +8,8 @@ from shapely.geometry import Point
 
 from pyramid_oereb.lib.records.address import AddressRecord
 from pyramid_oereb.contrib.sources.address import AddressGeoAdminSource
+from tests.mockrequest import MockParameter
+
 if sys.version_info.major == 2:
     from urllib import urlencode
 else:
@@ -77,9 +79,11 @@ def test_read(status_code):
         m.get(url, json=response, status_code=status_code)
         if status_code == 400:
             with pytest.raises(HTTPError):
-                source.read(street_name=street_name, zip_code=zip_code, street_number=street_number)
+                source.read(MockParameter(), street_name=street_name, zip_code=zip_code,
+                            street_number=street_number)
         else:
-            source.read(street_name=street_name, zip_code=zip_code, street_number=street_number)
+            source.read(MockParameter(), street_name=street_name, zip_code=zip_code,
+                        street_number=street_number)
             assert len(source.records) == 1
             address = source.records[0]
             assert isinstance(address, AddressRecord)

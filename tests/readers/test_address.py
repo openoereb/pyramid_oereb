@@ -5,6 +5,7 @@ from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.address import AddressRecord
 from pyramid_oereb.lib.sources import Base
 from pyramid_oereb.lib.readers.address import AddressReader
+from tests.mockrequest import MockParameter
 
 
 @pytest.mark.run(order=2)
@@ -26,7 +27,8 @@ def test_read(param, length):
         Config.get_address_config().get('source').get('class'),
         **Config.get_address_config().get('source').get('params')
     )
-    results = reader.read(param.get('street_name'), param.get('zip_code'), param.get('street_number'))
+    results = reader.read(MockParameter(), param.get('street_name'), param.get('zip_code'),
+                          param.get('street_number'))
     assert len(results) == length
     if length == 1:
         address = results[0]

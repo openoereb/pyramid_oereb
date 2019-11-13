@@ -35,7 +35,7 @@ def law_status():
 
 
 def default_param():
-    return Parameter('reduced', 'json', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
+    return Parameter('json', 'reduced', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 
 
 @pytest.fixture()
@@ -57,7 +57,7 @@ def glossary_expected():
 @pytest.mark.parametrize('parameter, glossaries_input, glossaries_expected', [
     (default_param(), glossary_input(), glossary_expected()),
     (default_param(), [], []),
-    (Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
+    (Parameter('json', 'reduced', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
      glossary_input(),
      glossary_expected()),
     (None, glossary_input(), glossary_expected()),
@@ -191,7 +191,8 @@ def test_format_real_estate():
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._params = Parameter(
-        'reduced', 'json', True, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
+        'json', 'reduced', True, False, 'BL0200002829', '1000', 'CH775979211712', 'de'
+    )
     geometry = MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])])
     view_service = ViewServiceRecord(u'http://geowms.bl.ch',
                                      1,
@@ -227,8 +228,8 @@ def test_format_real_estate():
 
 @pytest.mark.parametrize('parameter', [
     default_param(),
-    Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
-    Parameter('full', 'json', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
+    Parameter('json', 'reduced', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
+    Parameter('json', 'full', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 ])
 def test_format_plr(parameter):
     with pyramid_oereb_test_config():
@@ -517,7 +518,7 @@ def test_format_map(params, legend_at_web, expected_legend_at_web):
 
 @pytest.mark.parametrize('parameter', [
     default_param(),
-    Parameter('reduced', 'json', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de')
+    Parameter('json', 'reduced', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de')
 ])
 def test_format_legend_entry(parameter):
     with pyramid_oereb_test_config():

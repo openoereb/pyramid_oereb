@@ -7,6 +7,7 @@ from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.lib.records.address import AddressRecord
 from pyramid_oereb.standard.sources.address import DatabaseSource
 from pyramid_oereb.standard.models.main import Address
+from tests.mockrequest import MockParameter
 
 
 @pytest.mark.run(order=2)
@@ -23,7 +24,7 @@ def test_init():
 ])
 def test_read(param, length):
     source = DatabaseSource(**Config.get_address_config().get('source').get('params'))
-    source.read(param.get('street_name'), param.get('zip_code'), param.get('street_number'))
+    source.read(MockParameter(), param.get('street_name'), param.get('zip_code'), param.get('street_number'))
     assert len(source.records) == length
     if length == 1:
         address = source.records[0]

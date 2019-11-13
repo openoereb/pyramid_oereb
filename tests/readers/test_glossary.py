@@ -5,6 +5,7 @@ from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.sources import Base
 from pyramid_oereb.lib.readers.glossary import GlossaryReader
 from pyramid_oereb.lib.records.glossary import GlossaryRecord
+from tests.mockrequest import MockParameter
 
 
 @pytest.mark.run(order=2)
@@ -22,7 +23,7 @@ def test_read():
         Config.get_glossary_config().get('source').get('class'),
         **Config.get_glossary_config().get('source').get('params')
     )
-    results = reader.read()
+    results = reader.read(MockParameter())
     assert isinstance(results, list)
     assert isinstance(results[0], GlossaryRecord)
     assert len(results) == 1

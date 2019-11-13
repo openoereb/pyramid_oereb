@@ -44,7 +44,7 @@ class PlrWebservice(object):
             bool: True if requested format is JSON.
         """
         url = self._request.current_route_url().split('?')
-        return url[0].endswith('.json')
+        return self._request.matchdict.get('format', '').lower() == 'json' or url[0].endswith('.json')
 
     def get_versions(self):
         """
@@ -76,7 +76,7 @@ class PlrWebservice(object):
             renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_versions_xml'
         except HTTPBadRequest:
             renderer_name = 'json' if self._is_json() else 'pyramid_oereb_versions_xml'
-            log.warn('Deprecated way to specify the format. Use "/versions/{format}" instead')
+            log.warning('Deprecated way to specify the format. Use "/versions/{format}" instead')
 
         response = render_to_response(renderer_name, versions, request=self._request)
         if self._is_json():
@@ -90,6 +90,9 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `capabilities` response.
         """
+
+        params = Parameter('json' if self._is_json() else 'xml')
+
         supported_languages = Config.get_language()
         themes = list()
         for theme in Config.get_themes():
@@ -107,7 +110,7 @@ class PlrWebservice(object):
         capabilities = {
             u'GetCapabilitiesResponse': {
                 u'topic': themes,
-                u'municipality': [record.fosnr for record in self._municipality_reader.read()],
+                u'municipality': [record.fosnr for record in self._municipality_reader.read(params)],
                 u'flavour': Config.get_flavour(),
                 u'language': supported_languages,
                 u'crs': [Config.get_crs()]
@@ -120,7 +123,7 @@ class PlrWebservice(object):
             renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_capabilities_xml'
         except HTTPBadRequest:
             renderer_name = 'json' if self._is_json() else 'pyramid_oereb_capabilities_xml'
-            log.warn('Deprecated way to specify the format. Use "/capabilities/{format}" instead')
+            log.warning('Deprecated way to specify the format. Use "/capabilities/{format}" instead')
 
         response = render_to_response(renderer_name, capabilities, request=self._request)
         if self._is_json():
@@ -134,6 +137,7 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `getegrid` response.
         """
+        params = Parameter('json' if self._is_json() else 'xml')
         xy = self._params.get('XY')
         gnss = self._params.get('GNSS')
         if xy or gnss:
@@ -143,7 +147,7 @@ class PlrWebservice(object):
                                            self.__parse_xy__(xy, buffer_dist=1.0).wkt)
             elif gnss:
                 geom_wkt = geom_wkt.format(Config.get('srid'), self.__parse_gnss__(gnss).wkt)
-            records = self._real_estate_reader.read(**{'geometry': geom_wkt})
+            records = self._real_estate_reader.read(params, **{'geometry': geom_wkt})
             return self.__get_egrid_response__(records)
         else:
             raise HTTPBadRequest('XY or GNSS must be defined.')
@@ -155,13 +159,17 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `getegrid` response.
         """
+        params = Parameter('json' if self._is_json() else 'xml')
         identdn = self._request.matchdict.get('identdn')
         number = self._request.matchdict.get('number')
         if identdn and number:
-            records = self._real_estate_reader.read(**{
-                'nb_ident': identdn,
-                'number': number
-            })
+            records = self._real_estate_reader.read(
+                params,
+                **{
+                    'nb_ident': identdn,
+                    'number': number
+                }
+            )
             return self.__get_egrid_response__(records)
         else:
             raise HTTPBadRequest('IDENTDN and NUMBER must be defined.')
@@ -173,6 +181,7 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `getegrid` response.
         """
+        params = Parameter('json' if self._is_json() else 'xml')
         postalcode = self._request.matchdict.get('postalcode')
         localisation = self._request.matchdict.get('localisation')
         number = self._request.matchdict.get('number')
@@ -181,11 +190,11 @@ class PlrWebservice(object):
                 Config.get_address_config().get('source').get('class'),
                 **Config.get_address_config().get('source').get('params')
             )
-            addresses = reader.read(localisation, int(postalcode), number)
+            addresses = reader.read(params, localisation, int(postalcode), number)
             if len(addresses) == 0:
                 return HTTPNoContent()
             geometry = 'SRID={srid};{wkt}'.format(srid=Config.get('srid'), wkt=addresses[0].geom.wkt)
-            records = self._real_estate_reader.read(**{'geometry': geometry})
+            records = self._real_estate_reader.read(params, **{'geometry': geometry})
             return self.__get_egrid_response__(records)
         else:
             raise HTTPBadRequest('POSTALCODE, LOCALISATION and NUMBER must be defined.')
@@ -204,9 +213,10 @@ class PlrWebservice(object):
         # read the real estate from configured source by the passed parameters
         real_estate_reader = processor.real_estate_reader
         if params.egrid:
-            real_estate_records = real_estate_reader.read(egrid=params.egrid)
+            real_estate_records = real_estate_reader.read(params, egrid=params.egrid)
         elif params.identdn and params.number:
             real_estate_records = real_estate_reader.read(
+                params,
                 nb_ident=params.identdn,
                 number=params.number
             )
@@ -286,10 +296,14 @@ class PlrWebservice(object):
             with_geometry = True
 
         # With images?
-
         with_images = self._params.get('WITHIMAGES') is not None
 
-        params = Parameter(extract_flavour, extract_format, with_geometry, with_images)
+        params = Parameter(
+            extract_format,
+            flavour=extract_flavour,
+            with_geometry=with_geometry,
+            images=with_images
+        )
 
         # Get id
         if user_requested_geometry:
@@ -391,7 +405,7 @@ class PlrWebservice(object):
             renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_getegrid_xml'
         except HTTPBadRequest:
             renderer_name = 'json' if self._is_json() else 'pyramid_oereb_getegrid_xml'
-            log.warn('Deprecated way to specify the format. Use "/getegrid/{format}/..." instead')
+            log.warning('Deprecated way to specify the format. Use "/getegrid/{format}/..." instead')
 
         response = render_to_response(renderer_name, egrid, request=self._request)
         if self._is_json():
@@ -452,14 +466,14 @@ class PlrWebservice(object):
 
 
 class Parameter(object):
-    def __init__(self, flavour, format, with_geometry, images, identdn=None, number=None,
+    def __init__(self, format, flavour=None, with_geometry=False, images=False, identdn=None, number=None,
                  egrid=None, language=None, topics=None):
         """
         Creates a new parameter instance.
 
         Args:
-            flavour (str): The extract flavour.
             format (str): The extract format.
+            flavour (str): The extract flavour.
             with_geometry (bool): Extract with/without geometry.
             images (bool): Extract with/without images.
             identdn (str): The IdentDN as real estate identifier.

@@ -4,7 +4,7 @@ from pyramid_oereb.views.webservice import Parameter
 
 
 def test_parameter():
-    params = Parameter('reduced', 'json', True, False)
+    params = Parameter('json', 'reduced', True, False)
     params.set_identdn('identdn')
     params.set_number('1000')
     params.set_egrid('EGRID')
