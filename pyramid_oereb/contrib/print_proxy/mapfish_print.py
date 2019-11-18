@@ -405,9 +405,9 @@ class Renderer(JsonRenderer):
 
                 # Group legal provisions and hints which have the same title.
                 if (
-                        (Config.get('print', {}).get('group_legal_provisions', False)) and
-                        (element == 'LegalProvisions' or element == 'Hints')
-                    ):
+                       (Config.get('print', {}).get('group_legal_provisions', False)) and
+                       (element == 'LegalProvisions' or element == 'Hints')
+                   ):
                     restriction_on_landownership[element] = \
                         self.group_legal_provisions(restriction_on_landownership[element])
 
