@@ -496,7 +496,8 @@ class Renderer(JsonRenderer):
         merged_provision = []
         for element in legal_provisions:
             # get element with same title if existing
-            existing_element = next((item for item in merged_provision if item['Title'] == element['Title']), None)
+            existing_element = \
+                next((item for item in merged_provision if item['Title'] == element['Title']), None)
             if not existing_element:
                 merged_provision.append(element)
                 continue
