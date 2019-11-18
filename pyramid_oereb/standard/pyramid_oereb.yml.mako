@@ -107,7 +107,7 @@ pyramid_oereb:
     # Disabled by default.
     split_sub_themes: false
     # Setting this to true (default is false):
-    # list elements of "LegalProvision" with the same "Title.Text" are grouped together
+    # list elements of "LegalProvision" and "Hints" with the same "Title.Text" are grouped together
     # if more than one element exists with the same "Title.Text".
     group_legal_provisions: false
     # Determine if a multiple page table of content (TOC) is used with a slightly different layout but

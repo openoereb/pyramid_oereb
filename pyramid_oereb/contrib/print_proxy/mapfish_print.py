@@ -402,10 +402,14 @@ class Renderer(JsonRenderer):
                 restriction_on_landownership[element] = values
                 if element == 'LegalProvisions':
                     pdf_to_join.update([legal_provision['TextAtWeb'] for legal_provision in values])
-                    # Group legal Provisions with the same title
-                    if Config.get('print', {}).get('group_legal_provisions', False):
-                        restriction_on_landownership[element] = \
-                            self.group_legal_provisions(restriction_on_landownership[element])
+
+                # Group legal provisions and hints which have the same title.
+                if (
+                        (Config.get('print', {}).get('group_legal_provisions', False)) and
+                        (element == 'LegalProvisions' or element == 'Hints')
+                    ):
+                    restriction_on_landownership[element] = \
+                        self.group_legal_provisions(restriction_on_landownership[element])
 
             # sort legal provisioning, hints and laws
             restriction_on_landownership['LegalProvisions'] = self.sort_dict_list(
