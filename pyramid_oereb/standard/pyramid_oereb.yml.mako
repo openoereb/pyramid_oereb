@@ -106,6 +106,10 @@ pyramid_oereb:
     # Split themes up, so that each sub theme gets its own page
     # Disabled by default.
     split_sub_themes: false
+    # Setting this to true (default is false):
+    # list elements of "LegalProvision" with the same "Title.Text" are grouped together
+    # if more than one element exists with the same "Title.Text".
+    group_legal_provisions: false
     # Determine if a multiple page table of content (TOC) is used with a slightly different layout but
     # better page numbering. If it is known that the TOC is very long and runs over more than one page it
     # is preferred to set this to true.

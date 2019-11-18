@@ -403,8 +403,9 @@ class Renderer(JsonRenderer):
                 if element == 'LegalProvisions':
                     pdf_to_join.update([legal_provision['TextAtWeb'] for legal_provision in values])
                     # Group legal Provisions with the same title
-                    restriction_on_landownership[element] = \
-                        self.group_legal_provisions(restriction_on_landownership[element])
+                    if Config.get('print', {}).get('group_legal_provisions', False):
+                        restriction_on_landownership[element] = \
+                            self.group_legal_provisions(restriction_on_landownership[element])
 
             # sort legal provisioning, hints and laws
             restriction_on_landownership['LegalProvisions'] = self.sort_dict_list(
@@ -499,9 +500,8 @@ class Renderer(JsonRenderer):
             if not existing_element:
                 merged_provision.append(element)
                 continue
-            existing_element['TextAtWeb'] += '\n' + element['TextAtWeb'] # TODO merge the text here!
-            # https://stackoverflow.com/questions/25050326/find-and-update-a-value-of-a-dictionary-in-list-of-dictionaries
-        return merged_provision
+            existing_element['TextAtWeb'] += '\n' + element['TextAtWeb']
+        return merged_provision if len(merged_provision) > 0 else legal_provisions
 
     def _flatten_array_object(self, parent, array_name, object_name):
         if array_name in parent:
