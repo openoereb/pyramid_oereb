@@ -176,7 +176,8 @@ class Renderer(JsonRenderer):
             extract_dict: the oereb extract, will get converted by this function into a form
                             convenient for mapfish-print
             feature_geometry: the geometry for this extract, will get added to the extract information
-            pdf_to_join: a set of additional information for the pdf, will get filled by this function
+            pdf_to_join: a set of additional information for the pdf. Will get filled by this function.
+                         Used in the full extract only
         """
 
         log.debug("Starting transformation, extract_dict is {}".format(extract_dict))
@@ -401,6 +402,15 @@ class Renderer(JsonRenderer):
                 restriction_on_landownership[element] = values
                 if element == 'LegalProvisions':
                     pdf_to_join.update([legal_provision['TextAtWeb'] for legal_provision in values])
+
+                # Group legal provisions and hints which have the same title.
+                if (
+                       (Config.get('print', {}).get('group_legal_provisions', False)) and
+                       (element == 'LegalProvisions' or element == 'Hints')
+                   ):
+                    restriction_on_landownership[element] = \
+                        self.group_legal_provisions(restriction_on_landownership[element])
+
             # sort legal provisioning, hints and laws
             restriction_on_landownership['LegalProvisions'] = self.sort_dict_list(
                 restriction_on_landownership['LegalProvisions'],
@@ -484,6 +494,19 @@ class Renderer(JsonRenderer):
 
         log.debug("After transformation, extract_dict is {}".format(extract_dict))
         return extract_dict
+
+    @staticmethod
+    def group_legal_provisions(legal_provisions):
+        merged_provision = []
+        for element in legal_provisions:
+            # get element with same title if existing
+            existing_element = \
+                next((item for item in merged_provision if item['Title'] == element['Title']), None)
+            if not existing_element:
+                merged_provision.append(element)
+                continue
+            existing_element['TextAtWeb'] += '\n' + element['TextAtWeb']
+        return merged_provision if len(merged_provision) > 0 else legal_provisions
 
     def _flatten_array_object(self, parent, array_name, object_name):
         if array_name in parent:

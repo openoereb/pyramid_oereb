@@ -594,3 +594,83 @@ def test_get_sorted_law():
         }
     ]
     assert expected_result == renderer.sort_dict_list(test_law, renderer.sort_laws)
+
+
+def test_group_legal_provisions():
+    renderer = Renderer(DummyRenderInfo())
+    test_legal_provisions = [
+        {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inForce",
+            "Lawstatus_Text": "in Kraft",
+            "OfficialNumber": "3891.100",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/197",
+            "Title": "Baugesetz"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inForce",
+            "Lawstatus_Text": "in Kraft",
+            "OfficialNumber": "3891.100",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198",
+            "Title": "Baugesetz"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inForce",
+            "Lawstatus_Text": "in Kraft",
+            "OfficialNumber": "07.447",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/213",
+            "Title": "Revision Ortsplanung"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inForce",
+            "Lawstatus_Text": "in Kraft",
+            "OfficialNumber": "07.447",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/214",
+            "Title": "Revision Ortsplanung"
+        }
+    ]
+    expected_results = [
+        {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inForce",
+            "Lawstatus_Text": "in Kraft",
+            "OfficialNumber": "3891.100",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/197\n" +
+                         "https://oereb-gr-preview.000.ch/api/attachments/198",
+            "Title": "Baugesetz"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inForce",
+            "Lawstatus_Text": "in Kraft",
+            "OfficialNumber": "07.447",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/213\n" +
+                         "https://oereb-gr-preview.000.ch/api/attachments/214",
+            "Title": "Revision Ortsplanung"
+        }
+    ]
+
+    assert expected_results == renderer.group_legal_provisions(test_legal_provisions)

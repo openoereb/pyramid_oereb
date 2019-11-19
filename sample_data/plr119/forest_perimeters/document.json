@@ -112,5 +112,35 @@
       "de": "Revision Ortsplanung, 07.447"
     },
     "official_number": ""
+  },
+  {
+    "office_id": 1,
+    "published_from": "2019-11-17",
+    "canton": "",
+    "id": 8104,
+    "document_type": "Hint",
+    "text_at_web": {
+      "de": "http://example.com/goodhint1"
+    },
+    "law_status": "inForce",
+    "title": {
+      "de": "Guter Ratschlag"
+    },
+    "official_number": ""
+  },
+  {
+    "office_id": 1,
+    "published_from": "2019-11-17",
+    "canton": "",
+    "id": 8105,
+    "document_type": "Hint",
+    "text_at_web": {
+      "de": "http://example.com/goodhint2"
+    },
+    "law_status": "inForce",
+    "title": {
+      "de": "Guter Ratschlag"
+    },
+    "official_number": ""
   }
 ]
