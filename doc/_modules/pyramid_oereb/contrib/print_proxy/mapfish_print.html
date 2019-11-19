@@ -338,7 +338,8 @@
 <span class="sd">            extract_dict: the oereb extract, will get converted by this function into a form</span>
 <span class="sd">                            convenient for mapfish-print</span>
 <span class="sd">            feature_geometry: the geometry for this extract, will get added to the extract information</span>
-<span class="sd">            pdf_to_join: a set of additional information for the pdf, will get filled by this function</span>
+<span class="sd">            pdf_to_join: a set of additional information for the pdf. Will get filled by this function.</span>
+<span class="sd">                         Used in the full extract only</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Starting transformation, extract_dict is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">))</span>
@@ -563,6 +564,15 @@
                 <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
                 <span class="k">if</span> <span class="n">element</span> <span class="o">==</span> <span class="s1">&#39;LegalProvisions&#39;</span><span class="p">:</span>
                     <span class="n">pdf_to_join</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">legal_provision</span> <span class="ow">in</span> <span class="n">values</span><span class="p">])</span>
+
+                <span class="c1"># Group legal provisions and hints which have the same title.</span>
+                <span class="k">if</span> <span class="p">(</span>
+                       <span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;group_legal_provisions&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span> <span class="ow">and</span>
+                       <span class="p">(</span><span class="n">element</span> <span class="o">==</span> <span class="s1">&#39;LegalProvisions&#39;</span> <span class="ow">or</span> <span class="n">element</span> <span class="o">==</span> <span class="s1">&#39;Hints&#39;</span><span class="p">)</span>
+                   <span class="p">):</span>
+                    <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> \
+                        <span class="bp">self</span><span class="o">.</span><span class="n">group_legal_provisions</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">])</span>
+
             <span class="c1"># sort legal provisioning, hints and laws</span>
             <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort_dict_list</span><span class="p">(</span>
                 <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">],</span>
@@ -646,6 +656,19 @@
 
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;After transformation, extract_dict is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">extract_dict</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">group_legal_provisions</span><span class="p">(</span><span class="n">legal_provisions</span><span class="p">):</span>
+        <span class="n">merged_provision</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">legal_provisions</span><span class="p">:</span>
+            <span class="c1"># get element with same title if existing</span>
+            <span class="n">existing_element</span> <span class="o">=</span> \
+                <span class="nb">next</span><span class="p">((</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">merged_provision</span> <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">element</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]),</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">existing_element</span><span class="p">:</span>
+                <span class="n">merged_provision</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">existing_element</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">element</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">merged_provision</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">merged_provision</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">legal_provisions</span>
 
     <span class="k">def</span> <span class="nf">_flatten_array_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">array_name</span><span class="p">,</span> <span class="n">object_name</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">array_name</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">:</span>
@@ -934,7 +957,6 @@
         <dl>
             <dt>Branches</dt>
             <dd><a href="../../../../master/_modules/pyramid_oereb/contrib/print_proxy/mapfish_print.html">master</a></dd>
-            <dd><a href="../../../../requires-io-master/index.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>
