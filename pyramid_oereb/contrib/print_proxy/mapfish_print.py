@@ -67,6 +67,7 @@ class Renderer(JsonRenderer):
         # If language present in request, use that. Otherwise, keep language from base class
         if 'lang' in self._request.GET:
             self._language = self._request.GET.get('lang')
+            self._fallback_language = Config.get('default_language')
 
         # Based on extract record and webservice parameter, render the extract data as JSON
         extract_record = value[0]
@@ -576,7 +577,10 @@ class Renderer(JsonRenderer):
     def _multilingual_text(self, parent, name):
         if name in parent:
             lang_obj = dict([(e['Language'], e['Text']) for e in parent[name]])
-            parent[name] = lang_obj[self._language]
+            if self._language in lang_obj.keys():
+                parent[name] = lang_obj[self._language]
+            else:
+                parent[name] = lang_obj[self._fallback_language]
 
     def _sort_sub_themes(self, restrictions):
         # split restrictions by theme codes
