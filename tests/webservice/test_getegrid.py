@@ -18,8 +18,8 @@ from pyramid_oereb.views.webservice import PlrWebservice
 
 def test_getegrid_coord_missing_parameter():
     webservice = PlrWebservice(MockRequest())
-    with pytest.raises(HTTPBadRequest):
-        webservice.get_egrid_coord()
+    response = webservice.get_egrid_ident()
+    assert response.code == 400
 
 
 def test_getegrid_ident():
@@ -112,8 +112,8 @@ def test_getegrid_gnss():
 
 def test_getegrid_ident_missing_parameter():
     webservice = PlrWebservice(MockRequest())
-    with pytest.raises(HTTPBadRequest):
-        webservice.get_egrid_ident()
+    response = webservice.get_egrid_ident()
+    assert response.code == 400
 
 
 def test_getegrid_address():
@@ -146,8 +146,8 @@ def test_getegrid_address():
 
 def test_getegrid_address_missing_parameter():
     webservice = PlrWebservice(MockRequest())
-    with pytest.raises(HTTPBadRequest):
-        webservice.get_egrid_address()
+    response = webservice.get_egrid_address()
+    assert response.code == 400
 
 
 def test_get_egrid_response():
