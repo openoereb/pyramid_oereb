@@ -29,7 +29,7 @@ class DatabaseAdapter(object):
                 connection
         """
         if connection_string not in self._connections_:
-            engine = create_engine(connection_string)
+            engine = create_engine(connection_string, pool_recycle=30)
             session = orm.scoped_session(orm.sessionmaker(bind=engine))
             self._connections_[connection_string] = {
                 'engine': engine,
