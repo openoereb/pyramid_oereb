@@ -226,9 +226,14 @@
             <span class="k">raise</span> <span class="n">HTTPBadRequest</span><span class="p">(</span><span class="s1">&#39;With image is not allowed in the print&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_request</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
-        <span class="c1"># If language present in request, use that. Otherwise, keep language from base class</span>
-        <span class="k">if</span> <span class="s1">&#39;lang&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lang&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Create a lower case GET dict to be able to accept all cases of upper and lower case writing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lowercase_GET_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">iteritems</span><span class="p">())</span>
+
+        <span class="c1"># If a language is specified in the request, use it. Otherwise, use the language from base class</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fallback_language</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;default_language&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;lang&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lowercase_GET_dict</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lowercase_GET_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lang&#39;</span><span class="p">)</span>
 
         <span class="c1"># Based on extract record and webservice parameter, render the extract data as JSON</span>
         <span class="n">extract_record</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -738,7 +743,10 @@
     <span class="k">def</span> <span class="nf">_multilingual_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">:</span>
             <span class="n">lang_obj</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;Language&#39;</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="s1">&#39;Text&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]])</span>
-            <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">lang_obj</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="ow">in</span> <span class="n">lang_obj</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">lang_obj</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">lang_obj</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_fallback_language</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_sort_sub_themes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">restrictions</span><span class="p">):</span>
         <span class="c1"># split restrictions by theme codes</span>
