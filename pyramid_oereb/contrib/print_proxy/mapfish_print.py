@@ -64,9 +64,14 @@ class Renderer(JsonRenderer):
             raise HTTPBadRequest('With image is not allowed in the print')
 
         self._request = self.get_request(system)
-        # If language present in request, use that. Otherwise, keep language from base class
-        if 'lang' in self._request.GET:
-            self._language = self._request.GET.get('lang')
+
+        # Create a lower case GET dict to be able to accept all cases of upper and lower case writing
+        self._lowercase_GET_dict = dict((k.lower(), v.lower()) for k, v in self._request.GET.iteritems())
+
+        # If a language is specified in the request, use it. Otherwise, use the language from base class
+        self._fallback_language = Config.get('default_language')
+        if 'lang' in self._lowercase_GET_dict:
+            self._language = self._lowercase_GET_dict.get('lang')
 
         # Based on extract record and webservice parameter, render the extract data as JSON
         extract_record = value[0]
@@ -576,7 +581,10 @@ class Renderer(JsonRenderer):
     def _multilingual_text(self, parent, name):
         if name in parent:
             lang_obj = dict([(e['Language'], e['Text']) for e in parent[name]])
-            parent[name] = lang_obj[self._language]
+            if self._language in lang_obj.keys():
+                parent[name] = lang_obj[self._language]
+            else:
+                parent[name] = lang_obj[self._fallback_language]
 
     def _sort_sub_themes(self, restrictions):
         # split restrictions by theme codes
