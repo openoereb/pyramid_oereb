@@ -165,29 +165,29 @@
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">geoalchemy2.shape</span> <span class="k">import</span> <span class="n">to_shape</span><span class="p">,</span> <span class="n">from_shape</span>
-<span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="k">import</span> <span class="n">DottedNameResolver</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">MultiPoint</span><span class="p">,</span> <span class="n">MultiLineString</span><span class="p">,</span> <span class="n">MultiPolygon</span><span class="p">,</span> \
+<span class="kn">from</span> <span class="nn">geoalchemy2.shape</span> <span class="kn">import</span> <span class="n">to_shape</span><span class="p">,</span> <span class="n">from_shape</span>
+<span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="kn">import</span> <span class="n">DottedNameResolver</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">MultiPoint</span><span class="p">,</span> <span class="n">MultiLineString</span><span class="p">,</span> <span class="n">MultiPolygon</span><span class="p">,</span> \
     <span class="n">GeometryCollection</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">text</span><span class="p">,</span> <span class="n">or_</span><span class="p">,</span> <span class="n">and_</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">text</span><span class="p">,</span> <span class="n">or_</span><span class="p">,</span> <span class="n">and_</span>
 
-<span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">Config</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib</span> <span class="k">import</span> <span class="n">b64</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.availability</span> <span class="k">import</span> <span class="n">AvailabilityRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.embeddable</span> <span class="k">import</span> <span class="n">DatasourceRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.image</span> <span class="k">import</span> <span class="n">ImageRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.law_status</span> <span class="k">import</span> <span class="n">LawStatusRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.office</span> <span class="k">import</span> <span class="n">OfficeRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.plr</span> <span class="k">import</span> <span class="n">EmptyPlrRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.theme</span> <span class="k">import</span> <span class="n">ThemeRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources</span> <span class="k">import</span> <span class="n">BaseDatabaseSource</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources.plr</span> <span class="k">import</span> <span class="n">PlrBaseSource</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="kn">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib</span> <span class="kn">import</span> <span class="n">b64</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.availability</span> <span class="kn">import</span> <span class="n">AvailabilityRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.embeddable</span> <span class="kn">import</span> <span class="n">DatasourceRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.image</span> <span class="kn">import</span> <span class="n">ImageRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.law_status</span> <span class="kn">import</span> <span class="n">LawStatusRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.office</span> <span class="kn">import</span> <span class="n">OfficeRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.plr</span> <span class="kn">import</span> <span class="n">EmptyPlrRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.theme</span> <span class="kn">import</span> <span class="n">ThemeRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources</span> <span class="kn">import</span> <span class="n">BaseDatabaseSource</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources.plr</span> <span class="kn">import</span> <span class="n">PlrBaseSource</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="DatabaseSource"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseSource">[docs]</a><span class="k">class</span> <span class="nc">DatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">PlrBaseSource</span><span class="p">):</span>
-<div class="viewcode-block" id="DatabaseSource.__init__"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseSource.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="DatabaseSource.__init__"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseSource.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Keyword Arguments:</span>
 <span class="sd">            name (str): The name. You are free to choose one.</span>
@@ -529,6 +529,10 @@
     <span class="k">def</span> <span class="nf">get_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="p">):</span>
         <span class="n">documents_from_db</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">article_numbers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="p">,</span> <span class="s1">&#39;legal_provisions&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;The public_law_restriction implementation of type </span><span class="si">{}</span><span class="s1"> has no &#39;</span>
+                                 <span class="s1">&#39;legal_provisions attribute. Check the model implementation.&#39;</span>
+                                 <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="p">)))</span>
         <span class="k">for</span> <span class="n">legal_provision</span> <span class="ow">in</span> <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">legal_provisions</span><span class="p">:</span>
             <span class="n">documents_from_db</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">legal_provision</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
             <span class="n">article_nrs</span> <span class="o">=</span> <span class="n">legal_provision</span><span class="o">.</span><span class="n">article_numbers</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">legal_provision</span><span class="o">.</span><span class="n">article_numbers</span> \

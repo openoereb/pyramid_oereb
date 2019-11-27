@@ -162,12 +162,12 @@
   <h1>Source code for pyramid_oereb.lib.records.geometry</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
-<span class="kn">from</span> <span class="nn">shapely.ops</span> <span class="k">import</span> <span class="n">linemerge</span><span class="p">,</span> <span class="n">cascaded_union</span>
+<span class="kn">from</span> <span class="nn">shapely.ops</span> <span class="kn">import</span> <span class="n">linemerge</span><span class="p">,</span> <span class="n">cascaded_union</span>
 
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="k">import</span> <span class="n">Config</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">MultiPoint</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">GeometryCollection</span><span class="p">,</span> <span class="n">MultiLineString</span><span class="p">,</span> \
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="kn">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">MultiPoint</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">GeometryCollection</span><span class="p">,</span> <span class="n">MultiLineString</span><span class="p">,</span> \
     <span class="n">MultiPolygon</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -191,7 +191,7 @@
 <span class="sd">    Raises:</span>
 <span class="sd">        AttributeError: Error when a wrong geometry type was passed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="GeometryRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.geometry.GeometryRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="GeometryRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.geometry.GeometryRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">geom</span><span class="p">,</span> <span class="n">geo_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">public_law_restriction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">office</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 

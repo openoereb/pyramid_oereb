@@ -165,23 +165,23 @@
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="k">import</span> <span class="n">HTTPInternalServerError</span>
-<span class="kn">from</span> <span class="nn">mako.lookup</span> <span class="k">import</span> <span class="n">TemplateLookup</span>
-<span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="k">import</span> <span class="n">AssetResolver</span>
+<span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="kn">import</span> <span class="n">HTTPInternalServerError</span>
+<span class="kn">from</span> <span class="nn">mako.lookup</span> <span class="kn">import</span> <span class="n">TemplateLookup</span>
+<span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="kn">import</span> <span class="n">AssetResolver</span>
 
-<span class="kn">from</span> <span class="nn">pyramid.response</span> <span class="k">import</span> <span class="n">Response</span>
+<span class="kn">from</span> <span class="nn">pyramid.response</span> <span class="kn">import</span> <span class="n">Response</span>
 
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.renderer</span> <span class="k">import</span> <span class="n">Base</span>
-<span class="kn">from</span> <span class="nn">mako</span> <span class="k">import</span> <span class="n">exceptions</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.renderer</span> <span class="kn">import</span> <span class="n">Base</span>
+<span class="kn">from</span> <span class="nn">mako</span> <span class="kn">import</span> <span class="n">exceptions</span>
 
-<span class="kn">from</span> <span class="nn">pyramid_oereb.views.webservice</span> <span class="k">import</span> <span class="n">Parameter</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.views.webservice</span> <span class="kn">import</span> <span class="n">Parameter</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">Renderer</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 
-<div class="viewcode-block" id="Renderer.__init__"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.__init__"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a new XML renderer instance for extract rendering.</span>
 
@@ -194,7 +194,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_gml_id</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Renderer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">info</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the XML encoded extract, according to the specification.</span>
 
