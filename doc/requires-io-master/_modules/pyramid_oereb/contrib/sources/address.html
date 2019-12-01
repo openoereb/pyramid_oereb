@@ -162,19 +162,19 @@
   <h1>Source code for pyramid_oereb.contrib.sources.address</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">from</span> <span class="nn">pyreproj</span> <span class="k">import</span> <span class="n">Reprojector</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">pyreproj</span> <span class="kn">import</span> <span class="n">Reprojector</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
 
-<span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">Config</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.address</span> <span class="k">import</span> <span class="n">AddressRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources.address</span> <span class="k">import</span> <span class="n">AddressBaseSource</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="kn">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.address</span> <span class="kn">import</span> <span class="n">AddressRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.sources.address</span> <span class="kn">import</span> <span class="n">AddressBaseSource</span>
 
 
 <div class="viewcode-block" id="AddressGeoAdminSource"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.address.AddressGeoAdminSource">[docs]</a><span class="k">class</span> <span class="nc">AddressGeoAdminSource</span><span class="p">(</span><span class="n">AddressBaseSource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An address source that uses the federal GeoAdmin API to return the geo location of a postal address.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="AddressGeoAdminSource.__init__"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.address.AddressGeoAdminSource.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="AddressGeoAdminSource.__init__"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.address.AddressGeoAdminSource.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a new AddressGeoAdminSource.</span>
 
