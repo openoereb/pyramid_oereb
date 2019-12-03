@@ -35,7 +35,7 @@ def create_stats_tables():
         default='args',
         help='subsection in the ini-file. Default = "args"'
     )
-    options, args = parser.parse_args()
+    options = parser.parse_args()
     if not options.configfile:
         parser.error('No configfile set')
     _create_views(config_file=options.configfile,
@@ -46,7 +46,7 @@ def create_stats_tables():
 def _create_views(config_file,
                   config_section='handler_sqlalchemylogger',
                   config_sql_args='args'):
-    config = configparser.ConfigParser()
+    config, _ = configparser.ConfigParser()
     config.read(config_file)
     schema_name = ast.literal_eval(config[config_section][config_sql_args])[0]['tableargs']['schema']
     tablename = ast.literal_eval(config[config_section][config_sql_args])[0]['tablename']
