@@ -34,5 +34,12 @@
     "law_status": "inForce",
     "geom": "SRID=2056;GEOMETRYCOLLECTION(POINT(2608838.15 1261846.96))",
     "public_law_restriction_id": 400
+  }, {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "id": 1297,
+    "law_status": "inForce",
+    "geom": "SRID=2056;GEOMETRYCOLLECTION(POINT(2608838.14 1261846.96))",
+    "public_law_restriction_id": 400
   }
 ]

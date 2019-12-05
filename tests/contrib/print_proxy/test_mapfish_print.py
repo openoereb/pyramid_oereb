@@ -231,6 +231,7 @@ def test_get_sorted_legend():
             'TypeCode': u'StaoTyp1',
             'Geom_Type': u'NrOfPoints',
             'TypeCodelist': '',
+            'NrOfPoints': 2,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
                         ContaminatedPublicTransportSites/1/StaoTyp1',
             'Information': u'Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten'
@@ -293,6 +294,7 @@ def test_get_sorted_legend():
             'TypeCode': u'StaoTyp1',
             'Geom_Type': u'NrOfPoints',
             'TypeCodelist': '',
+            'NrOfPoints': 2,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
                         ContaminatedPublicTransportSites/1/StaoTyp1',
             'Information': u'Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten'

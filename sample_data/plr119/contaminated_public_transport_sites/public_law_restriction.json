@@ -94,5 +94,24 @@
       "de": "SubTheme2 - de",
       "fr": "SubTheme2 - fr"
     }
+  }, {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "type_code": "StaoTyp1",
+    "id": 401,
+    "type_code_list": "",
+    "law_status": "inForce",
+    "view_service_id": 1,
+    "information": {
+      "it": "Inquinato, non sono prevedibili effetti dannosi o molesti",
+      "de": "Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten",
+      "fr": "Pollué, pas d?atteinte nuisible ou incommodante à attendre"
+    },
+    "topic": "ContaminatedPublicTransportSites",
+    "sub_theme": {
+      "it": "SubTheme2 - it",
+      "de": "SubTheme2 - de",
+      "fr": "SubTheme2 - fr"
+    }
   }
 ]

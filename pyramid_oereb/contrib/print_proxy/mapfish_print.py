@@ -487,7 +487,7 @@ class Renderer(JsonRenderer):
             extract_dict['RealEstate_LandRegistryArea']
         )
 
-        # Reformat AreaShare, LengthShare and part in percent values
+        # Reformat AreaShare, LengthShare, NrOfPoints and part in percent values
         for restriction in extract_dict['RealEstate_RestrictionOnLandownership']:
             for legend in restriction['Legend']:
                 if 'LengthShare' in legend:
