@@ -74,15 +74,17 @@ vars:
       use_wms: "true"
       validate: "false"
       # The following parameters are not used by xml2pdf, but might be in the fure (see issue #873)
-      buffer: 30
+      buffer: 10
       basic_map_size: [493, 280]
       pdf_dpi: 300
       pdf_map_size_millimeters: [174, 99]
   % else:
       # Configuration for MapFish-Print print service
       renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer
-      # The minimum buffer in pixel at 72 DPI between the real estate and the map's border.
-      buffer: 30
+      # The minimum buffer in pixel at 72 DPI between the real estate and the map's border. If your print
+      # system draws a margin around the feature (the real estate), you have to set your buffer
+      # here accordingly.
+      buffer: 10
       # The map size in pixel at 72 DPI (width, height), This is the defined size of a map image
       # (requested in wms urls) inside the static extract. On a pdf report, tha map size will
       # be calculated with the pdf_dpi and the pdf_map_size_millimeters below.
