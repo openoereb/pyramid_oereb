@@ -280,25 +280,22 @@ class Processor(object):
             pyramid_oereb.lib.records.extract.ExtractRecord: The generated extract record.
         """
         log.debug("process() start")
-        municipalities = self._municipality_reader_.read()
+        municipality = self._municipality_reader_.read(real_estate.fosnr)[0]
         exclusions_of_liability = self._exclusion_of_liability_reader_.read()
         glossaries = self._glossary_reader_.read()
-        for municipality in municipalities:
-            if municipality.fosnr == real_estate.fosnr:
-                extract_raw = self._extract_reader_.read(real_estate, municipality, params)
-                extract = self.plr_tolerance_check(extract_raw)
+        extract_raw = self._extract_reader_.read(real_estate, municipality, params)
+        extract = self.plr_tolerance_check(extract_raw)
 
-                # the selection of view services is done after the tolerance check. This enables us to take
-                # care about the circumstance that after tolerance check plrs will be dismissed which were
-                # recognized as intersecting before. To avoid this the tolerance check is gathering all plrs
-                # intersecting and not intersecting and starts the legend entry sorting after.
-                self.view_service_handling(extract.real_estate, params.images, params.format)
+        # the selection of view services is done after the tolerance check. This enables us to take
+        # care about the circumstance that after tolerance check plrs will be dismissed which were
+        # recognized as intersecting before. To avoid this the tolerance check is gathering all plrs
+        # intersecting and not intersecting and starts the legend entry sorting after.
+        self.view_service_handling(extract.real_estate, params.images, params.format)
 
-                extract.exclusions_of_liability = exclusions_of_liability
-                extract.glossaries = glossaries
-                # obtain the highlight wms url and its content only if the parameter full was requested (PDF)
-                if params.flavour == 'full':
-                    extract.real_estate.set_highlight_url(sld_url)
-                log.debug("process() done, returning extract.")
-                return extract
-        raise NoResultFound()
+        extract.exclusions_of_liability = exclusions_of_liability
+        extract.glossaries = glossaries
+        # obtain the highlight wms url and its content only if the parameter full was requested (PDF)
+        if params.flavour == 'full':
+            extract.real_estate.set_highlight_url(sld_url)
+        log.debug("process() done, returning extract.")
+        return extract

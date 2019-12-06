@@ -13,10 +13,13 @@ class MunicipalityBaseSource(Base):
     """
     _record_class_ = MunicipalityRecord
 
-    def read(self):
+    def read(self, fosnr=None):
         """
         Every municipality source has to implement a read method. This method must accept no parameters.
         Because it should deliver all items available.
         If you want adapt to your own source for municipalities, this is the point where to hook in.
+
+        Args:
+            fosnr (int or None): The federal number of the municipality defined by the statistics office.
         """
         pass  # pragma: no cover
