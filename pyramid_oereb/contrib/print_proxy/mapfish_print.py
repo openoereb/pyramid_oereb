@@ -324,7 +324,7 @@ class Renderer(JsonRenderer):
             'Information', 'Lawstatus_Code', 'Lawstatus_Text', 'SymbolRef', 'TypeCode'
         ]
         legend_element = [
-            'TypeCode', 'TypeCodelist', 'AreaShare', 'PartInPercent', 'LengthShare',
+            'TypeCode', 'TypeCodelist', 'AreaShare', 'PartInPercent', 'LengthShare', 'NrOfPoints',
             'SymbolRef', 'Information'
         ]
         split_sub_themes = Config.get('print', {}).get('split_sub_themes', False)
@@ -487,7 +487,7 @@ class Renderer(JsonRenderer):
             extract_dict['RealEstate_LandRegistryArea']
         )
 
-        # Reformat AreaShare, LengthShare and part in percent values
+        # Reformat AreaShare, LengthShare, NrOfPoints and part in percent values
         for restriction in extract_dict['RealEstate_RestrictionOnLandownership']:
             for legend in restriction['Legend']:
                 if 'LengthShare' in legend:
@@ -496,6 +496,8 @@ class Renderer(JsonRenderer):
                     legend['AreaShare'] = u'{0} m²'.format(legend['AreaShare'])
                 if 'PartInPercent' in legend:
                     legend['PartInPercent'] = '{0}%'.format(round(legend['PartInPercent'], 2))
+                if 'NrOfPoints' in legend:
+                    legend['NrOfPoints'] = '{0}'.format(legend['NrOfPoints'])
 
         log.debug("After transformation, extract_dict is {}".format(extract_dict))
         return extract_dict
