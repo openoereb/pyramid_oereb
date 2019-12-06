@@ -486,7 +486,7 @@
             <span class="s1">&#39;Information&#39;</span><span class="p">,</span> <span class="s1">&#39;Lawstatus_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;Lawstatus_Text&#39;</span><span class="p">,</span> <span class="s1">&#39;SymbolRef&#39;</span><span class="p">,</span> <span class="s1">&#39;TypeCode&#39;</span>
         <span class="p">]</span>
         <span class="n">legend_element</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;TypeCode&#39;</span><span class="p">,</span> <span class="s1">&#39;TypeCodelist&#39;</span><span class="p">,</span> <span class="s1">&#39;AreaShare&#39;</span><span class="p">,</span> <span class="s1">&#39;PartInPercent&#39;</span><span class="p">,</span> <span class="s1">&#39;LengthShare&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;TypeCode&#39;</span><span class="p">,</span> <span class="s1">&#39;TypeCodelist&#39;</span><span class="p">,</span> <span class="s1">&#39;AreaShare&#39;</span><span class="p">,</span> <span class="s1">&#39;PartInPercent&#39;</span><span class="p">,</span> <span class="s1">&#39;LengthShare&#39;</span><span class="p">,</span> <span class="s1">&#39;NrOfPoints&#39;</span><span class="p">,</span>
             <span class="s1">&#39;SymbolRef&#39;</span><span class="p">,</span> <span class="s1">&#39;Information&#39;</span>
         <span class="p">]</span>
         <span class="n">split_sub_themes</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;split_sub_themes&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
@@ -649,7 +649,7 @@
             <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_LandRegistryArea&#39;</span><span class="p">]</span>
         <span class="p">)</span>
 
-        <span class="c1"># Reformat AreaShare, LengthShare and part in percent values</span>
+        <span class="c1"># Reformat AreaShare, LengthShare, NrOfPoints and part in percent values</span>
         <span class="k">for</span> <span class="n">restriction</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_RestrictionOnLandownership&#39;</span><span class="p">]:</span>
             <span class="k">for</span> <span class="n">legend</span> <span class="ow">in</span> <span class="n">restriction</span><span class="p">[</span><span class="s1">&#39;Legend&#39;</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="s1">&#39;LengthShare&#39;</span> <span class="ow">in</span> <span class="n">legend</span><span class="p">:</span>
@@ -658,6 +658,8 @@
                     <span class="n">legend</span><span class="p">[</span><span class="s1">&#39;AreaShare&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> m²&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">legend</span><span class="p">[</span><span class="s1">&#39;AreaShare&#39;</span><span class="p">])</span>
                 <span class="k">if</span> <span class="s1">&#39;PartInPercent&#39;</span> <span class="ow">in</span> <span class="n">legend</span><span class="p">:</span>
                     <span class="n">legend</span><span class="p">[</span><span class="s1">&#39;PartInPercent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">legend</span><span class="p">[</span><span class="s1">&#39;PartInPercent&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+                <span class="k">if</span> <span class="s1">&#39;NrOfPoints&#39;</span> <span class="ow">in</span> <span class="n">legend</span><span class="p">:</span>
+                    <span class="n">legend</span><span class="p">[</span><span class="s1">&#39;NrOfPoints&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">legend</span><span class="p">[</span><span class="s1">&#39;NrOfPoints&#39;</span><span class="p">])</span>
 
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;After transformation, extract_dict is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">extract_dict</span></div>
