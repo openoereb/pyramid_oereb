@@ -21,6 +21,7 @@ class DatabaseSource(BaseDatabaseSource, MunicipalityBaseSource):
         """
         session = self._adapter_.get_session(self._key_)
         try:
+            self.records = list()
             if fosnr:
                 results = session.query(self._model_).filter(self._model_.fosnr == fosnr).all()
             else:
