@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from sqlalchemy.orm.exc import NoResultFound
-
 from operator import attrgetter
 from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
