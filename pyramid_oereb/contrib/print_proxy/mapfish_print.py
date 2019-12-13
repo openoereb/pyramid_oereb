@@ -38,7 +38,7 @@ class Renderer(JsonRenderer):
             self._localised_text(item, 'Lawstatus_Text')
             self._flatten_object(item, 'ResponsibleOffice')
             self._multilingual_text(item, 'ResponsibleOffice_Name')
-            self._multilingual_text(item, 'TextAtWeb')
+            self._multilingual_text_at_web(item)
 
             self._multilingual_m_text(item, 'Text')
             self._multilingual_text(item, 'Title')
@@ -405,8 +405,9 @@ class Renderer(JsonRenderer):
                 values = list(restriction_on_landownership[element].values())
                 self.lpra_flatten(values)
                 restriction_on_landownership[element] = values
-                if element == 'LegalProvisions':
-                    pdf_to_join.update([legal_provision['TextAtWeb'] for legal_provision in values])
+                # FIXME This is not working any more with the new structure of TextAtWeb!!!
+                #if element == 'LegalProvisions':
+                #    pdf_to_join.update([legal_provision['TextAtWeb'] for legal_provision in values])
 
                 # Group legal provisions and hints which have the same title.
                 if (
@@ -510,7 +511,9 @@ class Renderer(JsonRenderer):
             if not existing_element:
                 merged_provision.append(element)
                 continue
-            existing_element['TextAtWeb'] += '\n' + element['TextAtWeb']
+
+            # join the the existing list with the new one
+            existing_element['TextAtWeb'] = [*existing_element['TextAtWeb'], *element['TextAtWeb']]
         return merged_provision if len(merged_provision) > 0 else legal_provisions
 
     def _flatten_array_object(self, parent, array_name, object_name):
@@ -578,6 +581,15 @@ class Renderer(JsonRenderer):
     def _multilingual_m_text(self, parent, name):
         self._multilingual_text(parent, name)
 
+    def _multilingual_text_at_web(self, parent):
+        name = 'TextAtWeb'
+        if name in parent:
+            lang_obj = dict([(e['Language'], e['Text']) for e in parent[name]])
+            if self._language in lang_obj.keys():
+                parent[name] = [{'URL': lang_obj[self._language]}]
+            else:
+                parent[name] = [{'URL': lang_obj[self._fallback_language]}]
+
     def _multilingual_text(self, parent, name):
         if name in parent:
             lang_obj = dict([(e['Language'], e['Text']) for e in parent[name]])
@@ -605,7 +617,7 @@ class Renderer(JsonRenderer):
                 sub_themes = sorter.sort(sub_themes, params)
             split_by_theme_code[theme_code] = non_sub_themes + sub_themes
 
-        # sort + flatten the splitted themes again
+        # sort + flatten the split themes again
         sorted_restrictions = []
         for theme in Config.get_themes():
             if theme.code in split_by_theme_code:
@@ -678,7 +690,14 @@ class Renderer(JsonRenderer):
         Returns:
             sorted list of legend dictionaries
         """
-        return sorted(legend_list, key=sort_keys)
+        # FIXME when sorting on TextAtWeb this throws an exception!!!
+        try:
+          return sorted(legend_list, key=sort_keys)
+        except:
+            log.warning('not possible to sort this list:')
+            log.warning(legend_list)
+            log.warning(sort_keys)
+            log.warning('-----------------------')
 
     @staticmethod
     def sort_legal_provision(elem):
@@ -696,7 +715,8 @@ class Renderer(JsonRenderer):
 
         sort_title = elem['Title'] if 'Title' in elem else ''
         sort_Number = elem['OfficialNumber'] if 'OfficialNumber' in elem else None
-        sort_Web = elem['TextAtWeb'] if 'TextAtWeb' in elem else None
+        # FIXME
+        # sort_Web = elem['TextAtWeb']['URL'] if 'TextAtWeb' in elem else None
         return sort_title, sort_Number, sort_Web
 
     @staticmethod
