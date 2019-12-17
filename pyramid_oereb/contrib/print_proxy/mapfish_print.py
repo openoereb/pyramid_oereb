@@ -405,7 +405,6 @@ class Renderer(JsonRenderer):
                 values = list(restriction_on_landownership[element].values())
                 self.lpra_flatten(values)
                 restriction_on_landownership[element] = values
-                # FIXME This is not working any more with the new structure of TextAtWeb!!!
                 if element == 'LegalProvisions':
                     # TESTME --> This line is not thoroughly tested for the full extract as it is not
                     #            possible to run this mode for PDF extract!
@@ -517,7 +516,7 @@ class Renderer(JsonRenderer):
                 continue
 
             # join the the existing list with the new one
-            existing_element['TextAtWeb'] = [*existing_element['TextAtWeb'], *element['TextAtWeb']]
+            existing_element['TextAtWeb'].extend(element['TextAtWeb'])
         return merged_provision if len(merged_provision) > 0 else legal_provisions
 
     def _flatten_array_object(self, parent, array_name, object_name):

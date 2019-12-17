@@ -313,7 +313,7 @@ def test_get_sorted_legal_provisions():
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/197",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
             "Title": "Baugesetz"
         }, {
             "Canton": "BL",
@@ -324,7 +324,7 @@ def test_get_sorted_legal_provisions():
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
             "Title": "Baugesetz"
         }, {
             "Canton": "BL",
@@ -335,7 +335,7 @@ def test_get_sorted_legal_provisions():
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/213",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/214"}],
             "Title": "Revision Ortsplanung"
         }, {
             "Canton": "BL",
@@ -346,7 +346,7 @@ def test_get_sorted_legal_provisions():
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/214",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/213"}],
             "Title": "Revision Ortsplanung"
         }
     ]
@@ -359,7 +359,7 @@ def test_get_sorted_legal_provisions():
            "OfficialNumber": "07.447",
            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-           "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/214",
+           "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/214"}],
            "Title": "Revision Ortsplanung"
         }, {
             "Canton": "BL",
@@ -370,7 +370,7 @@ def test_get_sorted_legal_provisions():
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/197",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
             "Title": "Baugesetz"
         }, {
             "Canton": "BL",
@@ -381,7 +381,7 @@ def test_get_sorted_legal_provisions():
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/213",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/213"}],
             "Title": "Revision Ortsplanung"
         }, {
             "Canton": "BL",
@@ -392,7 +392,7 @@ def test_get_sorted_legal_provisions():
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
             "Title": "Baugesetz"
         }
     ]
@@ -409,7 +409,7 @@ def test_get_sorted_hints():
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-        "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/197",
+        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
         "Title": "Revision Ortsplanung"
     }, {
         "Canton": "BL",
@@ -419,7 +419,7 @@ def test_get_sorted_hints():
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-        "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198"
+        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
     }, {
         "Canton": "BL",
         "DocumentType": "LegalProvision",
@@ -428,7 +428,7 @@ def test_get_sorted_hints():
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-        "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198",
+        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
         "Title": "Baugesetz"
 
     }]
@@ -441,7 +441,7 @@ def test_get_sorted_hints():
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-        "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198"
+        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
     }, {
         "Canton": "BL",
         "DocumentType": "LegalProvision",
@@ -450,7 +450,7 @@ def test_get_sorted_hints():
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-        "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198",
+        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
         "Title": "Baugesetz"
     }, {
         "Canton": "BL",
@@ -460,7 +460,7 @@ def test_get_sorted_hints():
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-        "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/197",
+        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
         "Title": "Revision Ortsplanung"
     }]
 
@@ -472,7 +472,7 @@ def test_get_sorted_law():
     test_law = [
         {
             'DocumentType': 'Law',
-            'TextAtWeb': 'http://www.admin.ch/ch/d/sr/c814_01.html',
+            'TextAtWeb': [{'URL': 'http://www.admin.ch/ch/d/sr/c814_01.html'}],
             'Title': 'Raumplanungsverordnung für den Kanton Graubünden',
             'Abbreviation': 'KRVO',
             'OfficialNumber': 'BR 801.110',
@@ -484,7 +484,7 @@ def test_get_sorted_law():
                 'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2934?locale=de'
         }, {
             'DocumentType': u'Law',
-            'TextAtWeb': u'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
             'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
             'Abbreviation': u'KRG',
             'Canton': u'GR',
@@ -495,7 +495,7 @@ def test_get_sorted_law():
                 u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
         }, {
             'DocumentType': u'Law',
-            'TextAtWeb': u'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
             'Title': u'Raumplanungsgesetz für den Kanton Graubünden2',
             'Abbreviation': u'KRG',
             'OfficialNumber': u'BR 801.100',
@@ -507,7 +507,7 @@ def test_get_sorted_law():
                 u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
         }, {
             'DocumentType': 'Law',
-            'TextAtWeb': 'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
             'Title': 'Bundesgesetz über die Raumplanung',
             'Abbreviation': 'RPG',
             'OfficialNumber': 'SR 700',
@@ -518,7 +518,7 @@ def test_get_sorted_law():
             'ResponsibleOffice_OfficeAtWeb': 'http://www.lexfind.ch/dtah/167348/2'
         }, {
             'DocumentType': u'Law',
-            'TextAtWeb': u'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
             'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
             'Abbreviation': u'KRG',
             'OfficialNumber': u'BR 801.100',
@@ -534,7 +534,7 @@ def test_get_sorted_law():
     expected_result = [
         {
             'DocumentType': u'Law',
-            'TextAtWeb': u'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
             'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
             'Abbreviation': u'KRG',
             'OfficialNumber': u'BR 801.100',
@@ -546,7 +546,7 @@ def test_get_sorted_law():
                 u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
         }, {
             'DocumentType': u'Law',
-            'TextAtWeb': u'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
             'Title': u'Raumplanungsgesetz für den Kanton Graubünden2',
             'Abbreviation': u'KRG',
             'OfficialNumber': u'BR 801.100',
@@ -558,7 +558,7 @@ def test_get_sorted_law():
                 u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
         }, {
             'DocumentType': 'Law',
-            'TextAtWeb': 'http://www.admin.ch/ch/d/sr/c814_01.html',
+            'TextAtWeb': [{'URL': 'http://www.admin.ch/ch/d/sr/c814_01.html'}],
             'Title': 'Raumplanungsverordnung für den Kanton Graubünden',
             'Abbreviation': 'KRVO',
             'OfficialNumber': 'BR 801.110',
@@ -570,7 +570,7 @@ def test_get_sorted_law():
                 'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2934?locale=de'
         }, {
             'DocumentType': 'Law',
-            'TextAtWeb': 'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
             'Title': 'Bundesgesetz über die Raumplanung',
             'Abbreviation': 'RPG',
             'OfficialNumber': 'SR 700',
@@ -581,7 +581,7 @@ def test_get_sorted_law():
             'ResponsibleOffice_OfficeAtWeb': 'http://www.lexfind.ch/dtah/167348/2'
         }, {
             'DocumentType': u'Law',
-            'TextAtWeb': u'http://www.admin.ch/ch/d/sr/c814_680.html',
+            'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
             'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
             'Abbreviation': u'KRG',
             'Canton': u'GR',
@@ -608,7 +608,7 @@ def test_group_legal_provisions():
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/197",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
             "Title": "Baugesetz"
         }, {
             "Canton": "BL",
@@ -619,7 +619,7 @@ def test_group_legal_provisions():
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/198",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
             "Title": "Baugesetz"
         }, {
             "Canton": "BL",
@@ -630,7 +630,7 @@ def test_group_legal_provisions():
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/213",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/213"}],
             "Title": "Revision Ortsplanung"
         }, {
             "Canton": "BL",
@@ -641,7 +641,7 @@ def test_group_legal_provisions():
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/214",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/214"}],
             "Title": "Revision Ortsplanung"
         }
     ]
@@ -655,8 +655,10 @@ def test_group_legal_provisions():
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/197\n" +
-                         "https://oereb-gr-preview.000.ch/api/attachments/198",
+            "TextAtWeb": [
+                {"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"},
+                {"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"},
+            ],
             "Title": "Baugesetz"
         }, {
             "Canton": "BL",
@@ -667,8 +669,10 @@ def test_group_legal_provisions():
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-            "TextAtWeb": "https://oereb-gr-preview.000.ch/api/attachments/213\n" +
-                         "https://oereb-gr-preview.000.ch/api/attachments/214",
+            "TextAtWeb": [
+                {"URL": "https://oereb-gr-preview.000.ch/api/attachments/213"},
+                {"URL": "https://oereb-gr-preview.000.ch/api/attachments/214"},
+            ],
             "Title": "Revision Ortsplanung"
         }
     ]
