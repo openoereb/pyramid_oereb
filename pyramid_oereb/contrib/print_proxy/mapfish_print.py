@@ -406,8 +406,12 @@ class Renderer(JsonRenderer):
                 self.lpra_flatten(values)
                 restriction_on_landownership[element] = values
                 # FIXME This is not working any more with the new structure of TextAtWeb!!!
-                #if element == 'LegalProvisions':
-                #    pdf_to_join.update([legal_provision['TextAtWeb'] for legal_provision in values])
+                if element == 'LegalProvisions':
+                    # TESTME --> This line is not thoroughly tested for the full extract as it is not
+                    #            possible to run this mode for PDF extract!
+                    # This adds the first URL of TextAtWeb to the pdf_to_join set. At this point of the code
+                    # there should only be one URL as the grouping takes place only after this if statement.
+                    pdf_to_join.update([legal_provision['TextAtWeb'][0]['URL'] for legal_provision in values])
 
                 # Group legal provisions and hints which have the same title.
                 if (
@@ -690,22 +694,14 @@ class Renderer(JsonRenderer):
         Returns:
             sorted list of legend dictionaries
         """
-        # FIXME when sorting on TextAtWeb this throws an exception!!!
-        try:
-          return sorted(legend_list, key=sort_keys)
-        except:
-            log.warning('not possible to sort this list:')
-            log.warning(legend_list)
-            log.warning(sort_keys)
-            log.warning('-----------------------')
+        return sorted(legend_list, key=sort_keys)
 
     @staticmethod
     def sort_legal_provision(elem):
         """
         Provides the sort key for the supplied legal provision element as a tuple consisting of:
             * title
-            * Office number
-            * Text at web
+            * Official number
         Args:
             elem (dict): one element of the legal provision list
 
@@ -714,10 +710,8 @@ class Renderer(JsonRenderer):
         """
 
         sort_title = elem['Title'] if 'Title' in elem else ''
-        sort_Number = elem['OfficialNumber'] if 'OfficialNumber' in elem else None
-        # FIXME
-        # sort_Web = elem['TextAtWeb']['URL'] if 'TextAtWeb' in elem else None
-        return sort_title, sort_Number, sort_Web
+        sort_number = elem['OfficialNumber'] if 'OfficialNumber' in elem else None
+        return sort_title, sort_number
 
     @staticmethod
     def sort_hints(elem):
