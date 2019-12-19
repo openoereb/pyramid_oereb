@@ -200,7 +200,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_localised_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Lawstatus_Text&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice_Name&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;TextAtWeb&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text_at_web</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_m_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Text&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Title&#39;</span><span class="p">)</span>
@@ -568,7 +568,9 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">lpra_flatten</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
                 <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
                 <span class="k">if</span> <span class="n">element</span> <span class="o">==</span> <span class="s1">&#39;LegalProvisions&#39;</span><span class="p">:</span>
-                    <span class="n">pdf_to_join</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">legal_provision</span> <span class="ow">in</span> <span class="n">values</span><span class="p">])</span>
+                    <span class="c1"># This adds the first URL of TextAtWeb to the pdf_to_join set. At this point of the code</span>
+                    <span class="c1"># there should only be one URL as the grouping takes place only after this if statement.</span>
+                    <span class="n">pdf_to_join</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;URL&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">legal_provision</span> <span class="ow">in</span> <span class="n">values</span><span class="p">])</span>
 
                 <span class="c1"># Group legal provisions and hints which have the same title.</span>
                 <span class="k">if</span> <span class="p">(</span>
@@ -674,7 +676,9 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="n">existing_element</span><span class="p">:</span>
                 <span class="n">merged_provision</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
                 <span class="k">continue</span>
-            <span class="n">existing_element</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">element</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">]</span>
+
+            <span class="c1"># join the the existing list with the new one</span>
+            <span class="n">existing_element</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">merged_provision</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">merged_provision</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">legal_provisions</span>
 
     <span class="k">def</span> <span class="nf">_flatten_array_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">array_name</span><span class="p">,</span> <span class="n">object_name</span><span class="p">):</span>
@@ -742,6 +746,15 @@
     <span class="k">def</span> <span class="nf">_multilingual_m_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_multilingual_text_at_web</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;TextAtWeb&#39;</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">:</span>
+            <span class="n">lang_obj</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;Language&#39;</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="s1">&#39;Text&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]])</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="ow">in</span> <span class="n">lang_obj</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;URL&#39;</span><span class="p">:</span> <span class="n">lang_obj</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">]}]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;URL&#39;</span><span class="p">:</span> <span class="n">lang_obj</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_fallback_language</span><span class="p">]}]</span>
+
     <span class="k">def</span> <span class="nf">_multilingual_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">:</span>
             <span class="n">lang_obj</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;Language&#39;</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="s1">&#39;Text&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]])</span>
@@ -769,7 +782,7 @@
                 <span class="n">sub_themes</span> <span class="o">=</span> <span class="n">sorter</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">sub_themes</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
             <span class="n">split_by_theme_code</span><span class="p">[</span><span class="n">theme_code</span><span class="p">]</span> <span class="o">=</span> <span class="n">non_sub_themes</span> <span class="o">+</span> <span class="n">sub_themes</span>
 
-        <span class="c1"># sort + flatten the splitted themes again</span>
+        <span class="c1"># sort + flatten the split themes again</span>
         <span class="n">sorted_restrictions</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_themes</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">theme</span><span class="o">.</span><span class="n">code</span> <span class="ow">in</span> <span class="n">split_by_theme_code</span><span class="p">:</span>
@@ -849,8 +862,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provides the sort key for the supplied legal provision element as a tuple consisting of:</span>
 <span class="sd">            * title</span>
-<span class="sd">            * Office number</span>
-<span class="sd">            * Text at web</span>
+<span class="sd">            * Official number</span>
 <span class="sd">        Args:</span>
 <span class="sd">            elem (dict): one element of the legal provision list</span>
 
@@ -859,9 +871,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">sort_title</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;Title&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
-        <span class="n">sort_Number</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">&#39;OfficialNumber&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;OfficialNumber&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="kc">None</span>
-        <span class="n">sort_Web</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;TextAtWeb&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">sort_title</span><span class="p">,</span> <span class="n">sort_Number</span><span class="p">,</span> <span class="n">sort_Web</span></div>
+        <span class="n">sort_number</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">&#39;OfficialNumber&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;OfficialNumber&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">sort_title</span><span class="p">,</span> <span class="n">sort_number</span></div>
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Renderer.sort_hints"><a class="viewcode-back" href="../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_hints">[docs]</a>    <span class="k">def</span> <span class="nf">sort_hints</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
@@ -967,6 +978,7 @@
         <dl>
             <dt>Branches</dt>
             <dd><a href="../../../../master/_modules/pyramid_oereb/contrib/print_proxy/mapfish_print.html">master</a></dd>
+            <dd><a href="../../../../requires-io-master/index.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>
