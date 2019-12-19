@@ -13,7 +13,7 @@
           "Title": "RRB Nr. 1484 vom 23.09.2003",
           "DocumentType": "LegalProvision",
           "Canton": "BL",
-          "TextAtWeb": "https://oereblex.bl.ch/api/attachments/403",
+          "TextAtWeb": [{"URL": "https://oereblex.bl.ch/api/attachments/403"}],
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Landeskanzlei"
         },
@@ -24,7 +24,7 @@
           "Title": "Zonenreglement Siedlung (Stand 30.03.2010)",
           "DocumentType": "LegalProvision",
           "Canton": "BL",
-          "TextAtWeb": "https://oereblex.bl.ch/api/attachments/1471",
+          "TextAtWeb": [{"URL": "https://oereblex.bl.ch/api/attachments/1471"}],
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Gemeindeverwaltung"
         },
@@ -36,7 +36,7 @@
           "DocumentType": "LegalProvision",
           "Canton": "BL",
           "Abbreviation": "RBG",
-          "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1964?locale=de",
+          "TextAtWeb": [{"URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1964?locale=de"}],
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Landeskanzlei"
         },
@@ -47,7 +47,7 @@
           "Title": "RRB Nr. 429 vom 01.04.2008",
           "DocumentType": "LegalProvision",
           "Canton": "BL",
-          "TextAtWeb": "https://oereblex.bl.ch/api/attachments/2537",
+          "TextAtWeb": [{"URL": "https://oereblex.bl.ch/api/attachments/2537"}],
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Gemeindeverwaltung"
         },
@@ -58,7 +58,7 @@
           "Title": "RRB Nr. 1484 vom 23.09.2003",
           "DocumentType": "LegalProvision",
           "Canton": "BL",
-          "TextAtWeb": "https://oereblex.bl.ch/api/attachments/2916",
+          "TextAtWeb": [{"URL": "https://oereblex.bl.ch/api/attachments/2916"}],
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Landeskanzlei"
         },
@@ -70,7 +70,7 @@
           "DocumentType": "LegalProvision",
           "Canton": "BL",
           "Abbreviation": "RBV",
-          "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/2032?locale=de",
+          "TextAtWeb": [{"URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/2032?locale=de"}],
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Landeskanzlei"
         },
@@ -82,7 +82,7 @@
           "DocumentType": "LegalProvision",
           "Canton": "BL",
           "Abbreviation": "Raumplanungsgesetz, RPG",
-          "TextAtWeb": "http://www.lexfind.ch/dtah/155346/2",
+          "TextAtWeb": [{"URL": "http://www.lexfind.ch/dtah/155346/2"}],
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Bundeskanzlei"
         }
@@ -274,7 +274,7 @@
           "Lawstatus_Code": "inForce",
           "Title": "Ersteintrag in den KbS: 09.12.2016",
           "ResponsibleOffice_OfficeAtWeb": "http://www.aue.bl.ch",
-          "TextAtWeb": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster",
+          "TextAtWeb": [{"URL": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster"}],
           "Lawstatus_Text": "in Kraft",
           "DocumentType": "LegalProvision",
           "ResponsibleOffice_Name": "Amt f\u00fcr Umweltschutz und Energie BL"
@@ -287,7 +287,7 @@
           "DocumentType": "LegalProvision",
           "Canton": "BL",
           "Abbreviation": "Umweltschutzgesetz, USG",
-          "TextAtWeb": "http://www.lexfind.ch/dtah/155395/2",
+          "TextAtWeb": [{"URL": "http://www.lexfind.ch/dtah/155395/2"}],
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Bundeskanzlei"
         },
@@ -299,7 +299,7 @@
           "DocumentType": "LegalProvision",
           "Canton": "BL",
           "Abbreviation": "Altlasten-Verordnung, AltlV",
-          "TextAtWeb": "http://www.lexfind.ch/dtah/147568/2",
+          "TextAtWeb": [{"URL": "http://www.lexfind.ch/dtah/147568/2"}],
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Bundeskanzlei"
         },
@@ -307,7 +307,7 @@
           "Lawstatus_Code": "inForce",
           "Title": "Ersteintrag in den KbS: 16.04.2015",
           "ResponsibleOffice_OfficeAtWeb": "http://www.aue.bl.ch",
-          "TextAtWeb": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster",
+          "TextAtWeb": [{"URL": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster"}],
           "Lawstatus_Text": "in Kraft",
           "DocumentType": "LegalProvision",
           "ResponsibleOffice_Name": "Amt f\u00fcr Umweltschutz und Energie BL"
@@ -320,7 +320,7 @@
           "DocumentType": "LegalProvision",
           "Canton": "BL",
           "Abbreviation": "USG BL",
-          "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de",
+          "TextAtWeb": [{"URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de"}],
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Landeskanzlei"
         },
@@ -332,7 +332,7 @@
           "DocumentType": "LegalProvision",
           "Canton": "BL",
           "Abbreviation": "USV",
-          "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/273?locale=de",
+          "TextAtWeb": [{"URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/273?locale=de"}],
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Landeskanzlei"
         }
@@ -450,7 +450,7 @@
           "Title": "RRB Nr. 429 vom 01.04.2008",
           "DocumentType": "LegalProvision",
           "Canton": "BL",
-          "TextAtWeb": "https://oereblex.bl.ch/api/attachments/2798",
+          "TextAtWeb": [{"URL": "https://oereblex.bl.ch/api/attachments/2798"}],
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Gemeindeverwaltung"
         },
@@ -462,7 +462,7 @@
           "DocumentType": "LegalProvision",
           "Canton": "BL",
           "Abbreviation": "USG BL",
-          "TextAtWeb": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de",
+          "TextAtWeb": [{"URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de"}],
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Landeskanzlei"
         },
@@ -474,7 +474,7 @@
           "DocumentType": "LegalProvision",
           "Canton": "BL",
           "Abbreviation": "LSV",
-          "TextAtWeb": "http://www.lexfind.ch/dtah/147569/2",
+          "TextAtWeb": [{"URL": "http://www.lexfind.ch/dtah/147569/2"}],
           "Lawstatus_Text": "in Kraft",
           "ResponsibleOffice_Name": "Bundeskanzlei"
         }
