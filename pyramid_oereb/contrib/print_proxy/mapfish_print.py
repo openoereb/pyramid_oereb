@@ -406,8 +406,6 @@ class Renderer(JsonRenderer):
                 self.lpra_flatten(values)
                 restriction_on_landownership[element] = values
                 if element == 'LegalProvisions':
-                    # TESTME --> This line is not thoroughly tested for the full extract as it is not
-                    #            possible to run this mode for PDF extract!
                     # This adds the first URL of TextAtWeb to the pdf_to_join set. At this point of the code
                     # there should only be one URL as the grouping takes place only after this if statement.
                     pdf_to_join.update([legal_provision['TextAtWeb'][0]['URL'] for legal_provision in values])
