@@ -142,5 +142,20 @@
       "de": "Guter Ratschlag"
     },
     "official_number": ""
+  },
+  {
+    "office_id": 1,
+    "published_from": "2019-11-17",
+    "canton": "",
+    "id": 8106,
+    "document_type": "Hint",
+    "text_at_web": {
+      "de": "http://example.com/goodhint3"
+    },
+    "law_status": "inForce",
+    "title": {
+      "de": "Seht guter Ratschlag mit langem titel: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis venenatis posuere. Nunc sollicitudin fermentum bibendum. Nulla ut massa enim. Sed rhoncus euismod venenatis"
+    },
+    "official_number": ""
   }
 ]
