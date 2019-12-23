@@ -20,6 +20,6 @@ lxml==4.4.2
 requests==2.22.0
 geolink-formatter==1.5.0
 pyconizer==0.1.4
-tqdm==4.40.2
+tqdm==4.41.0
 numpy==1.16.5  # rq.filter: <1.17.0
 defusedxml==0.6.0
