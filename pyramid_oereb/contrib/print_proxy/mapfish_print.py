@@ -82,9 +82,7 @@ class Renderer(JsonRenderer):
         pdf_to_join = set()
         
         extract_as_dict['nbTocPages'] = TocPages(extract_as_dict).getNbPages()
-        log.debug(json.dumps(extract_as_dict))
         
-
         self.convert_to_printable_extract(extract_as_dict, feature_geometry, pdf_to_join)
 
         print_config = Config.get('print', {})
@@ -107,7 +105,8 @@ class Renderer(JsonRenderer):
             'lang': self._language,
             'attributes': extract_as_dict,
         }
-
+        log.debug(json.dumps(extract_as_dict))
+        
         response = self.get_response(system)
 
         if self._request.GET.get('getspec', 'no') != 'no':
