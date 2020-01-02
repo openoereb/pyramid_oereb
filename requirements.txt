@@ -23,3 +23,4 @@ pyconizer==0.1.4
 tqdm==4.41.0
 numpy==1.16.5  # rq.filter: <1.17.0
 defusedxml==0.6.0
+Pillow==7.0.0

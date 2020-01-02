@@ -20,7 +20,7 @@ if sys.version_info.major == 2:
 else:
     from urllib import parse as urlparse
 
-import textwrap
+from .tocPages import TocPages
 
 log = logging.getLogger(__name__)
 
@@ -30,84 +30,7 @@ LEGEND_ELEMENT_SORT_ORDER = [
     'NrOfPoints'
 ]
 
-class TocPages():
-    def __init__(self,extract):
-        self.disposable_height = 842 - 70
-        self.d1_height = 77
-        self.d2_height = 29
-        self.d3_height = 61
-        self.d4_height = 44
-        self.d5_height = 15
-        self.d6_height = 90
-        self.d6_right_height = 23
-        self.d6_left_height = 0  # FIXME: compute this
-        self.title_size = 62
-        self.toc_title_height=15
-        self.toc_item_height=20
-        self.not_concerned_themes_title_height=12
-        self.not_concerned_themes_item_height=12
-        self.theme_without_data_title_height=12
-        self.theme_without_data_item_height=12
-        self.extract = extract
-        self.total_length = self.compute_total_lenght()
-    def compute_d1(self):
-        return self.d1_height
-    def compute_d2(self):
-        x = len(self.extract['ConcernedTheme'] * self.toc_item_height)
-        if x > self.d2_height:
-            return x
-        else:
-            return self.d2_height
-    def compute_d3(self):
-        x = self.not_concerned_themes_title_height + len(self.extract['NotConcernedTheme'] * self.not_concerned_themes_item_height)
-        if x > self.d3_height:
-            return x
-        else:
-            return self.d3_height
-    def compute_d4(self):
-        return self.d4_height
-    def compute_d5(self):
-        x = len(self.extract['ThemeWithoutData'] * self.theme_without_data_item_height)
-        if x > self.d5_height:
-            return x
-        else: 
-            return self.d5_height
-    def compute_d6_left(self):
-        return 10
-    @staticmethod
-    def compute_length_of_wrapped_text(text, nb_char, font_size):
-        return len(textwrap.wrap(text, nb_char)) * font_size
-    def compute_d6_right(self):
-        space_above = 4
-        space_title_content = 2
-        title_size = 7
-        content_size = 10
-        title_font_size = 6
-        title_font_max_char = 60 # FIXME: should be computed based on real font
-        content_font_size = 6
-        content_font_max_char = 74 # FIXME: should be computed based on real font
-        x = 0
-        for i in self.extract['ExclusionOfLiability']:
-            title_size =  self.compute_length_of_wrapped_text(i['Title'], title_font_max_char, title_font_size)
-            
-        
-    def compute_d6(self):
-        x = max(self.compute_d6_left(),self.compute_d6_right())
-        if x > self.d6_height:
-            return x
-        else:
-            return self.d6_height
-    def compute_total_lenght(self):
-        return self.compute_d1() + \
-                self.compute_d2() + \
-                self.compute_d3() + \
-                self.compute_d4() + \
-                self.compute_d5() + \
-                self.compute_d6()
-    
-    
-    def getNbPages(self):
-        return -(-self.total_length // self.disposable_height) # ceil number of pages needed  
+
 
 class Renderer(JsonRenderer):
 
@@ -159,7 +82,7 @@ class Renderer(JsonRenderer):
         pdf_to_join = set()
         
         extract_as_dict['nbTocPages'] = TocPages(extract_as_dict).getNbPages()
-        log.error(extract_as_dict['ExclusionOfLiability']) #.keys())
+        log.debug(json.dumps(extract_as_dict))
         
 
         self.convert_to_printable_extract(extract_as_dict, feature_geometry, pdf_to_join)
