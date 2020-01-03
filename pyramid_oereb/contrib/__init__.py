@@ -14,9 +14,7 @@ log = logging.getLogger(__name__)
 
 def plr_sort_within_themes_by_type_code(extract):
     """
-    This is the standard hook method to sort a plr list (while respecting the theme order.
-    This standard hook does no sorting, you can set your configuration to a different method if you need a
-    specific sorting.
+    This method sorts a plr list (while keeping the theme order) according to the TypeCode.
 
     Args:
         extract
@@ -33,14 +31,18 @@ def plr_sort_within_themes_by_type_code(extract):
 
     def cmp(a, b):
         if a.theme.code == b.theme.code:
+            # Only impact the order of elements which are in the same theme
             value_a = a.type_code
             value_b = b.type_code
-            if value_a < value_b:
-                ret = -1
-            elif value_a == value_b:
-                ret = 0
+            if value_a and value_b:
+                if value_a < value_b:
+                    ret = -1
+                elif value_a == value_b:
+                    ret = 0
+                else:
+                    ret = 1
             else:
-                ret = 1
+                ret = 0
         else:
             ret = 0
         return ret

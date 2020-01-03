@@ -222,9 +222,9 @@ def plr_sort_within_themes(extract):
     specific sorting.
 
     Args:
-        extract
+        extract (pyramid_oereb.lib.records.extract.ExtractRecord): The unsorted extract
 
     Returns:
-        The sorted extract
+        pyramid_oereb.lib.records.extract.ExtractRecord: Returns the updated extract
     """
     return extract

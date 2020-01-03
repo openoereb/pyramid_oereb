@@ -29,7 +29,7 @@ def test_mandatory_fields():
         ExtractRecord()
 
 
-def test_init():
+def create_dummy_extract():
     date = datetime.datetime.now()
     real_estate = RealEstateRecord(u'test', u'BL', u'Laufen', 2770, 1000, MultiPolygon(), ViewServiceRecord(
         'test_link',
@@ -67,6 +67,11 @@ def test_init():
         base_data,
         embeddable
     )
+    return record
+
+
+def test_init():
+    record = create_dummy_extract()
     assert isinstance(record.extract_identifier, str)
     assert isinstance(record.real_estate, RealEstateRecord)
     assert isinstance(record.not_concerned_theme, list)
