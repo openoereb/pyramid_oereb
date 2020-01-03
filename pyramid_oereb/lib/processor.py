@@ -2,8 +2,10 @@
 import logging
 
 from operator import attrgetter
+from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
+from pyramid.path import DottedNameResolver
 
 
 log = logging.getLogger(__name__)
@@ -283,6 +285,14 @@ class Processor(object):
         glossaries = self._glossary_reader_.read()
         extract_raw = self._extract_reader_.read(real_estate, municipality, params)
         extract = self.plr_tolerance_check(extract_raw)
+
+        resolver = DottedNameResolver()
+        sort_within_themes_method_string = Config.get('extract').get('sort_within_themes_method')
+        if sort_within_themes_method_string:
+            sort_within_themes_method = resolver.resolve(sort_within_themes_method_string)
+            extract = sort_within_themes_method(extract)
+        else:
+            log.info("No configuration is provided for extract sort_within_themes_method; no further sorting is applied.")
 
         # the selection of view services is done after the tolerance check. This enables us to take
         # care about the circumstance that after tolerance check plrs will be dismissed which were

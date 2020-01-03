@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+import logging
 
 from mako import exceptions
 from mako.template import Template
@@ -12,6 +13,9 @@ from pyramid_oereb import Config, database_adapter, route_prefix
 from pyramid_oereb.lib import b64
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
+
+
+log = logging.getLogger(__name__)
 
 
 def get_logo(request):
@@ -209,3 +213,18 @@ def produce_sld_content(request):
         response.content_type = 'text/html'
         response.body = exceptions.html_error_template().render()
         return response
+
+
+def plr_sort_within_themes(extract):
+    """
+    This is the standard hook method to sort a plr list (while respecting the theme order).
+    This standard hook does no sorting, you can set your configuration to a different method if you need a
+    specific sorting.
+
+    Args:
+        extract
+
+    Returns:
+        The sorted extract
+    """
+    return extract
