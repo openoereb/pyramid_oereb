@@ -4,6 +4,7 @@ import codecs
 from pyramid_oereb.contrib.print_proxy.mapfish_print import Renderer
 from tests.renderer import DummyRenderInfo
 from pyramid_oereb.contrib.print_proxy.sub_themes.sorting import AlphabeticSort, ListSort
+from pyramid_oereb.contrib.print_proxy.toc_pages import TocPages
 
 
 def coordinates():
@@ -41,6 +42,10 @@ def sub_theme_expected_printable_extract():
             'tests/contrib/print_proxy/resources/sub_theme_expected_getspec_extract.json'
     ) as f:
         return json.loads(f.read())
+
+
+def test_toc_pages():
+    assert TocPages(extract()).getNbPages() == 1
 
 
 def geometry():
