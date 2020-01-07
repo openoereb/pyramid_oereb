@@ -9,7 +9,7 @@ import logging
 
 import time
 
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from shapely.geometry import mapping
 from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import Config
@@ -160,8 +160,7 @@ class Renderer(JsonRenderer):
         pdf_archive_path = pdf_archive_path if pdf_archive_path[-1:] == '/' else pdf_archive_path + '/'
         log.debug('Start to archive pdf file at path: ' + pdf_archive_path)
 
-        utc_2 = timezone(timedelta(hours=2))
-        time_info = datetime.now(utc_2).strftime('%d-%m-%Y_%H-%M-%S')
+        time_info = (datetime.utcnow() + timedelta(hours=2)).strftime('%d-%m-%Y_%H-%M-%S')  # UTC+2
         egrid = extract_as_dict.get('RealEstate_EGRID', 'no_egrid')
         path_and_filename = pdf_archive_path + time_info + '_' + egrid + '.pdf'
 
