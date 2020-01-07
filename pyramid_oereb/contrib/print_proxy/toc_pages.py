@@ -81,7 +81,6 @@ class TocPages():
     @staticmethod
     def compute_length_of_wrapped_text(text, nb_char, font_size):
         t = textwrap.wrap(text, nb_char)
-        log.debug('text : \n{}'.format('\n'.join(t)))
         return len(t) * font_size
 
     def compute_d6_right(self):
