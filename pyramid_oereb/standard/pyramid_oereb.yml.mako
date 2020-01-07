@@ -389,7 +389,7 @@ pyramid_oereb:
         rm: ...
     sort_within_themes_method: pyramid_oereb.standard.hook_methods.plr_sort_within_themes
     # Example of a specific sorting method:
-    #sort_within_themes_method: pyramid_oereb.contrib.plr_sort_within_themes_by_type_code
+    # sort_within_themes_method: pyramid_oereb.contrib.plr_sort_within_themes_by_type_code
 
   # All PLRs which are provided by this application. This is related to all application behaviour, especially
   # the extract creation process which loops over this list.
