@@ -170,25 +170,33 @@ class Renderer(JsonRenderer):
         return path_and_filename
 
     @staticmethod
-    def get_wms_url_params():
+    def get_wms_url_params(params = None):
         """
         Returns the list of additionally configured wms_url_params.
 
         :return: The configured wms_url_params.
-        :rtype: list
+        :rtype: dict
         """
-        result = {}
-        wms_url_params = Config.get('print', {}).get('wms_url_params', False)
-        if wms_url_params:
-            log.debug("get_wms_url_params() read configuration {}".format(wms_url_params))
-            if isinstance(wms_url_params, dict):
-                result = wms_url_params
+        result = params
+        if not params:
+            wms_url_params = Config.get('print', {}).get('wms_url_params', False)
+            if wms_url_params:
+                log.debug("get_wms_url_params() read configuration {}".format(wms_url_params))
+                if isinstance(wms_url_params, dict):
+                    result = wms_url_params
+                else:
+                    log.warning("get_wms_url_params() ignoring unaccepted configuration value {}"
+                                .format(wms_url_params))
             else:
-                log.warning("get_wms_url_params() ignoring unaccepted configuration value {}"
-                            .format(wms_url_params))
+                log.info("no wms_url_params configuration detected; using default value")
+                result = {'TRANSPARENT': 'true'}
+
         else:
-            log.info("no wms_url_params configuration detected; using default value")
-            result = {'TRANSPARENT': 'true'}
+            for param_key, param_value in params.items(): # TODO make this Python 2.x compatible!
+                if isinstance(param_value, str):
+                    result[param_key] = param_value
+                else:
+                    result[param_key] = ",".join(param_value)
 
         return result
 
@@ -277,17 +285,20 @@ class Renderer(JsonRenderer):
                 [restriction_on_landownership['ResponsibleOffice']]
 
             url, params = parse_url(restriction_on_landownership['Map']['ReferenceWMS'])
+            wms_url_params_from_DB = Config.get('print', {}).get('wms_url_params_from_DB', False)
+
             restriction_on_landownership['baseLayers'] = {
                 'layers': [{
-                    'type': 'wms',
+                    'type': params.pop('SERVICE', 'wms')[0].lower(),
                     'opacity': restriction_on_landownership['Map'].get('layerOpacity', 0.6),
-                    'styles': 'default',
+                    'styles': params.pop('STYLES', 'default')[0],
                     'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
-                    'layers': params['LAYERS'][0].split(','),
-                    'imageFormat': 'image/png',
-                    'customParams': wms_url_params,
+                    'layers': params.pop('LAYERS', '')[0].split(','),
+                    'imageFormat': params.pop('FORMAT', 'image/png')[0],
+                    'customParams': self.get_wms_url_params(params if wms_url_params_from_DB else None),
                 }, basemap]
             }
+
             restriction_on_landownership['legend'] = restriction_on_landownership['Map'].get(
                 'LegendAtWeb', '')
 
