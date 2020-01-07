@@ -81,6 +81,8 @@ vars:
   % else:
       # Configuration for MapFish-Print print service
       renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer
+      # Set an archive path to keep a copy of each generated pdf.
+      # pdf_archive_path: /tmp
       # The minimum buffer in pixel at 72 DPI between the real estate and the map's border. If your print
       # system draws a margin around the feature (the real estate), you have to set your buffer
       # here accordingly.
