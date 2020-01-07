@@ -160,7 +160,7 @@ class Renderer(JsonRenderer):
         pdf_archive_path = pdf_archive_path if pdf_archive_path[-1:] == '/' else pdf_archive_path + '/'
         log.debug('Start to archive pdf file at path: ' + pdf_archive_path)
 
-        time_info = (datetime.utcnow() + timedelta(hours=2)).strftime('%d-%m-%Y_%H-%M-%S')  # UTC+2
+        time_info = (datetime.utcnow() + timedelta(hours=2)).strftime('%Y%m%d%H%M%S')  # UTC+2
         egrid = extract_as_dict.get('RealEstate_EGRID', 'no_egrid')
         path_and_filename = pdf_archive_path + time_info + '_' + egrid + '.pdf'
 
