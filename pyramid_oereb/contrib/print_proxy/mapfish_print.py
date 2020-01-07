@@ -9,7 +9,7 @@ import logging
 
 import time
 
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from shapely.geometry import mapping
 from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import Config
@@ -126,7 +126,7 @@ class Renderer(JsonRenderer):
                 log.debug("document url: " + url + " => content_type: " + content_type)
                 if content_type != 'application/pdf':
                     msg = "Skipped document inclusion (url: '{}') because content_type: '{}'"
-                    log.warn(msg.format(url, content_type))
+                    log.warning(msg.format(url, content_type))
                     continue
                 tmp_file = tempfile.NamedTemporaryFile(suffix='.pdf')
                 tmp_file.write(result.content)
@@ -142,6 +142,11 @@ class Renderer(JsonRenderer):
         else:
             content = print_result.content
 
+        # Save printed file to the specified path.
+        pdf_archive_path = print_config.get('pdf_archive_path', None)
+        if pdf_archive_path is not None:
+            self.archive_pdf_file(pdf_archive_path, content, extract_as_dict)
+
         response.status_code = print_result.status_code
         response.headers = print_result.headers
         if 'Transfer-Encoding' in response.headers:
@@ -149,6 +154,21 @@ class Renderer(JsonRenderer):
         if 'Connection' in response.headers:
             del response.headers['Connection']
         return content
+
+    @staticmethod
+    def archive_pdf_file(pdf_archive_path, binary_content, extract_as_dict):
+        pdf_archive_path = pdf_archive_path if pdf_archive_path[-1:] == '/' else pdf_archive_path + '/'
+        log.debug('Start to archive pdf file at path: ' + pdf_archive_path)
+
+        utc_2 = timezone(timedelta(hours=2))
+        time_info = datetime.now(utc_2).strftime('%d-%m-%Y_%H-%M-%S')
+        egrid = extract_as_dict.get('RealEstate_EGRID', 'no_egrid')
+        path_and_filename = pdf_archive_path + time_info + '_' + egrid + '.pdf'
+
+        archive = open(path_and_filename, 'ab')
+        archive.write(binary_content)
+        log.debug('Pdf file archived at: ' + path_and_filename)
+        return path_and_filename
 
     @staticmethod
     def get_wms_url_params():

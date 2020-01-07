@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import json
 import codecs
 from pyramid_oereb.contrib.print_proxy.mapfish_print import Renderer
@@ -680,3 +681,10 @@ def test_group_legal_provisions():
     ]
 
     assert expected_results == renderer.group_legal_provisions(test_legal_provisions)
+
+
+def test_archive_pdf():
+    renderer = Renderer(DummyRenderInfo())
+    extract = {'RealEstate_EGRID': 'CH113928077734'}
+    path_and_filename = renderer.archive_pdf_file('/tmp', bytes(), extract)
+    assert os.path.isfile(path_and_filename)
