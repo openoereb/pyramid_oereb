@@ -5,9 +5,7 @@ This package is meant for contributions to the project, that are not part of the
 useful in general.
 """
 import logging
-
 from functools import cmp_to_key
-
 
 log = logging.getLogger(__name__)
 
