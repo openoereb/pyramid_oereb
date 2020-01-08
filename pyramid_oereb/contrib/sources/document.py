@@ -86,7 +86,8 @@ class OEREBlexSource(Base):
         request_params = {
             'locale': language
         }
-        log.debug("read() getting documents for geolink_id {}, url: {}, parser: {}".format(geolink_id, url, self._parser))
+        log.debug("read() getting documents for geolink_id {}, url: {}, parser: {}"
+                  .format(geolink_id, url, self._parser))
         documents = self._parser.from_url(url, request_params, proxies=self._proxies, auth=self._auth)
         log.debug("read() got documents")
 
