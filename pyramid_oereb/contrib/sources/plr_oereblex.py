@@ -3,6 +3,7 @@ import logging
 
 from pyramid_oereb import Config
 from pyramid_oereb.contrib.sources.document import OEREBlexSource
+from pyramid_oereb.contrib.sources.oereblex_cache import OEREBlexCache
 from pyramid_oereb.standard.sources.plr import DatabaseSource
 
 log = logging.getLogger(__name__)
@@ -35,12 +36,31 @@ class DatabaseOEREBlexSource(DatabaseSource):
         """
         super(DatabaseOEREBlexSource, self).__init__(**kwargs)
         self._oereblex_source = OEREBlexSource(**Config.get_oereblex_config())
+        self._use_cache = False
 
     def get_document_records(self, params, public_law_restriction_from_db):
         """
         Override the parent's get_document_records method to obtain the oereblex document instead.
         """
-        return self.document_records_from_oereblex(params, public_law_restriction_from_db.geolink)
+        lexlink = public_law_restriction_from_db.geolink
+        if (self._use_cache):
+            log.debug("get_document_records for lexlink {} looking up in cache".format(lexlink))
+            document_records = OEREBlexCache.get_records(lexlink)
+            log.debug("get_document_records_for lexlink {} got from cache: {}"
+                      .format(lexlink, document_records))
+            if document_records:
+                log.debug("get_document_records for lexlink {} cache result: {} records"
+                          .format(lexlink, len(document_records)))
+            else:
+                log.debug("get_document_records for lexlink {} START: records not in Cache,"
+                          "querying from Oereblex".format(lexlink))
+                document_records = self.document_records_from_oereblex(params, lexlink)
+                log.debug("get_document_records for lexlink {} DONE; adding {} records to cache"
+                          .format(lexlink, len(document_records)))
+                OEREBlexCache.add_records(lexlink, document_records)
+        else:
+            document_records = self.document_records_from_oereblex(params, lexlink)
+        return document_records
 
     def document_records_from_oereblex(self, params, lexlink):
         """
@@ -60,3 +80,9 @@ class DatabaseOEREBlexSource(DatabaseSource):
         log.debug("document_records_from_oereblex() returning {} records"
                   .format(len(self._oereblex_source.records)))
         return self._oereblex_source.records
+
+
+class OEREBlexSourceCached(DatabaseOEREBlexSource):
+    def __init__(self, **kwargs):
+        super(OEREBlexSourceCached, self).__init__(**kwargs)
+        self._use_cache = True
