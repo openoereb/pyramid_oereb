@@ -368,10 +368,18 @@ records.</p>
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource.read">
-<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/municipality.html#MunicipalityBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>fosnr=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/municipality.html#MunicipalityBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Every municipality source has to implement a read method. This method must accept no parameters.
 Because it should deliver all items available.
 If you want adapt to your own source for municipalities, this is the point where to hook in.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fosnr</strong> (<em>int</em><em> or </em><em>None</em>) &#8211; The federal number of the municipality defined by the statistics office.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
