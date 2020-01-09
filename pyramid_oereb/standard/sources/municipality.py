@@ -12,15 +12,20 @@ from pyramid_oereb.lib.sources.municipality import MunicipalityBaseSource
 
 class DatabaseSource(BaseDatabaseSource, MunicipalityBaseSource):
 
-    def read(self):
+    def read(self, fosnr=None):
         """
         Central method to read a municipality by it's id_bfs identifier.
+
+        Args:
+            fosnr (int or None): The federal number of the municipality defined by the statistics office.
         """
         session = self._adapter_.get_session(self._key_)
         try:
-            results = session.query(self._model_).all()
-
             self.records = list()
+            if fosnr:
+                results = session.query(self._model_).filter(self._model_.fosnr == fosnr).all()
+            else:
+                results = session.query(self._model_).all()
             for result in results:
                 logo = ImageRecord(b64.decode(result.logo))
                 self.records.append(self._record_class_(
