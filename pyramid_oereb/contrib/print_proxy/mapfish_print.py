@@ -170,14 +170,16 @@ class Renderer(JsonRenderer):
         return path_and_filename
 
     @staticmethod
-    def get_wms_url_params(params = None):
+    def get_wms_url_params(params=None):
         """
         Returns the list of additionally configured wms_url_params.
+        Args:
+            params: optional argument used for given custom parameters. Expecting a dict
 
         :return: The configured wms_url_params.
         :rtype: dict
         """
-        result = params
+        result = params if params else {}
         if not params:
             wms_url_params = Config.get('print', {}).get('wms_url_params', False)
             if wms_url_params:
@@ -192,7 +194,7 @@ class Renderer(JsonRenderer):
                 result = {'TRANSPARENT': 'true'}
 
         else:
-            for param_key, param_value in params.items(): # TODO make this Python 2.x compatible!
+            for param_key, param_value in params.items():  # TODO make this Python 2.x compatible!
                 if isinstance(param_value, str):
                     result[param_key] = param_value
                 else:
