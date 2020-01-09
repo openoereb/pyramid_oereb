@@ -170,34 +170,27 @@ class Renderer(JsonRenderer):
         return path_and_filename
 
     @staticmethod
-    def get_wms_url_params(params = None):
+    def get_wms_url_params():
         """
         Returns the list of additionally configured wms_url_params.
+        Args:
+            params: optional argument used for given custom parameters. Expecting a dict
 
         :return: The configured wms_url_params.
         :rtype: dict
         """
-        result = params
-        if not params:
-            wms_url_params = Config.get('print', {}).get('wms_url_params', False)
-            if wms_url_params:
-                log.debug("get_wms_url_params() read configuration {}".format(wms_url_params))
-                if isinstance(wms_url_params, dict):
-                    result = wms_url_params
-                else:
-                    log.warning("get_wms_url_params() ignoring unaccepted configuration value {}"
-                                .format(wms_url_params))
+        result = {}
+        wms_url_params = Config.get('print', {}).get('wms_url_params', False)
+        if wms_url_params:
+            log.debug("get_wms_url_params() read configuration {}".format(wms_url_params))
+            if isinstance(wms_url_params, dict):
+                result = wms_url_params
             else:
-                log.info("no wms_url_params configuration detected; using default value")
-                result = {'TRANSPARENT': 'true'}
-
+                log.warning("get_wms_url_params() ignoring unaccepted configuration value {}"
+                            .format(wms_url_params))
         else:
-            for param_key, param_value in params.items(): # TODO make this Python 2.x compatible!
-                if isinstance(param_value, str):
-                    result[param_key] = param_value
-                else:
-                    result[param_key] = ",".join(param_value)
-
+            log.info("no wms_url_params configuration detected; using default value")
+            result = {'TRANSPARENT': 'true'}
         return result
 
     def convert_to_printable_extract(self, extract_dict, feature_geometry, pdf_to_join):
@@ -285,7 +278,6 @@ class Renderer(JsonRenderer):
                 [restriction_on_landownership['ResponsibleOffice']]
 
             url, params = parse_url(restriction_on_landownership['Map']['ReferenceWMS'])
-            wms_url_params_from_DB = Config.get('print', {}).get('wms_url_params_from_DB', False)
 
             restriction_on_landownership['baseLayers'] = {
                 'layers': [{
@@ -295,7 +287,7 @@ class Renderer(JsonRenderer):
                     'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
                     'layers': params.pop('LAYERS', '')[0].split(','),
                     'imageFormat': params.pop('FORMAT', 'image/png')[0],
-                    'customParams': self.get_wms_url_params(params if wms_url_params_from_DB else None),
+                    'customParams': self.get_custom_wms_params(params),
                 }, basemap]
             }
 
@@ -805,17 +797,32 @@ class Renderer(JsonRenderer):
         From a given dictionary filter out all the parameters that are specified in the config
         and return these.
         Only values which exist in the given params are added.
-        ARGS:
+        If there is nothing configured or the config is not a list
+        the configured wms_url_params are used as fallback.
+
+        Args:
             params (dict): Parameters available in the URL
 
         Returns:
             custom_params (dict): dictionary of filtered params
         """
         wms_url_params = Config.get('print', {}).get('wms_url_keep_params', False)
-        custom_params = {}
-        if isinstance(wms_url_params, list):
-            custom_params = { wms_keys: wms_values for wms_keys, wms_values in params.items() if wms_keys in wms_url_params}
-        log.warning('-----------------------get_custom_wms_params--------------------------')
-        log.warning(custom_params)
-        log.warning('-----------------------END---------------------------------------------')
+        if not isinstance(wms_url_params, list):
+            # If no config exists or config is not as expected fall back to use standard wms_url_params
+            return self.get_wms_url_params()
+
+        custom_params = {
+            wms_keys: self.string_check(wms_values)
+            for wms_keys, wms_values in params.items()
+            if wms_keys in wms_url_params
+        }
         return custom_params
+
+    @staticmethod
+    def string_check(value):
+        """
+
+        :param value:
+        :return:
+        """
+        return value if isinstance(value, str) else ','.join(value)

@@ -120,6 +120,12 @@ pyramid_oereb:
     # Specify any additional URL parameters that the print shall use for WMS calls
     wms_url_params:
       TRANSPARENT: 'true'
+    # Add a list of parameters which need to be kept in the requested URL used for the
+    # map of the restriction_on_landownership baseLayers.
+    # Parameters appear only if their value exists in the URL and if they are in list form.
+    # If this is not configured the wms_url_params will be used.
+    # wms_url_keep_params:
+    #   - ogcserver
 % endif
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
