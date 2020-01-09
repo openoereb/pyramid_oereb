@@ -292,7 +292,8 @@ class Processor(object):
             sort_within_themes_method = resolver.resolve(sort_within_themes_method_string)
             extract = sort_within_themes_method(extract)
         else:
-            log.info("No configuration is provided for extract sort_within_themes_method; no further sorting is applied.")
+            log.info("No configuration is provided for extract sort_within_themes_method;"
+                     " no further sorting is applied.")
 
         # the selection of view services is done after the tolerance check. This enables us to take
         # care about the circumstance that after tolerance check plrs will be dismissed which were
