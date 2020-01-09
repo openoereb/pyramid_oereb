@@ -1,5 +1,5 @@
 <%page args="law_status"/>
-<data:Code>${law_status.code}</data:Code>
+<data:Code>${law_status.code | x}</data:Code>
 <data:Text>
     <%include file="localized_text.xml" args="text=law_status.text"/>
 </data:Text>

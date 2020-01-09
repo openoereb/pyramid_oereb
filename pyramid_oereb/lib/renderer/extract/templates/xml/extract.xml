@@ -35,8 +35,8 @@
     %if params.flavour == 'embeddable':
     <embeddable>
         <cadasterState>${str(extract.embeddable.cadaster_state.strftime(date_format))}</cadasterState>
-        <cadasterOrganisationName>${localized(extract.embeddable.cadaster_organisation.name).get('Text')}</cadasterOrganisationName>
-        <dataownerNameCadastralSurveying>${localized(extract.embeddable.data_owner_cadastral_surveying.name).get('Text')}</dataownerNameCadastralSurveying>
+        <cadasterOrganisationName>${localized(extract.embeddable.cadaster_organisation.name).get('Text') | x}</cadasterOrganisationName>
+        <dataownerNameCadastralSurveying>${localized(extract.embeddable.data_owner_cadastral_surveying.name).get('Text') | x}</dataownerNameCadastralSurveying>
         <transferFromSourceCadastralSurveying>${extract.embeddable.transfer_from_source_cadastral_surveying.strftime(date_format)}</transferFromSourceCadastralSurveying>
         % for datasource in extract.embeddable.datasources:
         <%include file="data_source.xml" args="datasource=datasource"/>
@@ -46,7 +46,7 @@
     <data:Extract>
         <data:CreationDate>${extract.creation_date.strftime(date_format)}</data:CreationDate>
     %if extract.electronic_signature:
-        <data:Signature>${extract.electronic_signature}</data:Signature>
+        <data:Signature>${extract.electronic_signature | x}</data:Signature>
     %endif
     %if extract.concerned_theme:
         %for theme in extract.concerned_theme:
@@ -69,7 +69,7 @@
         </data:ThemeWithoutData>
         %endfor
     %endif
-        <data:isReduced>${parse_bool(params.flavour == 'reduced')}</data:isReduced>
+        <data:isReduced>${parse_bool(params.flavour == 'reduced') | x}</data:isReduced>
     %if params.images:
         <data:LogoPLRCadastre>${extract.logo_plr_cadastre.encode()}</data:LogoPLRCadastre>
         <data:FederalLogo>${extract.federal_logo.encode()}</data:FederalLogo>

@@ -12,15 +12,15 @@
 %if extract.real_estate.egrid:
     <data:EGRID>${real_estate.egrid}</data:EGRID>
 %endif
-    <data:Type>${real_estate.type}</data:Type>
-    <data:Canton>${real_estate.canton}</data:Canton>
-    <data:Municipality>${real_estate.municipality}</data:Municipality>
+    <data:Type>${real_estate.type | x}</data:Type>
+    <data:Canton>${real_estate.canton | x}</data:Canton>
+    <data:Municipality>${real_estate.municipality | x}</data:Municipality>
 %if extract.real_estate.subunit_of_land_register:
-    <data:SubunitOfLandRegister>${real_estate.subunit_of_land_register}</data:SubunitOfLandRegister>
+    <data:SubunitOfLandRegister>${real_estate.subunit_of_land_register | x}</data:SubunitOfLandRegister>
 %endif
     <data:FosNr>${real_estate.fosnr}</data:FosNr>
 %if extract.real_estate.metadata_of_geographical_base_data:
-    <data:MetadataOfGeographicalBaseData>${real_estate.metadata_of_geographical_base_data}</data:MetadataOfGeographicalBaseData>
+    <data:MetadataOfGeographicalBaseData>${real_estate.metadata_of_geographical_base_data | x}</data:MetadataOfGeographicalBaseData>
 %endif
     <data:LandRegistryArea>${int(real_estate.land_registry_area)}</data:LandRegistryArea>
 %if extract.real_estate.limit and params.with_geometry:
