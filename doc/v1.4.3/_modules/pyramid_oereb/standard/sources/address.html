@@ -173,13 +173,14 @@
 
 <div class="viewcode-block" id="DatabaseSource"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.standard.sources.address.DatabaseSource">[docs]</a><span class="k">class</span> <span class="nc">DatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">AddressBaseSource</span><span class="p">):</span>
 
-<div class="viewcode-block" id="DatabaseSource.read"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.standard.sources.address.DatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
+<div class="viewcode-block" id="DatabaseSource.read"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.standard.sources.address.DatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The read method to access the standard database structure. It uses SQL-Alchemy for querying. It tries</span>
 <span class="sd">        to find the items via passed arguments. If there was no result found it goes on with assigning an</span>
 <span class="sd">        empty list as records instance attribute.</span>
 
 <span class="sd">        Args:</span>
+<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</span>
 <span class="sd">            street_name (unicode): The name of the street for the desired address.</span>
 <span class="sd">            zip_code (int): The postal zipcode for the desired address.</span>
 <span class="sd">            street_number (str): The house or so called street number of the desired address.</span>

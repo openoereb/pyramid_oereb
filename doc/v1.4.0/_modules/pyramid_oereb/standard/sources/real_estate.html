@@ -173,11 +173,12 @@
 
 <div class="viewcode-block" id="DatabaseSource"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.standard.sources.real_estate.DatabaseSource">[docs]</a><span class="k">class</span> <span class="nc">DatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">RealEstateBaseSource</span><span class="p">):</span>
 
-<div class="viewcode-block" id="DatabaseSource.read"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.standard.sources.real_estate.DatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nb_ident</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">egrid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="DatabaseSource.read"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.standard.sources.real_estate.DatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">nb_ident</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">egrid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Central method to read all plrs (geometry input) or explicitly one plr (nb_ident+number/egrid input).</span>
 
 <span class="sd">        Args:</span>
+<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</span>
 <span class="sd">            nb_ident (int or None): The identification number of the desired real estate. This</span>
 <span class="sd">                parameter is directly related to the number parameter and both must be set!</span>
 <span class="sd">                Combination will deliver only one result or crashes.</span>

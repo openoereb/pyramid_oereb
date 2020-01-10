@@ -219,19 +219,23 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_auth</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;language&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;language has to be string of two characters, e.g. &quot;de&quot; or &quot;fr&quot;&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_canton</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;canton&#39;</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_canton</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_canton</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_canton</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_canton</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;canton has to be string of two characters, e.g. &quot;BL&quot; or &quot;NE&quot;&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="o">=</span> <span class="n">XML</span><span class="p">(</span><span class="n">host_url</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;host&#39;</span><span class="p">),</span> <span class="n">version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">host_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">host_url</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;host_url has to be defined&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="OEREBlexSource.read"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.document.OEREBlexSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geolink_id</span><span class="p">):</span>
+<div class="viewcode-block" id="OEREBlexSource.read"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.document.OEREBlexSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">geolink_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Requests the geoLink for the specified ID and returns records for the received documents.</span>
 
 <span class="sd">        Args:</span>
+<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</span>
 <span class="sd">            geolink_id (int): The geoLink ID.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() start&quot;</span><span class="p">)</span>
@@ -242,8 +246,12 @@
             <span class="n">version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pass_version</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
             <span class="nb">id</span><span class="o">=</span><span class="n">geolink_id</span>
         <span class="p">)</span>
+        <span class="n">language</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">language</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span>
+        <span class="n">request_params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;locale&#39;</span><span class="p">:</span> <span class="n">language</span>
+        <span class="p">}</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() getting documents, url: </span><span class="si">{}</span><span class="s2">, parser: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">))</span>
-        <span class="n">documents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="p">{},</span> <span class="n">proxies</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_proxies</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_auth</span><span class="p">)</span>
+        <span class="n">documents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">request_params</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_proxies</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_auth</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() got documents&quot;</span><span class="p">)</span>
 
         <span class="c1"># Get main documents</span>
@@ -261,16 +269,17 @@
         <span class="c1"># Convert to records</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">main_documents</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_document_records</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">referenced_documents</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_document_records</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">referenced_documents</span><span class="p">))</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() done.&quot;</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_get_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">,</span> <span class="n">references</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">references</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts the received documents into records.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            document (geolink_formatter.entity.Document): The geoLink document to be returned as document</span>
 <span class="sd">                record.</span>
+<span class="sd">            language (str): The language of the returned documents.</span>
 <span class="sd">            references (list of geolink_formatter.entity.Document): Referenced geoLink documents.</span>
 
 <span class="sd">        Returns:</span>
@@ -287,9 +296,12 @@
             <span class="k">return</span> <span class="p">[]</span>
 
         <span class="c1"># Check mandatory attributes</span>
-        <span class="k">assert</span> <span class="n">document</span><span class="o">.</span><span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="k">assert</span> <span class="n">document</span><span class="o">.</span><span class="n">enactment_date</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="k">assert</span> <span class="n">document</span><span class="o">.</span><span class="n">authority</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">title</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;Missing title for document #</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">enactment_date</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;Missing enactment_date for document #</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">authority</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;Missing authority for document #</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
 
         <span class="c1"># Get document type</span>
         <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">doctype</span> <span class="o">==</span> <span class="s1">&#39;decree&#39;</span><span class="p">:</span>
@@ -302,25 +314,29 @@
         <span class="c1"># Convert referenced documents</span>
         <span class="n">referenced_records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">reference</span> <span class="ow">in</span> <span class="n">references</span><span class="p">:</span>
-            <span class="n">referenced_records</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_document_records</span><span class="p">(</span><span class="n">reference</span><span class="p">))</span>
+            <span class="n">referenced_records</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_document_records</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">language</span><span class="p">))</span>
 
         <span class="c1"># Create related office record</span>
-        <span class="n">office</span> <span class="o">=</span> <span class="n">OfficeRecord</span><span class="p">({</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">authority</span><span class="p">},</span> <span class="n">office_at_web</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">authority_url</span><span class="p">)</span>
+        <span class="n">office</span> <span class="o">=</span> <span class="n">OfficeRecord</span><span class="p">({</span><span class="n">language</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">authority</span><span class="p">},</span> <span class="n">office_at_web</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">authority_url</span><span class="p">)</span>
 
         <span class="c1"># Check for available abbreviation</span>
-        <span class="n">abbreviation</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">abbreviation</span><span class="p">}</span> <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">abbreviation</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">abbreviation</span> <span class="o">=</span> <span class="p">{</span><span class="n">language</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">abbreviation</span><span class="p">}</span> <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">abbreviation</span> <span class="k">else</span> <span class="kc">None</span>
 
         <span class="c1"># Get files</span>
         <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">document</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
             <span class="n">arguments</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;law_status&#39;</span><span class="p">:</span> <span class="n">LawStatusRecord</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;inForce&#39;</span><span class="p">),</span>
                          <span class="s1">&#39;published_from&#39;</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">enactment_date</span><span class="p">,</span>
-                         <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_document_title</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">f</span><span class="p">),</span>
+                         <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_document_title</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">language</span><span class="p">),</span>
                          <span class="s1">&#39;responsible_office&#39;</span><span class="p">:</span> <span class="n">office</span><span class="p">,</span>
-                         <span class="s1">&#39;text_at_web&#39;</span><span class="p">:</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">href</span><span class="p">},</span>
+                         <span class="s1">&#39;text_at_web&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">language</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">href</span><span class="p">},</span>
                          <span class="s1">&#39;abbreviation&#39;</span><span class="p">:</span> <span class="n">abbreviation</span><span class="p">,</span>
                          <span class="s1">&#39;official_number&#39;</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">number</span><span class="p">,</span>
-                         <span class="s1">&#39;official_title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_mapped_value</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="s1">&#39;official_title&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+                         <span class="s1">&#39;official_title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_mapped_value</span><span class="p">(</span>
+                             <span class="n">document</span><span class="p">,</span>
+                             <span class="s1">&#39;official_title&#39;</span><span class="p">,</span>
+                             <span class="n">language</span><span class="o">=</span><span class="n">language</span>
+                         <span class="p">),</span>
                          <span class="s1">&#39;canton&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_canton</span><span class="p">,</span>
                          <span class="s1">&#39;municipality&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_mapped_value</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="s1">&#39;municipality&#39;</span><span class="p">),</span>
                          <span class="s1">&#39;references&#39;</span><span class="p">:</span> <span class="n">referenced_records</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">referenced_records</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span><span class="p">}</span>
@@ -328,14 +344,14 @@
 
         <span class="k">return</span> <span class="n">records</span>
 
-    <span class="k">def</span> <span class="nf">_get_mapped_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">multilingual</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_mapped_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the value of a mapped optional attribute.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            document (geolink_formatter.entity.Document): The document entity.</span>
 <span class="sd">            key (str): The key of the attribute to be mapped.</span>
-<span class="sd">            multilingual (bool): True to wrap value in multilingual dictionary.</span>
+<span class="sd">            language (str or None): Pass language to wrap value in multilingual dictionary.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str or None: The value of the mapped attribute.</span>
@@ -345,10 +361,11 @@
             <span class="k">if</span> <span class="n">attribute</span><span class="p">:</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span> <span class="k">if</span> <span class="n">multilingual</span> <span class="k">else</span> <span class="n">value</span>
+                    <span class="k">return</span> <span class="p">{</span><span class="n">language</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span> <span class="k">if</span> <span class="n">language</span> <span class="k">else</span> <span class="n">value</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">_get_document_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">,</span> <span class="n">current_file</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_document_title</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">current_file</span><span class="p">,</span> <span class="n">language</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the title of the document/file. Extracting this logic allows</span>
 <span class="sd">        easier customization of the file title.</span>
@@ -356,12 +373,13 @@
 <span class="sd">        Args:</span>
 <span class="sd">            document (geolink_formatter.entity.Document): The document entity.</span>
 <span class="sd">            current_file (geolink_formatter.entity.File): The file, which gets annotated with a title.</span>
+<span class="sd">            language (str): The language of the document title.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str: Title of document.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Assign multilingual values</span>
-        <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">title</span><span class="p">}</span></div>
+        <span class="k">return</span> <span class="p">{</span><span class="n">language</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">title</span><span class="p">}</span></div>
 </pre></div>
 
            </div>

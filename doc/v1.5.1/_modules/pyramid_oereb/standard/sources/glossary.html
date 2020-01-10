@@ -169,9 +169,12 @@
 
 <div class="viewcode-block" id="DatabaseSource"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.standard.sources.glossary.DatabaseSource">[docs]</a><span class="k">class</span> <span class="nc">DatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">GlossaryBaseSource</span><span class="p">):</span>
 
-<div class="viewcode-block" id="DatabaseSource.read"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.standard.sources.glossary.DatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DatabaseSource.read"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.standard.sources.glossary.DatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Central method to read all glossary entries.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
