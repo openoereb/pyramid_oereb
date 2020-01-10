@@ -114,10 +114,11 @@ class Renderer(JsonRenderer):
         if self._request.GET.get('getspec', 'no') != 'no':
             response.headers['Content-Type'] = 'application/json; charset=UTF-8'
             return json.dumps(spec, sort_keys=True, indent=4)
-
+        pdf_url = urlparse.urljoin(Config.get('print', {})['base_url'] + '/', 'buildreport.pdf')
+        pdf_headers = Config.get('print', {})['headers']
         print_result = requests.post(
-            urlparse.urljoin(Config.get('print', {})['base_url'] + '/', 'buildreport.pdf'),
-            headers=Config.get('print', {})['headers'],
+            pdf_url,
+            headers=pdf_headers,
             data=json.dumps(spec)
         )
         if Config.get('print', {}).get('compute_toc_pages', False):
@@ -133,8 +134,8 @@ class Renderer(JsonRenderer):
                     log.warning('nbTocPages in result pdf: {} are not equal to the one predicted : {}, request new pdf'.format(true_nb_of_toc,extract_as_dict['nbTocPages'])) # noqa
                     extract_as_dict['nbTocPages'] = true_nb_of_toc
                     print_result = requests.post(
-                        urlparse.urljoin(Config.get('print', {})['base_url'] + '/', 'buildreport.pdf'),
-                        headers=Config.get('print', {})['headers'],
+                        pdf_url,
+                        headers=pdf_headers,
                         data=json.dumps(spec)
                     )
 
