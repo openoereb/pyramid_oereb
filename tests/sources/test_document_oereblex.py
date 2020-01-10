@@ -10,6 +10,7 @@ from requests.auth import HTTPBasicAuth
 from pyramid_oereb.contrib.sources.document import OEREBlexSource
 from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
+from tests.mockrequest import MockParameter
 
 
 @pytest.mark.parametrize('valid,cfg', [
@@ -40,18 +41,18 @@ def test_init(valid, cfg):
             OEREBlexSource(**cfg)
 
 
-@pytest.mark.parametrize('key,multilingual,result', [
-    ('official_title', False, None),
-    ('municipality', False, 'Liestal'),
-    ('municipality', True, {'de': 'Liestal'})
+@pytest.mark.parametrize('key,language,result', [
+    ('official_title', None, None),
+    ('municipality', None, 'Liestal'),
+    ('municipality', 'de', {'de': 'Liestal'})
 ])
-def test_get_mapped_value(key, multilingual, result):
+def test_get_mapped_value(key, language, result):
     file_ = File('Test', '/api/attachments/1', 'main')
     document = Document(id='test', title='Test', category='main', doctype='decree', files=[file_],
                         enactment_date=datetime.date.today(), subtype='Liestal', authority='Office')
     source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
                             mapping={'municipality': 'subtype'})
-    assert source._get_mapped_value(document, key, multilingual) == result
+    assert source._get_mapped_value(document, key, language=language) == result
 
 
 @pytest.mark.parametrize('i,document', [
@@ -96,6 +97,7 @@ def test_get_mapped_value(key, multilingual, result):
     ))
 ])
 def test_get_document_records(i, document):
+    language = 'de'
     source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL')
     references = [
         Document(
@@ -111,11 +113,11 @@ def test_get_document_records(i, document):
 
     if i == 3:
         with pytest.raises(TypeError):
-            source._get_document_records(document, references)
+            source._get_document_records(document, language, references)
     elif i == 4:
-        assert source._get_document_records(document, references) == []
+        assert source._get_document_records(document, language, references) == []
     else:
-        records = source._get_document_records(document, references)
+        records = source._get_document_records(document, language, references)
         assert len(records) == i
         for idx, record in enumerate(records):
             if i == 1:
@@ -139,7 +141,7 @@ def test_read():
         with open('./tests/resources/geolink_v1.1.1.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL')
-        source.read(100)
+        source.read(MockParameter(), 100)
         assert len(source.records) == 2
         document = source.records[0]
         assert isinstance(document, DocumentRecord)
@@ -158,7 +160,7 @@ def test_read_related_decree_as_main():
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
                                 related_decree_as_main=True)
-        source.read(100)
+        source.read(MockParameter(), 100)
         assert len(source.records) == 3
         document = source.records[0]
         assert isinstance(document, DocumentRecord)
@@ -177,7 +179,7 @@ def test_read_with_version_in_url():
             m.get('http://oereblex.example.com/api/1.1.1/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
                                 pass_version=True)
-        source.read(100)
+        source.read(MockParameter(), 100)
         assert len(source.records) == 2
 
 
@@ -187,8 +189,24 @@ def test_read_with_specified_version():
             m.get('http://oereblex.example.com/api/1.0.0/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
                                 pass_version=True, version='1.0.0')
-        source.read(100)
+        source.read(MockParameter(), 100)
         assert len(source.records) == 2
+
+
+def test_read_with_specified_language():
+    with requests_mock.mock() as m:
+        with open('./tests/resources/geolink_v1.1.1.xml', 'rb') as f:
+            m.get('http://oereblex.example.com/api/geolinks/100.xml?locale=fr', content=f.read())
+        source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL')
+        params = MockParameter()
+        params.set_language('fr')
+        source.read(params, 100)
+        assert len(source.records) == 2
+        document = source.records[0]
+        assert document.responsible_office.name == {'fr': 'Landeskanzlei'}
+        assert document.text_at_web == {
+            'fr': 'http://oereblex.example.com/api/attachments/313'
+        }
 
 
 def test_authentication():
@@ -198,3 +216,9 @@ def test_authentication():
     }
     source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL', auth=auth)
     assert isinstance(source._auth, HTTPBasicAuth)
+
+
+def test_get_document_title():
+    document = Document([], id='1', title='Test')
+    result = {'de': 'Test'}
+    assert OEREBlexSource._get_document_title(document, File(), 'de') == result

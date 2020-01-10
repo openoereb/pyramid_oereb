@@ -163,7 +163,7 @@ pyramid_oereb:
   oereblex:
     # OEREBlex host
     host: https://oereblex.bl.ch
-    # Language of returned values
+    # Default language of returned values
     language: de
     # Value for canton attribute
     canton: BL

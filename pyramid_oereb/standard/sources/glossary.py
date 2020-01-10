@@ -5,9 +5,12 @@ from pyramid_oereb.lib.sources.glossary import GlossaryBaseSource
 
 class DatabaseSource(BaseDatabaseSource, GlossaryBaseSource):
 
-    def read(self):
+    def read(self, params):
         """
         Central method to read all glossary entries.
+
+        Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
         """
         session = self._adapter_.get_session(self._key_)
         try:

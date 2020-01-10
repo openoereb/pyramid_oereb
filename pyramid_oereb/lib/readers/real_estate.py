@@ -28,7 +28,7 @@ class RealEstateReader(object):
         source_class = DottedNameResolver().resolve(dotted_source_class_path)
         self._source_ = source_class(**params)
 
-    def read(self, nb_ident=None, number=None, egrid=None, geometry=None):
+    def read(self, params, nb_ident=None, number=None, egrid=None, geometry=None):
         """
         The central read accessor method to get all desired records from configured source.
 
@@ -38,6 +38,7 @@ class RealEstateReader(object):
             server works would be broken.
 
         Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             nb_ident (int or None): The identification number of the desired real estate. This
                 parameter is directly related to the number parameter and both must be set!
                 Combination will deliver only one result or crashes.
@@ -68,7 +69,7 @@ class RealEstateReader(object):
             plan_for_land_register_main_page_config.get('layer_opacity')
         )
 
-        self._source_.read(nb_ident=nb_ident, number=number, egrid=egrid, geometry=geometry)
+        self._source_.read(params, nb_ident=nb_ident, number=number, egrid=egrid, geometry=geometry)
         for r in self._source_.records:
             if isinstance(r, RealEstateRecord):
                 r.set_view_service(real_estate_view_service)

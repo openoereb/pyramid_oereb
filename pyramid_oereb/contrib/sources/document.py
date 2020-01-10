@@ -57,19 +57,23 @@ class OEREBlexSource(Base):
             self._auth = None
 
         self._language = str(kwargs.get('language')).lower()
-        assert self._language is not None and len(self._language) == 2
+        if not (isinstance(self._language, str) and len(self._language) == 2):
+            raise AssertionError('language has to be string of two characters, e.g. "de" or "fr"')
 
         self._canton = kwargs.get('canton')
-        assert self._canton is not None and len(self._canton) == 2
+        if not (isinstance(self._canton, str) and len(self._canton) == 2):
+            raise AssertionError('canton has to be string of two characters, e.g. "BL" or "NE"')
 
         self._parser = XML(host_url=kwargs.get('host'), version=self._version)
-        assert self._parser.host_url is not None
+        if self._parser.host_url is None:
+            raise AssertionError('host_url has to be defined')
 
-    def read(self, geolink_id):
+    def read(self, params, geolink_id):
         """
         Requests the geoLink for the specified ID and returns records for the received documents.
 
         Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             geolink_id (int): The geoLink ID.
         """
         log.debug("read() start")
@@ -80,8 +84,12 @@ class OEREBlexSource(Base):
             version=self._version + '/' if self._pass_version else '',
             id=geolink_id
         )
+        language = params.language or self._language
+        request_params = {
+            'locale': language
+        }
         log.debug("read() getting documents, url: {}, parser: {}".format(url, self._parser))
-        documents = self._parser.from_url(url, {}, proxies=self._proxies, auth=self._auth)
+        documents = self._parser.from_url(url, request_params, proxies=self._proxies, auth=self._auth)
         log.debug("read() got documents")
 
         # Get main documents
@@ -99,16 +107,17 @@ class OEREBlexSource(Base):
         # Convert to records
         self.records = []
         for document in main_documents:
-            self.records.extend(self._get_document_records(document, referenced_documents))
+            self.records.extend(self._get_document_records(document, language, referenced_documents))
         log.debug("read() done.")
 
-    def _get_document_records(self, document, references=None):
+    def _get_document_records(self, document, language, references=None):
         """
         Converts the received documents into records.
 
         Args:
             document (geolink_formatter.entity.Document): The geoLink document to be returned as document
                 record.
+            language (str): The language of the returned documents.
             references (list of geolink_formatter.entity.Document): Referenced geoLink documents.
 
         Returns:
@@ -125,9 +134,12 @@ class OEREBlexSource(Base):
             return []
 
         # Check mandatory attributes
-        assert document.title is not None
-        assert document.enactment_date is not None
-        assert document.authority is not None
+        if document.title is None:
+            raise AssertionError('Missing title for document #{0}'.format(document.id))
+        if document.enactment_date is None:
+            raise AssertionError('Missing enactment_date for document #{0}'.format(document.id))
+        if document.authority is None:
+            raise AssertionError('Missing authority for document #{0}'.format(document.id))
 
         # Get document type
         if document.doctype == 'decree':
@@ -140,25 +152,29 @@ class OEREBlexSource(Base):
         # Convert referenced documents
         referenced_records = []
         for reference in references:
-            referenced_records.extend(self._get_document_records(reference))
+            referenced_records.extend(self._get_document_records(reference, language))
 
         # Create related office record
-        office = OfficeRecord({self._language: document.authority}, office_at_web=document.authority_url)
+        office = OfficeRecord({language: document.authority}, office_at_web=document.authority_url)
 
         # Check for available abbreviation
-        abbreviation = {self._language: document.abbreviation} if document.abbreviation else None
+        abbreviation = {language: document.abbreviation} if document.abbreviation else None
 
         # Get files
         records = []
         for f in document.files:
             arguments = {'law_status': LawStatusRecord.from_config(u'inForce'),
                          'published_from': document.enactment_date,
-                         'title': self._get_document_title(document, f),
+                         'title': self._get_document_title(document, f, language),
                          'responsible_office': office,
-                         'text_at_web': {self._language: f.href},
+                         'text_at_web': {language: f.href},
                          'abbreviation': abbreviation,
                          'official_number': document.number,
-                         'official_title': self._get_mapped_value(document, 'official_title', True),
+                         'official_title': self._get_mapped_value(
+                             document,
+                             'official_title',
+                             language=language
+                         ),
                          'canton': self._canton,
                          'municipality': self._get_mapped_value(document, 'municipality'),
                          'references': referenced_records if len(referenced_records) > 0 else None}
@@ -166,14 +182,14 @@ class OEREBlexSource(Base):
 
         return records
 
-    def _get_mapped_value(self, document, key, multilingual=False):
+    def _get_mapped_value(self, document, key, language=None):
         """
         Return the value of a mapped optional attribute.
 
         Args:
             document (geolink_formatter.entity.Document): The document entity.
             key (str): The key of the attribute to be mapped.
-            multilingual (bool): True to wrap value in multilingual dictionary.
+            language (str or None): Pass language to wrap value in multilingual dictionary.
 
         Returns:
             str or None: The value of the mapped attribute.
@@ -183,10 +199,11 @@ class OEREBlexSource(Base):
             if attribute:
                 value = getattr(document, attribute)
                 if value:
-                    return {self._language: value} if multilingual else value
+                    return {language: value} if language else value
         return None
 
-    def _get_document_title(self, document, current_file):
+    @staticmethod
+    def _get_document_title(document, current_file, language):
         """
         Returns the title of the document/file. Extracting this logic allows
         easier customization of the file title.
@@ -194,9 +211,10 @@ class OEREBlexSource(Base):
         Args:
             document (geolink_formatter.entity.Document): The document entity.
             current_file (geolink_formatter.entity.File): The file, which gets annotated with a title.
+            language (str): The language of the document title.
 
         Returns:
             str: Title of document.
         """
         # Assign multilingual values
-        return {self._language: document.title}
+        return {language: document.title}

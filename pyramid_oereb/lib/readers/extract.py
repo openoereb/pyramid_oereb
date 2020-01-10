@@ -76,7 +76,7 @@ class ExtractReader(object):
         """
         return self._certification_at_web
 
-    def read(self, real_estate, municipality, params):
+    def read(self, params, real_estate, municipality):
         """
         This method finally creates the extract.
 
@@ -86,12 +86,11 @@ class ExtractReader(object):
             works would be broken.
 
         Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate for which the report should be generated
             municipality (pyramid_oereb.lib.records.municipiality.MunicipalityRecord): The municipality
                 record.
-            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract
-                request.
 
         Returns:
             pyramid_oereb.lib.records.extract.ExtractRecord:
@@ -113,7 +112,7 @@ class ExtractReader(object):
             for position, plr_source in enumerate(self._plr_sources_, start=1):
                 if not params.skip_topic(plr_source.info.get('code')):
                     log.debug("read() going to read from plr_source {}".format(plr_source))
-                    plr_source.read(real_estate, bbox, position)
+                    plr_source.read(params, real_estate, bbox, position)
                     log.debug("read() done reading from plr_source {}".format(plr_source))
                     for ds in plr_source.datasource:
                         if not params.skip_topic(ds.theme.code):

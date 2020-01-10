@@ -9,13 +9,14 @@ from pyramid_oereb.lib.sources.address import AddressBaseSource
 
 class DatabaseSource(BaseDatabaseSource, AddressBaseSource):
 
-    def read(self, street_name, zip_code, street_number):
+    def read(self, params, street_name, zip_code, street_number):
         """
         The read method to access the standard database structure. It uses SQL-Alchemy for querying. It tries
         to find the items via passed arguments. If there was no result found it goes on with assigning an
         empty list as records instance attribute.
 
         Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             street_name (unicode): The name of the street for the desired address.
             zip_code (int): The postal zipcode for the desired address.
             street_number (str): The house or so called street number of the desired address.

@@ -37,11 +37,12 @@ class AddressGeoAdminSource(AddressBaseSource):
         else:
             self._origins = 'address'
 
-    def read(self, street_name, zip_code, street_number):
+    def read(self, params, street_name, zip_code, street_number):
         """
         Queries an address using the federal GeoAdmin API location search.
 
         Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             street_name (unicode): The name of the street for the desired address.
             zip_code (int): The postal zipcode for the desired address.
             street_number (unicode): The house or so called street number of the desired address.
@@ -51,12 +52,17 @@ class AddressGeoAdminSource(AddressBaseSource):
             headers.update({
                 'Referer': self._referer
             })
-        params = {
+        request_params = {
             'type': self._type,
             'origins': self._origins,
             'searchText': u'{0} {1} {2}'.format(zip_code, street_name, street_number)
         }
-        response = requests.get(self._geoadmin_url, params=params, proxies=self._proxies, headers=headers)
+        response = requests.get(
+            self._geoadmin_url,
+            params=request_params,
+            proxies=self._proxies,
+            headers=headers
+        )
         if response.status_code == requests.codes.ok:
             rp = Reprojector()
             srid = Config.get('srid')

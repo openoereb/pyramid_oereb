@@ -24,7 +24,7 @@ class MunicipalityReader(object):
         source_class = DottedNameResolver().maybe_resolve(dotted_source_class_path)
         self._source_ = source_class(**params)
 
-    def read(self, fosnr=None):
+    def read(self, params, fosnr=None):
         """
         The central read accessor method to get all desired records from configured source.
 
@@ -34,6 +34,7 @@ class MunicipalityReader(object):
             the server works would be broken.
 
         Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             fosnr (int or None): The federal number of the municipality defined by the statistics office.
 
         Returns:
@@ -41,5 +42,5 @@ class MunicipalityReader(object):
             The list of all found records. Since these are not filtered by any criteria the list simply
             contains all records delivered by the source.
         """
-        self._source_.read(fosnr)
+        self._source_.read(params, fosnr)
         return self._source_.records

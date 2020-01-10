@@ -24,7 +24,7 @@ class GlossaryReader(object):
         source_class = DottedNameResolver().maybe_resolve(dotted_source_class_path)
         self._source_ = source_class(**params)
 
-    def read(self):
+    def read(self, params):
         """
         The central read accessor method to get all desired records from configured source.
 
@@ -33,10 +33,12 @@ class GlossaryReader(object):
             :ref:`api-pyramid_oereb-lib-records-glossary-glossaryrecord`. Otherwise the API like way
             the server works would be broken.
 
+        params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
+
         Returns:
             list of pyramid_oereb.lib.records.glossary.GlossaryRecord:
                 The list of found records. Since these are not filtered by any criteria the list simply
                 contains all records delivered by the source.
         """
-        self._source_.read()
+        self._source_.read(params)
         return self._source_.records

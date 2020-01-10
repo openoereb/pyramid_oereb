@@ -12,12 +12,13 @@ class RealEstateBaseSource(Base):
     """
     _record_class_ = RealEstateRecord
 
-    def read(self, nb_ident=None, number=None, egrid=None, geometry=None):
+    def read(self, params, nb_ident=None, number=None, egrid=None, geometry=None):
         """
         Every real estate source has to implement a read method. This method must accept the four key word
         parameters. If you want adapt to your own source for real estates, this is the point where to hook in.
 
         Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             nb_ident (int or None): The identification number of the desired real estate. This
                 parameter is directly related to the number parameter and both must be set!
                 Combination must deliver only one result or must raise an error.

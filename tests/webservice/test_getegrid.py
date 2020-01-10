@@ -17,7 +17,13 @@ from pyramid_oereb.views.webservice import PlrWebservice
 
 
 def test_getegrid_coord_missing_parameter():
-    webservice = PlrWebservice(MockRequest())
+    request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/')
+
+    # Add params to matchdict as the view will do it for /getegrid/{format}/
+    request.matchdict.update({
+        'format': u'json'
+    })
+    webservice = PlrWebservice(request)
     with pytest.raises(HTTPBadRequest):
         webservice.get_egrid_coord()
 
@@ -111,7 +117,15 @@ def test_getegrid_gnss():
 
 
 def test_getegrid_ident_missing_parameter():
-    webservice = PlrWebservice(MockRequest())
+    request = MockRequest(
+        current_route_url='http://example.com/oereb/getegrid/json/'
+    )
+
+    # Add params to matchdict as the view will do it for /getegrid/{format}/
+    request.matchdict.update({
+        'format': u'json'
+    })
+    webservice = PlrWebservice(request)
     with pytest.raises(HTTPBadRequest):
         webservice.get_egrid_ident()
 
@@ -145,7 +159,16 @@ def test_getegrid_address():
 
 
 def test_getegrid_address_missing_parameter():
-    webservice = PlrWebservice(MockRequest())
+    request = MockRequest(
+        current_route_url='http://example.com/oereb/getegrid/json/'
+    )
+
+    # Add params to matchdict as the view will do it for
+    # /getegrid/{format}/{postalcode}/{localisation}/{number}
+    request.matchdict.update({
+        'format': u'json'
+    })
+    webservice = PlrWebservice(request)
     with pytest.raises(HTTPBadRequest):
         webservice.get_egrid_address()
 

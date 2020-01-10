@@ -278,10 +278,10 @@ class Processor(object):
             pyramid_oereb.lib.records.extract.ExtractRecord: The generated extract record.
         """
         log.debug("process() start")
-        municipality = self._municipality_reader_.read(real_estate.fosnr)[0]
-        exclusions_of_liability = self._exclusion_of_liability_reader_.read()
-        glossaries = self._glossary_reader_.read()
-        extract_raw = self._extract_reader_.read(real_estate, municipality, params)
+        municipality = self._municipality_reader_.read(params, real_estate.fosnr)[0]
+        exclusions_of_liability = self._exclusion_of_liability_reader_.read(params)
+        glossaries = self._glossary_reader_.read(params)
+        extract_raw = self._extract_reader_.read(params, real_estate, municipality)
         extract = self.plr_tolerance_check(extract_raw)
 
         # the selection of view services is done after the tolerance check. This enables us to take
