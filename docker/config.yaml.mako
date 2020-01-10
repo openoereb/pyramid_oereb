@@ -121,9 +121,9 @@ vars:
       # Specify any additional URL parameters that the print shall use for WMS calls
       wms_url_params:
         TRANSPARENT: 'true'
-      # Set this to true fi all parameters specified in the original URL (from the DB) should be reused in the map
+      # Set this to true if all parameters specified in the original URL should be reused in the map
       # request for the restriction_on_landownership baseLayers.
-      wms_url_params_from_DB: false
+      wms_url_keep_params: false
   % endif
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database

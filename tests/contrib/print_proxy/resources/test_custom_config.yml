@@ -1,4 +1,4 @@
 pyramid_oereb:
 
   print:
-    wms_url_params_from_DB: true
+    wms_url_keep_params: true

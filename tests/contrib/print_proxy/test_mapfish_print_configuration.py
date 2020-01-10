@@ -31,13 +31,13 @@ def test_custom_config_wms_url_params():
     Config._config = None
     Config.init('./tests/contrib/print_proxy/resources/test_custom_config.yml', 'pyramid_oereb')
     renderer = Renderer(DummyRenderInfo())
-    wms_url_params_from_DB = Config.get('print', {}).get('wms_url_params_from_DB', False)
+    wms_url_keep_params = Config.get('print', {}).get('wms_url_keep_params', False)
     params = {
         'TRANSPARENT': ['true'],
         'OTHERCUSTOM': ['myvalue'],
         'epoch': ['2018-11-29T15:13:31']
     }
-    config = renderer.get_wms_url_params(params if wms_url_params_from_DB else None)
+    config = renderer.get_wms_url_params(params if wms_url_keep_params else None)
     # Restore normal config
     Config._config = None
     Config.init('./pyramid_oereb/standard/pyramid_oereb.yml', 'pyramid_oereb')

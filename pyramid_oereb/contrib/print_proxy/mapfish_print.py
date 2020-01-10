@@ -287,7 +287,7 @@ class Renderer(JsonRenderer):
                 [restriction_on_landownership['ResponsibleOffice']]
 
             url, params = parse_url(restriction_on_landownership['Map']['ReferenceWMS'])
-            wms_url_params_from_DB = Config.get('print', {}).get('wms_url_params_from_DB', False)
+            wms_url_keep_params = Config.get('print', {}).get('wms_url_keep_params', False)
 
             restriction_on_landownership['baseLayers'] = {
                 'layers': [{
@@ -297,7 +297,7 @@ class Renderer(JsonRenderer):
                     'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
                     'layers': params.pop('LAYERS', '')[0].split(','),
                     'imageFormat': params.pop('FORMAT', 'image/png')[0],
-                    'customParams': self.get_wms_url_params(params if wms_url_params_from_DB else None),
+                    'customParams': self.get_wms_url_params(params if wms_url_keep_params else None),
                 }, basemap]
             }
 
