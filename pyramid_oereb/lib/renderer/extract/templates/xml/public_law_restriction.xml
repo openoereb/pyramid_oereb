@@ -19,16 +19,16 @@
     <%
         localized_sub_theme = localized(public_law_restriction.sub_theme)
     %>
-    <data:SubTheme>${localized_sub_theme.get('Text')}</data:SubTheme>
+    <data:SubTheme>${localized_sub_theme.get('Text') | x}</data:SubTheme>
     %endif
     %if public_law_restriction.other_theme:
-    <data:OtherTheme>${public_law_restriction.other_theme}</data:OtherTheme>
+    <data:OtherTheme>${public_law_restriction.other_theme | x}</data:OtherTheme>
     %endif
     %if public_law_restriction.type_code:
-    <data:TypeCode>${public_law_restriction.type_code}</data:TypeCode>
+    <data:TypeCode>${public_law_restriction.type_code | x}</data:TypeCode>
     %endif
     %if public_law_restriction.type_code_list:
-    <data:TypeCodelist>${public_law_restriction.type_code_list}</data:TypeCodelist>
+    <data:TypeCodelist>${public_law_restriction.type_code_list | x}</data:TypeCodelist>
     %endif
     %if public_law_restriction.law_status:
     <data:Lawstatus>
@@ -68,10 +68,10 @@
     </data:ResponsibleOffice>
     <data:extensions>
 %if public_law_restriction.area_share and public_law_restriction.area_unit:
-        <AreaUnit>${public_law_restriction.area_unit}</AreaUnit>
+        <AreaUnit>${public_law_restriction.area_unit | x}</AreaUnit>
 %endif
 %if public_law_restriction.length_share and public_law_restriction.length_unit:
-        <LengthUnit>${public_law_restriction.length_unit}</LengthUnit>
+        <LengthUnit>${public_law_restriction.length_unit | x}</LengthUnit>
 %endif
     </data:extensions>
 </data:RestrictionOnLandownership>

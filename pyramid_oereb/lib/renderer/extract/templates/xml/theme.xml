@@ -1,5 +1,5 @@
 <%page args="theme"/>
-<data:Code>${theme.code}</data:Code>
+<data:Code>${theme.code | x}</data:Code>
 <data:Text>
     <%include file="localized_text.xml" args="text=theme.text"/>
 </data:Text>

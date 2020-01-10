@@ -93,7 +93,8 @@ class Renderer(XmlRenderer):
                 verify=verify_certificate,
                 headers=headers,
                 files={'file': ('xml', data_extract, 'text/xml')},
-                data=parameters
+                data=parameters,
+                proxies=Config.get('proxies')
             )
             if backend_answer.status_code != requests.codes.ok:
                 log.warning("request_pdf failed for url {}, data_extract was {}".format(url, data_extract))

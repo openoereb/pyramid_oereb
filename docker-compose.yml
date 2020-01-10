@@ -7,6 +7,9 @@ services:
   oereb-db:
     build: test-db
     image: camptocamp/oereb-db-dev
+    # Uncomment following line to have database show all incoming SQL statements
+    #command: postgres -c log_statement=all
+
 
   oereb-server:
     networks:

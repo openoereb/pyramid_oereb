@@ -3,7 +3,7 @@
     from pyramid_oereb.lib.url import url_to_base64
     from pyramid_oereb.lib.records.documents import LegalProvisionRecord
 %>
-<data:DocumentType>${document.document_type}</data:DocumentType>
+<data:DocumentType>${document.document_type | x}</data:DocumentType>
 %if document.text_at_web:
 <data:TextAtWeb>
     <%include file="multilingual_uri.xml" args="text=document.text_at_web"/>

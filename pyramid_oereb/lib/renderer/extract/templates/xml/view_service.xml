@@ -50,5 +50,5 @@
     </gml:Point>
 </data:max_NS95>
 %endif
-<data:layerIndex>${map.layer_index}</data:layerIndex>
-<data:layerOpacity>${map.layer_opacity}</data:layerOpacity>
+<data:layerIndex>${map.layer_index | x}</data:layerIndex>
+<data:layerOpacity>${map.layer_opacity | x}</data:layerOpacity>

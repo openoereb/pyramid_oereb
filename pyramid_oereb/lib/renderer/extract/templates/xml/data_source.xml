@@ -3,6 +3,6 @@
     <topic>
         <%include file="theme.xml" args="theme=datasource.theme"/>
     </topic>
-    <dataownerName>${localized(datasource.owner.name).get('Text')}</dataownerName>
+    <dataownerName>${localized(datasource.owner.name).get('Text') | x}</dataownerName>
     <transferFromSource>${datasource.date.strftime(date_format)}</transferFromSource>
 </datasource>

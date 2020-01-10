@@ -9,7 +9,7 @@ import logging
 
 import time
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from shapely.geometry import mapping
 from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import Config
@@ -38,7 +38,7 @@ class Renderer(JsonRenderer):
             self._localised_text(item, 'Lawstatus_Text')
             self._flatten_object(item, 'ResponsibleOffice')
             self._multilingual_text(item, 'ResponsibleOffice_Name')
-            self._multilingual_text(item, 'TextAtWeb')
+            self._multilingual_text_at_web(item)
 
             self._multilingual_m_text(item, 'Text')
             self._multilingual_text(item, 'Title')
@@ -64,9 +64,14 @@ class Renderer(JsonRenderer):
             raise HTTPBadRequest('With image is not allowed in the print')
 
         self._request = self.get_request(system)
-        # If language present in request, use that. Otherwise, keep language from base class
-        if 'lang' in self._request.GET:
-            self._language = self._request.GET.get('lang')
+
+        # Create a lower case GET dict to be able to accept all cases of upper and lower case writing
+        self._lowercase_GET_dict = dict((k.lower(), v.lower()) for k, v in self._request.GET.iteritems())
+
+        # If a language is specified in the request, use it. Otherwise, use the language from base class
+        self._fallback_language = Config.get('default_language')
+        if 'lang' in self._lowercase_GET_dict:
+            self._language = self._lowercase_GET_dict.get('lang')
 
         # Based on extract record and webservice parameter, render the extract data as JSON
         extract_record = value[0]
@@ -121,7 +126,7 @@ class Renderer(JsonRenderer):
                 log.debug("document url: " + url + " => content_type: " + content_type)
                 if content_type != 'application/pdf':
                     msg = "Skipped document inclusion (url: '{}') because content_type: '{}'"
-                    log.warn(msg.format(url, content_type))
+                    log.warning(msg.format(url, content_type))
                     continue
                 tmp_file = tempfile.NamedTemporaryFile(suffix='.pdf')
                 tmp_file.write(result.content)
@@ -137,6 +142,11 @@ class Renderer(JsonRenderer):
         else:
             content = print_result.content
 
+        # Save printed file to the specified path.
+        pdf_archive_path = print_config.get('pdf_archive_path', None)
+        if pdf_archive_path is not None:
+            self.archive_pdf_file(pdf_archive_path, content, extract_as_dict)
+
         response.status_code = print_result.status_code
         response.headers = print_result.headers
         if 'Transfer-Encoding' in response.headers:
@@ -144,6 +154,20 @@ class Renderer(JsonRenderer):
         if 'Connection' in response.headers:
             del response.headers['Connection']
         return content
+
+    @staticmethod
+    def archive_pdf_file(pdf_archive_path, binary_content, extract_as_dict):
+        pdf_archive_path = pdf_archive_path if pdf_archive_path[-1:] == '/' else pdf_archive_path + '/'
+        log.debug('Start to archive pdf file at path: ' + pdf_archive_path)
+
+        time_info = (datetime.utcnow() + timedelta(hours=2)).strftime('%Y%m%d%H%M%S')  # UTC+2
+        egrid = extract_as_dict.get('RealEstate_EGRID', 'no_egrid')
+        path_and_filename = pdf_archive_path + time_info + '_' + egrid + '.pdf'
+
+        archive = open(path_and_filename, 'ab')
+        archive.write(binary_content)
+        log.debug('Pdf file archived at: ' + path_and_filename)
+        return path_and_filename
 
     @staticmethod
     def get_wms_url_params():
@@ -176,7 +200,8 @@ class Renderer(JsonRenderer):
             extract_dict: the oereb extract, will get converted by this function into a form
                             convenient for mapfish-print
             feature_geometry: the geometry for this extract, will get added to the extract information
-            pdf_to_join: a set of additional information for the pdf, will get filled by this function
+            pdf_to_join: a set of additional information for the pdf. Will get filled by this function.
+                         Used in the full extract only
         """
 
         log.debug("Starting transformation, extract_dict is {}".format(extract_dict))
@@ -318,7 +343,7 @@ class Renderer(JsonRenderer):
             'Information', 'Lawstatus_Code', 'Lawstatus_Text', 'SymbolRef', 'TypeCode'
         ]
         legend_element = [
-            'TypeCode', 'TypeCodelist', 'AreaShare', 'PartInPercent', 'LengthShare',
+            'TypeCode', 'TypeCodelist', 'AreaShare', 'PartInPercent', 'LengthShare', 'NrOfPoints',
             'SymbolRef', 'Information'
         ]
         split_sub_themes = Config.get('print', {}).get('split_sub_themes', False)
@@ -400,7 +425,18 @@ class Renderer(JsonRenderer):
                 self.lpra_flatten(values)
                 restriction_on_landownership[element] = values
                 if element == 'LegalProvisions':
-                    pdf_to_join.update([legal_provision['TextAtWeb'] for legal_provision in values])
+                    # This adds the first URL of TextAtWeb to the pdf_to_join set. At this point of the code
+                    # there should only be one URL as the grouping takes place only after this if statement.
+                    pdf_to_join.update([legal_provision['TextAtWeb'][0]['URL'] for legal_provision in values])
+
+                # Group legal provisions and hints which have the same title.
+                if (
+                       (Config.get('print', {}).get('group_legal_provisions', False)) and
+                       (element == 'LegalProvisions' or element == 'Hints')
+                   ):
+                    restriction_on_landownership[element] = \
+                        self.group_legal_provisions(restriction_on_landownership[element])
+
             # sort legal provisioning, hints and laws
             restriction_on_landownership['LegalProvisions'] = self.sort_dict_list(
                 restriction_on_landownership['LegalProvisions'],
@@ -472,7 +508,7 @@ class Renderer(JsonRenderer):
             extract_dict['RealEstate_LandRegistryArea']
         )
 
-        # Reformat AreaShare, LengthShare and part in percent values
+        # Reformat AreaShare, LengthShare, NrOfPoints and part in percent values
         for restriction in extract_dict['RealEstate_RestrictionOnLandownership']:
             for legend in restriction['Legend']:
                 if 'LengthShare' in legend:
@@ -481,9 +517,26 @@ class Renderer(JsonRenderer):
                     legend['AreaShare'] = u'{0} m²'.format(legend['AreaShare'])
                 if 'PartInPercent' in legend:
                     legend['PartInPercent'] = '{0}%'.format(round(legend['PartInPercent'], 2))
+                if 'NrOfPoints' in legend:
+                    legend['NrOfPoints'] = '{0}'.format(legend['NrOfPoints'])
 
         log.debug("After transformation, extract_dict is {}".format(extract_dict))
         return extract_dict
+
+    @staticmethod
+    def group_legal_provisions(legal_provisions):
+        merged_provision = []
+        for element in legal_provisions:
+            # get element with same title if existing
+            existing_element = \
+                next((item for item in merged_provision if item['Title'] == element['Title']), None)
+            if not existing_element:
+                merged_provision.append(element)
+                continue
+
+            # join the the existing list with the new one
+            existing_element['TextAtWeb'].extend(element['TextAtWeb'])
+        return merged_provision if len(merged_provision) > 0 else legal_provisions
 
     def _flatten_array_object(self, parent, array_name, object_name):
         if array_name in parent:
@@ -550,10 +603,22 @@ class Renderer(JsonRenderer):
     def _multilingual_m_text(self, parent, name):
         self._multilingual_text(parent, name)
 
+    def _multilingual_text_at_web(self, parent):
+        name = 'TextAtWeb'
+        if name in parent:
+            lang_obj = dict([(e['Language'], e['Text']) for e in parent[name]])
+            if self._language in lang_obj.keys():
+                parent[name] = [{'URL': lang_obj[self._language]}]
+            else:
+                parent[name] = [{'URL': lang_obj[self._fallback_language]}]
+
     def _multilingual_text(self, parent, name):
         if name in parent:
             lang_obj = dict([(e['Language'], e['Text']) for e in parent[name]])
-            parent[name] = lang_obj[self._language]
+            if self._language in lang_obj.keys():
+                parent[name] = lang_obj[self._language]
+            else:
+                parent[name] = lang_obj[self._fallback_language]
 
     def _sort_sub_themes(self, restrictions):
         # split restrictions by theme codes
@@ -574,7 +639,7 @@ class Renderer(JsonRenderer):
                 sub_themes = sorter.sort(sub_themes, params)
             split_by_theme_code[theme_code] = non_sub_themes + sub_themes
 
-        # sort + flatten the splitted themes again
+        # sort + flatten the split themes again
         sorted_restrictions = []
         for theme in Config.get_themes():
             if theme.code in split_by_theme_code:
@@ -654,8 +719,7 @@ class Renderer(JsonRenderer):
         """
         Provides the sort key for the supplied legal provision element as a tuple consisting of:
             * title
-            * Office number
-            * Text at web
+            * Official number
         Args:
             elem (dict): one element of the legal provision list
 
@@ -664,9 +728,8 @@ class Renderer(JsonRenderer):
         """
 
         sort_title = elem['Title'] if 'Title' in elem else ''
-        sort_Number = elem['OfficialNumber'] if 'OfficialNumber' in elem else None
-        sort_Web = elem['TextAtWeb'] if 'TextAtWeb' in elem else None
-        return sort_title, sort_Number, sort_Web
+        sort_number = elem['OfficialNumber'] if 'OfficialNumber' in elem else None
+        return sort_title, sort_number
 
     @staticmethod
     def sort_hints(elem):
