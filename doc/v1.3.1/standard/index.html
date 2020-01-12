@@ -510,6 +510,26 @@ restriction to get the symbol reference for.</li>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyramid_oereb.standard.hook_methods.plr_sort_within_themes">
+<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">plr_sort_within_themes</code><span class="sig-paren">(</span><em>extract</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/hook_methods.html#plr_sort_within_themes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.plr_sort_within_themes" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the standard hook method to sort a plr list (while respecting the theme order).
+This standard hook does no sorting, you can set your configuration to a different method if you need a
+specific sorting.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>extract</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.extract.ExtractRecord" title="pyramid_oereb.lib.records.extract.ExtractRecord"><em>pyramid_oereb.lib.records.extract.ExtractRecord</em></a>) &#8211; The unsorted extract</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Returns the updated extract</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.extract.ExtractRecord" title="pyramid_oereb.lib.records.extract.ExtractRecord">pyramid_oereb.lib.records.extract.ExtractRecord</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyramid_oereb.standard.hook_methods.produce_sld_content">
 <code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">produce_sld_content</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/hook_methods.html#produce_sld_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.produce_sld_content" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the standard hook method to provide the sld content. Of course you can set it to another one. For
