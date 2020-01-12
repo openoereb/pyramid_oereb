@@ -17,7 +17,7 @@ def test_mandatory_fields():
         PlrRecord()
 
 
-def test_init():
+def create_dummy_plr():
     office = OfficeRecord({'en': 'Office'})
     view_service = ViewServiceRecord('http://my.wms.com', 1, 1.0)
     law_status = LawStatusRecord.from_config(u'inForce')
@@ -25,6 +25,11 @@ def test_init():
     record = PlrRecord(
         ThemeRecord('code', dict()), {'en': 'Content'}, law_status, datetime.date(1985, 8, 29), office,
         ImageRecord('1'.encode('utf-8')), view_service, [geometry])
+    return record
+
+
+def test_init():
+    record = create_dummy_plr()
     assert record.information == {'en': 'Content'}
     assert record.sub_theme is None
     assert isinstance(record.geometries, list)
