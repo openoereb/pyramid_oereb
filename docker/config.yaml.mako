@@ -121,10 +121,10 @@ vars:
       # Specify any additional URL parameters that the print shall use for WMS calls
       wms_url_params:
         TRANSPARENT: 'true'
-      # Add a list of parameters which need to be kept in the requested URL used for the
-      # map of the restriction_on_landownership baseLayers.
-      # Parameters appear only if their value exists in the URL and if they are in list form.
-      # If this is not configured the wms_url_params will be used.
+      # If you want the print to keep some custom URL parameters directly from the reference_wms you have defined,
+      # then use the configuration option wms_url_keep_params.
+      # In wms_url_keep_params, you can list which URL parameter values should be read from the reference_wms
+      # and used by the print.
       # wms_url_keep_params:
       #   - ogcserver
   % endif

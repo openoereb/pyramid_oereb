@@ -173,11 +173,9 @@ class Renderer(JsonRenderer):
     def get_wms_url_params():
         """
         Returns the list of additionally configured wms_url_params.
-        Args:
-            params: optional argument used for given custom parameters. Expecting a dict
 
-        :return: The configured wms_url_params.
-        :rtype: dict
+        Returns:
+            (dict): The configured wms_url_params.
         """
         result = {}
         wms_url_params = Config.get('print', {}).get('wms_url_params', False)
@@ -821,7 +819,8 @@ class Renderer(JsonRenderer):
     @staticmethod
     def string_check(value):
         """
-        Check if the value given is a string. It it is not jon the values using comma separator.
+        Check if the value given is a string.
+        If it is not, assume it is a list and join the values using comma separator.
 
         Args:
             value (str or list): value to be treated.
