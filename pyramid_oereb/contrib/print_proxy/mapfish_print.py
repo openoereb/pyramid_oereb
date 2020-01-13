@@ -799,3 +799,23 @@ class Renderer(JsonRenderer):
         value = -elem.get(geom_type, 0)
 
         return category, value
+
+    def get_custom_wms_params(self, params):
+        """
+        From a given dictionary filter out all the parameters that are specified in the config
+        and return these.
+        Only values which exist in the given params are added.
+        ARGS:
+            params (dict): Parameters available in the URL
+
+        Returns:
+            custom_params (dict): dictionary of filtered params
+        """
+        wms_url_params = Config.get('print', {}).get('wms_url_keep_params', False)
+        custom_params = {}
+        if isinstance(wms_url_params, list):
+            custom_params = { wms_keys: wms_values for wms_keys, wms_values in params.items() if wms_keys in wms_url_params}
+        log.warning('-----------------------get_custom_wms_params--------------------------')
+        log.warning(custom_params)
+        log.warning('-----------------------END---------------------------------------------')
+        return custom_params
