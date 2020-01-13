@@ -821,8 +821,12 @@ class Renderer(JsonRenderer):
     @staticmethod
     def string_check(value):
         """
+        Check if the value given is a string. It it is not jon the values using comma separator.
 
-        :param value:
-        :return:
+        Args:
+            value (str or list): value to be treated.
+
+        Returns:
+            (str): converted value
         """
         return value if isinstance(value, str) else ','.join(value)
