@@ -336,8 +336,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the list of additionally configured wms_url_params.</span>
 
-<span class="sd">        :return: The configured wms_url_params.</span>
-<span class="sd">        :rtype: list</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            (dict): The configured wms_url_params.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">wms_url_params</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;wms_url_params&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
@@ -351,7 +351,6 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;no wms_url_params configuration detected; using default value&quot;</span><span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;TRANSPARENT&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">}</span>
-
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="Renderer.convert_to_printable_extract"><a class="viewcode-back" href="../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.convert_to_printable_extract">[docs]</a>    <span class="k">def</span> <span class="nf">convert_to_printable_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extract_dict</span><span class="p">,</span> <span class="n">feature_geometry</span><span class="p">,</span> <span class="n">pdf_to_join</span><span class="p">):</span>
@@ -439,17 +438,19 @@
                 <span class="p">[</span><span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;ResponsibleOffice&#39;</span><span class="p">]]</span>
 
             <span class="n">url</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">parse_url</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Map&#39;</span><span class="p">][</span><span class="s1">&#39;ReferenceWMS&#39;</span><span class="p">])</span>
+
             <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;baseLayers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s1">&#39;layers&#39;</span><span class="p">:</span> <span class="p">[{</span>
-                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;wms&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;SERVICE&#39;</span><span class="p">,</span> <span class="s1">&#39;wms&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
                     <span class="s1">&#39;opacity&#39;</span><span class="p">:</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Map&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;layerOpacity&#39;</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">),</span>
-                    <span class="s1">&#39;styles&#39;</span><span class="p">:</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;styles&#39;</span><span class="p">:</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;STYLES&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
                     <span class="s1">&#39;baseURL&#39;</span><span class="p">:</span> <span class="n">urlparse</span><span class="o">.</span><span class="n">urlunsplit</span><span class="p">((</span><span class="n">url</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">netloc</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)),</span>
-                    <span class="s1">&#39;layers&#39;</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;LAYERS&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">),</span>
-                    <span class="s1">&#39;imageFormat&#39;</span><span class="p">:</span> <span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;customParams&#39;</span><span class="p">:</span> <span class="n">wms_url_params</span><span class="p">,</span>
+                    <span class="s1">&#39;layers&#39;</span><span class="p">:</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;LAYERS&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;imageFormat&#39;</span><span class="p">:</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;FORMAT&#39;</span><span class="p">,</span> <span class="s1">&#39;image/png&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="s1">&#39;customParams&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_custom_wms_params</span><span class="p">(</span><span class="n">params</span><span class="p">),</span>
                 <span class="p">},</span> <span class="n">basemap</span><span class="p">]</span>
             <span class="p">}</span>
+
             <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;legend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;Map&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
                 <span class="s1">&#39;LegendAtWeb&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
 
@@ -949,7 +950,47 @@
         <span class="c1"># Negative value for ascending sort order.</span>
         <span class="n">value</span> <span class="o">=</span> <span class="o">-</span><span class="n">elem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geom_type</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">category</span><span class="p">,</span> <span class="n">value</span></div></div>
+        <span class="k">return</span> <span class="n">category</span><span class="p">,</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Renderer.get_custom_wms_params"><a class="viewcode-back" href="../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.get_custom_wms_params">[docs]</a>    <span class="k">def</span> <span class="nf">get_custom_wms_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        From a given dictionary filter out all the parameters that are specified in the config</span>
+<span class="sd">        and return these.</span>
+<span class="sd">        Only values which exist in the given params are added.</span>
+<span class="sd">        If there is nothing configured or the config is not a list</span>
+<span class="sd">        the configured wms_url_params are used as fallback.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            params (dict): Parameters available in the URL</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            custom_params (dict): dictionary of filtered params</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">wms_url_params</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;wms_url_keep_params&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">wms_url_params</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="c1"># If no config exists or config is not as expected fall back to use standard wms_url_params</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_wms_url_params</span><span class="p">()</span>
+
+        <span class="n">custom_params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">wms_keys</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">string_check</span><span class="p">(</span><span class="n">wms_values</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">wms_keys</span><span class="p">,</span> <span class="n">wms_values</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">wms_keys</span> <span class="ow">in</span> <span class="n">wms_url_params</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">custom_params</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.string_check"><a class="viewcode-back" href="../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.string_check">[docs]</a>    <span class="k">def</span> <span class="nf">string_check</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if the value given is a string.</span>
+<span class="sd">        If it is not, assume it is a list and join the values using comma separator.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (str or list): value to be treated.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            (str): converted value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">value</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>
