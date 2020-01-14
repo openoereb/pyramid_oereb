@@ -174,8 +174,8 @@ class Renderer(JsonRenderer):
         """
         Returns the list of additionally configured wms_url_params.
 
-        :return: The configured wms_url_params.
-        :rtype: list
+        Returns:
+            (dict): The configured wms_url_params.
         """
         result = {}
         wms_url_params = Config.get('print', {}).get('wms_url_params', False)
@@ -189,7 +189,6 @@ class Renderer(JsonRenderer):
         else:
             log.info("no wms_url_params configuration detected; using default value")
             result = {'TRANSPARENT': 'true'}
-
         return result
 
     def convert_to_printable_extract(self, extract_dict, feature_geometry, pdf_to_join):
@@ -277,17 +276,19 @@ class Renderer(JsonRenderer):
                 [restriction_on_landownership['ResponsibleOffice']]
 
             url, params = parse_url(restriction_on_landownership['Map']['ReferenceWMS'])
+
             restriction_on_landownership['baseLayers'] = {
                 'layers': [{
-                    'type': 'wms',
+                    'type': params.pop('SERVICE', 'wms')[0].lower(),
                     'opacity': restriction_on_landownership['Map'].get('layerOpacity', 0.6),
-                    'styles': 'default',
+                    'styles': params.pop('STYLES', 'default')[0],
                     'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
-                    'layers': params['LAYERS'][0].split(','),
-                    'imageFormat': 'image/png',
-                    'customParams': wms_url_params,
+                    'layers': params.pop('LAYERS', '')[0].split(','),
+                    'imageFormat': params.pop('FORMAT', 'image/png')[0],
+                    'customParams': self.get_custom_wms_params(params),
                 }, basemap]
             }
+
             restriction_on_landownership['legend'] = restriction_on_landownership['Map'].get(
                 'LegendAtWeb', '')
 
@@ -788,3 +789,43 @@ class Renderer(JsonRenderer):
         value = -elem.get(geom_type, 0)
 
         return category, value
+
+    def get_custom_wms_params(self, params):
+        """
+        From a given dictionary filter out all the parameters that are specified in the config
+        and return these.
+        Only values which exist in the given params are added.
+        If there is nothing configured or the config is not a list
+        the configured wms_url_params are used as fallback.
+
+        Args:
+            params (dict): Parameters available in the URL
+
+        Returns:
+            custom_params (dict): dictionary of filtered params
+        """
+        wms_url_params = Config.get('print', {}).get('wms_url_keep_params', False)
+        if not isinstance(wms_url_params, list):
+            # If no config exists or config is not as expected fall back to use standard wms_url_params
+            return self.get_wms_url_params()
+
+        custom_params = {
+            wms_keys: self.string_check(wms_values)
+            for wms_keys, wms_values in params.items()
+            if wms_keys in wms_url_params
+        }
+        return custom_params
+
+    @staticmethod
+    def string_check(value):
+        """
+        Check if the value given is a string.
+        If it is not, assume it is a list and join the values using comma separator.
+
+        Args:
+            value (str or list): value to be treated.
+
+        Returns:
+            (str): converted value
+        """
+        return value if isinstance(value, str) else ','.join(value)

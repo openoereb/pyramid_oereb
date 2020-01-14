@@ -120,6 +120,12 @@ pyramid_oereb:
     # Specify any additional URL parameters that the print shall use for WMS calls
     wms_url_params:
       TRANSPARENT: 'true'
+    # If you want the print to keep some custom URL parameters directly from the reference_wms you have defined,
+    # then use the configuration option wms_url_keep_params.
+    # In wms_url_keep_params, you can list which URL parameter values should be read from the reference_wms
+    # and used by the print.
+    # wms_url_keep_params:
+    #   - ogcserver
 % endif
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
