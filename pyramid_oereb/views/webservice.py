@@ -520,8 +520,8 @@ class PlrWebservice(object):
 
 
 class Parameter(object):
-    def __init__(self, flavour, format, with_geometry, images, identdn=None, number=None,
-                 egrid=None, language=None, topics=None):
+    def __init__(self, response_format, flavour=None, with_geometry=False, images=False, identdn=None,
+                 number=None, egrid=None, language=None, topics=None):
         """
         Creates a new parameter instance.
 
