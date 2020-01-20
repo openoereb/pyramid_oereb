@@ -17,6 +17,8 @@ from pyreproj import Reprojector
 from pyramid_oereb.lib.readers.address import AddressReader
 from timeit import default_timer as timer
 
+from pyramid_oereb.contrib.stats.decorators import OerebStats
+
 log = logging.getLogger(__name__)
 
 
@@ -73,14 +75,14 @@ class PlrWebservice(object):
         # Try - catch for backward compatibility with old specification.
         try:
             output_format = self.__validate_format_param__(['xml', 'json'])
-            renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_versions_xml'
         except HTTPBadRequest:
-            renderer_name = 'json' if self._is_json() else 'pyramid_oereb_versions_xml'
+            output_format = None
             log.warning('Deprecated way to specify the format. Use "/versions/{format}" instead')
-
+        renderer_name = 'json' if output_format == 'json' or self._is_json() else 'pyramid_oereb_versions_xml'
         response = render_to_response(renderer_name, versions, request=self._request)
         if self._is_json():
             response.content_type = 'application/json; charset=UTF-8'
+        response.extras = OerebStats(service='GetVersions', output_format=output_format)
         return response
 
     def get_capabilities(self):
@@ -120,14 +122,14 @@ class PlrWebservice(object):
         # Try - catch for backward compatibility with old specification.
         try:
             output_format = self.__validate_format_param__(['xml', 'json'])
-            renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_capabilities_xml'
         except HTTPBadRequest:
-            renderer_name = 'json' if self._is_json() else 'pyramid_oereb_capabilities_xml'
+            output_format = None
             log.warning('Deprecated way to specify the format. Use "/capabilities/{format}" instead')
-
+        renderer_name = 'json' if output_format == 'json' or self._is_json() else 'pyramid_oereb_capabilities_xml'  # noqa: E501
         response = render_to_response(renderer_name, capabilities, request=self._request)
         if self._is_json():
             response.content_type = 'application/json; charset=UTF-8'
+        response.extras = OerebStats(service='GetCapabilities', output_format=output_format)
         return response
 
     def get_egrid_coord(self):
@@ -140,17 +142,26 @@ class PlrWebservice(object):
         params = Parameter('json' if self._is_json() else 'xml')
         xy = self._params.get('XY')
         gnss = self._params.get('GNSS')
-        if xy or gnss:
-            geom_wkt = 'SRID={0};{1}'
-            if xy:
-                geom_wkt = geom_wkt.format(Config.get('srid'),
-                                           self.__parse_xy__(xy, buffer_dist=1.0).wkt)
-            elif gnss:
-                geom_wkt = geom_wkt.format(Config.get('srid'), self.__parse_gnss__(gnss).wkt)
-            records = self._real_estate_reader.read(params, **{'geometry': geom_wkt})
-            return self.__get_egrid_response__(records)
-        else:
-            raise HTTPBadRequest('XY or GNSS must be defined.')
+        try:
+            if xy or gnss:
+                geom_wkt = 'SRID={0};{1}'
+                if xy:
+                    geom_wkt = geom_wkt.format(Config.get('srid'),
+                                               self.__parse_xy__(xy, buffer_dist=1.0).wkt)
+                elif gnss:
+                    geom_wkt = geom_wkt.format(Config.get('srid'), self.__parse_gnss__(gnss).wkt)
+                records = self._real_estate_reader.read(params, **{'geometry': geom_wkt})
+                response = self.__get_egrid_response__(records)
+            else:
+                raise HTTPBadRequest('XY or GNSS must be defined.')
+        except HTTPNoContent as err:
+            response = HTTPNoContent('{}'.format(err))
+        except HTTPBadRequest as err:
+            response = HTTPBadRequest('{}'.format(err))
+        response.extras = OerebStats(service='GetEgridCoord',
+                                     params={'xy': xy,
+                                             'gnss': gnss})
+        return response
 
     def get_egrid_ident(self):
         """
@@ -162,17 +173,26 @@ class PlrWebservice(object):
         params = Parameter('json' if self._is_json() else 'xml')
         identdn = self._request.matchdict.get('identdn')
         number = self._request.matchdict.get('number')
-        if identdn and number:
-            records = self._real_estate_reader.read(
-                params,
-                **{
-                    'nb_ident': identdn,
-                    'number': number
-                }
-            )
-            return self.__get_egrid_response__(records)
-        else:
-            raise HTTPBadRequest('IDENTDN and NUMBER must be defined.')
+        try:
+            if identdn and number:
+                records = self._real_estate_reader.read(
+                    params,
+                    **{
+                        'nb_ident': identdn,
+                        'number': number
+                    }
+                )
+                response = self.__get_egrid_response__(records)
+            else:
+                raise HTTPBadRequest('IDENTDN and NUMBER must be defined.')
+        except HTTPNoContent as err:
+            response = HTTPNoContent('{}'.format(err))
+        except HTTPBadRequest as err:
+            response = HTTPBadRequest('{}'.format(err))
+        response.extras = OerebStats(service='GetEgridIdent',
+                                     params={'identdn': identdn,
+                                             'number': number})
+        return response
 
     def get_egrid_address(self):
         """
@@ -185,19 +205,30 @@ class PlrWebservice(object):
         postalcode = self._request.matchdict.get('postalcode')
         localisation = self._request.matchdict.get('localisation')
         number = self._request.matchdict.get('number')
-        if postalcode and localisation and number:
-            reader = AddressReader(
-                Config.get_address_config().get('source').get('class'),
-                **Config.get_address_config().get('source').get('params')
-            )
-            addresses = reader.read(params, localisation, int(postalcode), number)
-            if len(addresses) == 0:
-                return HTTPNoContent()
-            geometry = 'SRID={srid};{wkt}'.format(srid=Config.get('srid'), wkt=addresses[0].geom.wkt)
-            records = self._real_estate_reader.read(params, **{'geometry': geometry})
-            return self.__get_egrid_response__(records)
-        else:
-            raise HTTPBadRequest('POSTALCODE, LOCALISATION and NUMBER must be defined.')
+        try:
+            if postalcode and localisation and number:
+                reader = AddressReader(
+                    Config.get_address_config().get('source').get('class'),
+                    **Config.get_address_config().get('source').get('params')
+                )
+                addresses = reader.read(params, localisation, int(postalcode), number)
+                if len(addresses) == 0:
+                    raise HTTPNoContent()
+                geometry = 'SRID={srid};{wkt}'.format(srid=Config.get('srid'),
+                                                      wkt=addresses[0].geom.wkt)
+                records = self._real_estate_reader.read(params, **{'geometry': geometry})
+                response = self.__get_egrid_response__(records)
+            else:
+                raise HTTPBadRequest('POSTALCODE, LOCALISATION and NUMBER must be defined.')
+        except HTTPNoContent as err:
+            response = HTTPNoContent('{}'.format(err))
+        except HTTPBadRequest as err:
+            response = HTTPBadRequest('{}'.format(err))
+        response.extras = OerebStats(service='GetEgridAddress',
+                                     params={'postalcode': postalcode,
+                                             'localisation': localisation,
+                                             'number': number})
+        return response
 
     def get_extract_by_id(self):
         """
@@ -208,56 +239,74 @@ class PlrWebservice(object):
         """
         start_time = timer()
         log.debug("get_extract_by_id() start")
-        params = self.__validate_extract_params__()
-        processor = self._request.pyramid_oereb_processor
-        # read the real estate from configured source by the passed parameters
-        real_estate_reader = processor.real_estate_reader
-        if params.egrid:
-            real_estate_records = real_estate_reader.read(params, egrid=params.egrid)
-        elif params.identdn and params.number:
-            real_estate_records = real_estate_reader.read(
-                params,
-                nb_ident=params.identdn,
-                number=params.number
-            )
-        else:
-            raise HTTPBadRequest("Missing required argument")
-
-        # check if result is strictly one (we queried with primary keys)
-        if len(real_estate_records) == 1:
-            extract = processor.process(
-                real_estate_records[0],
-                params,
-                self._request.route_url('{0}/sld'.format(route_prefix))
-            )
-            if params.format == 'json':
-                log.debug("get_extract_by_id() calling json")
-                response = render_to_response(
-                    'pyramid_oereb_extract_json',
-                    (extract, params),
-                    request=self._request
-                )
-            elif params.format == 'xml':
-                log.debug("get_extract_by_id() calling xml")
-                response = render_to_response(
-                    'pyramid_oereb_extract_xml',
-                    (extract, params),
-                    request=self._request
-                )
-            elif params.format == 'pdf':
-                log.debug("get_extract_by_id() calling pdf")
-                response = render_to_response(
-                    'pyramid_oereb_extract_print',
-                    (extract, params),
-                    request=self._request
+        try:
+            params = self.__validate_extract_params__()
+            processor = self._request.pyramid_oereb_processor
+            # read the real estate from configured source by the passed parameters
+            real_estate_reader = processor.real_estate_reader
+            if params.egrid:
+                real_estate_records = real_estate_reader.read(params, egrid=params.egrid)
+            elif params.identdn and params.number:
+                real_estate_records = real_estate_reader.read(
+                    params,
+                    nb_ident=params.identdn,
+                    number=params.number
                 )
             else:
-                raise HTTPBadRequest("The format '{}' is wrong".format(params.format))
-            end_time = timer()
-            log.debug("DONE with extract, time spent: {} seconds".format(end_time - start_time))
-            return response
-        else:
-            return HTTPNoContent("No real estate found")
+                raise HTTPBadRequest("Missing required argument")
+            # check if result is strictly one (we queried with primary keys)
+            if len(real_estate_records) == 1:
+                extract = processor.process(
+                    real_estate_records[0],
+                    params,
+                    self._request.route_url('{0}/sld'.format(route_prefix))
+                )
+                if params.format == 'json':
+                    log.debug("get_extract_by_id() calling json")
+                    response = render_to_response(
+                        'pyramid_oereb_extract_json',
+                        (extract, params),
+                        request=self._request
+                    )
+                elif params.format == 'xml':
+                    log.debug("get_extract_by_id() calling xml")
+                    response = render_to_response(
+                        'pyramid_oereb_extract_xml',
+                        (extract, params),
+                        request=self._request
+                    )
+                elif params.format == 'pdf':
+                    log.debug("get_extract_by_id() calling pdf")
+                    response = render_to_response(
+                        'pyramid_oereb_extract_print',
+                        (extract, params),
+                        request=self._request
+                    )
+                else:
+                    raise HTTPBadRequest("The format '{}' is wrong".format(params.format))
+                end_time = timer()
+                log.debug("DONE with extract, time spent: {} seconds".format(end_time - start_time))
+            else:
+                raise HTTPNoContent("No real estate found")
+        except HTTPNoContent as err:
+            response = HTTPNoContent('{}'.format(err))
+        except HTTPBadRequest as err:
+            response = HTTPBadRequest('{}'.format(err))
+        try:
+            response.extras = OerebStats(service='GetExtractById',
+                                         output_format=params.format,
+                                         params=vars(params))
+        except UnboundLocalError:
+            response.extras = OerebStats(service='GetExtractById', params={'error': response.message})
+        except Exception:
+            # if params is not set we get UnboundLocalError
+            # or we could get ValueError
+            # in any case, the logging should never crash the response delivery
+            try:
+                response.extras = OerebStats(service='GetExtractById', params={'error': response.message})
+            except AttributeError:
+                response.extras = OerebStats(service='GetExtractById')
+        return response
 
     def __validate_extract_params__(self):
         """
@@ -325,7 +374,8 @@ class PlrWebservice(object):
         if language not in Config.get_language() and self._params.get('LANG') is not \
                 None:
             raise HTTPBadRequest(
-                'Requested language is not available. Following languages are configured: {languages} The '
+                'Requested language is not available. Following languages are '
+                'configured: {languages} The '
                 'requested language was: {language}'.format(
                     languages=str(Config.get_language()),
                     language=language
@@ -358,8 +408,8 @@ class PlrWebservice(object):
 
     def __coord_transform__(self, coord, source_crs):
         """
-        Transforms the specified coordinates from the specified CRS to the configured target CRS and creates a
-        point geometry.
+        Transforms the specified coordinates from the specified CRS to the configured target
+        CRS and creates a point geometry.
 
         Args:
             coord (tuple): The coordinates to transform (x, y).
@@ -410,12 +460,14 @@ class PlrWebservice(object):
         response = render_to_response(renderer_name, egrid, request=self._request)
         if self._is_json():
             response.content_type = 'application/json; charset=UTF-8'
+        response.extras = OerebStats(service='GetEGRID', output_format=output_format)
         return response
 
     def __parse_xy__(self, xy, buffer_dist=None):
         """
-        Parses the coordinates from the XY parameter, transforms them to target CRS and creates a point
-        geometry. If a buffer distance is defined, a buffer with the specified distance will be applied.
+        Parses the coordinates from the XY parameter, transforms them to target CRS
+        and creates a point geometry. If a buffer distance is defined, a buffer
+        with the specified distance will be applied.
 
         Args:
             xy (str): XY parameter from the getegrid request.
@@ -429,7 +481,8 @@ class PlrWebservice(object):
         coords = xy.split(',')
 
         if len(coords) != 2:
-            raise HTTPBadRequest('The parameter XY has to be a comma-separated pair of coordinates.')
+            raise HTTPBadRequest(
+                'The parameter XY has to be a comma-separated pair of coordinates.')
 
         x = float(coords[0])
         y = float(coords[1])
@@ -444,8 +497,8 @@ class PlrWebservice(object):
 
     def __parse_gnss__(self, gnss):
         """
-        Parses the coordinates from the GNSS parameter, transforms them to target CRS and creates a Point with
-        a 1 meter buffer.
+        Parses the coordinates from the GNSS parameter, transforms them to target CRS and
+        creates a Point with a 1 meter buffer.
 
         Args:
             gnss (str): GNSS parameter from the getegrid request.
@@ -457,7 +510,8 @@ class PlrWebservice(object):
         coords = gnss.split(',')
 
         if len(coords) != 2:
-            raise HTTPBadRequest('The parameter GNSS has to be a comma-separated pair of coordinates.')
+            raise HTTPBadRequest(
+                'The parameter GNSS has to be a comma-separated pair of coordinates.')
 
         # Coordinates provided as "latitude,longitude"
         lon = float(coords[1])
@@ -466,8 +520,8 @@ class PlrWebservice(object):
 
 
 class Parameter(object):
-    def __init__(self, response_format, flavour=None, with_geometry=False, images=False, identdn=None,
-                 number=None, egrid=None, language=None, topics=None):
+    def __init__(self, flavour, format, with_geometry, images, identdn=None, number=None,
+                 egrid=None, language=None, topics=None):
         """
         Creates a new parameter instance.
 
@@ -727,10 +781,11 @@ class Sld(object):
 
     def get_sld(self):
         """
-        Webservice which delivers an SLD file from parameter input. However this is a proxy pass through only.
-        We use it to call the real method configured in the dedicated yaml file and hope that this method is
-        accepting a pyramid.request.Request as input and is returning a pyramid.response.Response which
-        encapsulates a well designed SLD.
+        Webservice which delivers an SLD file from parameter input. However
+        this is a proxy pass through only. We use it to call the real method
+        configured in the dedicated yaml file and hope that this method is
+        accepting a pyramid.request.Request as input and is returning a
+        pyramid.response.Response which encapsulates a well designed SLD.
 
         .. note:: The config path to define this hook method is:
             *pyramid_oereb.real_estate.visualisation.method*
@@ -740,8 +795,8 @@ class Sld(object):
                 configuration
 
         Raises:
-            pyramid.httpexceptions.HTTPInternalServerError: When the return value of the hooked method was not
-                of type pyramid.response.Response
+            pyramid.httpexceptions.HTTPInternalServerError: When the return
+            value of the hooked method was not of type pyramid.response.Response
             pyramid.httpexceptions.HTTPNotFound: When the configured method was not found.
         """
         dnr = DottedNameResolver()
