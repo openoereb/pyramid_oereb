@@ -17,6 +17,31 @@ Example of a configuration:
 
     args = ({'url':'postgresql://postgres:password@oereb-db:5432/oereb_stats','tablename':'logs','tableargs': {'schema':'oereb_logs'}},'healthcheck')
 
+**args** is a tuple containing two elements:
+
+- a dictionnary: the db connection information
+- a string: the blacklist regex
+
+The db connection information is a dictionary containing:
+
+- *url* (mandatory): a db connection string compatible with sqlalchemy. Currently only sqlite and postgresql are supported
+- *tablename* (optionnal): if a special tablename has to be used within the database and will be mapped with *__tablename__* sqlalchemy class property
+- *tableargs* (optionnal): another usual sqlalchemy class property (*__tableargs__*). In the above example we use it mainly to set a particular schema
+
+The default values for the above optional arguments are:
+
+- tablename = 'logs'
+- tableargs = None (i.e. it will create the table in the *public* schema of the DB)
+
+The sql logger source code with its documentation can be found here: https://github.com/camptocamp/c2cwsgiutils/tree/master/c2cwsgiutils/sqlalchemylogger
+
+The blacklist regex is any string compatible with the python module *re*. It will be compiled and used to avoid writing in the DB the logs that
+match the given regex. This is useful to avoid filling a DB with healtcheck access logs. For example, if the *user-agent* http header of an
+healthcheck is set to some particular string (e.g. 'healthcheck' like in the above example), then you should at least set 'healtcheck' explicitely
+and the logger will avoid writing any log containing the word healthcheck. Please bear in mind that anything within the log that matches the 
+regex will prevent the log to be written. It is therefore discouraged to use regexes based on url path, which could match also user traffic
+requests, which should be accounted in the statistics instead.
+
 
 <%! import glob, inspect, re, sys %>
 <%
