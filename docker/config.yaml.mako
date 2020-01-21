@@ -115,8 +115,8 @@ vars:
       # Will make an estimation of the total length of the Table of Content (TOC) and control that the page
       # numbering in the output pdf is consistent with TOC numbering. If it is known that the TOC is very long and
       # could run over more than one page, it is preferred to set this to true. The drawback is that it might need
-      # more time to generate the PDF. If set to false, it will assume that only one TOC page exist, and this can
-      # lead to wrong numbering the TOC.
+      # more time to generate the PDF. If set to false, it will assume that only one TOC page exists, and this can
+      # lead to wrong numbering in the TOC.
       compute_toc_pages: true
       # Specify any additional URL parameters that the print shall use for WMS calls
       wms_url_params:
