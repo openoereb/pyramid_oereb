@@ -38,7 +38,7 @@ The sql logger source code with its documentation can be found here: https://git
 The blacklist regex is any string compatible with the python module *re*. It will be compiled and used to avoid writing in the DB the logs that
 match the given regex. This is useful to avoid filling a DB with healtcheck access logs. For example, if the *user-agent* http header of an
 healthcheck is set to some particular string (e.g. 'healthcheck' like in the above example), then you should at least set 'healtcheck' explicitely
-and the logger will avoid writing any log containing the word healthcheck. Please bear in mind that anything within the log that matches the 
+and the logger will avoid writing any log containing the word healthcheck. Please bear in mind that anything within the log that matches the
 regex will prevent the log to be written. It is therefore discouraged to use regexes based on url path, which could match also user traffic
 requests, which should be accounted in the statistics instead.
 
