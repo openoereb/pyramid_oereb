@@ -11,16 +11,40 @@ to adapt in your project configuration, database etc. when upgrading to a new ve
 
 Version 1.6.0
 -------------
-This release includes some features requested by the user group, as well as bug-fixes. Significant changes:
+This release includes some features requested by the user group, as well as bug-fixes,
+please see the release notes for a complete list. In this page, we list the changes
+which potentially affect your project configuration or custom code:
 
-* OEREB logo can be configured multilingual (#915)
+* The OEREB logo is now multilingual (#915). See standard project configuration template for how to configure it.
 
-* Add file extensions to logo and symbol URLs (#917)
+* Logo and symbol URLs now have file extensions (#917).
+  Image types are now restricted to *PNG* and *SVG*, according to the federal specification.
+  If you are using other image formats, you must convert them to one of the allowed types when migrating.
 
-  .. warning:: Image types are now restricted to *PNG* and *SVG*, according to the federal specification.
-        If you are using other image formats, please convert them to one of the allowed types before migrating.
+* Extract parameters are now passed to all readers and sources, to support multilingual oereblex integration (#943).
+  If you have custom readers or sources (for example, to customize oereblex responses), you will need to adapt your code.
 
-* (MORE DESCRIPTION TO FOLLOW SOON)
+* An optional sorting of PLRs can be used via parameter ``sort_within_themes_method`` (#979).
+
+MapFish Print related changes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+If you are using MapFish Print, you must update your print templates to v1.6.0.
+The following functionality is now available for configuration:
+
+* You can group LegalProvisions by using the new parameter ``group_legal_provisions`` (#948).
+
+* If you wish to keep generated PDFs on the server, use the new parameter ``pdf_archive_path`` (#982).
+
+* If you need to keep specific parameters from your WMS URLs when printing, use the new section ``wms_url_keep_params`` (#986).
+
+XML2PDF related changes
+^^^^^^^^^^^^^^^^^^^^^^^
+If you are using XML2PDF, you have the following new configuration options:
+
+* ``verify_certificate`` (#905)
+
+* proxy configuration (#938)
+
 
 .. _changes-version-1.5.1:
 
