@@ -2,6 +2,17 @@
 Changelog
 ---------
 
+1.6.0
+*****
+- Improve multilingual support (#915, #918, #943, #950)
+- Ensure XML schema compliance (#914, #926)
+- Improve extract speed (#965)
+- Additional options for sorting and grouping (#925, #931, #948, #979)
+- Additional options for xml2pdf integration (#905, #938)
+- Add PDF archive functionality (#982)
+- Make WMS usage in print more flexible (#986)
+- Bug fixes and debugging possibilities improvement (#910, #909, #897, #894, #916, #919, #870, #908, #932, #955, #958, #963, #970)
+
 1.5.2
 *****
 - Provide multilingual OEREB logo (#915)
