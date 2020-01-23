@@ -175,7 +175,7 @@ class SampleData(object):
         Performs the database operations to load the sample data.
         """
         from pyramid_oereb.standard.models import contaminated_public_transport_sites, \
-            groundwater_protection_zones, forest_perimeters
+            groundwater_protection_zones, forest_perimeters, motorways_building_lines
         from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality, \
             Glossary, ExclusionOfLiability
 
@@ -188,9 +188,10 @@ class SampleData(object):
                 (contaminated_public_transport_sites, "contaminated_public_transport_sites"),
                 (groundwater_protection_zones, "groundwater_protection_zones"),
                 (forest_perimeters, "forest_perimeters"),
+                (motorways_building_lines, "motorways_building_lines"),
             ]:
                 print("Import theme {}.".format(folder))
-                # Truncate exisiting tables
+                # Truncate existing tables
                 self._truncate_existing(schema)
 
                 # Fill tables with sample data
