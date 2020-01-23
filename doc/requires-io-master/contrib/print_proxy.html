@@ -447,6 +447,28 @@ formatted.</td>
 </dd></dl>
 
 <dl class="method">
+<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.get_custom_wms_params">
+<code class="descname">get_custom_wms_params</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print.html#Renderer.get_custom_wms_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.get_custom_wms_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>From a given dictionary filter out all the parameters that are specified in the config
+and return these.
+Only values which exist in the given params are added.
+If there is nothing configured or the config is not a list
+the configured wms_url_params are used as fallback.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>dict</em>) &#8211; Parameters available in the URL</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dictionary of filtered params</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">custom_params (dict)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.get_localized_text">
 <code class="descname">get_localized_text</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.get_localized_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the requested language of a multilingual text element.</p>
@@ -553,7 +575,7 @@ restriction to get the symbol reference for.</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The configured wms_url_params.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">(dict)</td>
 </tr>
 </tbody>
 </table>
@@ -707,6 +729,25 @@ correctness of the soring.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>elem</strong> (<em>dict</em>) &#8211; legend entry</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sort key (tuple)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.string_check">
+<em class="property">static </em><code class="descname">string_check</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print.html#Renderer.string_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.string_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the value given is a string.
+If it is not, assume it is a list and join the values using comma separator.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em><em> or </em><em>list</em>) &#8211; value to be treated.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">converted value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(str)</td>
 </tr>
 </tbody>
 </table>
@@ -1019,6 +1060,7 @@ as an example, or use the <code class="docutils literal"><span class="pre">creat
             <dd><a href="../../v1.4.3/contrib/print_proxy.html">v1.4.3</a></dd>
             <dd><a href="../../v1.5.0/contrib/print_proxy.html">v1.5.0</a></dd>
             <dd><a href="../../v1.5.1/contrib/print_proxy.html">v1.5.1</a></dd>
+            <dd><a href="../../v1.6.0/contrib/print_proxy.html">v1.6.0</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>

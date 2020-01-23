@@ -238,7 +238,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_certification_at_web</span>
 
-<div class="viewcode-block" id="ExtractReader.read"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.extract.ExtractReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">municipality</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+<div class="viewcode-block" id="ExtractReader.read"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.extract.ExtractReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">municipality</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method finally creates the extract.</span>
 
@@ -248,12 +248,11 @@
 <span class="sd">            works would be broken.</span>
 
 <span class="sd">        Args:</span>
+<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</span>
 <span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real</span>
 <span class="sd">                estate for which the report should be generated</span>
 <span class="sd">            municipality (pyramid_oereb.lib.records.municipiality.MunicipalityRecord): The municipality</span>
 <span class="sd">                record.</span>
-<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract</span>
-<span class="sd">                request.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.lib.records.extract.ExtractRecord:</span>
@@ -275,7 +274,7 @@
             <span class="k">for</span> <span class="n">position</span><span class="p">,</span> <span class="n">plr_source</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">params</span><span class="o">.</span><span class="n">skip_topic</span><span class="p">(</span><span class="n">plr_source</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)):</span>
                     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() going to read from plr_source </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plr_source</span><span class="p">))</span>
-                    <span class="n">plr_source</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
+                    <span class="n">plr_source</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
                     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() done reading from plr_source </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plr_source</span><span class="p">))</span>
                     <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">plr_source</span><span class="o">.</span><span class="n">datasource</span><span class="p">:</span>
                         <span class="k">if</span> <span class="ow">not</span> <span class="n">params</span><span class="o">.</span><span class="n">skip_topic</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">):</span>
@@ -385,6 +384,7 @@
             <dd><a href="../../../../../v1.4.3/index.html">v1.4.3</a></dd>
             <dd><a href="../../../../../v1.5.0/index.html">v1.5.0</a></dd>
             <dd><a href="../../../../../v1.5.1/index.html">v1.5.1</a></dd>
+            <dd><a href="../../../../../v1.6.0/index.html">v1.6.0</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>

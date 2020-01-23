@@ -253,7 +253,7 @@ sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</li>
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.sources.address.AddressBaseSource.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>street_name</em>, <em>zip_code</em>, <em>street_number</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/address.html#AddressBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.address.AddressBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>street_name</em>, <em>zip_code</em>, <em>street_number</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/address.html#AddressBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.address.AddressBaseSource.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Every address source has to implement a read method. This method must accept the three parameters. If
 you want adapt to your own source for addresses, this is the point where to hook in.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -261,6 +261,7 @@ you want adapt to your own source for addresses, this is the point where to hook
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
 <li><strong>street_name</strong> (<em>unicode</em>) &#8211; The name of the street for the desired address.</li>
 <li><strong>zip_code</strong> (<em>int</em>) &#8211; The postal zipcode for the desired address.</li>
 <li><strong>street_number</strong> (<em>str</em>) &#8211; The house or so called street number of the desired address.</li>
@@ -295,10 +296,18 @@ of exclusion of liability records.</p>
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityBaseSource.read">
-<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/exclusion_of_liability.html#ExclusionOfLiabilityBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/exclusion_of_liability.html#ExclusionOfLiabilityBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityBaseSource.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Every exclusion of liability source has to implement a read method. This method must accept no
 parameters. Because it should deliver all items available.
 If you want adapt to your own source for exclusion of liabilities, this is the point where to hook in.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -324,10 +333,18 @@ If you want adapt to your own source for exclusion of liabilities, this is the p
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.sources.glossary.GlossaryBaseSource.read">
-<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/glossary.html#GlossaryBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.glossary.GlossaryBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/glossary.html#GlossaryBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.glossary.GlossaryBaseSource.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Every glossary source has to implement a read method. This method must accept no parameters. Because
 it should deliver all items available.
 If you want adapt to your own source for glossaries, this is the point where to hook in.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -338,10 +355,37 @@ If you want adapt to your own source for glossaries, this is the point where to 
 <dl class="class">
 <dt id="pyramid_oereb.lib.sources.legend.LegendBaseSource">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.lib.sources.legend.</code><code class="descname">LegendBaseSource</code><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/legend.html#LegendBaseSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.legend.LegendBaseSource" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>Base class for exclusion of liability sources.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.sources.legend.LegendBaseSource.records">
+<code class="descname">records</code><a class="headerlink" href="#pyramid_oereb.lib.sources.legend.LegendBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.view_service.LegendEntryRecord</em> &#8211; List of legend entry
+records.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyramid_oereb.lib.sources.legend.LegendBaseSource.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.lib.sources.legend.LegendBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.legend.LegendBaseSource.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/legend.html#LegendBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.legend.LegendBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Every legend entry source has to implement a read method. If you want adapt to your own source for
+legend entries, this is the point where to hook in.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
+<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; Arbitrary keyword arguments.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -368,7 +412,7 @@ records.</p>
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>fosnr=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/municipality.html#MunicipalityBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>fosnr=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/municipality.html#MunicipalityBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Every municipality source has to implement a read method. This method must accept no parameters.
 Because it should deliver all items available.
 If you want adapt to your own source for municipalities, this is the point where to hook in.</p>
@@ -376,7 +420,11 @@ If you want adapt to your own source for municipalities, this is the point where
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fosnr</strong> (<em>int</em><em> or </em><em>None</em>) &#8211; The federal number of the municipality defined by the statistics office.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
+<li><strong>fosnr</strong> (<em>int</em><em> or </em><em>None</em>) &#8211; The federal number of the municipality defined by the statistics office.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -454,7 +502,7 @@ federal specified classifiers &#8216;inForce&#8217; and &#8216;runningModificati
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.sources.plr.PlrBaseSource.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>real_estate</em>, <em>bbox</em>, <em>position=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/plr.html#PlrBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>real_estate</em>, <em>bbox</em>, <em>position=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/plr.html#PlrBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrBaseSource.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Every public law restriction source has to implement a read method. This method must accept the two
 key word parameters. If you want adapt to your own source for real estates, this is the point where
 to hook in.</p>
@@ -463,6 +511,7 @@ to hook in.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
 <li><strong>real_estate</strong> (<a class="reference internal" href="records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real estate which is
 used as filter to find all related public law restrictions.</li>
 <li><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The bounding box which is used as a pre-filter to find
@@ -500,7 +549,7 @@ the visible extent of the map.</li>
 
 <dl class="method">
 <dt id="pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>nb_ident=None</em>, <em>number=None</em>, <em>egrid=None</em>, <em>geometry=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/real_estate.html#RealEstateBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>nb_ident=None</em>, <em>number=None</em>, <em>egrid=None</em>, <em>geometry=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/real_estate.html#RealEstateBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Every real estate source has to implement a read method. This method must accept the four key word
 parameters. If you want adapt to your own source for real estates, this is the point where to hook in.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -508,6 +557,7 @@ parameters. If you want adapt to your own source for real estates, this is the p
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
 <li><strong>nb_ident</strong> (<em>int</em><em> or </em><em>None</em>) &#8211; The identification number of the desired real estate. This
 parameter is directly related to the number parameter and both must be set!
 Combination must deliver only one result or must raise an error.</li>
@@ -581,6 +631,7 @@ estates. This may deliver several results.</li>
             <dd><a href="../../v1.4.3/core/sources.html">v1.4.3</a></dd>
             <dd><a href="../../v1.5.0/core/sources.html">v1.5.0</a></dd>
             <dd><a href="../../v1.5.1/core/sources.html">v1.5.1</a></dd>
+            <dd><a href="../../v1.6.0/core/sources.html">v1.6.0</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>

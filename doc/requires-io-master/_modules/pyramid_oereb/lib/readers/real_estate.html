@@ -190,7 +190,7 @@
         <span class="n">source_class</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">dotted_source_class_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span> <span class="o">=</span> <span class="n">source_class</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RealEstateReader.read"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.real_estate.RealEstateReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nb_ident</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">egrid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="RealEstateReader.read"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.real_estate.RealEstateReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">nb_ident</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">egrid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The central read accessor method to get all desired records from configured source.</span>
 
@@ -200,6 +200,7 @@
 <span class="sd">            server works would be broken.</span>
 
 <span class="sd">        Args:</span>
+<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</span>
 <span class="sd">            nb_ident (int or None): The identification number of the desired real estate. This</span>
 <span class="sd">                parameter is directly related to the number parameter and both must be set!</span>
 <span class="sd">                Combination will deliver only one result or crashes.</span>
@@ -230,7 +231,7 @@
             <span class="n">plan_for_land_register_main_page_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;layer_opacity&#39;</span><span class="p">)</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">nb_ident</span><span class="o">=</span><span class="n">nb_ident</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="n">number</span><span class="p">,</span> <span class="n">egrid</span><span class="o">=</span><span class="n">egrid</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">geometry</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">nb_ident</span><span class="o">=</span><span class="n">nb_ident</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="n">number</span><span class="p">,</span> <span class="n">egrid</span><span class="o">=</span><span class="n">egrid</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">geometry</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span><span class="o">.</span><span class="n">records</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">RealEstateRecord</span><span class="p">):</span>
                 <span class="n">r</span><span class="o">.</span><span class="n">set_view_service</span><span class="p">(</span><span class="n">real_estate_view_service</span><span class="p">)</span>
@@ -279,6 +280,7 @@
             <dd><a href="../../../../../v1.4.3/index.html">v1.4.3</a></dd>
             <dd><a href="../../../../../v1.5.0/index.html">v1.5.0</a></dd>
             <dd><a href="../../../../../v1.5.1/index.html">v1.5.1</a></dd>
+            <dd><a href="../../../../../v1.6.0/index.html">v1.6.0</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>

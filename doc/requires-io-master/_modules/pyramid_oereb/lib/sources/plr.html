@@ -234,13 +234,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span>
 
-<div class="viewcode-block" id="PlrBaseSource.read"><a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.lib.sources.plr.PlrBaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="PlrBaseSource.read"><a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.lib.sources.plr.PlrBaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Every public law restriction source has to implement a read method. This method must accept the two</span>
 <span class="sd">        key word parameters. If you want adapt to your own source for real estates, this is the point where</span>
 <span class="sd">        to hook in.</span>
 
 <span class="sd">        Args:</span>
+<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</span>
 <span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate which is</span>
 <span class="sd">                used as filter to find all related public law restrictions.</span>
 <span class="sd">            bbox (shapely.geometry.base.BaseGeometry): The bounding box which is used as a pre-filter to find</span>
@@ -293,6 +294,7 @@
             <dd><a href="../../../../../v1.4.3/index.html">v1.4.3</a></dd>
             <dd><a href="../../../../../v1.5.0/index.html">v1.5.0</a></dd>
             <dd><a href="../../../../../v1.5.1/index.html">v1.5.1</a></dd>
+            <dd><a href="../../../../../v1.6.0/index.html">v1.6.0</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>

@@ -164,6 +164,7 @@
   <h1>Source code for pyramid_oereb.standard.hook_methods</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">mako</span> <span class="kn">import</span> <span class="n">exceptions</span>
 <span class="kn">from</span> <span class="nn">mako.template</span> <span class="kn">import</span> <span class="n">Template</span>
@@ -176,6 +177,9 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib</span> <span class="kn">import</span> <span class="n">b64</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.image</span> <span class="kn">import</span> <span class="n">ImageRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.office</span> <span class="kn">import</span> <span class="n">OfficeRecord</span>
+
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="get_logo"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.hook_methods.get_logo">[docs]</a><span class="k">def</span> <span class="nf">get_logo</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
@@ -373,6 +377,21 @@
         <span class="n">response</span><span class="o">.</span><span class="n">content_type</span> <span class="o">=</span> <span class="s1">&#39;text/html&#39;</span>
         <span class="n">response</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">html_error_template</span><span class="p">()</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">response</span></div>
+
+
+<div class="viewcode-block" id="plr_sort_within_themes"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.hook_methods.plr_sort_within_themes">[docs]</a><span class="k">def</span> <span class="nf">plr_sort_within_themes</span><span class="p">(</span><span class="n">extract</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is the standard hook method to sort a plr list (while respecting the theme order).</span>
+<span class="sd">    This standard hook does no sorting, you can set your configuration to a different method if you need a</span>
+<span class="sd">    specific sorting.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        extract (pyramid_oereb.lib.records.extract.ExtractRecord): The unsorted extract</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pyramid_oereb.lib.records.extract.ExtractRecord: Returns the updated extract</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">extract</span></div>
 </pre></div>
 
            </div>
@@ -416,6 +435,7 @@
             <dd><a href="../../../../v1.4.3/index.html">v1.4.3</a></dd>
             <dd><a href="../../../../v1.5.0/index.html">v1.5.0</a></dd>
             <dd><a href="../../../../v1.5.1/index.html">v1.5.1</a></dd>
+            <dd><a href="../../../../v1.6.0/index.html">v1.6.0</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>

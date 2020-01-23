@@ -186,7 +186,7 @@
         <span class="n">source_class</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">(</span><span class="n">dotted_source_class_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span> <span class="o">=</span> <span class="n">source_class</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="AddressReader.read"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.address.AddressReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
+<div class="viewcode-block" id="AddressReader.read"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.lib.readers.address.AddressReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The read method of this reader. There we invoke the read method of the bound source.</span>
 
@@ -196,6 +196,7 @@
 <span class="sd">            works would be broken.</span>
 
 <span class="sd">        Args:</span>
+<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</span>
 <span class="sd">            street_name (unicode): The name of the street for the desired address.</span>
 <span class="sd">            zip_code (int): The postal zipcode for the desired address.</span>
 <span class="sd">            street_number (str): The house or so called street number of the desired address.</span>
@@ -204,7 +205,7 @@
 <span class="sd">            list of pyramid_oereb.lib.records.address.AddressRecord:</span>
 <span class="sd">                The list of found records filtered by the passed criteria.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span><span class="o">.</span><span class="n">records</span></div></div>
 </pre></div>
 
@@ -249,6 +250,7 @@
             <dd><a href="../../../../../v1.4.3/index.html">v1.4.3</a></dd>
             <dd><a href="../../../../../v1.5.0/index.html">v1.5.0</a></dd>
             <dd><a href="../../../../../v1.5.1/index.html">v1.5.1</a></dd>
+            <dd><a href="../../../../../v1.6.0/index.html">v1.6.0</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>

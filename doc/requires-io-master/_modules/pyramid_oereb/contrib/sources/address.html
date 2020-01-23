@@ -199,11 +199,12 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_origins</span> <span class="o">=</span> <span class="s1">&#39;address&#39;</span></div>
 
-<div class="viewcode-block" id="AddressGeoAdminSource.read"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.address.AddressGeoAdminSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
+<div class="viewcode-block" id="AddressGeoAdminSource.read"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.address.AddressGeoAdminSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Queries an address using the federal GeoAdmin API location search.</span>
 
 <span class="sd">        Args:</span>
+<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</span>
 <span class="sd">            street_name (unicode): The name of the street for the desired address.</span>
 <span class="sd">            zip_code (int): The postal zipcode for the desired address.</span>
 <span class="sd">            street_number (unicode): The house or so called street number of the desired address.</span>
@@ -213,12 +214,17 @@
             <span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
                 <span class="s1">&#39;Referer&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_referer</span>
             <span class="p">})</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">request_params</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_type</span><span class="p">,</span>
             <span class="s1">&#39;origins&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_origins</span><span class="p">,</span>
             <span class="s1">&#39;searchText&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> </span><span class="si">{1}</span><span class="s1"> </span><span class="si">{2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">zip_code</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">street_number</span><span class="p">)</span>
         <span class="p">}</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_geoadmin_url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_proxies</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_geoadmin_url</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">request_params</span><span class="p">,</span>
+            <span class="n">proxies</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_proxies</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">requests</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
             <span class="n">rp</span> <span class="o">=</span> <span class="n">Reprojector</span><span class="p">()</span>
             <span class="n">srid</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">)</span>
@@ -280,6 +286,7 @@
             <dd><a href="../../../../../v1.4.3/index.html">v1.4.3</a></dd>
             <dd><a href="../../../../../v1.5.0/index.html">v1.5.0</a></dd>
             <dd><a href="../../../../../v1.5.1/index.html">v1.5.1</a></dd>
+            <dd><a href="../../../../../v1.6.0/index.html">v1.6.0</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>

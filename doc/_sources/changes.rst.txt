@@ -28,7 +28,7 @@ which potentially affect your project configuration or custom code:
 
 MapFish Print related changes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-If you are using MapFish Print, you must update your print templates to v1.6.0.
+If you are using MapFish Print, you must update your print templates and configuration to v1.6.0.
 The following functionality is now available for configuration:
 
 * You can group LegalProvisions by using the new parameter ``group_legal_provisions`` (#948).
