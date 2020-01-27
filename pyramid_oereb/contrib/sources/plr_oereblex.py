@@ -35,6 +35,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
         """
         super(DatabaseOEREBlexSource, self).__init__(**kwargs)
         self._oereblex_source = OEREBlexSource(**Config.get_oereblex_config())
+        self._queried_lexlinks = {}
 
     def get_document_records(self, params, public_law_restriction_from_db):
         """
@@ -56,7 +57,13 @@ class DatabaseOEREBlexSource(DatabaseSource):
                 The documents created from the parsed OEREBlex response.
         """
         log.debug("document_records_from_oereblex() start")
-        self._oereblex_source.read(params, lexlink)
-        log.debug("document_records_from_oereblex() returning {} records"
-                  .format(len(self._oereblex_source.records)))
-        return self._oereblex_source.records
+        if lexlink in self._queried_lexlinks:
+            log.debug('skip querying this lexlink "{}" because it was fetched already.'.format(lexlink))
+            log.debug('use already queried instead')
+            return self._queried_lexlinks[lexlink]
+        else:
+            self._oereblex_source.read(params, lexlink)
+            log.debug("document_records_from_oereblex() returning {} records"
+                      .format(len(self._oereblex_source.records)))
+            self._queried_lexlinks[lexlink] = self._oereblex_source.records
+            return self._queried_lexlinks[lexlink]
