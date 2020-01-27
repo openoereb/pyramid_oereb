@@ -128,7 +128,10 @@ class Renderer(JsonRenderer):
                 x = []
                 for i in range(len(pdf_reader.getOutlines())):
                     x.append(pdf_reader.getOutlines()[i]['/Page']['/StructParents'])
-                true_nb_of_toc = min(x)-1
+                try:
+                    true_nb_of_toc = min(x)-1
+                except ValueError:
+                    true_nb_of_toc = 1
 
                 if true_nb_of_toc != extract_as_dict['nbTocPages']:
                     log.warning('nbTocPages in result pdf: {} are not equal to the one predicted : {}, request new pdf'.format(true_nb_of_toc,extract_as_dict['nbTocPages'])) # noqa
