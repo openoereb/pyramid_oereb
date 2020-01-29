@@ -279,12 +279,12 @@ class Renderer(JsonRenderer):
 
             restriction_on_landownership['baseLayers'] = {
                 'layers': [{
-                    'type': params.pop('SERVICE', 'wms')[0].lower(),
+                    'type': params.pop('SERVICE', ['wms'])[0].lower(),
                     'opacity': restriction_on_landownership['Map'].get('layerOpacity', 0.6),
-                    'styles': params.pop('STYLES', 'default')[0],
+                    'styles': params.pop('STYLES', ['default'])[0],
                     'baseURL': urlparse.urlunsplit((url.scheme, url.netloc, url.path, None, None)),
                     'layers': params.pop('LAYERS', '')[0].split(','),
-                    'imageFormat': params.pop('FORMAT', 'image/png')[0],
+                    'imageFormat': params.pop('FORMAT', ['image/png'])[0],
                     'customParams': self.get_custom_wms_params(params),
                 }, basemap]
             }
