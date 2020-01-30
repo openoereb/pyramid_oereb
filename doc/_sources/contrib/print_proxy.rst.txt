@@ -27,6 +27,22 @@ Print Proxy
 
    .. automethod:: __init__
 
+.. _api-pyramid_oereb-contrib-print_proxy-toc_pages:
+
+.. automodule:: pyramid_oereb.contrib.print_proxy.toc_pages
+
+
+.. _api-pyramid_oereb-contrib-print_proxy-toc_pages-tocpages:
+
+*Toc Pages TocPages*
+^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.contrib.print_proxy.toc_pages.TocPages
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
 .. _api-pyramid_oereb-contrib-print_proxy-xml_2_pdf:
 
 .. automodule:: pyramid_oereb.contrib.print_proxy.xml_2_pdf
