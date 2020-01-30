@@ -6,6 +6,29 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+.. _changes-version-1.7.0:
+
+Version 1.7.0 (DRAFT)
+---------------------
+This release includes some features requested by the user group, as well as bug-fixes:
+
+* The performance of the Oereblex integration was improved, by using a per topic store (#993). No change in
+  configuration is needed.
+
+* A new statistics functionality was added (#987). If you wish to use this functionality, see :ref:`contrib-stats`.
+
+* If you are using MapFishPrint, you must update your configuration as described in the following section.
+
+MapFish Print related changes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In the print via MapFish Print, the table of contents page numbering was fixed (#983). The following configuration
+changes are necessary:
+
+* In your pyramid_oereb project configuration, replace the print configuration parameter ``multi_page_TOC``
+  with the parameter ``compute_toc_pages``; see the standard configuration file for an example and the description.
+
+* In your print application, update your print templates and print configuration to release v1.7.0 of pyramid_oereb_mfp.
+
 
 .. _changes-version-1.6.0:
 
