@@ -4,6 +4,7 @@ import sys
 import json
 import tempfile
 
+import io
 import requests
 import logging
 
@@ -15,6 +16,11 @@ from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import Config
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer as JsonRenderer
 from pyramid_oereb.lib.url import parse_url
+
+from PyPDF2 import PdfFileReader
+
+from .toc_pages import TocPages
+
 if sys.version_info.major == 2:
     import urlparse
 else:
@@ -79,6 +85,11 @@ class Renderer(JsonRenderer):
         feature_geometry = mapping(extract_record.real_estate.limit)
         pdf_to_join = set()
 
+        if Config.get('print', {}).get('compute_toc_pages', False):
+            extract_as_dict['nbTocPages'] = TocPages(extract_as_dict).getNbPages()
+        else:
+            extract_as_dict['nbTocPages'] = 1
+
         self.convert_to_printable_extract(extract_as_dict, feature_geometry, pdf_to_join)
 
         print_config = Config.get('print', {})
@@ -89,10 +100,6 @@ class Renderer(JsonRenderer):
 
         extract_as_dict['Display_Certification'] = print_config.get(
             'display_certification', True
-        )
-
-        extract_as_dict['MultiPageTOC'] = print_config.get(
-            'multi_page_TOC', False
         )
 
         spec = {
@@ -107,12 +114,33 @@ class Renderer(JsonRenderer):
         if self._request.GET.get('getspec', 'no') != 'no':
             response.headers['Content-Type'] = 'application/json; charset=UTF-8'
             return json.dumps(spec, sort_keys=True, indent=4)
-
+        pdf_url = urlparse.urljoin(Config.get('print', {})['base_url'] + '/', 'buildreport.pdf')
+        pdf_headers = Config.get('print', {})['headers']
         print_result = requests.post(
-            urlparse.urljoin(Config.get('print', {})['base_url'] + '/', 'buildreport.pdf'),
-            headers=Config.get('print', {})['headers'],
+            pdf_url,
+            headers=pdf_headers,
             data=json.dumps(spec)
         )
+        if Config.get('print', {}).get('compute_toc_pages', False):
+            with io.BytesIO() as pdf:
+                pdf.write(print_result.content)
+                pdf_reader = PdfFileReader(pdf)
+                x = []
+                for i in range(len(pdf_reader.getOutlines())):
+                    x.append(pdf_reader.getOutlines()[i]['/Page']['/StructParents'])
+                try:
+                    true_nb_of_toc = min(x)-1
+                except ValueError:
+                    true_nb_of_toc = 1
+
+                if true_nb_of_toc != extract_as_dict['nbTocPages']:
+                    log.warning('nbTocPages in result pdf: {} are not equal to the one predicted : {}, request new pdf'.format(true_nb_of_toc,extract_as_dict['nbTocPages'])) # noqa
+                    extract_as_dict['nbTocPages'] = true_nb_of_toc
+                    print_result = requests.post(
+                        pdf_url,
+                        headers=pdf_headers,
+                        data=json.dumps(spec)
+                    )
 
         if not extract_as_dict['isReduced'] and print_result.status_code == 200:
             main = tempfile.NamedTemporaryFile(suffix='.pdf')

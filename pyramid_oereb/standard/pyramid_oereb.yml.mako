@@ -113,10 +113,12 @@ pyramid_oereb:
     # Group elements of "LegalProvision" and "Hints" with the same "Title.Text" together yes/no
     # Disabled by default.
     group_legal_provisions: false
-    # Determine if a multiple page table of content (TOC) is used with a slightly different layout but
-    # better page numbering. If it is known that the TOC is very long and runs over more than one page it
-    # is preferred to set this to true.
-    multi_page_TOC: false
+    # Will make an estimation of the total length of the Table of Content (TOC) and control that the page
+    # numbering in the output pdf is consistent with TOC numbering. If it is known that the TOC is very long and
+    # could run over more than one page, it is preferred to set this to true. The drawback is that it might need
+    # more time to generate the PDF. If set to false, it will assume that only one TOC page exists, and this can
+    # lead to wrong numbering in the TOC.
+    compute_toc_pages: true
     # Specify any additional URL parameters that the print shall use for WMS calls
     wms_url_params:
       TRANSPARENT: 'true'
