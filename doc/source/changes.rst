@@ -8,8 +8,8 @@ to adapt in your project configuration, database etc. when upgrading to a new ve
 
 .. _changes-version-1.7.0:
 
-Version 1.7.0 (DRAFT)
----------------------
+Version 1.7.0
+-------------
 This release includes some features requested by the user group, as well as bug-fixes:
 
 * The performance of the Oereblex integration was improved, by using a per topic store (#993). No change in
