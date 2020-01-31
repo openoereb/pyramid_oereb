@@ -2,8 +2,8 @@
 Changelog
 ---------
 
-1.7.0 (DRAFT)
-*****
+1.7.0-rc2
+*********
 - Oereblex: improve performance (implement per topic store) (#993)
 - Add statistics functionality (#987)
 - Print: fix table of contents page numbering (#983)
