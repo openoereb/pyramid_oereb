@@ -486,7 +486,7 @@ class Renderer(JsonRenderer):
             for legend in restriction['Legend']:
                 type_ = legend['TypeCode']
                 if type_ in legends:
-                    for item in ['AreaShare', 'LengthShare', 'PartInPercent']:
+                    for item in ['AreaShare', 'LengthShare', 'PartInPercent', 'NrOfPoints']:
                         if item in legend:
                             if item in legends[type_]:
                                 legends[type_][item] += legend[item]
@@ -494,10 +494,6 @@ class Renderer(JsonRenderer):
                                 legends[type_][item] = legend[item]
                 else:
                     legends[type_] = legend
-            for legend in legends.values():
-                for item in ['AreaShare', 'LengthShare']:
-                    if item in legend:
-                        legend[item] = legend[item]
             # After transformation, get the new legend entries, sorted by TypeCode
             transformed_legend = \
                 list([transformed_entry for (key, transformed_entry) in legends.items()])
