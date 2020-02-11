@@ -454,6 +454,8 @@ class PlrWebservice(object):
             output_format = self.__validate_format_param__(['xml', 'json'])
             renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_getegrid_xml'
         except HTTPBadRequest:
+            # For backwards compatibility (older version specification, provide a default here)
+            output_format = 'xml'
             renderer_name = 'json' if self._is_json() else 'pyramid_oereb_getegrid_xml'
             log.warning('Deprecated way to specify the format. Use "/getegrid/{format}/..." instead')
 
