@@ -905,13 +905,13 @@
 <div class="viewcode-block" id="Renderer.sort_legal_provision"><a class="viewcode-back" href="../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer.sort_legal_provision">[docs]</a>    <span class="k">def</span> <span class="nf">sort_legal_provision</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provides the sort key for the supplied legal provision element as a tuple consisting of:</span>
-<span class="sd">            * title</span>
-<span class="sd">            * Official number</span>
+<span class="sd">         * title</span>
+<span class="sd">         * Official number</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            elem (dict): one element of the legal provision list</span>
-
 <span class="sd">        Returns:</span>
-<span class="sd">             sort key (tuple)</span>
+<span class="sd">            sort key (tuple)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">sort_title</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;Title&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
@@ -923,11 +923,11 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provides the sort key for the supplied hint element as a tuple consisting of:</span>
 <span class="sd">         * Title</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            elem (dict): one element of the hints list</span>
-
 <span class="sd">        Returns:</span>
-<span class="sd">             sort key (tuple)</span>
+<span class="sd">            sort key (tuple)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">elem</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;Title&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span></div>
 
@@ -937,11 +937,12 @@
 <span class="sd">        Provides the sort key for the supplied law element as a tuple consisting of:</span>
 <span class="sd">         * OfficialNumber (if this attribute is empty the element will be placed at the end of the list)</span>
 <span class="sd">         * Title</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            elem (dict): one element of the legal laws list</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">             sort key (tuple)</span>
+<span class="sd">            sort key (tuple)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">sort_empty_number_last</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="s1">&#39;OfficialNumber&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="mi">1</span>
         <span class="n">sort_number</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">&#39;OfficialNumber&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;OfficialNumber&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
@@ -1060,6 +1061,7 @@
             <dd><a href="../../../../../v1.5.1/index.html">v1.5.1</a></dd>
             <dd><a href="../../../../../v1.6.0/index.html">v1.6.0</a></dd>
             <dd><a href="../../../../../v1.7.0/index.html">v1.7.0</a></dd>
+            <dd><a href="../../../../../v1.7.1/index.html">v1.7.1</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>

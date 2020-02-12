@@ -6,6 +6,20 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+
+.. _changes-version-1.7.1:
+
+Version 1.7.1
+-------------
+This is a bug-fix release, relevant only for users of MapFish Print.
+
+MapFish Print related changes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The computation of the "nr_of_points" used in the PDF generation has been fixed (#1002),
+and a redundant comma has been removed from the templates (pyramid_oereb_mfp #59).
+You should update your print templates and print configuration to release v1.7.1 of pyramid_oereb_mfp.
+
+
 .. _changes-version-1.7.0:
 
 Version 1.7.0
@@ -17,7 +31,7 @@ This release includes some features requested by the user group, as well as bug-
 
 * A new statistics functionality was added (#987). If you wish to use this functionality, see :ref:`contrib-stats`.
 
-* If you are using MapFishPrint, you must update your configuration as described in the following section.
+* If you are using MapFish Print, you must update your configuration as described in the following section.
 
 MapFish Print related changes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
