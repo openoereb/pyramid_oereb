@@ -2,6 +2,10 @@
 Changelog
 ---------
 
+1.7.1
+*****
+- Print: fix nr_of_points computation (#1002)
+
 1.7.0
 *****
 - Oereblex: improve performance (implement per topic store) (#993)
