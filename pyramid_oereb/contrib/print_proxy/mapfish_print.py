@@ -743,13 +743,13 @@ class Renderer(JsonRenderer):
     def sort_legal_provision(elem):
         """
         Provides the sort key for the supplied legal provision element as a tuple consisting of:
-            * title
-            * Official number
+         * title
+         * Official number
+
         Args:
             elem (dict): one element of the legal provision list
-
         Returns:
-             sort key (tuple)
+            sort key (tuple)
         """
 
         sort_title = elem['Title'] if 'Title' in elem else ''
@@ -761,11 +761,11 @@ class Renderer(JsonRenderer):
         """
         Provides the sort key for the supplied hint element as a tuple consisting of:
          * Title
+
         Args:
             elem (dict): one element of the hints list
-
         Returns:
-             sort key (tuple)
+            sort key (tuple)
         """
         return elem['Title'] if 'Title' in elem else ''
 
@@ -775,11 +775,12 @@ class Renderer(JsonRenderer):
         Provides the sort key for the supplied law element as a tuple consisting of:
          * OfficialNumber (if this attribute is empty the element will be placed at the end of the list)
          * Title
+
         Args:
             elem (dict): one element of the legal laws list
 
         Returns:
-             sort key (tuple)
+            sort key (tuple)
         """
         sort_empty_number_last = 0 if 'OfficialNumber' in elem else 1
         sort_number = elem['OfficialNumber'] if 'OfficialNumber' in elem else ""
