@@ -67,6 +67,8 @@ pyramid_oereb:
 % if print_backend == 'XML2PDF':
     # Configuration for XML2PDF print service
     renderer: pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer
+    # Define whether all geometry data must be included when sending the data to the print service
+    with_geometry: True
     # Base URL with application of the print server
     base_url: https://oereb-dev.gis-daten.ch/oereb/report/create
     token: 24ba4328-a306-4832-905d-b979388d4cab
@@ -80,6 +82,8 @@ pyramid_oereb:
 % else:
     # Configuration for MapFish-Print print service
     renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer
+    # Define whether all geometry data must be included when sending the data to the print service
+    with_geometry: False
     # Set an archive path to keep a copy of each generated pdf.
     # pdf_archive_path: /tmp
     # The minimum buffer in pixel at 72 DPI between the real estate and the map's border. If your print

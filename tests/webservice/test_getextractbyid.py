@@ -62,7 +62,7 @@ def test_invalid_flavour(params):
         }, {
             'flavour': 'signed',
             'format': 'pdf',
-            'with_geometry': True,
+            'with_geometry': False,
             'images': False,
             'egrid': 'SomeEGRID'
         }
@@ -76,7 +76,7 @@ def test_invalid_flavour(params):
         }, {
             'flavour': 'full',
             'format': 'pdf',
-            'with_geometry': True,
+            'with_geometry': False,
             'images': False,
             'identdn': 'SomeIdent',
             'number': 'SomeNumber'
