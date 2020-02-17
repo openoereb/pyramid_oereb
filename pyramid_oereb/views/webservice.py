@@ -340,10 +340,10 @@ class PlrWebservice(object):
             raise HTTPBadRequest('Geometry is not available for format PDF.')
 
         # If PDF is to be produced, check if geometry should be included
-        # (even though the URL is not allowed to not contain geometry parameter)
+        # (this override can be needed for the print service. Note that, to be compliant to specification,
+        # the URL for a PDF request should not contain the geometry parameter)
         if extract_format == 'pdf':
-            if Config.get('print', {}).get('with_geometry', True):
-                with_geometry = True
+            with_geometry = Config.get('print', {}).get('with_geometry', True) or with_geometry
 
         # With images?
         with_images = self._params.get('WITHIMAGES') is not None
