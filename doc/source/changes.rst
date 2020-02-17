@@ -7,6 +7,20 @@ This chapter will give you hints on how to handle version migration, in particul
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
 
+.. _changes-version-1.7.2:
+
+Version 1.7.2 (CURRENT DEV)
+---------------------------
+This is the current development version, not yet released.
+Changes thus far are relevant only for users of MapFish Print.
+
+MapFish Print related changes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The inclusion of all geometry data in the print payload is now configurable (#1006).
+MapFish Print should set the print configuration parameter ```with_geometry``` to ```False```
+to improve performance.
+
+
 .. _changes-version-1.7.1:
 
 Version 1.7.1
