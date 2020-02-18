@@ -420,10 +420,15 @@ class PlrWebservice(object):
             shapely.geometry.Point or shapely.geometry.Polygon: The transformed coordinates as
             Point.
         """
+        log.debug('----- Transforming Coordinates: -----')
+        log.debug('----- X/Y Coordinates: {0} -----'.format(coord))
         epsg = 'epsg:{0}'
         srid = Config.get('srid')
+        log.debug('----- srid from config (to_srs): {0} -----'.format(srid))
+        log.debug('----- srid from source (from_srs): {0} -----'.format(source_crs))
         rp = Reprojector()
         x, y = rp.transform(coord, from_srs=epsg.format(source_crs), to_srs=epsg.format(srid))
+        log.debug('----- X/Y coordinates after transformation: ({0}, {1}) -----'.format(x, y))
         return Point(x, y)
 
     def __get_egrid_response__(self, records):
