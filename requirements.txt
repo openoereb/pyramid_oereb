@@ -18,7 +18,7 @@ jsonschema==3.2.0
 pyproj==1.9.6  # rq.filter: <2.0.0
 pyreproj==1.0.1 # rq.filter: <2.0.0
 lxml==4.5.0
-requests==2.22.0
+requests==2.23.0
 geolink-formatter==1.5.0
 pyconizer==0.1.4
 tqdm==4.43.0
