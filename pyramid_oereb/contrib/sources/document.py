@@ -4,7 +4,7 @@ import logging
 from geolink_formatter import XML
 from requests.auth import HTTPBasicAuth
 
-from pyramid_oereb.lib.records.documents import LegalProvisionRecord, LawRecord
+from pyramid_oereb.lib.records.documents import LegalProvisionRecord, LawRecord, HintRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.sources import Base
@@ -24,7 +24,7 @@ class OEREBlexSource(Base):
 
         Keyword Args:
             host (uri): Host URL of OEREBlex (without /api/...).
-            version (str): The used geoLink schema version. Default is 1.1.0
+            version (str): The used geoLink schema version. Default is 1.2.0
             pass_version (bool): True to pass version in URL, false otherwise. Defaults is false.
             language (str): The language of the received data.
             canton (str): Canton code used for the documents.
@@ -46,7 +46,7 @@ class OEREBlexSource(Base):
 
         # Set default values for missing parameters
         if self._version is None:
-            self._version = '1.1.1'
+            self._version = '1.2.0'
         if self._pass_version is None:
             self._pass_version = False
 
@@ -136,18 +136,23 @@ class OEREBlexSource(Base):
         # Check mandatory attributes
         if document.title is None:
             raise AssertionError('Missing title for document #{0}'.format(document.id))
-        if document.enactment_date is None:
-            raise AssertionError('Missing enactment_date for document #{0}'.format(document.id))
-        if document.authority is None:
-            raise AssertionError('Missing authority for document #{0}'.format(document.id))
+        if document.doctype != 'notice':
+            if document.enactment_date is None:
+                raise AssertionError('Missing enactment_date for document #{0}'.format(document.id))
+            if document.authority is None:
+                raise AssertionError('Missing authority for document #{0}'.format(document.id))
 
         # Get document type
         if document.doctype == 'decree':
             document_class = LegalProvisionRecord
         elif document.doctype == 'edict':
             document_class = LawRecord
+        elif document.doctype == 'notice':
+            document_class = HintRecord
         else:
-            raise TypeError('Wrong doctype: expected decree or edict, got {0}'.format(document.doctype))
+            raise TypeError('Wrong doctype: expected decree, edict or notice, got {0}'.format(
+                document.doctype
+            ))
 
         # Convert referenced documents
         referenced_records = []
