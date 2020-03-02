@@ -17,7 +17,11 @@ Oereblex related changes
 ^^^^^^^^^^^^^^^^^^^^^^^^
 Pyramid Oereb now supports and uses by default geoLink schema version 1.2.0:
 
- * New doctype 'notice' (will be classified as 'HintRecord'). 'Notice' can have no authority nor enactment_date
+ * New doctype 'notice' (will be classified as 'HintRecord'). If you want to add related notice as
+   additional legal provision directly to the public law restriction, You can set the new oereblex
+   'related_notice_as_main' flag in the config of the project.
+ * 'Notice' can have no authority nor enactment_date. In this case, the enactment date will be
+   '01.01.1970' and the authority '-'.
  * New document attribute 'language' and file attribute 'description' are currently not used by
    pyramid_oereb but are now available to custom code, for example for document title generation.
 

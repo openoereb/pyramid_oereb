@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
+import datetime
 from geolink_formatter import XML
 from requests.auth import HTTPBasicAuth
 
@@ -30,6 +31,7 @@ class OEREBlexSource(Base):
             canton (str): Canton code used for the documents.
             mapping (dict of str): Mapping for optional attributes.
             related_decree_as_main (bool): Add related decrees directly to the public law restriction.
+            related_notice_as_main (bool): Add related notices directly to the public law restriction.
             proxy (dict of uri): Optional proxy configuration for HTTP and/or HTTPS.
             auth (dict of str): Optional credentials for basic authentication. Requires `username`
                 and `password` to be defined.
@@ -42,6 +44,7 @@ class OEREBlexSource(Base):
         self._pass_version = kwargs.get('pass_version')
         self._mapping = kwargs.get('mapping')
         self._related_decree_as_main = kwargs.get('related_decree_as_main')
+        self._related_notice_as_main = kwargs.get('related_notice_as_main')
         self._proxies = kwargs.get('proxy')
 
         # Set default values for missing parameters
@@ -101,6 +104,9 @@ class OEREBlexSource(Base):
             elif document.category == 'related' and document.doctype == 'decree' \
                     and self._related_decree_as_main:
                 main_documents.append(document)
+            elif document.category == 'related' and document.doctype == 'notice' \
+                    and self._related_notice_as_main:
+                main_documents.append(document)
             else:
                 referenced_documents.append(document)
 
@@ -133,14 +139,25 @@ class OEREBlexSource(Base):
             ))
             return []
 
+        enactment_date = document.enactment_date
+        authority = document.authority
+        if document.doctype == 'notice':
+            # Oereblex notices documents can have no enactment_date while it is require by pyramid_oereb to
+            # have one. Add a fake default one that is identifiable and always older than now (01.0.1.1970).
+            if enactment_date is None:
+                enactment_date = datetime.datetime(1970, 1, 1)
+            # Oereblex notices documents can have no `authority` while it is require by pyramid_oereb to
+            # have one. Replace None by '-' in this case.
+            if authority is None:
+                authority = '-'
+
         # Check mandatory attributes
         if document.title is None:
             raise AssertionError('Missing title for document #{0}'.format(document.id))
-        if document.doctype != 'notice':
-            if document.enactment_date is None:
-                raise AssertionError('Missing enactment_date for document #{0}'.format(document.id))
-            if document.authority is None:
-                raise AssertionError('Missing authority for document #{0}'.format(document.id))
+        if enactment_date is None:
+            raise AssertionError('Missing enactment_date for document #{0}'.format(document.id))
+        if authority is None:
+            raise AssertionError('Missing authority for document #{0}'.format(document.id))
 
         # Get document type
         if document.doctype == 'decree':
@@ -160,7 +177,7 @@ class OEREBlexSource(Base):
             referenced_records.extend(self._get_document_records(reference, language))
 
         # Create related office record
-        office = OfficeRecord({language: document.authority}, office_at_web=document.authority_url)
+        office = OfficeRecord({language: authority}, office_at_web=document.authority_url)
 
         # Check for available abbreviation
         abbreviation = {language: document.abbreviation} if document.abbreviation else None
@@ -169,7 +186,7 @@ class OEREBlexSource(Base):
         records = []
         for f in document.files:
             arguments = {'law_status': LawStatusRecord.from_config(u'inForce'),
-                         'published_from': document.enactment_date,
+                         'published_from': enactment_date,
                          'title': self._get_document_title(document, f, language),
                          'responsible_office': office,
                          'text_at_web': {language: f.href},
