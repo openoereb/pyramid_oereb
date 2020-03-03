@@ -50,7 +50,7 @@ class Geometry(object):
     def _parse_geom(self, geometry):
         geom_type = self._geometry_type.upper()
         geom = None
-        
+
         # Check for LV95 geometry
         for element in geometry:
             tag = get_tag(element)
