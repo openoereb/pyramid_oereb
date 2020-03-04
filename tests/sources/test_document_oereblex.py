@@ -172,6 +172,7 @@ def test_read_related_decree_as_main():
         }
         assert len(document.references) == 4
 
+
 def test_read_related_notice_as_main():
     with requests_mock.mock() as m:
         with open('./tests/resources/geolink_v1.2.0.xml', 'rb') as f:
@@ -184,10 +185,9 @@ def test_read_related_notice_as_main():
         assert isinstance(document, HintRecord)
         assert isinstance(document.responsible_office, OfficeRecord)
         assert document.responsible_office.name == {'de': '-'}
-        assert document.responsible_office.office_at_web == '-'
+        assert document.responsible_office.office_at_web is None
         assert document.published_from == datetime.date(1970, 1, 1)
         assert len(document.references) == 3
-
 
 
 def test_read_with_version_in_url():
