@@ -141,15 +141,18 @@ class OEREBlexSource(Base):
 
         enactment_date = document.enactment_date
         authority = document.authority
+        authority_url = document.authority_url
         if document.doctype == 'notice':
             # Oereblex notices documents can have no enactment_date while it is require by pyramid_oereb to
             # have one. Add a fake default one that is identifiable and always older than now (01.0.1.1970).
             if enactment_date is None:
-                enactment_date = datetime.datetime(1970, 1, 1)
-            # Oereblex notices documents can have no `authority` while it is require by pyramid_oereb to
-            # have one. Replace None by '-' in this case.
+                enactment_date = datetime.date(1970, 1, 1)
+            # Oereblex notices documents can have no `authority` nor authority_url while it is require by
+            # pyramid_oereb to have one. Replace None by '-' in this case.
             if authority is None:
                 authority = '-'
+            if authority_url is None:
+                authority_url = '-'
 
         # Check mandatory attributes
         if document.title is None:
@@ -177,7 +180,7 @@ class OEREBlexSource(Base):
             referenced_records.extend(self._get_document_records(reference, language))
 
         # Create related office record
-        office = OfficeRecord({language: authority}, office_at_web=document.authority_url)
+        office = OfficeRecord({language: authority}, office_at_web=authority_url)
 
         # Check for available abbreviation
         abbreviation = {language: document.abbreviation} if document.abbreviation else None

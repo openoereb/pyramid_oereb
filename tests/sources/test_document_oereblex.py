@@ -8,7 +8,7 @@ from geolink_formatter.entity import Document, File
 from requests.auth import HTTPBasicAuth
 
 from pyramid_oereb.contrib.sources.document import OEREBlexSource
-from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord
+from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord, HintRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from tests.mockrequest import MockParameter
 
@@ -171,6 +171,23 @@ def test_read_related_decree_as_main():
             'de': 'http://oereblex.example.com/api/attachments/4735'
         }
         assert len(document.references) == 4
+
+def test_read_related_notice_as_main():
+    with requests_mock.mock() as m:
+        with open('./tests/resources/geolink_v1.2.0.xml', 'rb') as f:
+            m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
+        source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
+                                related_notice_as_main=True)
+        source.read(MockParameter(), 100)
+        assert len(source.records) == 6
+        document = source.records[5]
+        assert isinstance(document, HintRecord)
+        assert isinstance(document.responsible_office, OfficeRecord)
+        assert document.responsible_office.name == {'de': '-'}
+        assert document.responsible_office.office_at_web == '-'
+        assert document.published_from == datetime.date(1970, 1, 1)
+        assert len(document.references) == 3
+
 
 
 def test_read_with_version_in_url():
