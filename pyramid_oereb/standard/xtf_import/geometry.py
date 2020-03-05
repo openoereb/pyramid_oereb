@@ -49,32 +49,42 @@ class Geometry(object):
 
     def _parse_geom(self, geometry):
         geom_type = self._geometry_type.upper()
+        geom = None
+
+        # Check for LV95 geometry
         for element in geometry:
             tag = get_tag(element)
-            geom = None
-            if tag == self.TAG_POINT_LV03:
-                geom = self._parse_point(element, 21781)
-            elif tag == self.TAG_POINT_LV95:
+            if tag == self.TAG_POINT_LV95:
                 geom = self._parse_point(element, 2056)
-            elif tag == self.TAG_LINE_LV03:
-                geom = self._parse_line(element, 21781)
             elif tag == self.TAG_LINE_LV95:
                 geom = self._parse_line(element, 2056)
-            elif tag == self.TAG_AREA_LV03:
-                geom = self._parse_area(element, 21781)
             elif tag == self.TAG_AREA_LV95:
                 geom = self._parse_area(element, 2056)
-            if geom is not None:
-                if geom_type == 'MULTIPOINT':
-                    geom = MultiPoint([geom])
-                elif geom_type == 'MULTILINESTRING':
-                    geom = MultiLineString([geom])
-                elif geom_type == 'MULTIPOLYGON':
-                    geom = MultiPolygon([geom])
-                elif geom_type == 'GEOMETRYCOLLECTION':
-                    geom = GeometryCollection([geom])
-                return from_shape(geom, srid=2056)
-        return None
+
+        # Check for LV03 geometry as fallback
+        if geom is None:
+            for element in geometry:
+                tag = get_tag(element)
+                if tag == self.TAG_POINT_LV03:
+                    geom = self._parse_point(element, 21781)
+                elif tag == self.TAG_LINE_LV03:
+                    geom = self._parse_line(element, 21781)
+                elif tag == self.TAG_AREA_LV03:
+                    geom = self._parse_area(element, 21781)
+
+        # Wrap in collection if necessary
+        if geom is not None:
+            if geom_type == 'MULTIPOINT':
+                geom = MultiPoint([geom])
+            elif geom_type == 'MULTILINESTRING':
+                geom = MultiLineString([geom])
+            elif geom_type == 'MULTIPOLYGON':
+                geom = MultiPolygon([geom])
+            elif geom_type == 'GEOMETRYCOLLECTION':
+                geom = GeometryCollection([geom])
+
+        # Return geometry or None
+        return None if geom is None else from_shape(geom, srid=2056)
 
     def _parse_coord(self, coord, srs):
         p = dict()
