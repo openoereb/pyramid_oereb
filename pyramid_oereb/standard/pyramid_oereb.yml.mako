@@ -189,6 +189,8 @@ pyramid_oereb:
     # document. Set this flag to true, if you want the related decree to be added as additional legal
     # provision directly to the public law restriction. This might have an impact on client side rendering.
     related_decree_as_main: false
+    # Same as related_decree_as_main but for related notice document.
+    related_notice_as_main: false
     # Proxy to be used for web requests
     # proxy:
     #   http:
