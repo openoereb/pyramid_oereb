@@ -165,7 +165,7 @@ drop-standard-tables: $(PYTHON_VENV)
 
 .PHONY: serve
 serve: install pyramid_oereb_standard.yml docker/config.yaml test-db/12-create.sql test-db/13-fill.sql
-	docker-compose up --build --remove-orphans
+	docker-compose up --build --remove-orphans -d
 
 pyramid_oereb_standard.yml: .venv/install-timestamp
 	$(VENV_BIN)create_standard_yaml$(PYTHON_BIN_POSTFIX) --database $(SQLALCHEMY_URL) --print_backend $(PRINT_BACKEND)
