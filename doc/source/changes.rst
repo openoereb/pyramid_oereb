@@ -7,9 +7,9 @@ This chapter will give you hints on how to handle version migration, in particul
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
 
-.. _changes-version-1.7.2:
+.. _changes-version-1.7.3:
 
-Version 1.7.2
+Version 1.7.3
 -------------
 This is a maintenance release, with some bug-fixes (#1005, #1012) and library dependency updates,
 and the following new functionality:
@@ -30,7 +30,7 @@ pyramid_oereb now supports and uses by default the Oereblex geoLink schema versi
 
 MapFish Print related changes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-If you are using MapFish Print, you must update your print templates and configuration to v1.7.2.
+If you are using MapFish Print, you must update your print templates and configuration to v1.7.3.
 The following improvements have been made:
 
  * The inclusion of all geometry data in the print payload is now configurable (#1006).

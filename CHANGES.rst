@@ -2,11 +2,15 @@
 Changelog
 ---------
 
-1.7.2
+1.7.3
 *****
 - Fix import of federal data for cases including both coordinate reference systems (#1011)
 - Oereblex: support geolink schema version 1.2.0 (#1010)
 - Print: make geometry inclusion optional (performance improvement for MapFish Print) (#1006)
+
+1.7.2
+*****
+- Test release only; not an official release.
 
 1.7.1
 *****
