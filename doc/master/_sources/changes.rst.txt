@@ -9,32 +9,35 @@ to adapt in your project configuration, database etc. when upgrading to a new ve
 
 .. _changes-version-1.7.2:
 
-Version 1.7.2 (CURRENT DEV)
----------------------------
-This is the current development version, not yet released.
+Version 1.7.2
+-------------
+This is a maintenance release, with some bug-fixes (#1005, #1012) and library dependency updates,
+and the following new functionality:
 
 Oereblex related changes
 ^^^^^^^^^^^^^^^^^^^^^^^^
-Pyramid Oereb now supports and uses by default geoLink schema version 1.2.0:
+pyramid_oereb now supports and uses by default the Oereblex geoLink schema version 1.2.0 (#1010):
 
- * New doctype 'notice' (will be classified as 'HintRecord'). If you want to add related notice as
-   additional legal provision directly to the public law restriction, you can set the new oereblex
+ * New doctype 'notice' (will be classified as 'HintRecord'). If you want to add related notices as
+   additional legal provisions directly on public law restrictions, you should set the new oereblex
    'related_notice_as_main' flag in the config of the project.
  * 'Notice' can have no authority nor enactment_date. In this case, the enactment date will be
    '01.01.1970' and the authority '-'.
- * 'Notice' can have no authority_at_web. That was not supported by MapFish Print. If you use MapFish Print
-   with Oereblex 1.2.0, you must update your MapFish Print instance.
- * New document attribute 'language' and file attribute 'description' are currently not used by
-   pyramid_oereb but are now available to custom code, for example for document title generation.
+ * 'Notice' can have no authority_at_web. In previous versions, this was not supported by MapFish Print.
+   If you use MapFish Print with Oereblex 1.2.0, you must update your MapFish Print templates.
+ * The new document attribute 'language' and the new file attribute 'description' are currently not used by
+   pyramid_oereb, but are now available to custom code, for example for document title generation.
 
 MapFish Print related changes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The inclusion of all geometry data in the print payload is now configurable (#1006).
-MapFish Print should set the print configuration parameter ```with_geometry``` to ```False```
-to improve performance.
+If you are using MapFish Print, you must update your print templates and configuration to v1.7.2.
+The following improvements have been made:
 
-It is now possible to print reports with missing OfficeAtWeb information in documents
-(OfficeAtWeb is an optional attribute in the specification).
+ * The inclusion of all geometry data in the print payload is now configurable (#1006).
+   MapFish Print users should set the print configuration parameter ```with_geometry``` to ```False```
+   to improve performance.
+ * It is now allowed to print reports with missing OfficeAtWeb information in documents, because
+   OfficeAtWeb is an optional attribute in the specification (#62).
 
 
 .. _changes-version-1.7.1:

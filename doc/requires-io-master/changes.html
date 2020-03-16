@@ -95,7 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-7-2-current-dev">Version 1.7.2 (CURRENT DEV)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-7-2">Version 1.7.2</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#oereblex-related-changes">Oereblex related changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mapfish-print-related-changes">MapFish Print related changes</a></li>
 </ul>
@@ -227,33 +227,40 @@
 <span id="changes"></span><h1>Changes/Hints for migration<a class="headerlink" href="#changes-hints-for-migration" title="Permalink to this headline">¶</a></h1>
 <p>This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.</p>
-<div class="section" id="version-1-7-2-current-dev">
-<span id="changes-version-1-7-2"></span><h2>Version 1.7.2 (CURRENT DEV)<a class="headerlink" href="#version-1-7-2-current-dev" title="Permalink to this headline">¶</a></h2>
-<p>This is the current development version, not yet released.</p>
+<div class="section" id="version-1-7-2">
+<span id="changes-version-1-7-2"></span><h2>Version 1.7.2<a class="headerlink" href="#version-1-7-2" title="Permalink to this headline">¶</a></h2>
+<p>This is a maintenance release, with some bug-fixes (#1005, #1012) and library dependency updates,
+and the following new functionality:</p>
 <div class="section" id="oereblex-related-changes">
 <h3>Oereblex related changes<a class="headerlink" href="#oereblex-related-changes" title="Permalink to this headline">¶</a></h3>
-<p>Pyramid Oereb now supports and uses by default geoLink schema version 1.2.0:</p>
+<p>pyramid_oereb now supports and uses by default the Oereblex geoLink schema version 1.2.0 (#1010):</p>
 <blockquote>
 <div><ul class="simple">
-<li>New doctype &#8216;notice&#8217; (will be classified as &#8216;HintRecord&#8217;). If you want to add related notice as
-additional legal provision directly to the public law restriction, you can set the new oereblex
+<li>New doctype &#8216;notice&#8217; (will be classified as &#8216;HintRecord&#8217;). If you want to add related notices as
+additional legal provisions directly on public law restrictions, you should set the new oereblex
 &#8216;related_notice_as_main&#8217; flag in the config of the project.</li>
 <li>&#8216;Notice&#8217; can have no authority nor enactment_date. In this case, the enactment date will be
 &#8216;01.01.1970&#8217; and the authority &#8216;-&#8216;.</li>
-<li>&#8216;Notice&#8217; can have no authority_at_web. That was not supported by MapFish Print. If you use MapFish Print
-with Oereblex 1.2.0, you must update your MapFish Print instance.</li>
-<li>New document attribute &#8216;language&#8217; and file attribute &#8216;description&#8217; are currently not used by
-pyramid_oereb but are now available to custom code, for example for document title generation.</li>
+<li>&#8216;Notice&#8217; can have no authority_at_web. In previous versions, this was not supported by MapFish Print.
+If you use MapFish Print with Oereblex 1.2.0, you must update your MapFish Print templates.</li>
+<li>The new document attribute &#8216;language&#8217; and the new file attribute &#8216;description&#8217; are currently not used by
+pyramid_oereb, but are now available to custom code, for example for document title generation.</li>
 </ul>
 </div></blockquote>
 </div>
 <div class="section" id="mapfish-print-related-changes">
 <h3>MapFish Print related changes<a class="headerlink" href="#mapfish-print-related-changes" title="Permalink to this headline">¶</a></h3>
-<p>The inclusion of all geometry data in the print payload is now configurable (#1006).
-MapFish Print should set the print configuration parameter <code class="docutils literal"><span class="pre">`with_geometry`</span></code> to <code class="docutils literal"><span class="pre">`False`</span></code>
-to improve performance.</p>
-<p>It is now possible to print reports with missing OfficeAtWeb information in documents
-(OfficeAtWeb is an optional attribute in the specification).</p>
+<p>If you are using MapFish Print, you must update your print templates and configuration to v1.7.2.
+The following improvements have been made:</p>
+<blockquote>
+<div><ul class="simple">
+<li>The inclusion of all geometry data in the print payload is now configurable (#1006).
+MapFish Print users should set the print configuration parameter <code class="docutils literal"><span class="pre">`with_geometry`</span></code> to <code class="docutils literal"><span class="pre">`False`</span></code>
+to improve performance.</li>
+<li>It is now allowed to print reports with missing OfficeAtWeb information in documents, because
+OfficeAtWeb is an optional attribute in the specification (#62).</li>
+</ul>
+</div></blockquote>
 </div>
 </div>
 <div class="section" id="version-1-7-1">
@@ -1130,6 +1137,7 @@ and why please have a detailed look at the documentation of the used package
             <dd><a href="../v1.6.0/changes.html">v1.6.0</a></dd>
             <dd><a href="../v1.7.0/changes.html">v1.7.0</a></dd>
             <dd><a href="../v1.7.1/changes.html">v1.7.1</a></dd>
+            <dd><a href="../v1.7.2/changes.html">v1.7.2</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
