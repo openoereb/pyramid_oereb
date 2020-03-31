@@ -48,8 +48,8 @@ def test_copy_legend_at_web_from_reference_wms():
     assert 'REQUEST=GetLegendGraphic' in result
     assert 'VERSION=1.1.1' in result
     assert 'SLD_VERSION=1.1.0' not in result
-    
-    
+
+
 def test_copy_legend_at_web_from_reference_wms_1_3_0():
     view_service = ViewService('foo', 'bar', 'baz')
     url = 'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&SRS=EPSG:21781' \
