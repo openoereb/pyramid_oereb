@@ -47,3 +47,19 @@ def test_copy_legend_at_web_from_reference_wms():
     assert 'FORMAT=image%2Fpng' in result
     assert 'REQUEST=GetLegendGraphic' in result
     assert 'VERSION=1.1.1' in result
+    assert 'SLD_VERSION=1.1.0' not in result
+    
+    
+def test_copy_legend_at_web_from_reference_wms_1_3_0():
+    view_service = ViewService('foo', 'bar', 'baz')
+    url = 'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&SRS=EPSG:21781' \
+          '&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
+          '&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
+    result = view_service._copy_legend_at_web_from_reference_wms(url)
+    assert 'https://wms.geo.admin.ch/?' in result
+    assert 'LAYER=ch.bav.kataster-belasteter-standorte-oev.oereb' in result
+    assert 'SERVICE=WMS' in result
+    assert 'FORMAT=image%2Fpng' in result
+    assert 'REQUEST=GetLegendGraphic' in result
+    assert 'VERSION=1.3.0' in result
+    assert 'SLD_VERSION=1.1.0' in result
