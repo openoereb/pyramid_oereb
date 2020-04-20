@@ -57,6 +57,10 @@ class ViewService(object):
         })
         for key in query:
             query[key] = query[key][0]
+        if query.get('VERSION') == '1.3.0':
+            query.update({
+                'SLD_VERSION': '1.1.0'
+            })
         return urlparse.urlunparse((
             url.scheme,
             url.netloc,
