@@ -36,7 +36,7 @@ else
 endif
 PIP_UPDATE = $(VENV_BIN)pip install --upgrade pip setuptools
 
-SPHINXOPTS =
+SPHINXOPTS = -D html_extra_path='../files'
 SPHINXBUILD = $(VENV_BIN)sphinx-build$(PYTHON_BIN_POSTFIX)
 SPHINXPROJ = OEREB
 SOURCEDIR = doc/source
