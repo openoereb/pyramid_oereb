@@ -124,8 +124,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'pyramid_oereb'
-copyright = u'2017-2019, pyramid_oereb devs'
-author = u'pyramid_oereb devs'
+copyright = u'2017-2020, openoereb community'
+author = u'openoereb community'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
