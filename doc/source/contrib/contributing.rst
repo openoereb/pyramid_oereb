@@ -12,12 +12,12 @@ these meetings:
 
 User Group 29.04.20
 -------------------
-- `Development overview <../Usergroup20200429_dev_summary.pdf>`__
+- `Release overview <../Usergroup20200429_dev_summary.pdf>`__
 
 
 User Group 14.05.19
 -------------------
-- `Development overview <../Usergroup20190514_dev_summary.pdf>`__
+- `Release overview <../Usergroup20190514_dev_summary.pdf>`__
 
 
 Contributing to Documentation
