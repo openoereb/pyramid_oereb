@@ -180,13 +180,18 @@ class PlrRecord(EmptyPlrRecord):
         tested_geometries = []
         inside = False
         for geometry in self.geometries:
-            if geometry.calculate(
-                    real_estate,
-                    self.min_length, self.min_area,
-                    self.length_unit, self.area_unit
-            ):
-                tested_geometries.append(geometry)
-                inside = True
+            try:
+                if geometry.calculate(
+                        real_estate,
+                        self.min_length, self.min_area,
+                        self.length_unit, self.area_unit
+                ):
+                    tested_geometries.append(geometry)
+                    inside = True
+            except Exception as ex:
+                log.info("PLR geometry check not possible, plr is {}, geometry.geom is {}"
+                         .format(self, geometry.geom))
+                raise ex
         self.geometries = tested_geometries
 
         # Points

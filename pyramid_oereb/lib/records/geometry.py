@@ -131,7 +131,17 @@ class GeometryRecord(object):
         polygon_types = geometry_types.get('polygon').get('types')
         point_types = geometry_types.get('point').get('types')
         if self.published:
-            result = self._extract_collection(self.geom.intersection(real_estate.limit))
+            try:
+                result = self._extract_collection(self.geom.intersection(real_estate.limit))
+            except Exception as ex:
+                dedicated_msg = "Geometry intersection failed with real estate {egrid}." \
+                                "".format(
+                                    egrid=real_estate.egrid
+                                )
+                log.error(ex)
+                log.error(dedicated_msg)
+                raise AttributeError(dedicated_msg)
+
             if not result.is_empty:
                 if self.geom.type not in point_types + line_types + polygon_types:
                     supported_types = ', '.join(point_types + line_types + polygon_types)
