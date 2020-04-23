@@ -35,6 +35,7 @@ class OEREBlexSource(Base):
             proxy (dict of uri): Optional proxy configuration for HTTP and/or HTTPS.
             auth (dict of str): Optional credentials for basic authentication. Requires `username`
                 and `password` to be defined.
+            validation (bool): Turn XML validation on/off. Default is true.
 
         """
         super(OEREBlexSource, self).__init__()
@@ -67,7 +68,11 @@ class OEREBlexSource(Base):
         if not (isinstance(self._canton, str) and len(self._canton) == 2):
             raise AssertionError('canton has to be string of two characters, e.g. "BL" or "NE"')
 
-        self._parser = XML(host_url=kwargs.get('host'), version=self._version)
+        if kwargs.get('validation') is not None:
+            xsd_validation = kwargs.get('validation')
+        else:
+            xsd_validation = True
+        self._parser = XML(host_url=kwargs.get('host'), version=self._version, xsd_validation=xsd_validation)
         if self._parser.host_url is None:
             raise AssertionError('host_url has to be defined')
 
