@@ -4,9 +4,21 @@
 Contributing to pyramid\_oereb
 ==============================
 
-Contributor License Agreement
-=============================
-Please follow the `instructions <https://github.com/openoereb/pyramid_oereb/tree/master/cla>`__ and sign the CLA.
+Community
+=========
+If you want to know more about pyramid_oereb, please get in touch with the open oereb community.
+The community organises regular user group meetings. Here is an extract of points discussed at
+these meetings:
+
+User Group 29.04.20
+-------------------
+- `Release overview <../Usergroup20200429_dev_summary.pdf>`__
+
+
+User Group 14.05.19
+-------------------
+- `Release overview <../Usergroup20190514_dev_summary.pdf>`__
+
 
 Contributing to Documentation
 =============================
@@ -33,6 +45,9 @@ The documentation is built using `Sphinx <http://sphinx-doc.org/>`__, so the cod
 
 Contributing to the Code
 ========================
+
+If you plan to contribute source code,
+please follow the `instructions <https://github.com/openoereb/pyramid_oereb/tree/master/cla>`__ and sign the CLA.
 
 Create a local development instance
 -----------------------------------
