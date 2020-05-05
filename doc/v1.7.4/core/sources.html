@@ -1,0 +1,661 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Sources &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'en',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FAQ" href="../faq.html" />
+    <link rel="prev" title="Records" href="records.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes/Hints for migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contrib/index.html">Contribution</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Core</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="readers.html">Readers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="records.html">Records</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Sources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#base"><em>Base</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basedatabasesource"><em>BaseDatabaseSource</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#addressbasesource"><em>AddressBaseSource</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exclusionofliabilitybasesource"><em>ExclusionOfLiabilityBaseSource</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#glossarybasesource"><em>GlossaryBaseSource</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#legendbasesource"><em>LegendBaseSource</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#municipalitybasesource"><em>MunicipalityBaseSource</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plrbasesource"><em>PlrBaseSource</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#realestatebasesource"><em>RealEstateBaseSource</em></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Core</a> &raquo;</li>
+        
+      <li>Sources</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sources">
+<span id="base-sources"></span><h1>Sources<a class="headerlink" href="#sources" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-pyramid_oereb.lib.sources"><span id="api-pyramid-oereb-lib-sources"></span></span><p>This is package provides the minimum requirements on the classes which can be used as a source.</p>
+<div class="section" id="base">
+<span id="api-pyramid-oereb-lib-sources-base"></span><h2><em>Base</em><a class="headerlink" href="#base" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.lib.sources.Base">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.sources.</code><code class="descname">Base</code><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources.html#Base"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.Base" title="Permalink to this definition">¶</a></dt>
+<dd><p>The basic source class. This is not meant to be used directly as a source at runtime. But more as a basic
+class for inherit in special designed classes.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.sources.Base.records">
+<code class="descname">records</code><a class="headerlink" href="#pyramid_oereb.lib.sources.Base.records" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list</em> &#8211; The list which will be filled up with records in the process.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.Base.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.lib.sources.Base.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="basedatabasesource">
+<span id="api-pyramid-oereb-lib-sources-basedatabasesource"></span><h2><em>BaseDatabaseSource</em><a class="headerlink" href="#basedatabasesource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.lib.sources.BaseDatabaseSource">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.sources.</code><code class="descname">BaseDatabaseSource</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources.html#BaseDatabaseSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.BaseDatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>The plug for addresses which uses a database as source.</p>
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.BaseDatabaseSource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources.html#BaseDatabaseSource.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.BaseDatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
+<li><strong>db_connection</strong> (<em>str</em>) &#8211; A rfc1738 conform database connection string in the form of:
+<code class="docutils literal"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></li>
+<li><strong>model</strong> (<em>str</em>) &#8211; A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.lib.sources.address"><span id="api-pyramid-oereb-lib-sources-address"></span></span></div>
+<div class="section" id="addressbasesource">
+<span id="api-pyramid-oereb-lib-sources-address-addressbasesource"></span><h2><em>AddressBaseSource</em><a class="headerlink" href="#addressbasesource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.lib.sources.address.AddressBaseSource">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.sources.address.</code><code class="descname">AddressBaseSource</code><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/address.html#AddressBaseSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.address.AddressBaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for address sources.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.sources.address.AddressBaseSource.records">
+<code class="descname">records</code><a class="headerlink" href="#pyramid_oereb.lib.sources.address.AddressBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.address.AddressRecord</em> &#8211; List of address records.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.address.AddressBaseSource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.lib.sources.address.AddressBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.address.AddressBaseSource.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>street_name</em>, <em>zip_code</em>, <em>street_number</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/address.html#AddressBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.address.AddressBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Every address source has to implement a read method. This method must accept the three parameters. If
+you want adapt to your own source for addresses, this is the point where to hook in.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
+<li><strong>street_name</strong> (<em>unicode</em>) &#8211; The name of the street for the desired address.</li>
+<li><strong>zip_code</strong> (<em>int</em>) &#8211; The postal zipcode for the desired address.</li>
+<li><strong>street_number</strong> (<em>str</em>) &#8211; The house or so called street number of the desired address.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.lib.sources.exclusion_of_liability"><span id="api-pyramid-oereb-lib-sources-exclusion-of-liability"></span></span></div>
+<div class="section" id="exclusionofliabilitybasesource">
+<span id="api-pyramid-oereb-lib-sources-exclusion-of-liability-exclusionofliabilitybasesource"></span><h2><em>ExclusionOfLiabilityBaseSource</em><a class="headerlink" href="#exclusionofliabilitybasesource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityBaseSource">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.sources.exclusion_of_liability.</code><code class="descname">ExclusionOfLiabilityBaseSource</code><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/exclusion_of_liability.html#ExclusionOfLiabilityBaseSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityBaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for exclusion of liability sources.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityBaseSource.records">
+<code class="descname">records</code><a class="headerlink" href="#pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord</em> &#8211; List
+of exclusion of liability records.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityBaseSource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityBaseSource.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/exclusion_of_liability.html#ExclusionOfLiabilityBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.exclusion_of_liability.ExclusionOfLiabilityBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Every exclusion of liability source has to implement a read method. This method must accept no
+parameters. Because it should deliver all items available.
+If you want adapt to your own source for exclusion of liabilities, this is the point where to hook in.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.lib.sources.glossary"><span id="api-pyramid-oereb-lib-sources-glossary"></span></span></div>
+<div class="section" id="glossarybasesource">
+<span id="api-pyramid-oereb-lib-sources-glossary-glossarybasesource"></span><h2><em>GlossaryBaseSource</em><a class="headerlink" href="#glossarybasesource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.lib.sources.glossary.GlossaryBaseSource">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.sources.glossary.</code><code class="descname">GlossaryBaseSource</code><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/glossary.html#GlossaryBaseSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.glossary.GlossaryBaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for address sources.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.sources.glossary.GlossaryBaseSource.records">
+<code class="descname">records</code><a class="headerlink" href="#pyramid_oereb.lib.sources.glossary.GlossaryBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.glossary.GlossaryRecord</em> &#8211; List of glossary records.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.glossary.GlossaryBaseSource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.lib.sources.glossary.GlossaryBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.glossary.GlossaryBaseSource.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/glossary.html#GlossaryBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.glossary.GlossaryBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Every glossary source has to implement a read method. This method must accept no parameters. Because
+it should deliver all items available.
+If you want adapt to your own source for glossaries, this is the point where to hook in.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.lib.sources.legend"><span id="api-pyramid-oereb-lib-sources-legend"></span></span></div>
+<div class="section" id="legendbasesource">
+<span id="api-pyramid-oereb-lib-sources-legend-legendbasesource"></span><h2><em>LegendBaseSource</em><a class="headerlink" href="#legendbasesource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.lib.sources.legend.LegendBaseSource">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.sources.legend.</code><code class="descname">LegendBaseSource</code><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/legend.html#LegendBaseSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.legend.LegendBaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for exclusion of liability sources.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.sources.legend.LegendBaseSource.records">
+<code class="descname">records</code><a class="headerlink" href="#pyramid_oereb.lib.sources.legend.LegendBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.view_service.LegendEntryRecord</em> &#8211; List of legend entry
+records.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.legend.LegendBaseSource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.lib.sources.legend.LegendBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.legend.LegendBaseSource.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/legend.html#LegendBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.legend.LegendBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Every legend entry source has to implement a read method. If you want adapt to your own source for
+legend entries, this is the point where to hook in.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
+<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; Arbitrary keyword arguments.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.lib.sources.municipality"><span id="api-pyramid-oereb-lib-sources-municipality"></span></span></div>
+<div class="section" id="municipalitybasesource">
+<span id="api-pyramid-oereb-lib-sources-municipality-municipalitybasesource"></span><h2><em>MunicipalityBaseSource</em><a class="headerlink" href="#municipalitybasesource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.sources.municipality.</code><code class="descname">MunicipalityBaseSource</code><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/municipality.html#MunicipalityBaseSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for municipality sources.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource.records">
+<code class="descname">records</code><a class="headerlink" href="#pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.municipality.MunicipalityRecord</em> &#8211; List of municipality
+records.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>fosnr=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/municipality.html#MunicipalityBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.municipality.MunicipalityBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Every municipality source has to implement a read method. This method must accept no parameters.
+Because it should deliver all items available.
+If you want adapt to your own source for municipalities, this is the point where to hook in.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
+<li><strong>fosnr</strong> (<em>int</em><em> or </em><em>None</em>) &#8211; The federal number of the municipality defined by the statistics office.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.lib.sources.plr"><span id="api-pyramid-oereb-lib-sources-plr"></span></span></div>
+<div class="section" id="plrbasesource">
+<span id="api-pyramid-oereb-lib-sources-plr-plrbasesource"></span><h2><em>PlrBaseSource</em><a class="headerlink" href="#plrbasesource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.lib.sources.plr.PlrBaseSource">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.sources.plr.</code><code class="descname">PlrBaseSource</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/plr.html#PlrBaseSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrBaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for public law restriction sources.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.sources.plr.PlrBaseSource.records">
+<code class="descname">records</code><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.plr.EmptyPlrRecord</em> &#8211; List of public law restriction
+records.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.sources.plr.PlrBaseSource.datasource">
+<code class="descname">datasource</code><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrBaseSource.datasource" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.embeddable.DatasourceRecord</em> &#8211; List of data source
+records used for the additional data in flavour <cite>embeddable</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.plr.PlrBaseSource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/plr.html#PlrBaseSource.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<em>str</em>) &#8211; The name. You are free to choose one.</li>
+<li><strong>code</strong> (<em>str</em>) &#8211; The official code. Regarding to the federal specifications.</li>
+<li><strong>geometry_type</strong> (<em>str</em>) &#8211; The geometry type. Possible are: POINT, POLYGON, LINESTRING,
+GEOMETRYCOLLECTION</li>
+<li><strong>thresholds</strong> (<em>dict</em>) &#8211; The configuration of limits and units used for processing.</li>
+<li><strong>text</strong> (<em>dict of str</em>) &#8211; The speaking title. It must be a dictionary containing language (as
+configured) as key and text as value.</li>
+<li><strong>language</strong> (<em>str</em>) &#8211; The language this public law restriction is originally shipped with.</li>
+<li><strong>federal</strong> (<em>bool</em>) &#8211; Switch if it is a federal topic. This will be taken into account in processing
+steps.</li>
+<li><strong>source</strong> (<em>dict</em>) &#8211; The configuration dictionary of the public law restriction</li>
+<li><strong>hooks</strong> (<em>dict of str</em>) &#8211; The hook methods: get_symbol, get_symbol_ref. They have to be provided as
+dotted string for further use with dotted name resolver of pyramid package.</li>
+<li><strong>law_status</strong> (<em>dict of str</em>) &#8211; The multiple match configuration to provide more flexible use of the
+federal specified classifiers &#8216;inForce&#8217; and &#8216;runningModifications&#8217;.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.sources.plr.PlrBaseSource.info">
+<code class="descname">info</code><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrBaseSource.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the info dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The info dictionary.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.plr.PlrBaseSource.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>real_estate</em>, <em>bbox</em>, <em>position=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/plr.html#PlrBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.plr.PlrBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Every public law restriction source has to implement a read method. This method must accept the two
+key word parameters. If you want adapt to your own source for real estates, this is the point where
+to hook in.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
+<li><strong>real_estate</strong> (<a class="reference internal" href="records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real estate which is
+used as filter to find all related public law restrictions.</li>
+<li><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The bounding box which is used as a pre-filter to find
+all public law restrictions. This is related to the fact that we need to provide not only the
+public law restrictions that are related to the real estate but also the ones which are in
+the visible extent of the map.</li>
+<li><strong>position</strong> (<em>int</em><em> or </em><em>None</em>) &#8211; relative position of the plr (within a list of plrs)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.lib.sources.real_estate"><span id="api-pyramid-oereb-lib-sources-real-estate"></span></span></div>
+<div class="section" id="realestatebasesource">
+<span id="api-pyramid-oereb-lib-sources-real-estate-realestatebasesource"></span><h2><em>RealEstateBaseSource</em><a class="headerlink" href="#realestatebasesource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.lib.sources.real_estate.</code><code class="descname">RealEstateBaseSource</code><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/real_estate.html#RealEstateBaseSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for real estate sources.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource.records">
+<code class="descname">records</code><a class="headerlink" href="#pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.real_estate.RealEstateRecord</em> &#8211; List of real estate records.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>nb_ident=None</em>, <em>number=None</em>, <em>egrid=None</em>, <em>geometry=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/sources/real_estate.html#RealEstateBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Every real estate source has to implement a read method. This method must accept the four key word
+parameters. If you want adapt to your own source for real estates, this is the point where to hook in.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
+<li><strong>nb_ident</strong> (<em>int</em><em> or </em><em>None</em>) &#8211; The identification number of the desired real estate. This
+parameter is directly related to the number parameter and both must be set!
+Combination must deliver only one result or must raise an error.</li>
+<li><strong>number</strong> (<em>str</em><em> or </em><em>None</em>) &#8211; The number of parcel or also known real estate. This parameter
+is directly related to the nb_ident parameter and both must be set!
+Combination must deliver only one result or must raise an error.</li>
+<li><strong>or None</strong><strong>)</strong> (<em>(</em><em>str</em>) &#8211; The unique identifier of the desired real estate. This must deliver only one
+result or must raise an error.</li>
+<li><strong>geometry</strong> (<em>str</em>) &#8211; A geometry as WKT string which is used to obtain intersected real
+estates. This may deliver several results.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="records.html" class="btn btn-neutral float-left" title="Records" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2020, openoereb community
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: v1.7.4
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="../../v1.3.1/core/sources.html">v1.3.1</a></dd>
+            <dd><a href="../../v1.4.0/core/sources.html">v1.4.0</a></dd>
+            <dd><a href="../../v1.4.1/core/sources.html">v1.4.1</a></dd>
+            <dd><a href="../../v1.4.2/core/sources.html">v1.4.2</a></dd>
+            <dd><a href="../../v1.4.3/core/sources.html">v1.4.3</a></dd>
+            <dd><a href="../../v1.5.0/core/sources.html">v1.5.0</a></dd>
+            <dd><a href="../../v1.5.1/core/sources.html">v1.5.1</a></dd>
+            <dd><a href="../../v1.6.0/core/sources.html">v1.6.0</a></dd>
+            <dd><a href="../../v1.7.0/core/sources.html">v1.7.0</a></dd>
+            <dd><a href="../../v1.7.1/core/sources.html">v1.7.1</a></dd>
+            <dd><a href="../../v1.7.3/core/sources.html">v1.7.3</a></dd>
+            <dd><a href="sources.html">v1.7.4</a></dd>
+        </dl>
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="../../master/core/sources.html">master</a></dd>
+            <dd><a href="../../requires-io-master/core/sources.html">requires-io-master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
