@@ -199,6 +199,8 @@ pyramid_oereb:
     # auth:
     #   username:
     #   password:
+    # Enable/disable XML validation
+    validation: true
 
   # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
   # will be directly used for producing the extract output.
