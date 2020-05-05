@@ -7,5 +7,5 @@ pycodestyle==2.5.0
 psycopg2==2.8.5
 McCabe==0.6.1
 c2c.template==2.0.5  # rq.filter: <= 2.0.5
-requests-mock==1.7.0
+requests-mock==1.8.0
 -e .
