@@ -132,6 +132,7 @@ class GeometryRecord(object):
         point_types = geometry_types.get('point').get('types')
         if self.published:
             result = self._extract_collection(self.geom.intersection(real_estate.limit))
+            # TODO upon update to Shapely 1.7, a check for result.is_emtpy will be needed (see PR#1037)
             # differentiate between Points and MultiPoint
             if self.geom.type not in point_types + line_types + polygon_types:
                 supported_types = ', '.join(point_types + line_types + polygon_types)
