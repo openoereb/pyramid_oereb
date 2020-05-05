@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+1.7.4
+*****
+- Federal data import script: add SLD_VERSION for legend_at_web (#1022)
+- Oereblex integration: add optional configuration 'validation' (#1034)
+- Restrict the version of the Shapely library used to 1.6 (#1037)
+
 1.7.3
 *****
 - Fix import of federal data for cases including both coordinate reference systems (#1011)
