@@ -7,6 +7,19 @@ This chapter will give you hints on how to handle version migration, in particul
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
 
+.. _changes-version-1.7.4:
+
+Version 1.7.4
+-------------
+This is a maintenance release with the following changes:
+
+ * Federal data import script: add SLD_VERSION for legend_at_web (#1022)
+ * Oereblex integration: add optional configuration 'validation' to be able to deactivate
+   XML validation (#1034)
+ * Restrict the version of the Shapely library used to 1.6 (#1037), to avoid problems with
+   geometries which are valid according to INTERLIS but invalid according to OGC.
+
+
 .. _changes-version-1.7.3:
 
 Version 1.7.3
