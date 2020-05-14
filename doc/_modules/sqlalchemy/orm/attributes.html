@@ -231,9 +231,9 @@
 
 <span class="sd">        :class:`.MapperProperty`</span>
 
-<span class="sd">        :attr:`.Mapper.all_orm_descriptors`</span>
+<span class="sd">        :attr:`_orm.Mapper.all_orm_descriptors`</span>
 
-<span class="sd">        :attr:`.Mapper.attrs`</span>
+<span class="sd">        :attr:`_orm.Mapper.attrs`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">is_attribute</span> <span class="o">=</span> <span class="kc">True</span>
@@ -290,12 +290,13 @@
 
 <span class="sd">        * If the attribute is a column-mapped property, i.e.</span>
 <span class="sd">          :class:`.ColumnProperty`, which is mapped directly</span>
-<span class="sd">          to a schema-level :class:`.Column` object, this attribute</span>
+<span class="sd">          to a schema-level :class:`_schema.Column` object, this attribute</span>
 <span class="sd">          will return the :attr:`.SchemaItem.info` dictionary associated</span>
-<span class="sd">          with the core-level :class:`.Column` object.</span>
+<span class="sd">          with the core-level :class:`_schema.Column` object.</span>
 
 <span class="sd">        * If the attribute is a :class:`.ColumnProperty` but is mapped to</span>
-<span class="sd">          any other kind of SQL expression other than a :class:`.Column`,</span>
+<span class="sd">          any other kind of SQL expression other than a</span>
+<span class="sd">          :class:`_schema.Column`,</span>
 <span class="sd">          the attribute will refer to the :attr:`.MapperProperty.info`</span>
 <span class="sd">          dictionary associated directly with the :class:`.ColumnProperty`,</span>
 <span class="sd">          assuming the SQL expression itself does not have its own ``.info``</span>
@@ -310,7 +311,7 @@
 <span class="sd">        * To access the :attr:`.MapperProperty.info` dictionary of the</span>
 <span class="sd">          :class:`.MapperProperty` unconditionally, including for a</span>
 <span class="sd">          :class:`.ColumnProperty` that&#39;s associated directly with a</span>
-<span class="sd">          :class:`.schema.Column`, the attribute can be referred to using</span>
+<span class="sd">          :class:`_schema.Column`, the attribute can be referred to using</span>
 <span class="sd">          :attr:`.QueryableAttribute.property` attribute, as</span>
 <span class="sd">          ``MyClass.someattribute.property.info``.</span>
 
@@ -327,7 +328,7 @@
     <span class="k">def</span> <span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return an inspection instance representing the parent.</span>
 
-<span class="sd">        This will be either an instance of :class:`.Mapper`</span>
+<span class="sd">        This will be either an instance of :class:`_orm.Mapper`</span>
 <span class="sd">        or :class:`.AliasedInsp`, depending upon the nature</span>
 <span class="sd">        of the parent entity which this attribute is associated</span>
 <span class="sd">        with.</span>
@@ -344,7 +345,7 @@
 
     <span class="k">def</span> <span class="nf">_query_clause_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;like __clause_element__(), but called specifically</span>
-<span class="sd">        by :class:`.Query` to allow special behavior.&quot;&quot;&quot;</span>
+<span class="sd">        by :class:`_query.Query` to allow special behavior.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="o">.</span><span class="n">_query_clause_element</span><span class="p">()</span>
 
@@ -602,10 +603,10 @@
 
 <span class="sd">    .. versionadded:: 0.9.0</span>
 
-<span class="sd">    :var impl: The :class:`.AttributeImpl` which is the current event</span>
+<span class="sd">    :attribute impl: The :class:`.AttributeImpl` which is the current event</span>
 <span class="sd">     initiator.</span>
 
-<span class="sd">    :var op: The symbol :attr:`.OP_APPEND`, :attr:`.OP_REMOVE`,</span>
+<span class="sd">    :attribute op: The symbol :attr:`.OP_APPEND`, :attr:`.OP_REMOVE`,</span>
 <span class="sd">     :attr:`.OP_REPLACE`, or :attr:`.OP_BULK_REPLACE`, indicating the</span>
 <span class="sd">     source operation.</span>
 
@@ -678,7 +679,7 @@
 <span class="sd">            The :paramref:`.AttributeImpl.extension` parameter is deprecated</span>
 <span class="sd">            and will be removed in a future release, corresponding to the</span>
 <span class="sd">            &quot;extension&quot; parameter on the :class:`.MapperProprty` classes</span>
-<span class="sd">            like :func:`.column_property` and :func:`.relationship`  The</span>
+<span class="sd">            like :func:`.column_property` and :func:`_orm.relationship`  The</span>
 <span class="sd">            events system is now used.</span>
 
 <span class="sd">        :param compare_function:</span>
@@ -1758,7 +1759,7 @@
 <span class="sd">    attribute.</span>
 
 <span class="sd">    The easiest way to get a :class:`.History` object for a particular</span>
-<span class="sd">    attribute on an object is to use the :func:`.inspect` function::</span>
+<span class="sd">    attribute on an object is to use the :func:`_sa.inspect` function::</span>
 
 <span class="sd">        from sqlalchemy import inspect</span>
 
@@ -2262,7 +2263,6 @@
         <dl>
             <dt>Branches</dt>
             <dd><a href="../../../master/_modules/sqlalchemy/orm/attributes.html">master</a></dd>
-            <dd><a href="../../../requires-io-master/index.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>
