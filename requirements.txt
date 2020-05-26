@@ -1,7 +1,7 @@
 PyPDF2==1.26.0
 dicttoxml==1.7.4
 filetype==1.0.7
-geoalchemy2==0.8.2
+geoalchemy2==0.8.3
 psycopg2-binary==2.8.5
 pyramid==1.10.4
 pyramid-debugtoolbar==4.6.1
