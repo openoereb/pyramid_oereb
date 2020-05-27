@@ -135,7 +135,7 @@ class Renderer(JsonRenderer):
                         true_nb_of_toc = min(x)-1
                     except ValueError:
                         true_nb_of_toc = 1
-    
+
                     if true_nb_of_toc != extract_as_dict['nbTocPages']:
                         log.warning('nbTocPages in result pdf: {} are not equal to the one predicted : {}, request new pdf'.format(true_nb_of_toc,extract_as_dict['nbTocPages'])) # noqa
                         extract_as_dict['nbTocPages'] = true_nb_of_toc
