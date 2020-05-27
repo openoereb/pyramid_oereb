@@ -16,8 +16,10 @@ from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import Config
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer as JsonRenderer
 from pyramid_oereb.lib.url import parse_url
+from pyramid.httpexceptions import HTTPInternalServerError
 
 from PyPDF2 import PdfFileReader
+from PyPDF2.utils import PdfReadError
 
 from .toc_pages import TocPages
 
@@ -121,26 +123,29 @@ class Renderer(JsonRenderer):
             headers=pdf_headers,
             data=json.dumps(spec)
         )
-        if Config.get('print', {}).get('compute_toc_pages', False):
-            with io.BytesIO() as pdf:
-                pdf.write(print_result.content)
-                pdf_reader = PdfFileReader(pdf)
-                x = []
-                for i in range(len(pdf_reader.getOutlines())):
-                    x.append(pdf_reader.getOutlines()[i]['/Page']['/StructParents'])
-                try:
-                    true_nb_of_toc = min(x)-1
-                except ValueError:
-                    true_nb_of_toc = 1
-
-                if true_nb_of_toc != extract_as_dict['nbTocPages']:
-                    log.warning('nbTocPages in result pdf: {} are not equal to the one predicted : {}, request new pdf'.format(true_nb_of_toc,extract_as_dict['nbTocPages'])) # noqa
-                    extract_as_dict['nbTocPages'] = true_nb_of_toc
-                    print_result = requests.post(
-                        pdf_url,
-                        headers=pdf_headers,
-                        data=json.dumps(spec)
-                    )
+        try:
+            if Config.get('print', {}).get('compute_toc_pages', False):
+                with io.BytesIO() as pdf:
+                    pdf.write(print_result.content)
+                    pdf_reader = PdfFileReader(pdf)
+                    x = []
+                    for i in range(len(pdf_reader.getOutlines())):
+                        x.append(pdf_reader.getOutlines()[i]['/Page']['/StructParents'])
+                    try:
+                        true_nb_of_toc = min(x)-1
+                    except ValueError:
+                        true_nb_of_toc = 1
+    
+                    if true_nb_of_toc != extract_as_dict['nbTocPages']:
+                        log.warning('nbTocPages in result pdf: {} are not equal to the one predicted : {}, request new pdf'.format(true_nb_of_toc,extract_as_dict['nbTocPages'])) # noqa
+                        extract_as_dict['nbTocPages'] = true_nb_of_toc
+                        print_result = requests.post(
+                            pdf_url,
+                            headers=pdf_headers,
+                            data=json.dumps(spec)
+                        )
+        except PdfReadError:
+             raise HTTPInternalServerError('a problem occurred while generating the pdf file') # noqa
 
         if not extract_as_dict['isReduced'] and print_result.status_code == 200:
             main = tempfile.NamedTemporaryFile(suffix='.pdf')
