@@ -145,7 +145,9 @@ class Renderer(JsonRenderer):
                             data=json.dumps(spec)
                         )
         except PdfReadError:
-             raise HTTPInternalServerError('a problem occurred while generating the pdf file') # noqa
+            err_msg = 'a problem occurred while generating the pdf file'
+            log.error(err_msg)
+            raise HTTPInternalServerError(err_msg)
 
         if not extract_as_dict['isReduced'] and print_result.status_code == 200:
             main = tempfile.NamedTemporaryFile(suffix='.pdf')
