@@ -1,8 +1,8 @@
 pytest==4.6.10 # rq.filter: < 5.0.0
-pytest-cov==2.8.1
+pytest-cov==2.9.0
 pytest-ordering==0.6
 pyflakes==2.2.0
-flake8==3.8.1
+flake8==3.8.2
 pycodestyle==2.6.0
 psycopg2==2.8.5
 McCabe==0.6.1
