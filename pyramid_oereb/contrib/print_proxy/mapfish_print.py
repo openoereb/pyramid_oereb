@@ -144,9 +144,9 @@ class Renderer(JsonRenderer):
                             headers=pdf_headers,
                             data=json.dumps(spec)
                         )
-        except PdfReadError:
+        except PdfReadError as e:
             err_msg = 'a problem occurred while generating the pdf file'
-            log.error(err_msg)
+            log.error(err_msg + ': ' + str(e))
             raise HTTPInternalServerError(err_msg)
 
         if not extract_as_dict['isReduced'] and print_result.status_code == 200:
