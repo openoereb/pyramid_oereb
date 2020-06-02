@@ -178,8 +178,10 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="kn">import</span> <span class="n">Config</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.renderer.extract.json_</span> <span class="kn">import</span> <span class="n">Renderer</span> <span class="k">as</span> <span class="n">JsonRenderer</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.url</span> <span class="kn">import</span> <span class="n">parse_url</span>
+<span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="kn">import</span> <span class="n">HTTPInternalServerError</span>
 
 <span class="kn">from</span> <span class="nn">PyPDF2</span> <span class="kn">import</span> <span class="n">PdfFileReader</span>
+<span class="kn">from</span> <span class="nn">PyPDF2.utils</span> <span class="kn">import</span> <span class="n">PdfReadError</span>
 
 <span class="kn">from</span> <span class="nn">.toc_pages</span> <span class="kn">import</span> <span class="n">TocPages</span>
 
@@ -283,26 +285,31 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">pdf_headers</span><span class="p">,</span>
             <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;compute_toc_pages&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
-            <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">pdf</span><span class="p">:</span>
-                <span class="n">pdf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">print_result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
-                <span class="n">pdf_reader</span> <span class="o">=</span> <span class="n">PdfFileReader</span><span class="p">(</span><span class="n">pdf</span><span class="p">)</span>
-                <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pdf_reader</span><span class="o">.</span><span class="n">getOutlines</span><span class="p">())):</span>
-                    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pdf_reader</span><span class="o">.</span><span class="n">getOutlines</span><span class="p">()[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;/Page&#39;</span><span class="p">][</span><span class="s1">&#39;/StructParents&#39;</span><span class="p">])</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">true_nb_of_toc</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
-                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                    <span class="n">true_nb_of_toc</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;compute_toc_pages&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">pdf</span><span class="p">:</span>
+                    <span class="n">pdf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">print_result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+                    <span class="n">pdf_reader</span> <span class="o">=</span> <span class="n">PdfFileReader</span><span class="p">(</span><span class="n">pdf</span><span class="p">)</span>
+                    <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pdf_reader</span><span class="o">.</span><span class="n">getOutlines</span><span class="p">())):</span>
+                        <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pdf_reader</span><span class="o">.</span><span class="n">getOutlines</span><span class="p">()[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;/Page&#39;</span><span class="p">][</span><span class="s1">&#39;/StructParents&#39;</span><span class="p">])</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">true_nb_of_toc</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+                    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                        <span class="n">true_nb_of_toc</span> <span class="o">=</span> <span class="mi">1</span>
 
-                <span class="k">if</span> <span class="n">true_nb_of_toc</span> <span class="o">!=</span> <span class="n">extract_as_dict</span><span class="p">[</span><span class="s1">&#39;nbTocPages&#39;</span><span class="p">]:</span>
-                    <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;nbTocPages in result pdf: </span><span class="si">{}</span><span class="s1"> are not equal to the one predicted : </span><span class="si">{}</span><span class="s1">, request new pdf&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">true_nb_of_toc</span><span class="p">,</span><span class="n">extract_as_dict</span><span class="p">[</span><span class="s1">&#39;nbTocPages&#39;</span><span class="p">]))</span> <span class="c1"># noqa</span>
-                    <span class="n">extract_as_dict</span><span class="p">[</span><span class="s1">&#39;nbTocPages&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">true_nb_of_toc</span>
-                    <span class="n">print_result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
-                        <span class="n">pdf_url</span><span class="p">,</span>
-                        <span class="n">headers</span><span class="o">=</span><span class="n">pdf_headers</span><span class="p">,</span>
-                        <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
-                    <span class="p">)</span>
+                    <span class="k">if</span> <span class="n">true_nb_of_toc</span> <span class="o">!=</span> <span class="n">extract_as_dict</span><span class="p">[</span><span class="s1">&#39;nbTocPages&#39;</span><span class="p">]:</span>
+                        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;nbTocPages in result pdf: </span><span class="si">{}</span><span class="s1"> are not equal to the one predicted : </span><span class="si">{}</span><span class="s1">, request new pdf&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">true_nb_of_toc</span><span class="p">,</span><span class="n">extract_as_dict</span><span class="p">[</span><span class="s1">&#39;nbTocPages&#39;</span><span class="p">]))</span> <span class="c1"># noqa</span>
+                        <span class="n">extract_as_dict</span><span class="p">[</span><span class="s1">&#39;nbTocPages&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">true_nb_of_toc</span>
+                        <span class="n">print_result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                            <span class="n">pdf_url</span><span class="p">,</span>
+                            <span class="n">headers</span><span class="o">=</span><span class="n">pdf_headers</span><span class="p">,</span>
+                            <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+                        <span class="p">)</span>
+        <span class="k">except</span> <span class="n">PdfReadError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">err_msg</span> <span class="o">=</span> <span class="s1">&#39;a problem occurred while generating the pdf file&#39;</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">err_msg</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">HTTPInternalServerError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">extract_as_dict</span><span class="p">[</span><span class="s1">&#39;isReduced&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">print_result</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
             <span class="n">main</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.pdf&#39;</span><span class="p">)</span>
