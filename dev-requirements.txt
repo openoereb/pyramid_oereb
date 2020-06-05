@@ -1,4 +1,4 @@
-pytest==4.6.10 # rq.filter: < 5.0.0
+pytest==4.6.11 # rq.filter: < 5.0.0
 pytest-cov==2.9.0
 pytest-ordering==0.6
 pyflakes==2.2.0
