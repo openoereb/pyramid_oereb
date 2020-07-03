@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+1.7.5
+*****
+- Last maintenance release with verified python2 compatibility
+- Update of all libraries used by pyramid_oereb that still work with python2
+
 1.7.4
 *****
 - Federal data import script: add SLD_VERSION for legend_at_web (#1022)
