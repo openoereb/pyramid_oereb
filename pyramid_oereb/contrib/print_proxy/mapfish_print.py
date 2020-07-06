@@ -23,10 +23,7 @@ from PyPDF2.utils import PdfReadError
 
 from .toc_pages import TocPages
 
-if sys.version_info.major == 2:
-    import urlparse
-else:
-    from urllib import parse as urlparse
+from urllib import parse as urlparse
 
 
 log = logging.getLogger(__name__)

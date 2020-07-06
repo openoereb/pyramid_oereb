@@ -1,10 +1,6 @@
 <%page args="text"/>
 <%
-    import sys
-    if sys.version_info.major == 2:
-        import urlparse
-    else:
-        from urllib import parse as urlparse
+    from urllib import parse as urlparse
     localized_text = localized(text)
 %>
 <data:Language>${localized_text.get('Language') | x}</data:Language>

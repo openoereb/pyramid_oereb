@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import sys
 import optparse
 import logging
 
@@ -11,11 +10,7 @@ from sqlalchemy import create_engine, orm
 
 from pyramid_oereb.lib.config import Config
 
-if sys.version_info.major == 2:
-    from urlparse import urlunsplit
-else:
-
-    from urllib.parse import urlunsplit
+from urllib.parse import urlunsplit
 
 
 logging.basicConfig()

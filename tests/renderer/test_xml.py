@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import sys
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import BytesIO
+from io import BytesIO
 
 from lxml import etree
 from pyramid_oereb.lib.renderer.extract.xml_ import Renderer
@@ -40,7 +36,7 @@ def test_version_against_schema():
 
     xmlschema_doc = etree.parse(schema_xml_versions)
     xmlschema = etree.XMLSchema(xmlschema_doc)
-    buffer = StringIO(rendered) if sys.version_info.major == 2 else BytesIO(rendered)
+    buffer = BytesIO(rendered)
     doc = etree.parse(buffer)
     assert xmlschema.validate(doc)
 
@@ -69,6 +65,6 @@ def test_extract_against_schema(parameter, test_extract):
 
     xmlschema_doc = etree.parse(schema_xml_extract)
     xmlschema = etree.XMLSchema(xmlschema_doc)
-    buffer = StringIO(rendered) if sys.version_info.major == 2 else BytesIO(rendered)
+    buffer = BytesIO(rendered)
     doc = etree.parse(buffer)
     xmlschema.assertValid(doc)
