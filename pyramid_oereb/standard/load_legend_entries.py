@@ -6,10 +6,8 @@ import logging
 from pyconizer import create_icons_from_scratch, get_icon
 from pyconizer.lib.url import parse_url
 from pyramid.path import DottedNameResolver
-from sqlalchemy import create_engine, orm
-
 from pyramid_oereb.lib.config import Config
-
+from sqlalchemy import create_engine, orm
 from urllib.parse import urlunsplit
 
 

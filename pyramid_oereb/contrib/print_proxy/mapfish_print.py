@@ -1,29 +1,24 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime, timedelta
+import io
+import json
+import logging
+import requests
+from shapely.geometry import mapping
 import subprocess
 import sys
-import json
 import tempfile
-
-import io
-import requests
-import logging
-
 import time
+from urllib import parse as urlparse
 
-from datetime import datetime, timedelta
-from shapely.geometry import mapping
 from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import Config
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer as JsonRenderer
 from pyramid_oereb.lib.url import parse_url
 from pyramid.httpexceptions import HTTPInternalServerError
-
 from PyPDF2 import PdfFileReader
 from PyPDF2.utils import PdfReadError
-
 from .toc_pages import TocPages
-
-from urllib import parse as urlparse
 
 
 log = logging.getLogger(__name__)

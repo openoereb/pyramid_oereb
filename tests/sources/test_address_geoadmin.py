@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 
+from pyramid_oereb.lib.records.address import AddressRecord
+from pyramid_oereb.contrib.sources.address import AddressGeoAdminSource
 import pytest
 import requests_mock
 from requests import HTTPError
 from shapely.geometry import Point
-
-from pyramid_oereb.lib.records.address import AddressRecord
-from pyramid_oereb.contrib.sources.address import AddressGeoAdminSource
 from tests.mockrequest import MockParameter
-
 from urllib.parse import urlencode
 
 
