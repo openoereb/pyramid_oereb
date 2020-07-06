@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import codecs
-import sys
 import re
 import json
 import optparse
@@ -46,9 +45,7 @@ class SampleData(object):
         Returns:
             str: The formatted value
         """
-        if sys.version_info.major == 2 and (isinstance(value, str) or isinstance(value, unicode)):  # noqa
-            return u"'{}'".format(value.replace("'", "''"))
-        if sys.version_info.major > 2 and (isinstance(value, str) or isinstance(value, bytes)):
+        if isinstance(value, str) or isinstance(value, bytes):
             return u"'{}'".format(value.replace("'", "''"))
         if isinstance(value, int) or isinstance(value, float):
             return str(value)

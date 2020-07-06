@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import sys
 import pytest
 import shapely.wkt
 import shapely.geometry
@@ -25,10 +24,7 @@ def test_init():
         geom=geometry
     )
     assert isinstance(record.fosnr, int)
-    if sys.version_info.major == 2:
-        assert isinstance(record.name, unicode)  # noqa
-    else:
-        assert isinstance(record.name, str)
+    assert isinstance(record.name, str)
     assert isinstance(record.published, bool)
     assert isinstance(record.logo, ImageRecord)
     assert isinstance(record.geom, shapely.geometry.multipolygon.MultiPolygon)
