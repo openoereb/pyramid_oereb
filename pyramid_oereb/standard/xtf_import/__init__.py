@@ -3,6 +3,7 @@ import math
 import os
 import shutil
 import zipfile
+import re
 from datetime import datetime
 from uuid import uuid4
 
@@ -364,9 +365,9 @@ class FederalTopic(object):
         for item in os.listdir(path):
             candidate = os.path.join(path, item)
             if os.path.isfile(candidate):
-                if candidate.endswith('.xtf'):
+                if item.endswith('.xtf'):
                     topic_source = candidate
-                elif candidate.endswith('.xml') and candidate.find('Gesetze') > -1:
+                elif re.match(r'OeREBKRM_V.+_Gesetze_[0-9]{8}.xml', item):
                     law_source = candidate
         files = list()
         if law_source is not None:
