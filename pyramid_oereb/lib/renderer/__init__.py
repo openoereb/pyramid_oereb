@@ -2,6 +2,7 @@
 import datetime
 
 import logging
+import sys
 import unicodedata
 
 from pyramid.httpexceptions import HTTPServerError
@@ -155,7 +156,7 @@ class Base(object):
         """
         if text is None:
             return ''
-        new_text = text.lower()
+        new_text = text.lower() if sys.version_info.major > 2 else unicode(text.lower()) # noqa
         return unicodedata.normalize('NFD', new_text)
 
     def sort_by_localized_text(self, multilingual_elements, value_accessor):

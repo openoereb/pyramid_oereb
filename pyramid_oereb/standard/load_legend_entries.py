@@ -1,14 +1,21 @@
 # -*- coding: utf-8 -*-
 
+import sys
 import optparse
 import logging
 
 from pyconizer import create_icons_from_scratch, get_icon
 from pyconizer.lib.url import parse_url
 from pyramid.path import DottedNameResolver
-from pyramid_oereb.lib.config import Config
 from sqlalchemy import create_engine, orm
-from urllib.parse import urlunsplit
+
+from pyramid_oereb.lib.config import Config
+
+if sys.version_info.major == 2:
+    from urlparse import urlunsplit
+else:
+
+    from urllib.parse import urlunsplit
 
 
 logging.basicConfig()

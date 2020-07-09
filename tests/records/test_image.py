@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import sys
+
 import pytest
 
 from pyramid_oereb.lib import b64
@@ -9,7 +11,10 @@ from pyramid_oereb.lib.records.image import ImageRecord
 
 def test_init():
     image_record = ImageRecord('1'.encode('utf-8'))
-    assert isinstance(image_record.content, bytes)
+    if sys.version_info.major == 2:
+        assert isinstance(image_record.content, str)
+    else:
+        assert isinstance(image_record.content, bytes)
 
 
 def test_encode():
@@ -23,6 +28,8 @@ def test_validate_filetype_png_file():
 
 def test_validate_filetype_png_content():
     content = FileAdapter().read('tests/resources/logo_canton.png')
+    if sys.version_info.major == 2:
+        content = bytearray(content)
     assert ImageRecord._validate_filetype(content) == ('png', 'image/png')
 
 
