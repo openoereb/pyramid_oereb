@@ -1,4 +1,5 @@
 import logging
+import sys
 import unicodedata
 
 log = logging.getLogger(__name__)
@@ -16,7 +17,7 @@ def unaccent_lower(text):
     """
     if text is None:
         return ''
-    new_text = text.lower()
+    new_text = text.lower() if sys.version_info.major > 2 else unicode(text.lower())  # noqa
     return unicodedata.normalize('NFD', new_text)
 
 
