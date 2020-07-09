@@ -7,14 +7,16 @@ This chapter will give you hints on how to handle version migration, in particul
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
 
-.. _changes-version-1.7.5:
+.. _changes-version-1.7.6:
 
-Version 1.7.5
+Version 1.7.6
 -------------
-This is a maintenance release with the purpose of providing a final release with verified Python2 compatibility,
-including an update of all libraries used by pyramid_oereb that still work with Python2.
-There are no functional changes compared to the previous version.
-Future releases will no longer have verified Python2 compatibility (#889).
+This is a maintenance release with the following changes:
+
+ * Improve federal data import script (#1057)
+ * Update of all libraries used by pyramid_oereb that still work with Python2
+
+This is the final maintenance release that includes Python2 compatibility.
 
 
 .. _changes-version-1.7.4:
