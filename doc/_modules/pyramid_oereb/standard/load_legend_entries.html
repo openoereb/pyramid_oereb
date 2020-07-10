@@ -167,22 +167,15 @@
   <h1>Source code for pyramid_oereb.standard.load_legend_entries</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">optparse</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">pyconizer</span> <span class="kn">import</span> <span class="n">create_icons_from_scratch</span><span class="p">,</span> <span class="n">get_icon</span>
 <span class="kn">from</span> <span class="nn">pyconizer.lib.url</span> <span class="kn">import</span> <span class="n">parse_url</span>
 <span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="kn">import</span> <span class="n">DottedNameResolver</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">orm</span>
-
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="kn">import</span> <span class="n">Config</span>
-
-<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">urlparse</span> <span class="kn">import</span> <span class="n">urlunsplit</span>
-<span class="k">else</span><span class="p">:</span>
-
-    <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlunsplit</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">orm</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlunsplit</span>
 
 
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">()</span>
@@ -549,6 +542,7 @@
         <dl>
             <dt>Branches</dt>
             <dd><a href="../../../master/_modules/pyramid_oereb/standard/load_legend_entries.html">master</a></dd>
+            <dd><a href="../../../requires-io-master/index.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>

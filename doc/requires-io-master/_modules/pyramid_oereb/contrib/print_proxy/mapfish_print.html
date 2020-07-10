@@ -164,34 +164,26 @@
             
   <h1>Source code for pyramid_oereb.contrib.print_proxy.mapfish_print</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">mapping</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
-
-<span class="kn">import</span> <span class="nn">io</span>
-<span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-
 <span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">parse</span> <span class="k">as</span> <span class="n">urlparse</span>
 
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">mapping</span>
 <span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="kn">import</span> <span class="n">HTTPBadRequest</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="kn">import</span> <span class="n">Config</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.renderer.extract.json_</span> <span class="kn">import</span> <span class="n">Renderer</span> <span class="k">as</span> <span class="n">JsonRenderer</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.lib.url</span> <span class="kn">import</span> <span class="n">parse_url</span>
 <span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="kn">import</span> <span class="n">HTTPInternalServerError</span>
-
 <span class="kn">from</span> <span class="nn">PyPDF2</span> <span class="kn">import</span> <span class="n">PdfFileReader</span>
 <span class="kn">from</span> <span class="nn">PyPDF2.utils</span> <span class="kn">import</span> <span class="n">PdfReadError</span>
-
 <span class="kn">from</span> <span class="nn">.toc_pages</span> <span class="kn">import</span> <span class="n">TocPages</span>
-
-<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">urlparse</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">parse</span> <span class="k">as</span> <span class="n">urlparse</span>
 
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -1083,6 +1075,7 @@
             <dd><a href="../../../../../v1.7.3/index.html">v1.7.3</a></dd>
             <dd><a href="../../../../../v1.7.4/index.html">v1.7.4</a></dd>
             <dd><a href="../../../../../v1.7.5/index.html">v1.7.5</a></dd>
+            <dd><a href="../../../../../v1.7.6/index.html">v1.7.6</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
