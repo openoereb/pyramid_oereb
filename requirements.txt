@@ -22,5 +22,5 @@ requests==2.24.0
 geolink-formatter==1.5.2
 pyconizer==0.1.4
 tqdm==4.47.0
-numpy==1.16.6  # rq.filter: <1.17.0
+numpy==1.19.0
 defusedxml==0.6.0
