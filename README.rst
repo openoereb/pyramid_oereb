@@ -24,3 +24,16 @@ If you are interested in contributing or extending the project, take a look at t
 .. |Requirements Status| image:: https://requires.io/github/openoereb/pyramid_oereb/requirements.svg?branch=master
    :target: https://requires.io/github/openoereb/pyramid_oereb/requirements/?branch=master
    :alt: Requirements Status
+
+Local testing (quick preview)
+-----------------------------
+
+Run:
+
+.. code-block:: bash
+
+  git clone git@github.com:openoereb/pyramid_oereb.git
+  cd pyramid_oereb
+  make serve
+
+JSON reduced extract is accessible at: http://localhost:6543/oereb/extract/reduced/json/CH113928077734.
