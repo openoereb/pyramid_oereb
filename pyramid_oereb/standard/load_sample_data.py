@@ -17,12 +17,15 @@ class SampleData(object):
     Class for sample data handling.
     """
 
-    def __init__(self, configuration, section='pyramid_oereb', directory='sample_data', sql_file=None):
+    def __init__(self, configuration, section='pyramid_oereb', c2ctemplate_style=False,
+                 directory='sample_data', sql_file=None):
         """
 
         Args:
             configuration (str): Path to the configuration yaml file.
             section (str): The used section within the yaml file. Default is `pyramid_oereb`.
+            c2ctemplate_style (bool): True if the yaml use a c2c template style (vars.[section]).
+                Default is False.
             directory (str): Location of the sample data. Default is `sample_data`.
             sql_file (file): The SQL file to be created. Default is None.
         """
@@ -31,7 +34,7 @@ class SampleData(object):
         self._directory = directory
         self._sql_file = sql_file
 
-        Config.init(self._configuration, self._section)
+        Config.init(self._configuration, self._section, c2ctemplate_style)
         self._engine = create_engine(Config.get('app_schema').get('db_connection'), echo=True)
         self._connection = None
 
@@ -282,16 +285,28 @@ def _run():
         type='string',
         help='Generate an SQL file.'
     )
+    parser.add_option(
+        '--c2ctemplate-style',
+        dest='c2ctemplate_style',
+        default=False,
+        help='Is the yaml file using a c2ctemplate style (starting with vars)'
+    )
     options, args = parser.parse_args()
     if not options.configuration:
         parser.error('No configuration file set.')
     if options.sql_file is None:
-        SampleData(options.configuration, section=options.section, directory=options.directory).load()
+        SampleData(
+            options.configuration,
+            section=options.section,
+            c2ctemplate_style=options.c2ctemplate_style,
+            directory=options.directory
+        ).load()
     else:
         with codecs.open(options.sql_file, mode='w', encoding='utf-8') as sql_file:
             SampleData(
                 options.configuration,
                 section=options.section,
+                c2ctemplate_style=options.c2ctemplate_style,
                 directory=options.directory,
                 sql_file=sql_file
             ).load()

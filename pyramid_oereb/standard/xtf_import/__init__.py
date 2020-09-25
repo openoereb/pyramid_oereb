@@ -53,21 +53,24 @@ class FederalTopic(object):
     TAG_DOCUMENT_REFERENCE_DEFINITION = 'OeREBKRMtrsfr_V1_1.Transferstruktur.HinweisDefinitionDokument'
     TAG_BASE_REFINEMENT = 'OeREBKRMtrsfr_V1_1.Transferstruktur.GrundlageVerfeinerung'
 
-    def __init__(self, configuration_file, topic_code, section='pyramid_oereb', arc_max_diff=0.001,
-                 arc_precision=3, tmp_dir='.', srid=None):
+    def __init__(self, configuration_file, topic_code, section='pyramid_oereb',
+                 c2ctemplate_style=False, arc_max_diff=0.001, arc_precision=3, tmp_dir='.',
+                 srid=None):
         """
 
         Args:
             configuration_file (str): Path to the configuration file to be used.
             topic_code (str): The code of the federal topic to be updated.
             section (str): The section within the configuration file. (default: 'pyramid_oereb')
+            c2ctemplate_style (bool): True if the yaml use a c2c template style (vars.[section]).
+                Default is False.
             arc_max_diff (float): Maximum difference between arc and line segment for stroking.
                 (default: 0.001)
             arc_precision (int): Coordinate precision for generated arc points. (default: 3)
             tmp_dir (str): Directory used as temporary working directory. (default: '.')
         """
         self._log = logging.getLogger('import_federal_topic')
-        Config.init(configuration_file, section)
+        Config.init(configuration_file, section, c2ctemplate_style)
         self._settings = Config.get_config()
 
         topic_settings = None

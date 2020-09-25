@@ -14,7 +14,8 @@ logging.basicConfig()
 log = logging.getLogger(__name__)
 
 
-def _create_theme_tables(configuration_yaml_path, theme, section='pyramid_oereb', tables_only=False):
+def _create_theme_tables(configuration_yaml_path, theme, section='pyramid_oereb', c2ctemplate_style=False,
+                         tables_only=False):
     """
     Create all tables defined in the specified module.
 
@@ -23,11 +24,13 @@ def _create_theme_tables(configuration_yaml_path, theme, section='pyramid_oereb'
         theme (str): Code of the theme to create the tables for.
         section (str): Section within the specified configuration file used for pyramid_oereb. Default is
             'pyramid_oereb'.
+        c2ctemplate_style (bool): True if the yaml use a c2c template style (vars.[section]).
+            Default is False.
         tables_only (bool): True to skip creation of schema. Default is False.
     """
 
     # Parse themes from configuration
-    Config.init(configuration_yaml_path, section)
+    Config.init(configuration_yaml_path, section, c2ctemplate_style)
     themes = Config.get('plrs')
     if not isinstance(themes, list):
         raise ConfigurationError('No list of themes found.')
@@ -107,6 +110,12 @@ def create_standard_tables():
         type='string',
         help='Generate an SQL file.'
     )
+    parser.add_option(
+        '--c2ctemplate-style',
+        dest='c2ctemplate_style',
+        default=False,
+        help='Is the yaml file using a c2ctemplate style (starting with vars)'
+    )
     options, args = parser.parse_args()
     if not options.configuration:
         parser.error('No configuration file set.')
@@ -115,6 +124,7 @@ def create_standard_tables():
         create_tables_from_standard_configuration(
             configuration_yaml_path=options.configuration,
             section=options.section,
+            c2ctemplate_style=options.c2ctemplate_style,
             tables_only=options.tables_only
         )
     else:
@@ -122,6 +132,7 @@ def create_standard_tables():
             create_tables_from_standard_configuration(
                 configuration_yaml_path=options.configuration,
                 section=options.section,
+                c2ctemplate_style=options.c2ctemplate_style,
                 sql_file=sql_file
             )
 
@@ -160,6 +171,12 @@ def create_theme_tables():
         default=False,
         help='Use this flag to skip the creation of the schema.'
     )
+    parser.add_option(
+        '--c2ctemplate-style',
+        dest='tc2ctemplate_style',
+        default=False,
+        help='Is the yaml file using a c2ctemplate style (starting with vars)'
+    )
     options, args = parser.parse_args()
     if not options.configuration:
         parser.error('No configuration file set.')
@@ -170,6 +187,7 @@ def create_theme_tables():
             options.configuration,
             options.theme,
             section=options.section,
+            c2ctemplate_style=options.c2ctemplate_style,
             tables_only=options.tables_only
         )
     except Exception as e:

@@ -16,9 +16,10 @@ log = logging.getLogger(__name__)
 
 
 def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path='/tmp/pyconizer',
-                                         language='de', section='pyramid_oereb', image_format='image/png',
-                                         image_height=36, image_width=72, encoding=None, replace_host=None,
-                                         replace_layer=None, string_keys=False, by_type_code=False):
+                                         language='de', section='pyramid_oereb', c2ctemplate_style=False,
+                                         image_format='image/png', image_height=36, image_width=72,
+                                         encoding=None, replace_host=None, replace_layer=None,
+                                         string_keys=False, by_type_code=False):
     """
     Uses the pyconizer lib to create images out of the OEREB server configuration. It is creating symbols for
     a dedicated topic. This function will clean all previously created icons from database.
@@ -31,6 +32,8 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
         language: The language which is used to produce the WMS rules. This is a tricky part. You must
             provide the language your WMS is using.
         section: The section which the config can be found in the yml.
+        c2ctemplate_style (bool): True if the yaml use a c2c template style (vars.[section]).
+            Default is False.
         image_format: The image format. This is passed throug to the WMS request. You need to provide a
             format your WMS is supporting here.
         image_height: The height of the produced image.
@@ -56,7 +59,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
     """
 
     # config object parsed from oereb configuration yml
-    Config.init(config, section)
+    Config.init(config, section, c2ctemplate_style)
     db_connection = None
     found = False
 
@@ -290,6 +293,12 @@ def run():
             MAPSERVER. Because the "RULE" parameter of the GetLegendGraphics request on MAPSERVER seems to be
             case insensitive.'''
     )
+    parser.add_option(
+        '--c2ctemplate-style',
+        dest='c2ctemplate_style',
+        default=False,
+        help='Is the yaml file using a c2ctemplate style (starting with vars)'
+    )
     options, args = parser.parse_args()
     if not options.config:
         parser.error('No configuration file set.')
@@ -302,6 +311,7 @@ def run():
             temp_creation_path=options.temp_creation_path,
             language=options.language,
             section=options.section,
+            c2ctemplate_style=options.c2ctemplate_style,
             image_format=options.image_format,
             image_height=options.image_height,
             image_width=options.image_width,

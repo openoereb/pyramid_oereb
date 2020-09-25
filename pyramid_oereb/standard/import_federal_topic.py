@@ -98,6 +98,12 @@ def run():
         default='.',
         help='The temporary working directory. (default is ".")'
     )
+    parser.add_option(
+        '--c2ctemplate-style',
+        dest='c2ctemplate_style',
+        default=False,
+        help='Is the yaml file using a c2ctemplate style (starting with vars)'
+    )
 
     options, args = parser.parse_args()
     if not options.config:
@@ -111,6 +117,7 @@ def run():
         options.config,
         options.topic_code,
         section=options.section,
+        c2ctemplate_style=options.c2ctemplate_style,
         arc_max_diff=options.arc_max_diff,
         arc_precision=options.arc_precision,
         tmp_dir=options.tmp_dir,
