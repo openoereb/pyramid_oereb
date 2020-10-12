@@ -21,6 +21,6 @@ lxml==4.5.2
 requests==2.24.0
 geolink-formatter==1.5.3
 pyconizer==0.1.4
-tqdm==4.50.0
+tqdm==4.50.2
 numpy==1.19.2
 defusedxml==0.6.0
