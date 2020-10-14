@@ -67,7 +67,8 @@ def _create_standard_configuration_models_py_(code, geometry_type, absolute_path
 
 
 def create_tables_from_standard_configuration(
-        configuration_yaml_path, section='pyramid_oereb', tables_only=False, sql_file=None):
+        configuration_yaml_path, section='pyramid_oereb', c2ctemplate_style=False, tables_only=False,
+        sql_file=None):
     """
     Creates all schemas which are defined in the passed yaml file: <section>.<plrs>.[<plr>.<code>]. The code
     must be camel case. It will be transformed to snake case and used as schema name.
@@ -78,11 +79,13 @@ def create_tables_from_standard_configuration(
         configuration_yaml_path (str): The absolute path to the yaml file which contains the plr
             definitions.
         section (str): The section in yaml file where the plrs are configured in. Default is 'pyramid_oereb'.
+        c2ctemplate_style (bool): True if the yaml use a c2c template style (vars.[section]).
+            Default is False.
         tables_only (bool): True to skip creation of schema. Default is False.
         sql_file (file): the file to generate. Default is None (in the database).
     """
     if Config.get_config() is None:
-        Config.init(configuration_yaml_path, section)
+        Config.init(configuration_yaml_path, section, c2ctemplate_style)
 
     main_schema_engine = create_engine(Config.get('app_schema').get('db_connection'), echo=True)
     if sql_file is None:
