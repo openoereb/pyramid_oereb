@@ -232,7 +232,8 @@
 
 
 <div class="viewcode-block" id="create_tables_from_standard_configuration"><a class="viewcode-back" href="../../standard/index.html#pyramid_oereb.standard.create_tables_from_standard_configuration">[docs]</a><span class="k">def</span> <span class="nf">create_tables_from_standard_configuration</span><span class="p">(</span>
-        <span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">tables_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sql_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tables_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">sql_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates all schemas which are defined in the passed yaml file: &lt;section&gt;.&lt;plrs&gt;.[&lt;plr&gt;.&lt;code&gt;]. The code</span>
 <span class="sd">    must be camel case. It will be transformed to snake case and used as schema name.</span>
@@ -243,11 +244,13 @@
 <span class="sd">        configuration_yaml_path (str): The absolute path to the yaml file which contains the plr</span>
 <span class="sd">            definitions.</span>
 <span class="sd">        section (str): The section in yaml file where the plrs are configured in. Default is &#39;pyramid_oereb&#39;.</span>
+<span class="sd">        c2ctemplate_style (bool): True if the yaml use a c2c template style (vars.[section]).</span>
+<span class="sd">            Default is False.</span>
 <span class="sd">        tables_only (bool): True to skip creation of schema. Default is False.</span>
 <span class="sd">        sql_file (file): the file to generate. Default is None (in the database).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span>
+        <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">c2ctemplate_style</span><span class="p">)</span>
 
     <span class="n">main_schema_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">),</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

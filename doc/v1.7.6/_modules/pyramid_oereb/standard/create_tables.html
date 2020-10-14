@@ -181,7 +181,8 @@
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="_create_theme_tables"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.create_tables._create_theme_tables">[docs]</a><span class="k">def</span> <span class="nf">_create_theme_tables</span><span class="p">(</span><span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">tables_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="_create_theme_tables"><a class="viewcode-back" href="../../../standard/index.html#pyramid_oereb.standard.create_tables._create_theme_tables">[docs]</a><span class="k">def</span> <span class="nf">_create_theme_tables</span><span class="p">(</span><span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                         <span class="n">tables_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create all tables defined in the specified module.</span>
 
@@ -190,11 +191,13 @@
 <span class="sd">        theme (str): Code of the theme to create the tables for.</span>
 <span class="sd">        section (str): Section within the specified configuration file used for pyramid_oereb. Default is</span>
 <span class="sd">            &#39;pyramid_oereb&#39;.</span>
+<span class="sd">        c2ctemplate_style (bool): True if the yaml use a c2c template style (vars.[section]).</span>
+<span class="sd">            Default is False.</span>
 <span class="sd">        tables_only (bool): True to skip creation of schema. Default is False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Parse themes from configuration</span>
-    <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span>
+    <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">c2ctemplate_style</span><span class="p">)</span>
     <span class="n">themes</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">themes</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;No list of themes found.&#39;</span><span class="p">)</span>
@@ -274,6 +277,12 @@
         <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span>
         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Generate an SQL file.&#39;</span>
     <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;--c2ctemplate-style&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;c2ctemplate_style&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Is the yaml file using a c2ctemplate style (starting with vars)&#39;</span>
+    <span class="p">)</span>
     <span class="n">options</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">:</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No configuration file set.&#39;</span><span class="p">)</span>
@@ -282,6 +291,7 @@
         <span class="n">create_tables_from_standard_configuration</span><span class="p">(</span>
             <span class="n">configuration_yaml_path</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
             <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+            <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">c2ctemplate_style</span><span class="p">,</span>
             <span class="n">tables_only</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">tables_only</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -289,6 +299,7 @@
             <span class="n">create_tables_from_standard_configuration</span><span class="p">(</span>
                 <span class="n">configuration_yaml_path</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
                 <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+                <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">c2ctemplate_style</span><span class="p">,</span>
                 <span class="n">sql_file</span><span class="o">=</span><span class="n">sql_file</span>
             <span class="p">)</span>
 
@@ -327,6 +338,12 @@
         <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use this flag to skip the creation of the schema.&#39;</span>
     <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;--c2ctemplate-style&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;tc2ctemplate_style&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Is the yaml file using a c2ctemplate style (starting with vars)&#39;</span>
+    <span class="p">)</span>
     <span class="n">options</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">:</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No configuration file set.&#39;</span><span class="p">)</span>
@@ -337,6 +354,7 @@
             <span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
             <span class="n">options</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span>
             <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+            <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">c2ctemplate_style</span><span class="p">,</span>
             <span class="n">tables_only</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">tables_only</span>
         <span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>

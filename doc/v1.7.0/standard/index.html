@@ -184,7 +184,7 @@ layer.</p>
 <h2>Functions for creating standard environment<a class="headerlink" href="#functions-for-creating-standard-environment" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-pyramid_oereb.standard"><span id="api-pyramid-oereb-standard"></span></span><dl class="function">
 <dt id="pyramid_oereb.standard.create_tables_from_standard_configuration">
-<code class="descclassname">pyramid_oereb.standard.</code><code class="descname">create_tables_from_standard_configuration</code><span class="sig-paren">(</span><em>configuration_yaml_path</em>, <em>section='pyramid_oereb'</em>, <em>tables_only=False</em>, <em>sql_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard.html#create_tables_from_standard_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.create_tables_from_standard_configuration" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyramid_oereb.standard.</code><code class="descname">create_tables_from_standard_configuration</code><span class="sig-paren">(</span><em>configuration_yaml_path</em>, <em>section='pyramid_oereb'</em>, <em>c2ctemplate_style=False</em>, <em>tables_only=False</em>, <em>sql_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard.html#create_tables_from_standard_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.create_tables_from_standard_configuration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates all schemas which are defined in the passed yaml file: &lt;section&gt;.&lt;plrs&gt;.[&lt;plr&gt;.&lt;code&gt;]. The code
 must be camel case. It will be transformed to snake case and used as schema name.
 Creates all tables inside the created schemas. This only affects the sqlalchemy models which are defined
@@ -197,6 +197,8 @@ with the Base class from pyramid_oereb.standard.models.</p>
 <li><strong>configuration_yaml_path</strong> (<em>str</em>) &#8211; The absolute path to the yaml file which contains the plr
 definitions.</li>
 <li><strong>section</strong> (<em>str</em>) &#8211; The section in yaml file where the plrs are configured in. Default is &#8216;pyramid_oereb&#8217;.</li>
+<li><strong>c2ctemplate_style</strong> (<em>bool</em>) &#8211; True if the yaml use a c2c template style (vars.[section]).
+Default is False.</li>
 <li><strong>tables_only</strong> (<em>bool</em>) &#8211; True to skip creation of schema. Default is False.</li>
 <li><strong>sql_file</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.documents.DocumentRecord.file" title="pyramid_oereb.lib.records.documents.DocumentRecord.file"><em>file</em></a>) &#8211; the file to generate. Default is None (in the database).</li>
 </ul>
@@ -249,7 +251,7 @@ configuration to run a oereb server out of the box.</p>
 
 <span class="target" id="module-pyramid_oereb.standard.create_tables"><span id="api-pyramid-oereb-standard-create-tables"></span></span><dl class="function">
 <dt id="pyramid_oereb.standard.create_tables._create_theme_tables">
-<code class="descclassname">pyramid_oereb.standard.create_tables.</code><code class="descname">_create_theme_tables</code><span class="sig-paren">(</span><em>configuration_yaml_path</em>, <em>theme</em>, <em>section='pyramid_oereb'</em>, <em>tables_only=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/create_tables.html#_create_theme_tables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.create_tables._create_theme_tables" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyramid_oereb.standard.create_tables.</code><code class="descname">_create_theme_tables</code><span class="sig-paren">(</span><em>configuration_yaml_path</em>, <em>theme</em>, <em>section='pyramid_oereb'</em>, <em>c2ctemplate_style=False</em>, <em>tables_only=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/create_tables.html#_create_theme_tables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.create_tables._create_theme_tables" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create all tables defined in the specified module.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -260,6 +262,8 @@ configuration to run a oereb server out of the box.</p>
 <li><strong>theme</strong> (<em>str</em>) &#8211; Code of the theme to create the tables for.</li>
 <li><strong>section</strong> (<em>str</em>) &#8211; Section within the specified configuration file used for pyramid_oereb. Default is
 &#8216;pyramid_oereb&#8217;.</li>
+<li><strong>c2ctemplate_style</strong> (<em>bool</em>) &#8211; True if the yaml use a c2c template style (vars.[section]).
+Default is False.</li>
 <li><strong>tables_only</strong> (<em>bool</em>) &#8211; True to skip creation of schema. Default is False.</li>
 </ul>
 </td>
@@ -273,7 +277,7 @@ configuration to run a oereb server out of the box.</p>
 <h2>Functions for filling standard environment with data<a class="headerlink" href="#functions-for-filling-standard-environment-with-data" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-pyramid_oereb.standard.load_sample_data"><span id="api-pyramid-oereb-standard-load-sample-data"></span></span><dl class="class">
 <dt id="pyramid_oereb.standard.load_sample_data.SampleData">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.load_sample_data.</code><code class="descname">SampleData</code><span class="sig-paren">(</span><em>configuration</em>, <em>section='pyramid_oereb'</em>, <em>directory='sample_data'</em>, <em>sql_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/load_sample_data.html#SampleData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_sample_data.SampleData" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.load_sample_data.</code><code class="descname">SampleData</code><span class="sig-paren">(</span><em>configuration</em>, <em>section='pyramid_oereb'</em>, <em>c2ctemplate_style=False</em>, <em>directory='sample_data'</em>, <em>sql_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/load_sample_data.html#SampleData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_sample_data.SampleData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for sample data handling.</p>
 <dl class="method">
 <dt id="pyramid_oereb.standard.load_sample_data.SampleData.load">
@@ -285,7 +289,7 @@ configuration to run a oereb server out of the box.</p>
 
 <span class="target" id="module-pyramid_oereb.standard.import_federal_topic"><span id="api-pyramid-oereb-standard-import-federal-topic"></span></span><dl class="class">
 <dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.import_federal_topic.</code><code class="descname">FederalTopic</code><span class="sig-paren">(</span><em>configuration_file</em>, <em>topic_code</em>, <em>section='pyramid_oereb'</em>, <em>arc_max_diff=0.001</em>, <em>arc_precision=3</em>, <em>tmp_dir='.'</em>, <em>srid=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.import_federal_topic.</code><code class="descname">FederalTopic</code><span class="sig-paren">(</span><em>configuration_file</em>, <em>topic_code</em>, <em>section='pyramid_oereb'</em>, <em>c2ctemplate_style=False</em>, <em>arc_max_diff=0.001</em>, <em>arc_precision=3</em>, <em>tmp_dir='.'</em>, <em>srid=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download and import data for a specified federal topic.</p>
 <dl class="method">
 <dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic.cleanup_files">
@@ -341,7 +345,7 @@ anyway.</li>
 
 <span class="target" id="module-pyramid_oereb.standard.load_legend_entries"><span id="api-pyramid-oereb-standard-load-legend-entries"></span></span><dl class="function">
 <dt id="pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db">
-<code class="descclassname">pyramid_oereb.standard.load_legend_entries.</code><code class="descname">create_legend_entries_in_standard_db</code><span class="sig-paren">(</span><em>config</em>, <em>topic_code</em>, <em>temp_creation_path='/tmp/pyconizer'</em>, <em>language='de'</em>, <em>section='pyramid_oereb'</em>, <em>image_format='image/png'</em>, <em>image_height=36</em>, <em>image_width=72</em>, <em>encoding=None</em>, <em>replace_host=None</em>, <em>replace_layer=None</em>, <em>string_keys=False</em>, <em>by_type_code=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/load_legend_entries.html#create_legend_entries_in_standard_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyramid_oereb.standard.load_legend_entries.</code><code class="descname">create_legend_entries_in_standard_db</code><span class="sig-paren">(</span><em>config</em>, <em>topic_code</em>, <em>temp_creation_path='/tmp/pyconizer'</em>, <em>language='de'</em>, <em>section='pyramid_oereb'</em>, <em>c2ctemplate_style=False</em>, <em>image_format='image/png'</em>, <em>image_height=36</em>, <em>image_width=72</em>, <em>encoding=None</em>, <em>replace_host=None</em>, <em>replace_layer=None</em>, <em>string_keys=False</em>, <em>by_type_code=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/load_legend_entries.html#create_legend_entries_in_standard_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uses the pyconizer lib to create images out of the OEREB server configuration. It is creating symbols for
 a dedicated topic. This function will clean all previously created icons from database.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -356,6 +360,8 @@ the passed yml.</li>
 <li><strong>language</strong> &#8211; The language which is used to produce the WMS rules. This is a tricky part. You must
 provide the language your WMS is using.</li>
 <li><strong>section</strong> &#8211; The section which the config can be found in the yml.</li>
+<li><strong>c2ctemplate_style</strong> (<em>bool</em>) &#8211; True if the yaml use a c2c template style (vars.[section]).
+Default is False.</li>
 <li><strong>image_format</strong> &#8211; The image format. This is passed throug to the WMS request. You need to provide a
 format your WMS is supporting here.</li>
 <li><strong>image_height</strong> &#8211; The height of the produced image.</li>

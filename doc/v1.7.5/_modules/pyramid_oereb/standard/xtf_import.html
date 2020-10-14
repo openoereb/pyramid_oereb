@@ -220,21 +220,24 @@
     <span class="n">TAG_DOCUMENT_REFERENCE_DEFINITION</span> <span class="o">=</span> <span class="s1">&#39;OeREBKRMtrsfr_V1_1.Transferstruktur.HinweisDefinitionDokument&#39;</span>
     <span class="n">TAG_BASE_REFINEMENT</span> <span class="o">=</span> <span class="s1">&#39;OeREBKRMtrsfr_V1_1.Transferstruktur.GrundlageVerfeinerung&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration_file</span><span class="p">,</span> <span class="n">topic_code</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">arc_max_diff</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
-                 <span class="n">arc_precision</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">tmp_dir</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">srid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration_file</span><span class="p">,</span> <span class="n">topic_code</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span>
+                 <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">arc_max_diff</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">arc_precision</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">tmp_dir</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span>
+                 <span class="n">srid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            configuration_file (str): Path to the configuration file to be used.</span>
 <span class="sd">            topic_code (str): The code of the federal topic to be updated.</span>
 <span class="sd">            section (str): The section within the configuration file. (default: &#39;pyramid_oereb&#39;)</span>
+<span class="sd">            c2ctemplate_style (bool): True if the yaml use a c2c template style (vars.[section]).</span>
+<span class="sd">                Default is False.</span>
 <span class="sd">            arc_max_diff (float): Maximum difference between arc and line segment for stroking.</span>
 <span class="sd">                (default: 0.001)</span>
 <span class="sd">            arc_precision (int): Coordinate precision for generated arc points. (default: 3)</span>
 <span class="sd">            tmp_dir (str): Directory used as temporary working directory. (default: &#39;.&#39;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;import_federal_topic&#39;</span><span class="p">)</span>
-        <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">configuration_file</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span>
+        <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">configuration_file</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">c2ctemplate_style</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
 
         <span class="n">topic_settings</span> <span class="o">=</span> <span class="kc">None</span>

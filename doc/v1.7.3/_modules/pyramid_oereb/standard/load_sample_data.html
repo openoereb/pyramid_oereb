@@ -184,12 +184,15 @@
 <span class="sd">    Class for sample data handling.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="s1">&#39;sample_data&#39;</span><span class="p">,</span> <span class="n">sql_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">directory</span><span class="o">=</span><span class="s1">&#39;sample_data&#39;</span><span class="p">,</span> <span class="n">sql_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            configuration (str): Path to the configuration yaml file.</span>
 <span class="sd">            section (str): The used section within the yaml file. Default is `pyramid_oereb`.</span>
+<span class="sd">            c2ctemplate_style (bool): True if the yaml use a c2c template style (vars.[section]).</span>
+<span class="sd">                Default is False.</span>
 <span class="sd">            directory (str): Location of the sample data. Default is `sample_data`.</span>
 <span class="sd">            sql_file (file): The SQL file to be created. Default is None.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -198,7 +201,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_directory</span> <span class="o">=</span> <span class="n">directory</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sql_file</span> <span class="o">=</span> <span class="n">sql_file</span>
 
-        <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_section</span><span class="p">)</span>
+        <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_section</span><span class="p">,</span> <span class="n">c2ctemplate_style</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">),</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -449,16 +452,28 @@
         <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span>
         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Generate an SQL file.&#39;</span>
     <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;--c2ctemplate-style&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;c2ctemplate_style&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Is the yaml file using a c2ctemplate style (starting with vars)&#39;</span>
+    <span class="p">)</span>
     <span class="n">options</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">:</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No configuration file set.&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">SampleData</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="n">SampleData</span><span class="p">(</span>
+            <span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
+            <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+            <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">c2ctemplate_style</span><span class="p">,</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">directory</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">sql_file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sql_file</span><span class="p">:</span>
             <span class="n">SampleData</span><span class="p">(</span>
                 <span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
                 <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+                <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">c2ctemplate_style</span><span class="p">,</span>
                 <span class="n">directory</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">directory</span><span class="p">,</span>
                 <span class="n">sql_file</span><span class="o">=</span><span class="n">sql_file</span>
             <span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
