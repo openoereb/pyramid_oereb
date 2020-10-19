@@ -288,6 +288,7 @@ def _run():
     parser.add_option(
         '--c2ctemplate-style',
         dest='c2ctemplate_style',
+        action='store_true',
         default=False,
         help='Is the yaml file using a c2ctemplate style (starting with vars)'
     )
