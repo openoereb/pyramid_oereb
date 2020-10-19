@@ -201,6 +201,7 @@ class PublicLawRestriction(Base):
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     geolink = sa.Column(sa.Integer, nullable=True)
+    oereblex_params = sa.Column(sa.String, nullable=True)
     view_service_id = sa.Column(
         sa.String,
         sa.ForeignKey(ViewService.id),

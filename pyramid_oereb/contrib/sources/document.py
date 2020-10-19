@@ -76,21 +76,23 @@ class OEREBlexSource(Base):
         if self._parser.host_url is None:
             raise AssertionError('host_url has to be defined')
 
-    def read(self, params, geolink_id):
+    def read(self, params, geolink_id, oereblex_params):
         """
         Requests the geoLink for the specified ID and returns records for the received documents.
 
         Args:
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             geolink_id (int): The geoLink ID.
+            oereblex_params (string): Any additional parameters to pass to Oereblex
         """
         log.debug("read() start")
 
         # Request documents
-        url = '{host}/api/{version}geolinks/{id}.xml'.format(
+        url = '{host}/api/{version}geolinks/{id}.xml?{url_params}'.format(
             host=self._parser.host_url,
             version=self._version + '/' if self._pass_version else '',
-            id=geolink_id
+            id=geolink_id,
+            url_params=oereblex_params
         )
         language = params.language or self._language
         request_params = {

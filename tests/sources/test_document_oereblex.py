@@ -141,7 +141,7 @@ def test_read():
         with open('./tests/resources/geolink_v1.2.0.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL')
-        source.read(MockParameter(), 100)
+        source.read(MockParameter(), 100, None)
         assert len(source.records) == 5
         document = source.records[0]
         assert isinstance(document, DocumentRecord)
@@ -160,7 +160,7 @@ def test_read_related_decree_as_main():
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
                                 related_decree_as_main=True)
-        source.read(MockParameter(), 100)
+        source.read(MockParameter(), 100, None)
         assert len(source.records) == 5
         document = source.records[0]
         assert isinstance(document, DocumentRecord)
@@ -179,7 +179,7 @@ def test_read_related_notice_as_main():
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
                                 related_notice_as_main=True)
-        source.read(MockParameter(), 100)
+        source.read(MockParameter(), 100, None)
         assert len(source.records) == 6
         document = source.records[5]
         assert isinstance(document, HintRecord)
@@ -196,7 +196,7 @@ def test_read_with_version_in_url():
             m.get('http://oereblex.example.com/api/1.2.0/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
                                 pass_version=True)
-        source.read(MockParameter(), 100)
+        source.read(MockParameter(), 100, None)
         assert len(source.records) == 5
 
 
@@ -206,7 +206,7 @@ def test_read_with_specified_version():
             m.get('http://oereblex.example.com/api/1.0.0/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
                                 pass_version=True, version='1.0.0')
-        source.read(MockParameter(), 100)
+        source.read(MockParameter(), 100, None)
         assert len(source.records) == 2
 
 
@@ -217,7 +217,7 @@ def test_read_with_specified_language():
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL')
         params = MockParameter()
         params.set_language('fr')
-        source.read(params, 100)
+        source.read(params, 100, None)
         assert len(source.records) == 5
         document = source.records[0]
         assert document.responsible_office.name == {'fr': 'Bauverwaltung Gemeinde'}

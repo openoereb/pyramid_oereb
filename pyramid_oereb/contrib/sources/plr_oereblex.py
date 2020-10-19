@@ -41,9 +41,10 @@ class DatabaseOEREBlexSource(DatabaseSource):
         """
         Override the parent's get_document_records method to obtain the oereblex document instead.
         """
-        return self.document_records_from_oereblex(params, public_law_restriction_from_db.geolink)
+        return self.document_records_from_oereblex(params, public_law_restriction_from_db.geolink,
+                                                   public_law_restriction_from_db.oereblex_params)
 
-    def document_records_from_oereblex(self, params, lexlink):
+    def document_records_from_oereblex(self, params, lexlink, oereblex_params):
         """
         Create document records parsed from the OEREBlex response with the specified geoLink ID and appends
         them to the current public law restriction.
@@ -51,6 +52,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
         Args:
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             lexlink (int): The ID of the geoLink to request the documents for.
+            oereblex_params (string): Parameters for the oereblex link
 
         Returns:
             list of pyramid_oereb.lib.records.documents.DocumentRecord:
@@ -62,7 +64,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
             log.debug('use already queried instead')
             return self._queried_lexlinks[lexlink]
         else:
-            self._oereblex_source.read(params, lexlink)
+            self._oereblex_source.read(params, lexlink, oereblex_params)
             log.debug("document_records_from_oereblex() returning {} records"
                       .format(len(self._oereblex_source.records)))
             self._queried_lexlinks[lexlink] = self._oereblex_source.records
