@@ -113,6 +113,7 @@ def create_standard_tables():
     parser.add_option(
         '--c2ctemplate-style',
         dest='c2ctemplate_style',
+        action='store_true',
         default=False,
         help='Is the yaml file using a c2ctemplate style (starting with vars)'
     )
@@ -174,6 +175,7 @@ def create_theme_tables():
     parser.add_option(
         '--c2ctemplate-style',
         dest='tc2ctemplate_style',
+        action='store_true',
         default=False,
         help='Is the yaml file using a c2ctemplate style (starting with vars)'
     )
