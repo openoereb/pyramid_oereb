@@ -2,18 +2,9 @@
 
 import logging
 
-from pyramid.path import DottedNameResolver
-
 from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.lib.config import Config
 from pyramid.config import Configurator
-
-from pyramid_oereb.lib.readers.exclusion_of_liability import ExclusionOfLiabilityReader
-from pyramid_oereb.lib.readers.extract import ExtractReader
-from pyramid_oereb.lib.readers.glossary import GlossaryReader
-from pyramid_oereb.lib.readers.municipality import MunicipalityReader
-from pyramid_oereb.lib.readers.real_estate import RealEstateReader
-from pyramid_oereb.lib.processor import Processor
 
 __version__ = '1.0.1'
 
@@ -22,7 +13,6 @@ log = logging.getLogger(__name__)
 route_prefix = None
 # initially instantiate database adapter for global session handling
 database_adapter = DatabaseAdapter()
-processor = None
 
 
 def main(global_config, **settings):
@@ -66,8 +56,6 @@ def includeme(config):
         'pyramid_oereb': Config.get_config()
     })
 
-    config.add_request_method(pyramid_oereb_processor, reify=True)
-
     config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer.extract.json_.Renderer')
     config.add_renderer('pyramid_oereb_extract_xml', 'pyramid_oereb.lib.renderer.extract.xml_.Renderer')
     config.add_renderer('pyramid_oereb_extract_print', Config.get('print').get('renderer'))
@@ -77,65 +65,3 @@ def includeme(config):
     config.add_renderer('pyramid_oereb_getegrid_xml', 'pyramid_oereb.lib.renderer.getegrid.xml_.Renderer')
 
     config.include('pyramid_oereb.routes')
-
-
-def pyramid_oereb_processor(request):
-    global processor
-    if processor is None:
-        init_processor()
-    return processor
-
-
-def init_processor():
-    global processor
-
-    real_estate_config = Config.get_real_estate_config()
-    municipality_config = Config.get_municipality_config()
-    exclusion_of_liability_config = Config.get_exclusion_of_liability_config()
-    glossary_config = Config.get_glossary_config()
-    extract = Config.get_extract_config()
-    certification = extract.get('certification')
-    certification_at_web = extract.get('certification_at_web')
-
-    plr_cadastre_authority = Config.get_plr_cadastre_authority()
-
-    real_estate_reader = RealEstateReader(
-        real_estate_config.get('source').get('class'),
-        **real_estate_config.get('source').get('params')
-    )
-
-    municipality_reader = MunicipalityReader(
-        municipality_config.get('source').get('class'),
-        **municipality_config.get('source').get('params')
-    )
-
-    exclusion_of_liability_reader = ExclusionOfLiabilityReader(
-        exclusion_of_liability_config.get('source').get('class'),
-        **exclusion_of_liability_config.get('source').get('params')
-    )
-
-    glossary_reader = GlossaryReader(
-        glossary_config.get('source').get('class'),
-        **glossary_config.get('source').get('params')
-    )
-
-    plr_sources = []
-    for plr in Config.get('plrs'):
-        plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
-        plr_sources.append(plr_source_class(**plr))
-
-    extract_reader = ExtractReader(
-        plr_sources,
-        plr_cadastre_authority,
-        certification,
-        certification_at_web,
-    )
-
-    processor = Processor(
-        real_estate_reader=real_estate_reader,
-        municipality_reader=municipality_reader,
-        exclusion_of_liability_reader=exclusion_of_liability_reader,
-        glossary_reader=glossary_reader,
-        plr_sources=plr_sources,
-        extract_reader=extract_reader,
-    )
