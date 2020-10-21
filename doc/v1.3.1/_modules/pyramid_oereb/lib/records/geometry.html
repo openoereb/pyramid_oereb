@@ -329,6 +329,9 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span> <span class="o">=</span> <span class="n">compensated_area</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_test_passed</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># This intersection result should not be used for the OEREB extract:</span>
+                <span class="c1"># for example, if two polygons are touching each other, the intersection geometry will be</span>
+                <span class="c1"># the point or linestring representing the touching part.</span>
                 <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
                     <span class="sa">u</span><span class="s1">&#39;Intersection result changed geometry type. &#39;</span>
                     <span class="sa">u</span><span class="s1">&#39;Original geometry was </span><span class="si">{0}</span><span class="s1"> and result is </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
