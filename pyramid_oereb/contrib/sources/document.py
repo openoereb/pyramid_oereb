@@ -76,7 +76,7 @@ class OEREBlexSource(Base):
         if self._parser.host_url is None:
             raise AssertionError('host_url has to be defined')
 
-    def read(self, params, geolink_id, oereblex_params):
+    def read(self, params, geolink_id, oereblex_params=None):
         """
         Requests the geoLink for the specified ID and returns records for the received documents.
 
