@@ -451,23 +451,6 @@
             <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ViewServiceRecord.unique_update_legends"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.view_service.ViewServiceRecord.unique_update_legends">[docs]</a>    <span class="k">def</span> <span class="nf">unique_update_legends</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legend</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Uniquely append a legend to the legend entries. It checks if a legend entry with the same type code</span>
-<span class="sd">         already exists in the legends of this instance.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            legend (pyramid_oereb.lib.records.view_service.LegendEntryRecord): The legend entry which</span>
-<span class="sd">                should be append to the list.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">already_exist</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">legends</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">type_code</span> <span class="o">==</span> <span class="n">legend</span><span class="o">.</span><span class="n">type_code</span><span class="p">:</span>
-                <span class="n">already_exist</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="k">break</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">already_exist</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">legends</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span></div>
-
     <span class="k">def</span> <span class="nf">calculate_ns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">srid</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_crs</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">srid</span> <span class="o">==</span> <span class="sa">u</span><span class="s1">&#39;epsg:2056&#39;</span><span class="p">:</span>
