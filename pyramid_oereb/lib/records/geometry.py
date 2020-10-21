@@ -164,6 +164,9 @@ class GeometryRecord(object):
                     self._area_share = compensated_area
                     self._test_passed = True
             else:
+                # This intersection result should not be used for the OEREB extract:
+                # for example, if two polygons are touching each other, the intersection geometry will be
+                # the point or linestring representing the touching part.
                 log.debug(
                     u'Intersection result changed geometry type. '
                     u'Original geometry was {0} and result is {1}'.format(
