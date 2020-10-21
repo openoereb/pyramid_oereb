@@ -171,7 +171,7 @@ pyramid_oereb:
         types:
         - GeometryCollection
 
-  # Configuration options for full extract
+  # Configuration option for full extract: apply SLD on land register WMS (defaults to true)
   full_extract_use_sld: true
 
   # Configuration for OEREBlex
