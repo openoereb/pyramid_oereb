@@ -172,6 +172,9 @@ vars:
           types:
           - GeometryCollection
 
+    # Configuration options for full extract
+    full_extract_use_sld: true
+
     # Configuration for OEREBlex
     oereblex:
       # OEREBlex host
