@@ -11,7 +11,8 @@ class RealEstateRecord(object):
     Attributes:
         plan_for_land_register (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service to
             be used for the land registry map.
-        highlight (str): The url which produces a image with the highlighted real estate from a wms.
+        highlight (pyramid_oereb.lib.records.view_service.ViewServiceRecord): the view service with the wms
+        image of the highlighted real estate.
         areas_ratio (decimal): Ratio of geometrical area and area from land registry.
     """
 
@@ -90,6 +91,13 @@ class RealEstateRecord(object):
         self.plan_for_land_register_main_page = plan_for_land_register_main_page
 
     def set_highlight_url(self, sld_url):
+        """
+        Set the highlight of the real estate.
+
+        Args:
+            sld_url (str): The URL which provides the sld to style and filter the highlight of the real
+            estate.
+        """
         configured_params = Config.get_real_estate_config().get('visualisation').get('url_params')
         additional_url_params = {}
         for param in configured_params:

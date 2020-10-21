@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+1.8.0 (DRAFT)
+*************
+- Enhance federal data import script to make it more usable with Docker (#1078)
+- For full extracts, add configuration parameter to make additional sld usage optional (#1077)
+
 1.7.6
 *****
 - Improve federal data import script (#1057)

@@ -231,7 +231,8 @@ class Renderer(Base):
             real_estate_dict['Reference'] = reference_list
 
         if self._params.flavour == 'full':
-            real_estate_dict['Highlight'] = self.format_map(real_estate.highlight)
+            if Config.get('full_extract_use_sld', True):
+                real_estate_dict['Highlight'] = self.format_map(real_estate.highlight)
 
         return real_estate_dict
 
