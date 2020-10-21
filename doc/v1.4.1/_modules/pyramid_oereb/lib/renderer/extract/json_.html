@@ -398,7 +398,8 @@
             <span class="n">real_estate_dict</span><span class="p">[</span><span class="s1">&#39;Reference&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reference_list</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="o">.</span><span class="n">flavour</span> <span class="o">==</span> <span class="s1">&#39;full&#39;</span><span class="p">:</span>
-            <span class="n">real_estate_dict</span><span class="p">[</span><span class="s1">&#39;Highlight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">highlight</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;full_extract_use_sld&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+                <span class="n">real_estate_dict</span><span class="p">[</span><span class="s1">&#39;Highlight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">highlight</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">real_estate_dict</span></div>
 

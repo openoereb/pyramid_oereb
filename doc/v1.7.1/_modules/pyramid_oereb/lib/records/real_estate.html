@@ -176,7 +176,8 @@
 <span class="sd">    Attributes:</span>
 <span class="sd">        plan_for_land_register (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service to</span>
 <span class="sd">            be used for the land registry map.</span>
-<span class="sd">        highlight (str): The url which produces a image with the highlighted real estate from a wms.</span>
+<span class="sd">        highlight (pyramid_oereb.lib.records.view_service.ViewServiceRecord): the view service with the wms</span>
+<span class="sd">        image of the highlighted real estate.</span>
 <span class="sd">        areas_ratio (decimal): Ratio of geometrical area and area from land registry.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -254,7 +255,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register_main_page</span> <span class="o">=</span> <span class="n">plan_for_land_register_main_page</span></div>
 
-    <span class="k">def</span> <span class="nf">set_highlight_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sld_url</span><span class="p">):</span>
+<div class="viewcode-block" id="RealEstateRecord.set_highlight_url"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord.set_highlight_url">[docs]</a>    <span class="k">def</span> <span class="nf">set_highlight_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sld_url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the highlight of the real estate.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sld_url (str): The URL which provides the sld to style and filter the highlight of the real</span>
+<span class="sd">            estate.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">configured_params</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_real_estate_config</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;visualisation&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;url_params&#39;</span><span class="p">)</span>
         <span class="n">additional_url_params</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">configured_params</span><span class="p">:</span>
@@ -266,7 +274,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register</span><span class="o">.</span><span class="n">layer_opacity</span><span class="p">,</span>
             <span class="n">legend_at_web</span><span class="o">=</span><span class="p">{}</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">highlight</span><span class="o">.</span><span class="n">download_wms_content</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">highlight</span><span class="o">.</span><span class="n">download_wms_content</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">%s</span><span class="s1"> -- number: </span><span class="si">%s</span><span class="s1"> identdn: </span><span class="si">%s</span><span class="s1"> egrid: </span><span class="si">%s</span><span class="s1"> type: </span><span class="si">%s</span><span class="s1">&#39;</span> \

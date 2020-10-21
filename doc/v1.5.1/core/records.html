@@ -1711,8 +1711,13 @@ be used for the land registry map.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord.highlight">
 <code class="descname">highlight</code><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord.highlight" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>str</em> &#8211; The url which produces a image with the highlighted real estate from a wms.</p>
+<dd><p><em>pyramid_oereb.lib.records.view_service.ViewServiceRecord</em> &#8211; the view service with the wms</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">image of the highlighted real estate.</code></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord.areas_ratio">
@@ -1748,6 +1753,24 @@ associated with this real estate</li>
 <li><strong>plan_for_land_register</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord" title="pyramid_oereb.lib.records.view_service.ViewServiceRecord"><em>pyramid_oereb.lib.records.view_service.ViewServiceRecord</em></a>) &#8211; The view
 service to be used for the land registry map</li>
 <li><strong>plan_for_land_register_main_page</strong> (<a class="reference internal" href="#pyramid_oereb.lib.records.view_service.ViewServiceRecord" title="pyramid_oereb.lib.records.view_service.ViewServiceRecord"><em>pyramid_oereb.lib.records.view_service.ViewServiceRecord</em></a>) &#8211; The view service to be used for the land registry map used on the main page</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.lib.records.real_estate.RealEstateRecord.set_highlight_url">
+<code class="descname">set_highlight_url</code><span class="sig-paren">(</span><em>sld_url</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/lib/records/real_estate.html#RealEstateRecord.set_highlight_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.lib.records.real_estate.RealEstateRecord.set_highlight_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the highlight of the real estate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sld_url</strong> (<em>str</em>) &#8211; The URL which provides the sld to style and filter the highlight of the real</li>
+<li><strong>estate.</strong> &#8211; </li>
 </ul>
 </td>
 </tr>
