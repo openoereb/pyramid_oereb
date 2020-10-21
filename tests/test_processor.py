@@ -3,7 +3,7 @@ import datetime
 import pytest
 from shapely.geometry import Point
 
-from pyramid_oereb.lib.processor import Processor
+from pyramid_oereb.lib.processor import Processor, create_processor
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.image import ImageRecord
@@ -12,11 +12,11 @@ from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
-from pyramid_oereb import ExtractReader
-from pyramid_oereb import MunicipalityReader
-from pyramid_oereb import ExclusionOfLiabilityReader
-from pyramid_oereb import GlossaryReader
-from pyramid_oereb import RealEstateReader
+from pyramid_oereb.lib.readers.exclusion_of_liability import ExclusionOfLiabilityReader
+from pyramid_oereb.lib.readers.extract import ExtractReader
+from pyramid_oereb.lib.readers.glossary import GlossaryReader
+from pyramid_oereb.lib.readers.municipality import MunicipalityReader
+from pyramid_oereb.lib.readers.real_estate import RealEstateReader
 from pyramid_oereb.views.webservice import PlrWebservice
 from tests.mockrequest import MockRequest
 
@@ -33,9 +33,7 @@ def test_missing_params():
 
 
 def test_properties():
-    request = MockRequest()
-    request.matchdict.update(request_matchdict)
-    processor = request.pyramid_oereb_processor
+    processor = create_processor()
     assert isinstance(processor.extract_reader, ExtractReader)
     assert isinstance(processor.municipality_reader, MunicipalityReader)
     assert isinstance(processor.exclusion_of_liability_reader, ExclusionOfLiabilityReader)
@@ -47,7 +45,7 @@ def test_properties():
 def test_process():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
-    processor = request.pyramid_oereb_processor
+    processor = create_processor()
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
     real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
@@ -58,7 +56,7 @@ def test_process():
 def test_process_geometry_testing():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
-    processor = request.pyramid_oereb_processor
+    processor = create_processor()
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
     real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
@@ -71,7 +69,7 @@ def test_process_geometry_testing():
 def test_filter_published_documents():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
-    processor = request.pyramid_oereb_processor
+    processor = create_processor()
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
     real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
@@ -89,7 +87,7 @@ def test_processor_with_images():
         'WITHIMAGES': '',
         'LANG': 'de'
     })
-    processor = request.pyramid_oereb_processor
+    processor = create_processor()
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
     real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
@@ -105,7 +103,7 @@ def test_processor_without_images():
     request.params.update({
         'LANG': 'de'
     })
-    processor = request.pyramid_oereb_processor
+    processor = create_processor()
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
     real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')

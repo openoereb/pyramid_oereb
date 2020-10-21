@@ -2,8 +2,7 @@
 
 import logging
 
-from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPServerError, HTTPNotFound, \
-    HTTPInternalServerError
+from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPNotFound, HTTPInternalServerError
 from pyramid.path import DottedNameResolver
 from shapely.geometry import Point
 from pyramid.renderers import render_to_response
@@ -11,9 +10,9 @@ from pyramid.response import Response
 
 from pyramid_oereb import route_prefix
 from pyramid_oereb import Config
-from pyramid_oereb.lib.processor import Processor
 from pyreproj import Reprojector
 
+from pyramid_oereb.lib.processor import create_processor
 from pyramid_oereb.lib.readers.address import AddressReader
 from timeit import default_timer as timer
 
@@ -30,12 +29,8 @@ class PlrWebservice(object):
         request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.
     """
     def __init__(self, request):
-        if not isinstance(request.pyramid_oereb_processor, Processor):
-            raise HTTPServerError('Missing processor instance')
         self._request = request
         self._params = {k.upper(): v for k, v in request.params.items()}
-        self._real_estate_reader = request.pyramid_oereb_processor.real_estate_reader
-        self._municipality_reader = request.pyramid_oereb_processor.municipality_reader
 
     # For backward compatibility with old specification.
     def _is_json(self):
@@ -109,10 +104,11 @@ class PlrWebservice(object):
                 'Code': theme.code,
                 'Text': text
             })
+        processor = create_processor()
         capabilities = {
             u'GetCapabilitiesResponse': {
                 u'topic': themes,
-                u'municipality': [record.fosnr for record in self._municipality_reader.read(params)],
+                u'municipality': [record.fosnr for record in processor.municipality_reader.read(params)],
                 u'flavour': Config.get_flavour(),
                 u'language': supported_languages,
                 u'crs': [Config.get_crs()]
@@ -150,7 +146,8 @@ class PlrWebservice(object):
                                                self.__parse_xy__(xy, buffer_dist=1.0).wkt)
                 elif gnss:
                     geom_wkt = geom_wkt.format(Config.get('srid'), self.__parse_gnss__(gnss).wkt)
-                records = self._real_estate_reader.read(params, **{'geometry': geom_wkt})
+                processor = create_processor()
+                records = processor.real_estate_reader.read(params, **{'geometry': geom_wkt})
                 response = self.__get_egrid_response__(records)
             else:
                 raise HTTPBadRequest('XY or GNSS must be defined.')
@@ -175,7 +172,8 @@ class PlrWebservice(object):
         number = self._request.matchdict.get('number')
         try:
             if identdn and number:
-                records = self._real_estate_reader.read(
+                processor = create_processor()
+                records = processor.real_estate_reader.read(
                     params,
                     **{
                         'nb_ident': identdn,
@@ -216,7 +214,8 @@ class PlrWebservice(object):
                     raise HTTPNoContent()
                 geometry = 'SRID={srid};{wkt}'.format(srid=Config.get('srid'),
                                                       wkt=addresses[0].geom.wkt)
-                records = self._real_estate_reader.read(params, **{'geometry': geometry})
+                processor = create_processor()
+                records = processor.real_estate_reader.read(params, **{'geometry': geometry})
                 response = self.__get_egrid_response__(records)
             else:
                 raise HTTPBadRequest('POSTALCODE, LOCALISATION and NUMBER must be defined.')
@@ -241,7 +240,7 @@ class PlrWebservice(object):
         log.debug("get_extract_by_id() start")
         try:
             params = self.__validate_extract_params__()
-            processor = self._request.pyramid_oereb_processor
+            processor = create_processor()
             # read the real estate from configured source by the passed parameters
             real_estate_reader = processor.real_estate_reader
             if params.egrid:

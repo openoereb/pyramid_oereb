@@ -2,10 +2,17 @@
 import logging
 
 from operator import attrgetter
+
+from pyramid.path import DottedNameResolver
+
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
-from pyramid.path import DottedNameResolver
+from pyramid_oereb.lib.readers.exclusion_of_liability import ExclusionOfLiabilityReader
+from pyramid_oereb.lib.readers.extract import ExtractReader
+from pyramid_oereb.lib.readers.glossary import GlossaryReader
+from pyramid_oereb.lib.readers.municipality import MunicipalityReader
+from pyramid_oereb.lib.readers.real_estate import RealEstateReader
 
 
 log = logging.getLogger(__name__)
@@ -309,3 +316,65 @@ class Processor(object):
                 extract.real_estate.set_highlight_url(sld_url)
         log.debug("process() done, returning extract.")
         return extract
+
+
+def create_processor():
+    """
+    Creates and returns a processor based on the application configuration.
+    You should use one (and only one) processor per request. Otherwise some results can be mixed or
+    missing.
+
+    Returns:
+        pyramid_oereb.lib.processor.Processor: A processor.
+    """
+
+    real_estate_config = Config.get_real_estate_config()
+    municipality_config = Config.get_municipality_config()
+    exclusion_of_liability_config = Config.get_exclusion_of_liability_config()
+    glossary_config = Config.get_glossary_config()
+    extract = Config.get_extract_config()
+    certification = extract.get('certification')
+    certification_at_web = extract.get('certification_at_web')
+
+    plr_cadastre_authority = Config.get_plr_cadastre_authority()
+
+    real_estate_reader = RealEstateReader(
+        real_estate_config.get('source').get('class'),
+        **real_estate_config.get('source').get('params')
+    )
+
+    municipality_reader = MunicipalityReader(
+        municipality_config.get('source').get('class'),
+        **municipality_config.get('source').get('params')
+    )
+
+    exclusion_of_liability_reader = ExclusionOfLiabilityReader(
+        exclusion_of_liability_config.get('source').get('class'),
+        **exclusion_of_liability_config.get('source').get('params')
+    )
+
+    glossary_reader = GlossaryReader(
+        glossary_config.get('source').get('class'),
+        **glossary_config.get('source').get('params')
+    )
+
+    plr_sources = []
+    for plr in Config.get('plrs'):
+        plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
+        plr_sources.append(plr_source_class(**plr))
+
+    extract_reader = ExtractReader(
+        plr_sources,
+        plr_cadastre_authority,
+        certification,
+        certification_at_web,
+    )
+
+    return Processor(
+        real_estate_reader=real_estate_reader,
+        municipality_reader=municipality_reader,
+        exclusion_of_liability_reader=exclusion_of_liability_reader,
+        glossary_reader=glossary_reader,
+        plr_sources=plr_sources,
+        extract_reader=extract_reader,
+    )
