@@ -6,6 +6,18 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+.. _changes-version-1.8.0:
+
+Version 1.8.0
+-------------
+This release contains the following bug-fixes and improvements:
+
+ * Fix bug affecting concurrent requests (#1068)
+ * Enhance federal data import script to make it more usable with Docker (#1078)
+ * For full extracts, add configuration parameter to make additional sld usage optional (#1077)
+
+Note that this release requires Python 3.6 or higher.
+
 
 .. _changes-version-1.7.6:
 

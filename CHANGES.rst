@@ -2,8 +2,9 @@
 Changelog
 ---------
 
-1.8.0 (DRAFT)
-*************
+1.8.0
+*****
+- Fix bug affecting concurrent requests (#1068)
 - Enhance federal data import script to make it more usable with Docker (#1078)
 - For full extracts, add configuration parameter to make additional sld usage optional (#1077)
 
