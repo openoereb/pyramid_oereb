@@ -156,11 +156,15 @@ class OEREBlexSource(Base):
             if authority is None:
                 authority = '-'
 
+        # Cancel if enactment_date is not set
+        if enactment_date is None:
+            log.warning('Document with OEREBlex ID {0} has been skipped because of missing enactment_date.'
+                        .format(document.id))
+            return []
+
         # Check mandatory attributes
         if document.title is None:
             raise AssertionError('Missing title for document #{0}'.format(document.id))
-        if enactment_date is None:
-            raise AssertionError('Missing enactment_date for document #{0}'.format(document.id))
         if authority is None:
             raise AssertionError('Missing authority for document #{0}'.format(document.id))
 
