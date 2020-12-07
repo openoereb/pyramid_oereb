@@ -2,8 +2,8 @@ OPERATING_SYSTEM ?= LINUX
 PYTHON_VERSION ?= python3
 VIRTUALENV = virtualenv --python=$(PYTHON_VERSION)
 USE_DOCKER ?= TRUE
-DOCKER_BASE = camptocamp/oereb
-DOCKER_CONTAINER_BASE = camptocamp-oereb
+DOCKER_BASE = openoereb/oereb
+DOCKER_CONTAINER_BASE = openoereb-oereb
 
 PG_DROP_DB ?= DROP DATABASE IF EXISTS pyramid_oereb_test;
 PG_CREATE_DB ?= CREATE DATABASE pyramid_oereb_test;
@@ -193,4 +193,4 @@ logo_%.png: pyramid_oereb_standard.yml
 
 .PHONY: build-docker
 build-docker: logo_oereb.png logo_confederation.png logo_canton.png docker/config.yaml
-	docker build --tag camptocamp/pyramid-oereb:latest .
+	docker build --tag openoereb/pyramid-oereb:latest .
