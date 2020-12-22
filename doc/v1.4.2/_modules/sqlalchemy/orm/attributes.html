@@ -341,6 +341,13 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">expression</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The SQL expression object represented by this</span>
+<span class="sd">        :class:`.QueryableAttribute`.</span>
+
+<span class="sd">        This will typically be an instance of a :class:`.ColumnElement`</span>
+<span class="sd">        subclass representing a column expression.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="o">.</span><span class="n">__clause_element__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__clause_element__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
