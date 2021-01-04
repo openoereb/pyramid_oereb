@@ -48,7 +48,7 @@ MODEL_PK_TYPE_IS_STRING ?= true
 install: $(PYTHON_VENV)
 
 .venv/timestamp:
-	$(VIRTUALENV) --no-site-packages .venv
+	$(VIRTUALENV) .venv
 	touch $@
 
 .venv/requirements-timestamp: .venv/install-timestamp .venv/timestamp setup.py dev-requirements.txt
