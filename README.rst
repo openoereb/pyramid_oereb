@@ -28,6 +28,8 @@ If you are interested in contributing or extending the project, take a look at t
 Local testing (quick preview)
 -----------------------------
 
+Following packages are required: ``python3-venv`` ``postgresql-client`` ``libpq-dev``
+
 Run:
 
 .. code-block:: bash
