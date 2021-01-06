@@ -55,7 +55,7 @@ class SampleData(object):
         if isinstance(value, bool):
             return "'t'" if value else "'f'"
         if isinstance(value, dict):
-            return cls._format_value(json.dumps(value))
+            return cls._format_value(json.dumps(value, ensure_ascii=False))
         raise "Unsupported type {}".format(type(value))
 
     def _do_sql_insert(self, sql, items):
