@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+1.8.1
+*****
+- Update of external libraries such as numpy, SQLAlchemy, lxml, and more.
+- oereblex support: avoid extract failure upon missing enactment_date in oereblex (#1093)
+- Improve support of Python 3.7 in template Makefile and sample data loading (#1104, #1106)
+
 1.8.0
 *****
 - Fix bug affecting concurrent requests (#1068)
