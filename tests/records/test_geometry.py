@@ -2,9 +2,11 @@
 
 import datetime
 import math
+from pathlib import Path
 
 from shapely.geometry import Polygon, MultiPolygon, LineString, Point, MultiPoint, MultiLineString, \
     GeometryCollection
+import shapely.wkt
 
 import pytest
 
@@ -204,6 +206,26 @@ def test_extract_collection(input_geom, result, extracted):
             None,
             3,
             True
+        ), (
+            # Intersection area with polygon result: Polygon, should pass (real estate: invalid geometry)
+            Polygon([(2698000,1208500),(2698500,1208500),(2698500,1208750),(2698000,1208750)]),
+            shapely.wkt.loads((Path("tests/records") / "geometry1.txt").read_text()),
+            1,
+            1,
+            None,
+            125000,
+            None,
+            True
+        ), (
+            # Intersection area with polygon result: Polygon, should be dismissed (real estate: invalid geometry)
+            Polygon([(2699500,1210000),(2700000,1210000),(2700000,1210500),(2699500,1210500)]),
+            shapely.wkt.loads((Path("tests/records") / "geometry1.txt").read_text()),
+            1,
+            1,
+            None,
+            None,
+            None,
+            False
         )
     ]
 )
@@ -221,11 +243,16 @@ def test_calculate(geometry, real_estate_geometry, length_limit, area_limit, len
         'BL',
         'Aesch BL',
         2761,
-        1,
+        real_estate_geometry.area,
         real_estate_geometry
     )
+    print(f"Real estate areas ratio:{real_estate.areas_ratio}")
     geometry_record.calculate(real_estate, length_limit, area_limit, 'm', 'm2')
+    print(f"Geom record area share:{geometry_record._area_share}")
     assert geometry_record._test_passed == test
     assert geometry_record._length_share == length_share
-    assert geometry_record._area_share == area_share
+    if geometry_record._area_share is None:
+        assert geometry_record._area_share == area_share
+    else:
+        assert round(geometry_record._area_share) == area_share
     assert geometry_record._nr_of_points == nr_of_points
