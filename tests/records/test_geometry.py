@@ -246,9 +246,7 @@ def test_calculate(geometry, real_estate_geometry, length_limit, area_limit, len
         real_estate_geometry.area,
         real_estate_geometry
     )
-    print(f"Real estate areas ratio:{real_estate.areas_ratio}")
     geometry_record.calculate(real_estate, length_limit, area_limit, 'm', 'm2')
-    print(f"Geom record area share:{geometry_record._area_share}")
     assert geometry_record._test_passed == test
     assert geometry_record._length_share == length_share
     if geometry_record._area_share is None:
