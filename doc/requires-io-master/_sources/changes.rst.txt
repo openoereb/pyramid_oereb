@@ -6,6 +6,18 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+
+.. _changes-version-1.8.1:
+
+Version 1.8.1
+-------------
+This is a maintenance release with minor updates:
+
+ * Update of external libraries such as numpy, SQLAlchemy, lxml, and more.
+ * oereblex support: avoid extract failure upon missing enactment_date in oereblex (#1093)
+ * Improve support of Python 3.7 in template Makefile and sample data loading (#1104, #1106)
+
+
 .. _changes-version-1.8.0:
 
 Version 1.8.0

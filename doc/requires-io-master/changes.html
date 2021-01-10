@@ -100,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-8-1">Version 1.8.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-8-0">Version 1.8.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-7-6">Version 1.7.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-7-4">Version 1.7.4</a></li>
@@ -238,6 +239,17 @@
 <span id="changes"></span><h1>Changes/Hints for migration<a class="headerlink" href="#changes-hints-for-migration" title="Permalink to this headline">¶</a></h1>
 <p>This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.</p>
+<div class="section" id="version-1-8-1">
+<span id="changes-version-1-8-1"></span><h2>Version 1.8.1<a class="headerlink" href="#version-1-8-1" title="Permalink to this headline">¶</a></h2>
+<p>This is a maintenance release with minor updates:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Update of external libraries such as numpy, SQLAlchemy, lxml, and more.</li>
+<li>oereblex support: avoid extract failure upon missing enactment_date in oereblex (#1093)</li>
+<li>Improve support of Python 3.7 in template Makefile and sample data loading (#1104, #1106)</li>
+</ul>
+</div></blockquote>
+</div>
 <div class="section" id="version-1-8-0">
 <span id="changes-version-1-8-0"></span><h2>Version 1.8.0<a class="headerlink" href="#version-1-8-0" title="Permalink to this headline">¶</a></h2>
 <p>This release contains the following bug-fixes and improvements:</p>
@@ -1189,6 +1201,7 @@ and why please have a detailed look at the documentation of the used package
             <dd><a href="../v1.7.5/changes.html">v1.7.5</a></dd>
             <dd><a href="../v1.7.6/changes.html">v1.7.6</a></dd>
             <dd><a href="../v1.8.0/changes.html">v1.8.0</a></dd>
+            <dd><a href="../v1.8.1/changes.html">v1.8.1</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
