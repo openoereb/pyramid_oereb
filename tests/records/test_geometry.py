@@ -258,3 +258,22 @@ def test_calculate(geometry, real_estate_geometry, length_limit, area_limit, len
     else:
         assert round(geometry_record._area_share) == area_share
     assert geometry_record._nr_of_points == nr_of_points
+
+
+@pytest.mark.parametrize(
+    "geometry,test", [
+        (
+            # Invalid geometry according to OGC
+            shapely.wkt.loads( \
+                (Path("tests/records") / "interlis-valid-ogc-invalid-geometry.txt").read_text()),
+            False,
+        ), (
+            # Valid geometry according to OGC
+            shapely.wkt.loads( \
+                (Path("tests/records") / "interlis-valid-ogc-valid-geometry.txt").read_text()),
+            True,
+        )
+    ]
+)
+def test_validity(geometry, test):
+    assert geometry.is_valid == test
