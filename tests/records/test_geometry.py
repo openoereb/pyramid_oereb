@@ -208,20 +208,20 @@ def test_extract_collection(input_geom, result, extracted):
             True
         ), (
             # Intersection area with polygon result: Polygon, should pass
-            # Real estate is Interlis valid and OGC invalid
-            Polygon([(2698000, 1208500), (2698500, 1208500), (2698500, 1208750), (2698000, 1208750)]),
+            # PLR geometry is Interlis valid and OGC invalid
+            Polygon([(2698200, 1208800), (2698400, 1208800), (2698400, 1209000), (2698200, 1209000)]),
             shapely.wkt.loads( \
                 (Path("tests/records") / "interlis-valid-ogc-invalid-geometry.txt").read_text()),
             1,
             1,
             None,
-            125000,
+            40000,
             None,
             True
         ), (
             # Intersection area with polygon result: Polygon, should be dismissed
-            # Real estate is Interlis valid and OGC invalid
-            Polygon([(2699500, 1210000), (2700000, 1210000), (2700000, 1210500), (2699500, 1210500)]),
+            # PLR geometry is Interlis valid and OGC invalid
+            Polygon([(2696500, 1208800), (2696700, 1208800), (2696700, 1209000), (2696500, 1209000)]),
             shapely.wkt.loads( \
                 (Path("tests/records") / "interlis-valid-ogc-invalid-geometry.txt").read_text()),
             1,
