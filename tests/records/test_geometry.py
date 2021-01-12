@@ -2,9 +2,11 @@
 
 import datetime
 import math
+from pathlib import Path
 
 from shapely.geometry import Polygon, MultiPolygon, LineString, Point, MultiPoint, MultiLineString, \
     GeometryCollection
+import shapely.wkt
 
 import pytest
 
@@ -204,6 +206,30 @@ def test_extract_collection(input_geom, result, extracted):
             None,
             3,
             True
+        ), (
+            # Intersection area with polygon result: Polygon, should pass
+            # PLR geometry is Interlis valid and OGC invalid
+            shapely.wkt.loads( \
+                (Path("tests/records") / "interlis-valid-ogc-invalid-geometry.txt").read_text()),
+            Polygon([(2698200, 1208800), (2698400, 1208800), (2698400, 1209000), (2698200, 1209000)]),
+            1,
+            1,
+            None,
+            40000,
+            None,
+            True
+        ), (
+            # Intersection area with polygon result: Polygon, should be dismissed
+            # PLR geometry is Interlis valid and OGC invalid
+            shapely.wkt.loads( \
+                (Path("tests/records") / "interlis-valid-ogc-invalid-geometry.txt").read_text()),
+            Polygon([(2696500, 1208800), (2696700, 1208800), (2696700, 1209000), (2696500, 1209000)]),
+            1,
+            1,
+            None,
+            None,
+            None,
+            False
         )
     ]
 )
@@ -221,7 +247,7 @@ def test_calculate(geometry, real_estate_geometry, length_limit, area_limit, len
         'BL',
         'Aesch BL',
         2761,
-        1,
+        round(real_estate_geometry.area),
         real_estate_geometry
     )
     geometry_record.calculate(real_estate, length_limit, area_limit, 'm', 'm2')
@@ -229,3 +255,22 @@ def test_calculate(geometry, real_estate_geometry, length_limit, area_limit, len
     assert geometry_record._length_share == length_share
     assert geometry_record._area_share == area_share
     assert geometry_record._nr_of_points == nr_of_points
+
+
+@pytest.mark.parametrize(
+    "geometry,test", [
+        (
+            # Invalid geometry according to OGC
+            shapely.wkt.loads( \
+                (Path("tests/records") / "interlis-valid-ogc-invalid-geometry.txt").read_text()),
+            False,
+        ), (
+            # Valid geometry according to OGC
+            shapely.wkt.loads( \
+                (Path("tests/records") / "interlis-valid-ogc-valid-geometry.txt").read_text()),
+            True,
+        )
+    ]
+)
+def test_validity(geometry, test):
+    assert geometry.is_valid == test
