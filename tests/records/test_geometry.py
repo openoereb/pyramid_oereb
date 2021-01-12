@@ -209,9 +209,9 @@ def test_extract_collection(input_geom, result, extracted):
         ), (
             # Intersection area with polygon result: Polygon, should pass
             # PLR geometry is Interlis valid and OGC invalid
-            Polygon([(2698200, 1208800), (2698400, 1208800), (2698400, 1209000), (2698200, 1209000)]),
             shapely.wkt.loads( \
                 (Path("tests/records") / "interlis-valid-ogc-invalid-geometry.txt").read_text()),
+            Polygon([(2698200, 1208800), (2698400, 1208800), (2698400, 1209000), (2698200, 1209000)]),
             1,
             1,
             None,
@@ -221,9 +221,9 @@ def test_extract_collection(input_geom, result, extracted):
         ), (
             # Intersection area with polygon result: Polygon, should be dismissed
             # PLR geometry is Interlis valid and OGC invalid
-            Polygon([(2696500, 1208800), (2696700, 1208800), (2696700, 1209000), (2696500, 1209000)]),
             shapely.wkt.loads( \
                 (Path("tests/records") / "interlis-valid-ogc-invalid-geometry.txt").read_text()),
+            Polygon([(2696500, 1208800), (2696700, 1208800), (2696700, 1209000), (2696500, 1209000)]),
             1,
             1,
             None,
@@ -247,16 +247,13 @@ def test_calculate(geometry, real_estate_geometry, length_limit, area_limit, len
         'BL',
         'Aesch BL',
         2761,
-        real_estate_geometry.area,
+        round(real_estate_geometry.area),
         real_estate_geometry
     )
     geometry_record.calculate(real_estate, length_limit, area_limit, 'm', 'm2')
     assert geometry_record._test_passed == test
     assert geometry_record._length_share == length_share
-    if geometry_record._area_share is None:
-        assert geometry_record._area_share == area_share
-    else:
-        assert round(geometry_record._area_share) == area_share
+    assert geometry_record._area_share == area_share
     assert geometry_record._nr_of_points == nr_of_points
 
 
