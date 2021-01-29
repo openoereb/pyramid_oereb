@@ -93,13 +93,13 @@ export SQLALCHEMY_URL = "postgresql://$(PG_CREDENTIALS)@$(@_POSTGIS_IP):5432/pyr
 export PNG_ROOT_DIR = pyramid_oereb/standard/
 export PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
 
-.coverage: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB) pyramid_oereb/standard/pyramid_oereb.yml .coveragerc $(shell find -name "*.py" -print | fgrep -v /.venv)
+.PHONY: .coverage
+.coverage: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB) pyramid_oereb/standard/pyramid_oereb.yml
 	@echo Run tests using docker: $(USE_DOCKER)
-	docker stop $(DOCKER_CONTAINER_BASE)-main || true
 	docker stop $(DOCKER_CONTAINER_BASE)-tests || true
-	docker build -t $(DOCKER_CONTAINER_BASE)-main .
-	docker build -t $(DOCKER_CONTAINER_BASE)-tests --file Dockerfile-test .
-	docker run -ti --env "TERM=xterm-256color" $(DOCKER_CONTAINER_BASE)-tests tox
+	docker build -t $(DOCKER_CONTAINER_BASE)-tests --file tests.Dockerfile .
+	mkdir -p coverage_report
+	docker run -ti -v $(shell pwd)/coverage_report:/app/coverage_report --env "TERM=xterm-256color" $(DOCKER_CONTAINER_BASE)-tests tox
 
 .PHONY: lint
 lint: $(PYTHON_VENV)
@@ -108,12 +108,6 @@ lint: $(PYTHON_VENV)
 .PHONY: git-attributes
 git-attributes:
 	git --no-pager diff --check `git log --oneline | tail -1 | cut --fields=1 --delimiter=' '`
-
-.PHONY: coverage-html
-coverage-html: coverage_report/index.html
-
-coverage_report/index.html: $(PYTHON_VENV) .coverage
-	$(VENV_BIN)coverage$(PYTHON_BIN_POSTFIX) html
 
 .PHONY: tests-docker-setup-db
 tests-docker-setup-db:
@@ -128,7 +122,7 @@ tests-docker-setup-db:
 
 .PHONY: tests-docker-drop-db
 tests-docker-drop-db:
-	/docker stop $(DOCKER_CONTAINER_BASE)-db-test || true
+	docker stop $(DOCKER_CONTAINER_BASE)-db-test || true
 	docker rm $(DOCKER_CONTAINER_BASE)-db-test || true
 
 .PHONY: tests-win-setup-db

@@ -12,3 +12,4 @@
 !tox.ini
 !MANIFEST.in
 !pytest.ini
+!.coveragerc
