@@ -95,7 +95,11 @@ export PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
 
 .coverage: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB) pyramid_oereb/standard/pyramid_oereb.yml .coveragerc $(shell find -name "*.py" -print | fgrep -v /.venv)
 	@echo Run tests using docker: $(USE_DOCKER)
-	$(VENV_BIN)py.test$(PYTHON_BIN_POSTFIX) -vv --cov-config .coveragerc --cov-report term-missing:skip-covered --cov pyramid_oereb tests
+	docker stop $(DOCKER_CONTAINER_BASE)-main || true
+	docker stop $(DOCKER_CONTAINER_BASE)-tests || true
+	docker build -t $(DOCKER_CONTAINER_BASE)-main .
+	docker build -t $(DOCKER_CONTAINER_BASE)-tests --file Dockerfile-test .
+	docker run -ti --env "TERM=xterm-256color" $(DOCKER_CONTAINER_BASE)-tests tox
 
 .PHONY: lint
 lint: $(PYTHON_VENV)
@@ -124,7 +128,7 @@ tests-docker-setup-db:
 
 .PHONY: tests-docker-drop-db
 tests-docker-drop-db:
-	docker stop $(DOCKER_CONTAINER_BASE)-db-test || true
+	/docker stop $(DOCKER_CONTAINER_BASE)-db-test || true
 	docker rm $(DOCKER_CONTAINER_BASE)-db-test || true
 
 .PHONY: tests-win-setup-db

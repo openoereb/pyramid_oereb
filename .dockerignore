@@ -8,3 +8,7 @@
 !docker
 !logo_*.png
 !logo_*.jpg
+!tests
+!tox.ini
+!MANIFEST.in
+!pytest.ini
