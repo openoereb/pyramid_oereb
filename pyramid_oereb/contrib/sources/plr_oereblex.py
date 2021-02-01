@@ -76,7 +76,8 @@ class DatabaseOEREBlexSource(DatabaseSource):
             list of pyramid_oereb.lib.records.documents.DocumentRecord:
                 The documents created from the parsed OEREBlex response.
         """
-        log.debug("document_records_from_oereblex() start, lexlink {}, oereblex_params {}".format(lexlink, oereblex_params))
+        log.debug("document_records_from_oereblex() start, lexlink {}, oereblex_params {}"
+                  .format(lexlink, oereblex_params))
         if lexlink in self._queried_lexlinks:
             log.debug('skip querying this lexlink "{}" because it was fetched already.'.format(lexlink))
             log.debug('use already queried instead')
