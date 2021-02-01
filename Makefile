@@ -1,5 +1,6 @@
 OPERATING_SYSTEM ?= LINUX
 PYTHON_VERSION ?= python3
+PYTHON_TEST_VERSION ?= python3.8
 VIRTUALENV = virtualenv --python=$(PYTHON_VERSION)
 USE_DOCKER ?= TRUE
 DOCKER_BASE = openoereb/oereb
@@ -97,9 +98,11 @@ export PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
 .coverage: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB) pyramid_oereb/standard/pyramid_oereb.yml
 	@echo Run tests using docker: $(USE_DOCKER)
 	docker stop $(DOCKER_CONTAINER_BASE)-tests || true
-	docker build -t $(DOCKER_CONTAINER_BASE)-tests --file tests.Dockerfile .
+	docker build -t $(DOCKER_CONTAINER_BASE)-tests --build-arg PYTHON_TEST_VERSION=${PYTHON_TEST_VERSION} --file tests.Dockerfile .
 	mkdir -p coverage_report
-	docker run -ti -v $(shell pwd)/coverage_report:/app/coverage_report --env "TERM=xterm-256color" $(DOCKER_CONTAINER_BASE)-tests tox
+	docker run -t -v $(shell pwd)/coverage_report:/app/coverage_report --env "TERM=xterm-256color" $(DOCKER_CONTAINER_BASE)-tests /bin/bash -c \
+	  "${PYTHON_TEST_VERSION} -m pytest -vv --cov-config .coveragerc --cov-report term-missing:skip-covered --cov pyramid_oereb tests; \
+	  coverage html"
 
 .PHONY: lint
 lint: $(PYTHON_VENV)
