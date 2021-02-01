@@ -88,10 +88,14 @@ class OEREBlexSource(Base):
             geolink_id (int): The geoLink ID.
             oereblex_params (string): Any additional parameters to pass to Oereblex
         """
-        log.debug("read() start")
+        log.debug("read() start for geolink_id {}, oereblex_params {}".format(geolink_id, oereblex_params))
+
+        url_base = '{host}/api/{version}geolinks/{id}.xml'
+        if oereblex_params:
+            url_base = url_base + '?' + oereblex_params
 
         # Request documents
-        url = '{host}/api/{version}geolinks/{id}.xml?{url_params}'.format(
+        url = url_base.format(
             host=self._parser.host_url,
             version=self._version + '/' if self._pass_version else '',
             id=geolink_id,

@@ -44,7 +44,11 @@ class DatabaseOEREBlexSource(DatabaseSource):
         """
         for url_param_entry in url_param_config:
             if url_param_entry['code'] == plr_code:
-                return url_param_entry['url_param']
+                if 'url_param' in url_param_entry:
+                    return url_param_entry['url_param']
+                else:
+                    log.warning("Incorrect configuration: missing url_param for entry {}".format(plr_code))
+                    return None
         return None
 
     def get_document_records(self, params, public_law_restriction_from_db):
@@ -72,7 +76,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
             list of pyramid_oereb.lib.records.documents.DocumentRecord:
                 The documents created from the parsed OEREBlex response.
         """
-        log.debug("document_records_from_oereblex() start")
+        log.debug("document_records_from_oereblex() start, lexlink {}, oereblex_params {}".format(lexlink, oereblex_params))
         if lexlink in self._queried_lexlinks:
             log.debug('skip querying this lexlink "{}" because it was fetched already.'.format(lexlink))
             log.debug('use already queried instead')
