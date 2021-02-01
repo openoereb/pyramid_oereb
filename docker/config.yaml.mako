@@ -195,7 +195,7 @@ vars:
       related_decree_as_main: false
       # Same as related_decree_as_main but for related notice document.
       related_notice_as_main: false
-    # Proxy to be used for web requests
+      # Proxy to be used for web requests
       # proxy:
       #   http:
       #   https:
@@ -203,6 +203,10 @@ vars:
       # auth:
       #   username:
       #   password:
+      # Additional URL parameters to pass, depending on the PLR theme
+      # url_param_config:
+      # - code: ForestPerimeters
+      #   url_param: 'oereb_id=5'
 
     # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
     # will be directly used for producing the extract output.

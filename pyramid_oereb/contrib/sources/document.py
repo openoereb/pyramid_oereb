@@ -36,6 +36,7 @@ class OEREBlexSource(Base):
             auth (dict of str): Optional credentials for basic authentication. Requires `username`
                 and `password` to be defined.
             validation (bool): Turn XML validation on/off. Default is true.
+            url_param_config (list of code and url_param): Optional url parameters to use, per plr code
 
         """
         super(OEREBlexSource, self).__init__()
@@ -76,22 +77,27 @@ class OEREBlexSource(Base):
         if self._parser.host_url is None:
             raise AssertionError('host_url has to be defined')
 
-    def read(self, params, geolink_id):
+        self._url_param_config = kwargs.get('url_param_config')
+
+    def read(self, params, geolink_id, oereblex_params=None):
         """
         Requests the geoLink for the specified ID and returns records for the received documents.
 
         Args:
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             geolink_id (int): The geoLink ID.
+            oereblex_params (string): Any additional parameters to pass to Oereblex
         """
         log.debug("read() start")
 
         # Request documents
-        url = '{host}/api/{version}geolinks/{id}.xml'.format(
+        url = '{host}/api/{version}geolinks/{id}.xml?{url_params}'.format(
             host=self._parser.host_url,
             version=self._version + '/' if self._pass_version else '',
-            id=geolink_id
+            id=geolink_id,
+            url_params=oereblex_params
         )
+
         language = params.language or self._language
         request_params = {
             'locale': language

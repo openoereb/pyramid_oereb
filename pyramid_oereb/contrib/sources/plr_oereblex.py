@@ -37,13 +37,29 @@ class DatabaseOEREBlexSource(DatabaseSource):
         self._oereblex_source = OEREBlexSource(**Config.get_oereblex_config())
         self._queried_lexlinks = {}
 
+    @staticmethod
+    def get_config_value_for_plr_code(url_param_config, plr_code):
+        """
+        Returns the appropriate configuration entry for a plr within a url_param_config section.
+        """
+        for url_param_entry in url_param_config:
+            if url_param_entry['code'] == plr_code:
+                return url_param_entry['url_param']
+        return None
+
     def get_document_records(self, params, public_law_restriction_from_db):
         """
         Override the parent's get_document_records method to obtain the oereblex document instead.
         """
-        return self.document_records_from_oereblex(params, public_law_restriction_from_db.geolink)
+        oereblex_params = None
+        url_param_config = self._oereblex_source._url_param_config
+        if url_param_config:
+            plr_code = self._theme_record.code
+            oereblex_params = self.get_config_value_for_plr_code(url_param_config, plr_code)
+        return self.document_records_from_oereblex(params, public_law_restriction_from_db.geolink,
+                                                   oereblex_params)
 
-    def document_records_from_oereblex(self, params, lexlink):
+    def document_records_from_oereblex(self, params, lexlink, oereblex_params):
         """
         Create document records parsed from the OEREBlex response with the specified geoLink ID and appends
         them to the current public law restriction.
@@ -62,7 +78,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
             log.debug('use already queried instead')
             return self._queried_lexlinks[lexlink]
         else:
-            self._oereblex_source.read(params, lexlink)
+            self._oereblex_source.read(params, lexlink, oereblex_params)
             log.debug("document_records_from_oereblex() returning {} records"
                       .format(len(self._oereblex_source.records)))
             self._queried_lexlinks[lexlink] = self._oereblex_source.records
