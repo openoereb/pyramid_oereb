@@ -8,3 +8,8 @@
 !docker
 !logo_*.png
 !logo_*.jpg
+!tests
+!MANIFEST.in
+!pytest.ini
+!.coveragerc
+!requirements-tests.txt

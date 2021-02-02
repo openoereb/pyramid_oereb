@@ -1,5 +1,6 @@
 OPERATING_SYSTEM ?= LINUX
 PYTHON_VERSION ?= python3
+PYTHON_TEST_VERSION ?= python3.8
 VIRTUALENV = virtualenv --python=$(PYTHON_VERSION)
 USE_DOCKER ?= TRUE
 DOCKER_BASE = openoereb/oereb
@@ -93,9 +94,15 @@ export SQLALCHEMY_URL = "postgresql://$(PG_CREDENTIALS)@$(@_POSTGIS_IP):5432/pyr
 export PNG_ROOT_DIR = pyramid_oereb/standard/
 export PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
 
-.coverage: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB) pyramid_oereb/standard/pyramid_oereb.yml .coveragerc $(shell find -name "*.py" -print | fgrep -v /.venv)
+.PHONY: .coverage
+.coverage: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB) pyramid_oereb/standard/pyramid_oereb.yml
 	@echo Run tests using docker: $(USE_DOCKER)
-	$(VENV_BIN)py.test$(PYTHON_BIN_POSTFIX) -vv --cov-config .coveragerc --cov-report term-missing:skip-covered --cov pyramid_oereb tests
+	docker stop $(DOCKER_CONTAINER_BASE)-tests || true
+	docker build -t $(DOCKER_CONTAINER_BASE)-tests --build-arg PYTHON_TEST_VERSION=${PYTHON_TEST_VERSION} --file tests.Dockerfile .
+	mkdir -p coverage_report
+	docker run -t -v $(shell pwd)/coverage_report:/app/coverage_report --env "TERM=xterm-256color" $(DOCKER_CONTAINER_BASE)-tests /bin/bash -c \
+	  "${PYTHON_TEST_VERSION} -m pytest -vv --cov-config .coveragerc --cov-report term-missing:skip-covered --cov pyramid_oereb tests; \
+	  coverage html"
 
 .PHONY: lint
 lint: $(PYTHON_VENV)
@@ -104,12 +111,6 @@ lint: $(PYTHON_VENV)
 .PHONY: git-attributes
 git-attributes:
 	git --no-pager diff --check `git log --oneline | tail -1 | cut --fields=1 --delimiter=' '`
-
-.PHONY: coverage-html
-coverage-html: coverage_report/index.html
-
-coverage_report/index.html: $(PYTHON_VENV) .coverage
-	$(VENV_BIN)coverage$(PYTHON_BIN_POSTFIX) html
 
 .PHONY: tests-docker-setup-db
 tests-docker-setup-db:

@@ -7,7 +7,6 @@ __pycache__/
 /dist/
 /pyramid_oereb.egg-info/
 /.cache/
-/.coverage
 /coverage_report/
 /build/
 

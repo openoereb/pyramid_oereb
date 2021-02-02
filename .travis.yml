@@ -27,7 +27,9 @@ script:
 - make git-attributes
 - make lint
 - make tests-docker-setup-db
-- make tests
+- PYTHON_TEST_VERSION=python3.6 make tests
+- PYTHON_TEST_VERSION=python3.7 make tests
+- PYTHON_TEST_VERSION=python3.8 make tests
 - '[ $TRAVIS_PYTHON_VERSION != "3.6" ] || make build-docker .'
 - make doc
 
