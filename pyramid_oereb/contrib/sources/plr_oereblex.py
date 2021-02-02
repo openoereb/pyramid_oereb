@@ -59,7 +59,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
         url_param_config = self._oereblex_source._url_param_config
         if url_param_config:
             plr_code = self._theme_record.code
-            oereblex_params = self.get_config_value_for_plr_code(url_param_config, plr_code)
+            oereblex_params = DatabaseOEREBlexSource.get_config_value_for_plr_code(url_param_config, plr_code)
         return self.document_records_from_oereblex(params, public_law_restriction_from_db.geolink,
                                                    oereblex_params)
 
@@ -71,6 +71,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
         Args:
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             lexlink (int): The ID of the geoLink to request the documents for.
+            oereblex_params (string): URL parameter to add to the oereblex request
 
         Returns:
             list of pyramid_oereb.lib.records.documents.DocumentRecord:
