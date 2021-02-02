@@ -7,6 +7,15 @@ This chapter will give you hints on how to handle version migration, in particul
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
 
+.. _changes-version-1.9.0:
+
+Version 1.9.0 (DRAFT)
+---------------------
+
+ * Oereblex: add configuration to pass URL parameters to the oereblex call (#1117)
+ * Improve handling of empty geometries, in preparation of library updates (#1107)
+
+
 .. _changes-version-1.8.1:
 
 Version 1.8.1
