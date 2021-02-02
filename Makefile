@@ -77,7 +77,10 @@ tests-setup-db: $(TESTS_SETUP_DB)
 tests-drop-db: $(TESTS_DROP_DB)
 
 .PHONY: checks
-checks: git-attributes lint coverage-html
+checks: checks-style tests
+
+.PHONY: checks-style
+checks-style: git-attributes lint
 
 %: %.mako $(PYTHON_VENV) CONST_vars.yml
 	$(VENV_BIN)c2c-template$(PYTHON_BIN_POSTFIX) --vars CONST_vars.yml --engine mako --files $<
