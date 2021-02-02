@@ -78,6 +78,12 @@ class OEREBlexSource(Base):
             raise AssertionError('host_url has to be defined')
 
         self._url_param_config = kwargs.get('url_param_config')
+        if self._url_param_config:
+            if not (isinstance(self._url_param_config, list)):
+                raise AssertionError('url_param_config is of wrong type {}, should be list'.format(type(self._url_param_config)))
+            for list_entry in self._url_param_config:
+                if not (isinstance(list_entry, dict)):
+                    raise AssertionError('url_param_config list entry is of wrong type {}, should be dictionary'.format(type(list_entry)))
 
     def read(self, params, geolink_id, oereblex_params=None):
         """

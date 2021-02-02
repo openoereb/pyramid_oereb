@@ -31,6 +31,24 @@ from tests.mockrequest import MockParameter
     (False, {
         'host': 'http://oereblex.example.com',
         'language': 'de'
+    }),
+    (True, {
+        'host': 'http://oereblex.example.com',
+        'language': 'de',
+        'canton': 'BL',
+        'url_param_config': [{'code': 'ForestPerimeters', 'url_param': 'oereb_id=5'}, {'code': 'LandUsePlans', 'url_param': 'oereb_id=15'}]
+    }),
+    (False, {
+        'host': 'http://oereblex.example.com',
+        'language': 'de',
+        'canton': 'BL',
+        'url_param_config': {'code': 'ForestPerimeters', 'url_param': 'oereb_id=5'}
+    }),
+    (False, {
+        'host': 'http://oereblex.example.com',
+        'language': 'de',
+        'canton': 'BL',
+        'url_param_config': ['oereb_id=5', 'oereb_id=15']
     })
 ])
 def test_init(valid, cfg):
