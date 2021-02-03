@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+1.9.0 (DRAFT)
+*************
+- Oereblex: add configuration to pass URL parameters to the oereblex call (#1117)
+- Improve handling of empty geometries, in preparation of library updates (#1107)
+
 1.8.1
 *****
 - Update of external libraries such as numpy, SQLAlchemy, lxml, and more.

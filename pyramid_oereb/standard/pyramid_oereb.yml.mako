@@ -204,6 +204,10 @@ pyramid_oereb:
     #   password:
     # Enable/disable XML validation
     validation: true
+    # Additional URL parameters to pass, depending on the PLR theme
+    # url_param_config:
+    # - code: ForestPerimeters
+    #   url_param: 'oereb_id=5'
 
   # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
   # will be directly used for producing the extract output.
