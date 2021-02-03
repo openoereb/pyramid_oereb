@@ -26,7 +26,10 @@ If you are interested in contributing or extending the project, take a look at t
    :alt: Requirements Status
 
 Local testing (quick preview)
------------------------------
+=============================
+
+Run dev server
+--------------
 
 Following packages are required: ``python3-venv`` ``postgresql-client`` ``libpq-dev``
 
@@ -39,3 +42,15 @@ Run:
   make serve
 
 JSON reduced extract is accessible at: http://localhost:6543/oereb/extract/reduced/json/CH113928077734.
+
+Run tests
+---------
+
+To check your code, run `make checks`. It will run style checks and tests. It's also possible to
+run sub-target independently:
+
+- `make checks-style` to run only style-related checks (linting, attributes).
+- `make tests` to run tests. Python 3.7 is used by default. But you can run tests with another version by
+  running: `PYTHON_TEST_VERSION=python3.x make tests`. You can also set this variable in the Makefile.
+
+After running tests, the coverage is available in the folder `coverage_report`.

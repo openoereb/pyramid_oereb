@@ -4,7 +4,7 @@ language: python
 
 matrix:
   include:
-  - python: "3.6"
+  - python: "3.7"
     env: PYTHON_VERSION=python3
 
 services:
@@ -30,7 +30,7 @@ script:
 - PYTHON_TEST_VERSION=python3.6 make tests
 - PYTHON_TEST_VERSION=python3.7 make tests
 - PYTHON_TEST_VERSION=python3.8 make tests
-- '[ $TRAVIS_PYTHON_VERSION != "3.6" ] || make build-docker .'
+- '[ $TRAVIS_PYTHON_VERSION != "3.7" ] || make build-docker .'
 - make doc
 
 after_success:
@@ -51,14 +51,14 @@ deploy:
   on:
     branch: master
     repo: openoereb/pyramid_oereb
-    python: '3.6'
+    python: '3.7'
 - provider: script
   script: sphinx-versioning push doc/source/ gh-pages doc
   skip_cleanup: true
   on:
     tags: true
     repo: openoereb/pyramid_oereb
-    python: '3.6'
+    python: '3.7'
 - provider: pypi
   server: https://upload.pypi.org/legacy/
   user: jwkaltz
@@ -70,27 +70,27 @@ deploy:
   on:
     tags: true
     repo: openoereb/pyramid_oereb
-    python: '3.6'
+    python: '3.7'
 - provider: script
   script: travis/deploy-daily-pypi-build.sh
   on:
     condition: '"${TRAVIS_EVENT_TYPE}" = cron'
     repo: openoereb/pyramid_oereb
-    python: '3.6'
+    python: '3.7'
 - provider: script
   script: travis/deploy-docker.sh
   skip_cleanup: true
   on:
     branch: master
     repo: openoereb/pyramid_oereb
-    python: '3.6'
+    python: '3.7'
 - provider: script
   script: travis/deploy-docker.sh
   skip_cleanup: true
   on:
     tags: true
     repo: openoereb/pyramid_oereb
-    python: '3.6'
+    python: '3.7'
 
 notifications:
   email: false
