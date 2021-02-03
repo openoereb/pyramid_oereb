@@ -206,6 +206,7 @@
 <span class="sd">            auth (dict of str): Optional credentials for basic authentication. Requires `username`</span>
 <span class="sd">                and `password` to be defined.</span>
 <span class="sd">            validation (bool): Turn XML validation on/off. Default is true.</span>
+<span class="sd">            url_param_config (list of code and url_param): Optional url parameters to use, per plr code</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">OEREBlexSource</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -244,24 +245,41 @@
             <span class="n">xsd_validation</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="o">=</span> <span class="n">XML</span><span class="p">(</span><span class="n">host_url</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;host&#39;</span><span class="p">),</span> <span class="n">version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">xsd_validation</span><span class="o">=</span><span class="n">xsd_validation</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">host_url</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;host_url has to be defined&#39;</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;host_url has to be defined&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="OEREBlexSource.read"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.document.OEREBlexSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">geolink_id</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_url_param_config</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;url_param_config&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url_param_config</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url_param_config</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;url_param_config is of wrong type </span><span class="si">{}</span><span class="s1">, should be list&#39;</span>
+                                     <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url_param_config</span><span class="p">)))</span>
+            <span class="k">for</span> <span class="n">list_entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url_param_config</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">list_entry</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)):</span>
+                    <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;url_param_config list entry is of wrong type </span><span class="si">{}</span><span class="s1">,&#39;</span>
+                                         <span class="s1">&#39; should be dictionary&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">list_entry</span><span class="p">)))</span></div>
+
+<div class="viewcode-block" id="OEREBlexSource.read"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.document.OEREBlexSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">geolink_id</span><span class="p">,</span> <span class="n">oereblex_params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Requests the geoLink for the specified ID and returns records for the received documents.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</span>
 <span class="sd">            geolink_id (int): The geoLink ID.</span>
+<span class="sd">            oereblex_params (string): Any additional parameters to pass to Oereblex</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() start&quot;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() start for geolink_id </span><span class="si">{}</span><span class="s2">, oereblex_params </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">geolink_id</span><span class="p">,</span> <span class="n">oereblex_params</span><span class="p">))</span>
+
+        <span class="n">url_base</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{host}</span><span class="s1">/api/</span><span class="si">{version}</span><span class="s1">geolinks/</span><span class="si">{id}</span><span class="s1">.xml&#39;</span>
+        <span class="k">if</span> <span class="n">oereblex_params</span><span class="p">:</span>
+            <span class="n">url_base</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s1">&#39;?&#39;</span> <span class="o">+</span> <span class="n">oereblex_params</span>
 
         <span class="c1"># Request documents</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{host}</span><span class="s1">/api/</span><span class="si">{version}</span><span class="s1">geolinks/</span><span class="si">{id}</span><span class="s1">.xml&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">url_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">host</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">host_url</span><span class="p">,</span>
             <span class="n">version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pass_version</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-            <span class="nb">id</span><span class="o">=</span><span class="n">geolink_id</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">geolink_id</span><span class="p">,</span>
+            <span class="n">url_params</span><span class="o">=</span><span class="n">oereblex_params</span>
         <span class="p">)</span>
+
         <span class="n">language</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">language</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span>
         <span class="n">request_params</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;locale&#39;</span><span class="p">:</span> <span class="n">language</span>

@@ -207,13 +207,33 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_oereblex_source</span> <span class="o">=</span> <span class="n">OEREBlexSource</span><span class="p">(</span><span class="o">**</span><span class="n">Config</span><span class="o">.</span><span class="n">get_oereblex_config</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_queried_lexlinks</span> <span class="o">=</span> <span class="p">{}</span></div>
 
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DatabaseOEREBlexSource.get_config_value_for_plr_code"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.get_config_value_for_plr_code">[docs]</a>    <span class="k">def</span> <span class="nf">get_config_value_for_plr_code</span><span class="p">(</span><span class="n">url_param_config</span><span class="p">,</span> <span class="n">plr_code</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the appropriate configuration entry for a plr within a url_param_config section.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">url_param_entry</span> <span class="ow">in</span> <span class="n">url_param_config</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">url_param_entry</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">plr_code</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;url_param&#39;</span> <span class="ow">in</span> <span class="n">url_param_entry</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">url_param_entry</span><span class="p">[</span><span class="s1">&#39;url_param&#39;</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Incorrect configuration: missing url_param for entry </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plr_code</span><span class="p">))</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
 <div class="viewcode-block" id="DatabaseOEREBlexSource.get_document_records"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.get_document_records">[docs]</a>    <span class="k">def</span> <span class="nf">get_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Override the parent&#39;s get_document_records method to obtain the oereblex document instead.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_records_from_oereblex</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">geolink</span><span class="p">)</span></div>
+        <span class="n">oereblex_params</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">url_param_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oereblex_source</span><span class="o">.</span><span class="n">_url_param_config</span>
+        <span class="k">if</span> <span class="n">url_param_config</span><span class="p">:</span>
+            <span class="n">plr_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme_record</span><span class="o">.</span><span class="n">code</span>
+            <span class="n">oereblex_params</span> <span class="o">=</span> <span class="n">DatabaseOEREBlexSource</span><span class="o">.</span><span class="n">get_config_value_for_plr_code</span><span class="p">(</span><span class="n">url_param_config</span><span class="p">,</span> <span class="n">plr_code</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_records_from_oereblex</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">geolink</span><span class="p">,</span>
+                                                   <span class="n">oereblex_params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DatabaseOEREBlexSource.document_records_from_oereblex"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.document_records_from_oereblex">[docs]</a>    <span class="k">def</span> <span class="nf">document_records_from_oereblex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">lexlink</span><span class="p">):</span>
+<div class="viewcode-block" id="DatabaseOEREBlexSource.document_records_from_oereblex"><a class="viewcode-back" href="../../../../contrib/sources.html#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.document_records_from_oereblex">[docs]</a>    <span class="k">def</span> <span class="nf">document_records_from_oereblex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">lexlink</span><span class="p">,</span> <span class="n">oereblex_params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create document records parsed from the OEREBlex response with the specified geoLink ID and appends</span>
 <span class="sd">        them to the current public law restriction.</span>
@@ -221,18 +241,20 @@
 <span class="sd">        Args:</span>
 <span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</span>
 <span class="sd">            lexlink (int): The ID of the geoLink to request the documents for.</span>
+<span class="sd">            oereblex_params (string): URL parameter to add to the oereblex request</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            list of pyramid_oereb.lib.records.documents.DocumentRecord:</span>
 <span class="sd">                The documents created from the parsed OEREBlex response.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;document_records_from_oereblex() start&quot;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;document_records_from_oereblex() start, lexlink </span><span class="si">{}</span><span class="s2">, oereblex_params </span><span class="si">{}</span><span class="s2">&quot;</span>
+                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lexlink</span><span class="p">,</span> <span class="n">oereblex_params</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">lexlink</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queried_lexlinks</span><span class="p">:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;skip querying this lexlink &quot;</span><span class="si">{}</span><span class="s1">&quot; because it was fetched already.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lexlink</span><span class="p">))</span>
             <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;use already queried instead&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queried_lexlinks</span><span class="p">[</span><span class="n">lexlink</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_oereblex_source</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">lexlink</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_oereblex_source</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">lexlink</span><span class="p">,</span> <span class="n">oereblex_params</span><span class="p">)</span>
             <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;document_records_from_oereblex() returning </span><span class="si">{}</span><span class="s2"> records&quot;</span>
                       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oereblex_source</span><span class="o">.</span><span class="n">records</span><span class="p">)))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_queried_lexlinks</span><span class="p">[</span><span class="n">lexlink</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oereblex_source</span><span class="o">.</span><span class="n">records</span>
@@ -298,6 +320,7 @@
         <dl>
             <dt>Branches</dt>
             <dd><a href="../../../../../master/index.html">master</a></dd>
+            <dd><a href="../../../../../requires-io-master/index.html">requires-io-master</a></dd>
         </dl>
     </div>
 </div>

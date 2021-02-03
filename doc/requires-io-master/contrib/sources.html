@@ -268,6 +268,7 @@ geoLink.</p>
 <li><strong>auth</strong> (<em>dict of str</em>) &#8211; Optional credentials for basic authentication. Requires <cite>username</cite>
 and <cite>password</cite> to be defined.</li>
 <li><strong>validation</strong> (<em>bool</em>) &#8211; Turn XML validation on/off. Default is true.</li>
+<li><strong>url_param_config</strong> (<em>list of code and url_param</em>) &#8211; Optional url parameters to use, per plr code</li>
 </ul>
 </td>
 </tr>
@@ -277,7 +278,7 @@ and <cite>password</cite> to be defined.</li>
 
 <dl class="method">
 <dt id="pyramid_oereb.contrib.sources.document.OEREBlexSource.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>geolink_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/sources/document.html#OEREBlexSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.sources.document.OEREBlexSource.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>geolink_id</em>, <em>oereblex_params=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/sources/document.html#OEREBlexSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.sources.document.OEREBlexSource.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Requests the geoLink for the specified ID and returns records for the received documents.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -286,6 +287,7 @@ and <cite>password</cite> to be defined.</li>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
 <li><strong>geolink_id</strong> (<em>int</em>) &#8211; The geoLink ID.</li>
+<li><strong>oereblex_params</strong> (<em>string</em>) &#8211; Any additional parameters to pass to Oereblex</li>
 </ul>
 </td>
 </tr>
@@ -387,7 +389,7 @@ estate in its record representation.</li>
 
 <dl class="method">
 <dt id="pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.document_records_from_oereblex">
-<code class="descname">document_records_from_oereblex</code><span class="sig-paren">(</span><em>params</em>, <em>lexlink</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/sources/plr_oereblex.html#DatabaseOEREBlexSource.document_records_from_oereblex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.document_records_from_oereblex" title="Permalink to this definition">¶</a></dt>
+<code class="descname">document_records_from_oereblex</code><span class="sig-paren">(</span><em>params</em>, <em>lexlink</em>, <em>oereblex_params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/sources/plr_oereblex.html#DatabaseOEREBlexSource.document_records_from_oereblex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.document_records_from_oereblex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create document records parsed from the OEREBlex response with the specified geoLink ID and appends
 them to the current public law restriction.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -397,6 +399,7 @@ them to the current public law restriction.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
 <li><strong>lexlink</strong> (<em>int</em>) &#8211; The ID of the geoLink to request the documents for.</li>
+<li><strong>oereblex_params</strong> (<em>string</em>) &#8211; URL parameter to add to the oereblex request</li>
 </ul>
 </td>
 </tr>
@@ -439,6 +442,12 @@ representation which is used for comparison.</li>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.get_config_value_for_plr_code">
+<em class="property">static </em><code class="descname">get_config_value_for_plr_code</code><span class="sig-paren">(</span><em>url_param_config</em>, <em>plr_code</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/sources/plr_oereblex.html#DatabaseOEREBlexSource.get_config_value_for_plr_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource.get_config_value_for_plr_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the appropriate configuration entry for a plr within a url_param_config section.</p>
 </dd></dl>
 
 <dl class="method">
