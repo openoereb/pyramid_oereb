@@ -262,13 +262,14 @@ used to provide insight of application usage in the logs.</p>
 <dl class="method">
 <dt id="pyramid_oereb.contrib.stats.decorators.OerebStats.fromkeys">
 <code class="descname">fromkeys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.fromkeys" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a new dict with keys from iterable and values equal to value.</p>
+<dd><p>Create a new dictionary with keys from iterable and values set to value.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyramid_oereb.contrib.stats.decorators.OerebStats.get">
-<code class="descname">get</code><span class="sig-paren">(</span><em>k</em><span class="optional">[</span>, <em>d</em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; D[k] if k in D, else d.  d defaults to None.<a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.get" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the value for key if key is in the dictionary, else default.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pyramid_oereb.contrib.stats.decorators.OerebStats.items">
@@ -289,8 +290,10 @@ used to provide insight of application usage in the logs.</p>
 
 <dl class="method">
 <dt id="pyramid_oereb.contrib.stats.decorators.OerebStats.setdefault">
-<code class="descname">setdefault</code><span class="sig-paren">(</span><em>k</em><span class="optional">[</span>, <em>d</em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; D.get(k,d), also set D[k]=d if k not in D<a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.setdefault" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">setdefault</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.setdefault" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert key with a value of default if key is not in the dictionary.</p>
+<p>Return the value for key if key is in the dictionary, else default.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pyramid_oereb.contrib.stats.decorators.OerebStats.update">
