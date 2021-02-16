@@ -43,6 +43,22 @@ Run:
 
 JSON reduced extract is accessible at: http://localhost:6543/oereb/extract/reduced/json/CH113928077734.
 
+
+**When running in to issues installing** ``libpq-dev`` **:**
+
+.. code-block:: bash
+
+  The following packages have unmet dependencies:
+   libpq-dev : Depends: libpq5 (= 10.12-0ubuntu0.18.04.1) but 12.3-1.pgdg18.04+1 is to be installed
+
+
+Try to install a specific version (adapt the version to your requirement):
+
+.. code-block:: bash
+
+  sudo apt install libpq5=10.12-0ubuntu0.18.04.1
+
+
 Run tests
 ---------
 
