@@ -1,7 +1,5 @@
 version: '2'
 
-volumes: {}
-
 services:
 
   oereb-db:
@@ -12,6 +10,8 @@ services:
 
 
   oereb-server:
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
     networks:
     - default
     - print-network
