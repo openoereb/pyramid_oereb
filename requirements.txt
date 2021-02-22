@@ -3,7 +3,7 @@ dicttoxml==1.7.4
 filetype==1.0.7
 geoalchemy2==0.8.4
 psycopg2-binary==2.8.6
-pyramid==1.10.5
+pyramid==1.10.7
 pyramid-debugtoolbar==4.9
 PyYAML==5.4.1
 shapely==1.6.4.post1  # rq.filter: ==1.6.4.post1
