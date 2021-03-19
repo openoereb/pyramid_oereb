@@ -133,6 +133,8 @@ vars:
       # and used by the print.
       # wms_url_keep_params:
       #   - ogcserver
+      # Flag to print or not the canton logo
+      print_canton_logo: true
   % endif
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
