@@ -794,5 +794,6 @@
   "RealEstate_IdentDN": "BL0200002766",
   "CreationDate": "16.02.2018",
   "RealEstate_EGRID": "CH874978848203",
-  "BaseData": "Daten der amtlichen Vermessung, Stand 27.01.2018."
+  "BaseData": "Daten der amtlichen Vermessung, Stand 27.01.2018.",
+  "PrintCantonLogo": true
 }

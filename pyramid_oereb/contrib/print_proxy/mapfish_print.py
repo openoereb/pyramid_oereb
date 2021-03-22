@@ -544,6 +544,8 @@ class Renderer(JsonRenderer):
                 if 'NrOfPoints' in legend:
                     legend['NrOfPoints'] = '{0}'.format(legend['NrOfPoints'])
 
+        extract_dict['PrintCantonLogo'] = Config.get('print', {}).get('print_canton_logo', True)
+
         log.debug("After transformation, extract_dict is {}".format(extract_dict))
         return extract_dict
 
