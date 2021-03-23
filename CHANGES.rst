@@ -2,10 +2,12 @@
 Changelog
 ---------
 
-1.9.0 (DRAFT)
-*************
+1.9.0
+*****
 - Oereblex: add configuration to pass URL parameters to the oereblex call (#1117)
+- Various library updates
 - Improve handling of empty geometries, in preparation of library updates (#1107)
+- Print using MapFish Print: the inclusion of the cantonal logo is now configurable (#1139).
 
 1.8.1
 *****
