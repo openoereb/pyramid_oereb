@@ -9,11 +9,21 @@ to adapt in your project configuration, database etc. when upgrading to a new ve
 
 .. _changes-version-1.9.0:
 
-Version 1.9.0 (DRAFT)
----------------------
+Version 1.9.0
+-------------
 
- * Oereblex: add configuration to pass URL parameters to the oereblex call (#1117)
- * Improve handling of empty geometries, in preparation of library updates (#1107)
+ * Oereblex: add configuration option to pass URL parameters to the oereblex call (#1117)
+ * Various library updates
+ * Improve handling of empty geometries, in preparation of additional library updates (#1107)
+
+MapFish Print related changes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+If you are using MapFish Print, you must update your print templates and configuration to v1.9.0.
+The following improvements have been made:
+
+ * The inclusion of the cantonal logo is now configurable (#1139).
+   MapFish Print users who do not want the cantonal logo should set the print configuration parameter
+   ``print_canton_logo`` to ``false``.
 
 
 .. _changes-version-1.8.1:
