@@ -39,7 +39,7 @@ jobs:
         run: make tests
 
   build-and-publish:
-    name: Build and publish Python 🐍 distributions 📦 to PyPI
+    name: Build and publish Python 🐍 distributions 📦 to TestPyPI
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@master
@@ -61,7 +61,7 @@ jobs:
         --wheel
         --outdir dist/
         .
-    - name: Publish distribution 📦 to PyPI
+    - name: Publish distribution 📦 to TestPyPI
       if: startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@master
       with:
