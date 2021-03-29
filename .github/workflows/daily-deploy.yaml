@@ -1,13 +1,7 @@
-name: Daily deploy to Pypi
+name: Daily deploy to TestPypi
 on:
-  # schedule:    
-  #   - cron: "52 12 * * *"
-  workflow_dispatch:
-    inputs:
-      home:
-        description: 'location'
-        required: false
-        default: 'The Octoverse'
+   schedule:    
+     - cron: "30 22 * * *"
 jobs:
   deploy-dev:
     runs-on: ubuntu-20.04
@@ -33,8 +27,9 @@ jobs:
         --wheel
         --outdir dist/
         .
-    - name: Publish distribution 📦 to PyPI
+    - name: Publish distribution 📦 to Test PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
-        password: ${{ secrets.PYPI_API_TOKEN }}
+        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        repository_url: https://test.pypi.org/legacy/
 
