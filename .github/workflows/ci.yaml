@@ -9,7 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
-      - run: |
+      - name: Run make git-attributes and make lint
+        run: |
           make git-attributes
           make lint
 
