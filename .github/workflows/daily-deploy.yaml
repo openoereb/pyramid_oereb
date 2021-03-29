@@ -21,6 +21,8 @@ jobs:
       run: >-
         python -m
         build
+        --tag-date
+        --tag-build=dev
         --sdist
         --wheel
         --outdir dist/
