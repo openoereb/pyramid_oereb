@@ -1,4 +1,4 @@
-name: Daily deploy to TestPypi
+name: Daily deploy to Pypi
 on:
    schedule:
      - cron: "30 22 * * *"
