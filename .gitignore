@@ -40,3 +40,6 @@ __pycache__/
 /docker/config.yaml
 .pytest_cache
 .idea
+
+# VS code generated files
+/.vscode/

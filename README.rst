@@ -17,8 +17,8 @@ information and instructions for installation and configuration.
 If you are interested in contributing or extending the project, take a look at the
 `contribution page <https://openoereb.github.io/pyramid_oereb/doc/contrib/>`__.
 
-.. |Build Status| image:: https://travis-ci.org/openoereb/pyramid_oereb.svg?branch=master
-   :target: https://travis-ci.org/openoereb/pyramid_oereb
+.. |Build Status| image:: https://github.com/openoereb/pyramid_oereb/actions/workflows/ci.yaml/badge.svg
+   :target: https://github.com/openoereb/pyramid_oereb/actions/workflows/ci.yaml
    :alt: Build Status
 
 .. |Requirements Status| image:: https://requires.io/github/openoereb/pyramid_oereb/requirements.svg?branch=master

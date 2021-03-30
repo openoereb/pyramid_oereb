@@ -80,7 +80,7 @@ tests-drop-db: $(TESTS_DROP_DB)
 checks: checks-style tests
 
 .PHONY: checks-style
-checks-style: git-attributes lint
+checks-style: lint
 
 %: %.mako $(PYTHON_VENV) CONST_vars.yml
 	$(VENV_BIN)c2c-template$(PYTHON_BIN_POSTFIX) --vars CONST_vars.yml --engine mako --files $<
@@ -103,18 +103,14 @@ export PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
 	docker stop $(DOCKER_CONTAINER_BASE)-tests || true
 	docker build -t $(DOCKER_CONTAINER_BASE)-tests --build-arg PYTHON_TEST_VERSION=${PYTHON_TEST_VERSION} --file tests.Dockerfile .
 	docker run -dt --rm --env "TERM=xterm-256color" --name $(DOCKER_CONTAINER_BASE)-tests $(DOCKER_CONTAINER_BASE)-tests tail -f /dev/null
-	docker exec -ti $(DOCKER_CONTAINER_BASE)-tests ${PYTHON_TEST_VERSION} -m pytest -vv --cov-config .coveragerc --cov-report term-missing:skip-covered --cov pyramid_oereb tests
-	docker exec -ti $(DOCKER_CONTAINER_BASE)-tests coverage html
+	docker exec -t $(DOCKER_CONTAINER_BASE)-tests ${PYTHON_TEST_VERSION} -m pytest -vv --cov-config .coveragerc --cov-report term-missing:skip-covered --cov pyramid_oereb tests
+	docker exec -t $(DOCKER_CONTAINER_BASE)-tests coverage html
 	docker cp $(DOCKER_CONTAINER_BASE)-tests:/app/coverage_report ./
 	docker stop $(DOCKER_CONTAINER_BASE)-tests
 
 .PHONY: lint
 lint: $(PYTHON_VENV)
 	$(VENV_BIN)flake8$(PYTHON_BIN_POSTFIX)
-
-.PHONY: git-attributes
-git-attributes:
-	git --no-pager diff --check `git log --oneline | tail -1 | cut --fields=1 --delimiter=' '`
 
 .PHONY: tests-docker-setup-db
 tests-docker-setup-db:
