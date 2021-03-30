@@ -10,7 +10,9 @@ jobs:
       - uses: actions/checkout@v2
       - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
       - name: Run make git-attributes
-        run: make git-attributes
+        run: | 
+          make git-attributes
+          echo "Exited with '$?'"
       - name: Run make lint
         run: make lint
 
