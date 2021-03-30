@@ -80,7 +80,7 @@ tests-drop-db: $(TESTS_DROP_DB)
 checks: checks-style tests
 
 .PHONY: checks-style
-checks-style: git-attributes lint
+checks-style: lint
 
 %: %.mako $(PYTHON_VENV) CONST_vars.yml
 	$(VENV_BIN)c2c-template$(PYTHON_BIN_POSTFIX) --vars CONST_vars.yml --engine mako --files $<
@@ -111,10 +111,6 @@ export PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
 .PHONY: lint
 lint: $(PYTHON_VENV)
 	$(VENV_BIN)flake8$(PYTHON_BIN_POSTFIX)
-
-.PHONY: git-attributes
-git-attributes:
-	git --no-pager diff --check `git log --oneline | tail -1 | cut --fields=1 --delimiter=' '`
 
 .PHONY: tests-docker-setup-db
 tests-docker-setup-db:

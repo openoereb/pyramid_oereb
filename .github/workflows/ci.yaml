@@ -9,13 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
-      - name: Run make git-attributes
-        run: | 
-          make git-attributes
-          echo "Exited with '$?'"
-          git --no-pager diff --check `git log --oneline | tail -1 | cut --fields=1 --delimiter=' '`
-          echo "Exited with '$?'"
-          git diff
       - name: Run make lint
         run: make lint
 
