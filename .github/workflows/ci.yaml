@@ -37,7 +37,7 @@ jobs:
         run: make tests
 
   build-and-publish:
-    name: Build and publish Python 🐍 distributions 📦 to TestPyPI
+    name: Build and publish Python 🐍 distributions 📦 to PyPI
     runs-on: ubuntu-20.04
     needs: [checks-style, tests-docker, test-py]
     steps:
@@ -60,12 +60,11 @@ jobs:
         --wheel
         --outdir dist/
         .
-    - name: Publish distribution 📦 to TestPyPI
+    - name: Publish distribution 📦 to PyPI
       if: startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@master
       with:
-        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-        repository_url: https://test.pypi.org/legacy/
+        password: ${{ secrets.PYPI_API_TOKEN }}
 
   doc:
     name: Make documentation
