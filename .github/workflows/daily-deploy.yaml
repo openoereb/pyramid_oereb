@@ -1,6 +1,6 @@
 name: Daily deploy to TestPypi
 on:
-   schedule:
+   schedule:    
      - cron: "30 22 * * *"
 jobs:
   deploy-dev:
