@@ -65,7 +65,7 @@ Run tests
 To check your code, run `make checks`. It will run style checks and tests. It's also possible to
 run sub-target independently:
 
-- `make checks-style` to run only style-related checks (linting, attributes).
+- `make checks-style` to run only style-related checks (linting).
 - `make tests` to run tests. Python 3.7 is used by default. But you can run tests with another version by
   running: `PYTHON_TEST_VERSION=python3.x make tests`. You can also set this variable in the Makefile.
 
