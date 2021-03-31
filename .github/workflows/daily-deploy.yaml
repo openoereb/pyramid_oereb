@@ -19,14 +19,14 @@ jobs:
         --user
     - name: Build a binary wheel and a source tarball
       run: >-
-        python -m
-        build
-        --tag-date
-        --tag-build=dev
-        --sdist
-        --wheel
-        --outdir dist/
-        .
+        python setup.py 
+        egg_info 
+        --tag-date 
+        --tag-build=dev 
+        sdist 
+        bdist_wheel 
+        upload 
+        -r pypi
     - name: Publish distribution 📦 to PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
