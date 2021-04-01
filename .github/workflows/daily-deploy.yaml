@@ -1,7 +1,7 @@
 name: Daily deploy to Pypi
 on:
    schedule:
-     - cron: "30 06 * * *"
+     - cron: "15 07 * * *"
 jobs:
   deploy-dev:
     runs-on: ubuntu-20.04
@@ -20,14 +20,12 @@ jobs:
         --user
     - name: Build a binary wheel and a source tarball
       run: >-
-        python setup.py 
-        egg_info 
-        --tag-date 
-        --tag-build=dev 
-        sdist 
-        bdist_wheel 
-        upload 
-        -r pypi
+        python setup.py
+        egg_info
+        --tag-date
+        --tag-build=dev
+        sdist
+        bdist_wheel
     - name: Publish distribution 📦 to PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
