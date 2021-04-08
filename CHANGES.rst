@@ -2,6 +2,10 @@
 Changelog
 ---------
 
+1.9.1 (DRAFT)
+*************
+- To be defined
+
 1.9.0
 *****
 - Oereblex: add configuration to pass URL parameters to the oereblex call (#1117)

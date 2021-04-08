@@ -7,6 +7,14 @@ This chapter will give you hints on how to handle version migration, in particul
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
 
+.. _changes-version-1.9.1:
+
+Version 1.9.1 (DRAFT)
+---------------------
+
+ * To be defined
+
+
 .. _changes-version-1.9.0:
 
 Version 1.9.0
