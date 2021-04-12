@@ -30,3 +30,10 @@ jobs:
       uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.PYPI_API_TOKEN }}
+    - name: Build documentation 📖
+      run: make doc
+    - name: Deploy 🚀 documentation to GitHub pages
+      uses: JamesIves/github-pages-deploy-action@4.1.1
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: doc # The folder the action should deploy.
