@@ -1,7 +1,7 @@
 name: Daily deploy to Pypi
 on:
    schedule:
-     - cron: "15 07 * * *"
+     - cron: "45 07 * * *"
 jobs:
   deploy-dev:
     runs-on: ubuntu-20.04
@@ -31,7 +31,9 @@ jobs:
       with:
         password: ${{ secrets.PYPI_API_TOKEN }}
     - name: Build documentation 📖
-      run: make doc
+      run: |
+          sudo apt-get install virtualenv libpq-dev libgeos-dev
+          make doc
     - name: Deploy 🚀 documentation to GitHub pages
       uses: JamesIves/github-pages-deploy-action@4.1.1
       with:
