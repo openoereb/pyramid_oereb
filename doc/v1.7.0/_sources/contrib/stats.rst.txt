@@ -63,24 +63,3 @@ Implementation
 
 
 
-.. _api-pyramid_oereb-contrib-stats:
-
-.. automodule:: pyramid_oereb.contrib.stats
-
-
-.. _api-pyramid_oereb-contrib-stats-decorators:
-
-.. automodule:: pyramid_oereb.contrib.stats.decorators
-
-
-.. _api-pyramid_oereb-contrib-stats-decorators-oerebstats:
-
-*Decorators OerebStats*
-^^^^^^^^^^^^^^^^^^^^^^^
-
-.. autoclass:: pyramid_oereb.contrib.stats.decorators.OerebStats
-   :members:
-   :inherited-members:
-
-   .. automethod:: __init__
-

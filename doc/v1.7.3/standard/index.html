@@ -205,7 +205,7 @@ definitions.</li>
 <li><strong>c2ctemplate_style</strong> (<em>bool</em>) &#8211; True if the yaml use a c2c template style (vars.[section]).
 Default is False.</li>
 <li><strong>tables_only</strong> (<em>bool</em>) &#8211; True to skip creation of schema. Default is False.</li>
-<li><strong>sql_file</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.documents.DocumentRecord.file" title="pyramid_oereb.lib.records.documents.DocumentRecord.file"><em>file</em></a>) &#8211; the file to generate. Default is None (in the database).</li>
+<li><strong>sql_file</strong> (<a class="reference internal" href="models/pyramid_oereb_standard_models_airports_building_lines.html#pyramid_oereb.standard.models.airports_building_lines.Document.file" title="pyramid_oereb.standard.models.airports_building_lines.Document.file"><em>file</em></a>) &#8211; the file to generate. Default is None (in the database).</li>
 </ul>
 </td>
 </tr>
@@ -442,7 +442,7 @@ case insensitive.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real estate for which the
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em>) &#8211; The real estate for which the
 provider of the surveying data should be delivered.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
@@ -451,7 +451,7 @@ provider of the surveying data should be delivered.</td>
 </dl>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">provider (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.office.OfficeRecord" title="pyramid_oereb.lib.records.office.OfficeRecord">pyramid_oereb.lib.records.office.OfficeRecord</a>)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">provider (pyramid_oereb.lib.records.office.OfficeRecord)</td>
 </tr>
 </tbody>
 </table>
@@ -469,7 +469,7 @@ datetime.date object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em>) &#8211; The real
 estate for which the last update date of the base data should be indicated</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The date of the last update of the cadastral base data</td>
@@ -533,11 +533,11 @@ specific sorting.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>extract</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.extract.ExtractRecord" title="pyramid_oereb.lib.records.extract.ExtractRecord"><em>pyramid_oereb.lib.records.extract.ExtractRecord</em></a>) &#8211; The unsorted extract</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>extract</strong> (<em>pyramid_oereb.lib.records.extract.ExtractRecord</em>) &#8211; The unsorted extract</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Returns the updated extract</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.extract.ExtractRecord" title="pyramid_oereb.lib.records.extract.ExtractRecord">pyramid_oereb.lib.records.extract.ExtractRecord</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid_oereb.lib.records.extract.ExtractRecord</td>
 </tr>
 </tbody>
 </table>
