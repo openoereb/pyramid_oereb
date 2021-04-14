@@ -76,7 +76,7 @@ jobs:
         name: Make documentation
         with:
             build-command: make doc
-            doc-folder: doc
+            docs-folder: doc
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
