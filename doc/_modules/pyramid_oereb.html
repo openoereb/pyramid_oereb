@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyramid_oereb &#8212; OEREB  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pyramid_oereb</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="k">import</span> <span class="n">DottedNameResolver</span>
+
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.adapter</span> <span class="k">import</span> <span class="n">DatabaseAdapter</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.config</span> <span class="k">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">parse</span>
+<span class="kn">from</span> <span class="nn">pyramid.config</span> <span class="k">import</span> <span class="n">Configurator</span>
+
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.readers.exclusion_of_liability</span> <span class="k">import</span> <span class="n">ExclusionOfLiabilityReader</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.readers.extract</span> <span class="k">import</span> <span class="n">ExtractReader</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.readers.glossary</span> <span class="k">import</span> <span class="n">GlossaryReader</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.readers.municipality</span> <span class="k">import</span> <span class="n">MunicipalityReader</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.readers.real_estate</span> <span class="k">import</span> <span class="n">RealEstateReader</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.processor</span> <span class="k">import</span> <span class="n">Processor</span>
+
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.0-alpha.1&#39;</span>
+
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span>
+<span class="n">route_prefix</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="c1"># initially instantiate database adapter for global session handling</span>
+<span class="n">database_adapter</span> <span class="o">=</span> <span class="n">DatabaseAdapter</span><span class="p">()</span>
+<span class="n">plr_cadastre_authority</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">real_estate_reader</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">municipality_reader</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">extract_reader</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">plr_sources</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">app_schema_name</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">srid</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">default_lang</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../api.html#pyramid_oereb.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">global_config</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function returns a Pyramid WSGI application. This is necessary for development of</span>
+<span class="sd">    your plugin. So you can run it local with the paster server and in a IDE like PyCharm. It</span>
+<span class="sd">    is intended to leave this section as is and do configuration in the includeme section only.</span>
+<span class="sd">    Push additional configuration in this section means it will not be used by the production</span>
+<span class="sd">    environment at all!</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">Configurator</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">route_prefix</span><span class="o">=</span><span class="s1">&#39;oereb&#39;</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">scan</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">make_wsgi_app</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="includeme"><a class="viewcode-back" href="../api.html#pyramid_oereb.includeme">[docs]</a><span class="k">def</span> <span class="nf">includeme</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    By including this in your pyramid web app you can easily provide a running OEREB Server</span>
+
+<span class="sd">    :param config: The pyramid apps config object</span>
+<span class="sd">    :type config: Configurator</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">global</span> <span class="n">route_prefix</span><span class="p">,</span> <span class="n">real_estate_reader</span><span class="p">,</span> <span class="n">municipality_reader</span><span class="p">,</span> <span class="n">extract_reader</span><span class="p">,</span> \
+        <span class="n">plr_sources</span><span class="p">,</span> <span class="n">plr_cadastre_authority</span><span class="p">,</span> <span class="n">app_schema_name</span><span class="p">,</span> <span class="n">srid</span><span class="p">,</span> <span class="n">default_lang</span>
+
+    <span class="c1"># Set route prefix</span>
+    <span class="n">route_prefix</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">route_prefix</span>
+
+    <span class="c1"># Get settings</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+
+    <span class="c1"># Load configuration file</span>
+    <span class="n">cfg_file</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb.cfg.file&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">cfg_section</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb.cfg.section&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">,</span> <span class="n">cfg_section</span><span class="p">)</span>
+    <span class="n">Config</span><span class="o">.</span><span class="n">update_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+
+    <span class="n">real_estate_config</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_real_estate_config</span><span class="p">()</span>
+    <span class="n">municipality_config</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_municipality_config</span><span class="p">()</span>
+    <span class="n">exclusion_of_liability_config</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_exclusion_of_liability_config</span><span class="p">()</span>
+    <span class="n">glossary_config</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_glossary_config</span><span class="p">()</span>
+    <span class="n">logos</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_logo_config</span><span class="p">()</span>
+    <span class="n">app_schema_name</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+    <span class="n">srid</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">)</span>
+    <span class="n">default_lang</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;default_language&#39;</span><span class="p">)</span>
+    <span class="n">plr_limits</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plr_limits&#39;</span><span class="p">)</span>
+
+    <span class="n">plr_cadastre_authority</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_plr_cadastre_authority</span><span class="p">()</span>
+
+    <span class="n">real_estate_reader</span> <span class="o">=</span> <span class="n">RealEstateReader</span><span class="p">(</span>
+        <span class="n">real_estate_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">),</span>
+        <span class="o">**</span><span class="n">real_estate_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">municipality_reader</span> <span class="o">=</span> <span class="n">MunicipalityReader</span><span class="p">(</span>
+        <span class="n">municipality_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">),</span>
+        <span class="o">**</span><span class="n">municipality_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">exclusion_of_liability_reader</span> <span class="o">=</span> <span class="n">ExclusionOfLiabilityReader</span><span class="p">(</span>
+        <span class="n">exclusion_of_liability_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">),</span>
+        <span class="o">**</span><span class="n">exclusion_of_liability_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">glossary_reader</span> <span class="o">=</span> <span class="n">GlossaryReader</span><span class="p">(</span>
+        <span class="n">glossary_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">),</span>
+        <span class="o">**</span><span class="n">glossary_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">plr_sources</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">plr</span> <span class="ow">in</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">):</span>
+        <span class="n">plr_source_class</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">))</span>
+        <span class="n">plr_sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plr_source_class</span><span class="p">(</span><span class="o">**</span><span class="n">plr</span><span class="p">))</span>
+
+    <span class="n">extract_reader</span> <span class="o">=</span> <span class="n">ExtractReader</span><span class="p">(</span>
+        <span class="n">plr_sources</span><span class="p">,</span>
+        <span class="n">plr_cadastre_authority</span><span class="p">,</span>
+        <span class="n">logos</span><span class="p">,</span>
+        <span class="c1"># TODO: Read this from config. Will be solved by: https://jira.camptocamp.com/browse/GSOREB-195</span>
+        <span class="p">[{</span><span class="s1">&#39;de&#39;</span><span class="p">:</span> <span class="s1">&#39;Daten der Swisstopo&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;de&#39;</span><span class="p">:</span> <span class="s1">&#39;Amtliche Vermessung&#39;</span><span class="p">}]</span>
+    <span class="p">)</span>
+
+    <span class="n">settings</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">:</span> <span class="n">parse</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">,</span> <span class="n">cfg_section</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="n">processor</span> <span class="o">=</span> <span class="n">Processor</span><span class="p">(</span>
+        <span class="n">real_estate_reader</span><span class="o">=</span><span class="n">real_estate_reader</span><span class="p">,</span>
+        <span class="n">municipality_reader</span><span class="o">=</span><span class="n">municipality_reader</span><span class="p">,</span>
+        <span class="n">exclusion_of_liability_reader</span><span class="o">=</span><span class="n">exclusion_of_liability_reader</span><span class="p">,</span>
+        <span class="n">glossary_reader</span><span class="o">=</span><span class="n">glossary_reader</span><span class="p">,</span>
+        <span class="n">plr_sources</span><span class="o">=</span><span class="n">plr_sources</span><span class="p">,</span>
+        <span class="n">extract_reader</span><span class="o">=</span><span class="n">extract_reader</span><span class="p">,</span>
+        <span class="n">plr_limits</span><span class="o">=</span><span class="n">plr_limits</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">pyramid_oereb_processor</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">processor</span>
+
+    <span class="n">config</span><span class="o">.</span><span class="n">add_request_method</span><span class="p">(</span><span class="n">pyramid_oereb_processor</span><span class="p">,</span> <span class="n">reify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">config</span><span class="o">.</span><span class="n">add_renderer</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb_extract_json&#39;</span><span class="p">,</span> <span class="s1">&#39;pyramid_oereb.lib.renderer.json_.Extract&#39;</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">add_renderer</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb_extract_xml&#39;</span><span class="p">,</span> <span class="s1">&#39;pyramid_oereb.lib.renderer.xml_.Extract&#39;</span><span class="p">)</span>
+
+    <span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb.routes&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h3>Versions</h3>
+<ul>
+    <li><a href="../master/_modules/pyramid_oereb.html">master</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, pyramid_oereb devs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
