@@ -72,6 +72,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: pip install sphinxcontrib-versioning
+      - run: sphinx-versioning push doc/source/ gh-pages doc
       # - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
       # - uses: ammaraskar/sphinx-action@master
       #   name: Make documentation
