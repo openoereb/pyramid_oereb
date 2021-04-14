@@ -75,5 +75,5 @@ jobs:
           sudo apt-get install virtualenv libpq-dev libgeos-dev
           make install
           make doc
-          .venv/bin/pip install sphinxcontrib-versioning 'Sphinx<1.6' sphinx_rtd_theme
+          .venv/bin/pip install sphinxcontrib-versioning 'Sphinx<1.6' Mako sphinx_rtd_theme
           .venv/bin/sphinx-versioning push doc/source gh-pages doc
