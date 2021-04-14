@@ -1,0 +1,405 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyramid_oereb.lib.renderer.extract.print &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../../../_static/banner.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../../search.html"/>
+    <link rel="top" title="pyramid_oereb  documentation" href="../../../../../index.html"/>
+        <link rel="up" title="pyramid_oereb.lib.renderer" href="../../renderer.html"/> 
+
+  
+  <script src="../../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../renderer.html">pyramid_oereb.lib.renderer</a> &raquo;</li>
+        
+      <li>pyramid_oereb.lib.renderer.extract.print</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyramid_oereb.lib.renderer.extract.print</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">urlparse</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">mapping</span>
+<span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="k">import</span> <span class="n">HTTPBadRequest</span>
+
+<span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="k">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.renderer.extract.json_</span> <span class="k">import</span> <span class="n">Renderer</span>
+
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="PrintRenderer"><a class="viewcode-back" href="../../../../../api.html#pyramid_oereb.lib.renderer.extract.print.PrintRenderer">[docs]</a><span class="k">class</span> <span class="nc">PrintRenderer</span><span class="p">(</span><span class="n">Renderer</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the JSON encoded extract, according to the specification.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (tuple): A tuple containing the generated extract record and the params</span>
+<span class="sd">                dictionary.</span>
+<span class="sd">            system (dict): The available system properties.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The JSON encoded extract.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">images</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">HTTPBadRequest</span><span class="p">(</span><span class="s2">&quot;With image is not allowed in the print&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_request</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_lang</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;default_language&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;lang&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lang</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lang&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lang</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_lang</span>
+
+        <span class="n">extract_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_render</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">attr_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;NotConcernedTheme&#39;</span><span class="p">,</span> <span class="s1">&#39;ThemeWithoutData&#39;</span><span class="p">,</span> <span class="s1">&#39;ConcernedTheme&#39;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="p">[</span><span class="n">attr_name</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_localised_text</span><span class="p">(</span><span class="n">theme</span><span class="p">,</span> <span class="s1">&#39;Text&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;PLRCadastreAuthority&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;RealEstate&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_m_text</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;GeneralInformation&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_m_text</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;BaseData&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Glossary&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Title&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Content&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;PLRCadastreAuthority_Name&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">restriction_on_landownership</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;RealEstate_RestrictionOnLandownership&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;Lawstatus&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;Theme&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_array_object</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;Geometry&#39;</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_localised_text</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;Theme_Text&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_localised_text</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;Lawstatus_Text&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_m_text</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;Information&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice_Name&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Geometry&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice_Name&#39;</span><span class="p">)</span>
+
+            <span class="n">legal_provisions</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">legal_provisions</span> <span class="o">+=</span> <span class="n">restriction_on_landownership</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="n">finish</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">while</span> <span class="n">finish</span><span class="p">:</span>
+                <span class="n">finish</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">for</span> <span class="n">legal_provision</span> <span class="ow">in</span> <span class="n">legal_provisions</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">&#39;Reference&#39;</span> <span class="ow">in</span> <span class="n">legal_provision</span><span class="p">:</span>
+                        <span class="n">legal_provisions</span> <span class="o">+=</span> <span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;Reference&#39;</span><span class="p">]</span>
+                        <span class="k">del</span> <span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;Reference&#39;</span><span class="p">]</span>
+                        <span class="n">finish</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">if</span> <span class="s1">&#39;Article&#39;</span> <span class="ow">in</span> <span class="n">legal_provision</span><span class="p">:</span>
+                        <span class="n">legal_provisions</span> <span class="o">+=</span> <span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;Article&#39;</span><span class="p">]</span>
+                        <span class="k">del</span> <span class="n">legal_provision</span><span class="p">[</span><span class="s1">&#39;Article&#39;</span><span class="p">]</span>
+                        <span class="n">finish</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">legal_provisions</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Lawstatus&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_localised_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Lawstatus_Text&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice_Name&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;TextAtWeb&#39;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_m_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Text&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Title&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;OfficialTitle&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Abbrevation&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ExclusionOfLiability&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Title&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Content&#39;</span><span class="p">)</span>
+
+        <span class="n">extract_dict</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="n">mapping</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">),</span>
+                    <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{}</span>
+                <span class="p">}]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;layout&quot;</span><span class="p">:</span> <span class="s2">&quot;A4 portrait&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;outputFormat&quot;</span><span class="p">:</span> <span class="s2">&quot;pdf&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;attributes&quot;</span><span class="p">:</span> <span class="n">extract_dict</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;getspec&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;no&#39;</span><span class="p">:</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;application/json; charset=UTF-8&#39;</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="n">print_result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">urlparse</span><span class="o">.</span><span class="n">urljoin</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;base_url&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s1">&#39;buildreport.pdf&#39;</span><span class="p">),</span>
+            <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json; charset=UTF-8&quot;</span>
+            <span class="p">},</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">=</span> <span class="n">print_result</span><span class="o">.</span><span class="n">status_code</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="n">print_result</span><span class="o">.</span><span class="n">headers</span>
+        <span class="k">if</span> <span class="s1">&#39;Transfer-Encoding&#39;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Transfer-Encoding&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;Connection&#39;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Connection&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">print_result</span><span class="o">.</span><span class="n">content</span>
+
+    <span class="k">def</span> <span class="nf">_flatten_array_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">array_name</span><span class="p">,</span> <span class="n">object_name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">array_name</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">[</span><span class="n">array_name</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">object_name</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_flatten_object</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">parent</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">del</span> <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_localised_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">:</span>
+            <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;Text&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_multilingual_m_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_multilingual_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">:</span>
+            <span class="c1"># lang_obj = dict([(e[&#39;Language&#39;], e[&#39;Text&#39;]) for e in parent[name]])</span>
+            <span class="c1"># lang = self.lang if self.lang in lang_obj else self.default_lang</span>
+            <span class="c1"># parent[name] = lang_obj[lang]</span>
+            <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Text&#39;</span><span class="p">]</span></div>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, pyramid_oereb devs.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: v1.0.0-alpha.2
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="../../../../../../0.0.1/index.html">0.0.1</a></dd>
+            <dd><a href="print.html">v1.0.0-alpha.2</a></dd>
+        </dl>
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="../../../../../../master/index.html">master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

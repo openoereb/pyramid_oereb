@@ -1,0 +1,729 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyramid_oereb.lib.config &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="pyramid_oereb  documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyramid_oereb.lib.config</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyramid_oereb.lib.config</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">pyramid.config</span> <span class="k">import</span> <span class="n">ConfigurationError</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.adapter</span> <span class="k">import</span> <span class="n">FileAdapter</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.office</span> <span class="k">import</span> <span class="n">OfficeRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.image</span> <span class="k">import</span> <span class="n">ImageRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.lib.records.theme</span> <span class="k">import</span> <span class="n">ThemeRecord</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="parse"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.parse">[docs]</a><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">,</span> <span class="n">cfg_section</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parses the defined YAML file and returns the defined section as dictionary.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cfg_file (str): The YAML file to be parsed.</span>
+<span class="sd">        cfg_section (str): The section to be returned.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: The parsed section as dictionary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">cfg_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;Missing configuration parameter &quot;pyramid_oereb.cfg.file&quot;.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cfg_section</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;Missing configuration parameter &quot;pyramid_oereb.cfg.section&quot;.&#39;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">e</span><span class="o">.</span><span class="n">strerror</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}{1}</span><span class="s1"> </span><span class="se">\&#39;</span><span class="si">{2}</span><span class="se">\&#39;</span><span class="s1">, Current working directory is </span><span class="si">{3}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">e</span><span class="o">.</span><span class="n">strerror</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">e</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+        <span class="k">raise</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg_section</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cfg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;YAML file contains no section &quot;</span><span class="si">{0}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cfg_section</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">cfg</span></div>
+
+
+<div class="viewcode-block" id="Config"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config">[docs]</a><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="n">_config</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.init"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.init">[docs]</a>    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">configfile</span><span class="p">,</span> <span class="n">configsection</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loads configuration from yaml file and provides methods for generating webservice output.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config_file (str): The configuration yaml file.</span>
+<span class="sd">            config_section (str): The section within the yaml file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="kc">None</span>
+
+        <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">configfile</span><span class="p">,</span> <span class="n">configsection</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">update_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">):</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_themes"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_themes">[docs]</a>    <span class="k">def</span> <span class="nf">get_themes</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of available themes.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list of pyramid_oereb.lib.records.theme.ThemeRecord: The available themes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">plrs</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">plrs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plrs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">plrs</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ThemeRecord</span><span class="p">(</span>
+                    <span class="n">theme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
+                    <span class="n">theme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
+                <span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_theme"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_theme">[docs]</a>    <span class="k">def</span> <span class="nf">get_theme</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the theme with the specified code.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            code (str): The theme&#39;s code.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.theme.ThemeRecord or None: The theme with the specified</span>
+<span class="sd">            code.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="n">plrs</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">plrs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plrs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">plrs</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">theme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">code</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">ThemeRecord</span><span class="p">(</span>
+                        <span class="n">theme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
+                        <span class="n">theme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
+                    <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_theme_thresholds"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_theme_thresholds">[docs]</a>    <span class="k">def</span> <span class="nf">get_theme_thresholds</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the limits for the geometries of the theme with the specified code.</span>
+
+<span class="sd">        :param code: The theme&#39;s code.</span>
+<span class="sd">        :type code: str</span>
+<span class="sd">        :return: The geometric tolerances for this theme.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="n">plrs</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">plrs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plrs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">plrs</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">theme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">code</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">theme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plr_thresholds&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_all_federal"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_all_federal">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_federal</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of all federal topic codes.</span>
+
+<span class="sd">        :return: All federal topic codes.</span>
+<span class="sd">        :rtype: list of str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">federal</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">plrs</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">plrs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plrs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">plr</span> <span class="ow">in</span> <span class="n">plrs</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">plr</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;federal&#39;</span><span class="p">):</span>
+                    <span class="n">federal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plr</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">federal</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_crs"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_crs">[docs]</a>    <span class="k">def</span> <span class="nf">get_crs</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of available crs.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: The available crs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="n">crs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">srid</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">srid</span><span class="p">:</span>
+            <span class="n">crs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;epsg:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">srid</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">crs</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_language"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_language">[docs]</a>    <span class="k">def</span> <span class="nf">get_language</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of available languages.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: The available languages.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">language</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;language&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">language</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">language</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">language</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_flavour"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_flavour">[docs]</a>    <span class="k">def</span> <span class="nf">get_flavour</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of available flavours.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: The available flavours.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">flavour</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;flavour&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">flavour</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">flavour</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">flavour</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_geometry_types"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_geometry_types">[docs]</a>    <span class="k">def</span> <span class="nf">get_geometry_types</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of available geometry_types.</span>
+
+<span class="sd">        :return: The available geometry types.</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">geometry_types</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;geometry_types&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">geometry_types</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geometry_types</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">geometry_types</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_real_estate_config"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_real_estate_config">[docs]</a>    <span class="k">def</span> <span class="nf">get_real_estate_config</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary of the configured real estate settings.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured real estate settings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;real_estate&#39;</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_address_config"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_address_config">[docs]</a>    <span class="k">def</span> <span class="nf">get_address_config</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary of the configured address settings.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured address settings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;address&#39;</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_glossary_config"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_glossary_config">[docs]</a>    <span class="k">def</span> <span class="nf">get_glossary_config</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary of the configured glossary settings.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured glossary settings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;glossary&#39;</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_exclusion_of_liability_config"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_exclusion_of_liability_config">[docs]</a>    <span class="k">def</span> <span class="nf">get_exclusion_of_liability_config</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary of the configured exclusion_of_liability settings.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured exclusion_of_liability settings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;exclusion_of_liability&#39;</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_municipality_config"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_municipality_config">[docs]</a>    <span class="k">def</span> <span class="nf">get_municipality_config</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary of the configured municipality settings.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured municipality settings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;municipality&#39;</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_extract_config"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_extract_config">[docs]</a>    <span class="k">def</span> <span class="nf">get_extract_config</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary of the configured extract settings.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured extract settings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;extract&#39;</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_plr_cadastre_authority"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_plr_cadastre_authority">[docs]</a>    <span class="k">def</span> <span class="nf">get_plr_cadastre_authority</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an office record for the configured PLR cadastre authority.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.lib.records.office.OfficeRecord: The configured PLR cadastre</span>
+<span class="sd">            authority.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plr_cadastre_authority&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">OfficeRecord</span><span class="p">(</span>
+            <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">),</span>
+            <span class="n">uid</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uid&#39;</span><span class="p">),</span>
+            <span class="n">office_at_web</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;office_at_web&#39;</span><span class="p">),</span>
+            <span class="n">line1</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;line1&#39;</span><span class="p">),</span>
+            <span class="n">line2</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;line2&#39;</span><span class="p">),</span>
+            <span class="n">street</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;street&#39;</span><span class="p">),</span>
+            <span class="n">number</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;number&#39;</span><span class="p">),</span>
+            <span class="n">postal_code</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;postal_code&#39;</span><span class="p">),</span>
+            <span class="n">city</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;city&#39;</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_logo_config"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_logo_config">[docs]</a>    <span class="k">def</span> <span class="nf">get_logo_config</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary of the configured file path&#39;s to the logos.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured paths to the logos wrapped in a dictionary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="n">confederation_key</span> <span class="o">=</span> <span class="s1">&#39;confederation&#39;</span>
+        <span class="n">oereb_key</span> <span class="o">=</span> <span class="s1">&#39;oereb&#39;</span>
+        <span class="n">canton_key</span> <span class="o">=</span> <span class="s1">&#39;canton&#39;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;The definition for &quot;</span><span class="si">{key}</span><span class="s1">&quot; must be set. Got: </span><span class="si">{found_config}</span><span class="s1">&#39;</span>
+        <span class="n">logo_dict</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;logo&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">logo_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">confederation_key</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">confederation_key</span><span class="p">,</span> <span class="n">found_config</span><span class="o">=</span><span class="n">logo_dict</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">logo_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">oereb_key</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">oereb_key</span><span class="p">,</span> <span class="n">found_config</span><span class="o">=</span><span class="n">logo_dict</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">logo_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">canton_key</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">canton_key</span><span class="p">,</span> <span class="n">found_config</span><span class="o">=</span><span class="n">logo_dict</span><span class="p">))</span>
+        <span class="n">file_adapter</span> <span class="o">=</span> <span class="n">FileAdapter</span><span class="p">()</span>
+        <span class="n">confederation_logo</span> <span class="o">=</span> <span class="n">ImageRecord</span><span class="p">(</span><span class="n">file_adapter</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">logo_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">confederation_key</span><span class="p">)))</span>
+        <span class="n">oereb_logo</span> <span class="o">=</span> <span class="n">ImageRecord</span><span class="p">(</span><span class="n">file_adapter</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">logo_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">oereb_key</span><span class="p">)))</span>
+        <span class="n">canton_logo</span> <span class="o">=</span> <span class="n">ImageRecord</span><span class="p">(</span><span class="n">file_adapter</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">logo_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">canton_key</span><span class="p">)))</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">confederation_key</span><span class="p">:</span> <span class="n">confederation_logo</span><span class="p">,</span>
+            <span class="n">oereb_key</span><span class="p">:</span> <span class="n">oereb_logo</span><span class="p">,</span>
+            <span class="n">canton_key</span><span class="p">:</span> <span class="n">canton_logo</span>
+        <span class="p">}</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_oereblex_config"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_oereblex_config">[docs]</a>    <span class="k">def</span> <span class="nf">get_oereblex_config</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary of the configured OEREBlex settings.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The configured OEREBlex settings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;oereblex&#39;</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_base_data"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_base_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_base_data</span><span class="p">(</span><span class="n">base_data_date</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the multilingual base data description with updated currentness.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            base_data_date datetime.datetime: The base data currentness.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The multilingual base data with updated currentness.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">base_data_date</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">)</span>
+        <span class="n">base_data</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_extract_config</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;base_data&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">base_data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">base_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">base_data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">base_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base_data_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y&#39;</span><span class="p">))})</span>
+        <span class="k">return</span> <span class="n">base_data</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the specified configuration value.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key (str): Configuration parameter name.</span>
+<span class="sd">            default (*): Default value if the specified parameter is not defined. Defaults to</span>
+<span class="sd">                None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            *: The specified configuration or default value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_object_path"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_object_path">[docs]</a>    <span class="k">def</span> <span class="nf">get_object_path</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the configuration object at a specified path.</span>
+
+<span class="sd">        example:</span>
+<span class="sd">        get_object_path(&#39;app.print&#39;, {&#39;dpi&#39;: 300}, [&#39;map_size&#39;])</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path (str): Dot separated path of the wonted object.</span>
+<span class="sd">            default (dict): Default dictionary values of the object. Defaults to {}.</span>
+<span class="sd">            required (list): The list of required sub values in the object. Defaults to [].</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            *: The specified configuration object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">_get_object_path</span><span class="p">(</span>
+            <span class="p">[],</span> <span class="n">Config</span><span class="o">.</span><span class="n">_config</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">),</span>
+            <span class="n">default</span> <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{},</span>
+            <span class="n">required</span> <span class="k">if</span> <span class="n">required</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[])</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_object_path</span><span class="p">(</span><span class="n">current_path</span><span class="p">,</span> <span class="n">current_object</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">required</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">current_object</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">required</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;Missing configuration value for </span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_path</span><span class="p">),</span> <span class="n">key</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="n">k</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current_object</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;Missing configuration object for </span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_path</span><span class="p">),</span> <span class="n">k</span><span class="p">))</span>
+
+        <span class="n">current_path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">current_object</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">!=</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;The configuration </span><span class="si">{}</span><span class="s1"> is not an object.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_path</span><span class="p">)))</span>
+
+        <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">_get_object_path</span><span class="p">(</span><span class="n">current_path</span><span class="p">,</span> <span class="n">current_object</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">default</span><span class="p">,</span> <span class="n">required</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_law_status"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_law_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_law_status</span><span class="p">(</span><span class="n">theme_code</span><span class="p">,</span> <span class="n">law_status_config</span><span class="p">,</span> <span class="n">law_status_code</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            theme_code (str): The theme code.</span>
+<span class="sd">            law_status_config (dict): The configured mapping of the plrs law status.</span>
+<span class="sd">            law_status_code (str): The law status code read from the data to wrap it into the only two allowed</span>
+<span class="sd">                values: &quot;inForce&quot; or &quot;runningModifications&quot; which are possible on the extract.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The mapped law status. This is &quot;inForce&quot; or &quot;runningModifications&quot;.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            AttributeError: If the passed law status code does not match one of the configured ones.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">law_status_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;in_force&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">law_status_code</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;inForce&#39;</span>
+        <span class="k">elif</span> <span class="n">law_status_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;running_modifications&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">law_status_code</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;runningModifications&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                <span class="sa">u</span><span class="s1">&#39;There was no proper configuration for the theme &quot;</span><span class="si">{theme}</span><span class="s1">&quot; on the law &#39;</span>
+                <span class="sa">u</span><span class="s1">&#39;status it has to be configured depending on the data you imported. Law &#39;</span>
+                <span class="sa">u</span><span class="s1">&#39;status in your data was: </span><span class="si">{data_law_status}</span><span class="s1">, the configured options are: &#39;</span>
+                <span class="sa">u</span><span class="s1">&#39;</span><span class="si">{in_force}</span><span class="s1"> and </span><span class="si">{running_modifications}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">theme</span><span class="o">=</span><span class="n">theme_code</span><span class="p">,</span>
+                    <span class="n">data_law_status</span><span class="o">=</span><span class="n">law_status_code</span><span class="p">,</span>
+                    <span class="n">in_force</span><span class="o">=</span><span class="n">law_status_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;in_force&#39;</span><span class="p">),</span>
+                    <span class="n">running_modifications</span><span class="o">=</span><span class="n">law_status_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;running_modifications&#39;</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Config.get_law_status_translations"><a class="viewcode-back" href="../../../api.html#pyramid_oereb.lib.config.Config.get_law_status_translations">[docs]</a>    <span class="k">def</span> <span class="nf">get_law_status_translations</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Obtaining the law status translations from config via the code.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            code (str): The law status code. This must be &quot;inForce&quot; or &quot;runningModifications&quot;. Any other</span>
+<span class="sd">                value won&#39;t match and throw a silent error.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The translation from the configuration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">translations</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;law_status_translations&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="s1">&#39;inForce&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">translations</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;in_force&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">code</span> <span class="o">==</span> <span class="s1">&#39;runningModifications&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">translations</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;running_modifications&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;No translation for law status found in config for the passed code: </span><span class="si">{code}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">code</span><span class="o">=</span><span class="n">code</span>
+            <span class="p">))</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s1">&#39;de&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;Keine Übersetzung gefunden&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;fr&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;Pas de traduction&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;it&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;Nessuna traduzione trovato&#39;</span><span class="p">,</span>
+                <span class="c1"># TODO: Add romanian translation here</span>
+                <span class="s1">&#39;rm&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;...&#39;</span>
+            <span class="p">}</span></div></div>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, pyramid_oereb devs.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: master
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="../../../master/_modules/pyramid_oereb/lib/config.html">master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
