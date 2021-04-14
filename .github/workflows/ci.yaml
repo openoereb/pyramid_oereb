@@ -67,7 +67,7 @@ jobs:
         password: ${{ secrets.PYPI_API_TOKEN }}
 
   doc:
-    name: Make et deploy documentation
+    name: Make and deploy documentation
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
