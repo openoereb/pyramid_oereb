@@ -75,7 +75,6 @@ jobs:
       - uses: ammaraskar/sphinx-action@master
         name: Make documentation
         with:
-            build-command: make doc
             docs-folder: doc
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.1
