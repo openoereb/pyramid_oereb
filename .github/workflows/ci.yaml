@@ -3,68 +3,68 @@ on: [push]
 
 jobs:
 
-  checks-style:
-    name: Check style
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-      - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
-      - name: Run make lint
-        run: make lint
+  # checks-style:
+  #   name: Check style
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
+  #     - name: Run make lint
+  #       run: make lint
 
-  tests-docker:
-    name: Tests docker setup db
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-      - run: make tests-docker-setup-db
+  # tests-docker:
+  #   name: Tests docker setup db
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - run: make tests-docker-setup-db
 
-  test-py:
-    name: Test Python
-    runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        python-version:
-          - python3.6
-          - python3.7
-          - python3.8
-    steps:
-      - uses: actions/checkout@v2
-      - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
-      - name: Run checks for Python ${{ matrix.python-version }}
-        env:
-          PYTHON_TEST_VERSION: ${{ matrix.python-version }}
-        run: make tests
+  # test-py:
+  #   name: Test Python
+  #   runs-on: ubuntu-20.04
+  #   strategy:
+  #     matrix:
+  #       python-version:
+  #         - python3.6
+  #         - python3.7
+  #         - python3.8
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
+  #     - name: Run checks for Python ${{ matrix.python-version }}
+  #       env:
+  #         PYTHON_TEST_VERSION: ${{ matrix.python-version }}
+  #       run: make tests
 
-  build-and-publish:
-    name: Build and publish Python 🐍 distributions 📦 to PyPI
-    runs-on: ubuntu-20.04
-    needs: [checks-style, tests-docker, test-py]
-    steps:
-    - uses: actions/checkout@master
-    - name: Set up Python 3.7
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.7
-    - name: Install pypa/build
-      run: >-
-        python -m
-        pip install
-        build
-        --user
-    - name: Build a binary wheel and a source tarball
-      run: >-
-        python -m
-        build
-        --sdist
-        --wheel
-        --outdir dist/
-        .
-    - name: Publish distribution 📦 to PyPI
-      if: startsWith(github.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        password: ${{ secrets.PYPI_API_TOKEN }}
+  # build-and-publish:
+  #   name: Build and publish Python 🐍 distributions 📦 to PyPI
+  #   runs-on: ubuntu-20.04
+  #   needs: [checks-style, tests-docker, test-py]
+  #   steps:
+  #   - uses: actions/checkout@master
+  #   - name: Set up Python 3.7
+  #     uses: actions/setup-python@v1
+  #     with:
+  #       python-version: 3.7
+  #   - name: Install pypa/build
+  #     run: >-
+  #       python -m
+  #       pip install
+  #       build
+  #       --user
+  #   - name: Build a binary wheel and a source tarball
+  #     run: >-
+  #       python -m
+  #       build
+  #       --sdist
+  #       --wheel
+  #       --outdir dist/
+  #       .
+  #   - name: Publish distribution 📦 to PyPI
+  #     if: startsWith(github.ref, 'refs/tags')
+  #     uses: pypa/gh-action-pypi-publish@master
+  #     with:
+  #       password: ${{ secrets.PYPI_API_TOKEN }}
 
   doc:
     name: Make and deploy documentation
@@ -84,6 +84,6 @@ jobs:
           make install
           .venv/bin/pip install sphinxcontrib-versioning 'Sphinx<1.6' mako sphinx_rtd_theme --editable .[recommend]
           make doc
-          source .venv/bin/activate && sphinx-versioning push doc/source gh-pages doc
+          source .venv/bin/activate && sphinx-versioning build doc/source gh-pages doc
 
       - run: cat /tmp/sphinx-err-*
