@@ -32,9 +32,13 @@ jobs:
         password: ${{ secrets.PYPI_API_TOKEN }}
   doc:
     name: Make and deploy documentation
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-20.04
+    needs: build-and-publish
     steps:
       - uses: actions/checkout@v2
+      - uses: webfactory/ssh-agent@v0.5.2
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: actions/setup-python@v2
         with:
           python-version: '3.7'
@@ -44,6 +48,9 @@ jobs:
         run: |
           sudo apt-get install virtualenv libpq-dev libgeos-dev
           make install
+          .venv/bin/pip install sphinxcontrib-versioning 'Sphinx<1.6' mako sphinx_rtd_theme --editable .[recommend]
           make doc
-          .venv/bin/pip install sphinxcontrib-versioning 'Sphinx<1.6' Mako sphinx_rtd_theme --editable .[recommend]
-          .venv/bin/sphinx-versioning push doc/source gh-pages doc
+          git config --global user.name "c2c-bot-gis-ci"
+          git config --global user.email "c2c-bot-gis-ci@users.noreply.github.com"
+          git remote set-url --push origin "git@github.com:openoereb/pyramid_oereb.git"
+          source .venv/bin/activate && sphinx-versioning push doc/source gh-pages doc
