@@ -71,9 +71,9 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - uses: webfactory/ssh-agent@v0.5.2
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      # - uses: webfactory/ssh-agent@v0.5.2
+      #   with:
+      #     ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: actions/setup-python@v2
         with:
           python-version: '3.7'
@@ -82,6 +82,7 @@ jobs:
           PYTHON_VERSION: python3.7
         run: |
           /usr/bin/git config user.name vuilleumierc
+          /usr/bin/git config user.email vuilleumierc@users.noreply.github.com
           sudo apt-get install virtualenv libpq-dev libgeos-dev
           make install
           .venv/bin/pip install sphinxcontrib-versioning 'Sphinx<1.6' mako sphinx_rtd_theme --editable .[recommend]
