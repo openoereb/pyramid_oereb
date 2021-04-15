@@ -1,8 +1,0 @@
-.. _readers:
-
-Readers
--------
-
-
-
-
