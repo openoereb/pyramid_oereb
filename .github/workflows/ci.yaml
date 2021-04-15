@@ -81,12 +81,12 @@ jobs:
         env:
           PYTHON_VERSION: python3.7
         run: |
-          git config user.name vuilleumierc
-          git config user.email vuilleumierc@users.noreply.github.com
           sudo apt-get install virtualenv libpq-dev libgeos-dev
           make install
           .venv/bin/pip install sphinxcontrib-versioning 'Sphinx<1.6' mako sphinx_rtd_theme --editable .[recommend]
           make doc
+          git config user.name vuilleumierc
+          git config user.email vuilleumierc@users.noreply.github.com
           source .venv/bin/activate && sphinx-versioning push doc/source gh-pages doc
 
       - run: cat /tmp/sphinx-err-*
