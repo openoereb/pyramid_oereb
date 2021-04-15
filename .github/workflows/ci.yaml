@@ -74,14 +74,12 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: '3.7'
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: doc/build
       - name: Make and publish doc
         env:
           PYTHON_VERSION: python3.7
         run: |
+          /usr/bin/git config user.name vuilleumierc
+          /usr/bin/git config user.email vuilleumierc@users.noreply.github.com
           sudo apt-get install virtualenv libpq-dev libgeos-dev
           make install
           .venv/bin/pip install sphinxcontrib-versioning 'Sphinx<1.6' mako sphinx_rtd_theme --editable .[recommend]
