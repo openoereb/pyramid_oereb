@@ -87,7 +87,7 @@ jobs:
           make doc
           git config --global user.name "c2c-bot-gis-ci"
           git config --global user.email "c2c-bot-gis-ci@users.noreply.github.com"
-          git remote set-url --push origin "git@github.com:open_oereb/pyramid_oereb"
+          git remote set-url --push origin "git@github.com:openoereb/pyramid_oereb.git"
           source .venv/bin/activate && sphinx-versioning push doc/source gh-pages doc
 
       - run: cat /tmp/sphinx-err-*
