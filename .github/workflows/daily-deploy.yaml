@@ -38,7 +38,10 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: '3.7'
-      - run: |
+      - name: Make and publish doc
+        env:
+          PYTHON_VERSION: python3.7
+        run: |
           sudo apt-get install virtualenv libpq-dev libgeos-dev
           make install
           make doc
