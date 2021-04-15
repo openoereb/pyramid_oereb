@@ -85,8 +85,8 @@ jobs:
           make install
           .venv/bin/pip install sphinxcontrib-versioning 'Sphinx<1.6' mako sphinx_rtd_theme --editable .[recommend]
           make doc
-          git config --global user.name vuilleumierc
-          git config --global user.email vuilleumierc@users.noreply.github.com
+          git config --global user.name "vuilleumierc"
+          git config --global user.email "vuilleumierc@users.noreply.github.com"
           source .venv/bin/activate && sphinx-versioning push doc/source gh-pages doc
 
       - run: cat /tmp/sphinx-err-*
