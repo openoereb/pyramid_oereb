@@ -82,4 +82,4 @@ jobs:
           make install
           .venv/bin/pip install sphinxcontrib-versioning 'Sphinx<1.6' mako sphinx_rtd_theme --editable .[recommend]
           make doc
-          .venv/bin/sphinx-versioning push doc/source gh-pages doc
+          source .venv/bin/activate && sphinx-versioning push doc/source gh-pages doc
