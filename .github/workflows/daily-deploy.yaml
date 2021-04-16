@@ -1,7 +1,7 @@
 name: Daily deploy to Pypi
 on:
    schedule:
-     - cron: "15 07 * * *"
+     - cron: "30 04 * * *"
 jobs:
   deploy-dev:
     runs-on: ubuntu-20.04
@@ -26,10 +26,10 @@ jobs:
         --tag-build=dev
         sdist
         bdist_wheel
-    # - name: Publish distribution 📦 to PyPI
-    #   uses: pypa/gh-action-pypi-publish@master
-    #   with:
-    #     password: ${{ secrets.PYPI_API_TOKEN }}
+    - name: Publish distribution 📦 to PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}
   doc:
     name: Make and deploy documentation
     runs-on: ubuntu-20.04
