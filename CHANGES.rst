@@ -2,9 +2,10 @@
 Changelog
 ---------
 
-1.9.1 (DRAFT)
-*************
-- To be defined
+1.9.1
+*****
+- Oereblex: support new Oereblex API version 1.2.1
+- Various library updates
 
 1.9.0
 *****
