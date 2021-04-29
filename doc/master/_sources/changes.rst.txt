@@ -9,10 +9,11 @@ to adapt in your project configuration, database etc. when upgrading to a new ve
 
 .. _changes-version-1.9.1:
 
-Version 1.9.1 (DRAFT)
----------------------
+Version 1.9.1
+-------------
 
- * To be defined
+ * Oereblex: support new Oereblex API version 1.2.1
+ * Various library updates
 
 
 .. _changes-version-1.9.0:
