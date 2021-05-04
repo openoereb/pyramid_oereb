@@ -198,7 +198,7 @@
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">instance_str</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">LOAD_AGAINST_COMMITTED</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">manager_of_class</span>
-<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">NEVER_SET</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">NEVER_SET</span>  <span class="c1"># noqa</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">NO_AUTOFLUSH</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">NO_CHANGE</span>  <span class="c1"># noqa</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">NO_RAISE</span>
@@ -211,13 +211,25 @@
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">PASSIVE_NO_RESULT</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">PASSIVE_OFF</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">PASSIVE_ONLY_PERSISTENT</span>
-<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">PASSIVE_RETURN_NEVER_SET</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">PASSIVE_RETURN_NO_VALUE</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">RELATED_OBJECT_OK</span>  <span class="c1"># noqa</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">SQL_OK</span>  <span class="c1"># noqa</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">state_str</span>
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">event</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">exc</span>
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">inspection</span>
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">util</span>
+<span class="kn">from</span> <span class="nn">..sql</span> <span class="kn">import</span> <span class="n">base</span> <span class="k">as</span> <span class="n">sql_base</span>
+<span class="kn">from</span> <span class="nn">..sql</span> <span class="kn">import</span> <span class="n">roles</span>
+<span class="kn">from</span> <span class="nn">..sql</span> <span class="kn">import</span> <span class="n">traversals</span>
+<span class="kn">from</span> <span class="nn">..sql</span> <span class="kn">import</span> <span class="n">visitors</span>
+
+
+<span class="k">class</span> <span class="nc">NoKey</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="n">NO_KEY</span> <span class="o">=</span> <span class="n">NoKey</span><span class="p">(</span><span class="s2">&quot;no name&quot;</span><span class="p">)</span>
 
 
 <span class="nd">@inspection</span><span class="o">.</span><span class="n">_self_inspects</span>
@@ -225,6 +237,11 @@
     <span class="n">interfaces</span><span class="o">.</span><span class="n">_MappedAttribute</span><span class="p">,</span>
     <span class="n">interfaces</span><span class="o">.</span><span class="n">InspectionAttr</span><span class="p">,</span>
     <span class="n">interfaces</span><span class="o">.</span><span class="n">PropComparator</span><span class="p">,</span>
+    <span class="n">traversals</span><span class="o">.</span><span class="n">HasCopyInternals</span><span class="p">,</span>
+    <span class="n">roles</span><span class="o">.</span><span class="n">JoinTargetRole</span><span class="p">,</span>
+    <span class="n">roles</span><span class="o">.</span><span class="n">OnClauseRole</span><span class="p">,</span>
+    <span class="n">sql_base</span><span class="o">.</span><span class="n">Immutable</span><span class="p">,</span>
+    <span class="n">sql_base</span><span class="o">.</span><span class="n">MemoizedHasCacheKey</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base class for :term:`descriptor` objects that intercept</span>
 <span class="sd">    attribute events on behalf of a :class:`.MapperProperty`</span>
@@ -246,21 +263,27 @@
 
     <span class="n">is_attribute</span> <span class="o">=</span> <span class="kc">True</span>
 
+    <span class="c1"># PropComparator has a __visit_name__ to participate within</span>
+    <span class="c1"># traversals.   Disambiguate the attribute vs. a comparator.</span>
+    <span class="n">__visit_name__</span> <span class="o">=</span> <span class="s2">&quot;orm_instrumented_attribute&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">class_</span><span class="p">,</span>
         <span class="n">key</span><span class="p">,</span>
+        <span class="n">parententity</span><span class="p">,</span>
         <span class="n">impl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">comparator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">parententity</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">of_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_criteria</span><span class="o">=</span><span class="p">(),</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">class_</span> <span class="o">=</span> <span class="n">class_</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parententity</span> <span class="o">=</span> <span class="n">parententity</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">impl</span> <span class="o">=</span> <span class="n">impl</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">comparator</span> <span class="o">=</span> <span class="n">comparator</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parententity</span> <span class="o">=</span> <span class="n">parententity</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_of_type</span> <span class="o">=</span> <span class="n">of_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_extra_criteria</span> <span class="o">=</span> <span class="n">extra_criteria</span>
 
         <span class="n">manager</span> <span class="o">=</span> <span class="n">manager_of_class</span><span class="p">(</span><span class="n">class_</span><span class="p">)</span>
         <span class="c1"># manager is None in the case of AliasedClass</span>
@@ -272,6 +295,26 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">base</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">dispatch</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">base</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">_active_history</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">_active_history</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">_cache_key_traversal</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">visitors</span><span class="o">.</span><span class="n">ExtendedInternalTraversal</span><span class="o">.</span><span class="n">dp_string</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;_parententity&quot;</span><span class="p">,</span> <span class="n">visitors</span><span class="o">.</span><span class="n">ExtendedInternalTraversal</span><span class="o">.</span><span class="n">dp_multi</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;_of_type&quot;</span><span class="p">,</span> <span class="n">visitors</span><span class="o">.</span><span class="n">ExtendedInternalTraversal</span><span class="o">.</span><span class="n">dp_multi</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;_extra_criteria&quot;</span><span class="p">,</span> <span class="n">visitors</span><span class="o">.</span><span class="n">InternalTraversal</span><span class="o">.</span><span class="n">dp_clauseelement_list</span><span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># this method is only used in terms of the</span>
+        <span class="c1"># sqlalchemy.ext.serializer extension</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">_queryable_attribute_unreduce</span><span class="p">,</span>
+            <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_parententity</span><span class="o">.</span><span class="n">mapper</span><span class="o">.</span><span class="n">class_</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_parententity</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_parententity</span><span class="o">.</span><span class="n">entity</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
 
     <span class="nd">@util</span><span class="o">.</span><span class="n">memoized_property</span>
     <span class="k">def</span> <span class="nf">_supports_population</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -285,10 +328,6 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">impl</span><span class="o">.</span><span class="n">get_history</span><span class="p">(</span>
             <span class="n">instance_state</span><span class="p">(</span><span class="n">instance</span><span class="p">),</span> <span class="n">instance_dict</span><span class="p">(</span><span class="n">instance</span><span class="p">),</span> <span class="n">passive</span>
         <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__selectable__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># TODO: conditionally attach this method based on clause_element ?</span>
-        <span class="k">return</span> <span class="bp">self</span>
 
     <span class="nd">@util</span><span class="o">.</span><span class="n">memoized_property</span>
     <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -344,25 +383,53 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">inspection</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parententity</span><span class="p">)</span>
 
-    <span class="nd">@property</span>
+    <span class="nd">@util</span><span class="o">.</span><span class="n">memoized_property</span>
     <span class="k">def</span> <span class="nf">expression</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;The SQL expression object represented by this</span>
 <span class="sd">        :class:`.QueryableAttribute`.</span>
 
-<span class="sd">        This will typically be an instance of a :class:`.ColumnElement`</span>
+<span class="sd">        This will typically be an instance of a :class:`_sql.ColumnElement`</span>
 <span class="sd">        subclass representing a column expression.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="o">.</span><span class="n">__clause_element__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="n">NO_KEY</span><span class="p">:</span>
+            <span class="n">annotations</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;entity_namespace&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entity_namespace</span><span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">annotations</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;proxy_key&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+                <span class="s2">&quot;proxy_owner&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="p">,</span>
+                <span class="s2">&quot;entity_namespace&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entity_namespace</span><span class="p">,</span>
+            <span class="p">}</span>
+
+        <span class="n">ce</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="o">.</span><span class="n">__clause_element__</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">anno</span> <span class="o">=</span> <span class="n">ce</span><span class="o">.</span><span class="n">_annotate</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">ae</span><span class="p">:</span>
+            <span class="n">util</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+                <span class="n">exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span>
+                    <span class="s1">&#39;When interpreting attribute &quot;</span><span class="si">%s</span><span class="s1">&quot; as a SQL expression, &#39;</span>
+                    <span class="s2">&quot;expected __clause_element__() to return &quot;</span>
+                    <span class="s2">&quot;a ClauseElement object, got: </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ce</span><span class="p">)</span>
+                <span class="p">),</span>
+                <span class="n">from_</span><span class="o">=</span><span class="n">ae</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">anno</span><span class="p">(</span><span class="n">annotations</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_entity_namespace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parententity</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__clause_element__</span><span class="p">()</span><span class="o">.</span><span class="n">_annotations</span>
 
     <span class="k">def</span> <span class="nf">__clause_element__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="o">.</span><span class="n">__clause_element__</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">expression</span>
 
-    <span class="k">def</span> <span class="nf">_query_clause_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;like __clause_element__(), but called specifically</span>
-<span class="sd">        by :class:`_query.Query` to allow special behavior.&quot;&quot;&quot;</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="o">.</span><span class="n">_query_clause_element</span><span class="p">()</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_from_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">expression</span><span class="o">.</span><span class="n">_from_objects</span>
 
     <span class="k">def</span> <span class="nf">_bulk_update_tuples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return setter tuples for a bulk UPDATE.&quot;&quot;&quot;</span>
@@ -379,18 +446,41 @@
             <span class="n">parententity</span><span class="o">=</span><span class="n">adapt_to_entity</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">of_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">of_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">QueryableAttribute</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">impl</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="o">.</span><span class="n">of_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">),</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parententity</span><span class="p">,</span>
-            <span class="n">of_type</span><span class="o">=</span><span class="bp">cls</span><span class="p">,</span>
+            <span class="n">impl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">impl</span><span class="p">,</span>
+            <span class="n">comparator</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="o">.</span><span class="n">of_type</span><span class="p">(</span><span class="n">entity</span><span class="p">),</span>
+            <span class="n">of_type</span><span class="o">=</span><span class="n">inspection</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="n">entity</span><span class="p">),</span>
+            <span class="n">extra_criteria</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_extra_criteria</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">and_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">QueryableAttribute</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parententity</span><span class="p">,</span>
+            <span class="n">impl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">impl</span><span class="p">,</span>
+            <span class="n">comparator</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span><span class="o">*</span><span class="n">other</span><span class="p">),</span>
+            <span class="n">of_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_of_type</span><span class="p">,</span>
+            <span class="n">extra_criteria</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_extra_criteria</span> <span class="o">+</span> <span class="n">other</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">QueryableAttribute</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parententity</span><span class="p">,</span>
+            <span class="n">impl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">impl</span><span class="p">,</span>
+            <span class="n">comparator</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="p">,</span>
+            <span class="n">of_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_of_type</span><span class="p">,</span>
+            <span class="n">extra_criteria</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_extra_criteria</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_clause_element</span><span class="p">()</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__clause_element__</span><span class="p">()</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">operate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="o">*</span><span class="n">other</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">op</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="p">,</span> <span class="o">*</span><span class="n">other</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -436,7 +526,94 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="o">.</span><span class="n">property</span>
 
 
-<span class="k">class</span> <span class="nc">InstrumentedAttribute</span><span class="p">(</span><span class="n">QueryableAttribute</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_queryable_attribute_unreduce</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">mapped_class</span><span class="p">,</span> <span class="n">parententity</span><span class="p">,</span> <span class="n">entity</span><span class="p">):</span>
+    <span class="c1"># this method is only used in terms of the</span>
+    <span class="c1"># sqlalchemy.ext.serializer extension</span>
+    <span class="k">if</span> <span class="n">parententity</span><span class="o">.</span><span class="n">is_aliased_class</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">entity</span><span class="o">.</span><span class="n">_get_from_serialized</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">mapped_class</span><span class="p">,</span> <span class="n">parententity</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">util</span><span class="o">.</span><span class="n">py3k</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span>
+
+    <span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_T&quot;</span><span class="p">)</span>
+    <span class="n">_Generic_T</span> <span class="o">=</span> <span class="n">Generic</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">_Generic_T</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s2">&quot;_Generic_T&quot;</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{})</span>
+
+
+<span class="k">class</span> <span class="nc">Mapped</span><span class="p">(</span><span class="n">QueryableAttribute</span><span class="p">,</span> <span class="n">_Generic_T</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Represent an ORM mapped :term:`descriptor` attribute for typing purposes.</span>
+
+<span class="sd">    This class represents the complete descriptor interface for any class</span>
+<span class="sd">    attribute that will have been :term:`instrumented` by the ORM</span>
+<span class="sd">    :class:`_orm.Mapper` class. When used with typing stubs, it is the final</span>
+<span class="sd">    type that would be used by a type checker such as mypy to provide the full</span>
+<span class="sd">    behavioral contract for the attribute.</span>
+
+<span class="sd">    .. tip::</span>
+
+<span class="sd">        The :class:`_orm.Mapped` class represents attributes that are handled</span>
+<span class="sd">        directly by the :class:`_orm.Mapper` class. It does not include other</span>
+<span class="sd">        Python descriptor classes that are provided as extensions, including</span>
+<span class="sd">        :ref:`hybrids_toplevel` and the :ref:`associationproxy_toplevel`.</span>
+<span class="sd">        While these systems still make use of ORM-specific superclasses</span>
+<span class="sd">        and structures, they are not :term:`instrumented` by the</span>
+<span class="sd">        :class:`_orm.Mapper` and instead provide their own functionality</span>
+<span class="sd">        when they are accessed on a class.</span>
+
+<span class="sd">    When using the :ref:`SQLAlchemy Mypy plugin &lt;mypy_toplevel&gt;`, the</span>
+<span class="sd">    :class:`_orm.Mapped` construct is used in typing annotations to indicate to</span>
+<span class="sd">    the plugin those attributes that are expected to be mapped; the plugin also</span>
+<span class="sd">    applies :class:`_orm.Mapped` as an annotation automatically when it scans</span>
+<span class="sd">    through declarative mappings in :ref:`orm_declarative_table` style. For</span>
+<span class="sd">    more indirect mapping styles such as</span>
+<span class="sd">    :ref:`imperative table &lt;orm_imperative_table_configuration&gt;` it is</span>
+<span class="sd">    typically applied explicitly to class level attributes that expect</span>
+<span class="sd">    to be mapped based on a given :class:`_schema.Table` configuration.</span>
+
+<span class="sd">    :class:`_orm.Mapped` is defined in the</span>
+<span class="sd">    `sqlalchemy2-stubs &lt;https://pypi.org/project/sqlalchemy2-stubs&gt;`_ project</span>
+<span class="sd">    as a :pep:`484` generic class which may subscribe to any arbitrary Python</span>
+<span class="sd">    type, which represents the Python type handled by the attribute::</span>
+
+<span class="sd">        class MyMappedClass(Base):</span>
+<span class="sd">            __table_ = Table(</span>
+<span class="sd">                &quot;some_table&quot;, Base.metadata,</span>
+<span class="sd">                Column(&quot;id&quot;, Integer, primary_key=True),</span>
+<span class="sd">                Column(&quot;data&quot;, String(50)),</span>
+<span class="sd">                Column(&quot;created_at&quot;, DateTime)</span>
+<span class="sd">            )</span>
+
+<span class="sd">            id : Mapped[int]</span>
+<span class="sd">            data: Mapped[str]</span>
+<span class="sd">            created_at: Mapped[datetime]</span>
+
+<span class="sd">    For complete background on how to use :class:`_orm.Mapped` with</span>
+<span class="sd">    pep-484 tools like Mypy, see the link below for background on SQLAlchemy&#39;s</span>
+<span class="sd">    Mypy plugin.</span>
+
+<span class="sd">    .. versionadded:: 1.4</span>
+
+<span class="sd">    .. seealso::</span>
+
+<span class="sd">        :ref:`mypy_toplevel` - complete background on Mypy integration</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">owner</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__delete__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">InstrumentedAttribute</span><span class="p">(</span><span class="n">Mapped</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Class bound instrumented attribute which adds basic</span>
 <span class="sd">    :term:`descriptor` methods.</span>
 
@@ -444,6 +621,8 @@
 
 
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">inherit_cache</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="fm">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">impl</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
@@ -461,7 +640,20 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_supports_population</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="n">dict_</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">dict_</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">impl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">instance_state</span><span class="p">(</span><span class="n">instance</span><span class="p">),</span> <span class="n">dict_</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="n">instance_state</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                <span class="n">util</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+                    <span class="n">orm_exc</span><span class="o">.</span><span class="n">UnmappedInstanceError</span><span class="p">(</span><span class="n">instance</span><span class="p">),</span>
+                    <span class="n">replace_context</span><span class="o">=</span><span class="n">err</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">impl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">)</span>
+
+
+<span class="n">HasEntityNamespace</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span>
+    <span class="s2">&quot;HasEntityNamespace&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;entity_namespace&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">HasEntityNamespace</span><span class="o">.</span><span class="n">is_mapper</span> <span class="o">=</span> <span class="n">HasEntityNamespace</span><span class="o">.</span><span class="n">is_aliased_class</span> <span class="o">=</span> <span class="kc">False</span>
 
 
 <span class="k">def</span> <span class="nf">create_proxied_attribute</span><span class="p">(</span><span class="n">descriptor</span><span class="p">):</span>
@@ -480,6 +672,8 @@
 <span class="sd">        combination.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">_extra_criteria</span> <span class="o">=</span> <span class="p">()</span>
 
         <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -509,12 +703,21 @@
             <span class="p">)</span>
 
         <span class="nd">@property</span>
+        <span class="k">def</span> <span class="nf">_entity_namespace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_comparator</span><span class="p">,</span> <span class="s2">&quot;_parententity&quot;</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_comparator</span><span class="o">.</span><span class="n">_parententity</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># used by hybrid attributes which try to remain</span>
+                <span class="c1"># agnostic of any ORM concepts like mappers</span>
+                <span class="k">return</span> <span class="n">HasEntityNamespace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="p">)</span>
+
+        <span class="nd">@property</span>
         <span class="k">def</span> <span class="nf">property</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="o">.</span><span class="n">property</span>
 
         <span class="nd">@util</span><span class="o">.</span><span class="n">memoized_property</span>
         <span class="k">def</span> <span class="nf">comparator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">util</span><span class="o">.</span><span class="n">callable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_comparator</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_comparator</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_comparator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_comparator</span><span class="p">()</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapt_to_entity</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_comparator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_comparator</span><span class="o">.</span><span class="n">adapt_to_entity</span><span class="p">(</span>
@@ -599,7 +802,7 @@
 <span class="n">OP_MODIFIED</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">symbol</span><span class="p">(</span><span class="s2">&quot;MODIFIED&quot;</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">Event</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">AttributeEvent</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A token propagated throughout the course of a chain of attribute</span>
 <span class="sd">    events.</span>
 
@@ -636,7 +839,7 @@
 
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">(</span>
-            <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Event</span><span class="p">)</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">AttributeEvent</span><span class="p">)</span>
             <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">impl</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">impl</span>
             <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span>
         <span class="p">)</span>
@@ -649,6 +852,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">impl</span><span class="o">.</span><span class="n">hasparent</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
 
 
+<span class="n">Event</span> <span class="o">=</span> <span class="n">AttributeEvent</span>
+
+
 <span class="k">class</span> <span class="nc">AttributeImpl</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;internal implementation for instrumented attributes.&quot;&quot;&quot;</span>
 
@@ -659,11 +865,10 @@
         <span class="n">callable_</span><span class="p">,</span>
         <span class="n">dispatch</span><span class="p">,</span>
         <span class="n">trackparent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">extension</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">compare_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">active_history</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">parent_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">expire_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">load_on_unexpire</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">send_modified_events</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">accepts_scalar_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span>
@@ -684,19 +889,6 @@
 <span class="sd">          if True, attempt to track if an instance has a parent attached</span>
 <span class="sd">          to it via this attribute.</span>
 
-<span class="sd">        :param extension:</span>
-<span class="sd">          a single or list of AttributeExtension object(s) which will</span>
-<span class="sd">          receive set/delete/append/remove/etc. events.</span>
-<span class="sd">          The event package is now used.</span>
-
-<span class="sd">          .. deprecated::  1.3</span>
-
-<span class="sd">            The :paramref:`.AttributeImpl.extension` parameter is deprecated</span>
-<span class="sd">            and will be removed in a future release, corresponding to the</span>
-<span class="sd">            &quot;extension&quot; parameter on the :class:`.MapperProprty` classes</span>
-<span class="sd">            like :func:`.column_property` and :func:`_orm.relationship`  The</span>
-<span class="sd">            events system is now used.</span>
-
 <span class="sd">        :param compare_function:</span>
 <span class="sd">          a function that compares two values which are normally</span>
 <span class="sd">          assignable to this attribute.</span>
@@ -711,10 +903,13 @@
 <span class="sd">          Allows multiple AttributeImpls to all match a single</span>
 <span class="sd">          owner attribute.</span>
 
-<span class="sd">        :param expire_missing:</span>
-<span class="sd">          if False, don&#39;t add an &quot;expiry&quot; callable to this attribute</span>
-<span class="sd">          during state.expire_attributes(None), if no value is present</span>
-<span class="sd">          for this key.</span>
+<span class="sd">        :param load_on_unexpire:</span>
+<span class="sd">          if False, don&#39;t include this attribute in a load-on-expired</span>
+<span class="sd">          operation, i.e. the &quot;expired_attribute_loader&quot; process.</span>
+<span class="sd">          The attribute can still be in the &quot;expired&quot; list and be</span>
+<span class="sd">          considered to be &quot;expired&quot;.   Previously, this flag was called</span>
+<span class="sd">          &quot;expire_missing&quot; and is only used by a deferred column</span>
+<span class="sd">          attribute.</span>
 
 <span class="sd">        :param send_modified_events:</span>
 <span class="sd">          if False, the InstanceState._modified_event method will have no</span>
@@ -739,17 +934,10 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">accepts_scalar_loader</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_accepts_scalar_loader</span>
 
-        <span class="c1"># TODO: pass in the manager here</span>
-        <span class="c1"># instead of doing a lookup</span>
-        <span class="n">attr</span> <span class="o">=</span> <span class="n">manager_of_class</span><span class="p">(</span><span class="n">class_</span><span class="p">)[</span><span class="n">key</span><span class="p">]</span>
-
-        <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">util</span><span class="o">.</span><span class="n">to_list</span><span class="p">(</span><span class="n">extension</span> <span class="ow">or</span> <span class="p">[]):</span>
-            <span class="n">ext</span><span class="o">.</span><span class="n">_adapt_listener</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
-
         <span class="k">if</span> <span class="n">active_history</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">_active_history</span> <span class="o">=</span> <span class="kc">True</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">expire_missing</span> <span class="o">=</span> <span class="n">expire_missing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_on_unexpire</span> <span class="o">=</span> <span class="n">load_on_unexpire</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_modified_token</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">OP_MODIFIED</span><span class="p">)</span>
 
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
@@ -761,7 +949,7 @@
         <span class="s2">&quot;parent_token&quot;</span><span class="p">,</span>
         <span class="s2">&quot;send_modified_events&quot;</span><span class="p">,</span>
         <span class="s2">&quot;is_equal&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;expire_missing&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;load_on_unexpire&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_modified_token&quot;</span><span class="p">,</span>
         <span class="s2">&quot;accepts_scalar_loader&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -862,8 +1050,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize the given state&#39;s attribute with an empty value.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_default_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Produce an empty value for an uninitialized scalar attribute.&quot;&quot;&quot;</span>
+
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dict_</span><span class="p">,</span> <span class="p">(</span>
+            <span class="s2">&quot;_default_value should only be invoked for an &quot;</span>
+            <span class="s2">&quot;uninitialized or expired attribute&quot;</span>
+        <span class="p">)</span>
 
         <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">init_scalar</span><span class="p">:</span>
@@ -886,12 +1079,16 @@
             <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">committed_state</span>
-                <span class="ow">or</span> <span class="n">state</span><span class="o">.</span><span class="n">committed_state</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">is</span> <span class="n">NEVER_SET</span>
+                <span class="ow">or</span> <span class="n">state</span><span class="o">.</span><span class="n">committed_state</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">is</span> <span class="n">NO_VALUE</span>
             <span class="p">):</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">passive</span> <span class="o">&amp;</span> <span class="n">CALLABLES_OK</span><span class="p">:</span>
                     <span class="k">return</span> <span class="n">PASSIVE_NO_RESULT</span>
 
-                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">expired_attributes</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">accepts_scalar_loader</span>
+                    <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_on_unexpire</span>
+                    <span class="ow">and</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">expired_attributes</span>
+                <span class="p">):</span>
                     <span class="n">value</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_load_expired</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">passive</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">callables</span><span class="p">:</span>
                     <span class="n">callable_</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">callables</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
@@ -901,7 +1098,7 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">value</span> <span class="o">=</span> <span class="n">ATTR_EMPTY</span>
 
-                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">PASSIVE_NO_RESULT</span> <span class="ow">or</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">NEVER_SET</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">PASSIVE_NO_RESULT</span> <span class="ow">or</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">NO_VALUE</span><span class="p">:</span>
                     <span class="k">return</span> <span class="n">value</span>
                 <span class="k">elif</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">ATTR_WAS_SET</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
@@ -920,10 +1117,9 @@
                     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_committed_value</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">passive</span> <span class="o">&amp;</span> <span class="n">INIT_OK</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">NEVER_SET</span>
+                <span class="k">return</span> <span class="n">NO_VALUE</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># Return a new, empty value</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">)</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_value</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">initiator</span><span class="p">,</span> <span class="n">passive</span><span class="o">=</span><span class="n">PASSIVE_OFF</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">initiator</span><span class="p">,</span> <span class="n">passive</span><span class="o">=</span><span class="n">passive</span><span class="p">)</span>
@@ -961,7 +1157,7 @@
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">committed_state</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">committed_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">(</span><span class="n">NO_VALUE</span><span class="p">,</span> <span class="n">NEVER_SET</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">NO_VALUE</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">None</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">value</span>
@@ -994,7 +1190,7 @@
 
     <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">_active_history</span><span class="p">:</span>
-            <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">PASSIVE_RETURN_NEVER_SET</span><span class="p">)</span>
+            <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">PASSIVE_RETURN_NO_VALUE</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">old</span> <span class="o">=</span> <span class="n">dict_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">NO_VALUE</span><span class="p">)</span>
 
@@ -1014,6 +1210,8 @@
     <span class="k">def</span> <span class="nf">get_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">passive</span><span class="o">=</span><span class="n">PASSIVE_OFF</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="n">dict_</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">History</span><span class="o">.</span><span class="n">from_scalar_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">committed_state</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">History</span><span class="o">.</span><span class="n">from_scalar_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">NO_VALUE</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">passive</span> <span class="o">&amp;</span> <span class="n">INIT_OK</span><span class="p">:</span>
                 <span class="n">passive</span> <span class="o">^=</span> <span class="n">INIT_OK</span>
@@ -1034,7 +1232,7 @@
         <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">_active_history</span><span class="p">:</span>
-            <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">PASSIVE_RETURN_NEVER_SET</span><span class="p">)</span>
+            <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">PASSIVE_RETURN_NO_VALUE</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">old</span> <span class="o">=</span> <span class="n">dict_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">NO_VALUE</span><span class="p">)</span>
 
@@ -1132,7 +1330,7 @@
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="ow">and</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">PASSIVE_NO_RESULT</span>
-            <span class="ow">and</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NEVER_SET</span>
+            <span class="ow">and</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NO_VALUE</span>
         <span class="p">):</span>
             <span class="n">ret</span> <span class="o">=</span> <span class="p">[(</span><span class="n">instance_state</span><span class="p">(</span><span class="n">current</span><span class="p">),</span> <span class="n">current</span><span class="p">)]</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1143,7 +1341,7 @@
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
                 <span class="ow">and</span> <span class="n">original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">PASSIVE_NO_RESULT</span>
-                <span class="ow">and</span> <span class="n">original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NEVER_SET</span>
+                <span class="ow">and</span> <span class="n">original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NO_VALUE</span>
                 <span class="ow">and</span> <span class="n">original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">current</span>
             <span class="p">):</span>
 
@@ -1208,7 +1406,7 @@
             <span class="k">if</span> <span class="n">previous</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">previous</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span>
                 <span class="kc">None</span><span class="p">,</span>
                 <span class="n">PASSIVE_NO_RESULT</span><span class="p">,</span>
-                <span class="n">NEVER_SET</span><span class="p">,</span>
+                <span class="n">NO_VALUE</span><span class="p">,</span>
             <span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">sethasparent</span><span class="p">(</span><span class="n">instance_state</span><span class="p">(</span><span class="n">previous</span><span class="p">),</span> <span class="n">state</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
@@ -1261,7 +1459,6 @@
         <span class="n">dispatch</span><span class="p">,</span>
         <span class="n">typecallable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">trackparent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">extension</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">copy_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">compare_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span>
@@ -1272,7 +1469,6 @@
             <span class="n">callable_</span><span class="p">,</span>
             <span class="n">dispatch</span><span class="p">,</span>
             <span class="n">trackparent</span><span class="o">=</span><span class="n">trackparent</span><span class="p">,</span>
-            <span class="n">extension</span><span class="o">=</span><span class="n">extension</span><span class="p">,</span>
             <span class="n">compare_function</span><span class="o">=</span><span class="n">compare_function</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span>
@@ -1319,7 +1515,7 @@
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">committed_state</span><span class="p">:</span>
             <span class="n">original</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">committed_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">original</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">NO_VALUE</span><span class="p">,</span> <span class="n">NEVER_SET</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NO_VALUE</span><span class="p">:</span>
                 <span class="n">current_states</span> <span class="o">=</span> <span class="p">[</span>
                     <span class="p">((</span><span class="n">c</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="n">instance_state</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">current</span>
@@ -1352,7 +1548,7 @@
         <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">append</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">initiator</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_append_token</span><span class="p">)</span>
 
-        <span class="n">state</span><span class="o">.</span><span class="n">_modified_event</span><span class="p">(</span><span class="n">dict_</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">NEVER_SET</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">_modified_event</span><span class="p">(</span><span class="n">dict_</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">NO_VALUE</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trackparent</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sethasparent</span><span class="p">(</span><span class="n">instance_state</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">state</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
@@ -1368,7 +1564,7 @@
 <span class="sd">        operations (even though set.pop is the one where it is really needed).</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">state</span><span class="o">.</span><span class="n">_modified_event</span><span class="p">(</span><span class="n">dict_</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">NEVER_SET</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">_modified_event</span><span class="p">(</span><span class="n">dict_</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">NO_VALUE</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">fire_remove_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">initiator</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trackparent</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1377,13 +1573,13 @@
         <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">remove</span><span class="p">:</span>
             <span class="n">fn</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">initiator</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remove_token</span><span class="p">)</span>
 
-        <span class="n">state</span><span class="o">.</span><span class="n">_modified_event</span><span class="p">(</span><span class="n">dict_</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">NEVER_SET</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">_modified_event</span><span class="p">(</span><span class="n">dict_</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">NO_VALUE</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dict_</span><span class="p">:</span>
             <span class="k">return</span>
 
-        <span class="n">state</span><span class="o">.</span><span class="n">_modified_event</span><span class="p">(</span><span class="n">dict_</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">NEVER_SET</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">_modified_event</span><span class="p">(</span><span class="n">dict_</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">NO_VALUE</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
         <span class="n">collection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_collection</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">dict</span><span class="p">)</span>
         <span class="n">collection</span><span class="o">.</span><span class="n">clear_with_event</span><span class="p">()</span>
@@ -1392,11 +1588,19 @@
         <span class="c1"># del is a no-op if collection not present.</span>
         <span class="k">del</span> <span class="n">dict_</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize this attribute with an empty collection.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_default_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Produce an empty collection for an un-initialized attribute&quot;&quot;&quot;</span>
 
-        <span class="n">_</span><span class="p">,</span> <span class="n">user_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_collection</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-        <span class="n">dict_</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">user_data</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dict_</span><span class="p">,</span> <span class="p">(</span>
+            <span class="s2">&quot;_default_value should only be invoked for an &quot;</span>
+            <span class="s2">&quot;uninitialized or expired attribute&quot;</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_empty_collections</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">state</span><span class="o">.</span><span class="n">_empty_collections</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">]</span>
+
+        <span class="n">adapter</span><span class="p">,</span> <span class="n">user_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_collection</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">adapter</span><span class="o">.</span><span class="n">_set_empty</span><span class="p">(</span><span class="n">user_data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">user_data</span>
 
     <span class="k">def</span> <span class="nf">_initialize_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
@@ -1447,6 +1651,7 @@
         <span class="n">value</span><span class="p">,</span>
         <span class="n">initiator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">passive</span><span class="o">=</span><span class="n">PASSIVE_OFF</span><span class="p">,</span>
+        <span class="n">check_old</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">_adapt</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
@@ -1495,7 +1700,7 @@
 
         <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">passive</span><span class="o">=</span><span class="n">PASSIVE_ONLY_PERSISTENT</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">old</span> <span class="ow">is</span> <span class="n">PASSIVE_NO_RESULT</span><span class="p">:</span>
-            <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">)</span>
+            <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_value</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">old</span> <span class="ow">is</span> <span class="n">orig_iterable</span><span class="p">:</span>
             <span class="c1"># ignore re-assignment of the current collection, as happens</span>
             <span class="c1"># implicitly with in-place operators (foo.collection |= other)</span>
@@ -1512,8 +1717,18 @@
             <span class="n">new_values</span><span class="p">,</span> <span class="n">old_collection</span><span class="p">,</span> <span class="n">new_collection</span><span class="p">,</span> <span class="n">initiator</span><span class="o">=</span><span class="n">evt</span>
         <span class="p">)</span>
 
-        <span class="k">del</span> <span class="n">old</span><span class="o">.</span><span class="n">_sa_adapter</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">dispose_collection</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">old_collection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dispose_previous_collection</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">old_collection</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_dispose_previous_collection</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">adapter</span><span class="p">,</span> <span class="n">fire_event</span>
+    <span class="p">):</span>
+        <span class="k">del</span> <span class="n">collection</span><span class="o">.</span><span class="n">_sa_adapter</span>
+
+        <span class="c1"># discarding old collection make sure it is not referenced in empty</span>
+        <span class="c1"># collections.</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">_empty_collections</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fire_event</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">dispose_collection</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">adapter</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_invalidate_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection</span><span class="p">):</span>
         <span class="n">adapter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="s2">&quot;_sa_adapter&quot;</span><span class="p">)</span>
@@ -1551,7 +1766,9 @@
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve the CollectionAdapter associated with the given state.</span>
 
-<span class="sd">        Creates a new CollectionAdapter if one does not exist.</span>
+<span class="sd">        if user_data is None, retrieves it from the state using normal</span>
+<span class="sd">        &quot;get()&quot; rules, which will fire lazy callables or return the &quot;empty&quot;</span>
+<span class="sd">        collection value.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">user_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1559,7 +1776,7 @@
             <span class="k">if</span> <span class="n">user_data</span> <span class="ow">is</span> <span class="n">PASSIVE_NO_RESULT</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">user_data</span>
 
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">user_data</span><span class="p">,</span> <span class="s2">&quot;_sa_adapter&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">user_data</span><span class="o">.</span><span class="n">_sa_adapter</span>
 
 
 <span class="k">def</span> <span class="nf">backref_listeners</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">uselist</span><span class="p">):</span>
@@ -1596,7 +1813,7 @@
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">oldchild</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="ow">and</span> <span class="n">oldchild</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">PASSIVE_NO_RESULT</span>
-            <span class="ow">and</span> <span class="n">oldchild</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NEVER_SET</span>
+            <span class="ow">and</span> <span class="n">oldchild</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NO_VALUE</span>
         <span class="p">):</span>
             <span class="c1"># With lazy=None, there&#39;s no guarantee that the full collection is</span>
             <span class="c1"># present when updating via a backref.</span>
@@ -1691,7 +1908,7 @@
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="ow">and</span> <span class="n">child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">PASSIVE_NO_RESULT</span>
-            <span class="ow">and</span> <span class="n">child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NEVER_SET</span>
+            <span class="ow">and</span> <span class="n">child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NO_VALUE</span>
         <span class="p">):</span>
             <span class="n">child_state</span><span class="p">,</span> <span class="n">child_dict</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="n">instance_state</span><span class="p">(</span><span class="n">child</span><span class="p">),</span>
@@ -1759,14 +1976,10 @@
 
 
 <span class="n">_NO_HISTORY</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">symbol</span><span class="p">(</span><span class="s2">&quot;NO_HISTORY&quot;</span><span class="p">)</span>
-<span class="n">_NO_STATE_SYMBOLS</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span>
-    <span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">PASSIVE_NO_RESULT</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">NO_VALUE</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">NEVER_SET</span><span class="p">)]</span>
-<span class="p">)</span>
-
-<span class="n">History</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;History&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;added&quot;</span><span class="p">,</span> <span class="s2">&quot;unchanged&quot;</span><span class="p">,</span> <span class="s2">&quot;deleted&quot;</span><span class="p">])</span>
+<span class="n">_NO_STATE_SYMBOLS</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">([</span><span class="nb">id</span><span class="p">(</span><span class="n">PASSIVE_NO_RESULT</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">NO_VALUE</span><span class="p">)])</span>
 
 
-<span class="k">class</span> <span class="nc">History</span><span class="p">(</span><span class="n">History</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">History</span><span class="p">(</span><span class="n">util</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;History&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;added&quot;</span><span class="p">,</span> <span class="s2">&quot;unchanged&quot;</span><span class="p">,</span> <span class="s2">&quot;deleted&quot;</span><span class="p">])):</span>
     <span class="sd">&quot;&quot;&quot;A 3-tuple of added, unchanged and deleted values,</span>
 <span class="sd">    representing the changes which have occurred on an instrumented</span>
 <span class="sd">    attribute.</span>
@@ -1847,12 +2060,15 @@
         <span class="n">original</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">committed_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attribute</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">_NO_HISTORY</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">original</span> <span class="ow">is</span> <span class="n">_NO_HISTORY</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">current</span> <span class="ow">is</span> <span class="n">NEVER_SET</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current</span> <span class="ow">is</span> <span class="n">NO_VALUE</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">cls</span><span class="p">((),</span> <span class="p">(),</span> <span class="p">())</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">cls</span><span class="p">((),</span> <span class="p">[</span><span class="n">current</span><span class="p">],</span> <span class="p">())</span>
         <span class="c1"># don&#39;t let ClauseElement expressions here trip things up</span>
-        <span class="k">elif</span> <span class="n">attribute</span><span class="o">.</span><span class="n">is_equal</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">original</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NO_VALUE</span>
+            <span class="ow">and</span> <span class="n">attribute</span><span class="o">.</span><span class="n">is_equal</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">original</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span>
+        <span class="p">):</span>
             <span class="k">return</span> <span class="bp">cls</span><span class="p">((),</span> <span class="p">[</span><span class="n">current</span><span class="p">],</span> <span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># current convention on native scalars is to not</span>
@@ -1868,7 +2084,7 @@
                     <span class="n">current</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">deleted</span> <span class="o">=</span> <span class="p">[</span><span class="n">original</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">current</span> <span class="ow">is</span> <span class="n">NEVER_SET</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current</span> <span class="ow">is</span> <span class="n">NO_VALUE</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">cls</span><span class="p">((),</span> <span class="p">(),</span> <span class="n">deleted</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">cls</span><span class="p">([</span><span class="n">current</span><span class="p">],</span> <span class="p">(),</span> <span class="n">deleted</span><span class="p">)</span>
@@ -1878,11 +2094,11 @@
         <span class="n">original</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">committed_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attribute</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">_NO_HISTORY</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">original</span> <span class="ow">is</span> <span class="n">_NO_HISTORY</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">current</span> <span class="ow">is</span> <span class="n">NO_VALUE</span> <span class="ow">or</span> <span class="n">current</span> <span class="ow">is</span> <span class="n">NEVER_SET</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current</span> <span class="ow">is</span> <span class="n">NO_VALUE</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">cls</span><span class="p">((),</span> <span class="p">(),</span> <span class="p">())</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">cls</span><span class="p">((),</span> <span class="p">[</span><span class="n">current</span><span class="p">],</span> <span class="p">())</span>
-        <span class="k">elif</span> <span class="n">current</span> <span class="ow">is</span> <span class="n">original</span> <span class="ow">and</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NEVER_SET</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">current</span> <span class="ow">is</span> <span class="n">original</span> <span class="ow">and</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NO_VALUE</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">cls</span><span class="p">((),</span> <span class="p">[</span><span class="n">current</span><span class="p">],</span> <span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># current convention on related objects is to not</span>
@@ -1898,7 +2114,7 @@
                     <span class="n">current</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">deleted</span> <span class="o">=</span> <span class="p">[</span><span class="n">original</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">current</span> <span class="ow">is</span> <span class="n">NO_VALUE</span> <span class="ow">or</span> <span class="n">current</span> <span class="ow">is</span> <span class="n">NEVER_SET</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current</span> <span class="ow">is</span> <span class="n">NO_VALUE</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">cls</span><span class="p">((),</span> <span class="p">(),</span> <span class="n">deleted</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">cls</span><span class="p">([</span><span class="n">current</span><span class="p">],</span> <span class="p">(),</span> <span class="n">deleted</span><span class="p">)</span>
@@ -1906,12 +2122,11 @@
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_collection</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">current</span><span class="p">):</span>
         <span class="n">original</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">committed_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attribute</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">_NO_HISTORY</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">current</span> <span class="ow">is</span> <span class="n">NO_VALUE</span> <span class="ow">or</span> <span class="n">current</span> <span class="ow">is</span> <span class="n">NEVER_SET</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">current</span> <span class="ow">is</span> <span class="n">NO_VALUE</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">cls</span><span class="p">((),</span> <span class="p">(),</span> <span class="p">())</span>
 
         <span class="n">current</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="s2">&quot;_sa_adapter&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">original</span> <span class="ow">in</span> <span class="p">(</span><span class="n">NO_VALUE</span><span class="p">,</span> <span class="n">NEVER_SET</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">original</span> <span class="ow">is</span> <span class="n">NO_VALUE</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">current</span><span class="p">),</span> <span class="p">(),</span> <span class="p">())</span>
         <span class="k">elif</span> <span class="n">original</span> <span class="ow">is</span> <span class="n">_NO_HISTORY</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">cls</span><span class="p">((),</span> <span class="nb">list</span><span class="p">(</span><span class="n">current</span><span class="p">),</span> <span class="p">())</span>
@@ -1973,18 +2188,6 @@
 <span class="sd">        using loader callables if the value is not locally present.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">passive</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">util</span><span class="o">.</span><span class="n">warn_deprecated</span><span class="p">(</span>
-            <span class="s2">&quot;Passing True for &#39;passive&#39; is deprecated. &quot;</span>
-            <span class="s2">&quot;Use attributes.PASSIVE_NO_INITIALIZE&quot;</span>
-        <span class="p">)</span>
-        <span class="n">passive</span> <span class="o">=</span> <span class="n">PASSIVE_NO_INITIALIZE</span>
-    <span class="k">elif</span> <span class="n">passive</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="n">util</span><span class="o">.</span><span class="n">warn_deprecated</span><span class="p">(</span>
-            <span class="s2">&quot;Passing False for &#39;passive&#39; is &quot;</span>
-            <span class="s2">&quot;deprecated.  Use attributes.PASSIVE_OFF&quot;</span>
-        <span class="p">)</span>
-        <span class="n">passive</span> <span class="o">=</span> <span class="n">PASSIVE_OFF</span>
 
     <span class="k">return</span> <span class="n">get_state_history</span><span class="p">(</span><span class="n">instance_state</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span> <span class="n">key</span><span class="p">,</span> <span class="n">passive</span><span class="p">)</span>
 
@@ -2096,11 +2299,23 @@
 
 
 <span class="k">def</span> <span class="nf">init_state_collection</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Initialize a collection attribute and return the collection adapter.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Initialize a collection attribute and return the collection adapter.</span>
 
+<span class="sd">    Discards any existing collection which may be there.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">attr</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">manager</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">impl</span>
-    <span class="n">user_data</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">attr</span><span class="o">.</span><span class="n">get_collection</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">user_data</span><span class="p">)</span>
+
+    <span class="n">old</span> <span class="o">=</span> <span class="n">dict_</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># discard old collection</span>
+    <span class="k">if</span> <span class="n">old</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">old_collection</span> <span class="o">=</span> <span class="n">old</span><span class="o">.</span><span class="n">_sa_adapter</span>
+        <span class="n">attr</span><span class="o">.</span><span class="n">_dispose_previous_collection</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">old_collection</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">user_data</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">_default_value</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">)</span>
+    <span class="n">adapter</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">get_collection</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dict_</span><span class="p">,</span> <span class="n">user_data</span><span class="p">)</span>
+    <span class="n">adapter</span><span class="o">.</span><span class="n">_reset_empty</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">adapter</span>
 
 
 <span class="k">def</span> <span class="nf">set_committed_value</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
@@ -2282,6 +2497,7 @@
             <dd><a href="../../../../v1.8.0/index.html">v1.8.0</a></dd>
             <dd><a href="../../../../v1.8.1/index.html">v1.8.1</a></dd>
             <dd><a href="../../../../v1.9.0/index.html">v1.9.0</a></dd>
+            <dd><a href="../../../../v1.9.1/index.html">v1.9.1</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
