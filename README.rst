@@ -33,12 +33,23 @@ Run dev server
 
 Following packages are required: ``python3-venv`` ``postgresql-client`` ``libpq-dev``
 
-Run:
+Clone project:
 
 .. code-block:: bash
 
   git clone git@github.com:openoereb/pyramid_oereb.git
   cd pyramid_oereb
+
+The credentials for the connection to the statistics database have to be provided in a .env file (not committed, copy sample.env and edit it if necessary):
+
+.. code-block:: bash
+
+  cp sample.env .env
+
+Run:
+
+.. code-block:: bash
+
   make serve
 
 JSON reduced extract is accessible at: http://localhost:6543/oereb/extract/reduced/json/CH113928077734.

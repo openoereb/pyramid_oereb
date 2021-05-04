@@ -32,7 +32,7 @@ db connection information
 
 The db connection information is a dictionary containing:
 
-- *url* (mandatory): a db connection string compatible with sqlalchemy. Currently only sqlite and postgresql are supported
+- *url* (mandatory): a db connection string compatible with sqlalchemy. Currently only sqlite and postgresql are supported. If using Docker, the db connection information have to be supplied in a .env file a the root of the project (see sample.env)
 - *tablename* (optional): if a special tablename has to be used within the database and will be mapped with *__tablename__* sqlalchemy class property
 - *tableargs* (optional): another usual sqlalchemy class property (*__tableargs__*). In the above example we use it mainly to set a particular schema
 
