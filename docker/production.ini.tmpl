@@ -75,7 +75,7 @@ formatter = generic
 
 [handler_sqlalchemylogger]
 class = c2cwsgiutils.sqlalchemylogger.handlers.SQLAlchemyHandler
-args = ({'url':'postgresql://postgres:password@oereb-db:5432/oereb_stats','tablename':'logs','tableargs': {'schema':'oereb_logs'}},'healthcheck')
+args = ({'url':'postgresql://${STATISTICS_DB_USER}:${STATISTICS_DB_PASS}@${STATISTICS_DB_HOST}:${STATISTICS_DB_PORT}/${STATISTICS_DB_DATABASE}','tablename':'logs','tableargs': {'schema':'oereb_logs'}},'healthcheck')
 level = NOTSET
 formatter = generic
 propagate = 0

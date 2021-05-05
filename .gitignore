@@ -41,5 +41,8 @@ __pycache__/
 .pytest_cache
 .idea
 
+# Secrets
+/.env
+
 # VS code generated files
 /.vscode/
