@@ -65,22 +65,7 @@ vars:
       # The pyramid renderer which is used as proxy pass through to the desired service for printable static
       # extract. Here you can define the path to the logic which prepares the output as payload for print
       # service and returns the result to the user.
-  % if print_backend == 'XML2PDF':
-      # Configuration for XML2PDF print service
-      renderer: pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer
-      # Define whether all geometry data must be included when sending the data to the print service
-      with_geometry: True
-      # Base URL with application of the print server
-      base_url: https://oereb-dev.gis-daten.ch/oereb/report/create
-      token: 24ba4328-a306-4832-905d-b979388d4cab
-      use_wms: "true"
-      validate: "false"
-      # The following parameters are not used by xml2pdf, but might be in the fure (see issue #873)
-      buffer: 10
-      basic_map_size: [493, 280]
-      pdf_dpi: 300
-      pdf_map_size_millimeters: [174, 99]
-  % else:
+
       # Configuration for MapFish-Print print service
       renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer
       # Define whether all geometry data must be included when sending the data to the print service
@@ -100,7 +85,7 @@ vars:
       # The map size (in millimeters) used to calculate the size of the requested map (for pdf export only).
       pdf_map_size_millimeters: [174, 99]
       # Base URL with application of the print server
-      base_url: http://{PRINT_SERVICE_HOST}:{PRINT_SERVICE_PORT}/print/oereb
+      base_url: http://${PRINT_SERVICE_HOST}:${PRINT_SERVICE_PORT}/print/oereb
       # Name of the print tempate to use
       template_name: A4 portrait
       # The headers send to the print
@@ -135,7 +120,6 @@ vars:
       #   - ogcserver
       # Flag to print or not the canton logo
       print_canton_logo: true
-  % endif
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
     # creation process, because this name is used as schema name in the target database. The app_schema holds
@@ -148,7 +132,7 @@ vars:
       name: pyramid_oereb_main
       models: pyramid_oereb.standard.models.main
       db_connection: &main_db_connection
-        postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
+        postgresql://${POSTGRES_SERVICE_USER}:${POSTGRES_SERVICE_PASS}@${POSTGRES_SERVICE_HOST}:${POSTGRES_SERVICE_PORT}/${POSTGRES_SERVICE_DATABASE}
 
     # Define the SRID which your server is representing. Note: Only one projection system is possible in the
     # application. It does not provide any reprojection nor data in different projection systems. Take care in
