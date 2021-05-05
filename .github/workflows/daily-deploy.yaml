@@ -1,7 +1,7 @@
 name: Daily deploy to Pypi
 on:
    schedule:
-     - cron: "40 09 * * *"
+     - cron: "30 04 * * *"
 jobs:
   deploy-dev:
     runs-on: ubuntu-20.04
