@@ -40,7 +40,7 @@ Clone project:
   git clone git@github.com:openoereb/pyramid_oereb.git
   cd pyramid_oereb
 
-The credentials for the connection to the statistics database have to be provided in a .env file (not committed, copy sample.env and edit it if necessary):
+The information for the connection to the main database, the print service and the statistics functionality database has to be provided in a .env file (not committed, copy sample.env and edit it if necessary):
 
 .. code-block:: bash
 

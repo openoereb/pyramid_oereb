@@ -27,8 +27,7 @@ RUN apt update && \
 COPY . /app
 
 RUN pip3 install --disable-pip-version-check --no-cache-dir --editable . && \
-    mkdir /etc/pyramid_oereb && \
-    mv docker/config.yaml /etc/pyramid_oereb/ && \
+    mv docker/config.yaml.tmpl . && \
     mv docker/production.ini.tmpl .
 
 ENV LOGO_CANTON=logo_canton.png \
