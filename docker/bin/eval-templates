@@ -2,9 +2,7 @@
 
 export DOLLAR=$
 
-files=( '/etc/pyramid_oereb/config.yaml.tmpl' 'production.ini.tmpl' )
-
-for file in "${files[@]}"
+find . -name '*.tmpl' -print | while read file
 do
     echo "Evaluate: ${file}"
     envsubst < ${file} > ${file%.tmpl}
