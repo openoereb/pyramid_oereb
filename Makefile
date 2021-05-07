@@ -45,6 +45,15 @@ BUILDDIR = doc/build
 
 MODEL_PK_TYPE_IS_STRING ?= true
 
+USE_OEREBLEX ?= FALSE
+ifeq ($(USE_OEREBLEX), TRUE)
+	DOCKER_COMPOSE_FILE = -f docker-compose.yml -f docker-compose.oereblex.yml
+	SAMPLE_DATA_DIR = sample_data/oereblex
+else
+	DOCKER_COMPOSE_FILE =
+	SAMPLE_DATA_DIR = sample_data
+endif
+
 .PHONY: install
 install: $(PYTHON_VENV)
 
@@ -166,7 +175,7 @@ drop-standard-tables: $(PYTHON_VENV)
 
 .PHONY: serve
 serve: install pyramid_oereb_standard.yml test-db/12-create.sql test-db/13-fill.sql
-	docker-compose up --build --remove-orphans -d
+	docker-compose $(DOCKER_COMPOSE_FILE) up --build --remove-orphans -d
 
 pyramid_oereb_standard.yml: .venv/install-timestamp
 	$(VENV_BIN)create_standard_yaml$(PYTHON_BIN_POSTFIX) --database $(SQLALCHEMY_URL) --print_backend $(PRINT_BACKEND)
@@ -176,13 +185,13 @@ test-db/12-create.sql: pyramid_oereb_standard.yml .venv/install-timestamp
 	docker rm pyramidoereb_db_1 | true
 
 test-db/13-fill.sql: pyramid_oereb_standard.yml .venv/install-timestamp \
-	$(shell ls -1 sample_data/*.json) \
-	$(shell ls -1 sample_data/plr119/contaminated_public_transport_sites/*.json) \
-	$(shell ls -1 sample_data/plr119/groundwater_protection_zones/*.json) \
-	$(shell ls -1 sample_data/plr119/forest_perimeters/*.json) \
-	$(shell ls -1 sample_data/plr119/motorways_building_lines/*.json) \
-	$(shell ls -1 sample_data/plr119/contaminated_military_sites/*.json)
-	$(VENV_BIN)python pyramid_oereb/standard/load_sample_data.py --configuration $< --sql-file $@
+	$(shell ls -1 $(SAMPLE_DATA_DIR)/*.json) \
+	$(shell ls -1 $(SAMPLE_DATA_DIR)/plr119/contaminated_public_transport_sites/*.json) \
+	$(shell ls -1 $(SAMPLE_DATA_DIR)/plr119/groundwater_protection_zones/*.json) \
+	$(shell ls -1 $(SAMPLE_DATA_DIR)/plr119/forest_perimeters/*.json) \
+	$(shell ls -1 $(SAMPLE_DATA_DIR)/plr119/motorways_building_lines/*.json) \
+	$(shell ls -1 $(SAMPLE_DATA_DIR)/plr119/contaminated_military_sites/*.json)
+	$(VENV_BIN)python pyramid_oereb/standard/load_sample_data.py --configuration $< --sql-file $@ --dir $(SAMPLE_DATA_DIR)
 	docker rm pyramidoereb_db_1 | true
 
 .PHONY: deploy
