@@ -396,7 +396,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">annotations</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s2">&quot;proxy_key&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
-                <span class="s2">&quot;proxy_owner&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="p">,</span>
+                <span class="s2">&quot;proxy_owner&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parententity</span><span class="p">,</span>
                 <span class="s2">&quot;entity_namespace&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entity_namespace</span><span class="p">,</span>
             <span class="p">}</span>
 
@@ -700,6 +700,10 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">original_property</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
                 <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">impl</span><span class="o">.</span><span class="n">uses_objects</span>
             <span class="p">)</span>
+
+        <span class="nd">@property</span>
+        <span class="k">def</span> <span class="nf">_parententity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">inspection</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="p">,</span> <span class="n">raiseerr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="nd">@property</span>
         <span class="k">def</span> <span class="nf">_entity_namespace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
