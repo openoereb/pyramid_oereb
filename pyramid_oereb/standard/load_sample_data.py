@@ -4,6 +4,7 @@ import re
 import json
 import optparse
 import os
+import importlib
 
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Connection
@@ -174,9 +175,19 @@ class SampleData(object):
         """
         Performs the database operations to load the sample data.
         """
-        from pyramid_oereb.standard.models import contaminated_public_transport_sites, \
-            groundwater_protection_zones, forest_perimeters, motorways_building_lines, \
-            contaminated_military_sites
+        # Find data model for each PLR from config
+        plrs = Config._config.get('plrs')
+        models = {plr['code']: plr['source']['params']['models'] for plr in plrs}
+        try:
+            contaminated_public_transport_sites = \
+                importlib.import_module(models['ContaminatedPublicTransportSites'])
+            groundwater_protection_zones = importlib.import_module(models['GroundwaterProtectionZones'])
+            motorways_building_lines = importlib.import_module(models['MotorwaysBuildingLines'])
+            contaminated_military_sites = importlib.import_module(models['ContaminatedMilitarySites'])
+            forest_perimeters = importlib.import_module(models['ForestPerimeters'])
+        except KeyError as e:
+            raise Exception(f"Missing model in YAML configuration file: {e}")
+
         from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality, \
             Glossary, ExclusionOfLiability
 
@@ -229,11 +240,12 @@ class SampleData(object):
                                 data.update(lp)
                                 self._do_sql_insert(str(table.insert()), data)
 
-                for class_, file_name in [
-                    (schema.PublicLawRestrictionDocument, 'public_law_restriction_document.json'),
-                    (schema.DocumentReference, 'document_reference.json'),
-                ]:
-                    self._load_sample(class_, os.path.join('plr119', folder, file_name))
+                if hasattr(schema, 'PublicLawRestrictionDocument'):
+                    for class_, file_name in [
+                        (schema.PublicLawRestrictionDocument, 'public_law_restriction_document.json'),
+                        (schema.DocumentReference, 'document_reference.json'),
+                    ]:
+                        self._load_sample(class_, os.path.join('plr119', folder, file_name))
             for class_, file_name in [
                 (RealEstate, 'real_estates.json'),
                 (Address, 'addresses.json'),

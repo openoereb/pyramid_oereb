@@ -179,11 +179,11 @@ pyramid_oereb:
   # Configuration for OEREBlex
   oereblex:
     # OEREBlex host
-    host: https://oereblex.bl.ch
+    host: https://oereblex.sg.ch
     # Default language of returned values
     language: de
     # Value for canton attribute
-    canton: BL
+    canton: SG
     # Mapping for other optional attributes
     mapping:
       municipality: subtype
@@ -1030,10 +1030,16 @@ pyramid_oereb:
         layer_index: 1
         layer_opacity: 1.0
       source:
+        # Standard data model
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        # Oereblex data model
+        #class: pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource
         params:
           db_connection: *main_db_connection
+          # Standard data model
           models: pyramid_oereb.standard.models.forest_perimeters
+          # Oereblex data model
+          #models: pyramid_oereb.contrib.models.oereblex.forest_perimeters
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref

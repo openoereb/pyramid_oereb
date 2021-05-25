@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+
+    oereb-db:
+      image: openoereb/oereb-db-dev-for-oereblex
+      ports:
+        - 45432:5432
+    
+    oereb-server:
+        ports:
+        - 6544:8080
