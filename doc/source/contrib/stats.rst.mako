@@ -8,12 +8,15 @@ itself. The data gathered will be persisted in user defined configured database,
 allowing the operator or owner of the application to query at any time
 the usage statistics for that database.
 
+The database structure necessary to hold the data will automatically be generated upon
+first usage of the functionality. Once this structure has been generated, you may wish
+to run in addition the script *create_stats_tables* which will generate database structures
+convenient for querying the results.
+
 The functionality is configured via the server's ini file; see the project repository for a
-complete example of such an ini file.
+complete example of such an ini file. Example of a configuration:
 
-Example of a configuration:
-
-.. code-block:: python
+.. code-block:: ini
 
     [loggers]
     keys = root, json
