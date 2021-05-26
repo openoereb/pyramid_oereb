@@ -15,6 +15,15 @@ Example of a configuration:
 
 .. code-block:: python
 
+    [loggers]
+    keys = root, json
+
+    [logger_json]
+    level = INFO
+    handlers = console, sqlalchemylogger
+    qualname = JSON
+    propagate = 0
+
     [handler_sqlalchemylogger]
     class = c2cwsgiutils.sqlalchemylogger.handlers.SQLAlchemyHandler
     args = ({'url':'postgresql://postgres:password@oereb-db:5432/oereb_stats','tablename':'logs','tableargs': {'schema':'oereb_logs'}},'healthcheck')
