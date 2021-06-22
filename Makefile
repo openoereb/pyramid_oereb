@@ -1,7 +1,6 @@
 OPERATING_SYSTEM ?= LINUX
 PYTHON_VERSION ?= python3
 PYTHON_TEST_VERSION ?= python3.7
-DEV_PACKAGES = "libgeos-c1v5 libpq-dev"
 VIRTUALENV = virtualenv --python=$(PYTHON_VERSION)
 USE_DOCKER ?= TRUE
 DOCKER_BASE = openoereb/oereb
@@ -111,7 +110,7 @@ export PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
 .coverage: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB) pyramid_oereb/standard/pyramid_oereb.yml
 	@echo Run tests using docker: $(USE_DOCKER)
 	docker stop $(DOCKER_CONTAINER_BASE)-tests || true
-	docker build -t $(DOCKER_CONTAINER_BASE)-tests --build-arg PYTHON_TEST_VERSION=${PYTHON_TEST_VERSION} --build-arg DEV_PACKAGES=${DEV_PACKAGES} --file tests.Dockerfile .
+	docker build -t $(DOCKER_CONTAINER_BASE)-tests --build-arg PYTHON_TEST_VERSION=${PYTHON_TEST_VERSION} --file tests.Dockerfile .
 	docker run -dt --rm --env "TERM=xterm-256color" --name $(DOCKER_CONTAINER_BASE)-tests $(DOCKER_CONTAINER_BASE)-tests tail -f /dev/null
 	docker exec -t $(DOCKER_CONTAINER_BASE)-tests ${PYTHON_TEST_VERSION} -m pytest -vv --cov-config .coveragerc --cov-report term-missing:skip-covered --cov pyramid_oereb tests
 	docker exec -t $(DOCKER_CONTAINER_BASE)-tests coverage html

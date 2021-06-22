@@ -2,6 +2,7 @@ FROM camptocamp/c2cwsgiutils:3
 LABEL maintainer "info@camptocamp.org"
 
 WORKDIR /app
+
 ARG DEV_PACKAGES="libgeos-c1v5 libpq-dev"
 ARG PYTHON_DEV_PACKAGES="python3.7-dev build-essential"
 
