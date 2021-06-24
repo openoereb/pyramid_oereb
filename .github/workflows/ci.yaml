@@ -30,6 +30,8 @@ jobs:
           - python3.8
     steps:
       - uses: actions/checkout@v2
+      - run: sudo rm /etc/apt/sources.list.d/*.list
+      - run: sudo apt update
       - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
       - name: Run checks for Python ${{ matrix.python-version }}
         env:
