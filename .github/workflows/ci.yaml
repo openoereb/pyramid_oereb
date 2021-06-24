@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+      - run: sudo rm /etc/apt/sources.list.d/*.list
+      - run: sudo apt update
       - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
       - name: Run make lint
         run: make lint
@@ -74,6 +76,8 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+      - run: sudo rm /etc/apt/sources.list.d/*.list
+      - run: sudo apt update
       - name: Make documentation
         run: |
           sudo apt-get install virtualenv libpq-dev libgeos-dev
