@@ -1,7 +1,7 @@
 OPERATING_SYSTEM ?= LINUX
-PYTHON_VERSION ?= python3
-PYTHON_TEST_VERSION ?= python3.7
-VIRTUALENV = virtualenv --python=$(PYTHON_VERSION)
+PYTHON_VERSION ?= /usr/local/bin/python3.7
+PYTHON_TEST_VERSION ?= /usr/local/bin/python3.7
+VIRTUALENV = virtualenv --python=python
 USE_DOCKER ?= TRUE
 DOCKER_BASE = openoereb/oereb
 DOCKER_CONTAINER_BASE = openoereb-oereb
