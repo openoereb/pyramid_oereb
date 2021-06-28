@@ -46,3 +46,8 @@ __pycache__/
 
 # VS code generated files
 /.vscode/
+.coverage
+test.png
+serve-dev.png
+lint.png
+git-attributes.png
