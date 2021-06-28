@@ -1,206 +1,160 @@
-OPERATING_SYSTEM ?= LINUX
-PYTHON_VERSION ?= /usr/local/bin/python3.7
-PYTHON_TEST_VERSION ?= /usr/local/bin/python3.7
-VIRTUALENV = virtualenv --python=python
-USE_DOCKER ?= TRUE
-DOCKER_BASE = openoereb/oereb
-DOCKER_CONTAINER_BASE = openoereb-oereb
+# Check if running on CI
+ifeq ($(CI),true)
+  PIP_REQUIREMENTS=.requirements-timestamp
+  VENV_BIN=.venv/bin
+  PIP_COMMAND=pip
+else
+  PIP_REQUIREMENTS=.venv/.requirements-timestamp
+  VENV_BIN=.venv/bin
+  PIP_COMMAND=pip3
+endif
 
-PG_DROP_DB ?= DROP DATABASE IF EXISTS pyramid_oereb_test;
-PG_CREATE_DB ?= CREATE DATABASE pyramid_oereb_test;
-PG_CREATE_EXT ?= CREATE EXTENSION postgis;
-PG_CREATE_SCHEMA ?= CREATE SCHEMA plr;
-PG_USER ?= postgres
-PG_PASSWORD ?= password
+# Testing/DEV variables
+
+PG_DB = pyramid_oereb_test
+PG_HOST = db
+PG_DROP_DB = DROP DATABASE IF EXISTS $(PG_DB);
+PG_CREATE_DB = CREATE DATABASE $(PG_DB);
+PG_CREATE_EXT = CREATE EXTENSION postgis;
+PG_CREATE_SCHEMA = CREATE SCHEMA plr;
+PG_USER = postgres
+PG_PASSWORD = postgres
 PG_CREDENTIALS ?= $(PG_USER):$(PG_PASSWORD)
+SQLALCHEMY_URL = "postgresql://$(PG_CREDENTIALS)@$(PG_HOST):5432/$(PG_DB)"
 
-INSTALL_REQUIREMENTS ?= requirements.txt
+PG_DEV_DATA_DIR = sample_data
+PG_DEV_DATA = $(shell ls -1 $(PG_DEV_DATA_DIR)/*.json) \
+	$(shell ls -1 $(PG_DEV_DATA_DIR)/plr119/contaminated_public_transport_sites/*.json) \
+	$(shell ls -1 $(PG_DEV_DATA_DIR)/plr119/groundwater_protection_zones/*.json) \
+	$(shell ls -1 $(PG_DEV_DATA_DIR)/plr119/forest_perimeters/*.json) \
+	$(shell ls -1 $(PG_DEV_DATA_DIR)/plr119/motorways_building_lines/*.json) \
+	$(shell ls -1 $(PG_DEV_DATA_DIR)/plr119/contaminated_military_sites/*.json)
 
-PYTHON_VENV=.venv/requirements-timestamp
-ifeq ($(OPERATING_SYSTEM), WINDOWS)
-    export PGPASSWORD = $(PG_PASSWORD)
-    VENV_BIN = .venv/Scripts/
-    PYTHON_BIN_POSTFIX = .exe
-    USE_DOCKER = FALSE
-    TESTS_SETUP_DB = tests-win-setup-db
-    TESTS_DROP_DB = tests-win-drop-db
-    PG_DROP_DB = "DROP DATABASE IF EXISTS pyramid_oereb_test;"
-    PG_CREATE_DB = "CREATE DATABASE pyramid_oereb_test;"
-    PG_CREATE_EXT = "CREATE EXTENSION postgis;"
-    PG_CREATE_SCHEMA = "CREATE SCHEMA plr;"
-    INSTALL_REQUIREMENTS = requirements-windows.txt
-else
-    VENV_BIN ?= .venv/bin/
-    PYTHON_BIN_POSTFIX =
-    TESTS_SETUP_DB = tests-docker-setup-db
-    TESTS_DROP_DB = tests-docker-drop-db
-endif
-PIP_UPDATE = $(VENV_BIN)pip install --upgrade pip setuptools
+DEV_CONFIGURATION_YML = pyramid_oereb/standard/pyramid_oereb.yml
+DEV_CREATE_FILL_SCRIPT = pyramid_oereb/standard/load_sample_data.py
+DEV_CREATE_STANDARD_YML_SCRIPT = $(VENV_BIN)/create_standard_yaml
+DEV_CREATE_TABLES_SCRIPT = $(VENV_BIN)/create_standard_tables
 
-SPHINXOPTS =
-SPHINXBUILD = $(VENV_BIN)sphinx-build$(PYTHON_BIN_POSTFIX)
-SPHINXPROJ = OEREB
-SOURCEDIR = doc/source
-BUILDDIR = doc/build
+PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
 
-MODEL_PK_TYPE_IS_STRING ?= true
+# ********************
+# Variable definitions
+# ********************
 
-USE_OEREBLEX ?= FALSE
-ifeq ($(USE_OEREBLEX), TRUE)
-	DOCKER_COMPOSE_FILE = -f docker-compose.yml -f docker-compose.oereblex.yml
-	SAMPLE_DATA_DIR = sample_data/oereblex
-else
-	DOCKER_COMPOSE_FILE =
-	SAMPLE_DATA_DIR = sample_data
-endif
+# Package name
+PACKAGE = pyramid_oereb
 
-.PHONY: install
-install: $(PYTHON_VENV)
+# *******************
+# Set up environments
+# *******************
 
 .venv/timestamp:
-	$(VIRTUALENV) .venv
+	python3 -m venv .venv
 	touch $@
 
-.venv/requirements-timestamp: .venv/install-timestamp .venv/timestamp setup.py dev-requirements.txt
-	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --requirement dev-requirements.txt
+.venv/requirements-timestamp: .venv/timestamp setup.py requirements.txt requirements-tests.txt dev-requirements.txt
+	$(VENV_BIN)/$(PIP_COMMAND) install --upgrade pip
+	$(VENV_BIN)/$(PIP_COMMAND) install -r requirements.txt -r requirements-tests.txt -r dev-requirements.txt
 	touch $@
 
-.venv/install-timestamp: .venv/timestamp setup.py $(INSTALL_REQUIREMENTS)
-	$(PIP_UPDATE)
-	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --requirement $(INSTALL_REQUIREMENTS)
-	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install --editable .
-	touch $@
+# ********************
+# Set up database
+# ********************
 
-$(SPHINXBUILD): .venv/requirements-timestamp
-	$(VENV_BIN)pip$(PYTHON_BIN_POSTFIX) install "Sphinx<1.6" sphinx_rtd_theme
+drop-db:
+	psql -h $(PG_HOST) -U $(PG_USER) -c "$(PG_DROP_DB)"
 
-.PHONY: doc
-doc: $(SPHINXBUILD)
-	$(VENV_BIN)python setup.py develop
-	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+create-db:
+	psql -h $(PG_HOST) -U $(PG_USER) -c "$(PG_CREATE_DB)"
 
-.PHONY: tests-setup-db
-tests-setup-db: $(TESTS_SETUP_DB)
+create-db-extension: create-db
+	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -c "$(PG_CREATE_EXT)"
 
-.PHONY: tests-drop-db
-tests-drop-db: $(TESTS_DROP_DB)
+create-db-schema: create-db-extension
+	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -c "$(PG_CREATE_SCHEMA)"
 
-.PHONY: checks
-checks: checks-style tests
+create-db-dev-tables: test-db/12-create.sql setup-db
+	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -f $<
 
-.PHONY: checks-style
-checks-style: lint
+fill-db-dev-tables: test-db/13-fill.sql create-db-dev-tables
+	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -f $<
 
-%: %.mako $(PYTHON_VENV) CONST_vars.yml
-	$(VENV_BIN)c2c-template$(PYTHON_BIN_POSTFIX) --vars CONST_vars.yml --engine mako --files $<
+# **************
+# Common targets
+# **************
 
-.PHONY: tests
-tests: .coverage
+# Build dependencies
+BUILD_DEPS += .venv/requirements-timestamp
 
-ifeq ($(USE_DOCKER), TRUE)
-@_POSTGIS_IP = $(shell docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(DOCKER_CONTAINER_BASE)-db-test 2> /dev/null)
-else
-@_POSTGIS_IP = localhost
-endif
-export SQLALCHEMY_URL = "postgresql://$(PG_CREDENTIALS)@$(@_POSTGIS_IP):5432/pyramid_oereb_test"
-export PNG_ROOT_DIR = pyramid_oereb/standard/
-export PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
+$(DEV_CONFIGURATION_YML): .venv/requirements-timestamp $(DEV_CREATE_STANDARD_YML_SCRIPT)
+	$(DEV_CREATE_STANDARD_YML_SCRIPT) --name $@ --database $(SQLALCHEMY_URL) --print_backend $(PRINT_BACKEND)
 
-.PHONY: .coverage
-.coverage: $(PYTHON_VENV) $(TESTS_DROP_DB) $(TESTS_SETUP_DB) pyramid_oereb/standard/pyramid_oereb.yml
-	@echo Run tests using docker: $(USE_DOCKER)
-	docker stop $(DOCKER_CONTAINER_BASE)-tests || true
-	docker build -t $(DOCKER_CONTAINER_BASE)-tests --build-arg PYTHON_TEST_VERSION=${PYTHON_TEST_VERSION} --file tests.Dockerfile .
-	docker run -dt --rm --env "TERM=xterm-256color" --name $(DOCKER_CONTAINER_BASE)-tests $(DOCKER_CONTAINER_BASE)-tests tail -f /dev/null
-	docker exec -t $(DOCKER_CONTAINER_BASE)-tests ${PYTHON_TEST_VERSION} -m pytest -vv --cov-config .coveragerc --cov-report term-missing:skip-covered --cov pyramid_oereb tests
-	docker exec -t $(DOCKER_CONTAINER_BASE)-tests coverage html
-	docker cp $(DOCKER_CONTAINER_BASE)-tests:/app/coverage_report ./
-	docker stop $(DOCKER_CONTAINER_BASE)-tests
+test-db/12-create.sql: $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_TABLES_SCRIPT)
+	$(DEV_CREATE_TABLES_SCRIPT) --configuration $< --sql-file $@
 
-.PHONY: lint
-lint: $(PYTHON_VENV)
-	$(VENV_BIN)flake8$(PYTHON_BIN_POSTFIX)
+test-db/13-fill.sql: $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_FILL_SCRIPT)
+	$(VENV_BIN)/python $(DEV_CREATE_FILL_SCRIPT) --configuration $< --sql-file $@ --dir $(PG_DEV_DATA_DIR)
 
-.PHONY: tests-docker-setup-db
-tests-docker-setup-db:
-	docker stop $(DOCKER_CONTAINER_BASE)-db-test || true
-	docker build -t $(DOCKER_BASE)-db-test test-db
-	docker run --detach \
-		--name $(DOCKER_CONTAINER_BASE)-db-test \
-		--publish=5432:5432 \
-		--env=POSTGRES_DB=pyramid_oereb_test \
-		$(DOCKER_BASE)-db-test
-	bash wait-for-db.sh $(DOCKER_CONTAINER_BASE)-db-test $(PG_PASSWORD) $(PG_USER)
+.PHONY: setup-db
+setup-db: create-db-schema
 
-.PHONY: tests-docker-drop-db
-tests-docker-drop-db:
-	docker stop $(DOCKER_CONTAINER_BASE)-db-test || true
-	docker rm $(DOCKER_CONTAINER_BASE)-db-test || true
+.PHONY: setup-db-dev
+setup-db-dev: fill-db-dev-tables
 
-.PHONY: tests-win-setup-db
-tests-win-setup-db:
-	psql -c $(PG_CREATE_DB) -U $(PG_USER)
-	psql -c $(PG_CREATE_EXT) -U $(PG_USER) -d pyramid_oereb_test
-	psql -c $(PG_CREATE_SCHEMA) -U $(PG_USER) -d pyramid_oereb_test
+.PHONY: install
+install: .venv/requirements-timestamp
 
-.PHONY: tests-win-drop-db
-tests-win-drop-db:
-	psql -c  $(PG_DROP_DB) -U $(PG_USER)
+$(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT): setup.py $(BUILD_DEPS)
+	$(VENV_BIN)/python $< develop
+
+.PHONY: build
+build: $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT)
+	
+
+.PHONY: clean
+clean: drop-db
 
 .PHONY: clean-all
-clean-all:
+clean-all: clean
 	rm -rf .venv
-	rm -rf $(BUILDDIR)
-	rm -rf coverage_report
-	rm -f pyramid_oereb_standard.yml pyramid_oereb/standard/pyramid_oereb.yml
-	rm -f test-db/12-create.sql test-db/13-fill.sql
+	rm -f $(DEV_CONFIGURATION_YML)
+	rm -f *.png
+	rm -rf $(PACKAGE).egg-info
 
-.PHONY: create-default-models
-create-default-models:
-	VENV_BIN=$(VENV_BIN) MODEL_SCRIPT=create_standard_model MODEL_PATH=pyramid_oereb/standard/models/ \
-	MODEL_PK_TYPE_IS_STRING=$(MODEL_PK_TYPE_IS_STRING) bash generate_models.sh
 
-.PHONY: create-oereblex-models
-create-oereblex-models:
-	VENV_BIN=$(VENV_BIN) MODEL_SCRIPT=create_oereblex_model MODEL_PATH=pyramid_oereb/contrib/models/oereblex/ \
-	MODEL_PK_TYPE_IS_STRING=$(MODEL_PK_TYPE_IS_STRING) bash generate_models.sh
+.PHONY: git-attributes
+git-attributes:
+	git --no-pager diff --check `git log --oneline | tail -1 | cut --fields=1 --delimiter=' '`
 
-.PHONY: create-standard-tables
-create-standard-tables: $(PYTHON_VENV)
-	$(VENV_BIN)create_tables$(PYTHON_BIN_POSTFIX) -c pyramid_oereb.yml
+.PHONY: lint
+lint: .venv/requirements-timestamp
+	$(VENV_BIN)/flake8
 
-.PHONY: drop-standard-tables
-drop-standard-tables: $(PYTHON_VENV)
-	$(VENV_BIN)drop_tables$(PYTHON_BIN_POSTFIX) -c pyramid_oereb.yml
+.PHONY: test
+test: .venv/requirements-timestamp setup-db $(DEV_CONFIGURATION_YML)
+	$(VENV_BIN)/py.test -vv --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests
+
+.PHONY: check
+check: git-attributes lint test
+
+.PHONY: doc-latex
+doc-latex: .venv/requirements-timestamp
+	rm -rf doc/build/latex
+	$(VENV_BIN)/sphinx-build -b latex doc/source doc/build/latex
+
+.PHONY: doc-html
+doc-html: .venv/requirements-timestamp
+	rm -rf doc/build/html
+	$(VENV_BIN)/sphinx-build -b html doc/source doc/build/html
+
+.PHONY: updates
+updates: $(PIP_REQUIREMENTS)
+	$(VENV_BIN)/pip list --outdated
+
+.PHONY: serve-dev
+serve-dev: development.ini build setup-db-dev
+	$(VENV_BIN)/pserve $< --reload
 
 .PHONY: serve
-serve: install pyramid_oereb_standard.yml test-db/12-create.sql test-db/13-fill.sql
-	docker-compose $(DOCKER_COMPOSE_FILE) up --build --remove-orphans -d
-
-pyramid_oereb_standard.yml: .venv/install-timestamp
-	$(VENV_BIN)create_standard_yaml$(PYTHON_BIN_POSTFIX) --database $(SQLALCHEMY_URL) --print_backend $(PRINT_BACKEND)
-
-test-db/12-create.sql: pyramid_oereb_standard.yml .venv/install-timestamp
-	$(VENV_BIN)create_standard_tables$(PYTHON_BIN_POSTFIX) --configuration $< --sql-file $@
-	docker rm pyramidoereb_db_1 | true
-
-test-db/13-fill.sql: pyramid_oereb_standard.yml .venv/install-timestamp \
-	$(shell ls -1 $(SAMPLE_DATA_DIR)/*.json) \
-	$(shell ls -1 $(SAMPLE_DATA_DIR)/plr119/contaminated_public_transport_sites/*.json) \
-	$(shell ls -1 $(SAMPLE_DATA_DIR)/plr119/groundwater_protection_zones/*.json) \
-	$(shell ls -1 $(SAMPLE_DATA_DIR)/plr119/forest_perimeters/*.json) \
-	$(shell ls -1 $(SAMPLE_DATA_DIR)/plr119/motorways_building_lines/*.json) \
-	$(shell ls -1 $(SAMPLE_DATA_DIR)/plr119/contaminated_military_sites/*.json)
-	$(VENV_BIN)python pyramid_oereb/standard/load_sample_data.py --configuration $< --sql-file $@ --dir $(SAMPLE_DATA_DIR)
-	docker rm pyramidoereb_db_1 | true
-
-.PHONY: deploy
-deploy:
-	$(VENV_BIN)python setup.py sdist bdist_wheel upload
-
-logo_%.png: pyramid_oereb_standard.yml
-	touch --no-create $@
-
-.PHONY: build-docker
-build-docker: logo_oereb.png logo_confederation.png logo_canton.png docker/config.yaml
-	docker build --tag openoereb/pyramid-oereb:latest .
+serve: development.ini build
+	$(VENV_BIN)/pserve $<

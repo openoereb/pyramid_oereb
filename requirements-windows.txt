@@ -1,2 +1,0 @@
-wheels/Shapely-1.6.4.post1-cp36-cp36m-win_amd64.whl
--r requirements.txt
