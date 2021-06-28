@@ -38,6 +38,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Make documentation
         run: |
+          sudo rm /etc/apt/sources.list.d/*.list
+          sudo apt update
           sudo apt-get install virtualenv libpq-dev libgeos-dev
           make doc
       - name: Deploy 🚀
