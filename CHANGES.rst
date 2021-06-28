@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+1.9.2
+*****
+- Oereblex: improve testing functionality for Oereblex (#1197)
+- Various library updates
+
 1.9.1
 *****
 - Oereblex: support new Oereblex API version 1.2.1
