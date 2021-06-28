@@ -4,7 +4,7 @@ on: [push]
 jobs:
 
   lint:
-    name: Check style
+    name: Check style (lint)
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -15,7 +15,7 @@ jobs:
         run: make lint
   
   gitattributes:
-    name: Check style
+    name: Check style (git-attributes)
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
