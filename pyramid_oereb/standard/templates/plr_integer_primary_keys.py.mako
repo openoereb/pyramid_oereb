@@ -49,7 +49,7 @@ class Office(Base):
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         name (dict): The multilingual name of the office.
-        office_at_web (str): A web accessible url to a presentation of this office.
+        office_at_web (dict): A web accessible url to a presentation of this office (multilingual).
         uid (str): The uid of this office from https
         line1 (str): The first address line for this office.
         line2 (str): The second address line for this office.
