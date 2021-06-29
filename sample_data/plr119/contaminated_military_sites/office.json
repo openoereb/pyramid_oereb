@@ -6,7 +6,12 @@
       "fr": "Office fédéral des transports OFT",
       "it": "Ufficio federale dei trasporti UFT"
     },
-    "office_at_web": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html"
+    "office_at_web": {
+      "de": "https://www.bav.admin.ch/bav/de/home.html",
+      "fr": "https://www.bav.admin.ch/bav/fr/home.html",
+      "it": "https://www.bav.admin.ch/bav/it/home.html",
+      "en": "https://www.bav.admin.ch/bav/en/home.html"
+    }
   },
   {
     "id": 2,
@@ -17,6 +22,11 @@
       "rm": "Chanzlia federala",
       "en": "Federal Chancellery"
     },
-    "office_at_web": "http://www.bk.admin.ch"
+    "office_at_web": {
+      "de": "https://www.bk.admin.ch/bk/de/home.html",
+      "fr": "https://www.bk.admin.ch/bk/fr/home.html",
+      "it": "https://www.bk.admin.ch/bk/it/home.html",
+      "en": "https://www.bk.admin.ch/bk/en/home.html"
+    }
   }
 ]
