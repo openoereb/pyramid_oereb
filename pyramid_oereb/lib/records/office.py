@@ -9,7 +9,7 @@ class OfficeRecord(object):
     Args:
         name (dict of unicode):  The official name of the authority (multilingual)
         uid (unicode): The unique identifier of the authority in the federal register
-        office_at_web (unicode): The URL to the office's homepage
+        office_at_web (dict of unicode): The URL to the office's homepage (multilingual)
         line1 (unicode): Complementary address information
         line2 (unicode): Complementary address information
         street (unicode): The street where the authority is located

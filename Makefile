@@ -35,6 +35,8 @@ DEV_CREATE_FILL_SCRIPT = pyramid_oereb/standard/load_sample_data.py
 DEV_CREATE_STANDARD_YML_SCRIPT = $(VENV_BIN)/create_standard_yaml
 DEV_CREATE_TABLES_SCRIPT = $(VENV_BIN)/create_standard_tables
 
+MODEL_PK_TYPE_IS_STRING ?= true
+
 PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
 
 # ********************
@@ -121,6 +123,10 @@ clean-all: clean
 	rm -f *.png
 	rm -rf $(PACKAGE).egg-info
 
+.PHONY: create-default-models
+create-default-models:
+	VENV_BIN=$(VENV_BIN) MODEL_SCRIPT=create_standard_model MODEL_PATH=pyramid_oereb/standard/models/ \
+	MODEL_PK_TYPE_IS_STRING=$(MODEL_PK_TYPE_IS_STRING) bash generate_models.sh
 
 .PHONY: git-attributes
 git-attributes:

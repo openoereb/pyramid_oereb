@@ -62,7 +62,7 @@ class Office(Base):
     __tablename__ = 'office'
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     name = sa.Column(JSONType, nullable=False)
-    office_at_web = sa.Column(sa.String, nullable=True)
+    office_at_web = sa.Column(JSONType, nullable=True)
     uid = sa.Column(sa.String(12), nullable=True)
     line1 = sa.Column(sa.String, nullable=True)
     line2 = sa.Column(sa.String, nullable=True)
