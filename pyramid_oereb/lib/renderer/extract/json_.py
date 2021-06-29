@@ -452,7 +452,7 @@ class Renderer(Base):
             'Name': self.get_multilingual_text(office.name)
         }
         if office.office_at_web is not None:
-            office_dict['OfficeAtWeb'] = office.office_at_web
+            office_dict['OfficeAtWeb'] = self.get_multilingual_text(office.office_at_web)
         if office.uid is not None:
             office_dict['UID'] = office.uid
         if office.line1 is not None:
