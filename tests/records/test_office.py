@@ -10,7 +10,12 @@ def test_mandatory_fields():
 
 
 def test_init():
-    record = OfficeRecord({'de': 'Test'}, office_at_web={'de': 'www.example.com'}, uid='ch99', postal_code=4123)
+    record = OfficeRecord(
+        {'de': 'Test'},
+        office_at_web={'de': 'www.example.com'},
+        uid='ch99',
+        postal_code=4123
+        )
     assert record.name.get('de') == 'Test'
     assert record.office_at_web.get('de') == 'www.example.com'
     assert record.line1 is None
