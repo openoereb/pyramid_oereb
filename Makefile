@@ -61,23 +61,29 @@ PACKAGE = pyramid_oereb
 # Set up database
 # ********************
 
-drop-db:
+.db/.drop-db:
 	psql -h $(PG_HOST) -U $(PG_USER) -c "$(PG_DROP_DB)"
 
-create-db:
+.db/.create-db:
+	mkdir .db
 	psql -h $(PG_HOST) -U $(PG_USER) -c "$(PG_CREATE_DB)"
+	touch $@
 
-create-db-extension: create-db
+.db/.create-db-extension: .db/.create-db
 	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -c "$(PG_CREATE_EXT)"
+	touch $@
 
-create-db-schema: create-db-extension
+.db/.create-db-schema: .db/.create-db-extension
 	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -c "$(PG_CREATE_SCHEMA)"
+	touch $@
 
-create-db-dev-tables: test-db/12-create.sql setup-db
+.db/.create-db-dev-tables: .db/.setup-db .db/12-create.sql
 	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -f $<
+	touch $@
 
-fill-db-dev-tables: test-db/13-fill.sql create-db-dev-tables
+.db/.fill-db-dev-tables: .db/.create-db-dev-tables .db/13-fill.sql
 	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -f $<
+	touch $@
 
 # **************
 # Common targets
@@ -89,17 +95,19 @@ BUILD_DEPS += .venv/requirements-timestamp
 $(DEV_CONFIGURATION_YML): .venv/requirements-timestamp $(DEV_CREATE_STANDARD_YML_SCRIPT)
 	$(DEV_CREATE_STANDARD_YML_SCRIPT) --name $@ --database $(SQLALCHEMY_URL) --print_backend $(PRINT_BACKEND)
 
-test-db/12-create.sql: $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_TABLES_SCRIPT)
+.db/12-create.sql: $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_TABLES_SCRIPT)
 	$(DEV_CREATE_TABLES_SCRIPT) --configuration $< --sql-file $@
 
-test-db/13-fill.sql: $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_FILL_SCRIPT)
+.db/13-fill.sql: $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_FILL_SCRIPT)
 	$(VENV_BIN)/python $(DEV_CREATE_FILL_SCRIPT) --configuration $< --sql-file $@ --dir $(PG_DEV_DATA_DIR)
 
 .PHONY: setup-db
-setup-db: create-db-schema
+.db/.setup-db: .db/.create-db-schema
+	touch $@
 
 .PHONY: setup-db-dev
-setup-db-dev: fill-db-dev-tables
+.db/.setup-db-dev: .db/.fill-db-dev-tables
+	touch $@
 
 .PHONY: install
 install: .venv/requirements-timestamp
@@ -112,7 +120,8 @@ build: $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT)
 	
 
 .PHONY: clean
-clean: drop-db
+clean: .db/.drop-db
+	rm -rf .db
 
 .PHONY: clean-all
 clean-all: clean
@@ -131,7 +140,7 @@ lint: .venv/requirements-timestamp
 	$(VENV_BIN)/flake8
 
 .PHONY: test
-test: .venv/requirements-timestamp setup-db $(DEV_CONFIGURATION_YML)
+test: .venv/requirements-timestamp .db/.setup-db $(DEV_CONFIGURATION_YML)
 	$(VENV_BIN)/py.test -vv --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests
 
 .PHONY: check
@@ -152,7 +161,7 @@ updates: $(PIP_REQUIREMENTS)
 	$(VENV_BIN)/pip list --outdated
 
 .PHONY: serve-dev
-serve-dev: development.ini build setup-db-dev
+serve-dev: development.ini build .db/.setup-db-dev
 	$(VENV_BIN)/pserve $< --reload
 
 .PHONY: serve
