@@ -48,7 +48,9 @@ def _get_test_extract(glossary):
                                        u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712')
         real_estate.set_view_service(view_service)
         real_estate.set_main_page_view_service(view_service)
-        office_record = OfficeRecord({'de': u'AGI'})
+        office_record = OfficeRecord({'de': u'AGI'}, office_at_web={
+            'de': 'https://www.bav.admin.ch/bav/de/home.html'
+        })
         resolver = DottedNameResolver()
         date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
         date_method = resolver.resolve(date_method_string)
