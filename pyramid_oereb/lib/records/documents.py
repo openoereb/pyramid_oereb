@@ -6,50 +6,7 @@ import datetime
 log = logging.getLogger(__name__)
 
 
-class DocumentBaseRecord(object):
-    """
-    The base document class.
-
-    Attributes:
-        law_status (unicode): Key string of the law status.
-        published_from (datetime.date): Date since this document was published.
-        text_at_web (dict of uri): The multilingual URI to the documents content.
-    """
-    def __init__(self, law_status, published_from, text_at_web=None):
-        """
-        Args:
-            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
-            published_from (datetime.date): Date since this document was published.
-            text_at_web (dict of uri): The multilingual URI to the documents content.
-        """
-        if text_at_web and not isinstance(text_at_web, dict):
-            warnings.warn('Type of "text_at_web" should be "dict"')
-        if published_from and not isinstance(published_from, datetime.date):
-            warnings.warn('Type of "published_from" should be "datetime.date", not '
-                          + str(type(published_from)))
-
-        self.text_at_web = text_at_web
-        self.law_status = law_status
-        self.published_from = published_from
-
-    @property
-    def published(self):
-        """
-        Returns true if its not a future document.
-
-        Returns:
-            bool: True if document is published.
-        """
-        if isinstance(self.published_from, datetime.date):
-            result = not self.published_from > datetime.date.today()
-        else:
-            result = not self.published_from > datetime.datetime.now()
-        log.debug("DocumentBaseRecord.published() returning {} for document {}"
-                  .format(result, self.text_at_web))
-        return result
-
-
-class DocumentRecord(DocumentBaseRecord):
+class DocumentRecord(object):
     """
     More specific document class representing real documents.
 
@@ -110,6 +67,11 @@ class DocumentRecord(DocumentBaseRecord):
         if published_from and not isinstance(published_from, datetime.date):
             warnings.warn('Type of "published_from" should be "datetime.date", not '
                           + str(type(published_from)))
+        if text_at_web and not isinstance(text_at_web, dict):
+            warnings.warn('Type of "text_at_web" should be "dict"')
+        if published_from and not isinstance(published_from, datetime.date):
+            warnings.warn('Type of "published_from" should be "datetime.date", not '
+                          + str(type(published_from)))
 
         self.document_type = document_type
         self.title = title
@@ -119,6 +81,9 @@ class DocumentRecord(DocumentBaseRecord):
         self.official_number = official_number
         self.canton = canton
         self.municipality = municipality
+        self.text_at_web = text_at_web
+        self.law_status = law_status
+        self.published_from = published_from
         if isinstance(article_numbers, list):
             self.article_numbers = article_numbers
         else:
@@ -132,6 +97,22 @@ class DocumentRecord(DocumentBaseRecord):
             self.references = []
         else:
             self.references = references
+
+    @property
+    def published(self):
+        """
+        Returns true if its not a future document.
+
+        Returns:
+            bool: True if document is published.
+        """
+        if isinstance(self.published_from, datetime.date):
+            result = not self.published_from > datetime.date.today()
+        else:
+            result = not self.published_from > datetime.datetime.now()
+        log.debug("DocumentRecord.published() returning {} for document {}"
+                  .format(result, self.text_at_web))
+        return result
 
 
 class LegalProvisionRecord(DocumentRecord):
