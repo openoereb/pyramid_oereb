@@ -1,3 +1,0 @@
-OPERATING_SYSTEM ?=WINDOWS
-PYTHON_VERSION ?= python
-include Makefile
