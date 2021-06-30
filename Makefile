@@ -34,6 +34,8 @@ DEV_CONFIGURATION_YML = pyramid_oereb/standard/pyramid_oereb.yml
 DEV_CREATE_FILL_SCRIPT = pyramid_oereb/standard/load_sample_data.py
 DEV_CREATE_STANDARD_YML_SCRIPT = $(VENV_BIN)/create_standard_yaml
 DEV_CREATE_TABLES_SCRIPT = $(VENV_BIN)/create_standard_tables
+DEV_CREATE_SCRIPT = .db/12-create.sql
+DEV_FILL_SCRIPT = .db/13-fill.sql
 
 PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
 
@@ -77,12 +79,12 @@ PACKAGE = pyramid_oereb
 	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -c "$(PG_CREATE_SCHEMA)"
 	touch $@
 
-.db/.create-db-dev-tables: .db/.setup-db .db/12-create.sql
-	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -f $<
+.db/.create-db-dev-tables: .db/.setup-db $(DEV_CREATE_SCRIPT)
+	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -f $(DEV_CREATE_SCRIPT)
 	touch $@
 
-.db/.fill-db-dev-tables: .db/.create-db-dev-tables .db/13-fill.sql
-	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -f $<
+.db/.fill-db-dev-tables: .db/.create-db-dev-tables $(DEV_FILL_SCRIPT)
+	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -f $(DEV_FILL_SCRIPT)
 	touch $@
 
 # **************
@@ -95,10 +97,10 @@ BUILD_DEPS += .venv/requirements-timestamp
 $(DEV_CONFIGURATION_YML): .venv/requirements-timestamp $(DEV_CREATE_STANDARD_YML_SCRIPT)
 	$(DEV_CREATE_STANDARD_YML_SCRIPT) --name $@ --database $(SQLALCHEMY_URL) --print_backend $(PRINT_BACKEND)
 
-.db/12-create.sql: $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_TABLES_SCRIPT)
+: $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_TABLES_SCRIPT)
 	$(DEV_CREATE_TABLES_SCRIPT) --configuration $< --sql-file $@
 
-.db/13-fill.sql: $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_FILL_SCRIPT)
+: $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_FILL_SCRIPT)
 	$(VENV_BIN)/python $(DEV_CREATE_FILL_SCRIPT) --configuration $< --sql-file $@ --dir $(PG_DEV_DATA_DIR)
 
 .PHONY: setup-db
