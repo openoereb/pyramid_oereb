@@ -49,38 +49,6 @@ class DocumentBaseRecord(object):
         return result
 
 
-class ArticleRecord(DocumentBaseRecord):
-    """
-    More specific document class representing articles.
-
-    Attributes:
-        law_status (unicode): Key string of the law status.
-        published_from (datetime.date): Date since this document was published.
-        number (unicode): The identifier of the article as a law.
-        text_at_web (dict of uri): The URI to the documents content (multilingual).
-        text (dict of unicode): Text in the article (multilingual).
-    """
-    def __init__(self, law_status, published_from, number, text_at_web=None, text=None):
-        """
-        Args:
-            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
-            published_from (datetime.date): Date since this document was published.
-            number (unicode): The identifier of the article as a law.
-            text_at_web (dict of uri): The URI to the documents content (multilingual).
-            text (dict of unicode): Text in the article (multilingual).
-        """
-        super(ArticleRecord, self).__init__(law_status, published_from, text_at_web)
-
-        if text and not isinstance(text, dict):
-            warnings.warn('Type of "text" should be "dict"')
-        if published_from and not isinstance(published_from, datetime.date):
-            warnings.warn('Type of "published_from" should be "datetime.date", not '
-                          + str(type(published_from)))
-
-        self.number = number
-        self.text = text
-
-
 class DocumentRecord(DocumentBaseRecord):
     """
     More specific document class representing real documents.
