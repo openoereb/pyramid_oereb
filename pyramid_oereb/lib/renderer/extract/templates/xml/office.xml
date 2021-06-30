@@ -4,7 +4,7 @@
 </data:Name>
 %if office.office_at_web:
 <data:OfficeAtWeb>
-    <%include file="multilingual_text.xml" args="text=office.office_at_web"/>
+    <%include file="multilingual_uri.xml" args="text=office.office_at_web"/>
 </data:OfficeAtWeb>
 %endif
 %if office.uid:
