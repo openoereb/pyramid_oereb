@@ -3,4 +3,4 @@ exclude_paths:
   - 'sample_data/**.json'
   - 'Dockerfile'
   - 'pyramid_oereb/contrib/stats/scripts/**'
-  - '.devcontainer'
+  - '.devcontainer/**'
