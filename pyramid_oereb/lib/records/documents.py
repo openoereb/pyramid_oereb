@@ -19,9 +19,8 @@ class DocumentRecord(object):
         responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
             responsible for this document.
         text_at_web (dict of uri): The multilingual URI to the documents content.
-        official_title (dict of unicode): The official title of the document (multilingual).
         abbreviation (dict of unicode): Short term for this document (multilingual).
-        official_number (unicode): The official number for identification of this document.
+        official_number (dict of unicode): The official number for identification of this document.
         canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
         municipality (unicode): The code for the municipality.
         article_numbers (list of unicode): Pointers to specific articles.
@@ -43,7 +42,7 @@ class DocumentRecord(object):
                 responsible for this document.
             text_at_web (dict of uri): The multilingual URI to the documents content.
             abbreviation (dict of unicode): Short term for this document (multilingual).
-            official_number (unicode): The official number for identification of this document.
+            official_number (dict of unicode): The official number for identification of this document.
             canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
             municipality (unicode): The code for the municipality.
             article_numbers (list of unicode): Pointers to specific articles.
@@ -59,6 +58,8 @@ class DocumentRecord(object):
             warnings.warn('Type of "title" should be "dict"')
         if abbreviation and not isinstance(abbreviation, dict):
             warnings.warn('Type of "abbreviation" should be "dict"')
+        if official_number and not isinstance(official_number, dict):
+            warnings.warn('Type of "official_number" should be "dict"')
         if published_from and not isinstance(published_from, datetime.date):
             warnings.warn('Type of "published_from" should be "datetime.date", not '
                           + str(type(published_from)))
