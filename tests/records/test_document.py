@@ -25,8 +25,7 @@ def test_init():
     assert isinstance(record.text_at_web, dict)
     assert record.abbreviation is None
     assert record.official_number is None
-    assert record.canton is None
-    assert record.municipality is None
+    assert record.only_in_municipality is None
     assert record.article_numbers == []
     assert isinstance(record.references, list)
     assert record.published
@@ -66,8 +65,7 @@ def test_init_with_relation():
     assert isinstance(record.text_at_web, dict)
     assert record.abbreviation is None
     assert record.official_number is None
-    assert record.canton is None
-    assert record.municipality is None
+    assert record.only_in_municipality is None
     assert record.article_numbers == ['test']
     assert isinstance(record.references, list)
 

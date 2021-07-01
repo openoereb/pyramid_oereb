@@ -21,15 +21,14 @@ class DocumentRecord(object):
         text_at_web (dict of uri): The multilingual URI to the documents content.
         abbreviation (dict of unicode): Short term for this document (multilingual).
         official_number (dict of unicode): The official number for identification of this document.
-        canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
-        municipality (unicode): The code for the municipality.
+        only_in_municipality (int): Restrict document to a specific municipality by code.
         article_numbers (list of unicode): Pointers to specific articles.
         file (bytes): The binary content of the document.
         references (list of DocumentRecord): The references to other documents.
     """
     def __init__(self, document_type, law_status, published_from, title, responsible_office, text_at_web=None,
-                 abbreviation=None, official_number=None, canton=None,
-                 municipality=None, article_numbers=None, file=None, references=None):
+                 abbreviation=None, official_number=None, only_in_municipality=None, article_numbers=None,
+                 file=None, references=None):
         """
 
         Args:
@@ -43,8 +42,7 @@ class DocumentRecord(object):
             text_at_web (dict of uri): The multilingual URI to the documents content.
             abbreviation (dict of unicode): Short term for this document (multilingual).
             official_number (dict of unicode): The official number for identification of this document.
-            canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
-            municipality (unicode): The code for the municipality.
+            only_in_municipality (int): Restrict document to a specific municipality by code.
             article_numbers (list of unicode): Pointers to specific articles.
             file (bytes): The binary content of the document.
             references (list of DocumentRecord): The references to other documents.
@@ -74,8 +72,7 @@ class DocumentRecord(object):
         self.responsible_office = responsible_office
         self.abbreviation = abbreviation
         self.official_number = official_number
-        self.canton = canton
-        self.municipality = municipality
+        self.only_in_municipality = only_in_municipality
         self.text_at_web = text_at_web
         self.law_status = law_status
         self.published_from = published_from
