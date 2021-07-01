@@ -18,7 +18,8 @@ class DocumentRecord(object):
         title (dict of unicode): The multilingual title of the document. It might be shortened one.
         responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
             responsible for this document.
-        published_from (datetime.date): Date since this document was published.
+        published_from (datetime.date): Date from when this document is published.
+        published_until (datetime.date): Date until when this document is published.
         text_at_web (dict of uri): The multilingual URI to the documents content.
         abbreviation (dict of unicode): Short term for this document (multilingual).
         official_number (dict of unicode): The official number for identification of this document.
@@ -27,8 +28,8 @@ class DocumentRecord(object):
         file (bytes): The binary content of the document.
     """
     def __init__(self, document_type, index, law_status, title, responsible_office, published_from,
-                 text_at_web=None, abbreviation=None, official_number=None, only_in_municipality=None,
-                 article_numbers=None, file=None):
+                 published_until=None, text_at_web=None, abbreviation=None, official_number=None,
+                 only_in_municipality=None, article_numbers=None, file=None):
         """
 
         Args:
@@ -39,7 +40,8 @@ class DocumentRecord(object):
             title (dict of unicode): The multilingual title of the document. It might be shortened one.
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
                 responsible for this document.
-            published_from (datetime.date): Date since this document was published.
+            published_from (datetime.date): Date from when this document is published.
+            published_until (datetime.date): Date until when this document is published.
             text_at_web (dict of uri): The multilingual URI to the documents content.
             abbreviation (dict of unicode): Short term for this document (multilingual).
             official_number (dict of unicode): The official number for identification of this document.
@@ -77,6 +79,7 @@ class DocumentRecord(object):
         self.text_at_web = text_at_web
         self.law_status = law_status
         self.published_from = published_from
+        self.published_until = published_until
         if isinstance(article_numbers, list):
             self.article_numbers = article_numbers
         else:
@@ -86,15 +89,29 @@ class DocumentRecord(object):
     @property
     def published(self):
         """
-        Returns true if its not a future document.
+        Returns true if its not a future or past document.
 
         Returns:
             bool: True if document is published.
         """
-        if isinstance(self.published_from, datetime.date):
-            result = not self.published_from > datetime.date.today()
-        else:
-            result = not self.published_from > datetime.datetime.now()
+        result = True
+
+        # Check for published_from
+        if isinstance(self.published_from, datetime.datetime):
+            if datetime.datetime.now() < self.published_from:
+                result = False
+        elif isinstance(self.published_from, datetime.date):
+            if datetime.date.today() < self.published_from:
+                result = False
+
+        # Check for published_until
+        if isinstance(self.published_until, datetime.datetime):
+            if datetime.datetime.now() > self.published_until:
+                result = False
+        elif isinstance(self.published_until, datetime.date):
+            if datetime.date.today() > self.published_until:
+                result = False
+
         log.debug("DocumentRecord.published() returning {} for document {}"
                   .format(result, self.text_at_web))
         return result

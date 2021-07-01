@@ -24,6 +24,7 @@ def test_init():
     assert isinstance(record.title, dict)
     assert isinstance(record.responsible_office, OfficeRecord)
     assert isinstance(record.text_at_web, dict)
+    assert record.published_until is None
     assert record.abbreviation is None
     assert record.official_number is None
     assert record.only_in_municipality is None
@@ -43,6 +44,16 @@ def test_future_document():
     law_status = LawStatusRecord.from_config(u'inForce')
     record = DocumentRecord('Hinweis', 1, law_status, {'en': 'title'}, office_record,
                             (datetime.datetime.now().date() + datetime.timedelta(days=7)),
+                            text_at_web={'en': 'http://my.document.com'})
+    assert not record.published
+
+
+def test_past_document():
+    office_record = OfficeRecord({'en': 'name'})
+    law_status = LawStatusRecord.from_config(u'inForce')
+    record = DocumentRecord('Hinweis', 1, law_status, {'en': 'title'}, office_record,
+                            (datetime.datetime.now().date() - datetime.timedelta(days=7)),
+                            published_until=(datetime.datetime.now().date() - datetime.timedelta(days=6)),
                             text_at_web={'en': 'http://my.document.com'})
     assert not record.published
 
