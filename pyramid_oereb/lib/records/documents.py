@@ -25,11 +25,10 @@ class DocumentRecord(object):
         only_in_municipality (int): Restrict document to a specific municipality by code.
         article_numbers (list of unicode): Pointers to specific articles.
         file (bytes): The binary content of the document.
-        references (list of DocumentRecord): The references to other documents.
     """
     def __init__(self, document_type, index, law_status, title, responsible_office, published_from,
                  text_at_web=None, abbreviation=None, official_number=None, only_in_municipality=None,
-                 article_numbers=None, file=None, references=None):
+                 article_numbers=None, file=None):
         """
 
         Args:
@@ -47,7 +46,6 @@ class DocumentRecord(object):
             only_in_municipality (int): Restrict document to a specific municipality by code.
             article_numbers (list of unicode): Pointers to specific articles.
             file (bytes): The binary content of the document.
-            references (list of DocumentRecord): The references to other documents.
         """
 
         if document_type not in ['Rechtsvorschrift', 'GesetzlicheGrundlage', 'Hinweis']:
@@ -84,10 +82,6 @@ class DocumentRecord(object):
         else:
             self.article_numbers = []
         self.file = file
-        if references is None:
-            self.references = []
-        else:
-            self.references = references
 
     @property
     def published(self):
