@@ -273,7 +273,6 @@ def test_format_plr(parameter):
             sub_theme={
                 'de': 'Subtopic'
             },
-            other_theme='Additional topic',
             type_code='CodeA',
             type_code_list='TypeCodeList',
             documents=documents,
@@ -298,7 +297,6 @@ def test_format_plr(parameter):
                 'ResponsibleOffice': renderer.format_office(plr.responsible_office),
                 'Map': renderer.format_map(plr.view_service),
                 'SubTheme': 'Subtopic',
-                'OtherTheme': 'Additional topic',
                 'TypeCode': 'CodeA',
                 'TypeCodelist': 'TypeCodeList',
                 'LegalProvisions': [renderer.format_document(document)],
@@ -544,7 +542,6 @@ def test_format_legend_entry(parameter):
             'TypeCodelist': 'type_code_list',
             'Theme': renderer.format_theme(theme),
             'SubTheme': 'Subthema',
-            'OtherTheme': 'Weiteres Thema'
         }
         if parameter.images:
             expected.update({

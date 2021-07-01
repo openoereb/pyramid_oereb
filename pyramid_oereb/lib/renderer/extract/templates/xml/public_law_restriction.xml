@@ -21,9 +21,6 @@
     %>
     <data:SubTheme>${localized_sub_theme.get('Text') | x}</data:SubTheme>
     %endif
-    %if public_law_restriction.other_theme:
-    <data:OtherTheme>${public_law_restriction.other_theme | x}</data:OtherTheme>
-    %endif
     %if public_law_restriction.type_code:
     <data:TypeCode>${public_law_restriction.type_code | x}</data:TypeCode>
     %endif

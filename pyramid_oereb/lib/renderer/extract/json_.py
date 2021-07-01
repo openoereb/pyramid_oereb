@@ -288,8 +288,6 @@ class Renderer(Base):
                     plr_dict['NrOfPoints'] = plr.nr_of_points
                 if plr.sub_theme is not None:
                     plr_dict['SubTheme'] = self.get_localized_text(plr.sub_theme).get('Text')
-                if plr.other_theme is not None:
-                    plr_dict['OtherTheme'] = plr.other_theme
                 if plr.type_code is not None:
                     plr_dict['TypeCode'] = plr.type_code
                 if plr.type_code_list is not None:
@@ -558,8 +556,6 @@ class Renderer(Base):
 
         if legend_entry.sub_theme is not None:
             legend_entry_dict['SubTheme'] = self.get_localized_text(legend_entry.sub_theme).get('Text')
-        if legend_entry.other_theme is not None:
-            legend_entry_dict['OtherTheme'] = legend_entry.other_theme
         return legend_entry_dict
 
     @staticmethod

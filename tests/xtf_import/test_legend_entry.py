@@ -66,7 +66,6 @@ def test_parse():
     assert parsed[0].sub_theme == {
         'de': 'A SubTheme'
     }
-    assert parsed[0].other_theme is None
     assert parsed[0].view_service_id == 'ch.admin.bazl.sizo.wms'
 
 
