@@ -25,8 +25,6 @@ def test_init():
     assert isinstance(record.text_at_web, dict)
     assert record.abbreviation is None
     assert record.official_number is None
-    assert record.official_title is None
     assert record.canton is None
     assert record.municipality is None
-    assert isinstance(record.articles, list)
     assert isinstance(record.references, list)

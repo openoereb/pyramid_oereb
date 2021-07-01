@@ -26,12 +26,11 @@ class DocumentRecord(object):
         municipality (unicode): The code for the municipality.
         article_numbers (list of unicode): Pointers to specific articles.
         file (bytes): The binary content of the document.
-        articles (list of ArticleRecord): The linked articles.
         references (list of DocumentRecord): The references to other documents.
     """
     def __init__(self, document_type, law_status, published_from, title, responsible_office, text_at_web=None,
-                 abbreviation=None, official_number=None, official_title=None, canton=None,
-                 municipality=None, article_numbers=None, file=None, articles=None, references=None):
+                 abbreviation=None, official_number=None, canton=None,
+                 municipality=None, article_numbers=None, file=None, references=None):
         """
 
         Args:
@@ -43,25 +42,20 @@ class DocumentRecord(object):
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
                 responsible for this document.
             text_at_web (dict of uri): The multilingual URI to the documents content.
-            official_title (dict of unicode): The official title of the document (multilingual).
             abbreviation (dict of unicode): Short term for this document (multilingual).
             official_number (unicode): The official number for identification of this document.
             canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
             municipality (unicode): The code for the municipality.
             article_numbers (list of unicode): Pointers to specific articles.
             file (bytes): The binary content of the document.
-            articles (list of ArticleRecord): The linked articles.
             references (list of DocumentRecord): The references to other documents.
         """
-        super(DocumentRecord, self).__init__(law_status, published_from, text_at_web)
 
         if document_type != u'LegalProvision' and document_type != u'Law' and document_type != u'Hint':
             raise AttributeError('wrong value for document typ was delivered. Only "LegalProvision", '
                                  '"Law" and "Hint" are allowed. Value was {0}'.format(document_type))
         if not isinstance(title, dict):
             warnings.warn('Type of "title" should be "dict"')
-        if official_title and not isinstance(official_title, dict):
-            warnings.warn('Type of "official_title" should be "dict"')
         if abbreviation and not isinstance(abbreviation, dict):
             warnings.warn('Type of "abbreviation" should be "dict"')
         if published_from and not isinstance(published_from, datetime.date):
@@ -76,7 +70,6 @@ class DocumentRecord(object):
         self.document_type = document_type
         self.title = title
         self.responsible_office = responsible_office
-        self.official_title = official_title
         self.abbreviation = abbreviation
         self.official_number = official_number
         self.canton = canton
@@ -89,10 +82,6 @@ class DocumentRecord(object):
         else:
             self.article_numbers = []
         self.file = file
-        if articles is None:
-            self.articles = []
-        else:
-            self.articles = articles
         if references is None:
             self.references = []
         else:
@@ -128,19 +117,17 @@ class LegalProvisionRecord(DocumentRecord):
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
                 responsible for this document.
             text_at_web (dict of uri): The multilingual URI to the documents content.
-            official_title (dict of unicode): The official title of the document (multilingual).
             abbreviation (dict of unicode): Short term for this document (multilingual).
             official_number (unicode): The official number for identification of this document.
             canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
             municipality (unicode): The code for the municipality.
             article_numbers (list of unicode): Pointers to specific articles.
             file (bytes): The binary content of the document.
-            articles (list of ArticleRecord): The linked articles.
             references (list of DocumentRecord): The references to other documents.
         """
     def __init__(self, law_status, published_from, title, responsible_office, text_at_web=None,
-                 abbreviation=None, official_number=None, official_title=None, canton=None,
-                 municipality=None, article_numbers=None, file=None, articles=None, references=None):
+                 abbreviation=None, official_number=None, canton=None,
+                 municipality=None, article_numbers=None, file=None, references=None):
         """
 
         Args:
@@ -150,20 +137,18 @@ class LegalProvisionRecord(DocumentRecord):
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
                 responsible for this document.
             text_at_web (dict of uri): The multilingual URI to the documents content.
-            official_title (dict of unicode): The official title of the document (multilingual).
             abbreviation (dict of unicode): Short term for this document (multilingual).
             official_number (unicode): The official number for identification of this document.
             canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
             municipality (unicode): The code for the municipality.
             article_numbers (list of unicode): Pointers to specific articles.
             file (bytes): The binary content of the document.
-            articles (list of ArticleRecord): The linked articles.
             references (list of DocumentRecord): The references to other documents.
         """
         super(LegalProvisionRecord, self).__init__('LegalProvision', law_status, published_from, title,
                                                    responsible_office, text_at_web,
-                                                   abbreviation, official_number, official_title, canton,
-                                                   municipality, article_numbers, file, articles, references)
+                                                   abbreviation, official_number, canton,
+                                                   municipality, article_numbers, file, references)
 
     def __str__(self):
         return str(self.__class__) + ": " + str(self.__dict__)
@@ -182,19 +167,17 @@ class LawRecord(DocumentRecord):
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
                 responsible for this document.
             text_at_web (dict of uri): The multilingual URI to the documents content.
-            official_title (dict of unicode): The official title of the document (multilingual).
             abbreviation (dict of unicode): Short term for this document (multilingual).
             official_number (unicode): The official number for identification of this document.
             canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
             municipality (unicode): The code for the municipality.
             article_numbers (list of unicode): Pointers to specific articles.
             file (bytes): The binary content of the document.
-            articles (list of ArticleRecord): The linked articles.
             references (list of DocumentRecord): The references to other documents.
         """
     def __init__(self, law_status, published_from, title, responsible_office, text_at_web=None,
-                 abbreviation=None, official_number=None, official_title=None, canton=None,
-                 municipality=None, article_numbers=None, file=None, articles=None, references=None):
+                 abbreviation=None, official_number=None, canton=None,
+                 municipality=None, article_numbers=None, file=None, references=None):
         """
 
         Args:
@@ -204,20 +187,18 @@ class LawRecord(DocumentRecord):
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
                 responsible for this document.
             text_at_web (dict of uri): The multilingual URI to the documents content.
-            official_title (dict of unicode): The official title of the document (multilingual).
             abbreviation (dict of unicode): Short term for this document (multilingual).
             official_number (unicode): The official number for identification of this document.
             canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
             municipality (unicode): The code for the municipality.
             article_numbers (list of unicode): Pointers to specific articles.
             file (bytes): The binary content of the document.
-            articles (list of ArticleRecord): The linked articles.
             references (list of DocumentRecord): The references to other documents.
         """
         super(LawRecord, self).__init__('Law', law_status, published_from, title,
                                         responsible_office, text_at_web,
-                                        abbreviation, official_number, official_title, canton,
-                                        municipality, article_numbers, file, articles, references)
+                                        abbreviation, official_number, canton,
+                                        municipality, article_numbers, file, references)
 
 
 class HintRecord(DocumentRecord):
@@ -233,19 +214,17 @@ class HintRecord(DocumentRecord):
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
                 responsible for this document.
             text_at_web (dict of uri): The multilingual URI to the documents content.
-            official_title (dict of unicode): The official title of the document (multilingual).
             abbreviation (dict of unicode): Short term for this document (multilingual).
             official_number (unicode): The official number for identification of this document.
             canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
             municipality (unicode): The code for the municipality.
             article_numbers (list of unicode): Pointers to specific articles.
             file (bytes): The binary content of the document.
-            articles (list of ArticleRecord): The linked articles.
             references (list of DocumentRecord): The references to other documents.
         """
     def __init__(self, law_status, published_from, title, responsible_office, text_at_web=None,
-                 abbreviation=None, official_number=None, official_title=None, canton=None,
-                 municipality=None, article_numbers=None, file=None, articles=None, references=None):
+                 abbreviation=None, official_number=None, canton=None,
+                 municipality=None, article_numbers=None, file=None, references=None):
         """
 
         Args:
@@ -255,17 +234,15 @@ class HintRecord(DocumentRecord):
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
                 responsible for this document.
             text_at_web (dict of uri): The multilingual URI to the documents content.
-            official_title (dict of unicode): The official title of the document (multilingual).
             abbreviation (dict of unicode): Short term for this document (multilingual).
             official_number (unicode): The official number for identification of this document.
             canton (unicode): The cantonal short term (length of two, like 'NE' or 'BL')
             municipality (unicode): The code for the municipality.
             article_numbers (list of unicode): Pointers to specific articles.
             file (bytes): The binary content of the document.
-            articles (list of ArticleRecord): The linked articles.
             references (list of DocumentRecord): The references to other documents.
         """
         super(HintRecord, self).__init__('Hint', law_status, published_from, title,
                                          responsible_office, text_at_web,
-                                         abbreviation, official_number, official_title, canton,
-                                         municipality, article_numbers, file, articles, references)
+                                         abbreviation, official_number, canton,
+                                         municipality, article_numbers, file, references)
