@@ -532,7 +532,6 @@ def test_format_legend_entry(parameter):
             u'type_code_list',
             theme,
             {'de': u'Subthema'},
-            u'Weiteres Thema',
             view_service_id=1
         )
         result = renderer.format_legend_entry(legend_entry)
