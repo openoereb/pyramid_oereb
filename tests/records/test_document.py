@@ -3,7 +3,7 @@ import datetime
 import pytest
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 
-from pyramid_oereb.lib.records.documents import DocumentRecord, ArticleRecord, LegalProvisionRecord
+from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
