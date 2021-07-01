@@ -16,7 +16,7 @@ class Office(object):
         instance = self._model(
             id=office.attrib['TID'],
             name=parse_multilingual_text(office, self.TAG_NAME),
-            office_at_web=parse_string(office, self.TAG_OFFICE_AT_WEB),
+            office_at_web=parse_multilingual_text(office, self.TAG_OFFICE_AT_WEB),
             uid=parse_string(office, self.TAG_UID)
         )
         self._session.add(instance)

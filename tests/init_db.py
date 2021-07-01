@@ -257,7 +257,13 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.Office.__table__.insert(), {
             'id': '1',
-            'name': {'de': u'Test Office'}
+            'name': {'de': u'Test Office'},
+            'office_at_web': {
+                'de': 'https://www.bav.admin.ch/bav/de/home.html',
+                'fr': 'https://www.bav.admin.ch/bav/fr/home.html',
+                'it': 'https://www.bav.admin.ch/bav/it/home.html',
+                'en': 'https://www.bav.admin.ch/bav/en/home.html'
+            }
         })
         connection.execute(motorways_building_lines.DataIntegration.__table__.insert(), {
             'id': '1',

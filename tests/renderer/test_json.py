@@ -177,7 +177,7 @@ def test_format_office():
     assert renderer.format_office(office) == {
         'Name': renderer.get_multilingual_text('Test'),
         'UID': u'test_uid',
-        'OfficeAtWeb': u'http://test.example.com',
+        'OfficeAtWeb': renderer.get_multilingual_text(u'http://test.example.com'),
         'Line1': u'test_line1',
         'Line2': u'test_line2',
         'Street': u'test_street',

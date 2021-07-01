@@ -37,6 +37,8 @@ DEV_CREATE_TABLES_SCRIPT = $(VENV_BIN)/create_standard_tables
 DEV_CREATE_SCRIPT = .db/12-create.sql
 DEV_FILL_SCRIPT = .db/13-fill.sql
 
+MODEL_PK_TYPE_IS_STRING ?= true
+
 PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
 
 # ********************
@@ -132,6 +134,10 @@ clean-all: clean
 	rm -f *.png
 	rm -rf $(PACKAGE).egg-info
 
+.PHONY: create-default-models
+create-default-models:
+	VENV_BIN=$(VENV_BIN) MODEL_SCRIPT=create_standard_model MODEL_PATH=pyramid_oereb/standard/models/ \
+	MODEL_PK_TYPE_IS_STRING=$(MODEL_PK_TYPE_IS_STRING) bash generate_models.sh
 
 .PHONY: git-attributes
 git-attributes:
