@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<geolinks>
+    <document authority="Bauverwaltung Gemeinde" authority_url="http%3A%2F%2Fwww.zihlschlacht-sitterdorf.ch"
+              category="main" doctype="decree" enactment_date="2001-03-27"
+              federal_level="Gemeinde" id="1500" instance="DBU" subtype="Gestaltungsplan"
+              title="Tiefkühllager" type="Sondernutzungsplan" decree_date="2001-03-15" number="1A"
+              abbreviation="abbr" municipality="Testgemeinde">
+        <file category="main" href="/api/attachments/4735" title="2918-E-1.pdf" description="2918-E-1.pdf"></file>
+        <file category="additional" href="/api/attachments/4736" title="2918-P-1.pdf" description="Plan 1"></file>
+        <file category="additional" href="/api/attachments/4737" title="2918-P-2.pdf" description="Plan 2"></file>
+        <file category="additional" href="/api/attachments/4738" title="2918-P-3.pdf" description="Plan 3"></file>
+        <file category="additional" href="/api/attachments/4739" title="2918-S-1.pdf" description=""></file>
+
+    </document>
+    <document authority="Staatskanzlei Kanton Thurgau" authority_url="http%3A%2F%2Fwww.staatskanzlei.tg.ch"
+              category="related" decree_date="2011-12-21" doctype="edict" enactment_date="2017-04-01"
+              federal_level="Kanton" id="4782" title="Planungs- und Baugesetz">
+        <file category="main"
+              href="http://www.rechtsbuch.tg.ch/frontend/versions/pdf_file_with_annex/1379?locale=de"
+              description="700.pdf"
+              title="700.pdf"></file>
+
+    </document>
+    <document authority="Bundeskanzlei" authority_url="https%3A%2F%2Fwww.bk.admin.ch" category="related"
+              doctype="edict" enactment_date="2016-01-01" federal_level="Bund" id="4776"
+              title="Bundesgesetz über die Raumplanung">
+        <file category="main" href="http://www.lexfind.ch/dtah/136884/2" description="700.de.pdf" title="700.de.pdf"></file>
+
+    </document>
+    <document authority="Staatskanzlei Kanton Thurgau" authority_url="http%3A%2F%2Fwww.staatskanzlei.tg.ch"
+              category="related" decree_date="2012-09-18" doctype="edict" enactment_date="2016-11-05"
+              federal_level="Kanton" id="4783"
+              title="Verordnung des Regierungsrates zum Planungs- und Baugesetz und zur Interkantonalen Vereinbarung über die Harmonisierung der Baubegriffe">
+        <file category="main"
+              href="http://www.rechtsbuch.tg.ch/frontend/versions/pdf_file_with_annex/1319?locale=de"
+              description="700.1.pdf"
+              title="700.1.pdf"></file>
+
+    </document>
+    <document category="related" doctype="notice" id="4" title="Beispiel Hinweis Dokument">
+        <file category="main" href="/api/attachments/5101" description="example_notice.pdf" title="example_notice.pdf"></file>
+    </document>
+</geolinks>
