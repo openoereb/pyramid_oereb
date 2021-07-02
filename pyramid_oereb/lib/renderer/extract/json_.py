@@ -262,7 +262,7 @@ class Renderer(Base):
                     raise ValueError('Restrictions on landownership without legal provision are only allowed '
                                      'in reduced extracts!')
                 plr_dict = {
-                    'Information': self.get_multilingual_text(plr.information),
+                    'LegendText': self.get_multilingual_text(plr.legend_text),
                     'Theme': self.format_theme(plr.theme),
                     'Lawstatus': self.format_law_status(plr.law_status),
                     'ResponsibleOffice': self.format_office(plr.responsible_office),

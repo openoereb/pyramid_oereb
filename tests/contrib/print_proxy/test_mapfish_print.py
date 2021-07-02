@@ -224,7 +224,7 @@ def test_get_sorted_legend():
             'PartInPercent': 32.6,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
                         ContaminatedPublicTransportSites/1/StaoTyp2',
-            'Information': u'Belastet, untersuchungsbedürftig'
+            'LegendText': u'Belastet, untersuchungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp3',
             'Geom_Type': u'LengthShare',
@@ -232,7 +232,7 @@ def test_get_sorted_legend():
             'LengthShare': 164,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
                         ContaminatedPublicTransportSites/1/StaoTyp3',
-            'Information': u'Belastet, überwachungsbedürftig'
+            'LegendText': u'Belastet, überwachungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp1',
             'Geom_Type': u'NrOfPoints',
@@ -240,7 +240,7 @@ def test_get_sorted_legend():
             'NrOfPoints': 2,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
                         ContaminatedPublicTransportSites/1/StaoTyp1',
-            'Information': u'Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten'
+            'LegendText': u'Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten'
         }, {
             'TypeCode': u'StaoTyp3',
             'Geom_Type': u'LengthShare',
@@ -248,7 +248,7 @@ def test_get_sorted_legend():
             'LengthShare': 2000,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
                         ContaminatedPublicTransportSites/1/StaoTyp3',
-            'Information': u'Belastet, untersuchungsbedürftig'
+            'LegendText': u'Belastet, untersuchungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp2',
             'Geom_Type': u'AreaShare',
@@ -257,7 +257,7 @@ def test_get_sorted_legend():
             'PartInPercent': 32.6,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
                         ContaminatedPublicTransportSites/1/StaoTyp2',
-            'Information': u'Belastet, untersuchungsbedürftig'
+            'LegendText': u'Belastet, untersuchungsbedürftig'
         }
     ]
     sorted_list = renderer.sort_dict_list(test_legend_list, renderer.sort_legend_elem)
@@ -270,7 +270,7 @@ def test_get_sorted_legend():
             'PartInPercent': 32.6,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
                         ContaminatedPublicTransportSites/1/StaoTyp2',
-            'Information': u'Belastet, untersuchungsbedürftig'
+            'LegendText': u'Belastet, untersuchungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp2',
             'Geom_Type': u'AreaShare',
@@ -279,7 +279,7 @@ def test_get_sorted_legend():
             'PartInPercent': 32.6,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
                         ContaminatedPublicTransportSites/1/StaoTyp2',
-            'Information': u'Belastet, untersuchungsbedürftig'
+            'LegendText': u'Belastet, untersuchungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp3',
             'Geom_Type': u'LengthShare',
@@ -287,7 +287,7 @@ def test_get_sorted_legend():
             'LengthShare': 2000,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
                         ContaminatedPublicTransportSites/1/StaoTyp3',
-            'Information': u'Belastet, untersuchungsbedürftig'
+            'LegendText': u'Belastet, untersuchungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp3',
             'Geom_Type': u'LengthShare',
@@ -295,7 +295,7 @@ def test_get_sorted_legend():
             'LengthShare': 164,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
                         ContaminatedPublicTransportSites/1/StaoTyp3',
-            'Information': u'Belastet, überwachungsbedürftig'
+            'LegendText': u'Belastet, überwachungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp1',
             'Geom_Type': u'NrOfPoints',
@@ -303,7 +303,7 @@ def test_get_sorted_legend():
             'NrOfPoints': 2,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
                         ContaminatedPublicTransportSites/1/StaoTyp1',
-            'Information': u'Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten'
+            'LegendText': u'Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten'
         }
     ]
     assert sorted_list == expected_result

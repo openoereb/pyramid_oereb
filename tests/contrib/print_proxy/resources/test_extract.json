@@ -396,7 +396,7 @@
     "RestrictionOnLandownership": [
       {
         "PartInPercent": 65.6,
-        "Information": [
+        "LegendText": [
           {
             "Text": "Industrie- und Gewerbezone",
             "Language": "de"
@@ -1105,7 +1105,7 @@
       },
       {
         "PartInPercent": 2.2,
-        "Information": [
+        "LegendText": [
           {
             "Text": "Industrie- und Gewerbezone",
             "Language": "de"
@@ -1814,7 +1814,7 @@
       },
       {
         "PartInPercent": 5.2,
-        "Information": [
+        "LegendText": [
           {
             "Text": "Industrie- und Gewerbezone",
             "Language": "de"
@@ -2523,7 +2523,7 @@
       },
       {
         "PartInPercent": 6.2,
-        "Information": [
+        "LegendText": [
           {
             "Text": "Rheinuferzone",
             "Language": "de"
@@ -3232,7 +3232,7 @@
       },
       {
         "PartInPercent": 5.1,
-        "Information": [
+        "LegendText": [
           {
             "Text": "Arch\u00e4ologische Schutzzone",
             "Language": "de"
@@ -3941,7 +3941,7 @@
       },
       {
         "PartInPercent": 12.1,
-        "Information": [
+        "LegendText": [
           {
             "Text": "Betriebsstandort. Belastet, weder \u00fcberwachungs- noch sanierungsbed\u00fcrftig",
             "Language": "de"
@@ -4246,7 +4246,7 @@
       },
       {
         "PartInPercent": 4.8,
-        "Information": [
+        "LegendText": [
           {
             "Text": "Betriebsstandort. Belastet,  \u00fcberwachungsbed\u00fcrftig",
             "Language": "de"
@@ -4551,7 +4551,7 @@
       },
       {
         "PartInPercent": 1.0,
-        "Information": [
+        "LegendText": [
           {
             "Text": "Unfallstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
             "Language": "de"
@@ -4856,7 +4856,7 @@
       },
       {
         "PartInPercent": 35.8,
-        "Information": [
+        "LegendText": [
           {
             "Text": "Betriebsstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
             "Language": "de"
@@ -5161,7 +5161,7 @@
       },
       {
         "PartInPercent": 16.0,
-        "Information": [
+        "LegendText": [
           {
             "Text": "Betriebsstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
             "Language": "de"
@@ -5466,7 +5466,7 @@
       },
       {
         "PartInPercent": 65.6,
-        "Information": [
+        "LegendText": [
           {
             "Text": "Empfindlichkeitsstufe ES IV",
             "Language": "de"
@@ -5659,7 +5659,7 @@
       },
       {
         "PartInPercent": 2.2,
-        "Information": [
+        "LegendText": [
           {
             "Text": "Empfindlichkeitsstufe ES IV",
             "Language": "de"
@@ -5852,7 +5852,7 @@
       },
       {
         "PartInPercent": 5.2,
-        "Information": [
+        "LegendText": [
           {
             "Text": "Empfindlichkeitsstufe ES IV",
             "Language": "de"

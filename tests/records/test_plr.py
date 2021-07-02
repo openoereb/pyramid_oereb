@@ -30,7 +30,7 @@ def create_dummy_plr():
 
 def test_init():
     record = create_dummy_plr()
-    assert record.information == {'en': 'Content'}
+    assert record.legend_text == {'en': 'Content'}
     assert record.sub_theme is None
     assert isinstance(record.geometries, list)
     assert isinstance(record.responsible_office, OfficeRecord)

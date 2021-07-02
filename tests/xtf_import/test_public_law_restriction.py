@@ -54,7 +54,7 @@ def test_parse():
     parsed = session.getData()
     assert len(parsed) == 1
     assert parsed[0].id == '108-Z-0010-A'
-    assert parsed[0].information['de'] == u'Höhenbeschränkung für Bauten und andere Hindernisse'
+    assert parsed[0].legend_text['de'] == u'Höhenbeschränkung für Bauten und andere Hindernisse'
     assert parsed[0].topic == 'AirportsSecurityZonePlans'
     assert parsed[0].sub_theme == {
         'de': 'Just a SubTheme'

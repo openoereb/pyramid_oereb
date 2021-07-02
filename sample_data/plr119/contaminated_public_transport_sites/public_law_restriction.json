@@ -7,7 +7,7 @@
     "type_code_list": "",
     "law_status": "inForce",
     "view_service_id": 1,
-    "information": {
+    "legend_text": {
       "it": "Inquinato, è necessario procedere a un?indagine",
       "de": "Belastet, untersuchungsbedürftig",
       "fr": "Pollué, investigation nécessaire"
@@ -26,7 +26,7 @@
     "type_code_list": "",
     "law_status": "inForce",
     "view_service_id": 1,
-    "information": {
+    "legend_text": {
       "it": "Inquinato, è necessario procedere a un?indagine",
       "de": "Belastet, untersuchungsbedürftig",
       "fr": "Pollué, investigation nécessaire"
@@ -45,7 +45,7 @@
     "type_code_list": "",
     "law_status": "inForce",
     "view_service_id": 1,
-    "information": {
+    "legend_text": {
       "de": "Belastet, überwachungsbedürftig",
       "it": "Inquinato, deve essere sorvegliato",
       "fr": "Pollué, nécessite une surveillance"
@@ -64,7 +64,7 @@
     "type_code_list": "",
     "law_status": "inForce",
     "view_service_id": 1,
-    "information": {
+    "legend_text": {
       "de": "Belastet, überwachungsbedürftig",
       "it": "Inquinato, deve essere sorvegliato",
       "fr": "Pollué, nécessite une surveillance"
@@ -83,7 +83,7 @@
     "type_code_list": "",
     "law_status": "inForce",
     "view_service_id": 1,
-    "information": {
+    "legend_text": {
       "it": "Inquinato, non sono prevedibili effetti dannosi o molesti",
       "de": "Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten",
       "fr": "Pollué, pas d?atteinte nuisible ou incommodante à attendre"
@@ -102,7 +102,7 @@
     "type_code_list": "",
     "law_status": "inForce",
     "view_service_id": 1,
-    "information": {
+    "legend_text": {
       "it": "Inquinato, non sono prevedibili effetti dannosi o molesti",
       "de": "Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten",
       "fr": "Pollué, pas d?atteinte nuisible ou incommodante à attendre"

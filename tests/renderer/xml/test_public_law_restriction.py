@@ -38,7 +38,7 @@ def test_sub_theme():
     geometry = GeometryRecord(law_status, datetime.now(), Polygon(), 'test', office=office)
     public_law_restriction = PlrRecord(
         theme=ThemeRecord(u'LandUsePlans', {'de': 'Theme 1'}),
-        information={'de': 'information de'},
+        legend_text={'de': 'information de'},
         law_status=law_status,
         published_from=datetime.now(),
         responsible_office=office,

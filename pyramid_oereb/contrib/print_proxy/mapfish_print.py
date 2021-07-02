@@ -296,7 +296,7 @@ class Renderer(JsonRenderer):
             self._flatten_array_object(restriction_on_landownership, 'Geometry', 'ResponsibleOffice')
             self._localised_text(restriction_on_landownership, 'Theme_Text')
             self._localised_text(restriction_on_landownership, 'Lawstatus_Text')
-            self._multilingual_m_text(restriction_on_landownership, 'Information')
+            self._multilingual_m_text(restriction_on_landownership, 'LegendText')
 
             self._multilingual_text(restriction_on_landownership['ResponsibleOffice'], 'Name')
             restriction_on_landownership['ResponsibleOffice'] = \
@@ -368,11 +368,11 @@ class Renderer(JsonRenderer):
         # One restriction entry per theme
         theme_restriction = {}
         text_element = [
-            'Information', 'Lawstatus_Code', 'Lawstatus_Text', 'SymbolRef', 'TypeCode'
+            'LegendText', 'Lawstatus_Code', 'Lawstatus_Text', 'SymbolRef', 'TypeCode'
         ]
         legend_element = [
             'TypeCode', 'TypeCodelist', 'AreaShare', 'PartInPercent', 'LengthShare', 'NrOfPoints',
-            'SymbolRef', 'Information'
+            'SymbolRef', 'LegendText'
         ]
         split_sub_themes = Config.get('print', {}).get('split_sub_themes', False)
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):

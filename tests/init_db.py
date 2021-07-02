@@ -272,7 +272,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '1',
-            'information': {'de': u'Long line PLR'},
+            'legend_text': {'de': u'Long line PLR'},
             'topic': u'MotorwaysBuildingLines',
             'type_code': u'CodeA',
             "type_code_list": u'',
@@ -283,7 +283,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '2',
-            'information': {'de': u'Short line PLR'},
+            'legend_text': {'de': u'Short line PLR'},
             'topic': u'MotorwaysBuildingLines',
             'type_code': u'CodeA',
             "type_code_list": u'',
@@ -294,7 +294,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '3',
-            'information': {'de': u'Double intersection line PLR'},
+            'legend_text': {'de': u'Double intersection line PLR'},
             'topic': u'MotorwaysBuildingLines',
             'type_code': u'CodeA',
             "type_code_list": u'',
@@ -305,7 +305,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '4',
-            'information': {'de': u'Future geometry'},
+            'legend_text': {'de': u'Future geometry'},
             'topic': u'MotorwaysBuildingLines',
             'type_code': u'CodeA',
             "type_code_list": u'',
@@ -457,7 +457,7 @@ class DummyData(object):
 
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': '1',
-            'information': {'de': u'Large polygon PLR'},
+            'legend_text': {'de': u'Large polygon PLR'},
             'topic': u'ContaminatedSites',
             'type_code': u'CodeA',
             "type_code_list": u'',
@@ -468,7 +468,7 @@ class DummyData(object):
         })
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': '2',
-            'information': {'de': u'Small polygon PLR'},
+            'legend_text': {'de': u'Small polygon PLR'},
             'topic': u'ContaminatedSites',
             'type_code': u'CodeA',
             "type_code_list": u'',
@@ -479,7 +479,7 @@ class DummyData(object):
         })
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': '3',
-            'information': {'de': u'Double intersection polygon PLR'},
+            'legend_text': {'de': u'Double intersection polygon PLR'},
             'topic': u'ContaminatedSites',
             'type_code': u'CodeA',
             "type_code_list": u'',
@@ -490,7 +490,7 @@ class DummyData(object):
         })
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': '4',
-            'information': {'de': u'Future PLR'},
+            'legend_text': {'de': u'Future PLR'},
             'topic': u'ContaminatedSites',
             'type_code': u'CodeA',
             "type_code_list": u'',
@@ -576,7 +576,7 @@ class DummyData(object):
 
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '1',
-            'information': {'de': u'Large polygon PLR'},
+            'legend_text': {'de': u'Large polygon PLR'},
             'topic': u'LandUsePlans',
             'type_code': u'CodeA',
             "type_code_list": u'',
@@ -587,7 +587,7 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '2',
-            'information': {'de': u'Small polygon PLR'},
+            'legend_text': {'de': u'Small polygon PLR'},
             'topic': u'LandUsePlans',
             'type_code': u'CodeA',
             "type_code_list": u'',
@@ -598,7 +598,7 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '3',
-            'information': {'de': u'Double intersection polygon PLR'},
+            'legend_text': {'de': u'Double intersection polygon PLR'},
             'topic': u'LandUsePlans',
             'type_code': u'CodeA',
             "type_code_list": u'',
@@ -609,7 +609,7 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '4',
-            'information': {'de': u'Future PLR'},
+            'legend_text': {'de': u'Future PLR'},
             'topic': u'LandUsePlans',
             'type_code': u'CodeA',
             "type_code_list": u'',
@@ -700,7 +700,7 @@ class DummyData(object):
         })
         connection.execute(forest_perimeters.PublicLawRestriction.__table__.insert(), {
             'id': '1',
-            'information': {'de': u'Long line PLR'},
+            'legend_text': {'de': u'Long line PLR'},
             'topic': u'ForestPerimeters',
             'type_code': u'CodeA',
             "type_code_list": u'',
