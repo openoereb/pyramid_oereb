@@ -1,6 +1,8 @@
 """
 This is a full representation of the data model defined by the federal definition.
+
 **It is representing the topic: Contaminated Sites**
+
 You can use it to
 produce a own new topic for the oereb eco system in the specifications shape. To be able to adapt this
 models to your own infrastructure you must implement the same attribute names! In fact that inheritance
@@ -24,6 +26,7 @@ class Availability(Base):
     A simple bucket for achieving a switch per municipality. Here you can configure via the imported data if
     a public law restriction is available or not. You need to fill it with the data you provided in the
     app schemas municipality table (fosnr).
+
     Attributes:
         fosnr (str): The identifier of the municipality in your system (id_bfs = fosnr)
         available (bool): The switch field to configure if this plr is available for the
@@ -40,6 +43,7 @@ class Office(Base):
     """
     The bucket to fill in all the offices you need to reference from public law restriction, document,
     geometry.
+
     Attributes:
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
@@ -71,6 +75,7 @@ class DataIntegration(Base):
     """
     The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be
     able to find out who was the delivering instance.
+
     Attributes:
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
@@ -94,6 +99,7 @@ class DataIntegration(Base):
 class ViewService(Base):
     """
     A view service aka WM(T)S which can deliver a cartographic representation via web.
+
     Attributes:
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
@@ -112,6 +118,7 @@ class LegendEntry(Base):
     """
     A class based legend system which is directly related to
     :ref:`pyramid_oereb.standard.models.contaminated_sites.ViewService`.
+
     Attributes:
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
@@ -154,6 +161,7 @@ class LegendEntry(Base):
 class PublicLawRestriction(Base):
     """
     The container where you can fill in all your public law restrictions to the topic.
+
     Attributes:
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
@@ -213,6 +221,7 @@ class PublicLawRestriction(Base):
 class Geometry(Base):
     """
     The dedicated model for all geometries in relation to their public law restriction.
+
     Attributes:
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
@@ -263,6 +272,7 @@ class PublicLawRestrictionBase(Base):
     """
     Meta bucket (join table) for public law restrictions which acts as a base for other public law
     restrictions.
+
     Attributes:
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
@@ -303,6 +313,7 @@ class PublicLawRestrictionRefinement(Base):
     """
     Meta bucket (join table) for public law restrictions which acts as a refinement for other public law
     restrictions.
+
     Attributes:
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
