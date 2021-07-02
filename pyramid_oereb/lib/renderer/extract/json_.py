@@ -8,7 +8,7 @@ from pyramid.response import Response
 from pyramid.testing import DummyRequest
 
 from pyramid_oereb import Config, route_prefix
-from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord
+from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
 from shapely.geometry import mapping
 
