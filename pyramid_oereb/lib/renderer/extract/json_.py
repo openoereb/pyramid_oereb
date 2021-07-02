@@ -8,8 +8,7 @@ from pyramid.response import Response
 from pyramid.testing import DummyRequest
 
 from pyramid_oereb import Config, route_prefix
-from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord,\
-    ArticleRecord, LawRecord, HintRecord
+from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
 from shapely.geometry import mapping
 
@@ -316,68 +315,48 @@ class Renderer(Base):
         Formats a document record for rendering according to the federal specification.
 
         Args:
-            document (pyramid_oereb.lib.records.documents.DocumentBaseRecord): The document
+            document (pyramid_oereb.lib.records.documents.DocumentRecord): The document
                 record to be formatted.
 
         Returns:
             dict: The formatted dictionary for rendering.
         """
 
+        if not isinstance(document, DocumentRecord):
+            raise TypeError('DocumentRecord needed, got {0} instead'.format(document))
+
         document_dict = dict()
 
-        if isinstance(document, DocumentRecord) or isinstance(document, LegalProvisionRecord) \
-                or isinstance(document, LawRecord) or isinstance(document, HintRecord):
+        multilingual_text_at_web = self.get_multilingual_text(document.text_at_web)
 
-            multilingual_text_at_web = self.get_multilingual_text(document.text_at_web)
+        document_dict.update({
+            # TODO: Provide document types with code and multi-lingual text in configuration.
+            #       https://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Texte.xml
+            'DocumentType': Config.get('document_types')[document.document_type],
+            'Index': document.index,
+            'Title': self.get_multilingual_text(document.title),
+            'Lawstatus': self.format_law_status(document.law_status),
+            'TextAtWeb': multilingual_text_at_web,
+            'ResponsibleOffice': self.format_office(document.responsible_office)
+        })
 
-            document_dict.update({
-                'DocumentType': document.document_type,
-                'Lawstatus': self.format_law_status(document.law_status),
-                'TextAtWeb': multilingual_text_at_web,
-                'Title': self.get_multilingual_text(document.title),
-                'ResponsibleOffice': self.format_office(document.responsible_office)
-            })
+        if document.abbreviation is not None:
+            document_dict['Abbreviation'] = self.get_multilingual_text(document.abbreviation)
+        if document.official_number is not None:
+            document_dict['OfficialNumber'] = self.get_multilingual_text(document.official_number)
 
-            if document.official_title is not None:
-                document_dict['OfficialTitle'] = self.get_multilingual_text(document.official_title)
-            if document.abbreviation is not None:
-                document_dict['Abbreviation'] = self.get_multilingual_text(document.abbreviation)
-            if document.official_number is not None:
-                document_dict['OfficialNumber'] = document.official_number
-            if document.canton is not None:
-                document_dict['Canton'] = document.canton
-            if document.municipality is not None:
-                document_dict['Municipality'] = document.municipality
+        if isinstance(document.article_numbers, list) and len(document.article_numbers) > 0:
+            document_dict['ArticleNumber'] = document.article_numbers
 
-            if isinstance(document.article_numbers, list) and len(document.article_numbers) > 0:
-                document_dict['ArticleNumber'] = document.article_numbers
+        # TODO: Should be deleted as there are no flavours anymore.
+        # if self._params.flavour == 'full' and isinstance(document, LegalProvisionRecord):
+        #     base64_text_at_web = url_to_base64(multilingual_text_at_web[0].get('Text'))
+        #     if base64_text_at_web is not None:
+        #         document_dict['Base64TextAtWeb'] = base64_text_at_web
 
-            if isinstance(document.articles, list) and len(document.articles) > 0:
-                article_list = list()
-                for article in document.articles:
-                    article_list.append(self.format_document(article))
-                document_dict['Article'] = article_list
-
-            if isinstance(document.references, list) and len(document.references) > 0:
-                reference_list = list()
-                for reference in document.references:
-                    reference_list.append(self.format_document(reference))
-                document_dict['Reference'] = reference_list
-
-            # Note: No output for File (binary) because specifications are
-            # currently unclear on this point. See Issue:
-            # https://github.com/openoereb/pyramid_oereb/issues/611
-
-        elif isinstance(document, ArticleRecord):
-            document_dict.update({
-                'Lawstatus': self.format_law_status(document.law_status),
-                'Number': document.number
-            })
-
-            if document.text_at_web is not None:
-                document_dict['TextAtWeb'] = self.get_multilingual_text(document.text_at_web)
-            if document.text is not None:
-                document_dict['Text'] = self.get_multilingual_text(document.text)
+        # Note: No output for File (binary) because speccifications are
+        # currently unclear on this point. See Issue:
+        # https://github.com/openoereb/pyramid_oereb/issues/611
 
         return document_dict
 
