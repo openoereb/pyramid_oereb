@@ -276,10 +276,6 @@ class LegendEntry(Base):
         topic (str): Statement to describe to which public law restriction this legend entry
             belongs.
         sub_theme (dict): Multilingual description for sub topics this legend entry might belonging to.
-        other_theme (str): A link to additional topics. It must be like the following patterns
-            * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
-            the official two letters short version (e.g.'BE') {topic} as the name of the
-            topic and {bfsnr} as the municipality id of the federal office of statistics.
         view_service_id (str): The foreign key to the view service this legend entry is related to.
         view_service (pyramid_oereb.standard.models.airports_building_lines.ViewService):
             The dedicated relation to the view service instance from database.
@@ -293,7 +289,6 @@ class LegendEntry(Base):
     type_code_list = sa.Column(sa.String, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
     sub_theme = sa.Column(JSONType, nullable=True)
-    other_theme = sa.Column(sa.String, nullable=True)
     view_service_id = sa.Column(
         sa.String,
         sa.ForeignKey(ViewService.id),
@@ -312,10 +307,6 @@ class PublicLawRestriction(Base):
         information (dict): The multilingual textual representation of the public law restriction.
         topic (str): Category for this public law restriction (name of the topic).
         sub_theme (dict): Multilingual textual explanation to subtype the topic attribute.
-        other_theme (str): A link to additional topics. It must be like the following patterns
-            * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
-            the official two letters short version (e.g.'BE') {topic} as the name of the
-            topic and {bfsnr} as the municipality id of the federal office of statistics.
         type_code (str): Type code of the public law restriction machine readable based on the
             original data  model of this public law restriction.
         type_code_list (str): List of full range of type_codes for this public law restriction in a
@@ -339,7 +330,6 @@ class PublicLawRestriction(Base):
     information = sa.Column(JSONType, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
     sub_theme = sa.Column(JSONType, nullable=True)
-    other_theme = sa.Column(sa.String, nullable=True)
     type_code = sa.Column(sa.String(40), nullable=True)
     type_code_list = sa.Column(sa.String, nullable=True)
     law_status = sa.Column(sa.String, nullable=False)
