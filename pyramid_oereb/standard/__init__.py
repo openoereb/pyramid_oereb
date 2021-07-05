@@ -9,6 +9,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.schema import CreateTable
 from shutil import copyfile
 from pyramid_oereb.lib.config import Config
+from pyramid_oereb.standard.sources.plr import StandardThemeConfigParser
 
 
 def convert_camel_case_to_snake_case(name):
@@ -114,7 +115,9 @@ def create_tables_from_standard_configuration(
     for schema in Config.get('plrs'):
 
         plr_schema_engine = create_engine(schema.get('source').get('params').get('db_connection'), echo=True)
-
+        config_parser = StandardThemeConfigParser(**schema)
+        models = config_parser.get_models()
+        plr_base = models['Base']
         if sql_file is None:
             if schema.get('standard'):
 
@@ -122,23 +125,15 @@ def create_tables_from_standard_configuration(
                     plr_schema_connection = plr_schema_engine.connect()
                     try:
                         plr_schema_connection.execute('CREATE SCHEMA IF NOT EXISTS {name};'.format(
-                            name=convert_camel_case_to_snake_case(schema.get('code')))
+                            name=config_parser.get_schema_name())
                         )
                     finally:
                         plr_schema_connection.close()
 
-                plr_base = DottedNameResolver().maybe_resolve('{package}.Base'.format(
-                    package=schema.get('source').get('params').get('models')
-                ))
                 plr_base.metadata.create_all(plr_schema_engine)
 
         else:
-            plr_base = DottedNameResolver().maybe_resolve('{package}.Base'.format(
-                package=schema.get('source').get('params').get('models')
-            ))
-            sql_file.write('CREATE SCHEMA {name};\n'.format(
-                name=convert_camel_case_to_snake_case(schema.get('code')))
-            )
+            sql_file.write('CREATE SCHEMA {name};\n'.format(name=config_parser.get_schema_name()))
             for table in plr_base.metadata.sorted_tables:
                 create_table = str(CreateTable(table).compile(plr_schema_engine))\
                     .replace('DATETIME', 'timestamp')

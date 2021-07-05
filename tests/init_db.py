@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from datetime import date, timedelta
 
 from sqlalchemy import create_engine
@@ -6,13 +7,26 @@ from sqlalchemy import create_engine
 from pyramid_oereb.lib import b64
 from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.config import Config
+from pyramid_oereb.standard.sources.plr import parse_multiple_standard_themes
 
 file_adapter = FileAdapter()
 
 
+def create_models(configuration, section='pyramid_oereb'):
+    Config._config = None
+    Config.init(configuration, section)
+    themes = parse_multiple_standard_themes(Config)
+    return themes
+
+
 class DummyData(object):
-    def __init__(self):
+    def __init__(self, configuration):
         self._engine = create_engine(Config.get('app_schema').get('db_connection'))
+        self.themes = create_models(configuration)
+        self.contaminated_sites = self.themes['ContaminatedSites']
+        self.land_use_plans = self.themes['LandUsePlans']
+        self.motorways_building_lines = self.themes['MotorwaysBuildingLines']
+        self.forest_perimeters = self.themes['ForestPerimeters']
 
     def init(self):
         self._truncate()
@@ -23,8 +37,11 @@ class DummyData(object):
         self._import_forest_perimeters()
 
     def _truncate(self):
-        from pyramid_oereb.standard.models import main, contaminated_sites, \
-             land_use_plans, motorways_building_lines, forest_perimeters
+        from pyramid_oereb.standard.models import main
+        contaminated_sites = self.contaminated_sites
+        land_use_plans = self.land_use_plans
+        motorways_building_lines = self.motorways_building_lines
+        forest_perimeters = self.forest_perimeters
         connection = self._engine.connect()
         trans = connection.begin()
 
@@ -50,104 +67,104 @@ class DummyData(object):
             table=main.RealEstate.__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=motorways_building_lines.Geometry.__table__.schema,
-            table=motorways_building_lines.Geometry.__table__.name
+            schema=motorways_building_lines['Geometry'].__table__.schema,
+            table=motorways_building_lines['Geometry'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=motorways_building_lines.PublicLawRestriction.__table__.schema,
-            table=motorways_building_lines.PublicLawRestriction.__table__.name
+            schema=motorways_building_lines['PublicLawRestriction'].__table__.schema,
+            table=motorways_building_lines['PublicLawRestriction'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=motorways_building_lines.Office.__table__.schema,
-            table=motorways_building_lines.Office.__table__.name
+            schema=motorways_building_lines['Office'].__table__.schema,
+            table=motorways_building_lines['Office'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=motorways_building_lines.ViewService.__table__.schema,
-            table=motorways_building_lines.ViewService.__table__.name
+            schema=motorways_building_lines['ViewService'].__table__.schema,
+            table=motorways_building_lines['ViewService'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=motorways_building_lines.Document.__table__.schema,
-            table=motorways_building_lines.Document.__table__.name
+            schema=motorways_building_lines['Document'].__table__.schema,
+            table=motorways_building_lines['Document'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=motorways_building_lines.DocumentBase.__table__.schema,
-            table=motorways_building_lines.DocumentBase.__table__.name
+            schema=motorways_building_lines['DocumentBase'].__table__.schema,
+            table=motorways_building_lines['DocumentBase'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=motorways_building_lines.PublicLawRestrictionDocument.__table__.schema,
-            table=motorways_building_lines.PublicLawRestrictionDocument.__table__.name
+            schema=motorways_building_lines['PublicLawRestrictionDocument'].__table__.schema,
+            table=motorways_building_lines['PublicLawRestrictionDocument'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=motorways_building_lines.DocumentReference.__table__.schema,
-            table=motorways_building_lines.DocumentReference.__table__.name
+            schema=motorways_building_lines['DocumentReference'].__table__.schema,
+            table=motorways_building_lines['DocumentReference'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=motorways_building_lines.DataIntegration.__table__.schema,
-            table=motorways_building_lines.DataIntegration.__table__.name
+            schema=motorways_building_lines['DataIntegration'].__table__.schema,
+            table=motorways_building_lines['DataIntegration'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=contaminated_sites.LegendEntry.__table__.schema,
-            table=contaminated_sites.LegendEntry.__table__.name
+            schema=contaminated_sites['LegendEntry'].__table__.schema,
+            table=contaminated_sites['LegendEntry'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=contaminated_sites.ViewService.__table__.schema,
-            table=contaminated_sites.ViewService.__table__.name
+            schema=contaminated_sites['ViewService'].__table__.schema,
+            table=contaminated_sites['ViewService'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=contaminated_sites.Office.__table__.schema,
-            table=contaminated_sites.Office.__table__.name
+            schema=contaminated_sites['Office'].__table__.schema,
+            table=contaminated_sites['Office'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=contaminated_sites.PublicLawRestriction.__table__.schema,
-            table=contaminated_sites.PublicLawRestriction.__table__.name
+            schema=contaminated_sites['PublicLawRestriction'].__table__.schema,
+            table=contaminated_sites['PublicLawRestriction'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=contaminated_sites.Geometry.__table__.schema,
-            table=contaminated_sites.Geometry.__table__.name
+            schema=contaminated_sites['Geometry'].__table__.schema,
+            table=contaminated_sites['Geometry'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=contaminated_sites.DataIntegration.__table__.schema,
-            table=contaminated_sites.DataIntegration.__table__.name
+            schema=contaminated_sites['DataIntegration'].__table__.schema,
+            table=contaminated_sites['DataIntegration'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=land_use_plans.ViewService.__table__.schema,
-            table=land_use_plans.ViewService.__table__.name
+            schema=land_use_plans['ViewService'].__table__.schema,
+            table=land_use_plans['ViewService'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=land_use_plans.Office.__table__.schema,
-            table=land_use_plans.Office.__table__.name
+            schema=land_use_plans['Office'].__table__.schema,
+            table=land_use_plans['Office'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=land_use_plans.PublicLawRestriction.__table__.schema,
-            table=land_use_plans.PublicLawRestriction.__table__.name
+            schema=land_use_plans['PublicLawRestriction'].__table__.schema,
+            table=land_use_plans['PublicLawRestriction'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=land_use_plans.Geometry.__table__.schema,
-            table=land_use_plans.Geometry.__table__.name
+            schema=land_use_plans['Geometry'].__table__.schema,
+            table=land_use_plans['Geometry'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=land_use_plans.DataIntegration.__table__.schema,
-            table=land_use_plans.DataIntegration.__table__.name
+            schema=land_use_plans['DataIntegration'].__table__.schema,
+            table=land_use_plans['DataIntegration'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=forest_perimeters.ViewService.__table__.schema,
-            table=forest_perimeters.ViewService.__table__.name
+            schema=forest_perimeters['ViewService'].__table__.schema,
+            table=forest_perimeters['ViewService'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=forest_perimeters.Office.__table__.schema,
-            table=forest_perimeters.Office.__table__.name
+            schema=forest_perimeters['Office'].__table__.schema,
+            table=forest_perimeters['Office'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=forest_perimeters.PublicLawRestriction.__table__.schema,
-            table=forest_perimeters.PublicLawRestriction.__table__.name
+            schema=forest_perimeters['PublicLawRestriction'].__table__.schema,
+            table=forest_perimeters['PublicLawRestriction'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=forest_perimeters.Geometry.__table__.schema,
-            table=forest_perimeters.Geometry.__table__.name
+            schema=forest_perimeters['Geometry'].__table__.schema,
+            table=forest_perimeters['Geometry'].__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=forest_perimeters.DataIntegration.__table__.schema,
-            table=forest_perimeters.DataIntegration.__table__.name
+            schema=forest_perimeters['DataIntegration'].__table__.schema,
+            table=forest_perimeters['DataIntegration'].__table__.name
         ))
 
         trans.commit()
@@ -231,20 +248,20 @@ class DummyData(object):
         connection.close()
 
     def _import_motorways_building_lines(self):
-        from pyramid_oereb.standard.models import motorways_building_lines
         connection = self._engine.connect()
+        motorways_building_lines = self.motorways_building_lines
 
         # Add dummy PLR data for line geometry
         wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default' \
                   u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
-        connection.execute(motorways_building_lines.ViewService.__table__.insert(), {
+        connection.execute(motorways_building_lines['ViewService'].__table__.insert(), {
             'id': '1',
             'reference_wms': wms_url.format(Config.get('srid')),
             'layer_index': 1,
             'layer_opacity': 1.0
         })
-        connection.execute(motorways_building_lines.LegendEntry.__table__.insert(), {
+        connection.execute(motorways_building_lines['LegendEntry'].__table__.insert(), {
             'id': '1',
             'symbol': b64.encode(file_adapter.read('tests/resources/symbol.png')),
             'legend_text': {
@@ -255,7 +272,7 @@ class DummyData(object):
             'topic': u'MotorwaysBuildingLines',
             'view_service_id': '1'
         })
-        connection.execute(motorways_building_lines.Office.__table__.insert(), {
+        connection.execute(motorways_building_lines['Office'].__table__.insert(), {
             'id': '1',
             'name': {'de': u'Test Office'},
             'office_at_web': {
@@ -265,12 +282,12 @@ class DummyData(object):
                 'en': 'https://www.bav.admin.ch/bav/en/home.html'
             }
         })
-        connection.execute(motorways_building_lines.DataIntegration.__table__.insert(), {
+        connection.execute(motorways_building_lines['DataIntegration'].__table__.insert(), {
             'id': '1',
             'date': u'2017-07-01T00:00:00',
             'office_id': '1'
         })
-        connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
+        connection.execute(motorways_building_lines['PublicLawRestriction'].__table__.insert(), {
             'id': '1',
             'information': {'de': u'Long line PLR'},
             'topic': u'MotorwaysBuildingLines',
@@ -281,7 +298,7 @@ class DummyData(object):
             'view_service_id': '1',
             'office_id': '1'
         })
-        connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
+        connection.execute(motorways_building_lines['PublicLawRestriction'].__table__.insert(), {
             'id': '2',
             'information': {'de': u'Short line PLR'},
             'topic': u'MotorwaysBuildingLines',
@@ -292,7 +309,7 @@ class DummyData(object):
             'view_service_id': '1',
             'office_id': '1'
         })
-        connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
+        connection.execute(motorways_building_lines['PublicLawRestriction'].__table__.insert(), {
             'id': '3',
             'information': {'de': u'Double intersection line PLR'},
             'topic': u'MotorwaysBuildingLines',
@@ -303,7 +320,7 @@ class DummyData(object):
             'view_service_id': '1',
             'office_id': '1'
         })
-        connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
+        connection.execute(motorways_building_lines['PublicLawRestriction'].__table__.insert(), {
             'id': '4',
             'information': {'de': u'Future geometry'},
             'topic': u'MotorwaysBuildingLines',
@@ -314,7 +331,7 @@ class DummyData(object):
             'view_service_id': '1',
             'office_id': '1'
         })
-        connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
+        connection.execute(motorways_building_lines['Geometry'].__table__.insert(), {
             'id': '1',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
@@ -322,7 +339,7 @@ class DummyData(object):
             'office_id': '1',
             'geom': u'SRID=2056;LINESTRING (0 0, 2 2)'
         })
-        connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
+        connection.execute(motorways_building_lines['Geometry'].__table__.insert(), {
             'id': '2',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
@@ -330,7 +347,7 @@ class DummyData(object):
             'office_id': '1',
             'geom': u'SRID=2056;LINESTRING (1.5 1.5, 1.5 2.5)'
         })
-        connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
+        connection.execute(motorways_building_lines['Geometry'].__table__.insert(), {
             'id': '3',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
@@ -338,7 +355,7 @@ class DummyData(object):
             'office_id': '1',
             'geom': u'SRID=2056;LINESTRING (3 1, 3 4, 6 4, 6 1, 4.5 1)'
         })
-        connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
+        connection.execute(motorways_building_lines['Geometry'].__table__.insert(), {
             'id': '4',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
@@ -346,70 +363,70 @@ class DummyData(object):
             'office_id': '1',
             'geom': u'SRID=2056;LINESTRING (0 0, 4 4)'
         })
-        connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
+        connection.execute(motorways_building_lines['DocumentBase'].__table__.insert(), {
             'id': '1',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'type': u'document'
         })
-        connection.execute(motorways_building_lines.Document.__table__.insert(), {
+        connection.execute(motorways_building_lines['Document'].__table__.insert(), {
             'id': '1',
             'document_type': u'Law',
             'title': {'de': u'First level document'},
             'office_id': '1'
         })
-        connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
+        connection.execute(motorways_building_lines['DocumentBase'].__table__.insert(), {
             'id': '2',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'type': u'document'
         })
-        connection.execute(motorways_building_lines.Document.__table__.insert(), {
+        connection.execute(motorways_building_lines['Document'].__table__.insert(), {
             'id': '2',
             'document_type': u'Law',
             'title': {'de': u'First level future document'},
             'office_id': '1'
         })
-        connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
+        connection.execute(motorways_building_lines['DocumentBase'].__table__.insert(), {
             'id': '3',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'type': u'document'
         })
-        connection.execute(motorways_building_lines.Document.__table__.insert(), {
+        connection.execute(motorways_building_lines['Document'].__table__.insert(), {
             'id': '3',
             'document_type': u'Law',
             'title': {'de': u'Second level document'},
             'office_id': '1'
         })
-        connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
+        connection.execute(motorways_building_lines['DocumentBase'].__table__.insert(), {
             'id': '4',
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'type': u'document'
         })
-        connection.execute(motorways_building_lines.Document.__table__.insert(), {
+        connection.execute(motorways_building_lines['Document'].__table__.insert(), {
             'id': '4',
             'document_type': u'Law',
             'title': {'de': u'Second level future document'},
             'office_id': '1'
         })
-        connection.execute(motorways_building_lines.PublicLawRestrictionDocument.__table__.insert(), {
+        connection.execute(motorways_building_lines['PublicLawRestrictionDocument'].__table__.insert(), {
             'id': '1',
             'public_law_restriction_id': '1',
             'document_id': '1'
         })
-        connection.execute(motorways_building_lines.PublicLawRestrictionDocument.__table__.insert(), {
+        connection.execute(motorways_building_lines['PublicLawRestrictionDocument'].__table__.insert(), {
             'id': '2',
             'public_law_restriction_id': '1',
             'document_id': '2'
         })
-        connection.execute(motorways_building_lines.DocumentReference.__table__.insert(), {
+        connection.execute(motorways_building_lines['DocumentReference'].__table__.insert(), {
             'id': '1',
             'document_id': '1',
             'reference_document_id': '3'
         })
-        connection.execute(motorways_building_lines.DocumentReference.__table__.insert(), {
+        connection.execute(motorways_building_lines['DocumentReference'].__table__.insert(), {
             'id': '2',
             'document_id': '1',
             'reference_document_id': '4'
@@ -418,21 +435,20 @@ class DummyData(object):
         connection.close()
 
     def _import_contaminated_sites(self):
-        from pyramid_oereb.standard.models import contaminated_sites
         connection = self._engine.connect()
-
+        contaminated_sites = self.contaminated_sites
         # Add dummy PLR data for polygon geometry
         wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default' \
                   u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
-        connection.execute(contaminated_sites.ViewService.__table__.insert(), {
+        connection.execute(contaminated_sites['ViewService'].__table__.insert(), {
             'id': '1',
             'reference_wms': wms_url.format(Config.get('srid')),
             'layer_index': 1,
             'layer_opacity': 1.0
         })
 
-        connection.execute(contaminated_sites.LegendEntry.__table__.insert(), {
+        connection.execute(contaminated_sites['LegendEntry'].__table__.insert(), {
             'id': '1',
             'symbol': b64.encode(file_adapter.read('tests/resources/symbol.png')),
             'legend_text': {
@@ -444,18 +460,18 @@ class DummyData(object):
             'view_service_id': '1'
         })
 
-        connection.execute(contaminated_sites.Office.__table__.insert(), {
+        connection.execute(contaminated_sites['Office'].__table__.insert(), {
             'id': '1',
             'name': {'de': u'Test Office'}
         })
 
-        connection.execute(contaminated_sites.DataIntegration.__table__.insert(), {
+        connection.execute(contaminated_sites['DataIntegration'].__table__.insert(), {
             'id': '1',
             'date': u'2017-07-01T00:00:00',
             'office_id': '1'
         })
 
-        connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
+        connection.execute(contaminated_sites['PublicLawRestriction'].__table__.insert(), {
             'id': '1',
             'information': {'de': u'Large polygon PLR'},
             'topic': u'ContaminatedSites',
@@ -466,7 +482,7 @@ class DummyData(object):
             'view_service_id': '1',
             'office_id': '1'
         })
-        connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
+        connection.execute(contaminated_sites['PublicLawRestriction'].__table__.insert(), {
             'id': '2',
             'information': {'de': u'Small polygon PLR'},
             'topic': u'ContaminatedSites',
@@ -477,7 +493,7 @@ class DummyData(object):
             'view_service_id': '1',
             'office_id': '1'
         })
-        connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
+        connection.execute(contaminated_sites['PublicLawRestriction'].__table__.insert(), {
             'id': '3',
             'information': {'de': u'Double intersection polygon PLR'},
             'topic': u'ContaminatedSites',
@@ -488,7 +504,7 @@ class DummyData(object):
             'view_service_id': '1',
             'office_id': '1'
         })
-        connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
+        connection.execute(contaminated_sites['PublicLawRestriction'].__table__.insert(), {
             'id': '4',
             'information': {'de': u'Future PLR'},
             'topic': u'ContaminatedSites',
@@ -500,7 +516,7 @@ class DummyData(object):
             'office_id': '1'
         })
 
-        connection.execute(contaminated_sites.Geometry.__table__.insert(), {
+        connection.execute(contaminated_sites['Geometry'].__table__.insert(), {
             'id': '1',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
@@ -508,7 +524,7 @@ class DummyData(object):
             'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((0 0, 0 1.5, 1.5 1.5, 1.5 0, 0 0)))'
         })
-        connection.execute(contaminated_sites.Geometry.__table__.insert(), {
+        connection.execute(contaminated_sites['Geometry'].__table__.insert(), {
             'id': '2',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
@@ -516,7 +532,7 @@ class DummyData(object):
             'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5)))'
         })
-        connection.execute(contaminated_sites.Geometry.__table__.insert(), {
+        connection.execute(contaminated_sites['Geometry'].__table__.insert(), {
             'id': '3',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
@@ -525,7 +541,7 @@ class DummyData(object):
             'geom': u'SRID=2056;GEOMETRYCOLLECTION('
                     u'POLYGON((3 2.5, 3 5, 7 5, 7 0, 3 0, 3 1, 6 1, 6 4, 4 2.5, 3 2.5)))'
         })
-        connection.execute(contaminated_sites.Geometry.__table__.insert(), {
+        connection.execute(contaminated_sites['Geometry'].__table__.insert(), {
             'id': '4',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
@@ -537,21 +553,21 @@ class DummyData(object):
         connection.close()
 
     def _import_land_use_plans(self):
-        from pyramid_oereb.standard.models import land_use_plans
         connection = self._engine.connect()
+        land_use_plans = self.land_use_plans
 
         # Add dummy PLR data for collection geometry test
         wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default' \
                   u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
-        connection.execute(land_use_plans.ViewService.__table__.insert(), {
+        connection.execute(land_use_plans['ViewService'].__table__.insert(), {
             'id': '1',
             'reference_wms': wms_url.format(Config.get('srid')),
             'layer_index': 1,
             'layer_opacity': 1.0
         })
 
-        connection.execute(land_use_plans.LegendEntry.__table__.insert(), {
+        connection.execute(land_use_plans['LegendEntry'].__table__.insert(), {
             'id': '1',
             'symbol': b64.encode(file_adapter.read('tests/resources/symbol.png')),
             'legend_text': {
@@ -563,18 +579,18 @@ class DummyData(object):
             'view_service_id': '1'
         })
 
-        connection.execute(land_use_plans.Office.__table__.insert(), {
+        connection.execute(land_use_plans['Office'].__table__.insert(), {
             'id': '1',
             'name': {'de': u'Test Office'}
         })
 
-        connection.execute(land_use_plans.DataIntegration.__table__.insert(), {
+        connection.execute(land_use_plans['DataIntegration'].__table__.insert(), {
             'id': '1',
             'date': u'2017-07-01T00:00:00',
             'office_id': '1'
         })
 
-        connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
+        connection.execute(land_use_plans['PublicLawRestriction'].__table__.insert(), {
             'id': '1',
             'information': {'de': u'Large polygon PLR'},
             'topic': u'LandUsePlans',
@@ -585,7 +601,7 @@ class DummyData(object):
             'view_service_id': '1',
             'office_id': '1'
         })
-        connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
+        connection.execute(land_use_plans['PublicLawRestriction'].__table__.insert(), {
             'id': '2',
             'information': {'de': u'Small polygon PLR'},
             'topic': u'LandUsePlans',
@@ -596,7 +612,7 @@ class DummyData(object):
             'view_service_id': '1',
             'office_id': '1'
         })
-        connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
+        connection.execute(land_use_plans['PublicLawRestriction'].__table__.insert(), {
             'id': '3',
             'information': {'de': u'Double intersection polygon PLR'},
             'topic': u'LandUsePlans',
@@ -607,7 +623,7 @@ class DummyData(object):
             'view_service_id': '1',
             'office_id': '1'
         })
-        connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
+        connection.execute(land_use_plans['PublicLawRestriction'].__table__.insert(), {
             'id': '4',
             'information': {'de': u'Future PLR'},
             'topic': u'LandUsePlans',
@@ -619,7 +635,7 @@ class DummyData(object):
             'office_id': '1'
         })
 
-        connection.execute(land_use_plans.Geometry.__table__.insert(), {
+        connection.execute(land_use_plans['Geometry'].__table__.insert(), {
             'id': '1',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
@@ -628,7 +644,7 @@ class DummyData(object):
             'geom': u'SRID=2056;GEOMETRYCOLLECTION('
                     u'POLYGON((1 -1, 9 -1, 9 7, 1 7, 1 8, 10 8, 10 -2, 1 -2, 1 -1)))'
         })
-        connection.execute(land_use_plans.Geometry.__table__.insert(), {
+        connection.execute(land_use_plans['Geometry'].__table__.insert(), {
             'id': '2',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
@@ -636,7 +652,7 @@ class DummyData(object):
             'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((0 0, 0 1.5, 1.5 1.5, 1.5 0, 0 0)))'
         })
-        connection.execute(land_use_plans.Geometry.__table__.insert(), {
+        connection.execute(land_use_plans['Geometry'].__table__.insert(), {
             'id': '3',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
@@ -645,7 +661,7 @@ class DummyData(object):
             'geom': u'SRID=2056;GEOMETRYCOLLECTION('
                     u'POLYGON((3 2.5, 3 5, 7 5, 7 0, 3 0, 3 1, 6 1, 6 4, 4 2.5, 3 2.5)))'
         })
-        connection.execute(land_use_plans.Geometry.__table__.insert(), {
+        connection.execute(land_use_plans['Geometry'].__table__.insert(), {
             'id': '4',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
@@ -653,7 +669,7 @@ class DummyData(object):
             'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5)))'
         })
-        connection.execute(land_use_plans.Geometry.__table__.insert(), {
+        connection.execute(land_use_plans['Geometry'].__table__.insert(), {
             'id': '5',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
@@ -665,20 +681,20 @@ class DummyData(object):
         connection.close()
 
     def _import_forest_perimeters(self):
-        from pyramid_oereb.standard.models import forest_perimeters
         connection = self._engine.connect()
+        forest_perimeters = self.forest_perimeters
 
         # Add dummy PLR data for line geometry
         wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default' \
                   u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
-        connection.execute(forest_perimeters.ViewService.__table__.insert(), {
+        connection.execute(forest_perimeters['ViewService'].__table__.insert(), {
             'id': '1',
             'reference_wms': wms_url.format(Config.get('srid')),
             'layer_index': 1,
             'layer_opacity': 1.0
         })
-        connection.execute(forest_perimeters.LegendEntry.__table__.insert(), {
+        connection.execute(forest_perimeters['LegendEntry'].__table__.insert(), {
             'id': '1',
             'symbol': b64.encode(file_adapter.read('tests/resources/symbol.png')),
             'legend_text': {
@@ -689,16 +705,16 @@ class DummyData(object):
             'topic': u'ForestPerimeters',
             'view_service_id': '1'
         })
-        connection.execute(forest_perimeters.Office.__table__.insert(), {
+        connection.execute(forest_perimeters['Office'].__table__.insert(), {
             'id': '1',
             'name': {'de': u'Test Office'}
         })
-        connection.execute(forest_perimeters.DataIntegration.__table__.insert(), {
+        connection.execute(forest_perimeters['DataIntegration'].__table__.insert(), {
             'id': '1',
             'date': u'2017-07-01T00:00:00',
             'office_id': '1'
         })
-        connection.execute(forest_perimeters.PublicLawRestriction.__table__.insert(), {
+        connection.execute(forest_perimeters['PublicLawRestriction'].__table__.insert(), {
             'id': '1',
             'information': {'de': u'Long line PLR'},
             'topic': u'ForestPerimeters',
@@ -709,7 +725,7 @@ class DummyData(object):
             'view_service_id': '1',
             'office_id': '1'
         })
-        connection.execute(forest_perimeters.Geometry.__table__.insert(), {
+        connection.execute(forest_perimeters['Geometry'].__table__.insert(), {
             'id': '1',
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),

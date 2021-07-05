@@ -4,13 +4,13 @@ import re
 import json
 import optparse
 import os
-import importlib
 
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Connection
 from sqlalchemy.orm import sessionmaker, class_mapper
 
 from pyramid_oereb.lib.config import Config
+from pyramid_oereb.standard.sources.plr import parse_multiple_standard_themes
 
 
 class SampleData(object):
@@ -111,64 +111,64 @@ class SampleData(object):
 
             # Truncate tables
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.Glossary.__table__.schema,
-                table=schema.Glossary.__table__.name
+                schema=schema['Glossary'].__table__.schema,
+                table=schema['Glossary'].__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.ExclusionOfLiability.__table__.schema,
-                table=schema.ExclusionOfLiability.__table__.name
+                schema=schema['ExclusionOfLiability'].__table__.schema,
+                table=schema['ExclusionOfLiability'].__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.Municipality.__table__.schema,
-                table=schema.Municipality.__table__.name
+                schema=schema['Municipality'].__table__.schema,
+                table=schema['Municipality'].__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.Address.__table__.schema,
-                table=schema.Address.__table__.name
+                schema=schema['Address'].__table__.schema,
+                table=schema['Address'].__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.RealEstate.__table__.schema,
-                table=schema.RealEstate.__table__.name
+                schema=schema['RealEstate'].__table__.schema,
+                table=schema['RealEstate'].__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.PublicLawRestrictionDocument.__table__.schema,
-                table=schema.PublicLawRestrictionDocument.__table__.name
+                schema=schema['PublicLawRestrictionDocument'].__table__.schema,
+                table=schema['PublicLawRestrictionDocument'].__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.DocumentReference.__table__.schema,
-                table=schema.DocumentReference.__table__.name
+                schema=schema['DocumentReference'].__table__.schema,
+                table=schema['DocumentReference'].__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.DocumentBase.__table__.schema,
-                table=schema.DocumentBase.__table__.name
+                schema=schema['DocumentBase'].__table__.schema,
+                table=schema['DocumentBase'].__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.Geometry.__table__.schema,
-                table=schema.Geometry.__table__.name
+                schema=schema['Geometry'].__table__.schema,
+                table=schema['Geometry'].__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.PublicLawRestriction.__table__.schema,
-                table=schema.PublicLawRestriction.__table__.name
+                schema=schema['PublicLawRestriction'].__table__.schema,
+                table=schema['PublicLawRestriction'].__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.ViewService.__table__.schema,
-                table=schema.ViewService.__table__.name
+                schema=schema['ViewService'].__table__.schema,
+                table=schema['ViewService'].__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.Office.__table__.schema,
-                table=schema.Office.__table__.name
+                schema=schema['Office'].__table__.schema,
+                table=schema['Office'].__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.Availability.__table__.schema,
-                table=schema.Availability.__table__.name
+                schema=schema['Availability'].__table__.schema,
+                table=schema['Availability'].__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.LegendEntry.__table__.schema,
-                table=schema.LegendEntry.__table__.name
+                schema=schema['LegendEntry'].__table__.schema,
+                table=schema['LegendEntry'].__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.DataIntegration.__table__.schema,
-                table=schema.DataIntegration.__table__.name
+                schema=schema['DataIntegration'].__table__.schema,
+                table=schema['DataIntegration'].__table__.name
             ))
 
     def load(self):
@@ -176,17 +176,12 @@ class SampleData(object):
         Performs the database operations to load the sample data.
         """
         # Find data model for each PLR from config
-        plrs = Config._config.get('plrs')
-        models = {plr['code']: plr['source']['params']['models'] for plr in plrs}
-        try:
-            contaminated_public_transport_sites = \
-                importlib.import_module(models['ContaminatedPublicTransportSites'])
-            groundwater_protection_zones = importlib.import_module(models['GroundwaterProtectionZones'])
-            motorways_building_lines = importlib.import_module(models['MotorwaysBuildingLines'])
-            contaminated_military_sites = importlib.import_module(models['ContaminatedMilitarySites'])
-            forest_perimeters = importlib.import_module(models['ForestPerimeters'])
-        except KeyError as e:
-            raise Exception(f"Missing model in YAML configuration file: {e}")
+        themes = parse_multiple_standard_themes(Config)
+        contaminated_public_transport_sites = themes['ContaminatedPublicTransportSites']
+        groundwater_protection_zones = themes['GroundwaterProtectionZones']
+        motorways_building_lines = themes['MotorwaysBuildingLines']
+        contaminated_military_sites = themes['ContaminatedMilitarySites']
+        forest_perimeters = themes['ForestPerimeters']
 
         from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality, \
             Glossary, ExclusionOfLiability
@@ -209,13 +204,13 @@ class SampleData(object):
 
                 # Fill tables with sample data
                 for class_, file_name in [
-                    (schema.Availability, 'availabilities.json'),
-                    (schema.Office, 'office.json'),
-                    (schema.DataIntegration, 'data_integration.json'),
-                    (schema.ViewService, 'view_service.json'),
-                    (schema.LegendEntry, 'legend_entry.json'),
-                    (schema.PublicLawRestriction, 'public_law_restriction.json'),
-                    (schema.Geometry, 'geometry.json'),
+                    (schema['Availability'], 'availabilities.json'),
+                    (schema['Office'], 'office.json'),
+                    (schema['DataIntegration'], 'data_integration.json'),
+                    (schema['ViewService'], 'view_service.json'),
+                    (schema['LegendEntry'], 'legend_entry.json'),
+                    (schema['PublicLawRestriction'], 'public_law_restriction.json'),
+                    (schema['Geometry'], 'geometry.json'),
                 ]:
                     self._load_sample(class_, os.path.join('plr119', folder, file_name))
 
@@ -225,14 +220,14 @@ class SampleData(object):
                         Session = sessionmaker(bind=self._engine)  # Use session because of table inheritance
                         session = Session()
                         for lp in lps:
-                            session.add(schema.Document(**lp))
+                            session.add(schema['Document'](**lp))
                         session.commit()
                         session.close()
                     else:
                         for lp in lps:
                             for table_name in ['document_base', 'document']:
                                 table = [
-                                    t for t in class_mapper(schema.Document).tables if t.name == table_name
+                                    t for t in class_mapper(schema['Document']).tables if t.name == table_name
                                 ][0]
                                 data = {
                                     'type': 'document'
@@ -242,8 +237,8 @@ class SampleData(object):
 
                 if hasattr(schema, 'PublicLawRestrictionDocument'):
                     for class_, file_name in [
-                        (schema.PublicLawRestrictionDocument, 'public_law_restriction_document.json'),
-                        (schema.DocumentReference, 'document_reference.json'),
+                        (schema['PublicLawRestrictionDocument'], 'public_law_restriction_document.json'),
+                        (schema['DocumentReference'], 'document_reference.json'),
                     ]:
                         self._load_sample(class_, os.path.join('plr119', folder, file_name))
             for class_, file_name in [

@@ -4,8 +4,13 @@ import pytest
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.adapter import DatabaseAdapter
 from pyramid_oereb.standard.sources.legend import DatabaseSource
-from pyramid_oereb.standard.models.airports_building_lines import LegendEntry
 from tests.mockrequest import MockParameter
+from pyramid_oereb.standard.sources.plr import StandardThemeConfigParser
+
+theme_config = Config.get_theme_config('AirportsSecurityZonePlans')
+config_parser = StandardThemeConfigParser(**theme_config)
+models = config_parser.get_models()
+LegendEntry = models['LegendEntry']
 
 
 @pytest.mark.run(order=2)

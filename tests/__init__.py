@@ -64,5 +64,5 @@ def pyramid_oereb_test_config():
 # Set up test database and init the Config
 Config._config = None
 create_tables_from_standard_configuration(pyramid_oereb_test_yml)
-dummy_data = DummyData()
+dummy_data = DummyData(pyramid_oereb_test_yml)
 dummy_data.init()

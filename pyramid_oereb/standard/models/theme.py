@@ -1,0 +1,615 @@
+from sqlalchemy import Column, ForeignKey
+from sqlalchemy import Boolean, String, Integer, DateTime, Date
+from sqlalchemy.ext.declarative import declarative_base
+from geoalchemy2.types import Geometry as GeoAlchemyGeometry
+from sqlalchemy.orm import relationship
+from sqlalchemy_utils import JSONType
+
+
+def model_factory(schema_name, pk_type, geometry_type, srid):
+    """
+    Factory to produce a set of standard models.
+
+    Args:
+        schema_name (str): The name of the database schema where this models belong to.
+        pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
+            sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
+            needs
+        geometry_type (str): The geoalchemy geometry type defined as well known string.
+        srid (int): The SRID defining the projection of the geometries stored in standard db schema.
+    """
+    Base = declarative_base()
+
+    class Availability(Base):
+        """
+        A simple bucket for achieving a switch per municipality. Here you can configure via the
+        imported data if a public law restriction is available or not. You need to fill it with
+        the data you provided in the app schemas municipality table (fosnr).
+
+        Attributes:
+            fosnr (int): The identifier of the municipality in your system (id_bfs = fosnr)
+            available (bool): The switch field to configure if this plr is available for the
+                municipality or not.  This field has direct influence on the applications
+                behaviour. See documentation for more info.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'availability'
+        fosnr = Column(pk_type, primary_key=True, autoincrement=False)
+        available = Column(Boolean, nullable=False, default=False)
+
+    class Office(Base):
+        """
+        The bucket to fill in all the offices you need to reference from public law restriction, document,
+        geometry.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            name (dict): The multilingual name of the office.
+            office_at_web (dict): A web accessible url to a presentation of this office (multilingual).
+            uid (str): The uid of this office from https
+            line1 (str): The first address line for this office.
+            line2 (str): The second address line for this office.
+            street (str): The streets name of the offices address.
+            number (str): The number on street.
+            postal_code (int): The ZIP-code.
+            city (str): The name of the city.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'office'
+        id = Column(pk_type, primary_key=True, autoincrement=False)
+        name = Column(JSONType, nullable=False)
+        office_at_web = Column(JSONType, nullable=True)
+        uid = Column(String(12), nullable=True)
+        line1 = Column(String, nullable=True)
+        line2 = Column(String, nullable=True)
+        street = Column(String, nullable=True)
+        number = Column(String, nullable=True)
+        postal_code = Column(Integer, nullable=True)
+        city = Column(String, nullable=True)
+
+    class DataIntegration(Base):
+        """
+        The bucket to fill in the date when this whole schema was updated. It has a relation to the
+        office to be able to find out who was the delivering instance.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            date (datetime.date): The date when this data set was delivered.
+            office_id (str): A foreign key which points to the actual office instance.
+            office (pyramid_oereb.standard.models.airports_building_lines.Office):
+                The actual office instance which the id points to.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'data_integration'
+        id = Column(pk_type, primary_key=True, autoincrement=False)
+        date = Column(DateTime, nullable=False)
+        office_id = Column(pk_type, ForeignKey(Office.id), nullable=False)
+        office = relationship(Office)
+        checksum = Column(String, nullable=True)
+
+    class ReferenceDefinition(Base):
+        """
+        The meta bucket for definitions which are directly related to a public law restriction in a common
+        way or to the whole canton or a  whole municipality. It is used to have a place to store general
+        documents which are related to an extract but not directly on a special public law restriction
+        situation.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            topic (str): The topic which this definition might be related to.
+            canton (str): The canton this definition is related to.
+            municipality (int): The municipality this definition is related to.
+            office_id (str): The foreign key constraint which the definition is related to.
+            responsible_office (pyramid_oereb.standard.models.airports_building_lines.Office):
+                The dedicated relation to the office instance from database.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'reference_definition'
+        id = Column(pk_type, primary_key=True, autoincrement=False)
+        topic = Column(String, nullable=True)
+        canton = Column(String(2), nullable=True)
+        municipality = Column(Integer, nullable=True)
+        office_id = Column(pk_type, ForeignKey(
+            Office.id), nullable=False
+        )
+        responsible_office = relationship(Office)
+
+    class DocumentBase(Base):
+        """
+        In the specification documents are cascaded in a inheritance way. So this representation is used to
+        produce the addressable primary key and to provide the common document attributes.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            text_at_web (dict): A multilingual link which leads to the documents content in the web.
+            law_status (str): The status switch if the document is legally approved or not.
+            published_from (datetime.date): The date when the document should be available for
+                publishing on extracts. This  directly affects the behaviour of extract
+                generation.
+            type (str): This is a sqlalchemy related attribute to provide database table
+                inheritance.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'document_base'
+        id = Column(pk_type, primary_key=True, autoincrement=False)
+        text_at_web = Column(JSONType, nullable=True)
+        law_status = Column(String, nullable=False)
+        published_from = Column(Date, nullable=False)
+        type = Column(String, nullable=False)
+        __mapper_args__ = {
+            'polymorphic_identity': 'document_base',
+            'polymorphic_on': type,
+            'passive_updates': True
+        }
+
+    class Document(DocumentBase):
+        """
+        THE DOCUMENT
+        This represents the main document in the whole system. It is specialized in some sub classes.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            document_type (str): The document type. It must be "LegalProvision", "Law" or "Hint".
+            title (dict): The multilingual title or if existing the short title ot his document.
+            office_title (dict): The multilingual official title of this document.
+            abbreviation (dict): The multilingual shortened version of the documents title.
+            official_number (str): The official number which uniquely identifies this document.
+            canton (str): The short version of the canton which this document is about. If this is None
+                this is  assumed to be a federal document.
+            municipality (int): The fosnr (=id bfs) of the municipality. If this is None it is assumed
+                the document is  related to the whole canton or even the confederation.
+            file (str): The document itself as a binary representation (PDF). It is string but
+                BaseCode64 encoded.
+            office_id (str): The foreign key to the office which is in charge for this document.
+            responsible_office (pyramid_oereb.standard.models.airports_building_lines.Office):
+                The dedicated relation to the office instance from database.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'document'
+        __mapper_args__ = {
+            'polymorphic_identity': 'document'
+        }
+        document_type = Column(String, nullable=False)
+        title = Column(JSONType, nullable=False)
+        official_title = Column(JSONType, nullable=True)
+        abbreviation = Column(JSONType, nullable=True)
+        official_number = Column(String, nullable=True)
+        canton = Column(String(2), nullable=True)
+        municipality = Column(Integer, nullable=True)
+        file = Column(String, nullable=True)
+        id = Column(
+            pk_type,
+            ForeignKey(DocumentBase.id),
+            primary_key=True,
+            onupdate="cascade"
+        )
+        office_id = Column(
+            pk_type,
+            ForeignKey(Office.id),
+            nullable=False
+        )
+        responsible_office = relationship(Office)
+
+    class Article(DocumentBase):
+        """
+        A subclass of the document representing articles. Article in the sense of a law document. It is often
+        described as a special part of the whole law document and reflects a dedicated content of this.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            number (str): The number which identifies this article in its parent document.
+            text (dict): A simple multilingual string to describe the article or give some related info.
+            document_id (str): The foreign key to the document this article is taken from.
+            document_id (pyramid_oereb.standard.models.airports_building_lines.Document):
+                The dedicated relation to the document instance from database.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'article'
+        __mapper_args__ = {
+            'polymorphic_identity': 'article'
+        }
+        number = Column(String, nullable=False)
+        text = Column(JSONType, nullable=True)
+        id = Column(
+            pk_type,
+            ForeignKey(DocumentBase.id),
+            primary_key=True,
+            onupdate="cascade"
+        )
+        document_id = Column(
+            pk_type,
+            ForeignKey(Document.id),
+            nullable=False
+        )
+        document = relationship(
+            Document,
+            backref='articles',
+            foreign_keys=[document_id]
+        )
+
+    class ViewService(Base):
+        """
+        A view service aka WM(T)S which can deliver a cartographic representation via web.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            reference_wms (str): The actual url which leads to the desired cartographic representation.
+            legend_at_web (dict of str): A multilingual dictionary of links. Keys are the language, values
+                are links leading to a wms describing document (png).
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'view_service'
+        id = Column(pk_type, primary_key=True, autoincrement=False)
+        reference_wms = Column(String, nullable=False)
+        legend_at_web = Column(JSONType, nullable=True)
+
+    class LegendEntry(Base):
+        """
+        A class based legend system which is directly related to
+        :class:`pyramid_oereb.standard.models.airports_building_lines.ViewService`.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            symbol (str): An image with represents the legend entry. This can be png or svg. It is string
+                but BaseCode64  encoded.
+            legend_text (dict): Multilingual text to describe this legend entry.
+            type_code (str): Type code of the public law restriction which is represented by this legend
+                entry.
+            type_code_list (str): List of all public law restrictions which are described through this
+                legend  entry.
+            topic (str): Statement to describe to which public law restriction this legend entry
+                belongs.
+            sub_theme (dict): Multilingual description for sub topics this legend entry might belonging to.
+            other_theme (str): A link to additional topics. It must be like the following patterns
+                * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
+                the official two letters short version (e.g.'BE') {topic} as the name of the
+                topic and {bfsnr} as the municipality id of the federal office of statistics.
+            view_service_id (str): The foreign key to the view service this legend entry is related to.
+            view_service (pyramid_oereb.standard.models.airports_building_lines.ViewService):
+                The dedicated relation to the view service instance from database.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'legend_entry'
+        id = Column(pk_type, primary_key=True, autoincrement=False)
+        symbol = Column(String, nullable=False)
+        legend_text = Column(JSONType, nullable=False)
+        type_code = Column(String(40), nullable=False)
+        type_code_list = Column(String, nullable=False)
+        topic = Column(String, nullable=False)
+        sub_theme = Column(JSONType, nullable=True)
+        other_theme = Column(String, nullable=True)
+        view_service_id = Column(
+            pk_type,
+            ForeignKey(ViewService.id),
+            nullable=False
+        )
+        view_service = relationship(ViewService, backref='legends')
+
+    class PublicLawRestriction(Base):
+        """
+        The container where you can fill in all your public law restrictions to the topic.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            information (dict): The multilingual textual representation of the public law restriction.
+            topic (str): Category for this public law restriction (name of the topic).
+            sub_theme (dict): Multilingual textual explanation to subtype the topic attribute.
+            other_theme (str): A link to additional topics. It must be like the following patterns
+                * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as
+                the official two letters short version (e.g.'BE') {topic} as the name of the
+                topic and {bfsnr} as the municipality id of the federal office of statistics.
+            type_code (str): Type code of the public law restriction machine readable based on the
+                original data  model of this public law restriction.
+            type_code_list (str): List of full range of type_codes for this public law restriction in a
+                machine  readable format.
+            law_status (str): The status switch if the document is legally approved or not.
+            published_from (datetime.date): The date when the document should be available for
+                publishing on extracts. This  directly affects the behaviour of extract
+                generation.
+            view_service_id (str): The foreign key to the view service this public law restriction is
+                related to.
+            view_service (pyramid_oereb.standard.models.airports_building_lines.ViewService):
+                The dedicated relation to the view service instance from database.
+            office_id (str): The foreign key to the office which is responsible to this public law
+                restriction.
+            responsible_office (pyramid_oereb.standard.models.airports_building_lines.Office):
+                The dedicated relation to the office instance from database.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'public_law_restriction'
+        id = Column(pk_type, primary_key=True, autoincrement=False)
+        information = Column(JSONType, nullable=False)
+        topic = Column(String, nullable=False)
+        sub_theme = Column(JSONType, nullable=True)
+        other_theme = Column(String, nullable=True)
+        type_code = Column(String(40), nullable=True)
+        type_code_list = Column(String, nullable=True)
+        law_status = Column(String, nullable=False)
+        published_from = Column(Date, nullable=False)
+        view_service_id = Column(
+            pk_type,
+            ForeignKey(ViewService.id),
+            nullable=False
+        )
+        view_service = relationship(
+            ViewService,
+            backref='public_law_restrictions'
+        )
+        office_id = Column(
+            pk_type,
+            ForeignKey(Office.id),
+            nullable=False
+        )
+        responsible_office = relationship(Office)
+
+    class Geometry(Base):
+        """
+        The dedicated model for all geometries in relation to their public law restriction.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            law_status (str): The status switch if the document is legally approved or not.
+            published_from (datetime.date): The date when the document should be available for
+                publishing on extracts. This  directly affects the behaviour of extract
+                generation.
+            geo_metadata (str): A link to the metadata which this geometry is based on which delivers
+                machine  readable response format (XML).
+            public_law_restriction_id (str): The foreign key to the public law restriction this geometry
+                is  related to.
+            public_law_restriction (pyramid_oereb.standard.models.airports_building_lines
+                .PublicLawRestriction): The dedicated relation to the public law restriction instance from
+                database.
+            office_id (str): The foreign key to the office which is responsible to this public law
+                restriction.
+            responsible_office (pyramid_oereb.standard.models.airports_building_lines.Office):
+                The dedicated relation to the office instance from database.
+            geom (geoalchemy2.types.Geometry): The geometry it's self. For type information see
+                geoalchemy docs (https://geoalchemy-2.readthedocs.io/en/0.4.2/types.html) dependent on the
+                configured type.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'geometry'
+        id = Column(pk_type, primary_key=True, autoincrement=False)
+        law_status = Column(String, nullable=False)
+        published_from = Column(Date, nullable=False)
+        geo_metadata = Column(String, nullable=True)
+        geom = Column(GeoAlchemyGeometry(geometry_type, srid=srid), nullable=False)
+        public_law_restriction_id = Column(
+            pk_type,
+            ForeignKey(PublicLawRestriction.id),
+            nullable=False
+        )
+        public_law_restriction = relationship(
+            PublicLawRestriction,
+            backref='geometries'
+        )
+        office_id = Column(
+            pk_type,
+            ForeignKey(Office.id),
+            nullable=False
+        )
+        responsible_office = relationship(Office)
+
+    class PublicLawRestrictionBase(Base):
+        """
+        Meta bucket (join table) for public law restrictions which acts as a base for other public law
+        restrictions.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            public_law_restriction_id (str): The foreign key to the public law restriction which bases
+                on another  public law restriction.
+            public_law_restriction_base_id (str): The foreign key to the public law restriction which is
+                the  base for the public law restriction.
+            plr (pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction):
+                The dedicated relation to the public law restriction (which bases on) instance from  database.
+            base (pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction):
+                The dedicated relation to the public law restriction (which is the base) instance from
+                database.
+        """
+        __tablename__ = 'public_law_restriction_base'
+        __table_args__ = {'schema': schema_name}
+        id = Column(pk_type, primary_key=True, autoincrement=False)
+        public_law_restriction_id = Column(
+            pk_type,
+            ForeignKey(PublicLawRestriction.id),
+            nullable=False
+        )
+        public_law_restriction_base_id = Column(
+            pk_type,
+            ForeignKey(PublicLawRestriction.id),
+            nullable=False
+        )
+        plr = relationship(
+            PublicLawRestriction,
+            backref='basis',
+            foreign_keys=[public_law_restriction_id]
+        )
+        base = relationship(
+            PublicLawRestriction,
+            foreign_keys=[public_law_restriction_base_id]
+        )
+
+    class PublicLawRestrictionRefinement(Base):
+        """
+        Meta bucket (join table) for public law restrictions which acts as a refinement for other public law
+        restrictions.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            public_law_restriction_id (str): The foreign key to the public law restriction which is
+                refined by  another public law restriction.
+            public_law_restriction_refinement_id (str): The foreign key to the public law restriction
+                which is  the refinement of the public law restriction.
+            plr (pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction):
+                The dedicated relation to the public law restriction (which refines) instance from  database.
+            base (pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction):
+                The dedicated relation to the public law restriction (which is refined) instance from
+                database.
+        """
+        __tablename__ = 'public_law_restriction_refinement'
+        __table_args__ = {'schema': schema_name}
+        id = Column(pk_type, primary_key=True, autoincrement=False)
+        public_law_restriction_id = Column(
+            pk_type,
+            ForeignKey(PublicLawRestriction.id),
+            nullable=False
+        )
+        public_law_restriction_refinement_id = Column(
+            pk_type,
+            ForeignKey(PublicLawRestriction.id),
+            nullable=False
+        )
+        plr = relationship(
+            PublicLawRestriction,
+            backref='refinements',
+            foreign_keys=[public_law_restriction_id]
+        )
+        refinement = relationship(
+            PublicLawRestriction,
+            foreign_keys=[public_law_restriction_refinement_id]
+        )
+
+    class PublicLawRestrictionDocument(Base):
+        """
+        Meta bucket (join table) for the relationship between public law restrictions and documents.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            public_law_restriction_id (str): The foreign key to the public law restriction which has
+                relation to  a document.
+            document_id (str): The foreign key to the document which has relation to the public law
+                restriction.
+            plr (pyramid_oereb.standard.models.airports_building_lines.PublicLawRestriction):
+                The dedicated relation to the public law restriction instance from database.
+            document (pyramid_oereb.standard.models.airports_building_lines.DocumentBase):
+                The dedicated relation to the document instance from database.
+        """
+        __tablename__ = 'public_law_restriction_document'
+        __table_args__ = {'schema': schema_name}
+        id = Column(pk_type, primary_key=True, autoincrement=False)
+        public_law_restriction_id = Column(
+            pk_type,
+            ForeignKey(PublicLawRestriction.id),
+            nullable=False
+        )
+        document_id = Column(
+            pk_type,
+            ForeignKey(DocumentBase.id),
+            nullable=False
+        )
+        plr = relationship(
+            PublicLawRestriction,
+            backref='legal_provisions'
+        )
+        document = relationship(
+            DocumentBase
+        )
+        article_numbers = Column(String, nullable=True)
+
+    class DocumentReference(Base):
+        """
+        Meta bucket (join table) for the relationship between documents.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            document_id (str): The foreign key to the document which references to another document.
+            reference_document_id (str): The foreign key to the document which is referenced.
+            document (pyramid_oereb.standard.models.airports_building_lines.Document):
+                The dedicated relation to the document (which references) instance from database.
+            referenced_document (pyramid_oereb.standard.models.airports_building_lines.Document):
+                The dedicated relation to the document (which is referenced) instance from database.
+            article_numbers (str): A colon of article numbers which clarify the reference. This is a
+                string  separated by '|'.
+        """
+        __tablename__ = 'document_reference'
+        __table_args__ = {'schema': schema_name}
+        id = Column(pk_type, primary_key=True, autoincrement=False)
+        document_id = Column(
+            pk_type,
+            ForeignKey(Document.id),
+            nullable=False
+        )
+        reference_document_id = Column(
+            pk_type,
+            ForeignKey(Document.id),
+            nullable=False
+        )
+        document = relationship(
+            Document,
+            backref='referenced_documents',
+            foreign_keys=[document_id]
+        )
+        referenced_document = relationship(
+            Document,
+            foreign_keys=[reference_document_id]
+        )
+        article_numbers = Column(String, nullable=True)
+
+    class DocumentReferenceDefinition(Base):
+        """
+        Meta bucket (join table) for the relationship between documents and the reference definition.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            document_id (str): The foreign key to the document which is related to a reference
+                definition.
+            reference_definition_id (str): The foreign key to the document which is related to a
+                reference  definition.
+        """
+        __tablename__ = 'document_reference_definition'
+        __table_args__ = {'schema': schema_name}
+        id = Column(String, primary_key=True, autoincrement=False)
+        document_id = Column(
+            pk_type,
+            ForeignKey(Document.id),
+            nullable=False
+        )
+        reference_definition_id = Column(
+            pk_type,
+            ForeignKey(ReferenceDefinition.id),
+            nullable=False
+        )
+
+    return {
+        'Availability': Availability,
+        'Office': Office,
+        'DataIntegration': DataIntegration,
+        'ReferenceDefinition': ReferenceDefinition,
+        'DocumentBase': DocumentBase,
+        'Document': Document,
+        'Article': Article,
+        'ViewService': ViewService,
+        'LegendEntry': LegendEntry,
+        'PublicLawRestriction': PublicLawRestriction,
+        'Geometry': Geometry,
+        'PublicLawRestrictionBase': PublicLawRestrictionBase,
+        'PublicLawRestrictionRefinement': PublicLawRestrictionRefinement,
+        'PublicLawRestrictionDocument': PublicLawRestrictionDocument,
+        'DocumentReference': DocumentReference,
+        'DocumentReferenceDefintion': DocumentReferenceDefinition,
+        'Base': Base
+    }
+
+
+def model_factory_string_pk(schema_name, geometry_type, srid):
+    return model_factory(schema_name, String, geometry_type, srid)
+
+
+def model_factory_integer_pk(schema_name, geometry_type, srid):
+    return model_factory(schema_name, Integer, geometry_type, srid)

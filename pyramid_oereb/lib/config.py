@@ -114,6 +114,15 @@ class Config(object):
                 if theme.get('code') == code:
                     return theme.get('plr_thresholds')
         return None
+    
+    @staticmethod
+    def get_theme_config(code):
+        plrs = Config._config.get('plrs')
+        if plrs and isinstance(plrs, list):
+            for theme in plrs:
+                if theme.get('code') == code:
+                    return theme.get('plr_thresholds')
+        return None
 
     @staticmethod
     def get_all_federal():
@@ -573,6 +582,16 @@ class Config(object):
                       "no class_name property".format(theme_code))
         return sorter
 
+    @staticmethod
+    def extract_module_function(dotted_function_path):
+        elements = dotted_function_path.split('.')
+        function_name = elements[-1]
+        module_path = '.'.join(elements[:-1])
+        return {
+            'module_path': module_path,
+            'function_name': function_name
+        }
+
 
 def _parse(cfg_file, cfg_section, c2ctemplate_style=False):
     """
@@ -608,3 +627,5 @@ def _parse(cfg_file, cfg_section, c2ctemplate_style=False):
     if cfg is None:
         raise ConfigurationError('YAML file contains no section "{0}"'.format(cfg_section))
     return cfg
+
+

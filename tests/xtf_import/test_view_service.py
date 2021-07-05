@@ -1,10 +1,17 @@
 # -*- coding: utf-8 -*-
 from lxml.etree import XML
-from pyramid_oereb.standard.models.airports_security_zone_plans \
-    import ViewService as ViewServiceModel, LegendEntry as LegendEntryModel
+from pyramid_oereb.lib.config import Config
 from pyramid_oereb.standard.xtf_import.legend_entry import LegendEntry
 from pyramid_oereb.standard.xtf_import.view_service import ViewService
+from pyramid_oereb.standard.sources.plr import StandardThemeConfigParser
 from tests.xtf_import import MockSession
+
+theme_config = Config.get_theme_config('AirportsSecurityZonePlans')
+config_parser = StandardThemeConfigParser(**theme_config)
+models = config_parser.get_models()
+
+ViewServiceModel = models['ViewService']
+LegendEntryModel = models['LegendEntry']
 
 
 def test_init():
