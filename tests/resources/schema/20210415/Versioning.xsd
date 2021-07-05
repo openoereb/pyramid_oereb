@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  xmlns="http://schemas.geo.admin.ch/swisstopo/OeREBK/15/Versioning" 
+  xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/Versioning" 
   targetNamespace=
-"http://schemas.geo.admin.ch/swisstopo/OeREBK/15/Versioning" 
+  "http://schemas.geo.admin.ch/V_D/OeREB/1.0/Versioning" 
   elementFormDefault="qualified" attributeFormDefault="unqualified"
-  version="1.0.0"
+  version="1.0.1"
   >
 
 <xsd:complexType  name="VersionType">
@@ -27,4 +27,3 @@
 </xsd:complexType>
 
 </xsd:schema>
-

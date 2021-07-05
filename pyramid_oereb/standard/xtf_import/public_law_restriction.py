@@ -7,7 +7,6 @@ class PublicLawRestriction(object):
 
     TAG_INFORMATION = 'Aussage'
     TAG_SUB_THEME = 'SubThema'
-    TAG_OTHER_THEME = 'WeiteresThema'
     TAG_TYPE_CODE = 'ArtCode'
     TAG_TYPE_CODE_LIST = 'ArtCodeliste'
     TAG_LAW_STATUS = 'Rechtsstatus'
@@ -30,7 +29,6 @@ class PublicLawRestriction(object):
             information=parse_multilingual_text(public_law_restriction, self.TAG_INFORMATION),
             topic=self._topic_code,
             sub_theme=sub_theme,
-            other_theme=parse_string(public_law_restriction, self.TAG_OTHER_THEME),
             type_code=parse_string(public_law_restriction, self.TAG_TYPE_CODE),
             type_code_list=parse_string(public_law_restriction, self.TAG_TYPE_CODE_LIST),
             law_status=parse_string(public_law_restriction, self.TAG_LAW_STATUS),

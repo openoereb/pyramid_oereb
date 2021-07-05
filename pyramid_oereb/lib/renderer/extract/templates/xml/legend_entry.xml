@@ -19,6 +19,3 @@
 %>
 <data:SubTheme>${localized_sub_theme.get('Text') | x}</data:SubTheme>
 %endif
-%if legend_entry.other_theme:
-<data:OtherTheme>${legend_entry.other_theme | x}</data:OtherTheme>
-%endif

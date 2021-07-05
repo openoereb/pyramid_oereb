@@ -157,7 +157,7 @@ def test_get_document_records(i, document):
 
 def test_read():
     with requests_mock.mock() as m:
-        with open('./tests/resources/geolink_v1.2.0.xml', 'rb') as f:
+        with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL')
         source.read(MockParameter(), 100)
@@ -175,7 +175,7 @@ def test_read():
 
 def test_read_related_decree_as_main():
     with requests_mock.mock() as m:
-        with open('./tests/resources/geolink_v1.2.0.xml', 'rb') as f:
+        with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
                                 related_decree_as_main=True)
@@ -194,7 +194,7 @@ def test_read_related_decree_as_main():
 
 def test_read_related_notice_as_main():
     with requests_mock.mock() as m:
-        with open('./tests/resources/geolink_v1.2.0.xml', 'rb') as f:
+        with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
                                 related_notice_as_main=True)
@@ -211,8 +211,8 @@ def test_read_related_notice_as_main():
 
 def test_read_with_version_in_url():
     with requests_mock.mock() as m:
-        with open('./tests/resources/geolink_v1.2.0.xml', 'rb') as f:
-            m.get('http://oereblex.example.com/api/1.2.0/geolinks/100.xml', content=f.read())
+        with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
+            m.get('http://oereblex.example.com/api/1.2.1/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
                                 pass_version=True)
         source.read(MockParameter(), 100)
@@ -221,8 +221,8 @@ def test_read_with_version_in_url():
 
 def test_read_with_specified_version():
     with requests_mock.mock() as m:
-        with open('./tests/resources/geolink_v1.0.0.xml', 'rb') as f:
-            m.get('http://oereblex.example.com/api/1.0.0/geolinks/100.xml', content=f.read())
+        with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
+            m.get('http://oereblex.example.com/api/1.2.1/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
                                 pass_version=True, version='1.0.0')
         source.read(MockParameter(), 100)
@@ -231,7 +231,7 @@ def test_read_with_specified_version():
 
 def test_read_with_specified_language():
     with requests_mock.mock() as m:
-        with open('./tests/resources/geolink_v1.2.0.xml', 'rb') as f:
+        with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml?locale=fr', content=f.read())
         source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL')
         params = MockParameter()

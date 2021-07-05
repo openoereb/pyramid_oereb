@@ -142,8 +142,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     legend_entry_from_db.type_code_list,
                     theme,
                     view_service_id=legend_entry_from_db.view_service_id,
-                    sub_theme=legend_entry_from_db.sub_theme,
-                    other_theme=legend_entry_from_db.other_theme
+                    sub_theme=legend_entry_from_db.sub_theme
                 ))
         return legend_entry_records
 
@@ -389,7 +388,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             view_service_record,
             geometry_records,
             sub_theme=public_law_restriction_from_db.sub_theme,
-            other_theme=public_law_restriction_from_db.other_theme,
             type_code=public_law_restriction_from_db.type_code,
             type_code_list=public_law_restriction_from_db.type_code_list,
             basis=basis_plr_records,

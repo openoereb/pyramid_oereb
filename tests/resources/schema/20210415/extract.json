@@ -1,7 +1,7 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
-	"$id": "http://schemas.geo.admin.ch/V_D/OeREB/1.0/extract.json",
-	"fileVersion": "1.0.1",
+	"$id": "http://schemas.geo.admin.ch/V_D/OeREB/2.0/extract.json",
+	"fileVersion": "2.0.0",
 	"type": "object",
 	"anyOf": [{
 			"$ref": "#/definitions/GetExtractByIdResponse"
@@ -16,50 +16,12 @@
 	"definitions": {
 
 		"FlavourType": {
-			"pattern": "REDUCED|FULL|EMBEDDABLE|(ch.[A-Z]{2}.[a-zA-Z][a-zA-Z0-9]*)|(fl.[a-zA-Z][a-zA-Z0-9]*)"
+			"pattern": "REDUCED|SIGNED|(ch.[A-Z]{2}.[a-zA-Z][a-zA-Z0-9]*)|(fl.[a-zA-Z][a-zA-Z0-9]*)"
 		},
 
 		"GetExtractByIdResponse": {
 			"type": "object",
 			"properties": {
-				"embeddable": {
-					"type": "object",
-					"properties": {
-						"cadasterState": {
-							"$ref": "extractdata.json/definitions/dateTime"
-						},
-						"cadasterOrganisationName": {
-							"type": "string"
-						},
-						"dataownerNameCadastralSurveying": {
-							"type": "string"
-						},
-						"transferFromSourceCadastralSurveying": {
-							"$ref": "extractdata.json/definitions/dateTime"
-						},
-						"datasource": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"topic": {
-										"$ref": "extractdata.json/definitions/Theme"
-									},
-									"dataownerName": {
-										"type": "string"
-									},
-									"transferFromSource": {
-										"$ref": "extractdata.json/definitions/dateTime"
-									}
-								}
-							}
-						},
-						"pdf": {
-							"$ref": "extractdata.json/definitions/base64Binary"
-						}
-					}
-
-				},
 				"extract": {
 					"$ref": "extractdata.json/definitions/Extract"
 				}
@@ -78,6 +40,12 @@
 					},
 					"identDN": {
 						"type": "string"
+					},
+					"type": {
+						"$ref": "extractdata.json/definitions/RealEstateType"
+					},
+					"limit": {
+						"$ref": "extractdata.json/definitions/MultiSurface"
 					}
 				}
 			}

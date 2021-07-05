@@ -13,7 +13,6 @@ class LegendEntry(object):
     TAG_TYPE_CODE = 'ArtCode'
     TAG_TYPE_CODE_LIST = 'ArtCodeliste'
     TAG_SUB_THEME = 'SubThema'
-    TAG_OTHER_THEME = 'WeiteresThema'
 
     def __init__(self, session, model, topic_code):
         self._session = session
@@ -44,7 +43,6 @@ class LegendEntry(object):
                             ),
                             topic=self._topic_code,
                             sub_theme=sub_theme,
-                            other_theme=parse_string(legend_entry, self.TAG_OTHER_THEME),
                             view_service_id=view_service.attrib['TID']
                         )
                         self._session.add(instance)

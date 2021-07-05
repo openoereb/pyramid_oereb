@@ -4,7 +4,7 @@
               category="main" doctype="decree" enactment_date="2001-03-27"
               federal_level="Gemeinde" id="1500" instance="DBU" subtype="Gestaltungsplan"
               title="Tiefkühllager" type="Sondernutzungsplan" decree_date="2001-03-15" number="1A"
-              abbreviation="abbr">
+              abbreviation="abbr" municipality="Testgemeinde">
         <file category="main" href="/api/attachments/4735" title="2918-E-1.pdf" description="2918-E-1.pdf"></file>
         <file category="additional" href="/api/attachments/4736" title="2918-P-1.pdf" description="Plan 1"></file>
         <file category="additional" href="/api/attachments/4737" title="2918-P-2.pdf" description="Plan 2"></file>
