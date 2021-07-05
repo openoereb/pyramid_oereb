@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from pyramid_oereb.lib.records.documents import DocumentRecord, ArticleRecord
+from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.embeddable import DatasourceRecord
 from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
@@ -26,7 +26,6 @@ class PlrBaseSource(Base):
             records used for the additional data in flavour `embeddable`.
     """
     _documents_record_class = DocumentRecord
-    _article_record_class = ArticleRecord
     _exclusion_of_liability_record_class = ExclusionOfLiabilityRecord
     _geometry_record_class = GeometryRecord
     _glossary_record_class = GlossaryRecord

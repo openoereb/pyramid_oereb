@@ -229,64 +229,32 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         )
         return office_record
 
-    def from_db_to_article_records(self, articles_from_db):
-        article_records = []
-        for article_from_db in articles_from_db:
-            law_status = LawStatusRecord.from_config(
-                Config.get_law_status(
-                    self._plr_info.get('code'),
-                    self._plr_info.get('law_status'),
-                    article_from_db.law_status
-                )
-            )
-            article_records.append(self._article_record_class(
-                law_status,
-                article_from_db.published_from,
-                article_from_db.number,
-                article_from_db.text_at_web,
-                article_from_db.text
-            ))
-        return article_records
-
-    def from_db_to_document_records(self, legal_provisions_from_db, article_numbers=None):
+    def from_db_to_document_records(self, documents_from_db, article_numbers=None):
         document_records = []
-        for i, legal_provision in enumerate(legal_provisions_from_db):
-            referenced_documents_db = []
-            referenced_article_numbers = []
-            for join in legal_provision.referenced_documents:
-                referenced_documents_db.append(join.referenced_document)
-                referenced_article_nrs = join.article_numbers.split('|') if join.article_numbers else None
-                referenced_article_numbers.append(referenced_article_nrs)
-            referenced_document_records = self.from_db_to_document_records(
-                referenced_documents_db,
-                referenced_article_numbers
-            )
-            article_records = self.from_db_to_article_records(legal_provision.articles)
-            office_record = self.from_db_to_office_record(legal_provision.responsible_office)
+        for i, document in enumerate(documents_from_db):
+            office_record = self.from_db_to_office_record(document.responsible_office)
             article_nrs = article_numbers[i] if isinstance(article_numbers, list) else None
             law_status = LawStatusRecord.from_config(
                 Config.get_law_status(
                     self._plr_info.get('code'),
                     self._plr_info.get('law_status'),
-                    legal_provision.law_status
+                    document.law_status
                 )
             )
             document_records.append(self._documents_record_class(
-                legal_provision.document_type,
+                document.document_type,
+                document.index,
                 law_status,
-                legal_provision.published_from,
-                legal_provision.title,
+                document.title,
                 office_record,
-                legal_provision.text_at_web,
-                legal_provision.abbreviation,
-                legal_provision.official_number,
-                legal_provision.official_title,
-                legal_provision.canton,
-                legal_provision.municipality,
+                document.published_from,
+                document.published_until,
+                document.text_at_web,
+                document.abbreviation,
+                document.official_number,
+                document.only_in_municipality,
                 article_nrs,
-                legal_provision.file,
-                article_records,
-                referenced_document_records
+                document.file
             ))
         return document_records
 
