@@ -33,8 +33,8 @@ class DocumentRecord(object):
         """
 
         Args:
-            document_type (str or unicode): The document type. It must be "LegalProvision", "Law" or "Hint"
-                every other value will raise an error.
+            document_type (str or unicode): The document type. It must be "Rechtsvorschrift",
+                "GesetzlicheGrundlage" or "Hinweis" every other value will raise an error.
             index (int): An index used to sort the documents.
             law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
             title (dict of unicode): The multilingual title of the document. It might be shortened one.
