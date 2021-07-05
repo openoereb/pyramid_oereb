@@ -43,12 +43,12 @@ params = [
 ]
 
 
-schema_json_versions = './tests/resources/schema/20170825/versioning.json'
-schema_json_extract = './tests/resources/schema/20170825/extract.json'
-schema_json_extract_data = './tests/resources/schema/20170825/extractdata.json'
-schema_xml_versions = './tests/resources/schema/20170825/Versioning.xsd'
-schema_xml_extract = './tests/resources/schema/20170825/Extract.xsd'
-schema_xml_extract_data = './tests/resources/schema/20170825/ExtractData.xsd'
+schema_json_versions = './tests/resources/schema/20210415/versioning.json'
+schema_json_extract = './tests/resources/schema/20210415/extract.json'
+schema_json_extract_data = './tests/resources/schema/20210415/extractdata.json'
+schema_xml_versions = './tests/resources/schema/20210415/Versioning.xsd'
+schema_xml_extract = './tests/resources/schema/20210415/Extract.xsd'
+schema_xml_extract_data = './tests/resources/schema/20210415/ExtractData.xsd'
 
 
 pyramid_oereb_test_yml = 'pyramid_oereb/standard/pyramid_oereb.yml'
