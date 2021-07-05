@@ -17,17 +17,13 @@ from sqlalchemy.orm import sessionmaker
 from tqdm import tqdm
 
 from pyramid_oereb.lib.config import Config
-from pyramid_oereb.standard.xtf_import.article import Article
 from pyramid_oereb.standard.xtf_import.base_refinement import BaseRefinement
 from pyramid_oereb.standard.xtf_import.document import Document
-from pyramid_oereb.standard.xtf_import.document_reference import DocumentReference
-from pyramid_oereb.standard.xtf_import.document_reference_definition import DocumentReferenceDefinition
 from pyramid_oereb.standard.xtf_import.geometry import Geometry
 from pyramid_oereb.standard.xtf_import.legend_entry import LegendEntry
 from pyramid_oereb.standard.xtf_import.office import Office
 from pyramid_oereb.standard.xtf_import.public_law_restriction import PublicLawRestriction
 from pyramid_oereb.standard.xtf_import.public_law_restriction_document import PublicLawRestrictionDocument
-from pyramid_oereb.standard.xtf_import.reference_definition import ReferenceDefinition
 from pyramid_oereb.standard.xtf_import.util import get_tag
 from pyramid_oereb.standard.xtf_import.view_service import ViewService
 
@@ -42,15 +38,10 @@ class FederalTopic(object):
     TAG_REFERENCED_LAWS = 'OeREBKRMvs_V1_1.HinweiseGesetzlicheGrundlagen'
     TAG_OFFICE = 'OeREBKRMvs_V1_1.Vorschriften.Amt'
     TAG_DOCUMENT = 'OeREBKRMvs_V1_1.Vorschriften.Dokument'
-    TAG_LEGAL_PROVISION = 'OeREBKRMvs_V1_1.Vorschriften.Rechtsvorschrift'
-    TAG_ARTICLE = 'OeREBKRMvs_V1_1.Vorschriften.Artikel'
     TAG_VIEW_SERVICE = 'OeREBKRMtrsfr_V1_1.Transferstruktur.DarstellungsDienst'
     TAG_PLR = 'OeREBKRMtrsfr_V1_1.Transferstruktur.Eigentumsbeschraenkung'
     TAG_GEOMETRY = 'OeREBKRMtrsfr_V1_1.Transferstruktur.Geometrie'
-    TAG_DOCUMENT_REFERENCE = 'OeREBKRMvs_V1_1.Vorschriften.HinweisWeitereDokumente'
     TAG_PUBLIC_LAW_RESTRICTION_DOCUMENT = 'OeREBKRMtrsfr_V1_1.Transferstruktur.HinweisVorschrift'
-    TAG_REFERENCE_DEFINITION = 'OeREBKRMtrsfr_V1_1.Transferstruktur.HinweisDefinition'
-    TAG_DOCUMENT_REFERENCE_DEFINITION = 'OeREBKRMtrsfr_V1_1.Transferstruktur.HinweisDefinitionDokument'
     TAG_BASE_REFINEMENT = 'OeREBKRMtrsfr_V1_1.Transferstruktur.GrundlageVerfeinerung'
 
     def __init__(self, configuration_file, topic_code, section='pyramid_oereb',
@@ -183,19 +174,14 @@ class FederalTopic(object):
         models = [
             self._models.Office,
             self._models.DataIntegration,
-            self._models.ReferenceDefinition,
-            self._models.DocumentBase,
             self._models.Document,
-            self._models.Article,
             self._models.ViewService,
             self._models.LegendEntry,
             self._models.PublicLawRestriction,
             self._models.Geometry,
             self._models.PublicLawRestrictionBase,
             self._models.PublicLawRestrictionRefinement,
-            self._models.PublicLawRestrictionDocument,
-            self._models.DocumentReference,
-            self._models.DocumentReferenceDefinition
+            self._models.PublicLawRestrictionDocument
         ]
         self._log.info('Truncating tables:')
         for model in models:
@@ -247,7 +233,6 @@ class FederalTopic(object):
 
         office = Office(session, self._models.Office)
         document = Document(session, self._models.Document)
-        article = Article(session, self._models.Article)
         legend_entry = LegendEntry(session, self._models.LegendEntry, self._topic_settings.get('code'))
         view_service = ViewService(session, self._models.ViewService, legend_entry)
         public_law_restriction = PublicLawRestriction(
@@ -263,19 +248,9 @@ class FederalTopic(object):
             arc_max_diff=self._arc_max_diff,
             arc_precision=self._arc_precision
         )
-        document_reference = DocumentReference(session, self._models.DocumentReference)
         public_law_restriction_document = PublicLawRestrictionDocument(
             session,
             self._models.PublicLawRestrictionDocument
-        )
-        reference_definition = ReferenceDefinition(
-            session,
-            self._models.ReferenceDefinition,
-            self._topic_settings.get('code')
-        )
-        document_reference_definition = DocumentReferenceDefinition(
-            session,
-            self._models.DocumentReferenceDefinition
         )
         base_refinement = BaseRefinement(
             session,
@@ -290,25 +265,15 @@ class FederalTopic(object):
                 self._data_integration_office_id = element.attrib['TID']
                 office.parse(element)
             elif tag == self.TAG_DOCUMENT:
-                document.parse(element, 'Law' if laws else 'Hint')
-            elif tag == self.TAG_LEGAL_PROVISION:
-                document.parse(element, 'LegalProvision')
-            elif tag == self.TAG_ARTICLE:
-                article.parse(element)
+                document.parse(element)
             elif tag == self.TAG_VIEW_SERVICE:
                 view_service.parse(element)
             elif tag == self.TAG_PLR:
                 public_law_restriction.parse(element)
             elif tag == self.TAG_GEOMETRY:
                 geometry.parse(element)
-            elif tag == self.TAG_DOCUMENT_REFERENCE:
-                document_reference.parse(element)
             elif tag == self.TAG_PUBLIC_LAW_RESTRICTION_DOCUMENT:
                 public_law_restriction_document.parse(element)
-            elif tag == self.TAG_REFERENCE_DEFINITION:
-                reference_definition.parse(element)
-            elif tag == self.TAG_DOCUMENT_REFERENCE_DEFINITION:
-                document_reference_definition.parse(element)
             elif tag == self.TAG_BASE_REFINEMENT:
                 base_refinement.parse(element)
             else:
