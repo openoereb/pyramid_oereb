@@ -10,11 +10,7 @@ from sqlalchemy.orm import sessionmaker
 
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.standard.xtf_import import FederalTopic
-from pyramid_oereb.standard.sources.plr import StandardThemeConfigParser
-
-theme_config = Config.get_theme_config('AirportsSecurityZonePlans')
-config_parser = StandardThemeConfigParser(**theme_config)
-models = config_parser.get_models()
+from pyramid_oereb.standard.models.theme import Models
 
 yaml_file = 'pyramid_oereb/standard/pyramid_oereb.yml'
 
@@ -28,7 +24,7 @@ def test_init():
     assert len(loader._settings.get('plrs')) == 17
     assert loader._topic_settings.get('code') == 'AirportsSecurityZonePlans'
     assert loader._connection.startswith('postgresql://')
-    assert loader._models == models
+    assert isinstance(loader._models, Models)
     assert len(loader._file_id) == 36
     assert loader._checksum is None
     assert loader._data_integration_office_id is None

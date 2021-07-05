@@ -11,12 +11,12 @@ import requests
 import logging
 
 from defusedxml.ElementTree import parse
-from pyramid.path import DottedNameResolver
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from tqdm import tqdm
 
 from pyramid_oereb.lib.config import Config
+from pyramid_oereb.standard.sources.plr import StandardThemeConfigParser
 from pyramid_oereb.standard.xtf_import.article import Article
 from pyramid_oereb.standard.xtf_import.base_refinement import BaseRefinement
 from pyramid_oereb.standard.xtf_import.document import Document
@@ -89,8 +89,8 @@ class FederalTopic(object):
         self._arc_precision = arc_precision
         self._topic_settings = topic_settings
         self._connection = topic_settings.get('source').get('params').get('db_connection')
-        models_path = topic_settings.get('source').get('params').get('models')
-        self._models = DottedNameResolver().maybe_resolve(models_path)
+        config_parser = StandardThemeConfigParser(**topic_settings)
+        self._models = config_parser.get_models()
         self._file_id = '{0}'.format(uuid4())
         self._checksum = None
         self._data_integration_office_id = None

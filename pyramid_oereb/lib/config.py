@@ -114,14 +114,14 @@ class Config(object):
                 if theme.get('code') == code:
                     return theme.get('plr_thresholds')
         return None
-    
+
     @staticmethod
     def get_theme_config(code):
         plrs = Config._config.get('plrs')
         if plrs and isinstance(plrs, list):
             for theme in plrs:
                 if theme.get('code') == code:
-                    return theme.get('plr_thresholds')
+                    return theme
         return None
 
     @staticmethod

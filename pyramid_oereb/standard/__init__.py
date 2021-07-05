@@ -117,7 +117,7 @@ def create_tables_from_standard_configuration(
         plr_schema_engine = create_engine(schema.get('source').get('params').get('db_connection'), echo=True)
         config_parser = StandardThemeConfigParser(**schema)
         models = config_parser.get_models()
-        plr_base = models['Base']
+        plr_base = models.Base
         if sql_file is None:
             if schema.get('standard'):
 

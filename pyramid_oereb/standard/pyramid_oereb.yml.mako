@@ -452,9 +452,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: land_use_plans
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -493,9 +493,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: motorways_project_planing_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -534,9 +534,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: motorways_building_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -575,9 +575,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: railways_building_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -616,9 +616,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: railways_project_planning_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -657,9 +657,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: airports_project_planning_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -698,9 +698,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: airports_building_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -739,9 +739,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: airports_security_zone_plans
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -781,9 +781,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: contaminated_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -822,9 +822,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: contaminated_military_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -863,9 +863,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: contaminated_civil_aviation_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -904,9 +904,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: contaminated_public_transport_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -955,9 +955,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: groundwater_protection_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -996,9 +996,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: groundwater_protection_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -1037,9 +1037,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: noise_sensitivity_levels
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -1081,9 +1081,9 @@ pyramid_oereb:
         #class: pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: forest_perimeters
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -1122,9 +1122,9 @@ pyramid_oereb:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
           db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # comment line above and uncomment line below to use string type for primary keys
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: forest_distance_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol

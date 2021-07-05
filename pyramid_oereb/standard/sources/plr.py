@@ -94,16 +94,16 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         config_parser = StandardThemeConfigParser(**kwargs)
         models = config_parser.get_models()
         bds_kwargs = {
-            'model': models['Geometry'],
+            'model': models.Geometry,
             'db_connection': kwargs.get('source').get('params').get('db_connection')
         }
 
         BaseDatabaseSource.__init__(self, **bds_kwargs)
         PlrBaseSource.__init__(self, **kwargs)
 
-        self.legend_entry_model = models['LegendEntry']
-        availability_model = models['Availability']
-        data_integration_model = models['DataIntegration']
+        self.legend_entry_model = models.LegendEntry
+        availability_model = models.Availability
+        data_integration_model = models.DataIntegration
         self._theme_record = ThemeRecord(self._plr_info.get('code'), self._plr_info.get('text'))
 
         self.availabilities = []

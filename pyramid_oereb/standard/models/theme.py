@@ -6,6 +6,32 @@ from sqlalchemy.orm import relationship
 from sqlalchemy_utils import JSONType
 
 
+class Models(object):
+
+    def __init__(self, availability, office, data_integration, reference_definition,
+                 document_base, document, article, view_service, legend_entry, public_law_restriction,
+                 geometry, public_law_restriction_base, public_law_restriction_refinement,
+                 public_law_restriction_document, document_reference, document_reference_definition, base):
+
+        self.Availability = availability
+        self.Office = office
+        self.DataIntegration = data_integration
+        self.ReferenceDefinition = reference_definition
+        self.DocumentBase = document_base
+        self.Document = document
+        self.Article = article
+        self.ViewService = view_service
+        self.LegendEntry = legend_entry
+        self.PublicLawRestriction = public_law_restriction
+        self.Geometry = geometry
+        self.PublicLawRestrictionBase = public_law_restriction_base
+        self.PublicLawRestrictionRefinement = public_law_restriction_refinement
+        self.PublicLawRestrictionDocument = public_law_restriction_document
+        self.DocumentReference = document_reference
+        self.DocumentReferenceDefinition = document_reference_definition
+        self.Base = base
+
+
 def model_factory(schema_name, pk_type, geometry_type, srid):
     """
     Factory to produce a set of standard models.
@@ -586,25 +612,13 @@ def model_factory(schema_name, pk_type, geometry_type, srid):
             nullable=False
         )
 
-    return {
-        'Availability': Availability,
-        'Office': Office,
-        'DataIntegration': DataIntegration,
-        'ReferenceDefinition': ReferenceDefinition,
-        'DocumentBase': DocumentBase,
-        'Document': Document,
-        'Article': Article,
-        'ViewService': ViewService,
-        'LegendEntry': LegendEntry,
-        'PublicLawRestriction': PublicLawRestriction,
-        'Geometry': Geometry,
-        'PublicLawRestrictionBase': PublicLawRestrictionBase,
-        'PublicLawRestrictionRefinement': PublicLawRestrictionRefinement,
-        'PublicLawRestrictionDocument': PublicLawRestrictionDocument,
-        'DocumentReference': DocumentReference,
-        'DocumentReferenceDefintion': DocumentReferenceDefinition,
-        'Base': Base
-    }
+    return Models(
+        Availability, Office, DataIntegration, ReferenceDefinition,
+        DocumentBase, Document, Article, ViewService, LegendEntry,
+        PublicLawRestriction, Geometry, PublicLawRestrictionBase,
+        PublicLawRestrictionRefinement, PublicLawRestrictionDocument,
+        DocumentReference, DocumentReferenceDefinition, Base
+    )
 
 
 def model_factory_string_pk(schema_name, geometry_type, srid):
