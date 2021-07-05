@@ -1,7 +1,7 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
-	"$id": "http://schemas.geo.admin.ch/V_D/OeREB/1.0/extractdata.json",
-	"fileVersion": "1.0.1",
+	"$id": "http://schemas.geo.admin.ch/V_D/OeREB/2.0/extractdata.json",
+	"fileVersion": "2.0.0",
 	"type": "object",
 	"anyOf": [{
 		"$ref": "#/definitions/Extract"
@@ -57,6 +57,17 @@
 				}
 			}
 		},
+		"LocalisedBlob": {
+			"type": "object",
+			"properties": {
+				"Language": {
+					"$ref": "#/definitions/LanguageCode"
+				},
+				"Blob": {
+					"$ref": "#/definitions/base64Binary"
+				}
+			}
+		},
 		"MultilingualMText": {
 			"type": "array",
 			"items": {
@@ -78,7 +89,25 @@
 			},
 			"minItems": 1
 		},
+		"MultilingualBlob": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/LocalisedBlob"
+			},
+			"minItems": 1
+		},
 		"RealEstateType": {
+			"type": "object",
+			"properties": {
+				"Code": {
+					"$ref": "#/definitions/RealEstateTypeCode"
+				},
+				"Text": {
+					"$ref": "#/definitions/MultilingualText"
+				}
+			}
+		},
+		"RealEstateTypeCode": {
 			"enum": [
 				"RealEstate",
 				"Distinct_and_permanent_rights.BuildingRight",
@@ -225,13 +254,27 @@
 				"Code": {
 					"$ref": "#/definitions/ThemeCode"
 				},
+				"SubCode": {
+					"$ref": "#/definitions/ThemeCode"
+				},
 				"Text": {
-					"$ref": "#/definitions/LocalisedText"
+					"$ref": "#/definitions/MultilingualText"
 				}
 			}
 		},
 		"ThemeCode": {
-			"pattern": "LandUsePlans|MotorwaysProjectPlaningZones|MotorwaysBuildingLines|RailwaysProjectPlanningZones|RailwaysBuildingLines|AirportsProjectPlanningZones|AirportsBuildingLines|AirportsSecurityZonePlans|ContaminatedSites|ContaminatedMilitarySites|ContaminatedCivilAviationSites|ContaminatedPublicTransportSites|GroundwaterProtectionZones|GroundwaterProtectionSites|NoiseSensitivityLevels|ForestPerimeters|ForestDistanceLines|(ch.[A-Z]{2}.[a-zA-Z][a-zA-Z0-9]*)|(ch.[0-9]{4}.[a-zA-Z][a-zA-Z0-9]*)|(fl.[a-zA-Z][a-zA-Z0-9]*)"
+			"pattern": "(ch.[a-zA-Z][a-zA-Z0-9]*)|(ch.[A-Z]{2}.[a-zA-Z][a-zA-Z0-9]*)|(ch.[0-9]{4}.[a-zA-Z][a-zA-Z0-9]*)|(fl.[a-zA-Z][a-zA-Z0-9]*)"
+		},
+		"DocumentType": {
+			"type": "object",
+			"properties": {
+				"Code": {
+					"$ref": "#/definitions/DocumentTypeCode"
+				},
+				"Text": {
+					"$ref": "#/definitions/MultilingualText"
+				}
+			}
 		},
 		"DocumentTypeCode": {
 			"pattern": "LegalProvision|Law|Hint"
@@ -256,10 +299,6 @@
 				},
 				"Theme": {
 					"$ref": "#/definitions/Theme"
-				},
-				"SubTheme": {
-					"type": "string",
-					"maxLength": 60
 				}
 			}
 		},
@@ -267,13 +306,10 @@
 			"type": "object",
 			"properties": {
 				"Image": {
-					"$ref": "#/definitions/base64Binary"
+					"$ref": "#/definitions/MultilingualBlob"
 				},
 				"ReferenceWMS": {
-					"$ref": "#/definitions/anyURI"
-				},
-				"LegendAtWeb": {
-					"$ref": "#/definitions/WebReference"
+					"$ref": "#/definitions/MultilingualUri"
 				},
 				"OtherLegend": {
 					"type": "array",
@@ -281,16 +317,10 @@
 						"$ref": "#/definitions/LegendEntry"
 					}
 				},
-				"min_NS03": {
+				"min": {
 					"$ref": "#/definitions/PointPropertyType"
 				},
-				"max_NS03": {
-					"$ref": "#/definitions/PointPropertyType"
-				},
-				"min_NS95": {
-					"$ref": "#/definitions/PointPropertyType"
-				},
-				"max_NS95": {
+				"max": {
 					"$ref": "#/definitions/PointPropertyType"
 				},
 				"layerIndex": {
@@ -319,36 +349,20 @@
 		"Document": {
 			"type": "object",
 			"properties": {
-				"DocumentType": {
-					"$ref": "#/definitions/DocumentTypeCode"
-				},
-				"TextAtWeb": {
-					"$ref": "#/definitions/MultilingualUri"
-				},
-				"Lawstatus": {
-					"$ref": "#/definitions/Lawstatus"
+				"Type": {
+					"$ref": "#/definitions/DocumentType"
 				},
 				"Title": {
-					"$ref": "#/definitions/MultilingualText"
-				},
-				"OfficialTitle": {
 					"$ref": "#/definitions/MultilingualText"
 				},
 				"Abbreviation": {
 					"$ref": "#/definitions/MultilingualText"
 				},
 				"OfficialNumber": {
-					"type": "string",
-					"maxLength": 20
+					"$ref": "#/definitions/MultilingualText"
 				},
-				"Canton": {
-					"$ref": "#/definitions/CantonCode"
-				},
-				"Municipality": {
-					"$ref": "#/definitions/MunicipalityCode"
-				},
-				"ResponsibleOffice": {
-					"$ref": "#/definitions/Office"
+				"TextAtWeb": {
+					"$ref": "#/definitions/MultilingualUri"
 				},
 				"ArticleNumber": {
 					"type": "array",
@@ -356,17 +370,16 @@
 						"$ref": "#/definitions/ArticleNumber"
 					}
 				},
-				"Article": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/Article"
-					}
+				"Lawstatus": {
+					"$ref": "#/definitions/Lawstatus"
 				},
-				"Reference": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/Document"
-					}
+				"Index": {
+					"type": "number",
+					"minimum": -1000,
+					"maximum": 1000
+				},
+				"ResponsibleOffice": {
+					"$ref": "#/definitions/Office"
 				}
 			}
 		},
@@ -377,14 +390,15 @@
 					"$ref": "#/definitions/LawstatusCode"
 				},
 				"Text": {
-					"$ref": "#/definitions/LocalisedText"
+					"$ref": "#/definitions/MultilingualText"
 				}
 			}
 		},
 		"LawstatusCode": {
 			"enum": [
 				"inForce",
-				"runningModifications"
+				"changeWithPreEffect",
+				"changeWithoutPreEffect"
 			]
 		},
 		"ArticleNumber": {
@@ -394,26 +408,6 @@
 		"RestrictiontypeCode": {
 			"type": "string",
 			"maxLength": 40
-		},
-		"Article": {
-			"type": "object",
-			"properties": {
-				"DocumentType": {
-					"$ref": "#/definitions/DocumentTypeCode"
-				},
-				"TextAtWeb": {
-					"$ref": "#/definitions/MultilingualUri"
-				},
-				"Lawstatus": {
-					"$ref": "#/definitions/Lawstatus"
-				},
-				"Number": {
-					"$ref": "#/definitions/ArticleNumber"
-				},
-				"Text": {
-					"$ref": "#/definitions/MultilingualMText"
-				}
-			}
 		},
 		"Geometry": {
 			"type": "object",
@@ -432,24 +426,17 @@
 				},
 				"MetadataOfGeographicalBaseData": {
 					"$ref": "#/definitions/anyURI"
-				},
-				"ResponsibleOffice": {
-					"$ref": "#/definitions/Office"
 				}
 			}
 		},
 		"RestrictionOnLandownership": {
 			"type": "object",
 			"properties": {
-				"Information": {
+				"LegendText": {
 					"$ref": "#/definitions/MultilingualMText"
 				},
 				"Theme": {
 					"$ref": "#/definitions/Theme"
-				},
-				"SubTheme": {
-					"type": "string",
-					"maxLength": 60
 				},
 				"TypeCode": {
 					"$ref": "#/definitions/RestrictiontypeCode"
@@ -463,6 +450,11 @@
 				"AreaShare": {
 					"$ref": "#/definitions/Area"
 				},
+				"PartInPercent": {
+					"type": "number",
+					"minimum": 0.0,
+					"maximum": 100.0
+				},
 				"LengthShare": {
 					"$ref": "#/definitions/Length"
 				},
@@ -470,11 +462,6 @@
 					"type": "number",
 					"minimum": 0,
 					"maximum": 10000000
-				},
-				"PartInPercent": {
-					"type": "number",
-					"minimum": 0.0,
-					"maximum": 100.0
 				},
 				"Symbol": {
 					"$ref": "#/definitions/base64Binary"
@@ -494,15 +481,7 @@
 				"LegalProvisions": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"anyOf": [
-							{
-								"$ref": "#/definitions/Article"
-							},
-							{
-								"$ref": "#/definitions/Document"
-							}
-						]
+						"$ref": "#/definitions/Document"
 					}
 				},
 				"ResponsibleOffice": {
@@ -531,16 +510,20 @@
 				"Canton": {
 					"$ref": "#/definitions/CantonCode"
 				},
-				"Municipality": {
+				"MunicipalityName": {
 					"type": "string",
 					"maxLength": 60
+				},
+				"MunicipalityCode": {
+					"$ref": "#/definitions/MunicipalityCode"
 				},
 				"SubunitOfLandRegister": {
 					"type": "string",
 					"maxLength": 60
 				},
-				"FosNr": {
-					"$ref": "#/definitions/MunicipalityCode"
+				"SubunitOfLandRegisterDesignation": {
+					"type": "string",
+					"maxLength": 80
 				},
 				"MetadataOfGeographicalBaseData": {
 					"$ref": "#/definitions/anyURI"
@@ -563,17 +546,10 @@
 				},
 				"PlanForLandRegisterMainPage": {
 					"$ref": "#/definitions/Map"
-				},
-				"Reference": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/Document"
-					},
-					"minItems": 0
 				}
 			}
 		},
-		"ExclusionOfLiability": {
+		"Disclaimer": {
 			"type": "object",
 			"properties": {
 				"Title": {
@@ -591,7 +567,7 @@
 					"$ref": "#/definitions/MultilingualText"
 				},
 				"OfficeAtWeb": {
-					"$ref": "#/definitions/WebReference"
+					"$ref": "#/definitions/MultilingualUri"
 				},
 				"UID": {
 					"$ref": "#/definitions/UID"
@@ -652,9 +628,6 @@
 					},
 					"minItems": 0
 				},
-				"isReduced": {
-					"type": "boolean"
-				},
 				"LogoPLRCadastre": {
 					"$ref": "#/definitions/base64Binary"
 				},
@@ -692,9 +665,6 @@
 				"GeneralInformation": {
 					"$ref": "#/definitions/MultilingualMText"
 				},
-				"BaseData": {
-					"$ref": "#/definitions/MultilingualMText"
-				},
 				"Glossary": {
 					"type": "array",
 					"items": {
@@ -705,21 +675,18 @@
 				"RealEstate": {
 					"$ref": "#/definitions/RealEstate_DPR"
 				},
-				"ExclusionOfLiability": {
+				"Disclaimer": {
 					"type": "array",
 					"items": {
-						"$ref": "#/definitions/ExclusionOfLiability"
+						"$ref": "#/definitions/Disclaimer"
 					},
 					"minItems": 0
 				},
 				"PLRCadastreAuthority": {
 					"$ref": "#/definitions/Office"
 				},
-				"Certification": {
-					"$ref": "#/definitions/MultilingualMText"
-				},
-				"CertificationAtWeb": {
-					"$ref": "#/definitions/MultilingualUri"
+				"UpdateDateOS": {
+					"$ref": "#/definitions/dateTime"
 				}
 			}
 		}
