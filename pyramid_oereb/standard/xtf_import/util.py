@@ -10,7 +10,16 @@ def get_tag(element):
 def parse_string(element, prop):
     for p in element:
         if get_tag(p) == prop:
-            return p.text
+            if p.text is not None:
+                return p.text
+    return None
+
+
+def parse_integer(element, prop):
+    for p in element:
+        if get_tag(p) == prop:
+            if p.text is not None:
+                return int(p.text)
     return None
 
 
