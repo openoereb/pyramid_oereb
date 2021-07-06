@@ -131,7 +131,6 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                 'ConcernedTheme': [],
                 'NotConcernedTheme': [],
                 'ThemeWithoutData': [],
-                'isReduced': True,
                 'PLRCadastreAuthority': renderer.format_office(office_record),
                 'BaseData': renderer.get_multilingual_text(Config.get_base_data(av_update_date)),
                 'RealEstate': renderer.format_real_estate(real_estate),

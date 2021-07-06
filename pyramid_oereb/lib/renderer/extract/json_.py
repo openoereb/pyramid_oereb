@@ -89,7 +89,6 @@ class Renderer(Base):
 
         extract_dict = {
             'CreationDate': self.date_time(extract.creation_date),
-            'isReduced': self._params.flavour in ['reduced', 'embeddable'],
             'ExtractIdentifier': extract.extract_identifier,
             'BaseData': self.get_multilingual_text(extract.base_data),
             'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority),

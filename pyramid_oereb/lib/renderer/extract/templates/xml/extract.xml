@@ -69,7 +69,6 @@
         </data:ThemeWithoutData>
         %endfor
     %endif
-        <data:isReduced>${parse_bool(params.flavour == 'reduced') | x}</data:isReduced>
     %if params.images:
         <data:LogoPLRCadastre>${extract.logo_plr_cadastre.encode()}</data:LogoPLRCadastre>
         <data:FederalLogo>${extract.federal_logo.encode()}</data:FederalLogo>
