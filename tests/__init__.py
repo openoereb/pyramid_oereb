@@ -3,7 +3,6 @@ from contextlib import contextmanager
 from pyramid.testing import testConfig
 
 from pyramid_oereb.lib.config import Config
-from pyramid_oereb.standard import create_tables_from_standard_configuration
 
 
 params = [
@@ -61,4 +60,3 @@ def pyramid_oereb_test_config():
 
 # Set up test database and init the Config
 Config._config = None
-create_tables_from_standard_configuration(pyramid_oereb_test_yml)

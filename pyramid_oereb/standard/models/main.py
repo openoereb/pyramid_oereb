@@ -25,15 +25,14 @@ But you can change it also via configuration.
         variables.
 
 """
-import sqlalchemy as sa
+from sqlalchemy import Column, PrimaryKeyConstraint
+from sqlalchemy import Unicode, String, text, Integer, Boolean
 from geoalchemy2 import Geometry
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import JSONType
 
-from pyramid_oereb.standard.models import NAMING_CONVENTION
 from pyramid_oereb.lib.config import Config
 
-metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
 Base = declarative_base()
 app_schema_name = Config.get('app_schema').get('name')
 srid = Config.get('srid')
@@ -60,11 +59,11 @@ class Municipality(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'municipality'
-    fosnr = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
-    name = sa.Column(sa.String, nullable=False)
-    published = sa.Column(sa.Boolean, nullable=False, default=False, server_default=sa.text('FALSE'))
-    logo = sa.Column(sa.String, nullable=False)
-    geom = sa.Column(Geometry('MULTIPOLYGON', srid=srid), nullable=True)
+    fosnr = Column(Integer, primary_key=True, autoincrement=False)
+    name = Column(String, nullable=False)
+    published = Column(Boolean, nullable=False, default=False, server_default=text('FALSE'))
+    logo = Column(String, nullable=False)
+    geom = Column(Geometry('MULTIPOLYGON', srid=srid), nullable=True)
 
 
 class RealEstate(Base):
@@ -97,18 +96,18 @@ class RealEstate(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'real_estate'
-    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
-    identdn = sa.Column(sa.String, nullable=True)
-    number = sa.Column(sa.String, nullable=True)
-    egrid = sa.Column(sa.String, nullable=True)
-    type = sa.Column(sa.String, nullable=False)
-    canton = sa.Column(sa.String, nullable=False)
-    municipality = sa.Column(sa.String, nullable=False)
-    subunit_of_land_register = sa.Column(sa.String, nullable=True)
-    fosnr = sa.Column(sa.Integer, nullable=False)
-    metadata_of_geographical_base_data = sa.Column(sa.String, nullable=True)
-    land_registry_area = sa.Column(sa.Integer, nullable=False)
-    limit = sa.Column(Geometry('MULTIPOLYGON', srid=srid))
+    id = Column(Integer, primary_key=True, autoincrement=False)
+    identdn = Column(String, nullable=True)
+    number = Column(String, nullable=True)
+    egrid = Column(String, nullable=True)
+    type = Column(String, nullable=False)
+    canton = Column(String, nullable=False)
+    municipality = Column(String, nullable=False)
+    subunit_of_land_register = Column(String, nullable=True)
+    fosnr = Column(Integer, nullable=False)
+    metadata_of_geographical_base_data = Column(String, nullable=True)
+    land_registry_area = Column(Integer, nullable=False)
+    limit = Column(Geometry('MULTIPOLYGON', srid=srid))
 
 
 class Address(Base):
@@ -127,14 +126,14 @@ class Address(Base):
             configured type.  This concrete one is POINT
     """
     __table_args__ = (
-        sa.PrimaryKeyConstraint("street_name", "street_number", "zip_code"),
+        PrimaryKeyConstraint("street_name", "street_number", "zip_code"),
         {'schema': app_schema_name}
     )
     __tablename__ = 'address'
-    street_name = sa.Column(sa.Unicode, nullable=False)
-    street_number = sa.Column(sa.String, nullable=False)
-    zip_code = sa.Column(sa.Integer, nullable=False, autoincrement=False)
-    geom = sa.Column(Geometry('POINT', srid=srid))
+    street_name = Column(Unicode, nullable=False)
+    street_number = Column(String, nullable=False)
+    zip_code = Column(Integer, nullable=False, autoincrement=False)
+    geom = Column(Geometry('POINT', srid=srid))
 
 
 class Glossary(Base):
@@ -149,9 +148,9 @@ class Glossary(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'glossary'
-    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
-    title = sa.Column(JSONType, nullable=False)
-    content = sa.Column(JSONType, nullable=False)
+    id = Column(Integer, primary_key=True, autoincrement=False)
+    title = Column(JSONType, nullable=False)
+    content = Column(JSONType, nullable=False)
 
 
 class ExclusionOfLiability(Base):
@@ -168,6 +167,6 @@ class ExclusionOfLiability(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'exclusion_of_liability'
-    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
-    title = sa.Column(JSONType, nullable=False)
-    content = sa.Column(JSONType, nullable=False)
+    id = Column(Integer, primary_key=True, autoincrement=False)
+    title = Column(JSONType, nullable=False)
+    content = Column(JSONType, nullable=False)

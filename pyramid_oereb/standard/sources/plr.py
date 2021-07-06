@@ -27,21 +27,29 @@ class StandardThemeConfigParser(object):
     def __init__(self, **kwargs):
         self.kwargs = kwargs
 
-    def get_model_factory_path(self):
+    @property
+    def model_factory_path(self):
         return self.kwargs.get('source').get('params').get('model_factory')
 
-    def get_schema_name(self):
+    @property
+    def schema_name(self):
         return self.kwargs.get('source').get('params').get('schema_name')
 
-    def get_geometry_type(self):
+    @property
+    def geometry_type(self):
         return self.kwargs.get('geometry_type')
 
-    def get_srid(self):
+    @property
+    def srid(self):
         return Config._config.get('srid')
+
+    @property
+    def db_connection(self):
+        return self.kwargs.get('source').get('params').get('db_connection')
 
     def get_model_factory(self):
         module_elements = Config.extract_module_function(
-            self.get_model_factory_path()
+            self.model_factory_path
         )
         return getattr(
             importlib.import_module(module_elements['module_path']),
@@ -51,9 +59,10 @@ class StandardThemeConfigParser(object):
     def get_models(self):
         model_factory = self.get_model_factory()
         return model_factory(
-            self.get_schema_name(),
-            self.get_geometry_type(),
-            self.get_srid()
+            self.schema_name,
+            self.geometry_type,
+            self.srid,
+            self.db_connection
         )
 
 

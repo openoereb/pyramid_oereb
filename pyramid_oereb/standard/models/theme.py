@@ -11,7 +11,8 @@ class Models(object):
     def __init__(self, availability, office, data_integration, reference_definition,
                  document_base, document, article, view_service, legend_entry, public_law_restriction,
                  geometry, public_law_restriction_base, public_law_restriction_refinement,
-                 public_law_restriction_document, document_reference, document_reference_definition, base):
+                 public_law_restriction_document, document_reference, document_reference_definition, base,
+                 db_connection, schema_name):
 
         self.Availability = availability
         self.Office = office
@@ -30,9 +31,11 @@ class Models(object):
         self.DocumentReference = document_reference
         self.DocumentReferenceDefinition = document_reference_definition
         self.Base = base
+        self.db_connection = db_connection
+        self.schema_name = schema_name
 
 
-def model_factory(schema_name, pk_type, geometry_type, srid):
+def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
     """
     Factory to produce a set of standard models.
 
@@ -617,13 +620,14 @@ def model_factory(schema_name, pk_type, geometry_type, srid):
         DocumentBase, Document, Article, ViewService, LegendEntry,
         PublicLawRestriction, Geometry, PublicLawRestrictionBase,
         PublicLawRestrictionRefinement, PublicLawRestrictionDocument,
-        DocumentReference, DocumentReferenceDefinition, Base
+        DocumentReference, DocumentReferenceDefinition, Base,
+        db_connection, schema_name
     )
 
 
-def model_factory_string_pk(schema_name, geometry_type, srid):
-    return model_factory(schema_name, String, geometry_type, srid)
+def model_factory_string_pk(schema_name, geometry_type, srid, db_connection):
+    return model_factory(schema_name, String, geometry_type, srid, db_connection)
 
 
-def model_factory_integer_pk(schema_name, geometry_type, srid):
-    return model_factory(schema_name, Integer, geometry_type, srid)
+def model_factory_integer_pk(schema_name, geometry_type, srid, db_connection):
+    return model_factory(schema_name, Integer, geometry_type, srid, db_connection)
