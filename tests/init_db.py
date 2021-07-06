@@ -384,6 +384,16 @@ class DummyData(object):
             'public_law_restriction_id': '1',
             'document_id': '2'
         })
+        connection.execute(motorways_building_lines.PublicLawRestrictionDocument.__table__.insert(), {
+            'id': '3',
+            'public_law_restriction_id': '1',
+            'document_id': '3'
+        })
+        connection.execute(motorways_building_lines.PublicLawRestrictionDocument.__table__.insert(), {
+            'id': '4',
+            'public_law_restriction_id': '1',
+            'document_id': '4'
+        })
 
         connection.close()
 

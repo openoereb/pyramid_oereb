@@ -76,8 +76,7 @@ def test_filter_published_documents():
     extract = processor.process(real_estate[0], params, 'http://test.ch')
     for plr in extract.real_estate.public_law_restrictions:
         if plr.theme.code == u'MotorwaysBuildingLines':
-            assert len(plr.documents) == 1
-            assert len(plr.documents[0].references) == 1
+            assert len(plr.documents) == 2
 
 
 def test_processor_with_images():

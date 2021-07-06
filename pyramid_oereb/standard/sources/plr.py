@@ -242,19 +242,19 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 )
             )
             document_records.append(self._documents_record_class(
-                document.document_type,
-                document.index,
-                law_status,
-                document.title,
-                office_record,
-                document.published_from,
-                document.published_until,
-                document.text_at_web,
-                document.abbreviation,
-                document.official_number,
-                document.only_in_municipality,
-                article_nrs,
-                document.file
+                document_type=document.document_type,
+                index=document.index,
+                law_status=law_status,
+                title=document.title,
+                responsible_office=office_record,
+                published_from=document.published_from,
+                published_until=document.published_until,
+                text_at_web=document.text_at_web,
+                abbreviation=document.abbreviation,
+                official_number=document.official_number,
+                only_in_municipality=document.only_in_municipality,
+                article_numbers=article_nrs,
+                file=document.file
             ))
         return document_records
 

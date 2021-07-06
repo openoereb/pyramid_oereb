@@ -198,8 +198,15 @@ def test_format_real_estate():
                                      1.0,
                                      {'de': u'http://geowms.bl.ch'},
                                      None)
-    document = DocumentRecord('Law', law_status(), datetime.date.today(), {u'de': u'Test Dokument'},
-                              OfficeRecord({u'de': u'BUD'}), {'de': 'http://mein.dokument.ch'})
+    document = DocumentRecord(
+        document_type='GesetzlicheGrundlage',
+        index=1,
+        law_status=law_status(),
+        published_from=datetime.date.today(),
+        title={u'de': u'Test Dokument'},
+        responsible_office=OfficeRecord({u'de': u'BUD'}),
+        text_at_web={'de': 'http://mein.dokument.ch'}
+    )
     real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
                                    geometry, u'http://www.geocat.ch', u'1000', u'BL0200002829',
                                    u'CH775979211712', u'Subunit', [], references=[document])
@@ -236,12 +243,13 @@ def test_format_plr(parameter):
         renderer._params = parameter
         renderer._request = MockRequest()
         document = DocumentRecord(
-            'Law',
-            law_status(),
-            datetime.date.today(),
-            {u'de': u'Test Dokument'},
-            OfficeRecord({u'de': u'BUD'}),
-            {'de': 'http://mein.dokument.ch'}
+            document_type='GesetzlicheGrundlage',
+            index=1,
+            law_status=law_status(),
+            published_from=datetime.date.today(),
+            title={u'de': u'Test Dokument'},
+            responsible_office=OfficeRecord({u'de': u'BUD'}),
+            text_at_web={'de': 'http://mein.dokument.ch'}
         )
         documents = [document]
         theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test theme'})
@@ -348,7 +356,10 @@ def test_format_plr(parameter):
             abbreviation={'de': 'Test'},
             article_numbers=['Art.1', 'Art.2', 'Art.3']
         ), {
-            'DocumentType': 'Rechtsvorschrift',
+            'DocumentType': {
+                'Code': 'LegalProvision',
+                'Text': [{'Language': 'de', 'Text': 'Rechtsvorschrift'}]
+            },
             'Index': 2,
             'Lawstatus': {
                 'Code': 'inForce',
@@ -374,7 +385,10 @@ def test_format_plr(parameter):
             text_at_web={'de': 'http://mein.gesetz.ch'},
             official_number={'de': 'g.test.1'}
         ), {
-            'DocumentType': 'GesetzlicheGrundlage',
+            'DocumentType': {
+                'Code': 'Law',
+                'Text': [{'Language': 'de', 'Text': 'Gesetzliche Grundlage'}]
+            },
             'Index': 1,
             'Lawstatus': {
                 'Code': 'inForce',
@@ -398,7 +412,10 @@ def test_format_plr(parameter):
             text_at_web={'de': 'http://mein.hinweis.ch'},
             official_number={'de': 'h.test.1'}
         ), {
-            'DocumentType': 'Hinweis',
+            'DocumentType': {
+                'Code': 'Hint',
+                'Text': [{'Language': 'de', 'Text': 'Hinweis'}]
+            },
             'Index': 3,
             'Lawstatus': {
                 'Code': 'inForce',

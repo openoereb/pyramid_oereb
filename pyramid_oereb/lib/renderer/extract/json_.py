@@ -329,10 +329,15 @@ class Renderer(Base):
 
         multilingual_text_at_web = self.get_multilingual_text(document.text_at_web)
 
+        document_type = Config.get('document_types')[document.document_type]
+
         document_dict.update({
             # TODO: Provide document types with code and multi-lingual text in configuration.
             #       https://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Texte.xml
-            'DocumentType': Config.get('document_types')[document.document_type],
+            'DocumentType': {
+                'Code': document_type['code'],
+                'Text': self.get_multilingual_text(document_type['text'])
+            },
             'Index': document.index,
             'Title': self.get_multilingual_text(document.title),
             'Lawstatus': self.format_law_status(document.law_status),
