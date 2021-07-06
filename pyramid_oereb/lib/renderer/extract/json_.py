@@ -254,12 +254,6 @@ class Renderer(Base):
         for plr in plrs:
 
             if isinstance(plr, PlrRecord):
-
-                # PLR without legal provision is allowed in reduced extract only!
-                if self._params.flavour != 'reduced' and isinstance(plr.documents, list) and \
-                        len(plr.documents) == 0:
-                    raise ValueError('Restrictions on landownership without legal provision are only allowed '
-                                     'in reduced extracts!')
                 plr_dict = {
                     'LegendText': self.get_multilingual_text(plr.legend_text),
                     'Theme': self.format_theme(plr.theme),
