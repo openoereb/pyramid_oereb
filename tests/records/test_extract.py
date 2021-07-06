@@ -32,10 +32,9 @@ def test_mandatory_fields():
 def create_dummy_extract():
     date = datetime.datetime.now()
     real_estate = RealEstateRecord(u'test', u'BL', u'Laufen', 2770, 1000, MultiPolygon(), ViewServiceRecord(
-        'test_link',
+        {'de': 'test_link'},
         1,
         1.0,
-        {'de': 'test_legend'}
     ))
     plr_office = OfficeRecord({u'en': u'PLR Authority'})
     resolver = DottedNameResolver()

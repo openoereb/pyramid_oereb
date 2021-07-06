@@ -142,6 +142,28 @@ class Base(object):
         """
         return [self.get_localized_text(values)]
 
+    def get_localized_image(self, values):
+        """
+        Returns the requested language of a multilingual binary image dictionary.
+
+        Args:
+            values (dict): The multilingual values encoded as JSON.
+
+        Returns:
+            dict of str: Dictionary containing the localized representation.
+        """
+        default_language = Config.get('default_language')
+        if self._language in values:
+            return {
+                'Language': self._language,
+                'Image': values[self._language].encode()
+            }
+        else:
+            return {
+                'Language': default_language,
+                'Image': values.get(default_language).encode()
+            }
+
     @staticmethod
     def unaccent_lower(text):
         """

@@ -38,10 +38,9 @@ def _get_test_extract(glossary):
     date = datetime.datetime.now()
     file_adapter = FileAdapter()
     with pyramid_oereb_test_config():
-        view_service = ViewServiceRecord(u'http://geowms.bl.ch',
+        view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
                                          1,
                                          1.0,
-                                         {'de': u'http://geowms.bl.ch'},
                                          None)
         real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
                                        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),

@@ -80,6 +80,7 @@ class Renderer(Base):
             'sort_by_localized_text': self.sort_by_localized_text,
             'localized': self.get_localized_text,
             'multilingual': self.get_multilingual_text,
+            'get_localized_image': self.get_localized_image,
             'request': self._request,
             'get_symbol_ref': self.get_symbol_ref,
             'get_gml_id': self._get_gml_id,

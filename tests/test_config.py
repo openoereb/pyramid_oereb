@@ -145,9 +145,10 @@ def test_get_layer_config():
 def test_get_real_estate_main_page_config():
     Config._config = None
     Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
+    lang = Config.get('default_language')
     plan_for_land_register_main_page_config = Config.get_plan_for_land_register_main_page_config()
-    assert plan_for_land_register_main_page_config.get('reference_wms') == 'https://wms.ch/?BBOX=2475000,' \
-                                                                           '1065000,2850000,1300000'
+    assert plan_for_land_register_main_page_config.get('reference_wms')[lang] == \
+        'https://wms.ch/?BBOX=2475000,1065000,2850000,1300000'
     assert plan_for_land_register_main_page_config.get('layer_index') == 2
     assert plan_for_land_register_main_page_config.get('layer_opacity') == 0.5
 

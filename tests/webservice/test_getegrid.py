@@ -181,10 +181,9 @@ def test_get_egrid_response():
           'format': u'json'
         })
 
-        view_service = ViewServiceRecord('test',
+        view_service = ViewServiceRecord({'de': 'test'},
                                          1,
                                          1.0,
-                                         {'de': 'test'},
                                          None)
         record = RealEstateRecord('test', 'BL', 'test', 1, 100,
                                   MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]), view_service,
