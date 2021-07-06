@@ -11,7 +11,7 @@ endif
 
 # Testing/DEV variables
 
-PG_DB = pyramid_oereb_test
+PG_DB = postgres
 PG_HOST = db
 PG_DROP_DB = DROP DATABASE IF EXISTS $(PG_DB);
 PG_CREATE_DB = CREATE DATABASE $(PG_DB);
