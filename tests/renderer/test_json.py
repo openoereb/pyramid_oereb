@@ -9,7 +9,7 @@ from pyramid.path import DottedNameResolver
 
 from pyramid_oereb import Config
 from pyramid_oereb.lib.adapter import FileAdapter
-from pyramid_oereb.lib.records.documents import LegalProvisionRecord, ArticleRecord, DocumentRecord
+from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.embeddable import EmbeddableRecord, DatasourceRecord
 from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
@@ -335,24 +335,21 @@ def test_format_plr(parameter):
 
 
 @pytest.mark.parametrize('document,result_dict', [
-    (LegalProvisionRecord(
-        law_status(),
-        datetime.date.today(),
-        {'de': 'Test Rechtsvorschrift'},
-        OfficeRecord({'de': 'AGI'}),
-        {'de': 'http://meine.rechtsvorschrift.ch'},
-        {'de': 'Test'},
-        'rv.test.1',
-        {'de': 'Rechtsvorschrift Test'},
-        'BL', 'Liestal',
-        ['Art.1', 'Art.2', 'Art.3'],
-        '1'.encode('utf-8'), [
-            ArticleRecord(law_status(), datetime.date.today(), 'art.1')
-        ], [
-            DocumentRecord('Law', law_status(), datetime.date.today(), {'de': 'Test Dokument'},
-                           OfficeRecord({'de': 'BUD'}), {'de': 'http://mein.dokument.ch'})
-        ]), {
-            'DocumentType': 'LegalProvision',
+    (
+        DocumentRecord(
+            document_type='Rechtsvorschrift',
+            index=2,
+            law_status=law_status(),
+            title={'de': 'Test Rechtsvorschrift'},
+            published_from=datetime.date.today(),
+            responsible_office=OfficeRecord({'de': 'AGI'}),
+            text_at_web={'de': 'http://meine.rechtsvorschrift.ch'},
+            official_number={'de': 'rv.test.1'},
+            abbreviation={'de': 'Test'},
+            article_numbers=['Art.1', 'Art.2', 'Art.3']
+        ), {
+            'DocumentType': 'Rechtsvorschrift',
+            'Index': 2,
             'Lawstatus': {
                 'Code': 'inForce',
                 'Text': {'Language': 'de', 'Text': 'In Kraft'}
@@ -362,47 +359,59 @@ def test_format_plr(parameter):
             'ResponsibleOffice': {
                 'Name': [{'Language': 'de', 'Text': 'AGI'}]
             },
-            'OfficialTitle': [{'Language': 'de', 'Text': 'Rechtsvorschrift Test'}],
             'Abbreviation': [{'Language': 'de', 'Text': 'Test'}],
-            'OfficialNumber': 'rv.test.1',
-            'Canton': 'BL',
-            'Municipality': 'Liestal',
-            'ArticleNumber': ['Art.1', 'Art.2', 'Art.3'],
-            'Article': [{
-                'Lawstatus': {
-                    'Code': 'inForce',
-                    'Text': {'Language': 'de', 'Text': 'In Kraft'}
-                },
-                'Number': 'art.1'
-            }],
-        'Reference': [{
-            'DocumentType': 'Law',
+            'OfficialNumber': [{'Language': 'de', 'Text': 'rv.test.1'}],
+            'ArticleNumber': ['Art.1', 'Art.2', 'Art.3']
+        }
+    ), (
+        DocumentRecord(
+            document_type='GesetzlicheGrundlage',
+            index=1,
+            law_status=law_status(),
+            title={'de': 'Test Gesetz'},
+            published_from=datetime.date.today(),
+            responsible_office=OfficeRecord({'de': 'AGI'}),
+            text_at_web={'de': 'http://mein.gesetz.ch'},
+            official_number={'de': 'g.test.1'}
+        ), {
+            'DocumentType': 'GesetzlicheGrundlage',
+            'Index': 1,
             'Lawstatus': {
                 'Code': 'inForce',
                 'Text': {'Language': 'de', 'Text': 'In Kraft'}
             },
-            'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.dokument.ch'}],
-            'Title': [{'Language': 'de', 'Text': 'Test Dokument'}],
+            'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.gesetz.ch'}],
+            'Title': [{'Language': 'de', 'Text': 'Test Gesetz'}],
             'ResponsibleOffice': {
-                'Name': [{'Language': 'de', 'Text': 'BUD'}]
-            }
-        }]
-    }),
-    (ArticleRecord(
-        law_status(),
-        datetime.date.today(),
-        u'art.2',
-        {'de': 'http://mein.artikel.ch/2'},
-        {u'de': u'Test-Artikel'}
-    ), {
-        'Lawstatus': {
-            'Code': 'inForce',
-            'Text': {'Language': 'de', 'Text': 'In Kraft'}
-        },
-        'Number': 'art.2',
-        'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.artikel.ch/2'}],
-        'Text': [{'Language': 'de', 'Text': 'Test-Artikel'}]
-    })
+                'Name': [{'Language': 'de', 'Text': 'AGI'}]
+            },
+            'OfficialNumber': [{'Language': 'de', 'Text': 'g.test.1'}]
+        }
+    ), (
+        DocumentRecord(
+            document_type='Hinweis',
+            index=3,
+            law_status=law_status(),
+            title={'de': 'Test Hinweis'},
+            published_from=datetime.date.today(),
+            responsible_office=OfficeRecord({'de': 'AGI'}),
+            text_at_web={'de': 'http://mein.hinweis.ch'},
+            official_number={'de': 'h.test.1'}
+        ), {
+            'DocumentType': 'Hinweis',
+            'Index': 3,
+            'Lawstatus': {
+                'Code': 'inForce',
+                'Text': {'Language': 'de', 'Text': 'In Kraft'}
+            },
+            'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.hinweis.ch'}],
+            'Title': [{'Language': 'de', 'Text': 'Test Hinweis'}],
+            'ResponsibleOffice': {
+                'Name': [{'Language': 'de', 'Text': 'AGI'}]
+            },
+            'OfficialNumber': [{'Language': 'de', 'Text': 'h.test.1'}]
+        }
+    )
 ])
 def test_format_document(params, document, result_dict):
     renderer = Renderer(DummyRenderInfo())

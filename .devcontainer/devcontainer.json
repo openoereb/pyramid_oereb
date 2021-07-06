@@ -15,7 +15,7 @@
       "previewLimit": 50,
       "server": "localhost",
       "port": 5432,
-      "database": "postgres",
+      "database": "pyramid_oereb_test",
       "username": "postgres",
       "password": "postgres"
     }],

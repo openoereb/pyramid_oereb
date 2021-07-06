@@ -8,7 +8,7 @@ from geolink_formatter.entity import Document, File
 from requests.auth import HTTPBasicAuth
 
 from pyramid_oereb.contrib.sources.document import OEREBlexSource
-from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord, HintRecord
+from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from tests.mockrequest import MockParameter
 
@@ -118,41 +118,24 @@ def test_get_mapped_value(key, language, result):
 def test_get_document_records(i, document):
     language = 'de'
     source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL')
-    references = [
-        Document(
-            id='ref',
-            title='Reference',
-            category='related',
-            doctype='edict',
-            authority='Office',
-            files=[File('Reference file', '/api/attachments/4', 'main')],
-            enactment_date=datetime.date.today()
-        )
-    ]
 
     if i == 3:
         with pytest.raises(TypeError):
-            source._get_document_records(document, language, references)
+            source._get_document_records(document, language)
     elif i == 4:
-        assert source._get_document_records(document, language, references) == []
+        assert source._get_document_records(document, language) == []
     else:
-        records = source._get_document_records(document, language, references)
+        records = source._get_document_records(document, language)
         assert len(records) == i
         for idx, record in enumerate(records):
+            assert isinstance(record, DocumentRecord)
             if i == 1:
-                assert isinstance(record, DocumentRecord)
+                record.document_type == 'GesetzlicheGrundlage'
             elif i == 2:
-                assert isinstance(record, LegalProvisionRecord)
+                record.document_type == 'Rechtsvorschrift'
             assert record.title == {'de': 'Document {0}'.format(i)}
             assert record.published_from == datetime.date.today()
-            assert record.canton == 'BL'
             assert record.text_at_web == {'de': '/api/attachments/{fid}'.format(fid=i + idx)}
-            assert len(record.references) == 1
-            reference = record.references[0]
-            assert isinstance(reference, DocumentRecord)
-            assert reference.title == {'de': 'Reference'}
-            assert reference.canton == 'BL'
-            assert reference.text_at_web == {'de': '/api/attachments/4'}
 
 
 def test_read():
@@ -189,7 +172,6 @@ def test_read_related_decree_as_main():
         assert document.text_at_web == {
             'de': 'http://oereblex.example.com/api/attachments/4735'
         }
-        assert len(document.references) == 4
 
 
 def test_read_related_notice_as_main():
@@ -201,12 +183,12 @@ def test_read_related_notice_as_main():
         source.read(MockParameter(), 100)
         assert len(source.records) == 6
         document = source.records[5]
-        assert isinstance(document, HintRecord)
+        assert isinstance(document, DocumentRecord)
+        assert document.document_type == 'Hinweis'
         assert isinstance(document.responsible_office, OfficeRecord)
         assert document.responsible_office.name == {'de': '-'}
         assert document.responsible_office.office_at_web is None
         assert document.published_from == datetime.date(1970, 1, 1)
-        assert len(document.references) == 3
 
 
 def test_read_with_version_in_url():
