@@ -289,7 +289,7 @@ class Geometry(Base):
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
     geo_metadata = sa.Column(sa.String, nullable=True)
-    geom = sa.Column(GeoAlchemyGeometry('LINESTRING', srid=srid), nullable=False)
+    geom = sa.Column(GeoAlchemyGeometry('MULTIPOLYGON', srid=srid), nullable=False)
     public_law_restriction_id = sa.Column(
         sa.String,
         sa.ForeignKey(PublicLawRestriction.id),
