@@ -2,7 +2,7 @@
   "GeneralInformation": "Der Inhalt des \u00d6REB-Katasters wird als bekannt vorausgesetzt. Der Kanton Basel-Landschaft ist f\u00fcr die Genauigkeit und Verl\u00e4sslichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begr\u00fcndet insbesondere keine Rechte und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskr\u00e4ftig verabschiedet oder ver\u00f6ffentlicht worden sind. Mit der Beglaubigung des Auszugs wird die \u00dcbereinstimmung des Auszugs mit dem \u00d6REB-Kataster zum Zeitpunkt der Auszugserstellung best\u00e4tigt.",
   "RealEstate_RestrictionOnLandownership": [
     {
-      "Information": "",
+      "LegendText": "",
       "Lawstatus_Code": "inForce",
       "TypeCode": "",
       "LegalProvisions": [
@@ -240,7 +240,7 @@
       "Legend": [
         {
           "PartInPercent": "73.0%",
-          "Information": "Industrie- und Gewerbezone",
+          "LegendText": "Industrie- und Gewerbezone",
           "TypeCode": "108000",
           "AreaShare": "87380.21 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/108000",
@@ -248,7 +248,7 @@
         },
         {
           "PartInPercent": "6.2%",
-          "Information": "Rheinuferzone",
+          "LegendText": "Rheinuferzone",
           "TypeCode": "130004",
           "AreaShare": "7379.93 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130004",
@@ -256,7 +256,7 @@
         },
         {
           "PartInPercent": "5.1%",
-          "Information": "Arch\u00e4ologische Schutzzone",
+          "LegendText": "Arch\u00e4ologische Schutzzone",
           "TypeCode": "219106",
           "AreaShare": "6125.68 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/219106",
@@ -266,7 +266,7 @@
       "Hints": []
     },
     {
-      "Information": "",
+      "LegendText": "",
       "Lawstatus_Code": "inForce",
       "TypeCode": "",
       "LegalProvisions": [
@@ -405,7 +405,7 @@
       "Legend": [
         {
           "PartInPercent": "51.8%",
-          "Information": "Betriebsstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
+          "LegendText": "Betriebsstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
           "TypeCode": "StaoTyp2_StatusAltlV1",
           "AreaShare": "61999.23 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV1",
@@ -413,7 +413,7 @@
         },
         {
           "PartInPercent": "12.1%",
-          "Information": "Betriebsstandort. Belastet, weder \u00fcberwachungs- noch sanierungsbed\u00fcrftig",
+          "LegendText": "Betriebsstandort. Belastet, weder \u00fcberwachungs- noch sanierungsbed\u00fcrftig",
           "TypeCode": "StaoTyp2_StatusAltlV3",
           "AreaShare": "14503.04 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV3",
@@ -421,7 +421,7 @@
         },
         {
           "PartInPercent": "4.8%",
-          "Information": "Betriebsstandort. Belastet,  \u00fcberwachungsbed\u00fcrftig",
+          "LegendText": "Betriebsstandort. Belastet,  \u00fcberwachungsbed\u00fcrftig",
           "TypeCode": "StaoTyp2_StatusAltlV4",
           "AreaShare": "5764.33 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV4",
@@ -429,7 +429,7 @@
         },
         {
           "PartInPercent": "1.0%",
-          "Information": "Unfallstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
+          "LegendText": "Unfallstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
           "TypeCode": "StaoTyp3_StatusAltlV1",
           "AreaShare": "1210.49 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp3_StatusAltlV1",
@@ -439,7 +439,7 @@
       "Hints": []
     },
     {
-      "Information": "",
+      "LegendText": "",
       "Lawstatus_Code": "inForce",
       "TypeCode": "",
       "LegalProvisions": [
@@ -537,7 +537,7 @@
       "Legend": [
         {
           "PartInPercent": "73.0%",
-          "Information": "Empfindlichkeitsstufe ES IV",
+          "LegendText": "Empfindlichkeitsstufe ES IV",
           "TypeCode": "ES_IV",
           "AreaShare": "87381.15 m\u00b2",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",

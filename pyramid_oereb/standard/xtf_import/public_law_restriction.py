@@ -5,7 +5,7 @@ from pyramid_oereb.standard.xtf_import.util import parse_string, parse_multiling
 
 class PublicLawRestriction(object):
 
-    TAG_INFORMATION = 'Aussage'
+    TAG_LEGEND_TEXT = 'Aussage'
     TAG_SUB_THEME = 'SubThema'
     TAG_TYPE_CODE = 'ArtCode'
     TAG_TYPE_CODE_LIST = 'ArtCodeliste'
@@ -26,7 +26,7 @@ class PublicLawRestriction(object):
             sub_theme = {language: sub_theme}
         instance = self._model(
             id=public_law_restriction.attrib['TID'],
-            information=parse_multilingual_text(public_law_restriction, self.TAG_INFORMATION),
+            legend_text=parse_multilingual_text(public_law_restriction, self.TAG_LEGEND_TEXT),
             topic=self._topic_code,
             sub_theme=sub_theme,
             type_code=parse_string(public_law_restriction, self.TAG_TYPE_CODE),

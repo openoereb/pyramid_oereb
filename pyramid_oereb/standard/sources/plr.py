@@ -338,7 +338,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         plr_record = self._plr_record_class(
             self._theme_record,
-            public_law_restriction_from_db.information,
+            public_law_restriction_from_db.legend_text,
             law_status,
             public_law_restriction_from_db.published_from,
             self.from_db_to_office_record(public_law_restriction_from_db.responsible_office),

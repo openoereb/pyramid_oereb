@@ -305,7 +305,7 @@ class PublicLawRestriction(Base):
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        information (dict): The multilingual textual representation of the public law restriction.
+        legend_text (dict): The multilingual textual representation of the public law restriction.
         topic (str): Category for this public law restriction (name of the topic).
         sub_theme (dict): Multilingual textual explanation to subtype the topic attribute.
         type_code (str): Type code of the public law restriction machine readable based on the
@@ -328,7 +328,7 @@ class PublicLawRestriction(Base):
     __table_args__ = {'schema': '${schema_name}'}
     __tablename__ = 'public_law_restriction'
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
-    information = sa.Column(JSONType, nullable=False)
+    legend_text = sa.Column(JSONType, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
     sub_theme = sa.Column(JSONType, nullable=True)
     type_code = sa.Column(sa.String(40), nullable=True)

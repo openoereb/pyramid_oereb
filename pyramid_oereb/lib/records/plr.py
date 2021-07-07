@@ -27,13 +27,13 @@ class PlrRecord(EmptyPlrRecord):
     Public law restriction record.
     """
 
-    def __init__(self, theme, information, law_status, published_from, responsible_office, symbol,
+    def __init__(self, theme, legend_text, law_status, published_from, responsible_office, symbol,
                  view_service, geometries, sub_theme=None, type_code=None,
                  type_code_list=None, basis=None, refinements=None, documents=None, info=None, min_length=0.0,
                  min_area=0.0, length_unit=u'm', area_unit=u'm2', view_service_id=None):
         """
         Args:
-            information (dict of unicode): The PLR record's information (multilingual).
+            legend_text (dict of unicode): The PLR record's legend text (multilingual).
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.
             law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
             published_from (datetime.date): Date from/since when the PLR record is published.
@@ -62,8 +62,8 @@ class PlrRecord(EmptyPlrRecord):
         """
         super(PlrRecord, self).__init__(theme)
 
-        if not isinstance(information, dict):
-            warnings.warn('Type of "information" should be "dict"')
+        if not isinstance(legend_text, dict):
+            warnings.warn('Type of "legend_text" should be "dict"')
 
         if sub_theme is not None and not isinstance(sub_theme, dict):
             warnings.warn('Type of "sub_theme" should be "dict"')
@@ -71,7 +71,7 @@ class PlrRecord(EmptyPlrRecord):
         assert isinstance(geometries, list)
         assert len(geometries) > 0
 
-        self.information = information
+        self.legend_text = legend_text
         self.law_status = law_status
         self.published_from = published_from
         self.responsible_office = responsible_office
@@ -210,9 +210,9 @@ class PlrRecord(EmptyPlrRecord):
         return inside
 
     def __str__(self):
-        information = dict()
-        for key in self.information:
-            if self.information[key] is not None:
-                information[key] = self.information[key].encode('utf-8')
-        tpl = '<{} -- type_code: {} theme: {} information: {} (further attributes not shown)>'
-        return tpl.format(self.__class__.__name__, self.type_code, self.theme, information)
+        legend_text = dict()
+        for key in self.legend_text:
+            if self.legend_text[key] is not None:
+                legend_text[key] = self.legend_text[key].encode('utf-8')
+        tpl = '<{} -- type_code: {} theme: {} legend_text: {} (further attributes not shown)>'
+        return tpl.format(self.__class__.__name__, self.type_code, self.theme, legend_text)
