@@ -142,7 +142,12 @@ def test_read():
     with requests_mock.mock() as m:
         with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
-        source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL')
+        source = OEREBlexSource(
+            host='http://oereblex.example.com',
+            language='de',
+            canton='BL',
+            version='1.2.1'
+        )
         source.read(MockParameter(), 100)
         assert len(source.records) == 9
         document = source.records[0]
@@ -158,8 +163,13 @@ def test_read_related_decree_as_main():
     with requests_mock.mock() as m:
         with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
-        source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
-                                related_decree_as_main=True)
+        source = OEREBlexSource(
+            host='http://oereblex.example.com',
+            language='de',
+            canton='BL',
+            version='1.2.1',
+            related_decree_as_main=True
+        )
         source.read(MockParameter(), 100)
         assert len(source.records) == 9
         document = source.records[0]
@@ -175,8 +185,13 @@ def test_read_related_notice_as_main():
     with requests_mock.mock() as m:
         with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
-        source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
-                                related_notice_as_main=True)
+        source = OEREBlexSource(
+            host='http://oereblex.example.com',
+            language='de',
+            canton='BL',
+            version='1.2.1',
+            related_notice_as_main=True
+        )
         source.read(MockParameter(), 100)
         assert len(source.records) == 9
         document = source.records[8]
@@ -192,8 +207,13 @@ def test_read_with_version_in_url():
     with requests_mock.mock() as m:
         with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/1.2.1/geolinks/100.xml', content=f.read())
-        source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
-                                pass_version=True)
+        source = OEREBlexSource(
+            host='http://oereblex.example.com',
+            language='de',
+            canton='BL',
+            version='1.2.1',
+            pass_version=True
+        )
         source.read(MockParameter(), 100)
         assert len(source.records) == 9
 
@@ -202,17 +222,27 @@ def test_read_with_specified_version():
     with requests_mock.mock() as m:
         with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/1.2.1/geolinks/100.xml', content=f.read())
-        source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
-                                pass_version=True, version='1.0.0')
+        source = OEREBlexSource(
+            host='http://oereblex.example.com',
+            language='de',
+            canton='BL',
+            version='1.2.1',
+            pass_version=True
+        )
         source.read(MockParameter(), 100)
-        assert len(source.records) == 7
+        assert len(source.records) == 9
 
 
 def test_read_with_specified_language():
     with requests_mock.mock() as m:
         with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml?locale=fr', content=f.read())
-        source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL')
+        source = OEREBlexSource(
+            host='http://oereblex.example.com',
+            language='de',
+            canton='BL',
+            version='1.2.1'
+        )
         params = MockParameter()
         params.set_language('fr')
         source.read(params, 100)
