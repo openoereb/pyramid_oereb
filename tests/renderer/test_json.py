@@ -228,7 +228,6 @@ def test_format_real_estate():
 @pytest.mark.parametrize('parameter', [
     default_param(),
     Parameter('json', 'reduced', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
-    Parameter('json', 'full', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 ])
 def test_format_plr(parameter):
     with pyramid_oereb_test_config():
@@ -244,10 +243,7 @@ def test_format_plr(parameter):
             OfficeRecord({u'de': u'BUD'}),
             {'de': 'http://mein.dokument.ch'}
         )
-        if parameter.flavour == 'reduced':
-            documents = [document]
-        else:
-            documents = None
+        documents = [document]
         theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test theme'})
         office = OfficeRecord({'de': 'Test Office'})
         legend_entry = LegendEntryRecord(
@@ -278,9 +274,30 @@ def test_format_plr(parameter):
             view_service_id=1
         )
         plr.part_in_percent = 0.5
-        if parameter.flavour == 'full':
-            with pytest.raises(ValueError):
-                renderer.format_plr([plr])
+
+        result = renderer.format_plr([plr])
+        assert isinstance(result, list)
+        assert len(result) == 1
+        assert isinstance(result[0], dict)
+        expected = {
+            'Information': renderer.get_multilingual_text(plr.information),
+            'Theme': renderer.format_theme(plr.theme),
+            'Lawstatus': {
+                'Code': 'inForce',
+                'Text': {'Language': 'de', 'Text': 'In Kraft'}
+            },
+            'ResponsibleOffice': renderer.format_office(plr.responsible_office),
+            'Map': renderer.format_map(plr.view_service),
+            'SubTheme': 'Subtopic',
+            'TypeCode': 'CodeA',
+            'TypeCodelist': 'TypeCodeList',
+            'LegalProvisions': [renderer.format_document(document)],
+            'PartInPercent': 0.5
+        }
+        if parameter.images:
+            expected.update({
+                'Symbol': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode()
+            })
         else:
             result = renderer.format_plr([plr])
             assert isinstance(result, list)
