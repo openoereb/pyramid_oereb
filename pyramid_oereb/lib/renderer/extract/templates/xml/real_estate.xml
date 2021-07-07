@@ -50,11 +50,4 @@
         <%include file="document.xml" args="document=reference"/>
     </data:Reference>
 %endfor
-% if params.flavour == 'full':
-    <data:extensions>
-        <Highlight>
-            <%include file="view_service.xml" args="map=real_estate.highlight"/>
-        </Highlight>
-    </data:extensions>
-% endif
 </data:RealEstate>

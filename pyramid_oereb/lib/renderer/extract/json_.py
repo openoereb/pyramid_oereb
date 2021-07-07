@@ -11,7 +11,6 @@ from pyramid_oereb import Config, route_prefix
 from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord,\
     ArticleRecord, LawRecord, HintRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
-from pyramid_oereb.lib.url import url_to_base64
 from shapely.geometry import mapping
 
 from pyramid_oereb.lib.renderer import Base
@@ -56,8 +55,6 @@ class Renderer(Base):
                 u'extract': extract_dict
             }
         }
-        if self._params.flavour == 'embeddable':
-            result[u'GetExtractByIdResponse'][u'embeddable'] = self.format_embeddable(value[0].embeddable)
         log.debug("__call__() done.")
         return dumps(result)
 
@@ -229,10 +226,6 @@ class Renderer(Base):
                 reference_list.append(self.format_document(reference))
             real_estate_dict['Reference'] = reference_list
 
-        if self._params.flavour == 'full':
-            if Config.get('full_extract_use_sld', True):
-                real_estate_dict['Highlight'] = self.format_map(real_estate.highlight)
-
         return real_estate_dict
 
     def format_plr(self, plrs):
@@ -321,8 +314,6 @@ class Renderer(Base):
     def format_document(self, document):
         """
         Formats a document record for rendering according to the federal specification.
-        If the render is requested with a *full* flavour, it will render the *textAtWeb*
-        into a *Base64TextAtWeb* field (for LegalProvisionRecord documents).
 
         Args:
             document (pyramid_oereb.lib.records.documents.DocumentBaseRecord): The document
@@ -346,10 +337,6 @@ class Renderer(Base):
                 'Title': self.get_multilingual_text(document.title),
                 'ResponsibleOffice': self.format_office(document.responsible_office)
             })
-            if self._params.flavour == 'full' and isinstance(document, LegalProvisionRecord):
-                base64_text_at_web = url_to_base64(multilingual_text_at_web[0].get('Text'))
-                if base64_text_at_web is not None:
-                    document_dict['Base64TextAtWeb'] = base64_text_at_web
 
             if document.official_title is not None:
                 document_dict['OfficialTitle'] = self.get_multilingual_text(document.official_title)
@@ -377,7 +364,7 @@ class Renderer(Base):
                     reference_list.append(self.format_document(reference))
                 document_dict['Reference'] = reference_list
 
-            # Note: No output for File (binary) because speccifications are
+            # Note: No output for File (binary) because specifications are
             # currently unclear on this point. See Issue:
             # https://github.com/openoereb/pyramid_oereb/issues/611
 

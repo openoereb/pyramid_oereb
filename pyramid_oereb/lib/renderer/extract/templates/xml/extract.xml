@@ -32,17 +32,6 @@
     if isinstance(extract.glossaries, list):
         sorted_glossaries = sort_by_localized_text(extract.glossaries, accessor)
 %>
-    %if params.flavour == 'embeddable':
-    <embeddable>
-        <cadasterState>${str(extract.embeddable.cadaster_state.strftime(date_format))}</cadasterState>
-        <cadasterOrganisationName>${localized(extract.embeddable.cadaster_organisation.name).get('Text') | x}</cadasterOrganisationName>
-        <dataownerNameCadastralSurveying>${localized(extract.embeddable.data_owner_cadastral_surveying.name).get('Text') | x}</dataownerNameCadastralSurveying>
-        <transferFromSourceCadastralSurveying>${extract.embeddable.transfer_from_source_cadastral_surveying.strftime(date_format)}</transferFromSourceCadastralSurveying>
-        % for datasource in extract.embeddable.datasources:
-        <%include file="data_source.xml" args="datasource=datasource"/>
-        % endfor
-    </embeddable>
-    %endif
     <data:Extract>
         <data:CreationDate>${extract.creation_date.strftime(date_format)}</data:CreationDate>
     %if extract.electronic_signature:
