@@ -8,7 +8,6 @@ import importlib
 
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Connection
-from sqlalchemy.orm import sessionmaker, class_mapper
 
 from pyramid_oereb.lib.config import Config
 
