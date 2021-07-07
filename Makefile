@@ -149,7 +149,7 @@ lint: .venv/requirements-timestamp
 
 .PHONY: test
 test: .venv/requirements-timestamp .db/.setup-db $(DEV_CONFIGURATION_YML)
-	$(VENV_BIN)/py.test -vv --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests
+	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests
 
 .PHONY: check
 check: git-attributes lint test
