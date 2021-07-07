@@ -557,40 +557,6 @@ class Renderer(Base):
         }
         return geom_dict
 
-    def format_embeddable(self, embeddable):
-        """
-        Formats a embeddable record for rendering according to the specification.
-
-        Args:
-            embeddable (pyramid_oereb.lib.records.embeddable.EmbeddableRecord): The record to be formatted.
-
-        Returns:
-            dict: The formatted record for rendering.
-        """
-
-        datasources = []
-        for source in embeddable.datasources:
-            datasources.append({
-                'topic': self.format_theme(source.theme),
-                'dataownerName': self.get_localized_text(source.owner.name).get('Text'),
-                'transferFromSource': source.date.strftime('%d-%m-%YT%H:%M:%S')
-            })
-
-        embeddable_dict = {
-            'cadasterState': embeddable.cadaster_state.strftime('%d-%m-%YT%H:%M:%S'),
-            'cadasterOrganisationName': self.get_localized_text(
-                embeddable.cadaster_organisation.name
-            ).get('Text'),
-            'dataOwnerNameCadastralSurveying': self.get_localized_text(
-                embeddable.data_owner_cadastral_surveying.name
-            ).get('Text'),
-            'transferFromSourceCadastralSurveying':
-                embeddable.transfer_from_source_cadastral_surveying.strftime('%d-%m-%YT%H:%M:%S'),
-            'datasource': datasources
-        }
-
-        return embeddable_dict
-
     @staticmethod
     def format_point(point, crs):
         return {
