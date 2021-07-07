@@ -1,42 +1,72 @@
 [
   {
-    "id": 402,
+    "id": 1,
     "document_id": 8100,
     "public_law_restriction_id": 402
   },
   {
-    "id": 403,
+    "id": 2,
+    "document_id": 8000,
+    "public_law_restriction_id": 402
+  },
+  {
+    "id": 3,
+    "document_id": 8001,
+    "public_law_restriction_id": 402
+  },
+  {
+    "id": 4,
+    "document_id": 8002,
+    "public_law_restriction_id": 402
+  },
+  {
+    "id": 5,
     "document_id": 8101,
     "public_law_restriction_id": 402
   },
-   {
-    "id": 404,
+  {
+    "id": 6,
     "document_id": 8102,
     "public_law_restriction_id": 402
   },
-   {
-    "id": 405,
+  {
+    "id": 7,
     "document_id": 8103,
     "public_law_restriction_id": 402
   },
    {
-    "id": 406,
+    "id": 8,
     "document_id": 8104,
     "public_law_restriction_id": 402
   },
    {
-    "id": 407,
+    "id": 9,
     "document_id": 8105,
     "public_law_restriction_id": 402
   },
      {
-    "id": 408,
+    "id": 10,
     "document_id": 8106,
     "public_law_restriction_id": 402
   },
-     {
-    "id": 409,
+  {
+    "id": 11,
     "document_id": 8100,
+    "public_law_restriction_id": 403
+  },
+  {
+    "id": 12,
+    "document_id": 8000,
+    "public_law_restriction_id": 403
+  },
+  {
+    "id": 13,
+    "document_id": 8001,
+    "public_law_restriction_id": 403
+  },
+  {
+    "id": 14,
+    "document_id": 8002,
     "public_law_restriction_id": 403
   }
 ]
