@@ -5,7 +5,7 @@ import datetime
 from geolink_formatter import XML
 from requests.auth import HTTPBasicAuth
 
-from pyramid_oereb.lib.records.documents import LegalProvisionRecord, LawRecord, HintRecord
+from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.sources import Base
@@ -118,28 +118,13 @@ class OEREBlexSource(Base):
         documents = self._parser.from_url(url, request_params, proxies=self._proxies, auth=self._auth)
         log.debug("read() got documents")
 
-        # Get main documents
-        main_documents = list()
-        referenced_documents = list()
-        for document in documents:
-            if document.category == 'main':
-                main_documents.append(document)
-            elif document.category == 'related' and document.doctype == 'decree' \
-                    and self._related_decree_as_main:
-                main_documents.append(document)
-            elif document.category == 'related' and document.doctype == 'notice' \
-                    and self._related_notice_as_main:
-                main_documents.append(document)
-            else:
-                referenced_documents.append(document)
-
         # Convert to records
         self.records = []
-        for document in main_documents:
-            self.records.extend(self._get_document_records(document, language, referenced_documents))
+        for document in documents:
+            self.records.extend(self._get_document_records(document, language))
         log.debug("read() done.")
 
-    def _get_document_records(self, document, language, references=None):
+    def _get_document_records(self, document, language):
         """
         Converts the received documents into records.
 
@@ -147,13 +132,10 @@ class OEREBlexSource(Base):
             document (geolink_formatter.entity.Document): The geoLink document to be returned as document
                 record.
             language (str): The language of the returned documents.
-            references (list of geolink_formatter.entity.Document): Referenced geoLink documents.
 
         Returns:
             list of pyramid_oereb.lib.records.documents.DocumentRecord: The converted record.
         """
-
-        references = references or list()
 
         # Cancel if document contains no files
         if len(document.files) == 0:
@@ -188,46 +170,37 @@ class OEREBlexSource(Base):
 
         # Get document type
         if document.doctype == 'decree':
-            document_class = LegalProvisionRecord
+            document_type = 'Rechtsvorschrift'
         elif document.doctype == 'edict':
-            document_class = LawRecord
+            document_type = 'GesetzlicheGrundlage'
         elif document.doctype == 'notice':
-            document_class = HintRecord
+            document_type = 'Hinweis'
         else:
             raise TypeError('Wrong doctype: expected decree, edict or notice, got {0}'.format(
                 document.doctype
             ))
 
-        # Convert referenced documents
-        referenced_records = []
-        for reference in references:
-            referenced_records.extend(self._get_document_records(reference, language))
-
         # Create related office record
         office = OfficeRecord({language: authority}, office_at_web=document.authority_url)
-
-        # Check for available abbreviation
-        abbreviation = {language: document.abbreviation} if document.abbreviation else None
 
         # Get files
         records = []
         for f in document.files:
-            arguments = {'law_status': LawStatusRecord.from_config(u'inForce'),
-                         'published_from': enactment_date,
-                         'title': self._get_document_title(document, f, language),
-                         'responsible_office': office,
-                         'text_at_web': {language: f.href},
-                         'abbreviation': abbreviation,
-                         'official_number': document.number,
-                         'official_title': self._get_mapped_value(
-                             document,
-                             'official_title',
-                             language=language
-                         ),
-                         'canton': self._canton,
-                         'municipality': self._get_mapped_value(document, 'municipality'),
-                         'references': referenced_records if len(referenced_records) > 0 else None}
-            records.append(document_class(**arguments))
+            arguments = {
+                'document_type': document_type,
+                'index': 0,  # TODO: Generate correct index for sorting
+                'law_status': LawStatusRecord.from_config(u'inForce'),  # TODO: Adapt mapping for law status
+                'title': self._get_multilingual(f.title or document.title, language),
+                'responsible_office': office,
+                'published_from': enactment_date,  # TODO: Use publication_date instead?
+                'published_until': None,  # TODO: Use abrogation_date?
+                'text_at_web': self._get_multilingual(f.href, language),
+                'abbreviation': self._get_multilingual(document.abbreviation, language),
+                'official_number': self._get_multilingual(document.number, language),
+                'only_in_municipality': None,  # TODO: Available in OEREBlex?
+                'article_numbers': None  # TODO: Available in OEREBlex?
+            }
+            records.append(DocumentRecord(**arguments))
 
         return records
 
@@ -242,6 +215,8 @@ class OEREBlexSource(Base):
 
         Returns:
             str or None: The value of the mapped attribute.
+
+        TODO: Maybe obsolete?
         """
         if self._mapping:
             attribute = self._mapping.get(key)
@@ -252,18 +227,22 @@ class OEREBlexSource(Base):
         return None
 
     @staticmethod
-    def _get_document_title(document, current_file, language):
+    def _get_multilingual(value, language):
         """
         Returns the title of the document/file. Extracting this logic allows
         easier customization of the file title.
 
         Args:
-            document (geolink_formatter.entity.Document): The document entity.
-            current_file (geolink_formatter.entity.File): The file, which gets annotated with a title.
-            language (str): The language of the document title.
+            value (str): The attribute value.
+            language (str): The language of the attribute value.
 
         Returns:
-            str: Title of document.
+            dict: The multilingual element.
         """
+
+        # Skip for None values
+        if value is None:
+            return None
+
         # Assign multilingual values
-        return {language: document.title}
+        return {language: value}

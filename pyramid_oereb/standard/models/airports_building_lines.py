@@ -93,151 +93,57 @@ class DataIntegration(Base):
     checksum = sa.Column(sa.String, nullable=True)
 
 
-class ReferenceDefinition(Base):
-    """
-    The meta bucket for definitions which are directly related to a public law restriction in a common way or
-    to the whole canton or a  whole municipality. It is used to have a place to store general documents
-    which are related to an extract but not directly on a special public law restriction situation.
-
-    Attributes:
-        id (str): The identifier. This is used in the database only and must not be set manually. If
-            you  don't like it - don't care about.
-        topic (str): The topic which this definition might be related to.
-        canton (str): The canton this definition is related to.
-        municipality (int): The municipality this definition is related to.
-        office_id (str): The foreign key constraint which the definition is related to.
-        responsible_office (pyramid_oereb.standard.models.airports_building_lines.Office):
-            The dedicated relation to the office instance from database.
-    """
-    __table_args__ = {'schema': 'airports_building_lines'}
-    __tablename__ = 'reference_definition'
-    id = sa.Column(sa.String, primary_key=True, autoincrement=False)
-    topic = sa.Column(sa.String, nullable=True)
-    canton = sa.Column(sa.String(2), nullable=True)
-    municipality = sa.Column(sa.Integer, nullable=True)
-    office_id = sa.Column(sa.String, sa.ForeignKey(
-        Office.id), nullable=False
-    )
-    responsible_office = relationship(Office)
-
-
-class DocumentBase(Base):
-    """
-    In the specification documents are cascaded in a inheritance way. So this representation is used to
-    produce the addressable primary key and to provide the common document attributes.
-
-    Attributes:
-        id (str): The identifier. This is used in the database only and must not be set manually. If
-            you  don't like it - don't care about.
-        text_at_web (dict): A multilingual link which leads to the documents content in the web.
-        law_status (str): The status switch if the document is legally approved or not.
-        published_from (datetime.date): The date when the document should be available for
-            publishing on extracts. This  directly affects the behaviour of extract
-            generation.
-        type (str): This is a sqlalchemy related attribute to provide database table
-            inheritance.
-    """
-    __table_args__ = {'schema': 'airports_building_lines'}
-    __tablename__ = 'document_base'
-    id = sa.Column(sa.String, primary_key=True, autoincrement=False)
-    text_at_web = sa.Column(JSONType, nullable=True)
-    law_status = sa.Column(sa.String, nullable=False)
-    published_from = sa.Column(sa.Date, nullable=False)
-    type = sa.Column(sa.String, nullable=False)
-    __mapper_args__ = {
-        'polymorphic_identity': 'document_base',
-        'polymorphic_on': type,
-        'passive_updates': True
-    }
-
-
-class Document(DocumentBase):
+class Document(Base):
     """
     THE DOCUMENT
-    This represents the main document in the whole system. It is specialized in some sub classes.
+    This represents the main document in the whole system.
 
     Attributes:
-        id (str): The identifier. This is used in the database only and must not be set manually. If
+        id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        document_type (str): The document type. It must be "LegalProvision", "Law" or "Hint".
+        document_type (str): The document type. It must be "Rechtsvorschrift", "GesetzlicheGrundlage"
+            or "Hinweis".
+        index (int): An index used to sort the documents.
+        law_status (str): The status switch if the document is legally approved or not.
         title (dict): The multilingual title or if existing the short title ot his document.
-        office_title (dict): The multilingual official title of this document.
+        office_id (str): The foreign key to the office which is in charge for this document.
+        responsible_office (pyramid_oereb.standard.models.railways_project_planning_zones.Office):
+            The dedicated relation to the office instance from database.
+        published_from (datetime.date): The date from when the document should be available for
+            publishing in extracts. This  directly affects the behaviour of extract
+            generation.
+        published_until (datetime.date): The date until when the document should be available for
+            publishing on extracts. This  directly affects the behaviour of extract
+            generation.
+        text_at_web (dict): A multilingual link which leads to the documents content in the web.
         abbreviation (dict): The multilingual shortened version of the documents title.
-        official_number (str): The official number which uniquely identifies this document.
-        canton (str): The short version of the canton which this document is about. If this is None
-            this is  assumed to be a federal document.
-        municipality (int): The fosnr (=id bfs) of the municipality. If this is None it is assumed
+        official_number (dict): The multilingual official number which uniquely identifies this document.
+        only_in_municipality (int): The fosnr (=id bfs) of the municipality. If this is None it is assumed
             the document is  related to the whole canton or even the confederation.
         file (str): The document itself as a binary representation (PDF). It is string but
             BaseCode64 encoded.
-        office_id (str): The foreign key to the office which is in charge for this document.
-        responsible_office (pyramid_oereb.standard.models.airports_building_lines.Office):
-            The dedicated relation to the office instance from database.
+
     """
     __table_args__ = {'schema': 'airports_building_lines'}
     __tablename__ = 'document'
-    __mapper_args__ = {
-        'polymorphic_identity': 'document'
-    }
+    id = sa.Column(sa.String, primary_key=True, autoincrement=False)
     document_type = sa.Column(sa.String, nullable=False)
+    index = sa.Column(sa.Integer, nullable=False)
+    law_status = sa.Column(sa.String, nullable=False)
     title = sa.Column(JSONType, nullable=False)
-    official_title = sa.Column(JSONType, nullable=True)
-    abbreviation = sa.Column(JSONType, nullable=True)
-    official_number = sa.Column(sa.String, nullable=True)
-    canton = sa.Column(sa.String(2), nullable=True)
-    municipality = sa.Column(sa.Integer, nullable=True)
-    file = sa.Column(sa.String, nullable=True)
-    id = sa.Column(
-        sa.String,
-        sa.ForeignKey(DocumentBase.id),
-        primary_key=True,
-        onupdate="cascade"
-    )
     office_id = sa.Column(
         sa.String,
         sa.ForeignKey(Office.id),
         nullable=False
     )
     responsible_office = relationship(Office)
-
-
-class Article(DocumentBase):
-    """
-    A subclass of the document representing articles. Article in the sense of a law document. It is often
-    described as a special part of the whole law document and reflects a dedicated content of this.
-
-    Attributes:
-        id (str): The identifier. This is used in the database only and must not be set manually. If
-            you  don't like it - don't care about.
-        number (str): The number which identifies this article in its parent document.
-        text (dict): A simple multilingual string to describe the article or give some related info.
-        document_id (str): The foreign key to the document this article is taken from.
-        document_id (pyramid_oereb.standard.models.airports_building_lines.Document):
-            The dedicated relation to the document instance from database.
-    """
-    __table_args__ = {'schema': 'airports_building_lines'}
-    __tablename__ = 'article'
-    __mapper_args__ = {
-        'polymorphic_identity': 'article'
-    }
-    number = sa.Column(sa.String, nullable=False)
-    text = sa.Column(JSONType, nullable=True)
-    id = sa.Column(
-        sa.String,
-        sa.ForeignKey(DocumentBase.id),
-        primary_key=True,
-        onupdate="cascade"
-    )
-    document_id = sa.Column(
-        sa.String,
-        sa.ForeignKey(Document.id),
-        nullable=False
-    )
-    document = relationship(
-        Document,
-        backref='articles',
-        foreign_keys=[document_id]
-    )
+    published_from = sa.Column(sa.Date, nullable=False)
+    published_until = sa.Column(sa.Date, nullable=True)
+    text_at_web = sa.Column(JSONType, nullable=True)
+    abbreviation = sa.Column(JSONType, nullable=True)
+    official_number = sa.Column(JSONType, nullable=True)
+    only_in_municipality = sa.Column(sa.Integer, nullable=True)
+    file = sa.Column(sa.String, nullable=True)
 
 
 class ViewService(Base):
@@ -509,7 +415,7 @@ class PublicLawRestrictionDocument(Base):
     )
     document_id = sa.Column(
         sa.String,
-        sa.ForeignKey(DocumentBase.id),
+        sa.ForeignKey(Document.id),
         nullable=False
     )
     plr = relationship(
@@ -517,74 +423,6 @@ class PublicLawRestrictionDocument(Base):
         backref='legal_provisions'
     )
     document = relationship(
-        DocumentBase
+        Document
     )
     article_numbers = sa.Column(sa.String, nullable=True)
-
-
-class DocumentReference(Base):
-    """
-    Meta bucket (join table) for the relationship between documents.
-
-    Attributes:
-        id (str): The identifier. This is used in the database only and must not be set manually. If
-            you  don't like it - don't care about.
-        document_id (str): The foreign key to the document which references to another document.
-        reference_document_id (str): The foreign key to the document which is referenced.
-        document (pyramid_oereb.standard.models.airports_building_lines.Document):
-            The dedicated relation to the document (which references) instance from database.
-        referenced_document (pyramid_oereb.standard.models.airports_building_lines.Document):
-            The dedicated relation to the document (which is referenced) instance from database.
-        article_numbers (str): A colon of article numbers which clarify the reference. This is a
-            string  separated by '|'.
-    """
-    __tablename__ = 'document_reference'
-    __table_args__ = {'schema': 'airports_building_lines'}
-    id = sa.Column(sa.String, primary_key=True, autoincrement=False)
-    document_id = sa.Column(
-        sa.String,
-        sa.ForeignKey(Document.id),
-        nullable=False
-    )
-    reference_document_id = sa.Column(
-        sa.String,
-        sa.ForeignKey(Document.id),
-        nullable=False
-    )
-    document = relationship(
-        Document,
-        backref='referenced_documents',
-        foreign_keys=[document_id]
-    )
-    referenced_document = relationship(
-        Document,
-        foreign_keys=[reference_document_id]
-    )
-    article_numbers = sa.Column(sa.String, nullable=True)
-
-
-class DocumentReferenceDefinition(Base):
-    """
-    Meta bucket (join table) for the relationship between documents and the reference definition.
-
-    Attributes:
-        id (str): The identifier. This is used in the database only and must not be set manually. If
-            you  don't like it - don't care about.
-        document_id (str): The foreign key to the document which is related to a reference
-            definition.
-        reference_definition_id (str): The foreign key to the document which is related to a
-            reference  definition.
-    """
-    __tablename__ = 'document_reference_definition'
-    __table_args__ = {'schema': 'airports_building_lines'}
-    id = sa.Column(sa.String, primary_key=True, autoincrement=False)
-    document_id = sa.Column(
-        sa.String,
-        sa.ForeignKey(Document.id),
-        nullable=False
-    )
-    reference_definition_id = sa.Column(
-        sa.String,
-        sa.ForeignKey(ReferenceDefinition.id),
-        nullable=False
-    )

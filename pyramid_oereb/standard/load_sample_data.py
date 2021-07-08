@@ -8,7 +8,6 @@ import importlib
 
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Connection
-from sqlalchemy.orm import sessionmaker, class_mapper
 
 from pyramid_oereb.lib.config import Config
 
@@ -135,12 +134,8 @@ class SampleData(object):
                 table=schema.PublicLawRestrictionDocument.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.DocumentReference.__table__.schema,
-                table=schema.DocumentReference.__table__.name
-            ))
-            self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.DocumentBase.__table__.schema,
-                table=schema.DocumentBase.__table__.name
+                schema=schema.Document.__table__.schema,
+                table=schema.Document.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
                 schema=schema.Geometry.__table__.schema,
@@ -216,36 +211,16 @@ class SampleData(object):
                     (schema.LegendEntry, 'legend_entry.json'),
                     (schema.PublicLawRestriction, 'public_law_restriction.json'),
                     (schema.Geometry, 'geometry.json'),
+                    (schema.Document, 'document.json')
                 ]:
                     self._load_sample(class_, os.path.join('plr119', folder, file_name))
 
-                with open(os.path.join(self._directory, 'plr119', folder, 'document.json')) as f:
-                    lps = json.loads(f.read())
-                    if self._sql_file is None:
-                        Session = sessionmaker(bind=self._engine)  # Use session because of table inheritance
-                        session = Session()
-                        for lp in lps:
-                            session.add(schema.Document(**lp))
-                        session.commit()
-                        session.close()
-                    else:
-                        for lp in lps:
-                            for table_name in ['document_base', 'document']:
-                                table = [
-                                    t for t in class_mapper(schema.Document).tables if t.name == table_name
-                                ][0]
-                                data = {
-                                    'type': 'document'
-                                }
-                                data.update(lp)
-                                self._do_sql_insert(str(table.insert()), data)
-
                 if hasattr(schema, 'PublicLawRestrictionDocument'):
                     for class_, file_name in [
-                        (schema.PublicLawRestrictionDocument, 'public_law_restriction_document.json'),
-                        (schema.DocumentReference, 'document_reference.json'),
+                        (schema.PublicLawRestrictionDocument, 'public_law_restriction_document.json')
                     ]:
                         self._load_sample(class_, os.path.join('plr119', folder, file_name))
+
             for class_, file_name in [
                 (RealEstate, 'real_estates.json'),
                 (Address, 'addresses.json'),

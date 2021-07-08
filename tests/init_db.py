@@ -70,16 +70,8 @@ class DummyData(object):
             table=motorways_building_lines.Document.__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=motorways_building_lines.DocumentBase.__table__.schema,
-            table=motorways_building_lines.DocumentBase.__table__.name
-        ))
-        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
             schema=motorways_building_lines.PublicLawRestrictionDocument.__table__.schema,
             table=motorways_building_lines.PublicLawRestrictionDocument.__table__.name
-        ))
-        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-            schema=motorways_building_lines.DocumentReference.__table__.schema,
-            table=motorways_building_lines.DocumentReference.__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
             schema=motorways_building_lines.DataIntegration.__table__.schema,
@@ -346,52 +338,40 @@ class DummyData(object):
             'office_id': '1',
             'geom': u'SRID=2056;LINESTRING (0 0, 4 4)'
         })
-        connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
-            'id': '1',
-            'law_status': u'inForce',
-            'published_from': date.today().isoformat(),
-            'type': u'document'
-        })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
             'id': '1',
-            'document_type': u'Law',
+            'document_type': u'GesetzlicheGrundlage',
+            'index': 1,
+            'law_status': u'inForce',
             'title': {'de': u'First level document'},
-            'office_id': '1'
-        })
-        connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
-            'id': '2',
-            'law_status': u'inForce',
-            'published_from': (date.today() + timedelta(days=7)).isoformat(),
-            'type': u'document'
-        })
-        connection.execute(motorways_building_lines.Document.__table__.insert(), {
-            'id': '2',
-            'document_type': u'Law',
-            'title': {'de': u'First level future document'},
-            'office_id': '1'
-        })
-        connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
-            'id': '3',
-            'law_status': u'inForce',
             'published_from': date.today().isoformat(),
-            'type': u'document'
+            'office_id': '1'
+        })
+        connection.execute(motorways_building_lines.Document.__table__.insert(), {
+            'id': '2',
+            'document_type': u'GesetzlicheGrundlage',
+            'index': 1,
+            'law_status': u'inForce',
+            'title': {'de': u'First level future document'},
+            'published_from': (date.today() + timedelta(days=7)).isoformat(),
+            'office_id': '1'
         })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
             'id': '3',
-            'document_type': u'Law',
-            'title': {'de': u'Second level document'},
-            'office_id': '1'
-        })
-        connection.execute(motorways_building_lines.DocumentBase.__table__.insert(), {
-            'id': '4',
+            'document_type': u'GesetzlicheGrundlage',
+            'index': 2,
             'law_status': u'inForce',
-            'published_from': (date.today() + timedelta(days=7)).isoformat(),
-            'type': u'document'
+            'title': {'de': u'Second level document'},
+            'published_from': date.today().isoformat(),
+            'office_id': '1'
         })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
             'id': '4',
-            'document_type': u'Law',
+            'document_type': u'GesetzlicheGrundlage',
+            'index': 2,
+            'law_status': u'inForce',
             'title': {'de': u'Second level future document'},
+            'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'office_id': '1'
         })
         connection.execute(motorways_building_lines.PublicLawRestrictionDocument.__table__.insert(), {
@@ -404,15 +384,15 @@ class DummyData(object):
             'public_law_restriction_id': '1',
             'document_id': '2'
         })
-        connection.execute(motorways_building_lines.DocumentReference.__table__.insert(), {
-            'id': '1',
-            'document_id': '1',
-            'reference_document_id': '3'
+        connection.execute(motorways_building_lines.PublicLawRestrictionDocument.__table__.insert(), {
+            'id': '3',
+            'public_law_restriction_id': '1',
+            'document_id': '3'
         })
-        connection.execute(motorways_building_lines.DocumentReference.__table__.insert(), {
-            'id': '2',
-            'document_id': '1',
-            'reference_document_id': '4'
+        connection.execute(motorways_building_lines.PublicLawRestrictionDocument.__table__.insert(), {
+            'id': '4',
+            'public_law_restriction_id': '1',
+            'document_id': '4'
         })
 
         connection.close()

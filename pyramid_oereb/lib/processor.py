@@ -6,7 +6,6 @@ from operator import attrgetter
 from pyramid.path import DottedNameResolver
 
 from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.readers.exclusion_of_liability import ExclusionOfLiabilityReader
 from pyramid_oereb.lib.readers.extract import ExtractReader
@@ -63,19 +62,10 @@ class Processor(object):
         if isinstance(record, PlrRecord):
             for doc in record.documents:
                 if doc.published:
-                    doc = self.filter_published_documents(doc)
                     published_docs.append(doc)
                 else:
                     log.debug("filtering out non-published document {}".format(doc))
             record.documents = published_docs
-        elif isinstance(record, DocumentRecord):
-            for doc in record.references:
-                if doc.published:
-                    doc = self.filter_published_documents(doc)
-                    published_docs.append(doc)
-                else:
-                    log.debug("filtering out non-published document {}".format(doc))
-            record.references = published_docs
         return record
 
     def plr_tolerance_check(self, extract):

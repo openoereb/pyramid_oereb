@@ -13,7 +13,7 @@ jobs:
       - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
       - name: Run make lint
         run: make lint
-  
+
   gitattributes:
     name: Check style (git-attributes)
     runs-on: ubuntu-20.04

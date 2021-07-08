@@ -103,7 +103,7 @@ See this example with the theme forest_perimeters:
       # Oereblex data model
       models: pyramid_oereb.contrib.models.oereblex.forest_perimeters
 
-The sample data is in ``sample_data/oereblex``. 
+The sample data is in ``sample_data/oereblex``.
 
 Run the application:
 

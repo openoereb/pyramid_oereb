@@ -15,7 +15,7 @@
       "previewLimit": 50,
       "server": "localhost",
       "port": 5432,
-      "database": "postgres",
+      "database": "pyramid_oereb_test",
       "username": "postgres",
       "password": "postgres"
     }],
@@ -27,7 +27,7 @@
     "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
     "python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
     "python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
-    "python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
+    "python.linting.flake8Path": ".venv/bin/flake8",
     "python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
     "python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
     "python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",

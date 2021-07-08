@@ -2,7 +2,6 @@ FROM python:3.7-buster
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV VIRTUALENV_PYTHON=/usr/bin/python3.7
-ENV PGPASSWORD=postgres
 
 ARG DEV_PACKAGES="python3.7-dev build-essential libgeos-dev"
 
