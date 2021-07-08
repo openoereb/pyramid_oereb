@@ -3,6 +3,10 @@ import logging
 import warnings
 import datetime
 
+from pyramid_oereb.lib.records.law_status import LawStatusRecord
+from pyramid_oereb.lib.records.office import OfficeRecord
+
+
 log = logging.getLogger(__name__)
 
 
@@ -54,20 +58,35 @@ class DocumentRecord(object):
             raise AttributeError('Wrong value for document type was delivered. Only "Rechtsvorschrift", '
                                  '"GesetzlicheGrundlage" and "Hinweis" are allowed. '
                                  'Value was {0}'.format(document_type))
+        if not isinstance(index, int):
+            warnings.warn('Type of "index" should be "int"')
+        if not isinstance(law_status, LawStatusRecord):
+            warnings.warn('Type of "law_status" should be '
+                          '"pyramid_oereb.lib.records.law_status.LawStatusRecord"')
         if not isinstance(title, dict):
             warnings.warn('Type of "title" should be "dict"')
+        if not isinstance(responsible_office, OfficeRecord):
+            warnings.warn('Type of "responsible_office" should be '
+                          '"pyramid_oereb.lib.records.office.OfficeRecord"')
+        if not isinstance(published_from, datetime.date):
+            warnings.warn('Type of "published_from" should be "datetime.date", not '
+                          + str(type(published_from)))
+
+        if published_until and not isinstance(published_until, datetime.date):
+            warnings.warn('Type of "published_from" should be "datetime.date", not '
+                          + str(type(published_until)))
+        if text_at_web and not isinstance(text_at_web, dict):
+            warnings.warn('Type of "text_at_web" should be "dict"')
         if abbreviation and not isinstance(abbreviation, dict):
             warnings.warn('Type of "abbreviation" should be "dict"')
         if official_number and not isinstance(official_number, dict):
             warnings.warn('Type of "official_number" should be "dict"')
-        if published_from and not isinstance(published_from, datetime.date):
-            warnings.warn('Type of "published_from" should be "datetime.date", not '
-                          + str(type(published_from)))
-        if text_at_web and not isinstance(text_at_web, dict):
-            warnings.warn('Type of "text_at_web" should be "dict"')
-        if published_from and not isinstance(published_from, datetime.date):
-            warnings.warn('Type of "published_from" should be "datetime.date", not '
-                          + str(type(published_from)))
+        if only_in_municipality and not isinstance(only_in_municipality, int):
+            warnings.warn('Type of "only_in_municipality" should be "int"')
+        if article_numbers and not isinstance(article_numbers, list):
+            warnings.warn('Type of "article_numbers" should be "list"')
+        if file and not isinstance(file, bytes):
+            warnings.warn('Type of "file" should be "bytes"')
 
         self.document_type = document_type
         self.title = title
