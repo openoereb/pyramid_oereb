@@ -5,10 +5,6 @@ import json
 import logging
 import requests
 from shapely.geometry import mapping
-import subprocess
-import sys
-import tempfile
-import time
 from urllib import parse as urlparse
 
 from pyramid.httpexceptions import HTTPBadRequest
@@ -77,14 +73,13 @@ class Renderer(JsonRenderer):
         extract_record = value[0]
         extract_as_dict = self._render(extract_record, value[1])
         feature_geometry = mapping(extract_record.real_estate.limit)
-        pdf_to_join = set()
 
         if Config.get('print', {}).get('compute_toc_pages', False):
             extract_as_dict['nbTocPages'] = TocPages(extract_as_dict).getNbPages()
         else:
             extract_as_dict['nbTocPages'] = 1
 
-        self.convert_to_printable_extract(extract_as_dict, feature_geometry, pdf_to_join)
+        self.convert_to_printable_extract(extract_as_dict, feature_geometry)
 
         print_config = Config.get('print', {})
 
@@ -141,33 +136,12 @@ class Renderer(JsonRenderer):
             log.error(err_msg + ': ' + str(e))
             raise HTTPInternalServerError(err_msg)
 
-        if not extract_as_dict['isReduced'] and print_result.status_code == 200:
-            main = tempfile.NamedTemporaryFile(suffix='.pdf')
-            main.write(print_result.content)
-            main.flush()
-            cmd = ['pdftk', main.name]
-            temp_files = [main]
-            for url in pdf_to_join:
-                result = requests.get(url)
-                content_type = result.headers.get('content-type')
-                log.debug("document url: " + url + " => content_type: " + content_type)
-                if content_type != 'application/pdf':
-                    msg = "Skipped document inclusion (url: '{}') because content_type: '{}'"
-                    log.warning(msg.format(url, content_type))
-                    continue
-                tmp_file = tempfile.NamedTemporaryFile(suffix='.pdf')
-                tmp_file.write(result.content)
-                tmp_file.flush()
-                temp_files.append(tmp_file)
-                cmd.append(tmp_file.name)
-            out = tempfile.NamedTemporaryFile(suffix='.pdf')
-            cmd += ['cat', 'output', out.name]
-            sys.stdout.flush()
-            time.sleep(0.1)
-            subprocess.check_call(cmd)
-            content = out.file.read()
-        else:
+        try:
             content = print_result.content
+        except PdfReadError as e:
+            err_msg = 'No contents from print result available!'
+            log.error(err_msg + ': ' + str(e))
+            raise HTTPInternalServerError(err_msg)
 
         # Save printed file to the specified path.
         pdf_archive_path = print_config.get('pdf_archive_path', None)
@@ -218,7 +192,7 @@ class Renderer(JsonRenderer):
             result = {'TRANSPARENT': 'true'}
         return result
 
-    def convert_to_printable_extract(self, extract_dict, feature_geometry, pdf_to_join):
+    def convert_to_printable_extract(self, extract_dict, feature_geometry):
         """
         Converts an oereb extract into a form suitable for printing by mapfish print.
 
@@ -226,8 +200,6 @@ class Renderer(JsonRenderer):
             extract_dict: the oereb extract, will get converted by this function into a form
                             convenient for mapfish-print
             feature_geometry: the geometry for this extract, will get added to the extract information
-            pdf_to_join: a set of additional information for the pdf. Will get filled by this function.
-                         Used in the full extract only
         """
 
         log.debug("Starting transformation, extract_dict is {}".format(extract_dict))
@@ -452,10 +424,6 @@ class Renderer(JsonRenderer):
                 values = list(restriction_on_landownership[element].values())
                 self.lpra_flatten(values)
                 restriction_on_landownership[element] = values
-                if element == 'LegalProvisions':
-                    # This adds the first URL of TextAtWeb to the pdf_to_join set. At this point of the code
-                    # there should only be one URL as the grouping takes place only after this if statement.
-                    pdf_to_join.update([legal_provision['TextAtWeb'][0]['URL'] for legal_provision in values])
 
                 # Group legal provisions and hints which have the same title.
                 if (

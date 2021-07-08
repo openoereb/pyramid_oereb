@@ -131,7 +131,6 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                 'ConcernedTheme': [],
                 'NotConcernedTheme': [],
                 'ThemeWithoutData': [],
-                'isReduced': True,
                 'PLRCadastreAuthority': renderer.format_office(office_record),
                 'BaseData': renderer.get_multilingual_text(Config.get_base_data(av_update_date)),
                 'RealEstate': renderer.format_real_estate(real_estate),
@@ -229,7 +228,6 @@ def test_format_real_estate():
 @pytest.mark.parametrize('parameter', [
     default_param(),
     Parameter('json', 'reduced', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
-    Parameter('json', 'full', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 ])
 def test_format_plr(parameter):
     with pyramid_oereb_test_config():
@@ -245,10 +243,7 @@ def test_format_plr(parameter):
             OfficeRecord({u'de': u'BUD'}),
             {'de': 'http://mein.dokument.ch'}
         )
-        if parameter.flavour == 'reduced':
-            documents = [document]
-        else:
-            documents = None
+        documents = [document]
         theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test theme'})
         office = OfficeRecord({'de': 'Test Office'})
         legend_entry = LegendEntryRecord(
@@ -279,9 +274,30 @@ def test_format_plr(parameter):
             view_service_id=1
         )
         plr.part_in_percent = 0.5
-        if parameter.flavour == 'full':
-            with pytest.raises(ValueError):
-                renderer.format_plr([plr])
+
+        result = renderer.format_plr([plr])
+        assert isinstance(result, list)
+        assert len(result) == 1
+        assert isinstance(result[0], dict)
+        expected = {
+            'LegendText': renderer.get_multilingual_text(plr.legend_text),
+            'Theme': renderer.format_theme(plr.theme),
+            'Lawstatus': {
+                'Code': 'inForce',
+                'Text': {'Language': 'de', 'Text': 'In Kraft'}
+            },
+            'ResponsibleOffice': renderer.format_office(plr.responsible_office),
+            'Map': renderer.format_map(plr.view_service),
+            'SubTheme': 'Subtopic',
+            'TypeCode': 'CodeA',
+            'TypeCodelist': 'TypeCodeList',
+            'LegalProvisions': [renderer.format_document(document)],
+            'PartInPercent': 0.5
+        }
+        if parameter.images:
+            expected.update({
+                'Symbol': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode()
+            })
         else:
             result = renderer.format_plr([plr])
             assert isinstance(result, list)
@@ -557,58 +573,3 @@ def test_format_legend_entry(parameter):
             })
         assert isinstance(result, dict)
         assert result == expected
-
-
-def test_embeddable(params):
-    renderer = Renderer(DummyRenderInfo())
-    renderer._language = u'de'
-    renderer._params = params
-    date = datetime.datetime.now()
-    view_service = ViewServiceRecord(u'http://geowms.bl.ch',
-                                     1,
-                                     1.0,
-                                     {'de': u'http://geowms.bl.ch'},
-                                     None)
-    real_estate = RealEstateRecord(
-        u'RealEstate',
-        u'BL',
-        u'Liestal',
-        2829,
-        11395,
-        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
-        u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712'
-    )
-    real_estate.plan_for_land_register = view_service
-    resolver = DottedNameResolver()
-    date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
-    date_method = resolver.resolve(date_method_string)
-    av_update_date = date_method(real_estate)
-
-    av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
-    av_provider_method = resolver.resolve(av_provider_method_string)
-    cadaster_state = date
-    theme = ThemeRecord(u'TEST', {u'de': u'TEST TEXT'})
-    datasources = [DatasourceRecord(theme, date, OfficeRecord({u'de': u'Test Office'}))]
-    plr_cadastre_authority = Config.get_plr_cadastre_authority()
-    embeddable = EmbeddableRecord(
-        cadaster_state,
-        plr_cadastre_authority,
-        av_provider_method(real_estate),
-        av_update_date,
-        datasources
-    )
-    result = renderer.format_embeddable(embeddable)
-    assert result == {
-        'cadasterOrganisationName': plr_cadastre_authority.name.get('de'),
-        'datasource': [{
-            'topic': {
-                'Text': {'Text': u'TEST TEXT', 'Language': 'de'},
-                'Code': 'TEST'
-            },
-            'dataownerName': u'Test Office',
-            'transferFromSource': date.strftime('%d-%m-%YT%H:%M:%S')
-        }],
-        'cadasterState': cadaster_state.strftime('%d-%m-%YT%H:%M:%S'),
-        'dataOwnerNameCadastralSurveying': u'This is only a dummy',
-        'transferFromSourceCadastralSurveying': av_update_date.strftime('%d-%m-%YT%H:%M:%S')
-    }

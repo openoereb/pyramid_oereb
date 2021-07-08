@@ -122,18 +122,16 @@ def deepCompare(value, valueToCompare, verbose=True):
 
 def test_legend():
     renderer = Renderer(DummyRenderInfo())
-    pdf_to_join = set()
     printable_extract = extract()
-    renderer.convert_to_printable_extract(printable_extract, geometry(), pdf_to_join)
+    renderer.convert_to_printable_extract(printable_extract, geometry())
     first_plr = printable_extract.get('RealEstate_RestrictionOnLandownership')[0]
     assert isinstance(first_plr, dict)
 
 
 def test_mapfish_print_entire_extract():
     renderer = Renderer(DummyRenderInfo())
-    pdf_to_join = set()
     printable_extract = extract()
-    renderer.convert_to_printable_extract(printable_extract, geometry(), pdf_to_join)
+    renderer.convert_to_printable_extract(printable_extract, geometry())
     # Uncomment to print the result
     # f = open('/tmp/printable_extract.json', 'w')
     # f.write(json.dumps(printable_extract))

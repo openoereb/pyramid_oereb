@@ -11,7 +11,6 @@ from pyramid_oereb import Config, route_prefix
 from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord,\
     ArticleRecord, LawRecord, HintRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
-from pyramid_oereb.lib.url import url_to_base64
 from shapely.geometry import mapping
 
 from pyramid_oereb.lib.renderer import Base
@@ -56,8 +55,6 @@ class Renderer(Base):
                 u'extract': extract_dict
             }
         }
-        if self._params.flavour == 'embeddable':
-            result[u'GetExtractByIdResponse'][u'embeddable'] = self.format_embeddable(value[0].embeddable)
         log.debug("__call__() done.")
         return dumps(result)
 
@@ -89,7 +86,6 @@ class Renderer(Base):
 
         extract_dict = {
             'CreationDate': self.date_time(extract.creation_date),
-            'isReduced': self._params.flavour in ['reduced', 'embeddable'],
             'ExtractIdentifier': extract.extract_identifier,
             'BaseData': self.get_multilingual_text(extract.base_data),
             'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority),
@@ -230,10 +226,6 @@ class Renderer(Base):
                 reference_list.append(self.format_document(reference))
             real_estate_dict['Reference'] = reference_list
 
-        if self._params.flavour == 'full':
-            if Config.get('full_extract_use_sld', True):
-                real_estate_dict['Highlight'] = self.format_map(real_estate.highlight)
-
         return real_estate_dict
 
     def format_plr(self, plrs):
@@ -255,12 +247,6 @@ class Renderer(Base):
         for plr in plrs:
 
             if isinstance(plr, PlrRecord):
-
-                # PLR without legal provision is allowed in reduced extract only!
-                if self._params.flavour != 'reduced' and isinstance(plr.documents, list) and \
-                        len(plr.documents) == 0:
-                    raise ValueError('Restrictions on landownership without legal provision are only allowed '
-                                     'in reduced extracts!')
                 plr_dict = {
                     'LegendText': self.get_multilingual_text(plr.legend_text),
                     'Theme': self.format_theme(plr.theme),
@@ -328,8 +314,6 @@ class Renderer(Base):
     def format_document(self, document):
         """
         Formats a document record for rendering according to the federal specification.
-        If the render is requested with a *full* flavour, it will render the *textAtWeb*
-        into a *Base64TextAtWeb* field (for LegalProvisionRecord documents).
 
         Args:
             document (pyramid_oereb.lib.records.documents.DocumentBaseRecord): The document
@@ -353,10 +337,6 @@ class Renderer(Base):
                 'Title': self.get_multilingual_text(document.title),
                 'ResponsibleOffice': self.format_office(document.responsible_office)
             })
-            if self._params.flavour == 'full' and isinstance(document, LegalProvisionRecord):
-                base64_text_at_web = url_to_base64(multilingual_text_at_web[0].get('Text'))
-                if base64_text_at_web is not None:
-                    document_dict['Base64TextAtWeb'] = base64_text_at_web
 
             if document.official_title is not None:
                 document_dict['OfficialTitle'] = self.get_multilingual_text(document.official_title)
@@ -384,7 +364,7 @@ class Renderer(Base):
                     reference_list.append(self.format_document(reference))
                 document_dict['Reference'] = reference_list
 
-            # Note: No output for File (binary) because speccifications are
+            # Note: No output for File (binary) because specifications are
             # currently unclear on this point. See Issue:
             # https://github.com/openoereb/pyramid_oereb/issues/611
 
@@ -576,40 +556,6 @@ class Renderer(Base):
             # 'isosqlmmwkb': b64.encode(geom.wkb)
         }
         return geom_dict
-
-    def format_embeddable(self, embeddable):
-        """
-        Formats a embeddable record for rendering according to the specification.
-
-        Args:
-            embeddable (pyramid_oereb.lib.records.embeddable.EmbeddableRecord): The record to be formatted.
-
-        Returns:
-            dict: The formatted record for rendering.
-        """
-
-        datasources = []
-        for source in embeddable.datasources:
-            datasources.append({
-                'topic': self.format_theme(source.theme),
-                'dataownerName': self.get_localized_text(source.owner.name).get('Text'),
-                'transferFromSource': source.date.strftime('%d-%m-%YT%H:%M:%S')
-            })
-
-        embeddable_dict = {
-            'cadasterState': embeddable.cadaster_state.strftime('%d-%m-%YT%H:%M:%S'),
-            'cadasterOrganisationName': self.get_localized_text(
-                embeddable.cadaster_organisation.name
-            ).get('Text'),
-            'dataOwnerNameCadastralSurveying': self.get_localized_text(
-                embeddable.data_owner_cadastral_surveying.name
-            ).get('Text'),
-            'transferFromSourceCadastralSurveying':
-                embeddable.transfer_from_source_cadastral_surveying.strftime('%d-%m-%YT%H:%M:%S'),
-            'datasource': datasources
-        }
-
-        return embeddable_dict
 
     @staticmethod
     def format_point(point, crs):
