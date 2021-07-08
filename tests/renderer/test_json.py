@@ -280,7 +280,7 @@ def test_format_plr(parameter):
         assert len(result) == 1
         assert isinstance(result[0], dict)
         expected = {
-            'Information': renderer.get_multilingual_text(plr.information),
+            'LegendText': renderer.get_multilingual_text(plr.legend_text),
             'Theme': renderer.format_theme(plr.theme),
             'Lawstatus': {
                 'Code': 'inForce',
