@@ -13,7 +13,7 @@ from pyramid_oereb.standard.models import NAMING_CONVENTION
 from pyramid_oereb.lib.config import Config
 from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
-from sqlalchemy.orm import relation, relationship
+from sqlalchemy.orm import relationship
 from sqlalchemy_utils import JSONType
 
 metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
