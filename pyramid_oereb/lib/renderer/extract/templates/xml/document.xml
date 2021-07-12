@@ -11,7 +11,7 @@
     <%include file="multilingual_text.xml" args="text=document.title"/>
 </data:Title>
 <data:TextAtWeb>
-    <%include file="multilingual_uri.xml" args="text=document.text_at_web"/>
+    <%include file="multilingual_text.xml" args="text=document.text_at_web"/>
 </data:TextAtWeb>
 <data:Lawstatus>
     <%include file="law_status.xml" args="law_status=document.law_status"/>
