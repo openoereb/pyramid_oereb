@@ -29,7 +29,7 @@ class PlrRecord(EmptyPlrRecord):
 
     def __init__(self, theme, legend_text, law_status, published_from, responsible_office, symbol,
                  view_service, geometries, sub_theme=None, type_code=None,
-                 type_code_list=None, basis=None, refinements=None, documents=None, info=None, min_length=0.0,
+                 type_code_list=None, documents=None, info=None, min_length=0.0,
                  min_area=0.0, length_unit=u'm', area_unit=u'm2', view_service_id=None):
         """
         Args:
@@ -48,8 +48,6 @@ class PlrRecord(EmptyPlrRecord):
             sub_theme (dict of unicode or None): Optional subtopic.
             type_code (unicode): The PLR record's type code (also used by view service).
             type_code_list (unicode): URL to the PLR's list of type codes.
-            basis (list of PlrRecord): List of PLR records as basis for this record.
-            refinements (list of PlrRecord): List of PLR records as refinement of this record.
             documents (list of pyramid_oereb.lib.records.documents.DocumentBaseRecord): List of documents
                 associated with this record.
             info (dict or None): The information read from the config.
@@ -79,14 +77,6 @@ class PlrRecord(EmptyPlrRecord):
         self.type_code = type_code
         self.type_code_list = type_code_list
         self.view_service = view_service
-        if basis is None:
-            self.basis = []
-        else:
-            self.basis = basis
-        if refinements is None:
-            self.refinements = []
-        else:
-            self.refinements = refinements
         if documents is None:
             self.documents = []
         else:
