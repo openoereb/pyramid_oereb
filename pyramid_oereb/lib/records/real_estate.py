@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb import Config
-from pyramid_oereb.lib.records.view_service import ViewServiceRecord
-from pyramid_oereb.lib.url import add_url_params
 
 
 class RealEstateRecord(object):
@@ -89,27 +87,6 @@ class RealEstateRecord(object):
                 The view service to be used for the land registry map used on the main page
         """
         self.plan_for_land_register_main_page = plan_for_land_register_main_page
-
-    def set_highlight_url(self, sld_url):
-        """
-        Set the highlight of the real estate.
-
-        Args:
-            sld_url (str): The URL which provides the sld to style and filter the highlight of the real
-            estate.
-        """
-        configured_params = Config.get_real_estate_config().get('visualisation').get('url_params')
-        additional_url_params = {}
-        for param in configured_params:
-            additional_url_params.update({param: getattr(self, param)})
-        updated_sld_url = add_url_params(sld_url, additional_url_params)
-        self.highlight = ViewServiceRecord(
-            add_url_params(self.plan_for_land_register.reference_wms, {'sld': updated_sld_url}),
-            self.plan_for_land_register.layer_index,
-            self.plan_for_land_register.layer_opacity,
-            legend_at_web={}
-        )
-        self.highlight.download_wms_content()
 
     def __str__(self):
         return '<%s -- number: %s identdn: %s egrid: %s type: %s' \
