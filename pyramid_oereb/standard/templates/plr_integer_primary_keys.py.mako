@@ -403,7 +403,7 @@ class PublicLawRestrictionDocument(Base):
             restriction.
         plr (pyramid_oereb.standard.models.${schema_name}.PublicLawRestriction):
             The dedicated relation to the public law restriction instance from database.
-        document (pyramid_oereb.standard.models.${schema_name}.DocumentBase):
+        document (pyramid_oereb.standard.models.${schema_name}.Document):
             The dedicated relation to the document instance from database.
     """
     __tablename__ = 'public_law_restriction_document'
@@ -416,7 +416,7 @@ class PublicLawRestrictionDocument(Base):
     )
     document_id = sa.Column(
         sa.Integer,
-        sa.ForeignKey(DocumentBase.id),
+        sa.ForeignKey(Document.id),
         nullable=False
     )
     plr = relationship(
@@ -424,6 +424,6 @@ class PublicLawRestrictionDocument(Base):
         backref='legal_provisions'
     )
     document = relationship(
-        DocumentBase
+        Document
     )
     article_numbers = sa.Column(sa.String, nullable=True)
