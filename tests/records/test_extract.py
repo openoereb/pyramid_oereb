@@ -46,7 +46,7 @@ def create_dummy_extract():
     av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
     av_provider_method = resolver.resolve(av_provider_method_string)
     cadaster_state = date
-    theme = ThemeRecord(u'TEST', {u'de': u'TEST TEXT'})
+    theme = ThemeRecord(u'TEST', {u'de': u'TEST TEXT'}, 100)
     datasources = [DatasourceRecord(theme, date, plr_office)]
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
     embeddable = EmbeddableRecord(

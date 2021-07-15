@@ -138,7 +138,7 @@ class ExtractReader(object):
 
         else:
             for plr_source in self._plr_sources_:
-                themes_without_data.append(Config.get_theme(plr_source.info.get('code')))
+                themes_without_data.append(Config.get_theme_by_code(plr_source.info.get('code')))
 
         # Load base data form configuration
         resolver = DottedNameResolver()

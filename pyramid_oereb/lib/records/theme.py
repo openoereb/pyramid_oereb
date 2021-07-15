@@ -5,22 +5,20 @@ import warnings
 class ThemeRecord(object):
     """Creates a new theme record."""
 
-    def __init__(self, code, text, position=None):
+    def __init__(self, code, title, extract_index):
         """
         Args:
             code (unicode): The theme's code.
-            text (dict of unicode): The multilingual description.
-            position (int or None): Position of the theme (within the list of themes)
-            data_owner (pyramid_oereb.lib.records.office.OfficeRecord):
-            transfer_from_source (datetime.date): The actuality of the themes data
+            title (dict of unicode): The multilingual description.
+            extract_index (int): Index to sort themes in the extract
         """
-        if not isinstance(text, dict):
-            warnings.warn('Type of "text" should be "dict"')
+        if not isinstance(title, dict):
+            warnings.warn('Type of "title" should be "dict"')
 
         self.code = code
-        self.text = text
-        self.position = position
+        self.title = title
+        self.extract_index = extract_index
 
     def __str__(self):
-        return '<{} -- code: {} text: {} position: {}>'.format(self.__class__.__name__,
-                                                               self.code, self.text, self.position)
+        return '<{} -- code: {} title: {} extract index: {}>'.format(
+            self.__class__.__name__, self.code, self.title, self.extract_index)

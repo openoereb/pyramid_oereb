@@ -39,6 +39,24 @@ app_schema_name = Config.get('app_schema').get('name')
 srid = Config.get('srid')
 
 
+class Theme(Base):
+    """
+    Insert description here
+
+    Attributes:
+        id (int):
+        code (str):
+        title (dict):
+        extract_index (int):
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'theme'
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
+    code = sa.Column(sa.String, unique=True, nullable=False)
+    title = sa.Column(JSONType, nullable=False)
+    extract_index = sa.Column(sa.Integer, nullable=False)
+
+
 class Municipality(Base):
     """
     The municipality is the place where you hold the information about all the municipalities you are having

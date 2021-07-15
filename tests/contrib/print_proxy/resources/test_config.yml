@@ -4,3 +4,10 @@ pyramid_oereb:
     wms_url_params:
       TRANSPARENT: 'true'
       OTHERCUSTOM: 'myvalue'
+
+  theme:
+    source:
+      class: pyramid_oereb.standard.sources.theme.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.Theme
