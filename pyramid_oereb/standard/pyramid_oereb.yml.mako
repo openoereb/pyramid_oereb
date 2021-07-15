@@ -60,32 +60,6 @@ pyramid_oereb:
     - FULL
     - EMBEDDABLE
 
-  document_types:
-    Rechtsvorschrift:
-      code: LegalProvision
-      text:
-        de: Rechtsvorschrift
-        fr: Disposition juridique
-        it: Prescrizione legale
-        rm: Prescripziun giuridica
-        en: Legal provision
-    GesetzlicheGrundlage:
-      code: Law
-      text:
-        de: Gesetzliche Grundlage
-        fr: Base légale
-        it: Base legale
-        rm: Basa legala
-        en: Legal basis
-    Hinweis:
-      code: Hint
-      text:
-        de: Hinweis
-        fr: Renvoi
-        it: Indicazione
-        rm: Indicaziun
-        en: Reference
-
   print:
     # The pyramid renderer which is used as proxy pass through to the desired service for printable static
     # extract. Here you can define the path to the logic which prepares the output as payload for print
