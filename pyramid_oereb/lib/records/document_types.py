@@ -7,7 +7,7 @@ class DocumentTypeRecord(object):
     Represents a document type entry with the code and it's display name.
 
     Args:
-        code (str of unicode): The code.
+        code (str of unicode): The code for the document type (Law, LegalProvision, Hint).
         text (dict of unicode): The label text for the document type (multilingual).
     """
     def __init__(self, code, text):
@@ -19,4 +19,3 @@ class DocumentTypeRecord(object):
 
         self.code = code
         self.text = text
-        
