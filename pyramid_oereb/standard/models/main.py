@@ -182,6 +182,6 @@ class DocumentTypeText(Base):
         text (str): The display name for the document type
     """
     __table_args__ = {'schema': app_schema_name}
-    __tablename__ = 'document_type_text'
+    __tablename__ = 'document_types'
     code = sa.Column(sa.String, primary_key=True)
     text = sa.Column(JSONType, nullable=False)
