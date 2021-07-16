@@ -1,6 +1,5 @@
 <%page args="text"/>
 <%
-    from urllib import parse as urlparse
     multilingual_text = multilingual(text)
 %>
 % for localized_text in multilingual_text:

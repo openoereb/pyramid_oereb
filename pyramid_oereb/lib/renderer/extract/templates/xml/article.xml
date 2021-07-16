@@ -4,7 +4,7 @@
     <data:Number>${article.number}</data:Number>
     %if article.text:
     <data:Text>
-        <%include file="multilingual_m_text.xml" args="text=article.text"/>
+        <%include file="multilingual_text.xml" args="text=article.text"/>
     </data:Text>
     %endif
 </data:Article>

@@ -67,10 +67,9 @@ def glossary_expected():
 def test_render(parameter, glossaries_input, glossaries_expected):
     date = datetime.datetime.now()
     with pyramid_oereb_test_config():
-        view_service = ViewServiceRecord(u'http://geowms.bl.ch',
+        view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
                                          1,
                                          1.0,
-                                         {'de': u'http://geowms.bl.ch'},
                                          None)
         real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
                                        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
@@ -193,10 +192,9 @@ def test_format_real_estate():
         'json', 'reduced', True, False, 'BL0200002829', '1000', 'CH775979211712', 'de'
     )
     geometry = MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])])
-    view_service = ViewServiceRecord(u'http://geowms.bl.ch',
+    view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
                                      1,
                                      1.0,
-                                     {'de': u'http://geowms.bl.ch'},
                                      None)
     document = DocumentRecord(
         document_type='GesetzlicheGrundlage',
@@ -258,10 +256,9 @@ def test_format_plr(parameter):
             ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             {'de': 'Test'}, 'CodeA', 'TypeCodeList', theme,
             view_service_id=1)
-        view_service = ViewServiceRecord('http://geowms.bl.ch',
+        view_service = ViewServiceRecord({'de': 'http://geowms.bl.ch'},
                                          1,
                                          1.0,
-                                         {'de': u'http://geowms.bl.ch'},
                                          [legend_entry])
         geometry = GeometryRecord(law_status(), datetime.date.today(), Point(1, 1))
         plr = PlrRecord(
@@ -512,48 +509,6 @@ def test_format_theme(params):
         'Code': 'TestTheme',
         'Text': renderer.get_localized_text({'de': 'Test-Thema'})
     }
-
-
-@pytest.mark.parametrize('legend_at_web,expected_legend_at_web', [
-    ({'de': u'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic'},
-     u'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic'),
-    ({'it': u'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic'},
-     None),
-    ({}, None),
-    (None, None)
-])
-def test_format_map(params, legend_at_web, expected_legend_at_web):
-    with pyramid_oereb_test_config():
-        renderer = Renderer(DummyRenderInfo())
-        renderer._language = u'de'
-        renderer._params = params
-        renderer._request = MockRequest()
-        legend_entry = LegendEntryRecord(
-            ImageRecord(FileAdapter().read('tests/resources/python.svg')),
-            {u'de': u'Legendeneintrag'},
-            u'CodeA',
-            u'type_code_list',
-            ThemeRecord(u'ContaminatedSites', {u'de': u'Test'}),
-            view_service_id=1
-        )
-        view_service = ViewServiceRecord('http://my.wms.ch',
-                                         1,
-                                         1.0,
-                                         legend_at_web,
-                                         [legend_entry])
-        view_service.image = ImageRecord(FileAdapter().read('tests/resources/python.svg'))
-        result = renderer.format_map(view_service)
-        assert isinstance(result, dict)
-        expected_result = {
-            'Image': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode(),
-            'layerIndex': 1,
-            'layerOpacity': 1.0,
-            'ReferenceWMS': 'http://my.wms.ch',
-            'OtherLegend': [renderer.format_legend_entry(legend_entry)]
-        }
-        if expected_legend_at_web is not None:
-            expected_result['LegendAtWeb'] = expected_legend_at_web
-        assert result == expected_result
 
 
 @pytest.mark.parametrize('parameter', [

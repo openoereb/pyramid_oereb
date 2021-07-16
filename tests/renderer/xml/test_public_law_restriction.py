@@ -44,7 +44,7 @@ def test_sub_theme():
         responsible_office=office,
         symbol=ImageRecord('1'.encode('utf-8')),
         view_service=ViewServiceRecord(
-            reference_wms='',
+            reference_wms=dict(),
             layer_index=0,
             layer_opacity=1.0),
         geometries=[geometry],
@@ -54,6 +54,7 @@ def test_sub_theme():
         'params': parameters,
         'localized': renderer.get_localized_text,
         'multilingual': renderer.get_multilingual_text,
+        'get_localized_image': renderer.get_localized_image,
         'public_law_restriction': public_law_restriction
     }).decode('utf-8').split('\n')
     no_empty_lines = list(filter(lambda line: line != '', content))

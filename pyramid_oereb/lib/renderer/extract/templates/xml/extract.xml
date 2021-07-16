@@ -75,11 +75,11 @@
     %endif
     %if extract.general_information:
         <data:GeneralInformation>
-            <%include file="multilingual_m_text.xml" args="text=extract.general_information"/>
+            <%include file="multilingual_text.xml" args="text=extract.general_information"/>
         </data:GeneralInformation>
     %endif
         <data:BaseData>
-            <%include file="multilingual_m_text.xml" args="text=extract.base_data"/>
+            <%include file="multilingual_text.xml" args="text=extract.base_data"/>
         </data:BaseData>
         %for glossary in sorted_glossaries:
         <%include file="glossary.xml" args="glossary=glossary"/>
@@ -93,12 +93,12 @@
         </data:PLRCadastreAuthority>
     %if extract.certification:
         <data:Certification>
-            <%include file="multilingual_m_text.xml" args="text=extract.certification"/>
+            <%include file="multilingual_text.xml" args="text=extract.certification"/>
         </data:Certification>
     %endif
     %if extract.certification:
         <data:CertificationAtWeb>
-            <%include file="multilingual_uri.xml" args="text=extract.certification_at_web"/>
+            <%include file="multilingual_text.xml" args="text=extract.certification_at_web"/>
         </data:CertificationAtWeb>
     %endif
     </data:Extract>

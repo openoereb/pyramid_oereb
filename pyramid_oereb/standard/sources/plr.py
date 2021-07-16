@@ -110,7 +110,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             view_service_from_db.reference_wms,
             layer_index,
             layer_opacity,
-            view_service_from_db.legend_at_web,
             legends=legend_entry_records
         )
         return view_service_record
