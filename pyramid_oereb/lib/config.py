@@ -11,6 +11,8 @@ from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.document_types import DocumentTypeRecord
+from pyramid_oereb.lib.readers.theme import ThemeReader
+from sqlalchemy.exc import ProgrammingError
 
 log = logging.getLogger(__name__)
 
@@ -23,6 +25,7 @@ class Config(object):
     """
 
     _config = None
+    themes = None
 
     @staticmethod
     def init(configfile, configsection, c2ctemplate_style=False):
@@ -36,6 +39,7 @@ class Config(object):
         assert Config._config is None
 
         Config._config = _parse(configfile, configsection, c2ctemplate_style)
+        Config.init_themes()
 
     @staticmethod
     def get_config():
@@ -52,6 +56,25 @@ class Config(object):
         settings.update(Config._config)
 
     @staticmethod
+    def init_themes():
+        try:
+            Config.themes = Config._read_themes()
+        # When initializing the database (create_tables), the table 'theme' does not exist yet
+        except ProgrammingError:
+            Config.themes = None
+
+    @staticmethod
+    def _read_themes():
+        theme_config = Config.get_theme_config()
+        if theme_config is None:
+            raise ConfigurationError("Missing configuration for themes")
+        theme_reader = ThemeReader(
+            theme_config.get('source').get('class'),
+            **Config.get_theme_config().get('source').get('params')
+        )
+        return theme_reader.read()
+
+    @staticmethod
     def get_themes():
         """
         Returns a list of available themes.
@@ -60,20 +83,10 @@ class Config(object):
             list of pyramid_oereb.lib.records.theme.ThemeRecord: The available themes.
         """
         assert Config._config is not None
-
-        result = []
-        plrs = Config._config.get('plrs')
-        if plrs and isinstance(plrs, list):
-            for position, theme in enumerate(plrs, start=1):
-                result.append(ThemeRecord(
-                    theme.get('code'),
-                    theme.get('text'),
-                    position
-                ))
-        return result
+        return Config.themes
 
     @staticmethod
-    def get_theme(code):
+    def get_theme_by_code(code):
         """
         Returns the theme with the specified code.
 
@@ -84,18 +97,12 @@ class Config(object):
             pyramid_oereb.lib.records.theme.ThemeRecord or None: The theme with the specified
             code.
         """
-        assert Config._config is not None
-
-        plrs = Config._config.get('plrs')
-        if plrs and isinstance(plrs, list):
-            for position, theme in enumerate(plrs, start=1):
-                if theme.get('code') == code:
-                    return ThemeRecord(
-                        theme.get('code'),
-                        theme.get('text'),
-                        position
-                    )
-        return None
+        if Config.themes is None:
+            raise ConfigurationError("Themes have not been initialized")
+        for theme in Config.themes:
+            if theme.code == code:
+                return theme
+        raise ConfigurationError(f"Theme {code} not found in the application configuration")
 
     @staticmethod
     def get_document_type_by_code(code):
@@ -243,6 +250,18 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get('address')
+
+    @staticmethod
+    def get_theme_config():
+        """
+        Returns a dictionary of the configured theme settings.
+
+        Returns:
+            dict: The configured theme settings.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('theme')
 
     @staticmethod
     def get_document_types_config():

@@ -31,7 +31,7 @@ def test_init_with_relation():
         {'en': 'test'},
         'test_code',
         'test',
-        ThemeRecord('test', {'de': 'Test'}),
+        ThemeRecord('test', {'de': 'Test'}, 100),
         view_service_id=1
     )]
     record = ViewServiceRecord({'de': 'http://www.test.url.ch'},

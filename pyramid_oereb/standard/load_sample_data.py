@@ -110,6 +110,10 @@ class SampleData(object):
 
             # Truncate tables
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+                schema=schema.Theme.__table__.schema,
+                table=schema.Theme.__table__.name
+            ))
+            self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
                 schema=schema.Glossary.__table__.schema,
                 table=schema.Glossary.__table__.name
             ))
@@ -183,13 +187,24 @@ class SampleData(object):
         except KeyError as e:
             raise Exception(f"Missing model in YAML configuration file: {e}")
 
-        from pyramid_oereb.standard.models.main import RealEstate, Address, Municipality, \
+        from pyramid_oereb.standard.models.main import Theme, RealEstate, Address, Municipality, \
             Glossary, ExclusionOfLiability
 
         if self._sql_file is None:
             self._connection = self._engine.connect()
 
         try:
+
+            # Fill tables with sample data
+            for class_, file_name in [
+                (Theme, 'themes.json'),
+                (RealEstate, 'real_estates.json'),
+                (Address, 'addresses.json'),
+                (Municipality, 'municipalities_with_logo.json'),
+                (Glossary, 'glossary.json'),
+                (ExclusionOfLiability, 'exclusion_of_liability.json')
+            ]:
+                self._load_sample(class_, file_name)
 
             for schema, folder in [
                 (contaminated_public_transport_sites, "contaminated_public_transport_sites"),
@@ -202,7 +217,6 @@ class SampleData(object):
                 # Truncate existing tables
                 self._truncate_existing(schema)
 
-                # Fill tables with sample data
                 for class_, file_name in [
                     (schema.Availability, 'availabilities.json'),
                     (schema.Office, 'office.json'),
@@ -220,15 +234,6 @@ class SampleData(object):
                         (schema.PublicLawRestrictionDocument, 'public_law_restriction_document.json')
                     ]:
                         self._load_sample(class_, os.path.join('plr119', folder, file_name))
-
-            for class_, file_name in [
-                (RealEstate, 'real_estates.json'),
-                (Address, 'addresses.json'),
-                (Municipality, 'municipalities_with_logo.json'),
-                (Glossary, 'glossary.json'),
-                (ExclusionOfLiability, 'exclusion_of_liability.json')
-            ]:
-                self._load_sample(class_, file_name)
 
         finally:
             if self._has_connection():

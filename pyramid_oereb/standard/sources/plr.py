@@ -15,7 +15,6 @@ from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import EmptyPlrRecord
-from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from pyramid_oereb.lib.sources.plr import PlrBaseSource
 
@@ -62,7 +61,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         data_integration_model = DottedNameResolver().maybe_resolve(
             '{models_path}.DataIntegration'.format(models_path=models_path)
         )
-        self._theme_record = ThemeRecord(self._plr_info.get('code'), self._plr_info.get('text'))
+
+        self._theme_record = Config.get_theme_by_code(self._plr_info.get('code'))
 
         self.availabilities = []
         self.datasource = []

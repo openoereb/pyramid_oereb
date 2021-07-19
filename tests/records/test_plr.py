@@ -23,7 +23,7 @@ def create_dummy_plr():
     law_status = LawStatusRecord.from_config(u'inForce')
     geometry = GeometryRecord(law_status, datetime.date.today(), Point(1, 1))
     record = PlrRecord(
-        ThemeRecord('code', dict()), {'en': 'Content'}, law_status, datetime.date(1985, 8, 29), office,
+        ThemeRecord('code', dict(), 100), {'en': 'Content'}, law_status, datetime.date(1985, 8, 29), office,
         ImageRecord('1'.encode('utf-8')), view_service, [geometry])
     return record
 

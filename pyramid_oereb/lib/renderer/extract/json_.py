@@ -444,7 +444,7 @@ class Renderer(Base):
         """
         theme_dict = {
             'Code': theme.code,
-            'Text': self.get_localized_text(theme.text)
+            'Text': self.get_localized_text(theme.title)
         }
         return theme_dict
 

@@ -86,7 +86,7 @@ def test_render(parameter, glossaries_input, glossaries_expected):
         av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
         av_provider_method = resolver.resolve(av_provider_method_string)
         cadaster_state = date
-        theme = ThemeRecord(u'TEST', {'de': u'TEST TEXT'})
+        theme = ThemeRecord(u'TEST', {'de': u'TEST TEXT'}, 100)
         datasources = [DatasourceRecord(theme, date, office_record)]
         plr_cadastre_authority = Config.get_plr_cadastre_authority()
         embeddable = EmbeddableRecord(
@@ -250,7 +250,7 @@ def test_format_plr(parameter):
             text_at_web={'de': 'http://mein.dokument.ch'}
         )
         documents = [document]
-        theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test theme'})
+        theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test theme'}, 410)
         office = OfficeRecord({'de': 'Test Office'})
         legend_entry = LegendEntryRecord(
             ImageRecord(FileAdapter().read('tests/resources/python.svg')),
@@ -502,7 +502,7 @@ def test_format_theme(params):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._params = params
-    theme = ThemeRecord(u'TestTheme', {u'de': u'Test-Thema'})
+    theme = ThemeRecord(u'TestTheme', {u'de': u'Test-Thema'}, 100)
     result = renderer.format_theme(theme)
     assert isinstance(result, dict)
     assert result == {
@@ -521,7 +521,7 @@ def test_format_legend_entry(parameter):
         renderer._language = u'de'
         renderer._params = parameter
         renderer._request = MockRequest()
-        theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test'})
+        theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test'}, 410)
         legend_entry = LegendEntryRecord(
             ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             {u'de': u'Legendeneintrag'},
