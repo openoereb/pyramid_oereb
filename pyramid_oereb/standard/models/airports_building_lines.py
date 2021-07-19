@@ -264,8 +264,11 @@ class Geometry(Base):
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         law_status (str): The status switch if the document is legally approved or not.
-        published_from (datetime.date): The date when the document should be available for
-            publishing on extracts. This  directly affects the behaviour of extract
+        published_from (datetime.date): The date when the geometry should be available for
+            publishing on extracts. This directly affects the behaviour of extract
+            generation.
+        published_until (datetime.date): The date from when the geometry should not be available
+            anymore for publishing on extracts. This directly affects the behaviour of extract
             generation.
         geo_metadata (str): A link to the metadata which this geometry is based on which delivers
             machine  readable response format (XML).
@@ -287,6 +290,7 @@ class Geometry(Base):
     id = sa.Column(sa.String, primary_key=True, autoincrement=False)
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
+    published_until = sa.Column(sa.Date, nullable=False)
     geo_metadata = sa.Column(sa.String, nullable=True)
     geom = sa.Column(GeoAlchemyGeometry('LINESTRING', srid=srid), nullable=False)
     public_law_restriction_id = sa.Column(
