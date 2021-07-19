@@ -91,9 +91,9 @@ def test_processor_with_images():
     params = webservice.__validate_extract_params__()
     real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
     extract = processor.process(real_estate[0], params, 'http://test.ch')
-    assert extract.real_estate.plan_for_land_register.image is not None
+    assert extract.real_estate.plan_for_land_register.image != {}
     for plr in extract.real_estate.public_law_restrictions:
-        assert plr.view_service.image is not None
+        assert plr.view_service.image != {}
 
 
 def test_processor_without_images():
@@ -107,9 +107,9 @@ def test_processor_without_images():
     params = webservice.__validate_extract_params__()
     real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
     extract = processor.process(real_estate[0], params, 'http://test.ch')
-    assert extract.real_estate.plan_for_land_register.image is None
+    assert extract.real_estate.plan_for_land_register.image == {}
     for plr in extract.real_estate.public_law_restrictions:
-        assert plr.view_service.image is None
+        assert plr.view_service.image == {}
 
 
 def test_processor_get_legend_entries():
@@ -151,17 +151,15 @@ def test_processor_get_legend_entries():
         view_service_id=1
     )
     view_service1 = ViewServiceRecord(
-        'http://www.test1.url.ch',
+        {'de': 'http://www.test1.url.ch'},
         1,
         1.0,
-        legend_at_web={'de': 'http://www.test1.url.ch'},
         legends=[legend1, legend2]
     )
     view_service2 = ViewServiceRecord(
-        'http://www.test2.url.ch',
+        {'de': 'http://www.test2.url.ch'},
         1,
         1.0,
-        legend_at_web={'de': 'http://www.test2.url.ch'},
         legends=[legend3, legend4]
     )
     image = ImageRecord('1'.encode('utf-8'))

@@ -460,15 +460,10 @@ class Renderer(Base):
             dict: The formatted dictionary for rendering.
         """
         map_dict = dict()
-        if map_.image is not None:
-            map_dict['Image'] = map_.image.encode()
-        if map_.reference_wms is not None:
-            map_dict['ReferenceWMS'] = map_.reference_wms
-        if map_.legend_at_web is not None:
-            if self._language in map_.legend_at_web:
-                map_dict['LegendAtWeb'] = map_.legend_at_web[self._language]
-            else:
-                log.warning("map_.legend_at_web has no element {}".format(self._language))
+        if map_.image:
+            map_dict['Image'] = self.get_localized_image(map_.image)
+        if map_.reference_wms:
+            map_dict['ReferenceWMS'] = self.get_multilingual_text(map_.reference_wms)
         if isinstance(map_.legends, list) and len(map_.legends) > 0:
             other_legend = self.sort_by_localized_text(
                 map_.legends,
@@ -480,10 +475,6 @@ class Renderer(Base):
 
         map_dict['layerIndex'] = map_.layer_index
         map_dict['layerOpacity'] = map_.layer_opacity
-        if map_.min_NS03 is not None:
-            map_dict['min_NS03'] = self.format_point(map_.min_NS03, 'EPSG:21781')
-        if map_.max_NS03 is not None:
-            map_dict['max_NS03'] = self.format_point(map_.max_NS03, 'EPSG:21781')
         if map_.min_NS95 is not None:
             map_dict['min_NS95'] = self.format_point(map_.min_NS95, 'EPSG:2056')
         if map_.max_NS95 is not None:

@@ -126,32 +126,34 @@ class Processor(object):
         return extract
 
     @staticmethod
-    def view_service_handling(real_estate, images, format):
+    def view_service_handling(real_estate, images, format, language):
         """
         Handles all view service related stuff. In the moment this is:
-            * construction of the correct url (reference_wms) depending on the real estate
-            * downloading of the image if parameter was set
+            * construction of the correct url (reference_wms, multilingual) depending on the real estate
+            * downloading of the image (if parameter was set) for the requested or default language
 
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord):
                 The real estate record to be updated.
             images (bool): Switch whether the images should be downloaded or not.
             format (string): The format currently used. For 'pdf' format,
-                the used map size will be adapted to the pdf format,
+                the used map size will be adapted to the pdf format.
+            language (string or None): Which language of the reference WMS should be used
 
         Returns:
             pyramid_oereb.lib.records.real_estate.RealEstateRecord: The updated extract.
         """
-        real_estate.plan_for_land_register.get_full_wms_url(real_estate, format)
-        real_estate.plan_for_land_register_main_page.get_full_wms_url(real_estate, format)
+        language = language or Config.get('default_language')
+        real_estate.plan_for_land_register.get_full_wms_url(real_estate, format, language)
+        real_estate.plan_for_land_register_main_page.get_full_wms_url(real_estate, format, language)
         if images:
-            real_estate.plan_for_land_register.download_wms_content()
-            real_estate.plan_for_land_register_main_page.download_wms_content()
+            real_estate.plan_for_land_register.download_wms_content(language)
+            real_estate.plan_for_land_register_main_page.download_wms_content(language)
 
         for public_law_restriction in real_estate.public_law_restrictions:
-            public_law_restriction.view_service.get_full_wms_url(real_estate, format)
+            public_law_restriction.view_service.get_full_wms_url(real_estate, format, language)
             if images:
-                public_law_restriction.view_service.download_wms_content()
+                public_law_restriction.view_service.download_wms_content(language)
         return real_estate
 
     @staticmethod
@@ -296,7 +298,7 @@ class Processor(object):
         # care about the circumstance that after tolerance check plrs will be dismissed which were
         # recognized as intersecting before. To avoid this the tolerance check is gathering all plrs
         # intersecting and not intersecting and starts the legend entry sorting after.
-        self.view_service_handling(extract.real_estate, params.images, params.format)
+        self.view_service_handling(extract.real_estate, params.images, params.format, params.language)
 
         extract.exclusions_of_liability = exclusions_of_liability
         extract.glossaries = glossaries

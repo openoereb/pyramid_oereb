@@ -16,10 +16,18 @@ def test_init():
 
 def test_parse():
     element = XML("""
-    <OeREBKRMtrsfr_V1_1.Transferstruktur.DarstellungsDienst TID="ch.admin.bazl.sizo.wms">
-        <VerweisWMS>https://wms.geo.admin.ch/?SERVICE=WMS&amp;REQUEST=GetMap&amp;VERSION=1.1.1&amp;LAYERS=ch.bazl.sicherheitszonenplan.oereb&amp;STYLES=default&amp;SRS=EPSG:21781&amp;BBOX=475000,60000,845000,310000&amp;WIDTH=740&amp;HEIGHT=500&amp;FORMAT=image/png</VerweisWMS>
-        <LegendeImWeb>http://example.com</LegendeImWeb>
-    </OeREBKRMtrsfr_V1_1.Transferstruktur.DarstellungsDienst>
+    <OeREBKRMtrsfr_V2_0.Transferstruktur.DarstellungsDienst TID="ch.admin.bazl.sizo.wms">
+        <VerweisWMS>
+            <LocalisationCH_V1.MultilingualMText>
+                <LocalisedText>
+                    <LocalisationCH_V1.LocalisedMText>
+                        <Language>de</Language>
+                        <Text>https://wms.geo.admin.ch/?SERVICE=WMS&amp;REQUEST=GetMap&amp;VERSION=1.1.1&amp;LAYERS=ch.bazl.sicherheitszonenplan.oereb&amp;STYLES=default&amp;SRS=EPSG:2056&amp;BBOX=2475000,1065000,2850000,1300000&amp;WIDTH=740&amp;HEIGHT=500&amp;FORMAT=image/png</Text>
+                    </LocalisationCH_V1.LocalisedMText>
+                </LocalisedText>
+            </LocalisationCH_V1.MultilingualMText>
+        </VerweisWMS>
+    </OeREBKRMtrsfr_V2_0.Transferstruktur.DarstellungsDienst>
     """)
     legend_entry_session = MockSession()
     legend_entry = LegendEntry(legend_entry_session, LegendEntryModel, 'AirportsSecurityZonePlans')
@@ -28,38 +36,9 @@ def test_parse():
     view_service.parse(element)
     parsed = view_service_session.getData()
     assert len(parsed) == 1
-    assert parsed[0].reference_wms == 'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1' \
-                                      '&LAYERS=ch.bazl.sicherheitszonenplan.oereb&STYLES=default' \
-                                      '&SRS=EPSG:21781&BBOX=475000,60000,845000,310000&WIDTH=740' \
-                                      '&HEIGHT=500&FORMAT=image/png'
-    assert parsed[0].legend_at_web == {'de': 'http://example.com'}
-
-
-def test_copy_legend_at_web_from_reference_wms():
-    view_service = ViewService('foo', 'bar', 'baz')
-    url = 'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:21781' \
-          '&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
-          '&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
-    result = view_service._copy_legend_at_web_from_reference_wms(url)
-    assert 'https://wms.geo.admin.ch/?' in result
-    assert 'LAYER=ch.bav.kataster-belasteter-standorte-oev.oereb' in result
-    assert 'SERVICE=WMS' in result
-    assert 'FORMAT=image%2Fpng' in result
-    assert 'REQUEST=GetLegendGraphic' in result
-    assert 'VERSION=1.1.1' in result
-    assert 'SLD_VERSION=1.1.0' not in result
-
-
-def test_copy_legend_at_web_from_reference_wms_1_3_0():
-    view_service = ViewService('foo', 'bar', 'baz')
-    url = 'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&SRS=EPSG:21781' \
-          '&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
-          '&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
-    result = view_service._copy_legend_at_web_from_reference_wms(url)
-    assert 'https://wms.geo.admin.ch/?' in result
-    assert 'LAYER=ch.bav.kataster-belasteter-standorte-oev.oereb' in result
-    assert 'SERVICE=WMS' in result
-    assert 'FORMAT=image%2Fpng' in result
-    assert 'REQUEST=GetLegendGraphic' in result
-    assert 'VERSION=1.3.0' in result
-    assert 'SLD_VERSION=1.1.0' in result
+    assert parsed[0].reference_wms == {'de':
+                                       'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1'
+                                       '&LAYERS=ch.bazl.sicherheitszonenplan.oereb&STYLES=default'
+                                       '&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=740'
+                                       '&HEIGHT=500&FORMAT=image/png'
+                                       }

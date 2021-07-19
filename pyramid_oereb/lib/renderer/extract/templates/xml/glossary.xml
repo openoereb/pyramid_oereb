@@ -4,6 +4,6 @@
         <%include file="multilingual_text.xml" args="text=glossary.title"/>
     </data:Title>
     <data:Content>
-        <%include file="multilingual_m_text.xml" args="text=glossary.content"/>
+        <%include file="multilingual_text.xml" args="text=glossary.content"/>
     </data:Content>
 </data:Glossary>

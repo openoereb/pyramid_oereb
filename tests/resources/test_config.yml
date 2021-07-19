@@ -63,10 +63,12 @@ pyramid_oereb:
       - mapping: Mineral_rights
         type: Bergwerk
     plan_for_land_register:
-      reference_wms: https://wms.ch/?BBOX=2475000,1065000,2850000,1300000
+      reference_wms:
+        de: https://wms.ch/?BBOX=2475000,1065000,2850000,1300000
       layer_index: 1
       layer_opacity: 0.25
     plan_for_land_register_main_page:
-      reference_wms: https://wms.ch/?BBOX=2475000,1065000,2850000,1300000
+      reference_wms:
+        de: https://wms.ch/?BBOX=2475000,1065000,2850000,1300000
       layer_index: 2
       layer_opacity: 0.5
