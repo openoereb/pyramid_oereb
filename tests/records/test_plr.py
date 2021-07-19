@@ -50,6 +50,7 @@ def test_init():
     assert isinstance(record.theme, ThemeRecord)
     assert isinstance(record.symbol, ImageRecord)
 
+
 @pytest.mark.parametrize('published_from,published_until,published', [
     (date.today() + timedelta(days=0), date.today() + timedelta(days=2), True),
     (date.today() + timedelta(days=1), date.today() + timedelta(days=2), False),
@@ -73,7 +74,7 @@ def test_published(published_from, published_until, published):
         published_from,
         published_until,
         OfficeRecord({'en': 'Office'}),
-        ImageRecord('1'.encode('utf-8')), 
-        ViewServiceRecord('http://my.wms.com', 1, 1.0), 
+        ImageRecord('1'.encode('utf-8')),
+        ViewServiceRecord('http://my.wms.com', 1, 1.0),
         [GeometryRecord(law_status, datetime.date.today(), None, Point(1, 1))])
     assert plr_record.published == published
