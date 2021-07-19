@@ -10,6 +10,7 @@ from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
+from pyramid_oereb.lib.records.document_types import DocumentTypeRecord
 
 log = logging.getLogger(__name__)
 
@@ -95,6 +96,23 @@ class Config(object):
                         position
                     )
         return None
+
+    @staticmethod
+    def get_document_type_by_code(code):
+        """
+        Returns the label for the document type by code.
+        Args:
+            code (str): The document type code.
+        Returns:
+            pyramid_oereb.lib.records.document_types or None: The document type for the 
+            specified code.
+        """
+        if Config.document_types is None:
+            raise ConfigurationError("The document types have not been initialized")
+        for document_type in Config.document_types:
+            if document_type.code == code:
+                return db_value
+        raise ConfigurationError(f"Document type {code} not found in the application configuration")
 
     @staticmethod
     def get_theme_thresholds(code):
@@ -225,6 +243,18 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get('address')
+
+    @staticmethod
+    def get_document_types_config():
+        """
+        Returns a dictionary of the configured document type values settings.
+
+        Returns:
+            dict: The configured document types settings.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('document_types')
 
     @staticmethod
     def get_glossary_config():
