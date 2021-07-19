@@ -41,13 +41,14 @@ srid = Config.get('srid')
 
 class Theme(Base):
     """
-    Insert description here
+    The OEREB themes of the application
 
     Attributes:
-        id (int):
-        code (str):
-        title (dict):
-        extract_index (int):
+        id (int): identifier, used in the database only
+        code (str): OEREB code of the theme - unique and used to link each PublicLawRestriction
+            with the corresponding theme
+        title (dict): the title of the theme as a multilingual dictionary
+        extract_index (int): index to sort the themes in the extract, defined in the specification
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'theme'
