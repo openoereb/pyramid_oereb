@@ -124,13 +124,15 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         )
         return view_service_record
 
-    def unwrap_multi_geometry_(self, law_status, published_from, multi_geom, geo_metadata, office):
+    def unwrap_multi_geometry_(self, law_status, published_from, published_until,
+                               multi_geom, geo_metadata, office):
         unwrapped = []
         for geom in multi_geom.geoms:
             unwrapped.append(
                 self._geometry_record_class(
                     law_status,
                     published_from,
+                    published_until,
                     geom,
                     geo_metadata,
                     office=office
@@ -138,7 +140,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             )
         return unwrapped
 
-    def unwrap_geometry_collection_(self, law_status, published_from, collection, geo_metadata, office):
+    def unwrap_geometry_collection_(self, law_status, published_from, published_until,
+                                    collection, geo_metadata, office):
         unwrapped = []
         if len(collection.geoms) > 1:
             raise AttributeError(u'There was more than one element in the GeometryCollection. '
@@ -148,6 +151,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 self.create_geometry_records_(
                     law_status,
                     published_from,
+                    published_until,
                     geom,
                     geo_metadata,
                     office=office
@@ -155,7 +159,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             )
         return unwrapped
 
-    def create_geometry_records_(self, law_status, published_from, geom, geo_metadata, office):
+    def create_geometry_records_(self, law_status, published_from, published_until,
+                                 geom, geo_metadata, office):
         geometry_records = []
 
         # Process single geometries
@@ -164,6 +169,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 self._geometry_record_class(
                     law_status,
                     published_from,
+                    published_until,
                     geom,
                     geo_metadata,
                     office=office
@@ -175,6 +181,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             geometry_records.extend(self.unwrap_multi_geometry_(
                 law_status,
                 published_from,
+                published_until,
                 geom,
                 geo_metadata,
                 office
@@ -185,6 +192,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             geometry_records.extend(self.unwrap_geometry_collection_(
                 law_status,
                 published_from,
+                published_until,
                 geom,
                 geo_metadata,
                 office
@@ -217,6 +225,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             geometry_records.extend(self.create_geometry_records_(
                 law_status,
                 geometry_from_db.published_from,
+                geometry_from_db.published_until,
                 to_shape(geometry_from_db.geom),
                 geometry_from_db.geo_metadata,
                 office

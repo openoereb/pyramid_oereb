@@ -290,7 +290,7 @@ class Geometry(Base):
     id = sa.Column(sa.String, primary_key=True, autoincrement=False)
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    published_until = sa.Column(sa.Date, nullable=False)
+    published_until = sa.Column(sa.Date, nullable=True)
     geo_metadata = sa.Column(sa.String, nullable=True)
     geom = sa.Column(GeoAlchemyGeometry('POLYGON', srid=srid), nullable=False)
     public_law_restriction_id = sa.Column(

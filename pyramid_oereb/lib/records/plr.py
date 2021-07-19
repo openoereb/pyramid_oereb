@@ -108,7 +108,7 @@ class PlrRecord(EmptyPlrRecord):
     @property
     def published(self):
         """bool: True if PLR is published."""
-        if not isinstance(self.published_until, datetime):
+        if self.published_until is None:
             return self.published_from <= datetime.now().date()
         else:
             return self.published_from <= datetime.now().date() \
@@ -179,7 +179,7 @@ class PlrRecord(EmptyPlrRecord):
         tested_geometries = []
         inside = False
         for geometry in self.geometries:
-            if geometry.calculate(
+            if geometry.published and geometry.calculate(
                     real_estate,
                     self.min_length, self.min_area,
                     self.length_unit, self.area_unit
