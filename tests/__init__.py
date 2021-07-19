@@ -66,3 +66,4 @@ Config._config = None
 create_tables_from_standard_configuration(pyramid_oereb_test_yml)
 dummy_data = DummyData()
 dummy_data.init()
+Config.init_themes()

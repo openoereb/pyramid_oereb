@@ -39,6 +39,25 @@ app_schema_name = Config.get('app_schema').get('name')
 srid = Config.get('srid')
 
 
+class Theme(Base):
+    """
+    The OEREB themes of the application
+
+    Attributes:
+        id (int): identifier, used in the database only
+        code (str): OEREB code of the theme - unique and used to link each PublicLawRestriction
+            with the corresponding theme
+        title (dict): the title of the theme as a multilingual dictionary
+        extract_index (int): index to sort the themes in the extract, defined in the specification
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'theme'
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
+    code = sa.Column(sa.String, unique=True, nullable=False)
+    title = sa.Column(JSONType, nullable=False)
+    extract_index = sa.Column(sa.Integer, nullable=False)
+
+
 class Municipality(Base):
     """
     The municipality is the place where you hold the information about all the municipalities you are having

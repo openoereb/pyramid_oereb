@@ -22,7 +22,7 @@ def test_embeddable_record_init():
 
 def test_datasource_record():
     record = DatasourceRecord(
-        ThemeRecord('Test', {'de': 'Test'}),
+        ThemeRecord('Test', {'de': 'Test'}, 100),
         datetime.datetime.now(),
         OfficeRecord({u'de': u'TEST'})
     )

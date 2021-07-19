@@ -168,7 +168,7 @@ def test_get_symbol_ref(theme_code):
             {'de': 'Test'},
             u'test',
             u'test',
-            ThemeRecord(theme_code, {'de': 'Test'}),
+            ThemeRecord(theme_code, {'de': 'Test'}, 100),
             view_service_id=1
         )
         if theme_code == u'NotExistingTheme':

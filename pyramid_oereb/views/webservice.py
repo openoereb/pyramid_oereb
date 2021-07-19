@@ -94,11 +94,11 @@ class PlrWebservice(object):
         themes = list()
         for theme in Config.get_themes():
             text = list()
-            for lang in theme.text:
+            for lang in theme.title:
                 if lang in supported_languages:
                     text.append({
                         'Language': lang,
-                        'Text': theme.text[lang]
+                        'Text': theme.title[lang]
                     })
             themes.append({
                 'Code': theme.code,

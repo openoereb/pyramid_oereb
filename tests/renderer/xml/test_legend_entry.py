@@ -29,7 +29,7 @@ def test_sub_theme():
         legend_text={'de': 'legend1'},
         type_code='LandUsePlans',
         type_code_list='bla',
-        theme=ThemeRecord(u'LandUsePlans', {'de': 'Theme 1'}),
+        theme=ThemeRecord(u'LandUsePlans', {'de': 'Theme 1'}, 20),
         sub_theme={'de': 'sub theme de'}
     )
     content = template.render(**{

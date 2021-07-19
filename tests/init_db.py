@@ -38,6 +38,10 @@ class DummyData(object):
             table=main.Municipality.__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table};'.format(
+            schema=main.Theme.__table__.schema,
+            table=main.Theme.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table};'.format(
             schema=main.Glossary.__table__.schema,
             table=main.Glossary.__table__.name
         ))
@@ -166,7 +170,7 @@ class DummyData(object):
             'geom': 'SRID=2056;MULTIPOLYGON(((0 0, 0 10, 10 10, 10 0, 0 0)))'
         })
 
-        # Add dummy exclustion of liability
+        # Add dummy exclusion of liability
         connection.execute(main.ExclusionOfLiability.__table__.insert(), {
             'id': 1,
             'title': {
@@ -184,6 +188,120 @@ class DummyData(object):
                       base dei criteri definiti dall ...',
                 "rm": u''
             }
+        })
+
+        # Add dummy themes
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 1,
+            'code': 'LandUsePlans',
+            'title': {
+                'de': 'Nutzungsplanung (kantonal/kommunal)',
+                'fr': 'Plans d’affectation (cantonaux/communaux)',
+                'it': 'Piani di utilizzazione (cantonali/comunali)',
+                'rm': 'Planisaziun d’utilisaziun (chantunal/communal)'
+            },
+            'extract_index': 20
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 2,
+            'code': 'MotorwaysProjectPlaningZones',
+            'title': {
+                'de': 'Projektierungszonen Nationalstrassen',
+                'fr': 'Zones réservées des routes nationales',
+                'it': 'Zone riservate per le strade nazionali',
+                'rm': 'Zonas da projectaziun da las vias naziunalas'
+            },
+            'extract_index': 110
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 3,
+            'code': 'MotorwaysBuildingLines',
+            'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
+            'extract_index': 120
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 4,
+            'code': 'RailwaysProjectPlanningZones',
+            'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
+            'extract_index': 210
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 5,
+            'code': 'RailwaysBuildingLines',
+            'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
+            'extract_index': 220
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 6,
+            'code': 'AirportsProjectPlanningZones',
+            'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
+            'extract_index': 310
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 7,
+            'code': 'AirportsBuildingLines',
+            'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
+            'extract_index': 320
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 8,
+            'code': 'AirportsSecurityZonePlans',
+            'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
+            'extract_index': 330
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 9,
+            'code': 'ContaminatedSites',
+            'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
+            'extract_index': 410
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 10,
+            'code': 'ContaminatedMilitarySites',
+            'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
+            'extract_index': 420
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 11,
+            'code': 'ContaminatedCivilAviationSites',
+            'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
+            'extract_index': 430
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 12,
+            'code': 'ContaminatedPublicTransportSites',
+            'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
+            'extract_index': 440
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 13,
+            'code': 'GroundwaterProtectionZones',
+            'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
+            'extract_index': 510
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 14,
+            'code': 'GroundwaterProtectionSites',
+            'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
+            'extract_index': 520
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 15,
+            'code': 'NoiseSensitivityLevels',
+            'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
+            'extract_index': 610
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 16,
+            'code': 'ForestPerimeters',
+            'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
+            'extract_index': 710
+        })
+        connection.execute(main.Theme.__table__.insert(), {
+            'id': 17,
+            'code': 'ForestDistanceLines',
+            'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
+            'extract_index': 720
         })
 
         # Add dummy glossary

@@ -113,8 +113,8 @@ def test_processor_without_images():
 
 
 def test_processor_get_legend_entries():
-    theme1 = ThemeRecord(u'TEST', {'de': 'Theme 1'})
-    theme2 = ThemeRecord(u'TEST', {'de': 'Theme 2'})
+    theme1 = ThemeRecord(u'TEST', {'de': 'Theme 1'}, 100)
+    theme2 = ThemeRecord(u'TEST', {'de': 'Theme 2'}, 200)
     office = OfficeRecord({'de': 'Test Office'})
     law_status = LawStatusRecord.from_config(u'inForce')
     geometries = [GeometryRecord(law_status, datetime.date.today(), Point(1, 1))]
