@@ -2,7 +2,7 @@
     {
         "id": 1,
         "code": "Liegenschaft",
-        "type": {
+        "text": {
             "de": "Liegenschaft",
             "fr": "Bien-fonds",
             "it": "Bene immobile",
@@ -13,7 +13,7 @@
     {
         "id": 2,
         "code": "SelbstRecht.Baurecht",
-        "type": {
+        "text": {
             "de": "Baurecht",
             "fr": "Droit de superficie",
             "it": "Diritto di superficie",
@@ -24,7 +24,7 @@
     {
         "id": 3,
         "code": "SelbstRecht.Quellenrecht",
-        "type": {
+        "text": {
             "de": "Quellenrecht",
             "fr": "Droit de source",
             "it": "Diritto di sorgente",
@@ -35,7 +35,7 @@
     {
         "id": 4,
         "code": "SelbstRecht.Konzessionsrecht",
-        "type": {
+        "text": {
             "de": "Konzessionsrecht",
             "fr": "Droit de concession",
             "it": "Diritto di concessione",
@@ -46,7 +46,7 @@
     {
         "id": 5,
         "code": "SelbstRecht.weitere",
-        "type": {
+        "text": {
             "de": "weiteres SDR",
             "fr": "Autre DDP",
             "it": "altre DSP",
@@ -57,7 +57,7 @@
     {
         "id": 6,
         "code": "Bergwerk",
-        "type": {
+        "text": {
             "de": "Bergwerk",
             "fr": "Mine",
             "it": "Miniera",

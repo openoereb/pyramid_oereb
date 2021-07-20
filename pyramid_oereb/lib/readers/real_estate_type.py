@@ -14,7 +14,7 @@ class RealEstateTypeReader(object):
         """
         Args:
             dotted_source_class_path
-                (str or pyramid_oereb.lib.sources.glossary.RealEstateTypesBaseSource): The path to
+                (str or pyramid_oereb.lib.sources.realestatetype.RealEstateTypesBaseSource): The path to
                 the class which represents the source used by this reader. This class must
                 exist and it must implement basic source behaviour of the
                 :ref:`api-pyramid_oereb-lib-sources-realestatetype-realestatetypebasesource`.
