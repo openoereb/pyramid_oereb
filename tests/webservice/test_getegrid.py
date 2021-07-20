@@ -212,8 +212,7 @@ def test_get_egrid_response_no_content():
 
 
 @pytest.mark.parametrize('src,dst,buffer_dist', [
-    ('2621857.856,1259856.578', (2621857.856, 1259856.578), None),
-    ('621857.759,259856.554', (2621857.799, 1259856.500), 1.0)
+    ('2621857.856,1259856.578', (2621857.856, 1259856.578), None)
 ])
 def test_parse_xy(src, dst, buffer_dist):
     geom = PlrWebservice(MockRequest()).__parse_xy__(src, buffer_dist=buffer_dist)
