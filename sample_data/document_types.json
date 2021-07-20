@@ -2,7 +2,7 @@
     {
         "code": "Law",
         "text": {
-            "de" : "Gesetzliche Grundlage", 
+            "de": "Gesetzliche Grundlage", 
             "fr": "Base légale",
             "it": "Base legale",
             "rm": "Basa legala",
@@ -12,7 +12,7 @@
     {
         "code": "LegalProvision",
         "text": {
-            "de" : "Rechtsvorschrift",
+            "de": "Rechtsvorschrift",
             "fr": "Disposition juridique",
             "it": "Prescrizione legale",
             "rm": "Prescripziun giuridica",
@@ -22,7 +22,7 @@
     {
         "code": "Hint",
         "text": {
-            "de" : "Hinweis",
+            "de": "Hinweis",
             "fr": "Renvoi",
             "it": "Indicazione",
             "rm": "Indicaziun",
