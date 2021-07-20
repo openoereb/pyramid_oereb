@@ -521,9 +521,7 @@ class PlrWebservice(object):
                 'The parameter GNSS has to be a comma-separated pair of coordinates.')
 
         # Coordinates provided as "latitude,longitude"
-        lon = float(coords[1])
-        lat = float(coords[0])
-        return self.__coord_transform__((lon, lat), 4326).buffer(1.0)
+        return self.__coord_transform__(coords, 4326).buffer(1.0)
 
 
 class Parameter(object):

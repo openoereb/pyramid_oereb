@@ -68,7 +68,7 @@ def test_getegrid_xy():
         })
 
         request.params.update({
-            'XY': '-1999999.032739449,-999998.940457533'
+            'XY': '-1999998.000,-999999.000'
         })
         webservice = PlrWebservice(request)
         response = webservice.get_egrid_coord().json

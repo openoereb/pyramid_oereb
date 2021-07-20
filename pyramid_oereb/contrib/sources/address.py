@@ -72,7 +72,7 @@ class AddressGeoAdminSource(AddressBaseSource):
                 for item in data.get('results'):
                     attrs = item.get('attrs')
                     if isinstance(attrs, dict) and attrs.get('origin') == 'address':
-                        x, y = rp.transform((attrs.get('lon'), attrs.get('lat')), to_srs=srid)
+                        x, y = rp.transform((attrs.get('lat'), attrs.get('lon')), to_srs=srid)
                         self.records.append(AddressRecord(
                             street_name=street_name,
                             zip_code=zip_code,
