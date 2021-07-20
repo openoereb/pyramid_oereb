@@ -548,23 +548,14 @@ class Config(object):
     @classmethod
     def get_real_estate_type_by_mapping(cls, real_estate_type):
         """
-        Uses the configured mappings of the real estate type to translate it to the correct federal
-        representation.
-
-        Args:
-            real_estate_type (unicode): The type which is used inside the data to distinguish the different
-                kinds of real estates.
+        Returns a dictionary of the configured real estate type settings.
 
         Returns:
-            unicode: The mapped type or the original one if no mapping fits.
-
+            dict: The configured real estate type settings.
         """
-        real_estate_config = cls.get_real_estate_config()
-        type_mapping = real_estate_config.get('type_mapping', [])
-        for mapping in type_mapping:
-            if mapping['type'] == real_estate_type:
-                return mapping['mapping']
-        return real_estate_type
+        assert Config._config is not None
+
+        return Config._config.get('real_estate_type')
 
     @staticmethod
     def get_sub_theme_sorter_config(theme_code):
