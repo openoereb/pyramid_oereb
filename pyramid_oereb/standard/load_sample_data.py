@@ -227,13 +227,13 @@ class SampleData(object):
                     (schema.Geometry, 'geometry.json'),
                     (schema.Document, 'document.json')
                 ]:
-                    self._load_sample(class_, os.path.join('plr119', folder, file_name))
+                    self._load_sample(class_, os.path.join(folder, file_name))
 
                 if hasattr(schema, 'PublicLawRestrictionDocument'):
                     for class_, file_name in [
                         (schema.PublicLawRestrictionDocument, 'public_law_restriction_document.json')
                     ]:
-                        self._load_sample(class_, os.path.join('plr119', folder, file_name))
+                        self._load_sample(class_, os.path.join(folder, file_name))
 
         finally:
             if self._has_connection():
