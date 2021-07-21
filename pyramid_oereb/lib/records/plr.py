@@ -34,7 +34,8 @@ class PlrRecord(EmptyPlrRecord):
         """
         Args:
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.
-            legend_entry (pyramid_oereb.lib.records.view_service.LegendEntryRecord): The PLR record's corresponding legend record.
+            legend_entry (pyramid_oereb.lib.records.view_service.LegendEntryRecord): The PLR record's
+                corresponding legend record.
             law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
             published_from (datetime.date): Date from/since when the PLR record is published.
             published_until (datetime.date): Date from when the PLR record is not published anymore.
@@ -61,7 +62,7 @@ class PlrRecord(EmptyPlrRecord):
         """
         super(PlrRecord, self).__init__(theme)
 
-        if not isinstance(legend_text, dict):
+        if not isinstance(legend_entry.legend_text, dict):
             warnings.warn('Type of "legend_text" should be "dict"')
 
         if sub_theme is not None and not isinstance(sub_theme, dict):
@@ -70,7 +71,7 @@ class PlrRecord(EmptyPlrRecord):
         assert isinstance(geometries, list)
         assert len(geometries) > 0
 
-        self.legend_text = legend_entry.legend_text
+        self.legend_entry = legend_entry
         self.law_status = law_status
         self.published_from = published_from
         self.published_until = published_until
@@ -101,9 +102,13 @@ class PlrRecord(EmptyPlrRecord):
         self.view_service_id = view_service_id
 
     @property
+    def legend_text(self):
+        return self.legend_entry.legend_text
+
+    @property
     def published(self):
         """bool: True if PLR is published."""
-        if self.published_until is None:
+        if not isinstance(self.published_until, datetime):
             return self.published_from <= datetime.now().date()
         else:
             return self.published_from <= datetime.now().date() \

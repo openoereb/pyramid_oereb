@@ -88,7 +88,19 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         finally:
             session.close()
 
-    def from_db_to_legend_entry_record(self, theme, legend_entries_from_db):
+    def from_db_to_legend_entry_record(self, theme, legend_entry_from_db):
+        legend_entry_record = self._legend_entry_record_class(
+            ImageRecord(b64.decode(legend_entry_from_db.symbol)),
+            legend_entry_from_db.legend_text,
+            legend_entry_from_db.type_code,
+            legend_entry_from_db.type_code_list,
+            theme,
+            view_service_id=legend_entry_from_db.view_service_id,
+            sub_theme=legend_entry_from_db.sub_theme
+        )
+        return legend_entry_record
+
+    def from_db_to_legend_entry_records(self, theme, legend_entries_from_db):
         legend_entry_records = []
         for legend_entry_from_db in legend_entries_from_db:
             legend_entry_records.append(self._legend_entry_record_class(
@@ -261,7 +273,11 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         length_unit = thresholds.get('length').get('unit')
         min_area = thresholds.get('area').get('limit')
         area_unit = thresholds.get('area').get('unit')
-        legend_entry_records = self.from_db_to_legend_entry_record(
+        legend_entry_record = self.from_db_to_legend_entry_record(
+            self._theme_record,
+            public_law_restriction_from_db.legend_entry
+        )
+        legend_entry_records = self.from_db_to_legend_entry_records(
             self._theme_record,
             legend_entries_from_db
         )
@@ -285,7 +301,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         plr_record = self._plr_record_class(
             self._theme_record,
-            public_law_restriction_from_db.legend_entry.legend_text,
+            legend_entry_record,
             law_status,
             public_law_restriction_from_db.published_from,
             public_law_restriction_from_db.published_until,

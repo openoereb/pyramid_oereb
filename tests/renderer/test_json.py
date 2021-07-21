@@ -263,7 +263,7 @@ def test_format_plr(parameter):
         geometry = GeometryRecord(law_status(), datetime.date.today(), Point(1, 1))
         plr = PlrRecord(
             theme,
-            {'de': 'Test'},
+            legend_entry,
             law_status(),
             datetime.date.today(),
             None,

@@ -165,7 +165,14 @@ def test_processor_get_legend_entries():
     image = ImageRecord('1'.encode('utf-8'))
     plr1 = PlrRecord(
         theme1,
-        {'de': 'CONTENT'},
+        LegendEntryRecord(
+            ImageRecord('1'.encode('utf-8')),
+            {'de': 'CONTENT'},
+            'CodeD',
+            'bla',
+            theme1,
+            view_service_id=1
+        ),
         law_status,
         datetime.datetime.now(),
         None,
@@ -177,7 +184,14 @@ def test_processor_get_legend_entries():
     )
     plr2 = PlrRecord(
         theme1,
-        {'de': 'CONTENT'},
+        LegendEntryRecord(
+            ImageRecord('1'.encode('utf-8')),
+            {'de': 'CONTENT'},
+            'CodeD',
+            'bla',
+            theme1,
+            view_service_id=1
+        ),
         law_status,
         datetime.datetime.now(),
         None,
@@ -189,7 +203,14 @@ def test_processor_get_legend_entries():
     )
     plr3 = PlrRecord(
         theme1,
-        {'de': 'CONTENT'},
+        LegendEntryRecord(
+            ImageRecord('1'.encode('utf-8')),
+            {'de': 'CONTENT'},
+            'CodeD',
+            'bla',
+            theme1,
+            view_service_id=1
+        ),
         law_status,
         datetime.datetime.now(),
         None,
@@ -201,7 +222,14 @@ def test_processor_get_legend_entries():
     )
     plr4 = PlrRecord(
         theme1,
-        {'de': 'CONTENT'},
+        LegendEntryRecord(
+            ImageRecord('1'.encode('utf-8')),
+            {'de': 'CONTENT'},
+            'CodeD',
+            'bla',
+            theme1,
+            view_service_id=1
+        ),
         law_status,
         datetime.datetime.now(),
         None,

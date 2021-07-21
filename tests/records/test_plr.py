@@ -9,7 +9,7 @@ from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
-from pyramid_oereb.lib.records.view_service import ViewServiceRecord
+from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 
 
 def test_mandatory_fields():
@@ -23,8 +23,20 @@ def create_dummy_plr():
     law_status = LawStatusRecord.from_config(u'inForce')
     geometry = GeometryRecord(law_status, datetime.date.today(), Point(1, 1))
     record = PlrRecord(
-        ThemeRecord('code', dict(), 100), {'en': 'Content'}, law_status, datetime.date(1985, 8, 29), None,
-        office, ImageRecord('1'.encode('utf-8')), view_service, [geometry])
+        ThemeRecord('code', dict(), 100),
+        LegendEntryRecord(
+            ImageRecord('1'.encode('utf-8')),
+            {'en': 'Content'},
+            'CodeA',
+            None,
+            ThemeRecord('code', dict()),
+            view_service_id=1
+        ),
+        law_status,
+        datetime.date(1985, 8, 29),
+        None,
+        office,
+        ImageRecord('1'.encode('utf-8')), view_service, [geometry])
     return record
 
 

@@ -4,7 +4,7 @@ from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
-from pyramid_oereb.lib.records.view_service import ViewServiceRecord
+from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.renderer.extract.xml_ import Renderer
 from pyramid_oereb.views.webservice import Parameter
 from tests.mockrequest import MockRequest
@@ -30,6 +30,7 @@ def test_sub_theme():
     renderer._language = u'de'
     renderer._request = MockRequest()
     renderer._request.route_url = lambda url, **kwargs: "http://example.com/current/view"
+    theme = ThemeRecord(u'LandUsePlans', {'de': 'Theme 1'})
     office = OfficeRecord(name={'de': 'office de'})
     law_status = LawStatusRecord(
         code='runningModifications',
@@ -37,8 +38,15 @@ def test_sub_theme():
     )
     geometry = GeometryRecord(law_status, datetime.now(), Polygon(), 'test', office=office)
     public_law_restriction = PlrRecord(
-        theme=ThemeRecord(u'LandUsePlans', {'de': 'Theme 1'}, 20),
-        legend_text={'de': 'information de'},
+        theme=theme,
+        legend_entry=LegendEntryRecord(
+                        ImageRecord('1'.encode('utf-8')),
+                        {'de': 'information de'},
+                        'CodeA',
+                        None,
+                        theme,
+                        view_service_id=1
+        ),
         law_status=law_status,
         published_from=datetime.now(),
         published_until=None,
