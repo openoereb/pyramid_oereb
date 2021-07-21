@@ -255,7 +255,7 @@ class PublicLawRestriction(Base):
         sa.ForeignKey(LegendEntry.id),
         nullable=False
     )
-    legend_entry = relationship('LegendEntry', backref='legend_entry')
+    legend_entry = relationship('LegendEntry', backref='public_law_restrictions')
 
 
 class Geometry(Base):
