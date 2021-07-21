@@ -238,7 +238,10 @@ class PublicLawRestriction(Base):
         sa.ForeignKey(ViewService.id),
         nullable=False
     )
-    view_service = relationship('ViewService', backref='public_law_restrictions')
+    view_service = relationship(
+        ViewService,
+        backref='public_law_restrictions'
+    )
     office_id = sa.Column(
         sa.String,
         sa.ForeignKey(Office.id),
