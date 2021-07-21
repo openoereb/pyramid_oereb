@@ -132,8 +132,8 @@ class RealEstate(Base):
 
 class RealEstateTypeText(Base):
     """
-    The container where you can throw in all the real estates type texts this application should have access to, for
-    creating extracts.
+    The container where you can throw in all the real estates type texts this application
+    should have access to, for creating extracts.
 
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
@@ -146,6 +146,7 @@ class RealEstateTypeText(Base):
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     code = sa.Column(sa.String, nullable=False)
     text = sa.Column(JSONType, nullable=False)
+
 
 class Address(Base):
     """

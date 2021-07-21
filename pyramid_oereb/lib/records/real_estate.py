@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb import Config
-
 
 class RealEstateRecord(object):
     """

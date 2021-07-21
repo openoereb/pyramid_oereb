@@ -6,7 +6,8 @@ class RealEstateTypeRecord(object):
     """
     Represents a real estate type entry with the code and it's display name.
     Args:
-        code (str of unicode): The code for the real estate type (Property, Building right, Right to spring water).
+        code (str of unicode): The code for the real estate type (Property, Building right,
+        Right to spring water).
         text (dict of unicode): The label text for the real estate type (multilingual).
     """
     def __init__(self, code, text):

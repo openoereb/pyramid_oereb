@@ -30,8 +30,8 @@ class RealEstateTypeReader(object):
 
         .. note:: If you subclass this class your implementation needs to offer this method in the same
             signature. Means the parameters must be the same and the return must be a list of
-            :ref:`api-pyramid_oereb-lib-records-realestatetype-realestatetyperecord`. Otherwise the API like way
-            the server works would be broken.
+            :ref:`api-pyramid_oereb-lib-records-realestatetype-realestatetyperecord`.
+            Otherwise the API like way the server works would be broken.
 
         params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
 

@@ -416,6 +416,15 @@ pyramid_oereb:
         # The model which maps the exclusion_of_liability database table.
         model: pyramid_oereb.standard.models.main.ExclusionOfLiability
 
+  # Define the real estate type values configured as default in the data
+  real_estate_type_lookup:
+    Liegenschaft: "Liegenschaft"
+    SelbstRecht.Baurecht: "SelbstRecht.Baurecht"
+    SelbstRecht.Quellenrecht: "SelbstRecht.Quellenrecht"
+    SelbstRecht.Konzessionsrecht: "SelbstRecht.Konzessionsrecht"
+    SelbstRecht.weitere: "SelbstRecht.weitere"
+    Bergwerk: "Bergwerk"
+
   # The processor of the oereb project joins the real estate type labels. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
   # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
