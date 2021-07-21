@@ -30,7 +30,7 @@ def create_dummy_plr():
             {'en': 'Content'},
             'CodeA',
             None,
-            ThemeRecord('code', dict()),
+            ThemeRecord('code', dict(), 100),
             view_service_id=1
         ),
         law_status,
@@ -60,14 +60,15 @@ def test_init():
 )
 def test_published(published_from, published_until, published):
     law_status = LawStatusRecord.from_config(u'inForce')
+    theme = ThemeRecord('code', dict(), 100)
     plr_record = PlrRecord(
-        ThemeRecord('code', dict()),
+        theme,
         LegendEntryRecord(
             ImageRecord('1'.encode('utf-8')),
             {'en': 'Content'},
             'CodeA',
             None,
-            ThemeRecord('code', dict()),
+            theme,
             view_service_id=1
         ),
         law_status,
@@ -75,6 +76,6 @@ def test_published(published_from, published_until, published):
         published_until,
         OfficeRecord({'en': 'Office'}),
         ImageRecord('1'.encode('utf-8')),
-        ViewServiceRecord('http://my.wms.com', 1, 1.0),
+        ViewServiceRecord({'de': 'http://my.wms.com'}, 1, 1.0),
         [GeometryRecord(law_status, datetime.date.today(), None, Point(1, 1))])
     assert plr_record.published == published

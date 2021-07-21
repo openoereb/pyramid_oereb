@@ -384,13 +384,6 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '1',
-<<<<<<< HEAD
-            'legend_text': {'de': u'Long line PLR'},
-            'topic': u'MotorwaysBuildingLines',
-            'type_code': u'CodeA',
-            "type_code_list": u'',
-=======
->>>>>>> 24972b947d... Update_2021-07-15
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -399,13 +392,6 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '2',
-<<<<<<< HEAD
-            'legend_text': {'de': u'Short line PLR'},
-            'topic': u'MotorwaysBuildingLines',
-            'type_code': u'CodeA',
-            "type_code_list": u'',
-=======
->>>>>>> 24972b947d... Update_2021-07-15
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -414,13 +400,6 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '3',
-<<<<<<< HEAD
-            'legend_text': {'de': u'Double intersection line PLR'},
-            'topic': u'MotorwaysBuildingLines',
-            'type_code': u'CodeA',
-            "type_code_list": u'',
-=======
->>>>>>> 24972b947d... Update_2021-07-15
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -429,13 +408,6 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '4',
-<<<<<<< HEAD
-            'legend_text': {'de': u'Future geometry'},
-            'topic': u'MotorwaysBuildingLines',
-            'type_code': u'CodeA',
-            "type_code_list": u'',
-=======
->>>>>>> 24972b947d... Update_2021-07-15
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -575,13 +547,6 @@ class DummyData(object):
 
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': '1',
-<<<<<<< HEAD
-            'legend_text': {'de': u'Large polygon PLR'},
-            'topic': u'ContaminatedSites',
-            'type_code': u'CodeA',
-            "type_code_list": u'',
-=======
->>>>>>> 24972b947d... Update_2021-07-15
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -590,13 +555,6 @@ class DummyData(object):
         })
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': '2',
-<<<<<<< HEAD
-            'legend_text': {'de': u'Small polygon PLR'},
-            'topic': u'ContaminatedSites',
-            'type_code': u'CodeA',
-            "type_code_list": u'',
-=======
->>>>>>> 24972b947d... Update_2021-07-15
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -605,13 +563,6 @@ class DummyData(object):
         })
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': '3',
-<<<<<<< HEAD
-            'legend_text': {'de': u'Double intersection polygon PLR'},
-            'topic': u'ContaminatedSites',
-            'type_code': u'CodeA',
-            "type_code_list": u'',
-=======
->>>>>>> 24972b947d... Update_2021-07-15
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -709,13 +660,6 @@ class DummyData(object):
 
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '1',
-<<<<<<< HEAD
-            'legend_text': {'de': u'Large polygon PLR'},
-            'topic': u'LandUsePlans',
-            'type_code': u'CodeA',
-            "type_code_list": u'',
-=======
->>>>>>> 24972b947d... Update_2021-07-15
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -724,13 +668,6 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '2',
-<<<<<<< HEAD
-            'legend_text': {'de': u'Small polygon PLR'},
-            'topic': u'LandUsePlans',
-            'type_code': u'CodeA',
-            "type_code_list": u'',
-=======
->>>>>>> 24972b947d... Update_2021-07-15
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -739,13 +676,6 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '3',
-<<<<<<< HEAD
-            'legend_text': {'de': u'Double intersection polygon PLR'},
-            'topic': u'LandUsePlans',
-            'type_code': u'CodeA',
-            "type_code_list": u'',
-=======
->>>>>>> 24972b947d... Update_2021-07-15
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
@@ -754,13 +684,6 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '4',
-<<<<<<< HEAD
-            'legend_text': {'de': u'Future PLR'},
-            'topic': u'LandUsePlans',
-            'type_code': u'CodeA',
-            "type_code_list": u'',
-=======
->>>>>>> 24972b947d... Update_2021-07-15
             'law_status': u'inForce',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'view_service_id': '1',
@@ -851,13 +774,6 @@ class DummyData(object):
         })
         connection.execute(forest_perimeters.PublicLawRestriction.__table__.insert(), {
             'id': '1',
-<<<<<<< HEAD
-            'legend_text': {'de': u'Long line PLR'},
-            'topic': u'ForestPerimeters',
-            'type_code': u'CodeA',
-            "type_code_list": u'',
-=======
->>>>>>> 24972b947d... Update_2021-07-15
             'law_status': u'inForce',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
