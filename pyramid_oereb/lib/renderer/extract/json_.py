@@ -329,8 +329,7 @@ class Renderer(Base):
 
         multilingual_text_at_web = self.get_multilingual_text(document.text_at_web)
 
-        document_type_lookup = Config.get('document_types_lookup')[document.document_type]
-        document_type = Config.get_document_type_by_code(document_type_lookup)
+        document_type = Config.get_document_type_by_code(document.document_type)
 
         document_dict.update({
             'DocumentType': {

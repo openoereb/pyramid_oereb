@@ -148,8 +148,10 @@ class Config(object):
         """
         if Config.document_types is None:
             raise ConfigurationError("The document types have not been initialized")
+        document_type_lookup = Config.get('document_types_lookup')[code]
+
         for document_type in Config.document_types:
-            if document_type.code == code:
+            if document_type.code == document_type_lookup:
                 return document_type
         raise ConfigurationError(f"Document type {code} not found in the application configuration")
 
