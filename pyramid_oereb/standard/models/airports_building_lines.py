@@ -13,7 +13,7 @@ from pyramid_oereb.standard.models import NAMING_CONVENTION
 from pyramid_oereb.lib.config import Config
 from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relation, relationship
 from sqlalchemy_utils import JSONType
 
 metadata = sa.MetaData(naming_convention=NAMING_CONVENTION)
@@ -199,6 +199,7 @@ class LegendEntry(Base):
         nullable=False
     )
     view_service = relationship(ViewService, backref='legends')
+    public_law_restriction = relationship('PublicLawRestriction', backref='legend_entry')
 
 
 class PublicLawRestriction(Base):
@@ -243,16 +244,17 @@ class PublicLawRestriction(Base):
         sa.ForeignKey(ViewService.id),
         nullable=False
     )
-    view_service = relationship(
-        ViewService,
-        backref='public_law_restrictions'
-    )
     office_id = sa.Column(
         sa.String,
         sa.ForeignKey(Office.id),
         nullable=False
     )
     responsible_office = relationship(Office)
+    legend_entry_id = sa.Column(
+        sa.String,
+        sa.ForeignKey(LegendEntry.id),
+        nullable=False
+    )
 
 
 class Geometry(Base):
