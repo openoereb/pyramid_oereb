@@ -27,7 +27,6 @@ class Config(object):
     themes = None
     document_types = None
 
-
     @staticmethod
     def init(configfile, configsection, c2ctemplate_style=False):
         """
@@ -131,7 +130,7 @@ class Config(object):
         Returns a list of available document_types.
 
         Returns:
-            list of pyramid_oereb.lib.records.document_types.DocumentTypeRecord: The available 
+            list of pyramid_oereb.lib.records.document_types.DocumentTypeRecord: The available
             document types.
         """
         assert Config._config is not None
@@ -144,7 +143,7 @@ class Config(object):
         Args:
             code (str): The document type code.
         Returns:
-            pyramid_oereb.lib.records.document_types.DocumentTypeRecord or None: The document 
+            pyramid_oereb.lib.records.document_types.DocumentTypeRecord or None: The document
             type for the specified code.
         """
         if Config.document_types is None:
