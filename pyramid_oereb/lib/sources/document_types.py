@@ -13,7 +13,7 @@ class DocumentTypesBaseSource(Base):
     """
     _record_class_ = DocumentTypeRecord
 
-    def read(self, params):
+    def read(self):
         """
         Every document type source has to implement a read method. This method must accept no parameters.
         Because it should deliver all items available.

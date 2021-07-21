@@ -1,6 +1,6 @@
 [
     {
-        "code": "Law",
+        "code": "GesetzlicheGrundlage",
         "text": {
             "de": "Gesetzliche Grundlage", 
             "fr": "Base légale",
@@ -10,7 +10,7 @@
         }
     },
     {
-        "code": "LegalProvision",
+        "code": "Rechtsvorschrift",
         "text": {
             "de": "Rechtsvorschrift",
             "fr": "Disposition juridique",
@@ -20,7 +20,7 @@
         }
     },
     {
-        "code": "Hint",
+        "code": "Hinweis",
         "text": {
             "de": "Hinweis",
             "fr": "Renvoi",

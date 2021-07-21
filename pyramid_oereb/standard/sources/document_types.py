@@ -5,7 +5,7 @@ from pyramid_oereb.lib.sources.document_types import DocumentTypesBaseSource
 
 class DatabaseSource(BaseDatabaseSource, DocumentTypesBaseSource):
 
-    def read(self, params):
+    def read(self):
         """
         Central method to read all document type values.
 

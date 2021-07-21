@@ -9,9 +9,8 @@ from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.records.theme import ThemeRecord
-from pyramid_oereb.lib.records.document_types import DocumentTypeRecord
 from pyramid_oereb.lib.readers.theme import ThemeReader
+from pyramid_oereb.lib.readers.document_types import DocumentTypeReader
 from sqlalchemy.exc import ProgrammingError
 
 log = logging.getLogger(__name__)
@@ -26,6 +25,8 @@ class Config(object):
 
     _config = None
     themes = None
+    document_types = None
+
 
     @staticmethod
     def init(configfile, configsection, c2ctemplate_style=False):
@@ -40,6 +41,7 @@ class Config(object):
 
         Config._config = _parse(configfile, configsection, c2ctemplate_style)
         Config.init_themes()
+        Config.init_document_types()
 
     @staticmethod
     def get_config():
@@ -105,20 +107,51 @@ class Config(object):
         raise ConfigurationError(f"Theme {code} not found in the application configuration")
 
     @staticmethod
+    def init_document_types():
+        try:
+            Config.document_types = Config._read_document_types()
+        # When initializing the database (create_tables), the table 'document_types' does not exist yet
+        except ProgrammingError:
+            Config.document_types = None
+
+    @staticmethod
+    def _read_document_types():
+        document_types_config = Config.get_document_types_config()
+        if document_types_config is None:
+            raise ConfigurationError("Missing configuration for document types")
+        document_types_reader = DocumentTypeReader(
+            document_types_config.get('source').get('class'),
+            **Config.get_document_types_config().get('source').get('params')
+        )
+        return document_types_reader.read()
+
+    @staticmethod
+    def get_document_types():
+        """
+        Returns a list of available document_types.
+
+        Returns:
+            list of pyramid_oereb.lib.records.document_types.DocumentTypeRecord: The available 
+            document types.
+        """
+        assert Config._config is not None
+        return Config.document_types
+
+    @staticmethod
     def get_document_type_by_code(code):
         """
         Returns the label for the document type by code.
         Args:
             code (str): The document type code.
         Returns:
-            pyramid_oereb.lib.records.document_types or None: The document type for the 
-            specified code.
+            pyramid_oereb.lib.records.document_types.DocumentTypeRecord or None: The document 
+            type for the specified code.
         """
         if Config.document_types is None:
             raise ConfigurationError("The document types have not been initialized")
         for document_type in Config.document_types:
             if document_type.code == code:
-                return db_value
+                return document_type
         raise ConfigurationError(f"Document type {code} not found in the application configuration")
 
     @staticmethod
