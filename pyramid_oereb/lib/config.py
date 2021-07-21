@@ -564,8 +564,19 @@ class Config(object):
         
         for record in real_estate_type_records:
             if record.code == code:
-                return record.text
+                return record
         raise ConfigurationError(f"Real estate type {code} not found in the application configuration")
+
+    @classmethod
+    def get_real_estate_type_text_by_code(cls, code):
+        """
+        Returns a dictionary of the configured real estate type text.
+
+        Returns:
+            dict: The configured real estate type text.
+        """
+
+        return Config.get_real_estate_type_by_code(code).text
 
     @staticmethod
     def get_sub_theme_sorter_config(theme_code):

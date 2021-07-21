@@ -189,7 +189,7 @@ class Renderer(Base):
 
         assert isinstance(self._params, Parameter)
 
-        real_estate_type = Config.get_real_estate_type_by_code(real_estate.type)
+        real_estate_type = Config.get_real_estate_type_text_by_code(real_estate.type)
         real_estate_dict = {
             'Type': {
                 'Code': real_estate.type,
