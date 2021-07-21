@@ -24,7 +24,7 @@ class RealEstateTypeReader(object):
         source_class = DottedNameResolver().maybe_resolve(dotted_source_class_path)
         self._source_ = source_class(**params)
 
-    def read(self, params):
+    def read(self):
         """
         The central read accessor method to get all desired records from configured source.
 
@@ -40,5 +40,5 @@ class RealEstateTypeReader(object):
                 The list of found records. Since these are not filtered by any criteria the list simply
                 contains all records delivered by the source.
         """
-        self._source_.read(params)
+        self._source_.read()
         return self._source_.records

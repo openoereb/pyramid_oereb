@@ -10,7 +10,9 @@ from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.readers.theme import ThemeReader
+from pyramid_oereb.lib.readers.real_estate_type import RealEstateTypeReader
 from sqlalchemy.exc import ProgrammingError
+import json
 
 log = logging.getLogger(__name__)
 
@@ -253,7 +255,7 @@ class Config(object):
             dict: The configured glossary settings.
         """
         assert Config._config is not None
-
+        log.info('Glossary info: ---' + json.dumps(Config._config.get('glossary'), indent=4))
         return Config._config.get('glossary')
 
     @staticmethod
@@ -546,16 +548,26 @@ class Config(object):
         return None, None
 
     @classmethod
-    def get_real_estate_type_by_mapping(cls, real_estate_type):
+    def get_real_estate_type_by_code(cls, code):
         """
         Returns a dictionary of the configured real estate type settings.
 
         Returns:
             dict: The configured real estate type settings.
         """
-        assert Config._config is not None
+        real_estate_type_config = Config.get('real_estate_type')
+        real_estate_type_reader = RealEstateTypeReader(
+            real_estate_type_config.get('source').get('class'),
+            **real_estate_type_config.get('source').get('params'))
 
-        return Config._config.get('real_estate_type')
+        real_estate_type_records = real_estate_type_reader.read()
+        if real_estate_type_records is None:
+            raise ConfigurationError("The real estate types have not been initialized")
+        
+        for record in real_estate_type_records:
+            if record.code == code:
+                return record.text
+        raise ConfigurationError(f"Real estate type {code} not found in the application configuration")
 
     @staticmethod
     def get_sub_theme_sorter_config(theme_code):

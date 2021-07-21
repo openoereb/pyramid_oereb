@@ -4,7 +4,7 @@ from pyramid_oereb.lib.sources.real_estate_type import RealEstateTypesBaseSource
 
 class DatabaseSource(BaseDatabaseSource, RealEstateTypesBaseSource):
 
-    def read(self, params):
+    def read(self):
         """
         Central method to read all real estate type values.
         Args:
