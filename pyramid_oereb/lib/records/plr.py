@@ -27,14 +27,14 @@ class PlrRecord(EmptyPlrRecord):
     Public law restriction record.
     """
 
-    def __init__(self, theme, legende_text, law_status, published_from, published_until, responsible_office,
+    def __init__(self, theme, legend_entry, law_status, published_from, published_until, responsible_office,
                  symbol, view_service, geometries, sub_theme=None, type_code=None,
                  type_code_list=None, documents=None, info=None, min_length=0.0,
                  min_area=0.0, length_unit=u'm', area_unit=u'm2', view_service_id=None):
         """
         Args:
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.
-            legende_text (dict of unicode): The PLR record's legende_text (multilingual).
+            legend_entry (pyramid_oereb.lib.records.view_service.LegendEntryRecord): The PLR record's corresponding legend record.
             law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
             published_from (datetime.date): Date from/since when the PLR record is published.
             published_until (datetime.date): Date from when the PLR record is not published anymore.
@@ -70,7 +70,7 @@ class PlrRecord(EmptyPlrRecord):
         assert isinstance(geometries, list)
         assert len(geometries) > 0
 
-        self.legend_text = legend_text
+        self.legend_text = legend_entry.legend_text
         self.law_status = law_status
         self.published_from = published_from
         self.published_until = published_until
