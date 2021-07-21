@@ -11,6 +11,7 @@ from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.readers.theme import ThemeReader
 from pyramid_oereb.lib.readers.document_types import DocumentTypeReader
+from pyramid_oereb.lib.readers.general_information import GeneralInformationReader
 from sqlalchemy.exc import ProgrammingError
 
 log = logging.getLogger(__name__)
@@ -26,6 +27,7 @@ class Config(object):
     _config = None
     themes = None
     document_types = None
+    general_information = None
 
     @staticmethod
     def init(configfile, configsection, c2ctemplate_style=False):
@@ -41,6 +43,7 @@ class Config(object):
         Config._config = _parse(configfile, configsection, c2ctemplate_style)
         Config.init_themes()
         Config.init_document_types()
+        Config.init_general_information()
 
     @staticmethod
     def get_config():
@@ -65,6 +68,13 @@ class Config(object):
             Config.themes = None
 
     @staticmethod
+    def init_general_information():
+        try:
+            Config.general_information = Config._read_general_information()
+        except ProgrammingError:
+            Config.general_information = None
+
+    @staticmethod
     def _read_themes():
         theme_config = Config.get_theme_config()
         if theme_config is None:
@@ -74,6 +84,28 @@ class Config(object):
             **Config.get_theme_config().get('source').get('params')
         )
         return theme_reader.read()
+
+    @staticmethod
+    def _read_general_information():
+        info_config = Config.get_info_config()
+        if info_config is None:
+            raise ConfigurationError("Missing configuration for general information")
+        info_reader = GeneralInformationReader(
+            info_config.get('source').get('class'),
+            **Config.get_info_config().get('source').get('params')
+        )
+        return info_reader.read()
+
+    @staticmethod
+    def get_general_information():
+        """
+        Returns the general information.
+
+        Returns:
+            list of pyramid_oereb.lib.records.theme.GeneralInformationRecord: The available themes.
+        """
+        assert Config._config is not None
+        return Config.general_information
 
     @staticmethod
     def get_themes():
@@ -332,6 +364,18 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get('exclusion_of_liability')
+
+    @staticmethod
+    def get_info_config():
+        """
+        Returns a dictionary of the configured general settings.
+
+        Returns:
+            dict: The configured general information settings.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('general_information')
 
     @staticmethod
     def get_municipality_config():
