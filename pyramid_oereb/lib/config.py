@@ -12,7 +12,6 @@ from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.readers.theme import ThemeReader
 from pyramid_oereb.lib.readers.real_estate_type import RealEstateTypeReader
 from sqlalchemy.exc import ProgrammingError
-import json
 
 log = logging.getLogger(__name__)
 
@@ -255,7 +254,6 @@ class Config(object):
             dict: The configured glossary settings.
         """
         assert Config._config is not None
-        log.info('Glossary info: ---' + json.dumps(Config._config.get('glossary'), indent=4))
         return Config._config.get('glossary')
 
     @staticmethod
