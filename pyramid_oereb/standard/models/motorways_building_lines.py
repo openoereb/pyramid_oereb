@@ -212,7 +212,7 @@ class PublicLawRestriction(Base):
         published_from (datetime.date): The date when the document should be available for
             publishing on extracts. This  directly affects the behaviour of extract
             generation.
-        published_till (datetime.date): The date starting from which the document should not be
+        published_until (datetime.date): The date starting from which the document should not be
             published anymore on extracts. This directly affects the behaviour of extract generation.
         view_service_id (str): The foreign key to the view service this public law restriction is
             related to.
@@ -232,7 +232,7 @@ class PublicLawRestriction(Base):
     id = sa.Column(sa.String, primary_key=True, autoincrement=False)
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
-    published_till = sa.Column(sa.Date, nullable=True)
+    published_until = sa.Column(sa.Date, nullable=True)
     view_service_id = sa.Column(
         sa.String,
         sa.ForeignKey(ViewService.id),

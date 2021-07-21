@@ -41,6 +41,7 @@ def test_sub_theme():
         legend_text={'de': 'information de'},
         law_status=law_status,
         published_from=datetime.now(),
+        published_until=None,
         responsible_office=office,
         symbol=ImageRecord('1'.encode('utf-8')),
         view_service=ViewServiceRecord(

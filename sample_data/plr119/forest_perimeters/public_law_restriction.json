@@ -2,31 +2,37 @@
   {
     "office_id": 1,
     "published_from": "2016-02-25",
-    "type_code": "StaoTyp2",
+    "published_until": "2100-01-01",
     "id": 402,
-    "type_code_list": "",
     "law_status": "inForce",
     "view_service_id": 1,
+<<<<<<< HEAD
     "legend_text": {
       "it": "Inquinato, non sono prevedibili effetti dannosi o molesti",
       "de": "Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten",
       "fr": "Pollué, pas d?atteinte nuisible ou incommodante à attendre"
     },
     "topic": "ForestPerimeters"
+=======
+    "legend_entry_id": 16
+>>>>>>> 24972b947d... Update_2021-07-15
   },
   {
     "office_id": 1,
     "published_from": "2020-01-01",
-    "type_code": "StaoTyp1",
+    "published_until": "2100-01-01",
     "id": 403,
-    "type_code_list": "",
     "law_status": "inForce",
     "view_service_id": 1,
+<<<<<<< HEAD
     "legend_text": {
       "fr": "Pollué, ne nécessite ni surveillance ni assainissement",
       "de": "Belastet, weder überwachungs- noch sanierungsbedürftig",
       "it": "Inquinato, non deve essere né sorvegliato né risanato"
     },
     "topic": "ForestPerimeters"
+=======
+    "legend_entry_id": 16
+>>>>>>> 24972b947d... Update_2021-07-15
   }
 ]

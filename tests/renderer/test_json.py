@@ -266,6 +266,7 @@ def test_format_plr(parameter):
             {'de': 'Test'},
             law_status(),
             datetime.date.today(),
+            None,
             office,
             ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             view_service,

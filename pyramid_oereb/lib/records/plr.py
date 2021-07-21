@@ -27,16 +27,17 @@ class PlrRecord(EmptyPlrRecord):
     Public law restriction record.
     """
 
-    def __init__(self, theme, legend_text, law_status, published_from, responsible_office, symbol,
-                 view_service, geometries, sub_theme=None, type_code=None,
+    def __init__(self, theme, legende_text, law_status, published_from, published_until, responsible_office,
+                 symbol, view_service, geometries, sub_theme=None, type_code=None,
                  type_code_list=None, documents=None, info=None, min_length=0.0,
                  min_area=0.0, length_unit=u'm', area_unit=u'm2', view_service_id=None):
         """
         Args:
-            legend_text (dict of unicode): The PLR record's legend text (multilingual).
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.
+            legende_text (dict of unicode): The PLR record's legende_text (multilingual).
             law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
             published_from (datetime.date): Date from/since when the PLR record is published.
+            published_until (datetime.date): Date from when the PLR record is not published anymore.
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is responsible
                 for this PLR.
             symbol (pyramid_oereb.lib.records.image.ImageRecord): Symbol of the restriction defined for the
@@ -72,6 +73,7 @@ class PlrRecord(EmptyPlrRecord):
         self.legend_text = legend_text
         self.law_status = law_status
         self.published_from = published_from
+        self.published_until = published_until
         self.responsible_office = responsible_office
         self.sub_theme = sub_theme
         self.type_code = type_code
@@ -101,7 +103,11 @@ class PlrRecord(EmptyPlrRecord):
     @property
     def published(self):
         """bool: True if PLR is published."""
-        return not self.published_from > datetime.now().date()
+        if self.published_until is None:
+            return self.published_from <= datetime.now().date()
+        else:
+            return self.published_from <= datetime.now().date() \
+                   and self.published_until >= datetime.now().date()
 
     def _sum_length(self):
         """

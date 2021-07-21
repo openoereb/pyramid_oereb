@@ -2,11 +2,11 @@
   {
     "office_id": 1,
     "published_from": "2016-02-25",
-    "type_code": "StaoTyp2",
+    "published_until": "2100-01-01",
     "id": 396,
-    "type_code_list": "",
     "law_status": "inForce",
     "view_service_id": 1,
+<<<<<<< HEAD
     "legend_text": {
       "it": "Inquinato, è necessario procedere a un?indagine",
       "de": "Belastet, untersuchungsbedürftig",
@@ -18,14 +18,17 @@
       "de": "SubTheme1 - de",
       "fr": "SubTheme1 - fr"
     }
+=======
+    "legend_entry_id": 2
+>>>>>>> 24972b947d... Update_2021-07-15
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
-    "type_code": "StaoTyp2",
+    "published_until": "2100-01-01",
     "id": 397,
-    "type_code_list": "",
     "law_status": "inForce",
     "view_service_id": 1,
+<<<<<<< HEAD
     "legend_text": {
       "it": "Inquinato, è necessario procedere a un?indagine",
       "de": "Belastet, untersuchungsbedürftig",
@@ -37,14 +40,17 @@
       "de": "SubTheme1 - de",
       "fr": "SubTheme1 - fr"
     }
+=======
+    "legend_entry_id": 2
+>>>>>>> 24972b947d... Update_2021-07-15
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
-    "type_code": "StaoTyp3",
+    "published_until": "2100-01-01",
     "id": 398,
-    "type_code_list": "",
     "law_status": "inForce",
     "view_service_id": 1,
+<<<<<<< HEAD
     "legend_text": {
       "de": "Belastet, überwachungsbedürftig",
       "it": "Inquinato, deve essere sorvegliato",
@@ -56,14 +62,17 @@
       "de": "SubTheme3 - de",
       "fr": "SubTheme3 - fr"
     }
+=======
+    "legend_entry_id": 3
+>>>>>>> 24972b947d... Update_2021-07-15
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
-    "type_code": "StaoTyp3",
+    "published_until": "2100-01-01",
     "id": 399,
-    "type_code_list": "",
     "law_status": "inForce",
     "view_service_id": 1,
+<<<<<<< HEAD
     "legend_text": {
       "de": "Belastet, überwachungsbedürftig",
       "it": "Inquinato, deve essere sorvegliato",
@@ -75,14 +84,17 @@
       "de": "SubTheme3 - de",
       "fr": "SubTheme3 - fr"
     }
+=======
+    "legend_entry_id": 3
+>>>>>>> 24972b947d... Update_2021-07-15
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
-    "type_code": "StaoTyp1",
+    "published_until": "2100-01-01",
     "id": 400,
-    "type_code_list": "",
     "law_status": "inForce",
     "view_service_id": 1,
+<<<<<<< HEAD
     "legend_text": {
       "it": "Inquinato, non sono prevedibili effetti dannosi o molesti",
       "de": "Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten",
@@ -94,14 +106,17 @@
       "de": "SubTheme2 - de",
       "fr": "SubTheme2 - fr"
     }
+=======
+    "legend_entry_id": 1
+>>>>>>> 24972b947d... Update_2021-07-15
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
-    "type_code": "StaoTyp1",
+    "published_until": "2100-01-01",
     "id": 401,
-    "type_code_list": "",
     "law_status": "inForce",
     "view_service_id": 1,
+<<<<<<< HEAD
     "legend_text": {
       "it": "Inquinato, non sono prevedibili effetti dannosi o molesti",
       "de": "Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten",
@@ -113,5 +128,8 @@
       "de": "SubTheme2 - de",
       "fr": "SubTheme2 - fr"
     }
+=======
+    "legend_entry_id": 1
+>>>>>>> 24972b947d... Update_2021-07-15
   }
 ]
