@@ -6,21 +6,7 @@
     "id": 396,
     "law_status": "inForce",
     "view_service_id": 1,
-<<<<<<< HEAD
-    "legend_text": {
-      "it": "Inquinato, è necessario procedere a un?indagine",
-      "de": "Belastet, untersuchungsbedürftig",
-      "fr": "Pollué, investigation nécessaire"
-    },
-    "topic": "ContaminatedPublicTransportSites",
-    "sub_theme": {
-      "it": "SubTheme1 - it",
-      "de": "SubTheme1 - de",
-      "fr": "SubTheme1 - fr"
-    }
-=======
     "legend_entry_id": 2
->>>>>>> 24972b947d... Update_2021-07-15
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
@@ -28,21 +14,7 @@
     "id": 397,
     "law_status": "inForce",
     "view_service_id": 1,
-<<<<<<< HEAD
-    "legend_text": {
-      "it": "Inquinato, è necessario procedere a un?indagine",
-      "de": "Belastet, untersuchungsbedürftig",
-      "fr": "Pollué, investigation nécessaire"
-    },
-    "topic": "ContaminatedPublicTransportSites",
-    "sub_theme": {
-      "it": "SubTheme1 - it",
-      "de": "SubTheme1 - de",
-      "fr": "SubTheme1 - fr"
-    }
-=======
     "legend_entry_id": 2
->>>>>>> 24972b947d... Update_2021-07-15
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
@@ -50,21 +22,7 @@
     "id": 398,
     "law_status": "inForce",
     "view_service_id": 1,
-<<<<<<< HEAD
-    "legend_text": {
-      "de": "Belastet, überwachungsbedürftig",
-      "it": "Inquinato, deve essere sorvegliato",
-      "fr": "Pollué, nécessite une surveillance"
-    },
-    "topic": "ContaminatedPublicTransportSites",
-    "sub_theme": {
-      "it": "SubTheme3 - it",
-      "de": "SubTheme3 - de",
-      "fr": "SubTheme3 - fr"
-    }
-=======
     "legend_entry_id": 3
->>>>>>> 24972b947d... Update_2021-07-15
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
@@ -72,21 +30,7 @@
     "id": 399,
     "law_status": "inForce",
     "view_service_id": 1,
-<<<<<<< HEAD
-    "legend_text": {
-      "de": "Belastet, überwachungsbedürftig",
-      "it": "Inquinato, deve essere sorvegliato",
-      "fr": "Pollué, nécessite une surveillance"
-    },
-    "topic": "ContaminatedPublicTransportSites",
-    "sub_theme": {
-      "it": "SubTheme3 - it",
-      "de": "SubTheme3 - de",
-      "fr": "SubTheme3 - fr"
-    }
-=======
     "legend_entry_id": 3
->>>>>>> 24972b947d... Update_2021-07-15
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
@@ -94,21 +38,7 @@
     "id": 400,
     "law_status": "inForce",
     "view_service_id": 1,
-<<<<<<< HEAD
-    "legend_text": {
-      "it": "Inquinato, non sono prevedibili effetti dannosi o molesti",
-      "de": "Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten",
-      "fr": "Pollué, pas d?atteinte nuisible ou incommodante à attendre"
-    },
-    "topic": "ContaminatedPublicTransportSites",
-    "sub_theme": {
-      "it": "SubTheme2 - it",
-      "de": "SubTheme2 - de",
-      "fr": "SubTheme2 - fr"
-    }
-=======
     "legend_entry_id": 1
->>>>>>> 24972b947d... Update_2021-07-15
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
@@ -116,20 +46,6 @@
     "id": 401,
     "law_status": "inForce",
     "view_service_id": 1,
-<<<<<<< HEAD
-    "legend_text": {
-      "it": "Inquinato, non sono prevedibili effetti dannosi o molesti",
-      "de": "Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten",
-      "fr": "Pollué, pas d?atteinte nuisible ou incommodante à attendre"
-    },
-    "topic": "ContaminatedPublicTransportSites",
-    "sub_theme": {
-      "it": "SubTheme2 - it",
-      "de": "SubTheme2 - de",
-      "fr": "SubTheme2 - fr"
-    }
-=======
     "legend_entry_id": 1
->>>>>>> 24972b947d... Update_2021-07-15
   }
 ]

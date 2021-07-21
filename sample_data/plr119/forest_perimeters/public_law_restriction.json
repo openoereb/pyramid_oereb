@@ -6,16 +6,7 @@
     "id": 402,
     "law_status": "inForce",
     "view_service_id": 1,
-<<<<<<< HEAD
-    "legend_text": {
-      "it": "Inquinato, non sono prevedibili effetti dannosi o molesti",
-      "de": "Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten",
-      "fr": "Pollué, pas d?atteinte nuisible ou incommodante à attendre"
-    },
-    "topic": "ForestPerimeters"
-=======
     "legend_entry_id": 16
->>>>>>> 24972b947d... Update_2021-07-15
   },
   {
     "office_id": 1,
@@ -24,15 +15,6 @@
     "id": 403,
     "law_status": "inForce",
     "view_service_id": 1,
-<<<<<<< HEAD
-    "legend_text": {
-      "fr": "Pollué, ne nécessite ni surveillance ni assainissement",
-      "de": "Belastet, weder überwachungs- noch sanierungsbedürftig",
-      "it": "Inquinato, non deve essere né sorvegliato né risanato"
-    },
-    "topic": "ForestPerimeters"
-=======
     "legend_entry_id": 16
->>>>>>> 24972b947d... Update_2021-07-15
   }
 ]
