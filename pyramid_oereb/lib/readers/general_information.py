@@ -14,10 +14,10 @@ class GeneralInformationReader(object):
         """
         Args:
             dotted_source_class_path
-                (str or pyramid_oereb.lib.sources.document_types.GeneralInformationBaseSource): The path to
+                (str or pyramid_oereb.lib.sources.general_information.GeneralInformationBaseSource): The path to
                 the class which represents the source used by this reader. This class must
                 exist and it must implement basic source behaviour of the
-                :ref:`api-pyramid_oereb-lib-sources-document_types-generalinformationbasesource`.
+                :ref:`api-pyramid_oereb-lib-sources-general_information-generalinformationbasesource`.
             (kwargs): kwargs, which are necessary as configuration parameter for the above by
                 dotted name defined class.
         """
@@ -29,10 +29,10 @@ class GeneralInformationReader(object):
         The central read accessor method to get all desired records from configured source.
         .. note:: If you subclass this class your implementation needs to offer this method in the same
             signature. Means the parameters must be the same and the return must be a list of
-            :ref:`api-pyramid_oereb-lib-records-document_types-generalinformationrecord`.
+            :ref:`api-pyramid_oereb-lib-records-general_information-generalinformationrecord`.
             Otherwise the API like way the server works would be broken.
         Returns:
-            list of pyramid_oereb.lib.records.document_types.GeneralInformationRecord:
+            list of pyramid_oereb.lib.records.general_information.GeneralInformationRecord:
                 The list of found records. Since these are not filtered by any criteria the list simply
                 contains all records delivered by the source.
         """
