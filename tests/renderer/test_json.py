@@ -260,12 +260,13 @@ def test_format_plr(parameter):
                                          1,
                                          1.0,
                                          [legend_entry])
-        geometry = GeometryRecord(law_status(), datetime.date.today(), Point(1, 1))
+        geometry = GeometryRecord(law_status(), datetime.date.today(), None, Point(1, 1))
         plr = PlrRecord(
             theme,
-            {'de': 'Test'},
+            legend_entry,
             law_status(),
             datetime.date.today(),
+            None,
             office,
             ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             view_service,
@@ -440,6 +441,7 @@ def test_format_document(params, document, result_dict):
     (GeometryRecord(
         law_status(),
         datetime.date.today(),
+        None,
         Point(0, 0),
         geo_metadata='http://www.geocat.ch',
         office=OfficeRecord({u'de': u'AGI'})), {
@@ -456,7 +458,7 @@ def test_format_document(params, document, result_dict):
             'coordinates': (0, 0)
         }
     }),
-    (GeometryRecord(law_status(), datetime.date.today(), LineString([(0, 0), (1, 1)]),
+    (GeometryRecord(law_status(), datetime.date.today(), None, LineString([(0, 0), (1, 1)]),
                     office=OfficeRecord({u'de': u'AGI'})), {
         'Lawstatus': {
             'Code': 'inForce',
@@ -473,6 +475,7 @@ def test_format_document(params, document, result_dict):
     (GeometryRecord(
         law_status(),
         datetime.date.today(),
+        None,
         Polygon([(0, 0), (1, 1), (1, 0)]),
         office=OfficeRecord({u'de': u'AGI'})
     ), {

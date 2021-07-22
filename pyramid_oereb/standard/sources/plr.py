@@ -5,7 +5,7 @@ from geoalchemy2.shape import to_shape, from_shape
 from pyramid.path import DottedNameResolver
 from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, \
     GeometryCollection
-from sqlalchemy import text, or_, and_
+from sqlalchemy import text, or_
 
 from pyramid_oereb import Config
 from pyramid_oereb.lib import b64
@@ -88,20 +88,30 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         finally:
             session.close()
 
-    def from_db_to_legend_entry_record(self, theme, legend_entries_from_db, public_law_restriction_from_db):
+    def from_db_to_legend_entry_record(self, theme, legend_entry_from_db):
+        legend_entry_record = self._legend_entry_record_class(
+            ImageRecord(b64.decode(legend_entry_from_db.symbol)),
+            legend_entry_from_db.legend_text,
+            legend_entry_from_db.type_code,
+            legend_entry_from_db.type_code_list,
+            theme,
+            view_service_id=legend_entry_from_db.view_service_id,
+            sub_theme=legend_entry_from_db.sub_theme
+        )
+        return legend_entry_record
+
+    def from_db_to_legend_entry_records(self, theme, legend_entries_from_db):
         legend_entry_records = []
         for legend_entry_from_db in legend_entries_from_db:
-            # Filter legend by view service to deliver dedicated legend entries only
-            if public_law_restriction_from_db.view_service_id == legend_entry_from_db.view_service_id:
-                legend_entry_records.append(self._legend_entry_record_class(
-                    ImageRecord(b64.decode(legend_entry_from_db.symbol)),
-                    legend_entry_from_db.legend_text,
-                    legend_entry_from_db.type_code,
-                    legend_entry_from_db.type_code_list,
-                    theme,
-                    view_service_id=legend_entry_from_db.view_service_id,
-                    sub_theme=legend_entry_from_db.sub_theme
-                ))
+            legend_entry_records.append(self._legend_entry_record_class(
+                ImageRecord(b64.decode(legend_entry_from_db.symbol)),
+                legend_entry_from_db.legend_text,
+                legend_entry_from_db.type_code,
+                legend_entry_from_db.type_code_list,
+                theme,
+                view_service_id=legend_entry_from_db.view_service_id,
+                sub_theme=legend_entry_from_db.sub_theme
+            ))
         return legend_entry_records
 
     def from_db_to_view_service_record(self, view_service_from_db, legend_entry_records, theme):
@@ -114,13 +124,15 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         )
         return view_service_record
 
-    def unwrap_multi_geometry_(self, law_status, published_from, multi_geom, geo_metadata, office):
+    def unwrap_multi_geometry_(self, law_status, published_from, published_until,
+                               multi_geom, geo_metadata, office):
         unwrapped = []
         for geom in multi_geom.geoms:
             unwrapped.append(
                 self._geometry_record_class(
                     law_status,
                     published_from,
+                    published_until,
                     geom,
                     geo_metadata,
                     office=office
@@ -128,7 +140,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             )
         return unwrapped
 
-    def unwrap_geometry_collection_(self, law_status, published_from, collection, geo_metadata, office):
+    def unwrap_geometry_collection_(self, law_status, published_from, published_until,
+                                    collection, geo_metadata, office):
         unwrapped = []
         if len(collection.geoms) > 1:
             raise AttributeError(u'There was more than one element in the GeometryCollection. '
@@ -138,6 +151,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 self.create_geometry_records_(
                     law_status,
                     published_from,
+                    published_until,
                     geom,
                     geo_metadata,
                     office=office
@@ -145,7 +159,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             )
         return unwrapped
 
-    def create_geometry_records_(self, law_status, published_from, geom, geo_metadata, office):
+    def create_geometry_records_(self, law_status, published_from, published_until,
+                                 geom, geo_metadata, office):
         geometry_records = []
 
         # Process single geometries
@@ -154,6 +169,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 self._geometry_record_class(
                     law_status,
                     published_from,
+                    published_until,
                     geom,
                     geo_metadata,
                     office=office
@@ -165,6 +181,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             geometry_records.extend(self.unwrap_multi_geometry_(
                 law_status,
                 published_from,
+                published_until,
                 geom,
                 geo_metadata,
                 office
@@ -175,6 +192,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             geometry_records.extend(self.unwrap_geometry_collection_(
                 law_status,
                 published_from,
+                published_until,
                 geom,
                 geo_metadata,
                 office
@@ -207,6 +225,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             geometry_records.extend(self.create_geometry_records_(
                 law_status,
                 geometry_from_db.published_from,
+                geometry_from_db.published_until,
                 to_shape(geometry_from_db.geom),
                 geometry_from_db.geo_metadata,
                 office
@@ -263,23 +282,15 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         length_unit = thresholds.get('length').get('unit')
         min_area = thresholds.get('area').get('limit')
         area_unit = thresholds.get('area').get('unit')
-        legend_entry_records = self.from_db_to_legend_entry_record(
+        legend_entry_record = self.from_db_to_legend_entry_record(
             self._theme_record,
-            legend_entries_from_db,
-            public_law_restriction_from_db
+            public_law_restriction_from_db.legend_entry
         )
-        symbol = None
-        for legend_entry_record in legend_entry_records:
-            if public_law_restriction_from_db.type_code == legend_entry_record.type_code:
-                symbol = legend_entry_record.symbol
-
-        if symbol is None:
-            error_msg = u'No symbol was found for plr in topic {topic} with id {id}'.format(
-                topic=self._plr_info.get('code'),
-                id=public_law_restriction_from_db.id
-            )
-            log.error(error_msg)
-            raise AttributeError(error_msg)
+        legend_entry_records = self.from_db_to_legend_entry_records(
+            self._theme_record,
+            legend_entries_from_db
+        )
+        symbol = ImageRecord(b64.decode(public_law_restriction_from_db.legend_entry.symbol))
         view_service_record = self.from_db_to_view_service_record(
             public_law_restriction_from_db.view_service,
             legend_entry_records,
@@ -289,12 +300,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         document_records = self.get_document_records(params, public_law_restriction_from_db)
         geometry_records = self.from_db_to_geometry_records(public_law_restriction_from_db.geometries)
 
-        basis_plr_records = []
-        for join in public_law_restriction_from_db.basis:
-            basis_plr_records.append(self.from_db_to_plr_record(params, join.base, []))
-        refinements_plr_records = []
-        for join in public_law_restriction_from_db.refinements:
-            refinements_plr_records.append(self.from_db_to_plr_record(params, join.refinement, []))
         law_status = LawStatusRecord.from_config(
             Config.get_law_status(
                 self._plr_info.get('code'),
@@ -305,18 +310,17 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         plr_record = self._plr_record_class(
             self._theme_record,
-            public_law_restriction_from_db.legend_text,
+            legend_entry_record,
             law_status,
             public_law_restriction_from_db.published_from,
+            public_law_restriction_from_db.published_until,
             self.from_db_to_office_record(public_law_restriction_from_db.responsible_office),
             symbol,
             view_service_record,
             geometry_records,
-            sub_theme=public_law_restriction_from_db.sub_theme,
-            type_code=public_law_restriction_from_db.type_code,
-            type_code_list=public_law_restriction_from_db.type_code_list,
-            basis=basis_plr_records,
-            refinements=refinements_plr_records,
+            sub_theme=public_law_restriction_from_db.legend_entry.sub_theme,
+            type_code=public_law_restriction_from_db.legend_entry.type_code,
+            type_code_list=public_law_restriction_from_db.legend_entry.type_code_list,
             documents=document_records,
             min_area=min_area,
             min_length=min_length,
@@ -436,21 +440,17 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         Returns:
             list: The result of the related geometries unique by the public law restriction id
         """
-        distinct_type_code_view_service_tuples = []
+        distinct_legend_entry_ids = []
         geometries = self.handle_collection(session, bbox).distinct(
             self._model_.public_law_restriction_id
         ).all()
+
         for geometry in geometries:
-            type_code = geometry.public_law_restriction.type_code
-            view_service_id = geometry.public_law_restriction.view_service_id
-            if (type_code, view_service_id) not in distinct_type_code_view_service_tuples:
-                distinct_type_code_view_service_tuples.append(and_(
-                    self.legend_entry_model.type_code == type_code,
-                    self.legend_entry_model.view_service_id == view_service_id
-                ))
+            if geometry.public_law_restriction.legend_entry_id not in distinct_legend_entry_ids:
+                distinct_legend_entry_ids.append(geometry.public_law_restriction.legend_entry_id)
+
         return session.query(self.legend_entry_model).filter(
-            or_(*distinct_type_code_view_service_tuples)
-        ).all()
+            self.legend_entry_model.id.in_((distinct_legend_entry_ids))).all()
 
     def read(self, params, real_estate, bbox, position=None):
         """
