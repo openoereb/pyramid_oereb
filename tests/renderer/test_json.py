@@ -354,7 +354,7 @@ def test_format_plr(parameter):
             article_numbers=['Art.1', 'Art.2', 'Art.3']
         ), {
             'DocumentType': {
-                'Code': 'LegalProvision',
+                'Code': 'Rechtsvorschrift',
                 'Text': [{'Language': 'de', 'Text': 'Rechtsvorschrift'}]
             },
             'Index': 2,
@@ -383,7 +383,7 @@ def test_format_plr(parameter):
             official_number={'de': 'g.test.1'}
         ), {
             'DocumentType': {
-                'Code': 'Law',
+                'Code': 'GesetzlicheGrundlage',
                 'Text': [{'Language': 'de', 'Text': 'Gesetzliche Grundlage'}]
             },
             'Index': 1,
@@ -410,7 +410,7 @@ def test_format_plr(parameter):
             official_number={'de': 'h.test.1'}
         ), {
             'DocumentType': {
-                'Code': 'Hint',
+                'Code': 'Hinweis',
                 'Text': [{'Language': 'de', 'Text': 'Hinweis'}]
             },
             'Index': 3,

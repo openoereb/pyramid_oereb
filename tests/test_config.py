@@ -7,7 +7,6 @@ from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
-from pyramid_oereb.lib.records.document_types import DocumentTypeRecord
 
 
 # order=-1 to run them after all and don't screw the configuration in Config

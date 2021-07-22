@@ -311,15 +311,15 @@ class DummyData(object):
         # Add dummy document types
         connection.execute(main.DocumentTypeText.__table__.insert(), {
             'code': 'GesetzlicheGrundlage',
-            'text': {'de': '', 'fr': '', 'it': '', 'rm': ''}
+            'text': {'de': 'Gesetzliche Grundlage', 'fr': '', 'it': '', 'rm': ''}
         })
         connection.execute(main.DocumentTypeText.__table__.insert(), {
             'code': 'Rechtsvorschrift',
-            'text': {'de': '', 'fr': '', 'it': '', 'rm': ''}
+            'text': {'de': 'Rechtsvorschrift', 'fr': '', 'it': '', 'rm': ''}
         })
         connection.execute(main.DocumentTypeText.__table__.insert(), {
             'code': 'Hinweis',
-            'text': {'de': '', 'fr': '', 'it': '', 'rm': ''}
+            'text': {'de': 'Hinweis', 'fr': '', 'it': '', 'rm': ''}
         })
 
         # Add dummy glossary

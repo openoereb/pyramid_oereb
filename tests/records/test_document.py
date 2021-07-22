@@ -4,7 +4,6 @@ import pytest
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 
 from pyramid_oereb.lib.records.documents import DocumentRecord
-from pyramid_oereb.lib.records.document_types import DocumentTypeRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
@@ -15,11 +14,10 @@ def test_mandatory_fields():
 
 def test_init():
     office_record = OfficeRecord({'en': 'name'})
-    document_type_record = DocumentTypeRecord(u'code', {u'en': u'Law'})
     law_status = LawStatusRecord.from_config(u'inForce')
-    record = DocumentRecord(document_type_record, 1, law_status, {'en': 'title'}, office_record,
+    record = DocumentRecord('GesetzlicheGrundlage', 1, law_status, {'en': 'title'}, office_record,
                             datetime.date(1985, 8, 29), text_at_web={'en': 'http://my.document.com'})
-    assert isinstance(record.document_type, DocumentTypeRecord)
+    assert isinstance(record.document_type, str)
     assert isinstance(record.index, int)
     assert isinstance(record.law_status, LawStatusRecord)
     assert isinstance(record.published_from, datetime.date)
@@ -43,9 +41,8 @@ def test_invalid_document_type():
 
 def test_future_document():
     office_record = OfficeRecord({'en': 'name'})
-    document_type_record = DocumentTypeRecord(u'code', {u'en': u'Law'})
     law_status = LawStatusRecord.from_config(u'inForce')
-    record = DocumentRecord(document_type_record, 1, law_status, {'en': 'title'}, office_record,
+    record = DocumentRecord('Hinweis', 1, law_status, {'en': 'title'}, office_record,
                             (datetime.datetime.now().date() + datetime.timedelta(days=7)),
                             text_at_web={'en': 'http://my.document.com'})
     assert not record.published
