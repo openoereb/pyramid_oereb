@@ -46,13 +46,11 @@ pyramid_oereb:
       https:
   srid: 2056
   plrs:
-    - name: plr87
-      code: LandUsePlans
+    - code: LandUsePlans
       view_service:
         layer_index: 1
         layer_opacity: 0.25
-    - name: plr73
-      code: MotorwaysProjectPlaningZones
+    - code: MotorwaysProjectPlaningZones
 
   real_estate:
     type_mapping:

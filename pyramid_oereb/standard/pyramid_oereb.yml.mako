@@ -467,8 +467,7 @@ pyramid_oereb:
   # the extract creation process which loops over this list.
   plrs:
 
-    - name: plr73
-      code: LandUsePlans
+    - code: LandUsePlans
       geometry_type: GEOMETRYCOLLECTION
       # Define the minmal area and length for public law restrictions that should be considered as 'true' restrictions
       # and not as calculation errors (false trues) due to topological imperfections
@@ -500,9 +499,18 @@ pyramid_oereb:
       law_status:
         in_force: inForce
         running_modifications: runningModifications
+      # Example of how sub_themes sorting can be activated (uncomment to enable):
+      #sub_themes:
+      #  sorter:
+      #    module: pyramid_oereb.contrib.print_proxy.sub_themes.sorting
+      #    class_name: ListSort
+      #    params:
+      #      list:
+      #        - SubTheme3
+      #        - SubTheme2
+      #        - SubTheme1
 
-    - name: plr87
-      code: MotorwaysProjectPlaningZones
+    - code: MotorwaysProjectPlaningZones
       geometry_type: MULTIPOLYGON
       thresholds:
         length:
@@ -533,8 +541,7 @@ pyramid_oereb:
         in_force: inForce
         running_modifications: runningModifications
 
-    - name: plr88
-      code: MotorwaysBuildingLines
+    - code: MotorwaysBuildingLines
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -565,8 +572,7 @@ pyramid_oereb:
         in_force: inForce
         running_modifications: runningModifications
 
-    - name: plr97
-      code: RailwaysBuildingLines
+    - code: RailwaysBuildingLines
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -597,8 +603,7 @@ pyramid_oereb:
         in_force: inForce
         running_modifications: runningModifications
 
-    - name: plr96
-      code: RailwaysProjectPlanningZones
+    - code: RailwaysProjectPlanningZones
       geometry_type: POLYGON
       thresholds:
         length:
@@ -629,8 +634,7 @@ pyramid_oereb:
         in_force: inForce
         running_modifications: runningModifications
 
-    - name: plr103
-      code: AirportsProjectPlanningZones
+    - code: AirportsProjectPlanningZones
       geometry_type: POLYGON
       thresholds:
         length:
@@ -661,8 +665,7 @@ pyramid_oereb:
         in_force: inForce
         running_modifications: runningModifications
 
-    - name: plr104
-      code: AirportsBuildingLines
+    - code: AirportsBuildingLines
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -693,8 +696,7 @@ pyramid_oereb:
         in_force: inForce
         running_modifications: runningModifications
 
-    - name: plr108
-      code: AirportsSecurityZonePlans
+    - code: AirportsSecurityZonePlans
       geometry_type: MULTIPOLYGON
       thresholds:
         length:
@@ -726,8 +728,7 @@ pyramid_oereb:
         running_modifications: runningModifications
       download: https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip
 
-    - name: plr116
-      code: ContaminatedSites
+    - code: ContaminatedSites
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -758,8 +759,7 @@ pyramid_oereb:
         in_force: inForce
         running_modifications: runningModifications
 
-    - name: plr117
-      code: ContaminatedMilitarySites
+    - code: ContaminatedMilitarySites
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -790,8 +790,7 @@ pyramid_oereb:
         in_force: inForce
         running_modifications: runningModifications
 
-    - name: plr118
-      code: ContaminatedCivilAviationSites
+    - code: ContaminatedCivilAviationSites
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -822,8 +821,7 @@ pyramid_oereb:
         in_force: inForce
         running_modifications: runningModifications
 
-    - name: plr119
-      code: ContaminatedPublicTransportSites
+    - code: ContaminatedPublicTransportSites
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -853,19 +851,8 @@ pyramid_oereb:
       law_status:
         in_force: inForce
         running_modifications: runningModifications
-      # Example of how sub_themes sorting can be activated (uncomment to enable):
-      #sub_themes:
-      #  sorter:
-      #    module: pyramid_oereb.contrib.print_proxy.sub_themes.sorting
-      #    class_name: ListSort
-      #    params:
-      #      list:
-      #        - SubTheme3
-      #        - SubTheme2
-      #        - SubTheme1
 
-    - name: plr131
-      code: GroundwaterProtectionZones
+    - code: GroundwaterProtectionZones
       geometry_type: POLYGON
       thresholds:
         length:
@@ -896,8 +883,7 @@ pyramid_oereb:
         in_force: inForce
         running_modifications: runningModifications
 
-    - name: plr132
-      code: GroundwaterProtectionSites
+    - code: GroundwaterProtectionSites
       geometry_type: POLYGON
       thresholds:
         length:
@@ -928,8 +914,7 @@ pyramid_oereb:
         in_force: inForce
         running_modifications: runningModifications
 
-    - name: plr145
-      code: NoiseSensitivityLevels
+    - code: NoiseSensitivityLevels
       geometry_type: POLYGON
       thresholds:
         length:
@@ -960,8 +945,7 @@ pyramid_oereb:
         in_force: inForce
         running_modifications: runningModifications
 
-    - name: plr157
-      code: ForestPerimeters
+    - code: ForestPerimeters
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -998,8 +982,7 @@ pyramid_oereb:
         in_force: inForce
         running_modifications: runningModifications
 
-    - name: plr159
-      code: ForestDistanceLines
+    - code: ForestDistanceLines
       geometry_type: LINESTRING
       thresholds:
         length:
