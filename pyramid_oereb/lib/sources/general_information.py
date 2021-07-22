@@ -15,9 +15,10 @@ class GeneralInformationBaseSource(Base):
 
     def read(self):
         """
-        Every general information source has to implement a read method. This method must accept no parameters.
-        Because it should deliver all items available.
-        If you want adapt to your own source for general information labels, this is the point where to hook in.
+        Every general information source has to implement a read method.
+        This method must accept no parameters. Because it should deliver all items available.
+        If you want adapt to your own source for general information labels, this is the point
+        where to hook in.
         Args:
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
         """

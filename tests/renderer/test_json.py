@@ -112,8 +112,8 @@ def test_render(parameter, glossaries_input, glossaries_expected):
             glossaries=glossaries_input,
             general_information=[
                 GeneralInformationRecord(
-                {'de': u'Allgemeine Informationen'},
-                {'de': u'Inhalt der allgemeinen Informationen'})
+                    {'de': u'Allgemeine Informationen'},
+                    {'de': u'Inhalt der allgemeinen Informationen'})
             ],
             certification={'de': u'certification'},
             certification_at_web={'de': u'certification_at_web'},
