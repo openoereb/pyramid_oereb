@@ -55,6 +55,7 @@ class Renderer(Base):
             }
         }
         log.debug("__call__() done.")
+        log.debug(result)
         return dumps(result)
 
     def _render(self, extract, param):
@@ -142,8 +143,15 @@ class Renderer(Base):
             extract_dict['ElectronicSignature'] = extract.electronic_signature
         if extract.qr_code is not None:
             extract_dict['QRCode'] = extract.qr_code
-        if extract.general_information is not None:
-            extract_dict['GeneralInformation'] = self.get_multilingual_text(extract.general_information)
+
+        if isinstance(extract.general_information, list) and len(extract.general_information) > 0:
+            general_information = list()
+            for info in extract.general_information:
+                general_information.append({
+                    'Title': self.get_multilingual_text(info.title),
+                    'Content': self.get_multilingual_text(info.content)
+                })
+            extract_dict['GeneralInformation'] = general_information
 
         if isinstance(extract.exclusions_of_liability, list) and len(extract.exclusions_of_liability) > 0:
             exclusions_of_liability = list()
