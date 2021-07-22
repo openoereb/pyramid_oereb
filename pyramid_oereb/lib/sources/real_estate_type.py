@@ -12,7 +12,7 @@ class RealEstateTypesBaseSource(Base):
     """
     _record_class_ = RealEstateTypeRecord
 
-    def read(self):
+    def read(self, params=None):
         """
         Every real estate type source has to implement a read method. This method must accept no parameters.
         Because it should deliver all items available.
