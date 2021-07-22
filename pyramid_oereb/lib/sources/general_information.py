@@ -8,8 +8,8 @@ class GeneralInformationBaseSource(Base):
     Base class for GeneralInformation values source.
 
     Attributes:
-        records (list of pyramid_oereb.lib.records.general_information.GeneralInformationRecord): List of general
-        information records.
+        records (list of pyramid_oereb.lib.records.general_information.GeneralInformationRecord): List of
+        general information records.
     """
     _record_class_ = GeneralInformationRecord
 

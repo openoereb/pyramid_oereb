@@ -14,8 +14,8 @@ class GeneralInformationReader(object):
         """
         Args:
             dotted_source_class_path
-                (str or pyramid_oereb.lib.sources.general_information.GeneralInformationBaseSource): The path to
-                the class which represents the source used by this reader. This class must
+                (str or pyramid_oereb.lib.sources.general_information.GeneralInformationBaseSource): The path
+                to the class which represents the source used by this reader. This class must
                 exist and it must implement basic source behaviour of the
                 :ref:`api-pyramid_oereb-lib-sources-general_information-generalinformationbasesource`.
             (kwargs): kwargs, which are necessary as configuration parameter for the above by
