@@ -117,7 +117,7 @@ def test_processor_get_legend_entries():
     theme2 = ThemeRecord(u'TEST', {'de': 'Theme 2'}, 200)
     office = OfficeRecord({'de': 'Test Office'})
     law_status = LawStatusRecord.from_config(u'inForce')
-    geometries = [GeometryRecord(law_status, datetime.date.today(), Point(1, 1))]
+    geometries = [GeometryRecord(law_status, datetime.date.today(), None, Point(1, 1))]
     legend1 = LegendEntryRecord(
         ImageRecord('1'.encode('utf-8')),
         {'de': 'legend1'},
@@ -165,9 +165,17 @@ def test_processor_get_legend_entries():
     image = ImageRecord('1'.encode('utf-8'))
     plr1 = PlrRecord(
         theme1,
-        {'de': 'CONTENT'},
+        LegendEntryRecord(
+            ImageRecord('1'.encode('utf-8')),
+            {'de': 'CONTENT'},
+            'CodeD',
+            'bla',
+            theme1,
+            view_service_id=1
+        ),
         law_status,
         datetime.datetime.now(),
+        None,
         office,
         image,
         view_service1,
@@ -176,9 +184,17 @@ def test_processor_get_legend_entries():
     )
     plr2 = PlrRecord(
         theme1,
-        {'de': 'CONTENT'},
+        LegendEntryRecord(
+            ImageRecord('1'.encode('utf-8')),
+            {'de': 'CONTENT'},
+            'CodeD',
+            'bla',
+            theme1,
+            view_service_id=1
+        ),
         law_status,
         datetime.datetime.now(),
+        None,
         office,
         image,
         view_service1,
@@ -187,9 +203,17 @@ def test_processor_get_legend_entries():
     )
     plr3 = PlrRecord(
         theme1,
-        {'de': 'CONTENT'},
+        LegendEntryRecord(
+            ImageRecord('1'.encode('utf-8')),
+            {'de': 'CONTENT'},
+            'CodeD',
+            'bla',
+            theme1,
+            view_service_id=1
+        ),
         law_status,
         datetime.datetime.now(),
+        None,
         office,
         image,
         view_service2,
@@ -198,9 +222,17 @@ def test_processor_get_legend_entries():
     )
     plr4 = PlrRecord(
         theme1,
-        {'de': 'CONTENT'},
+        LegendEntryRecord(
+            ImageRecord('1'.encode('utf-8')),
+            {'de': 'CONTENT'},
+            'CodeD',
+            'bla',
+            theme1,
+            view_service_id=1
+        ),
         law_status,
         datetime.datetime.now(),
+        None,
         office,
         image,
         view_service2,

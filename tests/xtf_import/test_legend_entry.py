@@ -62,7 +62,7 @@ def test_parse():
     assert parsed[0].type_code == '108-T-01'
     assert parsed[0].type_code_list == 'https://models.geo.admin.ch/BAZL/' \
                                        'SafetyZonePlan_Catalogues_V1_2_20181102.xml'
-    assert parsed[0].topic == 'AirportsSecurityZonePlans'
+    assert parsed[0].theme == 'AirportsSecurityZonePlans'
     assert parsed[0].sub_theme == {
         'de': 'A SubTheme'
     }

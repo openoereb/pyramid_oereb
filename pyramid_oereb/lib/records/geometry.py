@@ -18,6 +18,7 @@ class GeometryRecord(object):
     Args:
         law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
         published_from (datetime.date): Date from/since when the PLR record is published.
+        published_until (datetime.date): Date until the PLR record is published.
         geom (Point or LineString or Polygon):
             The geometry which must be of type POINT, LINESTRING or POLYGON, everything else
              will raise an error.
@@ -30,11 +31,12 @@ class GeometryRecord(object):
         AttributeError: Error when a wrong geometry type was passed.
     """
     def __init__(
-            self, law_status, published_from, geom, geo_metadata=None, public_law_restriction=None,
-            office=None):
+            self, law_status, published_from, published_until, geom, geo_metadata=None,
+            public_law_restriction=None, office=None):
 
         self.law_status = law_status
         self.published_from = published_from
+        self.published_until = published_until
         self.geo_metadata = geo_metadata
         if isinstance(geom, (Point, MultiPoint, LineString, Polygon)):
             self.geom = geom
@@ -52,7 +54,11 @@ class GeometryRecord(object):
     @property
     def published(self):
         """bool: True if geometry is published."""
-        return not self.published_from > datetime.now().date()
+        if self.published_until is None:
+            return self.published_from <= datetime.now().date()
+        else:
+            return self.published_from <= datetime.now().date() and \
+                   self.published_until >= datetime.now().date()
 
     @staticmethod
     def geom_dim(geom):

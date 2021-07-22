@@ -177,7 +177,7 @@ class LegendEntry(Base):
             entry.
         type_code_list (str): List of all public law restrictions which are described through this
             legend  entry.
-        topic (str): Statement to describe to which public law restriction this legend entry
+        theme (str): Statement to describe to which public law restriction this legend entry
             belongs.
         sub_theme (dict): Multilingual description for sub topics this legend entry might belonging to.
         view_service_id (str): The foreign key to the view service this legend entry is related to.
@@ -191,7 +191,7 @@ class LegendEntry(Base):
     legend_text = sa.Column(JSONType, nullable=False)
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
-    topic = sa.Column(sa.String, nullable=False)
+    theme = sa.Column(sa.String, nullable=False)
     sub_theme = sa.Column(JSONType, nullable=True)
     view_service_id = sa.Column(
         sa.String,
@@ -208,17 +208,12 @@ class PublicLawRestriction(Base):
     Attributes:
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        legend_text (dict): The multilingual textual representation of the public law restriction.
-        topic (str): Category for this public law restriction (name of the topic).
-        sub_theme (dict): Multilingual textual explanation to subtype the topic attribute.
-        type_code (str): Type code of the public law restriction machine readable based on the
-            original data  model of this public law restriction.
-        type_code_list (str): List of full range of type_codes for this public law restriction in a
-            machine  readable format.
         law_status (str): The status switch if the document is legally approved or not.
         published_from (datetime.date): The date when the document should be available for
             publishing on extracts. This  directly affects the behaviour of extract
             generation.
+        published_until (datetime.date): The date starting from which the document should not be
+            published anymore on extracts. This directly affects the behaviour of extract generation.
         view_service_id (str): The foreign key to the view service this public law restriction is
             related to.
         view_service (pyramid_oereb.standard.models.airports_project_planning_zones.ViewService):
@@ -227,17 +222,17 @@ class PublicLawRestriction(Base):
             restriction.
         responsible_office (pyramid_oereb.standard.models.airports_project_planning_zones.Office):
             The dedicated relation to the office instance from database.
+        legend_entry_id (str): The foreign key to the legend entry this public law restriction is
+            related to.
+        legend_entry (pyramid_oereb.standard.models.airports_building_lines.LegendEntry):
+            The dedicated relation to the legend entry instance from database.
     """
     __table_args__ = {'schema': 'airports_project_planning_zones'}
     __tablename__ = 'public_law_restriction'
     id = sa.Column(sa.String, primary_key=True, autoincrement=False)
-    legend_text = sa.Column(JSONType, nullable=False)
-    topic = sa.Column(sa.String, nullable=False)
-    sub_theme = sa.Column(JSONType, nullable=True)
-    type_code = sa.Column(sa.String(40), nullable=True)
-    type_code_list = sa.Column(sa.String, nullable=True)
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
+    published_until = sa.Column(sa.Date, nullable=True)
     view_service_id = sa.Column(
         sa.String,
         sa.ForeignKey(ViewService.id),
@@ -253,6 +248,12 @@ class PublicLawRestriction(Base):
         nullable=False
     )
     responsible_office = relationship(Office)
+    legend_entry_id = sa.Column(
+        sa.String,
+        sa.ForeignKey(LegendEntry.id),
+        nullable=False
+    )
+    legend_entry = relationship('LegendEntry', backref='public_law_restrictions')
 
 
 class Geometry(Base):
@@ -263,8 +264,11 @@ class Geometry(Base):
         id (str): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         law_status (str): The status switch if the document is legally approved or not.
-        published_from (datetime.date): The date when the document should be available for
-            publishing on extracts. This  directly affects the behaviour of extract
+        published_from (datetime.date): The date when the geometry should be available for
+            publishing on extracts. This directly affects the behaviour of extract
+            generation.
+        published_until (datetime.date): The date from when the geometry should not be available
+            anymore for publishing on extracts. This directly affects the behaviour of extract
             generation.
         geo_metadata (str): A link to the metadata which this geometry is based on which delivers
             machine  readable response format (XML).
@@ -286,6 +290,7 @@ class Geometry(Base):
     id = sa.Column(sa.String, primary_key=True, autoincrement=False)
     law_status = sa.Column(sa.String, nullable=False)
     published_from = sa.Column(sa.Date, nullable=False)
+    published_until = sa.Column(sa.Date, nullable=True)
     geo_metadata = sa.Column(sa.String, nullable=True)
     geom = sa.Column(GeoAlchemyGeometry('POLYGON', srid=srid), nullable=False)
     public_law_restriction_id = sa.Column(
@@ -303,88 +308,6 @@ class Geometry(Base):
         nullable=False
     )
     responsible_office = relationship(Office)
-
-
-class PublicLawRestrictionBase(Base):
-    """
-    Meta bucket (join table) for public law restrictions which acts as a base for other public law
-    restrictions.
-
-    Attributes:
-        id (str): The identifier. This is used in the database only and must not be set manually. If
-            you  don't like it - don't care about.
-        public_law_restriction_id (str): The foreign key to the public law restriction which bases
-            on another  public law restriction.
-        public_law_restriction_base_id (str): The foreign key to the public law restriction which is
-            the  base for the public law restriction.
-        plr (pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction):
-            The dedicated relation to the public law restriction (which bases on) instance from  database.
-        base (pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction):
-            The dedicated relation to the public law restriction (which is the base) instance from database.
-    """
-    __tablename__ = 'public_law_restriction_base'
-    __table_args__ = {'schema': 'airports_project_planning_zones'}
-    id = sa.Column(sa.String, primary_key=True, autoincrement=False)
-    public_law_restriction_id = sa.Column(
-        sa.String,
-        sa.ForeignKey(PublicLawRestriction.id),
-        nullable=False
-    )
-    public_law_restriction_base_id = sa.Column(
-        sa.String,
-        sa.ForeignKey(PublicLawRestriction.id),
-        nullable=False
-    )
-    plr = relationship(
-        PublicLawRestriction,
-        backref='basis',
-        foreign_keys=[public_law_restriction_id]
-    )
-    base = relationship(
-        PublicLawRestriction,
-        foreign_keys=[public_law_restriction_base_id]
-    )
-
-
-class PublicLawRestrictionRefinement(Base):
-    """
-    Meta bucket (join table) for public law restrictions which acts as a refinement for other public law
-    restrictions.
-
-    Attributes:
-        id (str): The identifier. This is used in the database only and must not be set manually. If
-            you  don't like it - don't care about.
-        public_law_restriction_id (str): The foreign key to the public law restriction which is
-            refined by  another public law restriction.
-        public_law_restriction_refinement_id (str): The foreign key to the public law restriction
-            which is  the refinement of the public law restriction.
-        plr (pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction):
-            The dedicated relation to the public law restriction (which refines) instance from  database.
-        base (pyramid_oereb.standard.models.airports_project_planning_zones.PublicLawRestriction):
-            The dedicated relation to the public law restriction (which is refined) instance from database.
-    """
-    __tablename__ = 'public_law_restriction_refinement'
-    __table_args__ = {'schema': 'airports_project_planning_zones'}
-    id = sa.Column(sa.String, primary_key=True, autoincrement=False)
-    public_law_restriction_id = sa.Column(
-        sa.String,
-        sa.ForeignKey(PublicLawRestriction.id),
-        nullable=False
-    )
-    public_law_restriction_refinement_id = sa.Column(
-        sa.String,
-        sa.ForeignKey(PublicLawRestriction.id),
-        nullable=False
-    )
-    plr = relationship(
-        PublicLawRestriction,
-        backref='refinements',
-        foreign_keys=[public_law_restriction_id]
-    )
-    refinement = relationship(
-        PublicLawRestriction,
-        foreign_keys=[public_law_restriction_refinement_id]
-    )
 
 
 class PublicLawRestrictionDocument(Base):
