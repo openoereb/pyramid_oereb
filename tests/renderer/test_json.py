@@ -21,6 +21,7 @@ from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
+from pyramid_oereb.lib.records.general_information import GeneralInformationRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.renderer import Base
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
@@ -109,7 +110,11 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                 ExclusionOfLiabilityRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})
             ],
             glossaries=glossaries_input,
-            general_information={'de': u'Allgemeine Informationen'},
+            general_information=[
+                GeneralInformationRecord(
+                {'de': u'Allgemeine Informationen'},
+                {'de': u'Inhalt der allgemeinen Informationen'})
+            ],
             certification={'de': u'certification'},
             certification_at_web={'de': u'certification_at_web'},
         )
@@ -135,7 +140,10 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                 'RealEstate': renderer.format_real_estate(real_estate),
                 'Certification': [{'Language': 'de', 'Text': 'certification'}],
                 'CertificationAtWeb': [{'Language': 'de', 'Text': 'certification_at_web'}],
-                'GeneralInformation': [{'Language': 'de', 'Text': 'Allgemeine Informationen'}],
+                'GeneralInformation': [{
+                    'Title': [{'Language': 'de', 'Text': 'Allgemeine Informationen'}],
+                    'Content': [{'Language': 'de', 'Text': 'Inhalt der allgemeinen Informationen'}]
+                }],
                 'QRCode': '1'.encode('utf-8'),
                 'ExclusionOfLiability': [{
                     'Title': [{'Language': 'de', 'Text': 'Haftungsausschluss'}],
@@ -163,6 +171,7 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                     'CantonalLogoRef': u'http://example.com/image/logo/canton/de.png',
                     'MunicipalityLogoRef': u'http://example.com/image/municipality/2829.svg'
                 })
+            assert result['GeneralInformation'] == expected['GeneralInformation']
             assert result == expected
 
 
