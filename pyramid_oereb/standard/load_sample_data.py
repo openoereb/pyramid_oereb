@@ -216,7 +216,7 @@ class SampleData(object):
                 (Municipality, 'municipalities_with_logo.json'),
                 (Glossary, 'glossary.json'),
                 (ExclusionOfLiability, 'exclusion_of_liability.json'),
-                (LawStatus, 'law_status.json')
+                (LawStatus, 'law_status.json'),
                 (GeneralInformation, 'general_information.json')
             ]:
                 self._load_sample(class_, file_name)

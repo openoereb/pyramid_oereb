@@ -416,11 +416,18 @@ pyramid_oereb:
   # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
   # the source. The model must implement the same field names and information as the default model does.
   law_status_labels:
-    # The law status label elements must have a property source.
+    # The real estate type text elements must have a property source.
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
       class: pyramid_oereb.standard.sources.law_status.DatabaseSource
+      # The necessary parameters to use this class
+      params:
+        # The connection path where the database can be found
+        db_connection: *main_db_connection
+        # The model which maps the document type texts database table.
+        model: pyramid_oereb.standard.models.main.LawStatus
+        
   # The processor of the oereb project needs access to general information data. In the standard
   # configuration this is assumed to be read from a database. Hint: If you want to read the general
   # information out of an existing database table to avoid imports of this data every time it gets updates, you
@@ -502,13 +509,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-<<<<<<< HEAD
         inKraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
-=======
-        in_force: inForce
-        running_modifications: runningModifications
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
       # Example of how sub_themes sorting can be activated (uncomment to enable):
       #sub_themes:
       #  sorter:
@@ -519,7 +522,6 @@ pyramid_oereb:
       #        - SubTheme3
       #        - SubTheme2
       #        - SubTheme1
->>>>>>> 92c265e79eda8f215b1a69def214bf174689e73d
 
     - code: MotorwaysProjectPlaningZones
       geometry_type: MULTIPOLYGON
@@ -549,9 +551,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
     - code: MotorwaysBuildingLines
       geometry_type: LINESTRING
@@ -581,9 +583,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
     - code: RailwaysBuildingLines
       geometry_type: LINESTRING
@@ -613,9 +615,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
     - code: RailwaysProjectPlanningZones
       geometry_type: POLYGON
@@ -645,9 +647,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
     - code: AirportsProjectPlanningZones
       geometry_type: POLYGON
@@ -677,9 +679,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
     - code: AirportsBuildingLines
       geometry_type: LINESTRING
@@ -709,9 +711,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
     - code: AirportsSecurityZonePlans
       geometry_type: MULTIPOLYGON
@@ -741,9 +743,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
       download: https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip
 
     - code: ContaminatedSites
@@ -774,9 +776,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
     - code: ContaminatedMilitarySites
       geometry_type: GEOMETRYCOLLECTION
@@ -806,9 +808,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
     - code: ContaminatedCivilAviationSites
       geometry_type: GEOMETRYCOLLECTION
@@ -838,9 +840,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
     - code: ContaminatedPublicTransportSites
       geometry_type: GEOMETRYCOLLECTION
@@ -870,10 +872,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-<<<<<<< HEAD
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
       # Example of how sub_themes sorting can be activated (uncomment to enable):
       #sub_themes:
       #  sorter:
@@ -884,10 +885,6 @@ pyramid_oereb:
       #        - SubTheme3
       #        - SubTheme2
       #        - SubTheme1
-=======
-        in_force: inForce
-        running_modifications: runningModifications
->>>>>>> 92c265e79eda8f215b1a69def214bf174689e73d
 
     - code: GroundwaterProtectionZones
       geometry_type: POLYGON
@@ -917,9 +914,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
     - code: GroundwaterProtectionSites
       geometry_type: POLYGON
@@ -949,9 +946,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
     - code: NoiseSensitivityLevels
       geometry_type: POLYGON
@@ -981,9 +978,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
     - code: ForestPerimeters
       geometry_type: LINESTRING
@@ -1019,9 +1016,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
     - code: ForestDistanceLines
       geometry_type: LINESTRING
@@ -1051,6 +1048,6 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_kraft: inKraft
-        aenderung_mit_vorwirkung: AenderungMitVorwirkung
-        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung

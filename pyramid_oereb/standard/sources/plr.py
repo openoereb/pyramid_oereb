@@ -212,12 +212,11 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         for geometry_from_db in geometries_from_db:
             log.info("law_status_from_geometry::" + self._plr_info.get('code') + "--" + geometry_from_db.law_status)
             # Create law status record
-            law_status = LawStatusRecord.from_config(
-                Config.get_law_status(
+            law_status = Config.get_law_status_by_code(
                     self._plr_info.get('code'),
                     geometry_from_db.law_status
                 )
-            )
+                
             log.info("law_status_from_geometry::" + law_status.code)
             # Create office record
             office = self.from_db_to_office_record(geometry_from_db.responsible_office)
@@ -263,13 +262,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             article_nrs = article_numbers[i] if isinstance(article_numbers, list) else None
             log.info("from_db_to_document_records::self._plr_info.get('code'):" + str(x))
             x=x+1
-            # law_status = LawStatusRecord.from_config(
-            #     Config.get_law_status(
-            #         self._plr_info.get('code'),
-            #         document.law_status
-            #     )
-            # )
-            law_status = LawStatusRecord.from_config('inKraft')
+            law_status = Config.get_law_status_by_code(
+                    self._plr_info.get('code'),
+                    document.law_status
+                )
             log.info("from_db_to_document_records_law_status::self._plr_info.get('code'):" + str(x))
             document_records.append(self._documents_record_class(
                 document_type=document.document_type,
@@ -314,19 +310,15 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         )
         log.info("document_records1__::")
         document_records = self.get_document_records(params, public_law_restriction_from_db)
-        log.info("document_recordsb__::" + type(public_law_restriction_from_db.geometries).__name__)
-        for a in public_law_restriction_from_db.geometries:
-            log.info("geometry_records__::" + type(a).__name__)
-
+        
+        log.info("document_records1_geom__::" + type(public_law_restriction_from_db).__name__ + str(len(public_law_restriction_from_db.geometries)))
         geometry_records = self.from_db_to_geometry_records(public_law_restriction_from_db.geometries)
 
         log.info("law_status_fromConfig::" + self._plr_info.get('code') + "--" + public_law_restriction_from_db.law_status)
-        law_status = LawStatusRecord.from_config(
-            Config.get_law_status(
+        law_status = Config.get_law_status_by_code(
                 self._plr_info.get('code'),
                 public_law_restriction_from_db.law_status
             )
-        )
         
         log.info("law_status::")
         plr_record = self._plr_record_class(
