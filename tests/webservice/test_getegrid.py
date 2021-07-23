@@ -57,7 +57,7 @@ def test_getegrid_ident():
 
 def test_getegrid_xy():
     with pyramid_oereb_test_config():
-        url = 'http://example.com/oereb/getegrid/json/?XY=-1999999.032739449,-999998.940457533'
+        url = 'http://example.com/oereb/getegrid/json/?XY=2,0'
         request = MockRequest(
             current_route_url=url
         )
@@ -68,7 +68,7 @@ def test_getegrid_xy():
         })
 
         request.params.update({
-            'XY': '-1999999.032739449,-999998.940457533'
+            'XY': '2,0'
         })
         webservice = PlrWebservice(request)
         response = webservice.get_egrid_coord().json
@@ -212,8 +212,7 @@ def test_get_egrid_response_no_content():
 
 
 @pytest.mark.parametrize('src,dst,buffer_dist', [
-    ('2621857.856,1259856.578', (2621857.856, 1259856.578), None),
-    ('621857.759,259856.554', (2621857.799, 1259856.500), 1.0)
+    ('2621857.856,1259856.578', (2621857.856, 1259856.578), None)
 ])
 def test_parse_xy(src, dst, buffer_dist):
     geom = PlrWebservice(MockRequest()).__parse_xy__(src, buffer_dist=buffer_dist)
