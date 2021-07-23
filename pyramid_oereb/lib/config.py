@@ -102,7 +102,8 @@ class Config(object):
         Returns the general information.
 
         Returns:
-            list of pyramid_oereb.lib.records.theme.GeneralInformationRecord: The available themes.
+            list of pyramid_oereb.lib.records.theme.GeneralInformationRecord: The available general
+            information entries.
         """
         assert Config._config is not None
         if len(Config.general_information) < 1:
