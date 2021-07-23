@@ -472,18 +472,17 @@ class PlrWebservice(object):
 
     def __parse_xy__(self, xy, buffer_dist=None):
         """
-        Parses the coordinates from the XY parameter, transforms them to target CRS
-        and creates a point geometry. If a buffer distance is defined, a buffer
-        with the specified distance will be applied.
+        Parses the coordinates from the XY parameter and creates a point geometry.
+        If a buffer distance is defined, a buffer with the specified distance will be applied.
 
         Args:
             xy (str): XY parameter from the getegrid request.
-            buffer_dist (float or None): Distance for the buffer applied to the transformed
-                point.If None, no buffer will be applied.
+            buffer_dist (float or None): Distance for the buffer applied to the
+                point. If None, no buffer will be applied.
 
         Returns:
-            shapely.geometry.Point or shapely.geometry.Polygon: The transformed coordinates as
-            Point.
+            shapely.geometry.Point or shapely.geometry.Polygon: The coordinates as
+                Point or, if using a buffer, as Polygon.
         """
         coords = xy.split(',')
 
@@ -493,10 +492,7 @@ class PlrWebservice(object):
 
         x = float(coords[0])
         y = float(coords[1])
-        src_crs = 21781
-        if x > 1000000 and y > 1000000:
-            src_crs = 2056
-        p = self.__coord_transform__((x, y), src_crs)
+        p = Point(x, y)
         if buffer_dist:
             return p.buffer(buffer_dist)
         else:
