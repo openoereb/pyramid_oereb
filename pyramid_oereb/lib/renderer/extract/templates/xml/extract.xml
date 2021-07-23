@@ -73,11 +73,9 @@
     %if extract.qr_code:
         <data:QRCode>${extract.qr_code}</data:QRCode>
     %endif
-    %if extract.general_information:
-        <data:GeneralInformation>
-            <%include file="multilingual_text.xml" args="text=extract.general_information"/>
-        </data:GeneralInformation>
-    %endif
+    %for general_information in extract.general_information:
+        <%include file="general_information.xml" args="general_information=general_information"/>
+    %endfor
         <data:BaseData>
             <%include file="multilingual_text.xml" args="text=extract.base_data"/>
         </data:BaseData>

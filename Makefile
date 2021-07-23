@@ -24,11 +24,11 @@ SQLALCHEMY_URL = "postgresql://$(PG_CREDENTIALS)@$(PG_HOST):5432/$(PG_DB)"
 
 PG_DEV_DATA_DIR = sample_data
 PG_DEV_DATA = $(shell ls -1 $(PG_DEV_DATA_DIR)/*.json) \
-	$(shell ls -1 $(PG_DEV_DATA_DIR)/plr119/contaminated_public_transport_sites/*.json) \
-	$(shell ls -1 $(PG_DEV_DATA_DIR)/plr119/groundwater_protection_zones/*.json) \
-	$(shell ls -1 $(PG_DEV_DATA_DIR)/plr119/forest_perimeters/*.json) \
-	$(shell ls -1 $(PG_DEV_DATA_DIR)/plr119/motorways_building_lines/*.json) \
-	$(shell ls -1 $(PG_DEV_DATA_DIR)/plr119/contaminated_military_sites/*.json)
+	$(shell ls -1 $(PG_DEV_DATA_DIR)/contaminated_public_transport_sites/*.json) \
+	$(shell ls -1 $(PG_DEV_DATA_DIR)/groundwater_protection_zones/*.json) \
+	$(shell ls -1 $(PG_DEV_DATA_DIR)/forest_perimeters/*.json) \
+	$(shell ls -1 $(PG_DEV_DATA_DIR)/motorways_building_lines/*.json) \
+	$(shell ls -1 $(PG_DEV_DATA_DIR)/contaminated_military_sites/*.json)
 
 DEV_CONFIGURATION_YML = pyramid_oereb/standard/pyramid_oereb.yml
 DEV_CREATE_FILL_SCRIPT = pyramid_oereb/standard/load_sample_data.py

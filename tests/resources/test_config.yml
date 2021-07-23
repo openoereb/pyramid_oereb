@@ -14,6 +14,20 @@ section2:
         db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.Theme
 
+  general_information:
+    source:
+      class: pyramid_oereb.standard.sources.general_information.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.GeneralInformation
+
+  document_types:
+    source:
+      class: pyramid_oereb.standard.sources.document_types.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.DocumentTypeText
+
 pyramid_oereb:
 
   language:
@@ -46,13 +60,11 @@ pyramid_oereb:
       https:
   srid: 2056
   plrs:
-    - name: plr87
-      code: LandUsePlans
+    - code: LandUsePlans
       view_service:
         layer_index: 1
         layer_opacity: 0.25
-    - name: plr73
-      code: MotorwaysProjectPlaningZones
+    - code: MotorwaysProjectPlaningZones
 
   real_estate:
     type_mapping:
@@ -85,3 +97,17 @@ pyramid_oereb:
       params:
         db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.Theme
+
+  document_types:
+    source:
+      class: pyramid_oereb.standard.sources.document_types.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.DocumentTypeText
+
+  general_information:
+    source:
+      class: pyramid_oereb.standard.sources.general_information.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.GeneralInformation

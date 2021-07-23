@@ -42,12 +42,20 @@ class DummyData(object):
             table=main.Theme.__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table};'.format(
+            schema=main.DocumentTypeText.__table__.schema,
+            table=main.DocumentTypeText.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table};'.format(
             schema=main.Glossary.__table__.schema,
             table=main.Glossary.__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table};'.format(
             schema=main.ExclusionOfLiability.__table__.schema,
             table=main.ExclusionOfLiability.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table};'.format(
+            schema=main.GeneralInformation.__table__.schema,
+            table=main.GeneralInformation.__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table};'.format(
             schema=main.RealEstate.__table__.schema,
@@ -190,6 +198,23 @@ class DummyData(object):
             }
         })
 
+        # Add dummy general information
+        connection.execute(main.GeneralInformation.__table__.insert(), {
+            "id": 1,
+            "title": {
+                "de": "Allgemeine Information",
+                "fr": "Informations générales",
+                "it": "Informazioni generali",
+                "rm": "Infurmaziun generala"
+            },
+            "content": {
+                "de": "Der Inhalt des ÖREB-Katasters wird als bekannt vorausgesetzt ...",
+                "fr": "Le contenu du cadastre RDPPF est supposé connu ...",
+                "it": "Il contenuto del Catasto RDPP si considera noto ...",
+                "rm": "Il cuntegn dal cataster RDPP vegn premess sco enconuschent ..."
+            }
+        })
+
         # Add dummy themes
         connection.execute(main.Theme.__table__.insert(), {
             'id': 1,
@@ -302,6 +327,20 @@ class DummyData(object):
             'code': 'ForestDistanceLines',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 720
+        })
+
+        # Add dummy document types
+        connection.execute(main.DocumentTypeText.__table__.insert(), {
+            'code': 'GesetzlicheGrundlage',
+            'text': {'de': 'Gesetzliche Grundlage', 'fr': '', 'it': '', 'rm': ''}
+        })
+        connection.execute(main.DocumentTypeText.__table__.insert(), {
+            'code': 'Rechtsvorschrift',
+            'text': {'de': 'Rechtsvorschrift', 'fr': '', 'it': '', 'rm': ''}
+        })
+        connection.execute(main.DocumentTypeText.__table__.insert(), {
+            'code': 'Hinweis',
+            'text': {'de': 'Hinweis', 'fr': '', 'it': '', 'rm': ''}
         })
 
         # Add dummy glossary

@@ -1,7 +1,7 @@
 <%page args="document_type"/>
 <%
-    document_type_code = document_type.get('code')
-    document_type_text = document_type.get('text')
+    document_type_code = document_type.code
+    document_type_text = document_type.text
 %>
 <data:Code>${document_type_code | x}</data:Code>
 <data:Text>
