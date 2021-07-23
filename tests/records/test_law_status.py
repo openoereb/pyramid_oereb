@@ -2,6 +2,7 @@
 import pytest
 
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
+from pyramid_oereb.lib.config import Config
 
 
 def test_mandatory_fields():
@@ -22,7 +23,7 @@ def test_invalid_code():
 
 
 def test_from_config():
-    record = LawStatusRecord.from_config(u'inKraft')
+    record = Config.get_law_status_by_law_status_code(u'inKraft')
     assert record.code == u'inKraft'
     assert isinstance(record.text, dict)
     assert record.text.get('de')
@@ -31,7 +32,7 @@ def test_from_config():
     assert record.text.get('rm')
     assert record.text.get('en')
 
-    record = LawStatusRecord.from_config(u'runningModifications')
+    record = Config.get_law_status_by_law_status_code(u'runningModifications')
     assert record.code == u'runningModifications'
     assert isinstance(record.text, dict)
     assert record.text.get('de')

@@ -567,53 +567,14 @@ class Config(object):
 
         return Config._get_object_path(current_path, current_object[k], path[1:], default, required)
 
-    # @staticmethod
-    # def get_law_status(theme_code, law_status_code):
-    #     """
-
-    #     Args:
-    #         theme_code (str): The theme code.
-    #         law_status_code (str): The law status code read from the config to wrap it into the only three allowed
-    #             values: "inKraft" or "AenderungMitVorwirkung" or "AenderungOhneVorwirkung"
-    #             which are possible on the extract.
-
-    #     Returns:
-    #         str: The mapped law status. This is "inKraft" or "AenderungMitVorwirkung" or "AenderungOhneVorwirkung".
-
-    #     Raises:
-    #         AttributeError: If the passed law status code does not match one of the configured ones.
-    #     """
-    #     if Config.get_law_status_by_code('inKraft').code == law_status_code:
-    #         log.info("get_law_status::" + law_status_code)
-    #         return 'inKraft'
-    #     elif Config.get_law_status_by_code('AenderungMitVorwirkung') == law_status_code:
-    #         log.info("get_law_status::" + law_status_code)
-    #         return 'AenderungMitVorwirkung'
-    #     elif Config.get_law_status_by_code('AenderungOhneVorwirkung') == law_status_code:
-    #         log.info("get_law_status::" + law_status_code)
-    #         return 'AenderungOhneVorwirkung'
-    #     else:
-    #         raise AttributeError(
-    #             u'There was no proper configuration for the theme "{theme}" on the law '
-    #             u'status it has to be configured depending on the data you imported. Law '
-    #             u'status in your data was: {data_law_status}, the configured options are: '
-    #             u'{in_kraft}, {aenderung_mit_vorwirkung} or {aenderung_ohne_vorwirkung}'.format(
-    #                 theme=theme_code,
-    #                 data_law_status=law_status_code,
-    #                 in_kraft=Config.get_law_status_by_code('inKraft').code,
-    #                 aenderung_mit_vorwirkung=Config.get_law_status_by_code('AenderungMitVorwirkung').code,
-    #                 aenderung_ohne_vorwirkung=Config.get_law_status_by_code('AenderungOhneVorwirkung').code
-
-    #             )
-    #         )
-
     @staticmethod
     def get_law_status_by_code(theme_code, law_status_code):
         """
          Returns a dictionary of the configured law status settings.
 
         Args:
-            code (str): The law status code. This must be " It must be "inKraft" or "AenderungMitVorwirkung" 
+            theme_code (str): The theme code to loop up the configured law status code.
+            law_status_code (str): The law status code. This must be " It must be "inKraft" or "AenderungMitVorwirkung" 
             or "AenderungOhneVorwirkung". Any other value won't match and throw a silent error.
 
         Returns:
@@ -633,6 +594,45 @@ class Config(object):
         for record in law_status_records:            
             law_status_code_from_config = theme_law_status.get(record.code)
             if law_status_code == law_status_code_from_config:
+                return record
+        
+        raise AttributeError(
+            u'There was no proper configuration for the theme "{theme}" on the law '
+            u'status it has to be configured depending on the data you imported. Law '
+            u'status in your data was: {data_law_status}, the configured options are: '
+            u'{in_kraft}, {aenderung_mit_vorwirkung} or {aenderung_ohne_vorwirkung}'.format(
+                theme=theme_code,
+                data_law_status=law_status_code,
+                in_kraft="inKraft",
+                aenderung_mit_vorwirkung='AenderungMitVorwirkung'),
+                aenderung_ohne_vorwirkung=('AenderungOhneVorwirkung')
+
+            )
+
+    @staticmethod
+    def get_law_status_by_law_status_code(law_status_code):
+        """
+         Returns a dictionary of the configured law status settings.
+
+        Args:
+            law_status_code (str): The law status code. This must be " It must be "inKraft" or "AenderungMitVorwirkung" 
+            or "AenderungOhneVorwirkung". Any other value won't match and throw a silent error.
+
+        Returns:
+            dict: The translation from the configuration.
+        """
+        log.info("get_law_status_by_law_status_code")
+        law_status_config = Config.get('law_status_labels')
+        law_status_reader = LawStatusReader(
+            law_status_config.get('source').get('class'),
+            **law_status_config.get('source').get('params'))
+
+        law_status_records = law_status_reader.read()
+        if law_status_records is None:
+            raise ConfigurationError("The law status labels have not been initialized")
+
+        for record in law_status_records:            
+            if law_status_code == record.code:
                 return record
         
         raise AttributeError(
