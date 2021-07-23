@@ -384,7 +384,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '1',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -392,7 +392,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '2',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -400,7 +400,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '3',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -408,7 +408,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '4',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -416,7 +416,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
             'id': '1',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
             'office_id': '1',
@@ -424,7 +424,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
             'id': '2',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '2',
             'office_id': '1',
@@ -432,7 +432,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
             'id': '3',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '3',
             'office_id': '1',
@@ -440,7 +440,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
             'id': '4',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'public_law_restriction_id': '4',
             'office_id': '1',
@@ -450,7 +450,7 @@ class DummyData(object):
             'id': '1',
             'document_type': u'GesetzlicheGrundlage',
             'index': 1,
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'title': {'de': u'First level document'},
             'published_from': date.today().isoformat(),
             'office_id': '1'
@@ -459,7 +459,7 @@ class DummyData(object):
             'id': '2',
             'document_type': u'GesetzlicheGrundlage',
             'index': 1,
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'title': {'de': u'First level future document'},
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'office_id': '1'
@@ -468,7 +468,7 @@ class DummyData(object):
             'id': '3',
             'document_type': u'GesetzlicheGrundlage',
             'index': 2,
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'title': {'de': u'Second level document'},
             'published_from': date.today().isoformat(),
             'office_id': '1'
@@ -477,7 +477,7 @@ class DummyData(object):
             'id': '4',
             'document_type': u'GesetzlicheGrundlage',
             'index': 2,
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'title': {'de': u'Second level future document'},
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'office_id': '1'
@@ -547,7 +547,7 @@ class DummyData(object):
 
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': '1',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -555,7 +555,7 @@ class DummyData(object):
         })
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': '2',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -563,7 +563,7 @@ class DummyData(object):
         })
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': '3',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -575,7 +575,7 @@ class DummyData(object):
             'topic': u'ContaminatedSites',
             'type_code': u'CodeA',
             "type_code_list": u'',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -584,7 +584,7 @@ class DummyData(object):
 
         connection.execute(contaminated_sites.Geometry.__table__.insert(), {
             'id': '1',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
             'office_id': '1',
@@ -592,7 +592,7 @@ class DummyData(object):
         })
         connection.execute(contaminated_sites.Geometry.__table__.insert(), {
             'id': '2',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '2',
             'office_id': '1',
@@ -600,7 +600,7 @@ class DummyData(object):
         })
         connection.execute(contaminated_sites.Geometry.__table__.insert(), {
             'id': '3',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '3',
             'office_id': '1',
@@ -609,7 +609,7 @@ class DummyData(object):
         })
         connection.execute(contaminated_sites.Geometry.__table__.insert(), {
             'id': '4',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '4',
             'office_id': '1',
@@ -660,7 +660,7 @@ class DummyData(object):
 
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '1',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -668,7 +668,7 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '2',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -676,7 +676,7 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '3',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -684,7 +684,7 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.PublicLawRestriction.__table__.insert(), {
             'id': '4',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -693,7 +693,7 @@ class DummyData(object):
 
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
             'id': '1',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
             'office_id': '1',
@@ -702,7 +702,7 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
             'id': '2',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
             'office_id': '1',
@@ -710,7 +710,7 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
             'id': '3',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
             'office_id': '1',
@@ -719,7 +719,7 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
             'id': '4',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
             'office_id': '1',
@@ -727,7 +727,7 @@ class DummyData(object):
         })
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
             'id': '5',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
             'office_id': '1',
@@ -774,7 +774,7 @@ class DummyData(object):
         })
         connection.execute(forest_perimeters.PublicLawRestriction.__table__.insert(), {
             'id': '1',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -782,7 +782,7 @@ class DummyData(object):
         })
         connection.execute(forest_perimeters.Geometry.__table__.insert(), {
             'id': '1',
-            'law_status': u'inForce',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
             'office_id': '1',

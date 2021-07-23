@@ -24,21 +24,6 @@ pyramid_oereb:
   # This has to be one of the languages defined above.
   default_language: de
 
-  # The law status translations based on the two possible codes 'inForce' and 'runningModifications'
-  law_status_translations:
-    in_force:
-      de: in Kraft
-      fr: en vigueur
-      it: in vigore
-      rm: en vigur
-      en: in force
-    running_modifications:
-      de: laufende Änderungen
-      fr: modification en cours
-      it: modifica in corso
-      rm: midada current
-      en: ongoing modification
-
   # The "flavour" property is a list of all flavours of data extracts provided by this application.
   # For the moment this only affects the output of the capabilities webservice. In later
   # versions, this will be the place to directly influence the available output formats.
@@ -429,6 +414,23 @@ pyramid_oereb:
         # The model which maps the exclusion_of_liability database table.
         model: pyramid_oereb.standard.models.main.ExclusionOfLiability
 
+  # The processor of the oereb project joins the law status labels. In the standard configuration this
+  # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
+  # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
+  # the source. The model must implement the same field names and information as the default model does.
+  law_status_labels:
+    # The law status label elements must have a property source.
+    source:
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source which reads data from a database.
+      class: pyramid_oereb.standard.sources.law_status.DatabaseSource
+      # The necessary parameters to use this class
+      params:
+        # The connection path where the database can be found
+        db_connection: *main_db_connection
+        # The model which maps the document type texts database table.
+        model: pyramid_oereb.standard.models.main.LawStatus
+
   # The extract is the entry point which binds everything
   # related to data together.
   extract:
@@ -498,8 +500,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
 
     - name: plr87
       code: MotorwaysProjectPlaningZones
@@ -530,8 +533,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
 
     - name: plr88
       code: MotorwaysBuildingLines
@@ -562,8 +566,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
 
     - name: plr97
       code: RailwaysBuildingLines
@@ -594,8 +599,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
 
     - name: plr96
       code: RailwaysProjectPlanningZones
@@ -626,8 +632,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
 
     - name: plr103
       code: AirportsProjectPlanningZones
@@ -658,8 +665,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
 
     - name: plr104
       code: AirportsBuildingLines
@@ -690,8 +698,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
 
     - name: plr108
       code: AirportsSecurityZonePlans
@@ -722,8 +731,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
       download: https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip
 
     - name: plr116
@@ -755,8 +765,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
 
     - name: plr117
       code: ContaminatedMilitarySites
@@ -787,8 +798,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
 
     - name: plr118
       code: ContaminatedCivilAviationSites
@@ -819,8 +831,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
 
     - name: plr119
       code: ContaminatedPublicTransportSites
@@ -851,8 +864,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
       # Example of how sub_themes sorting can be activated (uncomment to enable):
       #sub_themes:
       #  sorter:
@@ -893,8 +907,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
 
     - name: plr132
       code: GroundwaterProtectionSites
@@ -925,8 +940,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
 
     - name: plr145
       code: NoiseSensitivityLevels
@@ -957,8 +973,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
 
     - name: plr157
       code: ForestPerimeters
@@ -995,8 +1012,9 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung
 
     - name: plr159
       code: ForestDistanceLines
@@ -1027,5 +1045,6 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        in_kraft: inKraft
+        aenderung_mit_vorwirkung: AenderungMitVorwirkung
+        aenderung_ohne_vorwirkung: AenderungOhneVorwirkung

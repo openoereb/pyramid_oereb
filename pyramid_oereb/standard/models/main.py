@@ -190,3 +190,20 @@ class ExclusionOfLiability(Base):
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     title = sa.Column(JSONType, nullable=False)
     content = sa.Column(JSONType, nullable=False)
+
+class LawStatus(Base):
+    """
+    The container where you can throw in all the law status texts this application
+    should have access to, for creating extracts.
+    Attributes:
+        id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        code (str): The identifier on federal level.
+        text (JSONType): The text for the multilingual text.
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'law_status'
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
+    code = sa.Column(sa.String, nullable=False)
+    text = sa.Column(JSONType, nullable=False)
+

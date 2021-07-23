@@ -116,7 +116,7 @@ def test_processor_get_legend_entries():
     theme1 = ThemeRecord(u'TEST', {'de': 'Theme 1'}, 100)
     theme2 = ThemeRecord(u'TEST', {'de': 'Theme 2'}, 200)
     office = OfficeRecord({'de': 'Test Office'})
-    law_status = LawStatusRecord.from_config(u'inForce')
+    law_status = LawStatusRecord.from_config(u'inKraft')
     geometries = [GeometryRecord(law_status, datetime.date.today(), None, Point(1, 1))]
     legend1 = LegendEntryRecord(
         ImageRecord('1'.encode('utf-8')),

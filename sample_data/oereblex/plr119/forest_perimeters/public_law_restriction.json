@@ -5,7 +5,7 @@
     "type_code": "StaoTyp2",
     "id": 402,
     "type_code_list": "",
-    "law_status": "inForce",
+    "law_status": "inKraft",
     "view_service_id": 1,
     "information": {
       "it": "Inquinato, non sono prevedibili effetti dannosi o molesti",
@@ -21,7 +21,7 @@
     "type_code": "StaoTyp1",
     "id": 403,
     "type_code_list": "",
-    "law_status": "inForce",
+    "law_status": "inKraft",
     "view_service_id": 1,
     "information": {
       "fr": "Pollué, ne nécessite ni surveillance ni assainissement",

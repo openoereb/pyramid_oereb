@@ -396,7 +396,7 @@
 		},
 		"LawstatusCode": {
 			"enum": [
-				"inForce",
+				"inKraft",
 				"changeWithPreEffect",
 				"changeWithoutPreEffect"
 			]

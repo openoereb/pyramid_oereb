@@ -10,7 +10,9 @@ from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.readers.theme import ThemeReader
+from pyramid_oereb.lib.readers.law_status import LawStatusReader
 from sqlalchemy.exc import ProgrammingError
+import json
 
 log = logging.getLogger(__name__)
 
@@ -454,65 +456,71 @@ class Config(object):
         return Config._get_object_path(current_path, current_object[k], path[1:], default, required)
 
     @staticmethod
-    def get_law_status(theme_code, law_status_config, law_status_code):
+    def get_law_status(theme_code, law_status_code):
         """
 
         Args:
             theme_code (str): The theme code.
-            law_status_config (dict): The configured mapping of the plrs law status.
-            law_status_code (str): The law status code read from the data to wrap it into the only two allowed
-                values: "inForce" or "runningModifications" which are possible on the extract.
+            law_status_code (str): The law status code read from the config to wrap it into the only three allowed
+                values: "inKraft" or "AenderungMitVorwirkung" or "AenderungOhneVorwirkung"
+                which are possible on the extract.
 
         Returns:
-            str: The mapped law status. This is "inForce" or "runningModifications".
+            str: The mapped law status. This is "inKraft" or "AenderungMitVorwirkung" or "AenderungOhneVorwirkung".
 
         Raises:
             AttributeError: If the passed law status code does not match one of the configured ones.
         """
-        if law_status_config.get('in_force') == law_status_code:
-            return 'inForce'
-        elif law_status_config.get('running_modifications') == law_status_code:
-            return 'runningModifications'
+        if Config.get_law_status_by_code('inKraft').code == law_status_code:
+            log.info("get_law_status::" + law_status_code)
+            return 'inKraft'
+        elif Config.get_law_status_by_code('AenderungMitVorwirkung') == law_status_code:
+            log.info("get_law_status::" + law_status_code)
+            return 'AenderungMitVorwirkung'
+        elif Config.get_law_status_by_code('AenderungOhneVorwirkung') == law_status_code:
+            log.info("get_law_status::" + law_status_code)
+            return 'AenderungOhneVorwirkung'
         else:
             raise AttributeError(
                 u'There was no proper configuration for the theme "{theme}" on the law '
                 u'status it has to be configured depending on the data you imported. Law '
                 u'status in your data was: {data_law_status}, the configured options are: '
-                u'{in_force} and {running_modifications}'.format(
+                u'{in_kraft}, {aenderung_mit_vorwirkung} or {aenderung_ohne_vorwirkung}'.format(
                     theme=theme_code,
                     data_law_status=law_status_code,
-                    in_force=law_status_config.get('in_force'),
-                    running_modifications=law_status_config.get('running_modifications')
+                    in_kraft=Config.get_law_status_by_code('inKraft').code,
+                    aenderung_mit_vorwirkung=Config.get_law_status_by_code('AenderungMitVorwirkung').code,
+                    aenderung_ohne_vorwirkung=Config.get_law_status_by_code('AenderungOhneVorwirkung').code
+
                 )
             )
 
     @staticmethod
-    def get_law_status_translations(code):
+    def get_law_status_by_code(code):
         """
-        Obtaining the law status translations from config via the code.
+         Returns a dictionary of the configured law status settings.
 
         Args:
-            code (str): The law status code. This must be "inForce" or "runningModifications". Any other
-                value won't match and throw a silent error.
+            code (str): The law status code. This must be " It must be "inKraft" or "AenderungMitVorwirkung" 
+            or "AenderungOhneVorwirkung". Any other value won't match and throw a silent error.
 
         Returns:
             dict: The translation from the configuration.
         """
-        translations = Config.get('law_status_translations')
-        if code == 'inForce':
-            return translations.get('in_force')
-        elif code == 'runningModifications':
-            return translations.get('running_modifications')
-        else:
-            log.error(u'No translation for law status found in config for the passed code: {code}'.format(
-                code=code
-            ))
-            return {
-                'de': u'Keine Übersetzung gefunden',
-                'fr': u'Pas de traduction',
-                'it': u'Nessuna traduzione trovato',
-                'rm': u'Nagin translaziun chattà'
-            }
+        law_status_config = Config.get('law_status_labels')
+        law_status_reader = LawStatusReader(
+            law_status_config.get('source').get('class'),
+            **law_status_config.get('source').get('params'))
+
+        law_status_records = law_status_reader.read()
+        if law_status_records is None:
+            raise ConfigurationError("The law status labels have not been initialized")
+
+        law_status_lookup = Config.get('law_status_lookup')[code]
+        for record in law_status_records:
+            if record.code == law_status_lookup:
+                log.info("law status record:: " + record.code + "--" + json.dumps(record.text))
+                return record
 
     @staticmethod
     def get_layer_config(theme_code):

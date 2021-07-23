@@ -31,7 +31,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
             hooks (dict of str): The hook methods: get_symbol, get_symbol_ref. They have to be provided as
                 dotted string for further use with dotted name resolver of pyramid package.
             law_status (dict of str): The multiple match configuration to provide more flexible use of the
-                federal specified classifiers 'inForce' and 'runningModifications'.
+                federal specified classifiers "inKraft" or "AenderungMitVorwirkung" or "AenderungOhneVorwirkung".
         """
         super(DatabaseOEREBlexSource, self).__init__(**kwargs)
         self._oereblex_source = OEREBlexSource(**Config.get_oereblex_config())

@@ -21,7 +21,7 @@ def test_mandatory_fields():
 def create_dummy_plr():
     office = OfficeRecord({'en': 'Office'})
     view_service = ViewServiceRecord({'de': 'http://my.wms.com'}, 1, 1.0)
-    law_status = LawStatusRecord.from_config(u'inForce')
+    law_status = LawStatusRecord.from_config(u'inKraft')
     geometry = GeometryRecord(law_status, datetime.date.today(), None, Point(1, 1))
     record = PlrRecord(
         ThemeRecord('code', dict(), 100),
@@ -59,7 +59,7 @@ def test_init():
     (date.today() + timedelta(days=1), None, False)]
 )
 def test_published(published_from, published_until, published):
-    law_status = LawStatusRecord.from_config(u'inForce')
+    law_status = LawStatusRecord.from_config(u'inKraft')
     theme = ThemeRecord('code', dict(), 100)
     plr_record = PlrRecord(
         theme,

@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1,
+        "code": "inKraft",
+        "text": {
+            "de": "Rechtskräftig",
+            "fr": "En vigueur",
+            "it": "In vigore",
+            "rm": "En vigur",
+            "en": "In force"
+        }
+    },
+    {
+        "id": 2,
+        "code": "AenderungMitVorwirkung",
+        "text": {
+            "de": "Änderung mit Vorwirkung",
+            "fr": "Modification avec effet anticipé",
+            "it": "Modificazione con effetto anticipato",
+            "rm": "Midada cun effect anticipà",
+            "en": "Modification with pre-effect"
+        }
+    },
+    {
+        "id": 3,
+        "code": "AenderungOhneVorwirkung",
+        "text": {
+            "de": "Änderung ohne Vorwirkung",
+            "fr": "Modification sans effet anticipé",
+            "it": "Modificazione senza effetto anticipato",
+            "rm": "Midada senza effect anticipà",
+            "en": "Modification without pre-effect"
+        }
+    }
+] 

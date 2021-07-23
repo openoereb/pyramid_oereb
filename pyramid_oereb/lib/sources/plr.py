@@ -54,8 +54,8 @@ class PlrBaseSource(Base):
             source (dict): The configuration dictionary of the public law restriction
             hooks (dict of str): The hook methods: get_symbol, get_symbol_ref. They have to be provided as
                 dotted string for further use with dotted name resolver of pyramid package.
-            law_status (dict of str): The multiple match configuration to provide more flexible use of the
-                federal specified classifiers 'inForce' and 'runningModifications'.
+            law_status (dict of str): The text of the law status. It must be from code "inKraft" or
+            "AenderungMitVorwirkung" or "AenderungOhneVorwirkung"
         """
         self._plr_info = kwargs
 

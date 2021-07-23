@@ -189,7 +189,7 @@ class OEREBlexSource(Base):
             arguments = {
                 'document_type': document_type,
                 'index': 0,  # TODO: Generate correct index for sorting
-                'law_status': LawStatusRecord.from_config(u'inForce'),  # TODO: Adapt mapping for law status
+                'law_status': LawStatusRecord.from_config(u'inKraft'),  # TODO: Adapt mapping for law status
                 'title': self._get_multilingual(f.title or document.title, language),
                 'responsible_office': office,
                 'published_from': enactment_date,  # TODO: Use publication_date instead?

@@ -31,7 +31,7 @@ from pyramid_oereb.views.webservice import Parameter
 
 
 def law_status():
-    return LawStatusRecord(u'inForce', {'de': u'In Kraft'})
+    return LawStatusRecord(u'inKraft', {'de': u'In Kraft'})
 
 
 def default_param():
@@ -289,7 +289,7 @@ def test_format_plr(parameter):
             'LegendText': renderer.get_multilingual_text(plr.legend_text),
             'Theme': renderer.format_theme(plr.theme),
             'Lawstatus': {
-                'Code': 'inForce',
+                'Code': 'inKraft',
                 'Text': {'Language': 'de', 'Text': 'In Kraft'}
             },
             'ResponsibleOffice': renderer.format_office(plr.responsible_office),
@@ -313,7 +313,7 @@ def test_format_plr(parameter):
                 'LegendText': renderer.get_multilingual_text(plr.legend_text),
                 'Theme': renderer.format_theme(plr.theme),
                 'Lawstatus': {
-                    'Code': 'inForce',
+                    'Code': 'inKraft',
                     'Text': {'Language': 'de', 'Text': 'In Kraft'}
                 },
                 'ResponsibleOffice': renderer.format_office(plr.responsible_office),
@@ -360,7 +360,7 @@ def test_format_plr(parameter):
             },
             'Index': 2,
             'Lawstatus': {
-                'Code': 'inForce',
+                'Code': 'inKraft',
                 'Text': {'Language': 'de', 'Text': 'In Kraft'}
             },
             'TextAtWeb': [{'Language': 'de', 'Text': 'http://meine.rechtsvorschrift.ch'}],
@@ -389,7 +389,7 @@ def test_format_plr(parameter):
             },
             'Index': 1,
             'Lawstatus': {
-                'Code': 'inForce',
+                'Code': 'inKraft',
                 'Text': {'Language': 'de', 'Text': 'In Kraft'}
             },
             'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.gesetz.ch'}],
@@ -416,7 +416,7 @@ def test_format_plr(parameter):
             },
             'Index': 3,
             'Lawstatus': {
-                'Code': 'inForce',
+                'Code': 'inKraft',
                 'Text': {'Language': 'de', 'Text': 'In Kraft'}
             },
             'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.hinweis.ch'}],
@@ -446,7 +446,7 @@ def test_format_document(params, document, result_dict):
         geo_metadata='http://www.geocat.ch',
         office=OfficeRecord({u'de': u'AGI'})), {
         'Lawstatus': {
-            'Code': 'inForce',
+            'Code': 'inKraft',
             'Text': {'Language': 'de', 'Text': 'In Kraft'}
         },
         'ResponsibleOffice': {
@@ -461,7 +461,7 @@ def test_format_document(params, document, result_dict):
     (GeometryRecord(law_status(), datetime.date.today(), None, LineString([(0, 0), (1, 1)]),
                     office=OfficeRecord({u'de': u'AGI'})), {
         'Lawstatus': {
-            'Code': 'inForce',
+            'Code': 'inKraft',
             'Text': {'Language': 'de', 'Text': 'In Kraft'}
         },
         'ResponsibleOffice': {
@@ -480,7 +480,7 @@ def test_format_document(params, document, result_dict):
         office=OfficeRecord({u'de': u'AGI'})
     ), {
         'Lawstatus': {
-            'Code': 'inForce',
+            'Code': 'inKraft',
             'Text': {'Language': 'de', 'Text': 'In Kraft'}
         },
         'ResponsibleOffice': {

@@ -10,8 +10,8 @@ def test_mandatory_fields():
 
 
 def test_init():
-    record = LawStatusRecord(u'inForce', {u'de': u'In Kraft'})
-    assert record.code == u'inForce'
+    record = LawStatusRecord(u'inKraft', {u'de': u'In Kraft'})
+    assert record.code == u'inKraft'
     assert isinstance(record.text, dict)
     assert record.text.get('de') == u'In Kraft'
 
@@ -22,8 +22,8 @@ def test_invalid_code():
 
 
 def test_from_config():
-    record = LawStatusRecord.from_config(u'inForce')
-    assert record.code == u'inForce'
+    record = LawStatusRecord.from_config(u'inKraft')
+    assert record.code == u'inKraft'
     assert isinstance(record.text, dict)
     assert record.text.get('de')
     assert record.text.get('fr')

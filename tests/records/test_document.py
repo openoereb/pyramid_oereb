@@ -14,7 +14,7 @@ def test_mandatory_fields():
 
 def test_init():
     office_record = OfficeRecord({'en': 'name'})
-    law_status = LawStatusRecord.from_config(u'inForce')
+    law_status = LawStatusRecord.from_config(u'inKraft')
     record = DocumentRecord('GesetzlicheGrundlage', 1, law_status, {'en': 'title'}, office_record,
                             datetime.date(1985, 8, 29), text_at_web={'en': 'http://my.document.com'})
     assert isinstance(record.document_type, str)
@@ -41,7 +41,7 @@ def test_invalid_document_type():
 
 def test_future_document():
     office_record = OfficeRecord({'en': 'name'})
-    law_status = LawStatusRecord.from_config(u'inForce')
+    law_status = LawStatusRecord.from_config(u'inKraft')
     record = DocumentRecord('Hinweis', 1, law_status, {'en': 'title'}, office_record,
                             (datetime.datetime.now().date() + datetime.timedelta(days=7)),
                             text_at_web={'en': 'http://my.document.com'})
@@ -50,7 +50,7 @@ def test_future_document():
 
 def test_past_document():
     office_record = OfficeRecord({'en': 'name'})
-    law_status = LawStatusRecord.from_config(u'inForce')
+    law_status = LawStatusRecord.from_config(u'inKraft')
     record = DocumentRecord('Hinweis', 1, law_status, {'en': 'title'}, office_record,
                             (datetime.datetime.now().date() - datetime.timedelta(days=7)),
                             published_until=(datetime.datetime.now().date() - datetime.timedelta(days=6)),
@@ -60,7 +60,7 @@ def test_past_document():
 
 def test_legal_provision():
     office_record = OfficeRecord({'en': 'name'})
-    law_status = LawStatusRecord.from_config(u'inForce')
+    law_status = LawStatusRecord.from_config(u'inKraft')
     legal_provision = DocumentRecord('Rechtsvorschrift', 1, law_status, {'de': 'title'},
                                      office_record, datetime.date(1985, 8, 29))
     assert isinstance(legal_provision.document_type, str)
