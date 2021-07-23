@@ -42,6 +42,10 @@ class DummyData(object):
             table=main.Theme.__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table};'.format(
+            schema=main.DocumentTypeText.__table__.schema,
+            table=main.DocumentTypeText.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table};'.format(
             schema=main.Glossary.__table__.schema,
             table=main.Glossary.__table__.name
         ))
@@ -302,6 +306,20 @@ class DummyData(object):
             'code': 'ForestDistanceLines',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 720
+        })
+
+        # Add dummy document types
+        connection.execute(main.DocumentTypeText.__table__.insert(), {
+            'code': 'GesetzlicheGrundlage',
+            'text': {'de': 'Gesetzliche Grundlage', 'fr': '', 'it': '', 'rm': ''}
+        })
+        connection.execute(main.DocumentTypeText.__table__.insert(), {
+            'code': 'Rechtsvorschrift',
+            'text': {'de': 'Rechtsvorschrift', 'fr': '', 'it': '', 'rm': ''}
+        })
+        connection.execute(main.DocumentTypeText.__table__.insert(), {
+            'code': 'Hinweis',
+            'text': {'de': 'Hinweis', 'fr': '', 'it': '', 'rm': ''}
         })
 
         # Add dummy glossary

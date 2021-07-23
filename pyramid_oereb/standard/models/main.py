@@ -190,3 +190,17 @@ class ExclusionOfLiability(Base):
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     title = sa.Column(JSONType, nullable=False)
     content = sa.Column(JSONType, nullable=False)
+
+
+class DocumentTypeText(Base):
+    """
+    The element holding the different document types and their translations.
+
+    Attributes:
+        code (str): The identifier given by a code
+        text (str): The display name for the document type
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'document_types'
+    code = sa.Column(sa.String, primary_key=True)
+    text = sa.Column(JSONType, nullable=False)
