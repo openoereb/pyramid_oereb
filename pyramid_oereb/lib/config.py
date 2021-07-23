@@ -105,6 +105,8 @@ class Config(object):
             list of pyramid_oereb.lib.records.theme.GeneralInformationRecord: The available themes.
         """
         assert Config._config is not None
+        if len(Config.general_information) < 1:
+            raise ConfigurationError("At least one general information entry is required")
         return Config.general_information
 
     @staticmethod
