@@ -126,6 +126,10 @@ class SampleData(object):
                 table=schema.ExclusionOfLiability.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+                schema=schema.GeneralInformation.__table__.schema,
+                table=schema.GeneralInformation.__table__.name
+            ))
+            self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
                 schema=schema.Municipality.__table__.schema,
                 table=schema.Municipality.__table__.name
             ))
@@ -192,7 +196,7 @@ class SampleData(object):
             raise Exception(f"Missing model in YAML configuration file: {e}")
 
         from pyramid_oereb.standard.models.main import Theme, DocumentTypeText, RealEstate, Address, \
-            Municipality, Glossary, ExclusionOfLiability
+            Municipality, Glossary, ExclusionOfLiability, GeneralInformation
 
         if self._sql_file is None:
             self._connection = self._engine.connect()
@@ -207,7 +211,8 @@ class SampleData(object):
                 (Address, 'addresses.json'),
                 (Municipality, 'municipalities_with_logo.json'),
                 (Glossary, 'glossary.json'),
-                (ExclusionOfLiability, 'exclusion_of_liability.json')
+                (ExclusionOfLiability, 'exclusion_of_liability.json'),
+                (GeneralInformation, 'general_information.json')
             ]:
                 self._load_sample(class_, file_name)
 

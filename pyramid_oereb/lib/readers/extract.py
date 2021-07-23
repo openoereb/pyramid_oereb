@@ -146,7 +146,7 @@ class ExtractReader(object):
         date_method = resolver.resolve(date_method_string)
         av_update_date = date_method(real_estate)
         base_data = Config.get_base_data(av_update_date)
-        general_information = Config.get('extract').get('general_information')
+        general_information = Config.get_general_information()
         logos = Config.get_logo_config(language=params.language)
 
         av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')

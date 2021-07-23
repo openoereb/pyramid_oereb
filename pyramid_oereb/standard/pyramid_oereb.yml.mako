@@ -426,6 +426,24 @@ pyramid_oereb:
         # The model which maps the exclusion_of_liability database table.
         model: pyramid_oereb.standard.models.main.ExclusionOfLiability
 
+  # The processor of the oereb project needs access to general information data. In the standard
+  # configuration this is assumed to be read from a database. Hint: If you want to read the general
+  # information out of an existing database table to avoid imports of this data every time it gets updates, you
+  # only need to change the model bound to the source. The model must implement the same field names and
+  # information as the default model does.
+  general_information:
+    # The general_information must have a property source.
+    source:
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source which reads data from a database.
+      class: pyramid_oereb.standard.sources.general_information.DatabaseSource
+      # The necessary parameters to use this class
+      params:
+        # The connection path where the database can be found
+        db_connection: *main_db_connection
+        # The model which maps the general_information database table.
+        model: pyramid_oereb.standard.models.main.GeneralInformation
+
   # The extract is the entry point which binds everything
   # related to data together.
   extract:
@@ -451,11 +469,6 @@ pyramid_oereb:
         fr: https://oereb.bl.ch/certification/fr
         it: https://oereb.bl.ch/certification/it
         rm: https://oereb.bl.ch/certification/rm
-    general_information:
-        de: Der Inhalt des Katasters wird als bekannt vorausgesetzt. Der Kanton --HIER MUSS DER KANTONSNAME STEHEN--- ist für die Genauigkeit und Verlässlichkeit der gesetzgebenden Dokumenten in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begründet insbesondere keine Rechten und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskräftig verabschiedet oder veröffentlicht worden sind. Mit der Beglaubigung des Auszuges wird die Übereinstimmung des Auszuges mit dem Kataster zum Zeitpunkt des Auszuges bestätigt.
-        fr: Le contenu du cadastre RDPPF est supposé connu. Le canton de ---NOM DU CANTON--- n'engage pas sa responsabilité sur l'exactitude ou la fiabilité des documents législatifs dans leur version électronique. L'extrait a un caractère informatif et ne crée aucun droit ou obligation. Les documents juridiquement contraignants sont ceux qui ont été légalement adoptés ou publiés. La certification d'un extrait confirme la concordance de cet extrait avec le cadastre RDPPF à la date d'établissement dudit extrait.
-        it: Il contenuto del Catasto RDPP si considera noto. Il Canton ---NOME DEL CANTON--- non può essere ritenuto responsabile per la precisione e l'affidabilità dei documenti legislativi in formato elettronico. L'estratto ha carattere puramente informativo e non è in particolare costituti-vo di diritti e obblighi. Sono considerati giuridicamente vincolanti i documenti approvati o pubblicati passati in giudicato. Con l'autenticazione dell'estratto viene confermata la conformità dell'estratto rispetto al Catasto RDPP al momento della sua redazione.
-        rm: ...
     sort_within_themes_method: pyramid_oereb.standard.hook_methods.plr_sort_within_themes
     # Example of a specific sorting method:
     # sort_within_themes_method: pyramid_oereb.contrib.plr_sort_within_themes_by_type_code
