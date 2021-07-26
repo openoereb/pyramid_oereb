@@ -210,7 +210,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         log.info("from_db_to_geometry_records")
         geometry_records = []
         for geometry_from_db in geometries_from_db:
-            log.info("law_status_from_geometry::" + self._plr_info.get('code') + "--" + geometry_from_db.law_status)
             # Create law status record
             law_status = Config.get_law_status_by_code(
                     self._plr_info.get('code'),
@@ -245,28 +244,20 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             offices_from_db.number,
             offices_from_db.postal_code,
             offices_from_db.city
-        )        
+        )
         log.info("from_db_to_office_recorda::")
         return office_record
 
     def from_db_to_document_records(self, documents_from_db, article_numbers=None):
         document_records = []
-        x=1
         for i, document in enumerate(documents_from_db):
-            log.info("from_db_to_document_records122::self._plr_info.get('code'):" + str(type(document.responsible_office).__name__))
-        for i, document in enumerate(documents_from_db):            
-            log.info("from_db_to_document_records112::self._plr_info.get('code'):" + str(i) + "--" )
             office_record = self.from_db_to_office_record(document.responsible_office)
-            log.info("from_db_to_document_records12::self._plr_info.get('code'):" + str(type(article_numbers).__name__) + "--" )
-            
+
             article_nrs = article_numbers[i] if isinstance(article_numbers, list) else None
-            log.info("from_db_to_document_records::self._plr_info.get('code'):" + str(x))
-            x=x+1
             law_status = Config.get_law_status_by_code(
-                    self._plr_info.get('code'),
-                    document.law_status
-                )
-            log.info("from_db_to_document_records_law_status::self._plr_info.get('code'):" + str(x))
+                self._plr_info.get('code'),
+                document.law_status
+            )
             document_records.append(self._documents_record_class(
                 document_type=document.document_type,
                 index=document.index,
@@ -280,15 +271,11 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 official_number=document.official_number,
                 only_in_municipality=document.only_in_municipality,
                 article_numbers=article_nrs,
-                file=document.file                
+                file=document.file
             ))
-            log.info("from_db_to_document_records1::self._plr_info.get('code'):" + str(i))
-            
-        log.info("from_db_to_document_records111::" + str(document_records.count))
         return document_records
 
     def from_db_to_plr_record(self, params, public_law_restriction_from_db, legend_entries_from_db):
-        log.info("from_db_to_plr_record")
         thresholds = self._plr_info.get('thresholds')
         min_length = thresholds.get('length').get('limit')
         length_unit = thresholds.get('length').get('unit')
@@ -308,19 +295,12 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             legend_entry_records,
             self._plr_info.get('code')
         )
-        log.info("document_records1__::")
         document_records = self.get_document_records(params, public_law_restriction_from_db)
-        
-        log.info("document_records1_geom__::" + type(public_law_restriction_from_db).__name__ + str(len(public_law_restriction_from_db.geometries)))
         geometry_records = self.from_db_to_geometry_records(public_law_restriction_from_db.geometries)
-
-        log.info("law_status_fromConfig::" + self._plr_info.get('code') + "--" + public_law_restriction_from_db.law_status)
         law_status = Config.get_law_status_by_code(
-                self._plr_info.get('code'),
-                public_law_restriction_from_db.law_status
-            )
-        
-        log.info("law_status::")
+            self._plr_info.get('code'),
+            public_law_restriction_from_db.law_status
+        )
         plr_record = self._plr_record_class(
             self._theme_record,
             legend_entry_record,
@@ -356,9 +336,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             article_nrs = legal_provision.article_numbers.split('|') if legal_provision.article_numbers \
                 else None
             article_numbers.append(article_nrs)
-        log.info("get_document_records2::" )
-        document_records = self.from_db_to_document_records(documents_from_db, article_numbers)        
-        log.info("get_document_records22::" )
+        document_records = self.from_db_to_document_records(documents_from_db, article_numbers)
         return document_records
 
     @staticmethod
@@ -505,11 +483,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         # information related to the found geometries.
                         self.records = []
                         legend_entries_from_db = self.collect_legend_entries_by_bbox(session, bbox)
-                        x=0
-                        for geometry_result in geometry_results:                            
-                            log.info("count geometry_result::" + type(geometry_result.public_law_restriction).__name__ + "::" + str(x) + "/" + str(len(geometry_results)))                            
-                            log.info("count geometry_result::" + str(geometry_result.public_law_restriction.id))
-                            log.info("count geometry_result::" + type(legend_entries_from_db).__name__)
+                        for geometry_result in geometry_results:
                             self.records.append(
                                 self.from_db_to_plr_record(
                                     params,
@@ -517,10 +491,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                                     legend_entries_from_db
                                 )
                             )
-                            x=x+1
-                        log.debug("read() processed {} geometry_results into {} plr".format(
-                            len(geometry_results), len(self.records))
-                        )
 
             finally:
                 session.close()

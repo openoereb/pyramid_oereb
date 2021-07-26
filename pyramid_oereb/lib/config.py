@@ -30,6 +30,7 @@ class Config(object):
     themes = None
     document_types = None
     general_information = None
+    law_status = None
 
     @staticmethod
     def init(configfile, configsection, c2ctemplate_style=False):
@@ -46,6 +47,7 @@ class Config(object):
         Config.init_themes()
         Config.init_document_types()
         Config.init_general_information()
+        Config.init_law_status()
 
     @staticmethod
     def get_config():
@@ -75,6 +77,13 @@ class Config(object):
             Config.general_information = Config._read_general_information()
         except ProgrammingError:
             Config.general_information = None
+    
+    @staticmethod
+    def init_law_status():
+        try:
+            Config.law_status = Config._read_law_status()
+        except ProgrammingError:
+            Config.law_status = None
 
     @staticmethod
     def _read_themes():
@@ -97,6 +106,17 @@ class Config(object):
             **Config.get_info_config().get('source').get('params')
         )
         return info_reader.read()
+
+    @staticmethod
+    def _read_law_status():
+        law_status_config = Config.get_law_status_config()
+        if law_status_config is None:
+            raise ConfigurationError("Missing configuration for law status source config")
+        law_status_reader = LawStatusReader(
+            law_status_config.get('source').get('class'),
+            **law_status_config.get('source').get('params')
+        )
+        return law_status_reader.read()
 
     @staticmethod
     def get_general_information():
@@ -383,6 +403,18 @@ class Config(object):
         return Config._config.get('general_information')
 
     @staticmethod
+    def get_law_status_config():
+        """
+        Returns a dictionary of the configured law status sources.
+
+        Returns:
+            dict: The configured general law status sources.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('law_status_labels')
+
+    @staticmethod
     def get_municipality_config():
         """
         Returns a dictionary of the configured municipality settings.
@@ -580,22 +612,13 @@ class Config(object):
         Returns:
             dict: The translation from the configuration.
         """
-        log.info("get_law_status_by_code")
-        law_status_config = Config.get('law_status_labels')
-        law_status_reader = LawStatusReader(
-            law_status_config.get('source').get('class'),
-            **law_status_config.get('source').get('params'))
-
-        law_status_records = law_status_reader.read()
-        if law_status_records is None:
-            raise ConfigurationError("The law status labels have not been initialized")
 
         theme_law_status = Config.get_theme_config_by_code(theme_code).get('law_status')
-        for record in law_status_records:            
+        for record in Config.law_status:
             law_status_code_from_config = theme_law_status.get(record.code)
             if law_status_code == law_status_code_from_config:
                 return record
-        
+
         raise AttributeError(
             u'There was no proper configuration for the theme "{theme}" on the law '
             u'status it has to be configured depending on the data you imported. Law '
@@ -604,10 +627,10 @@ class Config(object):
                 theme=theme_code,
                 data_law_status=law_status_code,
                 in_kraft="inKraft",
-                aenderung_mit_vorwirkung='AenderungMitVorwirkung'),
-                aenderung_ohne_vorwirkung=('AenderungOhneVorwirkung')
-
+                aenderung_mit_vorwirkung='AenderungMitVorwirkung',
+                aenderung_ohne_vorwirkung='AenderungOhneVorwirkung'
             )
+        )
 
     @staticmethod
     def get_law_status_by_law_status_code(law_status_code):
@@ -621,33 +644,10 @@ class Config(object):
         Returns:
             dict: The translation from the configuration.
         """
-        log.info("get_law_status_by_law_status_code")
-        law_status_config = Config.get('law_status_labels')
-        law_status_reader = LawStatusReader(
-            law_status_config.get('source').get('class'),
-            **law_status_config.get('source').get('params'))
+        for status in Config.law_status:
+            if status.code == law_status_code:
+                return status
 
-        law_status_records = law_status_reader.read()
-        if law_status_records is None:
-            raise ConfigurationError("The law status labels have not been initialized")
-
-        for record in law_status_records:            
-            if law_status_code == record.code:
-                return record
-        
-        raise AttributeError(
-            u'There was no proper configuration for the theme "{theme}" on the law '
-            u'status it has to be configured depending on the data you imported. Law '
-            u'status in your data was: {data_law_status}, the configured options are: '
-            u'{in_kraft}, {aenderung_mit_vorwirkung} or {aenderung_ohne_vorwirkung}'.format(
-                theme=theme_code,
-                data_law_status=law_status_code,
-                in_kraft="inKraft",
-                aenderung_mit_vorwirkung='AenderungMitVorwirkung'),
-                aenderung_ohne_vorwirkung=('AenderungOhneVorwirkung')
-
-            )
-    
     @staticmethod
     def get_theme_config_by_code(theme_code):
         """
