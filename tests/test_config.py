@@ -154,24 +154,24 @@ def test_get_real_estate_main_page_config():
 
 
 @pytest.mark.run(order=-1)
-def test_get_real_estate_type_by_mapping():
+def test_get_real_estate_type_by_code():
     Config._config = None
     Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
 
-    mapping = Config.get_real_estate_type_by_mapping('Liegenschaft')
-    assert mapping == 'RealEstate'
+    mapping = Config.get_real_estate_type_by_code('Liegenschaft').code
+    assert mapping == 'Liegenschaft'
 
-    mapping = Config.get_real_estate_type_by_mapping('Baurecht')
-    assert mapping == 'Distinct_and_permanent_rights.BuildingRight'
+    mapping = Config.get_real_estate_type_by_code('SelbstRecht.Baurecht').code
+    assert mapping == 'SelbstRecht.Baurecht'
 
-    mapping = Config.get_real_estate_type_by_mapping('Quellenrecht')
-    assert mapping == 'Distinct_and_permanent_rights.right_to_spring_water'
+    mapping = Config.get_real_estate_type_by_code('SelbstRecht.Quellenrecht').code
+    assert mapping == 'SelbstRecht.Quellenrecht'
 
-    mapping = Config.get_real_estate_type_by_mapping('Konzessionsrecht')
-    assert mapping == 'Distinct_and_permanent_rights.concession'
+    mapping = Config.get_real_estate_type_by_code('SelbstRecht.Konzessionsrecht').code
+    assert mapping == 'SelbstRecht.Konzessionsrecht'
 
-    mapping = Config.get_real_estate_type_by_mapping('weitere')
-    assert mapping == 'Distinct_and_permanent_rights.other'
+    mapping = Config.get_real_estate_type_by_code('SelbstRecht.weitere').code
+    assert mapping == 'SelbstRecht.weitere'
 
-    mapping = Config.get_real_estate_type_by_mapping('Bergwerk')
-    assert mapping == 'Mineral_rights'
+    mapping = Config.get_real_estate_type_by_code('Bergwerk')
+    assert mapping == 'Bergwerk'
