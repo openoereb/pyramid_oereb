@@ -12,12 +12,10 @@ from pyramid_oereb.lib import b64
 from pyramid_oereb.lib.records.availability import AvailabilityRecord
 from pyramid_oereb.lib.records.embeddable import DatasourceRecord
 from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import EmptyPlrRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from pyramid_oereb.lib.sources.plr import PlrBaseSource
-import json
 
 log = logging.getLogger(__name__)
 
@@ -207,7 +205,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return geometry_records
 
     def from_db_to_geometry_records(self, geometries_from_db):
-        log.info("from_db_to_geometry_records")
         geometry_records = []
         for geometry_from_db in geometries_from_db:
             # Create law status record
@@ -215,8 +212,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     self._plr_info.get('code'),
                     geometry_from_db.law_status
                 )
-                
-            log.info("law_status_from_geometry::" + law_status.code)
+
             # Create office record
             office = self.from_db_to_office_record(geometry_from_db.responsible_office)
 
@@ -233,7 +229,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return geometry_records
 
     def from_db_to_office_record(self, offices_from_db):
-        log.info("from_db_to_office_record::")
         office_record = self._office_record_class(
             offices_from_db.name,
             offices_from_db.uid,
@@ -245,7 +240,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             offices_from_db.postal_code,
             offices_from_db.city
         )
-        log.info("from_db_to_office_recorda::")
+
         return office_record
 
     def from_db_to_document_records(self, documents_from_db, article_numbers=None):

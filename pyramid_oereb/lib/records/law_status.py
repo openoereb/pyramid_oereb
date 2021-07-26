@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from pyramid_oereb.lib.config import Config
-import logging
-
-log = logging.getLogger(__name__)
 
 class LawStatusRecord(object):
     """
@@ -15,10 +11,12 @@ class LawStatusRecord(object):
         Create a new law status record.
 
         Args:
-            code (str or unicode): The code of the law status. It must be "inKraft" or "AenderungMitVorwirkung" or 
-                "AenderungOhneVorwirkung" every other value will raise an error.
-            text (dict of unicode): The multilingual law status description.
+            code (str or unicode): The code of the law status. It must be "inKraft" or
+            "AenderungMitVorwirkung" or "AenderungOhneVorwirkung" every other value will
+            raise an error.
+        text (dict of unicode): The multilingual law status description.
         """
+
         if code != u'inKraft' and code != u'AenderungMitVorwirkung' and code != u'AenderungOhneVorwirkung':
             raise AttributeError('wrong code for law status was deliverd. Only "inKraft" or '
                                  '"AenderungMitVorwirkung" or "AenderungOhneVorwirkung" are'

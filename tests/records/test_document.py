@@ -5,6 +5,7 @@ from pyramid_oereb.lib.records.law_status import LawStatusRecord
 
 from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
+from pyramid_oereb.lib.config import Config
 
 
 def test_mandatory_fields():
@@ -14,7 +15,7 @@ def test_mandatory_fields():
 
 def test_init():
     office_record = OfficeRecord({'en': 'name'})
-    law_status = LawStatfrom_configusRecord.(u'inKraft')
+    law_status = Config.get_law_status_by_law_status_code(u'inKraft')
     record = DocumentRecord('GesetzlicheGrundlage', 1, law_status, {'en': 'title'}, office_record,
                             datetime.date(1985, 8, 29), text_at_web={'en': 'http://my.document.com'})
     assert isinstance(record.document_type, str)

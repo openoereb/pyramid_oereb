@@ -14,7 +14,6 @@ from pyramid_oereb.lib.readers.law_status import LawStatusReader
 from pyramid_oereb.lib.readers.document_types import DocumentTypeReader
 from pyramid_oereb.lib.readers.general_information import GeneralInformationReader
 from sqlalchemy.exc import ProgrammingError
-import json
 
 log = logging.getLogger(__name__)
 
@@ -77,7 +76,7 @@ class Config(object):
             Config.general_information = Config._read_general_information()
         except ProgrammingError:
             Config.general_information = None
-    
+
     @staticmethod
     def init_law_status():
         try:
@@ -363,7 +362,7 @@ class Config(object):
             dict: The configured document types settings.
         """
         assert Config._config is not None
-        log.info("get_document_types::" + json.dumps(Config._config.get('document_types')))
+
         return Config._config.get('document_types')
 
     @staticmethod
@@ -606,7 +605,7 @@ class Config(object):
 
         Args:
             theme_code (str): The theme code to loop up the configured law status code.
-            law_status_code (str): The law status code. This must be " It must be "inKraft" or "AenderungMitVorwirkung" 
+            law_status_code (str): The law status code. This must be "inKraft" or "AenderungMitVorwirkung"
             or "AenderungOhneVorwirkung". Any other value won't match and throw a silent error.
 
         Returns:
@@ -638,8 +637,9 @@ class Config(object):
          Returns a dictionary of the configured law status settings.
 
         Args:
-            law_status_code (str): The law status code. This must be " It must be "inKraft" or "AenderungMitVorwirkung" 
-            or "AenderungOhneVorwirkung". Any other value won't match and throw a silent error.
+            law_status_code (str): The law status code. This must be " It must be "inKraft" or
+            "AenderungMitVorwirkung" or "AenderungOhneVorwirkung". Any other value won't match
+            and throw a silent error.
 
         Returns:
             dict: The translation from the configuration.
@@ -664,7 +664,6 @@ class Config(object):
         if themes and isinstance(themes, list):
             for theme in themes:
                 if theme.get('code') == theme_code:
-                    log.info("theme_config::" + type(theme).__name__)
                     return theme
         return None
 

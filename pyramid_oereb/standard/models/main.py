@@ -191,6 +191,7 @@ class ExclusionOfLiability(Base):
     title = sa.Column(JSONType, nullable=False)
     content = sa.Column(JSONType, nullable=False)
 
+
 class LawStatus(Base):
     """
     The container where you can throw in all the law status texts this application
