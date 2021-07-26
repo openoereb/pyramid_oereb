@@ -114,12 +114,20 @@ class SampleData(object):
                 table=schema.Theme.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+                schema=schema.DocumentTypeText.__table__.schema,
+                table=schema.DocumentTypeText.__table__.name
+            ))
+            self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
                 schema=schema.Glossary.__table__.schema,
                 table=schema.Glossary.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
                 schema=schema.ExclusionOfLiability.__table__.schema,
                 table=schema.ExclusionOfLiability.__table__.name
+            ))
+            self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+                schema=schema.GeneralInformation.__table__.schema,
+                table=schema.GeneralInformation.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
                 schema=schema.Municipality.__table__.schema,
@@ -191,8 +199,8 @@ class SampleData(object):
         except KeyError as e:
             raise Exception(f"Missing model in YAML configuration file: {e}")
 
-        from pyramid_oereb.standard.models.main import Theme, RealEstate, RealEstateTypeText, Address, \
-            Municipality, Glossary, ExclusionOfLiability
+        from pyramid_oereb.standard.models.main import Theme, DocumentTypeText, RealEstate, Address, \
+            Municipality, Glossary, ExclusionOfLiability, GeneralInformation,RealEstateTypeText
 
         if self._sql_file is None:
             self._connection = self._engine.connect()
@@ -202,12 +210,14 @@ class SampleData(object):
             # Fill tables with sample data
             for class_, file_name in [
                 (Theme, 'themes.json'),
+                (DocumentTypeText, 'document_types.json'),
                 (RealEstate, 'real_estates.json'),
                 (Address, 'addresses.json'),
                 (Municipality, 'municipalities_with_logo.json'),
                 (Glossary, 'glossary.json'),
                 (ExclusionOfLiability, 'exclusion_of_liability.json'),
-                (RealEstateTypeText, 'real_estate_type.json')
+                (RealEstateTypeText, 'real_estate_type.json'),
+                (GeneralInformation, 'general_information.json')
             ]:
                 self._load_sample(class_, file_name)
 
@@ -232,13 +242,13 @@ class SampleData(object):
                     (schema.Geometry, 'geometry.json'),
                     (schema.Document, 'document.json')
                 ]:
-                    self._load_sample(class_, os.path.join('plr119', folder, file_name))
+                    self._load_sample(class_, os.path.join(folder, file_name))
 
                 if hasattr(schema, 'PublicLawRestrictionDocument'):
                     for class_, file_name in [
                         (schema.PublicLawRestrictionDocument, 'public_law_restriction_document.json')
                     ]:
-                        self._load_sample(class_, os.path.join('plr119', folder, file_name))
+                        self._load_sample(class_, os.path.join(folder, file_name))
 
         finally:
             if self._has_connection():

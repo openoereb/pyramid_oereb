@@ -15,8 +15,8 @@ urllib3[secure]==1.26.6
 cryptography==3.3.2 # rq.filter: <3.4
 waitress==2.0.0
 jsonschema==3.2.0
-pyproj==1.9.6  # rq.filter: <2.0.0
-pyreproj==1.0.1 # rq.filter: <2.0.0
+pyproj==3.1.0  # rq.filter: <2.0.0
+pyreproj==2.0.0 # rq.filter: <2.0.0
 lxml==4.6.3
 requests==2.25.1
 geolink-formatter==2.0.0

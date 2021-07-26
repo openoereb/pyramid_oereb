@@ -37,7 +37,7 @@ def test_parse():
         <Thema>SicherheitszonenplanFlughafen</Thema>
         <ArtCode>108-T-01</ArtCode>
         <ArtCodeliste>https://models.geo.admin.ch/BAZL/SafetyZonePlan_Catalogues_V1_2_20181102.xml</ArtCodeliste>
-        <Rechtsstatus>inKraft</Rechtsstatus>
+        <Rechtsstatus>inForce</Rechtsstatus>
         <publiziertAb>2001-03-02</publiziertAb>
         <DarstellungsDienst REF="ch.admin.bazl.sizo.wms"></DarstellungsDienst>
         <ZustaendigeStelle REF="ch.admin.bazl"></ZustaendigeStelle>
@@ -62,7 +62,7 @@ def test_parse():
     assert parsed[0].type_code == '108-T-01'
     assert parsed[0].type_code_list == 'https://models.geo.admin.ch/BAZL/' \
                                        'SafetyZonePlan_Catalogues_V1_2_20181102.xml'
-    assert parsed[0].law_status == 'inKraft'
+    assert parsed[0].law_status == 'inForce'
     assert parsed[0].published_from == '2001-03-02'
     assert parsed[0].view_service_id == 'ch.admin.bazl.sizo.wms'
     assert parsed[0].office_id == 'ch.admin.bazl'
