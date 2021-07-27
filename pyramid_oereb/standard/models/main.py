@@ -58,6 +58,20 @@ class Theme(Base):
     extract_index = sa.Column(sa.Integer, nullable=False)
 
 
+class Logo(Base):
+    """
+    The container for all logos and municipality coat of arms
+
+    Attributes:
+        code (str): The identifier given by a code
+        text (str): The image encoded in base64
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'logo'
+    code = sa.Column(sa.String, primary_key=True)
+    text = sa.Column(JSONType, nullable=False)
+
+
 class Municipality(Base):
     """
     The municipality is the place where you hold the information about all the municipalities you are having
