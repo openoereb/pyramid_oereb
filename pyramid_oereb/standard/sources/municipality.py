@@ -28,7 +28,9 @@ class DatabaseSource(BaseDatabaseSource, MunicipalityBaseSource):
             else:
                 results = session.query(self._model_).all()
             for result in results:
-                logo = ImageRecord(b64.decode(result.logo))
+                code = countrycode + '.' str(result.fosnr),
+                # TODO: put the right data flow together and get the logo by code and language
+                logo = ImageRecord(b64.decode(config.get_logo_by_code(code)))
                 self.records.append(self._record_class_(
                     result.fosnr,
                     result.name,

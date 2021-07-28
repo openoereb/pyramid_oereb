@@ -10,6 +10,7 @@ from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.readers.theme import ThemeReader
+from pyramid_oereb.lib.readers.logo import LogoReader
 from pyramid_oereb.lib.readers.document_types import DocumentTypeReader
 from pyramid_oereb.lib.readers.general_information import GeneralInformationReader
 from sqlalchemy.exc import ProgrammingError
@@ -26,6 +27,7 @@ class Config(object):
 
     _config = None
     themes = None
+    logos = None
     document_types = None
     general_information = None
 
@@ -42,6 +44,7 @@ class Config(object):
 
         Config._config = _parse(configfile, configsection, c2ctemplate_style)
         Config.init_themes()
+        Config.init_logos()
         Config.init_document_types()
         Config.init_general_information()
 
@@ -68,6 +71,14 @@ class Config(object):
             Config.themes = None
 
     @staticmethod
+    def init_logos():
+        try:
+            Config.logos = Config._read_logos()
+        # When initializing the database (create_tables), the table 'logo' does not exist yet
+        except ProgrammingError:
+            Config.logos = None
+
+    @staticmethod
     def init_general_information():
         try:
             Config.general_information = Config._read_general_information()
@@ -84,31 +95,6 @@ class Config(object):
             **Config.get_theme_config().get('source').get('params')
         )
         return theme_reader.read()
-
-    @staticmethod
-    def _read_general_information():
-        info_config = Config.get_info_config()
-        if info_config is None:
-            raise ConfigurationError("Missing configuration for general information")
-        info_reader = GeneralInformationReader(
-            info_config.get('source').get('class'),
-            **Config.get_info_config().get('source').get('params')
-        )
-        return info_reader.read()
-
-    @staticmethod
-    def get_general_information():
-        """
-        Returns the general information.
-
-        Returns:
-            list of pyramid_oereb.lib.records.theme.GeneralInformationRecord: The available general
-            information entries.
-        """
-        assert Config._config is not None
-        if len(Config.general_information) < 1:
-            raise ConfigurationError("At least one general information entry is required")
-        return Config.general_information
 
     @staticmethod
     def get_themes():
@@ -139,6 +125,75 @@ class Config(object):
             if theme.code == code:
                 return theme
         raise ConfigurationError(f"Theme {code} not found in the application configuration")
+
+    @staticmethod
+    def _read_logos():
+        logo_config = Config.get_logo_config()
+        if logo_config is None:
+            raise ConfigurationError("Missing configuration for logos")
+        logo_reader = LogoReader(
+            logo_config.get('source').get('class'),
+            **Config.get_logo_config().get('source').get('params')
+        )
+        return logo_reader.read()
+
+    @staticmethod
+    def get_logos():
+        """
+        Returns all the logos and municipalities arms of coats.
+
+        Returns:
+            list of pyramid_oereb.lib.records.logo.LogoRecord: All the logo entries needed to
+            generate an plr data-extract (plr-logo, confederation, canton, municipality).
+        """
+        assert Config._config is not None
+        if len(Config.logos) < 1:
+            raise ConfigurationError("At least one entry for the plr-logo is required")
+        return Config.logos
+
+    @staticmethod
+    def get_logo_by_code(code):
+        """
+        Returns the image for a logo called by its code.
+        Args:
+            code (str): The identifier for the logo.
+        Returns:
+            pyramid_oereb.lib.records.logo.LogoRecord or None: The logo image
+            for the specified code.
+        """
+        if Config.logos is None:
+            raise ConfigurationError("The logo images have not been initialized")
+        logo_lookup = Config.get('logo_lookup')[code]
+
+        for logo in Config.logos:
+            if logo.code == logo_lookup:
+                return logo
+        raise ConfigurationError(f"Logo for code: {code} not found in the application configuration")
+
+    @staticmethod
+    def _read_general_information():
+        info_config = Config.get_info_config()
+        if info_config is None:
+            raise ConfigurationError("Missing configuration for general information")
+        info_reader = GeneralInformationReader(
+            info_config.get('source').get('class'),
+            **Config.get_info_config().get('source').get('params')
+        )
+        return info_reader.read()
+
+    @staticmethod
+    def get_general_information():
+        """
+        Returns the general information.
+
+        Returns:
+            list of pyramid_oereb.lib.records.theme.GeneralInformationRecord: The available general
+            information entries.
+        """
+        assert Config._config is not None
+        if len(Config.general_information) < 1:
+            raise ConfigurationError("At least one general information entry is required")
+        return Config.general_information
 
     @staticmethod
     def init_document_types():
