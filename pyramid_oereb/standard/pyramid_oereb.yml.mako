@@ -234,15 +234,12 @@ pyramid_oereb:
   logo:
     # The logo representing the swiss confederation. You can use it as is because it is provided in this
     # repository, but if you need to change it for any reason: Feel free...
-    confederation: ${png_root_dir}logo_confederation.png
+    confederation: ch
     # The logo representing the oereb extract CI. You can use it as is because it is provided in this
     # repository, but if you need to change it for any reason: Feel free...
-    oereb:
-        de: ${png_root_dir}logo_oereb_de.png
-        fr: ${png_root_dir}logo_oereb_fr.png
-        it: ${png_root_dir}logo_oereb_it.png
+    oereb: ch.plr
     # The logo representing your canton. Replace with your own logo!
-    canton: ${png_root_dir}logo_canton.png
+    canton: ne
 
   # The method used to return the logo images configured above.
   get_logo_method: pyramid_oereb.standard.hook_methods.get_logo

@@ -97,7 +97,6 @@ class ExtractReader(object):
                 The extract record containing all gathered data.
         """
         log.debug("read() start")
-        assert isinstance(municipality.logo, ImageRecord)
 
         bbox = ViewServiceRecord.get_bbox(real_estate.limit)
         bbox = box(bbox[0], bbox[1], bbox[2], bbox[3])
@@ -148,6 +147,8 @@ class ExtractReader(object):
         base_data = Config.get_base_data(av_update_date)
         general_information = Config.get_general_information()
         logos = Config.get_logo_config(language=params.language)
+        logo_key = Config.get('logo').get('confederation')
+        municipality_logo  = Config.get_logo_by_code(logo_key +'.'+str(municipality.fosnr))
 
         av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
         av_provider_method = resolver.resolve(av_provider_method_string)
@@ -165,7 +166,7 @@ class ExtractReader(object):
             logos.get('oereb'),
             logos.get('confederation'),
             logos.get('canton'),
-            municipality.logo,
+            municipality_logo,
             self.plr_cadastre_authority,
             base_data,
             embeddable,

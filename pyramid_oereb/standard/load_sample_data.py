@@ -209,7 +209,7 @@ class SampleData(object):
                 (DocumentTypeText, 'document_types.json'),
                 (RealEstate, 'real_estates.json'),
                 (Address, 'addresses.json'),
-                (Municipality, 'municipalities_with_logo.json'),
+                (Municipality, 'municipalities.json'),
                 (Glossary, 'glossary.json'),
                 (ExclusionOfLiability, 'exclusion_of_liability.json'),
                 (GeneralInformation, 'general_information.json')

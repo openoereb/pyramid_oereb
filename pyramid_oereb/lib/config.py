@@ -71,14 +71,6 @@ class Config(object):
             Config.themes = None
 
     @staticmethod
-    def init_logos():
-        try:
-            Config.logos = Config._read_logos()
-        # When initializing the database (create_tables), the table 'logo' does not exist yet
-        except ProgrammingError:
-            Config.logos = None
-
-    @staticmethod
     def init_general_information():
         try:
             Config.general_information = Config._read_general_information()
@@ -127,6 +119,14 @@ class Config(object):
         raise ConfigurationError(f"Theme {code} not found in the application configuration")
 
     @staticmethod
+    def init_logos():
+        try:
+            Config.logos = Config._read_logos()
+        # When initializing the database (create_tables), the table 'logo' does not exist yet
+        except ProgrammingError:
+            Config.logos = None
+
+    @staticmethod
     def _read_logos():
         logo_config = Config.get_logo_config()
         if logo_config is None:
@@ -163,10 +163,11 @@ class Config(object):
         """
         if Config.logos is None:
             raise ConfigurationError("The logo images have not been initialized")
-        logo_lookup = Config.get('logo_lookup')[code]
 
         for logo in Config.logos:
-            if logo.code == logo_lookup:
+            if logo.code == code:
+                print(logo)
+                sdf
                 return logo
         raise ConfigurationError(f"Logo for code: {code} not found in the application configuration")
 
@@ -436,6 +437,18 @@ class Config(object):
         return Config._config.get('general_information')
 
     @staticmethod
+    def get_logo_config(language=None):
+        """
+        Returns a dictionary of the configured file path's to the logos.
+
+        Returns:
+            dict: The configured paths to the logos wrapped in a dictionary.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('logos')
+
+    @staticmethod
     def get_municipality_config():
         """
         Returns a dictionary of the configured municipality settings.
@@ -482,49 +495,6 @@ class Config(object):
             postal_code=cfg.get('postal_code'),
             city=cfg.get('city')
         )
-
-    @staticmethod
-    def get_logo_config(language=None):
-        """
-        Returns a dictionary of the configured file path's to the logos.
-
-        Returns:
-            dict: The configured paths to the logos wrapped in a dictionary.
-        """
-        assert Config._config is not None
-
-        confederation_key = 'confederation'
-        oereb_key = 'oereb'
-        canton_key = 'canton'
-        msg = 'The definition for "{key}" must be set. Got: {found_config}'
-        logo_dict = Config._config.get('logo')
-
-        if not logo_dict.get(confederation_key):
-            raise ConfigurationError(msg.format(key=confederation_key, found_config=logo_dict))
-        if not logo_dict.get(oereb_key):
-            raise ConfigurationError(msg.format(key=oereb_key, found_config=logo_dict))
-        if not logo_dict.get(canton_key):
-            raise ConfigurationError(msg.format(key=canton_key, found_config=logo_dict))
-
-        file_adapter = FileAdapter()
-
-        confederation_logo = ImageRecord(file_adapter.read(logo_dict.get(confederation_key)))
-        canton_logo = ImageRecord(file_adapter.read(logo_dict.get(canton_key)))
-
-        if isinstance(logo_dict.get(oereb_key), dict):
-            if language is None or language not in logo_dict.get(oereb_key):
-                logo_language = Config.get('default_language')
-            else:
-                logo_language = language
-            oereb_logo = ImageRecord(file_adapter.read(logo_dict.get(oereb_key).get(logo_language)))
-        else:
-            oereb_logo = ImageRecord(file_adapter.read(logo_dict.get(oereb_key)))
-
-        return {
-            confederation_key: confederation_logo,
-            oereb_key: oereb_logo,
-            canton_key: canton_logo
-        }
 
     @staticmethod
     def get_oereblex_config():

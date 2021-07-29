@@ -12,9 +12,8 @@ class MunicipalityRecord(object):
         logo (pyramid_oereb.lib.records.image.ImageRecord): The municipality logo.
         geom (str or None): The geometry which is representing this municipality as a WKT.
     """
-    def __init__(self, fosnr, name, published, logo, geom=None):
+    def __init__(self, fosnr, name, published, geom=None):
         self.fosnr = fosnr
         self.name = name
         self.published = published
-        self.logo = logo
         self.geom = geom
