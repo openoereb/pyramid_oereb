@@ -9,6 +9,10 @@ section2:
     - second
 
 pyramid_oereb:
+  app_schema:
+    name: pyramid_oereb_main
+    models: pyramid_oereb.standard.models.main
+    db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
 
   language:
     - de
