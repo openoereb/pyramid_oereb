@@ -381,30 +381,35 @@ class DummyData(object):
             'limit': 'SRID=2056;MULTIPOLYGON(((2 0, 2 3, 5 3, 5 0, 2 0)))'
         })
 
-                # Add dummy real estate types
+        # Add dummy real estate types
         connection.execute(main.RealEstateTypeText.__table__.insert(), {
             'code': 'Liegenschaft',
-            'text': {'de':'Liegenschaft','fr':'Bien-fonds','it':'Bene immobile','rm':'Bain immobigliar','en':'Property'}
+            'text': {'de': 'Liegenschaft', 'fr': 'Bien-fonds', 'it': 'Bene immobile',
+                     'rm': 'Bain immobigliar', 'en': 'Property'}
         })
         connection.execute(main.RealEstateTypeText.__table__.insert(), {
             'code': 'SelbstRecht.Baurecht',
-            'text':{'de':'Baurecht','fr':'Droitdesuperficie','it':'Dirittodisuperficie','rm':'Dretgdaconstrucziun','en':'Buildingright'}
+            'text': {'de': 'Baurecht', 'fr': 'Droitdesuperficie', 'it': 'Dirittodisuperficie',
+                     'rm': 'Dretgdaconstrucziun', 'en': 'Buildingright'}
         })
         connection.execute(main.RealEstateTypeText.__table__.insert(), {
             'code': 'SelbstRecht.Quellenrecht',
-            'text': {'de':'Quellenrecht','fr':'Droit de source','it':'Diritto di sorgente','rm':'Dretg da funtauna','en':'Right to spring water'}
+            'text': {'de': 'Quellenrecht', 'fr': 'Droit de source', 'it': 'Diritto di sorgente',
+                     'rm': 'Dretg da funtauna', 'en': 'Right to spring water'}
         })
         connection.execute(main.RealEstateTypeText.__table__.insert(), {
             'code': 'SelbstRecht.Konzessionsrecht',
-            'text':{'de':'Konzessionsrecht','fr':'Droit de concession','it':'Diritto di concessione','rm':'Dretg da concessiun','en':'Right to licence'}
+            'text': {'de': 'Konzessionsrecht', 'fr': 'Droit de concession', 'it': 'Diritto di concessione',
+                     'rm': 'Dretg da concessiun', 'en': 'Right to licence'}
         })
         connection.execute(main.RealEstateTypeText.__table__.insert(), {
             'code': 'SelbstRecht.weitere',
-            'text': {'de':'weiteres SDR','fr':'Autre DDP','it':'altre DSP','rm':'ulteriur DIP','en':'other distinct and permanent rights'}
+            'text': {'de': 'weiteres SDR', 'fr': 'Autre DDP', 'it': 'altre DSP',
+                     'rm': 'ulteriur DIP', 'en': 'other distinct and permanent rights'}
         })
         connection.execute(main.RealEstateTypeText.__table__.insert(), {
             'code': 'Bergwerk',
-            'text': {'de':'Bergwerk','fr':'Mine','it':'Miniera','rm':'Miniera','en':'Mine'}
+            'text': {'de': 'Bergwerk', 'fr': 'Mine', 'it': 'Miniera', 'rm': 'Miniera', 'en': 'Mine'}
         })
 
         connection.close()
