@@ -72,7 +72,7 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                                          1,
                                          1.0,
                                          None)
-        real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
+        real_estate = RealEstateRecord(u'Liegenschaft', u'BL', u'Liestal', 2829, 11395,
                                        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
                                        u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712')
         real_estate.set_view_service(view_service)
@@ -214,7 +214,7 @@ def test_format_real_estate():
         responsible_office=OfficeRecord({u'de': u'BUD'}),
         text_at_web={'de': 'http://mein.dokument.ch'}
     )
-    real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
+    real_estate = RealEstateRecord(u'Liegenschaft', u'BL', u'Liestal', 2829, 11395,
                                    geometry, u'http://www.geocat.ch', u'1000', u'BL0200002829',
                                    u'CH775979211712', u'Subunit', [], references=[document])
     real_estate.set_view_service(view_service)
@@ -222,7 +222,7 @@ def test_format_real_estate():
     result = renderer.format_real_estate(real_estate)
     assert isinstance(result, dict)
     assert result == {
-        'Type': u'RealEstate',
+        'Type': u'Liegenschaft',
         'Canton': u'BL',
         'Municipality': u'Liestal',
         'FosNr': 2829,

@@ -136,15 +136,12 @@ class RealEstateTypeText(Base):
     should have access to, for creating extracts.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
-            you  don't like it - don't care about.
         code (str): The identifier on federal level.
         text (str): The text for the multilingual text.
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'real_estate_type_text'
-    id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
-    code = sa.Column(sa.String, nullable=False)
+    code = sa.Column(sa.String, primary_key=True)
     text = sa.Column(JSONType, nullable=False)
 
 

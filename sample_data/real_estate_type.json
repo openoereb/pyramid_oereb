@@ -1,6 +1,5 @@
 [
     {
-        "id": 1,
         "code": "Liegenschaft",
         "text": {
             "de": "Liegenschaft",
@@ -11,7 +10,6 @@
         }
     },
     {
-        "id": 2,
         "code": "SelbstRecht.Baurecht",
         "text": {
             "de": "Baurecht",
@@ -22,7 +20,6 @@
         }
     },
     {
-        "id": 3,
         "code": "SelbstRecht.Quellenrecht",
         "text": {
             "de": "Quellenrecht",
@@ -33,7 +30,6 @@
         }
     },
     {
-        "id": 4,
         "code": "SelbstRecht.Konzessionsrecht",
         "text": {
             "de": "Konzessionsrecht",
@@ -44,7 +40,6 @@
         }
     },
     {
-        "id": 5,
         "code": "SelbstRecht.weitere",
         "text": {
             "de": "weiteres SDR",
@@ -55,7 +50,6 @@
         }
     },
     {
-        "id": 6,
         "code": "Bergwerk",
         "text": {
             "de": "Bergwerk",

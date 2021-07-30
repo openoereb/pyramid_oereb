@@ -151,27 +151,3 @@ def test_get_real_estate_main_page_config():
         'https://wms.ch/?BBOX=2475000,1065000,2850000,1300000'
     assert plan_for_land_register_main_page_config.get('layer_index') == 2
     assert plan_for_land_register_main_page_config.get('layer_opacity') == 0.5
-
-
-@pytest.mark.run(order=-1)
-def test_get_real_estate_type_by_code():
-    Config._config = None
-    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
-
-    mapping = Config.get_real_estate_type_by_code('Liegenschaft').code
-    assert mapping == 'Liegenschaft'
-
-    mapping = Config.get_real_estate_type_by_code('SelbstRecht.Baurecht').code
-    assert mapping == 'SelbstRecht.Baurecht'
-
-    mapping = Config.get_real_estate_type_by_code('SelbstRecht.Quellenrecht').code
-    assert mapping == 'SelbstRecht.Quellenrecht'
-
-    mapping = Config.get_real_estate_type_by_code('SelbstRecht.Konzessionsrecht').code
-    assert mapping == 'SelbstRecht.Konzessionsrecht'
-
-    mapping = Config.get_real_estate_type_by_code('SelbstRecht.weitere').code
-    assert mapping == 'SelbstRecht.weitere'
-
-    mapping = Config.get_real_estate_type_by_code('Bergwerk')
-    assert mapping == 'Bergwerk'
