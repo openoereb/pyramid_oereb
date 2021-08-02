@@ -103,30 +103,15 @@ class Renderer(Base):
                 'MunicipalityLogo': extract.municipality_logo.encode()
             })
         else:
+            plr_logo = self.get_multilingual_text(extract.logo_plr_cadastre.logo)
+            federal_logo = self.get_multilingual_text(extract.federal_logo.logo)
+            cantonal_logo = self.get_multilingual_text(extract.cantonal_logo.logo)
+            municipality_logo = self.get_multilingual_text(extract.municipality_logo.logo)
             extract_dict.update({
-                'LogoPLRCadastreRef': self._request.route_url(
-                    '{0}/image/logo'.format(route_prefix),
-                    logo='oereb',
-                    language=self._language,
-                    extension=extract.logo_plr_cadastre.extension
-                ),
-                'FederalLogoRef': self._request.route_url(
-                    '{0}/image/logo'.format(route_prefix),
-                    logo='confederation',
-                    language=self._language,
-                    extension=extract.federal_logo.extension
-                ),
-                'CantonalLogoRef': self._request.route_url(
-                    '{0}/image/logo'.format(route_prefix),
-                    logo='canton',
-                    language=self._language,
-                    extension=extract.cantonal_logo.extension
-                ),
-                'MunicipalityLogoRef': self._request.route_url(
-                    '{0}/image/municipality'.format(route_prefix),
-                    fosnr=extract.real_estate.fosnr,
-                    extension=extract.municipality_logo.extension
-                )
+                'LogoPLRCadastreRef': plr_logo,
+                'FederalLogoRef': federal_logo,
+                'CantonalLogoRef': cantonal_logo,
+                'MunicipalityLogoRef': municipality_logo
             })
 
         if extract.certification:
