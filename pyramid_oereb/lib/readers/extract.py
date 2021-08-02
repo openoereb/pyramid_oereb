@@ -146,9 +146,19 @@ class ExtractReader(object):
         av_update_date = date_method(real_estate)
         base_data = Config.get_base_data(av_update_date)
         general_information = Config.get_general_information()
-        logos = Config.get_logo_config(language=params.language)
-        logo_key = Config.get('logo').get('confederation')
-        municipality_logo  = Config.get_logo_by_code(logo_key +'.'+str(municipality.fosnr))
+
+        logos = Config.get_logo_config()
+        oereb_code = Config.get('logo').get('oereb')
+        if oereb_code is not None:
+            oereb_logo = Config.get_logo_by_code(oereb_code)
+        country_code = Config.get('logo').get('confederation')
+        if country_code is not None:
+            confederation_logo = Config.get_logo_by_code(country_code)
+        canton_code = Config.get('logo').get('canton')
+        if canton_code is not None:
+            canton_logo = Config.get_logo_by_code(canton_code)
+        if municipality.fosnr and country_code is not None: 
+            municipality_logo = Config.get_logo_by_code(country_code + '.' + str(municipality.fosnr))
 
         av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
         av_provider_method = resolver.resolve(av_provider_method_string)
@@ -163,9 +173,9 @@ class ExtractReader(object):
 
         self.extract = ExtractRecord(
             real_estate,
-            logos.get('oereb'),
-            logos.get('confederation'),
-            logos.get('canton'),
+            oereb_logo,
+            confederation_logo,
+            canton_logo,
             municipality_logo,
             self.plr_cadastre_authority,
             base_data,

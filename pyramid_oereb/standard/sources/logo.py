@@ -17,7 +17,7 @@ class DatabaseSource(BaseDatabaseSource, LogoBaseSource):
             for result in results:
                 self.records.append(self._record_class_(
                     result.code,
-                    result.text
+                    result.logo
                 ))
         finally:
             session.close()

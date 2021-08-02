@@ -36,7 +36,7 @@ class ExtractRecord(object):
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate in its
                 record representation.
-            logo_plr_cadastre (pyramid_oereb.lib.records.image.ImageRecord): Image file of the PLR logo.
+            logo_plr_cadastre (pyramid_oereb.lib.records.logo.LogoRecord): Image file of the PLR logo.
             federal_logo (pyramid_oereb.lib.records.image.ImageRecord):Image file of the federal logo.
             cantonal_logo (pyramid_oereb.lib.records.image.ImageRecord): Image file of the cantonal logo.
             municipality_logo (pyramid_oereb.lib.records.image.ImageRecord): Image file of the municipality

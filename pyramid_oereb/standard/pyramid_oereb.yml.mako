@@ -364,7 +364,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the logo images database table.
         model: pyramid_oereb.standard.models.main.Logo
-  
+
   # Define the document type values configured as default in the data
   document_types_lookup:
     GesetzlicheGrundlage: "GesetzlicheGrundlage"

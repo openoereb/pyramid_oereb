@@ -163,11 +163,8 @@ class Config(object):
         """
         if Config.logos is None:
             raise ConfigurationError("The logo images have not been initialized")
-
         for logo in Config.logos:
             if logo.code == code:
-                print(logo)
-                sdf
                 return logo
         raise ConfigurationError(f"Logo for code: {code} not found in the application configuration")
 
@@ -437,7 +434,7 @@ class Config(object):
         return Config._config.get('general_information')
 
     @staticmethod
-    def get_logo_config(language=None):
+    def get_logo_config():
         """
         Returns a dictionary of the configured file path's to the logos.
 

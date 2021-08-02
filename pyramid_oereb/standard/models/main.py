@@ -64,12 +64,12 @@ class Logo(Base):
 
     Attributes:
         code (str): The identifier given by a code
-        text (str): The image encoded in base64
+        logo (str): The image encoded in base64
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'logo'
     code = sa.Column(sa.String, primary_key=True)
-    text = sa.Column(JSONType, nullable=False)
+    logo = sa.Column(JSONType, nullable=False)
 
 
 class Municipality(Base):
@@ -84,8 +84,6 @@ class Municipality(Base):
         name (str): The Name of the municipality.
         published (bool): Switch whether a municipality is published or not. This has direct
             influence on extract  generation.
-        logo (str): The emblem of the municipality as string but encoded by BaseCode64. Please refer
-            to the  specification for more details about format and dimensons.
         geom (geoalchemy2.types.Geometry): The geometry of municipality borders. For type
             information see geoalchemy2_.  .. _geoalchemy2:
             https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
@@ -96,7 +94,6 @@ class Municipality(Base):
     fosnr = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     name = sa.Column(sa.String, nullable=False)
     published = sa.Column(sa.Boolean, nullable=False, default=False, server_default=sa.text('FALSE'))
-    logo = sa.Column(sa.String, nullable=False)
     geom = sa.Column(Geometry('MULTIPOLYGON', srid=srid), nullable=True)
 
 
