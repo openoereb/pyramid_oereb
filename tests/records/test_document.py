@@ -10,7 +10,7 @@ from pyramid_oereb.lib.config import Config
 
 def test_mandatory_fields():
     with pytest.raises(TypeError):
-        DocumentRecord('runningModifications', datetime.date(1985, 8, 29))
+        DocumentRecord('AenderungMitVorwirkung', datetime.date(1985, 8, 29))
 
 
 def test_init():
@@ -36,7 +36,7 @@ def test_init():
 def test_invalid_document_type():
     office_record = OfficeRecord({'en': 'name'})
     with pytest.raises(AttributeError):
-        DocumentRecord('invalid', 1, 'runningModifications', {'en': 'title'}, office_record,
+        DocumentRecord('invalid', 1, 'AenderungMitVorwirkung', {'en': 'title'}, office_record,
                        datetime.date(1985, 8, 29))
 
 

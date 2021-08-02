@@ -22,7 +22,7 @@ def test_mandatory_fields():
 
 
 def test_init():
-    record = GeometryRecord("runningModifications", datetime.date(1985, 8, 29),
+    record = GeometryRecord("AenderungMitVorwirkung", datetime.date(1985, 8, 29),
                             None, Polygon(), 'test')
     assert isinstance(record.law_status, str)
     assert isinstance(record.published_from, datetime.date)
@@ -86,7 +86,7 @@ def test_geom_dim(geom, dim):
     )
 ])
 def test_extract_collection(input_geom, result, extracted):
-    law_status_record = LawStatusRecord("runningModifications", {u'de': u'BlaBla'})
+    law_status_record = LawStatusRecord("AenderungMitVorwirkung", {u'de': u'BlaBla'})
     geometry_record = GeometryRecord(
         law_status_record,
         datetime.date(1985, 8, 29),
@@ -238,7 +238,7 @@ def test_extract_collection(input_geom, result, extracted):
 )
 def test_calculate(geometry, real_estate_geometry, length_limit, area_limit, length_share, area_share,
                    nr_of_points, test):
-    law_status_record = LawStatusRecord("runningModifications", {u'de': u'BlaBla'})
+    law_status_record = LawStatusRecord("AenderungMitVorwirkung", {u'de': u'BlaBla'})
     geometry_record = GeometryRecord(
         law_status_record,
         datetime.date(1985, 8, 29),
@@ -289,7 +289,7 @@ def test_validity(geometry, test):
 )
 def test_published(published_from, published_until, published):
     geometry_record = GeometryRecord(
-        LawStatusRecord("runningModifications", {u'de': u'BlaBla'}),
+        LawStatusRecord("AenderungMitVorwirkung", {u'de': u'BlaBla'}),
         published_from,
         published_until,
         Polygon([(2698200, 1208800), (2698400, 1208800), (2698400, 1209000), (2698200, 1209000)]),
