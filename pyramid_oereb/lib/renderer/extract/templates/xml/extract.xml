@@ -11,11 +11,6 @@
     from pyramid_oereb import Config, route_prefix
 
     language = params.language or Config.get('default_language')
-
-    ext_oereb_logo = extract.logo_plr_cadastre.extension
-    ext_federal_logo = extract.federal_logo.extension
-    ext_cantonal_logo = extract.cantonal_logo.extension
-    ext_municipality_logo = extract.municipality_logo.extension
 %>
 <%
     def parse_bool(expression):
@@ -58,11 +53,11 @@
         </data:ThemeWithoutData>
         %endfor
     %endif
-    %if params.images:
-        <data:LogoPLRCadastre>${extract.logo_plr_cadastre.encode()}</data:LogoPLRCadastre>
-        <data:FederalLogo>${extract.federal_logo.encode()}</data:FederalLogo>
-        <data:CantonalLogo>${extract.cantonal_logo.encode()}</data:CantonalLogo>
-        <data:MunicipalityLogo>${extract.municipality_logo.encode()}</data:MunicipalityLogo>
+    %if extract.logo_plr_cadastre.logo:
+        <data:LogoPLRCadastre>${extract.logo_plr_cadastre.logo[language]}</data:LogoPLRCadastre>
+        <data:FederalLogo>${extract.federal_logo.logo[language]}</data:FederalLogo>
+        <data:CantonalLogo>${extract.cantonal_logo.logo[language]}</data:CantonalLogo>
+        <data:MunicipalityLogo>${extract.municipality_logo.logo[language]}</data:MunicipalityLogo>
     %else:
         <data:LogoPLRCadastreRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='oereb', language=language, extension=ext_oereb_logo) | x}</data:LogoPLRCadastreRef>
         <data:FederalLogoRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='confederation', language=language, extension=ext_federal_logo) | x}</data:FederalLogoRef>

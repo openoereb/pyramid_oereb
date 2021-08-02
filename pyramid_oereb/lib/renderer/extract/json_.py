@@ -95,23 +95,39 @@ class Renderer(Base):
             'ThemeWithoutData': [self.format_theme(theme) for theme in extract.theme_without_data]
         }
 
-        if self._params.images:
+        if extract.logo_plr_cadastre:
+            logo_plr_cadastre = extract.logo_plr_cadastre.logo[self._language]
             extract_dict.update({
-                'LogoPLRCadastre': extract.logo_plr_cadastre.encode(),
-                'FederalLogo': extract.federal_logo.encode(),
-                'CantonalLogo': extract.cantonal_logo.encode(),
-                'MunicipalityLogo': extract.municipality_logo.encode()
+                'LogoPLRCadastre': logo_plr_cadastre,
+                'FederalLogo': extract.federal_logo.logo[self._language],
+                'CantonalLogo': extract.cantonal_logo.logo[self._language],
+                'MunicipalityLogo': extract.municipality_logo.logo[self._language]
             })
         else:
-            plr_logo = self.get_multilingual_text(extract.logo_plr_cadastre.logo)
-            federal_logo = self.get_multilingual_text(extract.federal_logo.logo)
-            cantonal_logo = self.get_multilingual_text(extract.cantonal_logo.logo)
-            municipality_logo = self.get_multilingual_text(extract.municipality_logo.logo)
             extract_dict.update({
-                'LogoPLRCadastreRef': plr_logo,
-                'FederalLogoRef': federal_logo,
-                'CantonalLogoRef': cantonal_logo,
-                'MunicipalityLogoRef': municipality_logo
+                'LogoPLRCadastreRef': self._request.route_url(
+                    '{0}/image/logo'.format(route_prefix),
+                    logo='oereb',
+                    language=self._language,
+                    extension=extract.logo_plr_cadastre.extension
+                ),
+                'FederalLogoRef': self._request.route_url(
+                    '{0}/image/logo'.format(route_prefix),
+                    logo='confederation',
+                    language=self._language,
+                    extension=extract.federal_logo.extension
+                ),
+                'CantonalLogoRef': self._request.route_url(
+                    '{0}/image/logo'.format(route_prefix),
+                    logo='canton',
+                    language=self._language,
+                    extension=extract.cantonal_logo.extension
+                ),
+                'MunicipalityLogoRef': self._request.route_url(
+                    '{0}/image/municipality'.format(route_prefix),
+                    fosnr=extract.real_estate.fosnr,
+                    extension=extract.municipality_logo.extension
+                )
             })
 
         if extract.certification:
