@@ -32,17 +32,6 @@ class PlrWebservice(object):
         self._request = request
         self._params = {k.upper(): v for k, v in request.params.items()}
 
-    # For backward compatibility with old specification.
-    def _is_json(self):
-        """
-        Returns True if the requests format is JSON.
-
-        Returns:
-            bool: True if requested format is JSON.
-        """
-        url = self._request.current_route_url().split('?')
-        return self._request.matchdict.get('format', '').lower() == 'json' or url[0].endswith('.json')
-
     def get_versions(self):
         """
         Returns the available versions of this service.
@@ -67,15 +56,10 @@ class PlrWebservice(object):
                 ]
             }
         }
-        # Try - catch for backward compatibility with old specification.
-        try:
-            output_format = self.__validate_format_param__(['xml', 'json'])
-        except HTTPBadRequest:
-            output_format = None
-            log.warning('Deprecated way to specify the format. Use "/versions/{format}" instead')
-        renderer_name = 'json' if output_format == 'json' or self._is_json() else 'pyramid_oereb_versions_xml'
+        output_format = self.__validate_format_param__(['xml', 'json'])
+        renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_versions_xml'
         response = render_to_response(renderer_name, versions, request=self._request)
-        if self._is_json():
+        if output_format == 'json':
             response.content_type = 'application/json; charset=UTF-8'
         response.extras = OerebStats(service='GetVersions', output_format=output_format)
         return response
@@ -88,7 +72,8 @@ class PlrWebservice(object):
             pyramid.response.Response: The `capabilities` response.
         """
 
-        params = Parameter('json' if self._is_json() else 'xml')
+        output_format = self.__validate_format_param__(['xml', 'json'])
+        params = Parameter('json' if output_format == 'json' else 'xml')
 
         supported_languages = Config.get_language()
         themes = list()
@@ -115,15 +100,9 @@ class PlrWebservice(object):
             }
         }
 
-        # Try - catch for backward compatibility with old specification.
-        try:
-            output_format = self.__validate_format_param__(['xml', 'json'])
-        except HTTPBadRequest:
-            output_format = None
-            log.warning('Deprecated way to specify the format. Use "/capabilities/{format}" instead')
-        renderer_name = 'json' if output_format == 'json' or self._is_json() else 'pyramid_oereb_capabilities_xml'  # noqa: E501
+        renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_capabilities_xml'  # noqa: E501
         response = render_to_response(renderer_name, capabilities, request=self._request)
-        if self._is_json():
+        if output_format == 'json':
             response.content_type = 'application/json; charset=UTF-8'
         response.extras = OerebStats(service='GetCapabilities', output_format=output_format)
         return response
@@ -135,7 +114,8 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `getegrid` response.
         """
-        params = Parameter('json' if self._is_json() else 'xml')
+        output_format = self.__validate_format_param__(['xml', 'json'])
+        params = Parameter('json' if output_format == 'json' else 'xml')
         xy = self._params.get('XY')
         gnss = self._params.get('GNSS')
         try:
@@ -167,7 +147,8 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `getegrid` response.
         """
-        params = Parameter('json' if self._is_json() else 'xml')
+        output_format = self.__validate_format_param__(['xml', 'json'])
+        params = Parameter('json' if output_format == 'json' else 'xml')
         identdn = self._request.matchdict.get('identdn')
         number = self._request.matchdict.get('number')
         try:
@@ -199,7 +180,8 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The `getegrid` response.
         """
-        params = Parameter('json' if self._is_json() else 'xml')
+        output_format = self.__validate_format_param__(['xml', 'json'])
+        params = Parameter('json' if output_format == 'json' else 'xml')
         postalcode = self._request.matchdict.get('postalcode')
         localisation = self._request.matchdict.get('localisation')
         number = self._request.matchdict.get('number')
@@ -454,18 +436,11 @@ class PlrWebservice(object):
             })
         egrid = {'GetEGRIDResponse': real_estates}
 
-        # Try - catch for backward compatibility with old specification.
-        try:
-            output_format = self.__validate_format_param__(['xml', 'json'])
-            renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_getegrid_xml'
-        except HTTPBadRequest:
-            # For backwards compatibility (older version specification, provide a default here)
-            output_format = 'xml'
-            renderer_name = 'json' if self._is_json() else 'pyramid_oereb_getegrid_xml'
-            log.warning('Deprecated way to specify the format. Use "/getegrid/{format}/..." instead')
+        output_format = self.__validate_format_param__(['xml', 'json'])
+        renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_getegrid_xml'
 
         response = render_to_response(renderer_name, egrid, request=self._request)
-        if self._is_json():
+        if output_format == 'json':
             response.content_type = 'application/json; charset=UTF-8'
         response.extras = OerebStats(service='GetEGRID', output_format=output_format)
         return response
