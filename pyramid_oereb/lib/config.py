@@ -604,9 +604,9 @@ class Config(object):
          Returns a dictionary of the configured law status settings.
 
         Args:
-            theme_code (str): The theme code to loop up the configured law status code.
+            theme_code (str): The theme code to look up the configured law status code.
             law_status_code (str): The law status code. This must be "inKraft" or "AenderungMitVorwirkung"
-            or "AenderungOhneVorwirkung". Any other value won't match and throw a silent error.
+            or "AenderungOhneVorwirkung". Any other value won't match and throws a silent error.
 
         Returns:
             dict: The translation from the configuration.
@@ -637,9 +637,9 @@ class Config(object):
          Returns a dictionary of the configured law status settings.
 
         Args:
-            law_status_code (str): The law status code. This must be "inKraft" or
+            law_status_code (str): The law status code. It must be "inKraft" or
             "AenderungMitVorwirkung" or "AenderungOhneVorwirkung". Any other value won't match
-            and throw a silent error.
+            and throws a silent error.
 
         Returns:
             dict: The translation from the configuration.

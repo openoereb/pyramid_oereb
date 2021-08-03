@@ -875,16 +875,6 @@ pyramid_oereb:
         inKraft: inKraft
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
-      # Example of how sub_themes sorting can be activated (uncomment to enable):
-      #sub_themes:
-      #  sorter:
-      #    module: pyramid_oereb.contrib.print_proxy.sub_themes.sorting
-      #    class_name: ListSort
-      #    params:
-      #      list:
-      #        - SubTheme3
-      #        - SubTheme2
-      #        - SubTheme1
 
     - code: GroundwaterProtectionZones
       geometry_type: POLYGON

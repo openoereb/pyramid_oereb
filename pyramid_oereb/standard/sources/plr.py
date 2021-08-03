@@ -37,8 +37,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             source (dict): The configuration dictionary of the public law restriction
             hooks (dict of str): The hook methods: get_symbol, get_symbol_ref. They have to be provided as
                 dotted string for further use with dotted name resolver of pyramid package.
-            law_status (dict of str): The text of the law status. It must be from code "inKraft" or
-            "AenderungMitVorwirkung" or "AenderungOhneVorwirkung"
+            law_status (dict of str): The configuration dictionary of the law status. It consists of
+                the code and text which must be a dictionary containing language (as configured)
+                as key and text as value.
         """
         models_path = kwargs.get('source').get('params').get('models')
         bds_kwargs = {
