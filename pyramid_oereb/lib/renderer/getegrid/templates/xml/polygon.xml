@@ -1,0 +1,22 @@
+<%page args="polygon"/>
+<% from itertools import chain %>
+<gml:Polygon gml:id="${get_gml_id()}">
+    <gml:exterior>
+        <gml:LinearRing>
+            <gml:posList>
+                ${' '.join(map(str,chain.from_iterable(polygon.exterior.coords)))}
+            </gml:posList>
+        </gml:LinearRing>
+    </gml:exterior>
+    %if len(list(polygon.interiors)) > 0:
+        %for linear_ring in list(polygon.interiors):
+            <gml:interior>
+                <gml:LinearRing>
+                    <gml:posList>
+                        ${' '.join(map(str,chain.from_iterable(linear_ring.coords)))}
+                    </gml:posList>
+                </gml:LinearRing>
+            </gml:interior>
+        %endfor
+    %endif
+</gml:Polygon>
