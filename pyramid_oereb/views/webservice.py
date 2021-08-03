@@ -14,6 +14,7 @@ from pyreproj import Reprojector
 
 from pyramid_oereb.lib.processor import create_processor
 from pyramid_oereb.lib.readers.address import AddressReader
+from pyramid_oereb.lib.renderer import Base as Renderer
 from timeit import default_timer as timer
 
 from pyramid_oereb.contrib.stats.decorators import OerebStats
@@ -107,109 +108,138 @@ class PlrWebservice(object):
         response.extras = OerebStats(service='GetCapabilities', output_format=output_format)
         return response
 
-    def get_egrid_coord(self):
+    def get_egrid(self):
+        """
+        Validates the request parameters and calls the query method
+        according to the specified parameters.
+
+        Returns:
+            pyramid.response.Response: The `getegrid` response.
+        """
+        try:
+            output_format = self.__validate_format_param__(['xml', 'json'])
+            with_geometry = False
+            if self.__has_params__(['GEOMETRY']):
+                if self._request.params.get('GEOMETRY').lower() == 'true':
+                    with_geometry = True
+            params = Parameter(
+                'json' if output_format == 'json' else 'xml',
+                with_geometry=with_geometry
+            )
+            # Type A
+            if self.__has_params__(['EN']):
+                records = self._get_egrid_coord(params)
+            # Type B
+            elif self.__has_params__(['IDENTDN', 'NUMBER']):
+                records = self._get_egrid_ident(params)
+            # Type C
+            elif self.__has_params__(['POSTALCODE', 'LOCALISATION', 'NUMBER']):
+                records = self._get_egrid_address(params)
+            # Type D
+            elif self.__has_params__(['GNSS']):
+                records = self._get_egrid_coord(params)
+            # Raise exception
+            else:
+                raise HTTPBadRequest(
+                    'Invalid parameters. You need one of the following combinations: '
+                    'EN or GNSS or IDENTDN and NUMBER or POSTALCODE, LOCALISATION and NUMBER.'
+                )
+            response = self.__get_egrid_response__(records, params)
+        except HTTPNoContent as err:
+            response = HTTPNoContent('{}'.format(err))
+        except HTTPBadRequest as err:
+            response = HTTPBadRequest('{}'.format(err))
+        response.extras = OerebStats(
+            service='GetEgrid',
+            params=self._request.params
+        )
+        return response
+
+    def _get_egrid_coord(self, params):
         """
         Returns a list with the matched EGRIDs for the given coordinates.
 
-        Returns:
-            pyramid.response.Response: The `getegrid` response.
-        """
-        output_format = self.__validate_format_param__(['xml', 'json'])
-        params = Parameter('json' if output_format == 'json' else 'xml')
-        xy = self._params.get('XY')
-        gnss = self._params.get('GNSS')
-        try:
-            if xy or gnss:
-                geom_wkt = 'SRID={0};{1}'
-                if xy:
-                    geom_wkt = geom_wkt.format(Config.get('srid'),
-                                               self.__parse_xy__(xy, buffer_dist=1.0).wkt)
-                elif gnss:
-                    geom_wkt = geom_wkt.format(Config.get('srid'), self.__parse_gnss__(gnss).wkt)
-                processor = create_processor()
-                records = processor.real_estate_reader.read(params, **{'geometry': geom_wkt})
-                response = self.__get_egrid_response__(records)
-            else:
-                raise HTTPBadRequest('XY or GNSS must be defined.')
-        except HTTPNoContent as err:
-            response = HTTPNoContent('{}'.format(err))
-        except HTTPBadRequest as err:
-            response = HTTPBadRequest('{}'.format(err))
-        response.extras = OerebStats(service='GetEgridCoord',
-                                     params={'xy': xy,
-                                             'gnss': gnss})
-        return response
+        Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameter object.
 
-    def get_egrid_ident(self):
+        Returns:
+            list of pyramid_oereb.lib.records.real_estate.RealEstateRecord:
+                The list of all found records filtered by the passed criteria.
+        """
+        en = self._params.get('EN')
+        gnss = self._params.get('GNSS')
+        if en or gnss:
+            geom_wkt = 'SRID={0};{1}'
+            if en:
+                geom_wkt = geom_wkt.format(
+                    Config.get('srid'),
+                    self.__parse_en__(en, buffer_dist=1.0).wkt
+                )
+            elif gnss:
+                geom_wkt = geom_wkt.format(
+                    Config.get('srid'),
+                    self.__parse_gnss__(gnss).wkt
+                )
+            processor = create_processor()
+            return processor.real_estate_reader.read(params, **{'geometry': geom_wkt})
+        else:
+            raise HTTPBadRequest('EN or GNSS must be defined.')
+
+    def _get_egrid_ident(self, params):
         """
         Returns a list with the matched EGRIDs for the given NBIdent and property number.
 
-        Returns:
-            pyramid.response.Response: The `getegrid` response.
-        """
-        output_format = self.__validate_format_param__(['xml', 'json'])
-        params = Parameter('json' if output_format == 'json' else 'xml')
-        identdn = self._request.matchdict.get('identdn')
-        number = self._request.matchdict.get('number')
-        try:
-            if identdn and number:
-                processor = create_processor()
-                records = processor.real_estate_reader.read(
-                    params,
-                    **{
-                        'nb_ident': identdn,
-                        'number': number
-                    }
-                )
-                response = self.__get_egrid_response__(records)
-            else:
-                raise HTTPBadRequest('IDENTDN and NUMBER must be defined.')
-        except HTTPNoContent as err:
-            response = HTTPNoContent('{}'.format(err))
-        except HTTPBadRequest as err:
-            response = HTTPBadRequest('{}'.format(err))
-        response.extras = OerebStats(service='GetEgridIdent',
-                                     params={'identdn': identdn,
-                                             'number': number})
-        return response
+        Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameter object.
 
-    def get_egrid_address(self):
+        Returns:
+            list of pyramid_oereb.lib.records.real_estate.RealEstateRecord:
+                The list of all found records filtered by the passed criteria.
+        """
+        identdn = self._request.params.get('IDENTDN')
+        number = self._request.params.get('NUMBER')
+        if identdn and number:
+            processor = create_processor()
+            return processor.real_estate_reader.read(
+                params,
+                **{
+                    'nb_ident': identdn,
+                    'number': number
+                }
+            )
+        else:
+            raise HTTPBadRequest('IDENTDN and NUMBER must be defined.')
+
+    def _get_egrid_address(self, params):
         """
         Returns a list with the matched EGRIDs for the given postal address.
 
+        Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameter object.
+
         Returns:
-            pyramid.response.Response: The `getegrid` response.
+            list of pyramid_oereb.lib.records.real_estate.RealEstateRecord:
+                The list of all found records filtered by the passed criteria.
         """
-        output_format = self.__validate_format_param__(['xml', 'json'])
-        params = Parameter('json' if output_format == 'json' else 'xml')
-        postalcode = self._request.matchdict.get('postalcode')
-        localisation = self._request.matchdict.get('localisation')
-        number = self._request.matchdict.get('number')
-        try:
-            if postalcode and localisation and number:
-                reader = AddressReader(
-                    Config.get_address_config().get('source').get('class'),
-                    **Config.get_address_config().get('source').get('params')
-                )
-                addresses = reader.read(params, localisation, int(postalcode), number)
-                if len(addresses) == 0:
-                    raise HTTPNoContent()
-                geometry = 'SRID={srid};{wkt}'.format(srid=Config.get('srid'),
-                                                      wkt=addresses[0].geom.wkt)
-                processor = create_processor()
-                records = processor.real_estate_reader.read(params, **{'geometry': geometry})
-                response = self.__get_egrid_response__(records)
-            else:
-                raise HTTPBadRequest('POSTALCODE, LOCALISATION and NUMBER must be defined.')
-        except HTTPNoContent as err:
-            response = HTTPNoContent('{}'.format(err))
-        except HTTPBadRequest as err:
-            response = HTTPBadRequest('{}'.format(err))
-        response.extras = OerebStats(service='GetEgridAddress',
-                                     params={'postalcode': postalcode,
-                                             'localisation': localisation,
-                                             'number': number})
-        return response
+        postalcode = self._request.params.get('POSTALCODE')
+        localisation = self._request.params.get('LOCALISATION')
+        number = self._request.params.get('NUMBER')
+        if postalcode and localisation and number:
+            reader = AddressReader(
+                Config.get_address_config().get('source').get('class'),
+                **Config.get_address_config().get('source').get('params')
+            )
+            addresses = reader.read(params, localisation, int(postalcode), number)
+            if len(addresses) == 0:
+                raise HTTPNoContent()
+            geometry = 'SRID={srid};{wkt}'.format(
+                srid=Config.get('srid'),
+                wkt=addresses[0].geom.wkt
+            )
+            processor = create_processor()
+            return processor.real_estate_reader.read(params, **{'geometry': geometry})
+        else:
+            raise HTTPBadRequest('POSTALCODE, LOCALISATION and NUMBER must be defined.')
 
     def get_extract_by_id(self):
         """
@@ -412,13 +442,14 @@ class PlrWebservice(object):
         log.debug('----- X/Y coordinates after transformation: ({0}, {1}) -----'.format(x, y))
         return Point(x, y)
 
-    def __get_egrid_response__(self, records):
+    def __get_egrid_response__(self, records, params):
         """
         Creates a valid GetEGRID response from a list of real estate records.
 
         Args:
             records (list of pyramid_oereb.lib.records.real_estate.RealEstateRecord): List of real
                 estate records.
+            params (pyramid_oereb.views.webservice.Parameter): The parameter object.
 
         Returns:
             pyramid.response.Response: The `getegrid` response.
@@ -429,23 +460,34 @@ class PlrWebservice(object):
 
         real_estates = list()
         for r in records:
-            real_estates.append({
+            real_estate = {
                 'egrid': getattr(r, 'egrid'),
                 'number': getattr(r, 'number'),
-                'identDN': getattr(r, 'identdn')
-            })
+                'identDN': getattr(r, 'identdn'),
+                'type': getattr(r, 'type')
+            }
+            if params.with_geometry:
+                real_estate.update({
+                    'limit': Renderer.from_shapely(getattr(r, 'limit'))
+                })
+            real_estates.append(real_estate)
         egrid = {'GetEGRIDResponse': real_estates}
 
         output_format = self.__validate_format_param__(['xml', 'json'])
-        renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_getegrid_xml'
-
-        response = render_to_response(renderer_name, egrid, request=self._request)
         if output_format == 'json':
+            response = render_to_response('json', egrid, request=self._request)
             response.content_type = 'application/json; charset=UTF-8'
+        else:
+            response = render_to_response(
+                'pyramid_oereb_getegrid_xml',
+                (egrid, params),
+                request=self._request
+            )
+
         response.extras = OerebStats(service='GetEGRID', output_format=output_format)
         return response
 
-    def __parse_xy__(self, xy, buffer_dist=None):
+    def __parse_en__(self, en, buffer_dist=None):
         """
         Parses the coordinates from the XY parameter and creates a point geometry.
         If a buffer distance is defined, a buffer with the specified distance will be applied.
@@ -459,11 +501,11 @@ class PlrWebservice(object):
             shapely.geometry.Point or shapely.geometry.Polygon: The coordinates as
                 Point or, if using a buffer, as Polygon.
         """
-        coords = xy.split(',')
+        coords = en.split(',')
 
         if len(coords) != 2:
             raise HTTPBadRequest(
-                'The parameter XY has to be a comma-separated pair of coordinates.')
+                'The parameter EN has to be a comma-separated pair of coordinates.')
 
         x = float(coords[0])
         y = float(coords[1])
@@ -493,6 +535,21 @@ class PlrWebservice(object):
 
         # Coordinates provided as "latitude,longitude"
         return self.__coord_transform__(coords, 4326).buffer(1.0)
+
+    def __has_params__(self, needed):
+        """
+        Checks if the request contains all needed parameters.
+
+        Args:
+            needed (list of str): The parameters to check.
+
+        Returns:
+            bool: True if all needed parameters are available, false otherwise.
+        """
+        for p in needed:
+            if p not in self._request.params:
+                return False
+        return True
 
 
 class Parameter(object):
