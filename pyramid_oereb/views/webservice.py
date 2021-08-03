@@ -151,7 +151,7 @@ class PlrWebservice(object):
             response = HTTPBadRequest('{}'.format(err))
         response.extras = OerebStats(
             service='GetEgrid',
-            params=self._request.params
+            params=dict(self._request.params)
         )
         return response
 
@@ -487,13 +487,14 @@ class PlrWebservice(object):
         response.extras = OerebStats(service='GetEGRID', output_format=output_format)
         return response
 
-    def __parse_en__(self, en, buffer_dist=None):
+    @staticmethod
+    def __parse_en__(en, buffer_dist=None):
         """
         Parses the coordinates from the XY parameter and creates a point geometry.
         If a buffer distance is defined, a buffer with the specified distance will be applied.
 
         Args:
-            xy (str): XY parameter from the getegrid request.
+            en (str): EN parameter from the getegrid request.
             buffer_dist (float or None): Distance for the buffer applied to the
                 point. If None, no buffer will be applied.
 
