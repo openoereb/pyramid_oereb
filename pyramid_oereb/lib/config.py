@@ -615,7 +615,6 @@ class Config(object):
         theme_law_status = Config.get_theme_config_by_code(theme_code).get('law_status')
         for record in Config.law_status:
             law_status_code_from_config = theme_law_status.get(record.code)
-            log.info("law_status_code: " + law_status_code + "---" + law_status_code_from_config)
             if law_status_code == law_status_code_from_config:
                 return record
 
