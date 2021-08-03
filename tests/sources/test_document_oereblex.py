@@ -8,7 +8,7 @@ from geolink_formatter.entity import Document, File
 from requests.auth import HTTPBasicAuth
 
 from pyramid_oereb.contrib.sources.document import OEREBlexSource
-from pyramid_oereb.lib.records.documents import f
+from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from tests.mockrequest import MockParameter
 
