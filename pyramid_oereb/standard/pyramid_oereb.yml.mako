@@ -278,19 +278,6 @@ pyramid_oereb:
         stroke_opacity: 0.6
         stroke_color: '#e60000'
         stroke_width: 5
-    type_mapping:
-      - mapping: RealEstate
-        type: Liegenschaft
-      - mapping: Distinct_and_permanent_rights.BuildingRight
-        type: Baurecht
-      - mapping: Distinct_and_permanent_rights.right_to_spring_water
-        type: Quellenrecht
-      - mapping: Distinct_and_permanent_rights.concession
-        type: Konzessionsrecht
-      - mapping: Distinct_and_permanent_rights.other
-        type: weitere
-      - mapping: Mineral_rights
-        type: Bergwerk
     # The real estate must have a property source.
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
@@ -439,6 +426,32 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the exclusion_of_liability database table.
         model: pyramid_oereb.standard.models.main.ExclusionOfLiability
+
+  # Define the real estate type values configured as default in the data
+  real_estate_type_lookup:
+    Liegenschaft: "Liegenschaft"
+    SelbstRecht.Baurecht: "SelbstRecht.Baurecht"
+    SelbstRecht.Quellenrecht: "SelbstRecht.Quellenrecht"
+    SelbstRecht.Konzessionsrecht: "SelbstRecht.Konzessionsrecht"
+    SelbstRecht.weitere: "SelbstRecht.weitere"
+    Bergwerk: "Bergwerk"
+
+  # The processor of the oereb project joins the real estate type labels. In the standard configuration this
+  # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
+  # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
+  # the source. The model must implement the same field names and information as the default model does.
+  real_estate_type:
+    # The real estate type text elements must have a property source.
+    source:
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source which reads data from a database.
+      class: pyramid_oereb.standard.sources.real_estate_type.DatabaseSource
+      # The necessary parameters to use this class
+      params:
+        # The connection path where the database can be found
+        db_connection: *main_db_connection
+        # The model which maps the document type texts database table.
+        model: pyramid_oereb.standard.models.main.RealEstateType
 
   # The processor of the oereb project needs access to general information data. In the standard
   # configuration this is assumed to be read from a database. Hint: If you want to read the general

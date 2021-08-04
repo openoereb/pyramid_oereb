@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb import Config
-
 
 class RealEstateRecord(object):
     """
@@ -50,7 +48,7 @@ class RealEstateRecord(object):
         self.number = number
         self.identdn = identdn
         self.egrid = egrid
-        self.type = Config.get_real_estate_type_by_mapping(type)
+        self.type = type
         self.canton = canton
         self.municipality = municipality
         self.subunit_of_land_register = subunit_of_land_register

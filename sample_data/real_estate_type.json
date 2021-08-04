@@ -1,0 +1,62 @@
+[
+    {
+        "code": "Liegenschaft",
+        "text": {
+            "de": "Liegenschaft",
+            "fr": "Bien-fonds",
+            "it": "Bene immobile",
+            "rm": "Bain immobigliar",
+            "en": "Property"
+        }
+    },
+    {
+        "code": "SelbstRecht.Baurecht",
+        "text": {
+            "de": "Baurecht",
+            "fr": "Droit de superficie",
+            "it": "Diritto di superficie",
+            "rm": "Dretg da construcziun",
+            "en": "Building right"
+        }
+    },
+    {
+        "code": "SelbstRecht.Quellenrecht",
+        "text": {
+            "de": "Quellenrecht",
+            "fr": "Droit de source",
+            "it": "Diritto di sorgente",
+            "rm": "Dretg da funtauna",
+            "en": "Right to spring water"
+        }
+    },
+    {
+        "code": "SelbstRecht.Konzessionsrecht",
+        "text": {
+            "de": "Konzessionsrecht",
+            "fr": "Droit de concession",
+            "it": "Diritto di concessione",
+            "rm": "Dretg da concessiun",
+            "en": "Right to licence"
+        }
+    },
+    {
+        "code": "SelbstRecht.weitere",
+        "text": {
+            "de": "weiteres SDR",
+            "fr": "Autre DDP",
+            "it": "altre DSP",
+            "rm": "ulteriur DIP",
+            "en": "other distinct and permanent rights"
+        }
+    },
+    {
+        "code": "Bergwerk",
+        "text": {
+            "de": "Bergwerk",
+            "fr": "Mine",
+            "it": "Miniera",
+            "rm": "Miniera",
+            "en": "Mine"
+        }
+    }
+]

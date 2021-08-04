@@ -9,6 +9,8 @@ from pyramid.path import DottedNameResolver
 from pyramid.request import Request
 from pyramid.testing import DummyRequest
 
+from shapely.geometry import mapping
+
 from pyramid_oereb import Config
 
 
@@ -208,3 +210,22 @@ class Base(object):
         except AttributeError as ex:
             log.warn('Elements can not be sorted: {0}'.format(ex))
             return multilingual_elements
+
+    @staticmethod
+    def from_shapely(geom):
+        """
+        Formats shapely geometry for rendering according to the federal specification.
+
+        Args:
+            geom (shapely.geometry.base.BaseGeometry): The geometry object to be formatted.
+
+        Returns:
+            dict: The formatted geometry.
+        """
+        geom_dict = {
+            'coordinates': mapping(geom)['coordinates'],
+            'crs': 'EPSG:{srid}'.format(srid=Config.get('srid'))
+            # isosqlmmwkb only used for curved geometries (not supported by shapely)
+            # 'isosqlmmwkb': b64.encode(geom.wkb)
+        }
+        return geom_dict

@@ -12,11 +12,11 @@ from tests import pyramid_oereb_test_config
     }, {
         'GnsS': '32.1244978460310,-19.917989937473'
     }, {
-        'XY': '32.1244978460310,-19.917989937473'
+        'EN': '32.1244978460310,-19.917989937473'
     }, {
-        'xy': '32.1244978460310,-19.917989937473'
+        'en': '32.1244978460310,-19.917989937473'
     }, {
-        'Xy': '32.1244978460310,-19.917989937473'
+        'En': '32.1244978460310,-19.917989937473'
     }
 ])
 def test_get_egrid_coord(params):
@@ -32,7 +32,7 @@ def test_get_egrid_coord(params):
 
         request.params.update(params)
         webservice = PlrWebservice(request)
-        webservice.get_egrid_coord()
+        webservice.get_egrid()
 
 
 @pytest.mark.parametrize('params', [

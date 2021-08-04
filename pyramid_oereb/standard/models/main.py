@@ -141,6 +141,21 @@ class RealEstate(Base):
     limit = sa.Column(Geometry('MULTIPOLYGON', srid=srid))
 
 
+class RealEstateType(Base):
+    """
+    The container where you can throw in all the real estates type texts this application
+    should have access to, for creating extracts.
+
+    Attributes:
+        code (str): The identifier on federal level.
+        text (str): The text for the multilingual text.
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'real_estate_type'
+    code = sa.Column(sa.String, primary_key=True)
+    text = sa.Column(JSONType, nullable=False)
+
+
 class Address(Base):
     """
     The bucket you can throw all addresses in the application should be able to use for the get egrid
