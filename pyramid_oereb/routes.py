@@ -38,7 +38,15 @@ def includeme(config):  # pragma: no cover
                     request_method='GET', decorator=log_response)
 
     # Get versions
-    config.add_route('{0}/versions/'.format(route_prefix), '/versions/{format}')
+    config.add_route('{0}/versions'.format(route_prefix), '/versions/{format}')
+    config.add_view(
+        PlrWebservice,
+        attr='get_versions',
+        route_name='{0}/versions'.format(route_prefix),
+        request_method='GET',
+        decorator=log_response
+    )
+    config.add_route('{0}/versions/'.format(route_prefix), '/versions/{format}/')
     config.add_view(
         PlrWebservice,
         attr='get_versions',
@@ -48,7 +56,15 @@ def includeme(config):  # pragma: no cover
     )
 
     # Get capabilities
-    config.add_route('{0}/capabilities/'.format(route_prefix), '/capabilities/{format}')
+    config.add_route('{0}/capabilities'.format(route_prefix), '/capabilities/{format}')
+    config.add_view(
+        PlrWebservice,
+        attr='get_capabilities',
+        route_name='{0}/capabilities'.format(route_prefix),
+        request_method='GET',
+        decorator=log_response
+    )
+    config.add_route('{0}/capabilities/'.format(route_prefix), '/capabilities/{format}/')
     config.add_view(
         PlrWebservice,
         attr='get_capabilities',
@@ -58,6 +74,15 @@ def includeme(config):  # pragma: no cover
     )
 
     # Get egrid
+    config.add_route('{0}/getegrid'.format(route_prefix),
+                     '/getegrid/{format}')
+    config.add_view(
+        PlrWebservice,
+        attr='get_egrid',
+        route_name='{0}/getegrid'.format(route_prefix),
+        request_method='GET',
+        decorator=log_response
+    )
     config.add_route('{0}/getegrid/'.format(route_prefix),
                      '/getegrid/{format}/')
     config.add_view(
