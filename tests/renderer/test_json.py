@@ -222,7 +222,10 @@ def test_format_real_estate():
     result = renderer.format_real_estate(real_estate)
     assert isinstance(result, dict)
     assert result == {
-        'Type': u'Liegenschaft',
+        'Type': {
+            'Code': 'Liegenschaft',
+            'Text': [{'Language': 'de', 'Text': 'Liegenschaft'}]
+        },
         'Canton': u'BL',
         'Municipality': u'Liestal',
         'FosNr': 2829,

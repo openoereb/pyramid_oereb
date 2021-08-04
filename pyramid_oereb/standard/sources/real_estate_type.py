@@ -1,8 +1,8 @@
 from pyramid_oereb.lib.sources import BaseDatabaseSource
-from pyramid_oereb.lib.sources.real_estate_type import RealEstateTypesBaseSource
+from pyramid_oereb.lib.sources.real_estate_type import RealEstateTypeBaseSource
 
 
-class DatabaseSource(BaseDatabaseSource, RealEstateTypesBaseSource):
+class DatabaseSource(BaseDatabaseSource, RealEstateTypeBaseSource):
 
     def read(self, params=None):
         """

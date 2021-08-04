@@ -130,7 +130,7 @@ class RealEstate(Base):
     limit = sa.Column(Geometry('MULTIPOLYGON', srid=srid))
 
 
-class RealEstateTypeText(Base):
+class RealEstateType(Base):
     """
     The container where you can throw in all the real estates type texts this application
     should have access to, for creating extracts.
@@ -140,7 +140,7 @@ class RealEstateTypeText(Base):
         text (str): The text for the multilingual text.
     """
     __table_args__ = {'schema': app_schema_name}
-    __tablename__ = 'real_estate_type_text'
+    __tablename__ = 'real_estate_type'
     code = sa.Column(sa.String, primary_key=True)
     text = sa.Column(JSONType, nullable=False)
 

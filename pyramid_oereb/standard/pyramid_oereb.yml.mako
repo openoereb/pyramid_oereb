@@ -437,7 +437,7 @@ pyramid_oereb:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the document type texts database table.
-        model: pyramid_oereb.standard.models.main.RealEstateTypeText
+        model: pyramid_oereb.standard.models.main.RealEstateType
 
   # The processor of the oereb project needs access to general information data. In the standard
   # configuration this is assumed to be read from a database. Hint: If you want to read the general

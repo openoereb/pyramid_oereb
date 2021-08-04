@@ -31,4 +31,4 @@ pyramid_oereb:
       class: pyramid_oereb.standard.sources.real_estate_type.DatabaseSource
       params:
         db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
-        model: pyramid_oereb.standard.models.main.RealEstateTypeText
+        model: pyramid_oereb.standard.models.main.RealEstateType

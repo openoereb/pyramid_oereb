@@ -8,6 +8,34 @@ section2:
     - first
     - second
 
+  theme:
+    source:
+      class: pyramid_oereb.standard.sources.theme.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.Theme
+
+  document_types:
+    source:
+      class: pyramid_oereb.standard.sources.document_types.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.DocumentTypeText
+
+  general_information:
+    source:
+      class: pyramid_oereb.standard.sources.general_information.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.GeneralInformation
+
+  real_estate_type:
+    source:
+      class: pyramid_oereb.standard.sources.real_estate_type.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.RealEstateType
+
 pyramid_oereb:
   app_schema:
     name: pyramid_oereb_main
@@ -97,5 +125,4 @@ pyramid_oereb:
       class: pyramid_oereb.standard.sources.real_estate_type.DatabaseSource
       params:
         db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
-        model: pyramid_oereb.standard.models.main.RealEstateTypeText
-
+        model: pyramid_oereb.standard.models.main.RealEstateType

@@ -178,7 +178,7 @@ class Config(object):
     def init_real_estate_types():
         try:
             Config.real_estate_types = Config._read_real_estate_types()
-        # When initializing the database (create_tables), the table 'real_estate_type_text' does not exist yet
+        # When initializing the database (create_tables), the table 'real_estate_type' does not exist yet
         except ProgrammingError:
             Config.real_estate_types = None
 

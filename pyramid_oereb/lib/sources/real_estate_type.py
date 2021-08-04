@@ -3,7 +3,7 @@ from pyramid_oereb.lib.sources import Base
 from pyramid_oereb.lib.records.real_estate_type import RealEstateTypeRecord
 
 
-class RealEstateTypesBaseSource(Base):
+class RealEstateTypeBaseSource(Base):
     """
     Base class for real estate type values source.
     Attributes:
