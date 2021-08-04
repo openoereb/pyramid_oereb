@@ -60,7 +60,7 @@ def test_getegrid_ident(geometry):
         assert real_estates[0]['egrid'] == u'TEST'
         assert real_estates[0]['number'] == u'1000'
         assert real_estates[0]['identDN'] == u'BLTEST'
-        assert real_estates[0]['type'] == u'RealEstate'
+        assert real_estates[0]['type'] == u'Liegenschaft'
         if geometry:
             assert 'limit' in real_estates[0]
             assert 'crs' in real_estates[0]['limit']
@@ -178,7 +178,7 @@ def test_get_egrid_response():
                 'egrid': 'egrid',
                 'number': 'number',
                 'identDN': 'identdn',
-                'type': 'test'
+                'type': 'Liegenschaft'
             }]
         }
 
