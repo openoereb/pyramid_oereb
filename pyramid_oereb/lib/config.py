@@ -10,6 +10,7 @@ from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.readers.theme import ThemeReader
+from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.readers.logo import LogoReader
 from pyramid_oereb.lib.readers.real_estate_type import RealEstateTypeReader
 from pyramid_oereb.lib.readers.document_types import DocumentTypeReader
@@ -164,11 +165,15 @@ class Config(object):
             pyramid_oereb.lib.records.logo.LogoRecord or None: The logo image
             for the specified code.
         """
+        file_adapter = FileAdapter()
         if Config.logos is None:
             raise ConfigurationError("The logo images have not been initialized")
         for logo in Config.logos:
-            if logo.code == code:
-                return logo
+            if isinstance(logo, LogoRecord):
+                if logo.code == code:
+                    return logo
+            else:
+                raise ConfigurationError("The logo has not the expected format")
         raise ConfigurationError(f"Logo for code: {code} not found in the application configuration")
 
     @staticmethod

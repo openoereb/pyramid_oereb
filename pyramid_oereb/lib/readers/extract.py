@@ -35,7 +35,7 @@ class ExtractReader(object):
                 instances which the achieved extract should be about.
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OffcieRecord): The authority responsible
                 for the PLR cadastre.
-            logos (dict): The logos of confederation, canton and oereb wrapped in a ImageRecord.
+            logos (dict): The logos of confederation, canton and oereb wrapped in a LogoRecord.
             certification (dict of unicode or None): A mutlilingual dictionary of certification information.
             certification_at_web (dict of unicode or None): Multilingual list of certification uri.
         """
@@ -147,7 +147,6 @@ class ExtractReader(object):
         base_data = Config.get_base_data(av_update_date)
         general_information = Config.get_general_information()
 
-        # logos = Config.get_logo_config()
         oereb_code = Config.get('logo').get('oereb')
         if oereb_code is not None:
             oereb_logo = Config.get_logo_by_code(oereb_code)

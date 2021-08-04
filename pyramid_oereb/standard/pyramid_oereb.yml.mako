@@ -229,8 +229,9 @@ pyramid_oereb:
     # The city name of the address of your office. For instance: Liestal
     city: Wabern
 
-  # The extract provides logos. Therefor you need to provide a path to these logos. Note: This must be a
-  # valid absolute system path available for reading by the user running this server.
+  # The extract provides logos. Therefor you need to provide the logos from the database
+  # or by a path to these logos. Note: This must be a valid absolute system path available 
+  # for reading by the user running this server.
   logo:
     # The logo representing the swiss confederation. You can use it as is because it is provided in this
     # repository, but if you need to change it for any reason: Feel free...

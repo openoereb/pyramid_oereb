@@ -233,7 +233,7 @@ class SampleData(object):
                 (motorways_building_lines, "motorways_building_lines"),
                 (contaminated_military_sites, "contaminated_military_sites"),
             ]:
-                print("Import theme {}.".format(folder))
+                # print("Import theme {}.".format(folder))
                 # Truncate existing tables
                 self._truncate_existing(schema)
 
