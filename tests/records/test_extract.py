@@ -6,6 +6,7 @@ from pyramid.path import DottedNameResolver
 from pyramid_oereb import Config
 from pyramid_oereb.lib.records.embeddable import EmbeddableRecord, DatasourceRecord
 from pyramid_oereb.lib.records.image import ImageRecord
+from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
@@ -77,10 +78,10 @@ def test_init():
     assert isinstance(record.concerned_theme, list)
     assert isinstance(record.theme_without_data, list)
     assert isinstance(record.creation_date, datetime.date)
-    assert isinstance(record.logo_plr_cadastre, ImageRecord)
-    assert isinstance(record.federal_logo, ImageRecord)
-    assert isinstance(record.cantonal_logo, ImageRecord)
-    assert isinstance(record.municipality_logo, ImageRecord)
+    assert isinstance(record.logo_plr_cadastre, LogoRecord)
+    assert isinstance(record.federal_logo, LogoRecord)
+    assert isinstance(record.cantonal_logo, LogoRecord)
+    assert isinstance(record.municipality_logo, LogoRecord)
     assert isinstance(record.exclusions_of_liability, list)
     assert isinstance(record.glossaries, list)
     assert isinstance(record.plr_cadastre_authority, OfficeRecord)
