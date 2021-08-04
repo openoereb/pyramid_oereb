@@ -28,7 +28,8 @@ def test_getegrid_coord_missing_parameter():
     assert response.code == 400
 
 
-def test_getegrid_ident():
+@pytest.mark.parametrize('geometry', [False, True])
+def test_getegrid_ident(geometry):
     with pyramid_oereb_test_config():
         request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/BLTEST/1000')
 
@@ -40,6 +41,10 @@ def test_getegrid_ident():
             'IDENTDN': u'BLTEST',
             'NUMBER': u'1000'
         })
+        if geometry:
+            request.params.update({
+                'GEOMETRY': u'true'
+            })
 
         webservice = PlrWebservice(request)
         response = webservice.get_egrid().json
@@ -55,6 +60,11 @@ def test_getegrid_ident():
         assert real_estates[0]['egrid'] == u'TEST'
         assert real_estates[0]['number'] == u'1000'
         assert real_estates[0]['identDN'] == u'BLTEST'
+        assert real_estates[0]['type'] == u'RealEstate'
+        if geometry:
+            assert 'limit' in real_estates[0]
+            assert 'crs' in real_estates[0]['limit']
+            assert 'coordinates' in real_estates[0]['limit']
 
 
 def test_getegrid_en():
