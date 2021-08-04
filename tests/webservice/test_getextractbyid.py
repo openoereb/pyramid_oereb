@@ -12,139 +12,116 @@ from pyramid_oereb.views.webservice import PlrWebservice
 log = logging.getLogger('pyramid_oereb')
 
 
-@pytest.mark.parametrize('params', [
-    {
-        'flavour': 'INVALIDFLAVOUR',
-        'format': 'xml',
-        'param1': 'egrid'
-    },
-    {
-        'flavour': 'reduced',
-        'format': 'INVALIDFORMAT',
-        'param1': 'egrid'
-    },
-    {
-        'flavour': 'FULL',
-        'format': 'XML',
-        'param1': 'egrid'
-    },
-    {
-        'flavour': 'SIGNED',
-        'format': 'JSON',
-        'param1': 'egrid'
-    },
-    {
-        'flavour': 'EMBEDDABLE',
-        'format': 'PDF',
-        'param1': 'egrid'
-    },
-    {
-        'flavour': 'full',
-        'format': 'PDF',
-        'param1': 'GEOMETRY',
-        'param2': 'egrid'
-    }
+@pytest.mark.parametrize('matchdict,params', [
+    (
+        {
+            'format': 'INVALIDFORMAT'
+        }, {
+            'EGRID': 'egrid'
+        }
+    ), (
+        {
+            'format': 'pdf'
+        },
+        {
+            'EGRID': 'egrid',
+            'GEOMETRY': 'true'
+        }
+    )
 ])
-def test_invalid_flavour(params):
+def test_invalid_params(matchdict, params):
     request = MockRequest()
-    request.matchdict.update(params)
+    request.matchdict.update(matchdict)
+    request.params.update(params)
     service = PlrWebservice(request)
     with pytest.raises(HTTPBadRequest):
         service.__validate_extract_params__()
 
 
-@pytest.mark.parametrize('params,expected', [
+@pytest.mark.parametrize('matchdict,expected', [
     (
         {
-            'flavour': 'SIGNED',
             'format': 'PDF',
-            'param1': 'SomeEGRID'
         }, {
-            'flavour': 'signed',
             'format': 'pdf',
             'with_geometry': False,
             'images': False,
-            'egrid': 'SomeEGRID'
+            'signed': False,
+            'egrid': 'egrid'
         }
     ),
     (
         {
-            'flavour': 'FULL',
-            'format': 'PDF',
-            'param1': 'SomeIdent',
-            'param2': 'SomeNumber'
-        }, {
-            'flavour': 'full',
-            'format': 'pdf',
-            'with_geometry': False,
-            'images': False,
-            'identdn': 'SomeIdent',
-            'number': 'SomeNumber'
-        }
-    ),
-    (
-        {
-            'flavour': 'REDUCED',
             'format': 'XML',
-            'param1': 'GEOMETRY',
-            'param2': 'SomeEGRID'
         }, {
-            'flavour': 'reduced',
             'format': 'xml',
-            'with_geometry': True,
+            'with_geometry': False,
             'images': False,
-            'egrid': 'SomeEGRID'
+            'signed': False,
+            'egrid': 'egrid'
         }
-    ),
-    (
+    ), (
         {
-            'flavour': 'EMBEDDABLE',
             'format': 'JSON',
-            'param1': 'GEOMETRY',
-            'param2': 'SomeIdent',
-            'param3': 'SomeNumber'
         }, {
-            'flavour': 'embeddable',
             'format': 'json',
-            'with_geometry': True,
+            'with_geometry': False,
             'images': False,
-            'identdn': 'SomeIdent',
-            'number': 'SomeNumber'
+            'signed': False,
+            'egrid': 'egrid'
         }
     )
 ])
-def test_matchdict(params, expected):
+def test_matchdict(matchdict, expected):
     request = MockRequest()
-    request.matchdict.update(params)
+    request.matchdict.update(matchdict)
+    request.params.update({
+        'EGRID': 'egrid'
+    })
     service = PlrWebservice(request)
     params = service.__validate_extract_params__()
     for k, v in expected.items():
         assert getattr(params, k) == v
 
 
-def test_params():
+@pytest.mark.parametrize('params,expected', [
+    (
+        {
+            'EGRID': 'egrid'
+        }, {
+            'egrid': 'egrid',
+            'with_geometry': False,
+            'images': False,
+            'signed': False
+        }
+    ), (
+        {
+            'IDENTDN': 'identdn',
+            'NUMBER': 'number',
+            'WITHIMAGES': 'true',
+            'GEOMETRY': 'true',
+            'SIGNED': 'true',
+            'LANG': 'de',
+            'TOPICS': 'top_A,top_B,top_C'
+        }, {
+            'identdn': 'identdn',
+            'number': 'number',
+            'with_geometry': True,
+            'images': True,
+            'signed': True,
+            'language': 'de',
+            'topics': ['top_A', 'top_B', 'top_C']
+        }
+    )
+])
+def test_params(params, expected):
     request = MockRequest()
     request.matchdict.update({
-        'flavour': 'REDUCED',
-        'format': 'XML',
-        'param1': 'SomeEGRID'
+        'format': 'XML'
     })
-    request.params.update({
-        'WITHIMAGES': '',
-        'LANG': 'de',
-        'TOPICS': 'top_A,top_B,top_C'
-    })
+    request.params.update(params)
     service = PlrWebservice(request)
     params = service.__validate_extract_params__()
-    expected = {
-        'flavour': 'reduced',
-        'format': 'xml',
-        'with_geometry': False,
-        'images': True,
-        'egrid': 'SomeEGRID',
-        'language': 'de',
-        'topics': ['top_A', 'top_B', 'top_C']
-    }
     for k, v in expected.items():
         assert getattr(params, k) == v
 
@@ -152,10 +129,11 @@ def test_params():
 def test_return_no_content():
     request = MockRequest()
     request.matchdict.update({
-        'flavour': 'REDUCED',
-        'format': 'XML',
-        'param1': 'GEOMETRY',
-        'param2': 'MISSINGEGRID'
+        'format': 'XML'
+    })
+    request.params.update({
+        'GEOMETRY': 'true',
+        'EGRID': 'MISSINGEGRID'
     })
     service = PlrWebservice(request)
     response = service.get_extract_by_id()
@@ -173,12 +151,11 @@ def test_return_json(topics):
                                     'pyramid_oereb.lib.renderer.extract.json_.Renderer')
         request = MockRequest()
         request.matchdict.update({
-            'flavour': 'REDUCED',
-            'format': 'JSON',
-            'param1': 'GEOMETRY',
-            'param2': 'TEST'
+            'format': 'JSON'
         })
         request.params.update({
+            'GEOMETRY': 'true',
+            'EGRID': 'TEST',
             'TOPICS': topics
         })
         service = PlrWebservice(request)

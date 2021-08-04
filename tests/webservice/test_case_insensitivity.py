@@ -37,17 +37,17 @@ def test_get_egrid_coord(params):
 
 @pytest.mark.parametrize('params', [
     {
-        'WITHIMAGES': None
+        'WITHIMAGES': 'true'
     }, {
-        'withimages': None
+        'withimages': 'TRUE'
     }, {
-        'WithImages': None
+        'WithImages': 'True'
     }, {
         'LANG': 'DE'
     }, {
-        'lang': 'DE'
+        'lang': 'De'
     }, {
-        'LanG': 'DE'
+        'LanG': 'de'
     }, {
         'TOPICS': 'ContaminatedSites,RailwaysProjectPlanningZones'
     }, {
@@ -56,8 +56,8 @@ def test_get_egrid_coord(params):
         'ToPics': 'ContaminatedSites,RailwaysProjectPlanningZones'
     }, {
         'topics': 'ContaminatedSites,RailwaysProjectPlanningZones',
-        'WITHIMAGES': None,
-        'LanG': 'DE'
+        'WITHIMAGES': 'trUE',
+        'LanG': 'dE'
     }
 ])
 def test_get_extract_by_id(params):
@@ -66,10 +66,11 @@ def test_get_extract_by_id(params):
                                     'pyramid_oereb.lib.renderer.extract.json_.Renderer')
         request = MockRequest()
         request.matchdict.update({
-            'flavour': 'REDUCED',
-            'format': 'JSON',
-            'param1': 'GEOMETRY',
-            'param2': 'TEST'
+            'format': 'JSON'
+        })
+        request.params.update({
+            'GEOMETRY': 'true',
+            'EGRID': 'TEST'
         })
         request.params.update(params)
         service = PlrWebservice(request)

@@ -13,9 +13,9 @@ template = xml_templates().get_template('legend_entry.xml')
 def test_sub_theme():
     parameters = Parameter(
         response_format='xml',
-        flavour='reduced',
         with_geometry=False,
         images=True,
+        signed=False,
         identdn='BL0200002829',
         number='1000',
         egrid='CH775979211712',
