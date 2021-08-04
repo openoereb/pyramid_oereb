@@ -61,6 +61,10 @@ class DummyData(object):
             schema=main.RealEstate.__table__.schema,
             table=main.RealEstate.__table__.name
         ))
+        connection.execute('TRUNCATE {schema}.{table};'.format(
+            schema=main.RealEstateType.__table__.schema,
+            table=main.RealEstateType.__table__.name
+        ))
         connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
             schema=motorways_building_lines.Geometry.__table__.schema,
             table=motorways_building_lines.Geometry.__table__.name
@@ -357,7 +361,7 @@ class DummyData(object):
             'egrid': u'TEST',
             'number': u'1000',
             'identdn': u'BLTEST',
-            'type': u'RealEstate',
+            'type': u'Liegenschaft',
             'canton': u'BL',
             'municipality': u'Liestal',
             'fosnr': 1234,
@@ -369,12 +373,43 @@ class DummyData(object):
             'egrid': u'TEST2',
             'number': u'9999',
             'identdn': u'BLTEST',
-            'type': u'RealEstate',
+            'type': u'Liegenschaft',
             'canton': u'BL',
             'municipality': u'Liestal',
             'fosnr': 1234,
             'land_registry_area': 9,
             'limit': 'SRID=2056;MULTIPOLYGON(((2 0, 2 3, 5 3, 5 0, 2 0)))'
+        })
+
+        # Add dummy real estate types
+        connection.execute(main.RealEstateType.__table__.insert(), {
+            'code': 'Liegenschaft',
+            'text': {'de': 'Liegenschaft', 'fr': 'Bien-fonds', 'it': 'Bene immobile',
+                     'rm': 'Bain immobigliar', 'en': 'Property'}
+        })
+        connection.execute(main.RealEstateType.__table__.insert(), {
+            'code': 'SelbstRecht.Baurecht',
+            'text': {'de': 'Baurecht', 'fr': 'Droitdesuperficie', 'it': 'Dirittodisuperficie',
+                     'rm': 'Dretgdaconstrucziun', 'en': 'Buildingright'}
+        })
+        connection.execute(main.RealEstateType.__table__.insert(), {
+            'code': 'SelbstRecht.Quellenrecht',
+            'text': {'de': 'Quellenrecht', 'fr': 'Droit de source', 'it': 'Diritto di sorgente',
+                     'rm': 'Dretg da funtauna', 'en': 'Right to spring water'}
+        })
+        connection.execute(main.RealEstateType.__table__.insert(), {
+            'code': 'SelbstRecht.Konzessionsrecht',
+            'text': {'de': 'Konzessionsrecht', 'fr': 'Droit de concession', 'it': 'Diritto di concessione',
+                     'rm': 'Dretg da concessiun', 'en': 'Right to licence'}
+        })
+        connection.execute(main.RealEstateType.__table__.insert(), {
+            'code': 'SelbstRecht.weitere',
+            'text': {'de': 'weiteres SDR', 'fr': 'Autre DDP', 'it': 'altre DSP',
+                     'rm': 'ulteriur DIP', 'en': 'other distinct and permanent rights'}
+        })
+        connection.execute(main.RealEstateType.__table__.insert(), {
+            'code': 'Bergwerk',
+            'text': {'de': 'Bergwerk', 'fr': 'Mine', 'it': 'Miniera', 'rm': 'Miniera', 'en': 'Mine'}
         })
 
         connection.close()

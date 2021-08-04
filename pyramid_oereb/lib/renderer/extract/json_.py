@@ -10,7 +10,6 @@ from pyramid.testing import DummyRequest
 from pyramid_oereb import Config, route_prefix
 from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
-from shapely.geometry import mapping
 
 from pyramid_oereb.lib.renderer import Base
 from pyramid_oereb.views.webservice import Parameter
@@ -197,8 +196,12 @@ class Renderer(Base):
 
         assert isinstance(self._params, Parameter)
 
+        real_estate_type = Config.get_real_estate_type_by_code(real_estate.type)
         real_estate_dict = {
-            'Type': real_estate.type,
+            'Type': {
+                'Code': real_estate.type,
+                'Text': self.get_multilingual_text(real_estate_type.text)
+            },
             'Canton': real_estate.canton,
             'Municipality': real_estate.municipality,
             'FosNr': real_estate.fosnr,
@@ -514,25 +517,6 @@ class Renderer(Base):
         if legend_entry.sub_theme is not None:
             legend_entry_dict['SubTheme'] = self.get_localized_text(legend_entry.sub_theme).get('Text')
         return legend_entry_dict
-
-    @staticmethod
-    def from_shapely(geom):
-        """
-        Formats shapely geometry for rendering according to the federal specification.
-
-        Args:
-            geom (shapely.geometry.base.BaseGeometry): The geometry object to be formatted.
-
-        Returns:
-            dict: The formatted geometry.
-        """
-        geom_dict = {
-            'coordinates': mapping(geom)['coordinates'],
-            'crs': 'EPSG:{srid}'.format(srid=Config.get('srid'))
-            # isosqlmmwkb only used for curved geometries (not supported by shapely)
-            # 'isosqlmmwkb': b64.encode(geom.wkb)
-        }
-        return geom_dict
 
     @staticmethod
     def format_point(point, crs):
