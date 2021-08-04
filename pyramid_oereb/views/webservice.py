@@ -29,6 +29,13 @@ class PlrWebservice(object):
     Args:
         request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.
     """
+
+    _DEFAULT_FORMATS = ['xml', 'json']
+    """list of str: The default formats for the service responses."""
+
+    _EXTRACT_FORMATS = _DEFAULT_FORMATS + ['pdf']
+    """list of str: The formats for the extract responses."""
+
     def __init__(self, request):
         self._request = request
         self._params = {k.upper(): v for k, v in request.params.items()}
@@ -57,7 +64,7 @@ class PlrWebservice(object):
                 ]
             }
         }
-        output_format = self.__validate_format_param__(['xml', 'json'])
+        output_format = self.__validate_format_param__(self._DEFAULT_FORMATS)
         renderer_name = 'json' if output_format == 'json' else 'pyramid_oereb_versions_xml'
         response = render_to_response(renderer_name, versions, request=self._request)
         if output_format == 'json':
@@ -73,8 +80,8 @@ class PlrWebservice(object):
             pyramid.response.Response: The `capabilities` response.
         """
 
-        output_format = self.__validate_format_param__(['xml', 'json'])
-        params = Parameter('json' if output_format == 'json' else 'xml')
+        output_format = self.__validate_format_param__(self._DEFAULT_FORMATS)
+        params = Parameter(output_format)
 
         supported_languages = Config.get_language()
         themes = list()
@@ -117,13 +124,13 @@ class PlrWebservice(object):
             pyramid.response.Response: The `getegrid` response.
         """
         try:
-            output_format = self.__validate_format_param__(['xml', 'json'])
+            output_format = self.__validate_format_param__(self._DEFAULT_FORMATS)
             with_geometry = False
             if self.__has_params__(['GEOMETRY']):
                 if self._request.params.get('GEOMETRY').lower() == 'true':
                     with_geometry = True
             params = Parameter(
-                'json' if output_format == 'json' else 'xml',
+                output_format,
                 with_geometry=with_geometry
             )
             # Type A
@@ -333,7 +340,7 @@ class PlrWebservice(object):
             raise HTTPBadRequest('Invalid flavour: {0}'.format(extract_flavour))
 
         # Get and check format
-        extract_format = self.__validate_format_param__(['pdf', 'xml', 'json'])
+        extract_format = self.__validate_format_param__(self._EXTRACT_FORMATS)
 
         # With geometry?
         with_geometry = False
@@ -473,7 +480,7 @@ class PlrWebservice(object):
             real_estates.append(real_estate)
         egrid = {'GetEGRIDResponse': real_estates}
 
-        output_format = self.__validate_format_param__(['xml', 'json'])
+        output_format = self.__validate_format_param__(self._DEFAULT_FORMATS)
         if output_format == 'json':
             response = render_to_response('json', egrid, request=self._request)
             response.content_type = 'application/json; charset=UTF-8'
