@@ -334,26 +334,17 @@ class PlrWebservice(object):
             pyramid_oereb.views.webservice.Parameter: The validated parameters.
         """
 
-        # Check flavour
-        extract_flavour = self._request.matchdict.get('flavour').lower()
-        if extract_flavour not in ['reduced', 'full', 'signed', 'embeddable']:
-            raise HTTPBadRequest('Invalid flavour: {0}'.format(extract_flavour))
-
         # Get and check format
         extract_format = self.__validate_format_param__(self._EXTRACT_FORMATS)
 
         # With geometry?
         with_geometry = False
         user_requested_geometry = False
-        if self._request.matchdict.get('param1').lower() == 'geometry':
+        if self._request.params.get('GEOMETRY', 'false').lower() == 'true':
             with_geometry = True
             user_requested_geometry = True
 
         # Check for invalid combinations
-        if extract_flavour in ['full', 'signed'] and extract_format != 'pdf':
-            raise HTTPBadRequest('The flavours full and signed are only available for format PDF.')
-        if extract_flavour == 'embeddable' and extract_format == 'pdf':
-            raise HTTPBadRequest('The flavour embeddable is not available for format PDF.')
         if extract_format == 'pdf' and user_requested_geometry:
             raise HTTPBadRequest('Geometry is not available for format PDF.')
 
@@ -364,43 +355,42 @@ class PlrWebservice(object):
             with_geometry = Config.get('print', {}).get('with_geometry', True) or with_geometry
 
         # With images?
-        with_images = self._params.get('WITHIMAGES') is not None
+        with_images = self._params.get('WITHIMAGES', 'false').lower() == 'true'
+
+        # Signed?
+        signed = self._params.get('SIGNED', 'false').lower() == 'true'
 
         params = Parameter(
             extract_format,
-            flavour=extract_flavour,
             with_geometry=with_geometry,
-            images=with_images
+            images=with_images,
+            signed=signed
         )
 
         # Get id
-        if user_requested_geometry:
-            id_param_1 = 'param2'
-            id_param_2 = 'param3'
+        if self.__has_params__(['EGRID']):
+            params.set_egrid(self._request.params['EGRID'])
+        elif self.__has_params__(['IDENTDN', 'NUMBER']):
+            params.set_identdn(self._request.params['IDENTDN'])
+            params.set_number(self._request.params['NUMBER'])
         else:
-            id_param_1 = 'param1'
-            id_param_2 = 'param2'
-        id_part_1 = self._request.matchdict.get(id_param_1)
-        id_part_2 = self._request.matchdict.get(id_param_2)
-        if id_part_2:
-            params.set_identdn(id_part_1)
-            params.set_number(id_part_2)
-        else:
-            params.set_egrid(id_part_1)
+            raise HTTPBadRequest(
+                'Invalid parameters. You need one of the following combinations: '
+                'EGRID or IDENTDN and NUMBER.'
+            )
 
         # Language
-        language = str(self._params.get('LANG')).lower()
-        if language not in Config.get_language() and self._params.get('LANG') is not \
-                None:
-            raise HTTPBadRequest(
-                'Requested language is not available. Following languages are '
-                'configured: {languages} The '
-                'requested language was: {language}'.format(
-                    languages=str(Config.get_language()),
-                    language=language
+        if 'LANG' in self._params:
+            language = str(self._params.get('LANG')).lower()
+            if language not in Config.get_language():
+                raise HTTPBadRequest(
+                    'Requested language is not available. Following languages are '
+                    'configured: {languages}. The '
+                    'requested language was: {language}.'.format(
+                        languages=str(Config.get_language()),
+                        language=language
+                    )
                 )
-            )
-        if self._params.get('LANG'):
             params.set_language(language)
 
         # Topics
@@ -561,26 +551,26 @@ class PlrWebservice(object):
 
 
 class Parameter(object):
-    def __init__(self, response_format, flavour=None, with_geometry=False, images=False, identdn=None,
+    def __init__(self, response_format, with_geometry=False, images=False, signed=False, identdn=None,
                  number=None, egrid=None, language=None, topics=None):
         """
         Creates a new parameter instance.
 
         Args:
             response_format (str): The extract format.
-            flavour (str): The extract flavour.
             with_geometry (bool): Extract with/without geometry.
             images (bool): Extract with/without images.
+            signed (bool): True for a signed extract.
             identdn (str): The IdentDN as real estate identifier.
             number (str): The parcel number as real estate identifier.
             egrid (str): The EGRID as real estate identifier.
             language (str): The requested language.
             topics (list of str): The list of requested topics.
         """
-        self.__flavour__ = flavour
         self.__format__ = response_format
         self.__with_geometry__ = with_geometry
         self.__images__ = images
+        self.__signed__ = signed
         self.__identdn__ = identdn
         self.__number__ = number
         self.__egrid__ = egrid
@@ -633,14 +623,6 @@ class Parameter(object):
         self.__topics__ = topics
 
     @property
-    def flavour(self):
-        """
-        Returns:
-            str: The requested flavour.
-        """
-        return self.__flavour__
-
-    @property
     def format(self):
         """
         Returns:
@@ -663,6 +645,14 @@ class Parameter(object):
             bool: Extract requested with images.
         """
         return self.__images__
+
+    @property
+    def signed(self):
+        """
+        Returns:
+            bool: Signed extract requested.
+        """
+        return self.__signed__
 
     @property
     def identdn(self):
