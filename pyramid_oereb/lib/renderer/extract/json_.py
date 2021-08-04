@@ -197,8 +197,12 @@ class Renderer(Base):
 
         assert isinstance(self._params, Parameter)
 
+        real_estate_type = Config.get_real_estate_type_by_code(real_estate.type)
         real_estate_dict = {
-            'Type': real_estate.type,
+            'Type': {
+                'Code': real_estate.type,
+                'Text': self.get_multilingual_text(real_estate_type.text)
+            },
             'Canton': real_estate.canton,
             'Municipality': real_estate.municipality,
             'FosNr': real_estate.fosnr,

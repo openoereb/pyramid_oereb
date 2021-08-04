@@ -10,6 +10,7 @@ from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.readers.theme import ThemeReader
+from pyramid_oereb.lib.readers.real_estate_type import RealEstateTypeReader
 from pyramid_oereb.lib.readers.document_types import DocumentTypeReader
 from pyramid_oereb.lib.readers.general_information import GeneralInformationReader
 from sqlalchemy.exc import ProgrammingError
@@ -28,6 +29,7 @@ class Config(object):
     themes = None
     document_types = None
     general_information = None
+    real_estate_types = None
 
     @staticmethod
     def init(configfile, configsection, c2ctemplate_style=False):
@@ -44,6 +46,7 @@ class Config(object):
         Config.init_themes()
         Config.init_document_types()
         Config.init_general_information()
+        Config.init_real_estate_types()
 
     @staticmethod
     def get_config():
@@ -170,6 +173,37 @@ class Config(object):
         """
         assert Config._config is not None
         return Config.document_types
+
+    @staticmethod
+    def init_real_estate_types():
+        try:
+            Config.real_estate_types = Config._read_real_estate_types()
+        # When initializing the database (create_tables), the table 'real_estate_type' does not exist yet
+        except ProgrammingError:
+            Config.real_estate_types = None
+
+    @staticmethod
+    def _read_real_estate_types():
+        real_estate_types_config = Config.get('real_estate_type')
+        if real_estate_types_config is None:
+            raise ConfigurationError("Missing configuration for real estate type source config")
+        real_estate_type_reader = RealEstateTypeReader(
+            real_estate_types_config.get('source').get('class'),
+            **real_estate_types_config.get('source').get('params'))
+
+        return real_estate_type_reader.read()
+
+    @staticmethod
+    def get_real_estate_types():
+        """
+        Returns a list of available real_estate_types.
+
+        Returns:
+            list of pyramid_oereb.lib.records.real_estate_type.RealEstateTypeRecord: The available
+            real estate types.
+        """
+        assert Config._config is not None
+        return Config.real_estate_types
 
     @staticmethod
     def get_document_type_by_code(code):
@@ -353,7 +387,6 @@ class Config(object):
             dict: The configured glossary settings.
         """
         assert Config._config is not None
-
         return Config._config.get('glossary')
 
     @staticmethod
@@ -658,25 +691,22 @@ class Config(object):
         return None, None
 
     @classmethod
-    def get_real_estate_type_by_mapping(cls, real_estate_type):
+    def get_real_estate_type_by_code(cls, code):
         """
-        Uses the configured mappings of the real estate type to translate it to the correct federal
-        representation.
-
-        Args:
-            real_estate_type (unicode): The type which is used inside the data to distinguish the different
-                kinds of real estates.
+        Returns a dictionary of the configured real estate type settings.
 
         Returns:
-            unicode: The mapped type or the original one if no mapping fits.
-
+            dict: The configured real estate type settings.
         """
-        real_estate_config = cls.get_real_estate_config()
-        type_mapping = real_estate_config.get('type_mapping', [])
-        for mapping in type_mapping:
-            if mapping['type'] == real_estate_type:
-                return mapping['mapping']
-        return real_estate_type
+        real_estate_type_lookup = Config.get('real_estate_type_lookup')[code]
+        for record in Config.real_estate_types:
+            if record.code == real_estate_type_lookup:
+                return record
+
+        raise AttributeError(
+            u'There was no proper configuration for the real estate types.'
+            u'"real_estate_type_lookup" from config could not be matched.'
+        )
 
     @staticmethod
     def get_sub_theme_sorter_config(theme_code):

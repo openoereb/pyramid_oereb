@@ -185,7 +185,7 @@ def test_get_egrid_response():
                                          1,
                                          1.0,
                                          None)
-        record = RealEstateRecord('test', 'BL', 'test', 1, 100,
+        record = RealEstateRecord('Liegenschaft', 'BL', 'test', 1, 100,
                                   MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]), view_service,
                                   number='number', identdn='identdn', egrid='egrid')
         response = PlrWebservice(request).__get_egrid_response__([record]).json
