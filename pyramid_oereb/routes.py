@@ -69,57 +69,21 @@ def includeme(config):  # pragma: no cover
     )
 
     # Get extract by id
-    config.add_route('{0}/extract_1'.format(route_prefix),
-                     '/extract/{flavour}/{format}/{param1}')
-    config.add_route('{0}/extract_2'.format(route_prefix),
-                     '/extract/{flavour}/{format}/{param1}/{param2}')
-    config.add_route('{0}/extract_3'.format(route_prefix),
-                     '/extract/{flavour}/{format}/{param1}/{param2}/{param3}')
+    config.add_route('{0}/extract'.format(route_prefix),
+                     '/extract/{format}')
     config.add_view(
         PlrWebservice,
         attr='get_extract_by_id',
-        route_name='{0}/extract_1'.format(route_prefix),
+        route_name='{0}/extract'.format(route_prefix),
         request_method='GET',
         decorator=log_response
     )
+    config.add_route('{0}/extract/'.format(route_prefix),
+                     '/extract/{format}/')
     config.add_view(
         PlrWebservice,
         attr='get_extract_by_id',
-        route_name='{0}/extract_2'.format(route_prefix),
-        request_method='GET',
-        decorator=log_response
-    )
-    config.add_view(
-        PlrWebservice,
-        attr='get_extract_by_id',
-        route_name='{0}/extract_3'.format(route_prefix),
-        request_method='GET',
-        decorator=log_response
-    )
-    config.add_route('{0}/extract_1/'.format(route_prefix),
-                     '/extract/{flavour}/{format}/{param1}/')
-    config.add_route('{0}/extract_2/'.format(route_prefix),
-                     '/extract/{flavour}/{format}/{param1}/{param2}/')
-    config.add_route('{0}/extract_3/'.format(route_prefix),
-                     '/extract/{flavour}/{format}/{param1}/{param2}/{param3}/')
-    config.add_view(
-        PlrWebservice,
-        attr='get_extract_by_id',
-        route_name='{0}/extract_1/'.format(route_prefix),
-        request_method='GET',
-        decorator=log_response
-    )
-    config.add_view(
-        PlrWebservice,
-        attr='get_extract_by_id',
-        route_name='{0}/extract_2/'.format(route_prefix),
-        request_method='GET',
-        decorator=log_response
-    )
-    config.add_view(
-        PlrWebservice,
-        attr='get_extract_by_id',
-        route_name='{0}/extract_3/'.format(route_prefix),
+        route_name='{0}/extract/'.format(route_prefix),
         request_method='GET',
         decorator=log_response
     )
