@@ -556,7 +556,8 @@ class PlrWebservice(object):
                 return False
         return True
 
-    def __redirect_to_dynamic_client__(self, real_estate):
+    @staticmethod
+    def __redirect_to_dynamic_client__(real_estate):
         """
         Returns a redirect to the configured dynamic client.
 
