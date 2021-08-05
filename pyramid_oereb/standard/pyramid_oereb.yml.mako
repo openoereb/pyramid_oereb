@@ -485,6 +485,9 @@ pyramid_oereb:
     sort_within_themes_method: pyramid_oereb.standard.hook_methods.plr_sort_within_themes
     # Example of a specific sorting method:
     # sort_within_themes_method: pyramid_oereb.contrib.plr_sort_within_themes_by_type_code
+    # Redirect configuration for type URL. You can use any attribute of the real estate RealEstateRecord
+    # (e.g. "{egrid}") to parametrize the URL.
+    redirect: https://geoview.bl.ch/oereb/?egrid={egrid}
 
   # All PLRs which are provided by this application. This is related to all application behaviour, especially
   # the extract creation process which loops over this list.
