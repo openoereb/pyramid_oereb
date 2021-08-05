@@ -19,9 +19,9 @@ template = xml_templates().get_template('public_law_restriction.xml')
 def test_sub_theme():
     parameters = Parameter(
         response_format='xml',
-        flavour='reduced',
         with_geometry=False,
         images=True,
+        signed=False,
         identdn='BL0200002829',
         number='1000',
         egrid='CH775979211712',
@@ -30,7 +30,7 @@ def test_sub_theme():
     renderer._language = u'de'
     renderer._request = MockRequest()
     renderer._request.route_url = lambda url, **kwargs: "http://example.com/current/view"
-    theme = ThemeRecord(u'LandUsePlans', {'de': 'Theme 1'})
+    theme = ThemeRecord(u'LandUsePlans', {'de': 'Theme 1'}, 1)
     office = OfficeRecord(name={'de': 'office de'})
     law_status = LawStatusRecord(
         code='runningModifications',

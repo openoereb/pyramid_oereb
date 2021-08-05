@@ -110,7 +110,6 @@ pyramid_oereb:
       params:
         db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.GeneralInformation
-  
 
   real_estate_type_lookup:
     Liegenschaft: "Liegenschaft"
@@ -119,7 +118,7 @@ pyramid_oereb:
     SelbstRecht.Konzessionsrecht: "SelbstRecht.Konzessionsrecht"
     SelbstRecht.weitere: "SelbstRecht.weitere"
     Bergwerk: "Bergwerk"
-  
+
   real_estate_type:
     source:
       class: pyramid_oereb.standard.sources.real_estate_type.DatabaseSource

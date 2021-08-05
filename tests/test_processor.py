@@ -21,9 +21,10 @@ from pyramid_oereb.views.webservice import PlrWebservice
 from tests.mockrequest import MockRequest
 
 request_matchdict = {
-    'flavour': 'reduced',
-    'format': 'json',
-    'param1': 'TEST'
+    'format': 'json'
+}
+request_params = {
+    'EGRID': 'TEST'
 }
 
 
@@ -45,6 +46,7 @@ def test_properties():
 def test_process():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
+    request.params.update(request_params)
     processor = create_processor()
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
@@ -56,6 +58,7 @@ def test_process():
 def test_process_geometry_testing():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
+    request.params.update(request_params)
     processor = create_processor()
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
@@ -69,6 +72,7 @@ def test_process_geometry_testing():
 def test_filter_published_documents():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
+    request.params.update(request_params)
     processor = create_processor()
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
@@ -82,8 +86,9 @@ def test_filter_published_documents():
 def test_processor_with_images():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
+    request.params.update(request_params)
     request.params.update({
-        'WITHIMAGES': '',
+        'WITHIMAGES': 'true',
         'LANG': 'de'
     })
     processor = create_processor()
@@ -99,6 +104,7 @@ def test_processor_with_images():
 def test_processor_without_images():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
+    request.params.update(request_params)
     request.params.update({
         'LANG': 'de'
     })
