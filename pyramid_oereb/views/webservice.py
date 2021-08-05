@@ -127,7 +127,7 @@ class PlrWebservice(object):
             output_format = self.__validate_format_param__(self._DEFAULT_FORMATS)
             with_geometry = False
             if self.__has_params__(['GEOMETRY']):
-                if self._request.params.get('GEOMETRY').lower() == 'true':
+                if self._params.get('GEOMETRY').lower() == 'true':
                     with_geometry = True
             params = Parameter(
                 output_format,
@@ -158,7 +158,7 @@ class PlrWebservice(object):
             response = HTTPBadRequest('{}'.format(err))
         response.extras = OerebStats(
             service='GetEgrid',
-            params=dict(self._request.params)
+            params=dict(self._params)
         )
         return response
 
@@ -203,8 +203,8 @@ class PlrWebservice(object):
             list of pyramid_oereb.lib.records.real_estate.RealEstateRecord:
                 The list of all found records filtered by the passed criteria.
         """
-        identdn = self._request.params.get('IDENTDN')
-        number = self._request.params.get('NUMBER')
+        identdn = self._params.get('IDENTDN')
+        number = self._params.get('NUMBER')
         if identdn and number:
             processor = create_processor()
             return processor.real_estate_reader.read(
@@ -228,9 +228,9 @@ class PlrWebservice(object):
             list of pyramid_oereb.lib.records.real_estate.RealEstateRecord:
                 The list of all found records filtered by the passed criteria.
         """
-        postalcode = self._request.params.get('POSTALCODE')
-        localisation = self._request.params.get('LOCALISATION')
-        number = self._request.params.get('NUMBER')
+        postalcode = self._params.get('POSTALCODE')
+        localisation = self._params.get('LOCALISATION')
+        number = self._params.get('NUMBER')
         if postalcode and localisation and number:
             reader = AddressReader(
                 Config.get_address_config().get('source').get('class'),
@@ -340,7 +340,7 @@ class PlrWebservice(object):
         # With geometry?
         with_geometry = False
         user_requested_geometry = False
-        if self._request.params.get('GEOMETRY', 'false').lower() == 'true':
+        if self._params.get('GEOMETRY', 'false').lower() == 'true':
             with_geometry = True
             user_requested_geometry = True
 
@@ -369,10 +369,10 @@ class PlrWebservice(object):
 
         # Get id
         if self.__has_params__(['EGRID']):
-            params.set_egrid(self._request.params['EGRID'])
+            params.set_egrid(self._params['EGRID'])
         elif self.__has_params__(['IDENTDN', 'NUMBER']):
-            params.set_identdn(self._request.params['IDENTDN'])
-            params.set_number(self._request.params['NUMBER'])
+            params.set_identdn(self._params['IDENTDN'])
+            params.set_number(self._params['NUMBER'])
         else:
             raise HTTPBadRequest(
                 'Invalid parameters. You need one of the following combinations: '
@@ -545,7 +545,7 @@ class PlrWebservice(object):
             bool: True if all needed parameters are available, false otherwise.
         """
         for p in needed:
-            if p not in self._request.params:
+            if p not in self._params:
                 return False
         return True
 
