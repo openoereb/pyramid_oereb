@@ -37,24 +37,48 @@ def test_get_egrid_coord(params):
 
 @pytest.mark.parametrize('params', [
     {
-        'WITHIMAGES': 'true'
+        'GEOMETRY': 'true',
+        'EGRID': 'TEST',
+        'WITHIMAGES': 'true',
+        'SIGNED': 'true'
     }, {
-        'withimages': 'TRUE'
+        'geometry': 'true',
+        'egrid': 'TEST',
+        'withimages': 'TRUE',
+        'signed': 'TRUE'
     }, {
-        'WithImages': 'True'
+        'Geometry': 'True',
+        'Egrid': 'TEST',
+        'WithImages': 'True',
+        'Signed': 'True'
     }, {
-        'LANG': 'DE'
+        'geoMETRY': 'TRUE',
+        'egrID': 'TEST',
+        'LANG': 'DE',
+        'sIgNeD': 'tRuE'
     }, {
+        'gEoMeTrY': 'tRuE',
+        'eGrId': 'TEST',
         'lang': 'De'
     }, {
+        'GEOMETRY': 'true',
+        'EGRID': 'TEST',
         'LanG': 'de'
     }, {
+        'GEOMETRY': 'true',
+        'EGRID': 'TEST',
         'TOPICS': 'ContaminatedSites,RailwaysProjectPlanningZones'
     }, {
+        'GEOMETRY': 'true',
+        'EGRID': 'TEST',
         'topics': 'ContaminatedSites,RailwaysProjectPlanningZones'
     }, {
+        'GEOMETRY': 'true',
+        'EGRID': 'TEST',
         'ToPics': 'ContaminatedSites,RailwaysProjectPlanningZones'
     }, {
+        'GEOMETRY': 'true',
+        'EGRID': 'TEST',
         'topics': 'ContaminatedSites,RailwaysProjectPlanningZones',
         'WITHIMAGES': 'trUE',
         'LanG': 'dE'
@@ -67,10 +91,6 @@ def test_get_extract_by_id(params):
         request = MockRequest()
         request.matchdict.update({
             'format': 'JSON'
-        })
-        request.params.update({
-            'GEOMETRY': 'true',
-            'EGRID': 'TEST'
         })
         request.params.update(params)
         service = PlrWebservice(request)
