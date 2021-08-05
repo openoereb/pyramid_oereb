@@ -569,7 +569,7 @@ class PlrWebservice(object):
         """
         url = Config.get_extract_config().get('redirect')
         if url is None:
-            raise HTTPInternalServerError('Missing configuratioin for redirect to dynamic client.')
+            raise HTTPInternalServerError('Missing configuration for redirect to dynamic client.')
         return HTTPFound(url.format(**vars(real_estate)))
 
 
