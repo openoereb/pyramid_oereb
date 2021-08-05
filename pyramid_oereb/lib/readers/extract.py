@@ -8,7 +8,6 @@ from shapely.geometry import box
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.embeddable import EmbeddableRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
-from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.plr import PlrRecord, EmptyPlrRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 

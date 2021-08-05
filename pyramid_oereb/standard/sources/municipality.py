@@ -2,8 +2,6 @@
 
 from geoalchemy2.elements import _SpatialElement
 
-from pyramid_oereb.lib import b64
-from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from geoalchemy2.shape import to_shape
 
