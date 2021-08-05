@@ -14,6 +14,10 @@ section2:
       params:
         db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.Theme
+    law_status:
+      inKraft: inKraft
+      AenderungMitVorwirkung: AenderungMitVorwirkung
+      AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
   document_types:
     source:
@@ -83,7 +87,21 @@ pyramid_oereb:
       view_service:
         layer_index: 1
         layer_opacity: 0.25
+      law_status:
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
     - code: MotorwaysProjectPlaningZones
+      law_status:
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+    - code: ContaminatedSites
+      law_status:
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
   real_estate:
     plan_for_land_register:
@@ -103,6 +121,10 @@ pyramid_oereb:
       params:
         db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.Theme
+    law_status:
+      inKraft: inKraft
+      AenderungMitVorwirkung: AenderungMitVorwirkung
+      AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
   document_types:
     source:

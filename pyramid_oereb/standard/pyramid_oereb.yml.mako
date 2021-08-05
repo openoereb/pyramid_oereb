@@ -428,7 +428,7 @@ pyramid_oereb:
   # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
   # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
   # the source. The model must implement the same field names and information as the default model does.
-    real_estate_type:
+  real_estate_type:
     # The real estate type text elements must have a property source.
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an

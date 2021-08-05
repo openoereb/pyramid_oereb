@@ -436,12 +436,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -475,12 +475,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -514,12 +514,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -546,13 +546,13 @@
                 "Language": "de"
               }
             ],
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision"
           },
           {
@@ -588,12 +588,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -627,12 +627,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -666,12 +666,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -698,13 +698,13 @@
                 "Language": "de"
               }
             ],
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision"
           }
         ],
@@ -1094,7 +1094,7 @@
             }
           ]
         },
-        "Lawstatus": {
+        "LawStatus": {
           "Text": {
             "Text": "in Kraft",
             "Language": "de"
@@ -1145,12 +1145,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -1184,12 +1184,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -1223,12 +1223,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -1255,13 +1255,13 @@
                 "Language": "de"
               }
             ],
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision"
           },
           {
@@ -1297,12 +1297,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -1336,12 +1336,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -1375,12 +1375,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -1407,13 +1407,13 @@
                 "Language": "de"
               }
             ],
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision"
           }
         ],
@@ -1803,7 +1803,7 @@
             }
           ]
         },
-        "Lawstatus": {
+        "LawStatus": {
           "Text": {
             "Text": "in Kraft",
             "Language": "de"
@@ -1854,12 +1854,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -1893,12 +1893,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -1932,12 +1932,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -1964,13 +1964,13 @@
                 "Language": "de"
               }
             ],
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision"
           },
           {
@@ -2006,12 +2006,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -2045,12 +2045,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -2084,12 +2084,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -2116,13 +2116,13 @@
                 "Language": "de"
               }
             ],
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision"
           }
         ],
@@ -2512,7 +2512,7 @@
             }
           ]
         },
-        "Lawstatus": {
+        "LawStatus": {
           "Text": {
             "Text": "in Kraft",
             "Language": "de"
@@ -2563,12 +2563,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -2602,12 +2602,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -2641,12 +2641,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -2673,13 +2673,13 @@
                 "Language": "de"
               }
             ],
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision"
           },
           {
@@ -2715,12 +2715,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -2754,12 +2754,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -2793,12 +2793,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -2825,13 +2825,13 @@
                 "Language": "de"
               }
             ],
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision"
           }
         ],
@@ -3221,7 +3221,7 @@
             }
           ]
         },
-        "Lawstatus": {
+        "LawStatus": {
           "Text": {
             "Text": "in Kraft",
             "Language": "de"
@@ -3272,12 +3272,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -3311,12 +3311,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -3350,12 +3350,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -3382,13 +3382,13 @@
                 "Language": "de"
               }
             ],
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision"
           },
           {
@@ -3424,12 +3424,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -3463,12 +3463,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -3502,12 +3502,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -3534,13 +3534,13 @@
                 "Language": "de"
               }
             ],
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision"
           }
         ],
@@ -3930,7 +3930,7 @@
             }
           ]
         },
-        "Lawstatus": {
+        "LawStatus": {
           "Text": {
             "Text": "in Kraft",
             "Language": "de"
@@ -4044,13 +4044,13 @@
                 }
               ]
             },
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision",
             "TextAtWeb": [
               {
@@ -4089,12 +4089,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -4128,12 +4128,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -4167,12 +4167,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -4206,12 +4206,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -4225,7 +4225,7 @@
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV3",
-        "Lawstatus": {
+        "LawStatus": {
           "Text": {
             "Text": "in Kraft",
             "Language": "de"
@@ -4349,13 +4349,13 @@
                 }
               ]
             },
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision",
             "TextAtWeb": [
               {
@@ -4394,12 +4394,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -4433,12 +4433,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -4472,12 +4472,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -4511,12 +4511,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -4530,7 +4530,7 @@
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV4",
-        "Lawstatus": {
+        "LawStatus": {
           "Text": {
             "Text": "in Kraft",
             "Language": "de"
@@ -4654,13 +4654,13 @@
                 }
               ]
             },
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision",
             "TextAtWeb": [
               {
@@ -4699,12 +4699,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -4738,12 +4738,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -4777,12 +4777,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -4816,12 +4816,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -4835,7 +4835,7 @@
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp3_StatusAltlV1",
-        "Lawstatus": {
+        "LawStatus": {
           "Text": {
             "Text": "in Kraft",
             "Language": "de"
@@ -4959,13 +4959,13 @@
                 }
               ]
             },
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision",
             "TextAtWeb": [
               {
@@ -5004,12 +5004,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -5043,12 +5043,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -5082,12 +5082,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -5121,12 +5121,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -5140,7 +5140,7 @@
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV1",
-        "Lawstatus": {
+        "LawStatus": {
           "Text": {
             "Text": "in Kraft",
             "Language": "de"
@@ -5264,13 +5264,13 @@
                 }
               ]
             },
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision",
             "TextAtWeb": [
               {
@@ -5309,12 +5309,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -5348,12 +5348,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -5387,12 +5387,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -5426,12 +5426,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -5445,7 +5445,7 @@
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV1",
-        "Lawstatus": {
+        "LawStatus": {
           "Text": {
             "Text": "in Kraft",
             "Language": "de"
@@ -5556,12 +5556,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -5595,12 +5595,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -5627,18 +5627,18 @@
                 "Language": "de"
               }
             ],
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision"
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
-        "Lawstatus": {
+        "LawStatus": {
           "Text": {
             "Text": "in Kraft",
             "Language": "de"
@@ -5749,12 +5749,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -5788,12 +5788,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -5820,18 +5820,18 @@
                 "Language": "de"
               }
             ],
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision"
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
-        "Lawstatus": {
+        "LawStatus": {
           "Text": {
             "Text": "in Kraft",
             "Language": "de"
@@ -5942,12 +5942,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               },
@@ -5981,12 +5981,12 @@
                     "Language": "de"
                   }
                 ],
-                "Lawstatus": {
+                "LawStatus": {
+                  "Code": "inKraft",
                   "Text": {
-                    "Text": "in Kraft",
-                    "Language": "de"
-                  },
-                  "Code": "inKraft"
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
                 },
                 "DocumentType": "LegalProvision"
               }
@@ -6013,18 +6013,18 @@
                 "Language": "de"
               }
             ],
-            "Lawstatus": {
-              "Text": {
-                "Text": "in Kraft",
-                "Language": "de"
-              },
-              "Code": "inKraft"
-            },
+            "LawStatus": {
+                  "Code": "inKraft",
+                  "Text": {
+                    "Language": "de",
+                    "Text": "in Kraft"
+                  }
+                },
             "DocumentType": "LegalProvision"
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
-        "Lawstatus": {
+        "LawStatus": {
           "Text": {
             "Text": "in Kraft",
             "Language": "de"

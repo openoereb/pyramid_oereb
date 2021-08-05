@@ -11,6 +11,10 @@ pyramid_oereb:
       params:
         db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.Theme
+    law_status:
+      inKraft: inKraft
+      AenderungMitVorwirkung: AenderungMitVorwirkung
+      AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
   document_types:
     source:
