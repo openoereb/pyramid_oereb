@@ -16,6 +16,7 @@ from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.glossary import GlossaryRecord
 from pyramid_oereb.lib.records.image import ImageRecord
+from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
@@ -99,10 +100,10 @@ def test_render(parameter, glossaries_input, glossaries_expected):
         )
         extract = ExtractRecord(
             real_estate,
-            ImageRecord(FileAdapter().read('tests/resources/logo_canton.png')),
-            ImageRecord(FileAdapter().read('tests/resources/logo_canton.png')),
-            ImageRecord(FileAdapter().read('tests/resources/logo_canton.png')),
-            ImageRecord(FileAdapter().read('tests/resources/python.svg')),
+            LogoRecord('ch', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAWIAAACaCAIAA'}),
+            LogoRecord('ch.plr', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAWIAAACaCAIAA'}),
+            LogoRecord('ne', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAWIAAACaCAIAA'}),
+            LogoRecord('ch.1234', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAWIAAACaCAIAA'}),
             office_record,
             base_data,
             embeddable,

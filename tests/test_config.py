@@ -6,6 +6,7 @@ from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.image import ImageRecord
+from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
@@ -64,8 +65,8 @@ def test_get_logo_config():
     logos = Config.get_logo_config()
     assert isinstance(logos, dict)
     logo_oereb = logos.get('oereb')
-    assert isinstance(logo_oereb, ImageRecord)
-    assert logo_oereb.content == FileAdapter().read(Config.get('logo').get('oereb'))
+    assert isinstance(logo_oereb, LogoRecord)
+    assert logo_oereb.logo == Config.get_logo_by_code(logo_oereb.code)
 
 
 @pytest.mark.run(order=-1)
@@ -87,9 +88,9 @@ def test_get_logo_multilingual(language):
     assert isinstance(logos, dict)
     logo_oereb = logos.get('oereb')
     if language is None:
-        assert logo_oereb.content == FileAdapter().read(Config.get('logo').get('oereb').get('de'))
+        assert logo_oereb.logo == Config.get('logo').get('oereb').get('de')
     else:
-        assert logo_oereb.content == FileAdapter().read(Config.get('logo').get('oereb').get(language))
+        assert logo_oereb.logo == Config.get('logo').get('oereb').get(language)
 
 
 @pytest.mark.run(order=-1)

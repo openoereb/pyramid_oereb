@@ -5,7 +5,6 @@ from pyramid.path import DottedNameResolver
 
 from pyramid_oereb import Config
 from pyramid_oereb.lib.records.embeddable import EmbeddableRecord, DatasourceRecord
-from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
@@ -59,10 +58,10 @@ def create_dummy_extract():
     )
     record = ExtractRecord(
         real_estate,
-        ImageRecord('100'.encode('utf-8')),
-        ImageRecord('100'.encode('utf-8')),
-        ImageRecord('100'.encode('utf-8')),
-        ImageRecord('100'.encode('utf-8')),
+        LogoRecord('ch', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAWIAAACaCAIAA'}),
+        LogoRecord('ch.plr', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAWIAAACaCAIAA'}),
+        LogoRecord('ne', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAWIAAACaCAIAA'}),
+        LogoRecord('ch.1234', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAWIAAACaCAIAA'}),
         plr_office,
         base_data,
         embeddable

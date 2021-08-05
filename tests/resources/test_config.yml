@@ -15,6 +15,13 @@ section2:
         db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.Theme
 
+  logos:
+    source:
+      class: pyramid_oereb.standard.sources.logo.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.Logo
+
   document_types:
     source:
       class: pyramid_oereb.standard.sources.document_types.DatabaseSource
@@ -50,9 +57,9 @@ pyramid_oereb:
   default_language: de
 
   logo:
-    confederation: pyramid_oereb/standard/logo_confederation.png
-    oereb: pyramid_oereb/standard/logo_oereb_de.png
-    canton: pyramid_oereb/standard/logo_canton.png
+    confederation: ch
+    oereb: ch.plr
+    canton: ne
 
   plr_cadastre_authority:
     name:
@@ -110,7 +117,7 @@ pyramid_oereb:
       params:
         db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.GeneralInformation
-  
+
 
   real_estate_type_lookup:
     Liegenschaft: "Liegenschaft"
@@ -119,7 +126,7 @@ pyramid_oereb:
     SelbstRecht.Konzessionsrecht: "SelbstRecht.Konzessionsrecht"
     SelbstRecht.weitere: "SelbstRecht.weitere"
     Bergwerk: "Bergwerk"
-  
+
   real_estate_type:
     source:
       class: pyramid_oereb.standard.sources.real_estate_type.DatabaseSource

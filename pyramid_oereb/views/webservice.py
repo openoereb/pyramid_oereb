@@ -742,7 +742,7 @@ class Logo(object):
 
     def get_image(self):
         """
-        Returns a response containing the binary image content using the configured "get_logo_method".
+        Returns a response containing the binary logo image content using the configured "get_logo_method".
 
         Returns:
             pyramid.response.Response: Response containing the binary image content.
