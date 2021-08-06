@@ -260,7 +260,10 @@ class Renderer(Base):
                 plr_dict = {
                     'LegendText': self.get_multilingual_text(plr.legend_text),
                     'Theme': self.format_theme(plr.theme),
-                    'Lawstatus': self.format_law_status(plr.law_status),
+                    'Lawstatus': {
+                        'Code': plr.law_status.code,
+                        'Text': self.get_multilingual_text(plr.law_status.text)
+                    },
                     'ResponsibleOffice': self.format_office(plr.responsible_office),
                     'Map': self.format_map(plr.view_service)
                 }
@@ -308,19 +311,6 @@ class Renderer(Base):
 
         return plr_list
 
-    def format_law_status(self, law_status):
-        """
-        Args:
-            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status to format into
-                a dictionary.
-        Returns:
-            dict: The transformed law status.
-        """
-        return {
-            'Code': law_status.code,
-            'Text': self.get_localized_text(law_status.text)
-        }
-
     def format_document(self, document):
         """
         Formats a document record for rendering according to the federal specification.
@@ -349,7 +339,10 @@ class Renderer(Base):
             },
             'Index': document.index,
             'Title': self.get_multilingual_text(document.title),
-            'Lawstatus': self.format_law_status(document.law_status),
+            'Lawstatus': {
+                'Code': document.law_status.code,
+                'Text': self.get_multilingual_text(document.law_status.text)
+            },
             'TextAtWeb': multilingual_text_at_web,
             'ResponsibleOffice': self.format_office(document.responsible_office)
         })
@@ -399,7 +392,10 @@ class Renderer(Base):
 
         geometry_dict = {
             geometry_type: self.from_shapely(geometry.geom),
-            'Lawstatus': self.format_law_status(geometry.law_status),
+            'Lawstatus': {
+                'Code': geometry.law_status.code,
+                'Text': self.get_multilingual_text(geometry.law_status.text)
+            },
             'ResponsibleOffice': self.format_office(geometry.office)
         }
 

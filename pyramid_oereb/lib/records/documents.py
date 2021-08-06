@@ -18,7 +18,7 @@ class DocumentRecord(object):
         document_type (str or unicode): The document type. It must be "LegalProvision", "Law" or "Hint"
                 every other value will raise an error.
         index (int): An index used to sort the documents.
-        law_status (unicode):  Key string of the law status.
+        law_status (dict):  Multilingual label of the law status.
         title (dict of unicode): The multilingual title of the document. It might be shortened one.
         responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is
             responsible for this document.

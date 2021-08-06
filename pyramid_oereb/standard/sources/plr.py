@@ -12,7 +12,6 @@ from pyramid_oereb.lib import b64
 from pyramid_oereb.lib.records.availability import AvailabilityRecord
 from pyramid_oereb.lib.records.embeddable import DatasourceRecord
 from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import EmptyPlrRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource
@@ -38,8 +37,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             source (dict): The configuration dictionary of the public law restriction
             hooks (dict of str): The hook methods: get_symbol, get_symbol_ref. They have to be provided as
                 dotted string for further use with dotted name resolver of pyramid package.
-            law_status (dict of str): The multiple match configuration to provide more flexible use of the
-                federal specified classifiers 'inForce' and 'runningModifications'.
+            law_status (dict of str): The configuration dictionary of the law status. It consists of
+                the code and text which must be a dictionary containing language (as configured)
+                as key and text as value.
         """
         models_path = kwargs.get('source').get('params').get('models')
         bds_kwargs = {
@@ -208,15 +208,11 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def from_db_to_geometry_records(self, geometries_from_db):
         geometry_records = []
         for geometry_from_db in geometries_from_db:
-
             # Create law status record
-            law_status = LawStatusRecord.from_config(
-                Config.get_law_status(
+            law_status = Config.get_law_status_by_code(
                     self._plr_info.get('code'),
-                    self._plr_info.get('law_status'),
                     geometry_from_db.law_status
                 )
-            )
 
             # Create office record
             office = self.from_db_to_office_record(geometry_from_db.responsible_office)
@@ -245,19 +241,18 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             offices_from_db.postal_code,
             offices_from_db.city
         )
+
         return office_record
 
     def from_db_to_document_records(self, documents_from_db, article_numbers=None):
         document_records = []
         for i, document in enumerate(documents_from_db):
             office_record = self.from_db_to_office_record(document.responsible_office)
+
             article_nrs = article_numbers[i] if isinstance(article_numbers, list) else None
-            law_status = LawStatusRecord.from_config(
-                Config.get_law_status(
-                    self._plr_info.get('code'),
-                    self._plr_info.get('law_status'),
-                    document.law_status
-                )
+            law_status = Config.get_law_status_by_code(
+                self._plr_info.get('code'),
+                document.law_status
             )
             document_records.append(self._documents_record_class(
                 document_type=document.document_type,
@@ -296,18 +291,12 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             legend_entry_records,
             self._plr_info.get('code')
         )
-
         document_records = self.get_document_records(params, public_law_restriction_from_db)
         geometry_records = self.from_db_to_geometry_records(public_law_restriction_from_db.geometries)
-
-        law_status = LawStatusRecord.from_config(
-            Config.get_law_status(
-                self._plr_info.get('code'),
-                self._plr_info.get('law_status'),
-                public_law_restriction_from_db.law_status
-            )
+        law_status = Config.get_law_status_by_code(
+            self._plr_info.get('code'),
+            public_law_restriction_from_db.law_status
         )
-
         plr_record = self._plr_record_class(
             self._theme_record,
             legend_entry_record,
@@ -343,7 +332,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             article_nrs = legal_provision.article_numbers.split('|') if legal_provision.article_numbers \
                 else None
             article_numbers.append(article_nrs)
-        return self.from_db_to_document_records(documents_from_db, article_numbers)
+        document_records = self.from_db_to_document_records(documents_from_db, article_numbers)
+        return document_records
 
     @staticmethod
     def extract_geometry_collection_db(db_path, real_estate_geometry):
@@ -497,9 +487,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                                     legend_entries_from_db
                                 )
                             )
-                        log.debug("read() processed {} geometry_results into {} plr".format(
-                            len(geometry_results), len(self.records))
-                        )
 
             finally:
                 session.close()

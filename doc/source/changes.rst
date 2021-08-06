@@ -1005,5 +1005,6 @@ Find an example configuration for land use plans below:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung

@@ -2,11 +2,11 @@
 import logging
 
 import datetime
+from pyramid_oereb.lib.config import Config
 from geolink_formatter import XML
 from requests.auth import HTTPBasicAuth
 
 from pyramid_oereb.lib.records.documents import DocumentRecord
-from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.sources import Base
 
@@ -189,7 +189,7 @@ class OEREBlexSource(Base):
             arguments = {
                 'document_type': document_type,
                 'index': 0,  # TODO: Generate correct index for sorting
-                'law_status': LawStatusRecord.from_config(u'inForce'),  # TODO: Adapt mapping for law status
+                'law_status': Config.get_law_status_by_law_status_code(u'inKraft'),
                 'title': self._get_multilingual(f.title or document.title, language),
                 'responsible_office': office,
                 'published_from': enactment_date,  # TODO: Use publication_date instead?
