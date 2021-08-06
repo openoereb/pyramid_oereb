@@ -314,7 +314,7 @@ def test_get_sorted_legal_provisions():
             "Canton": "BL",
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
-            "Lawstatus_Text": "in Kraft",
+            "Lawstatus_Text": "Rechtskräftig",
             "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -325,7 +325,7 @@ def test_get_sorted_legal_provisions():
             "Canton": "BL",
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
-            "Lawstatus_Text": "in Kraft",
+            "Lawstatus_Text": "Rechtskräftig",
             "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -336,7 +336,7 @@ def test_get_sorted_legal_provisions():
             "Canton": "BL",
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
-            "Lawstatus_Text": "in Kraft",
+            "Lawstatus_Text": "Rechtskräftig",
             "OfficialNumber": "07.447",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -347,7 +347,7 @@ def test_get_sorted_legal_provisions():
             "Canton": "BL",
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
-            "Lawstatus_Text": "in Kraft",
+            "Lawstatus_Text": "Rechtskräftig",
             "OfficialNumber": "07.447",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -361,7 +361,7 @@ def test_get_sorted_legal_provisions():
            "Canton": "BL",
            "DocumentType": "LegalProvision",
            "Lawstatus_Code": "inKraft",
-           "Lawstatus_Text": "in Kraft",
+           "Lawstatus_Text": "Rechtskräftig",
            "OfficialNumber": "07.447",
            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
@@ -371,7 +371,7 @@ def test_get_sorted_legal_provisions():
             "Canton": "BL",
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
-            "Lawstatus_Text": "in Kraft",
+            "Lawstatus_Text": "Rechtskräftig",
             "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -382,7 +382,7 @@ def test_get_sorted_legal_provisions():
             "Canton": "BL",
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
-            "Lawstatus_Text": "in Kraft",
+            "Lawstatus_Text": "Rechtskräftig",
             "OfficialNumber": "07.447",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -393,7 +393,7 @@ def test_get_sorted_legal_provisions():
             "Canton": "BL",
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
-            "Lawstatus_Text": "in Kraft",
+            "Lawstatus_Text": "Rechtskräftig",
             "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -411,7 +411,7 @@ def test_get_sorted_hints():
         "Canton": "BL",
         "DocumentType": "LegalProvision",
         "Lawstatus_Code": "inKraft",
-        "Lawstatus_Text": "in Kraft",
+        "Lawstatus_Text": "Rechtskräftig",
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
@@ -421,7 +421,7 @@ def test_get_sorted_hints():
         "Canton": "BL",
         "DocumentType": "LegalProvision",
         "Lawstatus_Code": "inKraft",
-        "Lawstatus_Text": "in Kraft",
+        "Lawstatus_Text": "Rechtskräftig",
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
@@ -430,7 +430,7 @@ def test_get_sorted_hints():
         "Canton": "BL",
         "DocumentType": "LegalProvision",
         "Lawstatus_Code": "inKraft",
-        "Lawstatus_Text": "in Kraft",
+        "Lawstatus_Text": "Rechtskräftig",
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
@@ -443,7 +443,7 @@ def test_get_sorted_hints():
         "Canton": "BL",
         "DocumentType": "LegalProvision",
         "Lawstatus_Code": "inKraft",
-        "Lawstatus_Text": "in Kraft",
+        "Lawstatus_Text": "Rechtskräftig",
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
@@ -452,7 +452,7 @@ def test_get_sorted_hints():
         "Canton": "BL",
         "DocumentType": "LegalProvision",
         "Lawstatus_Code": "inKraft",
-        "Lawstatus_Text": "in Kraft",
+        "Lawstatus_Text": "Rechtskräftig",
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
@@ -462,7 +462,7 @@ def test_get_sorted_hints():
         "Canton": "BL",
         "DocumentType": "LegalProvision",
         "Lawstatus_Code": "inKraft",
-        "Lawstatus_Text": "in Kraft",
+        "Lawstatus_Text": "Rechtskräftig",
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
@@ -484,7 +484,7 @@ def test_get_sorted_law():
             'OfficialNumber': 'BR 801.110',
             'Canton': 'GR',
             'Lawstatus_Code': 'inKraft',
-            'Lawstatus_Text': 'in Kraft',
+            'Lawstatus_Text': 'Rechtskräftig',
             'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
             'ResponsibleOffice_OfficeAtWeb':
                 'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2934?locale=de'
@@ -495,7 +495,7 @@ def test_get_sorted_law():
             'Abbreviation': u'KRG',
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
-            'Lawstatus_Text': u'in Kraft',
+            'Lawstatus_Text': u'Rechtskräftig',
             'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
             'ResponsibleOffice_OfficeAtWeb':
                 u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
@@ -507,7 +507,7 @@ def test_get_sorted_law():
             'OfficialNumber': u'BR 801.100',
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
-            'Lawstatus_Text': u'in Kraft',
+            'Lawstatus_Text': u'Rechtskräftig',
             'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
             'ResponsibleOffice_OfficeAtWeb':
                 u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
@@ -519,7 +519,7 @@ def test_get_sorted_law():
             'OfficialNumber': 'SR 700',
             'Canton': 'GR',
             'Lawstatus_Code': 'inKraft',
-            'Lawstatus_Text': 'in Kraft',
+            'Lawstatus_Text': 'Rechtskräftig',
             'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
             'ResponsibleOffice_OfficeAtWeb': 'http://www.lexfind.ch/dtah/167348/2'
         }, {
@@ -530,7 +530,7 @@ def test_get_sorted_law():
             'OfficialNumber': u'BR 801.100',
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
-            'Lawstatus_Text': u'in Kraft',
+            'Lawstatus_Text': u'Rechtskräftig',
             'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
             'ResponsibleOffice_OfficeAtWeb':
                 u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
@@ -546,7 +546,7 @@ def test_get_sorted_law():
             'OfficialNumber': u'BR 801.100',
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
-            'Lawstatus_Text': u'in Kraft',
+            'Lawstatus_Text': u'Rechtskräftig',
             'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
             'ResponsibleOffice_OfficeAtWeb':
                 u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
@@ -558,7 +558,7 @@ def test_get_sorted_law():
             'OfficialNumber': u'BR 801.100',
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
-            'Lawstatus_Text': u'in Kraft',
+            'Lawstatus_Text': u'Rechtskräftig',
             'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
             'ResponsibleOffice_OfficeAtWeb':
                 u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
@@ -570,7 +570,7 @@ def test_get_sorted_law():
             'OfficialNumber': 'BR 801.110',
             'Canton': 'GR',
             'Lawstatus_Code': 'inKraft',
-            'Lawstatus_Text': 'in Kraft',
+            'Lawstatus_Text': 'Rechtskräftig',
             'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
             'ResponsibleOffice_OfficeAtWeb':
                 'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2934?locale=de'
@@ -582,7 +582,7 @@ def test_get_sorted_law():
             'OfficialNumber': 'SR 700',
             'Canton': 'GR',
             'Lawstatus_Code': 'inKraft',
-            'Lawstatus_Text': 'in Kraft',
+            'Lawstatus_Text': 'Rechtskräftig',
             'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
             'ResponsibleOffice_OfficeAtWeb': 'http://www.lexfind.ch/dtah/167348/2'
         }, {
@@ -592,7 +592,7 @@ def test_get_sorted_law():
             'Abbreviation': u'KRG',
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
-            'Lawstatus_Text': u'in Kraft',
+            'Lawstatus_Text': u'Rechtskräftig',
             'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
             'ResponsibleOffice_OfficeAtWeb':
                 u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
@@ -609,7 +609,7 @@ def test_group_legal_provisions():
             "Canton": "BL",
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
-            "Lawstatus_Text": "in Kraft",
+            "Lawstatus_Text": "Rechtskräftig",
             "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -620,7 +620,7 @@ def test_group_legal_provisions():
             "Canton": "BL",
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
-            "Lawstatus_Text": "in Kraft",
+            "Lawstatus_Text": "Rechtskräftig",
             "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -631,7 +631,7 @@ def test_group_legal_provisions():
             "Canton": "BL",
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
-            "Lawstatus_Text": "in Kraft",
+            "Lawstatus_Text": "Rechtskräftig",
             "OfficialNumber": "07.447",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -642,7 +642,7 @@ def test_group_legal_provisions():
             "Canton": "BL",
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
-            "Lawstatus_Text": "in Kraft",
+            "Lawstatus_Text": "Rechtskräftig",
             "OfficialNumber": "07.447",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -656,7 +656,7 @@ def test_group_legal_provisions():
             "Canton": "BL",
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
-            "Lawstatus_Text": "in Kraft",
+            "Lawstatus_Text": "Rechtskräftig",
             "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -670,7 +670,7 @@ def test_group_legal_provisions():
             "Canton": "BL",
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
-            "Lawstatus_Text": "in Kraft",
+            "Lawstatus_Text": "Rechtskräftig",
             "OfficialNumber": "07.447",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
