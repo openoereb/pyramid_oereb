@@ -3,9 +3,9 @@ import datetime
 import pytest
 from pyramid.config import ConfigurationError
 
-from pyramid_oereb.lib.adapter import FileAdapter
+# from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.records.image import ImageRecord
+# from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 

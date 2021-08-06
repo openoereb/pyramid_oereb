@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb import route_prefix
-from pyramid_oereb.views.webservice import PlrWebservice, Symbol, Logo, Municipality, Sld
+from pyramid_oereb.views.webservice import PlrWebservice, Symbol, Logo, Sld
 from pyramid_oereb.contrib.stats.decorators import log_response
 
 
@@ -16,14 +16,6 @@ def includeme(config):  # pragma: no cover
     config.add_route('{0}/image/logo'.format(route_prefix),
                      '/image/logo/{logo}/{language}.{extension}')
     config.add_view(Logo, attr='get_image', route_name='{0}/image/logo'.format(route_prefix),
-                    request_method='GET', decorator=log_response)
-
-    # Service for municipality images
-    config.add_route('{0}/image/municipality'.format(route_prefix),
-                     '/image/municipality/{fosnr}.{extension}')
-    config.add_view(Municipality,
-                    attr='get_image',
-                    route_name='{0}/image/municipality'.format(route_prefix),
                     request_method='GET', decorator=log_response)
 
     # Service for symbol images

@@ -121,6 +121,13 @@ class Config(object):
         raise ConfigurationError(f"Theme {code} not found in the application configuration")
 
     @staticmethod
+    def get_confederation_logo_code():
+        try:
+            return Config['logo']['confederation']
+        except:
+            raise ConfigurationError("Missing configuration for confederation logo")
+
+    @staticmethod
     def init_logos():
         try:
             Config.logos = Config._read_logos()

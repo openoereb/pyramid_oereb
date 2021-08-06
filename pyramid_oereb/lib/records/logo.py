@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import warnings
 
+from pyramid_oereb.lib import b64
+
+from pyramid_oereb.lib.records.image import ImageRecord
 
 class LogoRecord(object):
     """
@@ -8,14 +11,17 @@ class LogoRecord(object):
 
     Args:
         code (str of unicode): The code for the logo.
-        logo (dict of unicode): The image encoded as base64 (multilingual).
+        image_dict (dict of pyramid_oereb.lib.records.image.ImageRecord): The image encoded
+            as base64 (multilingual).
     """
-    def __init__(self, code, logo):
+    def __init__(self, code, image_dict):
 
         if not isinstance(code, str):
             warnings.warn('Type of "code" should be "str"')
-        if not isinstance(logo, dict):
-            warnings.warn('Type of "logo" should be "dict"')
+        if not isinstance(image_dict, dict):
+            warnings.warn('Type of "image_dict" should be "dict"')
 
         self.code = code
-        self.logo = logo
+        self.image_dict = {}
+        for key in image_dict.keys():
+            self.image_dict[key] = ImageRecord(b64.decode(image_dict[key]))
