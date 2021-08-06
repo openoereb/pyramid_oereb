@@ -2,7 +2,8 @@
 
 import logging
 
-from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPNotFound, HTTPInternalServerError
+from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPInternalServerError, HTTPNoContent, \
+    HTTPNotFound
 from pyramid.path import DottedNameResolver
 from shapely.geometry import Point
 from pyramid.renderers import render_to_response
@@ -33,7 +34,7 @@ class PlrWebservice(object):
     _DEFAULT_FORMATS = ['xml', 'json']
     """list of str: The default formats for the service responses."""
 
-    _EXTRACT_FORMATS = _DEFAULT_FORMATS + ['pdf']
+    _EXTRACT_FORMATS = _DEFAULT_FORMATS + ['pdf', 'url']
     """list of str: The formats for the extract responses."""
 
     def __init__(self, request):
@@ -274,6 +275,12 @@ class PlrWebservice(object):
                 raise HTTPBadRequest("Missing required argument")
             # check if result is strictly one (we queried with primary keys)
             if len(real_estate_records) == 1:
+
+                # Redirect for format URL
+                if params.format == 'url':
+                    log.debug("get_extract_by_id() calling url")
+                    return self.__redirect_to_dynamic_client__(real_estate_records[0])
+
                 extract = processor.process(
                     real_estate_records[0],
                     params,
@@ -548,6 +555,23 @@ class PlrWebservice(object):
             if p not in self._params:
                 return False
         return True
+
+    @staticmethod
+    def __redirect_to_dynamic_client__(real_estate):
+        """
+        Returns a redirect to the configured dynamic client.
+
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord):
+                The found real estate.
+
+        Returns:
+            pyramid.httpexceptions.HTTPFound: The redirect response.
+        """
+        url = Config.get_extract_config().get('redirect')
+        if url is None:
+            raise HTTPInternalServerError('Missing configuration for redirect to dynamic client.')
+        return HTTPFound(url.format(**vars(real_estate)))
 
 
 class Parameter(object):

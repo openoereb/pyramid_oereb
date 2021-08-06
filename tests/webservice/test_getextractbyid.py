@@ -3,7 +3,7 @@ import json
 import logging
 import pytest
 from jsonschema import Draft4Validator
-from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
+from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNoContent
 
 from tests import pyramid_oereb_test_config, schema_json_extract
 from tests.mockrequest import MockRequest
@@ -213,3 +213,17 @@ def test_return_json(topics):
         assert len(extract.get('ThemeWithoutData')) == 0
         restrictions = real_estate.get('RestrictionOnLandownership')
         assert restrictions[0]['Theme']['Code'] == 'ContaminatedSites'
+
+
+def test_format_url():
+    request = MockRequest()
+    request.matchdict.update({
+        'format': 'URL'
+    })
+    request.params.update({
+        'EGRID': 'TEST'
+    })
+    service = PlrWebservice(request)
+    response = service.get_extract_by_id()
+    assert isinstance(response, HTTPFound)
+    assert response.location == 'https://geoview.bl.ch/oereb/?egrid=TEST'
