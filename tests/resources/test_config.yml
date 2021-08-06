@@ -96,7 +96,6 @@ pyramid_oereb:
         inKraft: inKraft
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
     - code: ContaminatedSites
       law_status:
         inKraft: inKraft
@@ -145,7 +144,7 @@ pyramid_oereb:
       class: pyramid_oereb.standard.sources.law_status.DatabaseSource
       params:
         db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
-        model: pyramid_oereb.standard.models.main.LawStatus  
+        model: pyramid_oereb.standard.models.main.LawStatus
 
   real_estate_type_lookup:
     Liegenschaft: "Liegenschaft"
