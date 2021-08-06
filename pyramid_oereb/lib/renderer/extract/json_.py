@@ -8,6 +8,7 @@ from pyramid.response import Response
 from pyramid.testing import DummyRequest
 
 from pyramid_oereb import Config, route_prefix
+from pyramid_oereb.lib import b64
 from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
 
@@ -96,10 +97,10 @@ class Renderer(Base):
 
         if extract.logo_plr_cadastre:
             extract_dict.update({
-                'LogoPLRCadastre': extract.logo_plr_cadastre.image_dict[self._language].content,
-                'FederalLogo': extract.federal_logo.image_dict[self._language].content,
-                'CantonalLogo': extract.cantonal_logo.image_dict[self._language].content,
-                'MunicipalityLogo': extract.municipality_logo.image_dict[self._language].content
+                'LogoPLRCadastre': b64.encode(extract.logo_plr_cadastre.image_dict[self._language].content),
+                'FederalLogo': b64.encode(extract.federal_logo.image_dict[self._language].content),
+                'CantonalLogo': b64.encode(extract.cantonal_logo.image_dict[self._language].content),
+                'MunicipalityLogo': b64.encode(extract.municipality_logo.image_dict[self._language].content)
             })
         else:
             extract_dict.update({
