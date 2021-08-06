@@ -124,7 +124,7 @@ class Config(object):
     def get_confederation_logo_code():
         try:
             return Config['logo']['confederation']
-        except:
+        except ConfigurationError:
             raise ConfigurationError("Missing configuration for confederation logo")
 
     @staticmethod

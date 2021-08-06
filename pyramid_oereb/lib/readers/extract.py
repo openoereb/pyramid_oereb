@@ -34,7 +34,6 @@ class ExtractReader(object):
                 instances which the achieved extract should be about.
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OffcieRecord): The authority responsible
                 for the PLR cadastre.
-            logos (dict): The logos of confederation, canton and oereb wrapped in a LogoRecord.
             certification (dict of unicode or None): A mutlilingual dictionary of certification information.
             certification_at_web (dict of unicode or None): Multilingual list of certification uri.
         """

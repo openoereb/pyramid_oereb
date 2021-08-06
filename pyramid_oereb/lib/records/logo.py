@@ -5,6 +5,7 @@ from pyramid_oereb.lib import b64
 
 from pyramid_oereb.lib.records.image import ImageRecord
 
+
 class LogoRecord(object):
     """
     Represents a logo with its code and its base64 encoded string (multilingual).

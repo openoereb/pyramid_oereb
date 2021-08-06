@@ -31,7 +31,7 @@ def get_logo(request):
     logo_key = request.matchdict.get('logo')
     logo_language = request.matchdict.get('language')
     if logo_key in Config.get('logo').keys():
-        matched_logo_key =  Config.get('logo')[logo_key]
+        matched_logo_key = Config.get('logo')[logo_key]
         logo = Config.get_logo_by_code(matched_logo_key)
         response = request.response
         response.status_int = 200
