@@ -36,7 +36,7 @@ def law_status():
 
 
 def default_param():
-    return Parameter('json', 'reduced', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
+    return Parameter('json', False, False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 
 
 @pytest.fixture()
@@ -244,7 +244,7 @@ def test_format_real_estate():
 
 @pytest.mark.parametrize('parameter', [
     default_param(),
-    Parameter('json', 'reduced', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
+    Parameter('json', False, True, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
 ])
 def test_format_plr(parameter):
     with pyramid_oereb_test_config():
