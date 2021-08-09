@@ -181,6 +181,53 @@ class Config(object):
         raise ConfigurationError(f"Logo for code: {code} not found in the application configuration")
 
     @staticmethod
+    def get_conferderation_logo():
+        return Config.get_logo_by_code(Config.get_logo_lookup_confederation())
+
+    @staticmethod
+    def get_canton_logo():
+        return Config.get_logo_by_code(Config.get_logo_lookup_canton())
+
+    @staticmethod
+    def get_municipality_logo(fosnr):
+        return Config.get_logo_by_code('{}.{}'.format(
+            Config.get_logo_lookup_confederation(),
+            str(fosnr))
+        )
+
+    @staticmethod
+    def get_oereb_logo():
+        return Config.get_logo_by_code(Config.get_logo_lookup_oereb())
+
+    @staticmethod
+    def get_logo_lookups():
+        logo_lookups = Config.get('logo_lookups')
+        if logo_lookups:
+            return logo_lookups
+        else:
+            raise ConfigurationError('Configuration for "logo_lookups" not found.')
+
+    @staticmethod
+    def get_logo_lookup(key):
+        code = Config.get_logo_lookups()[key]
+        if code:
+            return code
+        else:
+            raise ConfigurationError('Configuration for lookup "{}" not found.'.format(key))
+
+    @staticmethod
+    def get_logo_lookup_oereb():
+        return Config.get_logo_lookup('oereb')
+
+    @staticmethod
+    def get_logo_lookup_canton():
+        return Config.get_logo_lookup('canton')
+
+    @staticmethod
+    def get_logo_lookup_confederation():
+        return Config.get_logo_lookup('confederation')
+
+    @staticmethod
     def _read_general_information():
         info_config = Config.get_info_config()
         if info_config is None:

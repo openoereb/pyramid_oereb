@@ -18,29 +18,6 @@ from pyramid_oereb.lib.records.office import OfficeRecord
 log = logging.getLogger(__name__)
 
 
-def get_logo(request):
-    """
-    Returns the requested logo.
-
-    Args:
-        request (pyramid.request.Request): The request containing the logo key matchdict parameter.
-
-    Returns:
-        pyramid.response.Response: The generated response object.
-    """
-    logo_key = request.matchdict.get('logo')
-    logo_language = request.matchdict.get('language')
-    if logo_key in Config.get('logo').keys():
-        matched_logo_key = Config.get('logo')[logo_key]
-        logo = Config.get_logo_by_code(matched_logo_key)
-        response = request.response
-        response.status_int = 200
-        response.body = logo.image_dict[logo_language].content
-        response.content_type = logo.image_dict[logo_language].mimetype
-        return response
-    raise HTTPNotFound('This logo does not exist.')
-
-
 def get_symbol(request):
     """
     Returns the symbol for the requested theme and type code from database.

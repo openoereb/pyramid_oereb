@@ -145,17 +145,10 @@ class ExtractReader(object):
         base_data = Config.get_base_data(av_update_date)
         general_information = Config.get_general_information()
 
-        oereb_code = Config.get('logo').get('oereb')
-        if oereb_code is not None:
-            oereb_logo = Config.get_logo_by_code(oereb_code)
-        country_code = Config.get('logo').get('confederation')
-        if country_code is not None:
-            confederation_logo = Config.get_logo_by_code(country_code)
-        canton_code = Config.get('logo').get('canton')
-        if canton_code is not None:
-            canton_logo = Config.get_logo_by_code(canton_code)
-        if municipality.fosnr and country_code is not None:
-            municipality_logo = Config.get_logo_by_code(country_code + '.' + str(municipality.fosnr))
+        oereb_logo = Config.get_oereb_logo()
+        confederation_logo = Config.get_conferderation_logo()
+        canton_logo = Config.get_canton_logo()
+        municipality_logo = Config.get_municipality_logo(municipality.fosnr)
 
         av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
         av_provider_method = resolver.resolve(av_provider_method_string)

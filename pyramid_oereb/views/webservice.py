@@ -747,11 +747,24 @@ class Logo(object):
         Returns:
             pyramid.response.Response: Response containing the binary image content.
         """
-        method = Config.get('get_logo_method')
-        if method:
-            return DottedNameResolver().resolve(method)(self._request)
-        log.error('"get_logo_method" not found')
-        raise HTTPNotFound()
+        logo_key = self._request.matchdict.get('logo')
+        logo_language = self._request.matchdict.get('language')
+        if(logo_key.upper() == 'CONFEDERATION'):
+            logo = Config.get_conferderation_logo()
+        elif(logo_key.upper() == 'OEREB'):
+            logo = Config.get_oereb_logo()
+        elif(logo_key.upper() == 'CANTON'):
+            logo = Config.get_canton_logo()
+        elif(logo_key.upper() == 'MUNICIPALITY'):
+            fosnr = self._request.params['fosnr']
+            logo = Config.get_municipality_logo(fosnr)
+        else:
+            raise HTTPNotFound('This logo does not exist.')
+        response = self._request.response
+        response.status_int = 200
+        response.body = logo.image_dict[logo_language].content
+        response.content_type = logo.image_dict[logo_language].mimetype
+        return response
 
 
 class Symbol(object):
