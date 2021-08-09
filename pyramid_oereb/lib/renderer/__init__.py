@@ -4,10 +4,11 @@ import datetime
 import logging
 import unicodedata
 
-from pyramid.httpexceptions import HTTPServerError
+from pyramid.httpexceptions import HTTPServerError  # , HTTPInternalServerError
 from pyramid.path import DottedNameResolver
 from pyramid.request import Request
 from pyramid.testing import DummyRequest
+from pyramid_oereb.lib import get_multiligual_element
 
 from shapely.geometry import mapping
 
@@ -104,12 +105,13 @@ class Base(object):
         """ pyramid.interfaces.IRendererInfo: The passed renderer info object."""
         return self._info_
 
-    def get_localized_text(self, values):
+    def get_localized_text(self, values, not_null=True):
         """
         Returns the requested language of a multilingual text element.
 
         Args:
             values (str or dict): The multilingual values encoded as JSON.
+            not_null (boolean): Throws an error if there is no value for this language.
 
         Returns:
             dict of str: Dictionary containing the localized representation.
@@ -119,12 +121,12 @@ class Base(object):
             if self._language in values:
                 return {
                     'Language': self._language,
-                    'Text': values.get(self._language)
+                    'Text': get_multiligual_element(values, self._language, not_null)
                 }
             else:
                 return {
                     'Language': default_language,
-                    'Text': values.get(default_language)
+                    'Text': get_multiligual_element(values, default_language, not_null)
                 }
         else:
             return {
@@ -132,17 +134,18 @@ class Base(object):
                 'Text': values
             }
 
-    def get_multilingual_text(self, values):
+    def get_multilingual_text(self, values, not_null=True):
         """
         Returns the set language of a multilingual text element.
 
         Args:
             values (str or dict): The multilingual values encoded as JSON.
+            not_null (boolean): Throws an error if there is no value for this language.
 
         Returns:
             list of dict: List of dictionaries containing the multilingual representation.
         """
-        return [self.get_localized_text(values)]
+        return [self.get_localized_text(values, not_null)]
 
     def get_localized_image(self, values):
         """

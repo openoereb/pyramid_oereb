@@ -164,12 +164,12 @@ class Renderer(Base):
         if isinstance(extract.glossaries, list) and len(extract.glossaries) > 0:
             glossaries = list()
             for gls in extract.glossaries:
-                gls_title = self.get_multilingual_text(gls.title)
+                gls_title = self.get_multilingual_text(gls.title, False)
                 gls_title_text = gls_title[0]['Text']
                 if gls_title_text is not None:
                     glossaries.append({
                         'Title': gls_title,
-                        'Content': self.get_multilingual_text(gls.content)
+                        'Content': self.get_multilingual_text(gls.content, False)
                     })
                 else:
                     log.warning("glossary entry in requested language missing for title {}".format(gls.title))
