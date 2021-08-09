@@ -138,7 +138,6 @@ pyramid_oereb:
       params:
         db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.GeneralInformation
-<<<<<<< HEAD
 
   law_status_labels:
     source:
@@ -146,8 +145,6 @@ pyramid_oereb:
       params:
         db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.LawStatus
-=======
->>>>>>> 0fee3f6b2dae775258df944984d90622561d6f4d
 
   real_estate_type_lookup:
     Liegenschaft: "Liegenschaft"

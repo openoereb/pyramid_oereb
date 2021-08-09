@@ -411,6 +411,23 @@ class DummyData(object):
             'code': 'Bergwerk',
             'text': {'de': 'Bergwerk', 'fr': 'Mine', 'it': 'Miniera', 'rm': 'Miniera', 'en': 'Mine'}
         })
+        connection.execute(main.LawStatus.__table__.insert(), {
+            'code': 'inKraft',
+            "text": {"de": "Rechtskräftig", "fr": "En vigueur",
+                     "it": "In vigore", "rm": "En vigur", "en": "In force"}
+        })
+        connection.execute(main.LawStatus.__table__.insert(), {
+            "code": "AenderungMitVorwirkung",
+            "text": {"de": "Änderung mit Vorwirkung", "fr": "Modification avec effet anticipé",
+                     "it": "Modificazione con effetto anticipato", "rm": "Midada cun effect anticipà",
+                     "en": "Modification with pre-effect"}
+        })
+        connection.execute(main.LawStatus.__table__.insert(), {
+            "code": "AenderungOhneVorwirkung",
+            "text": {"de": "Änderung ohne Vorwirkung", "fr": "Modification sans effet anticipé",
+                     "it": "Modificazione senza effetto anticipato", "rm": "Midada senza effect anticipà",
+                     "en": "Modification without pre-effect"}
+        })
 
         connection.close()
 
