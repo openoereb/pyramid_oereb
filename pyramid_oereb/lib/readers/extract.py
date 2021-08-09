@@ -33,7 +33,7 @@ class ExtractReader(object):
         Args:
             plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of PLR source
                 instances which the achieved extract should be about.
-            plr_cadastre_authority (pyramid_oereb.lib.records.office.OffcieRecord): The authority responsible
+            plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority responsible
                 for the PLR cadastre.
             logos (dict): The logos of confederation, canton and oereb wrapped in a ImageRecord.
             certification (dict of unicode or None): A mutlilingual dictionary of certification information.
@@ -51,7 +51,7 @@ class ExtractReader(object):
         Returns the authority responsible for the PLR cadastre.
 
         Returns:
-            pyramid_oereb.lib.records.office.OffcieRecord: The authority responsible for the PLR
+            pyramid_oereb.lib.records.office.OfficeRecord: The authority responsible for the PLR
             cadastre.
         """
         return self._plr_cadastre_authority_
