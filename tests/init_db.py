@@ -411,6 +411,8 @@ class DummyData(object):
             'code': 'Bergwerk',
             'text': {'de': 'Bergwerk', 'fr': 'Mine', 'it': 'Miniera', 'rm': 'Miniera', 'en': 'Mine'}
         })
+
+        # Add dummy law statuses
         connection.execute(main.LawStatus.__table__.insert(), {
             'code': 'inKraft',
             "text": {"de": "Rechtskräftig", "fr": "En vigueur",
