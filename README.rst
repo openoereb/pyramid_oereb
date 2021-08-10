@@ -25,7 +25,7 @@ If you are interested in contributing or extending the project, take a look at t
    :target: https://requires.io/github/openoereb/pyramid_oereb/requirements/?branch=master
    :alt: Requirements Status
 
-Local testing for Versions V1
+Local testing for versions V1
 =============================
 
 Run dev server
