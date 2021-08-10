@@ -135,6 +135,17 @@ class Config(object):
         return Config.general_information
 
     @staticmethod
+    def get_law_statuses():
+        """
+        Returns a list of available law status codes.
+
+        Returns:
+            list of unicode: The available law status codes.
+        """
+        assert Config._config is not None
+        return [law_status.code for law_status in Config.law_status]
+
+    @staticmethod
     def get_themes():
         """
         Returns a list of available themes.

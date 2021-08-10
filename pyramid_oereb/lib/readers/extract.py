@@ -115,7 +115,18 @@ class ExtractReader(object):
                     for ds in plr_source.datasource:
                         if not params.skip_topic(ds.theme.code):
                             datasource.append(ds)
-                    real_estate.public_law_restrictions.extend(plr_source.records)
+
+                    # Group PLR records according to their law status
+                    grouped_plr = list()
+                    for law_status in Config.get_law_statuses():
+                        for plr in plr_source.records:
+                            if isinstance(plr, PlrRecord):
+                                if plr.law_status.code == law_status:
+                                    grouped_plr.append(plr)
+                            elif plr not in grouped_plr:
+                                grouped_plr.append(plr)
+
+                    real_estate.public_law_restrictions.extend(grouped_plr)
 
             for plr in real_estate.public_law_restrictions:
 

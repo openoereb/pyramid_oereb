@@ -4,7 +4,7 @@
     "published_from": "2016-02-25",
     "published_until": "2100-01-01",
     "id": 396,
-    "law_status": "inKraft",
+    "law_status": "AenderungMitVorwirkung",
     "view_service_id": 1,
     "legend_entry_id": 2
   }, {
@@ -20,7 +20,7 @@
     "published_from": "2016-02-25",
     "published_until": "2100-01-01",
     "id": 398,
-    "law_status": "inKraft",
+    "law_status": "AenderungMitVorwirkung",
     "view_service_id": 1,
     "legend_entry_id": 3
   }, {
@@ -28,7 +28,7 @@
     "published_from": "2016-02-25",
     "published_until": "2100-01-01",
     "id": 399,
-    "law_status": "inKraft",
+    "law_status": "AenderungOhneVorwirkung",
     "view_service_id": 1,
     "legend_entry_id": 3
   }, {
