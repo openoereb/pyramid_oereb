@@ -25,13 +25,13 @@ If you are interested in contributing or extending the project, take a look at t
    :target: https://requires.io/github/openoereb/pyramid_oereb/requirements/?branch=master
    :alt: Requirements Status
 
-Local testing (quick preview)
+Local testing for versions V1
 =============================
 
 Run dev server
 --------------
 
-Following packages are required: ``python3-venv`` ``postgresql-client`` ``libpq-dev``
+Following packages are required: ``python3-dev`` ``libgeos-dev`` ``python3-venv`` ``postgresql-client`` ``libpq-dev``
 
 Clone project:
 
