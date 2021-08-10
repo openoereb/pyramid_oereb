@@ -30,7 +30,7 @@
 
     sorted_glossaries = list()
     if isinstance(extract.glossaries, list):
-        sorted_glossaries = sort_by_localized_text(extract.glossaries, accessor)
+        sorted_glossaries = sort_by_localized_text(extract.glossaries, accessor, False)
 %>
     <data:Extract>
         <data:CreationDate>${extract.creation_date.strftime(date_format)}</data:CreationDate>
@@ -77,7 +77,7 @@
         <%include file="general_information.xml" args="general_information=general_information"/>
     %endfor
         <data:BaseData>
-            <%include file="multilingual_text.xml" args="text=extract.base_data"/>
+            <%include file="multilingual_text.xml" args="text=extract.base_data, not_null=True"/>
         </data:BaseData>
         %for glossary in sorted_glossaries:
         <%include file="glossary.xml" args="glossary=glossary"/>
@@ -91,12 +91,12 @@
         </data:PLRCadastreAuthority>
     %if extract.certification:
         <data:Certification>
-            <%include file="multilingual_text.xml" args="text=extract.certification"/>
+            <%include file="multilingual_text.xml" args="text=extract.certification, not_null=True"/>
         </data:Certification>
     %endif
     %if extract.certification:
         <data:CertificationAtWeb>
-            <%include file="multilingual_text.xml" args="text=extract.certification_at_web"/>
+            <%include file="multilingual_text.xml" args="text=extract.certification_at_web, not_null=True"/>
         </data:CertificationAtWeb>
     %endif
     </data:Extract>

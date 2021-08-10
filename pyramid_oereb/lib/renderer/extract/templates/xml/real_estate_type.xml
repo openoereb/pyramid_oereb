@@ -5,5 +5,5 @@
 %>
 <data:Code>${real_estate_type_code | x}</data:Code>
 <data:Text>
-    <%include file="multilingual_text.xml" args="text=real_estate_type_text"/>
+    <%include file="multilingual_text.xml" args="text=real_estate_type_text, not_null=True"/>
 </data:Text>

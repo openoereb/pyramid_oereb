@@ -185,7 +185,7 @@ class Base(object):
         new_text = text.lower()
         return unicodedata.normalize('NFD', new_text)
 
-    def sort_by_localized_text(self, multilingual_elements, value_accessor):
+    def sort_by_localized_text(self, multilingual_elements, value_accessor, not_null=True):
         """
         Sort a list of translated text elements alphabetically.
 
@@ -206,7 +206,7 @@ class Base(object):
             return sorted(
                 multilingual_elements,
                 key=lambda element: self.unaccent_lower(
-                    self.get_localized_text(value_accessor(element))['Text']
+                    self.get_localized_text(value_accessor(element), not_null)['Text']
                 )
             )
 
