@@ -380,6 +380,18 @@ class DummyData(object):
             'land_registry_area': 9,
             'limit': 'SRID=2056;MULTIPOLYGON(((2 0, 2 3, 5 3, 5 0, 2 0)))'
         })
+        connection.execute(main.RealEstate.__table__.insert(), {
+            'id': '3',
+            'egrid': u'TEST3',
+            'number': u'9998',
+            'identdn': u'BLTEST',
+            'type': u'Liegenschaft',
+            'canton': u'BL',
+            'municipality': u'Liestal',
+            'fosnr': 1234,
+            'land_registry_area': 8,
+            'limit': 'SRID=2056;MULTIPOLYGON(((0 3, 2 3, 6 3, 6 5, 0 5, 0 3)))'
+        })
 
         # Add dummy real estate types
         connection.execute(main.RealEstateType.__table__.insert(), {
@@ -485,7 +497,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '2',
-            'law_status': u'inKraft',
+            'law_status': u'AenderungOhneVorwirkung',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -493,7 +505,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '3',
-            'law_status': u'AenderungOhneVorwirkung',
+            'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -521,7 +533,7 @@ class DummyData(object):
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '2',
             'office_id': '1',
-            'geom': u'SRID=2056;LINESTRING (1.5 1.5, 1.5 2.5)'
+            'geom': u'SRID=2056;LINESTRING (1.5 1.5, 1.5 4)'
         })
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
             'id': '3',
