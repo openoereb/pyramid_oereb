@@ -477,7 +477,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '1',
-            'law_status': u'inKraft',
+            'law_status': u'AenderungMitVorwirkung',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
             'office_id': '1',
@@ -493,7 +493,7 @@ class DummyData(object):
         })
         connection.execute(motorways_building_lines.PublicLawRestriction.__table__.insert(), {
             'id': '3',
-            'law_status': u'inKraft',
+            'law_status': u'AenderungOhneVorwirkung',
             'published_from': date.today().isoformat(),
             'view_service_id': '1',
             'office_id': '1',
