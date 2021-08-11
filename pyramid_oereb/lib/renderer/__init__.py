@@ -4,7 +4,7 @@ import datetime
 import logging
 import unicodedata
 
-from pyramid.httpexceptions import HTTPServerError  # , HTTPInternalServerError
+from pyramid.httpexceptions import HTTPServerError
 from pyramid.path import DottedNameResolver
 from pyramid.request import Request
 from pyramid.testing import DummyRequest
