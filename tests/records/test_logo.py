@@ -7,7 +7,7 @@ def test_logo_init():
         'de': 'iVBORw0KGgoAAAANSUhEUgAAAWIAAACaCAIAAAAggg=='
         })
     assert record.code == u'ch.1234'
-    assert record.logo == {
+    assert record.image_dict == {
         'de': 'iVBORw0KGgoAAAANSUhEUgAAAWIAAACaCAIAAAAggg=='
     }
     assert isinstance(record.logo['de'], bytes)

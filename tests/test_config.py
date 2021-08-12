@@ -5,7 +5,6 @@ from pyramid.config import ConfigurationError
 
 # from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.config import Config
-# from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 
@@ -66,7 +65,7 @@ def test_get_logo_config():
     assert isinstance(logos, dict)
     logo_oereb = logos.get('oereb')
     assert isinstance(logo_oereb, LogoRecord)
-    assert logo_oereb.logo == Config.get_logo_by_code(logo_oereb.code)
+    assert logo_oereb.image_dict == Config.get_logo_by_code(logo_oereb.code)
 
 
 @pytest.mark.run(order=-1)

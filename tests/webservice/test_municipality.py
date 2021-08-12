@@ -6,7 +6,7 @@ from pyramid.response import Response
 
 from pyramid_oereb.lib.adapter import FileAdapter
 from tests.mockrequest import MockRequest
-from pyramid_oereb.views.webservice import Municipality
+from pyramid_oereb.views.webservice import Logo
 
 
 def test_get_image():
@@ -14,7 +14,7 @@ def test_get_image():
     request.matchdict.update({
         'fosnr': '1234'
     })
-    webservice = Municipality(request)
+    webservice = Logo(request)
     result = webservice.get_image()
     assert isinstance(result, Response)
     assert result.body == FileAdapter().read('tests/resources/python.svg')
@@ -25,6 +25,6 @@ def test_get_image_invalid():
     request.matchdict.update({
         'fosnr': '0'
     })
-    webservice = Municipality(request)
+    webservice = Logo(request)
     with pytest.raises(HTTPNotFound):
         webservice.get_image()
