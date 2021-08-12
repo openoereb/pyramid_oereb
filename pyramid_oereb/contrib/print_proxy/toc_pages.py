@@ -63,7 +63,7 @@ class TocPages():
         paragraph_space = 11
         for i in self.extract['GeneralInformation']:
             total_size += paragraph_space
-            total_size += self.compute_length_of_wrapped_text(i['Text'],
+            total_size += self.compute_length_of_wrapped_text(i['Content'][0]['Text'],
                                                               78,
                                                               10)
         total_size += 5
