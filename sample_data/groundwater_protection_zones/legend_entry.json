@@ -1,9 +1,9 @@
 [
   {
     "legend_text": {
-      "fr": "Pollué, investigation nécessaire",
-      "de": "Belastet, untersuchungsbedürftig",
-      "it": "Inquinato, è necessario procedere a un?indagine"
+      "fr": "Zone de captage (zone S1)",
+      "de": "Fassungsbereich (Zone S1)",
+      "it": "Zona di captazione (zona S1)"
     },
     "type_code": "StaoTyp2",
     "id": 16,

@@ -357,7 +357,11 @@ class Renderer(JsonRenderer):
         ]
         split_sub_themes = Config.get('print', {}).get('split_sub_themes', False)
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
-            theme = restriction_on_landownership['Theme_Code']
+
+            theme_text = restriction_on_landownership['Theme_Text']
+            lawstatus_text = restriction_on_landownership['Lawstatus_Text']
+            restriction_on_landownership['Theme_Text'] = f"{theme_text} ({lawstatus_text})"
+            theme = restriction_on_landownership['Theme_Code']+restriction_on_landownership['Lawstatus_Code']
 
             if split_sub_themes:
                 if 'SubTheme' in restriction_on_landownership:

@@ -472,12 +472,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -529,12 +531,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -586,12 +590,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -631,13 +637,15 @@
                 "Language": "de"
               }
             ],
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -696,12 +704,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -753,12 +763,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -810,12 +822,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -855,13 +869,15 @@
                 "Language": "de"
               }
             ],
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -1269,11 +1285,13 @@
             }
           ]
         },
-        "LawStatus": {
-          "Text": {
-            "Text": "Rechtskräftig",
-            "Language": "de"
-          },
+        "Lawstatus": {
+          "Text": [
+              {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+           }
+          ],
           "Code": "inKraft"
         }
       },
@@ -1335,12 +1353,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -1392,12 +1412,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -1449,12 +1471,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -1494,13 +1518,15 @@
                 "Language": "de"
               }
             ],
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -1559,12 +1585,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -1616,12 +1644,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -1673,12 +1703,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -1718,13 +1750,15 @@
                 "Language": "de"
               }
             ],
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -2129,11 +2163,13 @@
             }
           ]
         },
-        "LawStatus": {
-          "Text": {
-            "Text": "Rechtskräftig",
-            "Language": "de"
-          },
+        "Lawstatus": {
+          "Text": [
+              {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
           "Code": "inKraft"
         }
       },
@@ -2192,12 +2228,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -2246,12 +2284,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -2300,12 +2340,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -2342,13 +2384,15 @@
                 "Language": "de"
               }
             ],
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -2404,12 +2448,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -2458,12 +2504,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -2512,12 +2560,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -2554,13 +2604,15 @@
                 "Language": "de"
               }
             ],
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -2965,11 +3017,13 @@
             }
           ]
         },
-        "LawStatus": {
-          "Text": {
-            "Text": "Rechtskräftig",
+        "Lawstatus": {
+          "Text": [
+            {
+                "Text": "Rechtskräftig",
             "Language": "de"
-          },
+           }
+        ],
           "Code": "inKraft"
         }
       },
@@ -3028,12 +3082,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -3082,12 +3138,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -3136,12 +3194,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -3178,13 +3238,15 @@
                 "Language": "de"
               }
             ],
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -3240,12 +3302,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -3294,12 +3358,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -3348,12 +3414,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -3390,13 +3458,15 @@
                 "Language": "de"
               }
             ],
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -3801,11 +3871,13 @@
             }
           ]
         },
-        "LawStatus": {
-          "Text": {
-            "Text": "Rechtskräftig",
-            "Language": "de"
-          },
+        "Lawstatus": {
+          "Text": [
+              {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+             }
+            ],
           "Code": "inKraft"
         }
       },
@@ -3864,12 +3936,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -3918,12 +3992,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -3972,12 +4048,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -4017,13 +4095,15 @@
                 "Language": "de"
               }
             ],
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -4079,12 +4159,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -4133,12 +4215,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -4187,12 +4271,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -4232,13 +4318,15 @@
                 "Language": "de"
               }
             ],
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -4646,11 +4734,13 @@
             }
           ]
         },
-        "LawStatus": {
-          "Text": {
-            "Text": "Rechtskräftig",
-            "Language": "de"
-          },
+        "Lawstatus": {
+          "Text": [
+              {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
           "Code": "inKraft"
         }
       },
@@ -4770,13 +4860,15 @@
                 }
               ]
             },
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -4833,12 +4925,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -4887,12 +4981,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -4941,12 +5037,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -4995,12 +5093,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -5022,11 +5122,13 @@
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV3",
-        "LawStatus": {
-          "Text": {
-            "Text": "Rechtskräftig",
-            "Language": "de"
-          },
+        "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
           "Code": "inKraft"
         },
         "AreaShare": 14503.04,
@@ -5161,13 +5263,15 @@
                 }
               ]
             },
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -5221,12 +5325,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -5275,12 +5381,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -5329,12 +5437,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -5383,12 +5493,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -5410,11 +5522,13 @@
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV4",
-        "LawStatus": {
-          "Text": {
-            "Text": "Rechtskräftig",
-            "Language": "de"
-          },
+        "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
           "Code": "inKraft"
         },
         "AreaShare": 5764.33,
@@ -5546,13 +5660,15 @@
                 }
               ]
             },
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -5606,12 +5722,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -5660,12 +5778,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -5714,12 +5834,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -5768,12 +5890,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -5795,11 +5919,13 @@
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp3_StatusAltlV1",
-        "LawStatus": {
-          "Text": {
-            "Text": "Rechtskräftig",
-            "Language": "de"
-          },
+        "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
           "Code": "inKraft"
         },
         "AreaShare": 1210.49,
@@ -5928,13 +6054,15 @@
                 }
               ]
             },
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -5988,12 +6116,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -6042,12 +6172,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -6096,12 +6228,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -6150,12 +6284,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -6177,11 +6313,13 @@
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV1",
-        "LawStatus": {
-          "Text": {
-            "Text": "Rechtskräftig",
-            "Language": "de"
-          },
+        "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
           "Code": "inKraft"
         },
         "AreaShare": 42819.05,
@@ -6310,13 +6448,15 @@
                 }
               ]
             },
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -6370,12 +6510,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -6424,12 +6566,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -6478,12 +6622,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -6532,12 +6678,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -6559,11 +6707,13 @@
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV1",
-        "LawStatus": {
-          "Text": {
-            "Text": "Rechtskräftig",
-            "Language": "de"
-          },
+        "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
           "Code": "inKraft"
         },
         "AreaShare": 19180.18,
@@ -6689,12 +6839,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -6743,12 +6895,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -6788,13 +6942,15 @@
                 "Language": "de"
               }
             ],
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -6807,11 +6963,13 @@
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
-        "LawStatus": {
-          "Text": {
-            "Text": "Rechtskräftig",
-            "Language": "de"
-          },
+        "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
           "Code": "inKraft"
         },
         "AreaShare": 78457.23,
@@ -6937,12 +7095,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -6991,12 +7151,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -7036,13 +7198,15 @@
                 "Language": "de"
               }
             ],
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -7055,11 +7219,13 @@
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
-        "LawStatus": {
-          "Text": {
-            "Text": "Rechtskräftig",
-            "Language": "de"
-          },
+        "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
           "Code": "inKraft"
         },
         "AreaShare": 2681.22,
@@ -7185,12 +7351,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -7239,12 +7407,14 @@
                     "Language": "de"
                   }
                 ],
-                "LawStatus": {
+                "Lawstatus": {
                   "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtskräftig"
+                   }
+                  ]
                 },
                 "DocumentType": {
                   "Code": "Rechtsvorschrift",
@@ -7284,13 +7454,15 @@
                 "Language": "de"
               }
             ],
-            "LawStatus": {
-                  "Code": "inKraft",
-                  "Text": {
-                    "Language": "de",
-                    "Text": "Rechtskräftig"
-                  }
-                },
+          "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
+          "Code": "inKraft"
+        },
             "DocumentType": {
                   "Code": "Rechtsvorschrift",
                   "Text": [
@@ -7303,11 +7475,13 @@
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
-        "LawStatus": {
-          "Text": {
-            "Text": "Rechtskräftig",
-            "Language": "de"
-          },
+        "Lawstatus": {
+          "Text": [
+            {
+              "Text": "Rechtskräftig",
+              "Language": "de"
+            }
+          ],
           "Code": "inKraft"
         },
         "AreaShare": 6242.7,
