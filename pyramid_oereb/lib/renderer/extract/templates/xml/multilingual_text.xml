@@ -1,6 +1,6 @@
-<%page args="text"/>
+<%page args="text, not_null"/>
 <%
-    multilingual_text = multilingual(text)
+    multilingual_text = multilingual(text, not_null)
 %>
 % for localized_text in multilingual_text:
 <data:LocalisedText>

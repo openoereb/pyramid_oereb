@@ -6,6 +6,7 @@ import datetime
 import yaml
 from io import open as ioopen
 from pyramid.config import ConfigurationError
+from pyramid_oereb.lib import get_multiligual_element
 from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.image import ImageRecord
@@ -527,7 +528,13 @@ class Config(object):
                 logo_language = Config.get('default_language')
             else:
                 logo_language = language
-            oereb_logo = ImageRecord(file_adapter.read(logo_dict.get(oereb_key).get(logo_language)))
+
+            oereb_logo = ImageRecord(
+                file_adapter.read(
+                    get_multiligual_element(logo_dict.get(oereb_key), logo_language)
+                )
+            )
+
         else:
             oereb_logo = ImageRecord(file_adapter.read(logo_dict.get(oereb_key)))
 

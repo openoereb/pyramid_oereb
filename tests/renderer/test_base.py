@@ -3,7 +3,7 @@
 import pytest
 import datetime
 
-from pyramid.httpexceptions import HTTPServerError
+from pyramid.httpexceptions import HTTPServerError, HTTPInternalServerError
 from pyramid.response import Response
 from pyramid.testing import DummyRequest
 
@@ -81,6 +81,32 @@ def test_get_localized_text_from_dict(language, result):
     assert isinstance(localized_text, dict)
     assert localized_text.get('Language') in ['de', 'en']
     assert localized_text.get('Text') == result
+
+
+@pytest.mark.parametrize('language,result,disallowNull', [
+    ('de', u'Error', True),  # default_language not available!
+    ('en', u'This is a test', True),
+    ('it', u'Questo è un test', True),
+    ('fr', u'Error', True),  # fr not available!
+    ('de', None, False),  # allow null value if lang & default is not available
+    ('fr', None, False)  # allow null value if lang & default is not available
+])
+def test_get_localized_text_from_dict_no_default(language, result, disallowNull):
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language = language
+    multilingual_text = {
+        'en': u'This is a test',
+        'it': u'Questo è un test'
+    }
+
+    if language in ['en', 'it'] or not disallowNull:
+        localized_text = renderer.get_localized_text(multilingual_text, disallowNull)
+        assert isinstance(localized_text, dict)
+        assert localized_text.get('Language') in ['de', 'it', 'en']
+        assert localized_text.get('Text') == result
+    else:
+        with pytest.raises(HTTPInternalServerError):
+            localized_text = renderer.get_localized_text(multilingual_text, disallowNull)
 
 
 @pytest.mark.parametrize('language,result', [

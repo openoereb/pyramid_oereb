@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import datetime
 import pytest
+
+from pyramid.httpexceptions import HTTPInternalServerError
+
 from pyramid.config import ConfigurationError
 
 from pyramid_oereb.lib.adapter import FileAdapter
@@ -83,13 +86,41 @@ def test_get_logo_multilingual(language):
         'fr': 'pyramid_oereb/standard/logo_oereb_fr.png',
         'it': 'pyramid_oereb/standard/logo_oereb_it.png'
     }
+    language = language or 'de'
     logos = Config.get_logo_config(language=language)
     assert isinstance(logos, dict)
     logo_oereb = logos.get('oereb')
-    if language is None:
-        assert logo_oereb.content == FileAdapter().read(Config.get('logo').get('oereb').get('de'))
-    else:
+    assert logo_oereb.content == FileAdapter().read(Config.get('logo').get('oereb').get(language))
+
+
+@pytest.mark.run(order=-1)
+@pytest.mark.parametrize('language', [
+    None,
+    'de',
+    'fr',
+    'it',
+    'rm'
+])
+def test_get_logo_multilingual_dict_no_default(language):
+    Config._config = None
+    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
+
+    Config.get('logo')['oereb'] = {
+        'fr': 'pyramid_oereb/standard/logo_oereb_fr.png',
+        'it': 'pyramid_oereb/standard/logo_oereb_it.png'
+    }
+
+    language = language or 'de'
+
+    if language in ['fr', 'it']:
+        logos = Config.get_logo_config(language=language)
+        assert isinstance(logos, dict)
+        logo_oereb = logos.get('oereb')
         assert logo_oereb.content == FileAdapter().read(Config.get('logo').get('oereb').get(language))
+
+    else:
+        with pytest.raises(HTTPInternalServerError):
+            assert Config.get_logo_config(language)
 
 
 @pytest.mark.run(order=-1)

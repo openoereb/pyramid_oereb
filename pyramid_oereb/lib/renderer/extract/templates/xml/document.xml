@@ -8,22 +8,22 @@
 </data:Type>
 <data:Index>${document.index}</data:Index>
 <data:Title>
-    <%include file="multilingual_text.xml" args="text=document.title"/>
+    <%include file="multilingual_text.xml" args="text=document.title, not_null=True"/>
 </data:Title>
 <data:TextAtWeb>
-    <%include file="multilingual_text.xml" args="text=document.text_at_web"/>
+    <%include file="multilingual_text.xml" args="text=document.text_at_web, not_null=True"/>
 </data:TextAtWeb>
 <data:Lawstatus>
-    <%include file="law_status.xml" args="law_status=document.law_status"/>
+    <%include file="law_status.xml" args="law_status=document.law_status, not_null=True"/>
 </data:Lawstatus>
 %if document.abbreviation:
 <data:Abbreviation>
-    <%include file="multilingual_text.xml" args="text=document.abbreviation"/>
+    <%include file="multilingual_text.xml" args="text=document.abbreviation, not_null=True"/>
 </data:Abbreviation>
 %endif
 %if document.official_number:
 <data:OfficialNumber>
-    <%include file="multilingual_text.xml" args="text=document.official_number"/>
+    <%include file="multilingual_text.xml" args="text=document.official_number, not_null=True"/>
 </data:OfficialNumber>
 %endif
 <data:ResponsibleOffice>

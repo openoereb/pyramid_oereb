@@ -6,7 +6,7 @@
 %endif
 %if map.reference_wms:
 <data:ReferenceWMS>
-    <%include file="multilingual_text.xml" args="text=map.reference_wms"/>
+    <%include file="multilingual_text.xml" args="text=map.reference_wms, not_null=True"/>
 </data:ReferenceWMS>
 %endif
 %if map.legends:
