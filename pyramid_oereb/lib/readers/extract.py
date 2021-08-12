@@ -44,6 +44,7 @@ class ExtractReader(object):
         self._plr_cadastre_authority_ = plr_cadastre_authority
         self._certification = certification
         self._certification_at_web = certification_at_web
+        self.law_status = Config.get_law_statuses()
 
     @property
     def plr_cadastre_authority(self):
@@ -116,17 +117,10 @@ class ExtractReader(object):
                         if not params.skip_topic(ds.theme.code):
                             datasource.append(ds)
 
-                    # Group PLR records according to their law status
-                    grouped_plr = list()
-                    for law_status in Config.get_law_statuses():
-                        for plr in plr_source.records:
-                            if isinstance(plr, PlrRecord):
-                                if plr.law_status.code == law_status:
-                                    grouped_plr.append(plr)
-                            elif plr not in grouped_plr:
-                                grouped_plr.append(plr)
+                    # Sort PLR records according to their law status
+                    plr_source.records.sort(key=lambda plr_elem: self._sort_plr_law_status(plr_elem))
 
-                    real_estate.public_law_restrictions.extend(grouped_plr)
+                    real_estate.public_law_restrictions.extend(plr_source.records)
 
             for plr in real_estate.public_law_restrictions:
 
@@ -188,3 +182,14 @@ class ExtractReader(object):
 
         log.debug("read() done")
         return self.extract
+
+
+    def _sort_plr_law_status(self, plr_element):
+        """
+        TODO add a description
+        Args:
+        """
+        if (isinstance(plr_element, PlrRecord) and plr_element.law_status.code in self.law_status):
+            return -1 * self.law_status.index(plr_element.law_status.code)
+        else:
+            return -1
