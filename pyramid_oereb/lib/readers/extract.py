@@ -118,7 +118,7 @@ class ExtractReader(object):
                             datasource.append(ds)
 
                     # Sort PLR records according to their law status
-                    plr_source.records.sort(key=lambda plr_elem: self._sort_plr_law_status(plr_elem))
+                    plr_source.records.sort(key=self._sort_plr_law_status)
 
                     real_estate.public_law_restrictions.extend(plr_source.records)
 
@@ -183,13 +183,12 @@ class ExtractReader(object):
         log.debug("read() done")
         return self.extract
 
-
     def _sort_plr_law_status(self, plr_element):
         """
         TODO add a description
         Args:
         """
         if (isinstance(plr_element, PlrRecord) and plr_element.law_status.code in self.law_status):
-            return -1 * self.law_status.index(plr_element.law_status.code)
+            return self.law_status.index(plr_element.law_status.code)
         else:
             return -1
