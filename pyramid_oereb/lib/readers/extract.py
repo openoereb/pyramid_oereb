@@ -45,7 +45,7 @@ class ExtractReader(object):
         self._plr_cadastre_authority_ = plr_cadastre_authority
         self._certification = certification
         self._certification_at_web = certification_at_web
-        self.law_status = Config.get_law_statuses()
+        self.law_status = Config.get_law_status_codes()
 
     @property
     def plr_cadastre_authority(self):

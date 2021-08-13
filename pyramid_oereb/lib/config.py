@@ -135,7 +135,7 @@ class Config(object):
         return Config.general_information
 
     @staticmethod
-    def get_law_statuses():
+    def get_law_status_codes():
         """
         Returns a list of available law status codes.
 
