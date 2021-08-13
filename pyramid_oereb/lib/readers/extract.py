@@ -4,6 +4,7 @@ import logging
 from pyramid.path import DottedNameResolver
 
 from shapely.geometry import box
+from timeit import default_timer as timer
 
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.embeddable import EmbeddableRecord
@@ -118,7 +119,11 @@ class ExtractReader(object):
                             datasource.append(ds)
 
                     # Sort PLR records according to their law status
+                    start_time = timer()
+                    log.debug("sort plrs by law status start")
                     plr_source.records.sort(key=self._sort_plr_law_status)
+                    end_time = timer()
+                    log.debug(f"DONE with sort plrs by law status, time spent: {end_time-start_time} seconds")
 
                     real_estate.public_law_restrictions.extend(plr_source.records)
 
@@ -185,18 +190,18 @@ class ExtractReader(object):
 
     def _sort_plr_law_status(self, plr_element):
         """
-        This method generates the sorting key for plr_elements according to thyr law_status code.
-        The value is generated from the index of the the plr_element.law_status.code has in the law_status list.
-        The law_status list corresponds to the law status teken from the DB
+        This method generates the sorting key for plr_elements according to their law_status code.
+        The value is generated from the index the plr_element.law_status.code has in the law_status
+        list. The law_status list corresponds to the law status taken from the DB
 
         If the argument is not a PlrRecord or its law_status.code is not contained in the law_status list,
-        the method will return the lenghte of the law_status list so it can be sorted at the end of the list.
+        the method will return the length of the law_status list so it can be sorted at the end of the list.
 
         Args:
             plr_element (PlrRecord or EmptyPlrRecord) a plr record element.
 
         Returns:
-            int: Value which can be used to sort the reccord according depending on its law_status.code.
+            int: Value which can be used to sort the record depending on its law_status.code.
 
         """
         if (isinstance(plr_element, PlrRecord) and plr_element.law_status.code in self.law_status):
