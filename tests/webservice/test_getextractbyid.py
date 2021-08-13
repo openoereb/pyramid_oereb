@@ -140,12 +140,13 @@ def test_return_no_content():
     assert isinstance(response, HTTPNoContent)
 
 
-@pytest.mark.parametrize('topics', [
-    'ALL',
-    'ALL_FEDERAL',
-    'ContaminatedSites,RailwaysProjectPlanningZones'
+@pytest.mark.parametrize('egrid,topics', [
+    ('TEST', 'ALL'),
+    ('TEST', 'ALL_FEDERAL'),
+    ('TEST', 'ContaminatedSites,RailwaysProjectPlanningZones'),
+    ('TEST3', 'ALL')
 ])
-def test_return_json(topics):
+def test_return_json(egrid, topics):
     with pyramid_oereb_test_config() as pyramid_config:
         pyramid_config.add_renderer('pyramid_oereb_extract_json',
                                     'pyramid_oereb.lib.renderer.extract.json_.Renderer')
@@ -155,7 +156,7 @@ def test_return_json(topics):
         })
         request.params.update({
             'GEOMETRY': 'true',
-            'EGRID': 'TEST',
+            'EGRID': egrid,
             'TOPICS': topics
         })
         service = PlrWebservice(request)
@@ -174,7 +175,7 @@ def test_return_json(topics):
     real_estate = extract.get('RealEstate')
 
     assert isinstance(real_estate, dict)
-    if topics == 'ALL':
+    if topics == 'ALL' and egrid == 'TEST':
         assert len(real_estate.get('RestrictionOnLandownership')) == 3
         assert len(extract.get('ConcernedTheme')) == 3
         assert len(extract.get('NotConcernedTheme')) == 14
@@ -206,6 +207,7 @@ def test_return_json(topics):
         assert len(extract.get('ThemeWithoutData')) == 0
         restrictions = real_estate.get('RestrictionOnLandownership')
         assert restrictions[0]['Theme']['Code'] == 'MotorwaysBuildingLines'
+
     if topics == 'ContaminatedSites,RailwaysProjectPlanningZones':
         assert len(real_estate.get('RestrictionOnLandownership')) == 1
         assert len(extract.get('ConcernedTheme')) == 1
@@ -213,6 +215,17 @@ def test_return_json(topics):
         assert len(extract.get('ThemeWithoutData')) == 0
         restrictions = real_estate.get('RestrictionOnLandownership')
         assert restrictions[0]['Theme']['Code'] == 'ContaminatedSites'
+
+    if topics == 'ALL' and egrid == 'TEST3':
+        assert len(extract.get('ConcernedTheme')) == 3
+        assert len(extract.get('NotConcernedTheme')) == 14
+        assert len(extract.get('ThemeWithoutData')) == 0
+        restrictions = real_estate.get('RestrictionOnLandownership')
+        assert len(restrictions) == 4
+        assert restrictions[1]['Theme']['Code'] == 'MotorwaysBuildingLines'
+        assert restrictions[1]['Lawstatus']['Code'] == 'inKraft'
+        assert restrictions[2]['Theme']['Code'] == 'MotorwaysBuildingLines'
+        assert restrictions[2]['Lawstatus']['Code'] == 'AenderungOhneVorwirkung'
 
 
 def test_format_url():

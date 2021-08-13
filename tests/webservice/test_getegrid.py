@@ -100,7 +100,7 @@ def test_getegrid_en():
 def test_getegrid_gnss():
     with pyramid_oereb_test_config():
         request = MockRequest(
-            current_route_url='http://example.com/oereb/getegrid/json/?GNSS=-19.917989937473,32.1244978460310'
+            current_route_url='http://example.com/oereb/getegrid/json/?GNSS=32.1244978460310,-19.917989937473'
         )
 
         # Add params to matchdict as the view will do it for /getegrid/{format}/

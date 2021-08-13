@@ -20,6 +20,9 @@ from pyramid_oereb.lib.readers.real_estate import RealEstateReader
 from pyramid_oereb.views.webservice import PlrWebservice
 from tests.mockrequest import MockRequest
 
+import logging
+log = logging.getLogger(__name__)
+
 request_matchdict = {
     'format': 'json'
 }
@@ -254,3 +257,20 @@ def test_processor_get_legend_entries():
     outside_plrs = [plr4]
     after_process = Processor.get_legend_entries(inside_plrs, outside_plrs)
     assert len(after_process) == 1
+
+
+def test_processor_sort_by_law_status():
+    request = MockRequest()
+    request.matchdict.update(request_matchdict)
+    request.params.update(request_params)
+    processor = create_processor()
+    webservice = PlrWebservice(request)
+    params = webservice.__validate_extract_params__()
+    real_estate = processor.real_estate_reader.read(params, egrid=u'TEST3')
+    extract = processor.process(real_estate[0], params, 'http://test.ch')
+    plrs = extract.real_estate.public_law_restrictions
+    assert len(plrs) == 4
+    assert plrs[1].theme.code == 'MotorwaysBuildingLines'
+    assert plrs[1].law_status.code == 'inKraft'
+    assert plrs[2].theme.code == 'MotorwaysBuildingLines'
+    assert plrs[2].law_status.code == 'AenderungOhneVorwirkung'
