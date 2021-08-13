@@ -40,6 +40,7 @@ DEV_FILL_SCRIPT = .db/13-fill.sql
 MODEL_PK_TYPE_IS_STRING ?= true
 
 PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
+PRINT_URL = http://oereb-print:8080/print/oereb
 
 # ********************
 # Variable definitions
@@ -97,7 +98,7 @@ PACKAGE = pyramid_oereb
 BUILD_DEPS += .venv/requirements-timestamp
 
 $(DEV_CONFIGURATION_YML): .venv/requirements-timestamp $(DEV_CREATE_STANDARD_YML_SCRIPT)
-	$(DEV_CREATE_STANDARD_YML_SCRIPT) --name $@ --database $(SQLALCHEMY_URL) --print_backend $(PRINT_BACKEND)
+	$(DEV_CREATE_STANDARD_YML_SCRIPT) --name $@ --database $(SQLALCHEMY_URL) --print_backend $(PRINT_BACKEND) --print_url $(PRINT_URL)
 
 $(DEV_CREATE_SCRIPT): $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_TABLES_SCRIPT)
 	$(DEV_CREATE_TABLES_SCRIPT) --configuration $< --sql-file $@
