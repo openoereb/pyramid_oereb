@@ -185,10 +185,21 @@ class ExtractReader(object):
 
     def _sort_plr_law_status(self, plr_element):
         """
-        TODO add a description
+        This method generates the sorting key for plr_elements according to thyr law_status code.
+        The value is generated from the index of the the plr_element.law_status.code has in the law_status list.
+        The law_status list corresponds to the law status teken from the DB
+
+        If the argument is not a PlrRecord or its law_status.code is not contained in the law_status list,
+        the method will return the lenghte of the law_status list so it can be sorted at the end of the list.
+
         Args:
+            plr_element (PlrRecord or EmptyPlrRecord) a plr record element.
+
+        Returns:
+            int: Value which can be used to sort the reccord according depending on its law_status.code.
+
         """
         if (isinstance(plr_element, PlrRecord) and plr_element.law_status.code in self.law_status):
             return self.law_status.index(plr_element.law_status.code)
         else:
-            return -1
+            return len(self.law_status)
