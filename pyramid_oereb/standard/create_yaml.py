@@ -22,9 +22,9 @@ def create_standard_yaml():
         dest='database',
         metavar='DATABASE',
         type='string',
-        default='postgresql://postgres:password@db:5432/pyramid_oereb',
+        default='postgresql://postgres:password@oereb-db:5432/pyramid_oereb',
         help='The database connection string (default is: '
-             'postgresql://postgres:password@db:5432/pyramid_oereb).'
+             'postgresql://postgres:password@oereb-db:5432/pyramid_oereb).'
     )
     parser.add_option(
         '-p', '--print_backend',

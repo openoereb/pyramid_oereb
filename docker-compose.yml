@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  oereb-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      PGHOST: oereb-db
+      PGUSER: postgres
+      PGPASSWORD: postgres
+    volumes:
+      - .:/workspace:cached
+    working_dir: /workspace
+    command: ["./wait_for_db.sh", "make", "clean", "build", "serve-dev"]
+    ports:
+    - 6543:6543
+    networks:
+      - default
+      - print-network
+    depends_on:
+      - oereb-db
+
+
+  oereb-db:
+    image: postgis/postgis
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: pyramid_oereb_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGPASSWORD: postgres
+
+networks:
+  print-network:
+    external: true

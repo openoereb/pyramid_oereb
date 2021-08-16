@@ -90,6 +90,7 @@ pyramid_oereb:
     # The headers send to the print
     headers:
       Content-Type: application/json; charset=UTF-8
+      Connection: close
     # Whether to display the RealEstate_SubunitOfLandRegister (Grundbuchkreis) in the pdf extract or not.
     # Default to true.
     display_real_estate_subunit_of_land_register: true

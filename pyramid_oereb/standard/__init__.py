@@ -202,7 +202,8 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
         input_encoding='utf-8',
         output_encoding='utf-8'
     )
-    config = template.render(sqlalchemy_url=database, png_root_dir='', print_backend=print_backend, print_url=print_url)
+    config = template.render(sqlalchemy_url=database, png_root_dir='', print_backend=print_backend,
+                             print_url=print_url)
     pyramid_oereb_yml = open(name, 'wb+')
     pyramid_oereb_yml.write(config)
     pyramid_oereb_yml.close()

@@ -12,7 +12,7 @@ endif
 # Testing/DEV variables
 
 PG_DB = pyramid_oereb_test
-PG_HOST = db
+PG_HOST = oereb-db
 PG_DROP_DB = DROP DATABASE IF EXISTS $(PG_DB);
 PG_CREATE_DB = CREATE DATABASE $(PG_DB);
 PG_CREATE_EXT = CREATE EXTENSION postgis;
@@ -175,3 +175,19 @@ serve-dev: development.ini build .db/.setup-db-dev
 .PHONY: serve
 serve: development.ini build
 	$(VENV_BIN)/pserve $<
+
+.PHONY: docker-build
+docker-build:
+	docker build .
+
+.PHONY: docker-run
+docker-run: docker-build
+	docker-compose up -d
+
+.PHONY: docker-lint
+docker-lint: docker build
+	docker-compose exec oereb-server make lint
+
+.PHONY: docker-test
+docker-test: docker build
+	docker-compose exec oereb-server make test
