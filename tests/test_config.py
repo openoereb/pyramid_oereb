@@ -61,36 +61,32 @@ def test_get_plr_cadastre_authority():
 def test_get_logo_config():
     Config._config = None
     Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
-    logos = Config.get_logo_config()
-    assert isinstance(logos, dict)
-    logo_oereb = logos.get('oereb')
-    assert isinstance(logo_oereb, LogoRecord)
-    assert logo_oereb.image_dict == Config.get_logo_by_code(logo_oereb.code)
-
+    logo_config = Config.get_logo_config()
+    assert isinstance(logo_config, dict)
+    source = logo_config.get('source')
+    assert isinstance(source, dict)
+    class_config = source.get('class')
+    assert isinstance(class_config, str)
+    params = source.get('params')
+    assert isinstance(params, dict)
+    db_connection =  source.get('db_connection')
+    assert isinstance(db_connection, str)
+    model =  source.get('model')
+    assert isinstance(model, str)
 
 @pytest.mark.run(order=-1)
-@pytest.mark.parametrize('language', [
-    None,
-    'de',
-    'fr',
-    'it'
-])
-def test_get_logo_multilingual(language):
+@pytest.mark.parametrize('code', [
+    'ch',
+    'ch.plr',
+    'ne',
+    'ch.1234'
+    ])
+def test_get_logo_by_code(code):
     Config._config = None
     Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
-    Config.get('logo')['oereb'] = {
-        'de': 'pyramid_oereb/standard/logo_oereb_de.png',
-        'fr': 'pyramid_oereb/standard/logo_oereb_fr.png',
-        'it': 'pyramid_oereb/standard/logo_oereb_it.png'
-    }
-    logos = Config.get_logo_config(language=language)
-    assert isinstance(logos, dict)
-    logo_oereb = logos.get('oereb')
-    if language is None:
-        assert logo_oereb.logo == Config.get('logo').get('oereb').get('de')
-    else:
-        assert logo_oereb.logo == Config.get('logo').get('oereb').get(language)
-
+    assert len(Config.logos) > 0
+    logo = Config.get_logo_by_code(code)
+    assert isinstance(logo, LogoRecord)
 
 @pytest.mark.run(order=-1)
 def test_get_all_federal():

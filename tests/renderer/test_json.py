@@ -100,10 +100,14 @@ def test_render(parameter, glossaries_input, glossaries_expected):
         )
         extract = ExtractRecord(
             real_estate,
-            LogoRecord('ch', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAWIAAACaCAIAA'}),
-            LogoRecord('ch.plr', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAWIAAACaCAIAA'}),
-            LogoRecord('ne', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAWIAAACaCAIAA'}),
-            LogoRecord('ch.1234', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAWIAAACaCAIAA'}),
+            LogoRecord('ch', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+            LogoRecord('ch.plr', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+            LogoRecord('ne', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+            LogoRecord('ch.1234', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
             office_record,
             base_data,
             embeddable,

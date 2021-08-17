@@ -56,7 +56,7 @@ pyramid_oereb:
 
   default_language: de
 
-  logo:
+  logo_lookups:
     confederation: ch
     oereb: ch.plr
     canton: ne

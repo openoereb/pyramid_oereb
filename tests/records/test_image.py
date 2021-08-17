@@ -9,7 +9,7 @@ from pyramid_oereb.lib.records.image import ImageRecord
 
 def test_init():
     image_record = ImageRecord('1'.encode('utf-8'))
-    assert isinstance(image_record.content, bytes)
+    assert isinstance(image_record, bytes)
 
 
 def test_encode():

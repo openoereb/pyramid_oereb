@@ -15,8 +15,9 @@ def test_get_image():
     })
     webservice = Logo(request)
     result = webservice.get_image()
+    log.debug(result)
     assert isinstance(result, Response)
-    assert result.body == Config.get_logo_config().get('oereb').content
+    assert result.body == Config.get_logo_lookup_oereb()
 
 
 def test_get_image_invalid():
