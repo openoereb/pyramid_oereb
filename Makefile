@@ -182,12 +182,22 @@ docker-build:
 
 .PHONY: docker-run
 docker-run: docker-build
-	docker-compose up -d
+	PGHOST=$(PG_HOST) PGUSER=$(PG_USER) PG_DB=$(PG_DB) PGPASSWORD=$(PG_PASSWORD) docker-compose up -d
 
 .PHONY: docker-lint
-docker-lint: docker build
+docker-lint: docker-build
 	docker-compose exec oereb-server make lint
 
 .PHONY: docker-test
-docker-test: docker build
+docker-test: docker-run docker-clean
 	docker-compose exec oereb-server make test
+
+.PHONY: docker-clean
+docker-clean:
+	docker-compose restart oereb-db
+	docker-compose exec oereb-server make clean
+
+.PHONY: docker-clean-all
+docker-clean-all:
+	docker-compose restart oereb-db
+	docker-compose exec oereb-server make clean-all

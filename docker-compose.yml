@@ -6,9 +6,9 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      PGHOST: oereb-db
-      PGUSER: postgres
-      PGPASSWORD: postgres
+      PGHOST: ${PGHOST}
+      PGUSER: ${PGUSER}
+      PGPASSWORD: ${PGPASSWORD}
     volumes:
       - .:/workspace:cached
     working_dir: /workspace
@@ -26,12 +26,12 @@ services:
     image: postgis/postgis
     restart: unless-stopped
     environment:
-      POSTGRES_DB: pyramid_oereb_test
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      PGPASSWORD: postgres
+      POSTGRES_DB: ${PG_DB}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      PGPASSWORD: ${PGPASSWORD}
     healthcheck:
-      test: /usr/bin/pg_isready -h oereb-db -p 5432 -U $$POSTGRES_USER -d $$POSTGRES_DB
+      test: /usr/bin/pg_isready -h ${PGHOST} -p 5432 -U ${PGUSER} -d ${PG_DB}
       interval: 5s
       timeout: 10s
       retries: 120
