@@ -1,4 +1,4 @@
-version: '3'
+version: '2.1'
 
 services:
   oereb-server:
@@ -12,15 +12,15 @@ services:
     volumes:
       - .:/workspace:cached
     working_dir: /workspace
-    command: ["./wait_for_db.sh", "make", "clean", "build", "serve-dev"]
+    command: ["make", "clean", "build", "serve-dev"]
     ports:
     - 6543:6543
     networks:
       - default
       - print-network
     depends_on:
-      - oereb-db
-
+      oereb-db:
+        condition: service_healthy
 
   oereb-db:
     image: postgis/postgis
@@ -30,6 +30,11 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       PGPASSWORD: postgres
+    healthcheck:
+      test: /usr/bin/pg_isready -h oereb-db -p 5432 -U $$POSTGRES_USER -d $$POSTGRES_DB
+      interval: 5s
+      timeout: 10s
+      retries: 120
 
 networks:
   print-network:
