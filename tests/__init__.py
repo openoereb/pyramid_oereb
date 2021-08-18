@@ -60,13 +60,16 @@ def pyramid_oereb_test_config():
         pyramid_config.include('pyramid_oereb.routes')
         yield pyramid_config
 
+def setup_db():
+    # Set up test database and init the Config
+    Config._config = None
+    create_tables_from_standard_configuration(pyramid_oereb_test_yml)
+    dummy_data = DummyData()
+    dummy_data.init()
+    Config.init_themes()
+    Config.init_document_types()
+    Config.init_general_information()
+    Config.init_real_estate_types()
+    Config.init_logos()
 
-# Set up test database and init the Config
-Config._config = None
-create_tables_from_standard_configuration(pyramid_oereb_test_yml)
-dummy_data = DummyData()
-dummy_data.init()
-Config.init_themes()
-Config.init_document_types()
-Config.init_general_information()
-Config.init_real_estate_types()
+setup_db()

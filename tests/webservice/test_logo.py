@@ -11,19 +11,19 @@ from pyramid_oereb.views.webservice import Logo
 def test_get_image():
     request = MockRequest()
     request.matchdict.update({
-        'logo': 'oereb'
+        'logo': 'oereb',
+        'language': 'de'
     })
     webservice = Logo(request)
     result = webservice.get_image()
-    log.debug(result)
     assert isinstance(result, Response)
-    assert result.body == Config.get_logo_lookup_oereb()
 
 
 def test_get_image_invalid():
     request = MockRequest()
     request.matchdict.update({
-        'logo': 'invalid'
+        'logo': 'invalid',
+        'language': 'de'
     })
     webservice = Logo(request)
     with pytest.raises(HTTPNotFound):

@@ -2,6 +2,7 @@
 import datetime
 import pytest
 from pyramid.config import ConfigurationError
+from tests import setup_db
 
 # from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.config import Config
@@ -69,9 +70,9 @@ def test_get_logo_config():
     assert isinstance(class_config, str)
     params = source.get('params')
     assert isinstance(params, dict)
-    db_connection =  source.get('db_connection')
+    db_connection =  params.get('db_connection')
     assert isinstance(db_connection, str)
-    model =  source.get('model')
+    model =  params.get('model')
     assert isinstance(model, str)
 
 @pytest.mark.run(order=-1)
@@ -82,8 +83,7 @@ def test_get_logo_config():
     'ch.1234'
     ])
 def test_get_logo_by_code(code):
-    Config._config = None
-    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
+    setup_db()
     assert len(Config.logos) > 0
     logo = Config.get_logo_by_code(code)
     assert isinstance(logo, LogoRecord)
