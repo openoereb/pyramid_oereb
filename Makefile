@@ -180,16 +180,20 @@ serve: development.ini build
 docker-build:
 	docker build .
 
-.PHONY: docker-run
-docker-run: docker-build
+.PHONY: docker-serve
+docker-serve: docker-build
 	PGHOST=$(PG_HOST) PGUSER=$(PG_USER) PG_DB=$(PG_DB) PGPASSWORD=$(PG_PASSWORD) docker-compose up -d
+
+.PHONY: docker-down
+docker-down: docker-build
+	PGHOST=$(PG_HOST) PGUSER=$(PG_USER) PG_DB=$(PG_DB) PGPASSWORD=$(PG_PASSWORD) docker-compose down
 
 .PHONY: docker-lint
 docker-lint: docker-build
 	docker-compose exec oereb-server make lint
 
 .PHONY: docker-test
-docker-test: docker-run docker-clean
+docker-test: docker-serve docker-clean
 	docker-compose exec oereb-server make test
 
 .PHONY: docker-clean
