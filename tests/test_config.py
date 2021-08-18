@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import datetime
 import pytest
+
+from pyramid.httpexceptions import HTTPInternalServerError
+
 from pyramid.config import ConfigurationError
 from tests import setup_db
 

@@ -8,7 +8,7 @@
     "text_at_web": {
       "de": "https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2934?locale=de"
     },
-    "law_status": "inForce",
+    "law_status": "inKraft",
     "abbreviation": {
       "de": "KRVO"
     },
@@ -28,7 +28,7 @@
     "text_at_web": {
       "de": "http://www.lexfind.ch/dtah/167348/2"
     },
-    "law_status": "inForce",
+    "law_status": "inKraft",
     "abbreviation": {
       "de": "RPG"
     },
@@ -48,7 +48,7 @@
     "text_at_web": {
       "de": "https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de"
     },
-    "law_status": "inForce",
+    "law_status": "inKraft",
     "abbreviation": {
       "de": "KRG"
     },
@@ -68,7 +68,7 @@
     "text_at_web": {
       "de": "https://oereb-gr-preview.000.ch/api/attachments/197"
     },
-    "law_status": "inForce",
+    "law_status": "inKraft",
     "title": {
       "de": "Baugesetz, 3891.100"
     }
@@ -82,7 +82,7 @@
     "text_at_web": {
       "de": "https://oereb-gr-preview.000.ch/api/attachments/213"
     },
-    "law_status": "inForce",
+    "law_status": "inKraft",
     "title": {
       "de": "Revision Ortsplanung, 07.447"
     }
@@ -96,7 +96,7 @@
     "text_at_web": {
       "de": "https://oereb-gr-preview.000.ch/api/attachments/198"
     },
-    "law_status": "inForce",
+    "law_status": "inKraft",
     "title": {
       "de": "Baugesetz, 3891.100"
     }
@@ -110,7 +110,7 @@
     "text_at_web": {
       "de": "https://oereb-gr-preview.000.ch/api/attachments/214"
     },
-    "law_status": "inForce",
+    "law_status": "inKraft",
     "title": {
       "de": "Revision Ortsplanung, 07.447"
     }
@@ -124,7 +124,7 @@
     "text_at_web": {
       "de": "http://example.com/goodhint1"
     },
-    "law_status": "inForce",
+    "law_status": "inKraft",
     "title": {
       "de": "Guter Ratschlag"
     }
@@ -138,7 +138,7 @@
     "text_at_web": {
       "de": "http://example.com/goodhint2"
     },
-    "law_status": "inForce",
+    "law_status": "inKraft",
     "title": {
       "de": "Guter Ratschlag"
     }
@@ -152,7 +152,7 @@
     "text_at_web": {
       "de": "http://example.com/goodhint3"
     },
-    "law_status": "inForce",
+    "law_status": "inKraft",
     "title": {
       "de": "Seht guter Ratschlag mit langem titel: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis venenatis posuere. Nunc sollicitudin fermentum bibendum. Nulla ut massa enim. Sed rhoncus euismod venenatis"
     }

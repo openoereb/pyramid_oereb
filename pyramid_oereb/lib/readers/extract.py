@@ -4,6 +4,7 @@ import logging
 from pyramid.path import DottedNameResolver
 
 from shapely.geometry import box
+from timeit import default_timer as timer
 
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.embeddable import EmbeddableRecord
@@ -32,7 +33,7 @@ class ExtractReader(object):
         Args:
             plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of PLR source
                 instances which the achieved extract should be about.
-            plr_cadastre_authority (pyramid_oereb.lib.records.office.OffcieRecord): The authority responsible
+            plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority responsible
                 for the PLR cadastre.
             certification (dict of unicode or None): A mutlilingual dictionary of certification information.
             certification_at_web (dict of unicode or None): Multilingual list of certification uri.
@@ -42,6 +43,7 @@ class ExtractReader(object):
         self._plr_cadastre_authority_ = plr_cadastre_authority
         self._certification = certification
         self._certification_at_web = certification_at_web
+        self.law_status = Config.get_law_status_codes()
 
     @property
     def plr_cadastre_authority(self):
@@ -49,7 +51,7 @@ class ExtractReader(object):
         Returns the authority responsible for the PLR cadastre.
 
         Returns:
-            pyramid_oereb.lib.records.office.OffcieRecord: The authority responsible for the PLR
+            pyramid_oereb.lib.records.office.OfficeRecord: The authority responsible for the PLR
             cadastre.
         """
         return self._plr_cadastre_authority_
@@ -108,12 +110,18 @@ class ExtractReader(object):
 
             for position, plr_source in enumerate(self._plr_sources_, start=1):
                 if not params.skip_topic(plr_source.info.get('code')):
-                    log.debug("read() going to read from plr_source {}".format(plr_source))
                     plr_source.read(params, real_estate, bbox, position)
-                    log.debug("read() done reading from plr_source {}".format(plr_source))
                     for ds in plr_source.datasource:
                         if not params.skip_topic(ds.theme.code):
                             datasource.append(ds)
+
+                    # Sort PLR records according to their law status
+                    start_time = timer()
+                    log.debug("sort plrs by law status start")
+                    plr_source.records.sort(key=self._sort_plr_law_status)
+                    end_time = timer()
+                    log.debug(f"DONE with sort plrs by law status, time spent: {end_time-start_time} seconds")
+
                     real_estate.public_law_restrictions.extend(plr_source.records)
 
             for plr in real_estate.public_law_restrictions:
@@ -180,3 +188,24 @@ class ExtractReader(object):
 
         log.debug("read() done")
         return self.extract
+
+    def _sort_plr_law_status(self, plr_element):
+        """
+        This method generates the sorting key for plr_elements according to their law_status code.
+        The value is generated from the index the plr_element.law_status.code has in the law_status
+        list. The law_status list corresponds to the law status taken from the DB
+
+        If the argument is not a PlrRecord or its law_status.code is not contained in the law_status list,
+        the method will return the length of the law_status list so it can be sorted at the end of the list.
+
+        Args:
+            plr_element (PlrRecord or EmptyPlrRecord) a plr record element.
+
+        Returns:
+            int: Value which can be used to sort the record depending on its law_status.code.
+
+        """
+        if (isinstance(plr_element, PlrRecord) and plr_element.law_status.code in self.law_status):
+            return self.law_status.index(plr_element.law_status.code)
+        else:
+            return len(self.law_status)

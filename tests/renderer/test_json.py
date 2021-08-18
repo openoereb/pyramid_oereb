@@ -33,11 +33,11 @@ from pyramid_oereb.views.webservice import Parameter
 
 
 def law_status():
-    return LawStatusRecord(u'inForce', {'de': u'In Kraft'})
+    return LawStatusRecord(u'inKraft', {u'de': u'Rechtskräftig'})
 
 
 def default_param():
-    return Parameter('json', 'reduced', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
+    return Parameter('json', False, False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 
 
 @pytest.fixture()
@@ -249,7 +249,7 @@ def test_format_real_estate():
 
 @pytest.mark.parametrize('parameter', [
     default_param(),
-    Parameter('json', 'reduced', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
+    Parameter('json', False, True, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
 ])
 def test_format_plr(parameter):
     with pyramid_oereb_test_config():
@@ -306,8 +306,8 @@ def test_format_plr(parameter):
             'LegendText': renderer.get_multilingual_text(plr.legend_text),
             'Theme': renderer.format_theme(plr.theme),
             'Lawstatus': {
-                'Code': 'inForce',
-                'Text': {'Language': 'de', 'Text': 'In Kraft'}
+                'Code': 'inKraft',
+                'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
             },
             'ResponsibleOffice': renderer.format_office(plr.responsible_office),
             'Map': renderer.format_map(plr.view_service),
@@ -330,8 +330,8 @@ def test_format_plr(parameter):
                 'LegendText': renderer.get_multilingual_text(plr.legend_text),
                 'Theme': renderer.format_theme(plr.theme),
                 'Lawstatus': {
-                    'Code': 'inForce',
-                    'Text': {'Language': 'de', 'Text': 'In Kraft'}
+                    'Code': 'inKraft',
+                    'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
                 },
                 'ResponsibleOffice': renderer.format_office(plr.responsible_office),
                 'Map': renderer.format_map(plr.view_service),
@@ -377,8 +377,8 @@ def test_format_plr(parameter):
             },
             'Index': 2,
             'Lawstatus': {
-                'Code': 'inForce',
-                'Text': {'Language': 'de', 'Text': 'In Kraft'}
+                'Code': 'inKraft',
+                'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
             },
             'TextAtWeb': [{'Language': 'de', 'Text': 'http://meine.rechtsvorschrift.ch'}],
             'Title': [{'Language': 'de', 'Text': 'Test Rechtsvorschrift'}],
@@ -406,8 +406,8 @@ def test_format_plr(parameter):
             },
             'Index': 1,
             'Lawstatus': {
-                'Code': 'inForce',
-                'Text': {'Language': 'de', 'Text': 'In Kraft'}
+                'Code': 'inKraft',
+                'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
             },
             'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.gesetz.ch'}],
             'Title': [{'Language': 'de', 'Text': 'Test Gesetz'}],
@@ -433,8 +433,8 @@ def test_format_plr(parameter):
             },
             'Index': 3,
             'Lawstatus': {
-                'Code': 'inForce',
-                'Text': {'Language': 'de', 'Text': 'In Kraft'}
+                'Code': 'inKraft',
+                'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
             },
             'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.hinweis.ch'}],
             'Title': [{'Language': 'de', 'Text': 'Test Hinweis'}],
@@ -463,8 +463,8 @@ def test_format_document(params, document, result_dict):
         geo_metadata='http://www.geocat.ch',
         office=OfficeRecord({u'de': u'AGI'})), {
         'Lawstatus': {
-            'Code': 'inForce',
-            'Text': {'Language': 'de', 'Text': 'In Kraft'}
+            'Code': 'inKraft',
+            'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
         },
         'ResponsibleOffice': {
             'Name': [{'Language': 'de', 'Text': 'AGI'}]
@@ -478,8 +478,8 @@ def test_format_document(params, document, result_dict):
     (GeometryRecord(law_status(), datetime.date.today(), None, LineString([(0, 0), (1, 1)]),
                     office=OfficeRecord({u'de': u'AGI'})), {
         'Lawstatus': {
-            'Code': 'inForce',
-            'Text': {'Language': 'de', 'Text': 'In Kraft'}
+            'Code': 'inKraft',
+            'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
         },
         'ResponsibleOffice': {
             'Name': [{'Language': 'de', 'Text': 'AGI'}]
@@ -497,8 +497,8 @@ def test_format_document(params, document, result_dict):
         office=OfficeRecord({u'de': u'AGI'})
     ), {
         'Lawstatus': {
-            'Code': 'inForce',
-            'Text': {'Language': 'de', 'Text': 'In Kraft'}
+            'Code': 'inKraft',
+            'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
         },
         'ResponsibleOffice': {
             'Name': [{'Language': 'de', 'Text': 'AGI'}]

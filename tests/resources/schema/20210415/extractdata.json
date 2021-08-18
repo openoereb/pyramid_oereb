@@ -109,12 +109,12 @@
 		},
 		"RealEstateTypeCode": {
 			"enum": [
-				"RealEstate",
-				"Distinct_and_permanent_rights.BuildingRight",
-				"Distinct_and_permanent_rights.right_to_spring_water",
-				"Distinct_and_permanent_rights.concession",
-				"Distinct_and_permanent_rights.other",
-				"Mineral_rights"
+				"Liegenschaft",
+				"SelbstRecht.Baurecht",
+				"SelbstRecht.Quellenrecht",
+				"SelbstRecht.Konzessionsrecht",
+				"SelbstRecht.weitere",
+				"Bergwerk"
 			]
 		},
 		"CantonCode": {
@@ -396,9 +396,9 @@
 		},
 		"LawstatusCode": {
 			"enum": [
-				"inForce",
-				"changeWithPreEffect",
-				"changeWithoutPreEffect"
+				"inKraft",
+				"AenderungMitVorwirkung",
+				"AenderungOhneVorwirkung"
 			]
 		},
 		"ArticleNumber": {

@@ -6,10 +6,13 @@ import datetime
 import yaml
 from io import open as ioopen
 from pyramid.config import ConfigurationError
+from pyramid_oereb.lib import get_multiligual_element
+from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.readers.theme import ThemeReader
 from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.readers.logo import LogoReader
+from pyramid_oereb.lib.readers.law_status import LawStatusReader
 from pyramid_oereb.lib.readers.real_estate_type import RealEstateTypeReader
 from pyramid_oereb.lib.readers.document_types import DocumentTypeReader
 from pyramid_oereb.lib.readers.general_information import GeneralInformationReader
@@ -30,6 +33,7 @@ class Config(object):
     logos = None
     document_types = None
     general_information = None
+    law_status = None
     real_estate_types = None
 
     @staticmethod
@@ -48,6 +52,7 @@ class Config(object):
         Config.init_logos()
         Config.init_document_types()
         Config.init_general_information()
+        Config.init_law_status()
         Config.init_real_estate_types()
 
     @staticmethod
@@ -80,6 +85,13 @@ class Config(object):
             Config.general_information = None
 
     @staticmethod
+    def init_law_status():
+        try:
+            Config.law_status = Config._read_law_status()
+        except ProgrammingError:
+            Config.law_status = None
+
+    @staticmethod
     def _read_themes():
         theme_config = Config.get_theme_config()
         if theme_config is None:
@@ -89,6 +101,53 @@ class Config(object):
             **Config.get_theme_config().get('source').get('params')
         )
         return theme_reader.read()
+
+    @staticmethod
+    def _read_general_information():
+        info_config = Config.get_info_config()
+        if info_config is None:
+            raise ConfigurationError("Missing configuration for general information")
+        info_reader = GeneralInformationReader(
+            info_config.get('source').get('class'),
+            **Config.get_info_config().get('source').get('params')
+        )
+        return info_reader.read()
+
+    @staticmethod
+    def _read_law_status():
+        law_status_config = Config.get_law_status_config()
+        if law_status_config is None:
+            raise ConfigurationError("Missing configuration for law status source config")
+        law_status_reader = LawStatusReader(
+            law_status_config.get('source').get('class'),
+            **law_status_config.get('source').get('params')
+        )
+        return law_status_reader.read()
+
+    @staticmethod
+    def get_general_information():
+        """
+        Returns the general information.
+
+        Returns:
+            list of pyramid_oereb.lib.records.theme.GeneralInformationRecord: The available general
+            information entries.
+        """
+        assert Config._config is not None
+        if len(Config.general_information) < 1:
+            raise ConfigurationError("At least one general information entry is required")
+        return Config.general_information
+
+    @staticmethod
+    def get_law_status_codes():
+        """
+        Returns a list of available law status codes.
+
+        Returns:
+            list of unicode: The available law status codes.
+        """
+        assert Config._config is not None
+        return [law_status.code for law_status in Config.law_status]
 
     @staticmethod
     def get_themes():
@@ -119,13 +178,6 @@ class Config(object):
             if theme.code == code:
                 return theme
         raise ConfigurationError(f"Theme {code} not found in the application configuration")
-
-    @staticmethod
-    def get_confederation_logo_code():
-        try:
-            return Config['logo']['confederation']
-        except ConfigurationError:
-            raise ConfigurationError("Missing configuration for confederation logo")
 
     @staticmethod
     def init_logos():
@@ -534,6 +586,17 @@ class Config(object):
 
         return Config._config.get('logos')
 
+    def get_law_status_config():
+        """
+        Returns a dictionary of the configured law status sources.
+
+        Returns:
+            dict: The configured general law status sources.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('law_status_labels')
+
     @staticmethod
     def get_municipality_config():
         """
@@ -677,65 +740,73 @@ class Config(object):
         return Config._get_object_path(current_path, current_object[k], path[1:], default, required)
 
     @staticmethod
-    def get_law_status(theme_code, law_status_config, law_status_code):
+    def get_law_status_by_code(theme_code, law_status_code):
         """
+         Returns a dictionary of the configured law status settings.
 
         Args:
-            theme_code (str): The theme code.
-            law_status_config (dict): The configured mapping of the plrs law status.
-            law_status_code (str): The law status code read from the data to wrap it into the only two allowed
-                values: "inForce" or "runningModifications" which are possible on the extract.
-
-        Returns:
-            str: The mapped law status. This is "inForce" or "runningModifications".
-
-        Raises:
-            AttributeError: If the passed law status code does not match one of the configured ones.
-        """
-        if law_status_config.get('in_force') == law_status_code:
-            return 'inForce'
-        elif law_status_config.get('running_modifications') == law_status_code:
-            return 'runningModifications'
-        else:
-            raise AttributeError(
-                u'There was no proper configuration for the theme "{theme}" on the law '
-                u'status it has to be configured depending on the data you imported. Law '
-                u'status in your data was: {data_law_status}, the configured options are: '
-                u'{in_force} and {running_modifications}'.format(
-                    theme=theme_code,
-                    data_law_status=law_status_code,
-                    in_force=law_status_config.get('in_force'),
-                    running_modifications=law_status_config.get('running_modifications')
-                )
-            )
-
-    @staticmethod
-    def get_law_status_translations(code):
-        """
-        Obtaining the law status translations from config via the code.
-
-        Args:
-            code (str): The law status code. This must be "inForce" or "runningModifications". Any other
-                value won't match and throw a silent error.
+            theme_code (str): The theme code to look up the configured law status code.
+            law_status_code (str): The law status code. This must be "inKraft" or "AenderungMitVorwirkung"
+            or "AenderungOhneVorwirkung". Any other value won't match and throws a silent error.
 
         Returns:
             dict: The translation from the configuration.
         """
-        translations = Config.get('law_status_translations')
-        if code == 'inForce':
-            return translations.get('in_force')
-        elif code == 'runningModifications':
-            return translations.get('running_modifications')
-        else:
-            log.error(u'No translation for law status found in config for the passed code: {code}'.format(
-                code=code
-            ))
-            return {
-                'de': u'Keine Übersetzung gefunden',
-                'fr': u'Pas de traduction',
-                'it': u'Nessuna traduzione trovato',
-                'rm': u'Nagin translaziun chattà'
-            }
+
+        theme_law_status = Config.get_theme_config_by_code(theme_code).get('law_status')
+        for record in Config.law_status:
+            law_status_code_from_config = theme_law_status.get(record.code)
+            if law_status_code == law_status_code_from_config:
+                return record
+
+        raise AttributeError(
+            u'There was no proper configuration for the theme "{theme}" on the law '
+            u'status it has to be configured depending on the data you imported. Law '
+            u'status in your data was: {data_law_status}, the configured options are: '
+            u'{in_kraft}, {aenderung_mit_vorwirkung} or {aenderung_ohne_vorwirkung}'.format(
+                theme=theme_code,
+                data_law_status=law_status_code,
+                in_kraft="inKraft",
+                aenderung_mit_vorwirkung='AenderungMitVorwirkung',
+                aenderung_ohne_vorwirkung='AenderungOhneVorwirkung'
+            )
+        )
+
+    @staticmethod
+    def get_law_status_by_law_status_code(law_status_code):
+        """
+         Returns a dictionary of the configured law status settings.
+
+        Args:
+            law_status_code (str): The law status code. It must be "inKraft" or
+            "AenderungMitVorwirkung" or "AenderungOhneVorwirkung". Any other value won't match
+            and throws a silent error.
+
+        Returns:
+            dict: The translation from the configuration.
+        """
+        for status in Config.law_status:
+            if status.code == law_status_code:
+                return status
+
+    @staticmethod
+    def get_theme_config_by_code(theme_code):
+        """
+        Obtaining the theme configuration from config.
+
+        Args:
+            theme_code (str): The theme code.
+
+        Returns:
+            dict: theme settings from config.
+        """
+        assert Config._config is not None
+        themes = Config._config.get('plrs')
+        if themes and isinstance(themes, list):
+            for theme in themes:
+                if theme.get('code') == theme_code:
+                    return theme
+        return None
 
     @staticmethod
     def get_layer_config(theme_code):

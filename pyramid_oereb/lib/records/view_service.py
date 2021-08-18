@@ -9,7 +9,7 @@ from pyramid_oereb.lib.url import add_url_params, parse_url
 from pyramid_oereb.lib.url import uri_validator
 from pyramid_oereb.lib.config import Config
 from shapely.geometry.point import Point
-
+from pyramid_oereb.lib import get_multiligual_element
 
 log = logging.getLogger(__name__)
 
@@ -234,7 +234,7 @@ class ViewServiceRecord(object):
             log.info(msg)
             language = Config.get('default_language')
 
-        self.reference_wms[language] = add_url_params(self.reference_wms.get(language), {
+        self.reference_wms[language] = add_url_params(get_multiligual_element(self.reference_wms, language), {
                 "BBOX": ",".join([str(e) for e in bbox]),
                 "SRS": 'EPSG:{0}'.format(Config.get('srid')),
                 "WIDTH": int(map_size[0]),

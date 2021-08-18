@@ -19,9 +19,9 @@ template = xml_templates().get_template('public_law_restriction.xml')
 def test_sub_theme():
     parameters = Parameter(
         response_format='xml',
-        flavour='reduced',
         with_geometry=False,
         images=True,
+        signed=False,
         identdn='BL0200002829',
         number='1000',
         egrid='CH775979211712',
@@ -33,7 +33,7 @@ def test_sub_theme():
     theme = ThemeRecord(u'LandUsePlans', {'de': 'Theme 1'}, 1)
     office = OfficeRecord(name={'de': 'office de'})
     law_status = LawStatusRecord(
-        code='runningModifications',
+        code='AenderungMitVorwirkung',
         text={'de': 'law status de'}
     )
     geometry = GeometryRecord(law_status, datetime.now(), Polygon(), 'test', office=office)

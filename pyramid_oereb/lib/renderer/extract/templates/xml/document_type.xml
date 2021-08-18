@@ -5,5 +5,5 @@
 %>
 <data:Code>${document_type_code | x}</data:Code>
 <data:Text>
-    <%include file="multilingual_text.xml" args="text=document_type_text"/>
+    <%include file="multilingual_text.xml" args="text=document_type_text, not_null=True"/>
 </data:Text>

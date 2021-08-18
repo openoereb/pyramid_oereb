@@ -2,7 +2,8 @@
 
 import logging
 
-from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent, HTTPNotFound, HTTPInternalServerError
+from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPInternalServerError, HTTPNoContent, \
+    HTTPNotFound
 from pyramid.path import DottedNameResolver
 from shapely.geometry import Point
 from pyramid.renderers import render_to_response
@@ -33,7 +34,7 @@ class PlrWebservice(object):
     _DEFAULT_FORMATS = ['xml', 'json']
     """list of str: The default formats for the service responses."""
 
-    _EXTRACT_FORMATS = _DEFAULT_FORMATS + ['pdf']
+    _EXTRACT_FORMATS = _DEFAULT_FORMATS + ['pdf', 'url']
     """list of str: The formats for the extract responses."""
 
     def __init__(self, request):
@@ -58,7 +59,7 @@ class PlrWebservice(object):
             u'GetVersionsResponse': {
                 u'supportedVersion': [
                     {
-                        u'version': u'1.0',
+                        u'version': u'extract-2.0',
                         u'serviceEndpointBase': endpoint
                     }
                 ]
@@ -127,7 +128,7 @@ class PlrWebservice(object):
             output_format = self.__validate_format_param__(self._DEFAULT_FORMATS)
             with_geometry = False
             if self.__has_params__(['GEOMETRY']):
-                if self._request.params.get('GEOMETRY').lower() == 'true':
+                if self._params.get('GEOMETRY').lower() == 'true':
                     with_geometry = True
             params = Parameter(
                 output_format,
@@ -158,7 +159,7 @@ class PlrWebservice(object):
             response = HTTPBadRequest('{}'.format(err))
         response.extras = OerebStats(
             service='GetEgrid',
-            params=dict(self._request.params)
+            params=dict(self._params)
         )
         return response
 
@@ -203,8 +204,8 @@ class PlrWebservice(object):
             list of pyramid_oereb.lib.records.real_estate.RealEstateRecord:
                 The list of all found records filtered by the passed criteria.
         """
-        identdn = self._request.params.get('IDENTDN')
-        number = self._request.params.get('NUMBER')
+        identdn = self._params.get('IDENTDN')
+        number = self._params.get('NUMBER')
         if identdn and number:
             processor = create_processor()
             return processor.real_estate_reader.read(
@@ -228,9 +229,9 @@ class PlrWebservice(object):
             list of pyramid_oereb.lib.records.real_estate.RealEstateRecord:
                 The list of all found records filtered by the passed criteria.
         """
-        postalcode = self._request.params.get('POSTALCODE')
-        localisation = self._request.params.get('LOCALISATION')
-        number = self._request.params.get('NUMBER')
+        postalcode = self._params.get('POSTALCODE')
+        localisation = self._params.get('LOCALISATION')
+        number = self._params.get('NUMBER')
         if postalcode and localisation and number:
             reader = AddressReader(
                 Config.get_address_config().get('source').get('class'),
@@ -274,6 +275,12 @@ class PlrWebservice(object):
                 raise HTTPBadRequest("Missing required argument")
             # check if result is strictly one (we queried with primary keys)
             if len(real_estate_records) == 1:
+
+                # Redirect for format URL
+                if params.format == 'url':
+                    log.debug("get_extract_by_id() calling url")
+                    return self.__redirect_to_dynamic_client__(real_estate_records[0])
+
                 extract = processor.process(
                     real_estate_records[0],
                     params,
@@ -334,26 +341,17 @@ class PlrWebservice(object):
             pyramid_oereb.views.webservice.Parameter: The validated parameters.
         """
 
-        # Check flavour
-        extract_flavour = self._request.matchdict.get('flavour').lower()
-        if extract_flavour not in ['reduced', 'full', 'signed', 'embeddable']:
-            raise HTTPBadRequest('Invalid flavour: {0}'.format(extract_flavour))
-
         # Get and check format
         extract_format = self.__validate_format_param__(self._EXTRACT_FORMATS)
 
         # With geometry?
         with_geometry = False
         user_requested_geometry = False
-        if self._request.matchdict.get('param1').lower() == 'geometry':
+        if self._params.get('GEOMETRY', 'false').lower() == 'true':
             with_geometry = True
             user_requested_geometry = True
 
         # Check for invalid combinations
-        if extract_flavour in ['full', 'signed'] and extract_format != 'pdf':
-            raise HTTPBadRequest('The flavours full and signed are only available for format PDF.')
-        if extract_flavour == 'embeddable' and extract_format == 'pdf':
-            raise HTTPBadRequest('The flavour embeddable is not available for format PDF.')
         if extract_format == 'pdf' and user_requested_geometry:
             raise HTTPBadRequest('Geometry is not available for format PDF.')
 
@@ -364,43 +362,42 @@ class PlrWebservice(object):
             with_geometry = Config.get('print', {}).get('with_geometry', True) or with_geometry
 
         # With images?
-        with_images = self._params.get('WITHIMAGES') is not None
+        with_images = self._params.get('WITHIMAGES', 'false').lower() == 'true'
+
+        # Signed?
+        signed = self._params.get('SIGNED', 'false').lower() == 'true'
 
         params = Parameter(
             extract_format,
-            flavour=extract_flavour,
             with_geometry=with_geometry,
-            images=with_images
+            images=with_images,
+            signed=signed
         )
 
         # Get id
-        if user_requested_geometry:
-            id_param_1 = 'param2'
-            id_param_2 = 'param3'
+        if self.__has_params__(['EGRID']):
+            params.set_egrid(self._params['EGRID'])
+        elif self.__has_params__(['IDENTDN', 'NUMBER']):
+            params.set_identdn(self._params['IDENTDN'])
+            params.set_number(self._params['NUMBER'])
         else:
-            id_param_1 = 'param1'
-            id_param_2 = 'param2'
-        id_part_1 = self._request.matchdict.get(id_param_1)
-        id_part_2 = self._request.matchdict.get(id_param_2)
-        if id_part_2:
-            params.set_identdn(id_part_1)
-            params.set_number(id_part_2)
-        else:
-            params.set_egrid(id_part_1)
+            raise HTTPBadRequest(
+                'Invalid parameters. You need one of the following combinations: '
+                'EGRID or IDENTDN and NUMBER.'
+            )
 
         # Language
-        language = str(self._params.get('LANG')).lower()
-        if language not in Config.get_language() and self._params.get('LANG') is not \
-                None:
-            raise HTTPBadRequest(
-                'Requested language is not available. Following languages are '
-                'configured: {languages} The '
-                'requested language was: {language}'.format(
-                    languages=str(Config.get_language()),
-                    language=language
+        if 'LANG' in self._params:
+            language = str(self._params.get('LANG')).lower()
+            if language not in Config.get_language():
+                raise HTTPBadRequest(
+                    'Requested language is not available. Following languages are '
+                    'configured: {languages}. The '
+                    'requested language was: {language}.'.format(
+                        languages=str(Config.get_language()),
+                        language=language
+                    )
                 )
-            )
-        if self._params.get('LANG'):
             params.set_language(language)
 
         # Topics
@@ -555,32 +552,49 @@ class PlrWebservice(object):
             bool: True if all needed parameters are available, false otherwise.
         """
         for p in needed:
-            if p not in self._request.params:
+            if p not in self._params:
                 return False
         return True
 
+    @staticmethod
+    def __redirect_to_dynamic_client__(real_estate):
+        """
+        Returns a redirect to the configured dynamic client.
+
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord):
+                The found real estate.
+
+        Returns:
+            pyramid.httpexceptions.HTTPFound: The redirect response.
+        """
+        url = Config.get_extract_config().get('redirect')
+        if url is None:
+            raise HTTPInternalServerError('Missing configuration for redirect to dynamic client.')
+        return HTTPFound(url.format(**vars(real_estate)))
+
 
 class Parameter(object):
-    def __init__(self, response_format, flavour=None, with_geometry=False, images=False, identdn=None,
+    def __init__(self, response_format, with_geometry=False, images=False, signed=False, identdn=None,
                  number=None, egrid=None, language=None, topics=None):
         """
         Creates a new parameter instance.
 
         Args:
             response_format (str): The extract format.
-            flavour (str): The extract flavour.
             with_geometry (bool): Extract with/without geometry.
             images (bool): Extract with/without images.
+            signed (bool): True for a signed extract.
             identdn (str): The IdentDN as real estate identifier.
             number (str): The parcel number as real estate identifier.
             egrid (str): The EGRID as real estate identifier.
             language (str): The requested language.
             topics (list of str): The list of requested topics.
         """
-        self.__flavour__ = flavour
         self.__format__ = response_format
         self.__with_geometry__ = with_geometry
         self.__images__ = images
+        self.__signed__ = signed
         self.__identdn__ = identdn
         self.__number__ = number
         self.__egrid__ = egrid
@@ -633,14 +647,6 @@ class Parameter(object):
         self.__topics__ = topics
 
     @property
-    def flavour(self):
-        """
-        Returns:
-            str: The requested flavour.
-        """
-        return self.__flavour__
-
-    @property
     def format(self):
         """
         Returns:
@@ -663,6 +669,14 @@ class Parameter(object):
             bool: Extract requested with images.
         """
         return self.__images__
+
+    @property
+    def signed(self):
+        """
+        Returns:
+            bool: Signed extract requested.
+        """
+        return self.__signed__
 
     @property
     def identdn(self):

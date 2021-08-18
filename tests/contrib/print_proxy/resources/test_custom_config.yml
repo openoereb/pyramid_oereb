@@ -11,6 +11,10 @@ pyramid_oereb:
       params:
         db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.Theme
+    law_status:
+      inKraft: inKraft
+      AenderungMitVorwirkung: AenderungMitVorwirkung
+      AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
   logos:
     source:
@@ -32,6 +36,13 @@ pyramid_oereb:
       params:
         db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.GeneralInformation
+
+  law_status_labels:
+    source:
+      class: pyramid_oereb.standard.sources.law_status.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.LawStatus
 
   real_estate_type:
     source:

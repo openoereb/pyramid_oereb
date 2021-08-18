@@ -218,6 +218,20 @@ class ExclusionOfLiability(Base):
     content = sa.Column(JSONType, nullable=False)
 
 
+class LawStatus(Base):
+    """
+    The container where you can throw in all the law status texts this application
+    should have access to, for creating extracts.
+    Attributes:
+        code (str): The identifier on federal level.
+        text (JSONType): The text for the multilingual text.
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'law_status'
+    code = sa.Column(sa.String, primary_key=True)
+    text = sa.Column(JSONType, nullable=False)
+
+
 class DocumentTypeText(Base):
     """
     The element holding the different document types and their translations.

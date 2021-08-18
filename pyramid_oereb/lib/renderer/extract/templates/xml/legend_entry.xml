@@ -6,7 +6,7 @@
 <data:SymbolRef>${get_symbol_ref(request, legend_entry)|u}</data:SymbolRef>
 %endif
 <data:LegendText>
-    <%include file="multilingual_text.xml" args="text=legend_entry.legend_text"/>
+    <%include file="multilingual_text.xml" args="text=legend_entry.legend_text, not_null=True"/>
 </data:LegendText>
 <data:TypeCode>${legend_entry.type_code | x}</data:TypeCode>
 <data:TypeCodelist>${legend_entry.type_code_list | x}</data:TypeCodelist>
