@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+from pyramid_oereb.lib.records.general_information import GeneralInformationRecord
 from pyramid_oereb import Config
 from pyramid.path import DottedNameResolver
 
@@ -42,7 +43,7 @@ def _get_test_extract(glossary):
                                          1,
                                          1.0,
                                          None)
-        real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
+        real_estate = RealEstateRecord(u'Liegenschaft', u'BL', u'Liestal', 2829, 11395,
                                        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
                                        u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712')
         real_estate.set_view_service(view_service)
@@ -71,10 +72,10 @@ def _get_test_extract(glossary):
         )
         extract = ExtractRecord(
             real_estate,
-            ImageRecord(file_adapter.read('tests/resources/python.svg')),
-            ImageRecord(file_adapter.read('tests/resources/python.svg')),
-            ImageRecord(file_adapter.read('tests/resources/python.svg')),
-            ImageRecord(file_adapter.read('tests/resources/python.svg')),
+            Config.get_oereb_logo(),
+            Config.get_conferderation_logo(),
+            Config.get_canton_logo(),
+            Config.get_municipality_logo(1234),
             office_record,
             base_data,
             embeddable,
@@ -82,7 +83,7 @@ def _get_test_extract(glossary):
                 ExclusionOfLiabilityRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})
             ],
             glossaries=glossary,
-            general_information={'de': u'Allgemeine Informationen'},
+            general_information=Config.get_general_information(),
             certification={'de': u'certification'},
             certification_at_web={'de': u'certification_at_web'},
         )

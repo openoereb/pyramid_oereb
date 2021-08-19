@@ -30,10 +30,9 @@ real_estate = RealEstateRecord(u'test', u'BL', u'Laufen', 2770, 1000,
                                ))
 
 municipality = MunicipalityRecord(
-        969,
+        2771,
         u'FantasyMunicipality',
         True,
-        ImageRecord('1'.encode('utf-8')),
         geom=MultiPolygon()
     )
 

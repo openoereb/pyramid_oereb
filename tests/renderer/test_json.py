@@ -160,21 +160,20 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                 expected['Glossary'] = glossaries_expected
             if parameter.images:
                 expected.update({
-                    'LogoPLRCadastre': ImageRecord(FileAdapter().read('tests/resources/logo_canton.png'))
+                    'LogoPLRCadastre': Config.get_oereb_logo()
                         .encode(),
-                    'FederalLogo': ImageRecord(FileAdapter().read('tests/resources/logo_canton.png'))
+                    'FederalLogo': Config.get_conferderation_logo()
                         .encode(),
-                    'CantonalLogo': ImageRecord(FileAdapter().read('tests/resources/logo_canton.png'))
+                    'CantonalLogo': Config.get_canton_logo()
                         .encode(),
-                    'MunicipalityLogo': ImageRecord(FileAdapter().read('tests/resources/python.svg'))
-                        .encode(),
+                    'MunicipalityLogo': Config.get_municipality_logo(2771),
                 })
             else:
                 expected.update({
                     'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb/de.png',
                     'FederalLogoRef': u'http://example.com/image/logo/confederation/de.png',
                     'CantonalLogoRef': u'http://example.com/image/logo/canton/de.png',
-                    'MunicipalityLogoRef': u'http://example.com/image/municipality/2829.svg'
+                    'MunicipalityLogoRef': u'http://example.com/image/logo/municipality/de.png?fosnr=2829'
                 })
             assert result['GeneralInformation'] == expected['GeneralInformation']
             assert result == expected

@@ -550,7 +550,7 @@ class Renderer(JsonRenderer):
         Categorize document by their documentType (LegalProvision, Law or Hint)
 
         Args:
-            dcoument (dict): The document type as dictionary.
+            document (dict): The document type as dictionary.
             legal_provisions (dict): The legal_provisions dictionary to fill.
             laws (dict): The laws dictionary to fill.
             hints (dict): The Hints dictionary to fill.

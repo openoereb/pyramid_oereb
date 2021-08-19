@@ -291,20 +291,6 @@ class Config(object):
         return info_reader.read()
 
     @staticmethod
-    def get_general_information():
-        """
-        Returns the general information.
-
-        Returns:
-            list of pyramid_oereb.lib.records.theme.GeneralInformationRecord: The available general
-            information entries.
-        """
-        assert Config._config is not None
-        if len(Config.general_information) < 1:
-            raise ConfigurationError("At least one general information entry is required")
-        return Config.general_information
-
-    @staticmethod
     def init_document_types():
         try:
             Config.document_types = Config._read_document_types()
@@ -365,6 +351,13 @@ class Config(object):
         """
         assert Config._config is not None
         return Config.real_estate_types
+    
+    @staticmethod
+    def get_document_types_lookup():
+        lookups = Config.get('document_types_lookup')
+        if lookups is None:
+            raise ConfigurationError('"document_types_lookup" must be defined in configuration!')
+        return lookups
 
     @staticmethod
     def get_document_type_by_code(code):

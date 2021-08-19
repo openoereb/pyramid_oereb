@@ -5,13 +5,18 @@ from pyramid_oereb.lib.records.image import ImageRecord
 
 
 def test_logo_init():
-    record = LogoRecord(u'ch.1234', {
-        'de': b64.decode('iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd3EQ \
-            BvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII=')
-        })
+    test_image = ''.join([
+        "iVBORw0KGgoAAAANSUhEUgAAAB4A",
+        "AAAPCAIAAAB82OjLAAAAL0lEQVQ4",
+        "jWNMTd3EQBvAwsDAkFPnS3VzpzRt",
+        "ZqK6oXAwavSo0aNGjwCjGWlX8gEA",
+        "FAQGFyQKGL4AAAAASUVORK5CYII="
+    ])
+    record = LogoRecord(
+        u'ch.1234', {
+            'de': test_image
+        }
+    )
     assert record.code == u'ch.1234'
-    assert record.image_dict == {
-        'de': b64.decode('iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd3EQ \
-            BvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII=')
-    }
     assert isinstance(record.image_dict['de'], ImageRecord)
+    assert record.image_dict['de'].encode() == test_image

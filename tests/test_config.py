@@ -86,6 +86,8 @@ def test_get_logo_config():
     'ch.1234'
     ])
 def test_get_logo_by_code(code):
+    Config._config = None
+    Config.init('./pyramid_oereb/standard/pyramid_oereb.yml', 'pyramid_oereb')
     setup_db()
     assert len(Config.logos) > 0
     logo = Config.get_logo_by_code(code)

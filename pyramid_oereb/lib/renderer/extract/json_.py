@@ -97,34 +97,34 @@ class Renderer(Base):
 
         if self._params.images:
             extract_dict.update({
-                'LogoPLRCadastre': b64.encode(extract.logo_plr_cadastre.image_dict[self._language].content),
-                'FederalLogo': b64.encode(extract.federal_logo.image_dict[self._language].content),
-                'CantonalLogo': b64.encode(extract.cantonal_logo.image_dict[self._language].content),
-                'MunicipalityLogo': b64.encode(extract.municipality_logo.image_dict[self._language].content)
+                'LogoPLRCadastre': extract.logo_plr_cadastre.image_dict[self._language].encode(),
+                'FederalLogo': extract.federal_logo.image_dict[self._language].encode(),
+                'CantonalLogo': extract.cantonal_logo.image_dict[self._language].encode(),
+                'MunicipalityLogo': extract.municipality_logo.image_dict[self._language].encode()
             })
         else:
             extract_dict.update({
                 'LogoPLRCadastreRef': self._request.route_url(
                     '{0}/image/logo'.format(route_prefix),
-                    logo=Config.get_logo_lookup_oereb(),
+                    logo='oereb',
                     language=self._language,
                     extension=extract.logo_plr_cadastre.image_dict[self._language].extension
                 ),
                 'FederalLogoRef': self._request.route_url(
                     '{0}/image/logo'.format(route_prefix),
-                    logo=Config.get_logo_lookup_confederation(),
+                    logo='confederation',
                     language=self._language,
                     extension=extract.federal_logo.image_dict[self._language].extension
                 ),
                 'CantonalLogoRef': self._request.route_url(
                     '{0}/image/logo'.format(route_prefix),
-                    logo=Config.get_logo_lookup_canton(),
+                    logo='canton',
                     language=self._language,
                     extension=extract.cantonal_logo.image_dict[self._language].extension
                 ),
                 'MunicipalityLogoRef': self._request.route_url(
                     '{0}/image/logo'.format(route_prefix),
-                    logo=Config.get_logo_lookup_confederation(),
+                    logo='municipality',
                     language=self._language,
                     extension=extract.municipality_logo.image_dict[self._language].extension
                 ) + '?fosnr={}'.format(extract.real_estate.fosnr)

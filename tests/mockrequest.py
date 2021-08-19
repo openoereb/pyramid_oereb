@@ -12,7 +12,7 @@ class MockParameter(Parameter):
 class MockRequest(DummyRequest):
     def __init__(self, current_route_url=None):
         super(MockRequest, self).__init__()
-
+        
         self._current_route_url = current_route_url
 
     def current_route_url(self, *elements, **kw):
