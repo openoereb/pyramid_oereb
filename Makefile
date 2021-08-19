@@ -203,5 +203,6 @@ docker-clean:
 
 .PHONY: docker-clean-all
 docker-clean-all:
+	rm -f $(DEV_CONFIGURATION_YML)
 	docker-compose restart oereb-db
 	docker-compose exec oereb-server make clean-all
