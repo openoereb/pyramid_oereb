@@ -2,8 +2,6 @@
 import datetime
 import pytest
 
-from pyramid.httpexceptions import HTTPInternalServerError
-
 from pyramid.config import ConfigurationError
 from tests import setup_db
 
@@ -73,10 +71,11 @@ def test_get_logo_config():
     assert isinstance(class_config, str)
     params = source.get('params')
     assert isinstance(params, dict)
-    db_connection =  params.get('db_connection')
+    db_connection = params.get('db_connection')
     assert isinstance(db_connection, str)
-    model =  params.get('model')
+    model = params.get('model')
     assert isinstance(model, str)
+
 
 @pytest.mark.run(order=-1)
 @pytest.mark.parametrize('code', [
@@ -92,6 +91,7 @@ def test_get_logo_by_code(code):
     assert len(Config.logos) > 0
     logo = Config.get_logo_by_code(code)
     assert isinstance(logo, LogoRecord)
+
 
 @pytest.mark.run(order=-1)
 def test_get_all_federal():

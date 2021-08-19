@@ -666,7 +666,7 @@ class DummyData(object):
             'public_law_restriction_id': '1',
             'document_id': '4'
         })
-        
+
         connection.close()
 
     def _import_contaminated_sites(self):

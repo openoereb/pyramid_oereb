@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb.lib import b64
 from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.records.image import ImageRecord
 

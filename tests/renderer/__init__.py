@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 import datetime
-from pyramid_oereb.lib.records.general_information import GeneralInformationRecord
 from pyramid_oereb import Config
 from pyramid.path import DottedNameResolver
 
-from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.embeddable import EmbeddableRecord, DatasourceRecord
 from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.glossary import GlossaryRecord
-from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
@@ -37,7 +34,6 @@ def get_none_glossary_extract():
 
 def _get_test_extract(glossary):
     date = datetime.datetime.now()
-    file_adapter = FileAdapter()
     with pyramid_oereb_test_config():
         view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
                                          1,

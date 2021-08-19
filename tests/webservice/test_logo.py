@@ -3,7 +3,6 @@ import pytest
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.response import Response
 
-from pyramid_oereb.lib.config import Config
 from tests.mockrequest import MockRequest
 from pyramid_oereb.views.webservice import Logo
 

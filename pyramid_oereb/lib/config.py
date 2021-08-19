@@ -6,8 +6,6 @@ import datetime
 import yaml
 from io import open as ioopen
 from pyramid.config import ConfigurationError
-from pyramid_oereb.lib import get_multiligual_element
-from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.readers.theme import ThemeReader
 from pyramid_oereb.lib.records.logo import LogoRecord
@@ -280,17 +278,6 @@ class Config(object):
         return Config.get_logo_lookup('confederation')
 
     @staticmethod
-    def _read_general_information():
-        info_config = Config.get_info_config()
-        if info_config is None:
-            raise ConfigurationError("Missing configuration for general information")
-        info_reader = GeneralInformationReader(
-            info_config.get('source').get('class'),
-            **Config.get_info_config().get('source').get('params')
-        )
-        return info_reader.read()
-
-    @staticmethod
     def init_document_types():
         try:
             Config.document_types = Config._read_document_types()
@@ -351,7 +338,7 @@ class Config(object):
         """
         assert Config._config is not None
         return Config.real_estate_types
-    
+
     @staticmethod
     def get_document_types_lookup():
         lookups = Config.get('document_types_lookup')
