@@ -185,7 +185,7 @@ docker-serve: docker-build
 	PGHOST=$(PG_HOST) PGUSER=$(PG_USER) PG_DB=$(PG_DB) PGPASSWORD=$(PG_PASSWORD) docker-compose up -d
 
 .PHONY: docker-down
-docker-down: docker-build
+docker-down:
 	PGHOST=$(PG_HOST) PGUSER=$(PG_USER) PG_DB=$(PG_DB) PGPASSWORD=$(PG_PASSWORD) docker-compose down
 
 .PHONY: docker-lint
