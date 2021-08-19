@@ -193,7 +193,7 @@ docker-lint: docker-build
 	docker-compose exec oereb-server make lint
 
 .PHONY: docker-test
-docker-test: docker-serve docker-clean
+docker-test: docker-serve
 	docker-compose exec oereb-server make test
 
 .PHONY: docker-clean

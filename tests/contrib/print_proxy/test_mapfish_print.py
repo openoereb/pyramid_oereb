@@ -133,7 +133,7 @@ def test_mapfish_print_entire_extract():
     printable_extract = extract()
     renderer.convert_to_printable_extract(printable_extract, geometry())
     # Uncomment to print the result
-    # f = open('/tmp/printable_extract.json', 'w')
+    # f = open('/workspace/printable_extract.json', 'w')
     # f.write(json.dumps(printable_extract))
     # f.close()
 

@@ -35,6 +35,7 @@ class Renderer(JsonRenderer):
             self._multilingual_text(item, 'OfficialNumber')
             self._flatten_object(item, 'ResponsibleOffice')
             self._multilingual_text(item, 'ResponsibleOffice_Name')
+            self._multilingual_text(item, 'ResponsibleOffice_OfficeAtWeb')
             self._multilingual_text_at_web(item)
 
             self._multilingual_m_text(item, 'Text')
@@ -218,6 +219,7 @@ class Renderer(JsonRenderer):
             for theme in extract_dict[attr_name]:
                 self._localised_text(theme, 'Text')
         self._flatten_object(extract_dict, 'PLRCadastreAuthority')
+        self._multilingual_text(extract_dict, 'PLRCadastreAuthority_OfficeAtWeb')
         self._flatten_object(extract_dict, 'RealEstate')
         if 'Image' in extract_dict.get('RealEstate_Highlight', {}):
             del extract_dict['RealEstate_Highlight']['Image']
@@ -323,8 +325,6 @@ class Renderer(JsonRenderer):
                 while not finish:
                     finish = True
                     for legal_provision in restriction_on_landownership['LegalProvisions']:
-                        log.warning("****************")
-                        log.warning(legal_provision)
                         if 'Base64TextAtWeb' in legal_provision:
                             del legal_provision['Base64TextAtWeb']
                         if 'Reference' in legal_provision:
