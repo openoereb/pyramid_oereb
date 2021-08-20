@@ -6,7 +6,7 @@ from pyramid.httpexceptions import HTTPInternalServerError
 log = logging.getLogger(__name__)
 
 
-def get_multiligual_element(value, language, not_null=True):
+def get_multilingual_element(value, language, not_null=True):
     multilingual_value = value.get(language, None)
 
     if multilingual_value is None and not_null:

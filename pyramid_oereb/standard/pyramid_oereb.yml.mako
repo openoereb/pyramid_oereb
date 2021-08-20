@@ -215,27 +215,6 @@ pyramid_oereb:
     # The city name of the address of your office. For instance: Liestal
     city: Wabern
 
-  # The extract provides logos. Therefor you need to provide a path to these logos. Note: This must be a
-  # valid absolute system path available for reading by the user running this server.
-  logo:
-    # The logo representing the swiss confederation. You can use it as is because it is provided in this
-    # repository, but if you need to change it for any reason: Feel free...
-    confederation: ${png_root_dir}logo_confederation.png
-    # The logo representing the oereb extract CI. You can use it as is because it is provided in this
-    # repository, but if you need to change it for any reason: Feel free...
-    oereb:
-        de: ${png_root_dir}logo_oereb_de.png
-        fr: ${png_root_dir}logo_oereb_fr.png
-        it: ${png_root_dir}logo_oereb_it.png
-    # The logo representing your canton. Replace with your own logo!
-    canton: ${png_root_dir}logo_canton.png
-
-  # The method used to return the logo images configured above.
-  get_logo_method: pyramid_oereb.standard.hook_methods.get_logo
-
-  # The method used to return the municipality logos.
-  get_municipality_method: pyramid_oereb.standard.hook_methods.get_municipality
-
   # The processor of the oereb project needs access to real estate data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the real estate out of an existing
   # database table to avoid imports of this data every time it gets updates, you only need to change the model
@@ -323,6 +302,36 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the municipality database table.
         model: pyramid_oereb.standard.models.main.Municipality
+
+  # The extract provides logos. Therefor you need to provide the logos from the database
+  # or by a path to these logos. Note: This must be a valid absolute system path available
+  # for reading by the user running this server.
+  logo_lookups:
+    # The logo representing the swiss confederation. You can use it as is because it is provided in this
+    # repository, but if you need to change it for any reason: Feel free...
+    confederation: ch
+    # The logo representing the oereb extract CI. You can use it as is because it is provided in this
+    # repository, but if you need to change it for any reason: Feel free...
+    oereb: ch.plr
+    # The logo representing your canton. Replace with your own logo!
+    canton: ne
+
+  # The processor of the oereb project joins the logos. In the standard configuration this
+  # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
+  # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
+  # the source. The model must implement the same field names and information as the default model does.
+  logos:
+    # The logo images must have a property source.
+    source:
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source which reads data from a database.
+      class: pyramid_oereb.standard.sources.logo.DatabaseSource
+      # The necessary parameters to use this class
+      params:
+        # The connection path where the database can be found
+        db_connection: *main_db_connection
+        # The model which maps the logo images database table.
+        model: pyramid_oereb.standard.models.main.Logo
 
   # Define the document type values configured as default in the data
   document_types_lookup:

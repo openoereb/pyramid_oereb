@@ -756,40 +756,29 @@ class Logo(object):
 
     def get_image(self):
         """
-        Returns a response containing the binary image content using the configured "get_logo_method".
+        Returns a response containing the binary logo image content using the configured "get_logo_method".
 
         Returns:
             pyramid.response.Response: Response containing the binary image content.
         """
-        method = Config.get('get_logo_method')
-        if method:
-            return DottedNameResolver().resolve(method)(self._request)
-        log.error('"get_logo_method" not found')
-        raise HTTPNotFound()
-
-
-class Municipality(object):
-    """
-    Webservice to deliver municipality images.
-
-    Args:
-        request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.
-    """
-    def __init__(self, request):
-        self._request_ = request
-
-    def get_image(self):
-        """
-        Returns a response containing the binary image content using the configured "get_municipality_method".
-
-        Returns:
-            pyramid.response.Response: Response containing the binary image content.
-        """
-        method = Config.get('get_municipality_method')
-        if method:
-            return DottedNameResolver().resolve(method)(self._request_)
-        log.error('"get_municipality_method" not found')
-        raise HTTPNotFound()
+        logo_key = self._request.matchdict.get('logo')
+        logo_language = self._request.matchdict.get('language')
+        if(logo_key.upper() == 'CONFEDERATION'):
+            logo = Config.get_conferderation_logo()
+        elif(logo_key.upper() == 'OEREB'):
+            logo = Config.get_oereb_logo()
+        elif(logo_key.upper() == 'CANTON'):
+            logo = Config.get_canton_logo()
+        elif(logo_key.upper() == 'MUNICIPALITY'):
+            fosnr = self._request.params['fosnr']
+            logo = Config.get_municipality_logo(fosnr)
+        else:
+            raise HTTPNotFound('This logo does not exist.')
+        response = self._request.response
+        response.status_int = 200
+        response.body = logo.image_dict[logo_language].content
+        response.content_type = logo.image_dict[logo_language].mimetype
+        return response
 
 
 class Symbol(object):

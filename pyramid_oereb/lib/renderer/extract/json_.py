@@ -8,6 +8,7 @@ from pyramid.response import Response
 from pyramid.testing import DummyRequest
 
 from pyramid_oereb import Config, route_prefix
+from pyramid_oereb.lib import get_multilingual_element
 from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
 
@@ -96,10 +97,22 @@ class Renderer(Base):
 
         if self._params.images:
             extract_dict.update({
-                'LogoPLRCadastre': extract.logo_plr_cadastre.encode(),
-                'FederalLogo': extract.federal_logo.encode(),
-                'CantonalLogo': extract.cantonal_logo.encode(),
-                'MunicipalityLogo': extract.municipality_logo.encode()
+                'LogoPLRCadastre': get_multilingual_element(
+                        extract.logo_plr_cadastre.image_dict,
+                        self._language
+                    ).encode(),
+                'FederalLogo': get_multilingual_element(
+                        extract.federal_logo.image_dict,
+                        self._language
+                    ).encode(),
+                'CantonalLogo': get_multilingual_element(
+                        extract.cantonal_logo.image_dict,
+                        self._language
+                    ).encode(),
+                'MunicipalityLogo': get_multilingual_element(
+                        extract.municipality_logo.image_dict,
+                        self._language
+                    ).encode()
             })
         else:
             extract_dict.update({
@@ -107,25 +120,38 @@ class Renderer(Base):
                     '{0}/image/logo'.format(route_prefix),
                     logo='oereb',
                     language=self._language,
-                    extension=extract.logo_plr_cadastre.extension
+                    extension=get_multilingual_element(
+                            extract.logo_plr_cadastre.image_dict,
+                            self._language
+                        ).extension
                 ),
                 'FederalLogoRef': self._request.route_url(
                     '{0}/image/logo'.format(route_prefix),
                     logo='confederation',
                     language=self._language,
-                    extension=extract.federal_logo.extension
+                    extension=get_multilingual_element(
+                            extract.federal_logo.image_dict,
+                            self._language
+                        ).extension
                 ),
                 'CantonalLogoRef': self._request.route_url(
                     '{0}/image/logo'.format(route_prefix),
                     logo='canton',
                     language=self._language,
-                    extension=extract.cantonal_logo.extension
+                    extension=get_multilingual_element(
+                            extract.cantonal_logo.image_dict,
+                            self._language
+                        ).extension
                 ),
                 'MunicipalityLogoRef': self._request.route_url(
-                    '{0}/image/municipality'.format(route_prefix),
-                    fosnr=extract.real_estate.fosnr,
-                    extension=extract.municipality_logo.extension
-                )
+                    '{0}/image/logo'.format(route_prefix),
+                    logo='municipality',
+                    language=self._language,
+                    extension=get_multilingual_element(
+                            extract.municipality_logo.image_dict,
+                            self._language
+                        ).extension
+                ) + '?fosnr={}'.format(extract.real_estate.fosnr)
             })
 
         if extract.certification:

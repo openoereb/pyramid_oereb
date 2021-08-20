@@ -16,6 +16,7 @@ from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.glossary import GlossaryRecord
 from pyramid_oereb.lib.records.image import ImageRecord
+from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
@@ -99,10 +100,14 @@ def test_render(parameter, glossaries_input, glossaries_expected):
         )
         extract = ExtractRecord(
             real_estate,
-            ImageRecord(FileAdapter().read('tests/resources/logo_canton.png')),
-            ImageRecord(FileAdapter().read('tests/resources/logo_canton.png')),
-            ImageRecord(FileAdapter().read('tests/resources/logo_canton.png')),
-            ImageRecord(FileAdapter().read('tests/resources/python.svg')),
+            LogoRecord('ch', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+            LogoRecord('ch.plr', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+            LogoRecord('ne', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+            LogoRecord('ch.1234', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
             office_record,
             base_data,
             embeddable,
@@ -155,21 +160,20 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                 expected['Glossary'] = glossaries_expected
             if parameter.images:
                 expected.update({
-                    'LogoPLRCadastre': ImageRecord(FileAdapter().read('tests/resources/logo_canton.png'))
+                    'LogoPLRCadastre': Config.get_oereb_logo()
                         .encode(),
-                    'FederalLogo': ImageRecord(FileAdapter().read('tests/resources/logo_canton.png'))
+                    'FederalLogo': Config.get_conferderation_logo()
                         .encode(),
-                    'CantonalLogo': ImageRecord(FileAdapter().read('tests/resources/logo_canton.png'))
+                    'CantonalLogo': Config.get_canton_logo()
                         .encode(),
-                    'MunicipalityLogo': ImageRecord(FileAdapter().read('tests/resources/python.svg'))
-                        .encode(),
+                    'MunicipalityLogo': Config.get_municipality_logo(2771),
                 })
             else:
                 expected.update({
                     'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb/de.png',
                     'FederalLogoRef': u'http://example.com/image/logo/confederation/de.png',
                     'CantonalLogoRef': u'http://example.com/image/logo/canton/de.png',
-                    'MunicipalityLogoRef': u'http://example.com/image/municipality/2829.svg'
+                    'MunicipalityLogoRef': u'http://example.com/image/logo/municipality/de.png?fosnr=2829'
                 })
             assert result['GeneralInformation'] == expected['GeneralInformation']
             assert result == expected

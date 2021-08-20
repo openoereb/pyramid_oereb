@@ -36,7 +36,7 @@ def test_sub_theme():
         code='AenderungMitVorwirkung',
         text={'de': 'law status de'}
     )
-    geometry = GeometryRecord(law_status, datetime.now(), Polygon(), 'test', office=office)
+    geometry = GeometryRecord(law_status, datetime.now(), datetime.now(), Polygon(), 'test', office=office)
     public_law_restriction = PlrRecord(
         theme=theme,
         legend_entry=LegendEntryRecord(

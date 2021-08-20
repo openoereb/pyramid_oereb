@@ -9,7 +9,6 @@ from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 from pyramid_oereb.lib.records.municipality import MunicipalityRecord
-from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.readers.extract import ExtractReader
 from tests.mockrequest import MockParameter
 
@@ -30,10 +29,9 @@ real_estate = RealEstateRecord(u'test', u'BL', u'Laufen', 2770, 1000,
                                ))
 
 municipality = MunicipalityRecord(
-        969,
+        2771,
         u'FantasyMunicipality',
         True,
-        ImageRecord('1'.encode('utf-8')),
         geom=MultiPolygon()
     )
 

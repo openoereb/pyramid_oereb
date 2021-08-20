@@ -9,7 +9,6 @@ from timeit import default_timer as timer
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.embeddable import EmbeddableRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
-from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.plr import PlrRecord, EmptyPlrRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 
@@ -36,7 +35,6 @@ class ExtractReader(object):
                 instances which the achieved extract should be about.
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority responsible
                 for the PLR cadastre.
-            logos (dict): The logos of confederation, canton and oereb wrapped in a ImageRecord.
             certification (dict of unicode or None): A mutlilingual dictionary of certification information.
             certification_at_web (dict of unicode or None): Multilingual list of certification uri.
         """
@@ -99,7 +97,6 @@ class ExtractReader(object):
                 The extract record containing all gathered data.
         """
         log.debug("read() start")
-        assert isinstance(municipality.logo, ImageRecord)
 
         bbox = ViewServiceRecord.get_bbox(real_estate.limit)
         bbox = box(bbox[0], bbox[1], bbox[2], bbox[3])
@@ -155,7 +152,11 @@ class ExtractReader(object):
         av_update_date = date_method(real_estate)
         base_data = Config.get_base_data(av_update_date)
         general_information = Config.get_general_information()
-        logos = Config.get_logo_config(language=params.language)
+
+        oereb_logo = Config.get_oereb_logo()
+        confederation_logo = Config.get_conferderation_logo()
+        canton_logo = Config.get_canton_logo()
+        municipality_logo = Config.get_municipality_logo(municipality.fosnr)
 
         av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
         av_provider_method = resolver.resolve(av_provider_method_string)
@@ -170,10 +171,10 @@ class ExtractReader(object):
 
         self.extract = ExtractRecord(
             real_estate,
-            logos.get('oereb'),
-            logos.get('confederation'),
-            logos.get('canton'),
-            municipality.logo,
+            oereb_logo,
+            confederation_logo,
+            canton_logo,
+            municipality_logo,
             self.plr_cadastre_authority,
             base_data,
             embeddable,

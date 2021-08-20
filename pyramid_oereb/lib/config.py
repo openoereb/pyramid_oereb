@@ -6,11 +6,10 @@ import datetime
 import yaml
 from io import open as ioopen
 from pyramid.config import ConfigurationError
-from pyramid_oereb.lib import get_multiligual_element
-from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
-from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.readers.theme import ThemeReader
+from pyramid_oereb.lib.records.logo import LogoRecord
+from pyramid_oereb.lib.readers.logo import LogoReader
 from pyramid_oereb.lib.readers.law_status import LawStatusReader
 from pyramid_oereb.lib.readers.real_estate_type import RealEstateTypeReader
 from pyramid_oereb.lib.readers.document_types import DocumentTypeReader
@@ -29,6 +28,7 @@ class Config(object):
 
     _config = None
     themes = None
+    logos = None
     document_types = None
     general_information = None
     law_status = None
@@ -47,6 +47,7 @@ class Config(object):
 
         Config._config = _parse(configfile, configsection, c2ctemplate_style)
         Config.init_themes()
+        Config.init_logos()
         Config.init_document_types()
         Config.init_general_information()
         Config.init_law_status()
@@ -177,6 +178,106 @@ class Config(object):
         raise ConfigurationError(f"Theme {code} not found in the application configuration")
 
     @staticmethod
+    def init_logos():
+        try:
+            Config.logos = Config._read_logos()
+        # When initializing the database (create_tables), the table 'logo' does not exist yet
+        except ProgrammingError:
+            Config.logos = None
+
+    @staticmethod
+    def _read_logos():
+        logo_config = Config.get_logo_config()
+        if logo_config is None:
+            raise ConfigurationError("Missing configuration for logos")
+        logo_reader = LogoReader(
+            logo_config.get('source').get('class'),
+            **Config.get_logo_config().get('source').get('params')
+        )
+        return logo_reader.read()
+
+    @staticmethod
+    def get_logos():
+        """
+        Returns all the logos and municipalities arms of coats.
+
+        Returns:
+            list of pyramid_oereb.lib.records.logo.LogoRecord: All the logo entries needed to
+            generate an plr data-extract (plr-logo, confederation, canton, municipality).
+        """
+        assert Config._config is not None
+        if len(Config.logos) < 1:
+            raise ConfigurationError("At least one entry for the plr-logo is required")
+        return Config.logos
+
+    @staticmethod
+    def get_logo_by_code(code):
+        """
+        Returns the image for a logo called by its code.
+        Args:
+            code (str): The identifier for the logo.
+        Returns:
+            pyramid_oereb.lib.records.logo.LogoRecord or None: The logo image
+            for the specified code.
+        """
+        if Config.logos is None:
+            raise ConfigurationError("The logo images have not been initialized")
+        for logo in Config.logos:
+            if isinstance(logo, LogoRecord):
+                if logo.code == code:
+                    return logo
+            else:
+                raise ConfigurationError("The logo has not the expected format")
+        raise ConfigurationError(f"Logo for code: {code} not found in the application configuration")
+
+    @staticmethod
+    def get_conferderation_logo():
+        return Config.get_logo_by_code(Config.get_logo_lookup_confederation())
+
+    @staticmethod
+    def get_canton_logo():
+        return Config.get_logo_by_code(Config.get_logo_lookup_canton())
+
+    @staticmethod
+    def get_municipality_logo(fosnr):
+        return Config.get_logo_by_code('{}.{}'.format(
+            Config.get_logo_lookup_confederation(),
+            str(fosnr))
+        )
+
+    @staticmethod
+    def get_oereb_logo():
+        return Config.get_logo_by_code(Config.get_logo_lookup_oereb())
+
+    @staticmethod
+    def get_logo_lookups():
+        logo_lookups = Config.get('logo_lookups')
+        if logo_lookups:
+            return logo_lookups
+        else:
+            raise ConfigurationError('Configuration for "logo_lookups" not found.')
+
+    @staticmethod
+    def get_logo_lookup(key):
+        code = Config.get_logo_lookups()[key]
+        if code:
+            return code
+        else:
+            raise ConfigurationError('Configuration for lookup "{}" not found.'.format(key))
+
+    @staticmethod
+    def get_logo_lookup_oereb():
+        return Config.get_logo_lookup('oereb')
+
+    @staticmethod
+    def get_logo_lookup_canton():
+        return Config.get_logo_lookup('canton')
+
+    @staticmethod
+    def get_logo_lookup_confederation():
+        return Config.get_logo_lookup('confederation')
+
+    @staticmethod
     def init_document_types():
         try:
             Config.document_types = Config._read_document_types()
@@ -237,6 +338,13 @@ class Config(object):
         """
         assert Config._config is not None
         return Config.real_estate_types
+
+    @staticmethod
+    def get_document_types_lookup():
+        lookups = Config.get('document_types_lookup')
+        if lookups is None:
+            raise ConfigurationError('"document_types_lookup" must be defined in configuration!')
+        return lookups
 
     @staticmethod
     def get_document_type_by_code(code):
@@ -447,6 +555,17 @@ class Config(object):
         return Config._config.get('general_information')
 
     @staticmethod
+    def get_logo_config():
+        """
+        Returns a dictionary of the configured file path's to the logos.
+
+        Returns:
+            dict: The configured paths to the logos wrapped in a dictionary.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('logos')
+
     def get_law_status_config():
         """
         Returns a dictionary of the configured law status sources.
@@ -505,55 +624,6 @@ class Config(object):
             postal_code=cfg.get('postal_code'),
             city=cfg.get('city')
         )
-
-    @staticmethod
-    def get_logo_config(language=None):
-        """
-        Returns a dictionary of the configured file path's to the logos.
-
-        Returns:
-            dict: The configured paths to the logos wrapped in a dictionary.
-        """
-        assert Config._config is not None
-
-        confederation_key = 'confederation'
-        oereb_key = 'oereb'
-        canton_key = 'canton'
-        msg = 'The definition for "{key}" must be set. Got: {found_config}'
-        logo_dict = Config._config.get('logo')
-
-        if not logo_dict.get(confederation_key):
-            raise ConfigurationError(msg.format(key=confederation_key, found_config=logo_dict))
-        if not logo_dict.get(oereb_key):
-            raise ConfigurationError(msg.format(key=oereb_key, found_config=logo_dict))
-        if not logo_dict.get(canton_key):
-            raise ConfigurationError(msg.format(key=canton_key, found_config=logo_dict))
-
-        file_adapter = FileAdapter()
-
-        confederation_logo = ImageRecord(file_adapter.read(logo_dict.get(confederation_key)))
-        canton_logo = ImageRecord(file_adapter.read(logo_dict.get(canton_key)))
-
-        if isinstance(logo_dict.get(oereb_key), dict):
-            if language is None or language not in logo_dict.get(oereb_key):
-                logo_language = Config.get('default_language')
-            else:
-                logo_language = language
-
-            oereb_logo = ImageRecord(
-                file_adapter.read(
-                    get_multiligual_element(logo_dict.get(oereb_key), logo_language)
-                )
-            )
-
-        else:
-            oereb_logo = ImageRecord(file_adapter.read(logo_dict.get(oereb_key)))
-
-        return {
-            confederation_key: confederation_logo,
-            oereb_key: oereb_logo,
-            canton_key: canton_logo
-        }
 
     @staticmethod
     def get_oereblex_config():

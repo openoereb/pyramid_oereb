@@ -16,6 +16,13 @@ pyramid_oereb:
       AenderungMitVorwirkung: AenderungMitVorwirkung
       AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
+  logos:
+    source:
+      class: pyramid_oereb.standard.sources.logo.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.Logo
+
   document_types:
     source:
       class: pyramid_oereb.standard.sources.document_types.DatabaseSource

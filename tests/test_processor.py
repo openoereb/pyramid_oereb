@@ -20,6 +20,8 @@ from pyramid_oereb.lib.readers.real_estate import RealEstateReader
 from pyramid_oereb.views.webservice import PlrWebservice
 from tests.mockrequest import MockRequest
 
+from pyramid_oereb.lib.config import Config
+
 import logging
 log = logging.getLogger(__name__)
 
@@ -29,6 +31,9 @@ request_matchdict = {
 request_params = {
     'EGRID': 'TEST'
 }
+
+Config._config = None
+Config.init('./pyramid_oereb/standard/pyramid_oereb.yml', 'pyramid_oereb')
 
 
 def test_missing_params():

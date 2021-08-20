@@ -2,13 +2,12 @@
 import datetime
 import pytest
 
-from pyramid.httpexceptions import HTTPInternalServerError
-
 from pyramid.config import ConfigurationError
+from tests import setup_db
 
-from pyramid_oereb.lib.adapter import FileAdapter
+# from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.records.image import ImageRecord
+from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
@@ -64,63 +63,34 @@ def test_get_plr_cadastre_authority():
 def test_get_logo_config():
     Config._config = None
     Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
-    logos = Config.get_logo_config()
-    assert isinstance(logos, dict)
-    logo_oereb = logos.get('oereb')
-    assert isinstance(logo_oereb, ImageRecord)
-    assert logo_oereb.content == FileAdapter().read(Config.get('logo').get('oereb'))
+    logo_config = Config.get_logo_config()
+    assert isinstance(logo_config, dict)
+    source = logo_config.get('source')
+    assert isinstance(source, dict)
+    class_config = source.get('class')
+    assert isinstance(class_config, str)
+    params = source.get('params')
+    assert isinstance(params, dict)
+    db_connection = params.get('db_connection')
+    assert isinstance(db_connection, str)
+    model = params.get('model')
+    assert isinstance(model, str)
 
 
 @pytest.mark.run(order=-1)
-@pytest.mark.parametrize('language', [
-    None,
-    'de',
-    'fr',
-    'it'
-])
-def test_get_logo_multilingual(language):
+@pytest.mark.parametrize('code', [
+    'ch',
+    'ch.plr',
+    'ne',
+    'ch.1234'
+    ])
+def test_get_logo_by_code(code):
     Config._config = None
     Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
-    Config.get('logo')['oereb'] = {
-        'de': 'pyramid_oereb/standard/logo_oereb_de.png',
-        'fr': 'pyramid_oereb/standard/logo_oereb_fr.png',
-        'it': 'pyramid_oereb/standard/logo_oereb_it.png'
-    }
-    language = language or 'de'
-    logos = Config.get_logo_config(language=language)
-    assert isinstance(logos, dict)
-    logo_oereb = logos.get('oereb')
-    assert logo_oereb.content == FileAdapter().read(Config.get('logo').get('oereb').get(language))
-
-
-@pytest.mark.run(order=-1)
-@pytest.mark.parametrize('language', [
-    None,
-    'de',
-    'fr',
-    'it',
-    'rm'
-])
-def test_get_logo_multilingual_dict_no_default(language):
-    Config._config = None
-    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
-
-    Config.get('logo')['oereb'] = {
-        'fr': 'pyramid_oereb/standard/logo_oereb_fr.png',
-        'it': 'pyramid_oereb/standard/logo_oereb_it.png'
-    }
-
-    language = language or 'de'
-
-    if language in ['fr', 'it']:
-        logos = Config.get_logo_config(language=language)
-        assert isinstance(logos, dict)
-        logo_oereb = logos.get('oereb')
-        assert logo_oereb.content == FileAdapter().read(Config.get('logo').get('oereb').get(language))
-
-    else:
-        with pytest.raises(HTTPInternalServerError):
-            assert Config.get_logo_config(language)
+    setup_db()
+    assert len(Config.logos) > 0
+    logo = Config.get_logo_by_code(code)
+    assert isinstance(logo, LogoRecord)
 
 
 @pytest.mark.run(order=-1)
