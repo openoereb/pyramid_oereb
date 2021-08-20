@@ -234,12 +234,14 @@ class ViewServiceRecord(object):
             log.info(msg)
             language = Config.get('default_language')
 
-        self.reference_wms[language] = add_url_params(get_multilingual_element(self.reference_wms, language), {
+        self.reference_wms[language] = add_url_params(
+            get_multilingual_element(self.reference_wms, language), {
                 "BBOX": ",".join([str(e) for e in bbox]),
                 "SRS": 'EPSG:{0}'.format(Config.get('srid')),
                 "WIDTH": int(map_size[0]),
                 "HEIGHT": int(map_size[1])
-            })
+            }
+        )
         self.calculate_ns(language)
 
         return self.reference_wms
