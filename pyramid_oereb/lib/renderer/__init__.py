@@ -8,7 +8,7 @@ from pyramid.httpexceptions import HTTPServerError
 from pyramid.path import DottedNameResolver
 from pyramid.request import Request
 from pyramid.testing import DummyRequest
-from pyramid_oereb.lib import get_multiligual_element
+from pyramid_oereb.lib import get_multilingual_element
 
 from shapely.geometry import mapping
 
@@ -121,12 +121,12 @@ class Base(object):
             if self._language in values:
                 return {
                     'Language': self._language,
-                    'Text': get_multiligual_element(values, self._language, not_null)
+                    'Text': get_multilingual_element(values, self._language, not_null)
                 }
             else:
                 return {
                     'Language': default_language,
-                    'Text': get_multiligual_element(values, default_language, not_null)
+                    'Text': get_multilingual_element(values, default_language, not_null)
                 }
         else:
             return {

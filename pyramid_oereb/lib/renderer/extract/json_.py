@@ -8,7 +8,7 @@ from pyramid.response import Response
 from pyramid.testing import DummyRequest
 
 from pyramid_oereb import Config, route_prefix
-from pyramid_oereb.lib import get_multiligual_element
+from pyramid_oereb.lib import get_multilingual_element
 from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
 
@@ -97,19 +97,19 @@ class Renderer(Base):
 
         if self._params.images:
             extract_dict.update({
-                'LogoPLRCadastre': get_multiligual_element(
+                'LogoPLRCadastre': get_multilingual_element(
                         extract.logo_plr_cadastre.image_dict,
                         self._language
                     ).encode(),
-                'FederalLogo': get_multiligual_element(
+                'FederalLogo': get_multilingual_element(
                         extract.federal_logo.image_dict,
                         self._language
                     ).encode(),
-                'CantonalLogo': get_multiligual_element(
+                'CantonalLogo': get_multilingual_element(
                         extract.cantonal_logo.image_dict,
                         self._language
                     ).encode(),
-                'MunicipalityLogo': get_multiligual_element(
+                'MunicipalityLogo': get_multilingual_element(
                         extract.municipality_logo.image_dict,
                         self._language
                     ).encode()
@@ -120,7 +120,7 @@ class Renderer(Base):
                     '{0}/image/logo'.format(route_prefix),
                     logo='oereb',
                     language=self._language,
-                    extension=get_multiligual_element(
+                    extension=get_multilingual_element(
                             extract.logo_plr_cadastre.image_dict,
                             self._language
                         ).extension
@@ -129,7 +129,7 @@ class Renderer(Base):
                     '{0}/image/logo'.format(route_prefix),
                     logo='confederation',
                     language=self._language,
-                    extension=get_multiligual_element(
+                    extension=get_multilingual_element(
                             extract.federal_logo.image_dict,
                             self._language
                         ).extension
@@ -138,7 +138,7 @@ class Renderer(Base):
                     '{0}/image/logo'.format(route_prefix),
                     logo='canton',
                     language=self._language,
-                    extension=get_multiligual_element(
+                    extension=get_multilingual_element(
                             extract.cantonal_logo.image_dict,
                             self._language
                         ).extension
@@ -147,7 +147,7 @@ class Renderer(Base):
                     '{0}/image/logo'.format(route_prefix),
                     logo='municipality',
                     language=self._language,
-                    extension=get_multiligual_element(
+                    extension=get_multilingual_element(
                             extract.municipality_logo.image_dict,
                             self._language
                         ).extension
