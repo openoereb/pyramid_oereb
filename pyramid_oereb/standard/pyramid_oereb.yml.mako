@@ -84,12 +84,13 @@ pyramid_oereb:
     # The map size (in millimeters) used to calculate the size of the requested map (for pdf export only).
     pdf_map_size_millimeters: [174, 99]
     # Base URL with application of the print server
-    base_url: http://{PRINT_SERVICE_HOST}:{PRINT_SERVICE_PORT}/print/oereb
+    base_url: ${print_url}
     # Name of the print tempate to use
     template_name: A4 portrait
     # The headers send to the print
     headers:
       Content-Type: application/json; charset=UTF-8
+      Connection: close
     # Whether to display the RealEstate_SubunitOfLandRegister (Grundbuchkreis) in the pdf extract or not.
     # Default to true.
     display_real_estate_subunit_of_land_register: true

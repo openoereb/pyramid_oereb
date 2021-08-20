@@ -9,7 +9,7 @@ pyramid_oereb:
     source:
       class: pyramid_oereb.standard.sources.theme.DatabaseSource
       params:
-        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.Theme
     law_status:
       inKraft: inKraft
@@ -20,26 +20,26 @@ pyramid_oereb:
     source:
       class: pyramid_oereb.standard.sources.document_types.DatabaseSource
       params:
-        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.DocumentTypeText
 
   general_information:
     source:
       class: pyramid_oereb.standard.sources.general_information.DatabaseSource
       params:
-        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.GeneralInformation
 
   law_status_labels:
     source:
       class: pyramid_oereb.standard.sources.law_status.DatabaseSource
       params:
-        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.LawStatus
 
   real_estate_type:
     source:
       class: pyramid_oereb.standard.sources.real_estate_type.DatabaseSource
       params:
-        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.RealEstateType

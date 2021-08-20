@@ -58,13 +58,13 @@ class ExtractRecord(object):
                 themes.
             theme_without_data (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Themes without
                 data.
-            general_information (dict of unicode): General information for the static extract as multilingual
+            general_information (list of dict): General information for the static extract as multilingual
                 text.
         """
         if not isinstance(base_data, dict):
             warnings.warn('Type of "base_data" should be "dict"')
-        if general_information and not isinstance(general_information, dict):
-            warnings.warn('Type of "general_information" should be "dict"')
+        if general_information and not isinstance(general_information, list):
+            warnings.warn('Type of "general_information" should be "list"')
 
         self.base_data = base_data
         self.embeddable = embeddable

@@ -22,9 +22,9 @@ def create_standard_yaml():
         dest='database',
         metavar='DATABASE',
         type='string',
-        default='postgresql://postgres:password@db:5432/pyramid_oereb',
+        default='postgresql://postgres:password@oereb-db:5432/pyramid_oereb',
         help='The database connection string (default is: '
-             'postgresql://postgres:password@db:5432/pyramid_oereb).'
+             'postgresql://postgres:password@oereb-db:5432/pyramid_oereb).'
     )
     parser.add_option(
         '-p', '--print_backend',
@@ -33,6 +33,14 @@ def create_standard_yaml():
         type='string',
         default='MapFishPrint',
         help='The print backend (for PDF generation) to use (default is: MapFishPrint)'
+    )
+    parser.add_option(
+        '-u', '--print_url',
+        dest='print_url',
+        metavar='PRINT_URL',
+        type='string',
+        default='http://oereb-print:8080/print/oereb',
+        help='The URL of the print server'
     )
     options, args = parser.parse_args()
     _create_standard_yaml_config_(name=options.name, database=options.database,

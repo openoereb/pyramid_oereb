@@ -737,10 +737,10 @@ class Parameter(object):
         return True
 
     def __str__(self):
-        return '<%s -- flavour: %s format: %s geometry: %s images: %s identdn: %s' \
+        return '<%s -- format: %s geometry: %s images: %s identdn: %s' \
                     ' number: %s egrid: %s language: %s topics: %s>' % (
                         self.__class__.__name__,
-                        self.flavour, self.format, self.with_geometry, self.images, self.identdn,
+                        self.format, self.with_geometry, self.images, self.identdn,
                         self.number, self.egrid, self.language, self.topics)
 
 

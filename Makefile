@@ -12,7 +12,7 @@ endif
 # Testing/DEV variables
 
 PG_DB = pyramid_oereb_test
-PG_HOST = db
+PG_HOST = oereb-db
 PG_DROP_DB = DROP DATABASE IF EXISTS $(PG_DB);
 PG_CREATE_DB = CREATE DATABASE $(PG_DB);
 PG_CREATE_EXT = CREATE EXTENSION postgis;
@@ -40,6 +40,7 @@ DEV_FILL_SCRIPT = .db/13-fill.sql
 MODEL_PK_TYPE_IS_STRING ?= true
 
 PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
+PRINT_URL = http://oereb-print:8080/print/oereb
 
 # ********************
 # Variable definitions
@@ -97,7 +98,7 @@ PACKAGE = pyramid_oereb
 BUILD_DEPS += .venv/requirements-timestamp
 
 $(DEV_CONFIGURATION_YML): .venv/requirements-timestamp $(DEV_CREATE_STANDARD_YML_SCRIPT)
-	$(DEV_CREATE_STANDARD_YML_SCRIPT) --name $@ --database $(SQLALCHEMY_URL) --print_backend $(PRINT_BACKEND)
+	$(DEV_CREATE_STANDARD_YML_SCRIPT) --name $@ --database $(SQLALCHEMY_URL) --print_backend $(PRINT_BACKEND) --print_url $(PRINT_URL)
 
 $(DEV_CREATE_SCRIPT): $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_TABLES_SCRIPT)
 	$(DEV_CREATE_TABLES_SCRIPT) --configuration $< --sql-file $@
@@ -174,3 +175,34 @@ serve-dev: development.ini build .db/.setup-db-dev
 .PHONY: serve
 serve: development.ini build
 	$(VENV_BIN)/pserve $<
+
+.PHONY: docker-build
+docker-build:
+	docker build .
+
+.PHONY: docker-serve
+docker-serve: docker-build
+	PGHOST=$(PG_HOST) PGUSER=$(PG_USER) PG_DB=$(PG_DB) PGPASSWORD=$(PG_PASSWORD) docker-compose up -d
+
+.PHONY: docker-down
+docker-down:
+	PGHOST=$(PG_HOST) PGUSER=$(PG_USER) PG_DB=$(PG_DB) PGPASSWORD=$(PG_PASSWORD) docker-compose down
+
+.PHONY: docker-lint
+docker-lint: docker-build
+	docker-compose exec oereb-server make lint
+
+.PHONY: docker-test
+docker-test: docker-serve
+	docker-compose exec oereb-server make test
+
+.PHONY: docker-clean
+docker-clean:
+	docker-compose restart oereb-db
+	docker-compose exec oereb-server make clean
+
+.PHONY: docker-clean-all
+docker-clean-all:
+	rm -f $(DEV_CONFIGURATION_YML)
+	docker-compose restart oereb-db
+	docker-compose exec oereb-server make clean-all

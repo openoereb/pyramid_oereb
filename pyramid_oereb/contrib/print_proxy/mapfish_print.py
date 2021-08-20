@@ -31,9 +31,11 @@ class Renderer(JsonRenderer):
     def lpra_flatten(self, items):
         for item in items:
             self._flatten_object(item, 'Lawstatus')
-            self._localised_text(item, 'Lawstatus_Text')
+            self._multilingual_text(item, 'Lawstatus_Text')
+            self._multilingual_text(item, 'OfficialNumber')
             self._flatten_object(item, 'ResponsibleOffice')
             self._multilingual_text(item, 'ResponsibleOffice_Name')
+            self._multilingual_text(item, 'ResponsibleOffice_OfficeAtWeb')
             self._multilingual_text_at_web(item)
 
             self._multilingual_m_text(item, 'Text')
@@ -217,9 +219,13 @@ class Renderer(JsonRenderer):
             for theme in extract_dict[attr_name]:
                 self._localised_text(theme, 'Text')
         self._flatten_object(extract_dict, 'PLRCadastreAuthority')
+        self._multilingual_text(extract_dict, 'PLRCadastreAuthority_OfficeAtWeb')
         self._flatten_object(extract_dict, 'RealEstate')
         if 'Image' in extract_dict.get('RealEstate_Highlight', {}):
             del extract_dict['RealEstate_Highlight']['Image']
+
+        self._multilingual_text(extract_dict['RealEstate_PlanForLandRegisterMainPage'], 'ReferenceWMS')
+        self._multilingual_text(extract_dict['RealEstate_PlanForLandRegister'], 'ReferenceWMS')
 
         main_page_url, main_page_params = \
             parse_url(extract_dict['RealEstate_PlanForLandRegisterMainPage']['ReferenceWMS'])
@@ -252,7 +258,8 @@ class Renderer(JsonRenderer):
         }
         del extract_dict['RealEstate_PlanForLandRegister']  # /definitions/Map
 
-        self._multilingual_m_text(extract_dict, 'GeneralInformation')
+        self._multilingual_m_text(extract_dict['GeneralInformation'][0], 'Content')
+        extract_dict['GeneralInformation'] = extract_dict['GeneralInformation'][0]['Content']
         self._multilingual_m_text(extract_dict, 'BaseData')
         self._multilingual_m_text(extract_dict, 'Certification')
         self._multilingual_m_text(extract_dict, 'CertificationAtWeb')
@@ -267,13 +274,15 @@ class Renderer(JsonRenderer):
             self._flatten_object(restriction_on_landownership, 'Theme')
             self._flatten_array_object(restriction_on_landownership, 'Geometry', 'ResponsibleOffice')
             self._localised_text(restriction_on_landownership, 'Theme_Text')
-            self._localised_text(restriction_on_landownership, 'Lawstatus_Text')
+            self._multilingual_text(restriction_on_landownership, 'Lawstatus_Text')
             self._multilingual_m_text(restriction_on_landownership, 'LegendText')
 
             self._multilingual_text(restriction_on_landownership['ResponsibleOffice'], 'Name')
+            self._multilingual_text(restriction_on_landownership['ResponsibleOffice'], 'OfficeAtWeb')
             restriction_on_landownership['ResponsibleOffice'] = \
                 [restriction_on_landownership['ResponsibleOffice']]
 
+            self._multilingual_text(restriction_on_landownership['Map'], 'ReferenceWMS')
             url, params = parse_url(restriction_on_landownership['Map']['ReferenceWMS'])
 
             restriction_on_landownership['baseLayers'] = {
@@ -550,25 +559,28 @@ class Renderer(JsonRenderer):
         Categorize document by their documentType (LegalProvision, Law or Hint)
 
         Args:
-            dcoument (dict): The document type as dictionary.
+            document (dict): The document type as dictionary.
             legal_provisions (dict): The legal_provisions dictionary to fill.
             laws (dict): The laws dictionary to fill.
             hints (dict): The Hints dictionary to fill.
         """
         uid = Renderer._get_element_of_legal_provision_maybe_uid(document)
-        documentType = document.get('DocumentType')
+        documentType = document.get('DocumentType').get('Code')
         if documentType is None:
             error_msg = "mandatory attribute document_type is missing in document " \
                         ": {}".format(document)
             log.error(error_msg)
             raise AttributeError(error_msg)
 
-        if documentType == 'LegalProvision':
+        if documentType == 'Rechtsvorschrift':
             legal_provisions[uid] = document
-        elif documentType == 'Law':
+        elif documentType == 'GesetzlicheGrundlage':
             laws[uid] = document
-        else:
+        elif documentType == 'Hinweis':
             hints[uid] = document
+        else:
+            log.warning(f"Wrong document type {documentType}")
+            log.warning("(expected 'Rechtsvorschrift', 'GesetzlicheGrundlage' or 'Hinweis')")
 
     @staticmethod
     def _get_element_of_legal_provision_maybe_uid(element):
@@ -697,7 +709,7 @@ class Renderer(JsonRenderer):
         """
         Sorts list of dictionaries by one or more sort keys.
         This function makes it possible to run test on the sorted list and assure the
-        correctness of the soring.
+        correctness of the sorting.
 
         Args:
             legend_list (list(dict): list of legend dictionaries

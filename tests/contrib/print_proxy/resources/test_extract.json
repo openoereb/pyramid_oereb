@@ -8,7 +8,7 @@
       }
     ],
     "Number": 36,
-    "OfficeAtWeb": "http://www.agi.bl.ch",
+    "OfficeAtWeb": [{"Language": "de", "Text": "http://www.agi.bl.ch"}],
     "Street": "M\u00fchlemattstrasse",
     "PostalCode": 4410
   },
@@ -26,8 +26,19 @@
   ],
   "GeneralInformation": [
     {
-      "Text": "Der Inhalt des \u00d6REB-Katasters wird als bekannt vorausgesetzt. Der Kanton Basel-Landschaft ist f\u00fcr die Genauigkeit und Verl\u00e4sslichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begr\u00fcndet insbesondere keine Rechte und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskr\u00e4ftig verabschiedet oder ver\u00f6ffentlicht worden sind. Mit der Beglaubigung des Auszugs wird die \u00dcbereinstimmung des Auszugs mit dem \u00d6REB-Kataster zum Zeitpunkt der Auszugserstellung best\u00e4tigt.",
-      "Language": "de"
+      "Title": [
+        {
+          "Text": "Allgemeine Information",
+          "Language": "de"
+        }
+      ],
+    "Content":
+      [
+        {
+        "Text": "Der Inhalt des \u00d6REB-Katasters wird als bekannt vorausgesetzt. Der Kanton Basel-Landschaft ist f\u00fcr die Genauigkeit und Verl\u00e4sslichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begr\u00fcndet insbesondere keine Rechte und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskr\u00e4ftig verabschiedet oder ver\u00f6ffentlicht worden sind. Mit der Beglaubigung des Auszugs wird die \u00dcbereinstimmung des Auszugs mit dem \u00d6REB-Kataster zum Zeitpunkt der Auszugserstellung best\u00e4tigt.",
+        "Language": "de"
+        }
+      ]
     }
   ],
   "CreationDate": "2018-02-16T11:54:24",
@@ -380,11 +391,21 @@
     "IdentDN": "BL0200002766",
     "Municipality": "Birsfelden",
     "PlanForLandRegister": {
-      "ReferenceWMS": "http://dev2.geowms.bl.ch/?STYLES=default&LAYERS=grundbuchplan_gebaeude_nicht_gefuellt_group&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+      "ReferenceWMS": [
+        {
+          "Language": "de",
+          "Text": "http://dev2.geowms.bl.ch/?STYLES=default&LAYERS=grundbuchplan_gebaeude_nicht_gefuellt_group&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+        }
+      ],
       "layerOpacity": 1
     },
     "PlanForLandRegisterMainPage":  {
-      "ReferenceWMS": "http://dev2.geowms.bl.ch/?STYLES=default&LAYERS=grundbuchplan_gebaeude_nicht_gefuellt_group&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+      "ReferenceWMS": [
+        {
+          "Language": "de",
+          "Text": "http://dev2.geowms.bl.ch/?STYLES=default&LAYERS=grundbuchplan_gebaeude_nicht_gefuellt_group&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+        }
+      ],
       "layerOpacity": 0.5
     },
     "Canton": "BL",
@@ -404,10 +425,20 @@
         "TypeCode": "108000",
         "LegalProvisions": [
           {
-            "OfficialNumber": "1484",
+            "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "1484"
+                  }
+                ],
             "Reference": [
               {
-                "OfficialNumber": "400",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Raumplanungs- und Baugesetz (RBG)",
@@ -422,7 +453,12 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [
+                    {
+                      "Language": "de",
+                      "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                      }
+                    ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -443,10 +479,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "400.11",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400.11"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
@@ -461,7 +510,12 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [
+                    {
+                      "Language": "de",
+                      "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                      }
+                    ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -482,10 +536,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "700",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "700"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Bundesgesetz \u00fcber die Raumplanung (Raumplanungsgesetz, RPG)",
@@ -500,7 +567,12 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [
+                    {
+                      "Language": "de",
+                      "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                    }
+                  ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -521,7 +593,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -532,7 +612,12 @@
             ],
             "Canton": "BL",
             "ResponsibleOffice": {
-              "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+              "OfficeAtWeb": [
+                {
+                  "Language": "de",
+                  "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                }
+              ],
               "Name": [
                 {
                   "Text": "Landeskanzlei",
@@ -553,13 +638,31 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision"
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
           },
           {
-            "OfficialNumber": "1484",
+            "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "1484"
+                  }
+                ],
             "Reference": [
               {
-                "OfficialNumber": "400",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Raumplanungs- und Baugesetz (RBG)",
@@ -574,7 +677,12 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [
+                    {
+                      "Language": "de",
+                      "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                    }
+                  ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -595,10 +703,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "400.11",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400.11"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
@@ -613,7 +734,12 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [
+                    {
+                      "Language": "de",
+                      "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                    }
+                  ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -634,10 +760,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "700",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "700"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Bundesgesetz \u00fcber die Raumplanung (Raumplanungsgesetz, RPG)",
@@ -652,7 +791,12 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [
+                    {
+                      "Language": "de",
+                      "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                    }
+                  ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -673,7 +817,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -684,7 +836,12 @@
             ],
             "Canton": "BL",
             "ResponsibleOffice": {
-              "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+              "OfficeAtWeb": [
+                {
+                  "Language": "de",
+                  "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                }
+              ],
               "Name": [
                 {
                   "Text": "Landeskanzlei",
@@ -705,7 +862,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision"
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
           }
         ],
         "SubTheme": "02.73A.Grundnutzung",
@@ -1081,12 +1246,22 @@
             }
           ],
           "LegendAtWeb": "http://dev2.geoview.bl.ch/vvmruder/oereb/custom_legend_at_web/LandUsePlans.png",
-          "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+          "ReferenceWMS": [
+            {
+              "Language": "de",
+              "Text": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+            }
+          ],
           "layerOpacity": 1
         },
         "AreaShare": 78456.21,
         "ResponsibleOffice": {
-          "OfficeAtWeb": "http://www.arp.bl.ch",
+          "OfficeAtWeb": [
+            {
+              "Language": "de",
+              "Text": "http://www.arp.bl.ch"
+            }
+          ],
           "Name": [
             {
               "Text": "Amt f\u00fcr Raumplanung BL",
@@ -1113,10 +1288,20 @@
         "TypeCode": "108000",
         "LegalProvisions": [
           {
-            "OfficialNumber": "1484",
+            "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "1484"
+                  }
+                ],
             "Reference": [
               {
-                "OfficialNumber": "400",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Raumplanungs- und Baugesetz (RBG)",
@@ -1131,7 +1316,12 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [
+                    {
+                      "Language": "de",
+                      "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                    }
+                  ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -1152,10 +1342,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "400.11",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400.11"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
@@ -1170,7 +1373,12 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [
+                    {
+                      "Language": "de",
+                      "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                    }
+                  ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -1191,10 +1399,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "700",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "700"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Bundesgesetz \u00fcber die Raumplanung (Raumplanungsgesetz, RPG)",
@@ -1209,7 +1430,12 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [
+                    {
+                      "Language": "de",
+                      "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                    }
+                  ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -1230,7 +1456,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -1241,7 +1475,12 @@
             ],
             "Canton": "BL",
             "ResponsibleOffice": {
-              "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+              "OfficeAtWeb": [
+                {
+                  "Language": "de",
+                  "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                }
+              ],
               "Name": [
                 {
                   "Text": "Landeskanzlei",
@@ -1262,13 +1501,31 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision"
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
           },
           {
-            "OfficialNumber": "1484",
+            "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "1484"
+                  }
+                ],
             "Reference": [
               {
-                "OfficialNumber": "400",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Raumplanungs- und Baugesetz (RBG)",
@@ -1283,7 +1540,12 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [
+                    {
+                      "Language": "de",
+                      "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                    }
+                  ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -1304,10 +1566,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "400.11",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400.11"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
@@ -1322,7 +1597,12 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [
+                    {
+                      "Language": "de",
+                      "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                    }
+                  ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -1343,10 +1623,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "700",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "700"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Bundesgesetz \u00fcber die Raumplanung (Raumplanungsgesetz, RPG)",
@@ -1361,7 +1654,12 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [
+                    {
+                      "Language": "de",
+                      "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                    }
+                  ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -1382,7 +1680,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -1393,7 +1699,12 @@
             ],
             "Canton": "BL",
             "ResponsibleOffice": {
-              "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+              "OfficeAtWeb": [
+                {
+                  "Language": "de",
+                  "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                }
+              ],
               "Name": [
                 {
                   "Text": "Landeskanzlei",
@@ -1414,7 +1725,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision"
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
           }
         ],
         "SubTheme": "02.73A.Grundnutzung",
@@ -1790,12 +2109,19 @@
             }
           ],
           "LegendAtWeb": "http://dev2.geoview.bl.ch/vvmruder/oereb/custom_legend_at_web/LandUsePlans.png",
-          "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+          "ReferenceWMS": [
+            {
+              "Language": "de",
+              "Text": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+            }
+          ],
           "layerOpacity": 1
         },
         "AreaShare": 2681.31,
         "ResponsibleOffice": {
-          "OfficeAtWeb": "http://www.arp.bl.ch",
+          "OfficeAtWeb": [{"Language": "de", "Text": "http://www.arp.bl.ch"
+          }
+        ],
           "Name": [
             {
               "Text": "Amt f\u00fcr Raumplanung BL",
@@ -1822,10 +2148,20 @@
         "TypeCode": "108000",
         "LegalProvisions": [
           {
-            "OfficialNumber": "1484",
+            "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "1484"
+                  }
+                ],
             "Reference": [
               {
-                "OfficialNumber": "400",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Raumplanungs- und Baugesetz (RBG)",
@@ -1840,7 +2176,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -1861,10 +2199,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "400.11",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400.11"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
@@ -1879,7 +2230,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -1900,10 +2253,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "700",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "700"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Bundesgesetz \u00fcber die Raumplanung (Raumplanungsgesetz, RPG)",
@@ -1918,7 +2284,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -1939,7 +2307,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -1950,7 +2326,9 @@
             ],
             "Canton": "BL",
             "ResponsibleOffice": {
-              "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+              "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+              }
+            ],
               "Name": [
                 {
                   "Text": "Landeskanzlei",
@@ -1971,13 +2349,31 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision"
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
           },
           {
-            "OfficialNumber": "1484",
+            "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "1484"
+                  }
+                ],
             "Reference": [
               {
-                "OfficialNumber": "400",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Raumplanungs- und Baugesetz (RBG)",
@@ -1992,7 +2388,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -2013,10 +2411,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "400.11",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400.11"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
@@ -2031,7 +2442,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -2052,10 +2465,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "700",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "700"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Bundesgesetz \u00fcber die Raumplanung (Raumplanungsgesetz, RPG)",
@@ -2070,7 +2496,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -2091,7 +2519,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -2102,7 +2538,9 @@
             ],
             "Canton": "BL",
             "ResponsibleOffice": {
-              "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+              "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+              }
+            ],
               "Name": [
                 {
                   "Text": "Landeskanzlei",
@@ -2123,7 +2561,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision"
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
           }
         ],
         "SubTheme": "02.73A.Grundnutzung",
@@ -2499,12 +2945,19 @@
             }
           ],
           "LegendAtWeb": "http://dev2.geoview.bl.ch/vvmruder/oereb/custom_legend_at_web/LandUsePlans.png",
-          "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+          "ReferenceWMS": [
+            {
+              "Language": "de",
+              "Text": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+            }
+          ],
           "layerOpacity": 1
         },
         "AreaShare": 6242.69,
         "ResponsibleOffice": {
-          "OfficeAtWeb": "http://www.arp.bl.ch",
+          "OfficeAtWeb": [{"Language": "de", "Text": "http://www.arp.bl.ch"
+          }
+        ],
           "Name": [
             {
               "Text": "Amt f\u00fcr Raumplanung BL",
@@ -2531,10 +2984,20 @@
         "TypeCode": "130004",
         "LegalProvisions": [
           {
-            "OfficialNumber": "1484",
+            "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "1484"
+                  }
+                ],
             "Reference": [
               {
-                "OfficialNumber": "400",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Raumplanungs- und Baugesetz (RBG)",
@@ -2549,7 +3012,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -2570,10 +3035,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "400.11",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400.11"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
@@ -2588,7 +3066,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -2609,10 +3089,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "700",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "700"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Bundesgesetz \u00fcber die Raumplanung (Raumplanungsgesetz, RPG)",
@@ -2627,7 +3120,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -2648,7 +3143,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -2659,7 +3162,9 @@
             ],
             "Canton": "BL",
             "ResponsibleOffice": {
-              "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+              "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+              }
+            ],
               "Name": [
                 {
                   "Text": "Landeskanzlei",
@@ -2680,13 +3185,31 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision"
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
           },
           {
-            "OfficialNumber": "1484",
+            "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "1484"
+                  }
+                ],
             "Reference": [
               {
-                "OfficialNumber": "400",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Raumplanungs- und Baugesetz (RBG)",
@@ -2701,7 +3224,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -2722,10 +3247,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "400.11",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400.11"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
@@ -2740,7 +3278,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -2761,10 +3301,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "700",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "700"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Bundesgesetz \u00fcber die Raumplanung (Raumplanungsgesetz, RPG)",
@@ -2779,7 +3332,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -2800,7 +3355,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -2811,7 +3374,9 @@
             ],
             "Canton": "BL",
             "ResponsibleOffice": {
-              "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+              "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+              }
+            ],
               "Name": [
                 {
                   "Text": "Landeskanzlei",
@@ -2832,7 +3397,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision"
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
           }
         ],
         "SubTheme": "02.73A.Grundnutzung",
@@ -3208,12 +3781,19 @@
             }
           ],
           "LegendAtWeb": "http://dev2.geoview.bl.ch/vvmruder/oereb/custom_legend_at_web/LandUsePlans.png",
-          "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+          "ReferenceWMS": [
+            {
+              "Language": "de",
+              "Text": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+            }
+          ],
           "layerOpacity": 1
         },
         "AreaShare": 7379.93,
         "ResponsibleOffice": {
-          "OfficeAtWeb": "http://www.arp.bl.ch",
+          "OfficeAtWeb": [{"Language": "de", "Text": "http://www.arp.bl.ch"
+          }
+        ],
           "Name": [
             {
               "Text": "Amt f\u00fcr Raumplanung BL",
@@ -3240,10 +3820,20 @@
         "TypeCode": "219106",
         "LegalProvisions": [
           {
-            "OfficialNumber": "429",
+            "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "429"
+                  }
+                ],
             "Reference": [
               {
-                "OfficialNumber": "400",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Raumplanungs- und Baugesetz (RBG)",
@@ -3258,7 +3848,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -3279,10 +3871,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "400.11",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400.11"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
@@ -3297,7 +3902,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -3318,10 +3925,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "700",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "700"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Bundesgesetz \u00fcber die Raumplanung (Raumplanungsgesetz, RPG)",
@@ -3336,7 +3956,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -3357,7 +3979,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -3368,7 +3998,12 @@
             ],
             "Canton": "BL",
             "ResponsibleOffice": {
-              "OfficeAtWeb": "www.birsfelden.ch",
+              "OfficeAtWeb": [
+                {
+                  "Language": "de",
+                  "Text": "www.birsfelden.ch"
+                }
+              ],
               "Name": [
                 {
                   "Text": "Gemeindeverwaltung",
@@ -3389,13 +4024,31 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision"
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
           },
           {
-            "OfficialNumber": "12/ZRS/2/1",
+            "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "12/ZRS/2/1"
+                  }
+                ],
             "Reference": [
               {
-                "OfficialNumber": "400",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Raumplanungs- und Baugesetz (RBG)",
@@ -3410,7 +4063,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -3431,10 +4086,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "400.11",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "400.11"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
@@ -3449,7 +4117,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -3470,10 +4140,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "700",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "700"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Bundesgesetz \u00fcber die Raumplanung (Raumplanungsgesetz, RPG)",
@@ -3488,7 +4171,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -3509,7 +4194,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -3520,7 +4213,12 @@
             ],
             "Canton": "BL",
             "ResponsibleOffice": {
-              "OfficeAtWeb": "www.birsfelden.ch",
+              "OfficeAtWeb": [
+                {
+                  "Language": "de",
+                  "Text": "www.birsfelden.ch"
+                }
+              ],
               "Name": [
                 {
                   "Text": "Gemeindeverwaltung",
@@ -3541,7 +4239,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision"
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
           }
         ],
         "SubTheme": "08.73B.Ueberlagerung_Flaeche",
@@ -3917,12 +4623,22 @@
             }
           ],
           "LegendAtWeb": "http://dev2.geoview.bl.ch/vvmruder/oereb/custom_legend_at_web/LandUsePlans.png",
-          "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+          "ReferenceWMS":  [
+            {
+              "Language": "de",
+              "Text": "http://dev2.geowms.bl.ch/?LAYERS=oereb_nutzungsplanung_group&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+            }
+          ],
           "layerOpacity": 1
         },
         "AreaShare": 6125.68,
         "ResponsibleOffice": {
-          "OfficeAtWeb": "http://www.birsfelden.ch",
+          "OfficeAtWeb": [
+            {
+              "Language": "de",
+              "Text": "http://www.birsfelden.ch"
+          }
+        ],
           "Name": [
             {
               "Text": "Gemeinde Birsfelden",
@@ -4030,13 +4746,23 @@
             }
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
-          "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_kataster_der_belasteten_standorte&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+          "ReferenceWMS": [
+            {
+              "Language": "de",
+              "Text": "http://dev2.geowms.bl.ch/?LAYERS=oereb_kataster_der_belasteten_standorte&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+            }
+          ],
           "layerOpacity": 1
         },
         "LegalProvisions": [
           {
             "ResponsibleOffice": {
-              "OfficeAtWeb": "http://www.aue.bl.ch",
+              "OfficeAtWeb": [
+                {
+                  "Language": "de",
+                  "Text": "http://www.aue.bl.ch"
+              }
+            ],
               "Name": [
                 {
                   "Text": "Amt f\u00fcr Umweltschutz und Energie BL",
@@ -4051,7 +4777,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision",
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                },
             "TextAtWeb": [
               {
                 "Text": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster",
@@ -4060,7 +4794,12 @@
             ],
             "Reference": [
               {
-                "OfficialNumber": "780",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "780"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
@@ -4075,7 +4814,12 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [
+                    {
+                      "Language": "de",
+                      "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                    }
+                  ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -4096,10 +4840,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "780.11",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "780.11"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung \u00fcber den Umweltschutz (USV)",
@@ -4114,7 +4871,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -4135,10 +4894,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "814.01",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "814.01"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Bundesgesetz \u00fcber den Umweltschutz (Umweltschutzgesetz, USG)",
@@ -4153,7 +4925,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -4174,10 +4948,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "814.680",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "814.680"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung \u00fcber die Sanierung von belasteten Standorten (Altlasten-Verordnung, AltlV)",
@@ -4192,7 +4979,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -4213,7 +5002,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -4234,7 +5031,12 @@
         },
         "AreaShare": 14503.04,
         "ResponsibleOffice": {
-          "OfficeAtWeb": "http://www.aue.bl.ch",
+          "OfficeAtWeb": [
+            {
+              "Language": "de",
+              "Text": "http://www.aue.bl.ch"
+          }
+        ],
           "Name": [
             {
               "Text": "Amt f\u00fcr Umweltschutz und Energie BL",
@@ -4335,13 +5137,23 @@
             }
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
-          "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_kataster_der_belasteten_standorte&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+          "ReferenceWMS": [
+            {
+              "Language": "de",
+              "Text": "http://dev2.geowms.bl.ch/?LAYERS=oereb_kataster_der_belasteten_standorte&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+            }
+          ],
           "layerOpacity": 1
         },
         "LegalProvisions": [
           {
             "ResponsibleOffice": {
-              "OfficeAtWeb": "http://www.aue.bl.ch",
+              "OfficeAtWeb": [
+                {
+                  "Language": "de",
+                  "Text": "http://www.aue.bl.ch"
+              }
+            ],
               "Name": [
                 {
                   "Text": "Amt f\u00fcr Umweltschutz und Energie BL",
@@ -4356,7 +5168,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision",
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                },
             "TextAtWeb": [
               {
                 "Text": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster",
@@ -4365,7 +5185,12 @@
             ],
             "Reference": [
               {
-                "OfficialNumber": "780",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "780"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
@@ -4380,7 +5205,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -4401,10 +5228,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "780.11",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "780.11"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung \u00fcber den Umweltschutz (USV)",
@@ -4419,7 +5259,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -4440,10 +5282,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "814.01",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "814.01"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Bundesgesetz \u00fcber den Umweltschutz (Umweltschutzgesetz, USG)",
@@ -4458,7 +5313,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -4479,10 +5336,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "814.680",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "814.680"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung \u00fcber die Sanierung von belasteten Standorten (Altlasten-Verordnung, AltlV)",
@@ -4497,7 +5367,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -4518,7 +5390,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -4539,7 +5419,9 @@
         },
         "AreaShare": 5764.33,
         "ResponsibleOffice": {
-          "OfficeAtWeb": "http://www.aue.bl.ch",
+          "OfficeAtWeb": [{"Language": "de", "Text": "http://www.aue.bl.ch"
+          }
+        ],
           "Name": [
             {
               "Text": "Amt f\u00fcr Umweltschutz und Energie BL",
@@ -4640,13 +5522,23 @@
             }
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
-          "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_kataster_der_belasteten_standorte&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+          "ReferenceWMS": [
+            {
+              "Language": "de",
+              "Text": "http://dev2.geowms.bl.ch/?LAYERS=oereb_kataster_der_belasteten_standorte&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+            }
+          ],
           "layerOpacity": 1
         },
         "LegalProvisions": [
           {
             "ResponsibleOffice": {
-              "OfficeAtWeb": "http://www.aue.bl.ch",
+              "OfficeAtWeb": [
+                {
+                  "Language": "de",
+                  "Text": "http://www.aue.bl.ch"
+              }
+            ],
               "Name": [
                 {
                   "Text": "Amt f\u00fcr Umweltschutz und Energie BL",
@@ -4661,7 +5553,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision",
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                },
             "TextAtWeb": [
               {
                 "Text": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster",
@@ -4670,7 +5570,12 @@
             ],
             "Reference": [
               {
-                "OfficialNumber": "780",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "780"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
@@ -4685,7 +5590,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -4706,10 +5613,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "780.11",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "780.11"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung \u00fcber den Umweltschutz (USV)",
@@ -4724,7 +5644,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -4745,10 +5667,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "814.01",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "814.01"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Bundesgesetz \u00fcber den Umweltschutz (Umweltschutzgesetz, USG)",
@@ -4763,7 +5698,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -4784,10 +5721,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "814.680",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "814.680"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung \u00fcber die Sanierung von belasteten Standorten (Altlasten-Verordnung, AltlV)",
@@ -4802,7 +5752,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -4823,7 +5775,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -4844,7 +5804,9 @@
         },
         "AreaShare": 1210.49,
         "ResponsibleOffice": {
-          "OfficeAtWeb": "http://www.aue.bl.ch",
+          "OfficeAtWeb": [{"Language": "de", "Text": "http://www.aue.bl.ch"
+          }
+        ],
           "Name": [
             {
               "Text": "Amt f\u00fcr Umweltschutz und Energie BL",
@@ -4945,13 +5907,20 @@
             }
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
-          "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_kataster_der_belasteten_standorte&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+          "ReferenceWMS": [
+            {
+              "Language": "de",
+              "Text": "http://dev2.geowms.bl.ch/?LAYERS=oereb_kataster_der_belasteten_standorte&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+            }
+          ],
           "layerOpacity": 1
         },
         "LegalProvisions": [
           {
             "ResponsibleOffice": {
-              "OfficeAtWeb": "http://www.aue.bl.ch",
+              "OfficeAtWeb": [{"Language": "de", "Text": "http://www.aue.bl.ch"
+              }
+            ],
               "Name": [
                 {
                   "Text": "Amt f\u00fcr Umweltschutz und Energie BL",
@@ -4966,7 +5935,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision",
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                },
             "TextAtWeb": [
               {
                 "Text": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster",
@@ -4975,7 +5952,12 @@
             ],
             "Reference": [
               {
-                "OfficialNumber": "780",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "780"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
@@ -4990,7 +5972,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -5011,10 +5995,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "780.11",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "780.11"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung \u00fcber den Umweltschutz (USV)",
@@ -5029,7 +6026,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -5050,10 +6049,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "814.01",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "814.01"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Bundesgesetz \u00fcber den Umweltschutz (Umweltschutzgesetz, USG)",
@@ -5068,7 +6080,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -5089,10 +6103,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "814.680",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "814.680"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung \u00fcber die Sanierung von belasteten Standorten (Altlasten-Verordnung, AltlV)",
@@ -5107,7 +6134,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -5128,7 +6157,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -5149,7 +6186,9 @@
         },
         "AreaShare": 42819.05,
         "ResponsibleOffice": {
-          "OfficeAtWeb": "http://www.aue.bl.ch",
+          "OfficeAtWeb": [{"Language": "de", "Text": "http://www.aue.bl.ch"
+          }
+        ],
           "Name": [
             {
               "Text": "Amt f\u00fcr Umweltschutz und Energie BL",
@@ -5250,13 +6289,20 @@
             }
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
-          "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_kataster_der_belasteten_standorte&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+          "ReferenceWMS": [
+            {
+              "Language": "de",
+              "Text": "http://dev2.geowms.bl.ch/?LAYERS=oereb_kataster_der_belasteten_standorte&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+            }
+          ],
           "layerOpacity": 1
         },
         "LegalProvisions": [
           {
             "ResponsibleOffice": {
-              "OfficeAtWeb": "http://www.aue.bl.ch",
+              "OfficeAtWeb": [{"Language": "de", "Text": "http://www.aue.bl.ch"
+              }
+            ],
               "Name": [
                 {
                   "Text": "Amt f\u00fcr Umweltschutz und Energie BL",
@@ -5271,7 +6317,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision",
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                },
             "TextAtWeb": [
               {
                 "Text": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster",
@@ -5280,7 +6334,12 @@
             ],
             "Reference": [
               {
-                "OfficialNumber": "780",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "780"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
@@ -5295,7 +6354,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -5316,10 +6377,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "780.11",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "780.11"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung \u00fcber den Umweltschutz (USV)",
@@ -5334,7 +6408,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -5355,10 +6431,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "814.01",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "814.01"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Bundesgesetz \u00fcber den Umweltschutz (Umweltschutzgesetz, USG)",
@@ -5373,7 +6462,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -5394,10 +6485,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "814.680",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "814.680"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Verordnung \u00fcber die Sanierung von belasteten Standorten (Altlasten-Verordnung, AltlV)",
@@ -5412,7 +6516,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -5433,7 +6539,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -5454,7 +6568,9 @@
         },
         "AreaShare": 19180.18,
         "ResponsibleOffice": {
-          "OfficeAtWeb": "http://www.aue.bl.ch",
+          "OfficeAtWeb": [{"Language": "de", "Text": "http://www.aue.bl.ch"
+          }
+        ],
           "Name": [
             {
               "Text": "Amt f\u00fcr Umweltschutz und Energie BL",
@@ -5519,15 +6635,30 @@
             }
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_laermempfindlichkeitsstufen&FORMAT=image/png",
-          "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_laermempfindlichkeitsstufen&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+          "ReferenceWMS": [
+            {
+              "Language": "de",
+              "Text": "http://dev2.geowms.bl.ch/?LAYERS=oereb_laermempfindlichkeitsstufen&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+            }
+          ],
           "layerOpacity": 1
         },
         "LegalProvisions": [
           {
-            "OfficialNumber": "429",
+            "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "429"
+                  }
+                ],
             "Reference": [
               {
-                "OfficialNumber": "780",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "780"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
@@ -5542,7 +6673,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -5563,10 +6696,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "814.41",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "814.41"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "L\u00e4rmschutz-Verordnung (LSV)",
@@ -5581,7 +6727,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -5602,7 +6750,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -5613,7 +6769,12 @@
             ],
             "Canton": "BL",
             "ResponsibleOffice": {
-              "OfficeAtWeb": "www.birsfelden.ch",
+              "OfficeAtWeb": [
+                {
+                  "Language": "de",
+                  "Text": "www.birsfelden.ch"
+                }
+              ],
               "Name": [
                 {
                   "Text": "Gemeindeverwaltung",
@@ -5634,7 +6795,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision"
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
@@ -5647,7 +6816,9 @@
         },
         "AreaShare": 78457.23,
         "ResponsibleOffice": {
-          "OfficeAtWeb": "http://www.birsfelden.ch",
+          "OfficeAtWeb": [{"Language": "de", "Text": "http://www.birsfelden.ch"
+          }
+        ],
           "Name": [
             {
               "Text": "Gemeinde Birsfelden",
@@ -5712,15 +6883,30 @@
             }
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_laermempfindlichkeitsstufen&FORMAT=image/png",
-          "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_laermempfindlichkeitsstufen&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+          "ReferenceWMS": [
+            {
+              "Language": "de",
+              "Text": "http://dev2.geowms.bl.ch/?LAYERS=oereb_laermempfindlichkeitsstufen&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+            }
+          ],
           "layerOpacity": 1
         },
         "LegalProvisions": [
           {
-            "OfficialNumber": "429",
+            "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "429"
+                  }
+                ],
             "Reference": [
               {
-                "OfficialNumber": "780",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "780"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
@@ -5735,7 +6921,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -5756,10 +6944,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "814.41",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "814.41"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "L\u00e4rmschutz-Verordnung (LSV)",
@@ -5774,7 +6975,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -5795,7 +6998,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -5806,7 +7017,12 @@
             ],
             "Canton": "BL",
             "ResponsibleOffice": {
-              "OfficeAtWeb": "www.birsfelden.ch",
+              "OfficeAtWeb": [
+                {
+                  "Language": "de",
+                  "Text": "www.birsfelden.ch"
+            }
+          ],
               "Name": [
                 {
                   "Text": "Gemeindeverwaltung",
@@ -5827,7 +7043,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision"
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
@@ -5840,7 +7064,9 @@
         },
         "AreaShare": 2681.22,
         "ResponsibleOffice": {
-          "OfficeAtWeb": "http://www.birsfelden.ch",
+          "OfficeAtWeb": [{"Language": "de", "Text": "http://www.birsfelden.ch"
+          }
+        ],
           "Name": [
             {
               "Text": "Gemeinde Birsfelden",
@@ -5905,15 +7131,30 @@
             }
           ],
           "LegendAtWeb": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_laermempfindlichkeitsstufen&FORMAT=image/png",
-          "ReferenceWMS": "http://dev2.geowms.bl.ch/?LAYERS=oereb_laermempfindlichkeitsstufen&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+          "ReferenceWMS": [
+            {
+              "Language": "de",
+              "Text": "http://dev2.geowms.bl.ch/?LAYERS=oereb_laermempfindlichkeitsstufen&STYLES=default&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+            }
+          ],
           "layerOpacity": 1
         },
         "LegalProvisions": [
           {
-            "OfficialNumber": "429",
+            "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "429"
+                  }
+                ],
             "Reference": [
               {
-                "OfficialNumber": "780",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "780"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
@@ -5928,7 +7169,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Landeskanzlei",
@@ -5949,10 +7192,23 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               },
               {
-                "OfficialNumber": "814.41",
+                "OfficialNumber": [
+                  {
+                    "Language": "de",
+                    "Text":  "814.41"
+                  }
+                ],
                 "Title": [
                   {
                     "Text": "L\u00e4rmschutz-Verordnung (LSV)",
@@ -5967,7 +7223,9 @@
                 ],
                 "Canton": "BL",
                 "ResponsibleOffice": {
-                  "OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+                  "OfficeAtWeb": [{"Language": "de", "Text": "https%3A%2F%2Fwww.bk.admin.ch%2F"
+                  }
+                ],
                   "Name": [
                     {
                       "Text": "Bundeskanzlei",
@@ -5988,7 +7246,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-                "DocumentType": "LegalProvision"
+                "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
               }
             ],
             "Title": [
@@ -5999,7 +7265,12 @@
             ],
             "Canton": "BL",
             "ResponsibleOffice": {
-              "OfficeAtWeb": "www.birsfelden.ch",
+              "OfficeAtWeb": [
+                {
+                  "Language": "de",
+                  "Text": "www.birsfelden.ch"
+                }
+              ],
               "Name": [
                 {
                   "Text": "Gemeindeverwaltung",
@@ -6020,7 +7291,15 @@
                     "Text": "Rechtskräftig"
                   }
                 },
-            "DocumentType": "LegalProvision"
+            "DocumentType": {
+                  "Code": "Rechtsvorschrift",
+                  "Text": [
+                    {
+                      "Language": "de",
+                      "Text": "Rechtsvorschrift"
+                    }
+                  ]
+                }
           }
         ],
         "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
@@ -6033,7 +7312,9 @@
         },
         "AreaShare": 6242.7,
         "ResponsibleOffice": {
-          "OfficeAtWeb": "http://www.birsfelden.ch",
+          "OfficeAtWeb": [{"Language": "de", "Text": "http://www.birsfelden.ch"
+          }
+        ],
           "Name": [
             {
               "Text": "Gemeinde Birsfelden",

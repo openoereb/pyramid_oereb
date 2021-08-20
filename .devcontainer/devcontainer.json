@@ -4,7 +4,7 @@
 {
   "name": "Python 3 & PostgreSQL",
   "dockerComposeFile": "docker-compose.yml",
-  "service": "app",
+  "service": "oereb-server",
   "workspaceFolder": "/workspace",
 
   // Set *default* container specific settings.json values on container create.
