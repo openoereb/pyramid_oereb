@@ -64,7 +64,7 @@ class Logo(Base):
 
     Attributes:
         code (str): The identifier given by a code
-        logo (str): The image encoded in base64
+        logo (dict): The image encoded in base64
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'logo'
