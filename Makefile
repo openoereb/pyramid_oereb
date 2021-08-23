@@ -58,7 +58,7 @@ PACKAGE = pyramid_oereb
 	touch $@
 
 .venv/requirements-timestamp: .venv/timestamp setup.py requirements.txt requirements-tests.txt dev-requirements.txt
-	$(VENV_BIN)/$(PIP_COMMAND) install --upgrade pip
+	$(VENV_BIN)/$(PIP_COMMAND) install --upgrade pip wheel
 	$(VENV_BIN)/$(PIP_COMMAND) install -r requirements.txt -r requirements-tests.txt -r dev-requirements.txt
 	touch $@
 
@@ -175,34 +175,3 @@ serve-dev: development.ini build .db/.setup-db-dev
 .PHONY: serve
 serve: development.ini build
 	$(VENV_BIN)/pserve $<
-
-.PHONY: docker-build
-docker-build:
-	docker build .
-
-.PHONY: docker-serve
-docker-serve: docker-build
-	PGHOST=$(PG_HOST) PGUSER=$(PG_USER) PG_DB=$(PG_DB) PGPASSWORD=$(PG_PASSWORD) docker-compose up -d
-
-.PHONY: docker-down
-docker-down:
-	PGHOST=$(PG_HOST) PGUSER=$(PG_USER) PG_DB=$(PG_DB) PGPASSWORD=$(PG_PASSWORD) docker-compose down
-
-.PHONY: docker-lint
-docker-lint: docker-build
-	docker-compose exec oereb-server make lint
-
-.PHONY: docker-test
-docker-test: docker-serve
-	docker-compose exec oereb-server make test
-
-.PHONY: docker-clean
-docker-clean:
-	docker-compose restart oereb-db
-	docker-compose exec oereb-server make clean
-
-.PHONY: docker-clean-all
-docker-clean-all:
-	rm -f $(DEV_CONFIGURATION_YML)
-	docker-compose restart oereb-db
-	docker-compose exec oereb-server make clean-all

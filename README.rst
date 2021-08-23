@@ -117,3 +117,83 @@ JSON reduced extract is accessible at: http://localhost:6544/oereb/extract/reduc
 It is possible to run this instance in parallel to the instance which uses the standard database. For this, one should create a second clone of the project.
 
 If testing ``make serve`` with another theme than forest_perimeters, changes will be necessary in the directory ``sample_data/oereblex/``: first remove the symbolic link corresponding to this theme, then create a directory and add JSON data files into it. In comparison to the data from the standard model, a new attribute ``geolink`` is required in ``public_law_restriction.json``, which should correspond to an existing geolink in the Oereblex server defined in the configuration (see ``sample_data/oereblex/forest_perimeters`` for example files).
+
+DEV Environment
+===============
+
+For runtime pyramid_oereb needs at least a running database to get the data from. this
+repo ships with a `docker-compose.yml` to satisfy this needs.
+
+General workflow (in Docker)
+----------------------------
+
+1. run docker-compose
+2. connect a terminal to bash in the pyramid_oereb server container
+3. use make with the provided Makefile to test, start the server or to build the virtual environment
+4. BONUS: If you use an IDE like VSCode you can attach it to the running container to have convenient features like autocomplete or code inspection
+
+General workflow (Docker + local shell)
+---------------------------------------
+
+This is only sufficient if you have all dependencies locally available (python3-dev, postgres-client, geos, etc.)
+and in the right versions. Otherwise this might lead to strange behaviors.
+
+
+1. run docker-compose
+2. open local shell in project path
+3. use make with the provided Makefile to test, start the server or to build the virtual environment
+
+Docker composition in detail
+----------------------------
+
+Prerequisite
+............
+
+Setup is intendet to have network available "print-network". To use the setup just for pyramid_oereb
+dev without MapFishPrint you need to create the network first:
+
+docker network create print-network
+
+Fresh startup
+.............
+
+You can create the docker composition to develop the project:
+
+.. code-block:: bash
+
+  docker-compose up -d
+
+This sets up a database container and a container which encapsulates the project. In case
+you didn't had the images alread this will build the DEV-container first. Its based on
+the `Dockerfile`.
+
+Once this step finished you should have 2 running containers belonging to the composition.
+
+You might inspect with:
+
+.. code-block:: bash
+
+  docker container ls
+
+This containers should run as long as you have dev work to do. Everything else is solved by
+the provided Makefile.
+
+Clean up after work
+...................
+
+To have no unexpected behavior, you should always use the follwing command to clean after your work
+and to be ready for the next start:
+
+.. code-block:: bash
+
+  docker-compose down
+
+Update Dockerfile
+.................
+
+If you need to change something inside the `Dockerfile` you need to rebuild it. So after your change
+stop docker composition and rebuild it:
+
+.. code-block:: bash
+
+  docker-compose build
