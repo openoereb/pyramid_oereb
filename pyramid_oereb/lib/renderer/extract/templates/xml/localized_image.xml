@@ -1,0 +1,6 @@
+<%page args="image"/>
+<%
+    localized_image = get_localized_image(image)
+%>
+<data:Language>${localized_image.get('Language') | x}</data:Language>
+<data:Image>${localized_image.get('Image') | x}</data:Image>

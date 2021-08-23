@@ -8,7 +8,7 @@ from tests.xtf_import import MockSession
 
 Config._config = None
 Config.init(tests.pyramid_oereb_test_yml, 'pyramid_oereb')
-theme_config = Config.get_theme_config('AirportsSecurityZonePlans')
+theme_config = Config.get_theme_config_by_code('AirportsSecurityZonePlans')
 config_parser = StandardThemeConfigParser(**theme_config)
 models = config_parser.get_models()
 
@@ -71,7 +71,7 @@ def test_parse():
     assert parsed[0].type_code == '108-T-01'
     assert parsed[0].type_code_list == 'https://models.geo.admin.ch/BAZL/' \
                                        'SafetyZonePlan_Catalogues_V1_2_20181102.xml'
-    assert parsed[0].topic == 'AirportsSecurityZonePlans'
+    assert parsed[0].theme == 'AirportsSecurityZonePlans'
     assert parsed[0].sub_theme == {
         'de': 'A SubTheme'
     }

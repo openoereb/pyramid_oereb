@@ -25,13 +25,13 @@ If you are interested in contributing or extending the project, take a look at t
    :target: https://requires.io/github/openoereb/pyramid_oereb/requirements/?branch=master
    :alt: Requirements Status
 
-Local testing (quick preview)
+Local testing for versions V1
 =============================
 
 Run dev server
 --------------
 
-Following packages are required: ``python3-venv`` ``postgresql-client`` ``libpq-dev``
+Following packages are required: ``python3-dev`` ``libgeos-dev`` ``python3-venv`` ``postgresql-client`` ``libpq-dev``
 
 Clone project:
 
@@ -79,6 +79,7 @@ run sub-target independently:
 - ``make checks-style`` to run only style-related checks (linting).
 - ``make tests`` to run tests. Python 3.7 is used by default. But you can run tests with another version by
   running: ``PYTHON_TEST_VERSION=python3.x make tests``. You can also set this variable in the Makefile.
+- ``PYTEST_OPTS="-k test_name" make test`` to run a specific test
 
 After running tests, the coverage is available in the folder ``coverage_report``.
 
@@ -102,7 +103,7 @@ See this example with the theme forest_perimeters:
       # Oereblex data model
       models: pyramid_oereb.contrib.models.oereblex.forest_perimeters
 
-The sample data is in ``sample_data/oereblex``. 
+The sample data is in ``sample_data/oereblex``.
 
 Run the application:
 
@@ -115,4 +116,4 @@ JSON reduced extract is accessible at: http://localhost:6544/oereb/extract/reduc
 
 It is possible to run this instance in parallel to the instance which uses the standard database. For this, one should create a second clone of the project.
 
-If testing ``make serve`` with another theme than forest_perimeters, changes will be necessary in the directory ``sample_data/oereblex/plr119``: first remove the symbolic link corresponding to this theme, then create a directory and add JSON data files into it. In comparison to the data from the standard model, a new attribute ``geolink`` is required in ``public_law_restriction.json``, which should correspond to an existing geolink in the Oereblex server defined in the configuration (see ``sample_data/oereblex/plr119/forest_perimeters`` for example files).
+If testing ``make serve`` with another theme than forest_perimeters, changes will be necessary in the directory ``sample_data/oereblex/``: first remove the symbolic link corresponding to this theme, then create a directory and add JSON data files into it. In comparison to the data from the standard model, a new attribute ``geolink`` is required in ``public_law_restriction.json``, which should correspond to an existing geolink in the Oereblex server defined in the configuration (see ``sample_data/oereblex/forest_perimeters`` for example files).

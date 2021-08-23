@@ -2,8 +2,6 @@
 
 from geoalchemy2.elements import _SpatialElement
 
-from pyramid_oereb.lib import b64
-from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from geoalchemy2.shape import to_shape
 
@@ -28,12 +26,10 @@ class DatabaseSource(BaseDatabaseSource, MunicipalityBaseSource):
             else:
                 results = session.query(self._model_).all()
             for result in results:
-                logo = ImageRecord(b64.decode(result.logo))
                 self.records.append(self._record_class_(
                     result.fosnr,
                     result.name,
                     result.published,
-                    logo,
                     geom=to_shape(result.geom).wkt if isinstance(
                         result.geom, _SpatialElement) else None,
                 ))

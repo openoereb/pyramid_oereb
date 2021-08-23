@@ -15,17 +15,13 @@ def test_mandatory_fields():
 
 
 def test_init():
-    record = ViewServiceRecord('http://www.test.url.ch',
+    record = ViewServiceRecord({'de': 'http://www.test.url.ch'},
                                1,
                                1.0,
-                               {'de': 'http://www.test.url.ch'},
                                None)
-    assert isinstance(record.reference_wms, str)
+    assert isinstance(record.reference_wms, dict)
     assert isinstance(record.layer_index, int)
     assert isinstance(record.layer_opacity, float)
-    assert isinstance(record.legend_at_web, dict)
-    for legend in record.legend_at_web:
-        assert isinstance(legend, str)
     assert isinstance(record.legends, list)
 
 
@@ -35,39 +31,34 @@ def test_init_with_relation():
         {'en': 'test'},
         'test_code',
         'test',
-        ThemeRecord('test', {'de': 'Test'}),
+        ThemeRecord('test', {'de': 'Test'}, 100),
         view_service_id=1
     )]
-    record = ViewServiceRecord('http://www.test.url.ch',
+    record = ViewServiceRecord({'de': 'http://www.test.url.ch'},
                                1,
                                1.0,
-                               {'de': 'http://www.test.url.ch'},
                                legend_records)
-    assert isinstance(record.reference_wms, str)
+    assert isinstance(record.reference_wms, dict)
     assert isinstance(record.layer_index, int)
     assert isinstance(record.layer_opacity, float)
-    assert isinstance(record.legend_at_web, dict)
-    for legend in record.legend_at_web:
-        assert isinstance(legend, str)
-    assert isinstance(record.legends, list)
 
 
 def test_invalid_layer_index_arguments():
     with pytest.raises(AttributeError):
-        ViewServiceRecord('http://example.com', -1001, 1)
+        ViewServiceRecord({'de': 'http://example.com'}, -1001, 1)
     with pytest.raises(AttributeError):
-        ViewServiceRecord('http://example.com', 1001, 1)
+        ViewServiceRecord({'de': 'http://example.com'}, 1001, 1)
     with pytest.warns(UserWarning, match='Type of "layer_index" should be "int"'):
-        ViewServiceRecord('http://example.com', 1.0, 1)
+        ViewServiceRecord({'de': 'http://example.com'}, 1.0, 1)
 
 
 def test_invalid_layer_layer_opacity():
     with pytest.raises(AttributeError):
-        ViewServiceRecord('http://example.com', 1, 2.0)
+        ViewServiceRecord({'de': 'http://example.com'}, 1, 2.0)
     with pytest.raises(AttributeError):
-        ViewServiceRecord('http://example.com', 1, -1.1)
+        ViewServiceRecord({'de': 'http://example.com'}, 1, -1.1)
     with pytest.warns(UserWarning, match='Type of "layer_opacity" should be "float"'):
-        ViewServiceRecord('http://example.com', 1, 1)
+        ViewServiceRecord({'de': 'http://example.com'}, 1, 1)
 
 
 def test_check_min_max_attributes():
@@ -110,9 +101,9 @@ def test_get_bbox_from_url():
 
 
 def test_view_service_correct_init_ns():
-    with_bbox = 'https://host/?&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&' \
-                'WIDTH=493&HEIGHT=280&FORMAT=image/png'
-    test_view_service = ViewServiceRecord(with_bbox, 1, 1.0, {'de': 'http://www.test.url.ch'}, None)
+    with_bbox = {'de': 'https://host/?&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&'
+                 'WIDTH=493&HEIGHT=280&FORMAT=image/png'}
+    test_view_service = ViewServiceRecord(with_bbox, 1, 1.0, None)
     assert isinstance(test_view_service.min_NS95, Point)
     assert test_view_service.min_NS95.x == 2475000.0
     assert test_view_service.min_NS95.y == 1065000.0
@@ -120,8 +111,8 @@ def test_view_service_correct_init_ns():
     assert test_view_service.max_NS95.x == 2850000.0
     assert test_view_service.max_NS95.y == 1300000.0
 
-    no_bbox = 'https://host/?&SRS=EPSG:2056WIDTH=493&HEIGHT=280&FORMAT=image/png'
-    test_view_service_no_bbox = ViewServiceRecord(no_bbox, 1, 1.0, {'de': 'http://www.test.url.ch'}, None)
+    no_bbox = {'de': 'https://host/?&SRS=EPSG:2056WIDTH=493&HEIGHT=280&FORMAT=image/png'}
+    test_view_service_no_bbox = ViewServiceRecord(no_bbox, 1, 1.0, None)
     assert test_view_service_no_bbox.min_NS95 is None
     assert test_view_service_no_bbox.max_NS95 is None
 

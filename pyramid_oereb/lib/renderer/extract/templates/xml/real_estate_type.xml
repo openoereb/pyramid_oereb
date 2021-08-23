@@ -1,0 +1,9 @@
+<%page args="real_estate_type"/>
+<%
+    real_estate_type_code = real_estate_type.code
+    real_estate_type_text = real_estate_type.text
+%>
+<data:Code>${real_estate_type_code | x}</data:Code>
+<data:Text>
+    <%include file="multilingual_text.xml" args="text=real_estate_type_text, not_null=True"/>
+</data:Text>

@@ -9,18 +9,20 @@ from pyramid.path import DottedNameResolver
 
 from pyramid_oereb import Config
 from pyramid_oereb.lib.adapter import FileAdapter
-from pyramid_oereb.lib.records.documents import LegalProvisionRecord, ArticleRecord, DocumentRecord
+from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.embeddable import EmbeddableRecord, DatasourceRecord
 from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.glossary import GlossaryRecord
 from pyramid_oereb.lib.records.image import ImageRecord
+from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
+from pyramid_oereb.lib.records.general_information import GeneralInformationRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.renderer import Base
 from pyramid_oereb.lib.renderer.extract.json_ import Renderer
@@ -31,11 +33,11 @@ from pyramid_oereb.views.webservice import Parameter
 
 
 def law_status():
-    return LawStatusRecord(u'inForce', {'de': u'In Kraft'})
+    return LawStatusRecord(u'inKraft', {u'de': u'Rechtskräftig'})
 
 
 def default_param():
-    return Parameter('json', 'reduced', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
+    return Parameter('json', False, False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
 
 
 @pytest.fixture()
@@ -67,12 +69,11 @@ def glossary_expected():
 def test_render(parameter, glossaries_input, glossaries_expected):
     date = datetime.datetime.now()
     with pyramid_oereb_test_config():
-        view_service = ViewServiceRecord(u'http://geowms.bl.ch',
+        view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
                                          1,
                                          1.0,
-                                         {'de': u'http://geowms.bl.ch'},
                                          None)
-        real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
+        real_estate = RealEstateRecord(u'Liegenschaft', u'BL', u'Liestal', 2829, 11395,
                                        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
                                        u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712')
         real_estate.set_view_service(view_service)
@@ -87,7 +88,7 @@ def test_render(parameter, glossaries_input, glossaries_expected):
         av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
         av_provider_method = resolver.resolve(av_provider_method_string)
         cadaster_state = date
-        theme = ThemeRecord(u'TEST', {'de': u'TEST TEXT'})
+        theme = ThemeRecord(u'TEST', {'de': u'TEST TEXT'}, 100)
         datasources = [DatasourceRecord(theme, date, office_record)]
         plr_cadastre_authority = Config.get_plr_cadastre_authority()
         embeddable = EmbeddableRecord(
@@ -99,10 +100,14 @@ def test_render(parameter, glossaries_input, glossaries_expected):
         )
         extract = ExtractRecord(
             real_estate,
-            ImageRecord(FileAdapter().read('tests/resources/logo_canton.png')),
-            ImageRecord(FileAdapter().read('tests/resources/logo_canton.png')),
-            ImageRecord(FileAdapter().read('tests/resources/logo_canton.png')),
-            ImageRecord(FileAdapter().read('tests/resources/python.svg')),
+            LogoRecord('ch', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+            LogoRecord('ch.plr', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+            LogoRecord('ne', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+            LogoRecord('ch.1234', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
             office_record,
             base_data,
             embeddable,
@@ -110,7 +115,11 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                 ExclusionOfLiabilityRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})
             ],
             glossaries=glossaries_input,
-            general_information={'de': u'Allgemeine Informationen'},
+            general_information=[
+                GeneralInformationRecord(
+                    {'de': u'Allgemeine Informationen'},
+                    {'de': u'Inhalt der allgemeinen Informationen'})
+            ],
             certification={'de': u'certification'},
             certification_at_web={'de': u'certification_at_web'},
         )
@@ -131,13 +140,15 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                 'ConcernedTheme': [],
                 'NotConcernedTheme': [],
                 'ThemeWithoutData': [],
-                'isReduced': True,
                 'PLRCadastreAuthority': renderer.format_office(office_record),
                 'BaseData': renderer.get_multilingual_text(Config.get_base_data(av_update_date)),
                 'RealEstate': renderer.format_real_estate(real_estate),
                 'Certification': [{'Language': 'de', 'Text': 'certification'}],
                 'CertificationAtWeb': [{'Language': 'de', 'Text': 'certification_at_web'}],
-                'GeneralInformation': [{'Language': 'de', 'Text': 'Allgemeine Informationen'}],
+                'GeneralInformation': [{
+                    'Title': [{'Language': 'de', 'Text': 'Allgemeine Informationen'}],
+                    'Content': [{'Language': 'de', 'Text': 'Inhalt der allgemeinen Informationen'}]
+                }],
                 'QRCode': '1'.encode('utf-8'),
                 'ExclusionOfLiability': [{
                     'Title': [{'Language': 'de', 'Text': 'Haftungsausschluss'}],
@@ -149,22 +160,22 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                 expected['Glossary'] = glossaries_expected
             if parameter.images:
                 expected.update({
-                    'LogoPLRCadastre': ImageRecord(FileAdapter().read('tests/resources/logo_canton.png'))
+                    'LogoPLRCadastre': Config.get_oereb_logo()
                         .encode(),
-                    'FederalLogo': ImageRecord(FileAdapter().read('tests/resources/logo_canton.png'))
+                    'FederalLogo': Config.get_conferderation_logo()
                         .encode(),
-                    'CantonalLogo': ImageRecord(FileAdapter().read('tests/resources/logo_canton.png'))
+                    'CantonalLogo': Config.get_canton_logo()
                         .encode(),
-                    'MunicipalityLogo': ImageRecord(FileAdapter().read('tests/resources/python.svg'))
-                        .encode(),
+                    'MunicipalityLogo': Config.get_municipality_logo(2771),
                 })
             else:
                 expected.update({
                     'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb/de.png',
                     'FederalLogoRef': u'http://example.com/image/logo/confederation/de.png',
                     'CantonalLogoRef': u'http://example.com/image/logo/canton/de.png',
-                    'MunicipalityLogoRef': u'http://example.com/image/municipality/2829.svg'
+                    'MunicipalityLogoRef': u'http://example.com/image/logo/municipality/de.png?fosnr=2829'
                 })
+            assert result['GeneralInformation'] == expected['GeneralInformation']
             assert result == expected
 
 
@@ -194,14 +205,20 @@ def test_format_real_estate():
         'json', 'reduced', True, False, 'BL0200002829', '1000', 'CH775979211712', 'de'
     )
     geometry = MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])])
-    view_service = ViewServiceRecord(u'http://geowms.bl.ch',
+    view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
                                      1,
                                      1.0,
-                                     {'de': u'http://geowms.bl.ch'},
                                      None)
-    document = DocumentRecord('Law', law_status(), datetime.date.today(), {u'de': u'Test Dokument'},
-                              OfficeRecord({u'de': u'BUD'}), {'de': 'http://mein.dokument.ch'})
-    real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
+    document = DocumentRecord(
+        document_type='GesetzlicheGrundlage',
+        index=1,
+        law_status=law_status(),
+        published_from=datetime.date.today(),
+        title={u'de': u'Test Dokument'},
+        responsible_office=OfficeRecord({u'de': u'BUD'}),
+        text_at_web={'de': 'http://mein.dokument.ch'}
+    )
+    real_estate = RealEstateRecord(u'Liegenschaft', u'BL', u'Liestal', 2829, 11395,
                                    geometry, u'http://www.geocat.ch', u'1000', u'BL0200002829',
                                    u'CH775979211712', u'Subunit', [], references=[document])
     real_estate.set_view_service(view_service)
@@ -209,7 +226,10 @@ def test_format_real_estate():
     result = renderer.format_real_estate(real_estate)
     assert isinstance(result, dict)
     assert result == {
-        'Type': u'RealEstate',
+        'Type': {
+            'Code': 'Liegenschaft',
+            'Text': [{'Language': 'de', 'Text': 'Liegenschaft'}]
+        },
         'Canton': u'BL',
         'Municipality': u'Liestal',
         'FosNr': 2829,
@@ -228,8 +248,7 @@ def test_format_real_estate():
 
 @pytest.mark.parametrize('parameter', [
     default_param(),
-    Parameter('json', 'reduced', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de'),
-    Parameter('json', 'full', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de')
+    Parameter('json', False, True, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
 ])
 def test_format_plr(parameter):
     with pyramid_oereb_test_config():
@@ -238,34 +257,32 @@ def test_format_plr(parameter):
         renderer._params = parameter
         renderer._request = MockRequest()
         document = DocumentRecord(
-            'Law',
-            law_status(),
-            datetime.date.today(),
-            {u'de': u'Test Dokument'},
-            OfficeRecord({u'de': u'BUD'}),
-            {'de': 'http://mein.dokument.ch'}
+            document_type='GesetzlicheGrundlage',
+            index=1,
+            law_status=law_status(),
+            published_from=datetime.date.today(),
+            title={u'de': u'Test Dokument'},
+            responsible_office=OfficeRecord({u'de': u'BUD'}),
+            text_at_web={'de': 'http://mein.dokument.ch'}
         )
-        if parameter.flavour == 'reduced':
-            documents = [document]
-        else:
-            documents = None
-        theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test theme'})
+        documents = [document]
+        theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test theme'}, 410)
         office = OfficeRecord({'de': 'Test Office'})
         legend_entry = LegendEntryRecord(
             ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             {'de': 'Test'}, 'CodeA', 'TypeCodeList', theme,
             view_service_id=1)
-        view_service = ViewServiceRecord('http://geowms.bl.ch',
+        view_service = ViewServiceRecord({'de': 'http://geowms.bl.ch'},
                                          1,
                                          1.0,
-                                         {'de': u'http://geowms.bl.ch'},
                                          [legend_entry])
-        geometry = GeometryRecord(law_status(), datetime.date.today(), Point(1, 1))
+        geometry = GeometryRecord(law_status(), datetime.date.today(), None, Point(1, 1))
         plr = PlrRecord(
             theme,
-            {'de': 'Test'},
+            legend_entry,
             law_status(),
             datetime.date.today(),
+            None,
             office,
             ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             view_service,
@@ -279,20 +296,41 @@ def test_format_plr(parameter):
             view_service_id=1
         )
         plr.part_in_percent = 0.5
-        if parameter.flavour == 'full':
-            with pytest.raises(ValueError):
-                renderer.format_plr([plr])
+
+        result = renderer.format_plr([plr])
+        assert isinstance(result, list)
+        assert len(result) == 1
+        assert isinstance(result[0], dict)
+        expected = {
+            'LegendText': renderer.get_multilingual_text(plr.legend_text),
+            'Theme': renderer.format_theme(plr.theme),
+            'Lawstatus': {
+                'Code': 'inKraft',
+                'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
+            },
+            'ResponsibleOffice': renderer.format_office(plr.responsible_office),
+            'Map': renderer.format_map(plr.view_service),
+            'SubTheme': 'Subtopic',
+            'TypeCode': 'CodeA',
+            'TypeCodelist': 'TypeCodeList',
+            'LegalProvisions': [renderer.format_document(document)],
+            'PartInPercent': 0.5
+        }
+        if parameter.images:
+            expected.update({
+                'Symbol': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode()
+            })
         else:
             result = renderer.format_plr([plr])
             assert isinstance(result, list)
             assert len(result) == 1
             assert isinstance(result[0], dict)
             expected = {
-                'Information': renderer.get_multilingual_text(plr.information),
+                'LegendText': renderer.get_multilingual_text(plr.legend_text),
                 'Theme': renderer.format_theme(plr.theme),
                 'Lawstatus': {
-                    'Code': 'inForce',
-                    'Text': {'Language': 'de', 'Text': 'In Kraft'}
+                    'Code': 'inKraft',
+                    'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
                 },
                 'ResponsibleOffice': renderer.format_office(plr.responsible_office),
                 'Map': renderer.format_map(plr.view_service),
@@ -319,74 +357,92 @@ def test_format_plr(parameter):
 
 
 @pytest.mark.parametrize('document,result_dict', [
-    (LegalProvisionRecord(
-        law_status(),
-        datetime.date.today(),
-        {'de': 'Test Rechtsvorschrift'},
-        OfficeRecord({'de': 'AGI'}),
-        {'de': 'http://meine.rechtsvorschrift.ch'},
-        {'de': 'Test'},
-        'rv.test.1',
-        {'de': 'Rechtsvorschrift Test'},
-        'BL', 'Liestal',
-        ['Art.1', 'Art.2', 'Art.3'],
-        '1'.encode('utf-8'), [
-            ArticleRecord(law_status(), datetime.date.today(), 'art.1')
-        ], [
-            DocumentRecord('Law', law_status(), datetime.date.today(), {'de': 'Test Dokument'},
-                           OfficeRecord({'de': 'BUD'}), {'de': 'http://mein.dokument.ch'})
-        ]), {
-            'DocumentType': 'LegalProvision',
+    (
+        DocumentRecord(
+            document_type='Rechtsvorschrift',
+            index=2,
+            law_status=law_status(),
+            title={'de': 'Test Rechtsvorschrift'},
+            published_from=datetime.date.today(),
+            responsible_office=OfficeRecord({'de': 'AGI'}),
+            text_at_web={'de': 'http://meine.rechtsvorschrift.ch'},
+            official_number={'de': 'rv.test.1'},
+            abbreviation={'de': 'Test'},
+            article_numbers=['Art.1', 'Art.2', 'Art.3']
+        ), {
+            'DocumentType': {
+                'Code': 'Rechtsvorschrift',
+                'Text': [{'Language': 'de', 'Text': 'Rechtsvorschrift'}]
+            },
+            'Index': 2,
             'Lawstatus': {
-                'Code': 'inForce',
-                'Text': {'Language': 'de', 'Text': 'In Kraft'}
+                'Code': 'inKraft',
+                'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
             },
             'TextAtWeb': [{'Language': 'de', 'Text': 'http://meine.rechtsvorschrift.ch'}],
             'Title': [{'Language': 'de', 'Text': 'Test Rechtsvorschrift'}],
             'ResponsibleOffice': {
                 'Name': [{'Language': 'de', 'Text': 'AGI'}]
             },
-            'OfficialTitle': [{'Language': 'de', 'Text': 'Rechtsvorschrift Test'}],
             'Abbreviation': [{'Language': 'de', 'Text': 'Test'}],
-            'OfficialNumber': 'rv.test.1',
-            'Canton': 'BL',
-            'Municipality': 'Liestal',
-            'ArticleNumber': ['Art.1', 'Art.2', 'Art.3'],
-            'Article': [{
-                'Lawstatus': {
-                    'Code': 'inForce',
-                    'Text': {'Language': 'de', 'Text': 'In Kraft'}
-                },
-                'Number': 'art.1'
-            }],
-        'Reference': [{
-            'DocumentType': 'Law',
-            'Lawstatus': {
-                'Code': 'inForce',
-                'Text': {'Language': 'de', 'Text': 'In Kraft'}
+            'OfficialNumber': [{'Language': 'de', 'Text': 'rv.test.1'}],
+            'ArticleNumber': ['Art.1', 'Art.2', 'Art.3']
+        }
+    ), (
+        DocumentRecord(
+            document_type='GesetzlicheGrundlage',
+            index=1,
+            law_status=law_status(),
+            title={'de': 'Test Gesetz'},
+            published_from=datetime.date.today(),
+            responsible_office=OfficeRecord({'de': 'AGI'}),
+            text_at_web={'de': 'http://mein.gesetz.ch'},
+            official_number={'de': 'g.test.1'}
+        ), {
+            'DocumentType': {
+                'Code': 'GesetzlicheGrundlage',
+                'Text': [{'Language': 'de', 'Text': 'Gesetzliche Grundlage'}]
             },
-            'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.dokument.ch'}],
-            'Title': [{'Language': 'de', 'Text': 'Test Dokument'}],
+            'Index': 1,
+            'Lawstatus': {
+                'Code': 'inKraft',
+                'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
+            },
+            'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.gesetz.ch'}],
+            'Title': [{'Language': 'de', 'Text': 'Test Gesetz'}],
             'ResponsibleOffice': {
-                'Name': [{'Language': 'de', 'Text': 'BUD'}]
-            }
-        }]
-    }),
-    (ArticleRecord(
-        law_status(),
-        datetime.date.today(),
-        u'art.2',
-        {'de': 'http://mein.artikel.ch/2'},
-        {u'de': u'Test-Artikel'}
-    ), {
-        'Lawstatus': {
-            'Code': 'inForce',
-            'Text': {'Language': 'de', 'Text': 'In Kraft'}
-        },
-        'Number': 'art.2',
-        'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.artikel.ch/2'}],
-        'Text': [{'Language': 'de', 'Text': 'Test-Artikel'}]
-    })
+                'Name': [{'Language': 'de', 'Text': 'AGI'}]
+            },
+            'OfficialNumber': [{'Language': 'de', 'Text': 'g.test.1'}]
+        }
+    ), (
+        DocumentRecord(
+            document_type='Hinweis',
+            index=3,
+            law_status=law_status(),
+            title={'de': 'Test Hinweis'},
+            published_from=datetime.date.today(),
+            responsible_office=OfficeRecord({'de': 'AGI'}),
+            text_at_web={'de': 'http://mein.hinweis.ch'},
+            official_number={'de': 'h.test.1'}
+        ), {
+            'DocumentType': {
+                'Code': 'Hinweis',
+                'Text': [{'Language': 'de', 'Text': 'Hinweis'}]
+            },
+            'Index': 3,
+            'Lawstatus': {
+                'Code': 'inKraft',
+                'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
+            },
+            'TextAtWeb': [{'Language': 'de', 'Text': 'http://mein.hinweis.ch'}],
+            'Title': [{'Language': 'de', 'Text': 'Test Hinweis'}],
+            'ResponsibleOffice': {
+                'Name': [{'Language': 'de', 'Text': 'AGI'}]
+            },
+            'OfficialNumber': [{'Language': 'de', 'Text': 'h.test.1'}]
+        }
+    )
 ])
 def test_format_document(params, document, result_dict):
     renderer = Renderer(DummyRenderInfo())
@@ -401,12 +457,13 @@ def test_format_document(params, document, result_dict):
     (GeometryRecord(
         law_status(),
         datetime.date.today(),
+        None,
         Point(0, 0),
         geo_metadata='http://www.geocat.ch',
         office=OfficeRecord({u'de': u'AGI'})), {
         'Lawstatus': {
-            'Code': 'inForce',
-            'Text': {'Language': 'de', 'Text': 'In Kraft'}
+            'Code': 'inKraft',
+            'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
         },
         'ResponsibleOffice': {
             'Name': [{'Language': 'de', 'Text': 'AGI'}]
@@ -417,11 +474,11 @@ def test_format_document(params, document, result_dict):
             'coordinates': (0, 0)
         }
     }),
-    (GeometryRecord(law_status(), datetime.date.today(), LineString([(0, 0), (1, 1)]),
+    (GeometryRecord(law_status(), datetime.date.today(), None, LineString([(0, 0), (1, 1)]),
                     office=OfficeRecord({u'de': u'AGI'})), {
         'Lawstatus': {
-            'Code': 'inForce',
-            'Text': {'Language': 'de', 'Text': 'In Kraft'}
+            'Code': 'inKraft',
+            'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
         },
         'ResponsibleOffice': {
             'Name': [{'Language': 'de', 'Text': 'AGI'}]
@@ -434,12 +491,13 @@ def test_format_document(params, document, result_dict):
     (GeometryRecord(
         law_status(),
         datetime.date.today(),
+        None,
         Polygon([(0, 0), (1, 1), (1, 0)]),
         office=OfficeRecord({u'de': u'AGI'})
     ), {
         'Lawstatus': {
-            'Code': 'inForce',
-            'Text': {'Language': 'de', 'Text': 'In Kraft'}
+            'Code': 'inKraft',
+            'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
         },
         'ResponsibleOffice': {
             'Name': [{'Language': 'de', 'Text': 'AGI'}]
@@ -463,55 +521,13 @@ def test_format_theme(params):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._params = params
-    theme = ThemeRecord(u'TestTheme', {u'de': u'Test-Thema'})
+    theme = ThemeRecord(u'TestTheme', {u'de': u'Test-Thema'}, 100)
     result = renderer.format_theme(theme)
     assert isinstance(result, dict)
     assert result == {
         'Code': 'TestTheme',
         'Text': renderer.get_localized_text({'de': 'Test-Thema'})
     }
-
-
-@pytest.mark.parametrize('legend_at_web,expected_legend_at_web', [
-    ({'de': u'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic'},
-     u'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic'),
-    ({'it': u'http://my.wms.ch?SERVICE=WMS&REQUEST=GetLegendGraphic'},
-     None),
-    ({}, None),
-    (None, None)
-])
-def test_format_map(params, legend_at_web, expected_legend_at_web):
-    with pyramid_oereb_test_config():
-        renderer = Renderer(DummyRenderInfo())
-        renderer._language = u'de'
-        renderer._params = params
-        renderer._request = MockRequest()
-        legend_entry = LegendEntryRecord(
-            ImageRecord(FileAdapter().read('tests/resources/python.svg')),
-            {u'de': u'Legendeneintrag'},
-            u'CodeA',
-            u'type_code_list',
-            ThemeRecord(u'ContaminatedSites', {u'de': u'Test'}),
-            view_service_id=1
-        )
-        view_service = ViewServiceRecord('http://my.wms.ch',
-                                         1,
-                                         1.0,
-                                         legend_at_web,
-                                         [legend_entry])
-        view_service.image = ImageRecord(FileAdapter().read('tests/resources/python.svg'))
-        result = renderer.format_map(view_service)
-        assert isinstance(result, dict)
-        expected_result = {
-            'Image': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode(),
-            'layerIndex': 1,
-            'layerOpacity': 1.0,
-            'ReferenceWMS': 'http://my.wms.ch',
-            'OtherLegend': [renderer.format_legend_entry(legend_entry)]
-        }
-        if expected_legend_at_web is not None:
-            expected_result['LegendAtWeb'] = expected_legend_at_web
-        assert result == expected_result
 
 
 @pytest.mark.parametrize('parameter', [
@@ -524,7 +540,7 @@ def test_format_legend_entry(parameter):
         renderer._language = u'de'
         renderer._params = parameter
         renderer._request = MockRequest()
-        theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test'})
+        theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test'}, 410)
         legend_entry = LegendEntryRecord(
             ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             {u'de': u'Legendeneintrag'},
@@ -557,58 +573,3 @@ def test_format_legend_entry(parameter):
             })
         assert isinstance(result, dict)
         assert result == expected
-
-
-def test_embeddable(params):
-    renderer = Renderer(DummyRenderInfo())
-    renderer._language = u'de'
-    renderer._params = params
-    date = datetime.datetime.now()
-    view_service = ViewServiceRecord(u'http://geowms.bl.ch',
-                                     1,
-                                     1.0,
-                                     {'de': u'http://geowms.bl.ch'},
-                                     None)
-    real_estate = RealEstateRecord(
-        u'RealEstate',
-        u'BL',
-        u'Liestal',
-        2829,
-        11395,
-        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
-        u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712'
-    )
-    real_estate.plan_for_land_register = view_service
-    resolver = DottedNameResolver()
-    date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
-    date_method = resolver.resolve(date_method_string)
-    av_update_date = date_method(real_estate)
-
-    av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
-    av_provider_method = resolver.resolve(av_provider_method_string)
-    cadaster_state = date
-    theme = ThemeRecord(u'TEST', {u'de': u'TEST TEXT'})
-    datasources = [DatasourceRecord(theme, date, OfficeRecord({u'de': u'Test Office'}))]
-    plr_cadastre_authority = Config.get_plr_cadastre_authority()
-    embeddable = EmbeddableRecord(
-        cadaster_state,
-        plr_cadastre_authority,
-        av_provider_method(real_estate),
-        av_update_date,
-        datasources
-    )
-    result = renderer.format_embeddable(embeddable)
-    assert result == {
-        'cadasterOrganisationName': plr_cadastre_authority.name.get('de'),
-        'datasource': [{
-            'topic': {
-                'Text': {'Text': u'TEST TEXT', 'Language': 'de'},
-                'Code': 'TEST'
-            },
-            'dataownerName': u'Test Office',
-            'transferFromSource': date.strftime('%d-%m-%YT%H:%M:%S')
-        }],
-        'cadasterState': cadaster_state.strftime('%d-%m-%YT%H:%M:%S'),
-        'dataOwnerNameCadastralSurveying': u'This is only a dummy',
-        'transferFromSourceCadastralSurveying': av_update_date.strftime('%d-%m-%YT%H:%M:%S')
-    }

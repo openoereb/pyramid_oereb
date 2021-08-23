@@ -8,6 +8,9 @@ from pyramid.httpexceptions import HTTPServerError
 from pyramid.path import DottedNameResolver
 from pyramid.request import Request
 from pyramid.testing import DummyRequest
+from pyramid_oereb.lib import get_multilingual_element
+
+from shapely.geometry import mapping
 
 from pyramid_oereb import Config
 
@@ -102,12 +105,13 @@ class Base(object):
         """ pyramid.interfaces.IRendererInfo: The passed renderer info object."""
         return self._info_
 
-    def get_localized_text(self, values):
+    def get_localized_text(self, values, not_null=True):
         """
         Returns the requested language of a multilingual text element.
 
         Args:
             values (str or dict): The multilingual values encoded as JSON.
+            not_null (boolean): Throws an error if there is no value for this language.
 
         Returns:
             dict of str: Dictionary containing the localized representation.
@@ -117,12 +121,12 @@ class Base(object):
             if self._language in values:
                 return {
                     'Language': self._language,
-                    'Text': values.get(self._language)
+                    'Text': get_multilingual_element(values, self._language, not_null)
                 }
             else:
                 return {
                     'Language': default_language,
-                    'Text': values.get(default_language)
+                    'Text': get_multilingual_element(values, default_language, not_null)
                 }
         else:
             return {
@@ -130,17 +134,40 @@ class Base(object):
                 'Text': values
             }
 
-    def get_multilingual_text(self, values):
+    def get_multilingual_text(self, values, not_null=True):
         """
         Returns the set language of a multilingual text element.
 
         Args:
             values (str or dict): The multilingual values encoded as JSON.
+            not_null (boolean): Throws an error if there is no value for this language.
 
         Returns:
             list of dict: List of dictionaries containing the multilingual representation.
         """
-        return [self.get_localized_text(values)]
+        return [self.get_localized_text(values, not_null)]
+
+    def get_localized_image(self, values):
+        """
+        Returns the requested language of a multilingual binary image dictionary.
+
+        Args:
+            values (dict): The multilingual values encoded as JSON.
+
+        Returns:
+            dict of str: Dictionary containing the localized representation.
+        """
+        default_language = Config.get('default_language')
+        if self._language in values:
+            return {
+                'Language': self._language,
+                'Image': values[self._language].encode()
+            }
+        else:
+            return {
+                'Language': default_language,
+                'Image': values.get(default_language).encode()
+            }
 
     @staticmethod
     def unaccent_lower(text):
@@ -158,7 +185,7 @@ class Base(object):
         new_text = text.lower()
         return unicodedata.normalize('NFD', new_text)
 
-    def sort_by_localized_text(self, multilingual_elements, value_accessor):
+    def sort_by_localized_text(self, multilingual_elements, value_accessor, not_null=True):
         """
         Sort a list of translated text elements alphabetically.
 
@@ -179,10 +206,29 @@ class Base(object):
             return sorted(
                 multilingual_elements,
                 key=lambda element: self.unaccent_lower(
-                    self.get_localized_text(value_accessor(element))['Text']
+                    self.get_localized_text(value_accessor(element), not_null)['Text']
                 )
             )
 
         except AttributeError as ex:
             log.warn('Elements can not be sorted: {0}'.format(ex))
             return multilingual_elements
+
+    @staticmethod
+    def from_shapely(geom):
+        """
+        Formats shapely geometry for rendering according to the federal specification.
+
+        Args:
+            geom (shapely.geometry.base.BaseGeometry): The geometry object to be formatted.
+
+        Returns:
+            dict: The formatted geometry.
+        """
+        geom_dict = {
+            'coordinates': mapping(geom)['coordinates'],
+            'crs': 'EPSG:{srid}'.format(srid=Config.get('srid'))
+            # isosqlmmwkb only used for curved geometries (not supported by shapely)
+            # 'isosqlmmwkb': b64.encode(geom.wkb)
+        }
+        return geom_dict

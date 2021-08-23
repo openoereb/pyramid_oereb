@@ -4,11 +4,11 @@ import logging
 from pyramid.path import DottedNameResolver
 
 from shapely.geometry import box
+from timeit import default_timer as timer
 
 from pyramid_oereb.lib.config import Config
 from pyramid_oereb.lib.records.embeddable import EmbeddableRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
-from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.plr import PlrRecord, EmptyPlrRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
 
@@ -33,9 +33,8 @@ class ExtractReader(object):
         Args:
             plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of PLR source
                 instances which the achieved extract should be about.
-            plr_cadastre_authority (pyramid_oereb.lib.records.office.OffcieRecord): The authority responsible
+            plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority responsible
                 for the PLR cadastre.
-            logos (dict): The logos of confederation, canton and oereb wrapped in a ImageRecord.
             certification (dict of unicode or None): A mutlilingual dictionary of certification information.
             certification_at_web (dict of unicode or None): Multilingual list of certification uri.
         """
@@ -44,6 +43,7 @@ class ExtractReader(object):
         self._plr_cadastre_authority_ = plr_cadastre_authority
         self._certification = certification
         self._certification_at_web = certification_at_web
+        self.law_status = Config.get_law_status_codes()
 
     @property
     def plr_cadastre_authority(self):
@@ -51,7 +51,7 @@ class ExtractReader(object):
         Returns the authority responsible for the PLR cadastre.
 
         Returns:
-            pyramid_oereb.lib.records.office.OffcieRecord: The authority responsible for the PLR
+            pyramid_oereb.lib.records.office.OfficeRecord: The authority responsible for the PLR
             cadastre.
         """
         return self._plr_cadastre_authority_
@@ -97,7 +97,6 @@ class ExtractReader(object):
                 The extract record containing all gathered data.
         """
         log.debug("read() start")
-        assert isinstance(municipality.logo, ImageRecord)
 
         bbox = ViewServiceRecord.get_bbox(real_estate.limit)
         bbox = box(bbox[0], bbox[1], bbox[2], bbox[3])
@@ -111,12 +110,18 @@ class ExtractReader(object):
 
             for position, plr_source in enumerate(self._plr_sources_, start=1):
                 if not params.skip_topic(plr_source.info.get('code')):
-                    log.debug("read() going to read from plr_source {}".format(plr_source))
                     plr_source.read(params, real_estate, bbox, position)
-                    log.debug("read() done reading from plr_source {}".format(plr_source))
                     for ds in plr_source.datasource:
                         if not params.skip_topic(ds.theme.code):
                             datasource.append(ds)
+
+                    # Sort PLR records according to their law status
+                    start_time = timer()
+                    log.debug("sort plrs by law status start")
+                    plr_source.records.sort(key=self._sort_plr_law_status)
+                    end_time = timer()
+                    log.debug(f"DONE with sort plrs by law status, time spent: {end_time-start_time} seconds")
+
                     real_estate.public_law_restrictions.extend(plr_source.records)
 
             for plr in real_estate.public_law_restrictions:
@@ -138,7 +143,7 @@ class ExtractReader(object):
 
         else:
             for plr_source in self._plr_sources_:
-                themes_without_data.append(Config.get_theme(plr_source.info.get('code')))
+                themes_without_data.append(Config.get_theme_by_code(plr_source.info.get('code')))
 
         # Load base data form configuration
         resolver = DottedNameResolver()
@@ -146,8 +151,12 @@ class ExtractReader(object):
         date_method = resolver.resolve(date_method_string)
         av_update_date = date_method(real_estate)
         base_data = Config.get_base_data(av_update_date)
-        general_information = Config.get('extract').get('general_information')
-        logos = Config.get_logo_config(language=params.language)
+        general_information = Config.get_general_information()
+
+        oereb_logo = Config.get_oereb_logo()
+        confederation_logo = Config.get_conferderation_logo()
+        canton_logo = Config.get_canton_logo()
+        municipality_logo = Config.get_municipality_logo(municipality.fosnr)
 
         av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
         av_provider_method = resolver.resolve(av_provider_method_string)
@@ -162,10 +171,10 @@ class ExtractReader(object):
 
         self.extract = ExtractRecord(
             real_estate,
-            logos.get('oereb'),
-            logos.get('confederation'),
-            logos.get('canton'),
-            municipality.logo,
+            oereb_logo,
+            confederation_logo,
+            canton_logo,
+            municipality_logo,
             self.plr_cadastre_authority,
             base_data,
             embeddable,
@@ -179,3 +188,24 @@ class ExtractReader(object):
 
         log.debug("read() done")
         return self.extract
+
+    def _sort_plr_law_status(self, plr_element):
+        """
+        This method generates the sorting key for plr_elements according to their law_status code.
+        The value is generated from the index the plr_element.law_status.code has in the law_status
+        list. The law_status list corresponds to the law status taken from the DB
+
+        If the argument is not a PlrRecord or its law_status.code is not contained in the law_status list,
+        the method will return the length of the law_status list so it can be sorted at the end of the list.
+
+        Args:
+            plr_element (PlrRecord or EmptyPlrRecord) a plr record element.
+
+        Returns:
+            int: Value which can be used to sort the record depending on its law_status.code.
+
+        """
+        if (isinstance(plr_element, PlrRecord) and plr_element.law_status.code in self.law_status):
+            return self.law_status.index(plr_element.law_status.code)
+        else:
+            return len(self.law_status)

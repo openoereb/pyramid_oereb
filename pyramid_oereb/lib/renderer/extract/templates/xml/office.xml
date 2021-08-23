@@ -1,10 +1,10 @@
 <%page args="office"/>
 <data:Name>
-    <%include file="multilingual_text.xml" args="text=office.name"/>
+    <%include file="multilingual_text.xml" args="text=office.name, not_null=True"/>
 </data:Name>
 %if office.office_at_web:
 <data:OfficeAtWeb>
-    <%include file="multilingual_uri.xml" args="text=office.office_at_web"/>
+    <%include file="multilingual_text.xml" args="text=office.office_at_web, not_null=True"/>
 </data:OfficeAtWeb>
 %endif
 %if office.uid:

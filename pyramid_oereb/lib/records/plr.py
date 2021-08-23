@@ -27,16 +27,18 @@ class PlrRecord(EmptyPlrRecord):
     Public law restriction record.
     """
 
-    def __init__(self, theme, information, law_status, published_from, responsible_office, symbol,
-                 view_service, geometries, sub_theme=None, type_code=None,
-                 type_code_list=None, basis=None, refinements=None, documents=None, info=None, min_length=0.0,
+    def __init__(self, theme, legend_entry, law_status, published_from, published_until, responsible_office,
+                 symbol, view_service, geometries, sub_theme=None, type_code=None,
+                 type_code_list=None, documents=None, info=None, min_length=0.0,
                  min_area=0.0, length_unit=u'm', area_unit=u'm2', view_service_id=None):
         """
         Args:
-            information (dict of unicode): The PLR record's information (multilingual).
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.
+            legend_entry (pyramid_oereb.lib.records.view_service.LegendEntryRecord): The PLR record's
+                corresponding legend record.
             law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
             published_from (datetime.date): Date from/since when the PLR record is published.
+            published_until (datetime.date): Date from when the PLR record is not published anymore.
             responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is responsible
                 for this PLR.
             symbol (pyramid_oereb.lib.records.image.ImageRecord): Symbol of the restriction defined for the
@@ -48,8 +50,6 @@ class PlrRecord(EmptyPlrRecord):
             sub_theme (dict of unicode or None): Optional subtopic.
             type_code (unicode): The PLR record's type code (also used by view service).
             type_code_list (unicode): URL to the PLR's list of type codes.
-            basis (list of PlrRecord): List of PLR records as basis for this record.
-            refinements (list of PlrRecord): List of PLR records as refinement of this record.
             documents (list of pyramid_oereb.lib.records.documents.DocumentBaseRecord): List of documents
                 associated with this record.
             info (dict or None): The information read from the config.
@@ -62,8 +62,8 @@ class PlrRecord(EmptyPlrRecord):
         """
         super(PlrRecord, self).__init__(theme)
 
-        if not isinstance(information, dict):
-            warnings.warn('Type of "information" should be "dict"')
+        if not isinstance(legend_entry.legend_text, dict):
+            warnings.warn('Type of "legend_text" should be "dict"')
 
         if sub_theme is not None and not isinstance(sub_theme, dict):
             warnings.warn('Type of "sub_theme" should be "dict"')
@@ -71,22 +71,15 @@ class PlrRecord(EmptyPlrRecord):
         assert isinstance(geometries, list)
         assert len(geometries) > 0
 
-        self.information = information
+        self.legend_entry = legend_entry
         self.law_status = law_status
         self.published_from = published_from
+        self.published_until = published_until
         self.responsible_office = responsible_office
         self.sub_theme = sub_theme
         self.type_code = type_code
         self.type_code_list = type_code_list
         self.view_service = view_service
-        if basis is None:
-            self.basis = []
-        else:
-            self.basis = basis
-        if refinements is None:
-            self.refinements = []
-        else:
-            self.refinements = refinements
         if documents is None:
             self.documents = []
         else:
@@ -109,9 +102,17 @@ class PlrRecord(EmptyPlrRecord):
         self.view_service_id = view_service_id
 
     @property
+    def legend_text(self):
+        return self.legend_entry.legend_text
+
+    @property
     def published(self):
         """bool: True if PLR is published."""
-        return not self.published_from > datetime.now().date()
+        if self.published_until is None:
+            return self.published_from <= datetime.now().date()
+        else:
+            return self.published_from <= datetime.now().date() \
+                   and self.published_until >= datetime.now().date()
 
     def _sum_length(self):
         """
@@ -178,7 +179,7 @@ class PlrRecord(EmptyPlrRecord):
         tested_geometries = []
         inside = False
         for geometry in self.geometries:
-            if geometry.calculate(
+            if geometry.published and geometry.calculate(
                     real_estate,
                     self.min_length, self.min_area,
                     self.length_unit, self.area_unit
@@ -210,9 +211,9 @@ class PlrRecord(EmptyPlrRecord):
         return inside
 
     def __str__(self):
-        information = dict()
-        for key in self.information:
-            if self.information[key] is not None:
-                information[key] = self.information[key].encode('utf-8')
-        tpl = '<{} -- type_code: {} theme: {} information: {} (further attributes not shown)>'
-        return tpl.format(self.__class__.__name__, self.type_code, self.theme, information)
+        legend_text = dict()
+        for key in self.legend_text:
+            if self.legend_text[key] is not None:
+                legend_text[key] = self.legend_text[key].encode('utf-8')
+        tpl = '<{} -- type_code: {} theme: {} legend_text: {} (further attributes not shown)>'
+        return tpl.format(self.__class__.__name__, self.type_code, self.theme, legend_text)

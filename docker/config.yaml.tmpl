@@ -25,21 +25,6 @@ vars:
     # This has to be one of the languages defined above.
     default_language: de
 
-    # The law status translations based on the two possible codes 'inForce' and 'runningModifications'
-    law_status_translations:
-      in_force:
-        de: in Kraft
-        fr: en vigueur
-        it: in vigore
-        rm: en vigur
-        en: in force
-      running_modifications:
-        de: laufende Änderungen
-        fr: modification en cours
-        it: modifica in corso
-        rm: midada current
-        en: ongoing modification
-
     # The "flavour" property is a list of all flavours of data extracts provided by this application.
     # For the moment this only affects the output of the capabilities webservice. In later
     # versions, this will be the place to directly influence the available output formats.
@@ -405,8 +390,7 @@ vars:
     # the extract creation process which loops over this list.
     plrs:
 
-    - name: plr73
-      code: LandUsePlans
+    - code: LandUsePlans
       geometry_type: GEOMETRYCOLLECTION
       # Define the minmal area and length for public law restrictions that should be considered as 'true' restrictions
       # and not as calculation errors (false trues) due to topological imperfections
@@ -442,11 +426,11 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr87
-      code: MotorwaysProjectPlaningZones
+    - code: MotorwaysProjectPlaningZones
       geometry_type: MULTIPOLYGON
       thresholds:
         length:
@@ -480,11 +464,11 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr88
-      code: MotorwaysBuildingLines
+    - code: MotorwaysBuildingLines
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -518,11 +502,11 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr97
-      code: RailwaysBuildingLines
+    - code: RailwaysBuildingLines
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -556,11 +540,11 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr96
-      code: RailwaysProjectPlanningZones
+    - code: RailwaysProjectPlanningZones
       geometry_type: POLYGON
       thresholds:
         length:
@@ -594,11 +578,11 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr103
-      code: AirportsProjectPlanningZones
+    - code: AirportsProjectPlanningZones
       geometry_type: POLYGON
       thresholds:
         length:
@@ -632,11 +616,11 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr104
-      code: AirportsBuildingLines
+    - code: AirportsBuildingLines
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -670,11 +654,11 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr108
-      code: AirportsSecurityZonePlans
+    - code: AirportsSecurityZonePlans
       geometry_type: MULTIPOLYGON
       thresholds:
         length:
@@ -708,12 +692,12 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
       download: https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip
 
-    - name: plr116
-      code: ContaminatedSites
+    - code: ContaminatedSites
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -747,11 +731,11 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr117
-      code: ContaminatedMilitarySites
+    - code: ContaminatedMilitarySites
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -785,11 +769,11 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr118
-      code: ContaminatedCivilAviationSites
+    - code: ContaminatedCivilAviationSites
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -823,11 +807,11 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr119
-      code: ContaminatedPublicTransportSites
+    - code: ContaminatedPublicTransportSites
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -861,8 +845,9 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
       # Example of how sub_themes sorting can be activated (uncomment to enable):
       #sub_themes:
       #  sorter:
@@ -874,8 +859,7 @@ vars:
       #        - SubTheme2
       #        - SubTheme1
 
-    - name: plr131
-      code: GroundwaterProtectionZones
+    - code: GroundwaterProtectionZones
       geometry_type: POLYGON
       thresholds:
         length:
@@ -909,11 +893,11 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr132
-      code: GroundwaterProtectionSites
+    - code: GroundwaterProtectionSites
       geometry_type: POLYGON
       thresholds:
         length:
@@ -947,11 +931,11 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr145
-      code: NoiseSensitivityLevels
+    - code: NoiseSensitivityLevels
       geometry_type: POLYGON
       thresholds:
         length:
@@ -985,11 +969,11 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr157
-      code: ForestPerimeters
+    - code: ForestPerimeters
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -1029,11 +1013,11 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr159
-      code: ForestDistanceLines
+    - code: ForestDistanceLines
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -1067,8 +1051,10 @@ vars:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+
 environment:
 - pyramid_oereb.print.base_url
 - pyramid_oereb.app_schema.db_connection

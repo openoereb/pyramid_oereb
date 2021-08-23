@@ -24,21 +24,6 @@ pyramid_oereb:
   # This has to be one of the languages defined above.
   default_language: de
 
-  # The law status translations based on the two possible codes 'inForce' and 'runningModifications'
-  law_status_translations:
-    in_force:
-      de: in Kraft
-      fr: en vigueur
-      it: in vigore
-      rm: en vigur
-      en: in force
-    running_modifications:
-      de: laufende Änderungen
-      fr: modification en cours
-      it: modifica in corso
-      rm: midada current
-      en: ongoing modification
-
   # The "flavour" property is a list of all flavours of data extracts provided by this application.
   # For the moment this only affects the output of the capabilities webservice. In later
   # versions, this will be the place to directly influence the available output formats.
@@ -99,12 +84,13 @@ pyramid_oereb:
     # The map size (in millimeters) used to calculate the size of the requested map (for pdf export only).
     pdf_map_size_millimeters: [174, 99]
     # Base URL with application of the print server
-    base_url: http://{PRINT_SERVICE_HOST}:{PRINT_SERVICE_PORT}/print/oereb
+    base_url: ${print_url}
     # Name of the print tempate to use
     template_name: A4 portrait
     # The headers send to the print
     headers:
       Content-Type: application/json; charset=UTF-8
+      Connection: close
     # Whether to display the RealEstate_SubunitOfLandRegister (Grundbuchkreis) in the pdf extract or not.
     # Default to true.
     display_real_estate_subunit_of_land_register: true
@@ -229,27 +215,6 @@ pyramid_oereb:
     # The city name of the address of your office. For instance: Liestal
     city: Wabern
 
-  # The extract provides logos. Therefor you need to provide a path to these logos. Note: This must be a
-  # valid absolute system path available for reading by the user running this server.
-  logo:
-    # The logo representing the swiss confederation. You can use it as is because it is provided in this
-    # repository, but if you need to change it for any reason: Feel free...
-    confederation: ${png_root_dir}logo_confederation.png
-    # The logo representing the oereb extract CI. You can use it as is because it is provided in this
-    # repository, but if you need to change it for any reason: Feel free...
-    oereb:
-        de: ${png_root_dir}logo_oereb_de.png
-        fr: ${png_root_dir}logo_oereb_fr.png
-        it: ${png_root_dir}logo_oereb_it.png
-    # The logo representing your canton. Replace with your own logo!
-    canton: ${png_root_dir}logo_canton.png
-
-  # The method used to return the logo images configured above.
-  get_logo_method: pyramid_oereb.standard.hook_methods.get_logo
-
-  # The method used to return the municipality logos.
-  get_municipality_method: pyramid_oereb.standard.hook_methods.get_municipality
-
   # The processor of the oereb project needs access to real estate data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the real estate out of an existing
   # database table to avoid imports of this data every time it gets updates, you only need to change the model
@@ -258,12 +223,16 @@ pyramid_oereb:
   real_estate:
     plan_for_land_register:
       # WMS URL to query the plan for land register used for all themes pages
-      reference_wms: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
+      reference_wms:
+        de: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
+        fr: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
       layer_index: 0
       layer_opacity: 1.0
     plan_for_land_register_main_page:
       # WMS URL to query the plan for land register specially for static extracts overview page
-      reference_wms: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
+      reference_wms:
+        de: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
+        fr: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
       layer_index: 0
       layer_opacity: 1.0
     visualisation:
@@ -277,19 +246,6 @@ pyramid_oereb:
         stroke_opacity: 0.6
         stroke_color: '#e60000'
         stroke_width: 5
-    type_mapping:
-      - mapping: RealEstate
-        type: Liegenschaft
-      - mapping: Distinct_and_permanent_rights.BuildingRight
-        type: Baurecht
-      - mapping: Distinct_and_permanent_rights.right_to_spring_water
-        type: Quellenrecht
-      - mapping: Distinct_and_permanent_rights.concession
-        type: Konzessionsrecht
-      - mapping: Distinct_and_permanent_rights.other
-        type: weitere
-      - mapping: Mineral_rights
-        type: Bergwerk
     # The real estate must have a property source.
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
@@ -347,6 +303,76 @@ pyramid_oereb:
         # The model which maps the municipality database table.
         model: pyramid_oereb.standard.models.main.Municipality
 
+  # The extract provides logos. Therefor you need to provide the logos from the database
+  # or by a path to these logos. Note: This must be a valid absolute system path available
+  # for reading by the user running this server.
+  logo_lookups:
+    # The logo representing the swiss confederation. You can use it as is because it is provided in this
+    # repository, but if you need to change it for any reason: Feel free...
+    confederation: ch
+    # The logo representing the oereb extract CI. You can use it as is because it is provided in this
+    # repository, but if you need to change it for any reason: Feel free...
+    oereb: ch.plr
+    # The logo representing your canton. Replace with your own logo!
+    canton: ne
+
+  # The processor of the oereb project joins the logos. In the standard configuration this
+  # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
+  # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
+  # the source. The model must implement the same field names and information as the default model does.
+  logos:
+    # The logo images must have a property source.
+    source:
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source which reads data from a database.
+      class: pyramid_oereb.standard.sources.logo.DatabaseSource
+      # The necessary parameters to use this class
+      params:
+        # The connection path where the database can be found
+        db_connection: *main_db_connection
+        # The model which maps the logo images database table.
+        model: pyramid_oereb.standard.models.main.Logo
+
+  # Define the document type values configured as default in the data
+  document_types_lookup:
+    GesetzlicheGrundlage: "GesetzlicheGrundlage"
+    Rechtsvorschrift: "Rechtsvorschrift"
+    Hinweis: "Hinweis"
+
+  # The processor of the oereb project joins the document type labels. In the standard configuration this
+  # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
+  # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
+  # the source. The model must implement the same field names and information as the default model does.
+  document_types:
+    # The document type text elements must have a property source.
+    source:
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source which reads data from a database.
+      class: pyramid_oereb.standard.sources.document_types.DatabaseSource
+      # The necessary parameters to use this class
+      params:
+        # The connection path where the database can be found
+        db_connection: *main_db_connection
+        # The model which maps the document type texts database table.
+        model: pyramid_oereb.standard.models.main.DocumentTypeText
+
+  # The processor of the oereb project needs access to theme data. In the standard configuration this
+  # is assumed to be read from a database. Hint: If you want to read the themes out of an existing database
+  # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
+  # the source. The model must implement the same field names and information as the default model does.
+  theme:
+    # The themes must have a property source.
+    source:
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source which reads data from a database.
+      class: pyramid_oereb.standard.sources.theme.DatabaseSource
+      # The necessary parameters to use this class
+      params:
+        # The connection path where the database can be found
+        db_connection: *main_db_connection
+        # The model which maps the theme database table.
+        model: pyramid_oereb.standard.models.main.Theme
+
   # The processor of the oereb project needs access to glossary data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the glossary out of an existing database
   # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
@@ -382,6 +408,67 @@ pyramid_oereb:
         # The model which maps the exclusion_of_liability database table.
         model: pyramid_oereb.standard.models.main.ExclusionOfLiability
 
+  # The processor of the oereb project joins the law status labels. In the standard configuration this
+  # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
+  # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
+  # the source. The model must implement the same field names and information as the default model does.
+  law_status_labels:
+    # The real estate type text elements must have a property source.
+    source:
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source which reads data from a database.
+      class: pyramid_oereb.standard.sources.law_status.DatabaseSource
+      # The necessary parameters to use this class
+      params:
+        # The connection path where the database can be found
+        db_connection: *main_db_connection
+        # The model which maps the document type texts database table.
+        model: pyramid_oereb.standard.models.main.LawStatus
+
+  # Define the real estate type values configured as default in the data
+  real_estate_type_lookup:
+    Liegenschaft: "Liegenschaft"
+    SelbstRecht.Baurecht: "SelbstRecht.Baurecht"
+    SelbstRecht.Quellenrecht: "SelbstRecht.Quellenrecht"
+    SelbstRecht.Konzessionsrecht: "SelbstRecht.Konzessionsrecht"
+    SelbstRecht.weitere: "SelbstRecht.weitere"
+    Bergwerk: "Bergwerk"
+
+  # The processor of the oereb project joins the real estate type labels. In the standard configuration this
+  # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
+  # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
+  # the source. The model must implement the same field names and information as the default model does.
+  real_estate_type:
+    # The real estate type text elements must have a property source.
+    source:
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source which reads data from a database.
+      class: pyramid_oereb.standard.sources.real_estate_type.DatabaseSource
+      # The necessary parameters to use this class
+      params:
+        # The connection path where the database can be found
+        db_connection: *main_db_connection
+        # The model which maps the document type texts database table.
+        model: pyramid_oereb.standard.models.main.RealEstateType
+
+  # The processor of the oereb project needs access to general information data. In the standard
+  # configuration this is assumed to be read from a database. Hint: If you want to read the general
+  # information out of an existing database table to avoid imports of this data every time it gets updates, you
+  # only need to change the model bound to the source. The model must implement the same field names and
+  # information as the default model does.
+  general_information:
+    # The general_information must have a property source.
+    source:
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source which reads data from a database.
+      class: pyramid_oereb.standard.sources.general_information.DatabaseSource
+      # The necessary parameters to use this class
+      params:
+        # The connection path where the database can be found
+        db_connection: *main_db_connection
+        # The model which maps the general_information database table.
+        model: pyramid_oereb.standard.models.main.GeneralInformation
+
   # The extract is the entry point which binds everything
   # related to data together.
   extract:
@@ -407,21 +494,18 @@ pyramid_oereb:
         fr: https://oereb.bl.ch/certification/fr
         it: https://oereb.bl.ch/certification/it
         rm: https://oereb.bl.ch/certification/rm
-    general_information:
-        de: Der Inhalt des Katasters wird als bekannt vorausgesetzt. Der Kanton --HIER MUSS DER KANTONSNAME STEHEN--- ist für die Genauigkeit und Verlässlichkeit der gesetzgebenden Dokumenten in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begründet insbesondere keine Rechten und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskräftig verabschiedet oder veröffentlicht worden sind. Mit der Beglaubigung des Auszuges wird die Übereinstimmung des Auszuges mit dem Kataster zum Zeitpunkt des Auszuges bestätigt.
-        fr: Le contenu du cadastre RDPPF est supposé connu. Le canton de ---NOM DU CANTON--- n'engage pas sa responsabilité sur l'exactitude ou la fiabilité des documents législatifs dans leur version électronique. L'extrait a un caractère informatif et ne crée aucun droit ou obligation. Les documents juridiquement contraignants sont ceux qui ont été légalement adoptés ou publiés. La certification d'un extrait confirme la concordance de cet extrait avec le cadastre RDPPF à la date d'établissement dudit extrait.
-        it: Il contenuto del Catasto RDPP si considera noto. Il Canton ---NOME DEL CANTON--- non può essere ritenuto responsabile per la precisione e l'affidabilità dei documenti legislativi in formato elettronico. L'estratto ha carattere puramente informativo e non è in particolare costituti-vo di diritti e obblighi. Sono considerati giuridicamente vincolanti i documenti approvati o pubblicati passati in giudicato. Con l'autenticazione dell'estratto viene confermata la conformità dell'estratto rispetto al Catasto RDPP al momento della sua redazione.
-        rm: ...
     sort_within_themes_method: pyramid_oereb.standard.hook_methods.plr_sort_within_themes
     # Example of a specific sorting method:
     # sort_within_themes_method: pyramid_oereb.contrib.plr_sort_within_themes_by_type_code
+    # Redirect configuration for type URL. You can use any attribute of the real estate RealEstateRecord
+    # (e.g. "{egrid}") to parameterize the URL.
+    redirect: https://geoview.bl.ch/oereb/?egrid={egrid}
 
   # All PLRs which are provided by this application. This is related to all application behaviour, especially
   # the extract creation process which loops over this list.
   plrs:
 
-    - name: plr73
-      code: LandUsePlans
+    - code: LandUsePlans
       geometry_type: GEOMETRYCOLLECTION
       # Define the minmal area and length for public law restrictions that should be considered as 'true' restrictions
       # and not as calculation errors (false trues) due to topological imperfections
@@ -436,12 +520,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Nutzungsplanung (kantonal/kommunal)
-        fr: Plans d'affectation (cantonaux/communaux)
-        it: Piani di utilizzazione (cantonali/comunali)
-        rm: Planisaziun d'utilisaziun (chantunal/communal)
-        en: Land-use planning (cantonal / municipal)
       language: de
       federal: false
       standard: true
@@ -460,11 +538,21 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      # Example of how sub_themes sorting can be activated (uncomment to enable):
+      #sub_themes:
+      #  sorter:
+      #    module: pyramid_oereb.contrib.print_proxy.sub_themes.sorting
+      #    class_name: ListSort
+      #    params:
+      #      list:
+      #        - SubTheme3
+      #        - SubTheme2
+      #        - SubTheme1
 
-    - name: plr87
-      code: MotorwaysProjectPlaningZones
+    - code: MotorwaysProjectPlaningZones
       geometry_type: MULTIPOLYGON
       thresholds:
         length:
@@ -477,12 +565,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Projektierungszonen Nationalstrassen
-        fr: Zones réservées des routes nationales
-        it: Zone riservate per le strade nazionali
-        rm: Zonas projectaziun per las vias naziunalas
-        en: Reserved zones for motorways
       language: de
       federal: true
       standard: true
@@ -501,11 +583,11 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr88
-      code: MotorwaysBuildingLines
+    - code: MotorwaysBuildingLines
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -518,12 +600,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Baulinien Nationalstrassen
-        fr: Alignements des routes nationales
-        it: Allineamenti per le strade nazionali
-        rm: Lingias da construcziun per las vias naziunalas
-        en: Building lines for motorways
       language: de
       federal: true
       standard: true
@@ -542,11 +618,11 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr97
-      code: RailwaysBuildingLines
+    - code: RailwaysBuildingLines
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -559,12 +635,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Baulinien Eisenbahnanlagen
-        fr: Alignements des installations ferroviaires
-        it: Allineamenti per gli impianti ferroviari
-        rm: Lingias da construcziun per implants da viafier
-        en: Building lines of the railways installations
       language: de
       federal: true
       standard: true
@@ -583,11 +653,11 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr96
-      code: RailwaysProjectPlanningZones
+    - code: RailwaysProjectPlanningZones
       geometry_type: POLYGON
       thresholds:
         length:
@@ -600,12 +670,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Projektierungszonen Eisenbahnanlagen
-        fr: Zones réservées des installations ferroviaires
-        it: Zone riservate per gli impianti ferroviari
-        rm: Zonas projectaziun per implants da viafier
-        en: Reserved zones of the railways installations
       language: de
       federal: true
       standard: true
@@ -624,11 +688,11 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr103
-      code: AirportsProjectPlanningZones
+    - code: AirportsProjectPlanningZones
       geometry_type: POLYGON
       thresholds:
         length:
@@ -641,12 +705,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Projektierungszonen Flughafenanlagen
-        fr: Zones réservées des installations aéroportuaires
-        it: Zone riservate per gli impianti aeroportuali
-        rm: Zonas projectaziun per implants d'eroports
-        en: Reserved zones of the airport installations
       language: de
       federal: true
       standard: true
@@ -665,11 +723,11 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr104
-      code: AirportsBuildingLines
+    - code: AirportsBuildingLines
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -682,12 +740,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Baulinien Flughafenanlagen
-        fr: Alignements des installations aéroportuaires
-        it: Allineamenti per gli impianti aeroportuali
-        rm: Lingias da construcziun per implants d'eroports
-        en: Building lines of the airport installations
       language: de
       federal: true
       standard: true
@@ -706,11 +758,11 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr108
-      code: AirportsSecurityZonePlans
+    - code: AirportsSecurityZonePlans
       geometry_type: MULTIPOLYGON
       thresholds:
         length:
@@ -723,12 +775,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Sicherheitszonenplan
-        fr: Plan de la zone de sécurité
-        it: Piano delle zone di sicurezza
-        rm: Plan da zonas da segirezza
-        en: Safety zone plan
       language: de
       federal: true
       standard: true
@@ -747,12 +793,12 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
       download: https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip
 
-    - name: plr116
-      code: ContaminatedSites
+    - code: ContaminatedSites
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -765,12 +811,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Kataster der belasteten Standorte
-        fr: Cadastre des sites pollués
-        it: Catasto dei siti inquinati
-        rm: Cataster dals lieus contaminads
-        en: Register of polluted sites
       language: de
       federal: false
       standard: true
@@ -789,11 +829,11 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr117
-      code: ContaminatedMilitarySites
+    - code: ContaminatedMilitarySites
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -806,12 +846,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Kataster der belasteten Standorte im Bereich des Militärs
-        fr: Cadastre des sites pollués - domaine militaire
-        it: Catasto dei siti inquinati nel settore militare
-        rm: Cataster dals lieus contaminads en il sectur da l'armada
-        en: Register of polluted sites in the area of army
       language: de
       federal: true
       standard: true
@@ -830,11 +864,11 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr118
-      code: ContaminatedCivilAviationSites
+    - code: ContaminatedCivilAviationSites
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -847,12 +881,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Kataster der belasteten Standorte im Bereich der zivilen Flugplätze
-        fr: Cadastre des sites pollués - domaine des aérodromes civils
-        it: Catasto dei siti inquinati nel settore degli aeroporti civili
-        rm: Cataster dals lieus contaminads en il sectur da las plazzas aviaticas civilas
-        en: Cadastre of polluted sites on civil aerodromes
       language: de
       federal: true
       standard: true
@@ -871,11 +899,11 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr119
-      code: ContaminatedPublicTransportSites
+    - code: ContaminatedPublicTransportSites
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -888,12 +916,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs
-        fr: Cadastre des sites pollués - domaine des transports publics
-        it: Catasto dei siti inquinati nel settore dei trasporti pubblici
-        rm: Cataster dals lieus contaminads en il sectur dal traffic public
-        en: Register of polluted sites in the area of public transport
       language: de
       federal: true
       standard: true
@@ -912,21 +934,11 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
-      # Example of how sub_themes sorting can be activated (uncomment to enable):
-      #sub_themes:
-      #  sorter:
-      #    module: pyramid_oereb.contrib.print_proxy.sub_themes.sorting
-      #    class_name: ListSort
-      #    params:
-      #      list:
-      #        - SubTheme3
-      #        - SubTheme2
-      #        - SubTheme1
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr131
-      code: GroundwaterProtectionZones
+    - code: GroundwaterProtectionZones
       geometry_type: POLYGON
       thresholds:
         length:
@@ -939,12 +951,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Grundwasserschutzzonen
-        fr: Zones de protection des eaux souterraines
-        it: Zone di protezione delle acque sotterranee
-        rm: Zona da protecziun da l'aua sutterrana
-        en: Groundwater protection zone
       language: de
       federal: false
       standard: true
@@ -963,11 +969,11 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr132
-      code: GroundwaterProtectionSites
+    - code: GroundwaterProtectionSites
       geometry_type: POLYGON
       thresholds:
         length:
@@ -980,12 +986,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Grundwasserschutzareale
-        fr: Périmètres de protection des eaux souterraines
-        it: Aree di protezione delle acque sotterranee
-        rm: Areal da protecziun da l'aua sutterrana
-        en: Groundwater protection areas
       language: de
       federal: false
       standard: true
@@ -1004,11 +1004,11 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr145
-      code: NoiseSensitivityLevels
+    - code: NoiseSensitivityLevels
       geometry_type: POLYGON
       thresholds:
         length:
@@ -1021,12 +1021,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Lärmempfindlichkeitsstufen (in Nutzungszonen)
-        fr: Degré de sensibilité au bruit (dans les zones d'affectation)
-        it: Gradi di sensibilità al rumore (in zone d'utilizzazione)
-        rm: Grad da sensibilitad da canera (en zona d'utilisaziun)
-        en: Noise sensitivity level (in land-use zones)
       language: de
       federal: false
       standard: true
@@ -1045,11 +1039,11 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr157
-      code: ForestPerimeters
+    - code: ForestPerimeters
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -1062,12 +1056,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Statische Waldgrenzen
-        fr: Limites forestières statiques
-        it: Margini statici della foresta
-        rm: Cunfin static dal guaud
-        en: Static forest perimeter
       language: de
       federal: false
       standard: true
@@ -1089,11 +1077,11 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - name: plr159
-      code: ForestDistanceLines
+    - code: ForestDistanceLines
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -1106,12 +1094,6 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
-      text:
-        de: Waldabstandslinien
-        fr: Distances par rapport à la forêt
-        it: Linee di distanza dalle foreste
-        rm: Lingias da distanza dal guaud
-        en: Forest distance lines
       language: de
       federal: false
       standard: true
@@ -1130,5 +1112,6 @@ pyramid_oereb:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status:
-        in_force: inForce
-        running_modifications: runningModifications
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung

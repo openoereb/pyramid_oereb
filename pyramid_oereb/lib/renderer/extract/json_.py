@@ -8,11 +8,9 @@ from pyramid.response import Response
 from pyramid.testing import DummyRequest
 
 from pyramid_oereb import Config, route_prefix
-from pyramid_oereb.lib.records.documents import DocumentRecord, LegalProvisionRecord,\
-    ArticleRecord, LawRecord, HintRecord
+from pyramid_oereb.lib import get_multilingual_element
+from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.sources.plr import PlrRecord
-from pyramid_oereb.lib.url import url_to_base64
-from shapely.geometry import mapping
 
 from pyramid_oereb.lib.renderer import Base
 from pyramid_oereb.views.webservice import Parameter
@@ -56,9 +54,8 @@ class Renderer(Base):
                 u'extract': extract_dict
             }
         }
-        if self._params.flavour == 'embeddable':
-            result[u'GetExtractByIdResponse'][u'embeddable'] = self.format_embeddable(value[0].embeddable)
         log.debug("__call__() done.")
+        log.debug(result)
         return dumps(result)
 
     def _render(self, extract, param):
@@ -89,7 +86,6 @@ class Renderer(Base):
 
         extract_dict = {
             'CreationDate': self.date_time(extract.creation_date),
-            'isReduced': self._params.flavour in ['reduced', 'embeddable'],
             'ExtractIdentifier': extract.extract_identifier,
             'BaseData': self.get_multilingual_text(extract.base_data),
             'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority),
@@ -101,10 +97,22 @@ class Renderer(Base):
 
         if self._params.images:
             extract_dict.update({
-                'LogoPLRCadastre': extract.logo_plr_cadastre.encode(),
-                'FederalLogo': extract.federal_logo.encode(),
-                'CantonalLogo': extract.cantonal_logo.encode(),
-                'MunicipalityLogo': extract.municipality_logo.encode()
+                'LogoPLRCadastre': get_multilingual_element(
+                        extract.logo_plr_cadastre.image_dict,
+                        self._language
+                    ).encode(),
+                'FederalLogo': get_multilingual_element(
+                        extract.federal_logo.image_dict,
+                        self._language
+                    ).encode(),
+                'CantonalLogo': get_multilingual_element(
+                        extract.cantonal_logo.image_dict,
+                        self._language
+                    ).encode(),
+                'MunicipalityLogo': get_multilingual_element(
+                        extract.municipality_logo.image_dict,
+                        self._language
+                    ).encode()
             })
         else:
             extract_dict.update({
@@ -112,25 +120,38 @@ class Renderer(Base):
                     '{0}/image/logo'.format(route_prefix),
                     logo='oereb',
                     language=self._language,
-                    extension=extract.logo_plr_cadastre.extension
+                    extension=get_multilingual_element(
+                            extract.logo_plr_cadastre.image_dict,
+                            self._language
+                        ).extension
                 ),
                 'FederalLogoRef': self._request.route_url(
                     '{0}/image/logo'.format(route_prefix),
                     logo='confederation',
                     language=self._language,
-                    extension=extract.federal_logo.extension
+                    extension=get_multilingual_element(
+                            extract.federal_logo.image_dict,
+                            self._language
+                        ).extension
                 ),
                 'CantonalLogoRef': self._request.route_url(
                     '{0}/image/logo'.format(route_prefix),
                     logo='canton',
                     language=self._language,
-                    extension=extract.cantonal_logo.extension
+                    extension=get_multilingual_element(
+                            extract.cantonal_logo.image_dict,
+                            self._language
+                        ).extension
                 ),
                 'MunicipalityLogoRef': self._request.route_url(
-                    '{0}/image/municipality'.format(route_prefix),
-                    fosnr=extract.real_estate.fosnr,
-                    extension=extract.municipality_logo.extension
-                )
+                    '{0}/image/logo'.format(route_prefix),
+                    logo='municipality',
+                    language=self._language,
+                    extension=get_multilingual_element(
+                            extract.municipality_logo.image_dict,
+                            self._language
+                        ).extension
+                ) + '?fosnr={}'.format(extract.real_estate.fosnr)
             })
 
         if extract.certification:
@@ -147,8 +168,15 @@ class Renderer(Base):
             extract_dict['ElectronicSignature'] = extract.electronic_signature
         if extract.qr_code is not None:
             extract_dict['QRCode'] = extract.qr_code
-        if extract.general_information is not None:
-            extract_dict['GeneralInformation'] = self.get_multilingual_text(extract.general_information)
+
+        if isinstance(extract.general_information, list) and len(extract.general_information) > 0:
+            general_information = list()
+            for info in extract.general_information:
+                general_information.append({
+                    'Title': self.get_multilingual_text(info.title),
+                    'Content': self.get_multilingual_text(info.content)
+                })
+            extract_dict['GeneralInformation'] = general_information
 
         if isinstance(extract.exclusions_of_liability, list) and len(extract.exclusions_of_liability) > 0:
             exclusions_of_liability = list()
@@ -162,12 +190,12 @@ class Renderer(Base):
         if isinstance(extract.glossaries, list) and len(extract.glossaries) > 0:
             glossaries = list()
             for gls in extract.glossaries:
-                gls_title = self.get_multilingual_text(gls.title)
+                gls_title = self.get_multilingual_text(gls.title, False)
                 gls_title_text = gls_title[0]['Text']
                 if gls_title_text is not None:
                     glossaries.append({
                         'Title': gls_title,
-                        'Content': self.get_multilingual_text(gls.content)
+                        'Content': self.get_multilingual_text(gls.content, False)
                     })
                 else:
                     log.warning("glossary entry in requested language missing for title {}".format(gls.title))
@@ -194,8 +222,12 @@ class Renderer(Base):
 
         assert isinstance(self._params, Parameter)
 
+        real_estate_type = Config.get_real_estate_type_by_code(real_estate.type)
         real_estate_dict = {
-            'Type': real_estate.type,
+            'Type': {
+                'Code': real_estate.type,
+                'Text': self.get_multilingual_text(real_estate_type.text)
+            },
             'Canton': real_estate.canton,
             'Municipality': real_estate.municipality,
             'FosNr': real_estate.fosnr,
@@ -230,10 +262,6 @@ class Renderer(Base):
                 reference_list.append(self.format_document(reference))
             real_estate_dict['Reference'] = reference_list
 
-        if self._params.flavour == 'full':
-            if Config.get('full_extract_use_sld', True):
-                real_estate_dict['Highlight'] = self.format_map(real_estate.highlight)
-
         return real_estate_dict
 
     def format_plr(self, plrs):
@@ -255,16 +283,13 @@ class Renderer(Base):
         for plr in plrs:
 
             if isinstance(plr, PlrRecord):
-
-                # PLR without legal provision is allowed in reduced extract only!
-                if self._params.flavour != 'reduced' and isinstance(plr.documents, list) and \
-                        len(plr.documents) == 0:
-                    raise ValueError('Restrictions on landownership without legal provision are only allowed '
-                                     'in reduced extracts!')
                 plr_dict = {
-                    'Information': self.get_multilingual_text(plr.information),
+                    'LegendText': self.get_multilingual_text(plr.legend_text),
                     'Theme': self.format_theme(plr.theme),
-                    'Lawstatus': self.format_law_status(plr.law_status),
+                    'Lawstatus': {
+                        'Code': plr.law_status.code,
+                        'Text': self.get_multilingual_text(plr.law_status.text)
+                    },
                     'ResponsibleOffice': self.format_office(plr.responsible_office),
                     'Map': self.format_map(plr.view_service)
                 }
@@ -312,92 +337,59 @@ class Renderer(Base):
 
         return plr_list
 
-    def format_law_status(self, law_status):
-        """
-        Args:
-            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status to format into
-                a dictionary.
-        Returns:
-            dict: The transformed law status.
-        """
-        return {
-            'Code': law_status.code,
-            'Text': self.get_localized_text(law_status.text)
-        }
-
     def format_document(self, document):
         """
         Formats a document record for rendering according to the federal specification.
-        If the render is requested with a *full* flavour, it will render the *textAtWeb*
-        into a *Base64TextAtWeb* field (for LegalProvisionRecord documents).
 
         Args:
-            document (pyramid_oereb.lib.records.documents.DocumentBaseRecord): The document
+            document (pyramid_oereb.lib.records.documents.DocumentRecord): The document
                 record to be formatted.
 
         Returns:
             dict: The formatted dictionary for rendering.
         """
 
+        if not isinstance(document, DocumentRecord):
+            raise TypeError('DocumentRecord needed, got {0} instead'.format(document))
+
         document_dict = dict()
 
-        if isinstance(document, DocumentRecord) or isinstance(document, LegalProvisionRecord) \
-                or isinstance(document, LawRecord) or isinstance(document, HintRecord):
+        multilingual_text_at_web = self.get_multilingual_text(document.text_at_web)
 
-            multilingual_text_at_web = self.get_multilingual_text(document.text_at_web)
+        document_type = Config.get_document_type_by_code(document.document_type)
 
-            document_dict.update({
-                'DocumentType': document.document_type,
-                'Lawstatus': self.format_law_status(document.law_status),
-                'TextAtWeb': multilingual_text_at_web,
-                'Title': self.get_multilingual_text(document.title),
-                'ResponsibleOffice': self.format_office(document.responsible_office)
-            })
-            if self._params.flavour == 'full' and isinstance(document, LegalProvisionRecord):
-                base64_text_at_web = url_to_base64(multilingual_text_at_web[0].get('Text'))
-                if base64_text_at_web is not None:
-                    document_dict['Base64TextAtWeb'] = base64_text_at_web
+        document_dict.update({
+            'DocumentType': {
+                'Code': document_type.code,
+                'Text': self.get_multilingual_text(document_type.text)
+            },
+            'Index': document.index,
+            'Title': self.get_multilingual_text(document.title),
+            'Lawstatus': {
+                'Code': document.law_status.code,
+                'Text': self.get_multilingual_text(document.law_status.text)
+            },
+            'TextAtWeb': multilingual_text_at_web,
+            'ResponsibleOffice': self.format_office(document.responsible_office)
+        })
 
-            if document.official_title is not None:
-                document_dict['OfficialTitle'] = self.get_multilingual_text(document.official_title)
-            if document.abbreviation is not None:
-                document_dict['Abbreviation'] = self.get_multilingual_text(document.abbreviation)
-            if document.official_number is not None:
-                document_dict['OfficialNumber'] = document.official_number
-            if document.canton is not None:
-                document_dict['Canton'] = document.canton
-            if document.municipality is not None:
-                document_dict['Municipality'] = document.municipality
+        if document.abbreviation is not None:
+            document_dict['Abbreviation'] = self.get_multilingual_text(document.abbreviation)
+        if document.official_number is not None:
+            document_dict['OfficialNumber'] = self.get_multilingual_text(document.official_number)
 
-            if isinstance(document.article_numbers, list) and len(document.article_numbers) > 0:
-                document_dict['ArticleNumber'] = document.article_numbers
+        if isinstance(document.article_numbers, list) and len(document.article_numbers) > 0:
+            document_dict['ArticleNumber'] = document.article_numbers
 
-            if isinstance(document.articles, list) and len(document.articles) > 0:
-                article_list = list()
-                for article in document.articles:
-                    article_list.append(self.format_document(article))
-                document_dict['Article'] = article_list
+        # TODO: Should be deleted as there are no flavours anymore.
+        # if self._params.flavour == 'full' and isinstance(document, LegalProvisionRecord):
+        #     base64_text_at_web = url_to_base64(multilingual_text_at_web[0].get('Text'))
+        #     if base64_text_at_web is not None:
+        #         document_dict['Base64TextAtWeb'] = base64_text_at_web
 
-            if isinstance(document.references, list) and len(document.references) > 0:
-                reference_list = list()
-                for reference in document.references:
-                    reference_list.append(self.format_document(reference))
-                document_dict['Reference'] = reference_list
-
-            # Note: No output for File (binary) because speccifications are
-            # currently unclear on this point. See Issue:
-            # https://github.com/openoereb/pyramid_oereb/issues/611
-
-        elif isinstance(document, ArticleRecord):
-            document_dict.update({
-                'Lawstatus': self.format_law_status(document.law_status),
-                'Number': document.number
-            })
-
-            if document.text_at_web is not None:
-                document_dict['TextAtWeb'] = self.get_multilingual_text(document.text_at_web)
-            if document.text is not None:
-                document_dict['Text'] = self.get_multilingual_text(document.text)
+        # Note: No output for File (binary) because speccifications are
+        # currently unclear on this point. See Issue:
+        # https://github.com/openoereb/pyramid_oereb/issues/611
 
         return document_dict
 
@@ -426,7 +418,10 @@ class Renderer(Base):
 
         geometry_dict = {
             geometry_type: self.from_shapely(geometry.geom),
-            'Lawstatus': self.format_law_status(geometry.law_status),
+            'Lawstatus': {
+                'Code': geometry.law_status.code,
+                'Text': self.get_multilingual_text(geometry.law_status.text)
+            },
             'ResponsibleOffice': self.format_office(geometry.office)
         }
 
@@ -480,7 +475,7 @@ class Renderer(Base):
         """
         theme_dict = {
             'Code': theme.code,
-            'Text': self.get_localized_text(theme.text)
+            'Text': self.get_localized_text(theme.title)
         }
         return theme_dict
 
@@ -496,15 +491,10 @@ class Renderer(Base):
             dict: The formatted dictionary for rendering.
         """
         map_dict = dict()
-        if map_.image is not None:
-            map_dict['Image'] = map_.image.encode()
-        if map_.reference_wms is not None:
-            map_dict['ReferenceWMS'] = map_.reference_wms
-        if map_.legend_at_web is not None:
-            if self._language in map_.legend_at_web:
-                map_dict['LegendAtWeb'] = map_.legend_at_web[self._language]
-            else:
-                log.warning("map_.legend_at_web has no element {}".format(self._language))
+        if map_.image:
+            map_dict['Image'] = self.get_localized_image(map_.image)
+        if map_.reference_wms:
+            map_dict['ReferenceWMS'] = self.get_multilingual_text(map_.reference_wms)
         if isinstance(map_.legends, list) and len(map_.legends) > 0:
             other_legend = self.sort_by_localized_text(
                 map_.legends,
@@ -516,10 +506,6 @@ class Renderer(Base):
 
         map_dict['layerIndex'] = map_.layer_index
         map_dict['layerOpacity'] = map_.layer_opacity
-        if map_.min_NS03 is not None:
-            map_dict['min_NS03'] = self.format_point(map_.min_NS03, 'EPSG:21781')
-        if map_.max_NS03 is not None:
-            map_dict['max_NS03'] = self.format_point(map_.max_NS03, 'EPSG:21781')
         if map_.min_NS95 is not None:
             map_dict['min_NS95'] = self.format_point(map_.min_NS95, 'EPSG:2056')
         if map_.max_NS95 is not None:
@@ -557,59 +543,6 @@ class Renderer(Base):
         if legend_entry.sub_theme is not None:
             legend_entry_dict['SubTheme'] = self.get_localized_text(legend_entry.sub_theme).get('Text')
         return legend_entry_dict
-
-    @staticmethod
-    def from_shapely(geom):
-        """
-        Formats shapely geometry for rendering according to the federal specification.
-
-        Args:
-            geom (shapely.geometry.base.BaseGeometry): The geometry object to be formatted.
-
-        Returns:
-            dict: The formatted geometry.
-        """
-        geom_dict = {
-            'coordinates': mapping(geom)['coordinates'],
-            'crs': 'EPSG:{srid}'.format(srid=Config.get('srid'))
-            # isosqlmmwkb only used for curved geometries (not supported by shapely)
-            # 'isosqlmmwkb': b64.encode(geom.wkb)
-        }
-        return geom_dict
-
-    def format_embeddable(self, embeddable):
-        """
-        Formats a embeddable record for rendering according to the specification.
-
-        Args:
-            embeddable (pyramid_oereb.lib.records.embeddable.EmbeddableRecord): The record to be formatted.
-
-        Returns:
-            dict: The formatted record for rendering.
-        """
-
-        datasources = []
-        for source in embeddable.datasources:
-            datasources.append({
-                'topic': self.format_theme(source.theme),
-                'dataownerName': self.get_localized_text(source.owner.name).get('Text'),
-                'transferFromSource': source.date.strftime('%d-%m-%YT%H:%M:%S')
-            })
-
-        embeddable_dict = {
-            'cadasterState': embeddable.cadaster_state.strftime('%d-%m-%YT%H:%M:%S'),
-            'cadasterOrganisationName': self.get_localized_text(
-                embeddable.cadaster_organisation.name
-            ).get('Text'),
-            'dataOwnerNameCadastralSurveying': self.get_localized_text(
-                embeddable.data_owner_cadastral_surveying.name
-            ).get('Text'),
-            'transferFromSourceCadastralSurveying':
-                embeddable.transfer_from_source_cadastral_surveying.strftime('%d-%m-%YT%H:%M:%S'),
-            'datasource': datasources
-        }
-
-        return embeddable_dict
 
     @staticmethod
     def format_point(point, crs):

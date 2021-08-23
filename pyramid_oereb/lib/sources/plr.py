@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from pyramid_oereb.lib.records.documents import DocumentRecord, ArticleRecord
+from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.embeddable import DatasourceRecord
 from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
@@ -26,7 +26,6 @@ class PlrBaseSource(Base):
             records used for the additional data in flavour `embeddable`.
     """
     _documents_record_class = DocumentRecord
-    _article_record_class = ArticleRecord
     _exclusion_of_liability_record_class = ExclusionOfLiabilityRecord
     _geometry_record_class = GeometryRecord
     _glossary_record_class = GlossaryRecord
@@ -55,8 +54,9 @@ class PlrBaseSource(Base):
             source (dict): The configuration dictionary of the public law restriction
             hooks (dict of str): The hook methods: get_symbol, get_symbol_ref. They have to be provided as
                 dotted string for further use with dotted name resolver of pyramid package.
-            law_status (dict of str): The multiple match configuration to provide more flexible use of the
-                federal specified classifiers 'inForce' and 'runningModifications'.
+            law_status (dict of str): The configuration dictionary of the law status. It consists of
+                the code and text which must be a dictionary containing language (as configured)
+                as key and text as value.
         """
         self._plr_info = kwargs
 

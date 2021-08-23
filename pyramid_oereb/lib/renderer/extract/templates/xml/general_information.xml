@@ -1,0 +1,9 @@
+<%page args="general_information"/>
+<data:GeneralInformation>
+    <data:Title>
+        <%include file="multilingual_text.xml" args="text=general_information.title, not_null=True"/>
+    </data:Title>
+    <data:Content>
+        <%include file="multilingual_text.xml" args="text=general_information.content, not_null=True"/>
+    </data:Content>
+</data:GeneralInformation>

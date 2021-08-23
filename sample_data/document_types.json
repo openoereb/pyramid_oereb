@@ -1,0 +1,32 @@
+[
+    {
+        "code": "GesetzlicheGrundlage",
+        "text": {
+            "de": "Gesetzliche Grundlage",
+            "fr": "Base légale",
+            "it": "Base legale",
+            "rm": "Basa legala",
+            "en": "Legal basis"
+        }
+    },
+    {
+        "code": "Rechtsvorschrift",
+        "text": {
+            "de": "Rechtsvorschrift",
+            "fr": "Disposition juridique",
+            "it": "Prescrizione legale",
+            "rm": "Prescripziun giuridica",
+            "en": "Legal provision"
+        }
+    },
+    {
+        "code": "Hinweis",
+        "text": {
+            "de": "Hinweis",
+            "fr": "Renvoi",
+            "it": "Indicazione",
+            "rm": "Indicaziun",
+            "en": "Reference"
+        }
+    }
+]

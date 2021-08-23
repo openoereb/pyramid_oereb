@@ -6,10 +6,15 @@ import datetime
 import yaml
 from io import open as ioopen
 from pyramid.config import ConfigurationError
-from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.office import OfficeRecord
-from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.records.theme import ThemeRecord
+from pyramid_oereb.lib.readers.theme import ThemeReader
+from pyramid_oereb.lib.records.logo import LogoRecord
+from pyramid_oereb.lib.readers.logo import LogoReader
+from pyramid_oereb.lib.readers.law_status import LawStatusReader
+from pyramid_oereb.lib.readers.real_estate_type import RealEstateTypeReader
+from pyramid_oereb.lib.readers.document_types import DocumentTypeReader
+from pyramid_oereb.lib.readers.general_information import GeneralInformationReader
+from sqlalchemy.exc import ProgrammingError
 
 log = logging.getLogger(__name__)
 
@@ -22,6 +27,12 @@ class Config(object):
     """
 
     _config = None
+    themes = None
+    logos = None
+    document_types = None
+    general_information = None
+    law_status = None
+    real_estate_types = None
 
     @staticmethod
     def init(configfile, configsection, c2ctemplate_style=False):
@@ -35,6 +46,12 @@ class Config(object):
         assert Config._config is None
 
         Config._config = _parse(configfile, configsection, c2ctemplate_style)
+        Config.init_themes()
+        Config.init_logos()
+        Config.init_document_types()
+        Config.init_general_information()
+        Config.init_law_status()
+        Config.init_real_estate_types()
 
     @staticmethod
     def get_config():
@@ -51,6 +68,86 @@ class Config(object):
         settings.update(Config._config)
 
     @staticmethod
+    def init_themes():
+        try:
+            Config.themes = Config._read_themes()
+        # When initializing the database (create_tables), the table 'theme' does not exist yet
+        except ProgrammingError:
+            Config.themes = None
+
+    @staticmethod
+    def init_general_information():
+        try:
+            Config.general_information = Config._read_general_information()
+        except ProgrammingError:
+            Config.general_information = None
+
+    @staticmethod
+    def init_law_status():
+        try:
+            Config.law_status = Config._read_law_status()
+        except ProgrammingError:
+            Config.law_status = None
+
+    @staticmethod
+    def _read_themes():
+        theme_config = Config.get_theme_config()
+        if theme_config is None:
+            raise ConfigurationError("Missing configuration for themes")
+        theme_reader = ThemeReader(
+            theme_config.get('source').get('class'),
+            **Config.get_theme_config().get('source').get('params')
+        )
+        return theme_reader.read()
+
+    @staticmethod
+    def _read_general_information():
+        info_config = Config.get_info_config()
+        if info_config is None:
+            raise ConfigurationError("Missing configuration for general information")
+        info_reader = GeneralInformationReader(
+            info_config.get('source').get('class'),
+            **Config.get_info_config().get('source').get('params')
+        )
+        return info_reader.read()
+
+    @staticmethod
+    def _read_law_status():
+        law_status_config = Config.get_law_status_config()
+        if law_status_config is None:
+            raise ConfigurationError("Missing configuration for law status source config")
+        law_status_reader = LawStatusReader(
+            law_status_config.get('source').get('class'),
+            **law_status_config.get('source').get('params')
+        )
+        return law_status_reader.read()
+
+    @staticmethod
+    def get_general_information():
+        """
+        Returns the general information.
+
+        Returns:
+            list of pyramid_oereb.lib.records.theme.GeneralInformationRecord: The available general
+            information entries.
+        """
+        assert Config._config is not None
+        if len(Config.general_information) < 1:
+            raise ConfigurationError("At least one general information entry is required")
+        return Config.general_information
+
+    @staticmethod
+    def get_law_status_codes():
+        """
+        Returns a list of available law status codes.
+
+        Returns:
+            list of unicode: The available law status codes.
+        """
+        assert Config._config is not None
+        return [law_status.code for law_status in Config.law_status]
+
+    @staticmethod
     def get_themes():
         """
         Returns a list of available themes.
@@ -59,20 +156,10 @@ class Config(object):
             list of pyramid_oereb.lib.records.theme.ThemeRecord: The available themes.
         """
         assert Config._config is not None
-
-        result = []
-        plrs = Config._config.get('plrs')
-        if plrs and isinstance(plrs, list):
-            for position, theme in enumerate(plrs, start=1):
-                result.append(ThemeRecord(
-                    theme.get('code'),
-                    theme.get('text'),
-                    position
-                ))
-        return result
+        return Config.themes
 
     @staticmethod
-    def get_theme(code):
+    def get_theme_by_code(code):
         """
         Returns the theme with the specified code.
 
@@ -83,18 +170,200 @@ class Config(object):
             pyramid_oereb.lib.records.theme.ThemeRecord or None: The theme with the specified
             code.
         """
-        assert Config._config is not None
+        if Config.themes is None:
+            raise ConfigurationError("Themes have not been initialized")
+        for theme in Config.themes:
+            if theme.code == code:
+                return theme
+        raise ConfigurationError(f"Theme {code} not found in the application configuration")
 
-        plrs = Config._config.get('plrs')
-        if plrs and isinstance(plrs, list):
-            for position, theme in enumerate(plrs, start=1):
-                if theme.get('code') == code:
-                    return ThemeRecord(
-                        theme.get('code'),
-                        theme.get('text'),
-                        position
-                    )
-        return None
+    @staticmethod
+    def init_logos():
+        try:
+            Config.logos = Config._read_logos()
+        # When initializing the database (create_tables), the table 'logo' does not exist yet
+        except ProgrammingError:
+            Config.logos = None
+
+    @staticmethod
+    def _read_logos():
+        logo_config = Config.get_logo_config()
+        if logo_config is None:
+            raise ConfigurationError("Missing configuration for logos")
+        logo_reader = LogoReader(
+            logo_config.get('source').get('class'),
+            **Config.get_logo_config().get('source').get('params')
+        )
+        return logo_reader.read()
+
+    @staticmethod
+    def get_logos():
+        """
+        Returns all the logos and municipalities arms of coats.
+
+        Returns:
+            list of pyramid_oereb.lib.records.logo.LogoRecord: All the logo entries needed to
+            generate an plr data-extract (plr-logo, confederation, canton, municipality).
+        """
+        assert Config._config is not None
+        if len(Config.logos) < 1:
+            raise ConfigurationError("At least one entry for the plr-logo is required")
+        return Config.logos
+
+    @staticmethod
+    def get_logo_by_code(code):
+        """
+        Returns the image for a logo called by its code.
+        Args:
+            code (str): The identifier for the logo.
+        Returns:
+            pyramid_oereb.lib.records.logo.LogoRecord or None: The logo image
+            for the specified code.
+        """
+        if Config.logos is None:
+            raise ConfigurationError("The logo images have not been initialized")
+        for logo in Config.logos:
+            if isinstance(logo, LogoRecord):
+                if logo.code == code:
+                    return logo
+            else:
+                raise ConfigurationError("The logo has not the expected format")
+        raise ConfigurationError(f"Logo for code: {code} not found in the application configuration")
+
+    @staticmethod
+    def get_conferderation_logo():
+        return Config.get_logo_by_code(Config.get_logo_lookup_confederation())
+
+    @staticmethod
+    def get_canton_logo():
+        return Config.get_logo_by_code(Config.get_logo_lookup_canton())
+
+    @staticmethod
+    def get_municipality_logo(fosnr):
+        return Config.get_logo_by_code('{}.{}'.format(
+            Config.get_logo_lookup_confederation(),
+            str(fosnr))
+        )
+
+    @staticmethod
+    def get_oereb_logo():
+        return Config.get_logo_by_code(Config.get_logo_lookup_oereb())
+
+    @staticmethod
+    def get_logo_lookups():
+        logo_lookups = Config.get('logo_lookups')
+        if logo_lookups:
+            return logo_lookups
+        else:
+            raise ConfigurationError('Configuration for "logo_lookups" not found.')
+
+    @staticmethod
+    def get_logo_lookup(key):
+        code = Config.get_logo_lookups()[key]
+        if code:
+            return code
+        else:
+            raise ConfigurationError('Configuration for lookup "{}" not found.'.format(key))
+
+    @staticmethod
+    def get_logo_lookup_oereb():
+        return Config.get_logo_lookup('oereb')
+
+    @staticmethod
+    def get_logo_lookup_canton():
+        return Config.get_logo_lookup('canton')
+
+    @staticmethod
+    def get_logo_lookup_confederation():
+        return Config.get_logo_lookup('confederation')
+
+    @staticmethod
+    def init_document_types():
+        try:
+            Config.document_types = Config._read_document_types()
+        # When initializing the database (create_tables), the table 'document_types' does not exist yet
+        except ProgrammingError:
+            Config.document_types = None
+
+    @staticmethod
+    def _read_document_types():
+        document_types_config = Config.get_document_types_config()
+        if document_types_config is None:
+            raise ConfigurationError("Missing configuration for document types")
+        document_types_reader = DocumentTypeReader(
+            document_types_config.get('source').get('class'),
+            **Config.get_document_types_config().get('source').get('params')
+        )
+        return document_types_reader.read()
+
+    @staticmethod
+    def get_document_types():
+        """
+        Returns a list of available document_types.
+
+        Returns:
+            list of pyramid_oereb.lib.records.document_types.DocumentTypeRecord: The available
+            document types.
+        """
+        assert Config._config is not None
+        return Config.document_types
+
+    @staticmethod
+    def init_real_estate_types():
+        try:
+            Config.real_estate_types = Config._read_real_estate_types()
+        # When initializing the database (create_tables), the table 'real_estate_type' does not exist yet
+        except ProgrammingError:
+            Config.real_estate_types = None
+
+    @staticmethod
+    def _read_real_estate_types():
+        real_estate_types_config = Config.get('real_estate_type')
+        if real_estate_types_config is None:
+            raise ConfigurationError("Missing configuration for real estate type source config")
+        real_estate_type_reader = RealEstateTypeReader(
+            real_estate_types_config.get('source').get('class'),
+            **real_estate_types_config.get('source').get('params'))
+
+        return real_estate_type_reader.read()
+
+    @staticmethod
+    def get_real_estate_types():
+        """
+        Returns a list of available real_estate_types.
+
+        Returns:
+            list of pyramid_oereb.lib.records.real_estate_type.RealEstateTypeRecord: The available
+            real estate types.
+        """
+        assert Config._config is not None
+        return Config.real_estate_types
+
+    @staticmethod
+    def get_document_types_lookup():
+        lookups = Config.get('document_types_lookup')
+        if lookups is None:
+            raise ConfigurationError('"document_types_lookup" must be defined in configuration!')
+        return lookups
+
+    @staticmethod
+    def get_document_type_by_code(code):
+        """
+        Returns the label for the document type by code.
+        Args:
+            code (str): The document type code.
+        Returns:
+            pyramid_oereb.lib.records.document_types.DocumentTypeRecord or None: The document
+            type for the specified code.
+        """
+        if Config.document_types is None:
+            raise ConfigurationError("The document types have not been initialized")
+        document_type_lookup = Config.get('document_types_lookup')[code]
+
+        for document_type in Config.document_types:
+            if document_type.code == document_type_lookup:
+                return document_type
+        raise ConfigurationError(f"Document type {code} not found in the application configuration")
 
     @staticmethod
     def get_theme_thresholds(code):
@@ -113,15 +382,6 @@ class Config(object):
             for theme in plrs:
                 if theme.get('code') == code:
                     return theme.get('plr_thresholds')
-        return None
-
-    @staticmethod
-    def get_theme_config(code):
-        plrs = Config._config.get('plrs')
-        if plrs and isinstance(plrs, list):
-            for theme in plrs:
-                if theme.get('code') == code:
-                    return theme
         return None
 
     @staticmethod
@@ -236,6 +496,30 @@ class Config(object):
         return Config._config.get('address')
 
     @staticmethod
+    def get_theme_config():
+        """
+        Returns a dictionary of the configured theme settings.
+
+        Returns:
+            dict: The configured theme settings.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('theme')
+
+    @staticmethod
+    def get_document_types_config():
+        """
+        Returns a dictionary of the configured document type values settings.
+
+        Returns:
+            dict: The configured document types settings.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('document_types')
+
+    @staticmethod
     def get_glossary_config():
         """
         Returns a dictionary of the configured glossary settings.
@@ -244,7 +528,6 @@ class Config(object):
             dict: The configured glossary settings.
         """
         assert Config._config is not None
-
         return Config._config.get('glossary')
 
     @staticmethod
@@ -258,6 +541,41 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get('exclusion_of_liability')
+
+    @staticmethod
+    def get_info_config():
+        """
+        Returns a dictionary of the configured general settings.
+
+        Returns:
+            dict: The configured general information settings.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('general_information')
+
+    @staticmethod
+    def get_logo_config():
+        """
+        Returns a dictionary of the configured file path's to the logos.
+
+        Returns:
+            dict: The configured paths to the logos wrapped in a dictionary.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('logos')
+
+    def get_law_status_config():
+        """
+        Returns a dictionary of the configured law status sources.
+
+        Returns:
+            dict: The configured general law status sources.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('law_status_labels')
 
     @staticmethod
     def get_municipality_config():
@@ -306,49 +624,6 @@ class Config(object):
             postal_code=cfg.get('postal_code'),
             city=cfg.get('city')
         )
-
-    @staticmethod
-    def get_logo_config(language=None):
-        """
-        Returns a dictionary of the configured file path's to the logos.
-
-        Returns:
-            dict: The configured paths to the logos wrapped in a dictionary.
-        """
-        assert Config._config is not None
-
-        confederation_key = 'confederation'
-        oereb_key = 'oereb'
-        canton_key = 'canton'
-        msg = 'The definition for "{key}" must be set. Got: {found_config}'
-        logo_dict = Config._config.get('logo')
-
-        if not logo_dict.get(confederation_key):
-            raise ConfigurationError(msg.format(key=confederation_key, found_config=logo_dict))
-        if not logo_dict.get(oereb_key):
-            raise ConfigurationError(msg.format(key=oereb_key, found_config=logo_dict))
-        if not logo_dict.get(canton_key):
-            raise ConfigurationError(msg.format(key=canton_key, found_config=logo_dict))
-
-        file_adapter = FileAdapter()
-
-        confederation_logo = ImageRecord(file_adapter.read(logo_dict.get(confederation_key)))
-        canton_logo = ImageRecord(file_adapter.read(logo_dict.get(canton_key)))
-
-        if isinstance(logo_dict.get(oereb_key), dict):
-            if language is None or language not in logo_dict.get(oereb_key):
-                logo_language = Config.get('default_language')
-            else:
-                logo_language = language
-            oereb_logo = ImageRecord(file_adapter.read(logo_dict.get(oereb_key).get(logo_language)))
-        else:
-            oereb_logo = ImageRecord(file_adapter.read(logo_dict.get(oereb_key)))
-
-        return {
-            confederation_key: confederation_logo,
-            oereb_key: oereb_logo,
-            canton_key: canton_logo
-        }
 
     @staticmethod
     def get_oereblex_config():
@@ -445,65 +720,73 @@ class Config(object):
         return Config._get_object_path(current_path, current_object[k], path[1:], default, required)
 
     @staticmethod
-    def get_law_status(theme_code, law_status_config, law_status_code):
+    def get_law_status_by_code(theme_code, law_status_code):
         """
+         Returns a dictionary of the configured law status settings.
 
         Args:
-            theme_code (str): The theme code.
-            law_status_config (dict): The configured mapping of the plrs law status.
-            law_status_code (str): The law status code read from the data to wrap it into the only two allowed
-                values: "inForce" or "runningModifications" which are possible on the extract.
-
-        Returns:
-            str: The mapped law status. This is "inForce" or "runningModifications".
-
-        Raises:
-            AttributeError: If the passed law status code does not match one of the configured ones.
-        """
-        if law_status_config.get('in_force') == law_status_code:
-            return 'inForce'
-        elif law_status_config.get('running_modifications') == law_status_code:
-            return 'runningModifications'
-        else:
-            raise AttributeError(
-                u'There was no proper configuration for the theme "{theme}" on the law '
-                u'status it has to be configured depending on the data you imported. Law '
-                u'status in your data was: {data_law_status}, the configured options are: '
-                u'{in_force} and {running_modifications}'.format(
-                    theme=theme_code,
-                    data_law_status=law_status_code,
-                    in_force=law_status_config.get('in_force'),
-                    running_modifications=law_status_config.get('running_modifications')
-                )
-            )
-
-    @staticmethod
-    def get_law_status_translations(code):
-        """
-        Obtaining the law status translations from config via the code.
-
-        Args:
-            code (str): The law status code. This must be "inForce" or "runningModifications". Any other
-                value won't match and throw a silent error.
+            theme_code (str): The theme code to look up the configured law status code.
+            law_status_code (str): The law status code. This must be "inKraft" or "AenderungMitVorwirkung"
+            or "AenderungOhneVorwirkung". Any other value won't match and throws a silent error.
 
         Returns:
             dict: The translation from the configuration.
         """
-        translations = Config.get('law_status_translations')
-        if code == 'inForce':
-            return translations.get('in_force')
-        elif code == 'runningModifications':
-            return translations.get('running_modifications')
-        else:
-            log.error(u'No translation for law status found in config for the passed code: {code}'.format(
-                code=code
-            ))
-            return {
-                'de': u'Keine Übersetzung gefunden',
-                'fr': u'Pas de traduction',
-                'it': u'Nessuna traduzione trovato',
-                'rm': u'Nagin translaziun chattà'
-            }
+
+        theme_law_status = Config.get_theme_config_by_code(theme_code).get('law_status')
+        for record in Config.law_status:
+            law_status_code_from_config = theme_law_status.get(record.code)
+            if law_status_code == law_status_code_from_config:
+                return record
+
+        raise AttributeError(
+            u'There was no proper configuration for the theme "{theme}" on the law '
+            u'status it has to be configured depending on the data you imported. Law '
+            u'status in your data was: {data_law_status}, the configured options are: '
+            u'{in_kraft}, {aenderung_mit_vorwirkung} or {aenderung_ohne_vorwirkung}'.format(
+                theme=theme_code,
+                data_law_status=law_status_code,
+                in_kraft="inKraft",
+                aenderung_mit_vorwirkung='AenderungMitVorwirkung',
+                aenderung_ohne_vorwirkung='AenderungOhneVorwirkung'
+            )
+        )
+
+    @staticmethod
+    def get_law_status_by_law_status_code(law_status_code):
+        """
+         Returns a dictionary of the configured law status settings.
+
+        Args:
+            law_status_code (str): The law status code. It must be "inKraft" or
+            "AenderungMitVorwirkung" or "AenderungOhneVorwirkung". Any other value won't match
+            and throws a silent error.
+
+        Returns:
+            dict: The translation from the configuration.
+        """
+        for status in Config.law_status:
+            if status.code == law_status_code:
+                return status
+
+    @staticmethod
+    def get_theme_config_by_code(theme_code):
+        """
+        Obtaining the theme configuration from config.
+
+        Args:
+            theme_code (str): The theme code.
+
+        Returns:
+            dict: theme settings from config.
+        """
+        assert Config._config is not None
+        themes = Config._config.get('plrs')
+        if themes and isinstance(themes, list):
+            for theme in themes:
+                if theme.get('code') == theme_code:
+                    return theme
+        return None
 
     @staticmethod
     def get_layer_config(theme_code):
@@ -537,25 +820,22 @@ class Config(object):
         return None, None
 
     @classmethod
-    def get_real_estate_type_by_mapping(cls, real_estate_type):
+    def get_real_estate_type_by_code(cls, code):
         """
-        Uses the configured mappings of the real estate type to translate it to the correct federal
-        representation.
-
-        Args:
-            real_estate_type (unicode): The type which is used inside the data to distinguish the different
-                kinds of real estates.
+        Returns a dictionary of the configured real estate type settings.
 
         Returns:
-            unicode: The mapped type or the original one if no mapping fits.
-
+            dict: The configured real estate type settings.
         """
-        real_estate_config = cls.get_real_estate_config()
-        type_mapping = real_estate_config.get('type_mapping', [])
-        for mapping in type_mapping:
-            if mapping['type'] == real_estate_type:
-                return mapping['mapping']
-        return real_estate_type
+        real_estate_type_lookup = Config.get('real_estate_type_lookup')[code]
+        for record in Config.real_estate_types:
+            if record.code == real_estate_type_lookup:
+                return record
+
+        raise AttributeError(
+            u'There was no proper configuration for the real estate types.'
+            u'"real_estate_type_lookup" from config could not be matched.'
+        )
 
     @staticmethod
     def get_sub_theme_sorter_config(theme_code):

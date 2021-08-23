@@ -57,6 +57,4 @@ def pyramid_oereb_test_config():
         pyramid_config.include('pyramid_oereb.routes')
         yield pyramid_config
 
-
-# Set up test database and init the Config
 Config._config = None

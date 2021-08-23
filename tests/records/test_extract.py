@@ -5,7 +5,7 @@ from pyramid.path import DottedNameResolver
 
 from pyramid_oereb import Config
 from pyramid_oereb.lib.records.embeddable import EmbeddableRecord, DatasourceRecord
-from pyramid_oereb.lib.records.image import ImageRecord
+from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
@@ -32,10 +32,9 @@ def test_mandatory_fields():
 def create_dummy_extract():
     date = datetime.datetime.now()
     real_estate = RealEstateRecord(u'test', u'BL', u'Laufen', 2770, 1000, MultiPolygon(), ViewServiceRecord(
-        'test_link',
+        {'de': 'test_link'},
         1,
         1.0,
-        {'de': 'test_legend'}
     ))
     plr_office = OfficeRecord({u'en': u'PLR Authority'})
     resolver = DottedNameResolver()
@@ -47,7 +46,7 @@ def create_dummy_extract():
     av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
     av_provider_method = resolver.resolve(av_provider_method_string)
     cadaster_state = date
-    theme = ThemeRecord(u'TEST', {u'de': u'TEST TEXT'})
+    theme = ThemeRecord(u'TEST', {u'de': u'TEST TEXT'}, 100)
     datasources = [DatasourceRecord(theme, date, plr_office)]
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
     embeddable = EmbeddableRecord(
@@ -59,10 +58,14 @@ def create_dummy_extract():
     )
     record = ExtractRecord(
         real_estate,
-        ImageRecord('100'.encode('utf-8')),
-        ImageRecord('100'.encode('utf-8')),
-        ImageRecord('100'.encode('utf-8')),
-        ImageRecord('100'.encode('utf-8')),
+        LogoRecord('ch', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd3EQ \
+            BvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+        LogoRecord('ch.plr', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd3EQ \
+            BvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+        LogoRecord('ne', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd3EQ \
+            BvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+        LogoRecord('ch.1234', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd3EQ \
+            BvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
         plr_office,
         base_data,
         embeddable
@@ -78,10 +81,10 @@ def test_init():
     assert isinstance(record.concerned_theme, list)
     assert isinstance(record.theme_without_data, list)
     assert isinstance(record.creation_date, datetime.date)
-    assert isinstance(record.logo_plr_cadastre, ImageRecord)
-    assert isinstance(record.federal_logo, ImageRecord)
-    assert isinstance(record.cantonal_logo, ImageRecord)
-    assert isinstance(record.municipality_logo, ImageRecord)
+    assert isinstance(record.logo_plr_cadastre, LogoRecord)
+    assert isinstance(record.federal_logo, LogoRecord)
+    assert isinstance(record.cantonal_logo, LogoRecord)
+    assert isinstance(record.municipality_logo, LogoRecord)
     assert isinstance(record.exclusions_of_liability, list)
     assert isinstance(record.glossaries, list)
     assert isinstance(record.plr_cadastre_authority, OfficeRecord)

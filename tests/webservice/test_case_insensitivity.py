@@ -12,11 +12,11 @@ from tests import pyramid_oereb_test_config
     }, {
         'GnsS': '32.1244978460310,-19.917989937473'
     }, {
-        'XY': '32.1244978460310,-19.917989937473'
+        'EN': '32.1244978460310,-19.917989937473'
     }, {
-        'xy': '32.1244978460310,-19.917989937473'
+        'en': '32.1244978460310,-19.917989937473'
     }, {
-        'Xy': '32.1244978460310,-19.917989937473'
+        'En': '32.1244978460310,-19.917989937473'
     }
 ])
 def test_get_egrid_coord(params):
@@ -32,32 +32,56 @@ def test_get_egrid_coord(params):
 
         request.params.update(params)
         webservice = PlrWebservice(request)
-        webservice.get_egrid_coord()
+        webservice.get_egrid()
 
 
 @pytest.mark.parametrize('params', [
     {
-        'WITHIMAGES': None
+        'GEOMETRY': 'true',
+        'EGRID': 'TEST',
+        'WITHIMAGES': 'true',
+        'SIGNED': 'true'
     }, {
-        'withimages': None
+        'geometry': 'true',
+        'egrid': 'TEST',
+        'withimages': 'TRUE',
+        'signed': 'TRUE'
     }, {
-        'WithImages': None
+        'Geometry': 'True',
+        'Egrid': 'TEST',
+        'WithImages': 'True',
+        'Signed': 'True'
     }, {
-        'LANG': 'DE'
+        'geoMETRY': 'TRUE',
+        'egrID': 'TEST',
+        'LANG': 'DE',
+        'sIgNeD': 'tRuE'
     }, {
-        'lang': 'DE'
+        'gEoMeTrY': 'tRuE',
+        'eGrId': 'TEST',
+        'lang': 'De'
     }, {
-        'LanG': 'DE'
+        'GEOMETRY': 'true',
+        'EGRID': 'TEST',
+        'LanG': 'de'
     }, {
+        'GEOMETRY': 'true',
+        'EGRID': 'TEST',
         'TOPICS': 'ContaminatedSites,RailwaysProjectPlanningZones'
     }, {
+        'GEOMETRY': 'true',
+        'EGRID': 'TEST',
         'topics': 'ContaminatedSites,RailwaysProjectPlanningZones'
     }, {
+        'GEOMETRY': 'true',
+        'EGRID': 'TEST',
         'ToPics': 'ContaminatedSites,RailwaysProjectPlanningZones'
     }, {
+        'GEOMETRY': 'true',
+        'EGRID': 'TEST',
         'topics': 'ContaminatedSites,RailwaysProjectPlanningZones',
-        'WITHIMAGES': None,
-        'LanG': 'DE'
+        'WITHIMAGES': 'trUE',
+        'LanG': 'dE'
     }
 ])
 def test_get_extract_by_id(params):
@@ -66,10 +90,7 @@ def test_get_extract_by_id(params):
                                     'pyramid_oereb.lib.renderer.extract.json_.Renderer')
         request = MockRequest()
         request.matchdict.update({
-            'flavour': 'REDUCED',
-            'format': 'JSON',
-            'param1': 'GEOMETRY',
-            'param2': 'TEST'
+            'format': 'JSON'
         })
         request.params.update(params)
         service = PlrWebservice(request)

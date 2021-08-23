@@ -1,0 +1,41 @@
+version: '2.1'
+
+services:
+  oereb-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      PGHOST: ${PGHOST}
+      PGUSER: ${PGUSER}
+      PGPASSWORD: ${PGPASSWORD}
+    volumes:
+      - .:/workspace:cached
+    working_dir: /workspace
+    command: ["make", "clean", "build", "serve-dev"]
+    ports:
+    - 6543:6543
+    networks:
+      - default
+      - print-network
+    depends_on:
+      oereb-db:
+        condition: service_healthy
+
+  oereb-db:
+    image: postgis/postgis
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${PG_DB}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      PGPASSWORD: ${PGPASSWORD}
+    healthcheck:
+      test: /usr/bin/pg_isready -h ${PGHOST} -p 5432 -U ${PGUSER} -d ${PG_DB}
+      interval: 5s
+      timeout: 10s
+      retries: 120
+
+networks:
+  print-network:
+    external: true

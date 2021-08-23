@@ -9,7 +9,7 @@ from pyramid_oereb.lib.url import add_url_params, parse_url
 from pyramid_oereb.lib.url import uri_validator
 from pyramid_oereb.lib.config import Config
 from shapely.geometry.point import Point
-
+from pyramid_oereb.lib import get_multilingual_element
 
 log = logging.getLogger(__name__)
 
@@ -59,38 +59,31 @@ class LegendEntryRecord(object):
 class ViewServiceRecord(object):
     """
     A view service contains a valid WMS URL with a defined set of layers.
-
-    Attributes:
-        image (pyramid_oereb.lib.records.image.ImageRecord or None): Binary image content downloaded from WMS
-            link.
     """
 
-    # Attributes defined while processing
-    image = None    # map image resulting from calling the wms link - binary
-
-    def __init__(self, reference_wms, layer_index, layer_opacity, legend_at_web=None, legends=None):
+    def __init__(self, reference_wms, layer_index, layer_opacity, legends=None):
         """
 
         Args:
-            reference_wms (uri): The link URL to the actual service (WMS)
+            reference_wms (dict): Multilingual dict with URLs to the actual service (WMS)
             layer_index (int): Layer index. Value from -1000 to +1000.
             layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.
-            legend_at_web (dict of str): )A multilingual dictionary of links. Keys are the language, values
-                are links leading to a WMS (get legend) describing document (png).
             legends (list of LegendEntry): A list of all relevant legend entries.
+
+        Attributes:
+        image (dict): multilingual dictionary containing the binary image
+            (pyramid_oereb.lib.records.image.ImageRecord) downloaded from WMS link for the
+            requested (if any) or default language. Empty for an extract without images
         """
         self.reference_wms = reference_wms
-        self.legend_at_web = legend_at_web
+        self.image = dict()  # multilingual dict with binary map images resulting from calling the wms link
 
         self.layer_index = self.sanitize_layer_index(layer_index)
         self.layer_opacity = self.sanitize_layer_opacity(layer_opacity)
 
-        self.min_NS03 = None
-        self.max_NS03 = None
         self.min_NS95 = None
         self.max_NS95 = None
-        self.calculate_ns()
-        self.check_min_max_attributes(self.min_NS03, 'min_NS03', self.max_NS03, 'max_NS03')
+        self.calculate_ns(Config.get('default_language'))
         self.check_min_max_attributes(self.min_NS95, 'min_NS95', self.max_NS95, 'max_NS95')
 
         if legends is None:
@@ -216,15 +209,16 @@ class ViewServiceRecord(object):
             geom_bounds[3] + height_to_add,
         ]
 
-    def get_full_wms_url(self, real_estate, format):
+    def get_full_wms_url(self, real_estate, image_format, language):
         """
         Returns the WMS URL to get the image.
 
         Args:
             real_estate (pyramid_oereb.lob.records.real_estate.RealEstateRecord): The Real
                 Estate record.
-            format (string): The format currently used. For 'pdf' format,
-                the used map size will be adapted to the pdf format,
+            image_format (string): The format currently used. For 'pdf' format,
+                the used map size will be adapted to the pdf format.
+            language (string): which language of the reference WMS should be used
 
         Returns:
             str: The url used to query the WMS server.
@@ -232,20 +226,33 @@ class ViewServiceRecord(object):
 
         assert real_estate.limit is not None
 
-        map_size = self.get_map_size(format)
+        map_size = self.get_map_size(image_format)
         bbox = self.get_bbox(real_estate.limit)
-        self.reference_wms = add_url_params(self.reference_wms, {
-            "BBOX": ",".join([str(e) for e in bbox]),
-            "SRS": 'EPSG:{0}'.format(Config.get('srid')),
-            "WIDTH": int(map_size[0]),
-            "HEIGHT": int(map_size[1])
-        })
-        self.calculate_ns()
+
+        if language not in self.reference_wms:
+            msg = f"No WMS reference found for the requested language ({language}), using default language"
+            log.info(msg)
+            language = Config.get('default_language')
+
+        self.reference_wms[language] = add_url_params(
+            get_multilingual_element(self.reference_wms, language), {
+                "BBOX": ",".join([str(e) for e in bbox]),
+                "SRS": 'EPSG:{0}'.format(Config.get('srid')),
+                "WIDTH": int(map_size[0]),
+                "HEIGHT": int(map_size[1])
+            }
+        )
+        self.calculate_ns(language)
+
         return self.reference_wms
 
-    def download_wms_content(self):
+    def download_wms_content(self, language):
         """
-        Simply downloads the image found behind the URL stored in the instance attribute "reference_wms".
+        Downloads the image found behind the URL stored in the instance attribute "reference_wms"
+        for the requested language
+
+        Args:
+            language (string): the language for which the image should be downloaded
 
         Raises:
             LookupError: Raised if the response is not code 200 or content-type
@@ -253,43 +260,40 @@ class ViewServiceRecord(object):
             AttributeError: Raised if the URL itself isn't valid at all.
         """
         main_msg = "Image for WMS couldn't be retrieved."
-        if uri_validator(self.reference_wms):
-            log.debug("Downloading image, url: {url}".format(url=self.reference_wms))
+
+        if language not in self.reference_wms:
+            msg = f"No WMS reference found for the requested language ({language}), using default language"
+            log.info(msg)
+            language = Config.get('default_language')
+
+        wms = self.reference_wms.get(language)
+
+        if uri_validator(wms):
+            log.debug(f"Downloading image, url: {wms}")
             try:
-                response = requests.get(self.reference_wms, proxies=Config.get('proxies'))
+                response = requests.get(wms, proxies=Config.get('proxies'))
             except Exception as ex:
-                dedicated_msg = "An image could not be downloaded. URL was: {url}, error was " \
-                                "{response}".format(
-                                    url=self.reference_wms,
-                                    response=ex
-                                )
+                dedicated_msg = f"An image could not be downloaded. URL was: {wms}, error was {ex}"
                 log.error(dedicated_msg)
                 raise LookupError(dedicated_msg)
 
             content_type = response.headers.get('content-type', '')
             if response.status_code == 200 and content_type.find('image') > -1:
-                self.image = ImageRecord(response.content)
+                self.image[language] = ImageRecord(response.content)
             else:
-                dedicated_msg = "The image could not be downloaded. URL was: {url}, Response was " \
-                                "{response}".format(
-                                    url=self.reference_wms,
-                                    response=response.content.decode('utf-8')
-                                )
+                dedicated_msg = f"The image could not be downloaded. URL was: {wms}, " \
+                    f"Response was {response.content.decode('utf-8')}"
                 log.error(main_msg)
                 log.error(dedicated_msg)
                 raise LookupError(dedicated_msg)
         else:
-            dedicated_msg = "URL seems to be not valid. URL was: {url}".format(url=self.reference_wms)
+            dedicated_msg = f"URL seems to be not valid. URL was: {wms}"
             log.error(main_msg)
             log.error(dedicated_msg)
             raise AttributeError(dedicated_msg)
 
-    def calculate_ns(self):
-        srid = Config.get_crs()
-        if srid == u'epsg:2056':
-            self.min_NS95, self.max_NS95 = self.get_bbox_from_url(self.reference_wms)
-        if srid == u'epsg:21781':
-            self.min_NS03, self.max_NS03 = self.get_bbox_from_url(self.reference_wms)
+    def calculate_ns(self, language):
+        self.min_NS95, self.max_NS95 = self.get_bbox_from_url(self.reference_wms.get(language))
 
     @staticmethod
     def get_bbox_from_url(wms_url):

@@ -8,7 +8,7 @@ from tests.xtf_import import MockSession
 
 Config._config = None
 Config.init(tests.pyramid_oereb_test_yml, 'pyramid_oereb')
-theme_config = Config.get_theme_config('AirportsSecurityZonePlans')
+theme_config = Config.get_theme_config_by_code('AirportsSecurityZonePlans')
 config_parser = StandardThemeConfigParser(**theme_config)
 models = config_parser.get_models()
 
@@ -46,7 +46,7 @@ def test_parse():
         <Thema>SicherheitszonenplanFlughafen</Thema>
         <ArtCode>108-T-01</ArtCode>
         <ArtCodeliste>https://models.geo.admin.ch/BAZL/SafetyZonePlan_Catalogues_V1_2_20181102.xml</ArtCodeliste>
-        <Rechtsstatus>inKraft</Rechtsstatus>
+        <Rechtsstatus>inForce</Rechtsstatus>
         <publiziertAb>2001-03-02</publiziertAb>
         <DarstellungsDienst REF="ch.admin.bazl.sizo.wms"></DarstellungsDienst>
         <ZustaendigeStelle REF="ch.admin.bazl"></ZustaendigeStelle>
@@ -63,7 +63,7 @@ def test_parse():
     parsed = session.getData()
     assert len(parsed) == 1
     assert parsed[0].id == '108-Z-0010-A'
-    assert parsed[0].information['de'] == u'Höhenbeschränkung für Bauten und andere Hindernisse'
+    assert parsed[0].legend_text['de'] == u'Höhenbeschränkung für Bauten und andere Hindernisse'
     assert parsed[0].topic == 'AirportsSecurityZonePlans'
     assert parsed[0].sub_theme == {
         'de': 'Just a SubTheme'
@@ -71,7 +71,7 @@ def test_parse():
     assert parsed[0].type_code == '108-T-01'
     assert parsed[0].type_code_list == 'https://models.geo.admin.ch/BAZL/' \
                                        'SafetyZonePlan_Catalogues_V1_2_20181102.xml'
-    assert parsed[0].law_status == 'inKraft'
+    assert parsed[0].law_status == 'inForce'
     assert parsed[0].published_from == '2001-03-02'
     assert parsed[0].view_service_id == 'ch.admin.bazl.sizo.wms'
     assert parsed[0].office_id == 'ch.admin.bazl'

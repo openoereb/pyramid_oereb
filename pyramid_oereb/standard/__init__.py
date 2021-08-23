@@ -52,7 +52,7 @@ def create_sql(schema_name, db_connection, tables):
 
 
 def drop_sql(schema_name):
-    return 'DROP SCHEMA IF NOT EXISTS {0} CASCADE;'.format(schema_name)
+    return 'DROP SCHEMA IF EXISTS {0} CASCADE;'.format(schema_name)
 
 
 def execute_sql(db_connection, sql):

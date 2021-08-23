@@ -1,0 +1,34 @@
+[
+  {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "type_code": "StaoTyp2",
+    "id": 402,
+    "type_code_list": "",
+    "law_status": "inKraft",
+    "view_service_id": 1,
+    "information": {
+      "it": "Inquinato, non sono prevedibili effetti dannosi o molesti",
+      "de": "Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten",
+      "fr": "Pollué, pas d?atteinte nuisible ou incommodante à attendre"
+    },
+    "topic": "ForestPerimeters",
+    "geolink": 2862
+  },
+  {
+    "office_id": 1,
+    "published_from": "2020-01-01",
+    "type_code": "StaoTyp1",
+    "id": 403,
+    "type_code_list": "",
+    "law_status": "inKraft",
+    "view_service_id": 1,
+    "information": {
+      "fr": "Pollué, ne nécessite ni surveillance ni assainissement",
+      "de": "Belastet, weder überwachungs- noch sanierungsbedürftig",
+      "it": "Inquinato, non deve essere né sorvegliato né risanato"
+    },
+    "topic": "ForestPerimeters",
+    "geolink": 2862
+  }
+]

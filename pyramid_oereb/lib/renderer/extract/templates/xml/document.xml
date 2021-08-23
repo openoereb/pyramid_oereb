@@ -1,26 +1,30 @@
 <%page args="document"/>
-<%include file="document_base.xml" args="document=document"/>
+<%
+    from pyramid_oereb import Config
+    document_type = Config.get_document_type_by_code(document.document_type)
+%>
+<data:Type>
+    <%include file="document_type.xml" args="document_type=document_type"/>
+</data:Type>
+<data:Index>${document.index}</data:Index>
 <data:Title>
-    <%include file="multilingual_text.xml" args="text=document.title"/>
+    <%include file="multilingual_text.xml" args="text=document.title, not_null=True"/>
 </data:Title>
-%if document.official_title:
-<data:OfficialTitle>
-    <%include file="multilingual_text.xml" args="text=document.official_title"/>
-</data:OfficialTitle>
-%endif
+<data:TextAtWeb>
+    <%include file="multilingual_text.xml" args="text=document.text_at_web, not_null=True"/>
+</data:TextAtWeb>
+<data:Lawstatus>
+    <%include file="law_status.xml" args="law_status=document.law_status, not_null=True"/>
+</data:Lawstatus>
 %if document.abbreviation:
 <data:Abbreviation>
-    <%include file="multilingual_text.xml" args="text=document.abbreviation"/>
+    <%include file="multilingual_text.xml" args="text=document.abbreviation, not_null=True"/>
 </data:Abbreviation>
 %endif
 %if document.official_number:
-<data:OfficialNumber>${document.official_number | x}</data:OfficialNumber>
-%endif
-%if document.canton:
-<data:Canton>${document.canton | x}</data:Canton>
-%endif
-%if document.municipality:
-<data:Municipality>${document.municipality | x}</data:Municipality>
+<data:OfficialNumber>
+    <%include file="multilingual_text.xml" args="text=document.official_number, not_null=True"/>
+</data:OfficialNumber>
 %endif
 <data:ResponsibleOffice>
     <%include file="office.xml" args="office=document.responsible_office"/>
@@ -28,11 +32,3 @@
 %if document.article_numbers:
 <data:ArticleNumber>${document.article_numbers | x}</data:ArticleNumber>
 %endif
-%for article in document.articles:
-<%include file="article.xml" args="article=article"/>
-%endfor
-%for reference in document.references:
-<data:Reference xsi:type="data:Document">
-    <%include file="document.xml" args="document=reference"/>
-</data:Reference>
-%endfor

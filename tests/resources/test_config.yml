@@ -8,7 +8,57 @@ section2:
     - first
     - second
 
+  theme:
+    source:
+      class: pyramid_oereb.standard.sources.theme.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.Theme
+    law_status:
+      inKraft: inKraft
+      AenderungMitVorwirkung: AenderungMitVorwirkung
+      AenderungOhneVorwirkung: AenderungOhneVorwirkung
+
+  logos:
+    source:
+      class: pyramid_oereb.standard.sources.logo.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.Logo
+
+  document_types:
+    source:
+      class: pyramid_oereb.standard.sources.document_types.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.DocumentTypeText
+
+  general_information:
+    source:
+      class: pyramid_oereb.standard.sources.general_information.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.GeneralInformation
+
+  real_estate_type:
+    source:
+      class: pyramid_oereb.standard.sources.real_estate_type.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.RealEstateType
+
+  law_status_labels:
+    source:
+      class: pyramid_oereb.standard.sources.law_status.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.LawStatus
+
 pyramid_oereb:
+  app_schema:
+    name: pyramid_oereb_main
+    models: pyramid_oereb.standard.models.main
+    db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
 
   language:
     - de
@@ -17,10 +67,10 @@ pyramid_oereb:
 
   default_language: de
 
-  logo:
-    confederation: pyramid_oereb/standard/logo_confederation.png
-    oereb: pyramid_oereb/standard/logo_oereb_de.png
-    canton: pyramid_oereb/standard/logo_canton.png
+  logo_lookups:
+    confederation: ch
+    oereb: ch.plr
+    canton: ne
 
   plr_cadastre_authority:
     name:
@@ -40,33 +90,87 @@ pyramid_oereb:
       https:
   srid: 2056
   plrs:
-    - name: plr87
-      code: LandUsePlans
+    - code: LandUsePlans
       view_service:
         layer_index: 1
         layer_opacity: 0.25
-    - name: plr73
-      code: MotorwaysProjectPlaningZones
+      law_status:
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+    - code: MotorwaysProjectPlaningZones
+      law_status:
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+    - code: ContaminatedSites
+      law_status:
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
   real_estate:
-    type_mapping:
-      - mapping: RealEstate
-        type: Liegenschaft
-      - mapping: Distinct_and_permanent_rights.BuildingRight
-        type: Baurecht
-      - mapping: Distinct_and_permanent_rights.right_to_spring_water
-        type: Quellenrecht
-      - mapping: Distinct_and_permanent_rights.concession
-        type: Konzessionsrecht
-      - mapping: Distinct_and_permanent_rights.other
-        type: weitere
-      - mapping: Mineral_rights
-        type: Bergwerk
     plan_for_land_register:
-      reference_wms: https://wms.ch/?BBOX=2475000,1065000,2850000,1300000
+      reference_wms:
+        de: https://wms.ch/?BBOX=2475000,1065000,2850000,1300000
       layer_index: 1
       layer_opacity: 0.25
     plan_for_land_register_main_page:
-      reference_wms: https://wms.ch/?BBOX=2475000,1065000,2850000,1300000
+      reference_wms:
+        de: https://wms.ch/?BBOX=2475000,1065000,2850000,1300000
       layer_index: 2
       layer_opacity: 0.5
+
+  theme:
+    source:
+      class: pyramid_oereb.standard.sources.theme.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.Theme
+    law_status:
+      inKraft: inKraft
+      AenderungMitVorwirkung: AenderungMitVorwirkung
+      AenderungOhneVorwirkung: AenderungOhneVorwirkung
+
+  logos:
+    source:
+      class: pyramid_oereb.standard.sources.logo.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.Logo
+
+  document_types:
+    source:
+      class: pyramid_oereb.standard.sources.document_types.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.DocumentTypeText
+
+  general_information:
+    source:
+      class: pyramid_oereb.standard.sources.general_information.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.GeneralInformation
+
+  law_status_labels:
+    source:
+      class: pyramid_oereb.standard.sources.law_status.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.LawStatus
+
+  real_estate_type_lookup:
+    Liegenschaft: "Liegenschaft"
+    SelbstRecht.Baurecht: "SelbstRecht.Baurecht"
+    SelbstRecht.Quellenrecht: "SelbstRecht.Quellenrecht"
+    SelbstRecht.Konzessionsrecht: "SelbstRecht.Konzessionsrecht"
+    SelbstRecht.weitere: "SelbstRecht.weitere"
+    Bergwerk: "Bergwerk"
+
+  real_estate_type:
+    source:
+      class: pyramid_oereb.standard.sources.real_estate_type.DatabaseSource
+      params:
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
+        model: pyramid_oereb.standard.models.main.RealEstateType

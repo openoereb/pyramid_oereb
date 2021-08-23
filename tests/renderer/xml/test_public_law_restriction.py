@@ -4,7 +4,7 @@ from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
-from pyramid_oereb.lib.records.view_service import ViewServiceRecord
+from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.renderer.extract.xml_ import Renderer
 from pyramid_oereb.views.webservice import Parameter
 from tests.mockrequest import MockRequest
@@ -19,9 +19,9 @@ template = xml_templates().get_template('public_law_restriction.xml')
 def test_sub_theme():
     parameters = Parameter(
         response_format='xml',
-        flavour='reduced',
         with_geometry=False,
         images=True,
+        signed=False,
         identdn='BL0200002829',
         number='1000',
         egrid='CH775979211712',
@@ -30,21 +30,30 @@ def test_sub_theme():
     renderer._language = u'de'
     renderer._request = MockRequest()
     renderer._request.route_url = lambda url, **kwargs: "http://example.com/current/view"
+    theme = ThemeRecord(u'LandUsePlans', {'de': 'Theme 1'}, 1)
     office = OfficeRecord(name={'de': 'office de'})
     law_status = LawStatusRecord(
-        code='runningModifications',
+        code='AenderungMitVorwirkung',
         text={'de': 'law status de'}
     )
-    geometry = GeometryRecord(law_status, datetime.now(), Polygon(), 'test', office=office)
+    geometry = GeometryRecord(law_status, datetime.now(), datetime.now(), Polygon(), 'test', office=office)
     public_law_restriction = PlrRecord(
-        theme=ThemeRecord(u'LandUsePlans', {'de': 'Theme 1'}),
-        information={'de': 'information de'},
+        theme=theme,
+        legend_entry=LegendEntryRecord(
+                        ImageRecord('1'.encode('utf-8')),
+                        {'de': 'information de'},
+                        'CodeA',
+                        None,
+                        theme,
+                        view_service_id=1
+        ),
         law_status=law_status,
         published_from=datetime.now(),
+        published_until=None,
         responsible_office=office,
         symbol=ImageRecord('1'.encode('utf-8')),
         view_service=ViewServiceRecord(
-            reference_wms='',
+            reference_wms=dict(),
             layer_index=0,
             layer_opacity=1.0),
         geometries=[geometry],
@@ -54,6 +63,7 @@ def test_sub_theme():
         'params': parameters,
         'localized': renderer.get_localized_text,
         'multilingual': renderer.get_multilingual_text,
+        'get_localized_image': renderer.get_localized_image,
         'public_law_restriction': public_law_restriction
     }).decode('utf-8').split('\n')
     no_empty_lines = list(filter(lambda line: line != '', content))

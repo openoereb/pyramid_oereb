@@ -3,12 +3,10 @@ import datetime
 from pyramid_oereb import Config
 from pyramid.path import DottedNameResolver
 
-from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.embeddable import EmbeddableRecord, DatasourceRecord
 from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.glossary import GlossaryRecord
-from pyramid_oereb.lib.records.image import ImageRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.real_estate import RealEstateRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
@@ -36,14 +34,12 @@ def get_none_glossary_extract():
 
 def _get_test_extract(glossary):
     date = datetime.datetime.now()
-    file_adapter = FileAdapter()
     with pyramid_oereb_test_config():
-        view_service = ViewServiceRecord(u'http://geowms.bl.ch',
+        view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
                                          1,
                                          1.0,
-                                         {'de': u'http://geowms.bl.ch'},
                                          None)
-        real_estate = RealEstateRecord(u'RealEstate', u'BL', u'Liestal', 2829, 11395,
+        real_estate = RealEstateRecord(u'Liegenschaft', u'BL', u'Liestal', 2829, 11395,
                                        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
                                        u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712')
         real_estate.set_view_service(view_service)
@@ -60,7 +56,7 @@ def _get_test_extract(glossary):
         av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
         av_provider_method = resolver.resolve(av_provider_method_string)
         cadaster_state = date
-        theme = ThemeRecord(u'TEST', {'de': u'TEST TEXT'})
+        theme = ThemeRecord(u'TEST', {'de': u'TEST TEXT'}, 100)
         datasources = [DatasourceRecord(theme, date, office_record)]
         plr_cadastre_authority = Config.get_plr_cadastre_authority()
         embeddable = EmbeddableRecord(
@@ -72,10 +68,10 @@ def _get_test_extract(glossary):
         )
         extract = ExtractRecord(
             real_estate,
-            ImageRecord(file_adapter.read('tests/resources/python.svg')),
-            ImageRecord(file_adapter.read('tests/resources/python.svg')),
-            ImageRecord(file_adapter.read('tests/resources/python.svg')),
-            ImageRecord(file_adapter.read('tests/resources/python.svg')),
+            Config.get_oereb_logo(),
+            Config.get_conferderation_logo(),
+            Config.get_canton_logo(),
+            Config.get_municipality_logo(1234),
             office_record,
             base_data,
             embeddable,
@@ -83,7 +79,7 @@ def _get_test_extract(glossary):
                 ExclusionOfLiabilityRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})
             ],
             glossaries=glossary,
-            general_information={'de': u'Allgemeine Informationen'},
+            general_information=Config.get_general_information(),
             certification={'de': u'certification'},
             certification_at_web={'de': u'certification_at_web'},
         )

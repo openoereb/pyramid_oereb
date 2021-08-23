@@ -1,0 +1,160 @@
+[
+  {
+    "office_id": 1,
+    "published_from": "2019-11-10",
+    "id": 8000,
+    "document_type": "GesetzlicheGrundlage",
+    "index": 1,
+    "text_at_web": {
+      "de": "https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2934?locale=de"
+    },
+    "law_status": "inKraft",
+    "abbreviation": {
+      "de": "KRVO"
+    },
+    "title": {
+      "de": "Raumplanungsverordnung für den Kanton Graubünden"
+    },
+    "official_number": {
+      "de": "BR 801.110"
+    }
+  },
+  {
+    "office_id": 1,
+    "published_from": "2019-11-10",
+    "id": 8001,
+    "document_type": "GesetzlicheGrundlage",
+    "index": 1,
+    "text_at_web": {
+      "de": "http://www.lexfind.ch/dtah/167348/2"
+    },
+    "law_status": "inKraft",
+    "abbreviation": {
+      "de": "RPG"
+    },
+    "title": {
+      "de": "Bundesgesetz über die Raumplanung (Raumplanungsgesetz, RPG)"
+    },
+    "official_number": {
+      "de": "SR 700"
+    }
+  },
+  {
+    "office_id": 1,
+    "published_from": "2019-11-10",
+    "id": 8002,
+    "document_type": "GesetzlicheGrundlage",
+    "index": 1,
+    "text_at_web": {
+      "de": "https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de"
+    },
+    "law_status": "inKraft",
+    "abbreviation": {
+      "de": "KRG"
+    },
+    "title": {
+      "de": "Raumplanungsgesetz für den Kanton Graubünden"
+    },
+    "official_number": {
+      "de": "BR 801.100"
+    }
+  },
+  {
+    "office_id": 1,
+    "published_from": "2019-11-10",
+    "id": 8100,
+    "document_type": "Rechtsvorschrift",
+    "index": 2,
+    "text_at_web": {
+      "de": "https://oereb-gr-preview.000.ch/api/attachments/197"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "Baugesetz, 3891.100"
+    }
+  },
+  {
+    "office_id": 1,
+    "published_from": "2019-11-10",
+    "id": 8101,
+    "document_type": "Rechtsvorschrift",
+    "index": 2,
+    "text_at_web": {
+      "de": "https://oereb-gr-preview.000.ch/api/attachments/213"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "Revision Ortsplanung, 07.447"
+    }
+  },
+  {
+    "office_id": 1,
+    "published_from": "2019-11-10",
+    "id": 8102,
+    "document_type": "Rechtsvorschrift",
+    "index": 2,
+    "text_at_web": {
+      "de": "https://oereb-gr-preview.000.ch/api/attachments/198"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "Baugesetz, 3891.100"
+    }
+  },
+  {
+    "office_id": 1,
+    "published_from": "2019-11-10",
+    "id": 8103,
+    "document_type": "Rechtsvorschrift",
+    "index": 2,
+    "text_at_web": {
+      "de": "https://oereb-gr-preview.000.ch/api/attachments/214"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "Revision Ortsplanung, 07.447"
+    }
+  },
+  {
+    "office_id": 1,
+    "published_from": "2019-11-17",
+    "id": 8104,
+    "document_type": "Hinweis",
+    "index": 3,
+    "text_at_web": {
+      "de": "http://example.com/goodhint1"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "Guter Ratschlag"
+    }
+  },
+  {
+    "office_id": 1,
+    "published_from": "2019-11-17",
+    "id": 8105,
+    "document_type": "Hinweis",
+    "index": 3,
+    "text_at_web": {
+      "de": "http://example.com/goodhint2"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "Guter Ratschlag"
+    }
+  },
+  {
+    "office_id": 1,
+    "published_from": "2019-11-17",
+    "id": 8106,
+    "document_type": "Hinweis",
+    "index": 3,
+    "text_at_web": {
+      "de": "http://example.com/goodhint3"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "Seht guter Ratschlag mit langem titel: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis venenatis posuere. Nunc sollicitudin fermentum bibendum. Nulla ut massa enim. Sed rhoncus euismod venenatis"
+    }
+  }
+]

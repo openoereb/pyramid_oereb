@@ -57,7 +57,7 @@ def test_get_symbol_ref():
         {'de': 'Test'},
         'CodeA',
         'http://my.codelist.com/test.xml',
-        ThemeRecord('ContaminatedSites', {'de': 'Belastete Standorte'}),
+        ThemeRecord('ContaminatedSites', {'de': 'Belastete Standorte'}, 410),
         view_service_id='1'
     )
     with pyramid_oereb_test_config():

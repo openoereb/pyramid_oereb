@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import datetime
+from datetime import date, timedelta
 import math
 from pathlib import Path
 
@@ -21,7 +22,8 @@ def test_mandatory_fields():
 
 
 def test_init():
-    record = GeometryRecord("runningModifications", datetime.date(1985, 8, 29), Polygon(), 'test')
+    record = GeometryRecord("AenderungMitVorwirkung", datetime.date(1985, 8, 29),
+                            None, Polygon(), 'test')
     assert isinstance(record.law_status, str)
     assert isinstance(record.published_from, datetime.date)
     assert isinstance(record.geo_metadata, str)
@@ -84,10 +86,11 @@ def test_geom_dim(geom, dim):
     )
 ])
 def test_extract_collection(input_geom, result, extracted):
-    law_status_record = LawStatusRecord("runningModifications", {u'de': u'BlaBla'})
+    law_status_record = LawStatusRecord("AenderungMitVorwirkung", {u'de': u'BlaBla'})
     geometry_record = GeometryRecord(
         law_status_record,
         datetime.date(1985, 8, 29),
+        None,
         input_geom,
         'test'
     )
@@ -235,10 +238,11 @@ def test_extract_collection(input_geom, result, extracted):
 )
 def test_calculate(geometry, real_estate_geometry, length_limit, area_limit, length_share, area_share,
                    nr_of_points, test):
-    law_status_record = LawStatusRecord("runningModifications", {u'de': u'BlaBla'})
+    law_status_record = LawStatusRecord("AenderungMitVorwirkung", {u'de': u'BlaBla'})
     geometry_record = GeometryRecord(
         law_status_record,
         datetime.date(1985, 8, 29),
+        None,
         geometry,
         'test'
     )
@@ -274,3 +278,21 @@ def test_calculate(geometry, real_estate_geometry, length_limit, area_limit, len
 )
 def test_validity(geometry, test):
     assert geometry.is_valid == test
+
+
+@pytest.mark.parametrize('published_from,published_until,published', [
+    (date.today() + timedelta(days=0), date.today() + timedelta(days=2), True),
+    (date.today() + timedelta(days=1), date.today() + timedelta(days=2), False),
+    (date.today() - timedelta(days=3), date.today() - timedelta(days=2), False),
+    (date.today() + timedelta(days=0), None, True),
+    (date.today() + timedelta(days=1), None, False)]
+)
+def test_published(published_from, published_until, published):
+    geometry_record = GeometryRecord(
+        LawStatusRecord("AenderungMitVorwirkung", {u'de': u'BlaBla'}),
+        published_from,
+        published_until,
+        Polygon([(2698200, 1208800), (2698400, 1208800), (2698400, 1209000), (2698200, 1209000)]),
+        'test'
+    )
+    assert geometry_record.published == published

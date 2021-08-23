@@ -138,7 +138,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
     # create the icons with pyconizer package
     create_icons_from_scratch(pyconizer_config, temp_creation_path, images=True, encoding=encoding)
 
-    # reuse plr information to build legend entries and assign the symbol
+    # reuse plr legend text to build legend entries and assign the symbol
     i = 1
     for unique_plr in unique_plrs:
         url, params = parse_url(unique_plr.view_service.reference_wms)
@@ -148,10 +148,10 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
         if by_type_code:
             class_name = unique_plr.type_code
         else:
-            if isinstance(unique_plr.information, dict):
-                class_name = unique_plr.information.get(language)
+            if isinstance(unique_plr.legend_text, dict):
+                class_name = unique_plr.legend_text.get(language)
             else:
-                class_name = unique_plr.information
+                class_name = unique_plr.legend_text
         symbol = get_icon(
             temp_creation_path,
             layer,
@@ -161,7 +161,7 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
             session.add(LegendEntry(
                 id=str(i) if string_keys else i,
                 symbol=symbol,
-                legend_text=unique_plr.information,
+                legend_text=unique_plr.legend_text,
                 type_code=unique_plr.type_code,
                 topic=unique_plr.topic,
                 type_code_list=''.join(type_code_list),

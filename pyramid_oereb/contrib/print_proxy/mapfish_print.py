@@ -5,10 +5,6 @@ import json
 import logging
 import requests
 from shapely.geometry import mapping
-import subprocess
-import sys
-import tempfile
-import time
 from urllib import parse as urlparse
 
 from pyramid.httpexceptions import HTTPBadRequest
@@ -35,9 +31,11 @@ class Renderer(JsonRenderer):
     def lpra_flatten(self, items):
         for item in items:
             self._flatten_object(item, 'Lawstatus')
-            self._localised_text(item, 'Lawstatus_Text')
+            self._multilingual_text(item, 'Lawstatus_Text')
+            self._multilingual_text(item, 'OfficialNumber')
             self._flatten_object(item, 'ResponsibleOffice')
             self._multilingual_text(item, 'ResponsibleOffice_Name')
+            self._multilingual_text(item, 'ResponsibleOffice_OfficeAtWeb')
             self._multilingual_text_at_web(item)
 
             self._multilingual_m_text(item, 'Text')
@@ -77,14 +75,13 @@ class Renderer(JsonRenderer):
         extract_record = value[0]
         extract_as_dict = self._render(extract_record, value[1])
         feature_geometry = mapping(extract_record.real_estate.limit)
-        pdf_to_join = set()
 
         if Config.get('print', {}).get('compute_toc_pages', False):
             extract_as_dict['nbTocPages'] = TocPages(extract_as_dict).getNbPages()
         else:
             extract_as_dict['nbTocPages'] = 1
 
-        self.convert_to_printable_extract(extract_as_dict, feature_geometry, pdf_to_join)
+        self.convert_to_printable_extract(extract_as_dict, feature_geometry)
 
         print_config = Config.get('print', {})
 
@@ -141,33 +138,12 @@ class Renderer(JsonRenderer):
             log.error(err_msg + ': ' + str(e))
             raise HTTPInternalServerError(err_msg)
 
-        if not extract_as_dict['isReduced'] and print_result.status_code == 200:
-            main = tempfile.NamedTemporaryFile(suffix='.pdf')
-            main.write(print_result.content)
-            main.flush()
-            cmd = ['pdftk', main.name]
-            temp_files = [main]
-            for url in pdf_to_join:
-                result = requests.get(url)
-                content_type = result.headers.get('content-type')
-                log.debug("document url: " + url + " => content_type: " + content_type)
-                if content_type != 'application/pdf':
-                    msg = "Skipped document inclusion (url: '{}') because content_type: '{}'"
-                    log.warning(msg.format(url, content_type))
-                    continue
-                tmp_file = tempfile.NamedTemporaryFile(suffix='.pdf')
-                tmp_file.write(result.content)
-                tmp_file.flush()
-                temp_files.append(tmp_file)
-                cmd.append(tmp_file.name)
-            out = tempfile.NamedTemporaryFile(suffix='.pdf')
-            cmd += ['cat', 'output', out.name]
-            sys.stdout.flush()
-            time.sleep(0.1)
-            subprocess.check_call(cmd)
-            content = out.file.read()
-        else:
+        try:
             content = print_result.content
+        except PdfReadError as e:
+            err_msg = 'No contents from print result available!'
+            log.error(err_msg + ': ' + str(e))
+            raise HTTPInternalServerError(err_msg)
 
         # Save printed file to the specified path.
         pdf_archive_path = print_config.get('pdf_archive_path', None)
@@ -218,7 +194,7 @@ class Renderer(JsonRenderer):
             result = {'TRANSPARENT': 'true'}
         return result
 
-    def convert_to_printable_extract(self, extract_dict, feature_geometry, pdf_to_join):
+    def convert_to_printable_extract(self, extract_dict, feature_geometry):
         """
         Converts an oereb extract into a form suitable for printing by mapfish print.
 
@@ -226,8 +202,6 @@ class Renderer(JsonRenderer):
             extract_dict: the oereb extract, will get converted by this function into a form
                             convenient for mapfish-print
             feature_geometry: the geometry for this extract, will get added to the extract information
-            pdf_to_join: a set of additional information for the pdf. Will get filled by this function.
-                         Used in the full extract only
         """
 
         log.debug("Starting transformation, extract_dict is {}".format(extract_dict))
@@ -245,9 +219,13 @@ class Renderer(JsonRenderer):
             for theme in extract_dict[attr_name]:
                 self._localised_text(theme, 'Text')
         self._flatten_object(extract_dict, 'PLRCadastreAuthority')
+        self._multilingual_text(extract_dict, 'PLRCadastreAuthority_OfficeAtWeb')
         self._flatten_object(extract_dict, 'RealEstate')
         if 'Image' in extract_dict.get('RealEstate_Highlight', {}):
             del extract_dict['RealEstate_Highlight']['Image']
+
+        self._multilingual_text(extract_dict['RealEstate_PlanForLandRegisterMainPage'], 'ReferenceWMS')
+        self._multilingual_text(extract_dict['RealEstate_PlanForLandRegister'], 'ReferenceWMS')
 
         main_page_url, main_page_params = \
             parse_url(extract_dict['RealEstate_PlanForLandRegisterMainPage']['ReferenceWMS'])
@@ -280,7 +258,8 @@ class Renderer(JsonRenderer):
         }
         del extract_dict['RealEstate_PlanForLandRegister']  # /definitions/Map
 
-        self._multilingual_m_text(extract_dict, 'GeneralInformation')
+        self._multilingual_m_text(extract_dict['GeneralInformation'][0], 'Content')
+        extract_dict['GeneralInformation'] = extract_dict['GeneralInformation'][0]['Content']
         self._multilingual_m_text(extract_dict, 'BaseData')
         self._multilingual_m_text(extract_dict, 'Certification')
         self._multilingual_m_text(extract_dict, 'CertificationAtWeb')
@@ -295,13 +274,15 @@ class Renderer(JsonRenderer):
             self._flatten_object(restriction_on_landownership, 'Theme')
             self._flatten_array_object(restriction_on_landownership, 'Geometry', 'ResponsibleOffice')
             self._localised_text(restriction_on_landownership, 'Theme_Text')
-            self._localised_text(restriction_on_landownership, 'Lawstatus_Text')
-            self._multilingual_m_text(restriction_on_landownership, 'Information')
+            self._multilingual_text(restriction_on_landownership, 'Lawstatus_Text')
+            self._multilingual_m_text(restriction_on_landownership, 'LegendText')
 
             self._multilingual_text(restriction_on_landownership['ResponsibleOffice'], 'Name')
+            self._multilingual_text(restriction_on_landownership['ResponsibleOffice'], 'OfficeAtWeb')
             restriction_on_landownership['ResponsibleOffice'] = \
                 [restriction_on_landownership['ResponsibleOffice']]
 
+            self._multilingual_text(restriction_on_landownership['Map'], 'ReferenceWMS')
             url, params = parse_url(restriction_on_landownership['Map']['ReferenceWMS'])
 
             restriction_on_landownership['baseLayers'] = {
@@ -368,11 +349,11 @@ class Renderer(JsonRenderer):
         # One restriction entry per theme
         theme_restriction = {}
         text_element = [
-            'Information', 'Lawstatus_Code', 'Lawstatus_Text', 'SymbolRef', 'TypeCode'
+            'LegendText', 'Lawstatus_Code', 'Lawstatus_Text', 'SymbolRef', 'TypeCode'
         ]
         legend_element = [
             'TypeCode', 'TypeCodelist', 'AreaShare', 'PartInPercent', 'LengthShare', 'NrOfPoints',
-            'SymbolRef', 'Information'
+            'SymbolRef', 'LegendText'
         ]
         split_sub_themes = Config.get('print', {}).get('split_sub_themes', False)
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
@@ -452,10 +433,6 @@ class Renderer(JsonRenderer):
                 values = list(restriction_on_landownership[element].values())
                 self.lpra_flatten(values)
                 restriction_on_landownership[element] = values
-                if element == 'LegalProvisions':
-                    # This adds the first URL of TextAtWeb to the pdf_to_join set. At this point of the code
-                    # there should only be one URL as the grouping takes place only after this if statement.
-                    pdf_to_join.update([legal_provision['TextAtWeb'][0]['URL'] for legal_provision in values])
 
                 # Group legal provisions and hints which have the same title.
                 if (
@@ -582,25 +559,28 @@ class Renderer(JsonRenderer):
         Categorize document by their documentType (LegalProvision, Law or Hint)
 
         Args:
-            dcoument (dict): The document type as dictionary.
+            document (dict): The document type as dictionary.
             legal_provisions (dict): The legal_provisions dictionary to fill.
             laws (dict): The laws dictionary to fill.
             hints (dict): The Hints dictionary to fill.
         """
         uid = Renderer._get_element_of_legal_provision_maybe_uid(document)
-        documentType = document.get('DocumentType')
+        documentType = document.get('DocumentType').get('Code')
         if documentType is None:
             error_msg = "mandatory attribute document_type is missing in document " \
                         ": {}".format(document)
             log.error(error_msg)
             raise AttributeError(error_msg)
 
-        if documentType == 'LegalProvision':
+        if documentType == 'Rechtsvorschrift':
             legal_provisions[uid] = document
-        elif documentType == 'Law':
+        elif documentType == 'GesetzlicheGrundlage':
             laws[uid] = document
-        else:
+        elif documentType == 'Hinweis':
             hints[uid] = document
+        else:
+            log.warning(f"Wrong document type {documentType}")
+            log.warning("(expected 'Rechtsvorschrift', 'GesetzlicheGrundlage' or 'Hinweis')")
 
     @staticmethod
     def _get_element_of_legal_provision_maybe_uid(element):
@@ -729,7 +709,7 @@ class Renderer(JsonRenderer):
         """
         Sorts list of dictionaries by one or more sort keys.
         This function makes it possible to run test on the sorted list and assure the
-        correctness of the soring.
+        correctness of the sorting.
 
         Args:
             legend_list (list(dict): list of legend dictionaries

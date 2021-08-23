@@ -7,10 +7,10 @@ from pyramid_oereb.lib.processor import Processor, create_processor
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
+from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.lib.readers.exclusion_of_liability import ExclusionOfLiabilityReader
 from pyramid_oereb.lib.readers.extract import ExtractReader
@@ -20,11 +20,20 @@ from pyramid_oereb.lib.readers.real_estate import RealEstateReader
 from pyramid_oereb.views.webservice import PlrWebservice
 from tests.mockrequest import MockRequest
 
+from pyramid_oereb.lib.config import Config
+
+import logging
+log = logging.getLogger(__name__)
+
 request_matchdict = {
-    'flavour': 'reduced',
-    'format': 'json',
-    'param1': 'TEST'
+    'format': 'json'
 }
+request_params = {
+    'EGRID': 'TEST'
+}
+
+Config._config = None
+Config.init('./pyramid_oereb/standard/pyramid_oereb.yml', 'pyramid_oereb')
 
 
 def test_missing_params():
@@ -45,6 +54,7 @@ def test_properties():
 def test_process():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
+    request.params.update(request_params)
     processor = create_processor()
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
@@ -56,6 +66,7 @@ def test_process():
 def test_process_geometry_testing():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
+    request.params.update(request_params)
     processor = create_processor()
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
@@ -69,6 +80,7 @@ def test_process_geometry_testing():
 def test_filter_published_documents():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
+    request.params.update(request_params)
     processor = create_processor()
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
@@ -76,15 +88,15 @@ def test_filter_published_documents():
     extract = processor.process(real_estate[0], params, 'http://test.ch')
     for plr in extract.real_estate.public_law_restrictions:
         if plr.theme.code == u'MotorwaysBuildingLines':
-            assert len(plr.documents) == 1
-            assert len(plr.documents[0].references) == 1
+            assert len(plr.documents) == 2
 
 
 def test_processor_with_images():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
+    request.params.update(request_params)
     request.params.update({
-        'WITHIMAGES': '',
+        'WITHIMAGES': 'true',
         'LANG': 'de'
     })
     processor = create_processor()
@@ -92,14 +104,15 @@ def test_processor_with_images():
     params = webservice.__validate_extract_params__()
     real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
     extract = processor.process(real_estate[0], params, 'http://test.ch')
-    assert extract.real_estate.plan_for_land_register.image is not None
+    assert extract.real_estate.plan_for_land_register.image != {}
     for plr in extract.real_estate.public_law_restrictions:
-        assert plr.view_service.image is not None
+        assert plr.view_service.image != {}
 
 
 def test_processor_without_images():
     request = MockRequest()
     request.matchdict.update(request_matchdict)
+    request.params.update(request_params)
     request.params.update({
         'LANG': 'de'
     })
@@ -108,17 +121,17 @@ def test_processor_without_images():
     params = webservice.__validate_extract_params__()
     real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
     extract = processor.process(real_estate[0], params, 'http://test.ch')
-    assert extract.real_estate.plan_for_land_register.image is None
+    assert extract.real_estate.plan_for_land_register.image == {}
     for plr in extract.real_estate.public_law_restrictions:
-        assert plr.view_service.image is None
+        assert plr.view_service.image == {}
 
 
 def test_processor_get_legend_entries():
-    theme1 = ThemeRecord(u'TEST', {'de': 'Theme 1'})
-    theme2 = ThemeRecord(u'TEST', {'de': 'Theme 2'})
+    theme1 = ThemeRecord(u'TEST', {'de': 'Theme 1'}, 100)
+    theme2 = ThemeRecord(u'TEST', {'de': 'Theme 2'}, 200)
     office = OfficeRecord({'de': 'Test Office'})
-    law_status = LawStatusRecord.from_config(u'inForce')
-    geometries = [GeometryRecord(law_status, datetime.date.today(), Point(1, 1))]
+    law_status = LawStatusRecord(u'inKraft', {u'de': u'Rechtskräftig'})
+    geometries = [GeometryRecord(law_status, datetime.date.today(), None, Point(1, 1))]
     legend1 = LegendEntryRecord(
         ImageRecord('1'.encode('utf-8')),
         {'de': 'legend1'},
@@ -152,25 +165,31 @@ def test_processor_get_legend_entries():
         view_service_id=1
     )
     view_service1 = ViewServiceRecord(
-        'http://www.test1.url.ch',
+        {'de': 'http://www.test1.url.ch'},
         1,
         1.0,
-        legend_at_web={'de': 'http://www.test1.url.ch'},
         legends=[legend1, legend2]
     )
     view_service2 = ViewServiceRecord(
-        'http://www.test2.url.ch',
+        {'de': 'http://www.test2.url.ch'},
         1,
         1.0,
-        legend_at_web={'de': 'http://www.test2.url.ch'},
         legends=[legend3, legend4]
     )
     image = ImageRecord('1'.encode('utf-8'))
     plr1 = PlrRecord(
         theme1,
-        {'de': 'CONTENT'},
+        LegendEntryRecord(
+            ImageRecord('1'.encode('utf-8')),
+            {'de': 'CONTENT'},
+            'CodeD',
+            'bla',
+            theme1,
+            view_service_id=1
+        ),
         law_status,
         datetime.datetime.now(),
+        None,
         office,
         image,
         view_service1,
@@ -179,9 +198,17 @@ def test_processor_get_legend_entries():
     )
     plr2 = PlrRecord(
         theme1,
-        {'de': 'CONTENT'},
+        LegendEntryRecord(
+            ImageRecord('1'.encode('utf-8')),
+            {'de': 'CONTENT'},
+            'CodeD',
+            'bla',
+            theme1,
+            view_service_id=1
+        ),
         law_status,
         datetime.datetime.now(),
+        None,
         office,
         image,
         view_service1,
@@ -190,9 +217,17 @@ def test_processor_get_legend_entries():
     )
     plr3 = PlrRecord(
         theme1,
-        {'de': 'CONTENT'},
+        LegendEntryRecord(
+            ImageRecord('1'.encode('utf-8')),
+            {'de': 'CONTENT'},
+            'CodeD',
+            'bla',
+            theme1,
+            view_service_id=1
+        ),
         law_status,
         datetime.datetime.now(),
+        None,
         office,
         image,
         view_service2,
@@ -201,9 +236,17 @@ def test_processor_get_legend_entries():
     )
     plr4 = PlrRecord(
         theme1,
-        {'de': 'CONTENT'},
+        LegendEntryRecord(
+            ImageRecord('1'.encode('utf-8')),
+            {'de': 'CONTENT'},
+            'CodeD',
+            'bla',
+            theme1,
+            view_service_id=1
+        ),
         law_status,
         datetime.datetime.now(),
+        None,
         office,
         image,
         view_service2,
@@ -219,3 +262,20 @@ def test_processor_get_legend_entries():
     outside_plrs = [plr4]
     after_process = Processor.get_legend_entries(inside_plrs, outside_plrs)
     assert len(after_process) == 1
+
+
+def test_processor_sort_by_law_status():
+    request = MockRequest()
+    request.matchdict.update(request_matchdict)
+    request.params.update(request_params)
+    processor = create_processor()
+    webservice = PlrWebservice(request)
+    params = webservice.__validate_extract_params__()
+    real_estate = processor.real_estate_reader.read(params, egrid=u'TEST3')
+    extract = processor.process(real_estate[0], params, 'http://test.ch')
+    plrs = extract.real_estate.public_law_restrictions
+    assert len(plrs) == 4
+    assert plrs[1].theme.code == 'MotorwaysBuildingLines'
+    assert plrs[1].law_status.code == 'inKraft'
+    assert plrs[2].theme.code == 'MotorwaysBuildingLines'
+    assert plrs[2].law_status.code == 'AenderungOhneVorwirkung'

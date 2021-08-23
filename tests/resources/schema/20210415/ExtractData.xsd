@@ -82,7 +82,7 @@
   </xsd:complexType>
   <xsd:simpleType name="LawstatusCode">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="inForce"/>
+      <xsd:enumeration value="inKraft"/>
       <xsd:enumeration value="changeWithPreEffect"/>
       <xsd:enumeration value="changeWithoutPreEffect"/>
     </xsd:restriction>
