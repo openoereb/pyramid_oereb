@@ -209,6 +209,19 @@ You might inspect with:
 This containers should run as long as you have dev work to do. Everything else is solved by
 the provided Makefile.
 
+To enter in the `oereb-server` container with `zsh` type:
+
+.. code-block:: bash
+
+  docker-compose exec oereb-server zsh
+
+To start the server (and build the project automatically) you can run:
+
+.. code-block:: bash
+
+  docker-compose exec oereb-server make serve-dev
+
+
 Clean up after work
 ...................
 
