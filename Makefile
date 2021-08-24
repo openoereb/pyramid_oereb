@@ -148,7 +148,7 @@ lint: .venv/requirements-timestamp
 	$(VENV_BIN)/flake8
 
 .PHONY: test
-test: .venv/requirements-timestamp clean .db/.setup-db .db/.create-db-dev-tables $(DEV_CONFIGURATION_YML)
+test: .venv/requirements-timestamp clean .db/.setup-db .db/.setup-db-dev $(DEV_CONFIGURATION_YML)
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests
 
 .PHONY: check

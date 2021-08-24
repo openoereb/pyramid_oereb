@@ -6,7 +6,6 @@ from pyramid.config import ConfigurationError
 
 # from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 
 
@@ -74,21 +73,6 @@ def test_get_logo_config():
     assert isinstance(db_connection, str)
     model = params.get('model')
     assert isinstance(model, str)
-
-
-@pytest.mark.run(order=-1)
-@pytest.mark.parametrize('code', [
-    'ch',
-    'ch.plr',
-    'ne',
-    'ch.1234'
-    ])
-def test_get_logo_by_code(code):
-    Config._config = None
-    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
-    assert len(Config.logos) > 0
-    logo = Config.get_logo_by_code(code)
-    assert isinstance(logo, LogoRecord)
 
 
 @pytest.mark.run(order=-1)

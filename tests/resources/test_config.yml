@@ -23,7 +23,7 @@ section2:
     source:
       class: pyramid_oereb.standard.sources.logo.DatabaseSource
       params:
-        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.Logo
 
   document_types:
@@ -136,7 +136,7 @@ pyramid_oereb:
     source:
       class: pyramid_oereb.standard.sources.logo.DatabaseSource
       params:
-        db_connection: postgresql://postgres:postgres@db:5432/pyramid_oereb_test
+        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
         model: pyramid_oereb.standard.models.main.Logo
 
   document_types:
