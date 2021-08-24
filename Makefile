@@ -128,13 +128,13 @@ build: install $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT)
 .PHONY: clean
 clean: .db/.drop-db
 	rm -rf .db
-	rm -f development.ini
 
 .PHONY: clean-all
 clean-all: clean
 	rm -rf .venv
 	rm -f $(DEV_CONFIGURATION_YML)
 	rm -f *.png
+	rm -f development.ini
 	rm -rf $(PACKAGE).egg-info
 
 .PHONY: create-default-models
@@ -172,12 +172,12 @@ updates: $(PIP_REQUIREMENTS)
 	$(VENV_BIN)/pip list --outdated
 
 .PHONY: serve-dev
-serve-dev: development.ini .db/.setup-db-dev
+serve-dev: development.ini build .db/.setup-db-dev
 	$(VENV_BIN)/pserve $< --reload
 
 .PHONY: serve
-serve: development.ini
+serve: development.ini build
 	$(VENV_BIN)/pserve $<
 
-development.ini: clean build
+development.ini: install
 	$(VENV_BIN)/mako-render --var pyramid_oereb_port=$(PYRAMID_OEREB_PORT) development.ini.mako > development.ini
