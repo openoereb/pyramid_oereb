@@ -118,11 +118,41 @@ It is possible to run this instance in parallel to the instance which uses the s
 
 If testing ``make serve`` with another theme than forest_perimeters, changes will be necessary in the directory ``sample_data/oereblex/``: first remove the symbolic link corresponding to this theme, then create a directory and add JSON data files into it. In comparison to the data from the standard model, a new attribute ``geolink`` is required in ``public_law_restriction.json``, which should correspond to an existing geolink in the Oereblex server defined in the configuration (see ``sample_data/oereblex/forest_perimeters`` for example files).
 
-DEV Environment
-===============
+
+DEV Environment (V2)
+====================
 
 For runtime pyramid_oereb needs at least a running database to get the data from. this
 repo ships with a `docker-compose.yml` to satisfy this needs.
+
+If you are working on a linux system, and that all the dependencies are installed, it is
+also possible to use an already existing database, and to run the pyramid server directly
+on the host. Use the following command to run the server in development mode:
+
+.. code-block:: bash
+
+  make serve-dev
+
+For the databse connection, the following environment variables must be set:
+
+.. code-block:: bash
+
+  # the db-server username
+  PGUSER
+  # the db-server password
+  PGPASSWORD
+  # the db-server host
+  PGHOST
+  # the database in the db-server
+  PGDATABASE
+  # the port on which the db-server is listening
+  PGPORT
+
+If these are not provided, the default values can be found in the Makefile.
+
+NB: if these environment variables are set in the host environment, they will
+also be used in the `docker-compose` composition.
+
 
 General workflow (in Docker)
 ----------------------------
@@ -141,7 +171,7 @@ and in the right versions. Otherwise this might lead to strange behaviors.
 
 1. run docker-compose
 2. open local shell in project path
-3. use make with the provided Makefile to test, start the server or to build the virtual environment
+3. use make with the provided Makefile to clean the virtual environment (if needed)
 
 Docker composition in detail
 ----------------------------
@@ -165,7 +195,8 @@ You can create the docker composition to develop the project:
 
 This sets up a database container and a container which encapsulates the project. In case
 you didn't had the images alread this will build the DEV-container first. Its based on
-the `Dockerfile`.
+the `Dockerfile`. It will also start `pserve` with the `--reload` option in the `oereb-server`
+container.
 
 Once this step finished you should have 2 running containers belonging to the composition.
 
@@ -181,8 +212,7 @@ the provided Makefile.
 Clean up after work
 ...................
 
-To have no unexpected behavior, you should always use the follwing command to clean after your work
-and to be ready for the next start:
+It is a recommended habit to stop your composition when you stop working:
 
 .. code-block:: bash
 
@@ -196,4 +226,5 @@ stop docker composition and rebuild it:
 
 .. code-block:: bash
 
+  docker-compose down
   docker-compose build

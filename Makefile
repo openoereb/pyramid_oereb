@@ -9,18 +9,20 @@ else
   PIP_COMMAND=pip3
 endif
 
-# Testing/DEV variables
+# Environment variables for DB connection
+PGDATABASE ?= pyramid_oereb_test
+PGHOST ?= oereb-db
+PGUSER ?= postgres
+PGPASSWORD ?= postgres
+PGPORT ?= 5432
+PYRAMID_OEREB_PORT ?= 6543
 
-PG_DB = pyramid_oereb_test
-PG_HOST = oereb-db
-PG_DROP_DB = DROP DATABASE IF EXISTS $(PG_DB);
-PG_CREATE_DB = CREATE DATABASE $(PG_DB);
+# Makefile internal aliases
+PG_DROP_DB = DROP DATABASE IF EXISTS $(PGDATABASE);
+PG_CREATE_DB = CREATE DATABASE $(PGDATABASE);
 PG_CREATE_EXT = CREATE EXTENSION postgis;
 PG_CREATE_SCHEMA = CREATE SCHEMA plr;
-PG_USER = postgres
-PG_PASSWORD = postgres
-PG_CREDENTIALS ?= $(PG_USER):$(PG_PASSWORD)
-SQLALCHEMY_URL = "postgresql://$(PG_CREDENTIALS)@$(PG_HOST):5432/$(PG_DB)"
+SQLALCHEMY_URL = "postgresql://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGDATABASE)"
 
 PG_DEV_DATA_DIR = sample_data
 PG_DEV_DATA = $(shell ls -1 $(PG_DEV_DATA_DIR)/*.json) \
@@ -67,27 +69,27 @@ PACKAGE = pyramid_oereb
 # ********************
 
 .db/.drop-db:
-	psql -h $(PG_HOST) -U $(PG_USER) -c "$(PG_DROP_DB)"
+	psql -h $(PGHOST) -U $(PGUSER) -c "$(PG_DROP_DB)"
 
 .db/.create-db:
 	mkdir .db
-	psql -h $(PG_HOST) -U $(PG_USER) -c "$(PG_CREATE_DB)"
+	psql -h $(PGHOST) -U $(PGUSER) -c "$(PG_CREATE_DB)"
 	touch $@
 
 .db/.create-db-extension: .db/.create-db
-	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -c "$(PG_CREATE_EXT)"
+	psql -h $(PGHOST) -U $(PGUSER) -d $(PGDATABASE) -c "$(PG_CREATE_EXT)"
 	touch $@
 
 .db/.create-db-schema: .db/.create-db-extension
-	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -c "$(PG_CREATE_SCHEMA)"
+	psql -h $(PGHOST) -U $(PGUSER) -d $(PGDATABASE) -c "$(PG_CREATE_SCHEMA)"
 	touch $@
 
 .db/.create-db-dev-tables: .db/.setup-db $(DEV_CREATE_SCRIPT)
-	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -f $(DEV_CREATE_SCRIPT)
+	psql -h $(PGHOST) -U $(PGUSER) -d $(PGDATABASE) -f $(DEV_CREATE_SCRIPT)
 	touch $@
 
 .db/.fill-db-dev-tables: .db/.create-db-dev-tables $(DEV_FILL_SCRIPT)
-	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -f $(DEV_FILL_SCRIPT)
+	psql -h $(PGHOST) -U $(PGUSER) -d $(PGDATABASE) -f $(DEV_FILL_SCRIPT)
 	touch $@
 
 # **************
@@ -121,11 +123,12 @@ $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT): setup.py $(BUILD_
 	$(VENV_BIN)/python $< develop
 
 .PHONY: build
-build: $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT)
+build: install $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT)
 
 .PHONY: clean
 clean: .db/.drop-db
 	rm -rf .db
+	rm -f development.ini
 
 .PHONY: clean-all
 clean-all: clean
@@ -169,9 +172,12 @@ updates: $(PIP_REQUIREMENTS)
 	$(VENV_BIN)/pip list --outdated
 
 .PHONY: serve-dev
-serve-dev: development.ini build .db/.setup-db-dev
+serve-dev: development.ini .db/.setup-db-dev
 	$(VENV_BIN)/pserve $< --reload
 
 .PHONY: serve
-serve: development.ini build
+serve: development.ini
 	$(VENV_BIN)/pserve $<
+
+development.ini: clean build
+	$(VENV_BIN)/mako-render --var pyramid_oereb_port=$(PYRAMID_OEREB_PORT) development.ini.mako > development.ini

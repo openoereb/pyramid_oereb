@@ -1,28 +1,24 @@
-version: '2.1'
-
-x-pg_user: &pg_user
-  "postgres"
-x-pg_host: &pg_host
-  "oereb-db"
-x-pg_password: &pg_password
-  "postgres"
-x-pg_database: &pg_database
-  "pyramid_oereb_test"
+version: "2.1"
 
 services:
   oereb-server:
     build:
       context: .
       dockerfile: Dockerfile
+    depends_on:
+      oereb-db:
+        condition: service_healthy
     environment:
-      PGHOST: *pg_host
-      PGUSER: *pg_user
-      PGPASSWORD: *pg_password
+      PGHOST: ${PGHOST:-oereb-db}
+      PGPORT: ${PGPORT:-5432}
+      PGUSER: ${PGUSER:-postgres}
+      PGPASSWORD: ${PGPASSWORD:-postgres}
     volumes:
       - .:/workspace:cached
     working_dir: /workspace
+    command: make serve-dev
     ports:
-    - 6543:6543
+      - ${PYRAMID_OEREB_PORT:-6543}:${PYRAMID_OEREB_PORT:-6543}
     networks:
       - default
       - print-network
@@ -30,12 +26,18 @@ services:
   oereb-db:
     image: postgis/postgis
     restart: unless-stopped
+    healthcheck:
+      test: /usr/bin/pg_isready
+      interval: 5s
+      timeout: 10s
+      retries: 120
     environment:
-      POSTGRES_DB: *pg_database
-      POSTGRES_USER: *pg_user
-      POSTGRES_PASSWORD: *pg_password
-      PGPASSWORD: *pg_password
-      PGHOST: *pg_host
+      POSTGRES_DB: ${PGDATABASE:-pyramid_oereb_test}
+      POSTGRES_USER: ${PGUSER:-postgres}
+      POSTGRES_PASSWORD: ${PGPASSWORD:-postgres}
+      PGUSER: ${PGUSER:-postgres}
+      PGPORT: ${PGPORT:-5432}
+      PGPASSWORD: ${PGPASSWORD:-postgres}
 
 networks:
   print-network:
