@@ -9,7 +9,7 @@ from sqlalchemy_utils import JSONType
 class Models(object):
 
     def __init__(self, availability, office, data_integration, document, view_service,
-                 legend_entry, public_law_restriction, geometry, 
+                 legend_entry, public_law_restriction, geometry,
                  public_law_restriction_document, base, db_connection, schema_name):
 
         self.Availability = availability
@@ -164,9 +164,10 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         A view service aka WM(T)S which can deliver a cartographic representation via web.
 
         Attributes:
-            id (str): The identifier. This is used in the database only and must not be set manually. If
-                you  don't like it - don't care about.
-            reference_wms (dict of str): The actual url which leads to the desired cartographic representation (multilingual).
+            id (str): The identifier. This is used in the database only and must not be set
+                manually. If you  don't like it - don't care about.
+            reference_wms (dict of str): The actual url which leads to the desired cartographic
+                representation (multilingual).
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'view_service'
@@ -262,7 +263,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         )
         legend_entry = relationship('LegendEntry', backref='public_law_restrictions')
 
-
     class Geometry(Base):
         """
         The dedicated model for all geometries in relation to their public law restriction.
@@ -280,8 +280,8 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
                 machine  readable response format (XML).
             public_law_restriction_id (str): The foreign key to the public law restriction this geometry
                 is  related to.
-            public_law_restriction (PublicLawRestriction): The dedicated relation to the public law restriction instance from
-                database.
+            public_law_restriction (PublicLawRestriction): The dedicated relation to the public law
+                restriction instance from database.
             office_id (str): The foreign key to the office which is responsible to this public law
                 restriction.
             responsible_office (Office):
@@ -313,7 +313,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             nullable=False
         )
         responsible_office = relationship(Office)
-
 
     class PublicLawRestrictionDocument(Base):
         """

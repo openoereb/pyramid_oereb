@@ -4,7 +4,6 @@ import pytest
 from tests import pyramid_oereb_test_yml
 
 
-
 @pytest.mark.run(order=-9)
 def test_create_standard_db():
     assert pyramid_oereb_test_yml is not None

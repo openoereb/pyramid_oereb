@@ -5,7 +5,7 @@ import logging
 from mako import exceptions
 from mako.template import Template
 from pyramid.httpexceptions import HTTPNotFound
-from pyramid.path import AssetResolver, DottedNameResolver
+from pyramid.path import AssetResolver
 from pyramid.response import Response
 from sqlalchemy import cast, Text
 

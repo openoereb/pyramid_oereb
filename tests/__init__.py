@@ -57,4 +57,5 @@ def pyramid_oereb_test_config():
         pyramid_config.include('pyramid_oereb.routes')
         yield pyramid_config
 
+
 Config._config = None

@@ -907,5 +907,3 @@ def _parse(cfg_file, cfg_section, c2ctemplate_style=False):
     if cfg is None:
         raise ConfigurationError('YAML file contains no section "{0}"'.format(cfg_section))
     return cfg
-
-
