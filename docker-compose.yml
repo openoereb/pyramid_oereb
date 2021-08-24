@@ -31,6 +31,8 @@ services:
       interval: 5s
       timeout: 10s
       retries: 120
+    volumes:
+      - ./.pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: ${PGDATABASE:-pyramid_oereb_test}
       POSTGRES_USER: ${PGUSER:-postgres}
