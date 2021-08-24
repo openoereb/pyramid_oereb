@@ -18,9 +18,9 @@ PGPORT ?= 5432
 PYRAMID_OEREB_PORT ?= 6543
 
 # Makefile internal aliases
-PG_DROP_DB = DROP DATABASE IF EXISTS $(PGDATABASE);
+PG_DROP_DB = DROP DATABASE IF EXISTS $(PGDATABASE) WITH (FORCE);
 PG_CREATE_DB = CREATE DATABASE $(PGDATABASE);
-PG_CREATE_EXT = CREATE EXTENSION postgis;
+PG_CREATE_EXT = CREATE EXTENSION IF NOT EXISTS postgis;
 PG_CREATE_SCHEMA = CREATE SCHEMA plr;
 SQLALCHEMY_URL = "postgresql://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGDATABASE)"
 
@@ -72,8 +72,8 @@ PACKAGE = pyramid_oereb
 	psql -h $(PGHOST) -U $(PGUSER) -c "$(PG_DROP_DB)"
 
 .db/.create-db:
-	mkdir .db
-	psql -h $(PGHOST) -U $(PGUSER) -c "$(PG_CREATE_DB)"
+	mkdir -p .db
+	psql -h $(PGHOST) -U $(PGUSER) -c "$(PG_CREATE_DB)" || /bin/true
 	touch $@
 
 .db/.create-db-extension: .db/.create-db
