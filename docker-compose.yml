@@ -16,7 +16,6 @@ services:
     volumes:
       - .:/workspace:cached
     working_dir: /workspace
-    command: make serve-dev
     ports:
       - ${PYRAMID_OEREB_PORT:-6543}:${PYRAMID_OEREB_PORT:-6543}
     networks:
