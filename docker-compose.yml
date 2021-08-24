@@ -13,6 +13,7 @@ services:
       PGPORT: ${PGPORT:-5432}
       PGUSER: ${PGUSER:-postgres}
       PGPASSWORD: ${PGPASSWORD:-postgres}
+      PYRAMID_OEREB_PORT: ${PYRAMID_OEREB_PORT:-6543}
     volumes:
       - .:/workspace:cached
     working_dir: /workspace
