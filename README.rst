@@ -119,21 +119,19 @@ It is possible to run this instance in parallel to the instance which uses the s
 If testing ``make serve`` with another theme than forest_perimeters, changes will be necessary in the directory ``sample_data/oereblex/``: first remove the symbolic link corresponding to this theme, then create a directory and add JSON data files into it. In comparison to the data from the standard model, a new attribute ``geolink`` is required in ``public_law_restriction.json``, which should correspond to an existing geolink in the Oereblex server defined in the configuration (see ``sample_data/oereblex/forest_perimeters`` for example files).
 
 
-DEV Environment (V2)
+Dev environment (V2)
 ====================
 
-For runtime pyramid_oereb needs at least a running database to get the data from. this
-repo ships with a `docker-compose.yml` to satisfy this needs.
+``pyramid_oereb`` can be run with ``docker-compose`` or directly on the host. The application requires a running database.
 
-If you are working on a linux system, and that all the dependencies are installed, it is
-also possible to use an already existing database, and to run the pyramid server directly
-on the host. Use the following command to run the server in development mode:
+The Docker composition consists of the service ``oereb-server`` (the container in which the application is to be started) and the service ``oereb-db`` (which hosts the database). To run ``pyramid_oereb`` with ``docker-compose``, see section "General workflow (in Docker)".
 
-.. code-block:: bash
+To run the server directly on the host, you need to be using a Linux system with all the dependencies installed. In this case, you should use an already existing database. For details see section "General worfklow (local shell)".
 
-  make serve-dev
+Database connection
+-------------------
 
-For the databse connection, the following environment variables must be set:
+For the database connection, the following environment variables must be set (if not using the default parameters):
 
 .. code-block:: bash
 
@@ -148,84 +146,27 @@ For the databse connection, the following environment variables must be set:
   # the port on which the db-server is listening
   PGPORT
 
-If these are not provided, the default values can be found in the Makefile.
+If these are not provided, the default values found in the Makefile will be used.
 
-NB: if these environment variables are set in the host environment, they will
-also be used in the `docker-compose` composition.
+NB: if these environment variables are set in the host environment, they will also be used in the ``docker-compose`` composition.
 
 
 General workflow (in Docker)
 ----------------------------
 
-1. run docker-compose
-2. connect a terminal to bash in the pyramid_oereb server container
-3. use make with the provided Makefile to test, start the server or to build the virtual environment
-4. BONUS: If you use an IDE like VSCode you can attach it to the running container to have convenient features like autocomplete or code inspection
-
-General workflow (Docker + local shell)
----------------------------------------
-
-This is only sufficient if you have all dependencies locally available (python3-dev, postgres-client, geos, etc.)
-and in the right versions. Otherwise this might lead to strange behaviors.
-
-
-1. run docker-compose
-2. open local shell in project path
-3. use make with the provided Makefile to clean the virtual environment (if needed)
-
-Docker composition in detail
-----------------------------
-
-Prerequisite
-............
-
-Setup is intendet to have network available "print-network". To use the setup just for pyramid_oereb
-dev without MapFishPrint you need to create the network first:
-
-docker network create print-network
-
-Fresh startup
-.............
-
-You can create the docker composition to develop the project:
-
-.. code-block:: bash
-
-  docker-compose up -d
-
-This sets up a database container and a container which encapsulates the project. In case
-you didn't had the images alread this will build the DEV-container first. Its based on
-the `Dockerfile`. It will also start `pserve` with the `--reload` option in the `oereb-server`
-container.
-
-Once this step finished you should have 2 running containers belonging to the composition.
-
-You might inspect with:
-
-.. code-block:: bash
-
-  docker container ls
-
-This containers should run as long as you have dev work to do. Everything else is solved by
-the provided Makefile.
-
-To enter in the `oereb-server` container with `zsh` type:
-
-.. code-block:: bash
-
-  docker-compose exec oereb-server zsh
-
-To start the server (and build the project automatically) you can run:
-
-.. code-block:: bash
-
-  docker-compose exec oereb-server make serve-dev
+1. Run the composition with ``docker-compose up -d``
+2. You can check whether the containers started properly with ``docker-compose ps``
+3. Connect to the server container with ``docker-compose exec oereb-server zsh``
+4. Start the server in development mode with ``make serve-dev``
+(Alternatively, start the server from your local shell with ``docker-compose exec oereb-server make serve-dev``)
+5. The sample data extract should be available at http://localhost:6543/oereb/extract/json?EGRID=CH113928077734
+6. BONUS: If you use an IDE like VSCode you can attach it to the running container to have convenient features like autocomplete or code inspection
 
 
 Clean up after work
 ...................
 
-It is a recommended habit to stop your composition when you stop working:
+It is recommended to stop your composition when you stop working:
 
 .. code-block:: bash
 
@@ -234,10 +175,45 @@ It is a recommended habit to stop your composition when you stop working:
 Update Dockerfile
 .................
 
-If you need to change something inside the `Dockerfile` you need to rebuild it. So after your change
-stop docker composition and rebuild it:
+If you need to change something inside the ``Dockerfile`` you need to rebuild the ``oereb-server`` image. So after your change,
+stop the docker composition and rebuild it:
 
 .. code-block:: bash
 
   docker-compose down
   docker-compose build
+
+General workflow (local shell)
+------------------------------
+
+These instructions are sufficient only if you have all dependencies locally available (``python3-dev`` ``libgeos-dev`` ``python3-venv`` ``postgresql-client`` ``libpq-dev`` etc.)
+and in the right versions. Otherwise this might lead to strange behaviors.
+
+1. In a local shell in the project path, start the server in development mode with ``make serve-dev``
+2. The sample data extract should be available at http://localhost:6543/oereb/extract/json?EGRID=CH113928077734
+
+
+Useful ``make`` targets
+------------------------
+
+Run the ``make`` targets found in the Makefile either in the ``oereb-server`` container (if using ``docker-compose``) or in your local shell (if running the server locally).
+Some useful targets:
+
+- ``make serve-dev`` to run the application
+- ``make test`` to run the application tests
+- ``make clean`` to empty the database
+- ``make clean-all`` to empty the database, uninstall the application and the virtual env and clear the rendered configuration files
+
+If necessary the application is re-installed and the database is filled when running ``make serve-dev`` again.
+
+Using MapFish-Print
+-------------------
+
+To be able to test the OEREB static extract (pdf), you need to run ``pyramid_oereb`` with ``docker-compose`` and to have a running instance of `pyramid_oereb_mfp <https://github.com/openoereb/pyramid_oereb_mfp>`__.
+The Docker network ``print-network`` is also required and can be created with:
+
+.. code-block:: bash
+
+  docker network create print-network
+
+The sample static extract should then be available at http://localhost:6543/oereb/extract/pdf?EGRID=CH113928077734
