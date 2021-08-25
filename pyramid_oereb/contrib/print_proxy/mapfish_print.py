@@ -215,7 +215,8 @@ class Renderer(JsonRenderer):
         ])
         extract_dict['CreationDate'] = creation_date.strftime('%d.%m.%Y')
 
-        for attr_name in ['NotConcernedTheme', 'ThemeWithoutData', 'ConcernedTheme']:
+        extract_dict['ConcernedTheme'] = []
+        for attr_name in ['NotConcernedTheme', 'ThemeWithoutData']:
             for theme in extract_dict[attr_name]:
                 self._localised_text(theme, 'Text')
         self._flatten_object(extract_dict, 'PLRCadastreAuthority')
@@ -362,6 +363,13 @@ class Renderer(JsonRenderer):
             lawstatus_text = restriction_on_landownership['Lawstatus_Text']
             restriction_on_landownership['Theme_Text'] = f"{theme_text} ({lawstatus_text})"
             theme = restriction_on_landownership['Theme_Code']+restriction_on_landownership['Lawstatus_Code']
+
+            extract_dict['ConcernedTheme'].append(
+                {
+                    'Code': theme,
+                    'Text': restriction_on_landownership['Theme_Text']
+                    }
+            )
 
             if split_sub_themes:
                 if 'SubTheme' in restriction_on_landownership:
