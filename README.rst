@@ -158,10 +158,10 @@ General workflow (in Docker)
 2. You can check whether the containers started properly with ``docker-compose ps``
 3. Connect to the server container with ``docker-compose exec oereb-server zsh``
 4. Start the server in development mode with ``make serve-dev``
-(Alternatively, start the server from your local shell with ``docker-compose exec oereb-server make serve-dev``)
 5. The sample data extract should be available at http://localhost:6543/oereb/extract/json?EGRID=CH113928077734
 6. BONUS: If you use an IDE like VSCode you can attach it to the running container to have convenient features like autocomplete or code inspection
 
+NB: Alternatively, start the server from your local shell with ``docker-compose exec oereb-server make serve-dev``
 
 Clean up after work
 ...................
