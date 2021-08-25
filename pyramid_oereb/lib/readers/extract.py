@@ -129,11 +129,7 @@ class ExtractReader(object):
                 # Filter topics due to topics parameter
                 if not params.skip_topic(plr.theme.code):
                     if isinstance(plr, PlrRecord):
-                        contained = False
-                        for theme in concerned_themes:
-                            if theme.code == plr.theme.code:
-                                contained = True
-                        if not contained:
+                        if plr.theme.code not in [theme.code for theme in concerned_themes]:
                             concerned_themes.append(plr.theme)
                     elif isinstance(plr, EmptyPlrRecord):
                         if plr.has_data:
