@@ -368,7 +368,7 @@ class Renderer(JsonRenderer):
                 {
                     'Code': theme,
                     'Text': restriction_on_landownership['Theme_Text']
-                    }
+                }
             )
 
             if split_sub_themes:
