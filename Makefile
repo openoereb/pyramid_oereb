@@ -9,18 +9,20 @@ else
   PIP_COMMAND=pip3
 endif
 
-# Testing/DEV variables
+# Environment variables for DB connection
+PGDATABASE ?= pyramid_oereb_test
+PGHOST ?= oereb-db
+PGUSER ?= postgres
+PGPASSWORD ?= postgres
+PGPORT ?= 5432
+PYRAMID_OEREB_PORT ?= 6543
 
-PG_DB = pyramid_oereb_test
-PG_HOST = oereb-db
-PG_DROP_DB = DROP DATABASE IF EXISTS $(PG_DB);
-PG_CREATE_DB = CREATE DATABASE $(PG_DB);
-PG_CREATE_EXT = CREATE EXTENSION postgis;
+# Makefile internal aliases
+PG_DROP_DB = DROP DATABASE IF EXISTS $(PGDATABASE) WITH (FORCE);
+PG_CREATE_DB = CREATE DATABASE $(PGDATABASE);
+PG_CREATE_EXT = CREATE EXTENSION IF NOT EXISTS postgis;
 PG_CREATE_SCHEMA = CREATE SCHEMA plr;
-PG_USER = postgres
-PG_PASSWORD = postgres
-PG_CREDENTIALS ?= $(PG_USER):$(PG_PASSWORD)
-SQLALCHEMY_URL = "postgresql://$(PG_CREDENTIALS)@$(PG_HOST):5432/$(PG_DB)"
+SQLALCHEMY_URL = "postgresql://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGDATABASE)"
 
 PG_DEV_DATA_DIR = sample_data
 PG_DEV_DATA = $(shell ls -1 $(PG_DEV_DATA_DIR)/*.json) \
@@ -58,7 +60,7 @@ PACKAGE = pyramid_oereb
 	touch $@
 
 .venv/requirements-timestamp: .venv/timestamp setup.py requirements.txt requirements-tests.txt dev-requirements.txt
-	$(VENV_BIN)/$(PIP_COMMAND) install --upgrade pip
+	$(VENV_BIN)/$(PIP_COMMAND) install --upgrade pip wheel
 	$(VENV_BIN)/$(PIP_COMMAND) install -r requirements.txt -r requirements-tests.txt -r dev-requirements.txt
 	touch $@
 
@@ -67,27 +69,27 @@ PACKAGE = pyramid_oereb
 # ********************
 
 .db/.drop-db:
-	psql -h $(PG_HOST) -U $(PG_USER) -c "$(PG_DROP_DB)"
+	psql -h $(PGHOST) -U $(PGUSER) -c "$(PG_DROP_DB)"
 
 .db/.create-db:
-	mkdir .db
-	psql -h $(PG_HOST) -U $(PG_USER) -c "$(PG_CREATE_DB)"
+	mkdir -p .db
+	psql -h $(PGHOST) -U $(PGUSER) -c "$(PG_CREATE_DB)" || /bin/true
 	touch $@
 
 .db/.create-db-extension: .db/.create-db
-	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -c "$(PG_CREATE_EXT)"
+	psql -h $(PGHOST) -U $(PGUSER) -d $(PGDATABASE) -c "$(PG_CREATE_EXT)"
 	touch $@
 
 .db/.create-db-schema: .db/.create-db-extension
-	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -c "$(PG_CREATE_SCHEMA)"
+	psql -h $(PGHOST) -U $(PGUSER) -d $(PGDATABASE) -c "$(PG_CREATE_SCHEMA)"
 	touch $@
 
 .db/.create-db-dev-tables: .db/.setup-db $(DEV_CREATE_SCRIPT)
-	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -f $(DEV_CREATE_SCRIPT)
+	psql -h $(PGHOST) -U $(PGUSER) -d $(PGDATABASE) -f $(DEV_CREATE_SCRIPT)
 	touch $@
 
 .db/.fill-db-dev-tables: .db/.create-db-dev-tables $(DEV_FILL_SCRIPT)
-	psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DB) -f $(DEV_FILL_SCRIPT)
+	psql -h $(PGHOST) -U $(PGUSER) -d $(PGDATABASE) -f $(DEV_FILL_SCRIPT)
 	touch $@
 
 # **************
@@ -121,7 +123,7 @@ $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT): setup.py $(BUILD_
 	$(VENV_BIN)/python $< develop
 
 .PHONY: build
-build: $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT)
+build: install $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT)
 
 .PHONY: clean
 clean: .db/.drop-db
@@ -132,6 +134,7 @@ clean-all: clean
 	rm -rf .venv
 	rm -f $(DEV_CONFIGURATION_YML)
 	rm -f *.png
+	rm -f development.ini
 	rm -rf $(PACKAGE).egg-info
 
 .PHONY: create-default-models
@@ -176,33 +179,5 @@ serve-dev: development.ini build .db/.setup-db-dev
 serve: development.ini build
 	$(VENV_BIN)/pserve $<
 
-.PHONY: docker-build
-docker-build:
-	docker build .
-
-.PHONY: docker-serve
-docker-serve: docker-build
-	PGHOST=$(PG_HOST) PGUSER=$(PG_USER) PG_DB=$(PG_DB) PGPASSWORD=$(PG_PASSWORD) docker-compose up -d
-
-.PHONY: docker-down
-docker-down:
-	PGHOST=$(PG_HOST) PGUSER=$(PG_USER) PG_DB=$(PG_DB) PGPASSWORD=$(PG_PASSWORD) docker-compose down
-
-.PHONY: docker-lint
-docker-lint: docker-build
-	docker-compose exec oereb-server make lint
-
-.PHONY: docker-test
-docker-test: docker-serve
-	docker-compose exec oereb-server make test
-
-.PHONY: docker-clean
-docker-clean:
-	docker-compose restart oereb-db
-	docker-compose exec oereb-server make clean
-
-.PHONY: docker-clean-all
-docker-clean-all:
-	rm -f $(DEV_CONFIGURATION_YML)
-	docker-compose restart oereb-db
-	docker-compose exec oereb-server make clean-all
+development.ini: install
+	$(VENV_BIN)/mako-render --var pyramid_oereb_port=$(PYRAMID_OEREB_PORT) development.ini.mako > development.ini

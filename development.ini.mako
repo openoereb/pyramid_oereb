@@ -23,7 +23,7 @@ sqlalchemy.url = sqlite:///%(here)s/pyramid_oereb.sqlite
 [server:main]
 use = egg:waitress#main
 host = 0.0.0.0
-port = 6543
+port = ${pyramid_oereb_port}
 
 ###
 # logging configuration
