@@ -13,6 +13,9 @@ __pycache__/
 # Virtual environment
 /.venv/
 
+# vscode devcontainer plugin stuff
+.devcontainer/
+
 # Sphinx documentation
 /doc/source/core/readers.rst
 /doc/source/core/records.rst
