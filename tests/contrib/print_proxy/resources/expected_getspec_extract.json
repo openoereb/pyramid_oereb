@@ -370,7 +370,7 @@
       "Theme_Text": "Kataster der belasteten Standorte",
       "SymbolRef": "",
       "Theme_Code": "ContaminatedSites",
-      "legend": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
+      "legend": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&SLD_VERSION=1.1.0&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
       "Geom_Type": "AreaShare",
       "Laws": [],
       "ResponsibleOffice": [
@@ -512,7 +512,7 @@
       "Theme_Text": "L\u00e4rmempfindlichkeitsstufen (in Nutzungszonen)",
       "SymbolRef": "",
       "Theme_Code": "NoiseSensitivityLevels",
-      "legend": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=oereb_laermempfindlichkeitsstufen&FORMAT=image/png",
+      "legend": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&SLD_VERSION=1.1.0&LAYER=oereb_laermempfindlichkeitsstufen&FORMAT=image/png",
       "Geom_Type": "AreaShare",
       "Laws": [],
       "ResponsibleOffice": [
@@ -784,7 +784,7 @@
   "PLRCadastreAuthority_OfficeAtWeb": "http://www.agi.bl.ch",
   "RealEstate_PlanForLandRegisterMainPage": {
     "layerOpacity": 0.5,
-    "ReferenceWMS": "http://dev2.geowms.bl.ch/?STYLES=default&LAYERS=grundbuchplan_gebaeude_nicht_gefuellt_group&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&SRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.1.1&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
+    "ReferenceWMS": "http://dev2.geowms.bl.ch/?STYLES=default&LAYERS=grundbuchplan_gebaeude_nicht_gefuellt_group&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&CRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.3.0&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
   },
   "CantonalLogoRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/logo/canton",
   "Certification": "Referenz zur kantonsspezifischen Gesetzesgrundlage bez\u00fcglich Beglaubigungen.",
