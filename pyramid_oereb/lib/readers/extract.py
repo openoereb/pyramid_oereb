@@ -35,7 +35,7 @@ class ExtractReader(object):
                 instances which the achieved extract should be about.
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority responsible
                 for the PLR cadastre.
-            certification (dict of unicode or None): A mutlilingual dictionary of certification information.
+            certification (dict of unicode or None): A multilingual dictionary of certification information.
             certification_at_web (dict of unicode or None): Multilingual list of certification uri.
         """
         self.extract = None
@@ -89,7 +89,7 @@ class ExtractReader(object):
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate for which the report should be generated
-            municipality (pyramid_oereb.lib.records.municipiality.MunicipalityRecord): The municipality
+            municipality (pyramid_oereb.lib.records.municipality.MunicipalityRecord): The municipality
                 record.
 
         Returns:

@@ -25,7 +25,7 @@ But you can change it also via configuration.
         variables.
 
 """
-from sqlalchemy import Column, PrimaryKeyConstraint
+from sqlalchemy import Column, PrimaryKeyConstraint, UniqueConstraint
 from sqlalchemy import Unicode, String, text, Integer, Boolean
 from geoalchemy2 import Geometry
 from sqlalchemy.ext.declarative import declarative_base
@@ -46,6 +46,7 @@ class Theme(Base):
         id (int): identifier, used in the database only
         code (str): OEREB code of the theme - unique and used to link each PublicLawRestriction
             with the corresponding theme
+        sub_code (str): OEREB sub_code of the sub-theme: only available for sub themes.
         title (dict): the title of the theme as a multilingual dictionary
         extract_index (int): index to sort the themes in the extract, defined in the specification
     """
@@ -53,9 +54,11 @@ class Theme(Base):
     __tablename__ = 'theme'
     id = Column(Integer, primary_key=True, autoincrement=False)
     code = Column(String, unique=True, nullable=False)
+    sub_code = Column(String, unique=True, nullable=True)
     title = Column(JSONType, nullable=False)
     extract_index = Column(Integer, nullable=False)
 
+    UniqueConstraint(code, sub_code)
 
 class Logo(Base):
     """
