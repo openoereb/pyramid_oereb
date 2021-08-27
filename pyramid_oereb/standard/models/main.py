@@ -60,6 +60,7 @@ class Theme(Base):
 
     UniqueConstraint(code, sub_code)
 
+
 class Logo(Base):
     """
     The container for all logos and municipality coat of arms
