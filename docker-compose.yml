@@ -40,6 +40,8 @@ services:
       PGUSER: ${PGUSER:-postgres}
       PGPORT: ${PGPORT:-5432}
       PGPASSWORD: ${PGPASSWORD:-postgres}
+    ports:
+      - 15432:${PGPORT:-5432}
 
 networks:
   print-network:
