@@ -476,6 +476,9 @@ class Renderer(Base):
             'Code': theme.code,
             'Text': self.get_localized_text(theme.title)
         }
+        if theme.sub_code:  # only for sub-themes
+            theme_dict.update({'Sub Code': theme.sub_code})
+
         return theme_dict
 
     def format_map(self, map_):

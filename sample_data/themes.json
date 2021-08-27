@@ -12,6 +12,32 @@
         "extract_index": 20
     },
     {
+        "id": 20,
+        "code": "LandUsePlans",
+        "sub_code": "ch.SubTheme",
+        "title": {
+            "de": "Nutzungsplanung: SubTheme(kantonal/kommunal)",
+            "fr": "Plans d'affectation: SubTheme (cantonaux/communaux)",
+            "it": "Piani di utilizzazione: Subtheme (cantonali/comunali)",
+            "rm": "Planisaziun d'utilisaziun: SubtTheme (chantunal/communal)",
+            "en": "Land-use planning: SubTheme (cantonal/municipal)"
+        },
+        "extract_index": 20
+    },
+    {
+        "id": 19,
+        "code": "LandUsePlans",
+        "sub_code": "ch.Baulinien",
+        "title": {
+            "de": "Nutzungsplanung: Baulinien (kantonal/kommunal)",
+            "fr": "Plans d'affectation: Alignements (cantonaux/communaux)",
+            "it": "Piani di utilizzazione: Allineamenti (cantonali/comunali)",
+            "rm": "Planisaziun d'utilisaziun: Lingias da construcziun (chantunal/communal)",
+            "en": "Land-use planning: Building lines (cantonal/municipal)"
+        },
+        "extract_index": 20
+    },
+    {
         "id": 2,
         "code": "MotorwaysProjectPlaningZones",
         "title": {
