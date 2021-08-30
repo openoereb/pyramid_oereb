@@ -201,7 +201,7 @@ class LegendEntry(Base):
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
-    sub_theme = sa.Column(JSONType, nullable=True)
+    sub_theme = sa.Column(sa.String, nullable=True)
     view_service_id = sa.Column(
 % if primary_key_is_string:
         sa.String,
@@ -264,7 +264,7 @@ class PublicLawRestriction(Base):
 % endif
     information = sa.Column(JSONType, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
-    sub_theme = sa.Column(JSONType, nullable=True)
+    sub_theme = sa.Column(sa.String, nullable=True)
     type_code = sa.Column(sa.String(40), nullable=True)
     type_code_list = sa.Column(sa.String, nullable=True)
     law_status = sa.Column(sa.String, nullable=False)
