@@ -193,7 +193,7 @@ class LegendEntry(Base):
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
-    sub_theme = sa.Column(JSONType, nullable=True)
+    sub_theme = sa.Column(sa.String, nullable=True)
     view_service_id = sa.Column(
         sa.Integer,
         sa.ForeignKey(ViewService.id),
@@ -211,7 +211,7 @@ class PublicLawRestriction(Base):
             you  don't like it - don't care about.
         legend_text (dict): The multilingual textual representation of the public law restriction.
         topic (str): Category for this public law restriction (name of the topic).
-        sub_theme (dict): Multilingual textual explanation to subtype the topic attribute.
+        sub_theme (str): Multilingual textual explanation to subtype the topic attribute.
         type_code (str): Type code of the public law restriction machine readable based on the
             original data  model of this public law restriction.
         type_code_list (str): List of full range of type_codes for this public law restriction in a
@@ -234,7 +234,7 @@ class PublicLawRestriction(Base):
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=False)
     legend_text = sa.Column(JSONType, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
-    sub_theme = sa.Column(JSONType, nullable=True)
+    sub_theme = sa.Column(sa.String, nullable=True)
     type_code = sa.Column(sa.String(40), nullable=True)
     type_code_list = sa.Column(sa.String, nullable=True)
     law_status = sa.Column(sa.String, nullable=False)

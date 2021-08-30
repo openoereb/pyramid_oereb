@@ -154,15 +154,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def from_db_to_legend_entry_records(self, theme, legend_entries_from_db):
         legend_entry_records = []
         for legend_entry_from_db in legend_entries_from_db:
-            legend_entry_records.append(self._legend_entry_record_class(
-                ImageRecord(b64.decode(legend_entry_from_db.symbol)),
-                legend_entry_from_db.legend_text,
-                legend_entry_from_db.type_code,
-                legend_entry_from_db.type_code_list,
-                theme,
-                view_service_id=legend_entry_from_db.view_service_id,
-                sub_theme=legend_entry_from_db.sub_theme
-            ))
+            legend_entry_records.append(
+                self.from_db_to_legend_entry_record(theme, legend_entry_from_db)
+            )
         return legend_entry_records
 
     def from_db_to_view_service_record(self, view_service_from_db, legend_entry_records, theme):
