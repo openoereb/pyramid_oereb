@@ -32,7 +32,7 @@ def test_parse():
                 <LocalisedText>
                     <LocalisationCH_V1.LocalisedMText>
                         <Language>de</Language>
-                        <Text>https://wms.geo.admin.ch/?SERVICE=WMS&amp;REQUEST=GetMap&amp;VERSION=1.1.1&amp;LAYERS=ch.bazl.sicherheitszonenplan.oereb&amp;STYLES=default&amp;SRS=EPSG:2056&amp;BBOX=2475000,1065000,2850000,1300000&amp;WIDTH=740&amp;HEIGHT=500&amp;FORMAT=image/png</Text>
+                        <Text>https://wms.geo.admin.ch/?SERVICE=WMS&amp;REQUEST=GetMap&amp;VERSION=1.3.0&amp;LAYERS=ch.bazl.sicherheitszonenplan.oereb&amp;STYLES=default&amp;CRS=EPSG:2056&amp;BBOX=2475000,1065000,2850000,1300000&amp;WIDTH=740&amp;HEIGHT=500&amp;FORMAT=image/png</Text>
                     </LocalisationCH_V1.LocalisedMText>
                 </LocalisedText>
             </LocalisationCH_V1.MultilingualMText>
@@ -47,8 +47,8 @@ def test_parse():
     parsed = view_service_session.getData()
     assert len(parsed) == 1
     assert parsed[0].reference_wms == {'de':
-                                       'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1'
+                                       'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0'
                                        '&LAYERS=ch.bazl.sicherheitszonenplan.oereb&STYLES=default'
-                                       '&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=740'
+                                       '&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=740'
                                        '&HEIGHT=500&FORMAT=image/png'
                                        }

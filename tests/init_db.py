@@ -527,8 +527,8 @@ class DummyData(object):
         motorways_building_lines = self.motorways_building_lines
 
         # Add dummy PLR data for line geometry
-        wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default' \
-                  u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
+        wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default' \
+                  u'&CRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(motorways_building_lines.ViewService.__table__.insert(), {
             'id': '1',
@@ -691,8 +691,8 @@ class DummyData(object):
         connection = self._engine.connect()
         contaminated_sites = self.contaminated_sites
         # Add dummy PLR data for polygon geometry
-        wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default' \
-                  u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
+        wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default' \
+                  u'&CRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(contaminated_sites.ViewService.__table__.insert(), {
             'id': '1',
@@ -804,8 +804,8 @@ class DummyData(object):
         land_use_plans = self.land_use_plans
 
         # Add dummy PLR data for collection geometry test
-        wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default' \
-                  u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
+        wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.O&STYLES=default' \
+                  u'&CRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(land_use_plans.ViewService.__table__.insert(), {
             'id': '1',
@@ -922,8 +922,8 @@ class DummyData(object):
         forest_perimeters = self.forest_perimeters
 
         # Add dummy PLR data for line geometry
-        wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default' \
-                  u'&SRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
+        wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default' \
+                  u'&CRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
                   u'&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
         connection.execute(forest_perimeters.ViewService.__table__.insert(), {
             'id': '1',

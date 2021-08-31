@@ -117,3 +117,103 @@ JSON reduced extract is accessible at: http://localhost:6544/oereb/extract/reduc
 It is possible to run this instance in parallel to the instance which uses the standard database. For this, one should create a second clone of the project.
 
 If testing ``make serve`` with another theme than forest_perimeters, changes will be necessary in the directory ``sample_data/oereblex/``: first remove the symbolic link corresponding to this theme, then create a directory and add JSON data files into it. In comparison to the data from the standard model, a new attribute ``geolink`` is required in ``public_law_restriction.json``, which should correspond to an existing geolink in the Oereblex server defined in the configuration (see ``sample_data/oereblex/forest_perimeters`` for example files).
+
+
+Dev environment (V2)
+====================
+
+``pyramid_oereb`` can be run with ``docker-compose`` or directly on the host. The application requires a running database.
+
+The Docker composition consists of the service ``oereb-server`` (the container in which the application is to be started) and the service ``oereb-db`` (which hosts the database). To run ``pyramid_oereb`` with ``docker-compose``, see section "General workflow (in Docker)".
+
+To run the server directly on the host, you need to be using a Linux system with all the dependencies installed. In this case, you should use an already existing database. For details see section "General worfklow (local shell)".
+
+Database connection
+-------------------
+
+For the database connection, the following environment variables must be set (if not using the default parameters):
+
+.. code-block:: bash
+
+  # the db-server username
+  PGUSER
+  # the db-server password
+  PGPASSWORD
+  # the db-server host
+  PGHOST
+  # the database in the db-server
+  PGDATABASE
+  # the port on which the db-server is listening
+  PGPORT
+
+If these are not provided, the default values found in the Makefile will be used.
+
+NB: if these environment variables are set in the host environment, they will also be used in the ``docker-compose`` composition.
+
+
+General workflow (in Docker)
+----------------------------
+
+1. Run the composition with ``docker-compose up -d``
+2. You can check whether the containers started properly with ``docker-compose ps``
+3. Connect to the server container with ``docker-compose exec oereb-server zsh``
+4. Start the server in development mode with ``make serve-dev``
+5. The sample data extract should be available at http://localhost:6543/oereb/extract/json?EGRID=CH113928077734
+6. BONUS: If you use an IDE like VSCode you can attach it to the running container to have convenient features like autocomplete or code inspection
+
+NB: Alternatively, start the server from your local shell with ``docker-compose exec oereb-server make serve-dev``
+
+Clean up after work
+...................
+
+It is recommended to stop your composition when you stop working:
+
+.. code-block:: bash
+
+  docker-compose down
+
+Update Dockerfile
+.................
+
+If you need to change something inside the ``Dockerfile`` you need to rebuild the ``oereb-server`` image. So after your change,
+stop the docker composition and rebuild it:
+
+.. code-block:: bash
+
+  docker-compose down
+  docker-compose build
+
+General workflow (local shell)
+------------------------------
+
+These instructions are sufficient only if you have all dependencies locally available (``python3-dev`` ``libgeos-dev`` ``python3-venv`` ``postgresql-client`` ``libpq-dev`` etc.)
+and in the right versions. Otherwise this might lead to strange behaviors.
+
+1. In a local shell in the project path, start the server in development mode with ``make serve-dev``
+2. The sample data extract should be available at http://localhost:6543/oereb/extract/json?EGRID=CH113928077734
+
+
+Useful ``make`` targets
+------------------------
+
+Run the ``make`` targets found in the Makefile either in the ``oereb-server`` container (if using ``docker-compose``) or in your local shell (if running the server locally).
+Some useful targets:
+
+- ``make serve-dev`` to run the application
+- ``make test`` to run the application tests
+- ``make clean`` to empty the database
+- ``make clean-all`` to empty the database, uninstall the application and the virtual env and clear the rendered configuration files
+
+If necessary the application is re-installed and the database is filled when running ``make serve-dev`` again.
+
+Using MapFish-Print
+-------------------
+
+To be able to test the OEREB static extract (pdf), you need to run ``pyramid_oereb`` with ``docker-compose`` and to have a running instance of `pyramid_oereb_mfp <https://github.com/openoereb/pyramid_oereb_mfp>`__.
+The Docker network ``print-network`` is also required and can be created with:
+
+.. code-block:: bash
+
+  docker network create print-network
+
+The sample static extract should then be available at http://localhost:6543/oereb/extract/pdf?EGRID=CH113928077734
