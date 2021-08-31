@@ -66,9 +66,10 @@ class StandardThemeConfigParser(object):
 
 def parse_multiple_standard_themes(config):
     """
-
     Args:
         config (pyramid_oereb.standard.config.Config): The config object of the application.
+    Returns:
+        dict containing the factory_model for every plr code.
     """
     plrs = config._config.get('plrs')
     themes = {}
