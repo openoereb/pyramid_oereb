@@ -30,7 +30,7 @@ def create_tables_sql(db_connection, tables):
         db_connection (str): The db connection string.
         tables (list of sqlalchemy.schema.Table): The table objects from sqlalchemy.
     Returns:
-
+        a string with the sql statement used to create the tables
     """
     sqls = []
     engine = create_engine(db_connection, echo=True)
