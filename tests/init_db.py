@@ -15,7 +15,7 @@ Config._config = None
 pyramid_oereb_test_yml = 'pyramid_oereb/standard/pyramid_oereb.yml'
 Config.init(pyramid_oereb_test_yml, 'pyramid_oereb')
 
-def create_models():
+def create_themes():
     themes = parse_multiple_standard_themes(Config)
     return themes
 
@@ -23,7 +23,7 @@ def create_models():
 class DummyData(object):
     def __init__(self):
         self._engine = create_engine(Config.get('app_schema').get('db_connection'))
-        self.themes = create_models()
+        self.themes = create_themes()
         self.contaminated_sites = self.themes['ContaminatedSites']
         self.land_use_plans = self.themes['LandUsePlans']
         self.motorways_building_lines = self.themes['MotorwaysBuildingLines']
