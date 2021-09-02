@@ -23,14 +23,13 @@ class LegendEntryRecord(object):
         legend_text (dict of unicode): The multilingual description text for the legend entry.
         type_code (unicode): The class of the legend entry corresponding to the plrs classes.
         type_code_list (unicode): An URL to the type code list.
-        theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend entry belongs
-            to.
+        theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend entry belongs.
         view_service_id (int): The id to the connected view service. This is very important to be able to
             solve bug https://github.com/openoereb/pyramid_oereb/issues/521
     """
 
     def __init__(self, symbol, legend_text, type_code, type_code_list, theme,
-                 view_service_id=None):
+                 view_service_id=None, sub_theme=None):
 
         if not isinstance(legend_text, dict):
             warnings.warn('Type of "legend_text" should be "dict"')
@@ -45,7 +44,7 @@ class LegendEntryRecord(object):
 
     def __str__(self):
         return '<{} -- symbol: {} legend_text: {} type_code: {} type_code_list: {}'\
-                    ' theme: {} sub_theme: {}'\
+                    ' theme: {}'\
                     .format(self.__class__.__name__, self.symbol, self.legend_text,
                             self.type_code, self.type_code_list, self.theme)
 

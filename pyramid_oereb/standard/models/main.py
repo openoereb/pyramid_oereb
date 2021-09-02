@@ -53,8 +53,8 @@ class Theme(Base):
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'theme'
     id = Column(Integer, primary_key=True, autoincrement=False)
-    code = Column(String, unique=True, nullable=False)
-    sub_code = Column(String, unique=True, nullable=True)
+    code = Column(String, nullable=False)
+    sub_code = Column(String, nullable=True)
     title = Column(JSONType, nullable=False)
     extract_index = Column(Integer, nullable=False)
 

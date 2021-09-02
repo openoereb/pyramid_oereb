@@ -20,7 +20,6 @@ class LegendEntry(object):
         self._topic_code = topic_code
 
     def parse(self, view_service):  # pragma: no cover
-        language = Config.get('default_language')
         for element in view_service:
             if get_tag(element) == self.TAG_LEGEND:
                 count = 1
@@ -28,7 +27,7 @@ class LegendEntry(object):
                     if get_tag(legend_entry) == self.TAG_LEGEND_ENTRY:
                         sub_theme = parse_string(legend_entry, self.TAG_SUB_THEME)
                         if sub_theme is not None:
-                            sub_theme = {language: sub_theme}
+                            sub_theme = sub_theme
                         instance = self._model(
                             id='{0}.legende.{1}'.format(view_service.attrib['TID'], count),
                             symbol=self._parse_symbol(legend_entry, self.TAG_SYMBOL),
