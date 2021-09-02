@@ -71,6 +71,9 @@ class Renderer(JsonRenderer):
         if 'lang' in self._lowercase_GET_dict:
             self._language = self._lowercase_GET_dict.get('lang')
 
+        self._static_error_message = Config.get('static_error_message').get(self._language) or \
+            Config.get('static_error_message').get(self._fallback_language)
+
         # Based on extract record and webservice parameter, render the extract data as JSON
         extract_record = value[0]
         extract_as_dict = self._render(extract_record, value[1])
@@ -136,14 +139,14 @@ class Renderer(JsonRenderer):
         except PdfReadError as e:
             err_msg = 'a problem occurred while generating the pdf file'
             log.error(err_msg + ': ' + str(e))
-            raise HTTPInternalServerError(err_msg)
+            raise HTTPInternalServerError(self._static_error_message)
 
         try:
             content = print_result.content
         except PdfReadError as e:
             err_msg = 'No contents from print result available!'
             log.error(err_msg + ': ' + str(e))
-            raise HTTPInternalServerError(err_msg)
+            raise HTTPInternalServerError(self._static_error_message)
 
         # Save printed file to the specified path.
         pdf_archive_path = print_config.get('pdf_archive_path', None)
