@@ -421,8 +421,7 @@ class Renderer(Base):
             'Lawstatus': {
                 'Code': geometry.law_status.code,
                 'Text': self.get_multilingual_text(geometry.law_status.text)
-            },
-            'ResponsibleOffice': self.format_office(geometry.office)
+            }
         }
 
         if geometry.geo_metadata is not None:

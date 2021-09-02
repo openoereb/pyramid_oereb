@@ -601,7 +601,6 @@ class DummyData(object):
             'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
-            'office_id': '1',
             'geom': u'SRID=2056;LINESTRING (0 0, 2 2)'
         })
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
@@ -609,7 +608,6 @@ class DummyData(object):
             'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '2',
-            'office_id': '1',
             'geom': u'SRID=2056;LINESTRING (1.5 1.5, 1.5 4)'
         })
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
@@ -617,7 +615,6 @@ class DummyData(object):
             'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '3',
-            'office_id': '1',
             'geom': u'SRID=2056;LINESTRING (3 1, 3 4, 6 4, 6 1, 4.5 1)'
         })
         connection.execute(motorways_building_lines.Geometry.__table__.insert(), {
@@ -625,7 +622,6 @@ class DummyData(object):
             'law_status': u'inKraft',
             'published_from': (date.today() + timedelta(days=7)).isoformat(),
             'public_law_restriction_id': '4',
-            'office_id': '1',
             'geom': u'SRID=2056;LINESTRING (0 0, 4 4)'
         })
         connection.execute(motorways_building_lines.Document.__table__.insert(), {
@@ -768,7 +764,6 @@ class DummyData(object):
             'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
-            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((0 0, 0 1.5, 1.5 1.5, 1.5 0, 0 0)))'
         })
         connection.execute(contaminated_sites.Geometry.__table__.insert(), {
@@ -776,7 +771,6 @@ class DummyData(object):
             'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '2',
-            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5)))'
         })
         connection.execute(contaminated_sites.Geometry.__table__.insert(), {
@@ -784,7 +778,6 @@ class DummyData(object):
             'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '3',
-            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION('
                     u'POLYGON((3 2.5, 3 5, 7 5, 7 0, 3 0, 3 1, 6 1, 6 4, 4 2.5, 3 2.5)))'
         })
@@ -793,7 +786,6 @@ class DummyData(object):
             'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '4',
-            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((0 0, 0 2, 2 2, 2 0, 0 0)))'
         })
 
@@ -877,7 +869,6 @@ class DummyData(object):
             'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
-            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION('
                     u'POLYGON((1 -1, 9 -1, 9 7, 1 7, 1 8, 10 8, 10 -2, 1 -2, 1 -1)))'
         })
@@ -886,7 +877,6 @@ class DummyData(object):
             'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
-            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((0 0, 0 1.5, 1.5 1.5, 1.5 0, 0 0)))'
         })
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
@@ -894,7 +884,6 @@ class DummyData(object):
             'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
-            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION('
                     u'POLYGON((3 2.5, 3 5, 7 5, 7 0, 3 0, 3 1, 6 1, 6 4, 4 2.5, 3 2.5)))'
         })
@@ -903,7 +892,6 @@ class DummyData(object):
             'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
-            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POLYGON((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5)))'
         })
         connection.execute(land_use_plans.Geometry.__table__.insert(), {
@@ -911,7 +899,6 @@ class DummyData(object):
             'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
-            'office_id': '1',
             'geom': u'SRID=2056;GEOMETRYCOLLECTION(POINT(1 2))'
         })
 
@@ -966,7 +953,6 @@ class DummyData(object):
             'law_status': u'inKraft',
             'published_from': date.today().isoformat(),
             'public_law_restriction_id': '1',
-            'office_id': '1',
             # example geometry which does not concern the real_estate (tolerance_check)
             'geom': u'SRID=2056;LINESTRING (1.5 1.5, 1.5 2.5)'
 

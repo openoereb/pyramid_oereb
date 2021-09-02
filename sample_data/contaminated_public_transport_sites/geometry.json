@@ -1,6 +1,5 @@
 [
   {
-    "office_id": 1,
     "published_from": "2016-02-25",
     "published_until": "2100-01-01",
     "id": 1292,
@@ -8,7 +7,6 @@
     "geom": "SRID=2056;GEOMETRYCOLLECTION(POLYGON((2608842.05 1261934.03, 2608823.89 1261849.60, 2608807.19 1261770.55, 2608852.40 1261758.34, 2608886.92 1261924.21, 2608865.22 1261929.49, 2608842.05 1261934.03)))",
     "public_law_restriction_id": 396
   }, {
-    "office_id": 1,
     "published_from": "2016-02-25",
     "published_until": "2100-01-01",
     "id": 1293,
@@ -16,7 +14,6 @@
     "geom": "SRID=2056;GEOMETRYCOLLECTION(POLYGON((2608884.85 1261902.76, 2608936.84 1261892.76, 2608924.35 1261824.26, 2608874.85 1261833.26, 2608884.85 1261902.76)))",
     "public_law_restriction_id": 397
   }, {
-    "office_id": 1,
     "published_from": "2016-02-25",
     "published_until": "2100-01-01",
     "id": 1294,
@@ -24,7 +21,6 @@
     "geom": "SRID=2056;GEOMETRYCOLLECTION(LINESTRING(2608906.85 1261915.2, 2608887.35 1261815.76))",
     "public_law_restriction_id": 398
   }, {
-    "office_id": 1,
     "published_from": "2016-02-25",
     "published_until": "2100-01-01",
     "id": 1295,
@@ -32,7 +28,6 @@
     "geom": "SRID=2056;GEOMETRYCOLLECTION(LINESTRING(2608839.15 1261864.46, 2608895.65 1261837.46))",
     "public_law_restriction_id": 399
   }, {
-    "office_id": 1,
     "published_from": "2016-02-25",
     "published_until": "2100-01-01",
     "id": 1296,
@@ -40,7 +35,6 @@
     "geom": "SRID=2056;GEOMETRYCOLLECTION(POINT(2608838.15 1261846.96))",
     "public_law_restriction_id": 400
   }, {
-    "office_id": 1,
     "published_from": "2016-02-25",
     "published_until": "2100-01-01",
     "id": 1297,

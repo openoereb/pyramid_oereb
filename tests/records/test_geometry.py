@@ -29,7 +29,6 @@ def test_init():
     assert isinstance(record.geo_metadata, str)
     assert isinstance(record.geom, Polygon)
     assert record.public_law_restriction is None
-    assert record.office is None
 
 
 @pytest.mark.parametrize('geom,dim', [

@@ -36,7 +36,7 @@ def test_sub_theme():
         code='AenderungMitVorwirkung',
         text={'de': 'law status de'}
     )
-    geometry = GeometryRecord(law_status, datetime.now(), datetime.now(), Polygon(), 'test', office=office)
+    geometry = GeometryRecord(law_status, datetime.now(), datetime.now(), Polygon(), 'test')
     public_law_restriction = PlrRecord(
         theme=theme,
         legend_entry=LegendEntryRecord(
@@ -68,4 +68,4 @@ def test_sub_theme():
     }).decode('utf-8').split('\n')
     no_empty_lines = list(filter(lambda line: line != '', content))
     assert no_empty_lines[18] == '    <data:SubTheme>sub theme de</data:SubTheme>'
-    assert len(no_empty_lines) == 72
+    assert len(no_empty_lines) == 62

@@ -282,10 +282,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
                 is  related to.
             public_law_restriction (PublicLawRestriction): The dedicated relation to the public law
                 restriction instance from database.
-            office_id (str): The foreign key to the office which is responsible to this public law
-                restriction.
-            responsible_office (Office):
-                The dedicated relation to the office instance from database.
             geom (geoalchemy2.types.Geometry): The geometry it's self. For type information see
                 geoalchemy docs (https://geoalchemy-2.readthedocs.io/en/0.4.2/types.html) dependent on the
                 configured type.  This concrete one is LINESTRING
@@ -307,12 +303,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             PublicLawRestriction,
             backref='geometries'
         )
-        office_id = Column(
-            String,
-            ForeignKey(Office.id),
-            nullable=False
-        )
-        responsible_office = relationship(Office)
 
     class PublicLawRestrictionDocument(Base):
         """

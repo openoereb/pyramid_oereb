@@ -459,14 +459,10 @@ def test_format_document(params, document, result_dict):
         datetime.date.today(),
         None,
         Point(0, 0),
-        geo_metadata='http://www.geocat.ch',
-        office=OfficeRecord({u'de': u'AGI'})), {
+        geo_metadata='http://www.geocat.ch'), {
         'Lawstatus': {
             'Code': 'inKraft',
             'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
-        },
-        'ResponsibleOffice': {
-            'Name': [{'Language': 'de', 'Text': 'AGI'}]
         },
         'MetadataOfGeographicalBaseData': 'http://www.geocat.ch',
         'Point': {
@@ -474,14 +470,10 @@ def test_format_document(params, document, result_dict):
             'coordinates': (0, 0)
         }
     }),
-    (GeometryRecord(law_status(), datetime.date.today(), None, LineString([(0, 0), (1, 1)]),
-                    office=OfficeRecord({u'de': u'AGI'})), {
+    (GeometryRecord(law_status(), datetime.date.today(), None, LineString([(0, 0), (1, 1)])), {
         'Lawstatus': {
             'Code': 'inKraft',
             'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
-        },
-        'ResponsibleOffice': {
-            'Name': [{'Language': 'de', 'Text': 'AGI'}]
         },
         'Line': {
             'crs': 'EPSG:2056',
@@ -492,15 +484,11 @@ def test_format_document(params, document, result_dict):
         law_status(),
         datetime.date.today(),
         None,
-        Polygon([(0, 0), (1, 1), (1, 0)]),
-        office=OfficeRecord({u'de': u'AGI'})
+        Polygon([(0, 0), (1, 1), (1, 0)])
     ), {
         'Lawstatus': {
             'Code': 'inKraft',
             'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
-        },
-        'ResponsibleOffice': {
-            'Name': [{'Language': 'de', 'Text': 'AGI'}]
         },
         'Surface': {
             'crs': 'EPSG:2056',
