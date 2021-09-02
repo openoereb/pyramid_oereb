@@ -27,6 +27,7 @@ SQLALCHEMY_URL = "postgresql://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGD
 PG_DEV_DATA_DIR = sample_data
 PG_DEV_DATA = $(shell ls -1 $(PG_DEV_DATA_DIR)/*.json) \
 	$(shell ls -1 $(PG_DEV_DATA_DIR)/contaminated_public_transport_sites/*.json) \
+	$(shell ls -1 $(PG_DEV_DATA_DIR)/land_use_plans/*.json) \
 	$(shell ls -1 $(PG_DEV_DATA_DIR)/groundwater_protection_zones/*.json) \
 	$(shell ls -1 $(PG_DEV_DATA_DIR)/forest_perimeters/*.json) \
 	$(shell ls -1 $(PG_DEV_DATA_DIR)/motorways_building_lines/*.json) \
