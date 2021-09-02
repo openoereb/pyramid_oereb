@@ -236,10 +236,6 @@ class Geometry(Base):
         public_law_restriction (pyramid_oereb.standard.models.groundwater_protection_zones
             .PublicLawRestriction): The dedicated relation to the public law restriction instance from
             database.
-        office_id (str): The foreign key to the office which is responsible to this public law
-            restriction.
-        responsible_office (pyramid_oereb.standard.models.groundwater_protection_zones.Office):
-            The dedicated relation to the office instance from database.
         geom (geoalchemy2.types.Geometry): The geometry it's self. For type information see
             geoalchemy docs (https://geoalchemy-2.readthedocs.io/en/0.4.2/types.html) dependent on the
             configured type.  This concrete one is POLYGON
@@ -260,12 +256,6 @@ class Geometry(Base):
         PublicLawRestriction,
         backref='geometries'
     )
-    office_id = sa.Column(
-        sa.String,
-        sa.ForeignKey(Office.id),
-        nullable=False
-    )
-    responsible_office = relationship(Office)
 
 
 class PublicLawRestrictionBase(Base):

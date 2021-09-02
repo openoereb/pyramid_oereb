@@ -25,14 +25,13 @@ class GeometryRecord(object):
         geo_metadata (uri): The metadata.
         public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law
             restriction
-        office (pyramid_oereb.lib.records.office.Office): The office
 
     Raises:
         AttributeError: Error when a wrong geometry type was passed.
     """
     def __init__(
             self, law_status, published_from, published_until, geom, geo_metadata=None,
-            public_law_restriction=None, office=None):
+            public_law_restriction=None):
 
         self.law_status = law_status
         self.published_from = published_from
@@ -43,7 +42,6 @@ class GeometryRecord(object):
         else:
             raise AttributeError(u'The passed geometry is not supported: {type}'.format(type=geom.type))
         self.public_law_restriction = public_law_restriction
-        self.office = office
         self._units = None
         self._area_share = None
         self._length_share = None

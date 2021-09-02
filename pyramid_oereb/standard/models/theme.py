@@ -307,12 +307,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             PublicLawRestriction,
             backref='geometries'
         )
-        office_id = Column(
-            String,
-            ForeignKey(Office.id),
-            nullable=False
-        )
-        responsible_office = relationship(Office)
 
     class PublicLawRestrictionDocument(Base):
         """

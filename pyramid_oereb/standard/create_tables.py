@@ -61,7 +61,7 @@ def create_tables_from_standard_configuration(
                 sql = create_sql(theme_schema_name, theme_db_connection, theme_tables)
 
             if sql_file is None:
-                execute_sql(theme_schema_name, sql)
+                execute_sql(theme_db_connection, sql)
             else:
                 sql_file.write(sql)
 

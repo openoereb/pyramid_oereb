@@ -9,7 +9,4 @@
     <data:MetadataOfGeographicalBaseData>
         ${geometry.geo_metadata}
     </data:MetadataOfGeographicalBaseData>
-    <data:ResponsibleOffice>
-        <%include file="office.xml" args="office=geometry.office"/>
-    </data:ResponsibleOffice>
 </data:Geometry>
