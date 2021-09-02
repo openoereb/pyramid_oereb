@@ -1115,3 +1115,10 @@ pyramid_oereb:
         inKraft: inKraft
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
+
+  # The error message returned if an error occurs when requesting a static extract
+  # The content of the message is defined in the specification (document "Inhalt und Darstellung des statischen Auszugs")
+  static_error_message:
+    de: "Ein oder mehrere ÖREB-Themen stehen momentan nicht zur Verfügung. Daher kann kein Auszug erstellt werden. Versuchen Sie es zu einem späteren Zeitpunkt erneut. Wir entschuldigen uns für die Unannehmlichkeiten."
+    fr: "Un ou plusieurs thèmes RDPPF sont momentanément indisponibles. L’extrait ne peut donc pas être établi. Veuillez réessayer plus tard. Nous vous prions de nous excuser pour ce désagrément."
+    it: "Uno o più temi relativi alle RDPP non sono attualmente disponibili. Non è pertanto possibile allestire alcun estratto. Vi preghiamo di riprovare più tardi. Ci scusiamo per l’inconveniente."
