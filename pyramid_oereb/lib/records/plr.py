@@ -28,7 +28,7 @@ class PlrRecord(EmptyPlrRecord):
     """
 
     def __init__(self, theme, legend_entry, law_status, published_from, published_until, responsible_office,
-                 symbol, view_service, geometries, type_code=None,
+                 symbol, view_service, geometries, sub_theme=None, type_code=None,
                  type_code_list=None, documents=None, info=None, min_length=0.0,
                  min_area=0.0, length_unit=u'm', area_unit=u'm2', view_service_id=None):
         """
@@ -47,6 +47,7 @@ class PlrRecord(EmptyPlrRecord):
                 associated with this record.
             geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of geometry records
                 associated with this record.
+            sub_theme (pyramid_oereb.lib.records.theme.ThemeRecord or None): Optional subtopic.
             type_code (unicode): The PLR record's type code (also used by view service).
             type_code_list (unicode): URL to the PLR's list of type codes.
             documents (list of pyramid_oereb.lib.records.documents.DocumentBaseRecord): List of documents
@@ -83,6 +84,7 @@ class PlrRecord(EmptyPlrRecord):
             self.geometries = []
         else:
             self.geometries = geometries
+        self.sub_theme = sub_theme
         self.info = info
         self.has_data = True
         self.min_length = min_length

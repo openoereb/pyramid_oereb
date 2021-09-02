@@ -108,9 +108,9 @@ class ExtractReader(object):
 
         if municipality.published:
 
-            for position, plr_source in enumerate(self._plr_sources_, start=1):
+            for plr_source in self._plr_sources_:
                 if not params.skip_topic(plr_source.info.get('code')):
-                    plr_source.read(params, real_estate, bbox, position)
+                    plr_source.read(params, real_estate, bbox)
                     for ds in plr_source.datasource:
                         if not params.skip_topic(ds.theme.code):
                             datasource.append(ds)
@@ -139,7 +139,7 @@ class ExtractReader(object):
 
         else:
             for plr_source in self._plr_sources_:
-                themes_without_data.append(Config.get_theme_by_code(plr_source.info.get('code')))
+                themes_without_data.append(Config.get_theme_by_code_sub_code(plr_source.info.get('code')))
 
         # Load base data form configuration
         resolver = DottedNameResolver()

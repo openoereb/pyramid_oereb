@@ -158,12 +158,12 @@ class Config(object):
         return Config.themes
 
     @staticmethod
-    def get_theme_by_code(code):
+    def get_theme_by_code_sub_code(code, sub_code=None):
         """
-        Returns the theme with the specified code.
+        Returns the theme or sub-theme which which maches the code.
 
         Args:
-            code (str): The theme's code.
+            code (str): The theme's code or sub-code.
 
         Returns:
             pyramid_oereb.lib.records.theme.ThemeRecord or None: The theme with the specified
@@ -171,10 +171,11 @@ class Config(object):
         """
         if Config.themes is None:
             raise ConfigurationError("Themes have not been initialized")
-        for theme in Config.themes:
-            if theme.code == code:
-                return theme
-        raise ConfigurationError(f"Theme {code} not found in the application configuration")
+        theme_result = [theme for theme in Config.themes if theme.sub_code == sub_code and theme.code == code]
+        if len(theme_result) > 0:
+            return theme_result[0]
+        else:
+            raise ConfigurationError(f"Theme {code} with sub-code {sub_code} not found in the application configuration")
 
     @staticmethod
     def init_logos():

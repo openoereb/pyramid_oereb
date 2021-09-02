@@ -16,11 +16,11 @@
         "code": "LandUsePlans",
         "sub_code": "ch.SubTheme",
         "title": {
-            "de": "Nutzungsplanung: SubTheme(kantonal/kommunal)",
-            "fr": "Plans d'affectation: SubTheme (cantonaux/communaux)",
-            "it": "Piani di utilizzazione: Subtheme (cantonali/comunali)",
-            "rm": "Planisaziun d'utilisaziun: SubtTheme (chantunal/communal)",
-            "en": "Land-use planning: SubTheme (cantonal/municipal)"
+            "de": "SubTheme",
+            "fr": "SubTheme",
+            "it": "SubTheme",
+            "rm": "SubTheme",
+            "en": "SubTheme"
         },
         "extract_index": 20
     },
@@ -29,11 +29,11 @@
         "code": "LandUsePlans",
         "sub_code": "ch.Baulinien",
         "title": {
-            "de": "Nutzungsplanung: Baulinien (kantonal/kommunal)",
-            "fr": "Plans d'affectation: Alignements (cantonaux/communaux)",
-            "it": "Piani di utilizzazione: Allineamenti (cantonali/comunali)",
-            "rm": "Planisaziun d'utilisaziun: Lingias da construcziun (chantunal/communal)",
-            "en": "Land-use planning: Building lines (cantonal/municipal)"
+            "de": "Baulinien",
+            "fr": "Alignements",
+            "it": "Allineamenti",
+            "rm": "Lingias da construcziun",
+            "en": "Building lines"
         },
         "extract_index": 20
     },
