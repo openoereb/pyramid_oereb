@@ -35,9 +35,6 @@ class LegendEntryRecord(object):
         if not isinstance(legend_text, dict):
             warnings.warn('Type of "legend_text" should be "dict"')
 
-        if sub_theme is not None and not isinstance(sub_theme, dict):
-            warnings.warn('Type of "sub_theme" should be "dict"')
-
         self.symbol = symbol
         self.legend_text = legend_text
         self.type_code = type_code

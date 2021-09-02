@@ -189,7 +189,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
                 legend  entry.
             theme (str): Statement to describe to which public law restriction this legend entry
                 belongs.
-            sub_theme (dict): Multilingual description for sub topics this legend entry might belonging to.
+            sub_theme (str): Statement to describe to which sub-thme this legend entry belongs if it has a sub-thme.
             view_service_id (str): The foreign key to the view service this legend entry is related to.
             view_service (ViewService):
                 The dedicated relation to the view service instance from database.
@@ -202,7 +202,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         type_code = Column(String(40), nullable=False)
         type_code_list = Column(String, nullable=False)
         theme = Column(String, nullable=False)
-        sub_theme = Column(JSONType, nullable=True)
+        sub_theme = Column(String, nullable=True)
         view_service_id = Column(
             String,
             ForeignKey(ViewService.id),

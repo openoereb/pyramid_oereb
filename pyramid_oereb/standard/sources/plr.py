@@ -147,7 +147,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             legend_entry_from_db.type_code_list,
             theme,
             view_service_id=legend_entry_from_db.view_service_id,
-            sub_theme=legend_entry_from_db.sub_theme
         )
         return legend_entry_record
 
