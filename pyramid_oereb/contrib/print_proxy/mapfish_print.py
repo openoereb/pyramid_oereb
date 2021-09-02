@@ -225,6 +225,8 @@ class Renderer(JsonRenderer):
         self._flatten_object(extract_dict, 'PLRCadastreAuthority')
         self._multilingual_text(extract_dict, 'PLRCadastreAuthority_OfficeAtWeb')
         self._flatten_object(extract_dict, 'RealEstate')
+        self._multilingual_text(extract_dict['RealEstate_Type'], 'Text')
+        self._flatten_object(extract_dict, 'RealEstate_Type')
         if 'Image' in extract_dict.get('RealEstate_Highlight', {}):
             del extract_dict['RealEstate_Highlight']['Image']
 

@@ -412,7 +412,15 @@
     "FosNr": 2766,
     "Number": "1274",
     "LandRegistryArea": 119681.0,
-    "Type": "RealEstate",
+    "Type": {
+      "Code": "Liegenschaft",
+      "Text": [
+        {
+          "Language": "de",
+          "Text": "Liegenschaft"
+        }
+      ]
+    },
     "RestrictionOnLandownership": [
       {
         "PartInPercent": 65.6,
