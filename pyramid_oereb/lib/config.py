@@ -862,6 +862,16 @@ class Config(object):
                       "no class_name property".format(theme_code))
         return sorter
 
+    @staticmethod
+    def extract_module_function(dotted_function_path):
+        elements = dotted_function_path.split('.')
+        function_name = elements[-1]
+        module_path = '.'.join(elements[:-1])
+        return {
+            'module_path': module_path,
+            'function_name': function_name
+        }
+
 
 def _parse(cfg_file, cfg_section, c2ctemplate_style=False):
     """

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from datetime import date, timedelta
 
 from sqlalchemy import create_engine
@@ -6,13 +7,27 @@ from sqlalchemy import create_engine
 from pyramid_oereb.lib import b64
 from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.config import Config
+from pyramid_oereb.standard.sources.plr import parse_multiple_standard_themes
 
 file_adapter = FileAdapter()
+
+Config._config = None
+pyramid_oereb_test_yml = 'pyramid_oereb/standard/pyramid_oereb.yml'
+Config.init(pyramid_oereb_test_yml, 'pyramid_oereb')
+
+def create_themes():
+    themes = parse_multiple_standard_themes(Config)
+    return themes
 
 
 class DummyData(object):
     def __init__(self):
         self._engine = create_engine(Config.get('app_schema').get('db_connection'))
+        self.themes = create_themes()
+        self.contaminated_sites = self.themes['ContaminatedSites']
+        self.land_use_plans = self.themes['LandUsePlans']
+        self.motorways_building_lines = self.themes['MotorwaysBuildingLines']
+        self.forest_perimeters = self.themes['ForestPerimeters']
 
     def init(self):
         self._truncate()
@@ -23,8 +38,11 @@ class DummyData(object):
         self._import_forest_perimeters()
 
     def _truncate(self):
-        from pyramid_oereb.standard.models import main, contaminated_sites, \
-             land_use_plans, motorways_building_lines, forest_perimeters
+        from pyramid_oereb.standard.models import main
+        contaminated_sites = self.contaminated_sites
+        land_use_plans = self.land_use_plans
+        motorways_building_lines = self.motorways_building_lines
+        forest_perimeters = self.forest_perimeters
         connection = self._engine.connect()
         trans = connection.begin()
 
@@ -505,8 +523,8 @@ class DummyData(object):
         connection.close()
 
     def _import_motorways_building_lines(self):
-        from pyramid_oereb.standard.models import motorways_building_lines
         connection = self._engine.connect()
+        motorways_building_lines = self.motorways_building_lines
 
         # Add dummy PLR data for line geometry
         wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default' \
@@ -670,9 +688,8 @@ class DummyData(object):
         connection.close()
 
     def _import_contaminated_sites(self):
-        from pyramid_oereb.standard.models import contaminated_sites
         connection = self._engine.connect()
-
+        contaminated_sites = self.contaminated_sites
         # Add dummy PLR data for polygon geometry
         wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default' \
                   u'&CRS=EPSG:{0}&BBOX=475000,60000,845000,310000&WIDTH=740&HEIGHT=500&FORMAT=image/png' \
@@ -783,8 +800,8 @@ class DummyData(object):
         connection.close()
 
     def _import_land_use_plans(self):
-        from pyramid_oereb.standard.models import land_use_plans
         connection = self._engine.connect()
+        land_use_plans = self.land_use_plans
 
         # Add dummy PLR data for collection geometry test
         wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.O&STYLES=default' \
@@ -901,8 +918,8 @@ class DummyData(object):
         connection.close()
 
     def _import_forest_perimeters(self):
-        from pyramid_oereb.standard.models import forest_perimeters
         connection = self._engine.connect()
+        forest_perimeters = self.forest_perimeters
 
         # Add dummy PLR data for line geometry
         wms_url = u'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default' \
@@ -956,3 +973,7 @@ class DummyData(object):
         })
 
         connection.close()
+
+
+dummy_data = DummyData()
+dummy_data.init()

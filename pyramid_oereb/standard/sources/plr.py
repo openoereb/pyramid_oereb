@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
+import importlib
 
 from geoalchemy2.shape import to_shape, from_shape
-from pyramid.path import DottedNameResolver
 from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, \
     GeometryCollection
 from sqlalchemy import text, or_
@@ -18,6 +18,65 @@ from pyramid_oereb.lib.sources import BaseDatabaseSource
 from pyramid_oereb.lib.sources.plr import PlrBaseSource
 
 log = logging.getLogger(__name__)
+
+
+class StandardThemeConfigParser(object):
+
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+    @property
+    def model_factory_path(self):
+        return self.kwargs.get('source').get('params').get('model_factory')
+
+    @property
+    def schema_name(self):
+        return self.kwargs.get('source').get('params').get('schema_name')
+
+    @property
+    def geometry_type(self):
+        return self.kwargs.get('geometry_type')
+
+    @property
+    def srid(self):
+        return Config._config.get('srid')
+
+    @property
+    def db_connection(self):
+        return self.kwargs.get('source').get('params').get('db_connection')
+
+    def get_model_factory(self):
+        module_elements = Config.extract_module_function(
+            self.model_factory_path
+        )
+        return getattr(
+            importlib.import_module(module_elements['module_path']),
+            module_elements['function_name']
+        )
+
+    def get_models(self):
+        model_factory = self.get_model_factory()
+        return model_factory(
+            self.schema_name,
+            self.geometry_type,
+            self.srid,
+            self.db_connection
+        )
+
+
+def parse_multiple_standard_themes(config):
+    """
+    Args:
+        config (pyramid_oereb.standard.config.Config): The config object of the application.
+    Returns:
+        dict containing the factory_model for every plr code.
+    """
+    plrs = config._config.get('plrs')
+    themes = {}
+    for plr in plrs:
+        config_parser = StandardThemeConfigParser(**plr)
+        themes[plr['code']] = config_parser.get_models()
+    return themes
 
 
 class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
@@ -41,27 +100,19 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 the code and text which must be a dictionary containing language (as configured)
                 as key and text as value.
         """
-        models_path = kwargs.get('source').get('params').get('models')
+        config_parser = StandardThemeConfigParser(**kwargs)
+        models = config_parser.get_models()
         bds_kwargs = {
-            'model': DottedNameResolver().maybe_resolve(
-                '{models_path}.Geometry'.format(models_path=models_path)
-            ),
+            'model': models.Geometry,
             'db_connection': kwargs.get('source').get('params').get('db_connection')
         }
 
         BaseDatabaseSource.__init__(self, **bds_kwargs)
         PlrBaseSource.__init__(self, **kwargs)
 
-        self.legend_entry_model = DottedNameResolver().maybe_resolve(
-            '{models_path}.LegendEntry'.format(models_path=models_path)
-        )
-        availability_model = DottedNameResolver().maybe_resolve(
-            '{models_path}.Availability'.format(models_path=models_path)
-        )
-        data_integration_model = DottedNameResolver().maybe_resolve(
-            '{models_path}.DataIntegration'.format(models_path=models_path)
-        )
-
+        self.legend_entry_model = models.LegendEntry
+        availability_model = models.Availability
+        data_integration_model = models.DataIntegration
         self._theme_record = Config.get_theme_by_code(self._plr_info.get('code'))
 
         self.availabilities = []

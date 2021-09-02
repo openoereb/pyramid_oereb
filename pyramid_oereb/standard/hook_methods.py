@@ -5,10 +5,11 @@ import logging
 from mako import exceptions
 from mako.template import Template
 from pyramid.httpexceptions import HTTPNotFound
-from pyramid.path import AssetResolver, DottedNameResolver
+from pyramid.path import AssetResolver
 from pyramid.response import Response
 from sqlalchemy import cast, Text
 
+from pyramid_oereb.standard.sources.plr import StandardThemeConfigParser
 from pyramid_oereb import Config, database_adapter, route_prefix
 from pyramid_oereb.lib import b64
 from pyramid_oereb.lib.records.image import ImageRecord
@@ -42,14 +43,12 @@ def get_symbol(request):
     if plr is None:
         raise HTTPNotFound('No theme with code {}.'.format(theme_code))
 
-    source_params = plr.get('source').get('params')
-    session = database_adapter.get_session(source_params.get('db_connection'))
+    session = database_adapter.get_session(plr.get('source').get('params').get('db_connection'))
 
     try:
-        model = DottedNameResolver().resolve('{module_}.{class_}'.format(
-            module_=source_params.get('models'),
-            class_='LegendEntry'
-        ))
+        config_parser = StandardThemeConfigParser(**plr)
+        models = config_parser.get_models()
+        model = models.LegendEntry
         legend_entry = session.query(model).filter(
             cast(model.type_code, Text) == cast(type_code, Text)
         ).filter(

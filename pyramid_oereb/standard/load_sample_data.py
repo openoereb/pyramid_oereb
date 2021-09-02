@@ -4,12 +4,12 @@ import re
 import json
 import optparse
 import os
-import importlib
 
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Connection
 
 from pyramid_oereb.lib.config import Config
+from pyramid_oereb.standard.sources.plr import parse_multiple_standard_themes
 
 
 class SampleData(object):
@@ -195,17 +195,12 @@ class SampleData(object):
         Performs the database operations to load the sample data.
         """
         # Find data model for each PLR from config
-        plrs = Config._config.get('plrs')
-        models = {plr['code']: plr['source']['params']['models'] for plr in plrs}
-        try:
-            contaminated_public_transport_sites = \
-                importlib.import_module(models['ContaminatedPublicTransportSites'])
-            groundwater_protection_zones = importlib.import_module(models['GroundwaterProtectionZones'])
-            motorways_building_lines = importlib.import_module(models['MotorwaysBuildingLines'])
-            contaminated_military_sites = importlib.import_module(models['ContaminatedMilitarySites'])
-            forest_perimeters = importlib.import_module(models['ForestPerimeters'])
-        except KeyError as e:
-            raise Exception(f"Missing model in YAML configuration file: {e}")
+        themes = parse_multiple_standard_themes(Config)
+        contaminated_public_transport_sites = themes['ContaminatedPublicTransportSites']
+        groundwater_protection_zones = themes['GroundwaterProtectionZones']
+        motorways_building_lines = themes['MotorwaysBuildingLines']
+        contaminated_military_sites = themes['ContaminatedMilitarySites']
+        forest_perimeters = themes['ForestPerimeters']
 
         from pyramid_oereb.standard.models.main import Theme, Logo, DocumentTypeText, RealEstate, Address, \
             Municipality, Glossary, ExclusionOfLiability, GeneralInformation, RealEstateType, LawStatus

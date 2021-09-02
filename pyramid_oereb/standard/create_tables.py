@@ -1,81 +1,69 @@
 # -*- coding: utf-8 -*-
-import inspect
 import optparse
 import logging
 
-from pyramid.config import ConfigurationError
 from pyramid.path import DottedNameResolver
-from sqlalchemy import create_engine
 
 from pyramid_oereb.lib.config import Config
-from pyramid_oereb.standard import create_tables_from_standard_configuration
+from pyramid_oereb.standard.sources.plr import StandardThemeConfigParser
+from pyramid_oereb.standard import tables, create_sql, create_tables_sql, execute_sql
 
 logging.basicConfig()
 log = logging.getLogger(__name__)
 
 
-def _create_theme_tables(configuration_yaml_path, theme, section='pyramid_oereb', c2ctemplate_style=False,
-                         tables_only=False):
+def create_tables_from_standard_configuration(
+        configuration_yaml_path, section='pyramid_oereb', c2ctemplate_style=False, tables_only=False,
+        sql_file=None):
     """
-    Create all tables defined in the specified module.
+    Creates all schemas which are defined in the passed yaml file: <section>.<plrs>.[<plr>.<code>]. The code
+    must be camel case. It will be transformed to snake case and used as schema name.
+    Creates all tables inside the created schemas. This only affects the sqlalchemy models which are defined
+    with the Base class from pyramid_oereb.standard.models.
 
     Args:
-        configuration_yaml_path (str): Path to the configuration file.
-        theme (str): Code of the theme to create the tables for.
-        section (str): Section within the specified configuration file used for pyramid_oereb. Default is
-            'pyramid_oereb'.
+        configuration_yaml_path (str): The absolute path to the yaml file which contains the plr
+            definitions.
+        section (str): The section in yaml file where the plrs are configured in. Default is 'pyramid_oereb'.
         c2ctemplate_style (bool): True if the yaml use a c2c template style (vars.[section]).
             Default is False.
         tables_only (bool): True to skip creation of schema. Default is False.
+        sql_file (file): the file to generate. Default is None (in the database).
     """
+    if Config.get_config() is None:
+        Config.init(configuration_yaml_path, section, c2ctemplate_style)
 
-    # Parse themes from configuration
-    Config.init(configuration_yaml_path, section, c2ctemplate_style)
-    themes = Config.get('plrs')
-    if not isinstance(themes, list):
-        raise ConfigurationError('No list of themes found.')
+    main_base_class = DottedNameResolver().maybe_resolve('{package}.Base'.format(
+        package=Config.get('app_schema').get('models')
+    ))
+    main_db_connection = Config.get('app_schema').get('db_connection')
+    main_schema_name = Config.get('app_schema').get('name')
+    main_tables = tables(main_base_class)
+    if tables_only:
+        sql = create_tables_sql(main_db_connection, main_tables)
+    else:
+        sql = create_sql(main_schema_name, main_db_connection, main_tables)
+    if sql_file is None:
+        execute_sql(main_db_connection, sql)
+    else:
+        sql_file.write(sql)
 
-    # Find the specified theme
-    found = False
-    for t in themes:
-        if t.get('code') == theme:
+    for theme_config in Config.get('plrs'):
+        if theme_config.get('standard'):
+            config_parser = StandardThemeConfigParser(**theme_config)
+            models = config_parser.get_models()
+            theme_db_connection = models.db_connection
+            theme_schema_name = models.schema_name
+            theme_tables = tables(models.Base)
+            if tables_only:
+                sql = create_tables_sql(theme_db_connection, theme_tables)
+            else:
+                sql = create_sql(theme_schema_name, theme_db_connection, theme_tables)
 
-            # Check required configuration parameters
-            params = t.get('source').get('params')
-            if not isinstance(params, dict):
-                raise ConfigurationError('Missing params property in source definition.')
-            if not ('db_connection' in params and 'models' in params):
-                raise ConfigurationError('Params has to contain "db_connection" and "models" properties.')
-
-            # Create sqlalchemy engine for configured connection and load module containing models
-            engine = create_engine(params.get('db_connection'), echo=True)
-            models = DottedNameResolver().resolve(params.get('models'))
-
-            if not tables_only:
-                # Iterate over contained classes to collect needed schemas
-                classes = inspect.getmembers(models, inspect.isclass)
-                schemas = []
-                create_schema_sql = 'CREATE SCHEMA IF NOT EXISTS {schema};'
-                for c in classes:
-                    class_ = c[1]
-                    if hasattr(class_, '__table__') and class_.__table__.schema not in schemas:
-                        schemas.append(class_.__table__.schema)
-
-                # Try to create missing schemas
-                connection = engine.connect()
-                try:
-                    for schema in schemas:
-                        connection.execute(create_schema_sql.format(schema=schema))
-                finally:
-                    connection.close()
-
-            # Create tables
-            models.Base.metadata.create_all(engine)
-            found = True
-            break
-
-    if not found:
-        raise ValueError('Specified theme "{theme}" not found in configuration.'.format(theme=theme))
+            if sql_file is None:
+                execute_sql(theme_schema_name, sql)
+            else:
+                sql_file.write(sql)
 
 
 def create_standard_tables():
@@ -136,61 +124,3 @@ def create_standard_tables():
                 c2ctemplate_style=options.c2ctemplate_style,
                 sql_file=sql_file
             )
-
-
-def create_theme_tables():
-    parser = optparse.OptionParser(
-        usage='usage: %prog [options]',
-        description='Create all tables for the specified theme.'
-    )
-    parser.add_option(
-        '-c', '--configuration',
-        dest='configuration',
-        metavar='YAML',
-        type='string',
-        help='The absolute path to the configuration yaml file.'
-    )
-    parser.add_option(
-        '-s', '--section',
-        dest='section',
-        metavar='SECTION',
-        type='string',
-        default='pyramid_oereb',
-        help='The section which contains configuration (default is: pyramid_oereb).'
-    )
-    parser.add_option(
-        '-t', '--theme',
-        dest='theme',
-        metavar='THEME_CODE',
-        type='string',
-        help='The theme code. Has to be available in configuration!'
-    )
-    parser.add_option(
-        '-T', '--tables-only',
-        dest='tables_only',
-        action='store_true',
-        default=False,
-        help='Use this flag to skip the creation of the schema.'
-    )
-    parser.add_option(
-        '--c2ctemplate-style',
-        dest='tc2ctemplate_style',
-        action='store_true',
-        default=False,
-        help='Is the yaml file using a c2ctemplate style (starting with vars)'
-    )
-    options, args = parser.parse_args()
-    if not options.configuration:
-        parser.error('No configuration file set.')
-    if not options.theme:
-        parser.error('No theme code defined.')
-    try:
-        _create_theme_tables(
-            options.configuration,
-            options.theme,
-            section=options.section,
-            c2ctemplate_style=options.c2ctemplate_style,
-            tables_only=options.tables_only
-        )
-    except Exception as e:
-        log.error(e)
