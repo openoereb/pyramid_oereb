@@ -189,7 +189,8 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
                 legend  entry.
             theme (str): Statement to describe to which public law restriction this legend entry
                 belongs.
-            sub_theme (str): Statement to describe to which sub-theme this legend entry belongs if it has a sub-thme.
+            sub_theme (str): Statement to describe to which sub-theme this legend entry belongs if
+                it has a sub-theme.
             view_service_id (str): The foreign key to the view service this legend entry is related to.
             view_service (ViewService):
                 The dedicated relation to the view service instance from database.

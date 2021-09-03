@@ -175,7 +175,9 @@ class Config(object):
         if len(theme_result) > 0:
             return theme_result[0]
         else:
-            raise ConfigurationError(f"Theme {code} with sub-code {sub_code} not found in the application configuration")
+            raise ConfigurationError(
+                f"Theme {code} with sub-code {sub_code} not found in the application configuration"
+            )
 
     @staticmethod
     def init_logos():

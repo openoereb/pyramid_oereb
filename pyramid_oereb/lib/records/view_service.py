@@ -41,7 +41,6 @@ class LegendEntryRecord(object):
         self.theme = theme
         self.view_service_id = view_service_id
 
-
     def __str__(self):
         return '<{} -- symbol: {} legend_text: {} type_code: {} type_code_list: {}'\
                     ' theme: {}'\

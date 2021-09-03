@@ -11,7 +11,6 @@ from pyramid_oereb import Config
 from pyramid_oereb.lib import b64
 from pyramid_oereb.lib.records.availability import AvailabilityRecord
 from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import EmptyPlrRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from pyramid_oereb.lib.sources.plr import PlrBaseSource
@@ -326,7 +325,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             self._plr_info.get('code'),
             public_law_restriction_from_db.law_status
         )
-        sub_theme_legend_entry_record = legend_entry_record.theme if legend_entry_record.theme.sub_code else None
+        sub_theme_legend_entry_record = \
+            legend_entry_record.theme if legend_entry_record.theme.sub_code else None
         plr_record = self._plr_record_class(
             Config.get_theme_by_code_sub_code(legend_entry_record.theme.code),
             legend_entry_record,
@@ -499,7 +499,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     if len(geometry_results) == 0:
                         # We checked if there are spatially related elements in database. But there is none.
                         # So we can stop here.
-                        self.records = [EmptyPlrRecord(Config.get_theme_by_code_sub_code(self._plr_info['code']))]
+                        self.records = [EmptyPlrRecord(
+                            Config.get_theme_by_code_sub_code(self._plr_info['code'])
+                        )]
                     else:
                         # We found spatially related elements. This means we need to extract the actual plr
                         # information related to the found geometries.
@@ -519,7 +521,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         # Add empty record if topic is not available
         else:
-            self.records = [EmptyPlrRecord(Config.get_theme_by_code_sub_code(self._plr_info['code']), has_data=False)]
+            self.records = [EmptyPlrRecord(
+                Config.get_theme_by_code_sub_code(self._plr_info['code']),
+                has_data=False
+            )]
 
     def _is_available(self, real_estate):
         """
