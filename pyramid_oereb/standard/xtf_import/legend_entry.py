@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb.lib.config import Config
 from pyramid_oereb.standard.xtf_import.util import parse_string, parse_multilingual_text, get_tag
 
 
