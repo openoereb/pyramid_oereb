@@ -6,6 +6,13 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+.. _changes-version-2.0.0:
+
+Version 2.0.0
+-------------
+Version 2 is the implementation of the new federal requirements 2021. Because the data model specified by
+the federation is not compatible with the model in the previous version, a migration to version 2
+requires a new setup.
 
 .. _changes-version-1.9.2:
 
