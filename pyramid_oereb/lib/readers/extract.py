@@ -27,22 +27,17 @@ class ExtractReader(object):
             instance.
     """
 
-    def __init__(self, plr_sources, plr_cadastre_authority, certification=None,
-                 certification_at_web=None):
+    def __init__(self, plr_sources, plr_cadastre_authority):
         """
         Args:
             plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of PLR source
                 instances which the achieved extract should be about.
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority responsible
                 for the PLR cadastre.
-            certification (dict of unicode or None): A mutlilingual dictionary of certification information.
-            certification_at_web (dict of unicode or None): Multilingual list of certification uri.
         """
         self.extract = None
         self._plr_sources_ = plr_sources
         self._plr_cadastre_authority_ = plr_cadastre_authority
-        self._certification = certification
-        self._certification_at_web = certification_at_web
         self.law_status = Config.get_law_status_codes()
 
     @property
@@ -55,26 +50,6 @@ class ExtractReader(object):
             cadastre.
         """
         return self._plr_cadastre_authority_
-
-    @property
-    def certification(self):
-        """
-        Returns the certification if it exists.
-
-        Returns:
-            dict: (dict of unicode or None) The multilingual list of certification or None.
-        """
-        return self._certification
-
-    @property
-    def certification_at_web(self):
-        """
-        Returns the web certification if it exists.
-
-        Returns:
-            dict: (dict of unicode or None) The multilingual list of certification uri None.
-        """
-        return self._certification_at_web
 
     def read(self, params, real_estate, municipality):
         """
@@ -174,8 +149,6 @@ class ExtractReader(object):
             self.plr_cadastre_authority,
             base_data,
             embeddable,
-            self.certification,
-            self.certification_at_web,
             concerned_theme=concerned_themes,
             not_concerned_theme=not_concerned_themes,
             theme_without_data=themes_without_data,

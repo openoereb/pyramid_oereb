@@ -7,12 +7,6 @@
     <data:Theme>
         <%include file="theme.xml" args="theme=public_law_restriction.theme"/>
     </data:Theme>
-    %if public_law_restriction.sub_theme:
-    <%
-        localized_sub_theme = localized(public_law_restriction.sub_theme)
-    %>
-    <data:SubTheme>${localized_sub_theme.get('Text') | x}</data:SubTheme>
-    %endif
     %if public_law_restriction.type_code:
     <data:TypeCode>${public_law_restriction.type_code | x}</data:TypeCode>
     %endif

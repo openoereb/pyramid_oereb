@@ -196,14 +196,14 @@ class SampleData(object):
         """
         # Find data model for each PLR from config
         themes = parse_multiple_standard_themes(Config)
-        contaminated_public_transport_sites = themes['ContaminatedPublicTransportSites']
-        groundwater_protection_zones = themes['GroundwaterProtectionZones']
-        motorways_building_lines = themes['MotorwaysBuildingLines']
-        contaminated_military_sites = themes['ContaminatedMilitarySites']
-        forest_perimeters = themes['ForestPerimeters']
+        contaminated_public_transport_sites = themes['ch.BelasteteStandorteOeffentlicherVerkehr']
+        groundwater_protection_zones = themes['ch.Grundwasserschutzzonen']
+        motorways_building_lines = themes['ch.BaulinienNationalstrassen']
+        contaminated_military_sites = themes['ch.BelasteteStandorteMilitaer']
+        forest_perimeters = themes['ch.StatischeWaldgrenzen']
 
         from pyramid_oereb.standard.models.main import Theme, Logo, DocumentTypeText, RealEstate, Address, \
-            Municipality, Glossary, ExclusionOfLiability, GeneralInformation, RealEstateType, LawStatus
+            Municipality, Glossary, Disclaimer, GeneralInformation, RealEstateType, LawStatus, Document, Office, ThemeDocument
 
         if self._sql_file is None:
             self._connection = self._engine.connect()
@@ -219,7 +219,7 @@ class SampleData(object):
                 (Address, 'addresses.json'),
                 (Municipality, 'municipalities.json'),
                 (Glossary, 'glossary.json'),
-                (ExclusionOfLiability, 'exclusion_of_liability.json'),
+                (Disclaimer, 'disclaimer.json'),
                 (LawStatus, 'law_status.json'),
                 (RealEstateType, 'real_estate_type.json'),
                 (GeneralInformation, 'general_information.json')

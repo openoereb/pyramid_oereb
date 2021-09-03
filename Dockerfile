@@ -13,6 +13,7 @@ RUN apt-get update && \
   ${DEV_PACKAGES} \
   zsh \
   vim \
+  xsltproc \
   postgresql-client
 
 ENV SHELL /bin/zsh

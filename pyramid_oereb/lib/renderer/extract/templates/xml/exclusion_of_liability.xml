@@ -1,9 +1,0 @@
-<%page args="exclusion_of_liability"/>
-<data:ExclusionOfLiability>
-    <data:Title>
-        <%include file="multilingual_text.xml" args="text=exclusion_of_liability.title, not_null=True"/>
-    </data:Title>
-    <data:Content>
-        <%include file="multilingual_text.xml" args="text=exclusion_of_liability.content, not_null=True"/>
-    </data:Content>
-</data:ExclusionOfLiability>

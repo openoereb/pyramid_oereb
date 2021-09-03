@@ -25,11 +25,14 @@ But you can change it also via configuration.
         variables.
 
 """
-from sqlalchemy import Column, PrimaryKeyConstraint
+from pyramid_oereb.standard.models.theme import generic_models
+from sqlalchemy import Column, PrimaryKeyConstraint, ForeignKey
 from sqlalchemy import Unicode, String, text, Integer, Boolean
+from sqlalchemy.sql.expression import null
 from geoalchemy2 import Geometry
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import JSONType
+from sqlalchemy.orm import relationship
 
 from pyramid_oereb.lib.config import Config
 
@@ -37,6 +40,7 @@ Base = declarative_base()
 app_schema_name = Config.get('app_schema').get('name')
 srid = Config.get('srid')
 
+Office, Document = generic_models(Base, app_schema_name, Integer)
 
 class Theme(Base):
     """
@@ -114,6 +118,8 @@ class RealEstate(Base):
         subunit_of_land_register (str): The name of the maybe existing sub unit of land register if
             municipality in  combination with number does not offer a unique constraint.
             Else you can skip that.
+        subunit_of_land_register_designation (str): The maybe existing cantonal description
+            of the subunit_of_land_register e.g. «Grundbuchkreis», «Sektion», «Fraktion» etc.
         fosnr (int): The identifier of the municipality. It is the commonly known id_bfs.
         metadata_of_geographical_base_data (str): A link to the metadata which this geometry is
             based on which is  delivering a machine readable response format (XML).
@@ -134,6 +140,7 @@ class RealEstate(Base):
     canton = Column(String, nullable=False)
     municipality = Column(String, nullable=False)
     subunit_of_land_register = Column(String, nullable=True)
+    subunit_of_land_register_designation = Column(String, nullable=True)
     fosnr = Column(Integer, nullable=False)
     metadata_of_geographical_base_data = Column(String, nullable=True)
     land_registry_area = Column(Integer, nullable=False)
@@ -198,20 +205,18 @@ class Glossary(Base):
     content = Column(JSONType, nullable=False)
 
 
-class ExclusionOfLiability(Base):
+class Disclaimer(Base):
     """
-    The bucket you can throw all addresses in the application should be able to use for the get egrid
-    webservice. This is a bypass for the moment. In the end it seems ways more flexible to bind a service here
-    but if you like you can use it.
+    The bucket you can throw all disclaimers in the application should be able to use.
 
     Attributes:
         id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
-        title (str): The title which the exclusion of liability item has.
-        content (str): The content which the exclusion of liability item has.
+        title (str): The title which the disclaimer item has.
+        content (str): The content which the disclaimer item has.
     """
     __table_args__ = {'schema': app_schema_name}
-    __tablename__ = 'exclusion_of_liability'
+    __tablename__ = 'disclaimer'
     id = Column(Integer, primary_key=True, autoincrement=False)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
@@ -260,3 +265,41 @@ class GeneralInformation(Base):
     id = Column(Integer, primary_key=True, autoincrement=False)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
+
+
+class ThemeDocument(Base):
+        """
+        Meta bucket (join table) for the relationship between theme and documents.
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            theme_id (str): The foreign key to the theme which has
+                relation to  a document.
+            document_id (str): The foreign key to the document which has relation to the public law
+                restriction.
+            theme (Theme):
+                The dedicated relation to the theme instance from database.
+            document (Document):
+                The dedicated relation to the document instance from database.
+        """
+        __tablename__ = 'theme_document'
+        __table_args__ = {'schema': app_schema_name}
+        id = Column(Integer, primary_key=True, autoincrement=False)
+        theme_id = Column(
+            Integer,
+            ForeignKey(Theme.id),
+            nullable=False
+        )
+        document_id = Column(
+            Integer,
+            ForeignKey(Document.id),
+            nullable=False
+        )
+        theme = relationship(
+            Theme,
+            backref='legal_provisions'
+        )
+        document = relationship(
+            Document
+        )
+        article_numbers = Column(String, nullable=True)

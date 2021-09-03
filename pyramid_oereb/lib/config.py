@@ -531,16 +531,16 @@ class Config(object):
         return Config._config.get('glossary')
 
     @staticmethod
-    def get_exclusion_of_liability_config():
+    def get_disclaimer_config():
         """
-        Returns a dictionary of the configured exclusion_of_liability settings.
+        Returns a dictionary of the configured disclaimer settings.
 
         Returns:
-            dict: The configured exclusion_of_liability settings.
+            dict: The configured disclaimer settings.
         """
         assert Config._config is not None
 
-        return Config._config.get('exclusion_of_liability')
+        return Config._config.get('disclaimer')
 
     @staticmethod
     def get_info_config():

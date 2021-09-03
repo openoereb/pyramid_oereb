@@ -81,10 +81,10 @@ class ViewServiceRecord(object):
         self.layer_index = self.sanitize_layer_index(layer_index)
         self.layer_opacity = self.sanitize_layer_opacity(layer_opacity)
 
-        self.min_NS95 = None
-        self.max_NS95 = None
+        self.min = None
+        self.max = None
         self.calculate_ns(Config.get('default_language'))
-        self.check_min_max_attributes(self.min_NS95, 'min_NS95', self.max_NS95, 'max_NS95')
+        self.check_min_max_attributes(self.min, 'min', self.max, 'max')
 
         if legends is None:
             self.legends = []
@@ -293,7 +293,7 @@ class ViewServiceRecord(object):
             raise AttributeError(dedicated_msg)
 
     def calculate_ns(self, language):
-        self.min_NS95, self.max_NS95 = self.get_bbox_from_url(self.reference_wms.get(language))
+        self.min, self.max = self.get_bbox_from_url(self.reference_wms.get(language))
 
     @staticmethod
     def get_bbox_from_url(wms_url):

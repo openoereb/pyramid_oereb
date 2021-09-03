@@ -58,3 +58,11 @@ development.ini
 
 .pgdata/
 .db/
+
+#temporary extract for validation
+DataExtract.xml
+
+#dynamic data
+.fed/
+sample_data/themes.json
+sample_data/themes.json

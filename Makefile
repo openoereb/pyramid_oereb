@@ -39,6 +39,11 @@ DEV_CREATE_TABLES_SCRIPT = $(VENV_BIN)/create_standard_tables
 DEV_CREATE_SCRIPT = .db/12-create.sql
 DEV_FILL_SCRIPT = .db/13-fill.sql
 
+THEME_XML=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Themen_20210714.xml
+LAW_XML=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Gesetze_20210414.xml
+LOGOS_XML=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Logos_20210414.xml
+TEXTS_XML=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Texte_20210714.xml
+
 MODEL_PK_TYPE_IS_STRING ?= true
 
 PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
@@ -92,6 +97,26 @@ PACKAGE = pyramid_oereb
 	psql -h $(PGHOST) -U $(PGUSER) -d $(PGDATABASE) -f $(DEV_FILL_SCRIPT)
 	touch $@
 
+.fed/.create-timestamp:
+	mkdir -p .fed
+	touch $@
+
+.fed/theme.xml: .fed/.create-timestamp
+	curl -X GET $(THEME_XML) > $@
+
+.fed/law.xml: .fed/.create-timestamp
+	curl -X GET $(LAW_XML) > $@
+
+.fed/logos.xml: .fed/.create-timestamp
+	curl -X GET $(LOGOS_XML) > $@
+
+.fed/texts.xml: .fed/.create-timestamp
+	curl -X GET $(TEXTS_XML) > $@
+
+sample_data/themes.json: .fed/theme.xml
+	xsltproc sample_data/to_themes.json.xsl $< > $@
+
+
 # **************
 # Common targets
 # **************
@@ -128,11 +153,11 @@ build: install $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT)
 .PHONY: clean
 clean: .db/.drop-db
 	rm -rf .db
+	rm -f $(DEV_CONFIGURATION_YML)
 
 .PHONY: clean-all
 clean-all: clean
 	rm -rf .venv
-	rm -f $(DEV_CONFIGURATION_YML)
 	rm -f *.png
 	rm -f development.ini
 	rm -rf $(PACKAGE).egg-info

@@ -3,7 +3,7 @@ import logging
 
 from pyramid_oereb.lib.records.documents import DocumentRecord
 from pyramid_oereb.lib.records.embeddable import DatasourceRecord
-from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
+from pyramid_oereb.lib.records.disclaimer import DisclaimerRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.glossary import GlossaryRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
@@ -26,7 +26,7 @@ class PlrBaseSource(Base):
             records used for the additional data in flavour `embeddable`.
     """
     _documents_record_class = DocumentRecord
-    _exclusion_of_liability_record_class = ExclusionOfLiabilityRecord
+    _exclusion_of_liability_record_class = DisclaimerRecord
     _geometry_record_class = GeometryRecord
     _glossary_record_class = GlossaryRecord
     _legend_entry_record_class = LegendEntryRecord

@@ -2,9 +2,9 @@
 import warnings
 
 
-class ExclusionOfLiabilityRecord(object):
+class DisclaimerRecord(object):
     """
-    Represents a exclusion of liability entry with the label and it's message.
+    Represents a disclaimer entry with the label and it's message.
 
     Args:
         title (dict of unicode): The multilingual disclaimer message label
