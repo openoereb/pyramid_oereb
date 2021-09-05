@@ -1,0 +1,16 @@
+[
+    {
+        "title": {
+            "de": "DEV TEST INFO",
+            "fr": "DEV TEST INFO",
+            "it": "DEV TEST INFO",
+            "rm": "DEV TEST INFO"
+        },
+        "content": {
+            "de": "Diese Info soll dazu dienen einen weiteren Textblock zu simulieren um die jeweiligen Clients testen zu können.",
+            "fr": "Diese Info soll dazu dienen einen weiteren Textblock zu simulieren um die jeweiligen Clients testen zu können.",
+            "it": "Diese Info soll dazu dienen einen weiteren Textblock zu simulieren um die jeweiligen Clients testen zu können.",
+            "rm": "Diese Info soll dazu dienen einen weiteren Textblock zu simulieren um die jeweiligen Clients testen zu können."
+        }
+    }
+]

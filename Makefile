@@ -39,11 +39,6 @@ DEV_CREATE_TABLES_SCRIPT = $(VENV_BIN)/create_standard_tables
 DEV_CREATE_SCRIPT = .db/12-create.sql
 DEV_FILL_SCRIPT = .db/13-fill.sql
 
-THEME_XML=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Themen_20210714.xml
-LAW_XML=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Gesetze_20210414.xml
-LOGOS_XML=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Logos_20210414.xml
-TEXTS_XML=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Texte_20210714.xml
-
 MODEL_PK_TYPE_IS_STRING ?= true
 
 PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
@@ -97,24 +92,125 @@ PACKAGE = pyramid_oereb
 	psql -h $(PGHOST) -U $(PGUSER) -d $(PGDATABASE) -f $(DEV_FILL_SCRIPT)
 	touch $@
 
-.fed/.create-timestamp:
-	mkdir -p .fed
+##########
+# FEDERAL DATA SECTION
+##########
+
+# URLS to fed data
+THEMES_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Themen_20210714.xml
+LAWS_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Gesetze_20210414.xml
+LOGOS_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Logos_20210414.xml
+TEXTS_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Texte_20210714.xml
+
+# XML files for creating XML files
+FED_TMP = .fed
+FED_TMP_TIMESTAMP = $(FED_TMP)/.create-timestamp
+THEMES_XML = $(FED_TMP)/themes.xml
+LAWS_XML = $(FED_TMP)/laws.xml
+LOGOS_XML = $(FED_TMP)/logos.xml
+TEXTS_XML = $(FED_TMP)/texts.xml
+
+FED_XMLS = $(THEMES_XML) \
+	$(LAWS_XML) \
+	$(LOGOS_XML) \
+	$(TEXTS_XML)
+
+$(FED_TMP_TIMESTAMP):
+	mkdir -p $(FED_TMP)
 	touch $@
 
-.fed/theme.xml: .fed/.create-timestamp
-	curl -X GET $(THEME_XML) > $@
+$(THEMES_XML): $(FED_TMP_TIMESTAMP)
+	curl -X GET $(THEMES_XML_URL) > $@
 
-.fed/law.xml: .fed/.create-timestamp
-	curl -X GET $(LAW_XML) > $@
+$(LAWS_XML): $(FED_TMP_TIMESTAMP)
+	curl -X GET $(LAWS_XML_URL) > $@
 
-.fed/logos.xml: .fed/.create-timestamp
-	curl -X GET $(LOGOS_XML) > $@
+$(LOGOS_XML): $(FED_TMP_TIMESTAMP)
+	curl -X GET $(LOGOS_XML_URL) > $@
 
-.fed/texts.xml: .fed/.create-timestamp
-	curl -X GET $(TEXTS_XML) > $@
+$(TEXTS_XML): $(FED_TMP_TIMESTAMP)
+	curl -X GET $(TEXTS_XML_URL) > $@
 
-sample_data/themes.json: .fed/theme.xml
-	xsltproc sample_data/to_themes.json.xsl $< > $@
+
+# JSON files for import into sample database
+THEMES_JSON = $(PG_DEV_DATA_DIR)/ch.themes.json
+THEMES_DOCS_JSON = $(PG_DEV_DATA_DIR)/ch.themes_docs.json
+LAWS_JSON = $(PG_DEV_DATA_DIR)/ch.laws.json
+LOGOS_JSON = $(PG_DEV_DATA_DIR)/ch.logo.json
+LAW_STATUS_JSON = $(PG_DEV_DATA_DIR)/ch.law_status.json
+DOCUMENT_TYPE_JSON = $(PG_DEV_DATA_DIR)/ch.document_type.json
+REAL_ESTATE_TYPE_JSON = $(PG_DEV_DATA_DIR)/ch.real_estate_type.json
+GLOSSARY_JSON = $(PG_DEV_DATA_DIR)/ch.glossary.json
+DISCLAIMER_JSON = $(PG_DEV_DATA_DIR)/ch.disclaimer.json
+GENERAL_INFORMATION_JSON = $(PG_DEV_DATA_DIR)/ch.general_information.json
+
+# XSL files for transformation of XML to JSON
+THEMES_XSL = fed/themes.json.xsl
+THEMES_DOCS_XSL = fed/themes_docs.json.xsl
+LAWS_XSL = fed/laws.json.xsl
+LOGOS_XSL = fed/logos.json.xsl
+LAW_STATUS_XSL = fed/law_status.json.xsl
+DOCUMENT_TYPE_XSL = fed/document_type.json.xsl
+REAL_ESTATE_TYPE_XSL = fed/real_estate_type.json.xsl
+GLOSSARY_XSL = fed/glossary.json.xsl
+DISCLAIMER_XSL = fed/disclaimer.json.xsl
+GENERAL_INFORMATION_XSL = fed/general_information.json.xsl
+
+$(THEMES_JSON): $(THEMES_XML) $(THEMES_XSL)
+	xsltproc $(THEMES_XSL) $< > $@
+
+$(THEMES_DOCS_JSON): $(THEMES_XML) $(THEMES_DOCS_XSL)
+	xsltproc $(THEMES_DOCS_XSL) $< > $@
+
+$(LAWS_JSON): $(LAWS_XML) $(LAWS_XSL)
+	xsltproc $(LAWS_XSL) $< > $@
+
+$(LOGOS_JSON): $(LOGOS_XML) $(LOGOS_XSL)
+	xsltproc $(LOGOS_XSL) $< > $@
+
+$(LAW_STATUS_JSON): $(TEXTS_XML) $(LAW_STATUS_XSL)
+	xsltproc $(LAW_STATUS_XSL) $< > $@
+
+$(DOCUMENT_TYPE_JSON): $(TEXTS_XML) $(DOCUMENT_TYPE_XSL)
+	xsltproc $(LAW_STATUS_XSL) $< > $@
+
+$(REAL_ESTATE_TYPE_JSON): $(TEXTS_XML) $(REAL_ESTATE_TYPE_XSL)
+	xsltproc $(REAL_ESTATE_TYPE_XSL) $< > $@
+
+$(GLOSSARY_JSON): $(TEXTS_XML) $(GLOSSARY_XSL)
+	xsltproc $(GLOSSARY_XSL) $< > $@
+
+$(DISCLAIMER_JSON): $(TEXTS_XML) $(DISCLAIMER_XSL)
+	xsltproc $(DISCLAIMER_XSL) $< > $@
+
+$(GENERAL_INFORMATION_JSON): $(TEXTS_XML) $(GENERAL_INFORMATION_XSL)
+	xsltproc $(GENERAL_INFORMATION_XSL) $< > $@
+
+FED_JSONS = $(THEMES_JSON) \
+	$(THEMES_DOCS_JSON) \
+	$(LAWS_JSON) \
+	$(LOGOS_JSON) \
+	$(LAW_STATUS_JSON) \
+	$(DOCUMENT_TYPE_JSON) \
+	$(REAL_ESTATE_TYPE_JSON) \
+	$(GLOSSARY_JSON) \
+	$(DISCLAIMER_JSON) \
+	$(GENERAL_INFORMATION_JSON)
+
+clean_fed_xmls:
+	rm -f $(FED_XMLS)
+
+clean_fed_jsons:
+	rm -f $(FED_JSONS)
+
+.PHONY: prepare_fed_data
+prepare_fed_data: $(FED_JSONS)
+
+clean_fed_data: clean_fed_xmls clean_fed_jsons
+
+##########
+# END FEDERAL DATA SECTION
+##########
 
 
 # **************
@@ -130,7 +226,7 @@ $(DEV_CONFIGURATION_YML): .venv/requirements-timestamp $(DEV_CREATE_STANDARD_YML
 $(DEV_CREATE_SCRIPT): $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_TABLES_SCRIPT)
 	$(DEV_CREATE_TABLES_SCRIPT) --configuration $< --sql-file $@
 
-$(DEV_FILL_SCRIPT): $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_FILL_SCRIPT)
+$(DEV_FILL_SCRIPT): $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_FILL_SCRIPT) $(FED_JSONS)
 	$(VENV_BIN)/python $(DEV_CREATE_FILL_SCRIPT) --configuration $< --sql-file $@ --dir $(PG_DEV_DATA_DIR)
 
 .PHONY: setup-db
@@ -151,7 +247,7 @@ $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT): setup.py $(BUILD_
 build: install $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT)
 
 .PHONY: clean
-clean: .db/.drop-db
+clean: .db/.drop-db clean_fed_data
 	rm -rf .db
 	rm -f $(DEV_CONFIGURATION_YML)
 

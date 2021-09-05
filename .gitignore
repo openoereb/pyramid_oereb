@@ -64,5 +64,13 @@ DataExtract.xml
 
 #dynamic data
 .fed/
-sample_data/themes.json
-sample_data/themes.json
+sample_data/ch.themes.json
+sample_data/ch.themes_docs.json
+sample_data/ch.laws.json
+sample_data/ch.logo.json
+sample_data/ch.law_status.json
+sample_data/ch.document_type.json
+sample_data/ch.real_estate_type.json
+sample_data/ch.glossary.json
+sample_data/ch.disclaimer.json
+sample_data/ch.general_information.json
