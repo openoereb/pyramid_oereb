@@ -276,8 +276,10 @@ class Renderer(JsonRenderer):
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
             self._flatten_object(restriction_on_landownership, 'Lawstatus')
             self._flatten_object(restriction_on_landownership, 'Theme')
+            self._flatten_object(restriction_on_landownership, 'SubTheme')
             self._flatten_array_object(restriction_on_landownership, 'Geometry', 'ResponsibleOffice')
             self._localised_text(restriction_on_landownership, 'Theme_Text')
+            self._localised_text(restriction_on_landownership, 'SubTheme_Text')
             self._multilingual_text(restriction_on_landownership, 'Lawstatus_Text')
             self._multilingual_m_text(restriction_on_landownership, 'LegendText')
 
@@ -359,13 +361,18 @@ class Renderer(JsonRenderer):
             'TypeCode', 'TypeCodelist', 'AreaShare', 'PartInPercent', 'LengthShare', 'NrOfPoints',
             'SymbolRef', 'LegendText'
         ]
-        split_sub_themes = Config.get('print', {}).get('split_sub_themes', False)
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
 
             theme_text = restriction_on_landownership['Theme_Text']
+            sub_theme_text = restriction_on_landownership.get('SubTheme_Text')
+            theme_text = f"{theme_text}: {sub_theme_text}" if sub_theme_text else theme_text
+
             lawstatus_text = restriction_on_landownership['Lawstatus_Text']
             restriction_on_landownership['Theme_Text'] = f"{theme_text} ({lawstatus_text})"
-            theme = restriction_on_landownership['Theme_Code']+restriction_on_landownership['Lawstatus_Code']
+
+            sub_theme_code = restriction_on_landownership.get('SubTheme_Sub_Code', '')
+            theme = restriction_on_landownership['Theme_Code']+ \
+                sub_theme_code+restriction_on_landownership['Lawstatus_Code']
 
             extract_dict['ConcernedTheme'].append(
                 {
@@ -374,10 +381,8 @@ class Renderer(JsonRenderer):
                 }
             )
 
-            if split_sub_themes:
-                if 'SubTheme' in restriction_on_landownership:
-                    theme = theme + '_' + restriction_on_landownership['SubTheme']
-                    restriction_on_landownership['Split_SubTheme'] = True
+            restriction_on_landownership['Split_SubTheme'] = \
+                True if restriction_on_landownership.get('SubTheme') else False
 
             geom_type = \
                 'AreaShare' if 'AreaShare' in restriction_on_landownership else \
@@ -404,6 +409,8 @@ class Renderer(JsonRenderer):
                     else:
                         current[element] = set()
                 continue
+
+            # ELSE - theme is already in theme_restriction
             current = theme_restriction[theme]
 
             if 'Geom_Type' in current and current['Geom_Type'] != geom_type:
@@ -490,18 +497,7 @@ class Renderer(JsonRenderer):
                 list([transformed_entry for (key, transformed_entry) in legends.items()])
             restriction['Legend'] = self.sort_dict_list(transformed_legend, self.sort_legend_elem)
 
-        sorted_restrictions = []
-        if split_sub_themes:
-            # sort sub themes if sub theme splitting is enabled
-            sorted_restrictions = self._sort_sub_themes(restrictions)
-        else:
-            # default sorting
-            for theme in Config.get_themes():
-                for restriction in restrictions:
-                    if theme.code == restriction.get('Theme_Code'):
-                        sorted_restrictions.append(restriction)
-
-        extract_dict['RealEstate_RestrictionOnLandownership'] = sorted_restrictions
+        extract_dict['RealEstate_RestrictionOnLandownership'] = restrictions
         # End one restriction entry per theme
 
         for item in extract_dict.get('ExclusionOfLiability', []):
