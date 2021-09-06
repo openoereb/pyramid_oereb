@@ -477,7 +477,7 @@ class Renderer(Base):
             'Text': self.get_localized_text(theme.title)
         }
         if theme.sub_code:  # only for sub-themes
-            theme_dict.update({'Sub Code': theme.sub_code})
+            theme_dict.update({'Sub_Code': theme.sub_code})
 
         return theme_dict
 
