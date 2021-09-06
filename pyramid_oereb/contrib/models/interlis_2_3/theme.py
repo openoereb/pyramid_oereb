@@ -8,19 +8,25 @@ from sqlalchemy_utils import JSONType
 
 class Models(object):
 
-    def __init__(self, availability, office, data_integration, document, view_service,
+    def __init__(self, availability, data_integration, office, document, view_service,
                  legend_entry, public_law_restriction, geometry,
-                 public_law_restriction_document, base, db_connection, schema_name):
+                 public_law_restriction_document,
+                 localised_blob, localised_uri, multilingual_blob, multilingual_uri,
+                 base, db_connection, schema_name):
 
         self.Availability = availability
-        self.Office = office
         self.DataIntegration = data_integration
+        self.Office = office
         self.Document = document
         self.ViewService = view_service
         self.LegendEntry = legend_entry
         self.PublicLawRestriction = public_law_restriction
         self.Geometry = geometry
         self.PublicLawRestrictionDocument = public_law_restriction_document
+        self.LocalisedBlob = localised_blob
+        self.LocalisedUri = localised_uri
+        self.MultilingualBlob = multilingual_blob
+        self.MultilingualUri = multilingual_uri
         self.Base = base
         self.db_connection = db_connection
         self.schema_name = schema_name
@@ -543,7 +549,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
 
 
     return Models(
-        DataIntegration, Availability,
+        Availability, DataIntegration,
         Office, Document, ViewService,
         LegendEntry, PublicLawRestriction, Geometry, PublicLawRestrictionDocument,
         LocalisedBlob, LocalisedUri, MultilingualBlob, MultilingualUri, 
