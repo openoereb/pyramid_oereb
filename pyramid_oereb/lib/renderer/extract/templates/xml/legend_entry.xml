@@ -13,8 +13,3 @@
 <data:Theme>
     <%include file="theme.xml" args="theme=legend_entry.theme"/>
 </data:Theme>
-%if legend_entry.sub_theme:
-<data:SubTheme>
-    <%include file="theme.xml" args="theme=legend_entry.sub_theme"/>
-</data:SubTheme>
-%endif

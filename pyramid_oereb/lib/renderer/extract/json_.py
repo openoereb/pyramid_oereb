@@ -504,7 +504,8 @@ class Renderer(Base):
             )
 
             map_dict['OtherLegend'] = [
-                self.format_legend_entry(legend_entry) for legend_entry in other_legend]
+                self.format_legend_entry(legend_entry) for legend_entry in other_legend
+            ]
 
         map_dict['layerIndex'] = map_.layer_index
         map_dict['layerOpacity'] = map_.layer_opacity
@@ -541,8 +542,6 @@ class Renderer(Base):
             legend_entry_dict.update({
                 'SymbolRef': self.get_symbol_ref(self._request, legend_entry)
             })
-        if legend_entry.sub_theme is not None:
-            legend_entry_dict['SubTheme'] = self.format_theme(legend_entry.sub_theme)
         return legend_entry_dict
 
     @staticmethod

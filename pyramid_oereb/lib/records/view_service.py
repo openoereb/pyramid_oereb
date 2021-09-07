@@ -29,7 +29,7 @@ class LegendEntryRecord(object):
     """
 
     def __init__(self, symbol, legend_text, type_code, type_code_list, theme,
-                 view_service_id=None, sub_theme=None):
+                 view_service_id=None):
 
         if not isinstance(legend_text, dict):
             warnings.warn('Type of "legend_text" should be "dict"')
