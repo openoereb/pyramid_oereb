@@ -97,9 +97,6 @@ pyramid_oereb:
     # Whether to display the Certification section in the pdf extract or not.
     # Default to true
     display_certification: true
-    # Split themes up, so that each sub theme gets its own page
-    # Disabled by default.
-    split_sub_themes: false
     # Group elements of "LegalProvision" and "Hints" with the same "Title.Text" together yes/no
     # Disabled by default.
     group_legal_provisions: false
@@ -541,16 +538,6 @@ pyramid_oereb:
         inKraft: inKraft
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
-      # Example of how sub_themes sorting can be activated (uncomment to enable):
-      #sub_themes:
-      #  sorter:
-      #    module: pyramid_oereb.contrib.print_proxy.sub_themes.sorting
-      #    class_name: ListSort
-      #    params:
-      #      list:
-      #        - SubTheme3
-      #        - SubTheme2
-      #        - SubTheme1
 
     - code: MotorwaysProjectPlaningZones
       geometry_type: MULTIPOLYGON

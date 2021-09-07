@@ -4,7 +4,6 @@ import json
 import codecs
 from pyramid_oereb.contrib.print_proxy.mapfish_print import Renderer
 from tests.renderer import DummyRenderInfo
-from pyramid_oereb.contrib.print_proxy.sub_themes.sorting import AlphabeticSort, ListSort
 from pyramid_oereb.contrib.print_proxy.toc_pages import TocPages
 
 
@@ -141,74 +140,6 @@ def test_mapfish_print_entire_extract():
     assert deepCompare(printable_extract, expected)
     # Do it twice, to test all keys in each reports
     assert deepCompare(expected, printable_extract)
-
-
-def test_split_restrictions_by_theme_code():
-    test_data = [
-               {
-                   "Theme_Code": "ContaminatedPublicTransportSites",
-                   "SubTheme": "SubTheme1"
-               },
-               {
-                   "Theme_Code": "ContaminatedPublicTransportSites",
-                   "SubTheme": "SubTheme2"
-               },
-               {
-                   "Theme_Code": "ContaminatedPublicTransportSites",
-                   "SubTheme": "SubTheme3"
-               },
-               {
-                   "Theme_Code": "GroundwaterProtectionZones",
-                   "SubTheme": "SubTheme1a"
-               },
-               {
-                   "Theme_Code": "GroundwaterProtectionZones",
-                   "SubTheme": "SubTheme2a"
-               }
-    ]
-
-    expected_result = {
-        "ContaminatedPublicTransportSites": [
-            {
-                "Theme_Code": "ContaminatedPublicTransportSites",
-                "SubTheme": "SubTheme1"
-            },
-            {
-                "Theme_Code": "ContaminatedPublicTransportSites",
-                "SubTheme": "SubTheme2"
-            },
-            {
-                "Theme_Code": "ContaminatedPublicTransportSites",
-                "SubTheme": "SubTheme3"
-            }
-        ],
-        "GroundwaterProtectionZones": [
-            {
-                "Theme_Code": "GroundwaterProtectionZones",
-                "SubTheme": "SubTheme1a"
-            },
-            {
-                "Theme_Code": "GroundwaterProtectionZones",
-                "SubTheme": "SubTheme2a"
-            }
-        ]
-    }
-
-    splitted = Renderer._split_restrictions_by_theme_code(test_data)
-    for theme in splitted:
-        for index in range(len(splitted[theme])):
-            assert splitted[theme][index]["Theme_Code"] == expected_result[theme][index]["Theme_Code"]
-            assert splitted[theme][index]["SubTheme"] == expected_result[theme][index]["SubTheme"]
-
-
-def test_load_sorter():
-    module_name = "pyramid_oereb.contrib.print_proxy.sub_themes.sorting"
-    class_alphabetic_sort = "AlphabeticSort"
-    class_list_sort = "ListSort"
-    alphabetic_sort = Renderer._load_sorter(module_name, class_alphabetic_sort)
-    assert alphabetic_sort == AlphabeticSort
-    list_sort = Renderer._load_sorter(module_name, class_list_sort)
-    assert list_sort == ListSort
 
 
 def test_get_sorted_legend():
