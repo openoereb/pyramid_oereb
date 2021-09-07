@@ -115,13 +115,6 @@ class ExtractReader(object):
                         if not params.skip_topic(ds.theme.code):
                             datasource.append(ds)
 
-                    # Sort PLR records according to their law status
-                    start_time = timer()
-                    log.debug("sort plrs by law status start")
-                    plr_source.records.sort(key=self._sort_plr_law_status)
-                    end_time = timer()
-                    log.debug(f"DONE with sort plrs by law status, time spent: {end_time-start_time} seconds")
-
                     real_estate.public_law_restrictions.extend(plr_source.records)
 
             for plr in real_estate.public_law_restrictions:
@@ -140,6 +133,15 @@ class ExtractReader(object):
         else:
             for plr_source in self._plr_sources_:
                 themes_without_data.append(Config.get_theme_by_code_sub_code(plr_source.info.get('code')))
+
+        # sort plr according to theme, sub-theme and law-status
+        start_time = timer()
+        log.debug("sort plrs by law status start")
+        real_estate.public_law_restrictions.sort(key=lambda element: (
+            self._sort_plr_theme(element), self._sort_plr_law_status(element)
+        ))
+        end_time = timer()
+        log.debug(f"DONE with sort plrs by law status, time spent: {end_time-start_time} seconds")
 
         # Load base data form configuration
         resolver = DottedNameResolver()
@@ -204,3 +206,26 @@ class ExtractReader(object):
             return self.law_status.index(plr_element.law_status.code)
         else:
             return len(self.law_status)
+
+    def _sort_plr_theme(self, plr_element):
+        """
+        This method generates a sorting key to sort PLRs in to themes and sub-themes.
+        The value is generated using the extract_index given for each theme.
+        Currently it is assumed that the extract_index for a sub-theme is in accord to
+        its theme so that the order will be correct.
+
+        If the plr_element is not a PlrRecord 10 000 will be returned so that it is
+        added at the end of the list
+
+        Args:
+            plr_element (PlrRecord or EmptyPlrRecord) a plr record element.
+
+        Returns:
+            int: Value which can be used to sort the record depending on its theme/sub-theme.
+        """
+        if (isinstance(plr_element, PlrRecord)):
+            index = plr_element.sub_theme.extract_index \
+                if (plr_element.sub_theme is not None) \
+                else plr_element.theme.extract_index
+            return index
+        return 10000
