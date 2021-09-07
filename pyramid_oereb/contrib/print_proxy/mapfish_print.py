@@ -381,9 +381,6 @@ class Renderer(JsonRenderer):
                 }
             )
 
-            restriction_on_landownership['Split_SubTheme'] = \
-                True if restriction_on_landownership.get('SubTheme') else False
-
             geom_type = \
                 'AreaShare' if 'AreaShare' in restriction_on_landownership else \
                 'LengthShare' if 'LengthShare' in restriction_on_landownership else 'NrOfPoints'

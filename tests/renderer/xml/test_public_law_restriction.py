@@ -31,6 +31,7 @@ def test_sub_theme():
     renderer._request = MockRequest()
     renderer._request.route_url = lambda url, **kwargs: "http://example.com/current/view"
     theme = ThemeRecord(u'LandUsePlans', {'de': 'Theme 1'}, 1)
+    subtheme = ThemeRecord(u'LandUsePlans', {'de': 'sub-Theme 1'}, 2, u'LandUsePlansSubCode')
     office = OfficeRecord(name={'de': 'office de'})
     law_status = LawStatusRecord(
         code='AenderungMitVorwirkung',
@@ -57,7 +58,7 @@ def test_sub_theme():
             layer_index=0,
             layer_opacity=1.0),
         geometries=[geometry],
-        sub_theme={'de': 'sub theme de'}
+        sub_theme=subtheme
     )
     content = template.render(**{
         'params': parameters,
@@ -67,5 +68,10 @@ def test_sub_theme():
         'public_law_restriction': public_law_restriction
     }).decode('utf-8').split('\n')
     no_empty_lines = list(filter(lambda line: line != '', content))
-    assert no_empty_lines[18] == '    <data:SubTheme>sub theme de</data:SubTheme>'
-    assert len(no_empty_lines) == 62
+    no_empty_lines = [no_space.strip() for no_space in no_empty_lines]
+
+    assert '<data:SubTheme>' in no_empty_lines
+    assert '<data:Text>sub-Theme 1</data:Text>' in no_empty_lines
+    assert '<data:SubCode>LandUsePlansSubCode</data:SubCode>' in no_empty_lines
+    assert '<data:Code>LandUsePlans</data:Code>' in no_empty_lines
+    assert len(no_empty_lines) == 70

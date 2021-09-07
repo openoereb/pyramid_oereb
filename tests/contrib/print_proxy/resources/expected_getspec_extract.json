@@ -88,7 +88,9 @@
           "ResponsibleOffice_Name": "Bundeskanzlei"
         }
       ],
-      "SubTheme": "02.73A.Grundnutzung",
+      "SubTheme_Code": "LandUsePlans",
+      "SubTheme_Sub_Code": "ch.Baulinien",
+      "SubTheme_Text": "02.73A.Grundnutzung",
       "baseLayers": {
         "layers": [
           {

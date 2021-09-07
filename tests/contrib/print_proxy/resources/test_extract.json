@@ -889,7 +889,14 @@
                 }
           }
         ],
-        "SubTheme": "02.73A.Grundnutzung",
+        "SubTheme": {
+          "Code": "LandUsePlans",
+          "Sub_Code": "ch.Baulinien",
+          "Text": {
+            "Text": "02.73A.Grundnutzung",
+            "Language": "de"
+          }
+        },
         "Theme": {
           "Text": {
             "Text": "Nutzungsplanung",
@@ -1770,7 +1777,14 @@
                 }
           }
         ],
-        "SubTheme": "02.73A.Grundnutzung",
+        "SubTheme": {
+          "Code": "LandUsePlans",
+          "Sub_Code": "ch.Baulinien",
+          "Text": {
+            "Text": "02.73A.Grundnutzung",
+            "Language": "de"
+          }
+        },
         "Theme": {
           "Text": {
             "Text": "Nutzungsplanung",
@@ -2624,7 +2638,14 @@
                 }
           }
         ],
-        "SubTheme": "02.73A.Grundnutzung",
+        "SubTheme": {
+          "Code": "LandUsePlans",
+          "Sub_Code": "ch.Baulinien",
+          "Text": {
+            "Text": "02.73A.Grundnutzung",
+            "Language": "de"
+          }
+        },
         "Theme": {
           "Text": {
             "Text": "Nutzungsplanung",
@@ -3478,7 +3499,14 @@
                 }
           }
         ],
-        "SubTheme": "02.73A.Grundnutzung",
+        "SubTheme": {
+          "Code": "LandUsePlans",
+          "Sub_Code": "ch.Baulinien",
+          "Text": {
+            "Text": "02.73A.Grundnutzung",
+            "Language": "de"
+          }
+        },
         "Theme": {
           "Text": {
             "Text": "Nutzungsplanung",
@@ -4338,7 +4366,14 @@
                 }
           }
         ],
-        "SubTheme": "08.73B.Ueberlagerung_Flaeche",
+        "SubTheme": {
+          "Code": "LandUsePlans",
+          "Sub_Code": "ch.Ueberlagerung",
+          "Text": {
+            "Text": "08.73B.Ueberlagerung_Flaeche",
+            "Language": "de"
+          }
+        },
         "Theme": {
           "Text": {
             "Text": "Nutzungsplanung",

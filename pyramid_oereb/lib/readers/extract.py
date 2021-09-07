@@ -208,7 +208,8 @@ class ExtractReader(object):
         else:
             return len(self.law_status)
 
-    def _sort_plr_theme(self, plr_element):
+    @staticmethod
+    def _sort_plr_theme(plr_element):
         """
         This method generates a sorting key to sort PLRs in to themes and sub-themes.
         The value is generated using the extract_index given for each theme.
