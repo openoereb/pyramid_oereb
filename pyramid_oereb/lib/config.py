@@ -2,7 +2,6 @@
 import os
 
 import logging
-import datetime
 import yaml
 from io import open as ioopen
 from pyramid.config import ConfigurationError

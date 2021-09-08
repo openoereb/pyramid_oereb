@@ -29,9 +29,10 @@ class ExtractRecord(object):
     """binary or None: QR code for the extract as binary string."""
 
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
-                 plr_cadastre_authority, update_date_os, embeddable, certification=None, certification_at_web=None,
-                 exclusions_of_liability=None, glossaries=None, concerned_theme=None,
-                 not_concerned_theme=None, theme_without_data=None, general_information=None):
+                 plr_cadastre_authority, update_date_os, embeddable, certification=None,
+                 certification_at_web=None, exclusions_of_liability=None, glossaries=None,
+                 concerned_theme=None, not_concerned_theme=None, theme_without_data=None,
+                 general_information=None):
         """
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate in its

@@ -69,9 +69,10 @@ def test_get_symbol_ref():
         url = urlparse(get_symbol_ref(request, record))
         assert url.path == '/image/symbol/ContaminatedSites/1/CodeA.png'
 
+
 def test_get_surveying_data_date():
     real_estate = RealEstateRecord('test_type', 'BL', 'Nusshof', 1, 100,
-                              loads('POLYGON((0 0, 0 1, 1 1, 1 0, 0 0))'))
+                                   loads('POLYGON((0 0, 0 1, 1 1, 1 0, 0 0))'))
     with pyramid_oereb_test_config():
         update_date_os = get_surveying_data_update_date(real_estate)
         assert isinstance(update_date_os, datetime.datetime)

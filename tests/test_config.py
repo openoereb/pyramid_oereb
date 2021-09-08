@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import datetime
 import pytest
 
 from pyramid.config import ConfigurationError
