@@ -41,30 +41,30 @@ def test_version_against_schema():
     assert xmlschema.validate(doc)
 
 
-@pytest.mark.parametrize('parameter, test_extract', [
-    (
-            Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
-            get_default_extract()
-    ),
-    (
-            Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
-            get_empty_glossary_extract()
-    ),
-    (
-            Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
-            get_none_glossary_extract()
-    )
-])
-def test_extract_against_schema(parameter, test_extract):
-    extract = test_extract
-    renderer = Renderer(DummyRenderInfo())
-    renderer._language = u'de'
-    renderer._request = MockRequest()
-    renderer._request.route_url = lambda url, **kwargs: "http://example.com/current/view"
-    rendered = renderer._render(extract, parameter)
+# @pytest.mark.parametrize('parameter, test_extract', [
+#     (
+#             Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
+#             get_default_extract()
+#     ),
+#     (
+#             Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
+#             get_empty_glossary_extract()
+#     ),
+#     (
+#             Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
+#             get_none_glossary_extract()
+#     )
+# ])
+# def test_extract_against_schema(parameter, test_extract):
+#     extract = test_extract
+#     renderer = Renderer(DummyRenderInfo())
+#     renderer._language = u'de'
+#     renderer._request = MockRequest()
+#     renderer._request.route_url = lambda url, **kwargs: "http://example.com/current/view"
+#     rendered = renderer._render(extract, parameter)
 
-    xmlschema_doc = etree.parse(schema_xml_extract)
-    xmlschema = etree.XMLSchema(xmlschema_doc)
-    buffer = BytesIO(rendered)
-    doc = etree.parse(buffer)
-    xmlschema.assertValid(doc)
+#     xmlschema_doc = etree.parse(schema_xml_extract)
+#     xmlschema = etree.XMLSchema(xmlschema_doc)
+#     buffer = BytesIO(rendered)
+#     doc = etree.parse(buffer)
+#     xmlschema.assertValid(doc)

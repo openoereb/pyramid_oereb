@@ -40,11 +40,10 @@ def create_dummy_extract():
     resolver = DottedNameResolver()
     date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
     date_method = resolver.resolve(date_method_string)
-    av_update_date = date_method(real_estate)
-    base_data = Config.get_base_data(av_update_date)
+    update_date_os = date_method(real_estate)
 
-    av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
-    av_provider_method = resolver.resolve(av_provider_method_string)
+    os_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
+    os_provider_method = resolver.resolve(os_provider_method_string)
     cadaster_state = date
     theme = ThemeRecord(u'TEST', {u'de': u'TEST TEXT'}, 100)
     datasources = [DatasourceRecord(theme, date, plr_office)]
@@ -52,8 +51,8 @@ def create_dummy_extract():
     embeddable = EmbeddableRecord(
         cadaster_state,
         plr_cadastre_authority,
-        av_provider_method(real_estate),
-        av_update_date,
+        os_provider_method(real_estate),
+        update_date_os,
         datasources
     )
     record = ExtractRecord(
@@ -67,7 +66,7 @@ def create_dummy_extract():
         LogoRecord('ch.1234', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd3EQ \
             BvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
         plr_office,
-        base_data,
+        update_date_os,
         embeddable
     )
     return record
@@ -88,5 +87,5 @@ def test_init():
     assert isinstance(record.exclusions_of_liability, list)
     assert isinstance(record.glossaries, list)
     assert isinstance(record.plr_cadastre_authority, OfficeRecord)
-    assert isinstance(record.base_data, dict)
+    assert isinstance(record.update_date_os, datetime.datetime)
     assert isinstance(record.embeddable, EmbeddableRecord)

@@ -29,7 +29,7 @@ class ExtractRecord(object):
     """binary or None: QR code for the extract as binary string."""
 
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
-                 plr_cadastre_authority, base_data, embeddable, certification=None, certification_at_web=None,
+                 plr_cadastre_authority, update_date_os, embeddable, certification=None, certification_at_web=None,
                  exclusions_of_liability=None, glossaries=None, concerned_theme=None,
                  not_concerned_theme=None, theme_without_data=None, general_information=None):
         """
@@ -43,8 +43,7 @@ class ExtractRecord(object):
                 logo.
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority which is
                 responsible for the PLR cadastre.
-            base_data (dict of unicode): A multilingual list of basic data layers used by the extract. For
-                instance the base map from swisstopo.
+            update_date_os (datetime): Last update of the official survey used as base map in the extract.
             embeddable (pyramid_oereb.lib.records.embeddable.EmbeddableRecord):
             certification (dict of unicode or None): Multilingual list of certification.
             certification_at_web (dict of unicode or None): Multilingual list of certification uri.
@@ -61,12 +60,12 @@ class ExtractRecord(object):
             general_information (list of dict): General information for the static extract as multilingual
                 text.
         """
-        if not isinstance(base_data, dict):
-            warnings.warn('Type of "base_data" should be "dict"')
+        if not isinstance(update_date_os, datetime):
+            warnings.warn('Type of "update_date_os" should be "datetime.datetime"')
         if general_information and not isinstance(general_information, list):
             warnings.warn('Type of "general_information" should be "list"')
 
-        self.base_data = base_data
+        self.update_date_os = update_date_os
         self.embeddable = embeddable
         self.general_information = general_information
         self.extract_identifier = str(uuid.uuid4())

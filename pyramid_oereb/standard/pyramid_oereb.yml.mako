@@ -472,15 +472,8 @@ pyramid_oereb:
   # The extract is the entry point which binds everything
   # related to data together.
   extract:
-    # Last update of the cadastral survey used for the extract, e.g. the used base map and its currentness.
-    # Format: dd.mm.yyyy
-    # This is a multilingual value. In the minimum, the value for the default language has to be defined.
+    # Information about the official survey (last update and provider) used as a base map in the extract
     base_data:
-        text:
-          de: "{0}"
-          fr: "{0}"
-          it: "{0}"
-          rm: "{0}"
         methods:
           date: pyramid_oereb.standard.hook_methods.get_surveying_data_update_date
           provider:  pyramid_oereb.standard.hook_methods.get_surveying_data_provider
