@@ -64,25 +64,49 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         available = Column(Boolean, nullable=False, default=False)
 
 
-    class DataIntegration(Base):
+    class Office(Base):
         """
-        The bucket to fill in the date when this whole schema was updated. It has a relation to the
-        office to be able to find out who was the delivering instance.
+        The bucket to fill in all the offices you need to reference from public law restriction, document,
+        geometry.
+
         Attributes:
-            id (str): The identifier. This is used in the database only and must not be set manually. If
-                you  don't like it - don't care about.
-            date (datetime.date): The date when this data set was delivered.
-            office_id (str): A foreign key which points to the actual office instance.
-            office (pyramid_oereb.standard.models.airports_building_lines.Office):
-                The actual office instance which the id points to.
+            t_id (int): The identifier. This is used in the database only and must not be set manually. 
+                        If you  don't like it - don't care about.
+            t_ili_tid (str): TID from the transfer file.
+            name (text): The name of the office. Interlis type: LocalisationCH_V1.MultilingualText.
+            name_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+            name_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+            name_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+            name_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+            name_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+            uid (str): The uid of this office from https
+            line1 (str): The first address line for this office.
+            line2 (str): The second address line for this office.
+            street (str): The streets name of the offices address.
+            number (str): The number on street.
+            postal_code (int): The ZIP-code.
+            city (str): The name of the city.
         """
         __table_args__ = {'schema': schema_name}
-        __tablename__ = 'data_integration'
-        id = Column(pk_type, primary_key=True, autoincrement=False)
-        date = Column(DateTime, nullable=False)
-        office_id = Column(pk_type, ForeignKey(Office.id), nullable=False)
-        office = relationship(Office)
-        checksum = Column(String, nullable=True)
+        __tablename__ = 'amt'
+        t_id = Column(pk_type, primary_key=True, autoincrement=False)
+        t_ili_tid = Column(String, nullable=True)
+        name = Column('aname', Text, nullable=True)
+        name_de = Column('aname_de', Text, nullable=True)
+        name_fr = Column('aname_fr', Text, nullable=True)
+        name_it = Column('aname_it', Text, nullable=True)
+        name_rm = Column('aname_rm', Text, nullable=True)
+        name_en = Column('aname_en', Text, nullable=True)
+        uid = Column('auid', String(12), nullable=True)
+        line1 = Column('zeile1', String, nullable=True)
+        line2 = Column('zeile2', String, nullable=True)
+        street = Column('strasse', String, nullable=True)
+        number = Column('hausnr', String, nullable=True)
+        postal_code = Column('plz', Integer, nullable=True)
+        city = Column('ort', String, nullable=True)
+
+        # entfällt: office_at_web (dict): A web accessible url to a presentation of this office (multilingual).
+        # entfällt: office_at_web = Column(JSONType, nullable=True)
 
 
     class Document(Base):
@@ -170,51 +194,42 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         # entfällt: file = Column(String, nullable=True)
 
 
-    class Geometry(Base):
+    class DataIntegration(Base):
         """
-        The dedicated model for all geometries in relation to their public law restriction.
+        The bucket to fill in the date when this whole schema was updated. It has a relation to the
+        office to be able to find out who was the delivering instance.
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            date (datetime.date): The date when this data set was delivered.
+            office_id (str): A foreign key which points to the actual office instance.
+            office (pyramid_oereb.standard.models.airports_building_lines.Office):
+                The actual office instance which the id points to.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'data_integration'
+        t_id = Column(pk_type, primary_key=True, autoincrement=False)
+        date = Column(DateTime, nullable=False)
+        office_id = Column(pk_type, ForeignKey(Office.t_id), nullable=False)
+        office = relationship(Office)
+        checksum = Column(String, nullable=True)
+
+
+    class ViewService(Base):
+        """
+        A view service aka WM(T)S which can deliver a cartographic representation via web.
 
         Attributes:
             t_id (int): The identifier. This is used in the database only and must not be set manually. If
                 you  don't like it - don't care about.
-            point (geoalchemy2.types.Geometry): Interlis type: GeometryCHLV95_V1.Coord2
-            line (geoalchemy2.types.Geometry): Interlis type: GeometryCHLV95_V1.Line
-            surface (geoalchemy2.types.Geometry): Interlis type: GeometryCHLV95_V1.Surface
-            law_status (str): The status switch if the document is legally approved or not.
-            published_from (datetime.date): The date when the geometry should be available for
-                publishing on extracts. This directly affects the behaviour of extract
-                generation.
-            published_until (datetime.date): The date from when the geometry should not be available
-                anymore for publishing on extracts. This directly affects the behaviour of extract
-                generation.
-            geo_metadata (str): A link to the metadata which this geometry is based on which delivers
-                machine  readable response format (XML).
-            public_law_restriction_id (str): The foreign key to the public law restriction this geometry
-                is related to.
-            public_law_restriction (pyramid_oereb.standard.models.land_use_plans
-                .PublicLawRestriction): The dedicated relation to the public law restriction instance from
-                database.
         """
         __table_args__ = {'schema': schema_name}
-        __tablename__ = 'geometrie'
-        t_id = Column(Integer, primary_key=True, autoincrement=False)
-        point = Column('punkt', GeoAlchemyGeometry('POINT', srid=srid), nullable=True)
-        line = Column('linie', GeoAlchemyGeometry('GEOMETRYCOLLECTION', srid=srid), nullable=True)
-        surface = Column('flaeche', GeoAlchemyGeometry('GEOMETRYCOLLECTION', srid=srid), nullable=True)
-        law_status = Column('rechtsstatus', String, nullable=False)
-        published_from = Column('publiziertab', Date, nullable=False)
-        published_until = Column('publiziertbis', Date, nullable=True)
-        geo_metadata = Column('metadatengeobasisdaten', String, nullable=True)
-        public_law_restriction_id = Column(
-            'eigentumsbeschraenkung',
-            Integer,
-            ForeignKey(PublicLawRestriction.t_id),
-            nullable=False
-        )
-        public_law_restriction = relationship(
-            PublicLawRestriction,
-            backref='geometries'
-        )
+        __tablename__ = 'darstellungsdienst'
+        t_id = Column(pk_type, primary_key=True, autoincrement=False)
+
+        # entfällt: reference_wms = Column(JSONType, nullable=False)
+        # entfällt: reference_wms (dict): The actual url which leads to the desired cartographic representation
+        #           (multilingual)
 
 
     class LegendEntry(Base):
@@ -247,7 +262,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'legendeeintrag'
-        t_id = Column(Integer, primary_key=True, autoincrement=False)
+        t_id = Column(pk_type, primary_key=True, autoincrement=False)
         symbol = Column(LargeBinary, nullable=False)
         legend_text = Column('legendetext', Text, nullable=True)
         legend_text_de = Column('legendetext_de', Text, nullable=True)
@@ -268,6 +283,113 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         view_service = relationship(ViewService, backref='legends')
 
 
+    class PublicLawRestriction(Base):
+        """
+        The container where you can fill in all your public law restrictions to the topic.
+
+        Attributes:
+            t_id (int): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            law_status (str): The status switch if the document is legally approved or not.
+            published_from (datetime.date): The date when the document should be available for
+                publishing on extracts. This  directly affects the behaviour of extract
+                generation.
+            published_until (datetime.date): The date starting from which the document should not be
+                published anymore on extracts. This directly affects the behaviour of extract generation.
+            view_service_id (int): The foreign key to the view service this public law restriction is
+                related to.
+            view_service (pyramid_oereb.standard.models.land_use_plans.ViewService):
+                The dedicated relation to the view service instance from database.
+            legend_entry_id (int): The foreign key to the legend entry this public law restriction is
+                related to.
+            legend_entry (pyramid_oereb.standard.models.airports_building_lines.LegendEntry):
+                The dedicated relation to the legend entry instance from database.
+            office_id (int): The foreign key to the office which is responsible to this public law
+                restriction.
+            responsible_office (pyramid_oereb.standard.models.land_use_plans.Office):
+                The dedicated relation to the office instance from database.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'eigentumsbeschraenkung'
+        t_id = Column(pk_type, primary_key=True, autoincrement=False)
+        law_status = Column('rechtsstatus', String, nullable=False)
+        published_from = Column('publiziertab', Date, nullable=False)
+        published_until = Column('publiziertbis', Date, nullable=True)
+        view_service_id = Column(
+            'darstellungsdienst',
+            Integer,
+            ForeignKey(ViewService.t_id),
+            nullable=False
+        )
+        view_service = relationship(
+            'ViewService',
+            backref='public_law_restrictions'
+        )
+        legend_entry_id = Column(
+            'legende',
+            Integer,
+            ForeignKey(LegendEntry.t_id),
+            nullable=False
+        )
+        legend_entry = relationship(
+            'LegendEntry', 
+            backref='public_law_restrictions')
+        office_id = Column(
+            'zustaendigestelle',
+            Integer,
+            ForeignKey(Office.t_id),
+            nullable=False
+        )
+        responsible_office = relationship(Office)
+
+
+    class Geometry(Base):
+        """
+        The dedicated model for all geometries in relation to their public law restriction.
+
+        Attributes:
+            t_id (int): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            point (geoalchemy2.types.Geometry): Interlis type: GeometryCHLV95_V1.Coord2
+            line (geoalchemy2.types.Geometry): Interlis type: GeometryCHLV95_V1.Line
+            surface (geoalchemy2.types.Geometry): Interlis type: GeometryCHLV95_V1.Surface
+            law_status (str): The status switch if the document is legally approved or not.
+            published_from (datetime.date): The date when the geometry should be available for
+                publishing on extracts. This directly affects the behaviour of extract
+                generation.
+            published_until (datetime.date): The date from when the geometry should not be available
+                anymore for publishing on extracts. This directly affects the behaviour of extract
+                generation.
+            geo_metadata (str): A link to the metadata which this geometry is based on which delivers
+                machine  readable response format (XML).
+            public_law_restriction_id (str): The foreign key to the public law restriction this geometry
+                is related to.
+            public_law_restriction (pyramid_oereb.standard.models.land_use_plans
+                .PublicLawRestriction): The dedicated relation to the public law restriction instance from
+                database.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'geometrie'
+        t_id = Column(pk_type, primary_key=True, autoincrement=False)
+        point = Column('punkt', GeoAlchemyGeometry('POINT', srid=srid), nullable=True)
+        line = Column('linie', GeoAlchemyGeometry('GEOMETRYCOLLECTION', srid=srid), nullable=True)
+        surface = Column('flaeche', GeoAlchemyGeometry('GEOMETRYCOLLECTION', srid=srid), nullable=True)
+        law_status = Column('rechtsstatus', String, nullable=False)
+        published_from = Column('publiziertab', Date, nullable=False)
+        published_until = Column('publiziertbis', Date, nullable=True)
+        geo_metadata = Column('metadatengeobasisdaten', String, nullable=True)
+        public_law_restriction_id = Column(
+            'eigentumsbeschraenkung',
+            Integer,
+            ForeignKey(PublicLawRestriction.t_id),
+            nullable=False
+        )
+        public_law_restriction = relationship(
+            PublicLawRestriction,
+            backref='geometries'
+        )
+
+
     class LocalisedUri(Base):
         """
         Bucket to resolve entries related to OeREBKRM_V2_0.LocalisedUri.
@@ -283,7 +405,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'localiseduri'
-        t_id = Column(Integer, primary_key=True, autoincrement=False)
+        t_id = Column(pk_type, primary_key=True, autoincrement=False)
         t_seq = Column(Integer, nullable=True)
         language = Column('alanguage', String, nullable=True)
         text = Column('atext', String, nullable=False)
@@ -310,14 +432,14 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'localiseduri'
-        t_id = Column(Integer, primary_key=True, autoincrement=False)
+        t_id = Column(pk_type, primary_key=True, autoincrement=False)
         language = Column('alanguage', String, nullable=True)
         blob = Column('ablob', LargeBinary, nullable = False)
         multilingualblob_id = Column(
             'multilingualblob_localisedblob',
             Integer,
-            ForeignKey(MultilingualUri.t_id),
-            nullable=False
+            ForeignKey(MultilingualBlob.t_id),
+            nullable=True
         )
 
 
@@ -340,7 +462,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'multilingualuri'
-        t_id = Column(Integer, primary_key=True, autoincrement=False)
+        t_id = Column(pk_type, primary_key=True, autoincrement=False)
         t_seq = Column(Integer, nullable=True)
         office_id = Column(
             'amt_amtimweb',
@@ -376,7 +498,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'multilingualuri'
-        t_id = Column(Integer, primary_key=True, autoincrement=False)
+        t_id = Column(pk_type, primary_key=True, autoincrement=False)
         t_seq = Column(Integer, nullable=True)
         document_id = Column(
             'dokument_dokument',
@@ -384,111 +506,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             ForeignKey(Document.t_id),
             nullable=True
         )
-
-
-    class Office(Base):
-        """
-        The bucket to fill in all the offices you need to reference from public law restriction, document,
-        geometry.
-
-        Attributes:
-            t_id (int): The identifier. This is used in the database only and must not be set manually. 
-                        If you  don't like it - don't care about.
-            t_ili_tid (str): TID from the transfer file.
-            name (text): The name of the office. Interlis type: LocalisationCH_V1.MultilingualText.
-            name_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-            name_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-            name_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-            name_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-            name_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-            uid (str): The uid of this office from https
-            line1 (str): The first address line for this office.
-            line2 (str): The second address line for this office.
-            street (str): The streets name of the offices address.
-            number (str): The number on street.
-            postal_code (int): The ZIP-code.
-            city (str): The name of the city.
-        """
-        __table_args__ = {'schema': schema_name}
-        __tablename__ = 'amt'
-        t_id = Column(Integer, primary_key=True, autoincrement=False)
-        t_ili_tid = Column(String, nullable=True)
-        name = Column('aname', Text, nullable=True)
-        name_de = Column('aname_de', Text, nullable=True)
-        name_fr = Column('aname_fr', Text, nullable=True)
-        name_it = Column('aname_it', Text, nullable=True)
-        name_rm = Column('aname_rm', Text, nullable=True)
-        name_en = Column('aname_en', Text, nullable=True)
-        uid = Column('auid', String(12), nullable=True)
-        line1 = Column('zeile1', String, nullable=True)
-        line2 = Column('zeile2', String, nullable=True)
-        street = Column('strasse', String, nullable=True)
-        number = Column('hausnr', String, nullable=True)
-        postal_code = Column('plz', Integer, nullable=True)
-        city = Column('ort', String, nullable=True)
-
-        # entfällt: office_at_web (dict): A web accessible url to a presentation of this office (multilingual).
-        # entfällt: office_at_web = Column(JSONType, nullable=True)
-
-
-    class PublicLawRestriction(Base):
-        """
-        The container where you can fill in all your public law restrictions to the topic.
-
-        Attributes:
-            t_id (int): The identifier. This is used in the database only and must not be set manually. If
-                you  don't like it - don't care about.
-            law_status (str): The status switch if the document is legally approved or not.
-            published_from (datetime.date): The date when the document should be available for
-                publishing on extracts. This  directly affects the behaviour of extract
-                generation.
-            published_until (datetime.date): The date starting from which the document should not be
-                published anymore on extracts. This directly affects the behaviour of extract generation.
-            view_service_id (int): The foreign key to the view service this public law restriction is
-                related to.
-            view_service (pyramid_oereb.standard.models.land_use_plans.ViewService):
-                The dedicated relation to the view service instance from database.
-            legend_entry_id (int): The foreign key to the legend entry this public law restriction is
-                related to.
-            legend_entry (pyramid_oereb.standard.models.airports_building_lines.LegendEntry):
-                The dedicated relation to the legend entry instance from database.
-            office_id (int): The foreign key to the office which is responsible to this public law
-                restriction.
-            responsible_office (pyramid_oereb.standard.models.land_use_plans.Office):
-                The dedicated relation to the office instance from database.
-        """
-        __table_args__ = {'schema': schema_name}
-        __tablename__ = 'eigentumsbeschraenkung'
-        t_id = Column(String, primary_key=True, autoincrement=False)
-        law_status = Column('rechtsstatus', String, nullable=False)
-        published_from = Column('publiziertab', Date, nullable=False)
-        published_until = Column('publiziertbis', Date, nullable=True)
-        view_service_id = Column(
-            'darstellungsdienst',
-            Integer,
-            ForeignKey(ViewService.t_id),
-            nullable=False
-        )
-        view_service = relationship(
-            'ViewService',
-            backref='public_law_restrictions'
-        )
-        legend_entry_id = Column(
-            'legende',
-            Integer,
-            ForeignKey(LegendEntry.t_id),
-            nullable=False
-        )
-        legend_entry = relationship(
-            'LegendEntry', 
-            backref='public_law_restrictions')
-        office_id = Column(
-            'zustaendigestelle',
-            Integer,
-            ForeignKey(Office.t_id),
-            nullable=False
-        )
-        responsible_office = relationship(Office)
 
 
     class PublicLawRestrictionDocument(Base):
@@ -509,7 +526,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'hinweisvorschrift'
-        t_id = Column(Integer, primary_key=True, autoincrement=False)
+        t_id = Column(pk_type, primary_key=True, autoincrement=False)
         public_law_restriction_id = Column(
             'eigentumsbeschraenkung',
             Integer,
@@ -529,23 +546,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         document = relationship(
             Document
         )
-
-
-    class ViewService(Base):
-        """
-        A view service aka WM(T)S which can deliver a cartographic representation via web.
-
-        Attributes:
-            t_id (int): The identifier. This is used in the database only and must not be set manually. If
-                you  don't like it - don't care about.
-        """
-        __table_args__ = {'schema': schema_name}
-        __tablename__ = 'darstellungsdienst'
-        t_id = Column(Integer, primary_key=True, autoincrement=False)
-
-        # entfällt: reference_wms = Column(JSONType, nullable=False)
-        # entfällt: reference_wms (dict): The actual url which leads to the desired cartographic representation
-        #           (multilingual)
 
 
     return Models(
