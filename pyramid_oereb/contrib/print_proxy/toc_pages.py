@@ -66,12 +66,7 @@ class TocPages():
             total_size += self.compute_length_of_wrapped_text(i['Content'][0]['Text'],
                                                               78,
                                                               10)
-        total_size += 5
-        for i in self.extract['BaseData']:
-            total_size += paragraph_space
-            total_size += self.compute_length_of_wrapped_text(i['Text'],
-                                                              78,
-                                                              10)
+        # TODO: add size of Hinweis auf Grundbuch 
         log.debug('d6 left total_size : {}'.format(total_size))
         if total_size > content_min_size:
             return total_size

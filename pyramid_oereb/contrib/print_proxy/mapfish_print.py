@@ -266,7 +266,8 @@ class Renderer(JsonRenderer):
 
         self._multilingual_m_text(extract_dict['GeneralInformation'][0], 'Content')
         extract_dict['GeneralInformation'] = extract_dict['GeneralInformation'][0]['Content']
-        self._multilingual_m_text(extract_dict, 'BaseData')
+        update_date_os = datetime.strptime(extract_dict['UpdateDateOS'], '%Y-%m-%dT%H:%M:%S')
+        extract_dict['UpdateDateOS'] = update_date_os.strftime('%d.%m.%Y')
         self._multilingual_m_text(extract_dict, 'Certification')
         self._multilingual_m_text(extract_dict, 'CertificationAtWeb')
 

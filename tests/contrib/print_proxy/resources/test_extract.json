@@ -7507,10 +7507,5 @@
       }
     ]
   },
-  "BaseData": [
-    {
-      "Text": "Daten der amtlichen Vermessung, Stand 27.01.2018.",
-      "Language": "de"
-    }
-  ]
+  "UpdateDateOS": "2018-01-27T11:54:24"
 }
