@@ -161,7 +161,7 @@ class Config(object):
     @staticmethod
     def get_theme_by_code_sub_code(code, sub_code=None):
         """
-        Returns the theme or sub-theme which which maches the code.
+        Returns the theme or sub-theme which matches the code.
 
         Args:
             code (str): The theme's code or sub-code.
