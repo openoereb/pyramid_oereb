@@ -1,5 +1,5 @@
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy import Boolean, String, Integer, DateTime, Date, Text
+from sqlalchemy import LargeBinary, Boolean, String, Integer, DateTime, Date, Text
 from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
 from sqlalchemy.orm import relationship
@@ -46,7 +46,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
     """
     Base = declarative_base()
 
-
     class Availability(Base):
         """
         A simple bucket for achieving a switch per municipality. Here you can configure via the
@@ -63,14 +62,13 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         fosnr = Column(pk_type, primary_key=True, autoincrement=False)
         available = Column(Boolean, nullable=False, default=False)
 
-
     class Office(Base):
         """
         The bucket to fill in all the offices you need to reference from public law restriction, document,
         geometry.
 
         Attributes:
-            t_id (int): The identifier. This is used in the database only and must not be set manually. 
+            t_id (int): The identifier. This is used in the database only and must not be set manually.
                         If you  don't like it - don't care about.
             t_ili_tid (str): TID from the transfer file.
             name (text): The name of the office. Interlis type: LocalisationCH_V1.MultilingualText.
@@ -105,17 +103,13 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         postal_code = Column('plz', Integer, nullable=True)
         city = Column('ort', String, nullable=True)
 
-        # entfällt: office_at_web (dict): A web accessible url to a presentation of this office (multilingual).
-        # entfällt: office_at_web = Column(JSONType, nullable=True)
-
-
     class Document(Base):
         """
         THE DOCUMENT
         This represents the main document in the whole system.
 
         Attributes:
-            t_id (int): The identifier. This is used in the database only and must not be set manually. 
+            t_id (int): The identifier. This is used in the database only and must not be set manually.
                         If you  don't like it - don't care about.
             t_ili_tid (str): TID from the transfer file.
             document_type (str): The document type. It must be "Rechtsvorschrift", "GesetzlicheGrundlage"
@@ -127,14 +121,14 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             title_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
             title_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
             title_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-            abbreviation (text): The multilingual shortened version of the documents title. 
+            abbreviation (text): The multilingual shortened version of the documents title.
                                 Interlis type: LocalisationCH_V1.MultilingualText.
             abbreviation_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
             abbreviation_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
             abbreviation_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
             abbreviation_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
             abbreviation_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-            official_number (text): The multilingual official number which uniquely identifies this document. 
+            official_number (text): The multilingual official number which uniquely identifies this document.
                                     Interlis type: LocalisationCH_V1.MultilingualText.
             official_number_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
             official_number_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
@@ -169,7 +163,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         abbreviation = Column('abkuerzung', Text, nullable=True)
         abbreviation_de = Column('abkuerzung_de', Text, nullable=True)
         abbreviation_fr = Column('abkuerzung_fr', Text, nullable=True)
-        abbreviation_it = Column('abkuerzung_it', Text, nullable=True) 
+        abbreviation_it = Column('abkuerzung_it', Text, nullable=True)
         abbreviation_rm = Column('abkuerzung_rm', Text, nullable=True)
         abbreviation_en = Column('abkuerzung_en', Text, nullable=True)
         official_number = Column('offiziellenr', Text, nullable=True)
@@ -189,10 +183,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             nullable=False
         )
         responsible_office = relationship(Office)
-
-        # entfällt: text_at_web = Column(JSONType, nullable=True)
-        # entfällt: file = Column(String, nullable=True)
-
 
     class DataIntegration(Base):
         """
@@ -214,7 +204,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         office = relationship(Office)
         checksum = Column(String, nullable=True)
 
-
     class ViewService(Base):
         """
         A view service aka WM(T)S which can deliver a cartographic representation via web.
@@ -226,11 +215,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'darstellungsdienst'
         t_id = Column(pk_type, primary_key=True, autoincrement=False)
-
-        # entfällt: reference_wms = Column(JSONType, nullable=False)
-        # entfällt: reference_wms (dict): The actual url which leads to the desired cartographic representation
-        #           (multilingual)
-
 
     class LegendEntry(Base):
         """
@@ -282,7 +266,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         )
         view_service = relationship(ViewService, backref='legends')
 
-
     class PublicLawRestriction(Base):
         """
         The container where you can fill in all your public law restrictions to the topic.
@@ -332,7 +315,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             nullable=False
         )
         legend_entry = relationship(
-            'LegendEntry', 
+            'LegendEntry',
             backref='public_law_restrictions')
         office_id = Column(
             'zustaendigestelle',
@@ -341,7 +324,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             nullable=False
         )
         responsible_office = relationship(Office)
-
 
     class Geometry(Base):
         """
@@ -389,60 +371,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             backref='geometries'
         )
 
-
-    class LocalisedUri(Base):
-        """
-        Bucket to resolve entries related to OeREBKRM_V2_0.LocalisedUri.
-
-        Attributes:
-            t_id (int): The identifier. This is used in the database only and must not be set manually. If
-                you  don't like it - don't care about.
-            t_seq (int): Order of the structure elements.
-            language (str): Interlis: InternationalCodes_V1.LanguageCode_ISO639_1.
-            text (str): Interlis: URI.
-            multilingualuri_id (int): The foreign key to the multilingual uri this localised uri
-                is related to.
-        """
-        __table_args__ = {'schema': schema_name}
-        __tablename__ = 'localiseduri'
-        t_id = Column(pk_type, primary_key=True, autoincrement=False)
-        t_seq = Column(Integer, nullable=True)
-        language = Column('alanguage', String, nullable=True)
-        text = Column('atext', String, nullable=False)
-        multilingualuri_id = Column(
-            'multilingualuri_localisedtext',
-            Integer,
-            ForeignKey(MultilingualUri.t_id),
-            nullable=False
-        )
-
-
-    class LocalisedBlob(Base):
-        """
-        Bucket to resolve entries related to OeREBKRM_V2_0.LocalisedBlob.
-
-        Attributes:
-            t_id (int): The identifier. This is used in the database only and must not be set manually. If
-                you  don't like it - don't care about.
-            t_seq (int): Order of the structure elements.
-            language (str): Interlis: InternationalCodes_V1.LanguageCode_ISO639_1.
-            text (str): Interlis: URI.
-            multilingualblob_id (int): The foreign key to the multilingual blob this localised blob
-                is related to.
-        """
-        __table_args__ = {'schema': schema_name}
-        __tablename__ = 'localiseduri'
-        t_id = Column(pk_type, primary_key=True, autoincrement=False)
-        language = Column('alanguage', String, nullable=True)
-        blob = Column('ablob', LargeBinary, nullable = False)
-        multilingualblob_id = Column(
-            'multilingualblob_localisedblob',
-            Integer,
-            ForeignKey(MultilingualBlob.t_id),
-            nullable=True
-        )
-
-
     class MultilingualUri(Base):
         """
         Bucket to resolve entries related to OeREBKRM_V2_0.MultilingualUri.
@@ -483,7 +411,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             nullable=True
         )
 
-
     class MultilingualBlob(Base):
         """
         Bucket to resolve entries related to OeREBKRM_V2_0.MultilingualBlob.
@@ -507,6 +434,56 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             nullable=True
         )
 
+    class LocalisedUri(Base):
+        """
+        Bucket to resolve entries related to OeREBKRM_V2_0.LocalisedUri.
+
+        Attributes:
+            t_id (int): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            t_seq (int): Order of the structure elements.
+            language (str): Interlis: InternationalCodes_V1.LanguageCode_ISO639_1.
+            text (str): Interlis: URI.
+            multilingualuri_id (int): The foreign key to the multilingual uri this localised uri
+                is related to.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'localiseduri'
+        t_id = Column(pk_type, primary_key=True, autoincrement=False)
+        t_seq = Column(Integer, nullable=True)
+        language = Column('alanguage', String, nullable=True)
+        text = Column('atext', String, nullable=False)
+        multilingualuri_id = Column(
+            'multilingualuri_localisedtext',
+            Integer,
+            ForeignKey(MultilingualUri.t_id),
+            nullable=False
+        )
+
+    class LocalisedBlob(Base):
+        """
+        Bucket to resolve entries related to OeREBKRM_V2_0.LocalisedBlob.
+
+        Attributes:
+            t_id (int): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            t_seq (int): Order of the structure elements.
+            language (str): Interlis: InternationalCodes_V1.LanguageCode_ISO639_1.
+            text (str): Interlis: URI.
+            multilingualblob_id (int): The foreign key to the multilingual blob this localised blob
+                is related to.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'localiseduri'
+        t_id = Column(pk_type, primary_key=True, autoincrement=False)
+        language = Column('alanguage', String, nullable=True)
+        blob = Column('ablob', LargeBinary, nullable=False)
+        multilingualblob_id = Column(
+            'multilingualblob_localisedblob',
+            Integer,
+            ForeignKey(MultilingualBlob.t_id),
+            nullable=True
+        )
 
     class PublicLawRestrictionDocument(Base):
         """
@@ -547,12 +524,11 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             Document
         )
 
-
     return Models(
         Availability, DataIntegration,
         Office, Document, ViewService,
         LegendEntry, PublicLawRestriction, Geometry, PublicLawRestrictionDocument,
-        LocalisedBlob, LocalisedUri, MultilingualBlob, MultilingualUri, 
+        LocalisedBlob, LocalisedUri, MultilingualBlob, MultilingualUri,
         Base, db_connection, schema_name
     )
 

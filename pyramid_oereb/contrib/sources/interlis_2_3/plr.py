@@ -453,7 +453,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
     # def handle_collection(self, session, geometry_to_check):
     #     geometry_types = Config.get('geometry_types')
     #     collection_types = geometry_types.get('collection').get('types')
-    #     # Check for Geometry type, cause we can't handle geometry collections the same as specific geometries
+    #     # Check for Geometry type, cause we can't handle geometry collections
+    #     # the same as specific geometries
     #     if self._plr_info.get('geometry_type') in [x.upper() for x in collection_types]:
     #
     #        # The PLR is defined as a collection type. We need to do a special handling
