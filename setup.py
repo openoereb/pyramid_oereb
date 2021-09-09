@@ -36,8 +36,8 @@ setup(
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application"
     ],
     license='BSD 2',
-    author='Clemens Rudert',
-    author_email='clemens.rudert@bl.ch',
+    author='François Voisard',
+    author_email='francois.voisard@ne.ch',
     url='https://github.com/openoereb/pyramid_oereb',
     keywords='pyramid oereb',
     packages=find_packages(),
