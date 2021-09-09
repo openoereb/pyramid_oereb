@@ -58,9 +58,9 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
                 behaviour. See documentation for more info.
         """
         __table_args__ = {'schema': schema_name}
-        __tablename__ = 'availability'
-        fosnr = Column(pk_type, primary_key=True, autoincrement=False)
-        available = Column(Boolean, nullable=False, default=False)
+        __tablename__ = 'verfuegbarkeit'
+        fosnr = Column('bfsnr', pk_type, primary_key=True, autoincrement=False)
+        available = Column('verfuegbar', Boolean, nullable=False, default=False)
 
     class Office(Base):
         """
@@ -145,7 +145,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             published_until (datetime.date): The date until when the document should be available for
                 publishing on extracts. This  directly affects the behaviour of extract
                 generation.
-            office_id (str): The foreign key to the office which is in charge for this document.
+            office_id (int): The foreign key to the office which is in charge for this document.
             responsible_office (pyramid_oereb.standard.models.railways_project_planning_zones.Office):
                 The dedicated relation to the office instance from database.
         """
@@ -197,10 +197,10 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
                 The actual office instance which the id points to.
         """
         __table_args__ = {'schema': schema_name}
-        __tablename__ = 'data_integration'
+        __tablename__ = 'datenintegration'
         t_id = Column(pk_type, primary_key=True, autoincrement=False)
-        date = Column(DateTime, nullable=False)
-        office_id = Column(pk_type, ForeignKey(Office.t_id), nullable=False)
+        date = Column('datum', DateTime, nullable=False)
+        office_id = Column('amt', pk_type, ForeignKey(Office.t_id), nullable=False)
         office = relationship(Office)
         checksum = Column(String, nullable=True)
 
@@ -222,7 +222,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         :class:`pyramid_oereb.standard.models.land_use_plans.ViewService`.
 
         Attributes:
-            t_id (str): The identifier. This is used in the database only and must not be set manually. If
+            t_id (int): The identifier. This is used in the database only and must not be set manually. If
                 you  don't like it - don't care about.
             symbol (str): An image with represents the legend entry. This can be png or svg. It is string
                 but BaseCode64  encoded.
@@ -418,13 +418,12 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         Attributes:
             t_id (int): The identifier. This is used in the database only and must not be set manually. If
                 you  don't like it - don't care about.
-            language (str): Interlis: InternationalCodes_V1.LanguageCode_ISO639_1.
-            text (str): Interlis: URI.
+            t_seq (int): Order of the structure elements.
             document_id (int): The foreign key to the document this multilingual uri
                 is related to.
         """
         __table_args__ = {'schema': schema_name}
-        __tablename__ = 'multilingualuri'
+        __tablename__ = 'multilingualblob'
         t_id = Column(pk_type, primary_key=True, autoincrement=False)
         t_seq = Column(Integer, nullable=True)
         document_id = Column(
@@ -474,7 +473,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
                 is related to.
         """
         __table_args__ = {'schema': schema_name}
-        __tablename__ = 'localiseduri'
+        __tablename__ = 'localisedblob'
         t_id = Column(pk_type, primary_key=True, autoincrement=False)
         language = Column('alanguage', String, nullable=True)
         blob = Column('ablob', LargeBinary, nullable=False)

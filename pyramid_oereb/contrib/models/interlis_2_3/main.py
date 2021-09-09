@@ -26,7 +26,8 @@ But you can change it also via configuration.
 
 """
 from sqlalchemy import Column, PrimaryKeyConstraint
-from sqlalchemy import Unicode, String, text, Integer, Boolean
+from sqlalchemy import Unicode, String, Text, Integer, Boolean, LargeBinary
+from sqlalchemy.sql.schema import ForeignKey
 from geoalchemy2 import Geometry
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import JSONType
@@ -43,33 +44,283 @@ class Theme(Base):
     The OEREB themes of the application
 
     Attributes:
-        id (int): identifier, used in the database only
+        t_id (int): identifier, used in the database only
         code (str): OEREB code of the theme - unique and used to link each PublicLawRestriction
             with the corresponding theme
-        title (dict): the title of the theme as a multilingual dictionary
+        subcode (str): OEREB code of the theme - unique and used to link each PublicLawRestriction
+            with the corresponding subtheme
+        title (text): The multilingual title of his document.
+                    Interlis type: LocalisationCH_V1.MultilingualText.
+        title_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        title_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        title_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        title_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        title_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
         extract_index (int): index to sort the themes in the extract, defined in the specification
     """
     __table_args__ = {'schema': app_schema_name}
-    __tablename__ = 'theme'
-    id = Column(Integer, primary_key=True, autoincrement=False)
-    code = Column(String, unique=True, nullable=False)
-    title = Column(JSONType, nullable=False)
-    extract_index = Column(Integer, nullable=False)
+    __tablename__ = 'thema'
+    t_id = Column(Integer, primary_key=True, autoincrement=False)
+    code = Column('acode', String, unique=True, nullable=False)
+    subcode = Column(String, unique=True, nullable=True)
+    title = Column('titel', text, nullable=True)
+    title_de = Column('titel_de', text, nullable=True)
+    title_fr = Column('titel_fr', text, nullable=True)
+    title_it = Column('titel_it', text, nullable=True)
+    title_rm = Column('titel_rm', text, nullable=True)
+    title_en = Column('titel_en', text, nullable=True)
+    extract_index = Column('auszugindex', Integer, nullable=False)
 
+class Office(Base):
+    """
+    The bucket to fill in all the offices you need to reference from public law restriction, document,
+    geometry.
+
+    Attributes:
+        t_id (int): The identifier. This is used in the database only and must not be set manually.
+                If you  don't like it - don't care about.
+        t_ili_tid (str): TID from the transfer file.
+        name (text): The name of the office. Interlis type: LocalisationCH_V1.MultilingualText.
+        name_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        name_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        name_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        name_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        name_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        uid (str): The uid of this office from https
+        line1 (str): The first address line for this office.
+        line2 (str): The second address line for this office.
+        street (str): The streets name of the offices address.
+        number (str): The number on street.
+        postal_code (int): The ZIP-code.
+        city (str): The name of the city.
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'amt'
+    t_id = Column(Integer, primary_key=True, autoincrement=False)
+    t_ili_tid = Column(String, nullable=True)
+    name = Column('aname', Text, nullable=True)
+    name_de = Column('aname_de', Text, nullable=True)
+    name_fr = Column('aname_fr', Text, nullable=True)
+    name_it = Column('aname_it', Text, nullable=True)
+    name_rm = Column('aname_rm', Text, nullable=True)
+    name_en = Column('aname_en', Text, nullable=True)
+    uid = Column('auid', String(12), nullable=True)
+    line1 = Column('zeile1', String, nullable=True)
+    line2 = Column('zeile2', String, nullable=True)
+    street = Column('strasse', String, nullable=True)
+    number = Column('hausnr', String, nullable=True)
+    postal_code = Column('plz', Integer, nullable=True)
+    city = Column('ort', String, nullable=True)
+
+class Document(Base):
+    """
+    THE DOCUMENT
+    This represents the main document in the whole system.
+
+    Attributes:
+        t_id (int): The identifier. This is used in the database only and must not be set manually.
+                    If you  don't like it - don't care about.
+        t_ili_tid (str): TID from the transfer file.
+        document_type (str): The document type. It must be "Rechtsvorschrift", "GesetzlicheGrundlage"
+            or "Hinweis".
+        title (text): The multilingual title of his document.
+                   Interlis type: LocalisationCH_V1.MultilingualText.
+        title_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        title_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        title_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        title_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        title_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        abbreviation (text): The multilingual shortened version of the documents title.
+                        Interlis type: LocalisationCH_V1.MultilingualText.
+        abbreviation_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        abbreviation_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        abbreviation_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        abbreviation_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        abbreviation_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        official_number (text): The multilingual official number which uniquely identifies this document.
+                                Interlis type: LocalisationCH_V1.MultilingualText.
+        official_number_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        official_number_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        official_number_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        official_number_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        official_number_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        only_in_municipality (int): The fosnr (=id bfs) of the municipality. If this is None it is assumed
+            the document is  related to the whole canton or even the confederation.
+        index (int): An index used to sort the documents.
+        law_status (str): The status switch if the document is legally approved or not.
+        published_from (datetime.date): The date from when the document should be available for
+            publishing in extracts. This  directly affects the behaviour of extract
+            generation.
+        published_until (datetime.date): The date until when the document should be available for
+            publishing on extracts. This  directly affects the behaviour of extract
+            generation.
+        office_id (int): The foreign key to the office which is in charge for this document.
+        responsible_office (pyramid_oereb.standard.models.railways_project_planning_zones.Office):
+            The dedicated relation to the office instance from database.
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'dokument'
+    t_id = Column(Integer, primary_key=True, autoincrement=False)
+    t_ili_tid = Column(String, nullable=True)
+    document_type = Column('type', String, nullable=False)
+    title = Column('titel', Text, nullable=True)
+    title_de = Column('titel_de', Text, nullable=True)
+    title_fr = Column('titel_fr', Text, nullable=True)
+    title_it = Column('titel_it', Text, nullable=True)
+    title_rm = Column('titel_rm', Text, nullable=True)
+    title_en = Column('titel_en', Text, nullable=True)
+    abbreviation = Column('abkuerzung', Text, nullable=True)
+    abbreviation_de = Column('abkuerzung_de', Text, nullable=True)
+    abbreviation_fr = Column('abkuerzung_fr', Text, nullable=True)
+    abbreviation_it = Column('abkuerzung_it', Text, nullable=True)
+    abbreviation_rm = Column('abkuerzung_rm', Text, nullable=True)
+    abbreviation_en = Column('abkuerzung_en', Text, nullable=True)
+    official_number = Column('offiziellenr', Text, nullable=True)
+    official_number_de = Column('offiziellenr_de', Text, nullable=True)
+    official_number_fr = Column('offiziellenr_fr', Text, nullable=True)
+    official_number_it = Column('offiziellenr_it', Text, nullable=True)
+    official_number_rm = Column('offiziellenr_rm', Text, nullable=True)
+    official_number_en = Column('offiziellenr_en', Text, nullable=True)
+    only_in_municipality = Column('nuringemeinde', Integer, nullable=True)
+    index = Column('auszugindex', Integer, nullable=False)
+    law_status = Column('rechtsstatus', String, nullable=False)
+    published_from = Column('publiziertab', Date, nullable=False)
+    published_until = Column('publiziertbis', Date, nullable=True)
+    office_id = Column(
+        Integer,
+        ForeignKey(Office.t_id),
+        nullable=False
+    )
+    responsible_office = relationship(Office)
+
+class ThemeDocument(Base):
+    """
+    Attributes:
+        t_id (int): The identifier. This is used in the database only and must not be set manually.
+                    If you  don't like it - don't care about.
+        theme_id (int): The foreign key to the theme.
+        document_id (int): The foreign key to the document.
+        theme The dedicated relation to the theme instance from database.
+        document The dedicated relation to the document instance from database.
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'themagesetz'
+    t_id = Column(Integer, primary_key=True, autoincrement=False)
+    theme_id = Column('thema', Integer, ForeignKey(Theme.t_id), nullable=False)
+    document_id = Column('gesetz', Integer, ForeignKey(Document.t_id), nullable=False)
+    theme = relationship(
+        Theme,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Document
+    )
+
+class ArticleNumber(Base):
+    """
+    Attributes:
+        t_id (int): The identifier. This is used in the database only and must not be set manually.
+                    If you  don't like it - don't care about.
+        value (str): Article number
+        theme_id (int): The foreign key to the theme.
+        theme_document_id (int): The foreign key to the ThemeDocument.
+        theme_document The dedicated relation to the theme_document instance from database.
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'artikelnummer_'
+    t_id = Column(Integer, primary_key=True, autoincrement=False)
+    value = Column('avalue', String, nullable=False)
+    theme_document_id = Column('themagesetz_artikelnr', 
+                            Integer, 
+                            ForeignKey(ThemeDocument.t_id),
+                            nullable=False)
+    theme_document = relationship(
+        ThemeDocument,
+        backref='article_numbers'
+    )
+
+class DocumentTypeText(Base):
+    """
+        t_id (int): The identifier. This is used in the database only and must not be set manually.
+                    If you  don't like it - don't care about.
+        code (str): according to enumeration
+        title (text): The multilingual title of his document.
+                    Interlis type: LocalisationCH_V1.MultilingualText.
+        title_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        title_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        title_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        title_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        title_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'dokumenttyptxt'
+    t_id = Column(Integer, primary_key=True, autoincrement=False)
+    title = Column('titel', Text, nullable=True)
+    title_de = Column('titel_de', Text, nullable=True)
+    title_fr = Column('titel_fr', Text, nullable=True)
+    title_it = Column('titel_it', Text, nullable=True)
+    title_rm = Column('titel_rm', Text, nullable=True)
+    title_en = Column('titel_en', Text, nullable=True)
 
 class Logo(Base):
     """
     The container for all logos and municipality coat of arms
 
     Attributes:
+        t_id (int): identifier, used in the database only
         code (str): The identifier given by a code
-        logo (dict): The image encoded in base64
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'logo'
-    code = Column(String, primary_key=True)
-    logo = Column(JSONType, nullable=False)
+    t_id = Column(Integer, primary_key=True, autoincrement=False)
+    code = Column(String, nullable=False)
 
+class MultilingualBlob(Base):
+    """
+    Bucket to resolve entries related to OeREBKRM_V2_0.MultilingualBlob.
+
+    Attributes:
+        t_id (int): identifier, used in the database only
+        document_id (int): The foreign key to the document this multilingual blob
+                is related to.
+        logo_id (int): The foreign key to the logo this multilingual blob
+                is related to.
+    """
+    table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'multilingualblob'
+    t_id = Column(Integer, primary_key=True, autoincrement=False)
+    document_id = Column('dokument_dokument',
+                    Integer, 
+                    ForeignKey=Document.t_id,
+                    nullable = True)
+    logo_id = Column('logo_bild',
+                    Integer, 
+                    ForeignKey=Logo.t_id,
+                    nullable = True)
+
+class LocalisedBlob(Base):
+    """
+    Bucket to resolve entries related to OeREBKRM_V2_0.LocalisedBlob.
+
+    Attributes:
+        t_id (int): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        language (str): Interlis: InternationalCodes_V1.LanguageCode_ISO639_1.
+        blob (large binary): Interlis: BLACKBOX BINARY
+        multilingualblob_id (int): The foreign key to the multilingual blob this localised blob
+            is related to.
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'localisedblob'
+    t_id = Column(Integer, primary_key=True, autoincrement=False)
+    language = Column('alanguage', String, nullable=True)
+    blob = Column('ablob', LargeBinary, nullable=False)
+    multilingualblob_id = Column(
+        'multilingualblob_localisedblob',
+        Integer,
+        ForeignKey(MultilingualBlob.t_id),
+        nullable=True
+    )
 
 class Municipality(Base):
     """
@@ -192,7 +443,7 @@ class Glossary(Base):
         content (str): The description or definition of a glossary item.
     """
     __table_args__ = {'schema': app_schema_name}
-    __tablename__ = 'glossary'
+    __tablename__ = 'glossar'
     id = Column(Integer, primary_key=True, autoincrement=False)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
