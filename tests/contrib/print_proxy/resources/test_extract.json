@@ -412,7 +412,15 @@
     "FosNr": 2766,
     "Number": "1274",
     "LandRegistryArea": 119681.0,
-    "Type": "RealEstate",
+    "Type": {
+      "Code": "Liegenschaft",
+      "Text": [
+        {
+          "Language": "de",
+          "Text": "Liegenschaft"
+        }
+      ]
+    },
     "RestrictionOnLandownership": [
       {
         "PartInPercent": 65.6,
@@ -7499,10 +7507,5 @@
       }
     ]
   },
-  "BaseData": [
-    {
-      "Text": "Daten der amtlichen Vermessung, Stand 27.01.2018.",
-      "Language": "de"
-    }
-  ]
+  "UpdateDateOS": "2018-01-27T11:54:24"
 }

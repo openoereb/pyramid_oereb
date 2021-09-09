@@ -472,14 +472,8 @@ pyramid_oereb:
   # The extract is the entry point which binds everything
   # related to data together.
   extract:
-    # Information about the base data used for the extract, e.g. the used base map and its currentness.
-    # This is a multilingual value. In the minimum, the value for the default language has to be defined.
+    # Information about the official survey (last update and provider) used as a base map in the extract
     base_data:
-        text:
-          de: "Daten der amtlichen Vermessung. Stand der amtlichen Vermessung: {0}."
-          fr: "Données de la mensuration officielle, état de la mensuration officielle: {0}."
-          it: "Dati della misurazione ufficiale. Stato della misurazione ufficiale: {0}."
-          rm: "Datas da la mesiraziun uffiziala. Versiun dal mesiraziun uffiziala: {0}."
         methods:
           date: pyramid_oereb.standard.hook_methods.get_surveying_data_update_date
           provider:  pyramid_oereb.standard.hook_methods.get_surveying_data_provider

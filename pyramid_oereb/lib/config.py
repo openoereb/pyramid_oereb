@@ -2,7 +2,6 @@
 import os
 
 import logging
-import datetime
 import yaml
 from io import open as ioopen
 from pyramid.config import ConfigurationError
@@ -636,25 +635,6 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get('oereblex')
-
-    @staticmethod
-    def get_base_data(base_data_date):
-        """
-        Returns the multilingual base data description with updated currentness.
-
-        Args:
-            base_data_date datetime.datetime: The base data currentness.
-
-        Returns:
-            dict: The multilingual base data with updated currentness.
-        """
-        assert Config._config is not None
-        assert isinstance(base_data_date, datetime.datetime)
-        base_data = dict(Config.get_extract_config().get('base_data').get('text'))
-        assert isinstance(base_data, dict)
-        for k in base_data.keys():
-            base_data.update({k: base_data.get(k).format(base_data_date.strftime('%d.%m.%Y'))})
-        return base_data
 
     @staticmethod
     def get(key, default=None):

@@ -87,7 +87,7 @@ class Renderer(Base):
         extract_dict = {
             'CreationDate': self.date_time(extract.creation_date),
             'ExtractIdentifier': extract.extract_identifier,
-            'BaseData': self.get_multilingual_text(extract.base_data),
+            'UpdateDateOS': self.date_time(extract.update_date_os),
             'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority),
             'RealEstate': self.format_real_estate(extract.real_estate),
             'ConcernedTheme': [self.format_theme(theme) for theme in extract.concerned_theme],
