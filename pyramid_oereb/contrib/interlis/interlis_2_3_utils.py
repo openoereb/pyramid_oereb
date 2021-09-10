@@ -26,3 +26,16 @@ def from_multilingual_uri_to_dict(obj):
         for row in ml_uris.localised_uri:
             var_dict[row.language] = row.text
         return var_dict
+
+
+def from_multilingual_blob_to_dict(obj):
+    """
+    obj: one of logo.multilingual_blob, document.multilingual_blob
+    """
+    if len(obj) != 1:
+        pass  # Warnung ?
+    for ml_blobs in obj:
+        var_dict = dict()
+        for row in ml_blobs.localised_blob:
+            var_dict[row.language] = row.blob
+        return var_dict

@@ -410,6 +410,18 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             ForeignKey(ViewService.t_id),
             nullable=True
         )
+        office = relationship(
+            'Office',
+            backref='multilingual_uri'
+        )
+        document = relationship(
+            'Document',
+            backref='multilingual_uri'
+        )
+        view_service = relationship(
+            'ViewService',
+            backref='multilingual_uri'
+        )
 
     class MultilingualBlob(Base):
         """

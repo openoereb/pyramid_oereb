@@ -2,7 +2,6 @@
 
 import subprocess
 import requests
-from sqlalchemy.sql.schema import ForeignKey
 import yaml
 import sys
 import os
@@ -11,7 +10,6 @@ import zipfile
 import hashlib
 import sqlalchemy as sa
 from sqlalchemy import create_engine
-
 
 
 # file and directories
@@ -66,8 +64,8 @@ else:
 
 with open(md5sum_file, 'r') as file:
     md5sum_reported = file.read().replace('\n', '')
-with open(xtf_file,"rb") as f:
-    bytes = f.read() # read file as bytes
+with open(xtf_file, "rb") as f:
+    bytes = f.read()  # read file as bytes
     md5sum_computed = hashlib.md5(bytes).hexdigest()
 
 if md5sum_reported != md5sum_computed:
@@ -96,7 +94,7 @@ subprocess.call(['java',
                  '--createTypeDiscriminator',
                  '--createImportTabs', '--createMetaInfo', '--createNumChecks', '--createUnique',
                  '--models', 'OeREBKRMtrsfr_V2_0'],
-                 env=env)
+                env=env)
 
 # import data from xtf into schema
 subprocess.call(['java',
@@ -116,29 +114,27 @@ subprocess.call(['java',
                  '--createImportTabs', '--createMetaInfo', '--createNumChecks', '--createUnique',
                  '--dataset', download_theme['thema'],
                  '--replace', xtf_file],
-                 env=env)
+                env=env)
 
 # create tables "datenintegration" and "verfuegbarkeit"
-engine = create_engine('postgresql://' + dbusr + ':' + dbpwd + '@' 
+engine = create_engine('postgresql://' + dbusr + ':' + dbpwd + '@'
                        + dbhost + ':' + dbport + '/' + dbdatabase)
 metadata_obj = sa.MetaData()
 
 if not sa.inspect(engine).has_table('verfuegbarkeit', schema=download_theme['schema']):
     Availability = sa.Table('verfuegbarkeit', metadata_obj,
-        sa.Column('bfsnr', sa.BigInteger, primary_key=True),
-        sa.Column('verfuegbar', sa.Boolean, nullable=False),
-        schema = download_theme['schema']
-    )
+                            sa.Column('bfsnr', sa.BigInteger, primary_key=True),
+                            sa.Column('verfuegbar', sa.Boolean, nullable=False),
+                            schema=download_theme['schema'])
     Availability.create(engine, checkfirst=True)
 
 if not sa.inspect(engine).has_table('datenintegration', schema=download_theme['schema']):
     DataIntegration = sa.Table('datenintegration', metadata_obj,
-        sa.Column('t_id', sa.BigInteger, primary_key=True),
-        sa.Column('datum', sa.DateTime, nullable=False),
-        sa.Column('amt', sa.BigInteger, nullable=False),
-        sa.Column('checksum', sa.String, nullable=True),
-        schema = download_theme['schema']
-    )
+                               sa.Column('t_id', sa.BigInteger, primary_key=True),
+                               sa.Column('datum', sa.DateTime, nullable=False),
+                               sa.Column('amt', sa.BigInteger, nullable=False),
+                               sa.Column('checksum', sa.String, nullable=True),
+                               schema=download_theme['schema'])
     DataIntegration.create(engine, checkfirst=True)
     add_fk_statement = 'ALTER TABLE ' + download_theme['schema'] + '.datenintegration ' \
                        + 'ADD CONSTRAINT datenintegration_amt_fkey FOREIGN KEY (amt) ' \

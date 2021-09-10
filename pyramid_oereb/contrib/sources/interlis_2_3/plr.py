@@ -149,7 +149,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 fr=legend_entry_from_db.legend_text_fr,
                 it=legend_entry_from_db.legend_text_it,
                 rm=legend_entry_from_db.legend_text_rm,
-                en=legend_entry_from_db.legend_text_en,
+                en=legend_entry_from_db.legend_text_en
             ),
             legend_entry_from_db.type_code,
             legend_entry_from_db.type_code_list,
@@ -169,7 +169,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     fr=legend_entry_from_db.legend_text_fr,
                     it=legend_entry_from_db.legend_text_it,
                     rm=legend_entry_from_db.legend_text_rm,
-                    en=legend_entry_from_db.legend_text_en,
+                    en=legend_entry_from_db.legend_text_en
                 ),
                 legend_entry_from_db.type_code,
                 legend_entry_from_db.type_code_list,
