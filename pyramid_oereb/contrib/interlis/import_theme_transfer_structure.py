@@ -2,12 +2,17 @@
 
 import subprocess
 import requests
+from sqlalchemy.sql.schema import ForeignKey
 import yaml
 import sys
 import os
 import glob
 import zipfile
 import hashlib
+import sqlalchemy as sa
+from sqlalchemy import create_engine
+
+
 
 # file and directories
 config_yaml = 'import_theme_transfer_structure.yml'
@@ -79,12 +84,12 @@ subprocess.call(['java',
                  '-jar',
                  ili2pg_jar,
                  '--schemaimport',
-                 '--dbhost', 'localhost',
+                 '--dbhost', dbhost,
                  '--dbport', dbport,
                  '--dbdatabase', dbdatabase,
                  '--dbusr', dbusr,
                  '--dbpwd', dbpwd,
-                 '--dbschema', download_theme['theme'],
+                 '--dbschema', download_theme['schema'],
                  '--defaultSrsAuth', 'EPSG', '--defaultSrsCode', '2056',
                  '--createFk', '--createFkIdx', '--createGeomIdx',
                  '--createTidCol', '--createBasketCol', '--createDatasetCol', '--createTidCol',
@@ -93,13 +98,12 @@ subprocess.call(['java',
                  '--models', 'OeREBKRMtrsfr_V2_0'],
                  env=env)
 
-
 # import data from xtf into schema
 subprocess.call(['java',
                  '-jar',
                  ili2pg_jar,
                  '--import',
-                 '--dbhost', 'localhost',
+                 '--dbhost', dbhost,
                  '--dbport', dbport,
                  '--dbdatabase', dbdatabase,
                  '--dbusr', dbusr,
@@ -114,12 +118,33 @@ subprocess.call(['java',
                  '--replace', xtf_file],
                  env=env)
 
-# create table "datenintegration" and "verfuegbarkeit"
-subprocess.call(['docker-compose', 'exec', 'db',
-                'psql', '-d', dbdatabase, '-U', dbusr,
-                '-v', 'schema=' + 'download_theme["schema"]',
-                '-v', 'usr=' + dbusr,
-                '-f', '/data/add_tables_to_schema.sql'])
+# create tables "datenintegration" and "verfuegbarkeit"
+engine = create_engine('postgresql://' + dbusr + ':' + dbpwd + '@' 
+                       + dbhost + ':' + dbport + '/' + dbdatabase)
+metadata_obj = sa.MetaData()
+
+if not sa.inspect(engine).has_table('verfuegbarkeit', schema=download_theme['schema']):
+    Availability = sa.Table('verfuegbarkeit', metadata_obj,
+        sa.Column('bfsnr', sa.BigInteger, primary_key=True),
+        sa.Column('verfuegbar', sa.Boolean, nullable=False),
+        schema = download_theme['schema']
+    )
+    Availability.create(engine, checkfirst=True)
+
+if not sa.inspect(engine).has_table('datenintegration', schema=download_theme['schema']):
+    DataIntegration = sa.Table('datenintegration', metadata_obj,
+        sa.Column('t_id', sa.BigInteger, primary_key=True),
+        sa.Column('datum', sa.DateTime, nullable=False),
+        sa.Column('amt', sa.BigInteger, nullable=False),
+        sa.Column('checksum', sa.String, nullable=True),
+        schema = download_theme['schema']
+    )
+    DataIntegration.create(engine, checkfirst=True)
+    add_fk_statement = 'ALTER TABLE ' + download_theme['schema'] + '.datenintegration ' \
+                       + 'ADD CONSTRAINT datenintegration_amt_fkey FOREIGN KEY (amt) ' \
+                       + 'REFERENCES ' + download_theme['schema'] + '.amt (t_id)'
+    engine.execute(add_fk_statement)
+
 
 # Updata table 'datenintegration'
 # To be done
