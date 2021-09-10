@@ -306,9 +306,6 @@ class Renderer(JsonRenderer):
                 }, basemap]
             }
 
-            restriction_on_landownership['legend'] = restriction_on_landownership['Map'].get(
-                'LegendAtWeb', '')
-
             # Legend of other visible restriction objects in the topic map
             restriction_on_landownership['OtherLegend'] = restriction_on_landownership['Map'].get(
                 'OtherLegend', [])
