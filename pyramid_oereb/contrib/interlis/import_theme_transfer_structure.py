@@ -68,6 +68,9 @@ with open(xtf_file,"rb") as f:
 if md5sum_reported != md5sum_computed:
     raise RuntimeError("Reported md5sum of downloaded xtf is not equal to computed md5sum.")
 
+# Check if data set has been changed since last download. If not script can end here.
+
+# To be done
 
 # create db schema for OeREBKRMtrsfr_V2_0
 env = dict(os.environ)
@@ -119,7 +122,7 @@ subprocess.call(['docker-compose', 'exec', 'db',
                 '-f', '/data/add_tables_to_schema.sql'])
 
 # Updata table 'datenintegration'
-# To be don
+# To be done
 
 # cleaning the directory
 if os.path.exists(data_dir) and os.path.isdir(data_dir):
