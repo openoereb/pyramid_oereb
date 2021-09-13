@@ -2,6 +2,32 @@
   {
     "office_id": 1,
     "published_from": "2010-09-20",
+    "id": 1357,
+    "document_type": "Hinweis",
+    "index": 0,
+    "text_at_web": {
+      "de": "http://www.admin.ch/ch/d/sr/c814_01.html"
+    },
+    "law_status": "inKraft",
+    "abbreviation": {
+      "de": "USG",
+      "fr": "LPE",
+      "it": "LPAmb",
+      "en": "EPA"
+    },
+    "title": {
+      "de": "Umweltschutzgesetz",
+      "fr": "Loi sur la protection de l'environnement",
+      "it": "Legge sulla protezione dell'ambiente",
+      "en": "Environmental Protection Act"
+    },
+    "official_number": {
+      "de": "SR 814.01"
+    }
+  },
+  {
+    "office_id": 1,
+    "published_from": "2010-09-20",
     "id": 1358,
     "document_type": "GesetzlicheGrundlage",
     "index": 1,

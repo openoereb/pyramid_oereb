@@ -401,7 +401,7 @@ def test_get_sorted_hints():
         "Title": "Revision Ortsplanung"
     }]
 
-    assert expected_result == renderer.sort_dict_list(test_hints, renderer.sort_hints)
+    assert expected_result == renderer.sort_dict_list(test_hints, renderer.sort_hints_laws)
 
 
 def test_get_sorted_law():
@@ -530,7 +530,7 @@ def test_get_sorted_law():
 
         }
     ]
-    assert expected_result == renderer.sort_dict_list(test_law, renderer.sort_laws)
+    assert expected_result == renderer.sort_dict_list(test_law, renderer.sort_hints_laws)
 
 
 def test_group_legal_provisions():
