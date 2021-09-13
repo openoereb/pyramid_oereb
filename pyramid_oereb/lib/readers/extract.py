@@ -136,12 +136,12 @@ class ExtractReader(object):
 
         # sort plr according to theme, sub-theme and law-status
         start_time = timer()
-        log.debug("sort plrs by law status start")
+        log.debug("sort plrs by theme and law status start")
         real_estate.public_law_restrictions.sort(key=lambda element: (
             self._sort_plr_theme(element), self._sort_plr_law_status(element)
         ))
         end_time = timer()
-        log.debug(f"DONE with sort plrs by law status, time spent: {end_time-start_time} seconds")
+        log.debug(f"DONE with sort plrs by theme and law status, time spent: {end_time-start_time} seconds")
 
         # Load base data form configuration
         resolver = DottedNameResolver()
