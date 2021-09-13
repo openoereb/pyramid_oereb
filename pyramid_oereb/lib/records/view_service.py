@@ -23,7 +23,8 @@ class LegendEntryRecord(object):
         legend_text (dict of unicode): The multilingual description text for the legend entry.
         type_code (unicode): The class of the legend entry corresponding to the plrs classes.
         type_code_list (unicode): An URL to the type code list.
-        theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme or sub-them to which the legend entry belongs.
+        theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme or sub-them to which the legend entry
+            belongs.
         view_service_id (int): The id to the connected view service. This is very important to be able to
             solve bug https://github.com/openoereb/pyramid_oereb/issues/521
     """
