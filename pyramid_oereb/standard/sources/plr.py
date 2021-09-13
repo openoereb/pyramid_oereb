@@ -472,7 +472,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return session.query(self.legend_entry_model).filter(
             self.legend_entry_model.id.in_((distinct_legend_entry_ids))).all()
 
-    def read(self, params, real_estate, bbox):
+    def read(self, params, real_estate, bbox):  # pylint: disable=W:0221
         """
         The read point which creates a extract, depending on a passed real estate.
 
