@@ -344,7 +344,21 @@
     {
       "Content": [
         {
-          "Text": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt f\u00fcr Umwelt BAFU festgelegten Kriterien erstellt und wird fortw\u00e4hrend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Fl\u00e4chen k\u00f6nnen vom tats\u00e4chlichen Ausmass der Belastung abweichen. Erscheint ein Grundst\u00fcck nicht im KbS, besteht keine absolute Gew\u00e4hr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, milit\u00e4risch und f\u00fcr die Luftfahrt genutzte Standorte liegen im Zust\u00e4ndigkeitsbereich des Bundes. F\u00fcr weitere Informationen wenden Sie sich an die kantonale Altlastenfachstelle, Amt f\u00fcr Umweltschutz und Energie (www.aue.bl.ch).",
+          "Text": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt für Umwelt BAFU festgelegten Kriterien erstellt und wird fortwährend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Flächen können vom tatsächlichen Ausmass der Belastung abweichen. Erscheint ein Grundstück nicht im KbS, besteht keine absolute Gewähr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, militärisch und für die Luftfahrt genutzte Standorte liegen im Zuständigkeitsbereich des Bundes.Für weitere Informationen wenden Sie sich an die kantonale Altlastenfachstelle: E-Mail Adresse und/oder Webseite",
+          "Language": "de"
+        }
+      ],
+      "Title": [
+        {
+          "Text": "Haftungsausschluss Kataster der belasteten Standorte (KbS)",
+          "Language": "de"
+        }
+      ]
+    },
+    {
+      "Content": [
+        {
+          "Text": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt für Umwelt BAFU festgelegten Kriterien erstellt und wird fortwährend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Flächen können vom tatsächlichen Ausmass der Belastung abweichen. Erscheint ein Grundstück nicht im KbS, besteht keine absolute Gewähr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, militärisch und für die Luftfahrt genutzte Standorte liegen im Zuständigkeitsbereich des Bundes.Für weitere Informationen wenden Sie sich an die kantonale Altlastenfachstelle: E-Mail Adresse und/oder Webseite",
           "Language": "de"
         }
       ],

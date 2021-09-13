@@ -511,6 +511,11 @@ class Renderer(JsonRenderer):
             self._multilingual_text(item, 'Title')
             self._multilingual_text(item, 'Content')
 
+        extract_dict['DisclaimerLandRegister'] = extract_dict['ExclusionOfLiability'][0]
+        extract_dict['DisclaimerPollutedSites'] = extract_dict['ExclusionOfLiability'][1]
+        self._flatten_object(extract_dict, 'DisclaimerLandRegister')
+        self._flatten_object(extract_dict, 'DisclaimerPollutedSites')
+
         extract_dict['features'] = {
             'features': {
                 'type': 'FeatureCollection',
