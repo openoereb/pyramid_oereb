@@ -3,7 +3,6 @@ from sqlalchemy import LargeBinary, Boolean, String, Integer, DateTime, Date, Te
 from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
 from sqlalchemy.orm import relationship
-from sqlalchemy_utils import JSONType
 
 
 class Models(object):
@@ -257,7 +256,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         type_code = Column('artcode', String(40), nullable=False)
         type_code_list = Column('artcodeliste', String, nullable=False)
         theme = Column(String, nullable=False)
-        sub_theme = Column('subthema', JSONType, nullable=True)
+        sub_theme = Column('subthema', String, nullable=True)
         view_service_id = Column(
             'darstellungsdienst',
             String,

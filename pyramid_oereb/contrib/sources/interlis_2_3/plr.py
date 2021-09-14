@@ -362,7 +362,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             legend_entry_records,
             self._plr_info.get('code')
         )
-        document_records = self.get_document_records(params, public_law_restriction_from_db)
+        document_records = self._theme_record.document_records +\
+            self.get_document_records(params, public_law_restriction_from_db)
         geometry_records = self.from_db_to_geometry_records(public_law_restriction_from_db.geometries)
         law_status = Config.get_law_status_by_code(
             self._plr_info.get('code'),

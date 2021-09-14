@@ -25,8 +25,8 @@ But you can change it also via configuration.
         variables.
 
 """
-from sqlalchemy import Column, PrimaryKeyConstraint
-from sqlalchemy import Unicode, String, Text, Integer, Boolean, LargeBinary, Date
+from sqlalchemy import Column, PrimaryKeyConstraint, UniqueConstraint
+from sqlalchemy import Unicode, String, Text, Integer, Boolean, LargeBinary, Date, DateTime, Float
 from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.orm import relationship
 from geoalchemy2 import Geometry
@@ -47,7 +47,7 @@ class Theme(Base):
         t_id (int): identifier, used in the database only
         code (str): OEREB code of the theme - unique and used to link each PublicLawRestriction
             with the corresponding theme
-        subcode (str): OEREB code of the theme - unique and used to link each PublicLawRestriction
+        sub_code (str): OEREB code of the theme - unique and used to link each PublicLawRestriction
             with the corresponding subtheme
         title (text): The multilingual title of his document.
                     Interlis type: LocalisationCH_V1.MultilingualText.
@@ -61,8 +61,8 @@ class Theme(Base):
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'thema'
     t_id = Column(Integer, primary_key=True, autoincrement=False)
-    code = Column('acode', String, unique=True, nullable=False)
-    subcode = Column(String, unique=True, nullable=True)
+    code = Column('acode', String, nullable=False)
+    sub_code = Column(String, nullable=True)
     title = Column('titel', Text, nullable=True)
     title_de = Column('titel_de', Text, nullable=True)
     title_fr = Column('titel_fr', Text, nullable=True)
@@ -70,6 +70,8 @@ class Theme(Base):
     title_rm = Column('titel_rm', Text, nullable=True)
     title_en = Column('titel_en', Text, nullable=True)
     extract_index = Column('auszugindex', Integer, nullable=False)
+
+    UniqueConstraint(code, sub_code)
 
 
 class Office(Base):
@@ -340,6 +342,7 @@ class LocalisedBlob(Base):
     )
 
 
+# Not part of OeREBKRMkvs_V2_0 --> created in import_main_structure.py
 class Municipality(Base):
     """
     The municipality is the place where you hold the information about all the municipalities you are having
@@ -365,13 +368,14 @@ class Municipality(Base):
     geom = Column(Geometry('MULTIPOLYGON', srid=srid), nullable=True)
 
 
+# Not part of OeREBKRMkvs_V2_0 --> created in import_main_structure.py
 class RealEstate(Base):
     """
     The container where you can throw in all the real estates this application should have access to, for
     creating extracts.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        t_id (int) The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         identdn (str): The identifier on cantonal level.
         number (str): The identifier on municipality level.
@@ -415,7 +419,7 @@ class RealEstateType(Base):
     should have access to, for creating extracts.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        t_id (int) The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         code (str): The identifier on federal level.
         title (str): The text for the multilingual text.
@@ -437,6 +441,7 @@ class RealEstateType(Base):
     title_en = Column('titel_en', Text, nullable=True)
 
 
+# Not part of OeREBKRMkvs_V2_0 --> created in import_main_structure.py
 class Address(Base):
     """
     The bucket you can throw all addresses in the application should be able to use for the get egrid
@@ -477,11 +482,11 @@ class Glossary(Base):
         title_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
         title_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
         content (str): The description or definition of a glossary item.
-        content_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-        content_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-        content_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-        content_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-        content_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        content_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualMText.
+        content_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualMText.
+        content_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualMText.
+        content_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualMText.
+        content_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualMText.
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'glossar'
@@ -507,7 +512,7 @@ class ExclusionOfLiability(Base):
     but if you like you can use it.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        t_id (int) The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         title (str): The title which the exclusion of liability item has.
         title_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
@@ -516,11 +521,12 @@ class ExclusionOfLiability(Base):
         title_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
         title_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
         content (str): The content which the exclusion of liability item has.
-        content_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-        content_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-        content_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-        content_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-        content_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        content_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualMText.
+        content_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualMText.
+        content_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualMText.
+        content_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualMText.
+        content_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualMText.
+        extract_index (int): index to sort the information in the extract, defined in the specification.
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'haftungshinweis'
@@ -537,6 +543,7 @@ class ExclusionOfLiability(Base):
     content_it = Column('inhalt_it', Text, nullable=True)
     content_rm = Column('inhalt_rm', Text, nullable=True)
     content_en = Column('inhalt_en', Text, nullable=True)
+    extract_index = Column('auszugindex', Integer, nullable=False)
 
 
 class LawStatus(Base):
@@ -544,7 +551,7 @@ class LawStatus(Base):
     The container where you can throw in all the law status texts this application
     should have access to, for creating extracts.
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        t_id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         code (str): The identifier on federal level.
         title (str): The text for the multilingual text.
@@ -555,7 +562,7 @@ class LawStatus(Base):
         title_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
     """
     __table_args__ = {'schema': app_schema_name}
-    __tablename__ = 'law_status'
+    __tablename__ = 'rechtsstatustxt'
     id = Column(Integer, primary_key=True, autoincrement=False)
     code = Column('acode', String, nullable=False)
     title = Column('titel', Text, nullable=True)
@@ -571,7 +578,7 @@ class GeneralInformation(Base):
     The bucket to store the general information about the OEREB cadastre
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
+        t_id (int): The identifier. This is used in the database only and must not be set manually. If
             you  don't like it - don't care about.
         title (dict): The title of the general information (multilingual)
         title_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
@@ -580,14 +587,15 @@ class GeneralInformation(Base):
         title_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
         title_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
         content (dict): The actual information (multilingual)
-        content_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-        content_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-        content_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-        content_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
-        content_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualText.
+        content_de (text): Mapping of interlis type: LocalisationCH_V1.MultilingualMText.
+        content_fr (text): Mapping of interlis type: LocalisationCH_V1.MultilingualMText.
+        content_it (text): Mapping of interlis type: LocalisationCH_V1.MultilingualMText.
+        content_rm (text): Mapping of interlis type: LocalisationCH_V1.MultilingualMText.
+        content_en (text): Mapping of interlis type: LocalisationCH_V1.MultilingualMText.
+        extract_index (int): index to sort the information in the extract, defined in the specification
     """
     __table_args__ = {'schema': app_schema_name}
-    __tablename__ = 'general_information'
+    __tablename__ = 'information'
     id = Column(Integer, primary_key=True, autoincrement=False)
     title = Column('titel', Text, nullable=True)
     title_de = Column('titel_de', Text, nullable=True)
@@ -601,3 +609,94 @@ class GeneralInformation(Base):
     content_it = Column('inhalt_it', Text, nullable=True)
     content_rm = Column('inhalt_rm', Text, nullable=True)
     content_en = Column('inhalt_en', Text, nullable=True)
+    extract_index = Column('auszugindex', Integer, nullable=False)
+
+
+class DataIntegration(Base):
+    """
+    The bucket to fill in the date when this whole schema was updated. It has a relation to the
+    office to be able to find out who was the delivering instance.
+    Attributes:
+        t_id (str): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        date (datetime.date): The date when this data set was delivered.
+        dataset_identifier (str): BasketId or filename or complete WFS request
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'datenaufnahme'
+    t_id = Column(Integer, primary_key=True, autoincrement=False)
+    date = Column('datum', Date, nullable=False)
+    dataset_identifier = Column('datensatzidentifikation', String, nullable=False)
+
+
+class MunicipalityWithPLR(Base):
+    """
+    t_id (str): The identifier. This is used in the database only and must not be set manually. If
+        you  don't like it - don't care about.
+    municipality (int): FSO number
+    basic_data_status (date): status of basic data
+    basic_data_metadata (str): metadata of basic data
+    subunit_cadastral_register (str): descriptor of the subunit of the cadastral register
+    """
+    t_id = Column(Integer, primary_key=True, autoincrement=False)
+    municipality = Column(Integer, nullable=False)
+    basic_data_status = Column(DateTime, nullable=True)
+    basic_data_metadata = Column(String, nullable=True)
+    subunit_cadastral_register = Column(String, nullable=True)
+
+
+class CadastralRegisterDistrict(Base):
+    """
+    id (str): The identifier. This is used in the database only and must not be set manually. If
+        you  don't like it - don't care about.
+    canton (str): Canton
+    municipality (int): FSO number
+    nbident (str): NBIdent according to surveying data
+    name (str): Name of the cadastral register district
+    egris_subdistrict (str): sub-district according to cadastral register
+    egris_lot (str): lot according to cadastral register
+    """
+    t_id = Column(Integer, primary_key=True, autoincrement=False)
+    canton = Column(String, nullable=False)
+    municipality = Column(Integer, nullable=False)
+    nbident = Column(String, nullable=False)
+    name = Column('aname', String, nullable=False)
+    egris_subdistrict = Column('egris_subkreis', String, nullable=True)
+    egris_los = Column('egris_los', String, nullable=True)
+
+
+class MapLayering(Base):
+    """
+    id (str): The identifier. This is used in the database only and must not be set manually. If
+        you  don't like it - don't care about.
+    view_service (str): Darstellungsdienst
+    layer_index (int): Index for sorting the layering of the view services for a theme
+    layer_opacity (str): Deckkraft eines Darstellungsdienstes
+    """
+    t_id = Column(Integer, primary_key=True, autoincrement=False)
+    view_service = Column('verweiswms', String, nullable=False)
+    layer_index = Column('layerindex', Integer, nullable=False)
+    layer_opacity = Column('layerdeckkraft', Float, nullable=False)
+
+
+class ThemeRef(Base):
+    """
+    id (str): The identifier. This is used in the database only and must not be set manually. If
+        you  don't like it - don't care about.
+    code (str): OEREB code of the theme - unique and used to link each PublicLawRestriction
+        with the corresponding theme
+    subcode (str): OEREB code of the theme - unique and used to link each PublicLawRestriction
+        with the corresponding subtheme
+    municipality_with_plr_id (int): The foreign key to the related municipality with PLR
+    """
+    t_id = Column(Integer, primary_key=True, autoincrement=False)
+    code = Column('thema', String, nullable=False)
+    subcode = Column('subthema', String, nullable=True)
+    municipality_with_plr_id = Column('gemeindemitoerebk_themen',
+                                      Integer,
+                                      ForeignKey(MunicipalityWithPLR.t_id),
+                                      nullable=False)
+    municipality_with_plr = relationship(
+                                'MunicipalityWithPLR',
+                                backref='municipality_with_plr_themes'
+    )

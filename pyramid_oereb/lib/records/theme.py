@@ -20,6 +20,7 @@ class ThemeRecord(object):
         self.sub_code = sub_code
         self.title = title
         self.extract_index = extract_index
+        self.document_records = document_records
 
     def __str__(self):
         return '<{} -- code: {} sub code: {} title: {} extract index: {}>'.format(
