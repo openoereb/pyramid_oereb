@@ -93,7 +93,7 @@ class Renderer(JsonRenderer):
         )
 
         extract_as_dict['Display_Certification'] = print_config.get(
-            'display_certification', True
+            'display_certification', False
         )
 
         spec = {

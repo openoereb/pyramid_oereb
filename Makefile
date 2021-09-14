@@ -15,6 +15,7 @@ PGHOST ?= oereb-db
 PGUSER ?= postgres
 PGPASSWORD ?= postgres
 PGPORT ?= 5432
+EXPOSED_PGPORT ?= 15432
 PYRAMID_OEREB_PORT ?= 6543
 
 # Makefile internal aliases

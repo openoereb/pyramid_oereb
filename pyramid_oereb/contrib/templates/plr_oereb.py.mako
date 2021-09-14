@@ -180,7 +180,7 @@ class LegendEntry(Base):
             legend  entry.
         topic (str): Statement to describe to which public law restriction this legend entry
             belongs.
-        sub_theme (str): Code for sub topics this legend entry might belonging to if a sub_theme exists.
+        sub_theme (str): Code for subtopic if this legend entry belongs to an existing sub_theme.
 % if primary_key_is_string:
         view_service_id (str): The foreign key to the view service this legend entry is related to.
 % else:
